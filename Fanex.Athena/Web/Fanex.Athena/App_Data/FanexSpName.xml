@@ -201,4 +201,7 @@
         <Setting Key="Lrf_CustomerSettingLog_Sel" SpName="Lrf_CustomerSettingLog_Sel" DbName="DBLOG_bodbLicenseeNet" />
         <Setting Key="Lrf_GroupCommLog_Sel" SpName="Lrf_GroupCommLog_Sel" DbName="DBLOG_bodbLicenseeNet" />
     </Function>
+    <Function Name="LAS">
+        <Setting Key="Las_GetLicenseeDomain" SpName="Las_GetLicenseeDomain" DbName="DBLAS.LASDB.bodbLicenseeNet" Plain="0" />
+    </Function>
 </Functions>
