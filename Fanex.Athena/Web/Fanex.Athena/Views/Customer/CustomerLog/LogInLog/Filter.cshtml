@@ -1,0 +1,14 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerLog.LogInLogViewModel
+@using (Html.BeginForm("LogInLog", "CustomerLog", FormMethod.Get, new { @id = "LogInLogForm" }))
+{
+    <div class="grid_2 filter-label">
+        @ViewResources.Username
+    </div>
+    <div class="grid_4 filter-input">
+        <input type="text" id="Username" class="default-username" style="width: 120px" />
+    </div>
+    <div class="grid_2 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+}

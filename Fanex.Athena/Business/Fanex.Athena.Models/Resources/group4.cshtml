@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+<link href="@Url.ContentLink("/Content/Result/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
+@model Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail.CasinoHandHistoryDetailViewModel
+@{
+    var headerItem = Model.CasinoDetailHeaderList.FirstOrDefault();
+}
+<table style="width: 100%;" class="casino-detail-table" cellpading="0" cellspacing="0">
+    <tr class="detail-header-row">
+        <td colspan="6">@Model.Param.GameTypeName - @headerItem.BetTime
+        </td>
+    </tr>
+    <tr class="player-total-row">
+        <td colspan="6">
+            Player: @headerItem.UserName
+        </td>
+    </tr>
+    <tr class="detail-header-row">
+        <td colspan="6">@ViewResources.Result
+        </td>
+    </tr>
+    <tr>        
+        <td colspan="6">
+            img
+        </td>
+    </tr>   
+    <tr>
+        <td>@ViewResources.PlayerHistoryNo
+        </td>
+        <td colspan="5">@Model.Param.PlayerHistoryNo
+        </td>
+    </tr>
+    <tr>
+        <td>@ViewResources.Mode
+        </td>
+        <td colspan="5">unknow
+        </td>
+    </tr>
+    <tr>
+        <td>@ViewResources.AutoSpin
+        </td>
+        <td colspan="5">unknow
+        </td>
+    </tr>
+    <tr>
+        <td>@ViewResources.FreeSpin
+        </td>
+        <td colspan="5">unknow
+        </td>
+    </tr>
+    <tr class="detail-header-row">
+        <td>@ViewResources.LineNo
+        </td>
+        <td>@ViewResources.Symbol
+        </td>
+        <td>@ViewResources.CoinSize
+        </td>
+        <td>@ViewResources.BetPerLine
+        </td>
+        <td>@ViewResources.Odds
+        </td>
+        <td>@ViewResources.WinLoss
+        </td>
+    </tr>
+    <tr>
+        <td>unknow
+        </td>
+        <td>unknow
+        </td>
+        <td>unknow
+        </td>
+        <td>unknow
+        </td>
+        <td>unknow
+        </td>
+        <td>unknow
+        </td>
+    </tr>  
+    <tr>
+        <td class="align-left">@ViewResources.Win
+        </td>
+        <td colspan="5" class="align-right">unknow
+        </td>
+    </tr>       
+    <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Total @ViewResources.Bet
+        </td>
+        <td colspan="5" class="align-right">@Model.CasinoDetailList.Sum(p => p.Bet).ToStringExt()
+        </td>
+    </tr>
+     <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Total @ViewResources.WinLoss
+        </td>
+        <td colspan="5" class="align-right">@FormatHelper.NegativeFormat(Model.CasinoDetailList.Sum(p => p.WinLoss))
+        </td>
+    </tr>
+</table>

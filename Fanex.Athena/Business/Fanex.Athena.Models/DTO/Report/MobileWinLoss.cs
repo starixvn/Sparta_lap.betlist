@@ -1,0 +1,61 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="MobileWinLoss.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Models.DTO.Report
+{
+    using System;
+
+    /// <summary>
+    /// MobileWinLoss class.
+    /// </summary>
+    public class MobileWinLoss : ICustomerWinLoss
+    {
+        public MobileWinLoss()
+        {
+            Date = DateTime.Now;
+            CurrencyName = string.Empty;
+        }
+
+        public int CurrencyId { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string CurrencyName { get; set; }
+
+        public decimal Turnover { get; set; }
+
+        public int TotalTransactions { get; set; }
+
+        public decimal LicenseeWl { get; set; }
+
+        public decimal BaCommission { get; set; }
+
+        public decimal RacingRevenue { get; set; }
+
+        public decimal AmtDueToBa { get; set; }
+
+        public decimal AmtDueToRacing { get; set; }
+
+        public int Index { get; set; }
+
+        public int RowSpan { get; set; }
+
+        public string ExternalId { get; set; }
+
+        public string SystemId { get; set; }
+
+        public int CustomerId { get; set; }
+
+        public decimal CustomerWinLoss { get; set; }
+
+        public decimal CustomerComm { get; set; }
+
+        public decimal CustomerTotal
+        {
+            get { return CustomerWinLoss + CustomerComm; }
+        }
+    }
+}

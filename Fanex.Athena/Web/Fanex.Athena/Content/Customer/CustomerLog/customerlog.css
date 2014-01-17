@@ -1,0 +1,106 @@
+﻿.data-content
+{
+    max-height: 670px !important;
+    border-right: 1px solid #A3D1E1;
+    border-bottom: 1px solid #A3D1E1;
+    overflow-y: scroll !important;
+}
+.content-filter
+{
+    height: 28px !important;
+}
+.action-name
+{
+    background: #F3F3F3;
+    text-align: left;
+    width: 50%;
+    border: 1px solid #C7E9F5;
+    vertical-align: middle;
+}
+.action-name-right
+{
+    text-align: left;
+    width: 50%;
+    border: 1px solid #C7E9F5;
+    padding-left: 10px !important;
+}
+.special-level
+{
+    text-align: center !important;
+}
+.old-value
+{
+    color: #779999;
+    border-top: 1px solid #DDDDDD;
+}
+.default-username
+{
+    color: #F19D49;
+    font-style: italic;
+}
+table tr.report-header td
+{
+    text-align: center !important;
+}
+.group-color-box
+{
+    border: 1px solid #000000;
+    height: 10px;
+    margin-left: 25%;
+    margin-top: 1px;
+    width: 50%;
+}
+.label-center
+{
+    top: 2px;
+}
+
+/* Override report table*/
+.report-header td
+{
+    background: #F3F3F3 !important;
+    color: Black !important;
+}
+
+/* Override betsetting css (menu)*/
+
+div > input[type="button"]
+{
+    margin-top: 0px !important;
+}
+input[type="text"]
+{
+    height: auto !important;
+}
+#button_main
+{
+    width: 1050px;
+}
+
+/* Override jqGrid style*/
+
+.theme_jqGrid .ui-jqgrid-btable tr.jqgrow td
+{
+    border-bottom-color: #A3D1E1 !important;
+    border-right-color: #A3D1E1 !important;
+    height: auto;
+    padding: 1px !important;
+    margin: 0;
+}
+.ui-jqgrid tr.jqgrow td
+{
+    white-space: normal !important;
+}
+.ui-pg-table
+{
+    height: 28px !important;
+}
+.ui-jqgrid .ui-pg-selbox
+{
+    height: 21px !important;
+}
+.ui-jqgrid .ui-pg-table td
+{
+    padding: 0 !important;
+}
+/* /Override jqGrid style*/

@@ -1,0 +1,29 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
+<div class="summary-title data-content-detail">
+    @ViewResources.ByBetType
+</div>
+<!--Grid.Header-->
+      @{  Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/ByBettype/Content.Header.cshtml");}
+
+    <!--Grid.Content-->
+    @if (Model.ByBetType == null || Model.ByBetType.Count == 0)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth )px;">
+            <div class="row grid-noinfo" style="width:@(ViewBag.ContainerWidth )px;">
+                <div>
+                    @ViewResources.NoInfo
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+
+        Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/ByBettype/Content.Data.cshtml");
+
+
+    }
+    <!--Grid.Content-->

@@ -1,0 +1,79 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+@{
+    var contentData = Model.DailyRacingWinLossData.ContentData;
+    var contentTotalData = Model.DailyRacingWinLossData.ContentTotalData;
+    var leagueCurrencyList = contentData.Keys;
+}
+<div id="data-content" class="data-content" style="width: @(ViewBag.WrapperWidth)@("px"); max-height:450px;">
+    @foreach (var leagueCurrency in leagueCurrencyList)
+    {
+        var leagueCurrencyData = contentData[leagueCurrency];
+        var firstRow = leagueCurrencyData[0];
+        <div class="content-row league" style="width: @ViewBag.ContainerWidth@("px")">
+            <div class="row">@CacheRef.GetLeagueName(firstRow.LeagueId) - @firstRow.CurrencyName</div>
+        </div>
+        
+        // Race
+        foreach (var dailyRacing in leagueCurrencyData)
+        {
+        <div class="content-row" style="width: @(ViewBag.ContainerWidth)@("px")">
+            <div class="row" style="width: @ViewBag.RaceWidth@("px")">
+                <div class="title-text">
+                    <span class="currency-link number-circle bet-list-link" data-league="@dailyRacing.LeagueId" data-race-no="@dailyRacing.RaceNo" data-currency="@dailyRacing.Currency">
+                        @dailyRacing.RaceNo
+                    </span>
+                </div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.WinTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.PlaceTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.WPTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.TotalTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.DividendWidth@("px")">
+                <div>@dailyRacing.DividendWon.ToStringExt()</div>
+            </div>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="row" style="width: @ViewBag.CustomerCommWidth@("px")">
+                    <div>@dailyRacing.CustomerCommission.ToStringExt()</div>
+                </div>
+            }
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.WinTO12Bet.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.PlaceTO12Bet.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.WPTO12Bet.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.TotalTO12Bet.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@dailyRacing.WinLoss12Bet.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.LicenseeCommWidth@("px")">
+                <div>@dailyRacing.CommIncome.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.AmountDueToWidth@("px")">
+                <div>@dailyRacing.AmountDueToRacing.ToStringExt()</div>
+            </div>
+        </div>
+        }
+
+        Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/12Bet/Content.TotalCommon.cshtml", contentTotalData[leagueCurrency]);
+    }
+    @*Currency Total*@
+    @{Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/12Bet/Content.TotalCurrency.cshtml", Model);}
+</div>

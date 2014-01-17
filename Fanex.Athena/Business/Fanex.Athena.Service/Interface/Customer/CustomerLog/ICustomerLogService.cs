@@ -1,0 +1,22 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="ICustomerLogService.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.Interface.Customer.CustomerLog
+{
+    using System.Collections.Generic;
+    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
+    using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public interface ICustomerLogService
+    {
+        IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel);
+
+        IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel);
+    }
+}

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.DailyRacingWinLoss;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.ViewModel.Report
+@model DailyRacingWinLossViewModel
+@{
+    ViewBag.IsAllowedCustomerCommission = Model.IsAllowedCustomerCommission;
+    if (Model.Param.LicenseeId == 1)
+    {
+        ViewBag.RaceWidth = 125;
+        ViewBag.CommonWidth = 65;
+        ViewBag.AmountDueToWidth = 75;
+        ViewBag.CustomerOverColumnCount = Model.IsAllowedCustomerCommission ? 6 : 5;
+        ViewBag.CustomerCommWidth = ViewBag.CommonWidth + 20;
+        ViewBag.DividendWidth = ViewBag.CommonWidth + 10;
+        int extraWidth = Model.IsAllowedCustomerCommission ? 30 : 10;
+        ViewBag.CustomerOverWidth = (ViewBag.CommonWidth * ViewBag.CustomerOverColumnCount) + ViewBag.CustomerOverColumnCount + extraWidth;
+        ViewBag.LicenseeCommWidth = ViewBag.CommonWidth - 10;
+        ViewBag.LicenseeWidth = ViewBag.CommonWidth * 5 + ViewBag.LicenseeCommWidth + 5;
+        ViewBag.TotalWidth = 69;
+        ViewBag.CurrencyWidth = 55;
+        ViewBag.ContainerWidth = ViewBag.RaceWidth + ViewBag.CustomerOverWidth + ViewBag.LicenseeWidth + ViewBag.AmountDueToWidth + 3;
+    }
+    else
+    {
+        // Set width
+        ViewBag.MeetingCurrencyWidth = 250;
+        ViewBag.CommonWidth = 80;
+        ViewBag.TotalWidth = 170;
+        ViewBag.ColumnCount = Model.IsAllowedCustomerCommission ? 10 : 9;
+        ViewBag.ContainerWidth = ViewBag.MeetingCurrencyWidth + (ViewBag.ColumnCount - 1) * ViewBag.CommonWidth
+            + ViewBag.ColumnCount;
+    }
+
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/dailyracingwinloss.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/dailyracingwinloss.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.DailyRacingWinLoss
+}
+@{
+    if (!Model.ShowEmptyContent)
+    {
+        var stringContentView = Model.Param.LicenseeId == 1 ? "~/Views/Report/DailyRacingWinLoss/12Bet/Content.cshtml" : "~/Views/Report/DailyRacingWinLoss/Content.cshtml";
+        Html.RenderPartial(stringContentView);
+    }
+}
+@section ContentFilter
+{
+    @Html.Partial("~/Views/Report/DailyRacingWinLoss/Filter.cshtml", Model)
+}

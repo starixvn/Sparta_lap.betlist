@@ -1,0 +1,27 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
+<!--By Sport-->
+<div class="summary-title data-content-detail">
+    @ViewResources.BySportsType
+</div>
+@{
+    Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/BySport/Content.Header.cshtml");
+  }
+    <!--Grid.Content-->
+    @if (Model.BySports == null || Model.BySports.Count == 0)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth )px;">
+            <div class="row grid-noinfo" style="width:@(ViewBag.ContainerWidth )px;">
+                <div>
+                    @ViewResources.NoInfo
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/BySport/Content.Data.cshtml");
+    }
+    <!--Grid.Content-->
+<!--BySport-->

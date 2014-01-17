@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.DataWareHouse + " - " + ViewResources.WinLoss;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
+@{
+               
+    ViewBag.ColumnCount = 8;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 1 : 0;
+    ViewBag.NumberWidth = 30;
+    // If report by league, set width = 180, otherwise, set width = 80
+    ViewBag.ReportByWidth = Model.Param.ReportBy == 4 ? 300 : (Model.Param.ReportBy == 0 ? 150 : 80);
+    ViewBag.TurnoverWidth = 80;
+    ViewBag.BetCountWidth = 100;
+    ViewBag.CustomerWLLargeWidth = 80;
+    ViewBag.CustomerWLMergeWidth = 202;
+    ViewBag.CustomerWLWidth = 80;
+    ViewBag.CustomerCommWidth = 40;
+    ViewBag.CustomerWLTotalWidth = 80;
+    ViewBag.MarginWidth = 80;
+    ViewBag.LicenseeWLWidth = 100;
+    ViewBag.BaCommissionWidth = 75;
+    ViewBag.TotalGrossProfitWidth = 90;
+
+    ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ReportByWidth +
+                ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
+                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
+                ViewBag.MarginWidth + ViewBag.LicenseeWLWidth +
+                (Model.ProductAccess.IsAllowBa ? ViewBag.BaCommissionWidth : 0) +
+                (Model.ProductAccess.IsAllowBa ? ViewBag.TotalGrossProfitWidth : 0);
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+    if (ViewBag.FilterWidth < 600) { ViewBag.FilterWidth = 600; }
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Warehouse/warehouse.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Warehouse/WinLoss.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.WinLoss
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/WareHouse/WinLoss/Filter.cshtml");
+    }
+}
+@{      
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/WareHouse/WinLoss/Content.cshtml");
+    }
+}

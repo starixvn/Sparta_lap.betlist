@@ -1,0 +1,33 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+<div class="container_26">
+    <div class="grid_26">
+        <div class="report-title" style="width:@(ViewBag.TitleWidth)@("px")">
+            @ViewResources.WinLossByBetType, @RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+            - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+        </div>
+        <!--Header-->
+        <div class="report-content" style="width:@(ViewBag.WrapperWidth + 1)@("px")">
+            @{
+                Html.RenderPartial("~/Views/Report/WinLossByBetType/Content.Header.cshtml");
+            }
+            <!--Header-->
+            <!--Content-->
+            @if (Model.MainResult.Count == 0)
+            {
+                Html.RenderPartial("~/Views/Report/WinLossByBetType/Content.NoInfo.cshtml");
+            }
+            else
+            {
+                <!--Main Data-->
+                Html.RenderPartial("~/Views/Report/WinLossByBetType/Content.Data.cshtml");
+                <!--Main Data-->
+                <!--Total-->
+                Html.RenderPartial("~/Views/Report/WinLossByBetType/Content.Total.cshtml");
+                <!--Total-->
+            }
+            <!--Content-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.ViewModel.Warehouse
+@using Fanex.Athena.Models.MetaModel.Warehouse
+@model TopCustomerViewModel
+@{   
+    var groupingList = GroupingMetaModel.GetCollection();
+
+}
+<div class="container_26">
+    <div class="grid_26">
+        <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
+            @ViewResources.Top&nbsp;@Html.Raw(Model.Param.TopRow.ToString())&nbsp;@ViewResources.Customer
+            @ViewResources.From &nbsp;
+            @Model.Param.FromDate.ToShortDateString() &nbsp; &rarr; &nbsp;
+            @Model.Param.ToDate.ToShortDateString()
+            - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+        </div>
+        <div class="report-content " style="width:@(ViewBag.WrapperWidth)px;">
+            @{
+                Html.RenderPartial("~/Views/WareHouse/TopCustomer/Content.Header.cshtml");
+            }
+            @{
+                var isDataAvailable = Model.MainResult != null && Model.MainResult.Count > 0
+                    && Model.MainResult[0].Message == null;
+                var errorMessage = Model.MainResult != null && Model.MainResult.Count > 0
+                    && Model.MainResult[0].Message != null
+                    ? Model.MainResult[0].Message.ToString()
+                    : string.Empty;
+            }
+            <!--Grid.Content-->
+            @if (!isDataAvailable)
+            {
+                <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+                    <div class="row grid-noinfo">
+                        <div>
+                            @(string.IsNullOrEmpty(errorMessage) ? ViewResources.NoInfo : errorMessage)
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/WareHouse/TopCustomer/Content.Data.cshtml");
+            }
+            <!--Grid.Content-->
+        </div>
+    </div>
+</div>

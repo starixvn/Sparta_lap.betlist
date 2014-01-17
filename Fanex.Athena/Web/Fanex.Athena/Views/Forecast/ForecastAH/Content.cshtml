@@ -1,0 +1,35 @@
+﻿@model Fanex.Athena.Models.ViewModel.Forecast.ForecastAhViewModel
+@using Fanex.Athena.Models.ViewModel;
+@{
+    var betTypeNameMap = new Dictionary<int, string> 
+    { 
+        {1,ViewResources.OverUnder},
+        {3,ViewResources.Handicap},
+        {7,ViewResources.lbl1stOver_Under},
+        {8,ViewResources.lbl1stHandicap},
+    };
+
+    var switchBetTypeMap = new Dictionary<int, int> 
+    { 
+        {1,3},
+        {3,1},
+        {7,8},
+        {8,7},
+    };
+
+    var betType = Model.Param.BetType;
+    ViewBag.BetTypeName = betTypeNameMap.ContainsKey(betType) ? betTypeNameMap[betType] : string.Empty;
+    ViewBag.SwitchBetType = switchBetTypeMap.ContainsKey(betType) ? switchBetTypeMap[betType] : 1;
+}
+@{
+    if (Model.ForecastHeaderParam != null)
+    {
+        Html.RenderPartial("~/Views/Forecast/ForecastAH/ContentHeader.cshtml", Model.ForecastHeaderParam);
+    }
+}
+@{
+    Html.RenderPartial(Model.ForecastValue == null || !Model.ForecastValue.HasData ? "~/Views/Forecast/ForecastAH/ContentNoInfo.cshtml" : "~/Views/Forecast/ForecastAH/ContentData.cshtml");
+}
+
+@Html.Hidden("BetType", Model.Param.BetType)
+@Html.Hidden("CurrentScore", Model.Param.CurrentScore)

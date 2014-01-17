@@ -1,0 +1,16 @@
+﻿.bl-favorite
+{
+    color: #B50000;
+    font-weight: bold;
+}
+
+.bl-underdog
+{
+    color: #01122B;
+    font-weight: bold;
+}
+
+#ProductList
+{
+    padding-left: 10px;
+}

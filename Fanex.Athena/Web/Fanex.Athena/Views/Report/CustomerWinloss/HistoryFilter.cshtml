@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    @using (Html.BeginForm("CustomerWinlossHistory", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
+    {      
+        <div>
+            <input type="hidden" id="FromDate" name="FromDate" value="@Model.HistoryParam.FromDate.ToShortDateString()" data-original="@Model.HistoryParam.FromDate.ToShortDateString()"/>
+            <input type="hidden" id="ToDate" name="ToDate" value="@Model.HistoryParam.ToDate.ToShortDateString()" data-original="@Model.HistoryParam.ToDate.ToShortDateString()" />
+            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("IsExportExcel", Model.HistoryParam.IsExportExcel)
+            @Html.Hidden("FromDay", Model.HistoryParam.FromDay)
+            @Html.Hidden("ToDay", Model.HistoryParam.ToDay)
+            @Html.Hidden("Month", Model.HistoryParam.Month)
+            @Html.Hidden("Year", Model.HistoryParam.Year)
+            @Html.Hidden("IsHistoryReport", Model.IsHistory)
+            @Html.Hidden("SortDirection", Model.HistoryParam.SortDirection)
+            @Html.Hidden("SortColumn", Model.HistoryParam.SortColumn)
+            @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.ViewDataInMonth</label>
+        </div>
+        <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
+            </div>
+        </div>
+        <div class="new-line">
+        </div>
+@*Row 1*@
+        if (Model.LicenseeTypeList.Count > 0)
+        {
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.Type</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseelist", Model.HistoryParam.LicenseeType)
+        </div>
+        }
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.Currency</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.HistoryParam.CurrencyId)
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="BaseCurrency">@ViewResources.Based </label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency(Model.HistoryParam.BaseCurrency)
+        </div>
+        <div class="grid_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "CustomerWinLoss", isHistory=true });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>  
+@*End Row 1*@ 
+@*Row 2*@
+       
+        <div class="new-line">
+        </div>
+@*End Row 2*@ 
+@*Row 3*@
+        @RazorHelper.RenderProductFilter(Model.HistoryParam.ProductOptions, 3, 3 + Model.HistoryParam.ProductOptions.Count * 2)
+        <div class="new-line">
+        </div>
+        <div class="grid_3 filter-label">            
+        </div>
+        <div class="grid_13 filter-input">
+            <div class="note-message">
+                <a href="javascript:;" id="current-report-link">@ViewResources.BackToCurrentReport</a>
+            </div>
+        </div>
+        
+        <div class="grid_3 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input">
+            <input type="button" id="SubmitHistoryButton" value="@ViewResources.Submit" class="button" />
+        </div>
+   
+@*End Row 4*@    
+        
+    }
+</div>

@@ -1,0 +1,41 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
+@if (Model.RacingCommissionList.Count > 0)
+{
+    <div class="total-content" style="width:@(ViewBag.ContainerWidth)px;">
+        <div class="row title-text" style="width: @(ViewBag.TotalWidth)px;">
+            @(string.IsNullOrEmpty(Model.Param.BaseCurrency)
+                ? ViewResources.Total + " in " + Model.Param.CurrencyName
+                : ViewResources.Total + " in " + Model.Param.BaseCurrency.ToUpper())
+        </div>
+        <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+            <div>
+                @Model.Total.ToteWin.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+            <div>
+                @Model.Total.TotePlace.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+            <div>
+                @Model.Total.ToteWinPlace.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+            <div>
+                @Model.Total.ToteTotal.ToStringExt()
+            </div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width: @(ViewBag.CustomerCommWidth)px;">
+                <div>
+                    @Model.Total.CustomerCommission.ToStringExt()
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,73 @@
+﻿@using Fanex.Athena.Models.ViewModel.Forecast
+@model Fanex.Athena.Models.ViewModel.Forecast.NewForecastHdpOuViewModel
+@using (Html.BeginForm("NewForecastHdpOu", "Forecast", FormMethod.Post, new { @id = "NewForecastHdpOuForm" }))
+{
+    // ----------------------------- Hidden field -----------------------------//
+    <div>
+        @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
+        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
+        @Html.Hidden("IsConvert-Hidden", Model.Param.IsConvert)
+        @Html.Hidden("IsShowFh", Model.Param.IsShowFh)
+        @Html.Hidden("IsShowFt", Model.Param.IsShowFt)
+        @Html.Hidden("LeagueId", Model.Param.LeagueId)
+        @Html.Hidden("MatchId", Model.Param.MatchId)
+        <input type="hidden" id="AwayTeamId" name="AwayTeamId" value="@Model.Param.AwayTeamId" />
+        <input type="hidden" id="HomeTeamId" name="HomeTeamId" value="@Model.Param.HomeTeamId" />        
+    </div>
+    // ----------------------------- Hidden field -----------------------------//    
+@*Render league list*@    
+    var leagueSelectedListItem = Model.LeagueList.Select(l => new SelectListItem
+    {
+        Text = l.LeagueName,
+        Value = l.LeagueId.ToString(),
+        Selected = l.LeagueId == Model.Param.LeagueId
+    });
+    var matchSelectedListItem = Model.MatchList.Select(m => new SelectListItem
+    {
+        Text = m.MatchName,
+        Value = m.MatchId.ToString(),
+        Selected = m.MatchId == Model.Param.MatchId
+    });
+    if (Model.LeagueList.Count > 0)
+    {
+    <div class="grid_2 filter-label left-text" style="width: 45px">@ViewResources.League</div>
+    <div class="grid_7 filter-input">
+        @Html.DropDownList("DdlLeagueId", leagueSelectedListItem, new { @class = "league-list", @data_original = Model.Param.LeagueId })
+    </div>    
+    <div class="grid_2 filter-label left-text" style="width: 45px">@ViewResources.Match</div>
+    <div class="grid_7 filter-input">
+        @Html.DropDownList("DdlMatchId", matchSelectedListItem, new { @class = "match-list", @data_original = Model.Param.MatchId })
+    </div>
+    }
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Currency</label>
+    </div>
+    <div class="grid_2 filter-input">
+        @{
+            @RazorHelper.CurrencyList(Model.CurrencyList, "CurrencyId", Model.Param.CurrencyId)
+        }
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Based
+        </label>
+    </div>
+    
+    <div class="grid_2 filter-input" style="padding-left: 5px">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_2 filter-input button-area">
+        <input type="submit" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <div class="clear">
+    </div>
+    <div class="line-break">
+    </div>    
+    // -----------------------------Refresh countdown------------------------ //
+    <div class="grid_2">
+        @RazorHelper.TimerCountDown("Newforecast", 15)
+    </div>
+    // -----------------------------Refresh countdown------------------------ //    
+    <div class="grid_23 match-info-font">
+        <span class="home-team red-color">@Model.Param.HomeTeamName vs.</span> <span class="away-team">@Model.Param.AwayTeamName</span>
+    </div>
+}

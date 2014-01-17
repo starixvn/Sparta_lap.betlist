@@ -1,0 +1,84 @@
+﻿@using DNAide.Utils
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Extension.Utility
+@using Fanex.Athena.Models.DTO.Common
+@model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel
+@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+@{
+    var matchWinlossList = Model.MainResult;
+    var productAccess = Model.ProductAccess;
+
+    foreach (var matchWinloss in matchWinlossList)
+    {
+    <tr class="expand">
+        <td class="bet-type">
+            @{
+        var drillDownParam = new
+        {
+            LeagueId = matchWinloss.LeagueId,
+            MatchId = matchWinloss.MatchId,
+            BetType = matchWinloss.BetType,
+            RaceNo = matchWinloss.RaceNo,
+            IsLive = matchWinloss.IsLive,
+            HomeId = matchWinloss.HomeId,
+            AwayId = matchWinloss.AwayId,
+        };
+            }
+            <span class="downline-link" onclick="MatchWinLoss.viewMatchWinlossBetList(@drillDownParam.ToJson())">
+               @matchWinloss.BettypeName
+            </span>
+        </td>
+        <td>
+            @NumberFormat.DecFormat(matchWinloss.Turnover, 2, false)
+        </td>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.CustomerWl, 2, false)
+            </td>
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.CustomerComm, 2, false)
+            </td>
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.CustomerWl + matchWinloss.CustomerComm, 2, false)
+            </td>
+        }
+        else
+        {
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.CustomerWl, 2, false)
+            </td>
+        }
+        <td class="highlight">
+            @RazorHelper.HighlightNegativeNumber(matchWinloss.LicenseeWl)
+        </td>
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <td class="highlight">
+                @RazorHelper.HighlightNegativeNumber(matchWinloss.BaCommission)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <td class="highlight">
+                @RazorHelper.HighlightNegativeNumber(matchWinloss.RacingRevenue)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.AmtDueToBa, 2, false)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <td>
+                @NumberFormat.DecFormat(matchWinloss.AmtDueToRacing, 2, false)
+            </td>
+        }
+    </tr>
+    }
+}

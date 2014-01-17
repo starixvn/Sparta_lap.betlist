@@ -1,0 +1,69 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.DTO.Report.DailyRacingWinLoss
+<div class="content-row common-total-row" style="width: @ViewBag.ContainerWidth@("px")">
+    <div class="common-total-text"style="width: @(ViewBag.MeetingCurrencyWidth)@("px");">
+        @ViewResources.Total</div>
+    <div class="common-total-row-group" style="width: @(ViewBag.ContainerWidth - ViewBag.MeetingCurrencyWidth - 1)@("px")">
+        <div class="content-row" style="width: @(ViewBag.ContainerWidth - ViewBag.MeetingCurrencyWidth - 1)@("px")">
+            <div class="row title-text" style="width: @ViewBag.CommonWidth@("px")">@Model.CurrencyName</div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.WinTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.PlaceTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.WPTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.TotalTO.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.DividendWon.ToStringExt()</div>
+            </div>
+            @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+            {
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@Model.CustomerCommission.ToStringExt()</div>
+                </div>
+            }
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.CommIncome.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.AmountDueToRacing.ToStringExt()</div>
+            </div>
+        </div>
+        <div class="content-row" style="width: @(ViewBag.ContainerWidth - ViewBag.MeetingCurrencyWidth - 1)@("px"); border-bottom: none">
+            <div class="row title-text" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.RM</div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.WinTOMYR.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.PlaceTOMYR.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.WPTOMYR.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.TotalTOMYR.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.DividendWonMYR.ToStringExt()</div>
+            </div>
+            @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+            {
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@Model.CustomerCommissionMYR.ToStringExt()</div>
+                </div>
+            }
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.CommIncomeMYR.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@Model.AmountDueToRacingMYR.ToStringExt()</div>
+            </div>
+        </div>
+    </div>
+</div>

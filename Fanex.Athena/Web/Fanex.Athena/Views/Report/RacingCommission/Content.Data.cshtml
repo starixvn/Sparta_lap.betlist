@@ -1,0 +1,45 @@
+﻿@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
+<div id="data-content" class="data-content" style="width: @(ViewBag.ContainerWidth+1)px;">
+    @{var index = 1; var lastIndex = Model.RacingCommissionList.Count;}
+    @for (int i = 0; i < Model.RacingCommissionList.Count; i++)
+    {
+        var racingCommission = Model.RacingCommissionList[i];
+        <div class="content-row" style="width: @ViewBag.ContainerWidth@("px")">
+            @*We need two index to display asc or desc*@
+            <div class="row title-text" style="width: @(ViewBag.NumberWidth)px;">
+                <div>
+                    @(@index++)
+                </div>
+            </div>
+            <div class="row" style="width: @(ViewBag.ExternalIdWidth)px;">
+                <div>
+                    <span class="downline-link bet-list-link"  data-cust-id="@racingCommission.CustID" data-system-id="@racingCommission.SystemID" data-external-id="@racingCommission.ExternalID">
+                        @RazorHelper.TruncateWithTip(racingCommission.ExternalID, 16)
+                    </span>
+                </div>
+            </div>
+            <div class="row text-data" style="width: @(ViewBag.SystemIdWidth)px;">
+                <div>@racingCommission.SystemID</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+                <div>@racingCommission.ToteWin.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+                <div>@racingCommission.TotePlace.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+                <div>@racingCommission.ToteWinPlace.ToStringExt()</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.CommonWidth)px;">
+                <div>@racingCommission.ToteTotal.ToStringExt()</div>
+            </div>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="row" style="width: @(ViewBag.CustomerCommWidth)px;">
+                    <div>@racingCommission.CustomerCommission.ToStringExt()</div>
+                </div>
+            }
+        </div>
+    }
+</div>

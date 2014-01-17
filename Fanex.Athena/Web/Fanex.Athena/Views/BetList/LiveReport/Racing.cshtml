@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Shared/_BetListSimpleLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@model Fanex.Athena.Models.MetaModel.BetList.LiveReportBetListMetaModel
+@section pagecss {}
+@section pagejs {
+}
+@section ContentTitle
+{
+    @ViewResources.BetList - @ViewResources.Racing - @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
+        → </span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+        
+}
+@section BackButton
+{
+    <div onclick="history.go(-1)" class="history-link"></div>
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="" />
+    <input type="hidden" id="IsServerPaging" value="1" />
+}

@@ -1,0 +1,63 @@
+﻿﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Product
+@model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel
+@using (Html.BeginForm("MatchWinLoss", "Report", FormMethod.Post, new { @id = "MatchWinLossForm" }))
+{
+    //-----------------------------Hidden Field-------------------------------//
+    
+    @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
+    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    //-----------------------------Date---------------------------------------//
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Date</label>
+    </div> 
+    @DatePickerHelper.RenderDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), DateTime.Today,
+        "Date", "", 3)
+    <div class="new-line">
+    </div>
+    //-----------------------------Type of licensee---------------------------//
+    if (Model.LicenseeTypeList.Count > 0)
+    {
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Type</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "", Model.Param.LicenseeType, true)
+    </div>
+    }
+
+    //-----------------------------Currency-----------------------------------//
+    <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Currency</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, true, false)
+    </div>
+    <div class="grid_2 filter-label">
+        <label for="BaseCurrency">@ViewResources.Based </label>
+    </div>
+    <div class="grid_1 filter-input">        
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "MatchWinLoss" });}
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+
+              //-----------------------------Product List------------------------------//
+
+    @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, 15)
+    <div class="grid_2 filter-label new-line">
+            &nbsp;</div>
+    <div class="grid_2 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+
+}

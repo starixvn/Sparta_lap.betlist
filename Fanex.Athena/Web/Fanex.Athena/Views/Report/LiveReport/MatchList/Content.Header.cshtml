@@ -1,0 +1,32 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportMatchListViewModel
+<!--Grid.Header-->
+<div class="header-content" style="width:@(ViewBag.ContainerWidth)px;">
+    <div class="row" style="width:@(ViewBag.MatchWidth)px;">
+        @ViewResources.Match
+    </div>
+    @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
+        (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
+                (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth,
+                        (int)ViewBag.CustomerWLTotalWidth)
+    <div class="row" style="width:@(ViewBag.TurnoverWidth)px;">
+        @ViewResources.Turnover
+    </div>
+    <div class="row" style="width:@(ViewBag.BetCountWidth)px;">
+        @ViewResources.BetCount
+    </div>
+    <div class="row" style="width:@(ViewBag.LicenseeWLWidth)px;">
+        @ViewResources.LicenseeW_L
+    </div>
+    @if (ViewBag.CommVisible)
+    {
+        <div class="row" style="width:@(ViewBag.CommWidth)px;">
+            @ViewResources.Comm
+        </div>
+    }
+    <div class="row" style="width:@(ViewBag.AmountDueWidth)px;">
+        @ViewResources.AmountDue
+    </div>
+</div>
+<!--Grid.Header-->

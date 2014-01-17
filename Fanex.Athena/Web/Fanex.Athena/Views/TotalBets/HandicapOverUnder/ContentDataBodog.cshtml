@@ -1,0 +1,126 @@
+﻿@using System.Linq
+@using Fanex.Athena.Models.DTO.TotalBets
+@model Fanex.Athena.Models.ViewModel.TotalBets.HandicapOverUnderViewModel
+@{  
+    // Map Data Only For Boping
+    var matchIdList = Model.MainData.Select(x => x.MatchId).Distinct();
+    var contentData = new List<HandicapOverUnder>();
+    foreach (var matchId in matchIdList)
+    {
+        var matchListById = Model.MainData.Where(m => m.MatchId == matchId)
+            .OrderByDescending(m => m.LiveIndicator)
+            .ThenBy(m => m.HomeTeamName)
+            .ThenByDescending(m => m.LiveHomeScore)
+            .ThenByDescending(m => m.LiveAwayScore);
+        var mainMatch = matchListById.FirstOrDefault();
+        contentData.Add(new HandicapOverUnder
+        {
+            ShowTime = mainMatch.ShowTime,
+            LeagueId = mainMatch.LeagueId,
+            MatchId = mainMatch.MatchId,
+            HomeId = mainMatch.HomeId,
+            AwayId = mainMatch.AwayId,
+            LiveHomeScore = mainMatch.LiveHomeScore,
+            LiveAwayScore = mainMatch.LiveAwayScore,
+            LiveIndicator = mainMatch.LiveIndicator,
+            BetCountHandicap = matchListById.Sum(m => m.BetCountHandicap),
+            BetCountOverUnder = matchListById.Sum(m => m.BetCountOverUnder),
+            BetCountHandicap1StHalf = matchListById.Sum(m => m.BetCountHandicap1StHalf),
+            BetCountOverUnder1StHalf = matchListById.Sum(m => m.BetCountOverUnder1StHalf),
+            FullTimeHandicap = matchListById.Sum(m => m.FullTimeHandicap),
+            FullTimeOverUnder = matchListById.Sum(m => m.FullTimeOverUnder),
+            FirstTimeHandicap = matchListById.Sum(m => m.FirstTimeHandicap),
+            FirstTimeOverUnder = matchListById.Sum(m => m.FirstTimeOverUnder),
+        });
+    }
+    
+    var leagueList = contentData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .OrderByDescending(x => x.LiveIndicator)
+                            .ToList();
+    var index = 1;
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var league in leagueList)
+            {
+                // Render League name
+                <tr>
+                    <td class="league" data-league-id="@league.LeagueId" colspan="11">@league.LeagueName
+                    </td>
+                </tr>
+                var matchOfLeague = contentData
+                            .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
+                            .OrderBy(x => x.HomeTeamName)
+                            .ToList();
+
+                foreach (var match in matchOfLeague)
+                {                                       
+                    <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+                    <td style="width: 3%" class="order-number">@(index++)
+                    </td>
+                    <td style="width: 10%">
+                        @if (match.LiveIndicator == 1)
+                        {
+                            <div class="show-time">
+                                <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                                <br />
+                                <i class="live-notice">@ViewResources.Live!</i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="show-time">
+                                @Html.Raw(match.ShowTime)
+                            </div>
+                        }
+                    </td>
+                    <td style="width: 38%" class="match-name">
+                        <span class="hand" onclick="javascript:HandicapOU.viewNewForecast(@league.LeagueId,@match.MatchId,@Model.Param.CurrencyId,'@Model.Param.BaseCurrency')" style="text-decoration:underline; color:#0000FF;">
+                            @match.HomeTeamName -vs- @match.AwayTeamName
+                        </span>
+                    </td>
+                    <!--Render Fulltime Handicap OU-->
+                    <td style="width: 12%" class="score-value">
+                        @if (match.BetCountHandicap != 0)
+                        {
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="1" href="javascript:;">
+                                @RazorHelper.NegativeFormat(match.FullTimeHandicap, true)
+                            </a>
+                        }
+                    </td>
+                    <td style="width: 12%" class="score-value">
+                        @if (match.BetCountOverUnder != 0)
+                        {
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
+                                @RazorHelper.NegativeFormat(match.FullTimeOverUnder, true)
+                            </a>    
+                        }
+                    </td>
+                    <!--Render 1st Half Handicap OU-->
+                    <td style="width: 12%" class="score-value">
+                        @if (match.BetCountHandicap1StHalf != 0)
+                        {
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
+                                @RazorHelper.NegativeFormat(match.FirstTimeHandicap, true)
+                            </a>    
+                        }
+                    </td>
+                    <td style="width: 12%" class="score-value">
+                        @if (match.BetCountOverUnder1StHalf != 0)
+                        {
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">
+                                @RazorHelper.NegativeFormat(match.FirstTimeOverUnder, true)
+                            </a>    
+                        }
+                    </td>
+                </tr>                       
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>

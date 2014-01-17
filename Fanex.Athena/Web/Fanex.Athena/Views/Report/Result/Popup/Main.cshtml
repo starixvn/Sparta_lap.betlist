@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = ViewResources.Result;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css 
+{
+    <link href="@Url.ContentLink("/Content/Fanex.Result/fanex.result.css")" rel="stylesheet" type="text/css" />
+}
+@section js 
+{
+}
+<style>
+    .column-match {
+        width: 300px;
+    }
+    .column-firsthaftscore {
+        width:50px;
+    }
+    .column-finalscore{
+        width: 40px;
+    }
+    .column-status {
+        width: 55px;
+    }
+    .column-kickofftime {
+        width: 50px;
+    }
+</style>
+@Html.Raw(ViewBag.Data)

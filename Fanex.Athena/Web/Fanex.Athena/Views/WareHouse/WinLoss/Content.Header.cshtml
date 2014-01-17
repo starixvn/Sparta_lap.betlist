@@ -1,0 +1,55 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Warehouse
+@model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
+<!--Grid Header-->
+<div class="header-content" style="width: @(ViewBag.ContainerWidth)px;">
+    <div class="row" style="width: @(ViewBag.NumberWidth)px;">
+        #
+    </div>
+    <div class="row" style="width: @(ViewBag.ReportByWidth)px;">
+        @switch (Model.Param.ReportBy)
+        {
+            case 1:
+            @(ViewResources.Date)
+        break;
+            case 3:
+            @(ViewResources.Month)
+        break;
+            case -10:
+            @(ViewResources.Currency)
+        break;
+            case 0:
+            @(ViewResources.BetType)
+        break;
+            case 4:
+            @(ViewResources.League)
+        break;
+
+        }
+    </div>
+    <div class="row" style="width: @(ViewBag.TurnoverWidth)px;">
+        @ViewResources.Turnover
+    </div>
+    <div class="row" style="width: @(ViewBag.BetCountWidth)px;">
+        @ViewResources.TotalTransaction
+    </div>
+    @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
+        (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
+                (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+    <div class="row" style="width: @(ViewBag.MarginWidth)px;">
+        @ViewResources.Margin
+    </div>
+    <div class="row" style="width: @(ViewBag.LicenseeWLWidth)px;">
+        @ViewResources.LicenseeW_L
+    </div>
+    @if (Model.ProductAccess.IsAllowBa)
+    {
+        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
+            @ViewResources.BACommission
+        </div>
+        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth + 1)px;">
+            @ViewResources.TotalGrossProfit
+        </div>
+    }
+</div>
+<!--Grid Header-->

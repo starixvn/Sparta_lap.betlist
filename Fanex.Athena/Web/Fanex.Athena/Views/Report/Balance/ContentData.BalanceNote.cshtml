@@ -1,0 +1,38 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DTO.Common
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+<br />
+@{
+    var productList = Model.ProductAccess.ProductList
+                    .Where(p => p.ProductCode != Product.Rb && p.ProductCode != Product.Ba)
+                    .ToList();
+
+    var productCodeText = string.Join(", ", productList.Select(p => p.ProductCode));
+    var productNameText = productList.Count <= 1
+        ? ViewResources.Sportsbook
+        : string.Join(", ", productList.Select(p => p.ProductName));
+            
+}
+<div class="border-top new-line" style="width:@(ViewBag.ContainerWidth)@("px")">
+    @ViewResources.TermDefinition
+</div>
+<div style="font-style: italic;" id="balance-note">
+    <ul>
+        <li>@ViewResources.LicenseeW_L (@productCodeText):@String.Format(ViewResources.Licenseegrossrevenuefor, productNameText))
+        </li>
+        <!--BANotes-->
+        @if (ViewBag.BANotes)
+        {
+            <li>@ViewResources.BAComissionBalanceNote</li>
+            <li>@ViewResources.AmtDueToBABalanceNote</li>
+        }
+        <!--/BANotes-->
+        <!--RacingNotes-->
+        @if (ViewBag.RacingNotes)
+        { 
+            <li>@ViewResources.RacingRevenueBalanceNote</li>
+            <li>@ViewResources.AmtDueToRacingBalanceNote</li>
+        }
+        <!--/RacingNotes-->
+    </ul>
+</div>

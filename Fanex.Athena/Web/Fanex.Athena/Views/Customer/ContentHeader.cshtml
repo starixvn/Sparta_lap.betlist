@@ -1,0 +1,107 @@
+﻿@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
+<div class="header-content" style="width: @(ViewBag.ContainerWidth + 1)px;">
+    @if (Model.IsAllowedCustomerCommission && ViewData["Group"] != null)
+    {
+        <div class="row" style="width: @(ViewBag.NumberWidth)px">
+            <input type="checkbox" id="CheckAll" class="select-cust-checkbox" />
+        </div>
+
+        <div style="width: @(ViewBag.GroupWidth)px" class="row">
+            @ViewResources.Group
+        </div>
+    }
+    else
+    {
+        <div style="width: @(ViewBag.NumberWidth)px" class="row">
+            #
+        </div>
+    }
+    @if (ViewData["ExternalId"] != null)
+    {
+        <div style="width: @(ViewBag.ExternalIdWidth)px" class="row">
+            @ViewResources.ExternalId
+        </div>
+    }
+    @if (ViewData["SystemId"] != null)
+    {<div style="width: @(ViewBag.SystemIdWidth)px" class="row">
+        @ViewResources.SystemId
+    </div>
+    }
+    @if (ViewData["AvailableFunds"] != null)
+    {
+        <div style="width: @(ViewBag.AvailableFundsWidth)px" class="row">
+            @ViewResources.AvailableFunds
+        </div>
+    }
+    @if (ViewData["PendingFunds"] != null)
+    {
+        <div style="width: @(ViewBag.PendingFundsWidth)px" class="row">
+            @ViewResources.PendingFunds
+        </div>
+    }
+    @if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()) && ViewData["Status"] != null)
+    {
+        <div style="width: @(ViewBag.StatusWidth)px" class="row">
+            @ViewResources.Status
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowBa && ViewData["BaStatus"] != null)
+    {
+        <div style="width: @(ViewBag.BaStatusWidth)px" class="row">
+            @ViewResources.BaStatus
+        </div>
+    }
+    @if (ViewData["SpecialLevel"] != null)
+    {
+
+        <div style="width: @(ViewBag.SpecialLevelWidth)px" class="row">
+            @ViewResources.SpecialLevel
+        </div>
+    }
+    @if (ViewData["CustomerOption"] != null)
+    {
+
+        <div style="width: @(ViewBag.CustomerOptionWidth)px" class="row">
+            @ViewResources.CustomerOption
+        </div>
+    }
+    @if (Model.IsAllowedCustomerCommission && ViewData["Commission"] != null)
+    {
+        <div class="group-row">
+            <div style="width: @(ViewBag.CommMergeWidth)px;" class="row1">
+                @ViewResources.Commission (%)
+            </div>
+            <div class="group-row2">
+                <div style="width: @(ViewBag.CommWidth)px" class="row2">
+                    @ViewResources.SB
+                </div>
+                @if (Model.ProductAccess.IsAllowRb)
+                {
+                    <div style="width: @(ViewBag.CommWidth)px" class="row2">
+                        @ViewResources.Racing
+                    </div>
+                }
+                @if (Model.ProductAccess.IsAllowNg)
+                {
+                    <div style="width:@(ViewBag.CommWidth)px" class="row2">
+                        @ViewResources.NG
+                    </div>
+                }
+                @if (Model.ProductAccess.IsAllowLc)
+                {
+                    <div style="width:@(ViewBag.CommWidth)px" class="row2">
+                        @ViewResources.LC
+                    </div>
+                }
+                @if (Model.ProductAccess.IsAllowCs)
+                {
+                    <div style="width:@(ViewBag.CommWidth)px" class="row2">
+                        @ViewResources.CS
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

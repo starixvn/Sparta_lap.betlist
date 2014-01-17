@@ -1,0 +1,13 @@
+﻿@{
+    
+    var status = Model.Data["Closed"];
+
+    <table class="report-table" style="width: 100%;">
+        <tr>
+            <td class="action-name">@Model.Resource["Closed"]
+            </td>
+            <td class="action-name-right">@(status == "1" ? Model.Resource["Yes"] : Model.Resource["No"])
+            </td>
+        </tr>
+    </table>
+}

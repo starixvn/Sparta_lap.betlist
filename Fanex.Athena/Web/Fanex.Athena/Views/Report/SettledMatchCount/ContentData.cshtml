@@ -1,0 +1,23 @@
+﻿@model IList<Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel>
+<div class="data-content">
+    @foreach (Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel item in Model)
+    {
+        <div class="content-row" style="width: @(ViewBag.ContainerWidth + 1)@("px")">
+            <div class="row text-data" style="width: @(ViewBag.DateWidth)@("px"); padding-left: 1px">
+                <div>@item.SportName</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.NormalWidth)@("px")">
+                <div>@item.YesterdayEntered</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.NormalWidth)@("px")">
+                <div>@item.YesterdayNonEntered</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.NormalWidth)@("px")">
+                <div>@item.TodayEntered</div>
+            </div>
+            <div class="row" style="width: @(ViewBag.NormalWidth)@("px")">
+                <div>@item.TodayNonEntered</div>
+            </div>
+        </div>
+                        
+    }</div>

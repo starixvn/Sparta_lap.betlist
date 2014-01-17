@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_NoteLayout.cshtml";
+}
+@using Fanex.Athena.Extension.Utility;
+@section content{
+    @if (Model.IsHistory)
+    {
+        <li>@string.Format(ViewResources.DateRangeNote, new DateTime(2011, 3, 1))</li>
+    }
+    <li>@ViewResources.OANDANote</li>
+}

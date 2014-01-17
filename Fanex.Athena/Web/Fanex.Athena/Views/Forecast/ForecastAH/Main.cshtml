@@ -1,0 +1,39 @@
+﻿@model Fanex.Athena.Models.ViewModel.Forecast.ForecastAhViewModel
+@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Forecast/forecast.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Forecast/forecast.ah.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/TotalBets/refreshcountdown.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+}
+@section js
+{
+    <script src="@Url.ContentLink("/Scripts/Plugin/Refresh/refreshcountdown.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Forecast/forecastpopup.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Forecast/forecast.ah.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            Forecast.initialize();
+            RefreshCountDown.initEvent();
+        });
+    </script>
+}
+<div id="Refresh-Content">
+    <div class="container_26">
+        @{
+                    // -----------------------------Refresh countdown------------------------ //
+            <div class="grid_3 timer">
+                @RazorHelper.TimerCountDown("forecastah", 15)
+            </div>
+        }
+        @{
+            Html.RenderPartial("~/Views/Forecast/ForecastAH/Content.cshtml");
+        }
+    </div>
+</div>

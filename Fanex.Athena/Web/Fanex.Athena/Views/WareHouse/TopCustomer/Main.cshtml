@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.DataWareHouse + " - " + ViewResources.TopCustomer;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.ViewModel.Warehouse
+@model TopCustomerViewModel
+@{
+    ViewBag.ShowActiveDate = !Model.ShowEmptyContent && !(Model.MainResult.Count != 0 && Model.MainResult[0].LastLoginDate == null);
+
+    ViewBag.ColumnCount = 8;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 2 : 0;
+    ViewBag.ColumnCount += ViewBag.ShowActiveDate ? 1 : 0;
+
+    ViewBag.NumberWidth = 40;
+    ViewBag.CustomerWidth = 120;
+    ViewBag.CurrencyWidth = 70;
+    ViewBag.TurnoverWidth = 100;
+    ViewBag.BetCountWidth = 100;
+    ViewBag.CustomerWLLargeWidth = 80;
+    ViewBag.CustomerWLMergeWidth = 202;
+    ViewBag.CustomerWLWidth = 80;
+    ViewBag.CustomerCommWidth = 40;
+    ViewBag.CustomerWLTotalWidth = 80;
+    ViewBag.LicenseeWLWidth = 100;
+    ViewBag.BaCommissionWidth = 80;
+    ViewBag.TotalGrossProfitWidth = 100;
+    ViewBag.LastActivityDateWidth = 100;
+
+
+    ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.CustomerWidth + ViewBag.CurrencyWidth +
+                ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
+                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
+                ViewBag.LicenseeWLWidth +
+                (Model.ProductAccess.IsAllowBa ? ViewBag.BaCommissionWidth + ViewBag.TotalGrossProfitWidth : 0) +
+                (ViewBag.ShowActiveDate ? ViewBag.LastActivityDateWidth : 0);
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+    if (ViewBag.FilterWidth < 700) { ViewBag.FilterWidth = 700; }
+
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Warehouse/warehouse.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Warehouse/topcustomer.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.TopCustomer
+}
+@section ContentFilter{
+    @{ Html.RenderPartial("~/Views/WareHouse/TopCustomer/Filter.cshtml"); }
+}
+@*Content Data*@
+@{    
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/WareHouse/TopCustomer/Content.cshtml");
+    }
+    
+}

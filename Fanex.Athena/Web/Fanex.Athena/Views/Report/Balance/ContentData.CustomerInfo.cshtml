@@ -1,0 +1,28 @@
+﻿@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+<div class="header-content" style="width:@(ViewBag.ContainerWidth)@("px")">
+    <div class="row title-header" style="width:@(ViewBag.ContainerWidth)@("px")">
+        <div>@ViewResources.CustomerInfo</div>
+    </div>
+</div>
+<div class="data-content">
+    <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
+        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 140 - 2)@("px")">
+            <div>@ViewResources.CustomerPedingFunds</div>
+        </div>
+        <div class="row" style="width: 140px">
+            <div>@Model.MainData.CustomerPendingFunds.ToStringExt()</div>
+        </div>
+    </div>
+    <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
+        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 140 - 2)@("px")">
+            <div>@ViewResources.TotalCustomerActiveClosedSuspended</div>
+        </div>
+        <div class="row" style="width: 140px">
+            <div>@Model.MainData.TotalCustomerActive/ <span class="closed">@Model.MainData.TotalCustomerClosed</span>
+                / <span class="suspended">@Model.MainData.TotalCustomerSuspended</span>
+            </div>
+        </div>
+    </div>
+</div>

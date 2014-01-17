@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+<div id="note-icon" class="note-icon">
+</div>
+<div id="note-content" style="display: none">
+    <div id="note-wrapper">
+        <div class="note-close">
+        </div>
+        <div class="note-message-content">
+            <ul>
+                @RenderSection("content", required: false)
+            </ul>
+        </div>
+    </div>
+</div>

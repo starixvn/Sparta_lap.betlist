@@ -1,0 +1,58 @@
+﻿@using DNAide.Utils
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel        
+@{
+    var dataList = Model.MainResult;
+    var dataListOutright = Model.SpecialBetTypeResult;
+
+    if (dataList.Count > 0)
+    {
+        var dataGrandTotal = Model.GrandTotal;
+    <tr class="total-first-row total-in-eur">
+        <td colspan="2">@ViewResources.GrandTotal
+        </td>
+        <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.Turnover, 2, false)
+        </td>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl, 2, false)
+            </td>
+            <td style="width: 60px">@NumberFormat.DecFormat(dataGrandTotal.CustomerComm, 2, false)
+            </td>
+            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm, 2, false)
+            </td>
+        }
+        else
+        {
+            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl, 2, false)
+            </td>
+        }
+        <td class="hightlight" style="width: 85px">
+            @FormatHelper.NegativeFormat(dataGrandTotal.LicenseeWl)
+        </td>
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <td class="hightlight" style="width: 60px">
+                @FormatHelper.NegativeFormat(dataGrandTotal.BaCommission)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <td class="hightlight" style="width: 70px">
+                @FormatHelper.NegativeFormat(dataGrandTotal.RacingRevenue)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <td style="width: 80px">@NumberFormat.DecFormat(@dataGrandTotal.AmtDueToBa, 2, false)
+            </td>
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <td style="width: 70px">@NumberFormat.DecFormat(@dataGrandTotal.AmtDueToRacing, 2, false)
+            </td>
+        }
+    </tr>
+    }
+}

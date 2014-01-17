@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel.BetList
+@using Fanex.Athena.Models.Cache
+@model SystemParlayDetailViewModel
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@string.Format("LRF - {0}", ViewResources.SystemParlay)</title>
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/BetList/systemparlaydetail.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    @Html.Raw(Model.DetailText)
+</body>
+</html>

@@ -1,0 +1,105 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="HalfTimeFullTimeDataAccess.cs" company="Nexcel Solution">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
+// </history>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.DataAccess.Implement.TotalBets
+{
+    using System.Collections.Generic;
+    using System.Data;
+    using Data;
+    using DataAccess.Interface.TotalBets;
+    using Extension;
+    using Fanex.Common.Extensions;
+    using Models.DTO.TotalBets;
+    using Models.MetaModel.TotalBets;
+
+    /// <summary>
+    /// Half time/ Full time data access.
+    /// </summary>
+    public class HalfTimeFullTimeDataAccess : IHalfTimeFullTimeDataAccess
+    {
+        /// <summary>
+        /// Get HT/FT data list.
+        /// </summary>
+        /// <param name="metaModel">HT/FT MetaModel value.</param>
+        /// <returns>A list of HT/FT.</returns>
+        public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
+        {
+            const string SpName = "Lrf_TotalBets_Sel16";
+            var uspParams = new
+            {
+                LicenseeId = metaModel.LicenseeId,
+                LicenseeType = metaModel.LicenseeType,
+                CurrencyId = metaModel.CurrencyId,
+                PageSize = metaModel.PageSize,
+                PageIndex = metaModel.PageIndex,
+                TotalRows = metaModel.TotalRows,
+                UserId = metaModel.UserId
+            };
+
+            using (var db = new ObjectDb(SpName))
+            {
+                using (var reader = db.ExecuteReader(uspParams))
+                {
+                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                }
+            }
+        }
+
+        #region Utility
+
+        /// <summary>
+        /// Set data to list.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="isConvert">Is Convert value.</param>
+        /// <param name="baseCurrency">Base Currency value.</param>
+        /// <returns>A list of HT/FT.</returns>
+        private IList<HalfTimeFullTime> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        {
+            var dataList = new List<HalfTimeFullTime>();
+
+            var totalHh = DataHelper.GetCurrencyColumnName("totalHH", isConvert, baseCurrency);
+            var totalHd = DataHelper.GetCurrencyColumnName("totalHD", isConvert, baseCurrency);
+            var totalHa = DataHelper.GetCurrencyColumnName("totalHA", isConvert, baseCurrency);
+            var totalDh = DataHelper.GetCurrencyColumnName("totalDH", isConvert, baseCurrency);
+            var totalDd = DataHelper.GetCurrencyColumnName("totalDD", isConvert, baseCurrency);
+            var totalDa = DataHelper.GetCurrencyColumnName("totalDA", isConvert, baseCurrency);
+            var totalAh = DataHelper.GetCurrencyColumnName("totalAH", isConvert, baseCurrency);
+            var totalAd = DataHelper.GetCurrencyColumnName("totalAD", isConvert, baseCurrency);
+            var totalAa = DataHelper.GetCurrencyColumnName("totalAA", isConvert, baseCurrency);
+
+            while (reader.Read())
+            {
+                var item = new HalfTimeFullTime
+                {
+                    MatchId = reader.ToInt("matchid"),
+                    HomeId = reader.ToInt("homeID"),
+                    AwayId = reader.ToInt("awayID"),
+                    IsNeutral = reader.ToInt("isNeutral"),
+                    HomeHome = reader.ToDecimal(totalHh),
+                    HomeDraw = reader.ToDecimal(totalHd),
+                    HomeAway = reader.ToDecimal(totalHa),
+                    DrawHome = reader.ToDecimal(totalDh),
+                    DrawDraw = reader.ToDecimal(totalDd),
+                    DrawAway = reader.ToDecimal(totalDa),
+                    AwayHome = reader.ToDecimal(totalAh),
+                    AwayDraw = reader.ToDecimal(totalAd),
+                    AwayAway = reader.ToDecimal(totalAa)
+                };
+
+                dataList.Add(item);
+            }
+
+            return dataList;
+        }
+
+        #endregion Utility
+    }
+}

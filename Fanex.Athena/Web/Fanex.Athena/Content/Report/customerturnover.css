@@ -1,0 +1,24 @@
+﻿.default-username
+{
+    color: #F19D49;
+    font-style: italic;
+}
+
+.decimal-odds
+{
+    color: #850012;
+}
+
+.hidden-class
+{
+    display: none;
+}
+
+select, input[type="text"]
+{
+    width: 100px;
+}
+#Username, #Odds
+{
+    width: 122px;
+}

@@ -1,0 +1,24 @@
+﻿@using Fanex.Athena.Models.DTO.Common
+@{
+    Layout = "~/Views/Shared/_NoteLayout.cshtml";
+}
+@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
+@{
+               
+    var allowNg = Model.ProductList.Any(p => p.ProductCode == Product.Ng);
+    // The data warehouse is available after 9AM
+    // Data warehouse an support viewing all historical up to yesterday
+    var availableDate = DateTime.Now.AddHours(-9).AddDays(-1);
+    
+}
+@section content{
+    <li>@string.Format(ViewResources.DateRangeNote, RazorHelper.TitleDateTime(availableDate, null))
+    </li>
+    <li>@ViewResources.SupportForOnlyNote&nbsp;@ViewResources.Sportsbook
+        @if (allowNg)
+        {                                                            
+            @Html.Raw("," + ViewResources.NumberGame)
+        }
+    </li>
+    <li>@ViewResources.OANDANote</li>
+}

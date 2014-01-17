@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.RacingCommission;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    // Set width
+    ViewBag.ColumnCount = 4 + (Model.IsAllowedCustomerCommission ? 1 : 0);
+    ViewBag.NumberWidth = 40;
+    ViewBag.ExternalIdWidth = 120;
+    ViewBag.SystemIdWidth = 120;
+    ViewBag.CommonWidth = 100;
+    ViewBag.CustomerCommWidth = 120;
+
+    ViewBag.TotalWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth + 2;
+    ViewBag.ToteWidth = ViewBag.CommonWidth * 4 + 3; // 3 border
+
+    ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth
+        + ViewBag.ToteWidth
+        + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerCommWidth : 0);
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24; //24 padding set css title
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+}
+@using Fanex.Athena.Models.ViewModel
+@model  Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/racingcommission.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Plugin/Calendar/jscal2.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Plugin/Calendar/border-radius.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Plugin/Calendar/steel/steel.css")" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/racingcommission.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.ContentLink("/Scripts/Plugin/Calendar/jscal2.js")"></script>
+    <script type="text/javascript" src="@Url.ContentLink("/Scripts/Plugin/Calendar/lang/en.js")"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.RacingCommission
+}
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/RacingCommission/Filter.cshtml");
+    }
+}
+@{
+    
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Report/RacingCommission/Content.cshtml");
+    }
+}

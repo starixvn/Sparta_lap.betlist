@@ -1,0 +1,50 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+@{
+    var currencyTotalData = Model.DailyRacingWinLossData.CurrencyTotalData;
+    var totalHeight = 26 * currencyTotalData.Count;
+    
+}
+<div class="content-row currency-total-row" style="width: @ViewBag.ContainerWidth@("px")">
+    <div class="currency-total-text" style="width: @(ViewBag.MeetingCurrencyWidth)@("px"); height: @totalHeight@("px")">
+        <div style="line-height : @totalHeight@("px")">@ViewResources.Total</div>
+    </div>
+    <div class="currency-total-row-group" style="width: @(ViewBag.ContainerWidth - ViewBag.MeetingCurrencyWidth - 1)@("px")">
+        @foreach (var currencyName in currencyTotalData.Keys)
+        {
+            var item = currencyTotalData[currencyName];
+            <div class="content-row grid-total total-row-currency" style="width: @(ViewBag.ContainerWidth - ViewBag.MeetingCurrencyWidth - 1)@("px")">
+                <div class="row title-text" style="width: @ViewBag.CommonWidth@("px")">
+                    @currencyName</div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.WinTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.PlaceTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.WPTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.TotalTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.DividendWon.ToStringExt()</div>
+                </div>
+                @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+                {
+                    <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                        <div>@item.CustomerCommission.ToStringExt()</div>
+                    </div>
+                }
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.CommIncome.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@item.AmountDueToRacing.ToStringExt()</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

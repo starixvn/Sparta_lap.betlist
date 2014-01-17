@@ -1,0 +1,195 @@
+﻿/*Preset*/
+body
+{
+    min-width: 0 !important;
+}
+
+/* File Created: April 9, 2012 */
+
+.ui-layout-west, .ui-layout-north, .ui-layout-south
+{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.ui-layout-center
+{
+    overflow: visible;
+}
+#center
+{
+    position: relative;
+}
+#notification_popup
+{
+    display: none;
+    position: absolute;
+    left: 200px;
+    top: 300px;
+    height: 160px;
+    color: black;
+    font-size: 12px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px;
+    width: 355px !important;
+    border: 4px #7f7f7f solid !important;
+    background-color: #fcfcfc !important;
+}
+#notification_popup .popup-title
+{
+    background: #87cceb;
+    color: #fff;
+    font-weight: bold;
+    background: url(images/popup_header_bg.jpg) repeat-x !important;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-radius-topright: 8px;
+    -o-border-radius-topright: 8px;
+    background: #fff;
+    -moz-border-radius-topleft: 8px;
+    -webkit-border-radius-topleft: 8px;
+    -o-border-radius-topleft: 8px;
+    height: 27px !important;
+    border-bottom: 1px #bababa solid;
+    color: #4e4e4e !important;
+    padding-top: 13px !important;
+    font-size: 14px;
+    width: 343px !important;
+    padding-left: 10px !important;
+}
+#notification_popup .note-message
+{
+    padding-top: 5px;
+    padding-left: 10px !important;
+    padding-right: 10px;
+    font-weight: normal !important;
+    color: #6a6868 !important;
+}
+#notification_popup .browsers
+{
+    height: 48px;
+}
+#notification_popup .browsers ul li
+{
+    margin-left: 5px;
+    list-style: none;
+}
+#notification_popup .command
+{
+    clear: both;
+    margin-top: 5px;
+    float: right;
+}
+
+#notification_popup .command input
+{
+    background: url(images/close_icon.png) no-repeat left top;
+    width: 26px;
+    height: 25px;
+    border: 0;
+    position: absolute;
+    top: -13px;
+    right: -13px;
+}
+#notification_popup .command input:hover
+{
+    background: url(images/close_hover.png) no-repeat left top;
+    width: 26px;
+    height: 25px;
+    border: 0;
+    position: absolute;
+    top: -13px;
+    right: -13px;
+}
+
+#notification_popup .remove-notif
+{
+    clear: both;
+    font-size: 11px;
+    font-style: italic;
+    float: right;
+    padding-top: 8px;
+    padding-right: 2px;
+}
+#notification_popup .remove-notif #remove_notif_cmd
+{
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#notification_popup .remove-notif #remove_notif_cmd:hover
+{
+    color: #cfc652;
+    text-decoration: solid;
+}
+.browsers ul
+{
+    padding-left: 10px;
+}
+
+.browsers li
+{
+    padding-bottom: 5px;
+}
+
+.download-chrome
+{
+    background: url(images/chrome.png) no-repeat left top;
+    padding-left: 20px;
+}
+.download-chrome a
+{
+    color: #4cc510;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.download-chrome a:hover
+{
+    color: #4cc510;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.download-firefox
+{
+    background: url(images/firefox.png) no-repeat left top;
+    padding-left: 20px;
+}
+
+.download-firefox a
+{
+    color: #ff6600;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.download-firefox a:hover
+{
+    color: #ff6600;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.download-ie
+{
+    background: url(images/ie.png) no-repeat left top;
+    padding-left: 20px;
+}
+
+.download-ie a
+{
+    color: #5997fe;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.download-ie a:hover
+{
+    color: #5997fe;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+}

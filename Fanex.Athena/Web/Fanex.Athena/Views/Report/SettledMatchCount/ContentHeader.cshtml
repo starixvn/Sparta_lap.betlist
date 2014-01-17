@@ -1,0 +1,40 @@
+﻿@using Fanex.Athena.Models.ViewModel
+
+<div class="header-content" style="width: @(ViewBag.ContainerWidth)@("px")">
+    <div class="group-row">
+        <div class="row1" style="width: @(ViewBag.DateWidth)@("px")">
+            @ViewResources.Date
+        </div>
+        <div class="group-row2">
+            <div class="row2" style="width: @(ViewBag.DateWidth)@("px")">
+                @ViewResources.Results
+            </div>
+        </div>
+    </div>
+    <div class="group-row">
+        <div class="row1" style="width: @(2 * ViewBag.NormalWidth)@("px")">
+            @DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")
+        </div>
+        <div class="group-row2">
+            <div class="row2" style="width: @(ViewBag.NormalWidth)@("px")">
+                @ViewResources.Entered
+            </div>
+            <div class="row2" style="width: @(ViewBag.NormalWidth)@("px")">
+                @ViewResources.NonEntered
+            </div>
+        </div>
+    </div>
+    <div class="group-row">
+        <div class="row1" style="width: @(2 * ViewBag.NormalWidth)@("px")">
+            @DateTime.Now.ToString("MM/dd/yyyy")
+        </div>
+        <div class="group-row2">
+            <div class="row2" style="width: @(ViewBag.NormalWidth)@("px")">
+                @ViewResources.Entered
+            </div>
+            <div class="row2" style="width: @(ViewBag.NormalWidth)@("px")">
+                @ViewResources.NonEntered
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿/* Filter */
+select
+{
+    font-size: 11px;
+    font-family: Arial;
+}
+.currency
+{
+    padding-left: 3px;
+    width: 152px;
+    height: 20px;
+}
+
+#RadioNoDrawsForTurnoverOnly
+{
+    margin-left: 9px;
+}
+#SmartPhoneSite
+{
+    margin-left: 9px;
+}
+
+/* customer-wl*/
+
+/* Bread Crumb */
+
+.breadCrumb
+{
+    padding-left: 0;
+    width: 100%;
+}
+
+.breadCrumb ul
+{
+    margin-left: 2px;
+}
+
+/* Content */
+a.drilldown
+{
+    font-weight: normal !important;
+    color: #1E1EEB !important;
+}
+.bet-list-link
+{
+    color: #0000FF !important;
+    font-weight: normal !important;
+}

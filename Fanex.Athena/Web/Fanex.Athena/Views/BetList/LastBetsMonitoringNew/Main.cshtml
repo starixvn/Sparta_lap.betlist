@@ -1,0 +1,60 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.LastBetsMonitoring);
+    Layout = "~/Views/Shared/_BetListLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/BetList/lastbetmonitornew.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/BetList/lastbetmonitor.table.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Plugin/LinqJs/JSLINQ.js")" type="text/javascript"></script>
+       <script src="@Url.ContentLink("/Scripts/Global/prototype.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/BetList/lastbetsmonitornew.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.LastBetsMonitoring
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/BetList/LastBetsMonitoringNew/Filter.cshtml");
+    }
+}
+@{
+    <div id="betlist_content" class="betlistcontent" style="min-width: 1040px;">
+        <table id="last-bets-monitoring" class="report-table">
+            <tr id="monitor-header" class="report-table-header">
+                <td width="60" data-name="Platform">
+                    @ViewResources.Platform
+                </td>
+                <td width="120" data-name="ExternalId">
+                    @ViewResources.ExternalId
+                </td>
+                <td width="120" data-name="SystemID">
+                    @ViewResources.SystemId
+                </td>
+                <td width="120" data-name="TransTime">
+                    @ViewResources.TransTime
+                </td>
+                <td class="bl-choice" data-name="Choice">
+                    @ViewResources.Choice
+                </td>
+                <td width="60" data-name="Odds">
+                    @ViewResources.Odds
+                </td>
+                <td width="60" data-name="Stake">
+                    @ViewResources.Stake
+                </td>
+                <td width="60" data-name="Status">
+                    @ViewResources.Status
+                </td>
+            </tr>
+        </table>
+    </div>
+}

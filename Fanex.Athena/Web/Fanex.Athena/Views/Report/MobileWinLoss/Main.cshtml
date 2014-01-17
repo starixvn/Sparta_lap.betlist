@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.MobileWinLoss;
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel.Report
+@model MobileWinLossViewModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Plugin/Common/bread-crumb.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Report/mobileWinLoss.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/mobilewinloss.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/mobilewinloss.option.js")" type="text/javascript"></script>
+
+}
+@section ContentTitle
+    {
+    @ViewResources.MobileWinLoss
+}
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/MobileWinLoss/Filter.cshtml");
+    }
+}
+@{
+    
+    Html.RenderPartial("~/Views/Report/MobileWinLoss/Content.cshtml");
+}

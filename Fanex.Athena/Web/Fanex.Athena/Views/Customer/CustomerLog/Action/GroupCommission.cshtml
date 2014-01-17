@@ -1,0 +1,34 @@
+﻿@{
+    var isChangeSbComm = Model.SbComm != Model.SbCommOld;
+    var isChangeRbComm = Model.RbComm != Model.RbCommOld;
+    var isChangeNgComm = Model.NgComm != Model.NgCommOld;
+    var isChangeGroupColor = Model.GroupColor != Model.GroupColorOld;
+    var isChangeGroupName = Model.GroupName != Model.GroupNameOld;
+
+    var sbCommTitle = Model.SbCommOld.ToString("0.####") + " --> " + Model.SbComm.ToString("0.####");
+    var rbCommTitle = Model.RbCommOld.ToString("0.####") + " --> " + Model.RbComm.ToString("0.####");
+    var ngCommTitle = Model.NgCommOld.ToString("0.####") + " --> " + Model.NgComm.ToString("0.####");
+    
+    <table class="report-table" style="width:100%">
+        <thead>
+            <tr class="report-header">
+                <td>Group Id</td>
+                <td>Group Name</td>
+                <td>Group Color</td>
+                <td>SB Comm</td>
+                <td>RB Comm</td>
+                <td>NG Comm</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="title-text">@Model.GroupId </td>
+                <td class="title-text" @(isChangeGroupName ? "style='color:red'" : "")>@Model.GroupName <div @(isChangeGroupName ? "class='old-value'" : "style='display:none'")>@Model.GroupNameOld</div></td>
+                <td class="title-text"><div style="background-color:@Model.GroupColor;" class="group-color-box"></div> <div @(isChangeGroupColor ? "class='old-value'" : "style='display:none'")><div title="Old color" style="background-color:@Model.GroupColorOld;" class="group-color-box"></div></div></td>
+                <td class="title-text" @(isChangeSbComm ? "style='color:red' title='"+ sbCommTitle + "'" : "")>@Model.SbComm.ToString("0.####") <div @(isChangeSbComm ? "class='old-value'" : "style='display:none'")>@Model.SbCommOld.ToString("0.####")</div></td>
+                <td class="title-text" @(isChangeRbComm ? "style='color:red' title='" + rbCommTitle + "'" : "")>@Model.RbComm.ToString("0.####") <div @(isChangeRbComm ? "class='old-value'" : "style='display:none'")>@Model.RbCommOld.ToString("0.####")</div></td>
+                <td class="title-text" @(isChangeNgComm ? "style='color:red' title='" + ngCommTitle + "'" : "")>@Model.NgComm.ToString("0.####") <div @(isChangeNgComm ? "class='old-value'" : "style='display:none'")>@Model.NgCommOld.ToString("0.####")</div></td>
+            </tr>
+        </tbody>
+    </table>    
+}

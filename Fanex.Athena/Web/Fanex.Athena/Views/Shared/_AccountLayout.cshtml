@@ -1,0 +1,31 @@
+﻿@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+
+<div class="container_26">
+    <div class="grid_26">
+        <div class="content-title">
+            @RenderSection("ContentTitle", required: false)
+        </div>
+    </div>
+    
+        @RenderSection("ContentFilter", required: false)
+    
+</div>
+<div class="content-main new-line">
+    <div class="loading">
+    </div>
+    <div class="block-body">
+    </div>
+    @RenderBody()
+</div>

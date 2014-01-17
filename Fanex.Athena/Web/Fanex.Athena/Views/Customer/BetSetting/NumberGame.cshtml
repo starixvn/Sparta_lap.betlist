@@ -1,0 +1,88 @@
+﻿@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@{
+    Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
+}
+@section pagecss
+{
+}
+@section pagejs
+{
+}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+<div class="data-content">
+    <!--Title-->
+    <div class="content-title">
+        @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+    </div>
+    <!--/Title-->
+    <!--Header-->
+    <div class="header-content" style="width: 885px;">
+        <div class="row" style="width: 180px;">
+            @ViewResources.NumberGame
+        </div>
+        <div class="row" style="width: 175px;">
+            @ViewResources.MinBet
+        </div>
+        <div class="row" style="width: 175px;">
+            @ViewResources.MaxBet
+        </div>
+        <div class="row" style="width: 175px;">
+            @ViewResources.MaxPerMatch
+        </div>
+        <div class="row" style="width: 175px">
+            @ViewResources.MaxPerBall
+        </div>
+    </div>
+    <!--/Header-->
+    <!--Content-->
+    @foreach (var item in Model.MainData)
+    {
+        <div class="content-row">
+            <div class="row text-data first-column" style="width: 180px">
+                <div>@item.BetSettingType</div>
+            </div>
+            <div class="row text-data" style="width: 175px">
+                <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:90px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
+                @if (item.BetValueMin > 0)
+                {<span> &gt;=@item.BetValueMin.ToString("#,###,##0.##")</span>
+                }
+            </div>
+            <div class="row text-data" style="width: 175px">
+                <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString("#,###,##0.##")" style="width:90px" maxlength="14" data-max-value="@item.BetValueMax.ToString("#,###,##0.##")" data-original="@item.MaxBet.ToString("#,###,##0.##")"/>
+                @if (item.BetValueMax > 0)
+                {
+                    <span>&lt;=@item.BetValueMax.ToString("#,###,##0.##")</span>
+                }
+            </div>
+            <div class="row text-data" style="width: 175px">
+                <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString("#,###,##0.##")" style="width:90px" maxlength="14" data-min-value="@item.MaxPerMatchMin.ToString("#,###,##0.##")" data-max-value="@item.MaxPerMatchMax.ToString("#,###,##0.##")" data-original="@item.MaxPerMatch.ToString("#,###,##.##")"/>
+                @if (item.MaxPerMatchMax > 0)
+                {
+                    <span>&lt;=@item.MaxPerMatchMax.ToString("#,###,##0.##")</span>
+                }
+            </div>
+            <div class="row text-data" style="width: 175px">
+                <input id="max-per-ball-@(item.SportId)" type="text" value="@item.MaxPerBall.ToString("#,###,##0.##")" style="width:90px" maxlength="14" data-max-value="@item.MaxPerBallMax.ToString("#,###,##0.##")" data-original="@item.MaxPerBall.ToString("#,###,##0.##")"/>
+                @if (item.MaxPerBallMax > 0)
+                {
+                    <span>&lt;=@item.MaxPerBallMax.ToString("#,###,##0.##")</span>
+                }
+            </div>
+        </div>
+    }
+    @Html.Hidden("editable", Model.Param.Editable)
+    <!--/Content-->
+</div>
+<!--SubmitButton-->
+@if (Model.Param.Editable)
+{
+    <div>
+        <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
+        id="btnSubmitBetSetting"/>
+        <input type="button" class="button" value="@ViewResources.Reset"
+        id="btnReset" />
+    </div>
+}
+<!--/SubmitButton-->

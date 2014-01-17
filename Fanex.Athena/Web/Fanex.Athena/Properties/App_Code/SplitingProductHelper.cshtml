@@ -1,0 +1,81 @@
+﻿@using System.Text.RegularExpressions;
+@using System.Web.Mvc;
+@using System.Web.WebPages;
+@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Extension.Helper;
+@using Fanex.Athena.Models.MetaModel.Product
+<!--turnover column--->
+@helper ProductDataColumns(IList<ProductOption> productOptions, IDictionary<string, decimal> data, int columnWidth = 80, string masterClass = "turnover", bool isHiglight = false)
+    {
+        var columnCount = productOptions.Count();
+        var totalWidth = columnCount > 1 ? (columnCount + 1) * columnWidth : columnCount * columnWidth;
+    <div class="row @(masterClass)-collapse" style="width: @columnWidth@("px");">
+        @FormatHelper.NegativeFormat(data.Sum(i => i.Value), isHiglight)
+    </div>
+
+        foreach (var product in productOptions)
+        {
+    <div class="row hide @(masterClass)-expand" style="width: @columnWidth@("px")">
+        @FormatHelper.NegativeFormat(data[product.Code], isHiglight)
+    </div>
+        }
+
+        if (columnCount > 1)
+        {
+    <div class="row hide @(masterClass)-expand" style="width: @columnWidth@("px");">
+        @FormatHelper.NegativeFormat(data.Sum(i => i.Value), isHiglight)
+    </div>
+        }
+}
+@helper CustomerWLHeader(bool isAllowedCustomerCom, int custWLLargeWidth = 80, int custWLMergeWidth = 203,
+    int custWLWidth = 80, int custCommWidth = 40, int custTotalWidth = 80, bool canSort = false)
+    {
+        if (isAllowedCustomerCom)
+        {
+    <div class="group-row">
+        <div class="row1" style="width:@custWLMergeWidth@("px")">
+            @ViewResources.CustomerW_L
+        </div>
+        <div class="group-row2" style="width:@custWLMergeWidth@("px")">
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custWLWidth@("px")" data-column-name="MemberWl">
+                @ViewResources.WinLoss
+            </div>
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custCommWidth@("px")" data-column-name="PlayerComm">
+                @ViewResources.Comm
+            </div>
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custTotalWidth@("px")" data-column-name="MemberTotalWl">
+                @ViewResources.Total
+            </div>
+        </div>
+    </div>
+        }
+        else
+        {
+            
+    <div class="row@(canSort ? " sort-heading" : "")" style="width:@custWLLargeWidth@("px")" data-column-name="MemberWl">
+        @ViewResources.CustomerW_L
+    </div>
+        }
+}
+@helper CustomerWLContent(Fanex.Athena.Models.DTO.Report.ICustomerWinLoss model, bool isAllowedCustomerCom = false,
+                        int custWLLargeWidth = 80, int custWLWidth = 80, int custCommWidth = 40, int custTotalWidth = 80)
+    {
+        if (isAllowedCustomerCom)
+        {
+    <div class="row" style="width:@(custWLWidth)px">
+        <div>@model.CustomerWinLoss.ToStringExt()</div>
+    </div>
+    <div class="row" style="width:@(custCommWidth)px">
+        <div>@model.CustomerComm.ToStringExt()</div>
+    </div>
+    <div class="row" style="width:@(custTotalWidth)px">
+        <div>@model.CustomerTotal.ToStringExt()</div>
+    </div>
+        }
+        else
+        {
+    <div class="row" style="width:@(custWLLargeWidth)px">
+        <div>@model.CustomerWinLoss.ToStringExt()</div>
+    </div>
+        }
+}

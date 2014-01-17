@@ -1,0 +1,48 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="RacingBetSetting.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Models.DTO.Customer.BetSetting
+{
+    /// <summary>
+    /// RacingBetSetting class.
+    /// </summary>
+    public class RacingBetSetting : CommonBetSetting
+    {
+        public RacingBetSetting(int custId, CommonBetSetting commonParam)
+        {
+            CustId = custId;
+            UserId = commonParam.UserId;
+            Ip = commonParam.Ip;
+            Language = commonParam.Language;
+        }
+
+        public RacingBetSetting(
+            int custId,
+            int userId,
+            decimal minBet,
+            decimal maxBet,
+            decimal maxPerMatch,
+            bool isUpdateMultiple,
+            bool isDataChange,
+            string ip,
+            string language)
+        {
+            CustId = custId;
+            UserId = userId;
+            MinBet = minBet;
+            MaxBet = MaxBet;
+            MaxPerMatch = maxPerMatch;
+            IsUpdateMultiple = isUpdateMultiple;
+            IsDataChange = isDataChange;
+            Ip = ip;
+            Language = language;
+        }
+
+        public bool IsDataChange { get; set; }
+
+        public bool IsUpdateMultiple { get; set; }
+    }
+}

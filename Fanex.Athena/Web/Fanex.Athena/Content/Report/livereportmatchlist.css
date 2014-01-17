@@ -1,0 +1,70 @@
+﻿/*customize*/
+
+.content-filter /* hide filter block*/
+{
+    display: none;
+}
+/* grid*/
+
+.data-content .content-row
+{
+    height: 22px;
+    line-height: 22px;
+}
+.grid-noinfo-comm
+{
+    width: 886px;
+}
+.data-content .content-row-comm
+{
+    width: 886px;
+}
+.data-content .data-content-comm
+{
+    width: 886px;
+}
+.data-content .header-content-comm
+{
+    width: 885px;
+    height: 25px;
+}
+/* grid*/
+/* snippet */
+
+.proportional
+{
+    font-family: helvetica, sans-serif;
+}
+
+.ellipsis
+{
+    text-overflow: ellipsis;
+}
+
+:-moz-any(.force-ellipsis):before
+{
+    background: #fff;
+    content: "…";
+    position: absolute;
+    margin-left: -moz-calc(150px - 1em);
+    width: 1em;
+    height: 1em;
+}
+/* snippet */
+
+/*customize*/
+.bar-menu
+{
+    position: absolute;
+    top: -25px;
+    right: -5px;
+}
+div.history-link
+{
+    background: url("images/undo.png") no-repeat scroll center center #FFEFDE;
+    cursor: pointer;
+    height: 22px;
+    margin-right: 10px;
+    margin-top: -2px;
+    width: 22px;
+}

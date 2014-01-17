@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0} - {1}", ViewResources.Report, ViewResources.CustomerWinLoss);
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DTO.Common
+@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/customerwinloss.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/customerwinloss.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.CustomerWinLoss
+    }
+@{  
+    ViewBag.NumberWidth = 40;
+    ViewBag.TextWidth = 130;
+    ViewBag.TurnoverWidth = 100;
+    ViewBag.LicenseeWLWidth = 100;
+    ViewBag.CustomerWLLargeWidth = 130;
+    ViewBag.CustomerWLMergeWidth = 242;
+    ViewBag.CustomerWLWidth = 90;
+    ViewBag.CustomerCommWidth = 60;
+    ViewBag.CustomerWLTotalWidth = 90;
+    ViewBag.RbBaWidth = 75;
+
+    ViewBag.ColumnWidth = 6;
+    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowBa ? 2 : 0;
+    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowRb ? 2 : 0;
+
+    ViewBag.ContainerWidth = ViewBag.NumberWidth + 2 * ViewBag.TextWidth + ViewBag.TurnoverWidth;
+    ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth;
+    ViewBag.ContainerWidth += ViewBag.LicenseeWLWidth;
+    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBa ? 2 * ViewBag.RbBaWidth : 0;
+    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRb ? 2 * ViewBag.RbBaWidth : 0;
+
+    ViewBag.ContainerWidth += ViewBag.ColumnWidth;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+}
+@section ContentFilter
+{
+    @{
+        if (Model.IsHistory)
+        {
+            Html.RenderPartial("~/Views/Report/CustomerWinLoss/HistoryFilter.cshtml");
+        }
+        else
+        {
+            Html.RenderPartial("~/Views/Report/CustomerWinLoss/Filter.cshtml");
+        }
+    }
+}
+@{
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.cshtml");
+    }
+}

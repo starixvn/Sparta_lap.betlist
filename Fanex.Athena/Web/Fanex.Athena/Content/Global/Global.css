@@ -1,0 +1,893 @@
+﻿/* Common */
+
+html
+{
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    margin: 0px;
+    cursor: default;
+}
+
+select, input
+{
+    font-weight: normal;
+    font-size: 11px;
+}
+
+select
+{
+    height: 20px;
+}
+
+input[type=text]
+{
+    height: 18px;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+body
+{
+    background: #ffffff fixed;
+    padding: 2px;
+    margin: 0px;
+}
+
+a
+{
+    text-decoration: none;
+    font-size: 11px;
+}
+
+a:link, a:visited, .link
+{
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+input[type=password]
+{
+    width: 120px;
+    font-size: 11px;
+}
+/* common*/
+.hide
+{
+    display: none;
+}
+
+.show
+{
+    display: block;
+}
+.highlight
+{
+    background-color: #F8F1A0 !important;
+}
+/* Page structure */
+
+#page-content
+{
+    padding: 7px 0 15px 0;
+}
+
+#header-title
+{
+    font-weight: bold;
+    font-size: 15px;
+    vertical-align: text-bottom;
+    padding: 2px 0 0 35px;
+    margin: 0 0 5px 0;
+    line-height: 20px;
+    width: 90%;
+    height: 26px;
+    min-width: 650px;
+    float: left;
+}
+
+#content-container
+{
+    min-height: 400px;
+}
+#tbl-container
+{
+    clear: both;
+}
+
+/* End page structure */
+
+/* Report  table*/
+
+table.report-table
+{
+    clear: both;
+    width: 100%;
+}
+
+table.report-table tr:hover, tr.hover
+{
+    background: #f8ff8d;
+}
+
+table.report-table td
+{
+    font-size: 11px;
+    height: 22px;
+    padding: 2px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+table.report-table tr.report-table-header td, table.report-table tr.report-table-header th, table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
+{
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    height: 28px;
+    padding: 2px;
+}
+
+table.report-table tr.report-table-header-double td, table.report-table tr.report-table-header-double th
+{
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    font-size: 11px;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+}
+
+table.report-table tr:hover td
+{
+    color: #009;
+}
+
+table.report-table td.league, .league
+{
+    font-weight: bold;
+    text-align: left !important;
+    text-transform: uppercase;
+}
+
+table.report-table tr td.report-title
+{
+    text-transform: none;
+    font-weight: bold;
+    padding: 3px 0 0 24px;
+    text-align: left;
+    text-transform: none;
+    height: 22px;
+}
+
+table.report-table tr.no-info td
+{
+    font-weight: normal;
+    text-align: center !important;
+    vertical-align: middle !important;
+    height: 25px;
+}
+
+table.report-table tr.total-rows td
+{
+    font-size: 11px;
+    height: 22px;
+    padding: 5px 2px 5px 2px;
+    font-weight: bold;
+    text-align: right;
+}
+
+table.report-table .report-table-footer td
+{
+    font-weight: bold !important;
+    margin: 5px 0px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+table.report-table td.order-number
+{
+    text-align: center;
+    font-weight: normal;
+}
+
+table.report-table td.title-text
+{
+    text-align: center;
+}
+
+table.report-table td.text-data
+{
+    text-align: left;
+}
+
+table.report-table td.number-data
+{
+    text-align: right;
+}
+
+table.report-table td.date-time-data
+{
+    text-align: center;
+}
+table.report-table td.left-text
+{
+    text-align: left !important;
+}
+table.report-table td.right-text
+{
+    text-align: right !important;
+}
+table.report-table td.center-text
+{
+    text-align: center !important;
+}
+/* End report table*/
+/*change pass*/
+td.change-pass
+{
+    text-align: left !important;
+}
+td.change-pass input
+{
+    width: 240px;
+}
+/*end change pass*/
+/* Text*/
+
+.positive
+{
+    color: #036;
+    font-weight: bold;
+}
+
+.negative
+{
+    color: #B50000 !important;
+    font-weight: bold;
+}
+
+.red-negative
+{
+    color: Red !important;
+}
+
+.italic
+{
+    font-style: italic;
+}
+
+.no-border
+{
+    border: none;
+}
+
+.no-bold
+{
+    font-weight: normal !important;
+}
+
+.no-hover:hover
+{
+    background-color: #fff;
+}
+
+.clear
+{
+    clear: both;
+}
+
+/* End Text*/
+
+/* Link */
+
+span.inactive-switch-link
+{
+    font-size: 16px;
+    font-weight: bold;
+    cursor: default;
+    text-decoration: none;
+}
+
+span.nactive-switch-link
+{
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* End Link */
+
+/* Button */
+
+.button
+{
+    height: 19px;
+    cursor: pointer;
+    padding: 0 5px 2px 2px;
+    font-size: 11px;
+    line-height: 15px;
+    margin: 0 0 0 5px;
+}
+
+.button:hover
+{
+}
+
+.submitbutton
+{
+}
+
+/* End Button */
+
+/* Criteria */
+
+#criteria-container
+{
+    margin: 0 0 7px 0;
+    padding: 5px;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+/* End Criteria */
+
+/* Scroll*/
+
+.disable-border-top
+{
+    border-top: none !important;
+}
+
+.divScrollBgmid table
+{
+    border-top: 0 !important;
+    border-top: none !important;
+}
+
+.divScrollBgmid
+{
+    border-right: 1px solid #ccc;
+    display: inline-block;
+}
+.divScrollBgmid_border_bottom
+{
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+.divScrollBgfirst table
+{
+    border-top: 0 !important;
+    border-top: none !important;
+}
+.divScrollBgfirst
+{
+    background: #E0E0E0;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+.divScrollBglast
+{
+    background: #E0E0E0;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+/*end scroll*/
+
+/* Header */
+
+div#header-wrapper
+{
+    width: 100%;
+    position: relative;
+}
+
+div#header-wrapper div.header
+{
+    width: 100%;
+    height: 50px;
+}
+
+div#header-wrapper div.header div.timer
+{
+    height: 18px;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+
+div#header-wrapper div.header div.timer div#current-time
+{
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+}
+div#header-wrapper div.header div.content
+{
+    position: absolute;
+    top: 28px;
+    right: 20px;
+    width: 685px;
+}
+div#header-wrapper div.header div.content div, div#header-wrapper div.header div.content input, div#header-wrapper div.header div.content select
+{
+    float: right;
+    margin: 0 0 0 5px;
+}
+
+div#header-wrapper div.header div.content select
+{
+    width: 85px;
+}
+
+div#header-wrapper div.languageIcon
+{
+    width: 24px;
+    height: 19px;
+    border: none;
+}
+div#header-wrapper #languagesite
+{
+    margin: 0px !important;
+}
+div#header-wrapper div.languageIcon_en-US
+{
+    background: url('images/flag_en-US.png') no-repeat;
+}
+div#header-wrapper div.languageIcon_zh-TW
+{
+    background: url('images/flag_zh-TW.png') no-repeat;
+}
+div#header-wrapper div.languageIcon_zh-CN
+{
+    background: url('images/flag_zh-CN.png') no-repeat;
+}
+div#header-wrapper div.languageIcon_ko-KR
+{
+    background: url('images/flag_ko-KR.png') no-repeat;
+}
+div#header-wrapper div.welcome
+{
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div#header-wrapper div.welcome .welcome-text
+{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div#header-wrapper div.welcome .user-name-text
+{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div#header-wrapper div.licensee
+{
+    width: 160px;
+    text-align: right;
+}
+
+div#header-wrapper div.licensee select
+{
+    font-size: 11px;
+}
+
+div#header-wrapper div.user-section
+{
+    max-width: 200px;
+}
+
+div#header-wrapper div.user-section input[type=button]
+{
+    border: none;
+    display: block;
+    cursor: pointer;
+    height: 18px;
+    text-align: center;
+}
+
+div#header-wrapper input.logout-button
+{
+    width: 58px;
+    height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+div#header-wrapper input.logout-button:hover
+{
+    width: 58px;
+    height: 16px;
+}
+
+div#header-wrapper input.change-password-button
+{
+    width: 121px;
+    height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+div#header-wrapper input.change-password-button:hover
+{
+    width: 121px;
+    height: 16px;
+}
+
+/* End header */
+
+/* Menu */
+div#menu-wraper
+{
+    float: left;
+    margin: 3px 0 0 1px;
+    width: 165px;
+}
+
+div#menu-wraper #menu-container
+{
+    width: 100%;
+    padding-top: 0px;
+}
+
+div#menu-wraper div#menu-wraper .menu-footer
+{
+    float: left;
+    height: 8px;
+    width: 100%;
+    margin-left: 1px;
+}
+
+div#menu-wraper .menu-title
+{
+    font-weight: bold;
+    text-indent: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+}
+
+div#menu-wraper .sub-menu-container
+{
+    font-size: 11px;
+    line-height: 16px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 95%;
+}
+
+div#menu-wraper .sub-menu-container a
+{
+    text-decoration: none;
+}
+
+div#menu-wraper .sub-menu-container td.active-menu
+{
+}
+
+div#menu-wraper .sub-menu-container td.active-menu a, .sub-menu-container a:hover
+{
+    text-decoration: none;
+}
+
+div#menu-wraper #quick-search-box
+{
+    font-size: 10px;
+    line-height: 16px;
+    text-align: left;
+    width: 125px;
+    height: 25px;
+    padding: 0px;
+    margin: 0px;
+    position: relative; /*important*/
+    background-repeat: no-repeat; /*important*/
+}
+
+div#menu-wraper #quick-search-box input.search-text
+{
+    border: 0px; /*important*/
+    background-color: transparent; /*important*/
+    position: absolute; /*important*/
+    top: 2px;
+    left: 9px;
+    width: 125px;
+    height: 28px;
+}
+div#menu-wraper #quick-search-box .search_submit
+{
+    border: 0px; /*important*/
+    background-color: transparent; /*important*/
+    position: absolute; /*important*/
+    top: 0px;
+    left: 125px;
+    width: 37px;
+    height: 28px;
+}
+
+div#menu-wraper .text-focus
+{
+    border: 0px; /*important*/
+    background-color: transparent; /*important*/
+    position: absolute; /*important*/
+    top: 0px;
+    left: 9px;
+    width: 140px;
+    height: 28px;
+}
+
+div#menu-wraper td.parent-menu-collapse
+{
+    height: 21px;
+    width: 19px;
+}
+
+div#menu-wraper td.parent-menu-open
+{
+    height: 21px;
+    width: 19px;
+}
+
+div#menu-wraper td.sub-menu
+{
+    padding-left: 16px;
+    vertical-align: baseline;
+}
+
+div#menu-wraper td.sub-menu:hover
+{
+}
+
+div#menu-wraper .new_icon
+{
+    padding-left: 5px;
+    border: 0px;
+}
+
+/* End menu */
+
+/*==  Auto Complete CSS  ==*/
+.autocomplete-w1
+{
+    background: url(images/shadow.png) no-repeat bottom right;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 8px 0 0 6px;
+    font-size: 11px;
+    line-height: 16px;
+    width: 127px;
+}
+.autocomplete
+{
+    border: 1px solid #999;
+    background: #EAF2F2;
+    text-align: left;
+    max-height: 350px;
+    overflow: auto;
+    margin: -6px 6px 6px -6px;
+    width: 127px;
+}
+.autocomplete .selected
+{
+    background: #C7E9F5;
+}
+
+.autocomplete div
+{
+    padding: 2px 5px;
+    white-space: nowrap;
+}
+.autocomplete strong
+{
+    font-weight: normal;
+    color: #D2592D;
+}
+
+#search-button
+{
+    cursor: pointer;
+    display: block;
+    width: 24px;
+    height: 18px;
+    border: none;
+    float: right;
+    text-align: center;
+    background: url('images/icon_search.png') no-repeat top left;
+}
+
+/* Utility */
+
+.warn
+{
+    color: #FF0000;
+    font-weight: bold;
+}
+
+div.history-link
+{
+    cursor: pointer;
+    background: url(Images/undo.png) no-repeat scroll center #FFEFDE;
+    width: 22px;
+    height: 22px;
+    float: left;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.downline-link
+{
+    float: left;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.export-excel
+{
+    float: right;
+}
+.header-title-arrow
+{
+    font-size: 20px;
+}
+.yellow-background
+{
+    background-color: #F8F1A0 !important;
+}
+
+/* End utility*/
+
+/* Mobile Winloss Report */
+
+.header-main
+{
+    height: 26px;
+    font-weight: bold;
+    padding-left: 35px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    line-height: 20px;
+    width: 90%;
+    min-width: 650px;
+    font-size: 15px;
+    vertical-align: text-bottom;
+    text-align: left;
+}
+
+.box-header
+{
+    margin-bottom: 7px;
+    margin-top: 0;
+    padding: 5px;
+}
+
+/* Block UI */
+
+div.loading
+{
+    background: url(Images/loader.gif) no-repeat;
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 100px;
+    height: 100px;
+    z-index: 10001;
+}
+
+div.block-body
+{
+    background: transparent;
+    border: none;
+    background-color: #ffffff;
+    position: absolute;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    top: 0%;
+    left: 0%;
+    z-index: 10000;
+}
+
+div.blockOverlay
+{
+    background-color: inherit !important;
+}
+
+div.blockMsg
+{
+    border: none !important;
+    background-color: inherit !important;
+}
+
+.content-title
+{
+    text-transform: none;
+    font-weight: bold;
+    padding: 5px 0 5px 24px;
+    text-align: left;
+    text-transform: none;
+    font-size: 11px;
+}
+
+.data-content
+{
+    clear: both;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#data-content
+{
+    clear: both;
+}
+.total-table
+{
+    border-bottom: 0 none;
+    border-left: 0 none;
+}
+
+table.total-table td
+{
+    font-size: 11px;
+    height: 22px;
+    padding: 0 2px;
+    text-align: right;
+}
+.total-table tr.no-info td
+{
+    text-align: center !important;
+}
+table.total-table td.title-text
+{
+    text-align: center !important;
+    font-weight: bold;
+}
+table tr.report-header td
+{
+    text-align: center;
+}
+/* End of Block UI */
+
+div.note-message
+{
+    background: url("../../_GlobalResources/Images/more.gif") no-repeat scroll left center transparent;
+    color: #454545;
+    font-weight: normal;
+    height: 25px;
+    margin: 2px 0 2px 5px;
+    padding-left: 16px;
+    padding-top: 3px;
+    text-align: left;
+    float: left;
+    clear: both;
+}
+.alert
+{
+    font-size: 1.3em;
+    padding: 1em;
+    text-align: center;
+    white-space: pre-wrap;
+    width: auto;
+    min-width: 200px;
+    max-width: 300px;
+    word-wrap: normal;
+    overflow: hidden;
+}

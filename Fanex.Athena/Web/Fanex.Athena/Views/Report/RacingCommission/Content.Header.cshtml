@@ -1,0 +1,25 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
+<div id="header-content" class="header-content" style="width: @(ViewBag.ContainerWidth)px;">
+    <div class="row" style="width: @(ViewBag.NumberWidth)px;">
+        #</div>
+    <div class="row sort-heading" style="width: @(ViewBag.ExternalIdWidth)px;" data-column-name="ExternalID">
+        @ViewResources.ExternalId
+    </div>
+    <div class="row sort-heading" style="width: @(ViewBag.SystemIdWidth)px;" data-column-name="SystemID">@ViewResources.SystemId</div>
+    <div class="group-row">
+        <div class="row1" style="width:@(ViewBag.ToteWidth)px;">@ViewResources.Tote</div>
+        <div class="group-row2">
+            <div class="row2 sort-heading" style="width: @(ViewBag.CommonWidth)px;" data-column-name="ToteWin">@ViewResources.Win</div>
+            <div class="row2 sort-heading" style="width: @(ViewBag.CommonWidth)px;" data-column-name="TotePlace">@ViewResources.Place</div>
+            <div class="row2 sort-heading" style="width: @(ViewBag.CommonWidth)px;" data-column-name="ToteWinPlace">@ViewResources.WinPlace</div>
+            <div class="row2 sort-heading" style="width: @(ViewBag.CommonWidth)px;" data-column-name="ToteTotal">@ViewResources.Total</div>
+        </div>
+    </div>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div class="row sort-heading" style="width: @(ViewBag.CustomerCommWidth)px;" data-column-name="CustomerCommission">
+            @ViewResources.CustomerCommission
+        </div>
+    }
+</div>

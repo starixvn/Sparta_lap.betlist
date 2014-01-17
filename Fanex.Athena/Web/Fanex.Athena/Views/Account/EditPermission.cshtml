@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+
+@using Fanex.Athena.Models.DTO.Users;
+@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Models.DTO.Common;
+@model Fanex.Athena.Models.MetaModel.Account.EditPermissionMetaModel
+
+@{
+    var masterFunctionList = ViewBag.AllMasterFunctions as IList<Function>;
+    var functionMapList = ViewBag.AllFunctionMap as IDictionary<int, IList<Function>>;
+    var userFunctionList = ViewBag.AllUserFunctions as IList<Function>;
+    var currencyList = ViewBag.CurrencyList as IDictionary<int, string>;
+    var currencyUserList = ViewBag.CurrencyUserList as IDictionary<int, string>;
+    
+    
+}
+
+<div id="function-tab">
+    @using (Html.BeginForm("EditPermission", "Account", FormMethod.Post, new { id = "EditPermissionForm" }))
+    {
+        <div class="permissionBox">
+            @if (masterFunctionList != null && functionMapList != null && userFunctionList != null)
+            {
+                string check;
+                var expUrl = Url.ContentLink("/Resources/Images/expand.png");
+                var nullUrl = Url.ContentLink("/Resources/Images/null.png");
+                string url;
+                foreach (var masterFunction in masterFunctionList)
+                {
+                    check = string.Empty;
+                    url = expUrl;
+            
+                    if (masterFunction.FunctionId == 6)
+                    {
+                        url = nullUrl;
+                    }
+            
+                    if (userFunctionList.Any(f => f.FunctionId == masterFunction.FunctionId))
+                    {
+                        check = "checked=checked";
+                    }
+
+                    <!-- write this master function -->
+                    <div class="masterItem">
+                        <img class="icon" id="@string.Format("img{0}", masterFunction.FunctionId)" src="@url")"
+                                    onclick="EditPermission.collapseExpand(this)" data-status="collapse" />
+                        <input type="checkbox" id="@masterFunction.FunctionId" onclick="EditPermission.checkedChange(this)" class="parentCheckBox" @check>
+                        <label for="@masterFunction.FunctionId">@masterFunction.Name</label>
+                    </div>
+                
+                    <!-- write its sub function -->
+                    var foundMap = functionMapList
+                        .Where(f => f.Key == masterFunction.FunctionId)
+                        .SingleOrDefault();
+
+                    if (foundMap.Key > 0)
+                    {
+                        var subFunctionList = foundMap.Value;
+                        <div id="@string.Format("group_img{0}", masterFunction.FunctionId)" class="groupStyle">
+                        @foreach (var subFunction in subFunctionList)
+                        {
+                            check = string.Empty;
+                            if (userFunctionList.Any(f => f.FunctionId == subFunction.FunctionId))
+                            {
+                                check = "checked=checked";
+                            }
+                    
+                            <div class="funcItem">
+                                <input @check type="checkbox" id="@subFunction.FunctionId"
+                                    onclick="EditPermission.childCheckedChange(@masterFunction.FunctionId)" />
+                                <label for="@subFunction.FunctionId">@subFunction.Name</label>
+                            </div>
+                        }
+                        </div>
+                    }
+            
+                    <br />
+                }
+            }
+
+            @Html.HiddenFor(m => m.UserId)
+        </div>
+    }
+    </div>

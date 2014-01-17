@@ -1,0 +1,205 @@
+﻿/* Structure:
+content-filter
+report-content
+    header-content
+    data-content
+        content-row
+            row
+    common-total-content
+        content-row
+            row
+    total-content
+        content-row
+            row
+*/
+
+.report-content
+{
+    border-top: solid 1px #A3D1E1;
+    border-right: solid 1px #A3D1E1;
+    border-bottom: solid 1px #A3D1E1;
+    background: #fff;
+    overflow: hidden;
+}
+
+.header-content, .data-content, .total-content, .common-total-content
+{
+    clear: both;
+    float: left;
+}
+
+.report-content .row:first-child
+{
+    border-left: medium none;
+}
+
+.report-content .row > *
+{
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/*header-content*/
+.header-content
+{
+    border: solid 1px #A3D1E1;
+    border-right: solid 1px #A3D1E1;
+    border-bottom: solid 1px #A3D1E1;
+    overflow: hidden;
+}
+
+.header-content .group-row
+{
+    float: left;
+    border-left: 1px solid #FFFFFF;
+}
+.header-content .group-row2
+{
+    clear: both;
+}
+
+.header-content .row, .header-content .row1, .header-content .row2
+{
+    background-color: #C7E9F5;
+    background-image: url(images/tab_topbg.gif);
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    color: #024584;
+    float: left;
+    font-weight: 400;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    white-space: 0;
+}
+
+.header-content .row
+{
+    height: 48px;
+    line-height: 48px;
+    border-left: 1px solid #FFFFFF;
+}
+
+.header-content .row1
+{
+    height: 25px;
+    line-height: 24px;
+    border-bottom: 1px solid #FFFFFF;
+    border-left: none medium;
+}
+
+.header-content .row2
+{
+    line-height: 21px;
+    height: 22px;
+    border-left: 1px solid #FFFFFF;
+}
+.header-content .row2:first-child
+{
+    border-left: none medium;
+}
+
+.grid-header-two-line
+{
+    line-height: 14px;
+    padding-top: 10px;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/*header-content*/
+
+/* data-content*/
+.data-content
+{
+    overflow: auto;
+    border-left: 1px solid #A3D1E1;
+    border-top: 1px solid #A3D1E1;
+}
+
+.content-row
+{
+    clear: both;
+    border-bottom: solid 1px #A3D1E1;
+    border-right: solid 1px #A3D1E1;
+    margin: 0;
+    overflow: hidden;
+}
+.content-row > *
+{
+    float: left;
+}
+.content-row:hover
+{
+    background-color: #f8ff8d;
+}
+
+.data-content .row, .total-content .row, .common-total-content .row
+{
+    float: left;
+    text-align: right;
+    vertical-align: middle;
+    border-left: solid 1px #A3D1E1;
+    min-height: 26px;
+    font-size: 11px;
+    line-height: 25px;
+    overflow: hidden;
+}
+
+.data-content .row
+{
+    color: #454545;
+}
+.group-column
+{
+}
+.ungroup-column
+{
+    border-left: 1px solid #A3D1E1;
+}
+
+/*by currency*/
+
+.total-content, .common-total-content
+{
+    border-top: 2px solid #ED5F13;
+    border-bottom: none medium;
+    border-right: solid 1px #A3D1E1;
+    border-left: solid 1px #A3D1E1;
+    font-weight: bold;
+    color: #454545;
+    margin: 0;
+    display: block;
+    overflow: hidden;
+}
+.total-content > *, .common-total-content > *
+{
+    float: left;
+}
+
+.total-content
+{
+    background-color: #B2DFEF;
+}
+
+.common-total-content
+{
+}
+
+/* grid.div-total*/
+
+div.grid-noinfo, div.grid-noinfo div
+{
+    text-align: center !important;
+    float: none !important;
+    height: 22px;
+    line-height: 21px;
+}
+
+/*grid.div*/
+
+/* Hack */
+.no-bottom-border
+{
+    border-bottom: medium none;
+}

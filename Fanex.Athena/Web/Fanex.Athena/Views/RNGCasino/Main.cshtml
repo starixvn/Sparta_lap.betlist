@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.CASINOHANDHISTORY;
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
+}
+@model Fanex.Athena.Models.ViewModel.Casino.RNGCasinoResultViewModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/RNGCasino/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Casino/RNGCasinoResult.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Casino/RNGCasinoResult.option.js")" type="text/javascript"></script>
+
+}
+@section ContentTitle
+    {
+    @ViewResources.CASINOHANDHISTORY
+}
+@section ContentFilter
+{
+}
+@{    
+    Html.RenderPartial("~/Views/RNGCasino/Content.cshtml");
+}

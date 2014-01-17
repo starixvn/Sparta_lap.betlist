@@ -1,0 +1,160 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="WinLossByBetTypeDataAccess.cs" company="Nexcel Solution">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
+// </history>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.DataAccess.Implement.Report
+{
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using Fanex.Athena.DataAccess.Exception;
+    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Common.Extensions;
+    using Fanex.Data;
+    using Fanex.Logging;
+
+    /// <summary>
+    ///     Win Loss By Bet Type Data Access.
+    /// </summary>
+    public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
+    {
+        public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
+            : base(balanceUp)
+        {
+        }
+
+        #region Win Loss By Bet Type Data
+
+        /// <summary>
+        /// Get data list.
+        /// </summary>
+        /// <param name="metaModel">Meta value.</param>
+        /// <returns>The result value.</returns>
+        public IList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByBettype";
+            var uspParams = new
+                {
+                    metaModel.LicenseeId,
+                    metaModel.UserId,
+                    metaModel.LicenseeType,
+                    metaModel.CurrencyId,
+                    metaModel.FromDate,
+                    metaModel.ToDate,
+                    BalanceUp.MoveBetsDay,
+                    BalanceUp.BalanceUpDay
+                };
+
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    using (var reader = db.ExecuteReader(uspParams))
+                    {
+                        return this.SetToList(reader, metaModel.BaseCurrency);
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
+        #endregion Win Loss By Bet Type Data
+
+        #region Get Dataset For Excel
+
+        /// <summary>
+        /// Get data set for excel.
+        /// </summary>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <returns>The result value.</returns>
+        public DataSet GetDataSetForExcel(WinLossByBetTypeMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByBettype";
+            var uspParams = new
+                {
+                    metaModel.LicenseeId,
+                    metaModel.UserId,
+                    metaModel.LicenseeType,
+                    metaModel.CurrencyId,
+                    metaModel.FromDate,
+                    metaModel.ToDate,
+                    BalanceUp.MoveBetsDay,
+                    BalanceUp.BalanceUpDay
+                };
+
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    return db.ExecuteDataSet(uspParams);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
+        #endregion Get Dataset For Excel
+
+        #region Utility
+
+        /// <summary>
+        /// Set to list.
+        /// </summary>
+        /// <param name="reader">Reader value.</param>
+        /// <param name="baseCurrency">Base currency value.</param>
+        /// <returns>The result value.</returns>
+        public IList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
+        {
+            var dataList = new List<WinLossByBetType>();
+            var turnoverColumn = "Turnover" + baseCurrency;
+            var winlossColumn = "MemberWinLost" + baseCurrency;
+            var custCommColumn = "PlayerComm" + baseCurrency;
+            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
+            var commBaColumn = "CommBA" + baseCurrency;
+            var commRbColumn = "CommRB" + baseCurrency;
+            var racebookRevenue = "WinLossRB" + baseCurrency;
+            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
+            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
+
+            while (reader.Read())
+            {
+                var winLossByBetType = new WinLossByBetType();
+
+                winLossByBetType.LiveIndicator = reader.ToBool("liveindicator");
+                winLossByBetType.BetType = reader.ToInt("bettype");
+                winLossByBetType.Turnover = reader.ToDecimal(turnoverColumn);
+                winLossByBetType.CustomerWinLoss = reader.ToDecimal(winlossColumn);
+                winLossByBetType.CustomerComm = reader.ToDecimal(custCommColumn);
+                winLossByBetType.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
+                winLossByBetType.BACommission = reader.ToDecimal(commBaColumn);
+                winLossByBetType.RbComm = reader.ToDecimal(commRbColumn);
+                winLossByBetType.RacingRevenue = reader.ToDecimal(racebookRevenue);
+                winLossByBetType.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
+                winLossByBetType.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
+
+                dataList.Add(winLossByBetType);
+            }
+
+            return dataList;
+        }
+
+        #endregion Utility
+    }
+}

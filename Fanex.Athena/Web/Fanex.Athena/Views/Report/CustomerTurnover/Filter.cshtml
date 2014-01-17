@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.CustomerTurnoverViewModel
+@{var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);}
+<div class="grid_26 content-filter new-line">
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "from-date", "to-date", 3, 4, 2, 7)
+    <div class="grid_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "CustomerTurnover" });}
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.ReportBy</label>
+    </div>
+    <div class="grid_4 filter-input option-list">
+        @Html.RadioButton("ReportBy", "1", Model.Param.ReportBy == 1, new { id = "RadioDaily" })
+        <label for="RadioDaily">@ViewResources.Daily</label>
+        @Html.RadioButton("ReportBy", "2", Model.Param.ReportBy == 2, new { id = "RadioMonthly" })
+        <label for="RadioMonthly">@ViewResources.Monthly</label>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.Username</label>
+    </div>
+    <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+        @Html.TextBox("Username", Model.Param.Username, new { })
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Product</label>
+    </div>
+    <div class="grid_7 filter-input">
+        <select id="sports" name="sports" class="multiselect" multiple="multiple"
+                        size="5" title="@ViewResources.Product">
+        </select>
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="sport-null" class="hide" />
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.BetType</label>
+    </div>
+    <div class="grid_7 filter-input">
+        <select id="bettypes" name="bettypes" class="multiselect" multiple="multiple"
+                        size="5" title="@ViewResources.BetType">
+        </select>
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="bettype-null" class="hide" />
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>@ViewResources.MinimumOdds</label>
+        <span class="decimal-odds">(@ViewResources.DecimalOdds)</span>
+    </div>
+    <div class="grid_4 filter-input" style="margin-right: 0px; width: 155px;">
+        @Html.TextBox("Odds", Model.Param.Odds, new { })
+    </div>
+    <div class="grid_2 filter-label">@ViewResources.Currency</div>
+    <div class="grid_7 filter-input">
+        <select id="CurrencyId">
+            @foreach (var currency in Model.CurrencyList)
+            {
+                <option value="@currency.Value">@currency.Key</option>
+            }
+        </select>
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.TicketFilter</label>
+    </div>
+    <div id="TickerFilter" class="grid_7 filter-input option-list">
+        <input type="checkbox" id="AllTicket" />
+        <label for="AllTicket">@ViewResources.All</label>
+        @Html.CheckBox("ShowWin", Model.Param.ShowWin)
+        <label for="ShowWin">@ViewResources.Win</label>
+        @Html.CheckBox("ShowLoss", Model.Param.ShowLoss)
+        <label for="ShowLoss">@ViewResources.Loss</label>
+        @Html.CheckBox("ShowDraw", Model.Param.ShowDraw)
+        <label for="ShowDraw">@ViewResources.Draw</label>
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
+    </div>
+    <div class="grid_3 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <div>
+        @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
+    </div>
+</div>
+@using (Html.BeginForm("CustomerTurnoverExcel", "Report",
+          FormMethod.Post, new { @id = "CustomerTurnoverForm", accept_charset = "utf-8" }))
+{
+    <input type="hidden" name="excelparam" id="excelparam" />
+}

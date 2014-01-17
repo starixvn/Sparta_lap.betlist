@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_NoteLayout.cshtml";
+}
+@using Fanex.Athena.Extension.Utility;
+@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
+@section content{
+    <li>
+        @string.Format(ViewResources.LiveReportNote3,RazorHelper.TitleDateTime( Model.BalanceUpDate,null))</li>
+    @if (Model.IsHistory)
+    {
+        <li>@string.Format(Fanex.Athena.Models.ViewModel.ViewResources.DateRangeNote, new DateTime(2010, 1, 1))</li>
+    }
+    <li>@ViewResources.OANDANote</li>
+}

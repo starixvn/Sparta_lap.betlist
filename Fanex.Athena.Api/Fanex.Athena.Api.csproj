@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C22899B-6CE0-4187-9BCF-7F503213F207}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.Api</RootNamespace>
+    <AssemblyName>Fanex.Athena.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DNAide, Version=2.1.404.20, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\3rds\DNAide.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core">
+      <HintPath>..\DLLs\Fanex\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper">
+      <HintPath>..\DLLs\Fanex\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\DLLs\Fanex\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RazorEngine-release-3.2\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseApiController.cs" />
+    <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
+    <Compile Include="BetList\BetListController.MixParlay.cs" />
+    <Compile Include="BetList\BetListController.MobileWl.cs" />
+    <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
+    <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
+    <Compile Include="CustomerLog\LogController.cs" />
+    <Compile Include="CustomerLog\LogController.GroupCommission.cs" />
+    <Compile Include="CustomerLog\LogController.CustomerSetting.cs" />
+    <Compile Include="CustomerLog\LogController.LoginLog.cs" />
+    <Compile Include="BetList\BetListController.cs" />
+    <Compile Include="BetList\BetListController.CancelledBetsBetList.cs" />
+    <Compile Include="BetList\BetListController.Outstanding.DailyStatement.cs" />
+    <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
+    <Compile Include="BetList\BetListController.LicenseeWl.cs" />
+    <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
+    <Compile Include="BetList\BetListController.MatchWl.cs" />
+    <Compile Include="BetList\BetListController.CustomerWl.cs" />
+    <Compile Include="BetList\BetListController.LiveReport.cs" />
+    <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
+    <Compile Include="BetList\BetListController.DailyBetList.cs" />
+    <Compile Include="BetList\BetListController.PendingFunds.cs" />
+    <Compile Include="BetList\BetListController.LastBetMonitoring.cs" />
+    <Compile Include="BetList\LrfBetListHtmlBuilder.cs" />
+    <Compile Include="BetList\BetListController.Outstanding.CompletedBetList.cs" />
+    <Compile Include="BetList\BetListController.Outstanding.RunningBetList.cs" />
+    <Compile Include="BetList\BetListController.RunningBetList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ReportController.WinLossByLeague.cs" />
+    <Compile Include="Report\ReportController.cs" />
+    <Compile Include="Report\ReportController.LicenseeWl.cs" />
+    <Compile Include="Report\ReportController.MobileWl.cs" />
+    <Compile Include="Report\ReportController.WinLostByProduct.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
+      <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>
+      <Name>Fanex.Athena.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
+      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
+      <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
+      <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
+      <Name>Fanex.Athena.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj">
+      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Name>Fanex.Athena.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Web\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
+      <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
+      <Name>Fanex.Athena.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

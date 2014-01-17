@@ -1,0 +1,75 @@
+﻿@model Fanex.Athena.Models.ViewModel.TotalBets.HalfTimeFullTimeViewModel
+@{
+    var index = 1;
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var match in Model.MainData)
+            {
+                <tr>
+                    <td style="width: 3%" class="order-number">
+                        @(index++)
+                    </td>
+                    <!--Home-->
+                    <td style="width: 20%" class="match-name">
+                        <a data-match-id="@match.MatchId" class="team" href="javascript:;">@match.HomeTeamName</a>
+                    </td>
+                    <!--/Home-->
+                    <!--Away-->
+                    <td style="width: 20%" class="match-name">
+                        @match.AwayTeamName
+                    </td>
+                    <!--/Away-->
+                    <!--HH-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.HomeHome, true)
+                    </td>
+                    <!--/HH-->
+                    <!--HD-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.HomeDraw, true)
+                    </td>
+                    <!--/HD-->
+                    <!--HA-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.HomeAway, true)
+                    </td>
+                    <!--/HA-->
+                    <!--DH-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.DrawHome, true)
+                    </td>
+                    <!--/DH-->
+                    <!--DD-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.DrawDraw, true)
+                    </td>
+                    <!--/DD-->
+                    <!--DA-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.DrawAway, true)
+                    </td>
+                    <!--/DA-->
+                    <!--AH-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.AwayHome, true)
+                    </td>
+                    <!--/AH-->
+                    <!--AD-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.AwayDraw, true)
+                    </td>
+                    <!--/AD-->
+                    <!--AA-->
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.AwayAway, true)
+                    </td>
+                    <!--/AA-->
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>

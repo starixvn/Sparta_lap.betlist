@@ -1,0 +1,168 @@
+﻿@using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu
+@model Fanex.Athena.Models.ViewModel.Forecast.NewForecastHdpOuViewModel
+@{
+    var totalList = (IList<NewForecastHdpOuTotalItem>)ViewBag.TotalList;
+    var detailHdpList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailHdpList;
+    var detailOuList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailOuList;
+    var isExpand = (bool)ViewBag.IsExpand;
+    var blockId = (int)ViewBag.BlockId;
+    var isFullTime = (bool)ViewBag.IsFullTime;
+    var statusElement = isFullTime ? "IsShowFt" : "IsShowFh";
+
+    var hdpBettype = isFullTime ? 1 : 7;
+    var ouBettype = isFullTime ? 3 : 8;
+    var betChoiceAll = isFullTime ? "Full" : "Half";
+    var title = ViewResources.View + " " + ViewResources.BetList;
+    var drillParam = new
+    {
+        MatchId = Model.Param.MatchId,
+        LeagueId = Model.Param.LeagueId,
+        CurrencyId = Model.Param.CurrencyId,
+        CurrencyName = Model.Param.CurrencyName,
+        BaseCurrency = Model.Param.BaseCurrency,
+    };
+}
+<div class="group-area">
+    <div class="group-title">
+        <div class="hand @(isExpand ? "expand-icon" : "collapse-icon")" data-block-id="@ViewBag.BlockId" onclick="NewForecastHdpOu.collapseExpand(this, '@statusElement');">
+        </div>
+        @ViewBag.HeaderText
+    </div>
+    <div class="content-area @(isExpand ? "expand" : "collapse")" id="content-area-@ViewBag.BlockId">
+        <table class="report-table" style="width: 800px; margin-left: 0%">
+            <tr class="total-info-header">
+                <td>
+                </td>
+                <td colspan="5" class="header-field">@ViewResources.Total @ViewResources.Turnover
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20%;" class="header-field">@ViewResources.TicketNo
+                </td>
+                <td style="width: 15%;" class="header-field">@ViewResources.Home
+                </td>
+                <td style="width: 15%;" class="header-field">@ViewResources.Away
+                </td>
+                <td style="width: 15%;" class="header-field">@ViewResources.Over
+                </td>
+                <td style="width: 15%;" class="header-field">@ViewResources.Under
+                </td>
+                <td style="width: 20%;" class="header-field">@ViewResources.Total
+                </td>
+            </tr>
+            @foreach (var item in totalList)
+            {               
+                <tr>
+                    <td class="header-field">@item.TicketNo
+                    </td>
+                    <td>
+                        <span title="@title" class="bet-list-link" onclick="NewForecastHdpOu.openBetlist('Home',@drillParam.ToJson(),@hdpBettype)">
+                            @item.TotalTurnoverHome.ToStringExt()
+                        </span>
+                    </td>
+                    <td>
+                        <span title="@title" class="bet-list-link" onclick="NewForecastHdpOu.openBetlist('Away',@drillParam.ToJson(),@hdpBettype)">
+                            @item.TotalTurnoverAway.ToStringExt()
+                        </span>
+                    </td>
+                    <td>
+                        <span title="@title" class="bet-list-link" onclick="NewForecastHdpOu.openBetlist('Over',@drillParam.ToJson(),@ouBettype)">
+                            @item.TotalTurnoverOver.ToStringExt()
+                        </span>
+                    </td>
+                    <td>
+                        <span title="@title" class="bet-list-link" onclick="NewForecastHdpOu.openBetlist('Under',@drillParam.ToJson(),@ouBettype)">
+                            @item.TotalTurnoverUnder.ToStringExt()
+                        </span>
+                    </td>
+                    <td>
+                        <span title="@title" class="bet-list-link" onclick="NewForecastHdpOu.openBetlist('@betChoiceAll',@drillParam.ToJson(),0)">
+                            @((item.TotalTurnoverHome + item.TotalTurnoverAway + item.TotalTurnoverOver + item.TotalTurnoverUnder).ToStringExt())
+                        </span>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 50%; vertical-align: top;">
+                    <table class="detail-table">
+                        <tr class="detail-table-header">
+                            <td colspan="4" class="text-field bold">@ViewResources.Handicap
+                            </td>
+                        </tr>
+                        @if (detailHdpList.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4" style="text-align: center;">@ViewResources.NoInfo
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var detail in detailHdpList)
+                        {
+                            <tr>
+                                <td style="width: 35%;" class="text-field">
+                                    <span class="home">
+                                        @Model.Param.HomeTeamName</span> 
+                                    <span class="choice bet-list-link"  onclick="NewForecastHdpOu.openBetlist('Home',@drillParam.ToJson(),@hdpBettype, @detail.Hdp)">
+                                        @(detail.Hdp > 0 ? "+" : "")@detail.Hdp.ToStringExt()
+                                    </span>
+                                </td>
+                                <td style="width: 15%;">
+                                    @FormatHelper.NegativeFormat(detail.HomeWinLoss)
+                                </td>
+                                <td style="width: 35%;" class="text-field">
+                                    <span class="away">
+                                        @Model.Param.AwayTeamName</span> 
+                                    <span class="choice bet-list-link" onclick="NewForecastHdpOu.openBetlist('Away',@drillParam.ToJson(),@hdpBettype, @detail.Hdp)">
+                                        @(detail.Hdp < 0 ? "+" : "")@((-detail.Hdp).ToStringExt())
+                                    </span>
+                                </td>
+                                <td style="width: 15%;">
+                                    @FormatHelper.NegativeFormat(detail.AwayWinLoss)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+                <td style="width: 1px;">
+                </td>
+                <td style="vertical-align: top;">
+                    <table class="detail-table">
+                        <tr class="detail-table-header">
+                            <td colspan="4" class="text-field bold">@ViewResources.OverUnder
+                            </td>
+                        </tr>
+                        @if (detailOuList.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4" style="text-align: center;">@ViewResources.NoInfo
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var detail in detailOuList)
+                        {
+                            <tr>
+                                <td style="width: 35%;" class="text-field">
+                                    <span class="over">@ViewResources.Over </span> 
+                                    <span class="choice">@detail.Hdp.ToStringExt()</span>
+                                </td>
+                                <td style="width: 15%;">
+                                    @FormatHelper.NegativeFormat(detail.HomeWinLoss)
+                                </td>
+                                <td style="width: 35%;" class="text-field">
+                                    <span class="under">@ViewResources.Under </span>
+                                    <span class="choice">@detail.Hdp.ToStringExt()</span>
+                                </td>
+                                <td style="width: 15%;">
+                                    @FormatHelper.NegativeFormat(detail.AwayWinLoss)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

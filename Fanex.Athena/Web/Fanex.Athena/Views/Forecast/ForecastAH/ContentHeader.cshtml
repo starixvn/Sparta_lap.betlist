@@ -1,0 +1,19 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.DTO.Forecast.ForecastAH.ForecastAh
+<table class="report-table">
+    <thead>
+        <tr class="report-header">
+            <td style="width: 80%">@ViewResources.Team
+            </td>
+            <td style="width: 20%">@ViewResources.Score
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td style="width: 80%" class="middle-text">@Model.HomeTeamName -vs- @Model.AwayTeamName</td>
+                <td style="width: 20%" class="middle-text">@Model.LiveHomeScore : @Model.LiveAwayScore</td>
+            </tr>
+        </tbody>
+</table>
+<div style="height:0px;"></div>

@@ -1,0 +1,73 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportMatchListViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LiveReport;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/livereportmatchlist.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/livereport.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/livereportmatchlist.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+ {
+    @{var param = Model.Param;}
+    @CacheRef.GetSportName(param.SportId) - 
+    @(ViewResources.Viewin + " " + (param.IsConvert ? param.BaseCurrency.ToUpper() : param.CurrencyName.ToUpper()))
+    
+}
+@section ContentFilter
+{
+}
+@{
+    ViewBag.CustomerWLLargeWidth = 80;
+    ViewBag.CustomerWLMergeWidth = 222;
+    ViewBag.CustomerWLWidth = 80;
+    ViewBag.CustomerCommWidth = 60;
+    ViewBag.CustomerWLTotalWidth = 80;
+    ViewBag.MatchWidth = 400;
+    ViewBag.TurnoverWidth = 90;
+    ViewBag.BetCountWidth = 80;
+    ViewBag.LicenseeWLWidth = 90;
+    ViewBag.CommWidth = 80;
+    ViewBag.AmountDueWidth = 80;
+
+    ViewBag.CommVisible = Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa;
+    ViewBag.ColumnCount = 6;
+    ViewBag.ColumnCount += ViewBag.CommVisible ? 1 : 0;
+
+    ViewBag.ContainerWidth = ViewBag.MatchWidth
+        + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth)
+        + ViewBag.TurnoverWidth + ViewBag.BetCountWidth + ViewBag.LicenseeWLWidth
+        + (ViewBag.CommVisible ? ViewBag.CommWidth : 0)
+        + ViewBag.AmountDueWidth;
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+}
+<div class="container_26">
+    <div class="grid_26" style="width:@(ViewBag.WrapperWidth)px">
+        <div class="bar-menu">
+            <div onclick="history.go(-1)" class="history-link">
+            </div>
+        </div>
+        <div class="report-content" style="width:@(ViewBag.WrapperWidth)px">
+            @{Html.RenderPartial("~/Views/Report/LiveReport/MatchList/Content.Header.cshtml");}
+            <!--Grid.Content-->
+            @{Html.RenderPartial("~/Views/Report/LiveReport/MatchList/Content.Data.cshtml");}
+            <!--Grid.Content-->
+            <input type="hidden" id="ProductCode" value="@Model.Param.ProductCode" />
+            <input type="hidden" id="SportId" value="@Model.Param.SportId" />
+            <input type="hidden" id="FromDate" data-original="@Model.Param.FromDate" />
+            <input type="hidden" id="ToDate" data-original="@Model.Param.ToDate" />
+            <input type="hidden" id="CurrencyId" data-original="@Model.Param.CurrencyId" />
+            <input type="hidden" id="CurrencyName" data-original="@Model.CurrencyName" />
+            <input type="hidden" id="BaseCurrency" data-original="@Model.Param.BaseCurrency" />
+        </div>
+    </div>
+</div>

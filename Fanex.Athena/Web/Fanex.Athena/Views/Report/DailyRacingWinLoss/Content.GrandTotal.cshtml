@@ -1,0 +1,107 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+@{
+    var grandTotalData = Model.DailyRacingWinLossData.GrandTotalData;
+}
+<div class="total-content" style="width: @ViewBag.ContainerWidth@("px")">
+    <div class="content-row " style="width: @ViewBag.ContainerWidth@("px")">
+        <div class="row" style="width: @(ViewBag.MeetingCurrencyWidth + ViewBag.CommonWidth + 1)@("px")">
+            <div class="title-text">
+            @ViewResources.GrandTotalIn @ViewResources.RM
+            </div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinTOMYR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.PlaceTOMYR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WPTOMYR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.TotalTOMYR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.DividendWonMYR.ToStringExt()</div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@grandTotalData.CustomerCommissionMYR.ToStringExt()</div>
+            </div>
+        }
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.CommIncomeMYR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.AmountDueToRacingMYR.ToStringExt()</div>
+        </div>
+    </div>
+    <div class="content-row" style="width: @ViewBag.ContainerWidth@("px")">
+        <div class="row" style="width: @(ViewBag.MeetingCurrencyWidth + ViewBag.CommonWidth + 1)@("px")">
+            <div class="title-text">@ViewResources.GrandTotalIn @ViewResources.EUR</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinTOEUR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.PlaceTOEUR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WPTOEUR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.TotalTOEUR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.DividendWonEUR.ToStringExt()</div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@grandTotalData.CustomerCommissionEUR.ToStringExt()</div>
+            </div>
+        }
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.CommIncomeEUR.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.AmountDueToRacingEUR.ToStringExt()</div>
+        </div>
+    </div>
+    <div class="content-row" style="width: @ViewBag.ContainerWidth@("px")">
+        <div class="row" style="width: @(ViewBag.MeetingCurrencyWidth + ViewBag.CommonWidth + 1)@("px")">
+            <div class="title-text">@ViewResources.GrandTotalIn @ViewResources.USD</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinTOUSD.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.PlaceTOUSD.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WPTOUSD.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.TotalTOUSD.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.DividendWonUSD.ToStringExt()</div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                <div>@grandTotalData.CustomerCommissionUSD.ToStringExt()</div>
+            </div>
+        }
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.CommIncomeUSD.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.AmountDueToRacingUSD.ToStringExt()</div>
+        </div>
+    </div>
+</div>
+</div> 

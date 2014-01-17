@@ -1,0 +1,91 @@
+﻿@{
+    string titleFormat = @"LRF {0} {1} - {2}";
+    ViewBag.Title = string.Format(titleFormat, HttpUtility.HtmlDecode("&bull;"), 
+        ViewResources.AccountManagement, ViewResources.ManageAccount);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Fanex.Athena.Models.DTO.Users;
+@using Fanex.Athena.Models.ViewModel;
+@model Fanex.Athena.Models.MetaModel.Account.EditAccountMetaModel
+
+@section css {
+    <link href="@Url.ContentLink("/Content/Global/Global.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Account/AccountManagement.css")" rel="stylesheet" type="text/css" />
+}
+
+@section js {
+    <script src="@Url.ContentLink("/Scripts/Account/EditAccount.js")" type="text/javascript"></script>
+}
+
+@if(Model == null)
+{
+    <div class="message err" >@ViewResources.InvalidRequestOrNotAuthorizedMsg</div>
+}
+else
+{
+    using (Html.BeginForm("EditAccount", "Account", FormMethod.Post, new {id="EditAccountForm"}))
+    {
+        <fieldset>
+            <legend><b>@ViewResources.UserInformation</b></legend>
+            <table cellspacing="0" cellpadding="4" border="0">
+                <tbody>
+                    <tr>
+                        <td class="ralign">
+                            @Html.LabelFor(m => m.UserName):
+                        </td>
+                        <td>
+                            <b>@Model.UserName</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ralign">
+                            @Html.LabelFor(m => m.FirstName):
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.FirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ralign">
+                            @Html.LabelFor(m => m.LastName):
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.LastName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ralign">
+                            @Html.LabelFor(m => m.Status):
+                        </td>
+                        <td>
+                            
+                            <input type="radio" @(Model.Status.Equals("Open") ?  "checked='checked'" : string.Empty) value="Open" name="Status" id="rdoOpen" /><label for="rdoOpen">@ViewResources.Open</label>
+                            <input type="radio" @(Model.Status.Equals("Close") ?  "checked='checked'" : string.Empty) value="Close" name="Status" id="rdoClosed"/><label for="rdoClosed">@ViewResources.Closed</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.HiddenFor(m => m.UserId)                        
+                            @Html.HiddenFor(m => m.UserName)
+                            @Html.Hidden("OldFirstName", Model.FirstName)
+                            @Html.Hidden("OldLastName", Model.LastName)
+                            @Html.Hidden("OldStatus", Model.Status)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <br />
+    
+        <p>
+            <input type="button" class="button" id="btnSave" value="@ViewResources.Save" name="btnSave" />
+            &nbsp;&nbsp;
+            <input type="reset" value="@ViewResources.Reset" id="btnReset" oldFirstName="@Model.FirstName" oldLastName="@Model.LastName" class="button" />
+        </p>
+    
+        <div id="resultMessage" class="message" style="display: none;"></div>
+    }
+}

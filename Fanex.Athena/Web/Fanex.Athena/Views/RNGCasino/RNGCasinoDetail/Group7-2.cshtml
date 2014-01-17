@@ -1,0 +1,94 @@
+﻿@{
+    // Game type:  4-Line Jacks or Better; 25-Line Jacks or Better; 50-Line Jacks or Better; //
+    Layout = null; 
+}
+<link href="@Url.ContentLink("/Content/RNGCasino/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
+@model Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail.CasinoHandHistoryDetailViewModel
+@{
+    var headerItem = Model.CasinoDetailHeaderList.FirstOrDefault();
+}
+<table style="width: 100%;" class="casino-detail-table" cellpading="0" cellspacing="0">
+    <tr class="detail-header-row">
+        <td class="game-type-text" colspan="2">@Model.Param.GameTypeName - @headerItem.BetTime
+        </td>
+    </tr>
+    <tr class="player-total-row">
+        <td colspan="2">
+            @ViewResources.Player: @headerItem.UserName - @ViewResources.Viewin @Model.Param.CurrencyName
+        </td>
+    </tr>
+    <tr>
+        <td>@ViewResources.PlayerHistoryNo
+        </td>
+        <td class="align-left">@Model.Param.PlayerHistoryNo
+        </td>
+    </tr>
+    @if (Model.CasinoDetailHeaderList.Count() == 1)
+    {
+        <tr>
+            <td colspan="2">
+                @Html.Raw(headerItem.Result.Replace("/Form", Url.Content("~/") + "Form"))
+            </td>            
+        </tr>
+        <tr class="player-total-row">
+            <td>@ViewResources.RoundType
+            </td>
+            <td class="align-right">@headerItem.RoundTypeResult
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="2">
+                <table style="width: 100%;" class="casino-detail-table" cellpading="0" cellspacing="0">
+                    <tr class="detail-header-row">
+                        <td>@ViewResources.HandNo
+                        </td>
+                        <td>@ViewResources.InitialHand
+                        </td>
+                        <td colspan="2">@ViewResources.FinalHand
+                        </td>
+                        <td>@ViewResources.Win
+                        </td>
+                    </tr>
+                    @for (int i = 0; i < Model.CasinoDetailHeaderList.Count; i++)
+                    {
+                        var item = Model.CasinoDetailHeaderList[i];
+                        <tr>
+                            <td>@item.HandNoResult 
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td rowspan="@Model.CasinoDetailHeaderList.Count">
+                                    @Html.Raw(item.Result.Replace("/Form", Url.Content("~/") + "Form"))
+                                </td>
+                            }
+                            <td>
+                                @Html.Raw(item.FinalHandResult.Replace("/Form", Url.Content("~/") + "Form"))
+                            </td>
+                            <td>
+                                @item.RankResult 
+                            </td>
+                            <td>
+                                @item.WinResultBaseCurrencyValue.ToStringExt()
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
+    <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Bet
+        </td>
+        <td class="align-right">@Model.CasinoDetailList.Sum(p => p.Bet).ToStringExt()
+        </td>
+    </tr>
+    <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Win/@ViewResources.Loss
+        </td>
+        <td class="align-right">@Model.CasinoDetailList.Sum(p => p.WinLoss).ToStringExt()
+        </td>
+    </tr>
+</table>

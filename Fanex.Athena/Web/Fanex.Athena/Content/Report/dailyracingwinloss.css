@@ -1,0 +1,76 @@
+﻿/*-Filter-*/
+.currencyid
+{
+    width: 100px;
+}
+/* Report content */
+.common-total-row
+{
+    float: left;
+    background-color: #FCFBBB;
+    font-weight: bold;
+}
+
+.common-total-text, .currency-total-text
+{
+    text-align: center;
+    border-right: 1px solid #A3D1E1;
+}
+.common-total-text
+{
+    height: 53px;
+    line-height: 44px;
+}
+.currency-total-row
+{
+    border-top: none medium;
+    background-color: #CEF6CA;
+    font-weight: bold;
+    color: #003333;
+}
+
+/*---Everything use for 12bet and no 12bet---*/
+
+.total-row-currency
+{
+    background-color: #CEF6CA;
+    float: left;
+    text-align: center;
+}
+
+/*---12bet---*/
+.league
+{
+    background-color: #CEF6CA;
+    font-weight: bold;
+    text-align: left;
+}
+
+/*---No 12bet---*/
+
+.meeting-currency
+{
+    font-weight: bold;
+    text-align: left;
+}
+
+/*--------------------addition information to global css----------------*/
+
+.number-circle
+{
+    border-radius: 999px;
+    width: 16px;
+    height: 10px;
+    padding: 0px 4px;
+    background: #FFFFFF;
+    border: 1px solid #0000FF;
+    color: #0000FF;
+    text-align: center;
+    font-weight: bold;
+    font: 12px Arial, sans-serif;
+}
+
+.number-circle:hover, span.hover
+{
+    background-color: #00FF00;
+}

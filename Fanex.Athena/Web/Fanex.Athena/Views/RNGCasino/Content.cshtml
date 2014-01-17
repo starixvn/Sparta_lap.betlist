@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+@model Fanex.Athena.Models.ViewModel.Casino.RNGCasinoResultViewModel
+<div class="theme_jqGrid">
+    <div class="container_26">
+        <div class="grid_26 mobile_winloss">
+            <div class="report-title hide">                
+                @ViewResources.Username: @(string.Format("{0}({1}) - ", Model.Param.ExternalId, Model.Param.SystemId))
+                @ViewResources.RefNo: @Model.Param.RefNo - @ViewResources.Viewin 
+                @(Model.Param.CurrencyId == 0 || !string.IsNullOrEmpty(Model.Param.BaseCurrency) 
+                    ? Model.Param.BaseCurrency.ToUpper() 
+                    : Model.Param.CurrencyName.ToUpper()) - 
+                <input type="checkbox" id="chkIsShowPic" name="chkIsShowPic" @(Model.Param.IsShowPic ? "checked='checked'" : string.Empty)/>
+                <label for="chkIsShowPic">@ViewResources.Resultswithpictures</label>
+                <div onclick="history.go(-1)" class="history-link">
+                </div>
+                <input type="hidden" id="casino-detail-currency-id" value="@Model.Param.CurrencyId" />
+                <input type="hidden" id="casino-detail-currency-name" value="@Model.Param.CurrencyName" />
+                <input type="hidden" id="casino-detail-base-currency" value="@Model.Param.BaseCurrency" />
+                <input type="hidden" id="is-allow-cust-comm" value="@(Model.IsAllowedCustomerCommission ? "true" : "false")" />                
+            </div>
+            <div class="report-content ">
+                <div style="width: 100%">
+                    <table id="ReportGrid">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="ppdata">
+                    </div>
+                    <div id="footer" class="hide">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

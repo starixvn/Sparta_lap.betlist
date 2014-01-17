@@ -1,0 +1,98 @@
+﻿@using Fanex.Athena.Extension.Helper
+@{
+    Layout = null;
+}
+@model Fanex.Athena.Models.ViewModel.Report.MobileWinLossViewModel
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    @using (Html.BeginForm("MobileWinloss", "Report", FormMethod.Post, new { @id = "MobileWinLossForm" }))
+    {   
+        <div class="grid_3 filter-label">
+            <label>
+                @ViewResources.ViewDataInMonth</label>
+        </div>
+        <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
+            </div>
+        </div>        
+        <div class="grid_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "MobileWinLoss" });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>
+                @ViewResources.Currency</label>
+        </div>
+        <div class="grid_4 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.DrawFilter</label>
+        </div>
+        <div class="grid_9 filter-input option-list">
+            @Html.RadioButton("DrawFilter", "1", Model.Param.DrawFilter == 1, new { id = "RadioNormal" })
+            <label for="RadioNormal">@ViewResources.Normal</label>
+            @Html.RadioButton("DrawFilter", "2", Model.Param.DrawFilter == 2, new { id = "RadioNoDraws" })
+            <label for="RadioNoDraws">@ViewResources.NoDraws</label>
+            @Html.RadioButton("DrawFilter", "3", Model.Param.DrawFilter == 3, new { id = "RadioNoDrawsForTurnoverOnly" })
+            <label for="RadioNoDrawsForTurnoverOnly">@ViewResources.NoDrawsForTurnoverOnly</label>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.Site</label>
+        </div>
+        <div class="grid_7 filter-input option-list" id="SiteList">
+            @Html.RadioButton("Site", "1", Model.Param.Site == 1, new { id = "WapSite" })
+            <label for="WapSite">@ViewResources.Wap</label>
+            @Html.RadioButton("Site", "2", Model.Param.Site == 2, new { id = "SmartPhoneSite" })
+            <label for="SmartPhoneSite">@ViewResources.SmartPhone</label>
+            @Html.RadioButton("Site", "3", Model.Param.Site == 3, new { id = "OthersSite" })
+            <label for="OthersSite">@ViewResources.Others</label>
+        </div>
+        <div class="new-line">
+        </div>
+                  //Product
+        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 3 + Model.ProductAccess.ProductList.Count * 2)
+    
+        <div class="grid_3 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input submit-wrapper">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>    
+        <div>
+            <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+            <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+            @Html.Hidden("FromDay", Model.Param.FromDay)
+            @Html.Hidden("ToDay", Model.Param.ToDay)
+            @Html.Hidden("Month", Model.Param.Month)
+            @Html.Hidden("Year", Model.Param.Year)
+            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+            @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+        </div>     
+    }
+    <!--drill down paramters-->
+    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
+    @Html.Hidden("drillDownSite", Model.Param.Site)
+    @Html.Hidden("drillDownDrawFilter", Model.Param.DrawFilter)
+    @Html.Hidden("drillDownExcludeTest", Model.Param.IsExcludeTest)
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("drillDownCurrencyId", Model.Param.CurrencyId)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBa)
+    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.CanUseRacing)
+     <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+     <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+</div>

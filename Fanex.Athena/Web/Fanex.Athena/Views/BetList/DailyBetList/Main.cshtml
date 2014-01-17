@@ -1,0 +1,26 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.DailyBetList);
+    Layout = "~/Views/Shared/_BetListLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@section pagecss {
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/BetList/betlist.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/BetList/dailybetlist.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.DailyBetList
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/BetList/DailyBetList/Filter.cshtml");
+    }
+}
+@{
+    <input type="hidden" id="HiddenColumnList" value="" />
+}

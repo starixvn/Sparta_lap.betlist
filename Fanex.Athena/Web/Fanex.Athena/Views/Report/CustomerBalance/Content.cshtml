@@ -1,0 +1,22 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.CustomerBalanceViewModel
+<div class="container_26  new-line" style="width:@(ViewBag.FilterWidth + 12)@("px");">
+    <div class="grid_26">
+        <div style="width:@(ViewBag.FilterWidth + 1)px;">
+            @RazorHelper.Paging("CustomerBalanceForm", ViewBag.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
+        </div>
+        <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
+            @ViewResources.Customer @ViewResources.Balance,
+            @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate), @ViewResources.SortBy @ViewBag.SortByText
+        </div>
+        <div class="report-content " style="width:@(ViewBag.WrapperWidth + 1)px;">
+            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Header.cshtml");}
+            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Data.cshtml");}
+            @{Html.RenderPartial("~/Views/Report/CustomerBalance/Content.Total.cshtml");}
+        </div>
+        <div style="width:@(ViewBag.FilterWidth + 1)px;">
+            @RazorHelper.Paging("CustomerBalanceForm", ViewBag.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,426 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserService.cs" company="Nexcel">
+// The user service.
+// </copyright>
+// <summary>
+//   The user service.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.Implement.Users
+{
+    using System.Collections.Generic;
+    using Fanex.Athena.DataAccess.Implement.Users;
+    using Fanex.Athena.DataAccess.Interface.Users;
+    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Service.Exception;
+    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Common;
+    using Fanex.Logging;
+
+    /// <summary>
+    ///     The user service.
+    /// </summary>
+    public class UserService : IUserService
+    {
+        #region Constants and Fields
+
+        /// <summary>
+        ///     The _user data access.
+        /// </summary>
+        private readonly IUserDataAccess _userDataAccess;
+
+        #endregion Constants and Fields
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UserService" /> class.
+        /// </summary>
+        public UserService()
+        {
+            this._userDataAccess = new UserDataAccess();
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UserService" /> class.
+        /// </summary>
+        /// <param name="userDataAccess">
+        ///     The user data access.
+        /// </param>
+        public UserService(IUserDataAccess userDataAccess)
+        {
+            this._userDataAccess = userDataAccess;
+        }
+
+        #endregion Constructors and Destructors
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     The change password.
+        /// </summary>
+        /// <param name="userName">
+        ///     The user name.
+        /// </param>
+        /// <param name="oldPassword">
+        ///     The old password.
+        /// </param>
+        /// <param name="newPassword">
+        ///     The new password.
+        /// </param>
+        /// <param name="requestIp">
+        ///     The request IP.
+        /// </param>
+        /// <returns>
+        /// The result information.
+        /// </returns>
+        public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string requestIp)
+        {
+            try
+            {
+                // if old password is valid, process update password
+                // create salt to hash new password
+                var oldSalt = this._userDataAccess.GetUserSalt(userName).ToString();
+                var salt = Cryptography.CreateSalt();
+                newPassword = Cryptography.CreateHash(newPassword, salt);
+                oldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
+
+                var user = new User { Request = new Request { Ip = requestIp }, Username = userName };
+
+                var result = this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
+
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ChangePassword");
+            }
+        }
+
+        /// <summary>
+        ///     The get by licensee.
+        /// </summary>
+        /// <param name="licenseeId">
+        ///     The licensee id.
+        /// </param>
+        /// <param name="isInternal">
+        ///     The is internal.
+        /// </param>
+        /// <returns>
+        /// The system user list.
+        /// </returns>
+        public List<User> GetByLicensee(int licenseeId, bool isInternal)
+        {
+            try
+            {
+                var entityList = this._userDataAccess.GetByLicensee(licenseeId, isInternal);
+
+                return entityList;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "GetByLicensee");
+            }
+        }
+
+        /// <summary>
+        ///     The get user info.
+        /// </summary>
+        /// <param name="licenseeId">
+        ///     The licensee id.
+        /// </param>
+        /// <param name="userId">
+        ///     The user id.
+        /// </param>
+        /// <returns>
+        /// The system User.
+        /// </returns>
+        public User GetUserInfo(int licenseeId, int userId)
+        {
+            try
+            {
+                return this._userDataAccess.GetUserInfo(licenseeId, userId);
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "GetUserInfo");
+            }
+        }
+
+        /// <summary>
+        ///     The is user name existed.
+        /// </summary>
+        /// <param name="userName">
+        ///     The user name.
+        /// </param>
+        /// <returns>
+        ///     Return True if user exist.
+        /// </returns>
+        public bool IsUserNameExisted(string userName)
+        {
+            try
+            {
+                var isUsernameExisted = this._userDataAccess.IsUsernameExited(userName);
+
+                return isUsernameExisted;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "IsUserNameExisted");
+            }
+        }
+
+        /// <summary>
+        ///   If returned value greater than 0, User login successfully.
+        /// </summary>
+        /// <param name="requestUser">
+        ///     The request user.
+        /// </param>
+        /// <param name="netSessionId">
+        ///     The net session id.
+        /// </param>
+        /// <param name="serverId">
+        ///     The server id.
+        /// </param>
+        /// <param name="requestIp">
+        ///     The request IP.
+        /// </param>
+        /// <returns>
+        ///     The integer value.
+        /// </returns>
+        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string requestIp)
+        {
+            try
+            {
+                requestUser.Request = new Request { Ip = requestIp };
+                return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "LoginOnUser");
+            }
+        }
+
+        /// <summary>
+        ///     The logout.
+        /// </summary>
+        /// <param name="onuserId">
+        ///     The on user id.
+        /// </param>
+        public void Logout(int onuserId)
+        {
+            this._userDataAccess.Logout(onuserId);
+        }
+
+        /// <summary>
+        ///     The re check in.
+        /// </summary>
+        /// <param name="onuserId">
+        ///     The on user id.
+        /// </param>
+        /// <returns>
+        ///     True if re-check is successful.
+        /// </returns>
+        public bool ReCheckin(int onuserId)
+        {
+            try
+            {
+                return this._userDataAccess.ReCheckin(onuserId);
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ReCheckin");
+            }
+        }
+
+        /// <summary>
+        ///     The reset password.
+        /// </summary>
+        /// <param name="user">
+        ///     The system user.
+        /// </param>
+        /// <param name="resetPwdBy">
+        ///      The user reset password.
+        /// </param>
+        /// <returns>
+        /// The result information.
+        /// </returns>
+        public IResultInfo ResetPassword(User user, int resetPwdBy)
+        {
+            try
+            {
+                var salt = Cryptography.CreateSalt();
+                if (string.IsNullOrEmpty(salt))
+                {
+                    throw new System.Exception("Salt cannot be null or empty");
+                }
+
+                user.Password = Cryptography.CreateHash(user.Password, salt);
+                var result = this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
+
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ResetPassword");
+            }
+        }
+
+        /// <summary>
+        ///     The update information.
+        /// </summary>
+        /// <param name="user">
+        ///     The system user.
+        /// </param>
+        /// <param name="updatedBy">
+        ///     The updated by.
+        /// </param>
+        /// <returns>
+        /// The result information.
+        /// </returns>
+        public IResultInfo UpdateInfo(User user, int updatedBy)
+        {
+            try
+            {
+                var result = this._userDataAccess.UpdateInfo(user, updatedBy);
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "UpdateInfo");
+            }
+        }
+
+        /// <summary>
+        ///     The validate internal user.
+        /// </summary>
+        /// <param name="requestUser">
+        ///     The request user.
+        /// </param>
+        /// <param name="licenseeName">
+        ///     The licensee name.
+        /// </param>
+        /// <param name="timeStamp">
+        ///     The time stamp.
+        /// </param>
+        /// <param name="resultInfo">
+        ///     The result information.
+        /// </param>
+        /// <returns>
+        /// The system user.
+        /// </returns>
+        /// <exception cref="ServiceException">
+        /// The service exception.
+        /// </exception>
+        public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
+        {
+            try
+            {
+                return this._userDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ValidateInternalUser");
+            }
+        }
+
+        /// <summary>
+        ///     The validate user.
+        /// </summary>
+        /// <param name="requestUser">
+        ///     The request user.
+        /// </param>
+        /// <param name="resultInfo">
+        ///     The result information.
+        /// </param>
+        /// <returns>
+        /// The system user.
+        /// </returns>
+        public User ValidateUser(User requestUser, out IResultInfo resultInfo)
+        {
+            try
+            {
+                User user = null;
+
+                // get salt of user to hash password
+                var salt = this._userDataAccess.GetUserSalt(requestUser.Username);
+
+                if (!ReferenceEquals(null, salt))
+                {
+                    // create hashpassword
+                    var hahPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
+                    requestUser.Password = hahPassword;
+                    user = this._userDataAccess.ValidateUser(requestUser, out resultInfo);
+                }
+                else
+                {
+                    // user doest not exist
+                    resultInfo = new ResultInfo { Code = 100, Message = "User does not exist" };
+                }
+
+                return user;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ValidateUser");
+            }
+        }
+
+        /// <summary>
+        ///     The validate user for  system.
+        /// </summary>
+        /// <param name="requestUser">
+        ///     The request user.
+        /// </param>
+        /// <param name="resultInfo">
+        ///     The result information.
+        /// </param>
+        /// <returns>
+        /// The system user.
+        /// </returns>
+        public User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo)
+        {
+            try
+            {
+                User user = null;
+
+                // get salt of user to hash password
+                var salt = this._userDataAccess.GetUserSalt(requestUser.Username);
+
+                if (!ReferenceEquals(null, salt))
+                {
+                    // create hashpassword
+                    var hahPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
+                    requestUser.Password = hahPassword;
+                    user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                }
+                else
+                {
+                    // user doest not exist
+                    resultInfo = new ResultInfo { Code = 100, Message = "User does not exist" };
+                }
+
+                return user;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "ValidateUserForLrfSystem");
+            }
+        }
+
+        #endregion Public Methods and Operators
+    }
+}

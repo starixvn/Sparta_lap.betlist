@@ -1,0 +1,30 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+<div class="container_26">
+    <div class="grid_26">
+        <div class="report-title" style="width: @ViewBag.TitleWidth@("px")">
+            @ViewResources.DailyRacingWinLoss, @RazorHelper.TitleDateTime(Model.Param.Date, null)
+            - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+        </div>
+        <div class="report-content " style="width: @ViewBag.WrapperWidth@("px")">
+            @*-----------------------Header for report-----------------------*@
+            @{Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/12Bet/Content.Header.cshtml", Model);}
+            @*-----------------------Content for report-----------------------*@
+            @if (Model.DailyRacingWinLossData.ContentData.Count > 0)
+            {
+                Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/12Bet/Content.Data.cshtml", Model);
+                Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/12Bet/Content.GrandTotal.cshtml", Model);
+            }
+            else
+            {
+                <div class="data-content" style="width: @ViewBag.WrapperWidth@("px")">
+                    <div class="content-row" style="width: @(ViewBag.WrapperWidth - 1)@("px")">
+                        <div class="row grid-noinfo">
+                            <div>@ViewResources.NoInfo</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

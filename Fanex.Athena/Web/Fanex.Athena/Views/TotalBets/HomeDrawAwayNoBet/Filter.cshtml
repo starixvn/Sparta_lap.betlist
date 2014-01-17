@@ -1,0 +1,38 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.TotalBets.HomeDrawAwayNoBetViewModel
+@using (Html.BeginForm("HomeDrawAwayNoBet", "TotalBets", FormMethod.Post, new { @id = "HomeDrawAwayNoBetForm" }))
+{
+    // -----------------------------Refresh countdown------------------------ //
+    <div class="grid_3">
+        @RazorHelper.TimerCountDown("homwdrawawaynobet", 15)
+    </div>
+
+    //----------------------------Type of licensee---------------------------// 
+
+    if (@Model.LicenseeTypeList.Count > 0)
+    {
+    <div class="grid_1 filter-label" style="width: 25px">
+        @ViewResources.Type
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseetype", Model.Param.LicenseeType)
+    </div>
+    }
+
+    // -----------------------------Currency-----------------------------------//
+    <div class="grid_2 filter-label" style="width: 50px">
+        @ViewResources.Currency
+    </div>
+    <div class="grid_3 filter-input" style="width: 110px">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+    </div>
+    <div class="grid_4 filter-input">
+        <label for="BaseCurrency">@ViewResources.Based </label>
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_3 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <div class="clear">
+    </div>
+}

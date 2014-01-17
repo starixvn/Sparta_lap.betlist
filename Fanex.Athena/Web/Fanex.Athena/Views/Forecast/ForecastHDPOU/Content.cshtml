@@ -1,0 +1,12 @@
+﻿@model Fanex.Athena.Models.ViewModel.Forecast.ForecastHdpOuViewModel
+@{
+    Html.RenderPartial("~/Views/Forecast/ForecastHDPOU/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/Forecast/ForecastHDPOU/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/Forecast/ForecastHDPOU/ContentData.cshtml");
+}

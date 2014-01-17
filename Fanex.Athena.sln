@@ -1,0 +1,104 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{195AD258-DE51-497C-BA3B-1645AE32CAB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{D72107B8-4765-4E3D-A86D-36BD7E0D9109}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{993B45CC-7A78-4580-A389-3E451AA0D1F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8A8161D6-261F-4B28-9CB8-71D83D5977E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel", "Fanex.Athena\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj", "{0FC566E3-C900-4FF7-BC30-922FA73969F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Models", "Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers", "Fanex.Athena\Web\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj", "{BEC66A01-FA27-4418-8F8A-C2B4388A7905}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06DA5816-434C-4C22-9DD5-3905CEABAB4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj", "{5653BC29-0843-4D75-9140-5B370DF2F88C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service", "Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "Fanex.Athena.Extension\Fanex.Athena.Extension.csproj", "{71F95E53-36D0-4091-828D-ED14C9939C35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena", "Fanex.Athena\Web\Fanex.Athena\Fanex.Athena.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api", "Fanex.Athena.Api\Fanex.Athena.Api.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Web", "Fanex.Athena\Web\Fanex.Athena.Web\Fanex.Athena.Web.csproj", "{DD931ADB-A994-49C0-95A3-72BCB6E22679}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{3E648ADD-986B-4630-BE56-F72B4A7E875E}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CF390533-BACE-4436-B8C8-3DA89B8E41DC}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA658FF-B635-4990-A49C-AE886841A1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA658FF-B635-4990-A49C-AE886841A1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA658FF-B635-4990-A49C-AE886841A1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA658FF-B635-4990-A49C-AE886841A1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC66A01-FA27-4418-8F8A-C2B4388A7905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC66A01-FA27-4418-8F8A-C2B4388A7905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC66A01-FA27-4418-8F8A-C2B4388A7905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC66A01-FA27-4418-8F8A-C2B4388A7905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5653BC29-0843-4D75-9140-5B370DF2F88C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5653BC29-0843-4D75-9140-5B370DF2F88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5653BC29-0843-4D75-9140-5B370DF2F88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5653BC29-0843-4D75-9140-5B370DF2F88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE7D3FED-BFFF-4AD6-816B-3A1644940511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE7D3FED-BFFF-4AD6-816B-3A1644940511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE7D3FED-BFFF-4AD6-816B-3A1644940511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE7D3FED-BFFF-4AD6-816B-3A1644940511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F95E53-36D0-4091-828D-ED14C9939C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F95E53-36D0-4091-828D-ED14C9939C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F95E53-36D0-4091-828D-ED14C9939C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F95E53-36D0-4091-828D-ED14C9939C35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8FBEBC-3312-4881-8486-42C9F70DDADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8FBEBC-3312-4881-8486-42C9F70DDADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8FBEBC-3312-4881-8486-42C9F70DDADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8FBEBC-3312-4881-8486-42C9F70DDADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C22899B-6CE0-4187-9BCF-7F503213F207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C22899B-6CE0-4187-9BCF-7F503213F207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C22899B-6CE0-4187-9BCF-7F503213F207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C22899B-6CE0-4187-9BCF-7F503213F207}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD931ADB-A994-49C0-95A3-72BCB6E22679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD931ADB-A994-49C0-95A3-72BCB6E22679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD931ADB-A994-49C0-95A3-72BCB6E22679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD931ADB-A994-49C0-95A3-72BCB6E22679}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{3AA658FF-B635-4990-A49C-AE886841A1CA} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{AE7D3FED-BFFF-4AD6-816B-3A1644940511} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{5653BC29-0843-4D75-9140-5B370DF2F88C} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
+		{71F95E53-36D0-4091-828D-ED14C9939C35} = {993B45CC-7A78-4580-A389-3E451AA0D1F8}
+		{BEC66A01-FA27-4418-8F8A-C2B4388A7905} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+		{CE8FBEBC-3312-4881-8486-42C9F70DDADF} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+		{0C22899B-6CE0-4187-9BCF-7F503213F207} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+		{DD931ADB-A994-49C0-95A3-72BCB6E22679} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
+	EndGlobalSection
+EndGlobal

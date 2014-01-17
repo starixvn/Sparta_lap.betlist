@@ -1,0 +1,32 @@
+﻿@model Fanex.Athena.Models.ViewModel.Report.WinLossByLeagueViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LicenseeWinLoss;
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/winlossbyleague.css")" rel="stylesheet" type="text/css" />    
+    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>    
+    <script src="@Url.ContentLink("/Scripts/Report/winlossbyleague.option.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/winlossbyleague.js")" type="text/javascript"></script>
+   
+}
+@section ContentTitle    {
+    @ViewResources.WinLossByLeague}
+<div class="container_26">
+    <div class="grid_26">
+        @{
+            Html.RenderPartial("~/Views/Report/WinLossByLeague/Content.cshtml");
+        }
+    </div>
+  
+</div>
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/WinLossByLeague/Filter.cshtml");
+    }
+}

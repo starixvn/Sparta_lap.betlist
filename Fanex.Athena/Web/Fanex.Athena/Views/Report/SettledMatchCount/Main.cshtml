@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.SettledMatchCount;
+    Layout = "~/Views/Shared/_ReportLayout.SettledMatchCount.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model IList<Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel>
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/SettledMatchCount.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {}
+@{
+    //Set width for column
+    ViewBag.DateWidth = 200;
+    ViewBag.NormalWidth = 110;
+    ViewBag.ContainerWidth = 640 + 5;     //200 + 110 * 4 + 5*BorderWidth;     
+}
+@section ContentTitle
+{
+    @ViewResources.SettledMatchCount
+}
+@section ContentFilter{}
+@section Note{
+    @{Html.RenderAction("Index", "Note", new { viewName = "SettledMatchCount" });}}
+@{
+    <div class="container_26">
+        <div class="grid_20">
+            <div class="report-content" style="width: @(ViewBag.ContainerWidth)@("px")">
+                <!--Header-->
+                @{
+                    Html.RenderPartial("~/Views/Report/SettledMatchCount/ContentHeader.cshtml");
+                }
+                <!--Header-->
+                <!--Content-->
+                @{
+                    Html.RenderPartial("~/Views/Report/SettledMatchCount/ContentData.cshtml");
+                }
+                <!--Content-->
+            </div>
+        </div>
+    </div>             
+}

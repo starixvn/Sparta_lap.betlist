@@ -1,0 +1,49 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+<div class="header-content"  style="width:@(ViewBag.ContainerWidth)px">
+    <div class="row title-header" style="width:@(ViewBag.ContainerWidth)px">
+        <div>@ViewResources.BalanceInformation</div>
+    </div>
+</div>
+<div class="header-content"  style="width:@(ViewBag.ContainerWidth)px">
+    <div class="row" style="width: @(ViewBag.FirstColumnWidth)@("px")">
+    </div>
+    <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+        <div class="" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.LicenseeWinLoss
+        </div>
+    </div>
+    @*Check BA, RB commission*@
+    @if (Model.ProductAccess.IsAllowBa)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.BACommission
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowRb)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.RacingRevenue
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowBa)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.AmtDueToBA
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowRb)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.AmtDueToRacing
+        </div>
+    }
+                
+@*Check customer commission*@
+    @if (Model.IsAllowedCustomerCommission)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.CustomerCommission
+        </div>
+    }
+</div>

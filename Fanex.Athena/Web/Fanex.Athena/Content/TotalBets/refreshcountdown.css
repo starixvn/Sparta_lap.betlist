@@ -1,0 +1,70 @@
+﻿/* Timmer countdown */
+.timer-countdown
+{
+    float: left;
+    margin-top: 2px;
+    width: 80px;
+}
+.button-refresh
+{
+    cursor: pointer;
+    float: left;
+    font-size: 11px;
+    height: 22px;
+    line-height: 18px;
+    padding: 0 0 0 18px;
+    width: 50px;
+    background: url("images/btRefresh.png") no-repeat scroll left top transparent;
+}
+.timer-loading
+{
+    font-size: 9px;
+    margin-left: -10px;
+}
+.button-select
+{
+    float: right;
+    font-size: 11px;
+    height: 22px;
+    left: -5px;
+    line-height: 18px;
+    opacity: 1;
+    position: relative;
+    width: 12px;
+    background: url("images/btDown.png") no-repeat scroll left top transparent;
+}
+.button-select:hover
+{
+    opacity: 0.5;
+}
+.countdown-menu
+{
+    background-color: #DFDFDF;
+    border: 1px solid #D4D4D4;
+    cursor: default;
+    position: absolute;
+    text-align: left;
+    width: 75px;
+    left: 0;
+    top: 22px;
+    z-index: 1001;
+}
+.countdown-menu > * div
+{
+    float: left;
+}
+.menu-item
+{
+    padding: 1px 0 1px 15px;
+    border-bottom: 1px solid white;
+}
+.menu-item:hover
+{
+    background-color: #A0A0A0;
+    color: #FFFFFF;
+}
+.menu-selected
+{
+    background: url("images/check.png") no-repeat scroll 3px 4px transparent;
+}
+/* /Timmer countdown */

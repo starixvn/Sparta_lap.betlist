@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    var currencyList = ViewBag.CurrencyList as List<Fanex.Athena.Models.DTO.Users.CurrencyUser>;
+}
+
+<div id="currency-tab">
+    @using (Html.BeginForm("AssignCurrency", "Account", FormMethod.Post, new { id = "AssignCurrencyForm" }))
+    {
+        var check = "checked=checked";
+        var colUrl = Url.ContentLink("/Resources/Images/collapse.png");
+        
+        if (currencyList.Any(t => t.IsActive == false))
+        {
+            check = string.Empty;
+        }
+    
+        <div class="currencyBox">
+            <div class="masterItem">
+                <img class="icon" id="currency-img" src="@colUrl" onclick="EditPermission.toggleCurrency(this)" data-status="expand" />
+                <input type="checkbox" id="currency-header" onclick="EditPermission.changeAllCurrency(this)" @check >
+                <label for="currency-header">@ViewResources.AllCurrencies.ToUpper()</label>
+            </div>
+
+            <div id="currency-content" class="groupStyle" style="display: block;">
+            @foreach (var currency in currencyList)
+            {
+                check = string.Empty;
+                
+                if (currency.IsActive)
+                {
+                    check = "checked=checked";
+                }
+                    
+                <div class="funcItem">
+                    <input @check type="checkbox" id="@string.Format("currency-{0}", currency.CurrencyId)"
+                        value="@currency.CurrencyId" onclick="EditPermission.changeEachCurrency(this)" />
+                    <label for="@string.Format("currency-{0}", currency.CurrencyId)">@currency.CurrencyName</label>
+                </div>
+            }
+            </div>
+        </div>        
+    }
+</div>

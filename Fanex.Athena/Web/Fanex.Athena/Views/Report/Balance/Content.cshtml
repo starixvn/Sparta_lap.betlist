@@ -1,0 +1,15 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+<div class="container_26">
+    <div class="grid_26">
+        <div class="report-content" style="width:@(ViewBag.ContainerWidth)px">
+            @{Html.RenderPartial("~/Views/Report/Balance/Content.Header.cshtml");}
+            @{Html.RenderPartial("~/Views/Report/Balance/ContentData.cshtml");}
+        </div>
+        <div class="report-content" style="width:@(ViewBag.ContainerWidth)px">
+            @{Html.RenderPartial("~/Views/Report/Balance/ContentData.CustomerInfo.cshtml");}
+        </div>
+        @{Html.RenderPartial("~/Views/Report/Balance/ContentData.BalanceNote.cshtml");}
+    </div>
+</div>

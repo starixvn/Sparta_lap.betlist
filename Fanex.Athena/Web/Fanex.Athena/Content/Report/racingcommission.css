@@ -1,0 +1,12 @@
+﻿/*--------------------format content----------------*/
+.currencyid
+{
+    width: 100px;
+}
+
+/*--------------------addition information to global css----------------*/
+
+.downline-link
+{
+    text-decoration: underline;
+}

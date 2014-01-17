@@ -1,0 +1,89 @@
+﻿input.icon
+{
+    background-image: url(Images/ui-icons.png);
+    width: 16px;
+    height: 16px;
+    border: 0 solid #000;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 1px 2px 1px 2px;
+}
+
+input.pagingDisable
+{
+    background-image: url(Images/ui-icons-disabled.png);
+    cursor: default;
+}
+
+input.pagingFirst
+{
+    background-position: -80px -160px;
+    vertical-align: middle;
+}
+
+input.pagingPrev
+{
+    background-position: -46px -160px;
+    vertical-align: middle;
+}
+
+input.pagingLast
+{
+    background-position: -61px -160px;
+    vertical-align: middle;
+}
+
+input.pagingNext
+{
+    background-position: -29px -160px;
+    vertical-align: middle;
+}
+
+input.pagingElementOver
+{
+    background-image: url(Images/ui-icons-over.png);
+}
+
+input.pagingCurrent
+{
+    width: 40px;
+    margin: 1px 2px 1px 2px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+div.pagingContainer
+{
+    text-align: center;
+    background: url("images/bg_boxTop.jpg") repeat-x scroll center top #E7E7E7;
+    border: 1px solid #CACACA;
+    margin: 5px auto;
+    padding: 5px;
+    height: 23px !important;
+    height: 25px;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+span.pagingSeperator
+{
+    border-left: 1px solid #888;
+    filter: alpha(opacity=35);
+    -moz-opacity: .35;
+    -khtml-opacity: 0.35;
+    opacity: 0.35;
+    margin: 1px 4px 1px 4px;
+    width: 1px;
+}
+div.pagingContainer select
+{
+    width: 60px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+div.pagingContainer input[type="text"]
+{
+    width: 30px;
+    text-align: center;
+}

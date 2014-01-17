@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.TurnoverViewModel
+@{
+    var rowNumber = 0;
+    var isDataAvailable = Model.DataList != null && Model.DataList.Count > 0;
+    var contentHeight = isDataAvailable ? Model.DataList.Count * (26 + 1) + 17 : 26;
+}
+<div id="data-content" class="data-content" style="width: @(ViewBag.WrapperWidth + 1)@("px"); max-height:500px; height:@(contentHeight)px;  overflow-x:auto; @(isDataAvailable ? "overflow-y:scroll" : "")">
+    @foreach (var item in Model.DataList)
+    {
+        rowNumber++;
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)@("px")">
+            <div class="row title-text" style="width:@ViewBag.NumberWidth@("px")">
+                @rowNumber
+            </div>
+            <div class="row title-text" style="width:@ViewBag.DayWidth@("px");">
+                @item.Date
+            </div>
+            <div class="row" style="width:@ViewBag.OpeningBalanceWidth@("px");">
+                <div>@item.OpeningBalance.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.DepositWidth@("px")">
+                <div>@item.Deposit.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.WithdrawalWidth@("px")">
+                <div>@item.Withdrawal.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.BonusWidth@("px")">
+                <div>@item.Bonus.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.AdjustmentWidth@("px")">
+                <div>@item.Adjustment.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.TurnoverWidth@("px")">
+                <div>@item.Turnover.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.DrawGameWidth@("px")">
+                <div>@item.DrawGame.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.NetTurnoverWidth@("px")">
+                <div>@item.NetTurnover.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.PendingFundsWidth@("px")">
+                <div>@item.PendingFunds.ToStringExt()</div>
+            </div>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
+                    <div>@item.WinLoss.ToStringExt()</div>
+                </div>
+                <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
+                    <div>@item.PlayerComm.ToStringExt()</div>
+                </div>
+                <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px"); padding-left: 1px;">
+                    <div>@((item.PlayerComm + item.WinLoss).ToStringExt())</div>
+                </div>
+            }
+            else
+            {
+                <div class="row grid line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                    <div>@item.WinLoss.ToStringExt()</div>
+                </div>
+            }
+            <div class="row" style="width:@ViewBag.ClosingBalanceWidth@("px")">
+                <div>@item.ClosingBalance.ToStringExt()</div>
+            </div>
+            <div class="row" style="width:@ViewBag.AffiliateTransferWidth@("px")">
+                <div>@item.AffiliateTransfer.ToStringExt()</div>
+            </div>
+            @if (Model.IsAllowedCasinoTransfer)
+            {
+                <div class="row" style="width:@ViewBag.CasinoTransferWidth@("px")">
+                    <div>@item.Transfer3rd.ToStringExt()</div>
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowBa)
+            {
+                <div class="row" style="width:@ViewBag.BaTurnoverWidth@("px")">
+                    <div>@item.TurnoverBA.ToStringExt()</div>
+                </div>
+                <div class="row" style="width:@ViewBag.BaCommWidth@("px")">
+                    <div>@item.CommBA.ToStringExt()</div>
+                </div>
+                <div class="row" style="width:@ViewBag.AmountDueToBaWidth@("px")">
+                    <div>@item.AmountDueToBA.ToStringExt()</div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+<div class="data-content">
+    @{ var firstRow = 1; }
+    @foreach (Fanex.Athena.Models.DTO.Report.BalanceDetails balanceDetails in Model.MainData.BalanceList)
+    { 
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
+            <div class="row text-data" style="width: @(ViewBag.FirstColumnWidth)@("px")">
+                <div>
+                    @if(firstRow == 1)
+                    {
+                        var culture = System.Globalization.CultureInfo.GetCultureInfo(System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag);
+                        @Model.Param.FromDate.ToString("MMMM yyyy",culture)
+                        firstRow++;
+                    }
+                    else
+                    {
+                        @balanceDetails.BalanceDateString
+                    }
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.ColumnWidth)px">
+                @FormatHelper.NegativeFormat(balanceDetails.LicWinLoss)
+            </div>
+            @if (Model.ProductAccess.IsAllowBa)
+            { 
+                <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+                    <div>@FormatHelper.NegativeFormat(@balanceDetails.BACommission)</div>
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowRb)
+            { 
+                <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+                    <div>@FormatHelper.NegativeFormat(@balanceDetails.RacingWinLoss)</div>
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowBa)
+            { 
+                <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+                    <div>@FormatHelper.NegativeFormat(@balanceDetails.AmtDueToBA)</div>
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowRb)
+            { 
+                <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+                    <div>@FormatHelper.NegativeFormat(@balanceDetails.AmtDueToRacing)</div>
+                </div>
+            }
+            @if (Model.IsAllowedCustomerCommission)
+            { 
+                <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+                    <div>@FormatHelper.NegativeFormat(@balanceDetails.CustomerCommission)</div>
+                </div>
+            }
+        </div>
+    }
+</div>

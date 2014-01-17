@@ -1,0 +1,99 @@
+﻿@model Fanex.Athena.Models.MetaModel.Customer.BetSetting.BetSettingMetaModel
+@using Fanex.Athena.Models.ViewModel
+<div id="header_tab">
+    <div id="button_main">
+        <ul class="header-menu">
+            <!--SportsbookTab-->
+            @if (Model.IsAllowSportsBook)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                    {
+                        TabId = 1,
+                        CustId = Model.CustId,
+                        UserName = Model.UserName,
+                        NickName = Model.NickName,
+                        BetSettingName = ViewResources.Sportsbook
+                    })" id="sportsbook">
+                    @ViewResources.Sportsbook
+                </a></li>
+            }
+            <!--SportsbookTab-->
+            <!--RacingTab-->
+            @if (Model.IsAllowRacing)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                    {
+                        TabId = 2,
+                        CustId = Model.CustId,
+                        UserName = Model.UserName,
+                        NickName = Model.NickName,
+                        BetSettingName = ViewResources.Racing
+                    })" id="racing">
+                    @ViewResources.Racing
+                </a></li>
+            }
+            <!--/RacingTab-->
+            <!--NumberGameTab-->
+            @if (Model.IsAllowNumberGame)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                    {
+                        TabId = 3,
+                        CustId = Model.CustId,
+                        UserName = Model.UserName,
+                        NickName = Model.NickName,
+                        BetSettingName = ViewResources.NumberGame
+                    })" id="numbergame">
+                    @ViewResources.NumberGame
+                </a></li>
+            }
+            <!--/NumberGameTab-->
+            <!--VirtualSportsTab-->
+            @if (Model.IsAllowVirtualSport)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                    {
+                        TabId = 4,
+                        CustId = Model.CustId,
+                        UserName = Model.UserName,
+                        NickName = Model.NickName,
+                        BetSettingName = ViewResources.VirtualSports
+                    })" id="virtualsports">
+                    @ViewResources.VirtualSports
+                </a></li>
+            }
+            <!--/VirtualSportsTab-->
+            <!--LivecasinoTab-->
+            @if (Model.IsAllowLiveCasino)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 5,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.LiveCasino
+                        })" id="livecasino">
+                    @ViewResources.LiveCasino
+                </a></li>
+            }
+            <!--/LivecasinoTab-->
+            <!--RNG Tab-->
+            @if (Model.IsAllowRngCasino)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 6,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.RNGCasino
+                        })" id="rngcasino">
+                    @ViewResources.RNGCasino
+                </a></li>
+            }
+            <!--/RNG Tab-->
+        </ul>
+        @Html.Hidden("TabId", Model.TabId)
+    </div>
+</div>

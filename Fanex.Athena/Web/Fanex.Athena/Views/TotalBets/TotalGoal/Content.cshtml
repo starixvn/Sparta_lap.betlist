@@ -1,0 +1,12 @@
+﻿@model Fanex.Athena.Models.ViewModel.TotalBets.TotalGoalViewModel
+@{
+    Html.RenderPartial("~/Views/TotalBets/TotalGoal/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/TotalGoal/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/TotalBets/TotalGoal/ContentData.cshtml");
+}

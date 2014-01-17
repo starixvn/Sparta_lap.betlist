@@ -1,0 +1,75 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Forecast.ForecastHdpOuViewModel
+
+@{
+    var mainData = Model.MainData.OrderBy(x => x.HomeTeamName);    
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var match in mainData)
+            {
+                <tr>
+                    <!--Render team-->
+                    <td class="league" colspan="8">
+                        @match.HomeTeamName -vs- @match.AwayTeamName
+                    </td>
+                    <!--Render team-->
+                </tr>
+                <tr>
+                    <td class="middle-text" style="width: 28%" colspan="2">
+                        @if (match.LiveIndicator)
+                        {
+                            <div class="show-time">
+                                <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                                <i class="live-notice">@ViewResources.Live!</i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="show-time">
+                                @Html.Raw(match.ShowTime)
+                            </div>
+                        }
+                    </td>
+                    <td class="middle-text forecast-number" style="width: 12%">@match.OffsetHdpMinus1</td>
+                    <td class="middle-text forecast-number draw-highlight" style="width: 12%">@match.OffsetHdp</td>
+                    <td class="middle-text forecast-number" style="width: 12%">@match.OffsetHdpPlus1</td>
+                    <td class="middle-text forecast-number" style="width: 12%">@match.OffsetOuPlus2</td>
+                    <td class="middle-text forecast-number" style="width: 12%">@match.OffsetOuPlus1</td>
+                    <td class="middle-text forecast-number draw-highlight" style="width: 12%">@match.OffsetOu</td>
+                </tr>
+                <tr>
+                    <td style="width: 23%" class="middle-text">
+                        @ViewResources.FullTime
+                    </td>
+                    <td style="width: 5%">
+                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="1" href="javascript:;"></a>
+                    </td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HandicapMinus1, true)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.Handicap, true)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HandicapPlus1, true)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.OverUnderPlus2, false)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.OverUnderPlus1, false)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.OverUnder, false)</td>
+                </tr>
+                <tr>
+                    <td style="width: 23%" class="middle-text">
+                        @ViewResources.HalfTime
+                    </td>
+                    <td style="width: 5%">
+                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="7" href="javascript:;"></a>
+                    </td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HtHandicapMinus1, true)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HtHandicap, true)</td>
+                    <td class="forecast-number" style="width: 12%" >@RazorHelper.PositiveFormat(match.HtHandicapPlus1, true)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HtOverUnderPlus2, false)</td>
+                    <td class="forecast-number" style="width: 12%">@RazorHelper.PositiveFormat(match.HtOverUnderPlus1, false)</td>
+                    <td class="forecast-number" style="width: 12%" >@RazorHelper.PositiveFormat(match.HtOverUnder, false)</td>
+                </tr>    
+            }
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>

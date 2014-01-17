@@ -1,0 +1,42 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
+<div class="data-content">
+    @foreach (var item in Model.ByCurrencies)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
+                <div>
+                    @item.ProductName</div>
+            </div>
+            @SplitingProductHelper.CustomerWLContent(item, Model.IsAllowedCustomerCommission,
+                            (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+            <div class="row" style="width:@(ViewBag.TurnoverWidth)px">
+                <div>
+                    @item.TurnOver.ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.BetCountWidth)px">
+                <div>
+                    @item.BetCount.ToStringExt()
+                </div>
+            </div>
+            <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px">
+                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+            </div>
+            @if (Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa)
+            {
+                <div class="row highlight" style="width:@(ViewBag.CommWidth)px">
+                    <div>
+                        @item.LicenseeComm.ToStringExt()
+                    </div>
+                </div>
+            }
+            <div class="row" style="width:@(ViewBag.AmountDueWidth)px">
+                <div>
+                    @item.AmountDue.ToStringExt()
+                </div>
+            </div>
+        </div>
+    }
+</div>

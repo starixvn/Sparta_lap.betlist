@@ -1,0 +1,79 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportMatchListViewModel
+<div class="data-content" style="width:@(ViewBag.WrapperWidth)px; max-height:650px; overflow-x:auto" >
+    @if (Model.MainResult == null || Model.MainResult.Count == 0)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="@(!Model.IsAllowedCustomerCommission ? "row1" : "row") grid-noinfo" style="width:@(ViewBag.ContainerWidth)px;">
+                <div>
+                    @ViewResources.NoInfo
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model.MainResult)
+        {
+            var drillDownParam = new
+            {
+                item.BetCount,
+                item.CustomerWinLoss,
+                item.CustomerComm,
+                item.LicenseeWinLoss,
+                item.LicenseeComm,
+                item.TurnOver,
+                item.AmountDue,
+                item.BetType,
+                item.MatchId,
+                item.HomeId,
+                item.AwayId
+            };
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row text-data" style="width:@(ViewBag.MatchWidth)px;">
+                <div class="ellipsis">
+                    @{
+                        var matchName = WebUtility.HtmlDecode(item.MatchName);
+                    }
+                    <a href="javascript:;" class="match-detail-link" data-drill-down="@drillDownParam.ToJson()" title="@matchName">
+                        @(matchName.Length > 60 ? matchName.Substring(0, 60) + "..." : matchName)
+                    </a>
+                </div>
+            </div>
+            @SplitingProductHelper.CustomerWLContent(item as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
+                                                 Model.IsAllowedCustomerCommission,
+                                                (int)ViewBag.CustomerWLLargeWidth,
+                                                (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth,
+                                                (int)ViewBag.CustomerWLTotalWidth)
+            <div class="row" style="width:@(ViewBag.TurnoverWidth)px;">
+                <div>
+                    @item.TurnOver.ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.BetCountWidth)px;">
+                <div>
+                    @item.BetCount.ToStringExt()
+                </div>
+            </div>
+            <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px;">
+                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+            </div>
+            @if (ViewBag.CommVisible)
+            {
+                <div class="row highlight" style="width:@(ViewBag.CommWidth)px;">
+                    <div>
+                        @item.LicenseeComm.ToStringExt()
+                    </div>
+                </div>
+            }
+            <div class="row" style="width:@(ViewBag.AmountDueWidth)px;">
+                <div>
+                    @item.AmountDue.ToStringExt()
+                </div>
+            </div>
+        </div>
+              
+        }
+    }
+</div>

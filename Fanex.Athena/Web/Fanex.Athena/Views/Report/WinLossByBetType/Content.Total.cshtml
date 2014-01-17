@@ -1,0 +1,45 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+<div class="total-content"  style="width:@(ViewBag.WrapperWidth)@("px")">
+    <div class="row title-text" style="width:@(ViewBag.TotalWidth)@("px");">
+        @ViewResources.Total
+    </div>
+    <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
+        <div>@Model.Total.TotalTurnover.ToStringExt()</div>
+    </div>
+    @SplitingProductHelper.CustomerWLContent(Model.Total as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
+                                             Model.IsAllowedCustomerCommission,
+                                             ViewBag.CustomerWLLargeWidth,
+                                             ViewBag.CustomerWLWidth,
+                                             ViewBag.CustomerCommWidth,
+                                             ViewBag.CustomerWLTotalWidth)
+    <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
+        @FormatHelper.NegativeFormat(Model.Total.TotalLicenseeWl)
+    </div>
+    @*Check BA, RB Commission*@
+    @if (Model.ProductAccess.IsAllowBa)
+    { 
+        <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
+            @FormatHelper.NegativeFormat(Model.Total.TotalBaCommission)
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowRb)
+    { 
+        <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
+            @FormatHelper.NegativeFormat(Model.Total.TotalRacingWinLoss)
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowBa)
+    { 
+        <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+            <div>@Model.Total.TotalAmtDueToBa.ToStringExt()</div>
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowRb)
+    { 
+        <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+            <div>@Model.Total.TotalAmtDueToRacing.ToStringExt()</div>
+        </div>
+    }
+</div>

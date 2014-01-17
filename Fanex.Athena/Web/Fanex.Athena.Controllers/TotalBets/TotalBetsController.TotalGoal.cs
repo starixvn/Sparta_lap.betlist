@@ -1,0 +1,73 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="TotalBetsController.TotalGoal.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Shadow.Nguyen" date="2012.12.18">Created</change>
+// </history>
+
+namespace Fanex.Athena.Controllers.TotalBets
+{
+    using System.Web.Mvc;
+    using Fanex.Athena.Web.ActionFilter;
+    using Models.MetaModel.TotalBets;
+    using Models.ViewModel.TotalBets;
+
+    /// <summary>
+    /// Total Goal controller.
+    /// </summary>
+    public partial class TotalBetsController
+    {
+        [FunctionAuthorization]
+        public ActionResult TotalGoal()
+        {
+            var param = new TotalGoalMetaModel
+            {
+                LicenseeId = SessionService.LicenseeSession.LicenseeId
+            };
+            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
+
+            return this.TotalGoalView(param);
+        }
+
+        [HttpPost]
+        [FunctionAuthorization]
+        public ActionResult TotalGoal(TotalGoalMetaModel metaModel)
+        {
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            return this.TotalGoalView(metaModel);
+        }
+
+        #region Utility
+
+        /// <summary>
+        /// Get the view of Total Goal.
+        /// </summary>
+        /// <param name="metaModel">The parameter.</param>
+        /// <returns>The action result.</returns>
+        private ActionResult TotalGoalView(TotalGoalMetaModel metaModel)
+        {
+            metaModel.UserId = SessionService.UserSession.UserId;
+            var currencyList = SessionService.UserSession.CurrencyList;
+
+            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            {
+                var dataList = _totalGoalService.GetTotalGoalDataList(metaModel);
+                var model = new TotalGoalViewModel
+                {
+                    Param = metaModel,
+                    MainData = dataList,
+                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    CurrencyList = SessionService.UserSession.CurrencyList
+                };
+
+                return View("~/Views/TotalBets/TotalGoal/Main.cshtml", model);
+            }
+
+            return Redirect("~/AccessDenied.aspx");
+        }
+
+        #endregion Utility
+    }
+}

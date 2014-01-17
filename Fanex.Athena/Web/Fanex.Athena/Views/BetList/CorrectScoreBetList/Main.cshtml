@@ -1,0 +1,38 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewResources.CorrectScore);
+    Layout = "~/Views/Shared/_BetListLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@section pagecss {
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/BetList/betlist.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/BetList/correctscorebetlist.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.CorrectScore
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/BetList/CorrectScoreBetList/Filter.cshtml");
+    }
+}
+@{
+    <div class="theme_jqGrid" style="width: 100%" data-hidden-column="winloss, licenseewl">
+        <div id="pager1">
+        </div>
+        <table id="BetListGrid" style="border-left: 0px">
+            <tr>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <div id="pager2">
+        </div>
+    </div>
+}
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />

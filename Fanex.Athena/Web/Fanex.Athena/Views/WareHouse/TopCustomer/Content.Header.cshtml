@@ -1,0 +1,43 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Warehouse
+@model Fanex.Athena.Models.ViewModel.Warehouse.TopCustomerViewModel
+<!--Grid Header-->
+<div class="header-content" style="width: @(ViewBag.ContainerWidth)px;">
+    <div class="row" style="width: @(ViewBag.NumberWidth)px;">
+        #
+    </div>
+    <div class="row" style="width: @(ViewBag.CustomerWidth)px;">
+        @ViewResources.Customer
+    </div>
+    <div class="row" style="width: @(ViewBag.CurrencyWidth)px;">
+        @ViewResources.Currency
+    </div>
+    <div class="row" style="width: @(ViewBag.TurnoverWidth)px;">
+        @ViewResources.Turnover
+    </div>
+    <div class="row" style="width: @(ViewBag.BetCountWidth)px;">
+        @ViewResources.TotalTransaction
+    </div>
+    @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
+        (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
+                (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+    <div class="row" style="width: @(ViewBag.LicenseeWLWidth)px;">
+        @ViewResources.LicenseeW_L
+    </div>
+    @if (Model.ProductAccess.IsAllowBa)
+    {
+        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
+            @ViewResources.BACommission
+        </div>
+        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px;">
+            @ViewResources.TotalGrossProfit
+        </div>
+    }
+    @if (ViewBag.ShowActiveDate)
+    {
+        <div class="row" style="width: @(ViewBag.LastActivityDateWidth + 2)px;">
+            @ViewResources.LastActivityDate
+        </div>
+    }
+</div>
+<!--Grid Header-->

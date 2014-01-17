@@ -1,0 +1,68 @@
+﻿.bet-type
+{
+    background-color: #f8faed;
+    padding-left: 40px !important;
+}
+
+.match-link
+{
+    color: #636363;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: left;
+}
+
+.match-link:hover
+{
+    color: #D2592D;
+    text-decoration: underline;
+}
+
+.outright-link
+{
+    color: #405b90 !important;
+}
+
+.arrow-down
+{
+    background: url(images/arrow-down.png) no-repeat left center;
+    background-position: 10px;
+    padding-left: 20px !important;
+}
+
+.arrow-up
+{
+    background: url(images/arrow-up.png) no-repeat left center;
+    background-position: 10px;
+    padding-left: 20px !important;
+}
+
+.arrow-right
+{
+    background: url(images/arrow-right.png) no-repeat left center;
+    background-position: 10px;
+    padding-left: 20px !important;
+}
+
+table.report-table tr.main td
+{
+    font-weight: bold;
+}
+
+table.report-table tr.main td.highlight
+{
+    font-weight: bold;
+}
+.date-picker
+{
+    width: 70px;
+}
+
+/*Hack Grid 26*/
+
+.container_26 .grid_26
+{
+    width: 1075px;
+}

@@ -1,0 +1,136 @@
+﻿/*--------------------Override layout-------------------*/
+
+.container_26 .grid_26
+{
+    width: 1040px;
+}
+
+/*-------------------Under list-----------------------*/
+
+ul.h-list
+{
+    margin: 7px 0 0;
+    padding: 0px;
+    width: 480px;
+    list-style: none;
+}
+
+ul.h-list li
+{
+    float: left;
+    margin-left: 8px;
+}
+
+div.monitor-betlist-filter, table.monitor-betlist-filter
+{
+    min-width: 1040px;
+    width: 100%;
+}
+
+div#currency-list
+{
+    width: 350px;
+}
+
+div#currency-list span
+{
+    float: left;
+    width: 50px;
+    display: block;
+}
+
+.special-list-label
+{
+    width: 70px;
+}
+
+div#special-list
+{
+    width: 395px;
+}
+
+div#special-list span
+{
+    float: left;
+    width: 65px;
+    display: block;
+}
+
+a.filter-by-bettype
+{
+    text-decoration: none;
+    font-weight: normal;
+}
+
+/*-----------------Color-------------------*/
+
+.specialColor0
+{
+    color: #fcfcfc;
+}
+.specialColor1
+{
+    color: #98b516 !important;
+}
+.specialColor2
+{
+    color: #007d00 !important;
+}
+.specialColor3
+{
+    color: #b87856 !important;
+}
+.specialColor4
+{
+    color: #fcc50f !important;
+}
+.specialColor5
+{
+    color: #418a86 !important;
+}
+.specialColor6
+{
+    color: #969036 !important;
+}
+.specialColor7
+{
+    color: #944937 !important;
+}
+.specialColor8
+{
+    color: #3297fc !important;
+}
+.specialColor9
+{
+    color: #c98402 !important;
+}
+.specialColor10
+{
+    color: #fc0000 !important;
+}
+
+/*-------------Hight light-----------------*/
+
+tr.monitor-betlist-hightlight
+{
+    background: #FFDBA8;
+}
+td.betlist_status_hightlight
+{
+    background-color: #ff9933 !important;
+}
+tr.monitor-betlist-hight-keep
+{
+    background: #F7C4AF !important;
+}
+
+#div-loading
+{
+    background: url("images/ajax-loader.gif") no-repeat scroll center center transparent;
+    width: 30px;
+    height: 30px;
+}
+.align-top td
+{
+    vertical-align: top;
+}

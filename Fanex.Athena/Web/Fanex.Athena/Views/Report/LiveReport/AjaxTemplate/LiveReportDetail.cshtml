@@ -1,0 +1,47 @@
+﻿@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
+@{
+    Layout = null;
+}
+@{
+    ViewBag.ProductWidth = 220;
+    ViewBag.CustomerWLLargeWidth = 120;
+    ViewBag.CustomerWLMergeWidth = 322;
+    ViewBag.CustomerWLWidth = 120;
+    ViewBag.CustomerCommWidth = 80;
+    ViewBag.CustomerWLTotalWidth = 120;
+    ViewBag.TurnoverWidth = 90;
+    ViewBag.BetCountWidth = 80;
+    ViewBag.LicenseeWLWidth = 100;
+    ViewBag.AmountDueWidth = 100;
+    ViewBag.CommWidth = 90;
+
+    ViewBag.ColumnCount = 6;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? 1 : 0;
+    ViewBag.ContainerWidth = ViewBag.ProductWidth +
+                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
+                ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
+                ViewBag.LicenseeWLWidth +
+                (Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? ViewBag.CommWidth : 0) +
+                ViewBag.AmountDueWidth;
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+}
+@{
+    ViewBag.RemoveCutomerCommClass = !Model.IsAllowedCustomerCommission ? "content-row-comm" : "";
+}
+<!--BySport-->
+@{Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/BySport/Content.cshtml");}
+<div class="clear"></div>
+<!--/BySport-->
+<!--By Currency-->
+@{Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/ByCurrency/Content.cshtml");}
+<div class="clear"></div>
+<!--By Currency-->
+<!--By Bet type-->
+@{Html.RenderPartial("~/Views/Report/LiveReport/AjaxTemplate/ByBettype/Content.cshtml");}
+<div class="clear"></div>
+<!--By Bet type-->

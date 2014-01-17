@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+    var total = Model.TotalData; //total
+}
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+@if (Model.DataList.Count > 0)
+{       
+    <div id="report-total" class="total-content" style="width:@ViewBag.ContainerWidth@("px");">
+        <div class="row title-text" style="width:@(ViewBag.NumberWidth + 2 * ViewBag.TextWidth + 2)@("px")">
+            @ViewResources.Total
+        </div>
+        <div class="row" style="width:@ViewBag.TurnoverWidth@("px")">
+            <div>@total.Turnover.ToStringExt()</div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
+                <div>@total.MemberWl.ToStringExt()</div>
+            </div>
+            <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
+                <div>@total.PlayerComm.ToStringExt()</div>
+            </div>
+            <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
+                <div>@((total.PlayerComm + total.MemberWl).ToStringExt())</div>
+            </div>
+        }
+        else
+        {
+            <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                <div>@total.MemberWl.ToStringExt()</div>
+            </div>
+        }
+        <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
+            @FormatHelper.NegativeFormat(total.LicenseeWl)
+        </div>
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
+                @FormatHelper.NegativeFormat(total.BaComm)
+            </div>                
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
+                @FormatHelper.NegativeFormat(total.RacingRevenue)
+            </div>                
+        }
+        @if (Model.ProductAccess.IsAllowBa)
+        {
+            <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
+                <div>@total.AmtDueToBa.ToStringExt()</div>
+            </div>                
+        }
+        @if (Model.ProductAccess.IsAllowRb)
+        {
+            <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
+                <div>@total.AmtDueToRacing.ToStringExt()</div>
+            </div>                
+        }
+    </div>
+}

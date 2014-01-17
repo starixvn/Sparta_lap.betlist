@@ -1,0 +1,168 @@
+﻿@{
+    // Game type:  Winter Slot, Mamak Corner - full //
+    Layout = null;
+}
+<link href="@Url.ContentLink("/Content/RNGCasino/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
+@model Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail.CasinoHandHistoryDetailViewModel
+@{
+    var headerItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "BasicInfo").FirstOrDefault();
+    var modeItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Mode").FirstOrDefault();
+    var autoSpinItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "AutoSpin").FirstOrDefault();
+    var freeSpinItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "FreeSpin").FirstOrDefault();
+    var hitBetLineItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Result_HitBetLine").FirstOrDefault();
+    var hitScatterItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Result_HitScatter").FirstOrDefault();
+    var totalItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Add_TotalLineWinLoss").FirstOrDefault();
+}
+<table style="width: 100%;" class="casino-detail-table" cellpading="0" cellspacing="0">
+    <tr class="detail-header-row">
+        <td class="game-type-text" colspan="5">@Model.Param.GameTypeName - @headerItem.BetTime
+        </td>
+    </tr>
+    <tr class="player-total-row">
+        <td colspan="5">
+            @ViewResources.Player: @headerItem.UserName - @ViewResources.Viewin @Model.Param.CurrencyName
+        </td>
+    </tr>
+    <tr class="detail-header-row">
+        <td colspan="5">@headerItem.ResultName
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            @if (!string.IsNullOrEmpty(headerItem.Result))
+            {
+                @Html.Raw(headerItem.Result.Replace("/Form", Url.Content("~/") + "Form"))
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>@ViewResources.PlayerHistoryNo
+        </td>
+        <td class="align-left" colspan="4">@Model.Param.PlayerHistoryNo
+        </td>
+    </tr>
+    @if (modeItem != null || !string.IsNullOrEmpty(headerItem.ModeResult))
+    {
+        <tr>
+            <td>@ViewResources.Mode
+            </td>
+            <td class="align-left" colspan="4">
+                @(!string.IsNullOrEmpty(headerItem.ModeResult)
+                ? headerItem.ModeResult
+                : modeItem.ModeResult)
+            </td>
+        </tr>
+    }
+    @if (autoSpinItem != null || !string.IsNullOrEmpty(headerItem.AutoSpinResult))
+    {
+        <tr>
+            <td>@ViewResources.AutoSpin
+            </td>
+            <td class="align-left" colspan="4">
+                @(!string.IsNullOrEmpty(headerItem.AutoSpinResult)
+                ? headerItem.AutoSpinResult
+                : autoSpinItem.AutoSpinResult)
+            </td>
+        </tr>
+    }
+    @if (freeSpinItem != null || !string.IsNullOrEmpty(headerItem.FreeSpinResult))
+    {
+        <tr>
+            <td>@ViewResources.FreeSpin
+            </td>
+            <td class="align-left" colspan="4">
+                @(!string.IsNullOrEmpty(headerItem.FreeSpinResult)
+                ? headerItem.FreeSpinResult
+                : freeSpinItem.FreeSpinResult)
+            </td>
+        </tr>    
+    }
+    @if (hitBetLineItem != null)
+    {
+        <tr class="detail-header-row">
+            <td>@ViewResources.LineNo
+            </td>
+            <td>@ViewResources.Symbol
+            </td>
+            <td>@ViewResources.CoinSize
+            </td>
+            <td>@ViewResources.Odds
+            </td>
+            <td>@ViewResources.Win/@ViewResources.Loss
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                @if (!string.IsNullOrEmpty(hitBetLineItem.LineNo))
+                {
+                    @Html.Raw(hitBetLineItem.LineNo.Replace("/img", Url.Content("~/") + "img"))
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(hitBetLineItem.Symbol))
+                {
+                    @Html.Raw(hitBetLineItem.Symbol.Replace("/img", Url.Content("~/") + "img"))
+                }
+            </td>
+            <td>@hitBetLineItem.CoinSizeBaseCurrencyValue.ToStringExt()
+            </td>
+            <td>@hitBetLineItem.Odds
+            </td>
+            <td>@hitBetLineItem.WinBaseCurrencyValue.ToStringExt()
+            </td>
+        </tr>         
+    }
+    @if (hitScatterItem != null)
+    {
+        <tr class="detail-header-row">
+            <td>@ViewResources.TotalLineBet
+            </td>
+            <td>@ViewResources.Symbol
+            </td>
+            <td>@ViewResources.CoinSize
+            </td>
+            <td>@ViewResources.Odds
+            </td>
+            <td>@ViewResources.Win/@ViewResources.Loss
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @hitScatterItem.TotalLineBet
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(hitScatterItem.Symbol))
+                {
+                    @Html.Raw(hitScatterItem.Symbol.Replace("/img", Url.Content("~/") + "img"))
+                }
+            </td>
+            <td>@hitScatterItem.CoinSizeBaseCurrencyValue.ToStringExt()
+            </td>
+            <td>@hitScatterItem.Odds
+            </td>
+            <td>@hitScatterItem.WinBaseCurrencyValue.ToStringExt()
+            </td>
+        </tr>        
+    }
+    @if (totalItem != null)
+    {
+        <tr>
+            <td>@ViewResources.Win/@ViewResources.Loss
+            </td>
+            <td colspan="4" class="align-right">@totalItem.WinLossResultBaseCurrecyValue.ToStringExt()
+            </td>
+        </tr>
+    }
+    <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Total @ViewResources.Bet
+        </td>
+        <td colspan="4" class="align-right">@Model.CasinoDetailList.Sum(p => p.Bet).ToStringExt()
+        </td>
+    </tr>
+    <tr class="player-total-row">
+        <td class="align-left">@ViewResources.Total @ViewResources.Win/@ViewResources.Loss
+        </td>
+        <td colspan="4" class="align-right">@Model.CasinoDetailList.Sum(p => p.WinLoss).ToStringExt()
+        </td>
+    </tr>
+</table>

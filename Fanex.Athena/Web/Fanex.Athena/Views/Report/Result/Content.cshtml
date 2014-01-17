@@ -1,0 +1,37 @@
+﻿<div class="container_26">
+    <div class="grid_26">
+        <div id="filter-by-sport-league" style="width: 100%; display: none;">
+            <table>
+                <tr>
+                    <td style="width: 75px; text-align: right;">
+                        @ViewResources.Sport&nbsp;
+                    </td>
+                    <td style="width: 120px;">
+                        <select id="sport">
+                        </select>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        @ViewResources.League&nbsp;
+                    </td>
+                    <td>
+                        <select id="league" style="width: 300px;">
+                            <option value="0" selected="selected">*..::*@ViewResources.ShowAllLeagues*::..*</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="result-page" style="width: 100%;">
+        </div>
+        <div id="no-info" class="no-info"
+         style="display:none; height: 22px; width: 100%; text-align: center;border: solid 1px #A3D1E1;
+            padding-top: 3px;">
+            @ViewResources.NoInfo
+        </div>
+        <div class="hide">
+            <iframe width="0" height="0" id="iframe"></iframe>
+        </div>
+    </div>
+</div>

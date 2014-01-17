@@ -1,0 +1,23 @@
+﻿@using Fanex.Athena.Models.ViewModel
+
+<table id="forecast-table" class="report-table"
+       data-match-id="@Model.Param.MatchId"
+       data-bettype="@Model.Param.BetType"
+       data-licenseetype="@Model.Param.LicenseeType"
+       data-basecurrency="@Model.Param.BaseCurrency"
+       data-currencyid="@Model.Param.CurrencyId"
+       data-currencyname="@Model.Param.CurrencyName"
+       >
+    <tr class="no-info">
+        <td class="no-info">@ViewResources.NoInfo
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="view-forecast">
+                <a href="javascript:;" class="view-forecast-link" data-bettype="@ViewBag.SwitchBetType">
+                    @ViewResources.View @(ViewBag.BetTypeName) @ViewResources.Forecast</a>
+            </div>
+        </td>
+    </tr>
+</table>

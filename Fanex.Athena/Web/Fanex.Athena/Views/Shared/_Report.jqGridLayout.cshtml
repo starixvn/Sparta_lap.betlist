@@ -1,0 +1,45 @@
+﻿@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Fanex.Athena.Extension.Helper;
+@section css
+{
+    <link href="@Url.ContentLink("/Content/Library/smoothness/jqgrid-custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Library/ui.jqgrid/jqgrid.extension.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Library/ui.jqgrid/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Plugin/MonthPickr/monPickr.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    <script src="@Url.ContentLink("/Scripts/global/jquery.jqgrid.additional.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.en.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/date.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/MonthPickr/monpickr.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/daterangepicker.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/MonthPickr/monpickr.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/LinqJs/JSLINQ.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/report.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/global/prototype.js")" type="text/javascript"></script>
+    @RenderSection("pagejs", required: false)
+}
+<div class="container_26">
+    <div class="grid_26">
+        <div class="content-title">
+            @RenderSection("ContentTitle", required: false)
+        </div>
+    </div>
+    @RenderSection("ContentFilter", required: false)
+</div>
+<div class="content-main">
+    <div class="loading">
+    </div>
+    <div class="block-body">
+    </div>
+    @RenderBody()
+</div>

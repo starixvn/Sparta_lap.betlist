@@ -1,0 +1,78 @@
+﻿@using System.Linq
+@model Fanex.Athena.Models.ViewModel.TotalBets.FirstGoalLastGoalViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .Distinct()
+                            .ToList();
+    var index = 1;
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var league in leagueList)
+            {
+                // Render League name
+                <tr>
+                    <td class="league" colspan="6">@league.LeagueName.ToUpper()
+                    </td>
+                </tr>
+                var matchOfLeague = Model.MainData.Where(x => x.LeagueId == league.LeagueId)
+                                                  .OrderBy(x => x.HomeTeamName)
+                                                  .ToList();
+
+                // Render Team in League
+                foreach (var team in matchOfLeague)
+                { 
+                <tr>
+                    <td style="width: 3%" class="order-number" rowspan="2">@(index++)
+                    </td>
+                    <td style="width: 20%" class="show-time" rowspan="2">
+                        @Html.Raw(team.ShowTime)
+                    </td>
+                    <!--Home Team-->
+                    <td style="width: 30%" class="match-name">
+                        <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.HomeTeamName</a>
+                    </td>
+                    <!--/Home Team-->
+                    <!--Home First Goal-->
+                    <td style="width: 15%" class="score-value">
+                        @RazorHelper.PositiveFormat(team.HomeFirstGoal, true)
+                    </td>
+                    <!--/Home First Goal-->
+                    <!--Home Last Goal-->
+                    <td style="width: 15%" class="score-value">
+                        @RazorHelper.PositiveFormat(team.HomeLastGoal, true)
+                    </td>
+                    <!--/Home Last Goal-->
+                    <!--No Goal-->
+                    <td style="width: 15%" class="score-value" rowspan="2">
+                        @RazorHelper.PositiveFormat(team.NoGoal, true)
+                    </td>
+                    <!--/No Goal-->
+                </tr>
+                <tr>
+                    <!--Away Team-->
+                    <td style="width: 30%" class="match-name">
+                        <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.AwayTeamName</a>
+                    </td>
+                    <!--/Away Team-->
+                    <!--Away First Goal-->
+                    <td style="width: 15%" class="score-value">
+                        @RazorHelper.PositiveFormat(team.AwayFirstGoal, true)
+                    </td>
+                    <!--/Away First Goal-->
+                    <!--Away Last Goal-->
+                    <td style="width: 15%" class="score-value">
+                        @RazorHelper.PositiveFormat(team.AwayLastGoal, true)
+                    </td>
+                    <!--/Away Last Goal-->
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>

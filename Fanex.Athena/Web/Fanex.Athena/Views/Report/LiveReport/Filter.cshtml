@@ -1,0 +1,56 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportViewModel
+@{
+    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+}
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    <!--grid_26-->
+    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/Report/LiveReport?isViewedHistory=false")">
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate,
+        DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+    <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Currency
+        </label>
+    </div>
+    <div class="grid_3 filter-input">
+        @*@{var currencyList = Model.CurrencyList.Where(c => c.Key != "UUS").ToDictionary(c => c.Key, c => c.Value);}*@
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+    </div>
+    <div class="grid_3 filter-label">
+        <label>
+            @ViewResources.Based
+        </label>
+    </div>
+    <div class="grid_1 filter-input">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+    </div>
+    <div class="gird_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "LiveReport" });}
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="exporttoexcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_2 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_12 filter-input" style="height: 35px;">
+        <div class="note-message">
+            @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+          <a data-history-mode="False" id="switchreport" href="javascript:;">
+              @ViewResources.ToViewHistoryRptMsg
+            </a>
+           
+        </div>
+    </div>
+    <div class="grid_2 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input">
+        <input type="submit" value="@ViewResources.Submit" class="button blockui" />
+    </div>
+    <input type="hidden" name="ProductCode" id="ProductCode" />
+    </form>
+</div>

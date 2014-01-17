@@ -1,0 +1,110 @@
+﻿table.report-table
+{
+    width: 1040px;
+    border-right: 1px solid #A3D1E1;
+    border-top: 1px solid #A3D1E1;
+}
+table.report-table tr:hover, tr.hover
+{
+    background: none repeat scroll 0 0 #F8FF8D;
+}
+table.report-table td
+{
+    border-bottom: 1px solid #A3D1E1;
+    border-left: 1px solid #A3D1E1;
+    color: #454545;
+}
+table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
+{
+    background-image: url("images/tab_topbg02.jpg");
+    border-top: 2px solid #FFFFFF;
+}
+table.report-table tr.report-table-header td, table.report-table tr.report-table-header th
+{
+    background-image: url("images/tab_topbg.gif");
+}
+table.report-table tr.report-table-header td:first-child, table.report-table tr.report-table-header-02 td:first-child
+{
+    border-left: 1px solid #A3D1E1;
+}
+table.report-table tr.report-table-header td, table.report-table tr.report-table-header th, table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
+{
+    background-color: #C7E9F5;
+    border-left: 1px solid #FFFFFF;
+    color: #024584;
+}
+table.report-table tr.report-table-header-double td, table.report-table tr.report-table-header-double th
+{
+    background-color: #C7E9F5;
+    background-image: url("images/tab_topbg38.gif");
+    border-left: 1px solid #FFFFFF;
+    color: #024584;
+}
+table.report-table td.league, .league
+{
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #DAE6ED;
+    color: #333333;
+}
+table.report-table tr td.report-title
+{
+    background: url("images/icon_content.gif") no-repeat scroll 5px center #FFEFDE;
+    border: 1px solid #A3D1E1;
+}
+table.report-table td.highlight
+{
+    background-color: #F8F1A0 !important;
+}
+table.report-table tr.no-info td, table.report-table tr.no-info td
+{
+    background-color: #FFFFFF;
+}
+table.report-table tr.total-rows td
+{
+    color: #454545;
+}
+table.report-table .report-table-footer td
+{
+    background-color: #B2DFEF;
+    border-top: 2px solid #FF6600;
+    color: #003333;
+}
+table.report-table .report-table-footer-reset-border td
+{
+    border-top: 1px solid #A3D1E1 !important;
+}
+table.report-table .report-table-footer-background-goldenrod-pale td
+{
+    background-color: #F8F1A0 !important;
+}
+tr.tr-background-light-salmon
+{
+    background-color: #FFA07A !important;
+}
+
+table.report-table tr.report-table-header td, table.report-table tr.report-table-header th, table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
+{
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    font-size: 11px;
+    font-weight: normal;
+    height: 28px;
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+}
+.left-align
+{
+    text-align: left;
+}
+.center-align
+{
+    text-align: center;
+}
+.right-align
+{
+    text-align: right;
+}
+.b
+{
+    font-weight: bold;
+}

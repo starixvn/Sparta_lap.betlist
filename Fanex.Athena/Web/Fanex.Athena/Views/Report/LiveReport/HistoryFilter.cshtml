@@ -1,0 +1,64 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportViewModel
+@{
+    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+}
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    <!--grid_26-->
+    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/Report/LiveReport?isViewedHistory=true")">
+    <!--12 column-->
+    <input id="FromDate"  name="FromDate" type="hidden" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" data-original="@Model.Param.FromDate.ToString("MM/dd/yyyy")"/>
+    <input  id="ToDate" name="ToDate" type="hidden" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" data-original="@Model.Param.ToDate.ToString("MM/dd/yyyy")"/>
+    <div class="grid_3 filter-label">
+        <label>@ViewResources.ViewDataInMonth</label>
+    </div>
+    <div class="grid_8 filter-input month-picker">
+        <div id="month-picker">
+        </div>
+        <div id="fDay">
+        </div>
+        <div id="tDay">
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.Currency
+        </label>
+    </div>
+    <div class="grid_3 filter-input">
+        @*@{var currencyList = Model.CurrencyList.Where(c => c.Key != "UUS").ToDictionary(c => c.Key, c => c.Value);}*@
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+    </div>
+    <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Based
+        </label>
+    </div>
+    <div class="grid_1 filter-input">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="gird_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "LiveReport", isHistory=true });}
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="exporttoexcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line ">
+        &nbsp;</div>
+    <div class="grid_10 filter-input">
+        <div class="note-message">            
+            <a href="javascript:;" data-history-mode="True" id="switchreport">@ViewResources.BackToCurrentReport</a>
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line">
+            &nbsp;</div>
+    <div class="grid_2 filter-input">
+        <input type="submit" value="@ViewResources.Submit" class="button blockui" />
+    </div>
+    <input type="hidden" name="ProductCode" id="ProductCode" value="" />
+    </form>
+</div>

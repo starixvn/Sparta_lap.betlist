@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets +
+    " - " + ViewResources.FGLG;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.TotalBets.FirstGoalLastGoalViewModel
+@section page {
+    <script src="@Url.ContentLink("/Scripts/TotalBets/firstgoallastgoal.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            FirstGoalLastGoal.initialize();
+            RefreshCountDown.initEvent();
+        });
+    </script>
+}
+@section ContentTitle
+    {
+    @ViewResources.FGLG
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/TotalBets/FirstGoalLastGoal/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/TotalBets/FirstGoalLastGoal/Content.cshtml");
+}

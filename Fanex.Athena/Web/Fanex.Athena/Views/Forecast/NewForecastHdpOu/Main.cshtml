@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Main"; ViewBag.Title = "LRF - " + ViewResources.Forecast +
+    " - " + ViewResources.HandicapOverUnderLive;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_ForecastLayout.cshtml";
+}
+@model Fanex.Athena.Models.ViewModel.Forecast.NewForecastHdpOuViewModel
+@section page {
+    <script src="@Url.ContentLink("/Scripts/Forecast/forecast.newforecasthdpou.js")" type="text/javascript"></script>
+    <link href="@Url.ContentLink("/Content/Forecast/forecast.newforecast.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(window).load(function () {
+            NewForecastHdpOu.initialize();
+            RefreshCountDown.initEvent();
+        });
+    </script>
+}
+@section ContentTitle
+{
+    @ViewResources.HandicapOverUnderLive
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Forecast/NewForecastHdpOu/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Forecast/NewForecastHdpOu/Content.cshtml");
+}

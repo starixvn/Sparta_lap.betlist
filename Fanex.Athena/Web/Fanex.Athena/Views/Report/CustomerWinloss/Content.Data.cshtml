@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+    var maxHeight = 500;
+    
+}
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+@if (Model.DataList == null || Model.DataList.Count == 0)
+{
+    <!--No result-->
+    <div class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
+        <div class="row grid-noinfo "style="width:@ViewBag.ContainerWidth@("px");">
+            <div>
+                @ViewResources.NoInfo
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    var rowNumber = 1;
+    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:@(maxHeight)px">
+        @foreach (var item in Model.DataList)
+        {
+            <div class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
+                <div class="row title-text" style="width:@ViewBag.NumberWidth@("px")">
+                    @rowNumber
+                </div>
+                <div class="row text-data" style="width:@ViewBag.TextWidth@("px")">
+                    <div>
+                        <a class="bet-list-link" data-cust-id="@item.CustId" data-system-id="@item.SystemId" data-external-id="@item.ExternalId" href="javascript:;">
+                            @RazorHelper.TruncateWithTip(item.ExternalId, 17, true)
+                        </a>
+                    </div>
+                </div>
+                <div class="row text-data" style="width:@ViewBag.TextWidth@("px")">
+                    <div>@item.SystemId</div>
+                </div>
+                <div class="row" style="width:@ViewBag.TurnoverWidth@("px")">
+                    <div>@item.Turnover.ToStringExt()</div>
+                </div>
+                @if (Model.IsAllowedCustomerCommission)
+                {
+                    <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
+                        <div>@item.MemberWl.ToStringExt()</div>
+                    </div>
+                    <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
+                        <div>@item.PlayerComm.ToStringExt()</div>
+                    </div>
+                    <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
+                        <div>@((item.PlayerComm + item.MemberWl).ToStringExt())</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                        <div>@item.MemberWl.ToStringExt()</div>
+                    </div>
+                }
+                <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
+                    @FormatHelper.NegativeFormat(item.LicenseeWl)
+                </div>
+                @if (Model.ProductAccess.IsAllowBa)
+                {
+                    <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
+                        @FormatHelper.NegativeFormat(item.BaComm)
+                    </div>                
+                }
+                @if (Model.ProductAccess.IsAllowRb)
+                {
+                    <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
+                        @FormatHelper.NegativeFormat(item.RacingRevenue)
+                    </div>                
+                }
+                @if (Model.ProductAccess.IsAllowBa)
+                {
+                    <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
+                        <div>@item.AmtDueToBa.ToStringExt()</div>
+                    </div>                
+                }
+                @if (Model.ProductAccess.IsAllowRb)
+                {
+                    <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
+                        <div>@item.AmtDueToRacing.ToStringExt()</div>
+                    </div>                
+                }
+            </div>
+                rowNumber++;
+        }
+    </div>
+}

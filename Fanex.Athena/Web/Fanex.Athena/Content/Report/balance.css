@@ -1,0 +1,40 @@
+﻿select
+{
+    width: 100px;
+}
+
+.header-content .title-header
+{
+    font-weight: bold;
+    text-align: left;
+    line-height: 30px;
+    height: 30px;
+}
+.title-header div
+{
+    padding-left: 5px;
+}
+
+.closed
+{
+    color: #FF0000;
+}
+
+.suspended
+{
+    color: #D45F12;
+}
+
+.border-top
+{
+    border-top: 2px solid #D2592D;
+    line-height: 24px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+div#balance-note ul li
+{
+    font-size: 11px;
+    list-style-image: url("images/icon_arrowrd.gif");
+}

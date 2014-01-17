@@ -1,0 +1,42 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IGroupComDataAccess.cs" company="Nexcel Solution">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
+// </history>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.DataAccess.Interface.Customer
+{
+    using System.Collections.Generic;
+    using System.Data;
+    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.MetaModel.Customer;
+
+    public interface IGroupComDataAccess
+    {
+        int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo);
+
+        bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo);
+
+        IList<GroupCommMetaModel> GetAll(int licenseeId);
+
+        DataTable GetDataForExcel(int licenseeId);
+
+        GroupCommMetaModel GetById(int groupCommId);
+
+        bool CheckByName(int licenseeId, string groupName);
+
+        int DeleteGroup(
+            int groupId,
+            int licenseeId,
+            int userId,
+            string ip,
+            string language,
+            bool isRemoveCommSetting,
+            bool isResetDefault,
+            out IResultInfo resultInfo);
+    }
+}

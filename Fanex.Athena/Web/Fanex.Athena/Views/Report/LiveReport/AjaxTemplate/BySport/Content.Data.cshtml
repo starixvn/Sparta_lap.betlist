@@ -1,0 +1,61 @@
+﻿@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
+<div class="data-content">
+    @foreach (var item in Model.BySports)
+    {
+        var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
+                <div>
+                    @*Do not show sport link for Live Casino*@
+                    @{
+                        var liveCasinoSports = new List<int> {162,251,252,253};                        
+                        if (Model.IsShowedDetailLink && !liveCasinoSports.Contains(sportId))
+                        {
+                            var detailParam = new
+                            {
+                                SportId = sportId,
+                                TotalValue = item
+                            };
+                            <a href="javascript:;" class="sport-detailt-link" data-drill-down="@detailParam.ToJson()">
+                                @item.ProductName
+                            </a>
+                        }
+                        else
+                        {
+                            @item.ProductName
+                        }
+                    }
+                </div>
+            </div>
+            @SplitingProductHelper.CustomerWLContent(item, Model.IsAllowedCustomerCommission,
+                            (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+            <div class="row" style="width:@(ViewBag.TurnoverWidth)px">
+                <div>
+                    @item.TurnOver.ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.BetCountWidth)px">
+                <div>
+                    @item.BetCount.ToStringExt()
+                </div>
+            </div>
+            <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px">
+                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+            </div>
+            @if (Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa)
+            {
+                <div class="row highlight" style="width:@(ViewBag.CommWidth)px">
+                    <div>
+                        @item.LicenseeComm.ToStringExt()
+                    </div>
+                </div>
+            }
+            <div class="row" style="width:@(ViewBag.AmountDueWidth)px">
+                <div>
+                    @item.AmountDue.ToStringExt()
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,30 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+#footer {
+    height: 22px;
+    border: #c8c8c8 solid 1px;
+    background: url(images/bg_footer.jpg) repeat-x top;
+    text-align: center;
+    padding-right: 10px;
+    line-height: 19px;
+    font-family: 'Gill Sans MT', Verdana, Tahoma, Sans-Serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #999999;
+}
+.best-view {
+    margin: 0 auto;
+    
+}
+.best-view a {
+    text-decoration: none;
+    color: #999999
+}
+.copy-right {
+    margin: 0 auto;
+    float: right;
+}

@@ -1,0 +1,13 @@
+﻿@using Fanex.Athena.Controllers
+@model Fanex.Athena.Models.ViewModel.TotalBets.MoneyLineViewModel
+@{
+    Html.RenderPartial("~/Views/TotalBets/MoneyLine/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/MoneyLine/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/TotalBets/MoneyLine/ContentData.cshtml");
+}

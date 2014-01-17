@@ -1,0 +1,12 @@
+﻿@{
+    var status = Model.Data["Suspended"];
+
+    <table class="report-table" style="width: 100%;">
+        <tr>
+            <td class="action-name">@Model.Resource["Suspended"]
+            </td>
+            <td class="action-name-right">@(status == "1" ? Model.Resource["Yes"] : Model.Resource["No"])
+            </td>
+        </tr>
+    </table>
+}

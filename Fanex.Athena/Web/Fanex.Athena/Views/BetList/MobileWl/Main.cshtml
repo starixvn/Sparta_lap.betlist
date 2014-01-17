@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Shared/_BetListSimpleLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+@section pagecss {}
+@section pagejs {
+}
+@{
+    var siteList = new List<string> { string.Empty, ViewResources.Wap, ViewResources.SmartPhone, ViewResources.Others };
+    var siteText = siteList[Model.SiteType];
+}
+@section ContentTitle
+{    
+  @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
+        → </span>@Model.ToDate.ToShortDateString()
+    - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Site: @siteText - <span class="base-currency">
+           @{var curencyId = Model.IsConvert ? (Model.BaseCurrency.ToLower() == "eur" ? -1 : -2) : Model.CurrencyId;}
+
+        
+            @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)        
+    </span>
+}
+@section BackButton
+{
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
+    
+}

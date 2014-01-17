@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5653BC29-0843-4D75-9140-5B370DF2F88C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.DataAccess</RootNamespace>
+    <AssemblyName>Fanex.Athena.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.BetList.Core">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
+      <HintPath>..\..\..\DLLs\Fanex\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exception\DataAccessException.cs" />
+    <Compile Include="Extension\DataHelper.cs" />
+    <Compile Include="Extension\DataReaderExtensions.cs" />
+    <Compile Include="Implement\BetList\BetListDataAccess.cs" />
+    <Compile Include="Implement\Common\BetTypeDataAccess.cs" />
+    <Compile Include="Implement\Common\ExChangeRateDataAccess.cs" />
+    <Compile Include="Implement\Common\LeagueDataAccess.cs" />
+    <Compile Include="Implement\Common\MatchDataAccess.cs" />
+    <Compile Include="Implement\Common\SportTypeDataAccess.cs" />
+    <Compile Include="Implement\Customer\BetSettingDataAccess.cs" />
+    <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
+    <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
+    <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
+    <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
+    <Compile Include="Implement\Report\ResultDataAccess.cs" />
+    <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
+    <Compile Include="Interface\Report\IWinLossByLeagueDataAccess.cs" />
+    <Compile Include="Interface\Report\IResultDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\FirstGoalLastGoalDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\HalfTimeFullTimeDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\HandicapOverUnderDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\HomeDrawAwayNoBetDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\MoneyLineDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\NumberGameDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\OddEvenDrawNoDrawDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\OutrightDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\RacingDataAccess.cs" />
+    <Compile Include="Implement\TotalBets\TotalGoalDataAccess.cs" />
+    <Compile Include="Implement\Users\AuthorizationDataAccess.cs" />
+    <Compile Include="Implement\Common\FunctionDataAccess.cs" />
+    <Compile Include="Implement\Configuration\BalanceUpDataAccess.cs" />
+    <Compile Include="Implement\Base\BaseDataAccess.cs" />
+    <Compile Include="Implement\Customer\CustomerDataAccess.cs" />
+    <Compile Include="Implement\Customer\GroupComDataAccess.cs" />
+    <Compile Include="Implement\Report\CreditBalanceDataAccess.cs" />
+    <Compile Include="Implement\Report\CustomerBalanceDataAccess.cs" />
+    <Compile Include="Implement\Report\CustomerPendingFundsDataAccess.cs" />
+    <Compile Include="Implement\Report\CustomerTurnoverDataAccess.cs" />
+    <Compile Include="Implement\Report\CustomerWinlossDataAccess.cs" />
+    <Compile Include="Implement\Report\DailyRacingWinLossDataAccess.cs" />
+    <Compile Include="Implement\Report\WinLossByProductDataAccess.cs" />
+    <Compile Include="Implement\Report\LiveReportDataAccess.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Implement\Report\RacingCommissionDataAccess.cs" />
+    <Compile Include="Implement\Report\SettledMatchCountDataAccess.cs" />
+    <Compile Include="Implement\Report\TurnoverDataAccess.cs" />
+    <Compile Include="Implement\Report\WinLossByBetTypeDataAccess.cs" />
+    <Compile Include="Interface\BetList\IBetListDataAccess.cs" />
+    <Compile Include="Interface\Common\IExChangeRateDataAccess.cs" />
+    <Compile Include="Interface\Common\IBetTypeDataAccess.cs" />
+    <Compile Include="Interface\Common\ISportTypeDataAccess.cs" />
+    <Compile Include="Interface\Common\IMatchDataAccess.cs" />
+    <Compile Include="Interface\Customer\CustomerLog\ICustomerLogDataAccess.cs" />
+    <Compile Include="Interface\Customer\CustomerLog\ILogInLogDataAccess.cs" />
+    <Compile Include="Interface\Forecast\IForecastDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IFirstGoalLastGoalDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IHalfTimeFullTimeDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IHandicapOverUnderDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IHomeDrawAwayNoBetDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IMoneyLineDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\INumberGameDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IOddEvenDrawNoDrawDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IOutrightDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\IRacingDataAccess.cs" />
+    <Compile Include="Interface\TotalBets\ITotalGoalDataAccess.cs" />
+    <Compile Include="Interface\Users\IAthorizationDataAccess.cs" />
+    <Compile Include="Interface\Common\IFunctionDataAccess.cs" />
+    <Compile Include="Interface\Configuration\IBalanceUpDataAccess.cs" />
+    <Compile Include="Implement\Common\CurrencyDataAccess.cs" />
+    <Compile Include="Implement\Users\LicenseeDataAccess.cs" />
+    <Compile Include="Implement\Common\ProductDataAccess.cs" />
+    <Compile Include="Implement\Report\MatchWinLossDataAccess.cs" />
+    <Compile Include="Interface\Customer\IBetSettingDataAccess.cs" />
+    <Compile Include="Interface\Customer\ICustomerDataAccess.cs" />
+    <Compile Include="Interface\Customer\IGroupComDataAccess.cs" />
+    <Compile Include="Interface\Report\IBalanceDataAccess.cs" />
+    <Compile Include="Interface\Report\ICustBalanceDataAccess.cs" />
+    <Compile Include="Interface\Report\ICustPendingFundsDataAccess.cs" />
+    <Compile Include="Interface\Report\ICustTurnoverDataAccess.cs" />
+    <Compile Include="Interface\Report\ICustWinlossDataAccess.cs" />
+    <Compile Include="Interface\Report\IDailyRacingWinLossDataAccess.cs" />
+    <Compile Include="Interface\Report\IRacingCommissionDataAccess.cs" />
+    <Compile Include="Interface\Report\ISettledMatchCountDataAccess.cs" />
+    <Compile Include="Interface\Report\ITurnoverDataAccess.cs" />
+    <Compile Include="Interface\Report\ILicenseeWinLossDataAccess.cs" />
+    <Compile Include="Implement\Report\LicenseeWinLossDataAccess.cs" />
+    <Compile Include="Implement\Report\MobileWinLossDataAccess.cs" />
+    <Compile Include="Implement\Users\UserDataAccess.cs" />
+    <Compile Include="Implement\Warehouse\TopCustomerDataAccess.cs" />
+    <Compile Include="Implement\Warehouse\WinLossDataAccess.cs" />
+    <Compile Include="Interface\Common\ICurrencyDataAccess.cs" />
+    <Compile Include="Interface\Users\ILicenseeDataAccess.cs" />
+    <Compile Include="Interface\Common\IProductDataAccess.cs" />
+    <Compile Include="Interface\Report\ILiveReportDataAccess.cs" />
+    <Compile Include="Interface\Report\IMatchWinLossDataAccess.cs" />
+    <Compile Include="Interface\Report\IMobileWinLossDataAccess.cs" />
+    <Compile Include="Interface\Report\IWinLossByBetTypeDataAccess.cs" />
+    <Compile Include="Interface\Report\IWinLossByProductDataAccess.cs" />
+    <Compile Include="Interface\Users\IUserDataAccess.cs" />
+    <Compile Include="Interface\Warehouse\ITopCustomerDataAccess.cs" />
+    <Compile Include="Interface\Warehouse\IWinLossDataAccess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
+      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
+      <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interface\Licensee\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

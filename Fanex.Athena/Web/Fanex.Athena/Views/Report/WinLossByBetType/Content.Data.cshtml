@@ -1,0 +1,52 @@
+﻿@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+<div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)@("px");max-height:550px; overflow-x:auto" >
+    @{int index = 1;}
+    @foreach (var item in Model.MainResult)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)@("px")">
+            <div class="row title-text" style="width:@(ViewBag.NumberWidth)@("px")">
+                @(index++)
+            </div>
+            <div class="row text-data" style="width:@(ViewBag.BetTypeNameWidth)@("px")">
+                <div>@item.BetTypeName</div>
+            </div>
+            <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
+                <div>@item.Turnover.ToStringExt()</div>
+            </div>
+            @SplitingProductHelper.CustomerWLContent(item as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
+                                                     Model.IsAllowedCustomerCommission,
+                                                     ViewBag.CustomerWLLargeWidth,
+                                                     ViewBag.CustomerWLWidth,
+                                                     ViewBag.CustomerCommWidth,
+                                                     ViewBag.CustomerWLTotalWidth)
+            <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
+                @FormatHelper.NegativeFormat(item.LicenseeWL)
+            </div>
+            @if (Model.ProductAccess.IsAllowBa)
+            { 
+                <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
+                    @FormatHelper.NegativeFormat(item.BACommission)
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowRb)
+            { 
+                <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
+                    @FormatHelper.NegativeFormat(item.RacingWinLoss)
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowBa)
+            { 
+                <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+                    <div>@item.AmtDueToBA.ToStringExt()</div>
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowRb)
+            { 
+                <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+                    <div>@item.AmtDueToRacing.ToStringExt()</div>
+                </div>
+            }
+        </div>
+    }
+</div>

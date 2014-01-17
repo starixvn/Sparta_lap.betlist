@@ -1,0 +1,178 @@
+﻿@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
+<div class="data-content" id="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:500px !important;overflow-y: scroll;overflow-x: hidden;">
+    @if (Model.DataList.Count == 0)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row grid-noinfo" style="width:@(ViewBag.ContainerWidth)px;">
+                <div>
+                    @ViewResources.NoInfo
+                </div>
+            </div>
+        </div>
+    }
+    @{
+        var rowIndex = (Model.Param.PageIndex - 1) * Model.Param.PageSize;
+
+        foreach (var cust in Model.DataList)
+        {
+            rowIndex++;
+            var rowClass = cust.IsClosed ? "closed" : cust.IsSuspended ? "suspended" : string.Empty;
+
+        <div class="content-row @(rowClass)" style="width: @(ViewBag.WrapperWidth)px;" id="row@(cust.CustId.ToString())">
+            @if (Model.IsAllowedCustomerCommission && ViewData["Group"] != null)
+            {
+                <div style="width: @(ViewBag.NumberWidth)px" class="row title-text">
+                    <input type="checkbox" title="@cust.CustId.ToString()" id="@cust.CustId.ToString()" data-group-comm-id="@(cust.GroupCommId)" class="select-cust-checkbox check-child" />
+                </div>
+                <div   style="width: @(ViewBag.GroupWidth - 1)px;"
+                                    class="row text-data" title="@cust.GroupName">
+                    <div id="groupName-@cust.CustId.ToString()" style="background-color:@cust.GroupColor;" class="commission-color">
+                        @{
+                var groupName = cust.GroupName;
+
+                if (groupName.Length > 17)
+                {
+                    groupName = groupName.Substring(0, 14);
+                    groupName += "...";
+                }
+
+                        }
+                        @(cust.GroupCommId == 0 ? ViewResources.None : Html.RemoveHtmlTag(groupName).ToString())
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="width: @(ViewBag.NumberWidth)px" class="row title-text">
+                    @rowIndex
+                </div>
+            }
+            @if (ViewData["ExternalId"] != null)
+            {
+                <div style="width: @(ViewBag.ExternalIdWidth)px;" class=" row text-data">
+                    <div title="@cust.ExternalId">
+                        @if (@cust.ExternalId.Length > 15)
+                        {
+                            @(cust.ExternalId.Substring(0, 15) + "...")
+                        }
+                        else
+                        {
+                            @cust.ExternalId
+                        }
+                    </div>
+                </div>
+            }
+            @if (ViewData["SystemId"] != null)
+            {
+                <div style="width: @(ViewBag.SystemIdWidth)px;" class="row text-data">
+                    <div>
+                        @cust.SystemId</div>
+                </div>
+            }
+            @if (ViewData["AvailableFunds"] != null)
+            {
+                <div style="width: @(ViewBag.AvailableFundsWidth)px" class="row">
+                    <div>
+                        @cust.AvailableFunds.ToStringExt()</div>
+                </div>
+            }
+            @if (ViewData["PendingFunds"] != null)
+            {
+
+                <div style="width: @(ViewBag.PendingFundsWidth)px" class="row">
+                    <div>
+                        @if (cust.PendingFunds != 0)
+                        {
+                            <a href="javascript:CustomerList.viewRunningBetlist(@cust.CustId,'@cust.SystemId','@cust.ExternalId')">
+                                @cust.PendingFunds.ToStringExt()
+                            </a>
+                        }
+                        else
+                        {
+                            @cust.PendingFunds.ToStringExt()
+                        }</div>
+                </div>
+            }
+            @if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()) && ViewData["Status"] != null )
+            {
+                <div style="width: @(ViewBag.StatusWidth)px" class="row title-text">
+                        <span id="@("edit-cust-status-" + cust.CustId)"
+                            externalid="@cust.ExternalId" isclosed='@cust.IsClosed.ToString()' issuspended="@cust.IsSuspended.ToString()"
+                            class="link cust-status-option" custid="@cust.CustId" >@cust.Status
+                </div>
+            }
+            @if (Model.ProductAccess.IsAllowBa && ViewData["BaStatus"] != null)
+            {
+                var baStatusClass = !cust.IsPowerBAUserTurnoff || (cust.IsPowerBAUserTurnoff && Model.IsAllowedUserChangeBA) ? "ba-status" : "ba-disabled";
+                <div style="width: @(ViewBag.BaStatusWidth)px" class="row title-text">
+                    <div id="@("aBA_" + cust.CustId.ToString())" data-val="#@cust.CustId#@(!cust.BaStatus)#@cust.ExternalId"
+                                class="@baStatusClass"
+                                title="@(cust.BaStatus ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip)">
+                        <div class='@(cust.BaStatus ? "ba-on" : "ba-off")'>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (ViewData["SpecialLevel"] != null)
+            {
+
+                <div style="width: @(ViewBag.SpecialLevelWidth)px" class="row title-text">
+                    @RazorHelper.SpecialLevelList(cust.CustId, cust.SpecialLevel)
+                </div>
+            }
+            @if (ViewData["CustomerOption"] != null)
+            {
+
+                <div style="width: @(ViewBag.CustomerOptionWidth)px" class="row title-text">
+                    <div id="cust-option-link-@cust.CustId" class="link cust-option-link" title="@ViewResources.CustomerOption" custid="@cust.CustId"
+                    externalid="@cust.ExternalId" systemid="@cust.SystemId">@ViewResources.View
+                        <img src="@Url.ContentLink("/Content/MemberInfo/images/arrow.gif")"
+                                    style="width:10px;height:10px" alt="" />
+                    </div>
+                </div>
+            }
+            @if (Model.IsAllowedCustomerCommission && ViewData["Commission"] != null)
+            {
+                <div class="row sb-comm" style="width: @(ViewBag.CommWidth)px;" id="sbCom-@cust.CustId.ToString()">
+                    <div>
+                        @((cust.SbComm * 100).ToStringExt(2))</div>
+                </div>
+                if (Model.ProductAccess.IsAllowRb)
+                {
+                <div class="row rb-comm" style="width:  @(ViewBag.CommWidth)px;" id="rcCom-@cust.CustId.ToString()">
+                    <div>
+                        @((cust.RbComm * 100).ToStringExt(2))</div>
+                </div>
+                }
+
+                if (Model.ProductAccess.IsAllowNg)
+                {
+                <div class="row ng-comm" style="width:  @(ViewBag.CommWidth)px;" id="ngCom-@cust.CustId.ToString()">
+                    <div>
+                        @((cust.NgComm * 100).ToStringExt(2))</div>
+                </div>
+                }
+
+                if (Model.ProductAccess.IsAllowLc)
+                {
+                <div class="row lc-comm" style="width:  @(ViewBag.CommWidth)px;" id="lcCom-@cust.CustId.ToString()">
+                    <div>
+                        @((cust.LcComm * 100).ToStringExt(2))</div>
+                </div>
+                }
+                
+                if (Model.ProductAccess.IsAllowCs)
+                {
+                <div class="row cs-comm" style="width:  @(ViewBag.CommWidth)px;" id="csCom-@cust.CustId.ToString()">
+                    <div>
+                        @((cust.CsComm * 100).ToStringExt(2))</div>
+                </div>
+                }
+            }
+        </div>
+
+        }
+    }
+</div>

@@ -1,0 +1,52 @@
+﻿@using System.Linq
+@model Fanex.Athena.Models.ViewModel.TotalBets.OutrightViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .Distinct()
+                            .ToList();
+    var index = 1;
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var league in leagueList)
+            {
+                // Render League name
+                <tr>
+                    <td class="league" colspan="4">@league.LeagueName.ToUpper()
+                    </td>
+                </tr>
+                var matchOfLeague = Model.MainData.Where(x => x.LeagueId == league.LeagueId)
+                                            .OrderBy(x => x.TeamName).ToList();
+
+                // Render Team in League
+                foreach (var team in matchOfLeague)
+                {
+                <tr>
+                    <td style="width: 3%" class="order-number">@(index++)
+                    </td>
+                    <!--Team-->
+                    <td style="width: 40%" class="match-name">
+                        <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.TeamName</a>
+                    </td>
+                    <!--/Team-->
+                    <!--Balance-->
+                    <td style="width: 20%">
+                        @RazorHelper.DecFormat(team.Balance, true)
+                    </td>
+                    <!--/Balance-->
+                    <!--Forecast-->
+                    <td style="width: 20%" class="score-value">
+                        @RazorHelper.PositiveFormat(team.Forecast, true)
+                    </td>
+                    <!--/Forecast-->
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="line" style="width: 715px">
+</div>

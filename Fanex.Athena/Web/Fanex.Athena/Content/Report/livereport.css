@@ -1,0 +1,92 @@
+﻿/*suffix:row-comm
+/*used to remove customercom+customercom columns
+*/
+/*header filter*/
+#selectcurrency
+{
+    float: left;
+}
+
+#selectcurrency select
+{
+    margin-left: 15px;
+}
+.note-message
+{
+    margin-left: 0;
+}
+.note-message a
+{
+    text-decoration: none;
+}
+.excel-icon
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.currencylist
+{
+    width: 100px;
+}
+/* header filter */
+
+/*summary*/
+.summary-title
+{
+    width: 150px;
+    border: none;
+    background: #D87F55;
+    height: 25px;
+    text-align: left;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+    padding: 4px 0 0 6px;
+}
+
+/*summary*/
+
+/*customize*/
+/* grid*/
+.data-content .content-row
+{
+    height: 22px;
+    line-height: 22px;
+}
+
+.data-content .data-content
+{
+    border-right: none !important;
+}
+
+/* grid*/
+
+/*customize grid*/
+
+/* detail*/
+.bettype-name
+{
+    width: 1018px;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: left;
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #DAE6ED;
+    color: #333333;
+}
+
+.data-content-detail
+{
+    margin-top: 20px;
+}
+/* detail*/
+/* product name*/
+
+.data-content .content-row div.selected
+{
+    background: #FFED4F;
+}
+
+/* product name*/

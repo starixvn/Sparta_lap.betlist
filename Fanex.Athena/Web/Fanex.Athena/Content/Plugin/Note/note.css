@@ -1,0 +1,48 @@
+﻿/* Note Group */
+.note-group
+{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    margin: 0;
+}
+
+.note-group div
+{
+    float: right;
+    margin-left: 2px;
+}
+
+.note-close
+{
+    background: url("images/close.png") no-repeat scroll 0 0 transparent;
+    height: 20px;
+    width: 20px;
+    float: right;
+    cursor: pointer;
+}
+
+.note-message-content
+{
+    float: left;
+    color: White;
+}
+
+.note-message-content ul
+{
+    padding: 10px 0 10px 20px;
+    margin: 0;
+}
+
+.note-message-content ul li
+{
+    padding-top: 5px;
+}
+
+.note-icon
+{
+    width: 16px;
+    height: 17px;
+    background: url("images/note.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+}

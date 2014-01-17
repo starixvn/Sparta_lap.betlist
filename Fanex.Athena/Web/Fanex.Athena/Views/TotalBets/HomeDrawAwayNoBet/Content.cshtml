@@ -1,0 +1,12 @@
+﻿@model Fanex.Athena.Models.ViewModel.TotalBets.HomeDrawAwayNoBetViewModel
+@{
+    Html.RenderPartial("~/Views/TotalBets/HomeDrawAwayNoBet/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/HomeDrawAwayNoBet/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/TotalBets/HomeDrawAwayNoBet/ContentData.cshtml");
+}

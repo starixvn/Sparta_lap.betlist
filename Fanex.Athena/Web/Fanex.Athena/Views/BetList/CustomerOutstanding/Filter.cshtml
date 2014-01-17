@@ -1,0 +1,46 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Product
+@model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+@using (Html.BeginForm("DailyBetList", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
+{
+    // Only restrict from date for Bet List
+    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay : DateTime.Today.AddYears(-50);
+    <div class="grid_3 filter-input" style="padding: 5px">
+        @{
+    var viewOptionTextList = new Dictionary<string, string>{
+        {"dailystatement",ViewResources.DailyStatement },
+        {"betlist",ViewResources.BetList },
+        {"betlistrunning",ViewResources.BetListRunning }
+    };
+    var viewOptionSelectList = viewOptionTextList.Select(c => new SelectListItem
+    {
+        Value = c.Key,
+        Text = c.Value,
+        Selected = c.Key == Model.BetListName
+    });
+            @Html.DropDownList("ViewOption", viewOptionSelectList, new { @style = "width: 123px;" })
+        }
+    </div>
+
+    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, DateTime.Today, "", "", 2, 3, 1, 3)
+
+    <div class="grid_2 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    
+    if (Model.BetListName == "dailystatement")
+    {
+        <div class="grid_7"> </div>
+        <div class="grid_1">
+            @{Html.RenderAction("Index", "Note", new { viewName = "DailyStatement" });}
+        </div>
+    }
+    
+    <div class="new-line">
+    </div>
+
+    @RazorHelper.RenderProductFilter(Model.ProductOptions, 3, Model.ProductOptions.Count * 2 + 2)
+
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.LicenseeId"/>
+    <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="" />
+}

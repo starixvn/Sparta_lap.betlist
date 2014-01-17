@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets +
+    " - " + ViewResources.OddEven + " - " + ViewResources.OneXTwo;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_ForecastLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Forecast.ForecastOneXTwoViewModel
+@section page {
+    <script src="@Url.ContentLink("/Scripts/Forecast/forecast.onextwo.js")" type="text/javascript"></script>
+    <link href="@Url.ContentLink("/Content/Forecast/forecasthandicapoverunder.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(window).load(function () {
+            ForecastOneXTwo.initialize();
+            RefreshCountDown.initEvent();
+        });
+    </script>
+}
+@section ContentTitle
+{
+    @ViewResources.OneXTwo
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Forecast/Forecast1X2/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Forecast/Forecast1X2/Content.cshtml");
+}

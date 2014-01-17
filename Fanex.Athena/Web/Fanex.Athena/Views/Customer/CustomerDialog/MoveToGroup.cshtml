@@ -1,0 +1,73 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using DNAide.Utils
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
+<table class="create-new-group-table" style="width: 280px !important">
+    <tr>
+        <td>
+            @ViewResources.SelectGroup
+        </td>
+        <td>
+            <select id="GroupListSelect">
+                @foreach (var group in Model.GroupCommDataList)
+                {
+                    <option value="@group.GroupCommId">@group.GroupName</option>
+                }
+            </select>
+            @foreach (var group in Model.GroupCommDataList)
+            {
+                @Html.Hidden("SBComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.SBComm * 100), 2, false))
+                @Html.Hidden("RBComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.RCComm * 100), 2, false))
+                @Html.Hidden("NGComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.NGComm * 100), 2, false))
+                @Html.Hidden("LCComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.LCComm * 100), 2, false))
+                @Html.Hidden("CSComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.CSComm * 100), 2, false))
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewResources.SBComm (%)
+        </td>
+        <td>
+            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2, false) : string.Empty)"/>
+        </td>
+    </tr>
+    <tr class="@(!Model.ProductAccess.IsAllowRb ? "hide" : "")">
+        <td>
+            @ViewResources.RacingComm (%)
+        </td>
+        <td>
+            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2, false) : string.Empty)"/>
+        </td>
+    </tr>
+    <tr class="@(!Model.ProductAccess.IsAllowNg ? "hide" : "")">
+        <td>
+            @ViewResources.NGComm (%)
+        </td>
+        <td>
+            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2, false) : string.Empty)"/>
+        </td>
+    </tr>
+    <tr class="@(!Model.ProductAccess.IsAllowLc ? "hide" : "")">
+        <td>
+            @ViewResources.LCComm (%)
+        </td>
+        <td>
+            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2, false) : string.Empty)"/>
+        </td>
+    </tr>
+    <tr class="@(!Model.ProductAccess.IsAllowCs ? "hide" : "")">
+        <td>
+            @ViewResources.CSComm (%)
+        </td>
+        <td>
+            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2, false) : string.Empty)"/>
+        </td>
+    </tr>
+</table>
+<div class="success-message">
+</div>
+<div class="error-message">
+</div>
+<div class="ajax-loading">
+    <img alt="Sending" src="@Url.Content("~/Content/Customer/images/ajax-loader.gif")" />
+</div>

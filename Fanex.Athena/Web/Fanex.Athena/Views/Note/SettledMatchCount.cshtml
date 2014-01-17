@@ -1,0 +1,13 @@
+﻿@using Fanex.Athena.Models.DTO.Common;
+@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
+@{
+    var hasCsOrBg = Model.ProductList.Any(p => p.ProductCode == Product.Cs || p.ProductCode == Product.Bg);
+    Layout = hasCsOrBg? "~/Views/Shared/_NoteLayout.cshtml":null;
+}
+
+@section content{
+    @if (hasCsOrBg)
+    {
+        <li>@ViewResources.RngCasinoAndBingoExcludedNote </li>
+    }
+}

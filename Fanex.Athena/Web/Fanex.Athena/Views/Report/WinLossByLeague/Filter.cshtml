@@ -1,0 +1,119 @@
+﻿@model Fanex.Athena.Models.ViewModel.Report.WinLossByLeagueViewModel
+<!--grid_26-->
+@{
+    var sportList = this.Model.Sports
+           .Select(item => new SelectListItem { Value = item.Key.ToString(), Text = item.Value })
+           .ToList();
+    sportList.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
+
+    var leagues = this.Model.Leagues
+            .Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value }).ToList();
+
+    var matches = this.Model.Matches
+            .Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value }).ToList();
+    matches.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
+}
+
+<div class="grid_26 content-filter new-line">
+    <form id="searchForm" name="searchForm" method="post" action="">
+    <div class="grid_3 filter-label">
+            <label>@ViewResources.Date</label>
+        </div>
+    <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
+            </div>
+    </div>
+    <div>
+            <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+            <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+            <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
+            <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
+            <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
+            <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />            
+            @{
+                  var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                  var minDate = beginOfMonth.AddMonths(-18);
+            }
+            <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+        </div>
+        
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Currency</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+    </div>
+    <div class="grid_2 filter-label">
+        <label for="BaseCurrency">@ViewResources.Based </label>
+    </div>
+    <div class="grid_1 filter-input">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "WinLossByProduct" });}
+        </div>
+        <div>
+           
+        </div>
+    </div>  
+    <div class="new-line"> </div>      
+    <div class="grid_3 filter-label">
+        <label>
+            @ViewResources.MinimumOdds
+        </label>
+        <span class="decimal-odds">(@ViewResources.DecimalOdds)</span>
+    </div>
+    <div class="grid_2 filter-input">
+        <input id="Odds" name="Odds" type="text" value="0" style="width: 148px"/>
+    </div>
+   <div class="grid_3 filter-label">
+        <label>@ViewResources.Sport</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @Html.DropDownList("Sport", sportList, new { })
+    </div>
+    <div class="grid_2 filter-label" style="width: 80px">
+        <label>@ViewResources.League</label>
+    </div>
+    <div class="grid_7 filter-input">
+       @Html.DropDownList("League", leagues, new { style="width:250px" })
+    </div>
+    <div class="new-line"> </div>   
+    <div class="grid_3 filter-label">
+        <label>@ViewResources.Match</label>
+    </div>
+    <div class="grid_8 filter-input">
+        @Html.DropDownList("Match", matches, new { style = "width:250px" })
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.TicketFilter</label>
+    </div>
+    <div id="TickerFilter" class="grid_7 filter-input option-list">
+        <input type="checkbox" id="AllTicket" />
+        <label for="AllTicket">@ViewResources.All</label>                
+        <input type="checkbox" id="ShowWin" name="ShowWin" value="true" checked />
+        <label for="ShowWin">@ViewResources.Win</label>                
+        <input type="checkbox" id="ShowLoss" name="ShowLoss" value="true" checked />
+        <label for="ShowLoss">@ViewResources.Loss</label>                
+        <input type="checkbox" id="ShowDraw" name="ShowDraw" value="true" checked />
+        <label for="ShowDraw">@ViewResources.Draw</label>
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
+    </div>
+    
+    <div class="grid_2 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input" id="control-container">        
+        <input type="button" id="SubmitButton" class="button" value="@ViewResources.Submit" />
+    </div>
+    </form>        
+    <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />
+    <input type="hidden" id="OriginalCurrencyName" name="OriginalCurrencyName" value="@Model.Param.CurrencyName" />
+    <input type="hidden" id="OriginalFromDate" name="OriginalFromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalToDate" name="OriginalToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />        
+
+</div>

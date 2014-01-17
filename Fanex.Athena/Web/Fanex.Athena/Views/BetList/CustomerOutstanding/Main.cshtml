@@ -1,0 +1,32 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.DailyBetList);
+    ViewBag.MasterClass = "bet-list-popup";
+    Layout = "~/Views/Shared/_BetListLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/BetList/dailystatement.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/BetList/customer.outstandingbetlist.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/BetList/customer.dailystatement.option.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/BetList/customer.dailystatement.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+ @Model.ExternalId (@(Model.SystemId)) - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/BetList/CustomerOutStanding/Filter.cshtml");
+    }
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="" />
+    <input type="hidden" id="SystemId" value="" />
+    <input type="hidden" id="ExternalId" value="" />
+}

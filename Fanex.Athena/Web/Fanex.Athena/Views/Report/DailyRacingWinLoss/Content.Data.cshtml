@@ -1,0 +1,82 @@
+﻿@using System.Linq
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Extension.Helper;
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+@{
+    var contentData = Model.DailyRacingWinLossData.ContentData;
+    var contentTotalData = Model.DailyRacingWinLossData.ContentTotalData;
+    var leagueCurrencyList = contentData.Keys;
+}
+<div id="data-content" class="data-content" style="width: @(ViewBag.WrapperWidth)@("px"); max-height:450px;">
+    @foreach (var leagueCurrency in leagueCurrencyList)
+    {
+        var leagueCurrencyData = contentData[leagueCurrency];
+        var firstRow = leagueCurrencyData[0];
+        var leagueName = CacheRef.GetLeagueName(firstRow.LeagueId) + " - " + firstRow.CurrencyName;
+        var borderRow = leagueCurrencyData.Count == 1 ? 0 : leagueCurrencyData.Count;
+        var height = 26 * leagueCurrencyData.Count + borderRow - 2;
+        var leagueHeight = height + 1;
+        var leagueLineHeight = height;
+    
+        <div class="content-row" style="width: @ViewBag.ContainerWidth@("px")">
+            <div class="row" style="width: @ViewBag.MeetingCurrencyWidth@("px");height:@leagueHeight@("px"); line-height:@leagueLineHeight@("px")">
+                <div class="meeting-currency">
+                    @RazorHelper.TruncateWithTip(leagueName, 42)
+                </div>
+            </div>
+            @{
+                var itemCount = leagueCurrencyData.Count();
+                var counter = 0;
+            }
+            @foreach (var dailyRacing in leagueCurrencyData)
+            {
+                counter++;
+                <div class="ungroup-column">
+                <div class="content-row @(counter == itemCount ? "no-bottom-border" : "")">
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div class="title-text">
+                        <span class="currency-link number-circle bet-list-link" data-league="@dailyRacing.LeagueId" 
+                            data-race-no="@dailyRacing.RaceNo" data-currency="@dailyRacing.Currency">
+                            @dailyRacing.RaceNo
+                        </span>
+                    </div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.WinTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.PlaceTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.WPTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.TotalTO.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.DividendWon.ToStringExt()</div>
+                </div>
+                @if (ViewBag.IsAllowedCustomerCommission)
+                {
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.CustomerCommission.ToStringExt()</div>
+                </div>
+                }
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>@dailyRacing.CommIncome.ToStringExt()</div>
+                </div>
+                <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+                    <div>
+                        @dailyRacing.AmountDueToRacing.ToStringExt()
+                    </div>
+                </div>
+                </div>
+                </div>
+            }
+        </div>
+        
+        Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/Content.TotalCommon.cshtml", contentTotalData[leagueCurrency]);
+    }
+    @{Html.RenderPartial("~/Views/Report/DailyRacingWinLoss/Content.TotalCurrency.cshtml", Model);}
+</div>

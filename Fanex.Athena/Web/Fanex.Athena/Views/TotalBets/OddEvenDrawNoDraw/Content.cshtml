@@ -1,0 +1,13 @@
+﻿@using Fanex.Athena.Controllers
+@model Fanex.Athena.Models.ViewModel.TotalBets.OddEvenDrawNoDrawViewModel
+@{
+    Html.RenderPartial("~/Views/TotalBets/OddEvenDrawNoDraw/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/OddEvenDrawNoDraw/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/TotalBets/OddEvenDrawNoDraw/ContentData.cshtml");
+}

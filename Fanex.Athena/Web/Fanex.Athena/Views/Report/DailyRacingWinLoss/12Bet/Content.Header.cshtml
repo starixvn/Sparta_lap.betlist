@@ -1,0 +1,35 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+<div class="header-content" style="width: @(ViewBag.ContainerWidth)@("px")">
+    <div class="row" style="width: @ViewBag.RaceWidth@("px")">@ViewResources.Race</div>
+    <div class="group-row" style="width:@ViewBag.CustomerOverWidth@("px")">
+        <div class="row1" style="width:@ViewBag.CustomerOverWidth@("px")">@ViewResources.CustomerOverall</div>
+        <div class="group-row2" style="width:@ViewBag.CustomerOverWidth@("px")">
+            <div class="row2" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.WinTO</div>
+            <div class="row2" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.PlaceTO</div>
+            <div class="row2" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.WPTO</div>
+            <div class="row2" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.TotalTO</div>
+            <div class="row2" style="width:@ViewBag.DividendWidth@("px")">
+                @ViewResources.DividendWon
+            </div>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="row2" style="width: @ViewBag.CustomerCommWidth@("px")">     
+                        Customer Comm
+                </div>
+            }
+        </div>
+    </div>
+    <div class="group-row">
+        <div class="row1" style="width: @ViewBag.LicenseeWidth@("px")">@ViewResources.Licensee12Bet</div>
+        <div class="group-row2">
+            <div class="row2" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.WinTO</div>
+            <div class="row2" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.PlaceTO</div>
+            <div class="row2" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.WPTO</div>
+            <div class="row2" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.TotalTO</div>
+            <div class="row2" style="width: @ViewBag.CommonWidth@("px")">@ViewResources.WinLoss</div>
+            <div class="row2" style="width: @ViewBag.LicenseeCommWidth@("px")">@ViewResources.Comm</div>
+        </div>
+    </div>
+    <div class="row" style="width: @ViewBag.AmountDueToWidth@("px")">@ViewResources.AmountDueTo</div>
+</div>

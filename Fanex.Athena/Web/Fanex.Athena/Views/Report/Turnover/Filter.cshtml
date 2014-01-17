@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.TurnoverViewModel
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    @using (Html.BeginForm("Turnover", "Report", FormMethod.Post, new { @id = "TurnoverForm" }))
+    {      
+@*Row 1*@
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.ViewDataInMonth</label>
+        </div>
+        <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
+            </div>
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
+        <div class="grid_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "Turnover" });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>   
+        <div class="new-line">
+        </div>
+                  if (Model.LicenseeTypeList.Count > 0)
+                  {
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.LicenseeType</label>
+        </div>
+        <div class="grid_4 filter-input">
+            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licensee-type", Model.Param.LicenseeType)
+        </div>
+                  }
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.Currency</label>
+        </div>
+        <div class="grid_4 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList,
+        Model.LicenseeTypeList.Count > 0 ? "currency" : "licensee-type", Model.Param.CurrencyId, false, true)
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.Username</label>
+        </div>
+        <div class="grid_4 filter-input">
+            @Html.TextBox("Username", Model.Param.Username)
+        </div>
+        <div class="new-line">
+        </div>
+        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, 13)
+        <div class="grid_3 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+@*End Row 3*@
+@*Row 4 - Note*@
+@*End Row 4*@    
+        <div>
+            <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+            <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+            <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDay" />
+            <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDay" />
+            <input type="hidden" id="Month" name="Month" value="@Model.Param.Month" />
+            <input type="hidden" id="Year" name="Year" value="@Model.Param.Year" />
+            <input type="hidden" id="IsExportExcel" name="IsExportExcel" value="@Model.Param.IsExportExcel" />
+            @{
+                  var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                  var minDate = beginOfMonth.AddMonths(-18);
+            }
+            <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+        </div>
+    }
+</div>

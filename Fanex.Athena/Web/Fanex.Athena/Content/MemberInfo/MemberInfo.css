@@ -1,0 +1,387 @@
+﻿table#tblBetSetting
+{
+    float: left;
+    clear: both;
+}
+
+table#tblBetSetting td
+{
+    text-align: left;
+}
+
+div#submitdiv
+{
+    padding-top: 10px;
+    clear: both;
+    float: left;
+}
+
+div.tbl-container
+{
+    overflow: visible;
+}
+.RptSubTitle
+{
+    background-color: #ffefde;
+}
+table.customer_list_search td
+{
+    text-align: left;
+    padding: 0px 6px;
+    height: 25px;
+}
+
+table.customer_list div.submit_div
+{
+    width: 65px;
+    float: right;
+    text-align: right;
+}
+.text_f
+{
+    color: #F60;
+    font-size: 11px;
+    vertical-align: top;
+}
+.text_f1
+{
+    color: #F93;
+    font-style: italic;
+    font-size: 11px;
+    vertical-align: top;
+}
+.report-table td
+{
+    text-align: right;
+    padding-left: 2px;
+}
+
+tr.no-info td
+{
+    font-weight: normal;
+    text-align: center;
+    background-color: White;
+}
+
+span.minmaxbet
+{
+    padding-left: 5px;
+}
+.downline-link
+{
+    text-align: left;
+    color: #005DAC;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.link
+{
+    color: #0000FF;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+div.search_header
+{
+    margin-top: 7px !important;
+}
+div.agent_list
+{
+    float: left;
+    margin-top: 5px;
+}
+
+div.table_search
+{
+    float: left;
+    margin-top: 3px;
+}
+
+div.table_search div
+{
+    padding-left: 5px;
+    margin-top: 2px;
+    vertical-align: baseline;
+    float: left;
+}
+
+div.table_search input
+{
+    margin: 0px 5px;
+    float: left;
+    vertical-align: baseline;
+}
+
+div.printer
+{
+    padding-right: 5px;
+    margin-top: 5px;
+    float: right;
+}
+div.pagingContainer
+{
+    height: 25px !important;
+}
+
+font.cash
+{
+    color: #036;
+}
+
+table.login_info
+{
+    width: 100%;
+    border-top: 1px solid #E0E0E0;
+    border-left: 1px solid #E0E0E0;
+}
+
+table.login_info td
+{
+    border-bottom: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    font-family: Tahoma,Arial ,helvetica ,sans-serif;
+    font-size: 11px;
+    padding: 0px 5px;
+    height: 22px;
+}
+
+table.login_info td.tdvalue
+{
+    font-weight: bold;
+    text-align: right;
+}
+table.login_info td.username
+{
+    text-align: center;
+    height: 25px;
+    font-weight: bold;
+}
+div.login_info_container
+{
+    padding: 5px 5px;
+}
+
+div.copysetting
+{
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 0px 5px 0px;
+    float: left;
+    text-align: left;
+    clear: both;
+}
+
+div.copysetting input, div.copysetting span
+{
+    float: left;
+}
+div.copysetting span
+{
+    padding-top: 3px;
+}
+
+#exporttoexcel
+{
+    margin-right: 10px;
+}
+
+div#search_result
+{
+    color: #cc3300;
+    margin-left: 2px;
+    font-weight: bold;
+    float: left;
+    line-height: 20px;
+}
+
+div#search_result > span
+{
+    color: #003300;
+}
+
+/*==  Auto Complete CSS  ==*/
+.autocomplete-w1
+{
+    background: url(images/shadow.png) no-repeat bottom right;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 8px 0 0 6px; /* IE6 fix: */
+    _background: none;
+    _margin: 0;
+    font-size: 12px;
+    line-height: 16px;
+}
+.autocomplete
+{
+    border: 1px solid #999;
+    background: #FFF;
+    cursor: default;
+    text-align: left;
+    max-height: 350px;
+    overflow: auto;
+    margin: -6px 6px 6px -6px; /* IE6 specific: */
+    _height: 350px;
+    _margin: 0;
+    _overflow-x: hidden;
+}
+.autocomplete .selected
+{
+    background: #C7E9F5;
+}
+.autocomplete div
+{
+    padding: 2px 5px;
+    white-space: nowrap;
+}
+.autocomplete strong
+{
+    font-weight: normal;
+    color: #D2592D;
+}
+
+#header_tab
+{
+    background: url("images/bg_button.jpg") repeat-x scroll center top transparent;
+    height: 29px;
+    min-width: 450px;
+}
+
+#button_main
+{
+    background: url("images/bgOFF.gif") repeat-x scroll left top transparent;
+    display: block;
+    font-family: arial,tahoma,verdana,helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    height: 29px;
+}
+.HeaderMenu
+{
+    margin: 0;
+    padding: 0;
+}
+
+#button_main ul.HeaderMenu li
+{
+    display: block;
+    float: left;
+}
+
+#button_main ul.HeaderMenu li a
+{
+    background: url("images/bgDIVIDER.gif") no-repeat scroll right top transparent;
+    color: #EEEEEE;
+    display: block;
+    float: left;
+    height: 27px;
+    line-height: 26px;
+    margin-top: 1px;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-decoration: none;
+}
+
+#button_main ul.HeaderMenu li a:hover
+{
+    height: 29px;
+    margin-top: 0;
+}
+#button_main ul.HeaderMenu li a.activeTab
+{
+    background: url("images/bgON.gif") no-repeat scroll right top transparent;
+    color: #000000;
+    height: 29px;
+    margin-top: 0;
+}
+.baOn
+{
+    background: url("images/off-on_hr.png") no-repeat 0 0;
+    width: 50px;
+    height: 18px;
+}
+.baOn:hover
+{
+    opacity: 0.75;
+    filter: alpha(opacity=75); /* IE patch */
+}
+.baOff
+{
+    background: url("images/off-on_hr.png") no-repeat -54px 0;
+    width: 50px;
+    height: 18px;
+}
+
+.baoff-disable
+{
+    background: url("images/off-on_hr.png") no-repeat -108px 0;
+    width: 50px;
+    height: 18px;
+}
+
+/*bafilter*/
+div.optionfilter div, div.optionfilter label, div.optionfilter select, div.optionfilter input, div.optionfilter div, div.optionfilter label, div.optionfilter select, div.optionfilter input
+{
+    float: left;
+    vertical-align: baseline;
+    margin-left: 5px;
+}
+div.optionfilter div, div.optionfilter label
+{
+    margin-top: 2px;
+}
+
+div.optionfilter select, div.optionfilter input
+{
+    margin-left: 5px;
+}
+div.optionfilter select, div.optionfilter input[type=text]
+{
+}
+
+div.optionfilter
+{
+    margin-right: 5px;
+    float: left;
+}
+div.optionfilter #ddlbaoption, div.optionfilter #ddlStatusOption, div.optionfilter #special-level-list-search
+{
+    width: 90px;
+}
+
+span.link
+{
+    color: Blue;
+    cursor: pointer;
+}
+
+.popupSetting
+{
+    background-color: #FFFFFF;
+    border: 2px solid #666666;
+    display: none;
+    padding: 2px;
+    position: absolute;
+    text-align: left;
+    width: 180px;
+    z-index: 100;
+}
+
+.arrow1
+{
+    background: url("images/arrow.gif") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: inline;
+}
+.batimecheck
+{
+    margin-left: 400px;
+}
+
+table.report-table tr td
+{
+    padding: 0 0 0 2px;
+}

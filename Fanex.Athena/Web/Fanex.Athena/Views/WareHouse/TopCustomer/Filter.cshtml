@@ -1,0 +1,142 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DTO.Common
+@using Fanex.Athena.Web.HtmlExtension
+@using System.Globalization
+@model Fanex.Athena.Models.ViewModel.Warehouse.TopCustomerViewModel
+@{
+    var minDate = DateTime.Today.AddYears(-15);
+    var maxDate = DateTime.Now.AddHours(-9).AddDays(-1);
+}
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
+    @using (Html.BeginForm("TopCustomer", "WareHouse", FormMethod.Post, new { @id = "TopCustomerForm" }))
+    {
+        <div>
+            @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
+            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+            @Html.Hidden("ActiveMin", Model.Param.ActiveMin)
+            @Html.Hidden("SportId", Model.Param.SportId)
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.Licensee</label>
+        </div>
+        var licenseeList = Model.LicenseeList;
+        if (licenseeList.Count == 1)
+        {
+        <div class="grid_3 one-licensee filter-label">@licenseeList[0].Name</div>
+        }
+        else
+        {        
+        <div class="grid_3 filter-input">
+            <select id="LicenseeList" style="width: 100%">
+                @{var selectedAttr = 0 == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);}
+                <option @selectedAttr value="0">@ViewResources.All</option>
+                @{
+                  foreach (var item in Model.LicenseeList)
+                  {
+                      selectedAttr = item.Id == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);
+                    <option @selectedAttr value="@item.Id">@item.Name</option>
+                  }    
+                }
+            </select>
+        </div>
+        }
+        <div class="grid_2 filter-label">
+            <label>
+                @ViewResources.Currency</label>
+        </div>
+        <div id="CurrencyResult" class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="BaseCurrency">@ViewResources.Based </label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+        </div>
+        <div class="gird_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "Warehouse" });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        <div class="new-line">
+        </div>
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate,
+        DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.InactiveSinceLast</label>
+        </div>
+        <div class="gird_2 filter-input">
+            @Html.DropDownList("SelectReportBy", new SelectList(new Dictionary<int, string>() { { -1, ViewResources.All},{14,ViewResources.TwoWeek},
+                    {30,ViewResources.OneMonth},{90,ViewResources.lbl3Month},{180,ViewResources.SixMonth}}, "Key", "Value", Model.Param.ActiveMin))
+        </div>
+        <div>
+            <script type="text/ecmascript">
+                $(window).load(function () {
+                    dateRangePicker.daterangepicker("option", {
+                        onChange: function () {
+                            WareHouseTopCustomer.getSportAjax();
+                        }
+                    });
+                });
+            
+            </script>
+        </div>
+        <div class="grid_3 new-line filter-label new-line">
+            <label>@ViewResources.SystemId</label>
+        </div>
+        <div class="grid_3 filter-input">@Html.TextBox("ExternalId", Model.Param.ExternalId, new { style = "width: 100px" })
+        </div>
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Sport</label>
+        </div>
+                  var dllSportList = Model.SportList.Select(i => new SelectListItem
+                  {
+                      Text = i.SportName,
+                      Value = i.SportId,
+                      Selected = i.SportId == Model.Param.SportId.ToString(CultureInfo.InvariantCulture)
+                  }).ToList();      
+        <div class="grid_3 filter-input" id="SportList">
+            @Html.DropDownList("SelectSport", dllSportList, new { @style = "width:100px" })
+        </div>    
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.MinBetCount</label>
+        </div>
+        <div class="grid_3 filter-input">@Html.TextBox("BetCountMin", Model.Param.BetCountMin, new { style = "width: 100px" })
+        </div>   
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Sorting</label>
+        </div>
+        <div class="grid_6 filter-input option-list">
+            @Html.RadioButton("SortingId", "0", Model.Param.SortingId == 0, new { id = "RadioBestWinLoss" })
+            <label for="RadioBestWinLoss">@ViewResources.BestWinLoss</label>
+            @Html.RadioButton("SortingId", "1", Model.Param.SortingId == 1, new { id = "RadioWorstWinLoss" })
+            <label for="RadioWorstWinLoss">@ViewResources.WorstWinLoss</label>
+        </div>
+    
+        <div class="grid_3 filter-label new-line">
+            <label style="margin-left:-8px">@ViewResources.MinTotalWinLoss</label>
+        </div>        
+        <div class="grid_3 filter-input">
+            @Html.TextBox("WinLossTotalMin", Model.Param.WinLossTotalMin, new { style = "width: 100px" })
+        </div>
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Top</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @Html.DropDownList("TopRow", new SelectList(new List<int> { 10, 100, 500, 1000 }, Model.Param.TopRow), new { @style = "width:100px" })
+        </div>
+        <div class="grid_3 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input">
+            <input type="submit" id="SubmitButton" value="@ViewResources.Submit" class="button blockui" />
+        </div>
+    }
+</div>

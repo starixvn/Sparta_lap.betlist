@@ -1,0 +1,34 @@
+extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+// --------------------------------------------------------------------------
+// <copyright file="class1.cs" company="Nexcel Solutions Vietnam">
+// Copyright (coffee) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="">Created</change>
+// </history>
+extensions: .aspx .ascx
+<%-- 
+// --------------------------------------------------------------------------
+// <copyright file="class1.cs" company="Nexcel Solutions Vietnam">
+// Copyright (coffee) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="">Created</change>
+// </history>
+--%>
+extensions: .vb
+'Sample license text.
+extensions:  .xml .config .xsd
+<!--
+// --------------------------------------------------------------------------
+// <copyright file="class1.cs" company="Nexcel Solutions Vietnam">
+// Copyright (coffee) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="">Created</change>
+// </history>
+-->

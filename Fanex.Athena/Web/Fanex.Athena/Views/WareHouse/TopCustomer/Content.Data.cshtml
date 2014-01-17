@@ -1,0 +1,159 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Warehouse
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Warehouse.TopCustomerViewModel
+@{            
+    var dataList = Model.MainResult;
+    var totalValues = Model.TotalValues;
+
+    var turmoverTotal = totalValues["turnover"];
+    var betCountTotal = totalValues["betcount"];
+    var memberWinlossTotal = totalValues["memberwinloss"];
+    var memberWinLossComTotal = totalValues["memberwinlosscomm"];
+
+    var licenseeWinlossTotal = totalValues["licenseewinloss"];
+    var marginTotal = turmoverTotal != 0 ? (memberWinlossTotal / turmoverTotal) * 100 : 0;
+    var bacommtotal = totalValues["bacomm"];
+    var grossfixtotal = totalValues["bacomm"] + licenseeWinlossTotal;
+    var rowNumber = 0;
+}
+<div class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:400px;">
+    @foreach (var item in dataList)
+    {
+        rowNumber++;
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row title-text" style="width: @(ViewBag.NumberWidth)px;">
+                @rowNumber
+            </div>
+            <div class="row " style="width: @(ViewBag.CustomerWidth)px;">
+                <div class="text-data">
+                    @item.Member
+                </div>
+            </div>
+            <div class="row title-text" style="width: @(ViewBag.CurrencyWidth)px;">
+                <div>
+                    @item.Currency.ToStringExt()
+                </div>
+            </div>
+            <div class="row " style="width: @(ViewBag.TurnoverWidth)px;">
+                <div>
+                    @item.Turnover.ToStringExt()
+                </div>
+            </div>
+            <div class="row " style="width: @(ViewBag.BetCountWidth)px;">
+                <div>
+                    @item.BetCount.ToString("#,###")
+                </div>
+            </div>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
+                    <div>@item.MemberWinLoss.ToStringExt()</div>
+                </div>
+                <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
+                    <div>@item.MemberWinLossCom.ToStringExt()</div>
+                </div>
+                <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
+                    <div>@((item.MemberWinLoss + item.MemberWinLossCom).ToStringExt())</div>
+                </div>
+            }
+            else
+            {
+                <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                    <div>
+                        @item.MemberWinLoss.ToStringExt()
+                    </div>
+                </div>
+            }
+            <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px;">
+                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+            </div>
+            @if (Model.ProductAccess.IsAllowBa)
+            {
+                <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
+                    <div>
+                        @item.BaComm.ToStringExt()
+                    </div>
+                </div>
+                <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px;">
+                    <div>
+                        @{var grossfix = item.BaComm + item.LicenseeWinLoss;}
+                        @grossfix.ToStringExt()
+                    </div>
+                </div>
+            }
+            @if (ViewBag.ShowActiveDate)
+            {
+                <div class="row title-text" style="width: @(ViewBag.LastActivityDateWidth)px;">
+                    <div>
+                        @string.Format("{0:d}", (DateTime)item.LastLoginDate)
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+</div>
+<div class="total-content" style="width:@(ViewBag.ContainerWidth)px">
+    <div class="row title-text" style="width: @(ViewBag.NumberWidth + ViewBag.CustomerWidth + ViewBag.CurrencyWidth + 2)px; ">
+        @ViewResources.Total
+    </div>
+    <div class="row " style="width: @(ViewBag.TurnoverWidth)px;">
+        <div>
+            @turmoverTotal.ToStringExt()
+        </div>
+    </div>
+    <div class="row " style="width: @(ViewBag.BetCountWidth)px">
+        <div>
+            @betCountTotal.ToString("#,###")
+        </div>
+    </div>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div class="row" style="width:@ViewBag.CustomerWLWidth@("px")">
+            <div>
+                @memberWinlossTotal.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width:@ViewBag.CustomerCommWidth@("px")">
+            <div>
+                @memberWinLossComTotal.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
+            <div>
+                @{ var totalComm2 = memberWinlossTotal + memberWinLossComTotal;}
+                @totalComm2.ToStringExt()
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+            <div>
+                @memberWinlossTotal.ToStringExt()
+            </div>
+        </div>
+    }
+    <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px;">
+        @FormatHelper.NegativeFormat(licenseeWinlossTotal)
+    </div>
+    @if (Model.ProductAccess.IsAllowBa)
+    {
+        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
+            <div>
+                @bacommtotal.ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px;">
+            <div>
+                @grossfixtotal.ToStringExt()
+            </div>
+        </div>
+    }
+    <div class="row title-text" style="width: @(ViewBag.LastActivityDateWidth)px;">
+        <div>
+            -
+        </div>
+    </div>
+</div>

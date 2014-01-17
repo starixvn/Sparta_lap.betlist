@@ -1,0 +1,69 @@
+﻿@using Fanex.Common
+@{
+    var sbComm = Converter.ToDecimal(Model.Data["SBComm"]);
+    var sbCommOld = Converter.ToDecimal(Model.Data["SBCommOld"]);
+    var rbComm = Converter.ToDecimal(Model.Data["RacingComm"]);
+    var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
+    var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
+    var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
+    var lcComm = Converter.ToDecimal(Model.Data["LCComm"]);
+    var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
+    var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
+    var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+    var groupId = Model.Data["GroupCommID"];
+    var groupOld = Model.Data["GroupCommIDOld"];
+
+    var isChangeSbComm = sbComm != sbCommOld;
+    var isChangeRacingComm = rbComm != rbCommOld;
+    var isChangeNgComm = ngComm != ngCommOld;
+    var isChangeLcComm = lcComm != lcCommOld;
+    var isChangeCsComm = csComm != csCommOld;
+    var isChangeGroupId = groupId != groupOld;
+
+    var sbCommTitle = sbCommOld.ToString("0.####") + "-->" + sbComm.ToString("0.####");
+    var RacingCommTitle = rbCommOld.ToString("0.####") + "-->" + rbComm.ToString("0.####");
+    var ngCommTitle = ngCommOld.ToString("0.####") + "-->" + ngComm.ToString("0.####");
+    var lcCommTitle = lcCommOld.ToString("0.####") + "-->" + lcComm.ToString("0.####");
+    var csCommTitle = csCommOld.ToString("0.####") + "-->" + csComm.ToString("0.####");
+
+    <table class="report-table" style="width: 100%">
+        <thead>
+            <tr class="report-header">
+                <td>@Model.Resource["SBComm"]
+                </td>
+                <td>@Model.Resource["RBComm"]
+                </td>
+                <td>@Model.Resource["NGComm"]
+                </td>
+                <td>@Model.Resource["LCComm"]
+                </td>
+                <td>@Model.Resource["CSComm"]
+                </td>
+                <td>@Model.Resource["GroupId"]
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="title-text" @(isChangeSbComm ? "style=color:red title=" + sbCommTitle + "" : "")>@sbComm.ToString("0.####")
+                    <div @(isChangeSbComm ? "class=old-value" : "style=display:none")>@sbCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeRacingComm ? "style=color:red title=" + RacingCommTitle + "" : "")>@rbComm.ToString("0.####")
+                    <div @(isChangeRacingComm ? "class=old-value" : "style=display:none")>@rbCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeNgComm ? "style=color:red title=" + ngCommTitle + "" : "")>@ngComm.ToString("0.####")
+                    <div @(isChangeNgComm ? "class=old-value" : "style=display:none")>@ngCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeLcComm ? "style=color:red title=" + lcCommTitle + "" : "")>@lcComm.ToString("0.####")
+                    <div @(isChangeLcComm ? "class=old-value" : "style=display:none")>@lcCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeCsComm ? "style=color:red title=" + csCommTitle + "" : "")>@csComm.ToString("0.####")
+                    <div @(isChangeCsComm ? "class=old-value" : "style=display:none")>@csCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeGroupId ? "style=color:red" : "")>@groupId
+                    <div @(isChangeGroupId ? "class=old-value" : "style=display:none")>@groupOld</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_NoteLayout.cshtml";
+}
+@using Fanex.Athena.Models.DTO.Common;
+@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
+@section content{
+    @if (Model.ProductList.Any(p => p.ProductCode == Product.Ba))
+    {
+        <li>@ViewResources.BaTurnoverReferenceNote</li>
+    }
+    @if (Model.ProductList.Any(p => p.ProductCode == Product.Cs || p.ProductCode == Product.Bg))
+    {
+        <li>@ViewResources.RngCasinoAndBingoExcludedNote </li>
+    }
+    <li>@string.Format(ViewResources.DateRangeNote, DateTime.Today.AddMonths(-18).AddDays(1 - DateTime.Now.Day)).
+    </li>
+    <li>Support up to 2 month data. </li>
+}

@@ -1,0 +1,25 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.DailyRacingWinLossViewModel
+<div class="header-content" style="width:@ViewBag.ContainerWidth@("px")">
+    <div class="row" style="width:@ViewBag.MeetingCurrencyWidth@("px")">@ViewResources.MeettingCurrency</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.Race</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.WinTO</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.PlaceTO</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.WPTO</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.TotalTO</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.DividendWon</div>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div class="row" style="width:@ViewBag.CommonWidth@("px")">
+            <div class="grid-header-two-line">
+                @ViewResources.CustomerCommission
+            </div>
+        </div>
+    }
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">@ViewResources.Comm</div>
+    <div class="row" style="width:@ViewBag.CommonWidth@("px")">
+        <div class="grid-header-two-line">
+            @ViewResources.AmtDueToRacing
+        </div>
+    </div>
+</div>

@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3AA658FF-B635-4990-A49C-AE886841A1CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.Models</RootNamespace>
+    <AssemblyName>Fanex.Athena.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.BetList.Core">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="RemotingRef">
+      <HintPath>..\..\..\DLLs\3rds\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\CacheRef.cs" />
+    <Compile Include="DataDomain\BetType.cs" />
+    <Compile Include="DataDomain\FormatKey.cs" />
+    <Compile Include="DataDomain\FunctionType.cs" />
+    <Compile Include="DataDomain\RNGCasinoSetting.cs" />
+    <Compile Include="DTO\BetList\DailyStatement.cs" />
+    <Compile Include="DTO\BetList\LrfTicket.cs" />
+    <Compile Include="DTO\BetList\BetListMatch.cs" />
+    <Compile Include="DTO\BetList\TicketText.cs" />
+    <Compile Include="DTO\BetList\TicketResult.cs" />
+    <Compile Include="DTO\Casino\ExchangeRateByDate.cs" />
+    <Compile Include="DTO\Casino\RNGCasinoResult.cs" />
+    <Compile Include="DTO\Casino\RNGResultDetail\CasinoGameType.cs" />
+    <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetail.cs" />
+    <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
+    <Compile Include="DTO\Common\CheckedItem.cs" />
+    <Compile Include="DTO\Common\ExChangeRate.cs" />
+    <Compile Include="DTO\Common\IRequest.cs" />
+    <Compile Include="DTO\Common\IResultInfo.cs" />
+    <Compile Include="DTO\Common\League.cs" />
+    <Compile Include="DTO\Common\Match.cs" />
+    <Compile Include="DTO\Common\ResultInfo.cs" />
+    <Compile Include="DTO\Common\SportProductItem.cs" />
+    <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
+    <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
+    <Compile Include="DTO\Customer\BetSetting\NumberGameBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\RacingBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\CommonBetSetting.cs" />
+    <Compile Include="DataDomain\SportType.cs" />
+    <Compile Include="DTO\Configuration\MaintenanceInfo.cs" />
+    <Compile Include="DTO\Customer\BetSetting\RngCasino\GameKind.cs" />
+    <Compile Include="DTO\Customer\BetSetting\RngCasino\GameType.cs" />
+    <Compile Include="DTO\Customer\BetSetting\RngCasino\RngCasinoBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\RngCasino\StakeLevel.cs" />
+    <Compile Include="DTO\Customer\BetSetting\VSBetSetting.cs" />
+    <Compile Include="DTO\Customer\CustomerDTO.cs" />
+    <Compile Include="DTO\Common\Function.cs" />
+    <Compile Include="DTO\Customer\CustomerCancelBetItem.cs" />
+    <Compile Include="DTO\Customer\CustomerInfo.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\CustomerLog.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\Details\ClosedSuspended.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\Details\GroupComm.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\Details\MemberComm.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\Details\SpecialLevel.cs" />
+    <Compile Include="DTO\Customer\CustomerLog\LogInLog.cs" />
+    <Compile Include="DTO\Customer\LogInfo.cs" />
+    <Compile Include="DTO\Common\Currency.cs" />
+    <Compile Include="DTO\Forecast\Forecast1X2\ForecastOneXTwo.cs" />
+    <Compile Include="DTO\Forecast\ForecastAH\ForecastValue.cs" />
+    <Compile Include="DTO\Forecast\ForecastAH\ForecastAh.cs" />
+    <Compile Include="DTO\Forecast\ForecastBase.cs" />
+    <Compile Include="DTO\Forecast\ForecastHDOU\ForecastHandicapOverUnder.cs" />
+    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuDetailItem.cs" />
+    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuMatchInfo.cs" />
+    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuTotalItem.cs" />
+    <Compile Include="DTO\Report\WinLossByLeague.cs" />
+    <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
+    <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
+    <Compile Include="DTO\TotalBets\HandicapOverUnder.cs" />
+    <Compile Include="DTO\TotalBets\HomeDrawAwayNoBet.cs" />
+    <Compile Include="DTO\TotalBets\MoneyLine.cs" />
+    <Compile Include="DTO\TotalBets\NumberGame.cs" />
+    <Compile Include="DTO\TotalBets\OddEvenDrawNoDraw.cs" />
+    <Compile Include="DTO\TotalBets\Outright.cs" />
+    <Compile Include="DTO\TotalBets\Racing.cs" />
+    <Compile Include="DTO\TotalBets\RacingBase.cs" />
+    <Compile Include="DTO\TotalBets\RacingLeague.cs" />
+    <Compile Include="DTO\TotalBets\RacingRace.cs" />
+    <Compile Include="DTO\TotalBets\TotalBetsBase.cs" />
+    <Compile Include="DTO\TotalBets\TotalGoal.cs" />
+    <Compile Include="DTO\Users\CurrencyUser.cs" />
+    <Compile Include="DTO\Users\UserRole.cs" />
+    <Compile Include="DTO\Common\Licensee.cs" />
+    <Compile Include="DTO\Users\LicenseeCustomer.cs" />
+    <Compile Include="DTO\Users\LicenseeSession.cs" />
+    <Compile Include="DTO\Users\LicenseeType.cs" />
+    <Compile Include="DTO\Common\ProductAccess.cs" />
+    <Compile Include="DTO\Configuration\BalanceUp.cs" />
+    <Compile Include="DTO\Configuration\CacheKey.cs" />
+    <Compile Include="DTO\Common\Product.cs" />
+    <Compile Include="DTO\Common\Request.cs" />
+    <Compile Include="DTO\Users\User.cs" />
+    <Compile Include="DTO\Users\UserSession.cs" />
+    <Compile Include="DTO\Report\Balance.cs" />
+    <Compile Include="DTO\Report\BalanceDetails.cs" />
+    <Compile Include="DTO\Report\DailyRacingWinLossData.cs" />
+    <Compile Include="DTO\Report\CustBalance.cs" />
+    <Compile Include="DTO\Report\CustPendingFunds.cs" />
+    <Compile Include="DTO\Report\CustTurnover.cs" />
+    <Compile Include="DTO\Report\CustomerWinLoss.cs" />
+    <Compile Include="DTO\Report\DailyRacingWinLoss.cs" />
+    <Compile Include="DTO\Report\ICustomerWinLoss.cs" />
+    <Compile Include="DTO\Report\ILicenseeWL.cs" />
+    <Compile Include="DTO\Report\ITurnOver.cs" />
+    <Compile Include="DTO\Report\LicenseeWinLoss.cs" />
+    <Compile Include="DTO\Report\LiveReports\LiveReport.cs" />
+    <Compile Include="DTO\Report\LiveReports\LiveReportByBetType.cs" />
+    <Compile Include="DTO\Report\LiveReports\LiveReportWinLossByMatch.cs" />
+    <Compile Include="DTO\Report\MatchWinLoss.cs" />
+    <Compile Include="DTO\Report\MobileWinLoss.cs" />
+    <Compile Include="DTO\Report\RacingCommission.cs" />
+    <Compile Include="DTO\Report\SettledMatchCount.cs" />
+    <Compile Include="DTO\Report\WinLossByBetType.cs" />
+    <Compile Include="DTO\Report\TurnoverDTO.cs" />
+    <Compile Include="DTO\Report\WinLossByProduct.cs" />
+    <Compile Include="DTO\Common\Sport.cs" />
+    <Compile Include="DTO\Warehouse\TopCustomer.cs" />
+    <Compile Include="DTO\Warehouse\WinLoss.cs" />
+    <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
+    <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
+    <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
+    <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
+    <Compile Include="MetaModel\BetList\BetListMetaModel.cs" />
+    <Compile Include="MetaModel\BetList\SystemParlayDetailMetaModel.cs" />
+    <Compile Include="MetaModel\Casino\CasinoStatusMetaModel.cs" />
+    <Compile Include="MetaModel\Casino\RngCasinoBetSettingMetaModel.cs" />
+    <Compile Include="MetaModel\BetList\LiveReportBetListMetaModel.cs" />
+    <Compile Include="MetaModel\BetList\LastBetsMonitoringMetaModel.cs" />
+    <Compile Include="MetaModel\Casino\RNGCasinoResultDetailMetaModel.cs" />
+    <Compile Include="MetaModel\Casino\RNGCasinoUpdateMemberComMetaModel.cs" />
+    <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\BetSetting\BetSettingMetaModel.cs" />
+    <Compile Include="MetaModel\BaseMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\BaseCustomerComMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\CustomerOutstandingMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\CustomerStatusMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\CustomerListMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\CustomerLog\CustomerLogMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\GroupCommMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\MoveToGroupComMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\RemoveFromGroupComMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\UpdatedCustomerComMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\DeleteGroupMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastAhMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastBaseMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\NewForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Product\ProductOption.cs" />
+    <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
+    <Compile Include="MetaModel\Report\BalanceMetaModel.cs" />
+    <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
+    <Compile Include="MetaModel\Report\WinLossByLeagueMetaModel.cs" />
+    <Compile Include="MetaModel\Report\CustomerWinlossHistoryMetaModel.cs" />
+    <Compile Include="MetaModel\Report\LiveReportMatchListMetalModel.cs" />
+    <Compile Include="MetaModel\Report\ResultMetalModel.cs" />
+    <Compile Include="MetaModel\Report\ResultPopupMetalModel.cs" />
+    <Compile Include="MetaModel\Report\WinLossByProductMetaModel.cs" />
+    <Compile Include="MetaModel\Report\CustomerBalanceMetaModel.cs" />
+    <Compile Include="MetaModel\Report\CustomerPendingFundsMetaModel.cs" />
+    <Compile Include="MetaModel\Report\CustomerTurnoverMetaModel.cs" />
+    <Compile Include="MetaModel\Report\CustomerWinlossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\DailyRacingWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\LicenseeWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\LiveReportMetalModel.cs" />
+    <Compile Include="MetaModel\Report\MatchWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\MobileWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\RacingCommissionMetaModel.cs" />
+    <Compile Include="MetaModel\Report\TurnoverMetaModel.cs" />
+    <Compile Include="MetaModel\Report\WinLossByBetTypeMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\FirstGoalLastGoalMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\HalfTimeFullTimeMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\HandicapOverUnderMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\HomeDrawAwayNoBetMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\MoneyLineMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\NumberGameMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\OddEvenDrawNoDrawMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\OutrightMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\RacingMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\TotalBetsBaseMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBets\TotalGoalMetaModel.cs" />
+    <Compile Include="MetaModel\Warehouse\BaseWarehouseMetaModel.cs" />
+    <Compile Include="MetaModel\Warehouse\TopCustomerMetaModel.cs" />
+    <Compile Include="MetaModel\Warehouse\WinLossMetaModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BetList\BetListBaseViewModel.cs" />
+    <Compile Include="ViewModel\BetList\CancelledBetsBetListViewModel.cs" />
+    <Compile Include="ViewModel\BetList\LastBetsMonitoringViewModel.cs" />
+    <Compile Include="ViewModel\BetList\SystemParlayDetailViewModel.cs" />
+    <Compile Include="ViewModel\BetList\CustomerOutstandingViewModel.cs" />
+    <Compile Include="ViewModel\BetList\DailyStatementViewModel.cs" />
+    <Compile Include="MetaModel\Casino\RGNCasinoResultMetalModel.cs" />
+    <Compile Include="ViewModel\Casino\RNGCasinoResultViewModel.cs" />
+    <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\LiveCasinoBetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\CustomerLog\ActionViewModel.cs" />
+    <Compile Include="ViewModel\Customer\CustomerLog\CustomerLogViewModel.cs" />
+    <Compile Include="ViewModel\Customer\CustomerLog\LogInLogViewModel.cs" />
+    <Compile Include="ViewModel\Customer\LogInfoViewModel.cs" />
+    <Compile Include="ViewModel\Customer\CustomerListViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\ForecastAhViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\ForecastBaseViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\ForecastHdpOuViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\ForecastOneXTwoViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\NewForecastHdpOuData.cs" />
+    <Compile Include="ViewModel\Forecast\NewForecastHdpOuViewModel.cs" />
+    <Compile Include="ViewModel\Menu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Menu.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Note\NoteViewModel.cs" />
+    <Compile Include="ViewModel\Report\BalanceViewModel.cs" />
+    <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
+    <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
+    <Compile Include="ViewModel\Report\ResultReportViewModel.cs" />
+    <Compile Include="ViewModel\Report\WinLossByProductViewModel.cs" />
+    <Compile Include="ViewModel\Report\CustomerBalanceViewModel.cs" />
+    <Compile Include="ViewModel\Report\CustomerPendingFundsViewModel.cs" />
+    <Compile Include="ViewModel\Report\CustomerTurnoverViewModel.cs" />
+    <Compile Include="ViewModel\Report\CustomerWinlossViewModel.cs" />
+    <Compile Include="ViewModel\Report\LicenseeWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Report\DailyRacingWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Report\LiveReports\LiveReportDetailViewModel.cs" />
+    <Compile Include="ViewModel\Report\LiveReports\LiveReportMatchListViewModel.cs" />
+    <Compile Include="ViewModel\Report\LiveReports\LiveReportViewModel.cs" />
+    <Compile Include="ViewModel\Report\MatchWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Report\MobileWinLossViewModel.cs" />
+    <Compile Include="MetaModel\Warehouse\GroupingMetaModel.cs" />
+    <Compile Include="ViewModel\Report\RacingCommissionViewModel.cs" />
+    <Compile Include="ViewModel\Report\SettledMatchCountViewModel.cs" />
+    <Compile Include="ViewModel\Report\WinLossByBetTypeViewModel.cs" />
+    <Compile Include="ViewModel\Report\TurnoverViewModel.cs" />
+    <Compile Include="ViewModel\ResultViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\FirstGoalLastGoalViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\HalfTimeFullTimeViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\HandicapOverUnderViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\HomeDrawAwayNoBetViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\MoneyLineViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\NumberGameViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\OddEvenDrawNoDrawViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\OutrightViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\RacingViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\TotalBetsBaseViewModel.cs" />
+    <Compile Include="ViewModel\TotalBets\TotalGoalViewModel.cs" />
+    <Compile Include="ViewModel\ViewResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Warehouse\TopCustomerViewModel.cs" />
+    <Compile Include="ViewModel\Warehouse\WinLossViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ViewModel\Menu.ko-KR.resx" />
+    <EmbeddedResource Include="ViewModel\Menu.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Menu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\Menu.zh-CN.resx" />
+    <EmbeddedResource Include="ViewModel\Menu.zh-TW.resx" />
+    <EmbeddedResource Include="ViewModel\ViewResources.ko-KR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\ViewResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>ViewResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\ViewResources.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\ViewResources.zh-TW.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

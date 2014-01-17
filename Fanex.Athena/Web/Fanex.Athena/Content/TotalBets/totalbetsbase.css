@@ -1,0 +1,116 @@
+﻿.report-table
+{
+    width: 1020px !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.header-content
+{
+    max-height: 670px !important;
+    width: 1037px !important;
+    border: 1px solid #A3D1E1;
+    border-left: none !important;
+}
+.data-content
+{
+    max-height: 670px !important;
+    width: 1037px !important;
+    border-right: 1px solid #A3D1E1;
+    border-bottom: 1px solid #A3D1E1;
+    overflow-y: scroll !important;
+}
+.content-filter
+{
+    height: 28px !important;
+    width: 1037px !important;
+}
+/* content */
+.clear
+{
+    height: 5px !important;
+}
+.league
+{
+    color: #000000 !important;
+    height: 16px !important;
+}
+.live
+{
+    background-color: #ffddcc;
+}
+.live-notice
+{
+    color: #FF0004;
+}
+.match-name
+{
+    text-align: left !important;
+}
+.show-time
+{
+    text-align: center !important;
+    font-size: 7pt !important;
+}
+.runner-no
+{
+    text-align: center !important;
+    font-size: 8pt !important;
+    font-weight: bold !important;
+}
+.kick-off-time
+{
+    font-weight: bold;
+    font-size: 11px !important;
+    margin-top: 5px;
+}
+.score-value
+{
+    font-weight: bold;
+}
+.negative-number, .positive-number
+{
+    color: #FF0004 !important;
+}
+.button-add
+{
+    display: block;
+    height: 16px;
+    margin-left: 5px;
+    margin-right: 3px;
+    text-align: center;
+    width: 16px;
+    background: url("images/icon_add.jpg") no-repeat scroll center top transparent;
+}
+.forcast-number
+{
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+.team
+{
+    text-decoration: none !important;
+    font-weight: normal !important;
+}
+.forecast-number-none
+{
+    text-decoration: none !important;
+}
+.running-match
+{
+    background-color: pink;
+}
+.completed-match
+{
+    background-color: White;
+}
+.race-number
+{
+    font-size: 13px;
+    font-weight: bold;
+}
+.total-footer
+{
+    border-top: 2px solid #D2592D;
+    background-color: #B2DFEF;
+}
+/*/content */

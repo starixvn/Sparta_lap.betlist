@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Balance;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+@section pagecss 
+{
+    <link href="@Url.ContentLink("/Content/Report/balance.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs 
+{
+    <script src="@Url.ContentLink("/Scripts/Report/Balance.js")" type="text/javascript"></script>
+}
+@{
+    ViewBag.ColumnCount = 2;
+
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 2 : 0;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowRb ? 2 : 0;
+    ViewBag.ColumnCount += Model.IsAllowedCustomerCommission ? 1 : 0;
+
+    ViewBag.ColumnWidth = 140;
+    // Make the first column = 420px if column count = 2
+    ViewBag.FirstColumnWidth = ViewBag.ColumnCount == 7 ? ViewBag.ColumnWidth : (7 - ViewBag.ColumnCount)*140;
+
+    ViewBag.ContainerWidth = ViewBag.FirstColumnWidth + ViewBag.ColumnWidth;
+    ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowBa ? 2 : 0);
+    ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowRb ? 2 : 0);
+    ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.IsAllowedCustomerCommission ? 1 : 0);
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    if (ViewBag.ContainerWidth < 700) {ViewBag.ContainerWidth = 700;}
+    ViewBag.FilterWidth = ViewBag.ContainerWidth > 1075 ? 1075 : ViewBag.ContainerWidth;
+}
+@section ContentTitle
+{
+    @ViewResources.Balance
+}
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/Balance/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Report/Balance/Content.cshtml");                
+}

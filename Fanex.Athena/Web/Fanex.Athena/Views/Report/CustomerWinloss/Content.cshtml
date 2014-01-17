@@ -1,0 +1,29 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+@{
+    var param = Model.IsHistory ? Model.HistoryParam : Model.Param;
+}
+<div class="container_26" style="max-height: 705px!important">
+    <div class="grid_26">
+        <div style="width:@(ViewBag.WrapperWidth + 2)px;">
+            @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
+        </div>
+        <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
+            @ViewResources.Customer @ViewResources.WinLoss,
+           @RazorHelper.TitleDateTime(param.FromDate, param.ToDate)
+            - @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName)
+            @RazorHelper.TitleLicenseeWLPrefix(param.ProductOptions)
+        </div>
+        <div class="report-content " style="width:@(ViewBag.WrapperWidth)px; max-height: 580px!important">
+            @{
+                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Header.cshtml");
+                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Data.cshtml");
+                Html.RenderPartial("~/Views/Report/CustomerWinLoss/Content.Total.cshtml");
+            }
+        </div>
+        <div style="width:@(ViewBag.WrapperWidth + 2)px;">
+            @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
+        </div>
+    </div>
+</div>

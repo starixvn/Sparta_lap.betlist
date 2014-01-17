@@ -1,0 +1,110 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportViewModel
+<div class="data-content" style="width:@(ViewBag.ContainerWidth + 1)px;">
+    @foreach (var item in Model.MainResult)
+    {
+        <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+            <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
+                <div>
+                    <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
+                        @item.ProductName
+                    </a>
+                </div>
+            </div>
+            @SplitingProductHelper.CustomerWLContent(item, Model.IsAllowedCustomerCommission,
+                            (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+            <div class="row" style="width:@(ViewBag.TurnoverWidth)px">
+                <div>
+                    @item.TurnOver.ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.BetCountWidth)px">
+                <div>
+                    @item.BetCount.ToStringExt()
+                </div>
+            </div>
+            <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px">
+                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+            </div>
+            @if (Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa)
+            {
+                <div class="row highlight" style="width:@(ViewBag.CommWidth)px">
+                    <div>
+                        @item.LicenseeComm.ToStringExt()
+                    </div>
+                </div>
+            }
+            <div class="row" style="width:@(ViewBag.AmountDueWidth)px">
+                <div>
+                    @item.AmountDue.ToStringExt()
+                </div>
+            </div>
+        </div>
+    }
+    <!--total row-->
+    <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
+        <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
+            <div>
+                <a href="javascript:;" class="product-detail-link" data-product-code="ALL">
+                    @ViewResources.Total
+                </a>
+            </div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width:@(ViewBag.CustomerWLWidth)px">
+                <div>
+                    @Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.CustomerCommWidth)px">
+                <div>
+                    @Model.MainResult.Sum(i => i.CustomerComm).ToStringExt()
+                </div>
+            </div>
+            <div class="row" style="width:@(ViewBag.CustomerWLTotalWidth)px">
+                <div>
+                    @Model.MainResult.Sum(i => i.CustomerTotal).ToStringExt()
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row" style="width:@(ViewBag.CustomerWLLargeWidth)px">
+                <div>
+                    @Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()
+                </div>
+            </div>
+        }
+        <div class="row" style="width:@(ViewBag.TurnOverWidth)px">
+            <div>
+                @Model.MainResult.Sum(i => i.TurnOver).ToStringExt()
+            </div>
+        </div>
+        <div class="row" style="width:@(ViewBag.BetCountWidth)px">
+            <div>
+                @Model.MainResult.Sum(i => i.BetCount).ToStringExt()
+            </div>
+        </div>
+        @{
+            var totalLicenseeWL = Model.MainResult.Sum(i => i.LicenseeWinLoss);  
+        }
+        <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px">
+            @FormatHelper.NegativeFormat(totalLicenseeWL)
+        </div>
+        @if (Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa)
+        {
+            <div class="row highlight" style="width:@(ViewBag.CommWidth)px">
+                <div>
+                    @Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()
+                </div>
+            </div>
+        }
+        <div class="row" style="width:@(ViewBag.AmountDueWidth)px">
+            <div>
+                @Model.MainResult.Sum(i => i.AmountDue).ToStringExt()
+            </div>
+        </div>
+    </div>
+</div>

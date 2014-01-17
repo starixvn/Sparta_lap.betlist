@@ -1,0 +1,5 @@
+﻿Following must be synchronized with LRFOld
+
+1. App_Data\FanexSpName.xml
+2. Content\Global
+3. Content\Theme

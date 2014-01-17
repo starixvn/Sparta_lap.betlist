@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DTO.Common
+@model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
+@{
+    var minDate = DateTime.Today.AddYears(-15);
+    var maxDate = DateTime.Now.AddHours(-9).AddDays(-1);
+}
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
+    @using (Html.BeginForm("WinLoss", "WareHouse", FormMethod.Post, new { @id = "WarehouseWinLossForm" }))
+    {
+        <div class="grid_2 filter-label new-line">
+            <label>@ViewResources.Licensee</label>
+        </div>    
+        var licenseeList = Model.LicenseeList;
+        if (licenseeList.Count == 1)
+        {
+        <div class="grid_3 one-licensee filter-input">@licenseeList[0].Name</div>
+        }
+        else
+        {           
+        <div class="grid_3 filter-input">
+            <select id="LicenseeList" style="width: 100%">
+                @{var selectedAttr = 0 == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);}
+                <option @selectedAttr value="0">@ViewResources.All</option>
+                @{
+                  foreach (Licensee item in Model.LicenseeList)
+                  {
+                      selectedAttr = item.Id == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);
+                    <option @selectedAttr value="@item.Id">@item.Name</option>
+                  }    
+                }
+            </select>
+        </div>
+        }
+    
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Currency</label>
+        </div>
+        <div id="CurrencyResult" class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId, true)
+        </div>
+        <div class="grid_2 filter-label">
+            <label for="BaseCurrency">@ViewResources.Based</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+        </div>
+        <div class="gird_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "Warehouse" });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        
+        <div class="new-line">
+        </div>
+        
+        <div>
+            @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
+            @Html.Hidden("ReportBy", Model.Param.ReportBy)
+            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+            @Html.HiddenFor(m => m.Param.IsExportExcel)
+        </div>
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.ReportBy</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @Html.DropDownList("SelectReportBy", new SelectList(new Dictionary<string, string>
+                {
+                    {"1",ViewResources.Day},  {"3",ViewResources.Month},  {"-10",ViewResources.Currency},  {"0",ViewResources.BetType}, {"4",ViewResources.League}
+                  
+                }, "Key", "Value", Model.Param.ReportBy))
+        </div>
+    
+        <div class="new-line">
+        </div>
+        <div class="grid_2 new-line filter-label">
+            <label>@ViewResources.DrawFilter</label>
+        </div>
+        <div class="grid_8 filter-input option-list" style="width: 400px">
+            @Html.RadioButton("DrawFilter", "1", Model.Param.DrawFilter == 1, new { id = "RadioNormal" })
+            <label for="RadioNormal">@ViewResources.Normal</label>
+            @Html.RadioButton("DrawFilter", "2", Model.Param.DrawFilter == 2, new { id = "RadioNoDraws" })
+            <label for="RadioNoDraws">@ViewResources.NoDraws</label>
+            @Html.RadioButton("DrawFilter", "3", Model.Param.DrawFilter == 3, new { id = "RadioNoDrawsForTurnoverOnly" })
+            <label for="RadioNoDrawsForTurnoverOnly">@ViewResources.NoDrawsForTurnoverOnly</label>
+        </div>
+        <div class="grid_2 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input">
+            <input type="submit" id="SubmitButton" value="@ViewResources.Submit" class="button blockui" />
+        </div>
+
+        <div class="clear">
+        </div>    
+    }
+</div>

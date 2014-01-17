@@ -1,0 +1,64 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerLog.CustomerLogViewModel
+@using (Html.BeginForm("CustomerSetting", "CustomerLog", FormMethod.Post, new { @id = "CustomerSettingLogForm" }))
+{
+    <div class="grid_2 filter-label label-center" style="width: 60px">
+        @ViewResources.Username
+    </div>
+    <div class="grid_3 filter-input">
+        <input type="text" id="Username" class="default-username" style="width: 100px" />
+    </div>
+    <div class="grid_2 filter-label label-center" style="width: 65px">
+        @ViewResources.ViewBy
+    </div>
+    <div class="grid_3 filter-input">
+        <select id="ViewBy">
+            <option value="0" @(Model.Param.ViewById == 0 ? "selected='selected'" : string.Empty)>@ViewResources.All</option>
+            @if (Model.Param.IsAllowBA)
+            {
+                <option value="1" @(Model.Param.ViewById == 1 ? "selected='selected'" : string.Empty)>@ViewResources.BA</option>
+            }
+            <option value="2" @(Model.Param.ViewById == 2 ? "selected='selected'" : string.Empty)>@ViewResources.Status</option>
+            @if (Model.Param.IsAllowCustComm)
+            {
+                <option value="3" @(Model.Param.ViewById == 3 ? "selected='selected'" : string.Empty)>@ViewResources.Commission</option>
+            }
+            <option value="4" @(Model.Param.ViewById == 4 ? "selected='selected'" : string.Empty)>@ViewResources.SpecialLevel</option>
+            <option value="5" @(Model.Param.ViewById == 5 ? "selected='selected'" : string.Empty)>@ViewResources.Currency</option>
+        </select>
+    </div>
+    <div class="grid_3 filter-label label-center" style="width: 95px">
+        @ViewResources.ViewDataInMonth
+    </div>
+    <div class="grid_10 filter-input month-picker" style="width: 380px">
+        <div id="DateControl">
+        </div>
+        <div class="grid_1 label-center">@ViewResources.From</div>
+        <div id="MonthPickerFromDay">
+        </div>
+        <div class="grid_2 label-center" style="width: 25px">@ViewResources.To</div>
+        <div id="MonthPickerToDay">
+        </div>
+    </div>
+    <div class="grid_1 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <div class="grid_3 filter-label">
+        <input id="showall" type="checkbox" checked="checked" /><span class="label-center">@ViewResources.ShowOldValue</span>
+    </div>
+
+            // Date picker hidden param
+    <div>
+        <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+        <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+        <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDay" />
+        <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDay" />
+        <input type="hidden" id="Month" name="Month" value="@Model.Param.Month" />
+        <input type="hidden" id="Year" name="Year" value="@Model.Param.Year" />
+        @{
+            var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            var minDate = beginOfMonth.AddMonths(-18);
+        }
+        <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+    </div>
+}

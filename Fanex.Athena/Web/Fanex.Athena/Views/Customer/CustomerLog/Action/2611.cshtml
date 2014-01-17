@@ -1,0 +1,94 @@
+﻿<!--Delete group template-->
+@using Fanex.Common
+@{
+    var sbComm = Converter.ToDecimal(Model.Data["SBComm"]);
+    var sbCommOld = Converter.ToDecimal(Model.Data["SBCommOld"]);
+    var rbComm = Converter.ToDecimal(Model.Data["RacingComm"]);
+    var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
+    var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
+    var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
+    var lcComm = Converter.ToDecimal(Model.Data["LCComm"]);
+    var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
+    var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
+    var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+
+    var groupId = Model.Data["GroupCommID"];
+    var groupColor = Model.Data["GroupColor"];
+    var groupColorOld = Model.Data["GroupColorOld"];
+    var groupName = Model.Data["GroupName"];
+    var groupNameOld = Model.Data["GroupNameOld"];
+
+    var isChangeSbComm = sbComm != sbCommOld;
+    var isChangeRacingComm = rbComm != rbCommOld;
+    var isChangeNgComm = ngComm != ngCommOld;
+    var isChangeLcComm = lcComm != lcCommOld;
+    var isChangeCsComm = csComm != csCommOld;
+    var isChangeGroupColor = groupColor != groupColorOld;
+    var isChangeGroupName = groupName != groupNameOld;
+
+    var sbCommTitle = sbCommOld.ToString("0.####") + "-->" + sbComm.ToString("0.####");
+    var RacingCommTitle = rbCommOld.ToString("0.####") + "-->" + rbComm.ToString("0.####");
+    var ngCommTitle = ngCommOld.ToString("0.####") + "-->" + ngComm.ToString("0.####");
+    var lcCommTitle = lcCommOld.ToString("0.####") + "-->" + lcComm.ToString("0.####");
+    var csCommTitle = csCommOld.ToString("0.####") + "-->" + csComm.ToString("0.####");
+
+    var groupNameLength = groupName.Length;
+    var groupNameOldLength = groupNameOld.Length;
+    var groupNameDisplay = groupNameLength > 25 ? groupName.Substring(0, 25) : groupName;
+    var groupNameOldDisplay = groupNameOldLength > 25 ? groupNameOld.Substring(0, 25) : groupNameOld;
+
+    <table class="report-table" style="width: 100%">
+        <thead>
+            <tr class="report-header">
+                <td style="width: 10%">@Model.Resource["GroupId"]
+                </td>
+                <td style="width: 20%">@Model.Resource["GroupName"]
+                </td>
+                <td style="width: 12%">@Model.Resource["GroupColor"]
+                </td>
+                <td style="width: 12%">@Model.Resource["SBComm"]
+                </td>
+                <td style="width: 12%">@Model.Resource["RBComm"]
+                </td>
+                <td style="width: 12%">@Model.Resource["NGComm"]
+                </td>
+                <td style="width: 12%">@Model.Resource["LCComm"]
+                </td>
+                <td style="width: 12%">@Model.Resource["CSComm"]
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="title-text" style="width: 10%">@groupId
+                </td>
+                <td class="title-text" @(isChangeGroupName ? @Raw("style='color:red;width:20%'") : @Raw("style=width:20%")) @(groupNameLength > 25 ? @Raw("title='" + groupName + "'") : "") >@groupNameDisplay
+                    <div @(isChangeGroupName ? "class=old-value" : "style=display:none") @(groupNameOldLength > 25 ? @Raw("title='" + groupNameOld + "'") : "")>@groupNameOldDisplay</div>
+                </td>
+                <td class="title-text" style="width: 12%">
+                    <div style="background-color:@groupColor;" class="group-color-box">
+                    </div>
+                    <div @(isChangeGroupColor ? "class=old-value" : "style=display:none")>
+                        <div title="@Model.Resource["OldColor"]" style="background-color:@groupColorOld;" class="group-color-box">
+                        </div>
+                    </div>
+                </td>
+                <td class="title-text" @(isChangeSbComm ? "style=color:red;width:12% title=" + sbCommTitle + "" : "style=width:12%")>@sbComm.ToString("0.####")
+                    <div @(isChangeSbComm ? "class=old-value" : "style=display:none")>@sbCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeRacingComm ? "style=color:red;width:12% title=" + RacingCommTitle + "" : "style=width:12%")>@rbComm.ToString("0.####")
+                    <div @(isChangeRacingComm ? "class=old-value" : "style=display:none")>@rbCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeNgComm ? "style=color:red;width:12% title=" + ngCommTitle + "" : "style=width:12%")>@ngComm.ToString("0.####")
+                    <div @(isChangeNgComm ? "class=old-value" : "style=display:none")>@ngCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeLcComm ? "style=color:red;width:12% title=" + lcCommTitle + "" : "style=width:12%")>@lcComm.ToString("0.####")
+                    <div @(isChangeLcComm ? "class=old-value" : "style=display:none")>@lcCommOld.ToString("0.####")</div>
+                </td>
+                <td class="title-text" @(isChangeCsComm ? "style=color:red;width:12% title=" + csCommTitle + "" : "style=width:12%")>@lcComm.ToString("0.####")
+                    <div @(isChangeCsComm ? "class=old-value" : "style=display:none")>@csCommOld.ToString("0.####")</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

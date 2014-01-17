@@ -1,0 +1,31 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
+@{
+   
+    
+}
+<div class="container_26">
+    <div class="grid_26">
+        <div class="report-title" style="width: @(ViewBag.TitleWidth)px;">
+            @ViewResources.RacingCommission, @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate)
+            - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+        </div>
+        <div class="report-content " style="width: @(ViewBag.WrapperWidth + 1)px;">
+            @*-----------------------Header for report-----------------------*@
+            @{Html.RenderPartial("~/Views/Report/RacingCommission/Content.Header.cshtml", Model);}
+            @*-----------------------Content for report----------------------*@
+            @{Html.RenderPartial("~/Views/Report/RacingCommission/Content.Data.cshtml", Model);}
+            @*-----------------------Total for report------------------------*@
+            @{Html.RenderPartial("~/Views/Report/RacingCommission/Content.Total.cshtml", Model);}
+            @*-----------------------Noinfo for report-----------------------*@
+            @if (Model.RacingCommissionList.Count <= 0)
+            {
+                <div class="content-row" style="width: @(ViewBag.ContainerWidth)px;">
+                    <div class="row grid-noinfo" style="width: @(ViewBag.ContainerWidth)px;">
+                        <div>@ViewResources.NoInfo</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

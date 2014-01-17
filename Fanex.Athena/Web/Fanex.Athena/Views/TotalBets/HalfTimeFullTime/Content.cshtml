@@ -1,0 +1,12 @@
+﻿@model Fanex.Athena.Models.ViewModel.TotalBets.HalfTimeFullTimeViewModel
+@{
+    Html.RenderPartial("~/Views/TotalBets/HalfTimeFullTime/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/HalfTimeFullTime/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/TotalBets/HalfTimeFullTime/ContentData.cshtml");
+}

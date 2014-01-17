@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "LRF - Group Management";
+    Layout = "~/Views/Shared/_GroupCommLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Plugin/ColorPicker/Spectrum.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Plugin/ColorPicker/spectrum.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Customer/CustomerComm/updategroup.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Customer/CustomerComm/groupcomm.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.EditGroup
+}
+@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Extension.Utility
+@model Fanex.Athena.Models.MetaModel.Customer.GroupCommMetaModel
+@if (Model != null)
+{
+
+    using (Html.BeginForm())
+    {
+    <div id="form_result">
+        @Html.ValidationSummary(true)
+        @if (ViewBag.Result != null)
+        {
+            var errorMsg = ViewBag.Result.ErrorMessage;
+
+            <div id="message-update-group" class="@(ViewBag.Result.Success ? "response-area field-validation-success" : "response-area field-validation-error")">
+                @(ViewBag.Result.Success ? ViewBag.Result.Message : string.IsNullOrEmpty(errorMsg) ? Html.ValidationMessageFor(model => model.GroupName) : errorMsg)
+            </div>
+        }
+        else
+        {
+            <div id="message" class="validate-result response-area field-validation-error" style="display: none">
+                @ViewResources.ChooseGroupNameMsg</div>
+        }
+    </div>
+
+    <div class="container_26" style="padding-left: 10px">
+        <div class="border-group-update">
+            <table class="create-new-group-table">
+                <tr style="height: 20px">
+                    <td style="width: 130px;">
+                        <div>
+                            @ViewResources.GroupName
+                        </div>
+                    </td>
+                    <td style="width: 500px">
+                        <div class="grid_4">@Html.TextBoxFor(model => model.GroupName, new { style = "width: 125px" })</div>
+                        <input type="button" id="Validate" value="@ViewResources.Checkavailability" class="button" />
+                        <img id="ValidateOK" class="validate" src="@Url.ContentLink("/Content/Customer/images/validated.png")" />
+                        <img id="ValidateFail" class="validate" src="@Url.ContentLink("/Content/Customer/images/validatefail.png")" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @ViewResources.Commission (%)
+                    </td>
+                    <td>
+                        <div class="grid_3 product-label">
+                            @ViewResources.Sportsbook</div>
+                        <div class="grid_5">
+                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm1", GroupCommSetting.GetCommValue(15, 1), Model.SbComm1)
+                            &#8226
+                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm2", GroupCommSetting.GetCommValue(9, 1), Model.SbComm2)
+                            @RazorHelper.GroupComSettingDropDownList("DdlSBComm3", GroupCommSetting.GetCommValue(1, 5), Model.SbComm3)
+                            @Html.HiddenFor(model => model.SBComm)
+                            @Html.HiddenFor(model => model.SbComm1)
+                            @Html.HiddenFor(model => model.SbComm2)
+                            @Html.HiddenFor(model => model.SbComm3)
+                        </div>
+                    </td>
+                </tr>
+                @if (Model.IsUpdateRacing)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="grid_3 product-label">@ViewResources.Racing</div>
+                            <div class="grid_5">
+                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm1", GroupCommSetting.GetCommValue(15, 1), Model.RcComm1)
+                                &#8226
+                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm2", GroupCommSetting.GetCommValue(9, 1), Model.RcComm2)
+                                @RazorHelper.GroupComSettingDropDownList("DdlRCComm3", GroupCommSetting.GetCommValue(1, 5), Model.RcComm3)
+                                @Html.HiddenFor(model => model.RCComm)
+                                @Html.HiddenFor(model => model.RcComm1)
+                                @Html.HiddenFor(model => model.RcComm2)
+                                @Html.HiddenFor(model => model.RcComm3)
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (Model.IsUpdateNG)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="grid_3 product-label">@ViewResources.NumberGame</div>
+                            <div class="grid_5">
+                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm1", GroupCommSetting.GetCommValue(15, 1), Model.NgComm1)
+                                &#8226
+                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm2", GroupCommSetting.GetCommValue(9, 1), Model.NgComm2)
+                                @RazorHelper.GroupComSettingDropDownList("DdlNGComm3", GroupCommSetting.GetCommValue(1, 5), Model.NgComm3)
+                                @Html.HiddenFor(model => model.NGComm)
+                                @Html.HiddenFor(model => model.NgComm1)
+                                @Html.HiddenFor(model => model.NgComm2)
+                                @Html.HiddenFor(model => model.NgComm3)
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (Model.IsUpdateLC)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="grid_3 product-label">@ViewResources.LiveCasino</div>
+                            <div class="grid_5">
+                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm1", GroupCommSetting.GetCommValue(15, 1), Model.LcComm1)
+                                &#8226
+                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm2", GroupCommSetting.GetCommValue(9, 1), Model.LcComm2)
+                                @RazorHelper.GroupComSettingDropDownList("DdlLCComm3", GroupCommSetting.GetCommValue(1, 5), Model.LcComm3)
+                                @Html.HiddenFor(model => model.LCComm)
+                                @Html.HiddenFor(model => model.LcComm1)
+                                @Html.HiddenFor(model => model.LcComm2)
+                                @Html.HiddenFor(model => model.LcComm3)
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (Model.IsUpdateCS)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <div class="grid_3 product-label">@ViewResources.RNGCasino</div>
+                            <div class="grid_5">
+                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm1", GroupCommSetting.GetCommValue(15, 1), Model.CsComm1)
+                                &#8226
+                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm2", GroupCommSetting.GetCommValue(9, 1), Model.CsComm2)
+                                @RazorHelper.GroupComSettingDropDownList("DdlCSComm3", GroupCommSetting.GetCommValue(1, 5), Model.CsComm3)
+                                @Html.HiddenFor(model => model.CSComm)
+                                @Html.HiddenFor(model => model.CsComm1)
+                                @Html.HiddenFor(model => model.CsComm2)
+                                @Html.HiddenFor(model => model.CsComm3)
+                            </div>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        @ViewResources.SetAsDefaultGroup
+                    </td>
+                    <td>
+                        <div class="grid_1">
+                            @Html.CheckBoxFor(model => model.IsDefaultGroup)
+                            @Html.HiddenFor(model => model.IsResetDefault)
+                            @Html.HiddenFor(model => model.DefaultGroupId)
+                        </div>
+                        <div class="note-message grid_11">
+                            @ViewResources.GroupCommNote
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height: 20px">
+                </tr>
+                <tr>
+                    <td>
+                        @ViewResources.GroupColor
+                    </td>
+                    <td>
+                        <div class="grid_2">
+                            <input id="showInput" type="text" name="showInput" style="display: none;" />
+                            @Html.HiddenFor(model => model.GroupColor)
+                            @Html.ValidationMessageFor(model => model.GroupColor)
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height: 28px">
+                    <td>
+                    </td>
+                    <td colspan="2">
+                        <div class="grid_10">
+                            <input type="button" id="Save" value="@ViewResources.Save" class="button" />
+                            <div class="grouComm_grid_2">
+                                <input type="button" id="Cancel" value="@ViewResources.Cancel" class="button" /></div>
+                            <div class="grouComm_grid_2">
+                                <input type="button" id="CustList" value="@ViewResources.GotoCustomerList" class="button" /></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>    
+    @Html.HiddenFor(model => model.LicenseeId)
+    @Html.ValidationMessageFor(model => model.LicenseeId)
+    @Html.HiddenFor(model => model.GroupCommId)
+    @Html.ValidationMessageFor(model => model.GroupCommId)
+    @Html.HiddenFor(model => model.IsUpdateNG)
+    @Html.HiddenFor(model => model.IsUpdateRacing)
+    @Html.HiddenFor(model => model.IsUpdateLC)
+    @Html.HiddenFor(model => model.IsUpdateCS)
+    }
+}
+else
+{
+    <div class="response-area">
+        <p class="field-validation-error">
+            @ViewResources.GroupNotExist
+        </p>
+    </div>
+}

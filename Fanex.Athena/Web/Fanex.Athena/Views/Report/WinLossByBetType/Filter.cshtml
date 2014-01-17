@@ -1,0 +1,56 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Product
+@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    @using (Html.BeginForm("WinLossByBetType", "Report", FormMethod.Post, new { @id = "WinLossByBetTypeForm" }))
+    {
+        //-----------------------------Hidden Field-------------------------------//
+        @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)   
+
+        //-----------------------------Date---------------------------------------//
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay,
+        DateTime.Today, "date-range", "date-range", 2, 3, 2, 3, true)
+        <div class="new-line">
+        </div>
+        //-----------------------------Type of licensee---------------------------//
+        if (@Model.LicenseeTypeList.Count > 0)
+        {
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Type</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseelist", Model.Param.LicenseeType)
+        </div>
+        }
+
+        //-----------------------------Currency-----------------------------------//
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Currency</label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
+        </div>
+        <div class="grid_2 filter-label">
+            <label for="BaseCurrency">@ViewResources.Based </label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+        </div>
+        <div class="grid_2 note-group">
+            <div>
+                @{Html.RenderAction("Index", "Note", new { viewName = "WinLossByBetType" });}
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel" title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+    
+        <div class="grid_2 filter-label new-line">
+            &nbsp;</div>
+        <div class="grid_2 filter-input">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+    }
+</div>

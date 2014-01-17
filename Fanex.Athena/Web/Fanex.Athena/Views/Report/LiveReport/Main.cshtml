@@ -1,0 +1,66 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.ViewModel.Report.LiveReports
+@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LiveReport;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@{
+    ViewBag.ProductWidth = 220;
+    ViewBag.CustomerWLLargeWidth = 120;
+    ViewBag.CustomerWLMergeWidth = 322;
+    ViewBag.CustomerWLWidth = 120;
+    ViewBag.CustomerCommWidth = 80;
+    ViewBag.CustomerWLTotalWidth = 120;
+    ViewBag.TurnoverWidth = 90;
+    ViewBag.BetCountWidth = 80;
+    ViewBag.LicenseeWLWidth = 100;
+    ViewBag.AmountDueWidth = 100;
+    ViewBag.CommWidth = 90;
+
+    ViewBag.ColumnCount = 6;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? 1 : 0;
+    ViewBag.ContainerWidth = ViewBag.ProductWidth +
+                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
+                ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
+                ViewBag.LicenseeWLWidth +
+                (Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? ViewBag.CommWidth : 0) +
+                ViewBag.AmountDueWidth;
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+    if (ViewBag.FilterWidth < 800)
+    {
+        ViewBag.FilterWidth = 800; 
+    }
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/Content/Report/livereport.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Report/livereport.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+    {
+    @ViewResources.LiveReport
+}
+@section ContentFilter
+{
+    @if (Model.Param.IsViewedHistory)
+    {
+        Html.RenderPartial("~/Views/Report/LiveReport/HistoryFilter.cshtml");
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Report/LiveReport/Filter.cshtml");
+    }
+}
+@{
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Report/LiveReport/Content.cshtml");
+    }
+}

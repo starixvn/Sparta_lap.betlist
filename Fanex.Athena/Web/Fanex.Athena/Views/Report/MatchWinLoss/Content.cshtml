@@ -1,0 +1,33 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel
+<div class="report-title" style="width: 1051px;">
+    @ViewResources.MatchWinLoss, @RazorHelper.TitleDateTime(Model.Param.Date,null)
+    - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+    @RazorHelper.TitleLicenseeWLPrefix(Model.Param.ProductOptions)
+</div>
+<div id="ContentMainHeader">
+    @{        
+
+        this.Html.RenderPartial("~/Views/Report/MatchWinLoss/Content.Header.cshtml");
+    }
+</div>
+<div id="ContentMainContent" class="data-content" style="max-height:450px;">
+    @{
+        var isContentEmpty = Model.MainResult.Count == 0 && Model.SpecialBetTypeResult.Count == 0;
+
+        this.Html.RenderPartial(isContentEmpty
+            ? "~/Views/Report/MatchWinLoss/Content.NoInfo.cshtml"
+            : "~/Views/Report/MatchWinLoss/Content.Data.cshtml");
+    }
+</div>
+<div id="ContentMainFooter">
+    <table id="TableTotal" class="total-table">
+        @{
+            if (@Model.SpecialBetTypeResult.Count > 0)
+            {
+                this.Html.RenderPartial("~/Views/Report/MatchWinLoss/Content.Total.cshtml");
+            }
+            this.Html.RenderPartial("~/Views/Report/MatchWinLoss/Content.GrandTotal.cshtml");
+        }
+    </table>
+</div>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.Customer + " " + ViewResources.Turnover;
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.CustomerTurnoverViewModel
+@section pagecss {
+    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" />
+    <link href="@Url.ContentLink("/Content/Report/CustomerTurnover.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Plugin/LinqJs/JSLINQ.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.nlevel.js")"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/customerturnover.option.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Report/CustomerTurnover.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @ViewResources.Customer @ViewResources.Turnover
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Report/CustomerTurnover/Filter.cshtml");
+    }
+}
+@{
+  
+    Html.RenderPartial("~/Views/Report/CustomerTurnover/Content.cshtml");
+    
+}

@@ -1,0 +1,117 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="CustomerWinlossDataAccess.cs" company="Nexcel Solution">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
+// </history>
+// -----------------------------------------------------------------------
+namespace Fanex.Athena.DataAccess.Implement.Report
+{
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Common.Extensions;
+    using Fanex.Data;
+
+    /// <summary>
+    /// Customer win loss data access.
+    /// </summary>
+    public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
+    {
+        public CustomerWinlossDataAccess(BalanceUp balanceUp)
+            : base(balanceUp)
+        {
+        }
+
+        /// <summary>
+        /// Get data list.
+        /// </summary>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="totalData">Total data value.</param>
+        /// <param name="totalRows">Total rows value.</param>
+        /// <returns>The result value.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public IList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
+        {
+            IList<CustomerWinLoss> result = new List<CustomerWinLoss>();
+            using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
+            {
+                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+
+                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
+                {
+                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
+                }
+
+                db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+                db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+                db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
+                db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
+                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
+
+                foreach (var item in metaModel.ProductOptions)
+                {
+                    db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                }
+
+                using (var reader = db.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new CustomerWinLoss
+                        {
+                            // Add data to CustBalance Item List
+                            CustId = reader.ToInt("CustID"),
+                            ExternalId = reader.ToString("nickname"),
+                            SystemId = reader.ToString("username"),
+                            Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
+                            MemberWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                            MemberTotalWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                            LicenseeWl = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
+                            BaComm = reader.ToDecimal("commba" + metaModel.BaseCurrency),
+                            RacingRevenue = reader.ToDecimal("winlossrb" + metaModel.BaseCurrency)
+                                + reader.ToDecimal("commrb" + metaModel.BaseCurrency),
+                            AmtDueToBa = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
+                            AmtDueToRacing = reader.ToDecimal("amtduetorb" + metaModel.BaseCurrency)
+                        });
+                    }
+
+                    if (result.Count > 0 && reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            // Add data to Total Result
+                            totalData = new CustomerWinLoss
+                            {
+                                Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency),
+                                MemberWl = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
+                                PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency),
+                                LicenseeWl = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),
+                                BaComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency),
+                                RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
+                                    + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency),
+                                AmtDueToBa = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
+                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency)
+                            };
+                            totalRows = reader.ToInt("TotalRows");
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
+}

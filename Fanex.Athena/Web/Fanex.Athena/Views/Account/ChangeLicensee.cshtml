@@ -1,0 +1,29 @@
+﻿@{Layout = null;}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewResources.Loading</title>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        function resolveClientUrl(relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        }
+
+        $(window).load(function () {
+            var divLoading = "<div style='width: 100px; height: 100px; background: url(/_GlobalResources/Images/loader.gif) no-repeat center'></div>";
+            //block content
+            $.blockUI({
+                css: { background: 'transparent', border: 'none' },
+                overlayCSS: { backgroundColor: '#FFF', opacity: '0.7', filter: 'alpha(opacity=70)' },
+                message: $(divLoading), timeout: 120000
+            });
+
+            document.location.href = resolveClientUrl("Report/Balance?nocache=") + (new Date().getTime());
+            parent.menu.location.reload();
+        });
+    </script>
+</body>
+</html>

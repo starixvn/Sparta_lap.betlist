@@ -1,0 +1,93 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.LicenseeWinLossViewModel
+<div class="grid_26 content-filter new-line">
+    <!--grid_26-->
+    <form id="licenseewinloss" name="licenseewinloss" method="post" action="">
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+    <div class="grid_2 filter-label" style="width: 45px;">
+        <label>
+            @ViewResources.Currency
+        </label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+    </div>
+    <div class="grid_2 note-group">
+        <div>
+            @{Html.RenderAction("Index", "Note", new { viewName = "LicenseeWinLoss" });}
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.ReportBy
+        </label>
+    </div>
+    <div class="grid_5 filter-input option-list">
+        <input type="radio" value="1" @(Model.Param.ReportBy == 1 ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
+        <label for="reportbydaily">
+            @ViewResources.Daily
+        </label>
+        <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == 2 ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
+        <label for="reportbymonthly">
+            @ViewResources.Monthly
+        </label>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.DrawFilter
+        </label>
+    </div>
+    <div class="grid_9 filter-input option-list">
+        <input type="radio" value="1" @(Model.Param.DrawFilter == 1 ? "checked=checked" : "") name="drawfilter" id="DrawFilter"/>
+        <label for="DrawFilter">@ViewResources.Normal</label>
+        <input type="radio" value="2" @(Model.Param.DrawFilter == 2 ? "checked=checked" : "") name="drawfilter"  id="DrawFilterNoDraw" />
+        <label for="DrawFilterNoDraw">
+            @ViewResources.NoDraws
+        </label>
+        <input type="radio" value="3" @(Model.Param.DrawFilter == 3 ? "checked=checked" : "") name="drawfilter" id="DrawFilterNoDrawsForTurnoverOnly" />
+        <label for="DrawFilterNoDrawsForTurnoverOnly">
+            @ViewResources.NoDrawsForTurnoverOnly
+        </label>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.ExcludeTestData
+        </label>
+    </div>
+    <div class="grid_5 filter-input option-list">
+        <input type="radio" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
+        <label for="IsExcludedTestData0">
+            @ViewResources.Yes
+        </label>
+        <input type="radio" class="exclude-data-no" value="false" @(Model.Param.IsExcludedTestData == false ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData1" />
+        <label for="IsExcludedTestData1">
+            @ViewResources.No
+        </label>
+    </div>
+    @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, Model.ProductAccess.ProductList.Count * 2 + 2)
+    <div class="grid_3 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input" id="control-container">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBa)
+    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.CanUseRacing)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />
+    <input type="hidden" id="OriginalCurrencyName" name="OriginalCurrencyName" value="@Model.Param.CurrencyName" />
+    <input type="hidden" id="OriginalFromDate" name="OriginalFromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalToDate" name="OriginalToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalReportBy" name="OriginalReportBy" value="@Model.Param.ReportBy" />
+    <input type="hidden" id="OriginalDrawFilter" name="OriginalDrawFilter" value="@Model.Param.DrawFilter" />
+    <input type="hidden" id="OriginalIsExcludedTestData" name="OriginalIsExcludedTestData" value="@Model.Param.IsExcludedTestData" />
+</div>

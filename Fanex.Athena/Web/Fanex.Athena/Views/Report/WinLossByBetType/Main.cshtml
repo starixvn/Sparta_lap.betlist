@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.WinLossByBetType;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+@section pagecss {
+    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Report/winLossByBetType.css")"  />
+}
+@section pagejs {
+    <script type="text/javascript" src="@Url.ContentLink("/Scripts/Report/WinLossByBetType.js")" ></script>
+}
+@section ContentTitle
+{
+    @ViewResources.WinLossByBetType
+}
+@{
+    ViewBag.NumberWidth = 30;
+    ViewBag.BetTypeNameWidth = 240;
+    ViewBag.TurnOverWidth = 105;
+    ViewBag.LicenseeWLWidth = 90;
+    ViewBag.RbBaWidth = 85;
+    ViewBag.CustomerWLLargeWidth = 90;
+    ViewBag.CustomerWLMergeWidth = 242;
+    ViewBag.CustomerWLWidth = 90;
+    ViewBag.CustomerCommWidth = 60;
+    ViewBag.CustomerWLTotalWidth = 90;
+
+    ViewBag.TotalWidth = ViewBag.NumberWidth + ViewBag.BetTypeNameWidth + 1;
+    ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.BetTypeNameWidth + ViewBag.TurnOverWidth
+        + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth)
+        + ViewBag.LicenseeWLWidth
+        + (Model.ProductAccess.IsAllowBa ? ViewBag.RbBaWidth * 2 : 0)
+        + (Model.ProductAccess.IsAllowRb ? ViewBag.RbBaWidth * 2 : 0);
+
+    ViewBag.ColumnCount = 5;
+    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowBa ? 2 : 0);
+    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowRb ? 2 : 0);
+
+    ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
+    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+}
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/WinLossByBetType/Filter.cshtml");
+    }
+}
+@{
+    if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Report/WinLossByBetType/Content.cshtml");
+    }
+
+}

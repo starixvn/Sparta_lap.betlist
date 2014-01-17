@@ -1,0 +1,140 @@
+﻿/* Override bases*/
+table.report-table
+{
+    width: 650px !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.header-content
+{
+    max-height: 670px !important;
+    width: 650px !important;
+    border-top: 1px solid #A3D1E1;
+    border-right: 1px solid #A3D1E1;
+    border-left: none !important;
+}
+
+.data-content
+{
+    width: 650px !important;
+    max-height: 670px !important;
+    border-right: 1px solid #A3D1E1;
+    border-bottom: 1px solid #A3D1E1;
+    border-left: none !important;
+    overflow-y: scroll !important;
+}
+
+/*
+.content-filter
+{
+    width: 650px !important;
+}
+*/
+/*/Override bases*/
+
+/*Content*/
+.middle-text
+{
+    text-align: center !important;
+}
+.forecast-link
+{
+    text-decoration: none !important;
+    font-weight: normal !important;
+}
+.view-betlist, .view-forecast-link
+{
+    text-decoration: none !important;
+    font-weight: normal !important;
+}
+.view-betlist:hover, .view-forecast-link:hover
+{
+    color: #ff0004;
+}
+.forecast-link:hover
+{
+    color: #ff0004;
+}
+.positive-number, .current-score
+{
+    color: #FF0004 !important;
+}
+.forecast-name
+{
+    font-weight: bold;
+}
+.clear
+{
+    height: 3px !important;
+}
+.timer
+{
+    margin-left: 0;
+}
+.view-betlist
+{
+    float: left;
+}
+.view-forecast
+{
+    text-align: right;
+    margin-right: 10px;
+    padding-top: 5px;
+}
+
+/*Forecast 1 x 2*/
+.league-list
+{
+    width: 270px !important;
+}
+.forecast-number
+{
+    font-weight: bold;
+    text-align: center !important;
+}
+.draw-highlight
+{
+    background-color: #FFEFDE;
+}
+.button-add
+{
+    display: block;
+    height: 16px;
+    margin-left: 10px;
+    margin-right: 3px;
+    text-align: center;
+    width: 16px;
+    background: url("images/icon_add.jpg") no-repeat scroll center top transparent;
+}
+.button-add :hover
+{
+    cursor: pointer !important;
+}
+.league
+{
+    color: #000000 !important;
+    height: 16px !important;
+}
+.left-text
+{
+    text-align: left !important;
+}
+.live-notice
+{
+    color: #FF0004;
+}
+.show-time
+{
+    text-align: center !important;
+}
+/*/Forecast 1 x 2*/
+
+/*/Content*/
+
+/*Expand forecast popup in total bets handicap OU*/
+.expand-popup
+{
+    width: 900px !important;
+    height: 650px !important;
+}

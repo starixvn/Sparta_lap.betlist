@@ -1,0 +1,39 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.CustomerLog.CustomerLogViewModel
+@using (Html.BeginForm("GroupCommission", "CustomerLog", FormMethod.Post, new { @id = "GroupCommissionLogForm" }))
+{
+    <div class="grid_3 filter-label label-center">
+        @ViewResources.ViewDataInMonth
+    </div>
+    <div class="grid_10 filter-input month-picker" style="width: 380px">
+        <div id="DateControl">
+        </div>
+        <div class="grid_1 label-center">@ViewResources.From</div>
+        <div id="MonthPickerFromDay">
+        </div>
+        <div class="grid_2 label-center" style="width: 30px">@ViewResources.To</div>
+        <div id="MonthPickerToDay">
+        </div>
+    </div>
+    <div class="grid_2 filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <div class="grid_3 filter-label">
+        <input id="showall" type="checkbox" checked="checked" /><span class="label-center">@ViewResources.ShowOldValue</span>
+    </div>
+
+    // Date picker hidden param
+    <div>
+        <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+        <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+        <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDay" />
+        <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDay" />
+        <input type="hidden" id="Month" name="Month" value="@Model.Param.Month" />
+        <input type="hidden" id="Year" name="Year" value="@Model.Param.Year" />
+        @{
+    var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+    var minDate = beginOfMonth.AddMonths(-18);
+        }
+        <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+    </div>
+}

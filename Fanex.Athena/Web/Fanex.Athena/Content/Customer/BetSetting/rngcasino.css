@@ -1,0 +1,28 @@
+﻿.data-content
+{
+    border-bottom: 1px solid #A3D1E1 !important;
+    border-right: 1px solid #A3D1E1 !important;
+    max-height: 297px !important;
+    min-height: 25px;
+    overflow-y: scroll !important;
+}
+/* Report table */
+table.report-table tr:hover td:first-child
+{
+    background-color: White !important;
+}
+.game-kind
+{
+    text-align: center !important;
+    font-weight: bold;
+}
+.noinfo
+{
+    text-align: center !important;
+}
+.stake-level-name
+{
+    position: relative;
+    top: -2px;
+}
+/* Report table */

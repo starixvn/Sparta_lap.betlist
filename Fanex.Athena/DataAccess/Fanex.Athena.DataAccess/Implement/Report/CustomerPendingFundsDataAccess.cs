@@ -1,0 +1,86 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="CustomerPendingFundsDataAccess.cs" company="Nexcel Solution">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
+// </history>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.DataAccess.Implement.Report
+{
+    using System.Collections.Generic;
+    using System.Data;
+    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Common.Extensions;
+    using Fanex.Data;
+
+    /// <summary>
+    /// Customer pending funds.
+    /// </summary>
+    public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
+    {
+        /// <summary>
+        /// Get data list.
+        /// </summary>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="totalData">Total data value.</param>
+        /// <param name="totalRows">Total rows value.</param>
+        /// <returns>The result value.</returns>
+        public IList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
+        {
+            IList<CustPendingFunds> result = new List<CustPendingFunds>();
+            using (var db = new ObjectDb("Lrf_Rpt_Outstanding"))
+            {
+                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
+                {
+                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
+                }
+
+                db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
+                foreach (var item in metaModel.ProductOptions)
+                {
+                    db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                }
+
+                using (var reader = db.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new CustPendingFunds
+                        {
+                            CustId = reader.ToInt("CustID"),
+                            ExternalId = reader.ToString("nickname"),
+                            SystemId = reader.ToString("username"),
+                            BetCounts = reader.ToInt("BetCounts"),
+                            PendingFunds = reader.ToDecimal("Outstanding" + metaModel.BaseCurrency)
+                        });
+                    }
+
+                    if (result.Count > 0 && reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            totalData = new CustPendingFunds
+                            {
+                                BetCounts = reader.ToInt("SumBetCounts"),
+                                PendingFunds = reader.ToDecimal("SumOutstanding" + metaModel.BaseCurrency)
+                            };
+                            totalRows = reader.ToInt("TotalRows");
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
+}

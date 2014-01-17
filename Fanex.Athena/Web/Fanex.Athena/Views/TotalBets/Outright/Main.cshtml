@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets +
+    " - " + ViewResources.Outright;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.TotalBets.OutrightViewModel
+@section page {
+    <link href="@Url.ContentLink("/Content/TotalBets/outright.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.ContentLink("/Scripts/TotalBets/outright.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            Outright.initialize();
+            RefreshCountDown.initEvent();
+        });
+    </script>
+}
+@section ContentTitle
+    {
+    @ViewResources.Outright
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/TotalBets/Outright/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/TotalBets/Outright/Content.cshtml");
+}

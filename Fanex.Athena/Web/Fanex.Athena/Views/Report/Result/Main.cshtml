@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Result;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+@section pagecss 
+{
+    <link href="@Url.ContentLink("/Content/Fanex.Result/fanex.result.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs 
+{
+    <script src="@Url.ContentLink("/Scripts/Report/result.js")" type="text/javascript"></script>
+
+}
+
+@section ContentTitle
+{
+    @ViewResources.Result
+}
+@section ContentFilter
+{
+    @{        
+        Html.RenderPartial("~/Views/Report/Result/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Report/Result/Content.cshtml");                
+}

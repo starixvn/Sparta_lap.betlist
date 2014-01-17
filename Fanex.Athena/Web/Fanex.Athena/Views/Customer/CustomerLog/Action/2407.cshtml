@@ -1,0 +1,14 @@
+﻿@{
+    var level = Model.Data["SpecialLevel"];
+    var levelOld = Model.Data["SpecialLevelOld"];
+    var isChangeSpecialLevel = level != levelOld;
+    <table class="report-table" style="width: 100%;">
+        <tr>
+            <td class="action-name">@Model.Resource["SpecialLevel"]
+            </td>
+            <td class="action-name-right special-level" @(isChangeSpecialLevel ? "style=color:red" : "")>@level
+                <div @(isChangeSpecialLevel ? "class=old-value" : "style=display:none")>@levelOld</div>
+            </td>
+        </tr>
+    </table>
+}

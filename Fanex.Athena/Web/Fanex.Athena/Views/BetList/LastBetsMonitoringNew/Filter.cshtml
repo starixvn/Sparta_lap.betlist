@@ -1,0 +1,188 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Product
+@model Fanex.Athena.Models.ViewModel.BetList.LastBetsMonitoringViewModel
+@using (Html.BeginForm("LastBetMonitoringNew", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
+{
+    var sportList = this.Model.SportsList
+            .Select(item => new SelectListItem { Value = item.Value.ToString(), Text = item.Key })
+            .ToList();
+    sportList.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
+    sportList.Add(new SelectListItem { Value = "999", Text = ViewResources.Parlay });
+
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Sport</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @Html.DropDownList("sports", sportList, new { })
+    </div>
+    
+    <div class="grid_2 filter-label" style="width: 55px">
+        <label>@ViewResources.League</label>
+    </div>
+    <div class="grid_7 filter-input">
+        <select id="league" disabled="disabled" style="width: 280px">
+            <option value="0">@ViewResources.All</option>
+        </select>
+    </div>
+
+    <div class="grid_2 filter-label" style="width: 45px">
+        <label>@ViewResources.Match</label>
+    </div>
+    <div class="grid_5 filter-input">
+        <select id="match" style="width: 180px" disabled="disabled">
+            <option value="0">@ViewResources.All</option>
+        </select>
+    </div>
+    <div class="grid_3 filter-label">
+        <label>@ViewResources.Show/@ViewResources.hide</label>
+    </div> 
+    <div class="grid_3 filter-input">
+        <select id="se-column">
+        </select>
+    </div>
+    <div class="note-group">
+        @{Html.RenderAction("Index", "Note", new { viewName = "LastBetsMonitoring" });}
+    </div>
+    <div class="new-line">
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.BetType</label>
+    </div>
+    <div class="grid_3 filter-input">
+        <select id="bet-type">
+            <option value="">@ViewResources.AllBetTypes</option>
+            <option value="HDP">@ViewResources.Handicap</option>
+            <option value="OU">@ViewResources.OverUnder</option>
+            <option value="Others">@ViewResources.Others</option>
+        </select>
+    </div>
+    
+    <div class="grid_2 filter-label" style="width: 60px">
+        <label>@ViewResources.LiveStatus</label>
+    </div>
+    <div class="grid_3 filter-input">
+        <select id="live-status">
+            <option value="3">@ViewResources.All</option>
+            <option value="0">@ViewResources.NoneLive</option>
+            <option value="1">@ViewResources.Live</option>
+            <option value="2">@ViewResources.MixLiveAndNoneLive</option>
+        </select>
+    </div>
+    
+    <div class="grid_2 filter-label" style="width: 60px">
+        <label>@ViewResources.OddsType</label>
+    </div>
+    <div class="grid_3 filter-input">
+        <select id="odds-type">
+            <option value="">@ViewResources.All</option>
+            <option value="DEC">@ViewResources.Based Dec</option>
+            <option value="MY">@ViewResources.Based MY</option>
+        </select>
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.SpecialLevel</label>
+    </div>
+    
+    <div class="grid_3 filter-input">
+        <select id="special-level">
+        </select>
+    </div>
+    <div class="grid_1 filter-label" style="text-align: right; width: 60px;">
+        <label>@ViewResources.TimeZone</label>
+    </div>
+    
+    <div class="grid_3 filter-input">
+        <select id="time-zone">
+            <option value="8">GMT +8</option>
+            <option value="-4">GMT -4</option>
+        </select>
+    </div>
+    <div class="grid_1 cmd-button">
+       
+        <input type="button" id="freeze-button" value="@ViewResources.Freeze" data-status="1"  />
+    </div>
+    <div class="grid_1">
+    </div>
+    <div class="new-line">
+    </div>
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Currency</label>
+    </div>
+    
+    <div class="grid_3 filter-input">
+        <select id="currency">
+            @foreach (var item in Model.CurrencyList)
+            {
+                <option value="@item.Value">@item.Key</option>
+            }
+        </select>
+    </div>
+    <div class="grid_2 filter-label" style="width: 60px">
+        <label>@ViewResources.Based</label>
+    </div>
+    
+    <div class="grid_3 filter-input">
+        <select id="based-currency">            
+            <option value="eur" @(Model.Param.BaseCurrency == "eur" ? "selected=selected" : string.Empty)>EUR</option>
+            <option value="usd" @(Model.Param.BaseCurrency == "usd" ? "selected=selected" : string.Empty)>USD</option>
+        </select>
+    </div>
+    
+    <div class="grid_1 filter-label" style="width: 62px">
+        <label>@ViewResources.StakeFrom</label>
+    </div>
+    
+    <div class="grid_2 filter-input" style="width: 50px">
+        <input type="text" id="stake-from" style="width: 60px;" />
+    </div>
+    
+    <div class="grid_1 filter-label" style="width: 40px">
+        <label>@ViewResources.To</label>
+    </div>
+    
+    <div class="grid_1 filter-input">
+        <input type="text" id="stake-to" style="width: 60px;" />
+    </div>
+    <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Platform</label>
+    </div>
+    <div class="grid_3 filter-input">
+        <select style="width: 100px;" id="bet-form">
+            <option value="0">
+                @ViewResources.All
+            </option>
+            <option value="1">
+                @ViewResources.WEB
+            </option>
+            <option value="2">
+                @ViewResources.Wap
+            </option>
+            <option value="3">
+                @ViewResources.SmartPhone.ToUpper()
+            </option>
+            <option value="4">
+                @ViewResources.Others
+            </option>
+        </select>
+    </div>
+    <div id="pagesize" class="grid_4 cmd-button" style="width: 160px; padding-right:0px">
+        <span style="padding-top: 5px;">@ViewResources.Last</span>
+        <input type="button" value="10" class="limit-row" disabled="disabled" />
+        <input type="button" value="20" class="limit-row" />
+        <input type="button" value="30" class="limit-row" />
+    </div>
+
+    <div class="grid_1 cmd-button" style="text-align: right; padding-left: 0px;">
+         <input type="button" id="submit-button" value="@ViewResources.Submit" data-status="1"  />
+    </div>
+    <div style="float: right; position: absolute; top: 55px; right: 8px; display: none;"
+        id="div-loading">
+    </div>
+
+    //----------------------------Special Level--------------------------------//
+
+    <input type="hidden" id="HiddenFieldBettypeHandicap" value="Handicap,1st Handicap" />
+    <input type="hidden" id="HiddenFieldOverUnder" value="Over/Under,1st Over/Under" />
+    <input type="hidden" id="last-bet-monitor-base-currency" value = "@Model.Param.BaseCurrency"></input>
+}
