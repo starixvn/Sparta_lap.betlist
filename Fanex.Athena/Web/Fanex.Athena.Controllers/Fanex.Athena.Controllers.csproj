@@ -68,9 +68,6 @@
     <Reference Include="LicenseeAgent.API">
       <HintPath>..\..\..\DLLs\LAS\LicenseeAgent.API.dll</HintPath>
     </Reference>
-    <Reference Include="LicenseeAgent.Core">
-      <HintPath>..\..\..\DLLs\LAS\LicenseeAgent.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
       <HintPath>..\..\..\DLLs\Microsoft\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
