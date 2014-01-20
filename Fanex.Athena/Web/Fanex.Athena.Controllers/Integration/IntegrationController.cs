@@ -38,11 +38,13 @@ namespace Fanex.Athena.Controllers.Integration
                 LogService.Error(errorMsg + exception.Message, exception);
             }
 
-            return Json(new
-            {
-                IsOk = !string.IsNullOrEmpty(bridgedLink),
-                Url = bridgedLink
-            }, JsonRequestBehavior.AllowGet);
+            return Json(
+                new
+                {
+                    IsOk = !string.IsNullOrEmpty(bridgedLink),
+                    Url = bridgedLink
+                },
+            JsonRequestBehavior.AllowGet);
         }
     }
 }
