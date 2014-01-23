@@ -323,6 +323,7 @@ var MonitorBetListUI = function (monitorObj) {
             $this.setHighlightSubmit();
             var sportId = $(this).val();
             $this.monitor.numberParam("sportId", sportId);
+
             var mixParlaySportId = 999;
             $("#league").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
             $("#match").prop("disabled", true);
@@ -361,6 +362,8 @@ var MonitorBetListUI = function (monitorObj) {
             //update leagueId and matchId
             $this.monitor.numberParam("leagueId", $("#league").val());
             $this.monitor.numberParam("matchId", $("#match").val());
+            
+            $this.monitor.currentParam = Site.clone($this.monitor.params);
         });
     };
 
