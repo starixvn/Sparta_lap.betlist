@@ -111,6 +111,8 @@ var MonitorBetList = function () {
             TransId: $this.lastTransId,
             BetFrom: $this.betFrom
         };
+
+        $this.currentParam = Site.clone($this.params);
     };
 
     $this.Submit = function (freeStatus) {
@@ -361,9 +363,7 @@ var MonitorBetListUI = function (monitorObj) {
             $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
             //update leagueId and matchId
             $this.monitor.numberParam("leagueId", $("#league").val());
-            $this.monitor.numberParam("matchId", $("#match").val());
-            
-            $this.monitor.currentParam = Site.clone($this.monitor.params);
+            $this.monitor.numberParam("matchId", $("#match").val());                       
         });
     };
 
