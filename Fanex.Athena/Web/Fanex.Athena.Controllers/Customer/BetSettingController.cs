@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Customer
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
@@ -71,11 +72,11 @@ namespace Fanex.Athena.Controllers.Customer
 
             switch (metaModel.TabId)
             {
-                case 3: // Number game
+                case ProductType.NumberGame:
                     return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
-                case 5: // Live casino
+                case ProductType.LiveCasino:
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
-                case 6: // RNG casino
+                case ProductType.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
@@ -124,26 +125,27 @@ namespace Fanex.Athena.Controllers.Customer
         private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel, CustomerInfo customerInfo)
         {
             var model = new BetSettingViewModel { Param = metaModel };
+
             switch (metaModel.TabId)
             {
-                case 1: // Sportsbook
+                case ProductType.Sportsbook:
                     model.MainData = _betSettingService.GetSportBookBetSetting(metaModel.CustId);
                     break;
-                case 2: // Racing
+                case ProductType.Racing:
                     var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(metaModel.CustId);
                     model.MainData = _betSettingService.GetRacingBetSetting(metaModel.CustId, isAllowSaToteCurrency);
                     break;
-                case 3: // Number game
+                case ProductType.NumberGame:
                     model.MainData = _betSettingService.GetNumberGameBetSetting(metaModel.CustId);
                     break;
-                case 4: // Virtual sports
+                case ProductType.VirtualSports:
                     model.MainData = _betSettingService.GetVirtualSportsBetSetting(metaModel.CustId);
                     break;
-                case 5: // Live casino
+                case ProductType.LiveCasino:
                     model.LiveCasinoData = _betSettingService.GetLiveCasinoBetSetting(metaModel.CustId);
                     model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
-                case 6: // RNG Casino
+                case ProductType.RngCasino:
                     if (customerInfo.SyncCasino)
                     {
                         model.RngCasinoData = _casinoSetting.GetRngCasinoSetting(metaModel.CustId, SessionService.LicenseeSession.LicenseeName);
