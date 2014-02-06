@@ -52,13 +52,15 @@ namespace Fanex.Athena.Controllers.Report
                 ProductOptions = productList.Select(i => new ProductOption
                 {
                     Code = i.ProductCode,
-                    Name = i.ProductName
+                    Name = i.ProductName,
+                    Status = true
                 }).ToList()
             };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
             // Base USD currency.
             metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? -2 : -1;                       
+
             var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, SessionService.UserSession.Language, SPORTSBOOK);
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
@@ -84,6 +86,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = SessionService.UserSession.CurrencyList,
                 ProductAccess = productAccess
             };
+
             viewModel.Sports = sports.ToDictionary(x => x.ID, y => y.Name);
             viewModel.Leagues = leagues.ToDictionary(x => x.LeagueId, y => y.LeagueName);
             viewModel.Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName);

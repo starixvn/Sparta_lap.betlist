@@ -68,7 +68,7 @@ var WinLossByLeague = (function ($) {
             type: "POST",
             url: Site.resolveClientUrl("report/GetLeaguesBySport"),
             data: {
-                currencyId : $("#CurrencyId").val(),
+                currencyId: $("#CurrencyId").val(),
                 sportid: $("#Sport").val(),
                 fromDate: $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy"),
                 toDate: $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy")
@@ -132,7 +132,7 @@ var WinLossByLeague = (function ($) {
             WinLossByLeague.initSetting();
 
             initMonthPicker();
-            
+
             $("#searchForm").submit(function () {
                 me.submit();
                 return false;
@@ -258,19 +258,19 @@ var WinLossByLeague = (function ($) {
 
         //#region Get Data
 
-        ajaxComplete: function (level, response, hideTotal) {
+        ajaxComplete: function (level, response) {
             if (response != null) {
                 //reset layout
                 if (level == 0) {
                     WinLossByLeague.setReportTitle(0, _postdata.Odds, _fromDate, _toDate);
                 }
                 // WinLossByLeague.renderBreadCrumb(level);
-                WinLossByLeague.bindData(level, response, hideTotal);
+                WinLossByLeague.bindData(level, response);
             }
         },
 
         submit: function () {
-            
+
             if ($("#TickerFilter input:checked").length == 0) {
                 isValid = false;
                 return $("#ticket-null").removeClass("hide");
@@ -279,7 +279,7 @@ var WinLossByLeague = (function ($) {
             }
 
             var odds = parseFloat($('#Odds').val());
-            if (isNaN(odds) || odds == null || odds < 0) {                
+            if (isNaN(odds) || odds == null || odds < 0) {
                 odds = 0;
             }
 
@@ -289,7 +289,7 @@ var WinLossByLeague = (function ($) {
             _level = 0;
 
             var mainForm = $("#searchForm");
-            var postdata = mainForm.serializeObject();            
+            var postdata = mainForm.serializeObject();
             _fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
             _toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
             _currencyName = $("#CurrencyName").val().toUpperCase();
@@ -311,7 +311,7 @@ var WinLossByLeague = (function ($) {
                 error: function (xhRequest, errorText, thrownError) { },
                 success: function (response) {
                     $("#BackLink").hide();
-                    WinLossByLeague.ajaxComplete(0, response, postdata.Match > 0);
+                    WinLossByLeague.ajaxComplete(0, response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -394,7 +394,7 @@ var WinLossByLeague = (function ($) {
                         _pagingOption.totalrow = parseInt(response.TotalRows);
                         if (_pagingOption.totalrow > 0) {
                             $("#paging").show();
-                            pagingHeper.render(_pagingOption);
+                              pagingHeper.render(_pagingOption);                            
                         }
                     }
                 },
@@ -415,16 +415,14 @@ var WinLossByLeague = (function ($) {
 
         //#region Bind Data
         bindTotal: function (level, totalData) {
-            var columnModel = WinLossByLeagueOption.getColModel(level);
-            var colspan = 2;
+            var columnModel = WinLossByLeagueOption.getColModel(level);            
+            var colspan = level == 0 ? 2 : 3;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);
         },
 
-        bindData: function (level, response, hideTotal) {
+        bindData: function (level, response) {
 
-            if (level > 0)
-                hideTotal = true;
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             $("#paging").hide();
@@ -434,8 +432,8 @@ var WinLossByLeague = (function ($) {
             var gridOption = WinLossByLeagueOption.getGridOption(level);
 
 
-            gridOption.footerrow = !hideTotal;
-            gridOption.userDataOnFooter = !hideTotal;
+            gridOption.footerrow = true;
+            gridOption.userDataOnFooter = true;
 
             gridOption.data = response.Data;
             gridOption.userData = {};
