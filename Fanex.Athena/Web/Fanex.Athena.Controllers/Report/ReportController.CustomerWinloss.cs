@@ -136,11 +136,7 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                metaModel.PageSize = PageSizeExcel;
-                dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
-                dataList = metaModel.SortDirection == "DESC"
-                   ? dataList.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                   : dataList.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
+                metaModel.PageSize = PageSizeExcel;                
             }
 
             model.TotalRows = totalRows;
