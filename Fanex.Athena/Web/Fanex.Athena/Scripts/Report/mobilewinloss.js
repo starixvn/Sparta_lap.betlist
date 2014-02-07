@@ -293,7 +293,7 @@ var MobileWinLoss = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
-                error: function (xhRequest, errorText, thrownError) { },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoDeniedPage(); },
                 success: function (response) {
                     MobileWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

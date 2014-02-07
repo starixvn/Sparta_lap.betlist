@@ -50,6 +50,11 @@ namespace Fanex.Athena.Api.Report
         [HttpGet]        
         public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
         {
+            if (!IsValidRequest(metaModel))
+            {
+                RedirectToAccessDenied();
+            }
+
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
             var totalrows = 0;
@@ -134,6 +139,11 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
+            if (!IsValidRequest(metaModel))
+            {
+                RedirectToAccessDenied();
+            }
+
             var totalrows = 0;
             var dataList = GetData(metaModel, ref totalrows);
             return dataList.Count > 0

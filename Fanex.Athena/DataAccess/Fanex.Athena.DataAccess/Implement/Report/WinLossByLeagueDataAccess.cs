@@ -14,10 +14,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -50,6 +52,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {                
                 using (var db = new ObjectDb(UspName))
                 {
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
@@ -63,7 +68,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-                  
+                    db.AddInParameter("showsb", DbType.Boolean, showSb);
+                    db.AddInParameter("showba", DbType.Boolean, showBa);
+
                     using (var reader = db.ExecuteReader())
                     {             
                         return GetMatches(reader, metaModel, false);                        
@@ -91,6 +98,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+
                     IList<WinLossByLeague> dataList = null;
 
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -104,6 +114,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
+                    db.AddInParameter("showsb", DbType.Boolean, showSb);
+                    db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
@@ -183,6 +195,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var turnoverCol = "turnover" + metaModel.BaseCurrency;
             var memberWlCol = "memberwinlost" + metaModel.BaseCurrency;
             var licenseeWlCol = "licenseewl" + metaModel.BaseCurrency;
+            var bacommCol = "CommBA" + metaModel.BaseCurrency;
 
             while (reader.Read())
             {
@@ -198,7 +211,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
                     TurnOver = reader.ToDecimal(turnoverCol),
                     CustomerWinLoss = reader.ToDecimal(memberWlCol),
-                    LicenseeWL = reader.ToDecimal(licenseeWlCol),                    
+                    LicenseeWL = reader.ToDecimal(licenseeWlCol),    
+                    BaCommission = reader.ToDecimal(bacommCol),
                     BetCount = reader.ToInt("betcount")                                      
                 };
                 result.Add(item);

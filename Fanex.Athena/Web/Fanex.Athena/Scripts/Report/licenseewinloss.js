@@ -9,7 +9,7 @@ var LicenseeWinLoss = (function ($) {
     var _level = 0;
     var _currencyId = _customerId = _datetime = null;
     var _removeSorting = false;
-    var _reportBy = null;    
+    var _reportBy = null;
 
     function sortData(arrayData) {
         var data = _sortOrder == "asc" ?
@@ -31,7 +31,7 @@ var LicenseeWinLoss = (function ($) {
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index, columnIndex, sortOrder) {
                 Site.blockUI();
-               window.setTimeout(function () {
+                window.setTimeout(function () {
                     _removeSorting = false;
                     if (_sortColumnName == index) {
                         _sortOrder = _sortOrder == "asc" ? "desc" : "asc";
@@ -187,7 +187,7 @@ var LicenseeWinLoss = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoDeniedPage(); },
                 success: function (response) {
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);

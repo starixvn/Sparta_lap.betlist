@@ -134,7 +134,7 @@ var WinLossByLeagueOption = (function () {
             formatter: 'currency',
             formatoptions:
             {
-                decimalSeparator: ",",
+                decimalSeparator: ".",
                 thousandsSeparator: ",",
                 decimalPlaces: 2
             }

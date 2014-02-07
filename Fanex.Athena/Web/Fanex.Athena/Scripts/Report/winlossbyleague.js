@@ -13,6 +13,7 @@ var WinLossByLeague = (function ($) {
     var _minOdds = -1;
     var _postdata = null;
     var _currencyName = null;
+    var _productCount = 0;
 
     var _pagingOption =
         {
@@ -132,6 +133,8 @@ var WinLossByLeague = (function ($) {
             WinLossByLeague.initSetting();
 
             initMonthPicker();
+
+            _productCount = $("#ProductList input[type=checkbox]").length - 1;
 
             $("#searchForm").submit(function () {
                 me.submit();
@@ -353,6 +356,12 @@ var WinLossByLeague = (function ($) {
                 ShowDraw: _postdata.ShowDraw
             };
 
+            for (var i = 0; i < _productCount; i++) {
+                param["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
+                param["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
+                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
+            }
+
             var url = Site.resolveClientUrl("BetList/WinlossByLeague?") + $.param(param);
             window.open(url, "abc", "modal=yes");
         },
@@ -379,6 +388,12 @@ var WinLossByLeague = (function ($) {
                 pagesize: _pagingOption.pagesize
             };
 
+            for (var i = 0; i < _productCount; i++) {
+                param["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
+                param["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
+                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];    
+            }                       
+
             var option =
             {
                 type: "POST",
@@ -386,7 +401,7 @@ var WinLossByLeague = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoDeniedPage(); },
                 success: function (response) {
                     WinLossByLeague.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
@@ -394,7 +409,7 @@ var WinLossByLeague = (function ($) {
                         _pagingOption.totalrow = parseInt(response.TotalRows);
                         if (_pagingOption.totalrow > 0) {
                             $("#paging").show();
-                              pagingHeper.render(_pagingOption);                            
+                            pagingHeper.render(_pagingOption);
                         }
                     }
                 },
@@ -415,7 +430,7 @@ var WinLossByLeague = (function ($) {
 
         //#region Bind Data
         bindTotal: function (level, totalData) {
-            var columnModel = WinLossByLeagueOption.getColModel(level);            
+            var columnModel = WinLossByLeagueOption.getColModel(level);
             var colspan = level == 0 ? 2 : 3;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);

@@ -191,10 +191,10 @@ namespace Fanex.Athena.Api.Report
             int level = 0,
             int currencyId = 0,
             int custId = 0)
-        {
+        {            
             if (!IsValidRequest(metaModel, currencyId))
             {
-                return null;
+                RedirectToAccessDenied();
             }
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -228,6 +228,11 @@ namespace Fanex.Athena.Api.Report
                 };
             }
 
+            return GetEmptyResult(metaModel);
+        }
+
+        private dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
+        {
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
@@ -245,9 +250,9 @@ namespace Fanex.Athena.Api.Report
         /// <param name="sortOrder">ASC or DESC.</param>
         /// <returns>Data list after being sorted.</returns>
         private SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
-        {        
+        {
             if (sortBy != null)
-            {                
+            {
                 // Sort for grouping columns, get the real column name
                 if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
                 {
@@ -267,7 +272,7 @@ namespace Fanex.Athena.Api.Report
                 }
                 else
                 {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));                                    
+                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
             }
 
@@ -293,12 +298,12 @@ namespace Fanex.Athena.Api.Report
                 AmtDueToRacing = item.AmtDueToRacing,
                 BACommission = item.BACommission,
                 CurrencyId = item.CurrencyId,
-                SystemId = item.SystemId,                
+                SystemId = item.SystemId,
                 CurrencyName = item.CurrencyName,
                 CustomerComm = item.CustomerComm,
                 CustomerWinLoss = item.CustomerWinLoss,
                 TotalTransaction = item.TotalTransaction,
-                RacingRevenue = item.RacingRevenue,                
+                RacingRevenue = item.RacingRevenue,
                 CustomerId = item.CustomerId,
                 Date = item.Date,
                 ExternalId = item.ExternalId,

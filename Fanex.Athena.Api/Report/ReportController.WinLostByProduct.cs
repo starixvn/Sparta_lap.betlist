@@ -183,10 +183,10 @@ namespace Fanex.Athena.Api.Report
             int level = 0,
             int currencyId = 0,
             int custId = 0)
-        {
+        {            
             if (!IsValidRequest(metaModel, currencyId))
             {
-                return null;
+                RedirectToAccessDenied();
             }
 
             var licenseeSession = SessionService.LicenseeSession;
@@ -224,17 +224,22 @@ namespace Fanex.Athena.Api.Report
                     SummaryTotal = summaryTotal,
                     ProductOptions = metaModel.ProductOptions.ToJson()
                 }
-                : new
-                {
-                    Data = new List<LicenseeWinLossGridViewModel>(),
-                    Total = new List<LicenseeWinLossGridViewModel>(),
-                    ProductOptions = metaModel.ProductOptions.ToJson()
-                };
+                : GetEmptyResult(metaModel);
         }
 
         #endregion ProcessRequest
 
         #region Private Utility
+
+        private dynamic GetEmptyResult(WinLossByProductMetaModel metaModel)
+        {
+            return new
+            {
+                Data = new List<WinLossByProduct>(),
+                Total = new List<WinLossByProduct>(),
+                ProductOptions = metaModel.ProductOptions.ToJson()
+            };
+        }
 
         /// <summary>
         /// Restructure data.

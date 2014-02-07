@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var date = DateTime.Now;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
-            var productList = productAccess.ProductList;
+            var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.Sb || x.ProductCode == Product.Ba);
             var metaModel = new WinLossByLeagueMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.Report
                     Code = i.ProductCode,
                     Name = i.ProductName,
                     Status = true
-                }).ToList()
+                }).ToList(),
             };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
