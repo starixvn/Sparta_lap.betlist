@@ -70,7 +70,7 @@
         <Setting Key="Lrf_Rpt_WinlossByProductDetail_Ag" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" DbName="DBExtBODB02_bodbLicenseeNet" />
         <Setting Key="Lrf_Rpt_WinlossByLeague" SpName="Lrf_Rpt_WinlostByLeague_11594"  DbName="DBExtBODB02_bodbLicenseeNet" />
         <Setting Key="Lrf_Rpt_WinlossByLeagueDetail" SpName="Lrf_Rpt_WinlossByLeagueDetail_11594"  DbName="DBExtBODB02_bodbLicenseeNet" />
-        <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBExtBODB02_bodbLicenseeNet" />
+        <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem_11594"  DbName="DBExtBODB02_bodbLicenseeNet" />
     </Function>
 
     <Function Name="CustomerInformation">

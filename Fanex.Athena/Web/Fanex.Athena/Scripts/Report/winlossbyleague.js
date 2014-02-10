@@ -281,6 +281,13 @@ var WinLossByLeague = (function ($) {
                 $("#ticket-null").addClass("hide");
             }
 
+            if ($("#ProductList input:checked").length == 0) {
+                isValid = false;
+                return $("#product-null").removeClass("hide");
+            } else {
+                $("#product-null").addClass("hide");
+            }
+
             var odds = parseFloat($('#Odds').val());
             if (isNaN(odds) || odds == null || odds < 0) {
                 odds = 0;

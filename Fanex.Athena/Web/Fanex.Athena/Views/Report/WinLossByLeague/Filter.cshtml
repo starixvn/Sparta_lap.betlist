@@ -104,7 +104,8 @@
         <label for="ShowDraw">@ViewResources.Draw</label>
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
     </div>
-    @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 3 + Model.ProductAccess.ProductList.Count * 2)
+    @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 3 + Model.ProductAccess.ProductList.Count)
+    
     <div class="grid_2 filter-label new-line">
         &nbsp;</div>
     <div class="grid_2 filter-input" id="control-container">        
