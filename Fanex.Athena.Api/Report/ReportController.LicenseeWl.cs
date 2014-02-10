@@ -191,12 +191,9 @@ namespace Fanex.Athena.Api.Report
             int level = 0,
             int currencyId = 0,
             int custId = 0)
-        {            
-            if (!IsValidRequest(metaModel, currencyId))
+        {
+            if (IsValidRequest(metaModel, currencyId))
             {
-                RedirectToErrorPage();
-            }
-
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId; // focus here
             metaModel.DrillDownCurrencyId = currencyId;
@@ -233,6 +230,7 @@ namespace Fanex.Athena.Api.Report
 
         private dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
         {
+
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
