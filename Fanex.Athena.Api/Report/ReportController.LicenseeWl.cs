@@ -192,10 +192,8 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-
             if (IsValidRequest(metaModel, currencyId))
             {
-
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId; // focus here
                 metaModel.DrillDownCurrencyId = currencyId;
@@ -227,6 +225,7 @@ namespace Fanex.Athena.Api.Report
                     };
                 }
             }
+
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
