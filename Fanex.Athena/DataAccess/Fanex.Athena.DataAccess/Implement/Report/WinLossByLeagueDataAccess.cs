@@ -88,10 +88,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// Get win loss by product customer.
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
+        /// <param name="grandTotal">Grand total object.</param>
         /// <param name="totalRows">Total rows.</param>
         /// <returns>The result value.</returns>
         public IList<WinLossByLeague> GetWinlossByLeagueCustomers(
-            WinLossByLeagueMetaModel metaModel, ref int totalRows)
+            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
             try
@@ -119,12 +120,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
-                     
-                    using (var reader = db.ExecuteReader())
-                    {
-                        dataList = GetCustomers(reader, metaModel);
-                    }
 
+                    var dataSet = db.ExecuteDataSet();
+                    var reportTable = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
+                    var grandTotalTable = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
+
+                    dataList = GetCustomers(reportTable, grandTotalTable, metaModel, out grandTotal);
+                   
                     totalRows = Converter.ToInt(db.GetParameterValue("totalrows")); 
                     
                     return dataList;
@@ -182,12 +184,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <summary>
         /// Get data list.
         /// </summary>
-        /// <param name="reader">Reader value.</param>
+        /// <param name="reportTable">Report data table.</param>
+        /// <param name="grandTotalTable">Grand total data table.</param>
         /// <param name="metaModel">Meta model value.</param>          
+        /// <param name="grandTotal">Grand total object.</param>          
         /// <returns>The result value.</returns>
         private IList<WinLossByLeague> GetCustomers(
-            IDataReader reader,
-            WinLossByLeagueMetaModel metaModel)
+            DataTable reportTable,
+            DataTable grandTotalTable,
+            WinLossByLeagueMetaModel metaModel,
+            out WinLossByLeague grandTotal)
         {
             var result = new List<WinLossByLeague>();
 
@@ -197,6 +203,18 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var licenseeWlCol = "licenseewl" + metaModel.BaseCurrency;
             var bacommCol = "CommBA" + metaModel.BaseCurrency;
 
+            grandTotal = new WinLossByLeague();
+
+            foreach (DataRow row in grandTotalTable.Rows)
+            {
+                grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
+                grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
+                grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
+                grandTotal.BaCommission = Converter.ToDecimal(row[bacommCol]);
+                grandTotal.BetCount = Converter.ToInt(row["betcount"]);                
+            }
+            
+            var reader = reportTable.CreateDataReader();
             while (reader.Read())
             {
                 var systemIdOrdinal = reader.TryGetOrdinal("username");
