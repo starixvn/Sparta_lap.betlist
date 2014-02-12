@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using System;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -67,9 +68,7 @@ namespace Fanex.Athena.Controllers.Report
             var total = new RacingCommission();
             var reportData = _racingCommissionService.GetDataList(metaModel, ref total);
 
-            reportData = metaModel.SortDirection == "DESC"
-                             ? reportData.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                             : reportData.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
+            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new RacingCommissionViewModel
                 {

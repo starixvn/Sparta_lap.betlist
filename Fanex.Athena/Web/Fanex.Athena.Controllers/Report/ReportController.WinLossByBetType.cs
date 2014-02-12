@@ -16,6 +16,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using System;
+    using Fanex.Athena.Extension.Utility;
 
     /// <summary>
     ///     Win Loss By Bet Type Controller.
@@ -69,9 +71,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var reportData = _winLossByBetTypeService.GetDataList(metaModel);
 
-            reportData = metaModel.SortDirection == "DESC"
-                ? reportData.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                : reportData.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
+            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var total = GetWinLossByBetTypeTotal(reportData);
             var model = new WinLossByBetTypeViewModel

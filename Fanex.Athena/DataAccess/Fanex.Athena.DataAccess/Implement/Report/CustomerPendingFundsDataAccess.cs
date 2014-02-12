@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Data;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -31,9 +32,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="totalData">Total data value.</param>
         /// <param name="totalRows">Total rows value.</param>
         /// <returns>The result value.</returns>
-        public IList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
+        public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
         {
-            IList<CustPendingFunds> result = new List<CustPendingFunds>();
+            SortableList<CustPendingFunds> result = new SortableList<CustPendingFunds>();
             using (var db = new ObjectDb("Lrf_Rpt_Outstanding"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
