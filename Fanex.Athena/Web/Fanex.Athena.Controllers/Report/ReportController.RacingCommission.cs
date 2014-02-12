@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Linq;
+    using System;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
-    using System;
 
     /// <summary>
     ///     TODO: Update summary.
