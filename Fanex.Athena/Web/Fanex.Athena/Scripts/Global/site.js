@@ -33,8 +33,8 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },
-        gotoDeniedPage: function () {
-            window.location.href = Site.resolveClientUrl("AccessDenied.aspx");
+        gotoErrorPage: function () {
+            window.location.href = Site.resolveClientUrl("Error.aspx");
         },
         unBlockUI: function () {
             $('div.block-body').hide();

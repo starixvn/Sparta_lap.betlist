@@ -52,7 +52,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                RedirectToAccessDenied();
+                RedirectToErrorPage();
             }
 
             metaModel.PageIndex = 1;
@@ -149,9 +149,9 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
-            if (!IsValidRequest(metaModel))
+            if (IsValidRequest(metaModel))
             {
-                RedirectToAccessDenied();
+                RedirectToErrorPage();
             }
 
             WinLossByLeague grandTotal;

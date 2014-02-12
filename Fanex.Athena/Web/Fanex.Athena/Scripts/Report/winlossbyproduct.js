@@ -230,7 +230,7 @@ var WinLossByProduct = (function ($) {
                 cache: false,
 
                 url: Site.resolveClientUrl(WinLossByProductOption.urlData + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
-                error: function (xhRequest, errorText, thrownError) { Site.gotoDeniedPage(); },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
                 success: function (response) {
                     WinLossByProduct.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

@@ -186,7 +186,7 @@ namespace Fanex.Athena.Api.Report
         {            
             if (!IsValidRequest(metaModel, currencyId))
             {
-                RedirectToAccessDenied();
+                RedirectToErrorPage();
             }
 
             var licenseeSession = SessionService.LicenseeSession;

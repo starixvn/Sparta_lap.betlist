@@ -398,8 +398,8 @@ var WinLossByLeague = (function ($) {
             for (var i = 0; i < _productCount; i++) {
                 param["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
                 param["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
-                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];    
-            }                       
+                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
+            }
 
             var option =
             {
@@ -408,7 +408,7 @@ var WinLossByLeague = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { Site.gotoDeniedPage(); },
+                error: function (xhRequest, errorText, thrownError) { console.log(1); Site.gotoErrorPage(); },
                 success: function (response) {
                     WinLossByLeague.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

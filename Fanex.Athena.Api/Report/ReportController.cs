@@ -51,9 +51,9 @@ namespace Fanex.Athena.Api.Report
             _balanceUpService = new BalanceUpService();
         }
 
-        private void RedirectToAccessDenied()
+        private void RedirectToErrorPage()
         {
-            HttpContext.Current.Response.Redirect("~/AccessDenied.aspx");
+            HttpContext.Current.Response.Redirect("~/Error.aspx");
         }
     }
 }

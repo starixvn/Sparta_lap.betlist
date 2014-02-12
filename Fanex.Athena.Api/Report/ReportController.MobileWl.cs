@@ -173,7 +173,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                RedirectToAccessDenied();
+                RedirectToErrorPage();
             }
 
             var licenseeSession = SessionService.LicenseeSession;
