@@ -1,19 +1,22 @@
 ﻿@using Fanex.Athena.Models.ViewModel
-<div class="header-content"  style="width:@(ViewBag.WrapperWidth + 1)@("px")">
-    <div class="row" style="width:@(ViewBag.NumberWidth)@("px")">#</div>
-    <div class="row" style="width:@(ViewBag.BetTypeNameWidth)@("px")">
+<div id="header-content" class="header-content"  style="width:@(ViewBag.WrapperWidth + 1)@("px")">
+    <div class="row" style="width:@(ViewBag.NumberWidth)@("px")">
+        #
+    </div>
+    <div class="row sort-heading" style="width:@(ViewBag.BetTypeNameWidth)@("px")" data-column-name="BetTypeName">
         @ViewResources.GameTypeName
     </div>
-    <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
+    <div class="row sort-heading" style="width:@(ViewBag.TurnOverWidth)@("px")" data-column-name="Turnover">
         @ViewResources.Turnover
     </div>
-    @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
+    @SplitingProductHelper.CustomerWLHeaderCustomize(Model.IsAllowedCustomerCommission,
                                             ViewBag.CustomerWLLargeWidth,
                                             ViewBag.CustomerWLMergeWidth,
                                             ViewBag.CustomerWLWidth,
                                             ViewBag.CustomerCommWidth,
-                                            ViewBag.CustomerWLTotalWidth)
-    <div class="row" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
+                                            ViewBag.CustomerWLTotalWidth, 
+                                            true)
+    <div class="row sort-heading" style="width:@(ViewBag.LicenseeWLWidth)@("px")" data-column-name="LicenseeWL">
         <div class="licenseewl" style="width:@(ViewBag.LicenseeWLWidth - 2)@("px")">
             @ViewResources.LicenseeW_L
         </div>
@@ -21,25 +24,25 @@
     @*Check BA, RB commission*@
     @if (Model.ProductAccess.IsAllowBa)
     { 
-        <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+        <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="BACommission">
             @ViewResources.BACommission
         </div>
     }
     @if (Model.ProductAccess.IsAllowRb)
     { 
-        <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+        <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="RacingWinLoss">
             @ViewResources.RacingRevenue
         </div>
     }
     @if (Model.ProductAccess.IsAllowBa)
     { 
-        <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
+        <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="AmtDueToBA">
             @ViewResources.AmtDueToBA
         </div>
     }
     @if (Model.ProductAccess.IsAllowRb)
     { 
-        <div class="row"  style="width:@(ViewBag.RbBaWidth)@("px")">
+        <div class="row sort-heading"  style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="AmtDueToRacing">
             <div class="grid-header-two-line">@ViewResources.AmtDueToRacing</div>
         </div>
     }

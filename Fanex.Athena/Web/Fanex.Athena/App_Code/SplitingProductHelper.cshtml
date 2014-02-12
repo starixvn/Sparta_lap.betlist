@@ -79,3 +79,33 @@
     </div>
         }
 }
+@helper CustomerWLHeaderCustomize(bool isAllowedCustomerCom, int custWLLargeWidth = 80, int custWLMergeWidth = 203,
+    int custWLWidth = 80, int custCommWidth = 40, int custTotalWidth = 80, bool canSort = false)
+    {
+        if (isAllowedCustomerCom)
+        {
+    <div class="group-row">
+        <div class="row1" style="width:@custWLMergeWidth@("px")">
+            @ViewResources.CustomerW_L
+        </div>
+        <div class="group-row2" style="width:@custWLMergeWidth@("px")">
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custWLWidth@("px")" data-column-name="CustomerWinLoss">
+                @ViewResources.WinLoss
+            </div>
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custCommWidth@("px")" data-column-name="CustomerComm">
+                @ViewResources.Comm
+            </div>
+            <div class="row2@(canSort?" sort-heading":"")" style="width:@custTotalWidth@("px")" data-column-name="CustomerTotal">
+                @ViewResources.Total
+            </div>
+        </div>
+    </div>
+        }
+        else
+        {
+            
+    <div class="row@(canSort ? " sort-heading" : "")" style="width:@custWLLargeWidth@("px")" data-column-name="CustomerWinLoss">
+        @ViewResources.CustomerW_L
+    </div>
+        }
+}

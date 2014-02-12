@@ -3,6 +3,7 @@ var WinLossByBetType = (function ($) {
     return {
         initialize: function () {
             WinLossByBetType.initEvent();
+            Site.createSortingIcon(WinLossByBetType.sortReport);
         },
 
         initEvent: function () {
@@ -16,6 +17,12 @@ var WinLossByBetType = (function ($) {
                 $('#IsExportExcel').val(false);
                 $('#WinLossByBetTypeForm').submit();
             });
+        },
+        sortReport: function (sortColumn) {
+            Site.blockUI();
+            $('#IsExportExcel').val(false);
+            $('#WinLossByBetTypeForm').submit();
+            return false;
         }
     };
 })(jQuery);

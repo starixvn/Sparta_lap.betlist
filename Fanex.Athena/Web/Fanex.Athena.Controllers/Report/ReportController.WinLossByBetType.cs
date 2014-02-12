@@ -69,6 +69,10 @@ namespace Fanex.Athena.Controllers.Report
 
             var reportData = _winLossByBetTypeService.GetDataList(metaModel);
 
+            reportData = metaModel.SortDirection == "DESC"
+                ? reportData.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
+                : reportData.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
+
             var total = GetWinLossByBetTypeTotal(reportData);
             var model = new WinLossByBetTypeViewModel
                 {
