@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -39,9 +40,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
+        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
         {
-            IList<CustomerWinLoss> result = new List<CustomerWinLoss>();
+            var result = new SortableList<CustomerWinLoss>();
             using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);

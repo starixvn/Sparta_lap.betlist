@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Implement.Report
 {
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -43,11 +44,11 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #endregion Constructor
 
-        public IList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
+        public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
         {
             return metaModel.IsValid
                        ? _winLossByBetTypeDataAccess.GetDataList(metaModel)
-                       : new List<WinLossByBetType>();
+                       : new SortableList<WinLossByBetType>();
         }
     }
 }

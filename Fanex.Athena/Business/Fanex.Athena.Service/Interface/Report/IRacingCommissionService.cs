@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Service.Interface.Report
 {
-    using System.Collections.Generic;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="total">The summary data.</param>
         /// <returns>The racing commission data list.</returns>
-        IList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total);
+        SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total);
 
         #endregion Public Methods and Operators
     }

@@ -35,7 +35,7 @@ var MobileWinLossOption = (function () {
         index: 'ExternalId',
         width: 85,
         align: 'left',
-        sortable: false,
+        sortable: true,
         frozen: true,
         resizable: false
     };
@@ -44,7 +44,7 @@ var MobileWinLossOption = (function () {
         index: 'SystemId',
         width: 120,
         align: 'left',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true
     };
@@ -53,7 +53,7 @@ var MobileWinLossOption = (function () {
         index: 'CurrencyName',
         width: 55,
         align: 'center',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true
     };
@@ -63,7 +63,7 @@ var MobileWinLossOption = (function () {
         resizable: false,
         width: 100,
         align: 'right',
-        sortable: false,
+        sortable: true,
 
         formatter: 'currency',
         frozen: true,
@@ -79,7 +79,7 @@ var MobileWinLossOption = (function () {
         index: 'TotalTransactions',
         width: 65,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: 'integer',
         frozen: true,
@@ -93,7 +93,7 @@ var MobileWinLossOption = (function () {
         index: 'CustomerWinLoss',
         width: 90,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true,
         formatter: 'currency',
@@ -109,7 +109,7 @@ var MobileWinLossOption = (function () {
         index: 'CustomerComm',
         width: 50,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true,
         formatter: 'currency',
@@ -125,7 +125,7 @@ var MobileWinLossOption = (function () {
         index: 'CustomerTotal',
         width: 90,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true,
         formatter: 'currency',
@@ -142,7 +142,7 @@ var MobileWinLossOption = (function () {
         index: 'LicenseeWl',
         width: 85,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         frozen: true,
         title: true,
@@ -154,7 +154,7 @@ var MobileWinLossOption = (function () {
         index: 'BaCommission',
         width: 70,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: 'currency',
         formatoptions:
@@ -170,7 +170,7 @@ var MobileWinLossOption = (function () {
         index: 'RacingRevenue',
         width: 70,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: 'currency',
         formatoptions:
@@ -185,7 +185,7 @@ var MobileWinLossOption = (function () {
         index: 'AmtDueToBa',
         width: 75,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: 'currency',
         formatoptions:
@@ -200,7 +200,7 @@ var MobileWinLossOption = (function () {
         index: 'AmtDueToRacing',
         width: 70,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         formatter: 'currency',
         formatoptions:
