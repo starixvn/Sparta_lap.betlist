@@ -149,7 +149,7 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
-            if (IsValidRequest(metaModel))
+            if (!IsValidRequest(metaModel))
             {
                 RedirectToErrorPage();
             }
