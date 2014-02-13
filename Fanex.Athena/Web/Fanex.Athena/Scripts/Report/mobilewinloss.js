@@ -6,8 +6,22 @@
 */
 
 var MobileWinLoss = (function ($) {
-    var cacheDataLevel0 = {};
-    var cacheDataLevel1 = {};
+    var cacheData = {};
+    var _level = {};
+    var _sortColumnName = undefined;
+    var _sortOrder = "desc";
+    var _removeSorting = false;
+    var _pageSize = 0;
+
+    function sortData(arrayData) {
+        var data = _sortOrder == "asc" ?
+             JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
+             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items
+        for (var i = 0; i < data.length; i++) {
+            data[i].Index = i + 1;
+        }
+        return data;
+    }
 
     return {
         //#region Init
@@ -16,8 +30,32 @@ var MobileWinLoss = (function ($) {
             MobileWinLoss.initMonthPicker();
             MobileWinLoss.initEvent();
             MobileWinLoss.setExcelUrl(0, 0, 0, "");
+
+            MobileWinLossOption.gridOption.onSortCol = function (index, columnIndex, sortOrder) {
+
+                Site.blockUI();
+                window.setTimeout(function () {
+                    _removeSorting = false;
+                    if (_sortColumnName == index) {
+                        _sortOrder = _sortOrder == "asc" ? "desc" : "asc";
+
+                    } else {
+                        _sortOrder = "asc";
+                        _sortColumnName = index;
+                    }
+
+                    cacheData[_level].Data = sortData(cacheData[_level].Data);
+
+                    MobileWinLoss.bindData(_level, cacheData[_level]);
+
+                    Site.unBlockUI();
+
+                }, 100);
+                return 'stop';
+            };
         },
         initSetting: function () {
+            _pageSize = MobileWinLossOption.gridOption.pageSize;
             MobileWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             MobileWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
         },
@@ -55,6 +93,7 @@ var MobileWinLoss = (function ($) {
             $('#SubmitButton').click(function () {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
+                _removeSorting = true;
                 MobileWinLoss.submit();
             });
 
@@ -149,7 +188,7 @@ var MobileWinLoss = (function ($) {
             var numOfTotalRow = response.Total.length;
             gridOption.data = response.Data;
             gridOption.userData = response.TotalEur;
-            gridOption.rowNum = MobileWinLossOption.pageSize;
+            gridOption.rowNum = _pageSize; // MobileWinLossOption.pageSize;
             gridOption.rowList = MobileWinLossOption.rowList;
             gridOption.rowTotal = numOfRow;
             gridOption.pager = '#ppdata';
@@ -169,6 +208,7 @@ var MobileWinLoss = (function ($) {
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (numOfRow > MobileWinLossOption.pageSize) {
+                    _pageSize = $("#ReportGrid").getGridParam("rowNum");
                     $("#pg_ppdata").show();
                 }
                 else {
@@ -203,7 +243,23 @@ var MobileWinLoss = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
             //if (level == 2) {
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-            //}
+            //}            
+
+            if (!_removeSorting) {
+                reportGrid.closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+                .each(function (index, element) {
+                    var $this = $(element);
+                    $this.find("span.s-ico").remove();
+
+                    if (element.id.indexOf(_sortColumnName) > -1) {
+                        var sortClass = "sort-" + _sortOrder;
+                        var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
+                        sortSpan.addClass(sortClass);
+                        $this.append(sortSpan);
+                        $this.addClass("sorted-heading");
+                    }
+                });
+            }
         },
 
         //#endregion
@@ -211,11 +267,12 @@ var MobileWinLoss = (function ($) {
         //#region GetData
 
         ajaxComplete: function (level, response) {
+            _level = level;
             if (response != null) {
+                cacheData[level] = response;
                 //reset layout
                 switch (level) {
                     case 0:
-                        cacheDataLevel0 = response;
                         //update productOption
                         $("#ProductOptionJson").val(response.ProductOptions);
                         //update drildownValue
@@ -233,7 +290,6 @@ var MobileWinLoss = (function ($) {
                         MobileWinLoss.setReportTitle(currencyId, site, fromdate, todate);
                         break;
                     case 1:
-                        cacheDataLevel1 = response;
                         break;
                 }
 
@@ -312,9 +368,10 @@ var MobileWinLoss = (function ($) {
         },
 
         goBack: function (level) {
+
+            MobileWinLoss.bindData(level, cacheData[level]);
             if (level == 0) {
                 MobileWinLoss.renderBreadCrumb(level);
-                MobileWinLoss.bindData(0, cacheDataLevel0);
                 //reset excel Link
                 MobileWinLoss.setExcelUrl(0, 0, 0, "");
                 //re-set title
@@ -325,7 +382,6 @@ var MobileWinLoss = (function ($) {
                 MobileWinLoss.setReportTitle(currencyId, site, fromdate, todate);
             }
             else if (level == 1) {
-                MobileWinLoss.bindData(1, cacheDataLevel1);
                 MobileWinLossOption.urlExcelData = MobileWinLossOption.urlExcelData.replace("level=2", "level=1");
                 MobileWinLoss.renderBreadCrumb(level);
             }

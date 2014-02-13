@@ -120,10 +120,9 @@ namespace Fanex.Athena.Controllers.Report
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
-            dataList = metaModel.SortDirection == "DESC"
-                           ? dataList.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                           : dataList.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
 
+            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
@@ -166,10 +165,9 @@ namespace Fanex.Athena.Controllers.Report
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
-            dataList = metaModel.SortDirection == "DESC"
-                           ? dataList.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                           : dataList.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
 
+            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,

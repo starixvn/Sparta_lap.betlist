@@ -43,7 +43,7 @@ namespace Fanex.Athena
             SetLanguage(string.IsNullOrEmpty(lang) ? "en-US" : lang);
             SetDefault(licenseeId != 0 ? licenseeId : 1, string.IsNullOrEmpty(lang) ? "en-US" : lang);
             FormsAuthentication.SetAuthCookie("pgmson", false);
-            Response.Redirect("~/TotalBets/HandicapOverUnder");
+            Response.Redirect("~/Report/WinLossByBetType");
         }
     }
 }

@@ -17,7 +17,13 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
+            SortDirection = "ASC";
+            SortColumn = "BetTypeName";
         }
+
+        public string SortDirection { get; set; }
+
+        public string SortColumn { get; set; }
 
         public DateTime BalanceUpDay { get; set; }
 

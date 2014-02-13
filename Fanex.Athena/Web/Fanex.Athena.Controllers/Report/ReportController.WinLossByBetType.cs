@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -68,6 +69,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = licenseeSession.UserId;
 
             var reportData = _winLossByBetTypeService.GetDataList(metaModel);
+
+            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var total = GetWinLossByBetTypeTotal(reportData);
             var model = new WinLossByBetTypeViewModel

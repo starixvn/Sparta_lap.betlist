@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -40,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="metaModel">Meta value.</param>
         /// <returns>The result value.</returns>
-        public IList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
+        public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinLossByBettype";
             var uspParams = new
@@ -120,9 +121,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="reader">Reader value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>The result value.</returns>
-        public IList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
+        public SortableList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
         {
-            var dataList = new List<WinLossByBetType>();
+            var dataList = new SortableList<WinLossByBetType>();
             var turnoverColumn = "Turnover" + baseCurrency;
             var winlossColumn = "MemberWinLost" + baseCurrency;
             var custCommColumn = "PlayerComm" + baseCurrency;

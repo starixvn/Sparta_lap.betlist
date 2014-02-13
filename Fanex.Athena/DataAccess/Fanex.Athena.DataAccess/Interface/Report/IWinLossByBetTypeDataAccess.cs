@@ -10,8 +10,8 @@
 
 namespace Fanex.Athena.DataAccess.Interface.Report
 {
-    using System.Collections.Generic;
     using System.Data;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
@@ -20,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     /// </summary>
     public interface IWinLossByBetTypeDataAccess
     {
-        IList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel);
+        SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel);
 
         DataSet GetDataSetForExcel(WinLossByBetTypeMetaModel metaModel);
     }

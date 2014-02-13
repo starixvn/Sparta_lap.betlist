@@ -122,18 +122,5 @@ namespace Fanex.Athena.Controllers.Report
             
             return Json(matches.Select(x => new { Key = x.MatchId, Value = x.MatchName }));
         }
-
-        #region Utility
-
-        private static object GetPropertyValue(object obj, string name)
-        {
-            return obj == null
-                       ? null
-                       : obj.GetType()
-                            .GetProperty(name)
-                            .GetValue(obj, null);
-        }
-
-        #endregion Utility
     }
 }
