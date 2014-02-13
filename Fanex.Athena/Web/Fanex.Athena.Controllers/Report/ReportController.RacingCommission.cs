@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Linq;
+    using System;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
@@ -67,9 +67,7 @@ namespace Fanex.Athena.Controllers.Report
             var total = new RacingCommission();
             var reportData = _racingCommissionService.GetDataList(metaModel, ref total);
 
-            reportData = metaModel.SortDirection == "DESC"
-                             ? reportData.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                             : reportData.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
+            reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new RacingCommissionViewModel
                 {

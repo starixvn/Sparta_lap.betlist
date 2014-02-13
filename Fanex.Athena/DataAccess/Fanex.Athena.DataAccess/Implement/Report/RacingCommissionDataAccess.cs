@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -39,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="total">Total value.</param>
         /// <returns>The result value.</returns>
-        public IList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
+        public SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
         {
             const string UspName = "Lrf_Rpt_CommByBettype_HR";
             var uspParams = new
@@ -80,9 +81,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="baseCurrency">Base currency value.</param>
         /// <param name="total">Total value.</param>
         /// <returns>The result value.</returns>
-        public IList<RacingCommission> SetToList(IDataReader reader, string baseCurrency, ref RacingCommission total)
+        public SortableList<RacingCommission> SetToList(IDataReader reader, string baseCurrency, ref RacingCommission total)
         {
-            var dataList = new List<RacingCommission>();
+            var dataList = new SortableList<RacingCommission>();
 
             // Determine para names based on currency
             var custId = "custID";
