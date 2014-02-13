@@ -9,7 +9,7 @@ var LicenseeWinLoss = (function ($) {
     var _level = 0;
     var _currencyId = _customerId = _datetime = null;
     var _removeSorting = false;
-    var _reportBy = null;        var _reportBy = null;
+    var _reportBy = null;
     var _pageSize = 0;
 
     function sortData(arrayData) {
