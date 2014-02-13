@@ -32,7 +32,7 @@
         + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth)
         + ViewBag.LicenseeWLWidth
         + (Model.ProductAccess.IsAllowBa ? ViewBag.RbBaWidth * 2 : 0)
-        + (Model.ProductAccess.IsAllowRb ? ViewBag.AmtRacingWidth * 2 : 0);
+        + (Model.ProductAccess.IsAllowRb ? ViewBag.RbBaWidth + ViewBag.AmtRacingWidth : 0);
 
     ViewBag.ColumnCount = 5;
     ViewBag.ColumnCount += (Model.ProductAccess.IsAllowBa ? 2 : 0);
