@@ -77,7 +77,7 @@ var MobileWinLossOption = (function () {
     var totalTransColumn = {
         name: 'TotalTransactions',
         index: 'TotalTransactions',
-        width: 65,
+        width: 76,
         align: 'right',
         sortable: true,
         resizable: false,
