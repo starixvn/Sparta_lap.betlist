@@ -400,6 +400,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
             db.AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
+            db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("Odds", DbType.Decimal, metaModel.Odds);            
             db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);

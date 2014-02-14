@@ -342,8 +342,7 @@ var WinLossByLeague = (function ($) {
         //#endregion
 
         //#region drillDown
-        drillDownBetList: function (custId, externalId, systemId) {
-
+        drillDownBetList: function (custId, externalId, systemId) {            
             var param =
             {
                 IsConvert: _postdata.BaseCurrency != "",
@@ -358,6 +357,7 @@ var WinLossByLeague = (function ($) {
                 ExternalId: externalId,
                 SystemId: systemId,
                 LeagueId: _leagueid,
+                MatchId: _postdata.Match,
                 ShowWin: _postdata.ShowWin,
                 ShowLoss: _postdata.ShowLoss,
                 ShowDraw: _postdata.ShowDraw
@@ -370,7 +370,7 @@ var WinLossByLeague = (function ($) {
             }
 
             var url = Site.resolveClientUrl("BetList/WinlossByLeague?") + $.param(param);
-            window.open(url, "abc", "modal=yes");
+            window.open(url, "abc", "modal=no");
         },
 
         drillDown: function (level, leagueid, leaguename) {
