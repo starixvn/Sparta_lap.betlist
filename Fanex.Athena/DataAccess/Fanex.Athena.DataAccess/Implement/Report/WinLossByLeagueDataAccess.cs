@@ -110,7 +110,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);                    
+                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
+                    db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);                    
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
