@@ -388,6 +388,7 @@ var WinLossByLeague = (function ($) {
                 Odds: _postdata.Odds,
                 CurrencyId: _postdata.CurrencyId,
                 League: leagueid,
+                Match: _postdata.Match,
                 ShowWin: _postdata.ShowWin,
                 ShowLoss: _postdata.ShowLoss,
                 ShowDraw: _postdata.ShowDraw,
