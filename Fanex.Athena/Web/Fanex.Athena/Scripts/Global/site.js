@@ -243,15 +243,15 @@ var Site = (function ($) {
                         else if ($(".grid-header-two-line", headerDiv).length > 0) {
                             left = (headerDiv.width() - sortSpan.width()) / 2;
                             sortSpan.css({
-                                top: 0,
-                                left: left
+                                top: 19,
+                                right: 0
                             });
                         }
                         else {
                             left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
                             sortSpan.css({
                                 top: 19,
-                                left: left
+                                right: 0
                             });
                         }
 
