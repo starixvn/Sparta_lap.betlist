@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -38,11 +39,11 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #endregion Constructor
 
-        public IList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
+        public SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
         {
             return metaModel.IsValid
                        ? _racingCommissionDataAccess.GetDataList(metaModel, ref total)
-                       : new List<RacingCommission>();
+                       : new SortableList<RacingCommission>();
         }
     }
 }

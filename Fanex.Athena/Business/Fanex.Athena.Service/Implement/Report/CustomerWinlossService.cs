@@ -6,9 +6,9 @@
 
 namespace Fanex.Athena.Service.Implement.Report
 {
-    using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -29,11 +29,11 @@ namespace Fanex.Athena.Service.Implement.Report
             _custWinlossDataAccess = new CustomerWinlossDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        public IList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
+        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
         {
             return metaModel.IsValid
                        ? _custWinlossDataAccess.GetDataList(metaModel, ref totalData, ref totalRows)
-                       : new List<CustomerWinLoss>();
+                       : new SortableList<CustomerWinLoss>();
         }
     }
 }

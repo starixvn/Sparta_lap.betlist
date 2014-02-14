@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -98,11 +99,8 @@ namespace Fanex.Athena.Controllers.Report
                     TotalRows = totalRows,
                 };
 
-            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
-            dataList = metaModel.SortDirection == "DESC"
-                           ? dataList.OrderByDescending(x => GetPropertyValue(x, metaModel.SortColumn)).ToList()
-                           : dataList.OrderBy(x => GetPropertyValue(x, metaModel.SortColumn)).ToList();
-
+            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);            
+            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             model.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;
