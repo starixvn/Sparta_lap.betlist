@@ -132,12 +132,7 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     IsHistory = false
                 };
-
-            if (metaModel.IsExportExcel)
-            {
-                metaModel.PageSize = PageSizeExcel;                
-            }
-
+                        
             model.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;
@@ -159,7 +154,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-            metaModel.PageSize = metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize;
 
             var currencyList = SessionService.UserSession.CurrencyList;
             var totalData = new CustomerWinLoss();
