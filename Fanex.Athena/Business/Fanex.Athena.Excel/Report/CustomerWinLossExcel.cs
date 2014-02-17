@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using Base;
     using Common.Extensions;
@@ -17,7 +18,6 @@ namespace Fanex.Athena.Excel.Report
     using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
-    using System;
 
     /// <summary>
     /// Customer win-loss class.
@@ -94,8 +94,10 @@ namespace Fanex.Athena.Excel.Report
             else
             {
                 _pageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var noOfSheet = _customerWinlossList.Count % _pageSize == 0 ? _customerWinlossList.Count / _pageSize : _customerWinlossList.Count / _pageSize + 1;
-                for (int i = 0; i < noOfSheet; i++)
+                var numOfSheet = _customerWinlossList.Count % _pageSize == 0 
+                    ? _customerWinlossList.Count / _pageSize 
+                    : (_customerWinlossList.Count / _pageSize) + 1;
+                for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
                     AssignTitle(sheet);
@@ -140,6 +142,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        /// <param name="startIndex">Start index.</param>
         public void AssignSheetData(ISheet sheet, int startIndex)
         {
             int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * _pageSize);
@@ -220,6 +223,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign total data to summary row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        /// <param name="startIndex">Start index.</param>
         protected void AssignSumData(ISheet sheet, int startIndex)
         {
             int rowTotalNumber = startIndex + RowContentTemplate;
