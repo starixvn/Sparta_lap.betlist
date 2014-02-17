@@ -51,7 +51,7 @@ var MobileWinLossOption = (function () {
     var currencyColumn = {
         name: 'CurrencyName',
         index: 'CurrencyName',
-        width: 55,
+        width: 60,
         align: 'center',
         sortable: true,
         resizable: false,
@@ -61,10 +61,9 @@ var MobileWinLossOption = (function () {
         name: 'Turnover',
         index: 'Turnover',
         resizable: false,
-        width: 100,
+        width: 85,
         align: 'right',
         sortable: true,
-
         formatter: 'currency',
         frozen: true,
         formatoptions:
@@ -77,7 +76,7 @@ var MobileWinLossOption = (function () {
     var totalTransColumn = {
         name: 'TotalTransactions',
         index: 'TotalTransactions',
-        width: 76,
+        width: 95,
         align: 'right',
         sortable: true,
         resizable: false,
@@ -183,7 +182,7 @@ var MobileWinLossOption = (function () {
     var amtDueToBaColumn = {
         name: 'AmtDueToBa',
         index: 'AmtDueToBa',
-        width: 75,
+        width: 60,
         align: 'right',
         sortable: true,
         resizable: false,
