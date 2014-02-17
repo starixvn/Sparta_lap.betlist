@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                 db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
                 db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
