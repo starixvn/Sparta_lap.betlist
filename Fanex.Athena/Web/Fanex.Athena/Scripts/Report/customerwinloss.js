@@ -102,6 +102,13 @@ var CustomerWinLoss = (function ($) {
 
             Site.blockUI();
             window.location.href = url;
+        },
+         sortReport: function(sortColumn) {
+
+            Site.blockUI();
+            $('#IsExportExcel').val(false);
+            $("#CustomerWinlossForm").submit();
+            return false;
         }
     };
 })(jQuery);
