@@ -214,7 +214,7 @@ namespace Fanex.Athena.Service.Implement.Report
                     };
 
                     if (racingSportTypes.Contains(matchWinLoss.SportType))
-                    {
+                    {                        
                         return string.Format(_culturelEnglish, KICKOFFTIMEFORMATER, matchWinLoss.KickofTime);
                     }
 
