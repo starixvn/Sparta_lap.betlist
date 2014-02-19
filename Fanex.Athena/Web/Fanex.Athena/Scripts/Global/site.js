@@ -1,4 +1,3 @@
-
 ﻿/// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
@@ -467,4 +466,4 @@ window.alert = function (message, fallback) {
 $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
-}); ;
+});
