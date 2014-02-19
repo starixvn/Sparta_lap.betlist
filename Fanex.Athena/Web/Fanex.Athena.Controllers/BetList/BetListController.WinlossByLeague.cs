@@ -65,15 +65,15 @@ namespace Fanex.Athena.Controllers.BetList
             var curencyId = metaModel.IsConvert ? (metaModel.BaseCurrency.ToLower() == "eur" ? -1 : -2) : metaModel.CurrencyId;
             switch (curencyId)
             {
-                case 0:
+                case BaseCurrencyType.All:
                     viewinCurrency = ViewResources.AllCurrencies;
                     break;
 
-                case -1:
+                case BaseCurrencyType.Eur:
                     viewinCurrency = ViewResources.Viewin + ": " + FormatKey.Eur;
                     break;
 
-                case -2:
+                case BaseCurrencyType.Usd:
                     viewinCurrency = ViewResources.Viewin + ": " + FormatKey.Usd;
                     break;
 

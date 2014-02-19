@@ -32,6 +32,9 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },
+        gotoErrorPage: function () {
+            window.location.href = Site.resolveClientUrl("Error.aspx");
+        },
         unBlockUI: function () {
             $('div.block-body').hide();
             $('div.loading').hide();
@@ -381,7 +384,7 @@ var Site = (function ($) {
             if (enghlishName == null || enghlishName == undefined) return enghlishName;
             var keyName = "_language_" + _page.lang.replace("-", "_");
 
-            var resources = window[keyName];            
+            var resources = window[keyName];
             if (!resources) {
                 resources = _language_en_US;
             }
@@ -432,7 +435,7 @@ var Site = (function ($) {
         isInteger: function (text) {
             return typeof Site.isNumber(text) && parseFloat(text) == parseInt(text, 10) && !isNaN(text);
         },
-        clone: function(obj) {
+        clone: function (obj) {
             if (null == obj || "object" != typeof obj) return obj;
             var copy = obj.constructor();
             for (var attr in obj) {

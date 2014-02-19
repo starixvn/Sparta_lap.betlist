@@ -395,8 +395,12 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
+            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
+            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
             db.AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
+            db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("Odds", DbType.Decimal, metaModel.Odds);            
             db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
@@ -406,6 +410,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
             db.AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
             db.AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
+            db.AddInParameter("ShowSB", DbType.Boolean, showSb);
+            db.AddInParameter("ShowBA", DbType.Boolean, showBa);
         }
 
         /// <summary>
