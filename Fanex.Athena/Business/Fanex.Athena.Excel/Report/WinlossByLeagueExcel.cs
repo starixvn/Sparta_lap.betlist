@@ -171,11 +171,8 @@ namespace Fanex.Athena.Excel.Report
 
                 currentRow++;
             }
-            
-            if (Level == 0 && _metaModel.Match == 0)
-            {
-                AssignTotalData(sheet, currentRow);
-            }
+                        
+            AssignTotalData(sheet, currentRow);            
         }
 
         /// <summary>
@@ -206,7 +203,7 @@ namespace Fanex.Athena.Excel.Report
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnMatch, ColumnBaComm, ColumnAmtDueTo);                    
+                    HideColumn(sheet, ColumnMatch, ColumnAmtDueTo);                    
                     break;
             }
         }
@@ -216,7 +213,8 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTurnover].SetCellValue(winlossByLeague.TurnOver);
             row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByLeague.CustomerWinLoss);            
-            row.Cells[ColumnLicenseeWl].SetCellValue(winlossByLeague.LicenseeWL);                        
+            row.Cells[ColumnLicenseeWl].SetCellValue(winlossByLeague.LicenseeWL);
+            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);     
         }
 
         /// <summary>

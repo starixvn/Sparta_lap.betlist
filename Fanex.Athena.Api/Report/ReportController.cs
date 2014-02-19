@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System.Web;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Service.Interface.Configuration;
@@ -48,6 +49,11 @@ namespace Fanex.Athena.Api.Report
             _winlossByProductService = new WinLossByProductService();
             _winlossByLeagueService = new WinLossByLeagueService();
             _balanceUpService = new BalanceUpService();
-        }       
+        }
+
+        private void RedirectToErrorPage()
+        {
+            HttpContext.Current.Response.Redirect("~/Error.aspx");
+        }
     }
 }

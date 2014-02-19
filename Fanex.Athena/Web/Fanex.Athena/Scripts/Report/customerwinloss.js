@@ -48,7 +48,7 @@ var CustomerWinLoss = (function ($) {
 
             $("#SubmitButton").click(function () {
                 Site.blockUI();
-                $('#IsExportExcel').val(false);
+                $('#IsExportExcel').val(false);                
                 $("#SortColumn").val("ExternalId");
                 $("#SortDirection").val("ASC");
                 $("#CustomerWinlossForm").submit();
@@ -57,6 +57,8 @@ var CustomerWinLoss = (function ($) {
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
+                var pageSize = '<input type="hidden" value="' + $('.pageSizeSelected').val() + '" name="PageSize" />';
+                $("#CustomerWinlossForm").append(pageSize);
                 $("#CustomerWinlossForm").submit();
                 return false;
             });
@@ -100,6 +102,13 @@ var CustomerWinLoss = (function ($) {
 
             Site.blockUI();
             window.location.href = url;
+        },
+         sortReport: function(sortColumn) {
+
+            Site.blockUI();
+            $('#IsExportExcel').val(false);
+            $("#CustomerWinlossForm").submit();
+            return false;
         }
     };
 })(jQuery);

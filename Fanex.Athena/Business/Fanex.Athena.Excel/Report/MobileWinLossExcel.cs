@@ -14,6 +14,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Models.DTO.Report;
     using Models.ViewModel;
     using Models.ViewModel.Report;
@@ -163,9 +164,9 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignTitle(ISheet sheet)
         {
             string siteText = ViewResources.Site + ": " +
-                              (_model.Param.Site == 1
+                              (_model.Param.Site == (int)SiteType.Wap
                                ? ViewResources.Wap
-                               : _model.Param.Site == 2 ? ViewResources.SmartPhone : ViewResources.Others);
+                               : _model.Param.Site == (int)SiteType.SmartPhone ? ViewResources.SmartPhone : ViewResources.Others);
 
             ReportTitle = string.Format(
                                         ViewResources.MobileWinLossTitle,

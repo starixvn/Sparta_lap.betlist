@@ -48,9 +48,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public bool ShowLoss { get; set; }
 
-        public bool ShowDraw { get; set; }
-
-        public bool ShowBA { get; set; }
+        public bool ShowDraw { get; set; }        
 
         public override bool IsValid
         {

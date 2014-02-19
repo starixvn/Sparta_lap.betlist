@@ -1,4 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
+/// class:QueryString
 var QueryString = (function ($) {
     var parseQueryString = function (queryString) {
         var args = queryString.split('&');

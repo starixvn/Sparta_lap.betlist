@@ -23,6 +23,6 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// USD, value = -2.
         /// </summary>
-        public const int Usd = -2;
+        public const int Usd = 2;
     }
 }

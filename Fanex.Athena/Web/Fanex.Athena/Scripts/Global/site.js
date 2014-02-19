@@ -1,6 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
 /* Preset */
-
 // root JSON object
 var Site = (function ($) {
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
@@ -32,6 +31,9 @@ var Site = (function ($) {
             $("#CurrencyId").change(function () {
                 Site.currencyConstraint(true);
             });
+        },
+        gotoErrorPage: function () {
+            window.location.href = Site.resolveClientUrl("Error.aspx");
         },
         unBlockUI: function () {
             $('div.block-body').hide();
@@ -95,7 +97,6 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                // Set Params
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode != undefined && productCode.length > 0) {
@@ -108,7 +109,6 @@ var Site = (function ($) {
         },
 
         setProductOptionOriginalParamList: function (urlOrParams) {
-            // Set Url
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
@@ -123,7 +123,6 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                // Set Params
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode != undefined && productCode.length > 0) {
@@ -240,15 +239,15 @@ var Site = (function ($) {
                         else if ($(".grid-header-two-line", headerDiv).length > 0) {
                             left = (headerDiv.width() - sortSpan.width()) / 2;
                             sortSpan.css({
-                                top: 0,
-                                left: left
+                                top: 19,
+                                right: 0
                             });
                         }
                         else {
                             left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
                             sortSpan.css({
                                 top: 19,
-                                left: left
+                                right: 0
                             });
                         }
 
@@ -385,7 +384,7 @@ var Site = (function ($) {
             if (enghlishName == null || enghlishName == undefined) return enghlishName;
             var keyName = "_language_" + _page.lang.replace("-", "_");
 
-            var resources = window[keyName];            
+            var resources = window[keyName];
             if (!resources) {
                 resources = _language_en_US;
             }
@@ -436,7 +435,7 @@ var Site = (function ($) {
         isInteger: function (text) {
             return typeof Site.isNumber(text) && parseFloat(text) == parseInt(text, 10) && !isNaN(text);
         },
-        clone: function(obj) {
+        clone: function (obj) {
             if (null == obj || "object" != typeof obj) return obj;
             var copy = obj.constructor();
             for (var attr in obj) {

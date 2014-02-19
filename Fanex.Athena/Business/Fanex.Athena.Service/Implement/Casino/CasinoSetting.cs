@@ -107,7 +107,7 @@ namespace Fanex.Athena.Service.Implement.Casino
 
                     foreach (var gameType in gameTypeList)
                     {
-                        // Get stake levvel base on game type
+                        // Get stake level base on game type
                         var stakeLevelList = this.GetCustStakeLevel(custId, gameType.GameTypeId);
                         gameType.StakeLevelList = stakeLevelList;
                     }
