@@ -206,13 +206,15 @@ namespace Fanex.Athena.Service.Implement.Report
                         matchWinLoss.ShowTime);
 
                 default:
-                    var racingSportTypes = new List<int> { 
-                        (int)SportType.VirtualHorseRacing, 
-                        (int)SportType.VirtualGreyhound, 
+                    var racingSportTypes = new List<int>
+                    {
+                        (int)SportType.VirtualHorseRacing,
+                        (int)SportType.VirtualGreyhound,
                         (int)SportType.VirtualMotoRacing
                     };
+
                     if (racingSportTypes.Contains(matchWinLoss.SportType))
-                    {                        
+                    {
                         return string.Format(_culturelEnglish, KICKOFFTIMEFORMATER, matchWinLoss.KickofTime);
                     }
 

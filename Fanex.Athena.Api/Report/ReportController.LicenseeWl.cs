@@ -194,35 +194,36 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel, currencyId))
             {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId; // focus here
-            metaModel.DrillDownCurrencyId = currencyId;
-            metaModel.DrillDownLevel = level;
-            metaModel.DrillDownCustomerId = custId;
-            metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
-            metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.UserId = SessionService.UserSession.UserId; // focus here
+                metaModel.DrillDownCurrencyId = currencyId;
+                metaModel.DrillDownLevel = level;
+                metaModel.DrillDownCustomerId = custId;
+                metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
+                metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
 
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
-            SortableList<LicenseeWinLoss> dataList;
-            GetData(metaModel, out dataList, out summaryTotal);
+                IDictionary<string, LicenseeWinLoss> summaryTotal;
+                SortableList<LicenseeWinLoss> dataList;
+                GetData(metaModel, out dataList, out summaryTotal);
 
-            if (metaModel.IsExportExcel)
-            {
-                return ExportExcel(metaModel, dataList, summaryTotal);
-            }
-
-            if (dataList != null && dataList.Count > 0)
-            {
-                dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
-
-                var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
-                return new
+                if (metaModel.IsExportExcel)
                 {
-                    Data = dataList.Select(MapToGridView).ToList(),
-                    Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
-                    SummaryTotal = summaryTotalView,
-                    ProductOptions = metaModel.ProductOptions.ToJson()
-                };
+                    return ExportExcel(metaModel, dataList, summaryTotal);
+                }
+
+                if (dataList != null && dataList.Count > 0)
+                {
+                    dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+
+                    var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
+                    return new
+                    {
+                        Data = dataList.Select(MapToGridView).ToList(),
+                        Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
+                        SummaryTotal = summaryTotalView,
+                        ProductOptions = metaModel.ProductOptions.ToJson()
+                    };
+                }
             }
 
             return GetEmptyResult(metaModel);
@@ -230,7 +231,6 @@ namespace Fanex.Athena.Api.Report
 
         private dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
         {
-
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
