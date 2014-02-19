@@ -1,6 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
 /* Preset */
-
 // root JSON object
 var Site = (function ($) {
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
@@ -95,7 +94,6 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                // Set Params
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode != undefined && productCode.length > 0) {
@@ -108,7 +106,6 @@ var Site = (function ($) {
         },
 
         setProductOptionOriginalParamList: function (urlOrParams) {
-            // Set Url
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
@@ -123,7 +120,6 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                // Set Params
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode != undefined && productCode.length > 0) {
