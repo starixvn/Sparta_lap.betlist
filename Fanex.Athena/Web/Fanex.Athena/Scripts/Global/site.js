@@ -467,4 +467,4 @@ window.alert = function (message, fallback) {
 $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
-    )};
+}); ;
