@@ -22,6 +22,10 @@ namespace Fanex.Athena.Controllers.TotalBets
     {
         #region Action
 
+        /// <summary>
+        /// Handicap-Over-Under page.
+        /// </summary>
+        /// <returns>The report page.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult HandicapOverUnder()
@@ -30,7 +34,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(param);
 
             return this.HandicapOverUnderView(param);
         }

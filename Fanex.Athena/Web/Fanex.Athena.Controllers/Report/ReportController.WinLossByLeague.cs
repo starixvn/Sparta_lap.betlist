@@ -52,8 +52,9 @@ namespace Fanex.Athena.Controllers.Report
                     Status = true
                 }).ToList(),
             };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";            
-            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? BaseCurrencyType.Usd : BaseCurrencyType.Eur; 
+            
+            SetConvetedUSDCurrencyName(metaModel);
+            SetConvetedUSDCurrencyId(metaModel);
             var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, SessionService.UserSession.Language, SPORTSBOOK);
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()

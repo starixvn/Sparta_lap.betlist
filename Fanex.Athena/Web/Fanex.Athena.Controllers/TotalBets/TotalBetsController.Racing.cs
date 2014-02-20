@@ -26,7 +26,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(param);
 
             return this.HorseRacingView(param);
         }

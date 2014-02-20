@@ -37,14 +37,14 @@ namespace Fanex.Athena.Api.BetList
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
         public dynamic DailyBetList(
-            int page, 
-            int rows, 
-            string licenseeType, 
-            int currencyId, 
-            string currencyName, 
-            string baseCurrency, 
-            DateTime date, 
-            string productCode, 
+            int page,
+            int rows,
+            string licenseeType,
+            int currencyId,
+            string currencyName,
+            string baseCurrency,
+            DateTime date,
+            string productCode,
             string status)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";

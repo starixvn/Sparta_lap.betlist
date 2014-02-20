@@ -151,30 +151,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(LicenseeWinLossMetaModel metaModel, int currencyId = 0)
-        {
-            if (!IsValidSession)
-            {
-                return false;
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
-                                 || currencyList.Values.Contains(currencyId);
-
-            return validModel && validCurrency;
-        }
-
-        /// <summary>
         ///  Process request.
         /// </summary>
         /// <param name="metaModel">Meta model object.</param>

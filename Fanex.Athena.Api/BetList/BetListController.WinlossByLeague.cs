@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.BetList
             {
                 return null;
             }
-                        
+
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 

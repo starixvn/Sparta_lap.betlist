@@ -29,6 +29,7 @@ namespace Fanex.Athena.Controllers.Report
         #region Constant
 
         public const int PageSizeExcel = int.MaxValue - 1000;
+
         #endregion Constant
 
         #region Fields
@@ -113,13 +114,13 @@ namespace Fanex.Athena.Controllers.Report
                 _leagueService.GetLeaguesBySport(metaModel)
                 .Select(x => new { Key = x.LeagueId, Value = x.LeagueName }));
         }
-        
+
         [AjaxRequest]
         public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {
             var matches = _matchService.GetMatchesByLeague(leagueid, fromDate, toDate);
             matches.Insert(0, new Match() { MatchName = ViewResources.All, MatchId = 0 });
-            
+
             return Json(matches.Select(x => new { Key = x.MatchId, Value = x.MatchName }));
         }
     }

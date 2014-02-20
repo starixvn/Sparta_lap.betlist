@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -41,7 +42,8 @@ namespace Fanex.Athena.Controllers.Report
                                                  Status = i.ProductCode == Product.Sb
                                              }).ToList();
 
-            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? -2 : 0;
+            SetConvetedUSDCurrencyId(metaModel);
+
             metaModel.ProductOptions = productOption;
 
             var model = new MobileWinLossViewModel

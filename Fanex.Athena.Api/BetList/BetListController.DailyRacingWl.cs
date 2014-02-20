@@ -31,11 +31,6 @@ namespace Fanex.Athena.Api.BetList
         {
             var currencyList = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
-            {
-                return null;
-            }
-
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 

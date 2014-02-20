@@ -19,6 +19,10 @@ namespace Fanex.Athena.Controllers.TotalBets
     /// </summary>
     public partial class TotalBetsController
     {
+        /// <summary>
+        /// Home-Draw-Away-No-bet page.
+        /// </summary>
+        /// <returns>The report page.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult HomeDrawAwayNoBet()
@@ -27,8 +31,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
 
+            SetConvetedUSDCurrencyName(param);
             return this.HomwDrawAwayNoBetView(param);
         }
 

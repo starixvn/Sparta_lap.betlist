@@ -39,10 +39,10 @@ namespace Fanex.Athena.Controllers.Report
                 LicenseeId = licenseeSession.LicenseeId,
                 UserId = SessionService.UserSession.UserId,                
             };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
-            // Base USD currency.
-            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? -2 : -1;
+            SetConvetedUSDCurrencyName(metaModel);
+
+            SetConvetedUSDCurrencyId(metaModel);
 
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.Ba) == false)
