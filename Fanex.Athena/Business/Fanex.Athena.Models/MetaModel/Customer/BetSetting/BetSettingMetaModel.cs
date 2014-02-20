@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
 {
+    using Fanex.Athena.Models.DataDomain;
+
     /// <summary>
     /// BetSettingMetaModel class.
     /// </summary>
@@ -13,13 +15,13 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
     {
         public BetSettingMetaModel()
         {
-            TabId = 1;
+            TabId = ProductType.Sportsbook;
             BetSettingName = "Sportsbook";
             Editable = true;
             IsAllowLiveCasino = false;
         }
 
-        public int TabId { get; set; }
+        public ProductType TabId { get; set; }
 
         public int CustId { get; set; }
 

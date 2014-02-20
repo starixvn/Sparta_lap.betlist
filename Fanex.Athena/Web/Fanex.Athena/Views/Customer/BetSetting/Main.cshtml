@@ -3,6 +3,7 @@
 }
 @model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Models.DataDomain;
 @section pagecss
 {
 }
@@ -13,13 +14,13 @@
 @{
     switch (Model.Param.TabId)
     {
-        case 1:
+        case ProductType.Sportsbook:
             ViewBag.BetSettingType = ViewResources.Sport;
             break;
-        case 2:
+        case ProductType.Racing:
             ViewBag.BetSettingType = ViewResources.Racing;
             break;
-        case 4:
+        case ProductType.VirtualSports:
             ViewBag.BetSettingType = ViewResources.Sport;
             break;
     }
@@ -27,12 +28,12 @@
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-@if (Model.Param.TabId == 1)
+@if (Model.Param.TabId == ProductType.Sportsbook)
 {
     <!--Check box-->
     <div class="copy-setting" id="copy-settting" style="width: 855px">
         @Html.CheckBox("chkCopyAll")
-        <label for="chkCopyAll">@(Model.Param.TabId == 1 ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
+        <label for="chkCopyAll">@(Model.Param.TabId == ProductType.Sportsbook ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
     </div>
     <!--Check box-->
 }

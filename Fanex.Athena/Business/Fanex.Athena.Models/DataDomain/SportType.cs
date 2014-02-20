@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DataDomain
 {
-    public enum SportType
+    public enum SportType : int
     {
         /// <summary>
         /// Soccer sport, value = 1.

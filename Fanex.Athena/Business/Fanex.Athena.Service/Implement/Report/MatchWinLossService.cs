@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -205,9 +206,15 @@ namespace Fanex.Athena.Service.Implement.Report
                         matchWinLoss.ShowTime);
 
                 default:
-                    var racingSportTypes = new List<int> { 181, 182, 184 };
-                    if (racingSportTypes.Contains(matchWinLoss.SportType))
+                    var racingSportTypes = new List<int>
                     {
+                        (int)SportType.VirtualHorseRacing,
+                        (int)SportType.VirtualGreyhound,
+                        (int)SportType.VirtualMotoRacing
+                    };
+
+                    if (racingSportTypes.Contains(matchWinLoss.SportType))
+                    {                        
                         return string.Format(_culturelEnglish, KICKOFFTIMEFORMATER, matchWinLoss.KickofTime);
                     }
 
