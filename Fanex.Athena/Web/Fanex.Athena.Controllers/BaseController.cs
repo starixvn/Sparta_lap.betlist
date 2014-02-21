@@ -11,6 +11,8 @@ namespace Fanex.Athena.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
@@ -46,6 +48,19 @@ namespace Fanex.Athena.Controllers
             {
                 return HttpContext.IsDebuggingEnabled;
             }
+        }
+
+        [NonAction]
+        public static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
+        {
+            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString())
+                ? BaseCurrencyType.Usd : BaseCurrencyType.All;
+        }
+
+        [NonAction]
+        public static void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
+        {
+            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

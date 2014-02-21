@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.DataDomain
     /// <summary>
     /// Base currency type constants.
     /// </summary>
-    public class BaseCurrencyType
+    public static class BaseCurrencyType
     {
         /// <summary>
         /// All types, value = 0.

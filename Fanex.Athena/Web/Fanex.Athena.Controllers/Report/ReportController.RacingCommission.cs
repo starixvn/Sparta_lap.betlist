@@ -37,7 +37,8 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);
 
             var model = new RacingCommissionViewModel
                 {

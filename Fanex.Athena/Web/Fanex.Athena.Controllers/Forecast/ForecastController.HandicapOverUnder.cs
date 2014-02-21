@@ -38,7 +38,8 @@ namespace Fanex.Athena.Controllers.Forecast
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,
                 UserId = SessionService.UserSession.UserId
             };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);
 
             var model = this.GetForecastViewModel(metaModel);
 

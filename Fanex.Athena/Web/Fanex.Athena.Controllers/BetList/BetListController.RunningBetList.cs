@@ -59,8 +59,8 @@ namespace Fanex.Athena.Controllers.BetList
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
+            SetConvetedUSDCurrencyName(metaModel);
+           
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,

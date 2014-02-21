@@ -46,7 +46,8 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                 LicenseeId = licenseeSession.LicenseeId
             };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);
 
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList

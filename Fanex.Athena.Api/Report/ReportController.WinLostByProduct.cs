@@ -183,7 +183,7 @@ namespace Fanex.Athena.Api.Report
             int level = 0,
             int currencyId = 0,
             int custId = 0)
-        {            
+        {
             if (!IsValidRequest(metaModel, currencyId))
             {
                 RedirectToErrorPage();

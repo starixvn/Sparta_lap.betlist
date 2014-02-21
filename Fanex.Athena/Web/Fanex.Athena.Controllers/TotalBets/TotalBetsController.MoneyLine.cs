@@ -19,6 +19,10 @@ namespace Fanex.Athena.Controllers.TotalBets
     /// </summary>
     public partial class TotalBetsController
     {
+        /// <summary>
+        /// Money-line pate.
+        /// </summary>
+        /// <returns>The report page.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult MoneyLine()
@@ -27,7 +31,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(param);
 
             return this.MoneyLineView(param);
         }

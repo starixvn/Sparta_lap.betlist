@@ -717,12 +717,14 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             RenderSport(row, "8", sportList); // Baseball
             RenderSport(row, "10", sportList); // Golf
             RenderSport(row, "11", sportList); // Moto
-            RenderSport(row, "99", sportList); // Other sports
+            RenderSport(row, "99", sportList); // Other sports            
 
             if (AppSettings.IsShowMixedSport)
             {
                 RenderSport(row, "99MP", sportList);
             }
+
+            RenderSport(row, "154", sportList); // Horse Racing Fixed Odds
 
             return sportList;
         }

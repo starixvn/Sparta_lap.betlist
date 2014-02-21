@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
@@ -14,11 +13,9 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
-    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// WinLossByLeagueController class.
@@ -45,7 +42,7 @@ namespace Fanex.Athena.Api.Report
         /// <summary>
         /// Win Loss By Product - Export excel.
         /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>        
+        /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Http Response Message.</returns>
         [HttpGet]
         public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
@@ -119,33 +116,9 @@ namespace Fanex.Athena.Api.Report
         }
 
         /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(WinLossByLeagueMetaModel metaModel, int currencyId = 0)
-        {
-            if (!IsValidSession)
-            {
-                return false;
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
-                                 || currencyList.Values.Contains(currencyId);
-
-            return validModel && validCurrency;
-        }
-
-        /// <summary>
         ///  Process request.
         /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>        
+        /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
@@ -189,6 +162,7 @@ namespace Fanex.Athena.Api.Report
                 AmountDue = dataList.Sum(x => x.AmountDue)
             };
         }
+
         #endregion ProcessRequest
-    }    
+    }
 }
