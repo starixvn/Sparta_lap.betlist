@@ -48,8 +48,8 @@ var CustTurnover = (function ($) {
         pagingOption:
         {
             pageindex: 1,
-            pagesize: 50,
-            pagelist: [50, 100, 1000],
+            pagesize: 25,
+            pagelist: [25, 50, 100, 500],
             totalrow: 1,
             elementcontainer: "#paging",
             method: "AJAX",
