@@ -14,6 +14,9 @@
         <div class="row" style="width:@ViewBag.TurnoverWidth@("px")">
             <div>@total.Turnover.ToStringExt()</div>
         </div>
+        <div class="row" style="width:@ViewBag.TotalTransWidth@("px")">
+            <div>@total.Turnover.ToStringExt()</div>
+        </div>
         @if (Model.IsAllowedCustomerCommission)
         {
             <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">

@@ -24,6 +24,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
             SortColumn = "ExternalId";
         }
 
+        public int DrawFilter { get; set; }
+
         public string SortDirection { get; set; }
 
         public string SortColumn { get; set; }
