@@ -71,6 +71,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             ExternalId = reader.ToString("nickname"),
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
+                            TotalTransaction = reader.ToDecimal("turnover" + metaModel.BaseCurrency) * 100,
                             MemberWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             MemberTotalWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
@@ -91,6 +92,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             totalData = new CustomerWinLoss
                             {
                                 Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency),
+                                TotalTransaction = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency) * 100,
                                 MemberWl = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
                                 PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency),
                                 LicenseeWl = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),

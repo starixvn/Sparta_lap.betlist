@@ -6,7 +6,7 @@
 namespace Fanex.Athena.Models.DataDomain
 {
     /// <summary>
-    /// Site type constants.
+    /// Draw filter type constants.
     /// </summary>
     public class DrawFilterType
     {
