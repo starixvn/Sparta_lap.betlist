@@ -41,7 +41,7 @@ else
                     <div>@item.Turnover.ToStringExt()</div>
                 </div>
                 <div class="row" style="width:@ViewBag.TotalTransWidth@("px")">
-                    <div>@item.TotalTransaction.ToStringExt()</div>
+                    <div>@item.TotalTransaction.ToString("#,##")</div>
                 </div>
                 @if (Model.IsAllowedCustomerCommission)
                 {

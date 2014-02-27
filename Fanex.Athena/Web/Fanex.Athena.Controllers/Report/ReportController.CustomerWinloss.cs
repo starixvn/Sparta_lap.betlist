@@ -80,7 +80,8 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
                 {
                     LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId
+                    UserId = SessionService.UserSession.UserId,
+                    DrawFilter = DrawFilterType.Normal
                 };
 
             SetConvetedUSDCurrencyName(historyParam);

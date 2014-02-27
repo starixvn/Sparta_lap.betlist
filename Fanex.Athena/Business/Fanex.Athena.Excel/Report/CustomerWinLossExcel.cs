@@ -28,10 +28,10 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnAmtDueToRacing = 12;
         private const int ColumnBaCommission = 9;
         private const int ColumnCustomerComm = 6;
-        private const int ColumnCustomerTotal = 8;
+        private const int ColumnCustomerTotal = 7;
         private const int ColumnCustomerWl = 5;
         private const int ColumnExternalId = 1;
-        private const int ColumnLicenseeWl = 7;
+        private const int ColumnLicenseeWl = 8;
         private const int ColumnRacingRevenue = 10;
         private const int ColumnSystemId = 2;
         private const int ColumnTemplateCount = 13;
@@ -160,7 +160,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnExternalId].SetCellValue(customerWinloss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(customerWinloss.SystemId);
                 row.Cells[ColumnTurnover].SetCellValue(customerWinloss.Turnover);
-                row.Cells[ColumnTurnover].SetCellValue(customerWinloss.TotalTransaction);
+                row.Cells[ColumnTotalTransaction].SetCellValue(customerWinloss.TotalTransaction);
                 row.Cells[ColumnCustomerWl].SetCellValue(customerWinloss.MemberWl);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerWinloss.PlayerComm);
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerWinloss.MemberWl + customerWinloss.PlayerComm);
