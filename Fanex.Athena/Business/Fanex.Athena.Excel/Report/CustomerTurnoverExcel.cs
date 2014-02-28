@@ -91,15 +91,15 @@ namespace Fanex.Athena.Excel.Report
                 ProcessUi(sheet);
             }
             else
-            {                
-                var dataIndex = 0;
-                var sheetIndex = 1;
-                while (dataIndex < numOfDataRow)
+            {                                
+                var numOfSheet = GetNumberOfSheets(_customerTurnoverList.Count, PageSize);
+
+                for (int i = 0; i < numOfSheet; i++)
                 {
-                    sheet = Workbook.CloneSheet("Template", "Data" + (sheetIndex++).ToString());
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
                     AssignTitle(sheet);
                     AssignHeader(sheet);
-                    AssignSheetData(sheet, ref dataIndex);
+                    AssignSheetData(sheet, i);
                     ProcessUi(sheet);
                 }
             }
@@ -139,24 +139,24 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        /// <param name="dataIndex">Start index.</param>
+        /// <param name="pageIndex">Page index.</param>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        public void AssignSheetData(ISheet sheet, ref int dataIndex)
+        public void AssignSheetData(ISheet sheet, int pageIndex)
         {
-            var rowCount = Math.Min(_customerTurnoverList.Count, PageSize);
-            var rowIndex = 0;            
-            var reportRowIndex = 0;
-            while (dataIndex < _customerTurnoverList.Count) 
-            {                
-                CustTurnover customerTurnover = _customerTurnoverList[dataIndex];
-                if (reportRowIndex == rowCount && customerTurnover.RowSpan > -1)
-                {
-                    break;
-                }
+            int rowCount = Math.Min(_customerTurnoverList.Count, (pageIndex + 1) * PageSize);
+            int rowIndex = 0;
+            var lastExcelRow = PageSize + RowContentTemplate;
 
+            var totalTurnover = 0m;
+            IRow lastTotalTurnoverRow = null;
+
+            for (int index = pageIndex * PageSize; index < rowCount; index++)
+            {
+                CustTurnover customerTurnover = _customerTurnoverList[index];
+                
                 var realIndex = rowIndex + RowContentTemplate;
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
 
@@ -166,8 +166,9 @@ namespace Fanex.Athena.Excel.Report
                     row.Cells[ColumnDate].SetCellValue(customerTurnover.ReportBy.ToString(_formatDateTime));
                     row.Cells[ColumnUserName].SetCellValue(customerTurnover.UserName);
                     row.Cells[ColumnCurrency].SetCellValue(customerTurnover.Currency);
-                    row.Cells[ColumnTotalTurnover].SetCellValue(customerTurnover.TotalTurnover);
-                    reportRowIndex++;                      
+
+                    lastTotalTurnoverRow = row;
+                    totalTurnover = 0; 
                 }
 
                 if (customerTurnover.RowSpan2 > -1)
@@ -177,17 +178,33 @@ namespace Fanex.Athena.Excel.Report
 
                 if (customerTurnover.RowSpan > 0)
                 {
+                    var oldRowSpan = customerTurnover.RowSpan;
+                    if (customerTurnover.RowSpan + realIndex > lastExcelRow)
+                    {
+                        customerTurnover.RowSpan = lastExcelRow - realIndex;
+                        _customerTurnoverList[index + customerTurnover.RowSpan].RowSpan = oldRowSpan - customerTurnover.RowSpan;
+                    }
+                    
                     sheet.MergeCells(realIndex, ColumnIndex, (customerTurnover.RowSpan - 1) + realIndex, ColumnIndex);
                     sheet.MergeCells(realIndex, ColumnDate, (customerTurnover.RowSpan - 1) + realIndex, ColumnDate);
                     sheet.MergeCells(realIndex, ColumnUserName, (customerTurnover.RowSpan - 1) + realIndex, ColumnUserName);
                     sheet.MergeCells(realIndex, ColumnCurrency, (customerTurnover.RowSpan - 1) + realIndex, ColumnCurrency);
-                    sheet.MergeCells(realIndex, ColumnTotalTurnover, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);                    
+                    sheet.MergeCells(realIndex, ColumnTotalTurnover, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);                     
                 }
 
                 if (customerTurnover.RowSpan2 > 0)
-                {
+                {                    
+                    var oldRowSpan = customerTurnover.RowSpan2;
+                    if (customerTurnover.RowSpan2 + realIndex > lastExcelRow)
+                    {
+                        customerTurnover.RowSpan2 = lastExcelRow - realIndex;
+                        _customerTurnoverList[index + customerTurnover.RowSpan].RowSpan2 = oldRowSpan - customerTurnover.RowSpan2;
+                    }
+
                     sheet.MergeCells(realIndex, ColumnSport, (customerTurnover.RowSpan2 - 1) + realIndex, ColumnSport);                    
                 }
+
+                totalTurnover += customerTurnover.Turnover;
 
                 row.Cells[ColumnBetType].SetCellValue(customerTurnover.Bettype);
                 row.Cells[ColumnTotalTransaction].SetCellValue(customerTurnover.TotalTransactions);
@@ -197,8 +214,12 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss +
                         customerTurnover.CustomerComm);
 
+                if (lastTotalTurnoverRow != null && customerTurnover.RowSpan < 2)
+                {
+                    lastTotalTurnoverRow.Cells[ColumnTotalTurnover].SetCellValue(totalTurnover);                    
+                }
+
                 rowIndex++;
-                dataIndex++;                
             }
 
             AssignTotalRow(sheet, rowIndex + RowContentTemplate);            
