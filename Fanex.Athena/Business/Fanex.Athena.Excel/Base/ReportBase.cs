@@ -31,13 +31,35 @@ namespace Fanex.Athena.Excel.Base
         public const int MaxExcelRowCount = 65000;
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
+        public const int MaxRowCount = 30000;
 
-        protected ReportBase(string templatePath, string exportingFileName, ShowingOption showingOption, ConvertingOption convertingOption)
+        private int _pageSize;
+
+        protected ReportBase(
+            string templatePath, 
+            string exportingFileName, 
+            ShowingOption showingOption, 
+            ConvertingOption convertingOption,
+            int pageSize = 0)
         {
             TemplatePath = templatePath;
             ExportingFileName = exportingFileName;
             ShowingOption = showingOption;
             ConvertingOption = convertingOption;
+            PageSize = pageSize;
+        }
+
+        public int PageSize
+        {
+            get 
+            { 
+                return _pageSize; 
+            }
+
+            set
+            {
+                _pageSize = (value == 0 || value > MaxRowCount) ? MaxRowCount : value;
+            }
         }
 
         public IList<int> ColumnTemplateIndexList
@@ -370,6 +392,11 @@ namespace Fanex.Athena.Excel.Base
             IRow row = sheet.CopyRow(TemplateSheet, sourceRowIndex, destRowIndex);
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
             row.Cells[0].SetCellValue(value);
+        }
+
+        protected int GetNumberOfSheets(int numberOfItems, int pageSize)
+        {
+            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
         }
     }
 }

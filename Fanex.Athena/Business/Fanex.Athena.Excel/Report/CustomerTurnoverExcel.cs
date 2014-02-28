@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Base;
@@ -42,7 +43,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<CustTurnover> _customerTurnoverList;
         private readonly string _formatDateTime;
-        private readonly CustTurnover _total;
+        private readonly CustTurnover _total;        
 
         public CustomerTurnoverExcel(
                                      string templatePath,
@@ -50,12 +51,13 @@ namespace Fanex.Athena.Excel.Report
                                      ShowingOption showingOption,
                                      IList<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
-                                     string formatDateTime)
-            : base(templatePath, exportingFileName, showingOption, new ConvertingOption())
+                                     string formatDateTime,
+                                     int pageSize = 0)
+            : base(templatePath, exportingFileName, showingOption, new ConvertingOption(), pageSize)
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;
-            _formatDateTime = formatDateTime;
+            _formatDateTime = formatDateTime;            
             HeaderTextList = new List<string>
             {
                 "#",
@@ -75,23 +77,32 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         public override void AssignData()
-        {
+        {            
             int numOfDataRow = _customerTurnoverList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
-            AssignTitle(sheet);
-            AssignHeader(sheet);
+            ISheet sheet;            
 
             if (numOfDataRow == 0)
             {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
+                ProcessUi(sheet);
             }
             else
-            {
-                AssignSheetData(sheet);
+            {                
+                var dataIndex = 0;
+                var sheetIndex = 1;
+                while (dataIndex < numOfDataRow)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (sheetIndex++).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, ref dataIndex);
+                    ProcessUi(sheet);
+                }
             }
-
-            ProcessUi(sheet);
         }
 
         /// <summary>
@@ -128,26 +139,35 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        /// <param name="dataIndex">Start index.</param>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        public override void AssignSheetData(ISheet sheet)
+        public void AssignSheetData(ISheet sheet, ref int dataIndex)
         {
-            int rowCount = _customerTurnoverList.Count;
-
-            for (int index = 0; index < rowCount; index++)
-            {
-                CustTurnover customerTurnover = _customerTurnoverList[index];
-                var realIndex = index + RowContentTemplate;
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
-                if (customerTurnover.RowSpan > -1)
+            var rowCount = Math.Min(_customerTurnoverList.Count, PageSize);
+            var rowIndex = 0;            
+            var reportRowIndex = 0;
+            while (dataIndex < _customerTurnoverList.Count) 
+            {                
+                CustTurnover customerTurnover = _customerTurnoverList[dataIndex];
+                if (reportRowIndex == rowCount && customerTurnover.RowSpan > -1)
                 {
+                    break;
+                }
+
+                var realIndex = rowIndex + RowContentTemplate;
+                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
+
+                if (customerTurnover.RowSpan > -1)
+                {                    
                     row.Cells[ColumnIndex].SetCellValue(customerTurnover.Index);
                     row.Cells[ColumnDate].SetCellValue(customerTurnover.ReportBy.ToString(_formatDateTime));
                     row.Cells[ColumnUserName].SetCellValue(customerTurnover.UserName);
                     row.Cells[ColumnCurrency].SetCellValue(customerTurnover.Currency);
                     row.Cells[ColumnTotalTurnover].SetCellValue(customerTurnover.TotalTurnover);
+                    reportRowIndex++;                      
                 }
 
                 if (customerTurnover.RowSpan2 > -1)
@@ -161,12 +181,12 @@ namespace Fanex.Athena.Excel.Report
                     sheet.MergeCells(realIndex, ColumnDate, (customerTurnover.RowSpan - 1) + realIndex, ColumnDate);
                     sheet.MergeCells(realIndex, ColumnUserName, (customerTurnover.RowSpan - 1) + realIndex, ColumnUserName);
                     sheet.MergeCells(realIndex, ColumnCurrency, (customerTurnover.RowSpan - 1) + realIndex, ColumnCurrency);
-                    sheet.MergeCells(realIndex, ColumnTotalTurnover, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);
+                    sheet.MergeCells(realIndex, ColumnTotalTurnover, (customerTurnover.RowSpan - 1) + realIndex, ColumnTotalTurnover);                    
                 }
 
                 if (customerTurnover.RowSpan2 > 0)
                 {
-                    sheet.MergeCells(realIndex, ColumnSport, (customerTurnover.RowSpan2 - 1) + realIndex, ColumnSport);
+                    sheet.MergeCells(realIndex, ColumnSport, (customerTurnover.RowSpan2 - 1) + realIndex, ColumnSport);                    
                 }
 
                 row.Cells[ColumnBetType].SetCellValue(customerTurnover.Bettype);
@@ -176,9 +196,12 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnCustomerComm].SetCellValue(customerTurnover.CustomerComm);
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss +
                         customerTurnover.CustomerComm);
+
+                rowIndex++;
+                dataIndex++;                
             }
 
-            AssignTotalRow(sheet, rowCount + RowContentTemplate);
+            AssignTotalRow(sheet, rowIndex + RowContentTemplate);            
         }
 
         /// <summary>
