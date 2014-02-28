@@ -96,9 +96,7 @@ namespace Fanex.Athena.Excel.Report
             else
             {
                 _pageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var numOfSheet = _customerWinlossList.Count % _pageSize == 0 
-                    ? _customerWinlossList.Count / _pageSize 
-                    : (_customerWinlossList.Count / _pageSize) + 1;
+                var numOfSheet = GetNumberOfSheets(_customerWinlossList.Count, _pageSize);
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());

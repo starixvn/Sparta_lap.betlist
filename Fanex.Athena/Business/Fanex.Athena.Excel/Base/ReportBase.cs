@@ -371,5 +371,10 @@ namespace Fanex.Athena.Excel.Base
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
             row.Cells[0].SetCellValue(value);
         }
+
+        protected int GetNumberOfSheets(int numberOfItems, int pageSize)
+        {
+            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
+        }
     }
 }
