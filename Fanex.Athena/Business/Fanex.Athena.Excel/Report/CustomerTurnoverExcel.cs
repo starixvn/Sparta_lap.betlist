@@ -270,7 +270,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTotalTurnover].SetCellValue(_total.Turnover);
             row.Cells[ColumnCustomerWl].SetCellValue(_total.CustomerWinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(_total.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerWinLoss + _total.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerTotal);
 
             sheet.MergeCells(totalRow, 0, totalRow, 1);
         }
