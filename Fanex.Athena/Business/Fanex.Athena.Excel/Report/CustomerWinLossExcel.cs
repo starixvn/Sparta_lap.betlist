@@ -143,7 +143,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="startIndex">Start index.</param>
-        public void AssignSheetData(ISheet sheet, int startIndex)
+        public override void AssignSheetData(ISheet sheet, int startIndex)
         {
             int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * _pageSize);
             int rowIndex = 0;

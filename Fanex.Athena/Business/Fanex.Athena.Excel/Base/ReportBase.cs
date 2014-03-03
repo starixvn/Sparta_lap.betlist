@@ -36,9 +36,9 @@ namespace Fanex.Athena.Excel.Base
         private int _pageSize;
 
         protected ReportBase(
-            string templatePath, 
-            string exportingFileName, 
-            ShowingOption showingOption, 
+            string templatePath,
+            string exportingFileName,
+            ShowingOption showingOption,
             ConvertingOption convertingOption,
             int pageSize = 0)
         {
@@ -51,9 +51,9 @@ namespace Fanex.Athena.Excel.Base
 
         public int PageSize
         {
-            get 
-            { 
-                return _pageSize; 
+            get
+            {
+                return _pageSize;
             }
 
             set
@@ -174,6 +174,10 @@ namespace Fanex.Athena.Excel.Base
         }
 
         public virtual void AssignSheetData(ISheet sheet)
+        {
+        }
+
+        public virtual void AssignSheetData(ISheet sheet, int startIndex)
         {
         }
 
