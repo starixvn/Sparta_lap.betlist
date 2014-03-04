@@ -36,6 +36,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// RNGCasino product.
         /// </summary>
-        RngCasino = 6
+        RngCasino = 6,
+
+        /// <summary>
+        /// Keno product.
+        /// </summary>
+        Keno = 7
     }
 }

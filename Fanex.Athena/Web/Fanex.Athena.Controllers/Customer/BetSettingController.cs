@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeList = _licenseeService.GetByResellerId(userId, BopingResellerId);
             metaModel.Editable = licenseeList.Contains(licenceeId) || metaModel.LicenessId == Licensee12Bet ||
                                  metaModel.LicenessId == LicenseeSpondemo;
-            var productAccess = this._productService.GetProductAccess(licenceeId, SessionService.UserSession.Language, false);
+            var productAccess = this._productService.GetProductAccess(licenceeId, SessionService.UserSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
             metaModel.IsAllowRacing = productAccess.IsAllowRb;            
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVs;

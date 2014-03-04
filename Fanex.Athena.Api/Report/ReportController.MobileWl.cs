@@ -70,7 +70,7 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "MobileWinLoss.xls";
             var licenseeSession = SessionService.LicenseeSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
 
             var showingOption = new ShowingOption
                 {

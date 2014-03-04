@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyId = 0
                 };
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.Ba)
                                              .Select(i => new ProductOption
                                                  {
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     Param = metaModel,
                     IsValidTimeRequest = true,
@@ -95,7 +95,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo),
                     CurrencyList = SessionService.UserSession.CurrencyList,
                     Param = metaModel
                 };
@@ -153,7 +153,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
 
             var showingOption = new ShowingOption
                 {

@@ -19,12 +19,17 @@ namespace Fanex.Athena.Api
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
     using NPOI.SS.UserModel;
+    using Fanex.Athena.Models.DTO.Common;
 
     /// <summary>
     /// Base API Controller.
     /// </summary>
     public class BaseApiController : ApiController
     {
+        public readonly string[] IgnoreCasinoAngBingo = new string[] { Product.Cs, Product.Bg };
+        public readonly string[] IgnoreKeno = new string[] { Product.Kn };
+        public readonly string[] IgnoreCasinoAndBingoAndKeno = new string[] { Product.Cs, Product.Bg, Product.Kn };
+
         protected readonly IProductService ProductService;
         protected readonly ICurrencyService CurrencyService;
         protected readonly ISessionService SessionService;

@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = SessionService.UserSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
                     TotalData = new CustPendingFunds(),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     Param = metaModel,
                     TotalRows = 0,
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     TotalRows = totalRows,

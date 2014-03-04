@@ -205,7 +205,7 @@ namespace Fanex.Athena.Controllers.Customer
             var model = new CustomerListViewModel { Param = metaModel };
             model.CurrencyList = SessionService.UserSession.CurrencyList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
             model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
             model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;

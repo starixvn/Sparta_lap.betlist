@@ -89,18 +89,13 @@ namespace Fanex.Athena.Service.Implement.Common
         /// </summary>
         /// <param name="licenseeId">The licensee identity.</param>
         /// <param name="languageCode">The language code.</param>
-        /// <param name="ignoreBgAndCs">Ignore Bingo And casino.</param>
+        /// <param name="ignoreProducts">Ignored products.</param>
         /// <returns>The accessed product.</returns>
-        public ProductAccess GetProductAccess(int licenseeId, string languageCode, bool ignoreBgAndCs = true)
+        public ProductAccess GetProductAccess(int licenseeId, string languageCode, string[] ignoreProducts = null)
         {
-            var productList = this.GetProductList(licenseeId, languageCode);
-
-            if (ignoreBgAndCs)
-            {
-                productList = productList
-                                .Where(p => p.ProductCode != Product.Cs && p.ProductCode != Product.Bg)
-                                .ToList();
-            }
+            var originalProducts = this.GetProductList(licenseeId, languageCode);
+            var productList = ignoreProducts != null ? originalProducts.Where(i => !ignoreProducts.Contains(i.ProductCode)).ToList()
+                : originalProducts;
 
             return new ProductAccess(productList);
         }

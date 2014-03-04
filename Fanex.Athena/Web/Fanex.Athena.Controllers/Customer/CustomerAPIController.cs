@@ -44,7 +44,6 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeService _licenseeService;
         private readonly IProductService _productService;
-
         #endregion Fields
 
         #region Constructor
@@ -283,7 +282,8 @@ namespace Fanex.Athena.Controllers.Customer
                               commList.Any(i => i.Value == metaModel.LCComm) &&
                               commList.Any(i => i.Value == metaModel.CSComm);
                 var licenseeSession = SessionService.LicenseeSession;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+                var productAccess =
+                    _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
                 if (isvalid)
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -397,7 +397,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
@@ -437,7 +437,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.IsAllowedNG = productAccess.IsAllowNg;
@@ -514,7 +514,7 @@ namespace Fanex.Athena.Controllers.Customer
         [NonAction]
         private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
-            metaModel.Language = SessionService.UserSession.Language;            
+            metaModel.Language = SessionService.UserSession.Language;
             var temp = _customerService.UpdateCustomersCommission(metaModel, metaModel.IsAllowedCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;

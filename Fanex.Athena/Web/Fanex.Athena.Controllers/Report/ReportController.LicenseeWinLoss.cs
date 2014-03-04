@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult LicenseeWinLoss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productList = productAccess.ProductList;
             var metaModel = new LicenseeWinLossMetaModel
                 {

@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Models.DTO.Common;
 
     #endregion Using
 
@@ -26,7 +27,9 @@ namespace Fanex.Athena.Controllers
     public class BaseController : Controller
     {
         #region Members
-
+        public readonly string[] IgnoreCasinoAngBingo = { Product.Cs, Product.Bg };
+        public readonly string[] IgnoreKeno = { Product.Kn };
+        public readonly string[] IgnoreCasinoAndBingoAndKeno = { Product.Cs, Product.Bg, Product.Kn };
         public readonly ILanguageService LangService;
         public readonly ISessionService SessionService;
         public readonly ICurrencyService CurrencyService;
