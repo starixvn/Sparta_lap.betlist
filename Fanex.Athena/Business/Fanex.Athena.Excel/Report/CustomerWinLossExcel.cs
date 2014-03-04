@@ -44,8 +44,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<CustomerWinLoss> _customerWinlossList;
         private readonly CustomerWinLoss _total;
-        private readonly CustomerWinLossViewModel _viewModel;
-        private int _pageSize;
+        private readonly CustomerWinLossViewModel _viewModel;        
 
         public CustomerWinLossExcel(
                                     string templatePath,
@@ -95,8 +94,8 @@ namespace Fanex.Athena.Excel.Report
             }
             else
             {
-                _pageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var numOfSheet = GetNumberOfSheets(_customerWinlossList.Count, _pageSize);
+                PageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
+                var numOfSheet = GetNumberOfSheets(_customerWinlossList.Count, PageSize);
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
@@ -145,10 +144,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="startIndex">Start index.</param>
         public override void AssignSheetData(ISheet sheet, int startIndex)
         {
-            int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * _pageSize);
+            int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * PageSize);
             int rowIndex = 0;
 
-            for (int index = startIndex * _pageSize; index < rowCount; index++)
+            for (int index = startIndex * PageSize; index < rowCount; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
