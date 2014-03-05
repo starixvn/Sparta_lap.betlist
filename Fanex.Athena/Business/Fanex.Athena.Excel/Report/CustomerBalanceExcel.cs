@@ -118,13 +118,13 @@ namespace Fanex.Athena.Excel.Report
                     ISheet sheet = Workbook.CloneSheet("Template", "Customer Balance" + (i + 1));
                     AssignTitle(sheet);
                     AssignHeader(sheet);
-                     rowIndex=  AssignSheetData(sheet, i);
-                    
+                    rowIndex = AssignSheetData(sheet, i);
+
                     if (i == sheetCount - 1)
                     {
                         AssignTotalData(sheet, rowIndex + RowContentTemplate);
                     }
-                    // Hide unnecessary column
+
                     ProcessUi(sheet);
                 }
             }
@@ -163,10 +163,10 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign data row.
+        /// Assign data to sheet.
         /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">The row index. </param>
+        /// <param name="sheet">The sheet.</param>
+        /// <param name="pageIndex">The sheet index.</param>
         /// <returns>The row index.</returns>
         public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
@@ -203,8 +203,8 @@ namespace Fanex.Athena.Excel.Report
 
                 rowIndex++;
             }
+
             return rowIndex;
-          
         }
 
         /// <summary>
