@@ -28,7 +28,6 @@ namespace Fanex.Athena.Excel.Base
     /// </summary>
     public abstract class ReportBase : ExcelBase
     {
-        public const int MaxExcelRowCount = 65000;
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
@@ -177,8 +176,9 @@ namespace Fanex.Athena.Excel.Base
         {
         }
 
-        public virtual void AssignSheetData(ISheet sheet, int startIndex)
+        public virtual int AssignSheetData(ISheet sheet, int startIndex)
         {
+            return 0;
         }
 
         public virtual void AssignTitle(ISheet sheet)
