@@ -389,6 +389,9 @@ var CustTurnover = (function ($) {
         },
         exportExcel: function () {
             var form = $("#CustomerTurnoverForm");
+            /*update paging*/
+            CustTurnover.excelParam.pageindex = CustTurnover.pagingOption.pageindex;
+            CustTurnover.excelParam.pagesize = CustTurnover.pagingOption.pagesize;
             $("#excelparam").val(JSON.stringify(CustTurnover.excelParam));
             form.submit();
         },
