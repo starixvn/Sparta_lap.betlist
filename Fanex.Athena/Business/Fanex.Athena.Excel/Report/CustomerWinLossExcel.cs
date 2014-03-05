@@ -44,7 +44,6 @@ namespace Fanex.Athena.Excel.Report
         private readonly IList<CustomerWinLoss> _customerWinlossList;
         private readonly CustomerWinLoss _total;
         private readonly CustomerWinLossViewModel _viewModel;
-        private int _pageSize;
 
         public CustomerWinLossExcel(
                                     string templatePath,
@@ -93,10 +92,10 @@ namespace Fanex.Athena.Excel.Report
             }
             else
             {
-                _pageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var numOfSheet = _customerWinlossList.Count % _pageSize == 0 
-                    ? _customerWinlossList.Count / _pageSize 
-                    : (_customerWinlossList.Count / _pageSize) + 1;
+                this.PageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
+                var numOfSheet = _customerWinlossList.Count % PageSize == 0
+                    ? _customerWinlossList.Count / PageSize
+                    : (_customerWinlossList.Count / PageSize) + 1;
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
@@ -143,12 +142,13 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="startIndex">Start index.</param>
-        public override void AssignSheetData(ISheet sheet, int startIndex)
+        /// <returns>The row index.</returns>
+        public override int AssignSheetData(ISheet sheet, int startIndex)
         {
-            int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * _pageSize);
+            int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * PageSize);
             int rowIndex = 0;
 
-            for (int index = startIndex * _pageSize; index < rowCount; index++)
+            for (int index = startIndex * PageSize; index < rowCount; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
@@ -173,6 +173,7 @@ namespace Fanex.Athena.Excel.Report
             AssignSumData(sheet, rowIndex);
 
             ProcessUi(sheet);
+            return rowIndex;
         }
 
         /// <summary>
