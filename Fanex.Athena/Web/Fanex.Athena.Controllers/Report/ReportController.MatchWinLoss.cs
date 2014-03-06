@@ -192,7 +192,7 @@ namespace Fanex.Athena.Controllers.Report
                 LcVisible = productAccess.IsAllowLc,
                 SbVisible = productAccess.IsAllowSB,
                 VsVisible = productAccess.IsAllowVs,
-
+                KnVisible = productAccess.IsAllowKN,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             var convertingOption = new ConvertingOption

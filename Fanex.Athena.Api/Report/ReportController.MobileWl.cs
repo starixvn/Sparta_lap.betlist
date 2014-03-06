@@ -81,6 +81,7 @@ namespace Fanex.Athena.Api.Report
                     SbVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Sb && p.Status),
                     VsVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Vs && p.Status),
                     CsVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Cs && p.Status),
+                    KnVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Kn && p.Status),
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
             var convertingOption = new ConvertingOption
