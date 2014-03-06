@@ -142,7 +142,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",
@@ -159,7 +159,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",
@@ -176,7 +176,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",
