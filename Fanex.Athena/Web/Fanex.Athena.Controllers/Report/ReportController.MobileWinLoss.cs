@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new MobileWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {

@@ -14,12 +14,12 @@ namespace Fanex.Athena.Api
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
     using NPOI.SS.UserModel;
-    using Fanex.Athena.Models.DTO.Common;
 
     /// <summary>
     /// Base API Controller.

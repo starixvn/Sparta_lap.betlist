@@ -37,14 +37,14 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = new TurnoverMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                UserId = SessionService.UserSession.UserId,                
+                UserId = SessionService.UserSession.UserId,
             };
 
             SetConvetedUSDCurrencyName(metaModel);
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.Ba) == false)
                                              .Select(i => new ProductOption
                                                  {
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
 
             metaModel.Username = metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
 
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
 
             var convertingOption = new ConvertingOption
                 {

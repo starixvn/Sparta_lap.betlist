@@ -99,7 +99,7 @@ var WinLossByLeagueOption = (function () {
             align: 'right',
             sortable: false,
             resizable: false,
-            formatter: 'currency',
+            formatter: jqGridAdditional.formatDecimal,
             formatoptions:
             {
                 decimalSeparator: ".",

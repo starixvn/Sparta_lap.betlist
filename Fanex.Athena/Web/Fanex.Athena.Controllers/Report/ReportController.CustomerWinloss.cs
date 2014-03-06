@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = new CustomerWinLossMetaModel { LicenseeId = this.SessionService.LicenseeSession.LicenseeId };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     IsHistory = false
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Report
                 };
 
             SetConvetedUSDCurrencyName(historyParam);
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     HistoryParam = historyParam,
                     IsHistory = true
@@ -122,17 +122,17 @@ namespace Fanex.Athena.Controllers.Report
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            
+
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     IsHistory = false
                 };
-                        
+
             model.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;
@@ -161,12 +161,12 @@ namespace Fanex.Athena.Controllers.Report
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            
+
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     HistoryParam = metaModel,
                     TotalRows = totalRows,
@@ -204,7 +204,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
                 {
@@ -251,7 +251,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
                 {
