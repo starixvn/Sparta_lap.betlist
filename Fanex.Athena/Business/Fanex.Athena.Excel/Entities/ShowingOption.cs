@@ -24,6 +24,7 @@ namespace Fanex.Athena.Excel.Entities
             LcVisible = false;
             CsVisible = false;
             BgVisible = false;
+            KnVisible = false;
         }
 
         public bool BaVisible
@@ -95,6 +96,12 @@ namespace Fanex.Athena.Excel.Entities
         }
 
         public bool VsVisible
+        {
+            get;
+            set;
+        }
+
+        public bool KnVisible
         {
             get;
             set;

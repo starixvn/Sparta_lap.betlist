@@ -88,6 +88,7 @@ namespace Fanex.Athena.Api.Report
                 LcVisible = productAccess.IsAllowLc,
                 SbVisible = productAccess.IsAllowSB,
                 VsVisible = productAccess.IsAllowVs,
+                KnVisible = productAccess.IsAllowKN,
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
