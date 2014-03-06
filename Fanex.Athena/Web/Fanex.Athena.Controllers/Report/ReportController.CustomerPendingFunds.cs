@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = SessionService.UserSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -92,13 +92,13 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language,IgnoreCasinoAngBingo),
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     TotalRows = totalRows,
                 };
 
-            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);            
+            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             model.TotalRows = totalRows;
             model.DataList = dataList;

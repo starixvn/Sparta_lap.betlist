@@ -12,12 +12,12 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
-    using Fanex.Athena.Models.DTO.Common;
 
     #endregion Using
 

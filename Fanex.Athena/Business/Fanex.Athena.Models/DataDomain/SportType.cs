@@ -279,7 +279,7 @@ namespace Fanex.Athena.Models.DataDomain
         VirtualMotoRacing = 184,
 
         /// <summary>
-        /// Keno product ,value=202
+        /// Keno product ,value=202.
         /// </summary>
         Keno = 202
     }
