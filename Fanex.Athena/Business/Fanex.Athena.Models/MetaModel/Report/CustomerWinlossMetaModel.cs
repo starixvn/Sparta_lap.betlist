@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Report
 {
     using System;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     /// CustomerWinLossMetaModel class.
@@ -22,6 +23,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
             PageSize = 1000;
             SortDirection = "ASC";
             SortColumn = "ExternalId";
+            DrawFilter = DrawFilterType.Normal;
         }
 
         public int DrawFilter { get; set; }

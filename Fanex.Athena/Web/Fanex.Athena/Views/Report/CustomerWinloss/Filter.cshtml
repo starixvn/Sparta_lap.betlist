@@ -10,7 +10,7 @@
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("CustomerWinLoss", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
-    {      
+    {
         <div>
             @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
@@ -19,7 +19,7 @@
             @Html.Hidden("SortColumn", Model.Param.SortColumn)
             @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
             @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-        </div>    
+        </div>
         @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, DateTime.Today, "", "", 2, 3, 2, 3)
         <div class="new-line">
         </div>
@@ -31,7 +31,8 @@
             @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", modelParam.CurrencyId)
         </div>
         <div class="grid_3 filter-label">
-            <label for="BaseCurrency">@ViewResources.Based </label>
+            <label for="BaseCurrency">@ViewResources.Based
+            </label>
         </div>
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
@@ -46,18 +47,18 @@
                title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
-@*End Row 1*@ 
+@*End Row 1*@
 @*Row 2*@
 
-@*End Row 2*@ 
+@*End Row 2*@
 @*Row 3*@
         <div class="new-line">
         </div>
         @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2, 4 + Model.Param.ProductOptions.Count * 2)
-@*End Row 3*@    
+@*End Row 3*@
 @*Row 4 - Note*@
 
-      <div class="grid_2 filter-label new-line">
+@*    <div class="grid_2 filter-label new-line">
         <label>
             @ViewResources.DrawFilter
         </label>
@@ -75,22 +76,22 @@
         <label>
             @ViewResources.NoDrawsForTurnoverOnly
         </label>
-    </div>        
+    </div>       *@
         <div class="grid_2 filter-label new-line">
         </div>
         <div class="grid_@(Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? 15 : 13) filter-input">
             <div class="note-message">
-                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
-                <a href="javascript:;" id="history-report-link" style="text-decoration:none;">  @ViewResources.ToViewHistoryRptMsg</a>
+                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate), <a href="javascript:;"
+                    id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
             </div>
         </div>
-    
+
         <div class="grid_2 filter-label new-line">
             &nbsp;</div>
         <div class="grid_2 filter-input">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-@*End Row 4*@    
-        
+@*End Row 4*@
+
     }
 </div>
