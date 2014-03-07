@@ -2725,6 +2725,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keno.
+        /// </summary>
+        public static string Keno {
+            get {
+                return ResourceManager.GetString("Keno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kick Off. Time.
         /// </summary>
         public static string KickOffTime {

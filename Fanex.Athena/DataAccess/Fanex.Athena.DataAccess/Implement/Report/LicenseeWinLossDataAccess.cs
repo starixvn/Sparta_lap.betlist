@@ -219,7 +219,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 }
 
                 var item = new LicenseeWinLoss
-                {                    
+                {
                     SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
                     ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
                     CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,

@@ -2368,4 +2368,7 @@
   <data name="WinLossByLeague" xml:space="preserve">
     <value>Win Loss By Leagues</value>
   </data>
+  <data name="Keno" xml:space="preserve">
+    <value>Keno</value>
+  </data>
 </root>
