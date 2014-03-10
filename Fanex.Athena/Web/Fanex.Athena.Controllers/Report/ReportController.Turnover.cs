@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.Ba) == false)
                                              .Select(i => new ProductOption
                                                  {
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
 
             metaModel.Username = metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
 
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
 
             var convertingOption = new ConvertingOption
                 {

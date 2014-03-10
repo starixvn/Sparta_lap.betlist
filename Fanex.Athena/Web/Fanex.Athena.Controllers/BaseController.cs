@@ -29,6 +29,7 @@ namespace Fanex.Athena.Controllers
         #region Members
         public readonly string[] IgnoreCasinoAngBingo = { Product.Cs, Product.Bg };
         public readonly string[] IgnoreKeno = { Product.Kn };
+        public readonly string[] IgnoreBingo = { Product.Bg };
         public readonly string[] IgnoreCasinoAndBingoAndKeno = { Product.Cs, Product.Bg, Product.Kn };
         public readonly ILanguageService LangService;
         public readonly ISessionService SessionService;
