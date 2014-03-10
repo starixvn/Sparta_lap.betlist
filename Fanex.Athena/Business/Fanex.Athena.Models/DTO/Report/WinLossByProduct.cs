@@ -86,6 +86,9 @@ namespace Fanex.Athena.Models.DTO.Report
                         case "BG":
                             _productName = ViewResources.Bingo;
                             break;
+                        case "KN":
+                            _productName = ViewResources.Keno;
+                            break;
                         default:
                             _productName = _productCode;
                             break;
@@ -125,3 +128,13 @@ namespace Fanex.Athena.Models.DTO.Report
         #endregion ICustomerWinLoss Members
     }
 }
+
+var addMyEvent = function( el,ev,fn ){
+    if(el.addEventListener){
+        el.addEventListener( ev,fn, false );
+    }else if(el.attachEvent){
+        el.attachEvent( 'on'+ ev, fn );
+    } else{
+        el['on' + ev] = fn;
+    }
+};
