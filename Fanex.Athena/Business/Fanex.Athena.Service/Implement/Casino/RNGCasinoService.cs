@@ -123,7 +123,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
             const string AdditionErrorMsgPattern = "\n IP={0},CustomerId={1},ModifyBy={2},ModifyBy={3},System={4},Site={5}";
             var customer = new CasinoLibrary.SBAgent.Customer();
-            var additionalErrorMsg = string.Format(
+            var additionalErrorMsg = string.Format(AdditionErrorMsgPattern,
                 metaModel.FromIp,
                 metaModel.CustomerId,
                 metaModel.ModifyBy,
@@ -142,12 +142,12 @@ namespace Fanex.Athena.Service.Implement.Casino
                      metaModel.FromSystem);
                 if (!success)
                 {
-                    LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + AdditionErrorMsgPattern);
+                    LogService.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);
                 }
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message + AdditionErrorMsgPattern, exception);
+                LogService.Error(exception.Message + additionalErrorMsg, exception);
             }
 
             return success;
