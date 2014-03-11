@@ -42,8 +42,6 @@ namespace Fanex.Athena.Controllers.Report
                 DrawFilter = DrawFilterType.Normal
             };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
-
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
@@ -54,16 +52,12 @@ namespace Fanex.Athena.Controllers.Report
                                                  }).ToList();
 
             metaModel.ProductOptions = productOption;
-
             var currencyList = SessionService.UserSession.CurrencyList;
 
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
-
-
                     ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
-
                     Param = metaModel,
                     IsHistory = false
                 };
@@ -214,8 +208,6 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-
-
             var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
@@ -262,8 +254,6 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-
-
             var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
