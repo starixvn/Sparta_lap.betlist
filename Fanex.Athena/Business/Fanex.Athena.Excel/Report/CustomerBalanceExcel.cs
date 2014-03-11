@@ -163,11 +163,11 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign sheet data.
+        /// Assign data row.
         /// </summary>
-        /// <param name="sheet">Sheet value.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <returns>Row Index.</returns>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="pageIndex">The page index. </param>
+        /// <returns>The row index.</returns>
         public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = _exportData.Count;
