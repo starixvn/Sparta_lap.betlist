@@ -15,6 +15,9 @@
     <div class="row sort-heading" style="width:@ViewBag.TurnoverWidth@("px")" data-column-name="Turnover">
         @ViewResources.Turnover
     </div>
+    <div class="row sort-heading" style="width:@ViewBag.TotalTransWidth@("px")" data-column-name="TotalTransaction">
+        @ViewResources.TotalTransaction
+    </div>
     @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
     (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
     (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth, true)

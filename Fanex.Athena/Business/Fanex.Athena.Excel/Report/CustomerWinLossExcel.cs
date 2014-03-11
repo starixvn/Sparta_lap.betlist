@@ -24,18 +24,19 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class CustomerWinLossExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 10;
-        private const int ColumnAmtDueToRacing = 11;
-        private const int ColumnBaCommission = 8;
-        private const int ColumnCustomerComm = 5;
-        private const int ColumnCustomerTotal = 6;
-        private const int ColumnCustomerWl = 4;
+        private const int ColumnAmtDueToBa = 11;
+        private const int ColumnAmtDueToRacing = 12;
+        private const int ColumnBaCommission = 9;
+        private const int ColumnCustomerComm = 6;
+        private const int ColumnCustomerTotal = 7;
+        private const int ColumnCustomerWl = 5;
         private const int ColumnExternalId = 1;
-        private const int ColumnLicenseeWl = 7;
-        private const int ColumnRacingRevenue = 9;
+        private const int ColumnLicenseeWl = 8;
+        private const int ColumnRacingRevenue = 10;
         private const int ColumnSystemId = 2;
-        private const int ColumnTemplateCount = 12;
+        private const int ColumnTemplateCount = 13;
         private const int ColumnTurnover = 3;
+        private const int ColumnTotalTransaction = 4;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -43,7 +44,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<CustomerWinLoss> _customerWinlossList;
         private readonly CustomerWinLoss _total;
-        private readonly CustomerWinLossViewModel _viewModel;
+        private readonly CustomerWinLossViewModel _viewModel;        
 
         public CustomerWinLossExcel(
                                     string templatePath,
@@ -62,6 +63,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
                 ViewResources.Turnover,
+                ViewResources.TotalTransaction,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
@@ -92,10 +94,8 @@ namespace Fanex.Athena.Excel.Report
             }
             else
             {
-                this.PageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
-                var numOfSheet = _customerWinlossList.Count % PageSize == 0
-                    ? _customerWinlossList.Count / PageSize
-                    : (_customerWinlossList.Count / PageSize) + 1;
+                PageSize = _viewModel.IsHistory ? _viewModel.HistoryParam.PageSize : _viewModel.Param.PageSize;
+                var numOfSheet = GetNumberOfSheets(_customerWinlossList.Count, PageSize);
                 for (int i = 0; i < numOfSheet; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
@@ -142,7 +142,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="startIndex">Start index.</param>
-        /// <returns>The row index.</returns>
+        /// <returns>Row index.</returns>
         public override int AssignSheetData(ISheet sheet, int startIndex)
         {
             int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * PageSize);
@@ -158,6 +158,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnExternalId].SetCellValue(customerWinloss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(customerWinloss.SystemId);
                 row.Cells[ColumnTurnover].SetCellValue(customerWinloss.Turnover);
+                row.Cells[ColumnTotalTransaction].SetCellValue(customerWinloss.TotalTransaction);
                 row.Cells[ColumnCustomerWl].SetCellValue(customerWinloss.MemberWl);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerWinloss.PlayerComm);
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerWinloss.MemberWl + customerWinloss.PlayerComm);
@@ -232,6 +233,7 @@ namespace Fanex.Athena.Excel.Report
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotalNumber);
 
             row.Cells[ColumnTurnover].SetCellValue(_total.Turnover);
+            row.Cells[ColumnTotalTransaction].SetCellValue(_total.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(_total.MemberWl);
             row.Cells[ColumnCustomerComm].SetCellValue(_total.PlayerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(_total.MemberWl + _total.PlayerComm);
