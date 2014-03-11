@@ -124,7 +124,8 @@ namespace Fanex.Athena.Excel.Report
                     {
                         AssignTotalData(sheet, rowIndex + RowContentTemplate);
                     }
-                    // Hide unnecessary column                    ProcessUi(sheet);
+                    
+                    ProcessUi(sheet);
                 }
             }
         }
