@@ -57,7 +57,10 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
+                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
                     ProductAccess = productAccess,
+                    CurrencyList = currencyList,
                     Param = metaModel,
                     IsHistory = false
                 };
