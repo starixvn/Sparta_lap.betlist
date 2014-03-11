@@ -126,7 +126,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             var additionalErrorMsg = string.Format(
                 AdditionErrorMsgPattern,
                 metaModel.FromIp,
-                metaModel.CustomerId,
+                string.Join(",", metaModel.CustomerId),
                 metaModel.ModifyBy,
                 metaModel.ModifyUserName,
                 metaModel.FromSystem,

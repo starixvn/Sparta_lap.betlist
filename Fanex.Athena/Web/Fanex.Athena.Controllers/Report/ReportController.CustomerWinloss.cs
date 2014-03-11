@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult CustomerWinLoss()
-        {
+        {            
             var metaModel = new CustomerWinLossMetaModel
             {
                 LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
+                    ProductAccess = productAccess,
                     Param = metaModel,
                     IsHistory = false
                 };
@@ -99,8 +99,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
+                    ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     HistoryParam = historyParam,
                     IsHistory = true
@@ -130,7 +129,6 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-
                     ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
@@ -170,7 +168,6 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-
                     ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     HistoryParam = metaModel,
