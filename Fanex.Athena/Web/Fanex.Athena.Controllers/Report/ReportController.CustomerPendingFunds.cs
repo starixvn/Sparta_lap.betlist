@@ -76,7 +76,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
-        [OutputCache(Duration = 0, VaryByParam = "None")]
         [FunctionAuthorization]
         [ValidateInput(false)]
         public ActionResult CustomerPendingFunds(CustomerPendingFundsMetaModel metaModel)
