@@ -59,9 +59,7 @@ namespace Fanex.Athena.Controllers.Report
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
                             {
-                                CurrencyId = 0,
                                 LicenseeId = licenseeSession.LicenseeId,
-                                SportId = 0,
                                 UserId = SessionService.UserSession.UserId,
                                 FromDate = metaModel.FromDate,
                                 ToDate = metaModel.ToDate
