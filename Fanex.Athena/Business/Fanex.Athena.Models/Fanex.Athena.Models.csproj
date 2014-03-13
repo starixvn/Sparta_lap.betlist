@@ -68,6 +68,7 @@
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\ProductType.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
+    <Compile Include="DataDomain\ReportBy.cs" />
     <Compile Include="DataDomain\SiteType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
