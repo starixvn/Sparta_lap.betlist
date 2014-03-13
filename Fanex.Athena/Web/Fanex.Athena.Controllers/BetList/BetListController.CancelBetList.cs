@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetList;
@@ -117,7 +118,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var currencyList = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
 

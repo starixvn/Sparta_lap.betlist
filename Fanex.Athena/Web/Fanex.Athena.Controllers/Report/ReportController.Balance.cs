@@ -44,7 +44,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = SessionService.UserSession.UserId;
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             var reportData = _creditBalanceService.GetReportData(metaModel);
 
@@ -53,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                     MainData = reportData,
                     Param = metaModel,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = currencyList,
+                    CurrencyList = SessionService.UserSession.CurrencyList,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
                 };

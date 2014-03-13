@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Models.ViewModel.BetList;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Fanex.Athena.Models.DataDomain;
 
     #endregion Using
 
@@ -51,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
                     return RunningBetListExcel(metaModel);
                 }
