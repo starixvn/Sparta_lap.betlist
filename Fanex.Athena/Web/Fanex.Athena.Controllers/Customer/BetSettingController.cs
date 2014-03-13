@@ -113,6 +113,8 @@ namespace Fanex.Athena.Controllers.Customer
             var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);            
             metaModel.IsAllowRngCasino = productAccess.IsAllowCs && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLc && customerInfo.SyncLiveCasino;
+
+            ViewBag.HasCustComm = SessionService.LicenseeSession != null && SessionService.LicenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
         }
 

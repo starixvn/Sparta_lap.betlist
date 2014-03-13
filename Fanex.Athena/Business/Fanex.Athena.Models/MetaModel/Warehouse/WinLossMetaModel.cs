@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Warehouse
 {
     using System;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     /// WinLossMetaModel class.
@@ -15,8 +16,8 @@ namespace Fanex.Athena.Models.MetaModel.Warehouse
     {
         public WinLossMetaModel()
         {
-            DrawFilter = 2;
-            ReportBy = 1;
+            DrawFilter = DrawFilterType.NoDraws;
+            ReportBy = ReportByType.Daily;
             FromDate = DateTime.Now;
             ToDate = DateTime.Now;
         }
