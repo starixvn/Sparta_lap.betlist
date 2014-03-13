@@ -42,8 +42,6 @@ namespace Fanex.Athena.Controllers
             LangService = new LanguageService();
             SessionService = new SessionService();
             CurrencyService = new CurrencyService();
-
-            ViewBag.HasCustComm = this.SessionService.LicenseeSession != null && this.SessionService.LicenseeSession.IsAllowedCustomerComm;
         }
 
         public bool IsDebuggingEnabled

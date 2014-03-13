@@ -48,7 +48,8 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 if (metaModel != null)
                 {
                     metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
-                    var data = metaModel.Isvalid() && (metaModel.CurrencyId == BaseCurrencyType.All || this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
+                    var data = metaModel.Isvalid() && (metaModel.CurrencyId == BaseCurrencyType.All || 
+                        this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
                         ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
                         : new List<RNGCasinoResult>();
                     var total = new List<RNGCasinoResult>();

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -37,8 +38,8 @@ namespace Fanex.Athena.Controllers.Report
                     ToDate = DateTime.Now,
                     LicenseeId = licenseeSession.LicenseeId,                    
                     IsExcludedTestData = true,
-                    DrawFilter = 1,
-                    ReportBy = 1,
+                    DrawFilter = DrawFilterType.Normal,
+                    ReportBy = ReportByType.Daily,
                     ProductOptions = productList.Select(i => new ProductOption
                         {
                             Code = i.ProductCode,

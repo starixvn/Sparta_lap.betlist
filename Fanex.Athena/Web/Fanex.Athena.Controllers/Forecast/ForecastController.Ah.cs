@@ -13,11 +13,11 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Globalization;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Forecast.ForecastAH;
     using Models.MetaModel.Forecast;
     using Models.ViewModel;
     using Models.ViewModel.Forecast;
-    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     /// Forecast AH.
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 /* Set default currentScore*/
                 if (Request.QueryString["CurrentScore"] == null)
                 {
-                    if (metaModel.BetType ==(int) BetType.OverUnder || metaModel.BetType ==(int) BetType.FirstHalfOverUnder)
+                    if (metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder)
                     {
                         // Overunder
                         metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore;
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 }
 
                 /*Handicap or 1st Handicap*/
-                if (metaModel.BetType == (int) BetType.Handicap || metaModel.BetType ==(int) BetType.FirstHalfHandicap)
+                if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.Handicap ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
                     forecastValue = _forecastService.GetForecastHandicap(metaModel, SessionService.UserSession.UserId);

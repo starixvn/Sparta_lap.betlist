@@ -15,12 +15,12 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetList;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
-    using Fanex.Athena.Models.DataDomain;
 
     #endregion Using
 
