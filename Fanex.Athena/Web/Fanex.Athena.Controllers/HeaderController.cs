@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HeaderController.cs" company="">
+// <copyright file="HeaderController.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -21,12 +22,18 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly ILicenseeService _licenseeService;
+
         public HeaderController()
         {
             _sessionService = new SessionService();
             _licenseeService = new LicenseeService();
             _langService = new LanguageService();
         }
+
+        /// <summary>
+        /// Header page.
+        /// </summary>
+        /// <returns>The header page.</returns>
         [HttpGet]
         public ActionResult Index()
         {
@@ -44,6 +51,7 @@ namespace Fanex.Athena.Controllers
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = _langService.GetCurrentLanguage();

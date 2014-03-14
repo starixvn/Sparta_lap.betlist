@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="FooterController.cs" company="">
+// <copyright file="FooterController.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class FooterController:Controller
+    public class FooterController : Controller
     {
         public ActionResult Footer()
         {
