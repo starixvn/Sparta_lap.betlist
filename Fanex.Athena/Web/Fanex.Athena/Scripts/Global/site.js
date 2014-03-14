@@ -443,6 +443,7 @@ var Site = (function ($) {
             }
             return copy;
         }
+       
     };
 })(jQuery);
 

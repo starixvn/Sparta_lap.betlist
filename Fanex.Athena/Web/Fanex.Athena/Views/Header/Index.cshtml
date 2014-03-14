@@ -7,15 +7,30 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Header</title>
-    <link href="@Url.ContentLink("~/Content/Themes/12Bet/Site.css")" />
-    <link href="@Url.ContentLink("~/Content/Global/Global.css")" />
-    <script src="@Url.ContentLink("Scripts/Library/jquery.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("Scripts/Library/jquery.cookie.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("Scripts/Header/header.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("Scripts/Header/jquery.jclock.js")" type="text/javascript"></script>
+    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" />
+    <link href="@Url.ContentLink("/Content/Global/Global.css")" />
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.cookie.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/site.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Header/header.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Header/jquery.jclock.js")" type="text/javascript"></script>
     <script type="text/javascript">
         var _page = { "Language": "@Model.Language", "OnUserID": "@Model.OnUserId" };
+        function resolveClientUrl(relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        }
+        function SignOut() {
+            var index = window;
+            while (index != index.parent) // Jump out
+            {
+                index = index.parent;
+            }
+            index.location = resolveClientUrl('_Authorization/Handlers/SignOut.ashx');
+        }
+        function ChangePass() {
+         window.parent.main.document.location.href=resolveClientUrl("_MemberInfo/ChangePass/ChangePass.aspx");
+        }
     </script>
     @if (!Model.IsDisabledRecheckIn)
     {
@@ -35,7 +50,7 @@
                 @if (Model.LicenseeList.Count > 1)
                 {
                     <div class="licensee">
-                        <select id="ddlLicensee" name="ddlLicensee" onchange="ChangeLicensee();" style="position: relative;">
+                        <select id="ddlLicensee" name="ddlLicensee" style="position: relative;">
                             @foreach (var licensee in Model.LicenseeList)
                             {
                                 <option value="@licensee.Id" selected="@licensee.Id==@Model.CurrentLicenseeId? "selected":""">@licensee.Name</option>
@@ -58,9 +73,9 @@
                     @if (!Model.IsInternalLogin)
                     {
                         <input type="button" class="logout-button" value="@ViewResources.Logout"
-                        onclick="javascript:ibc.SignOut();" />
+                        onclick="javascript:SignOut();" />
                         <input type="button" value="@ViewResources.ChangePassword"
-                        class="change-password-button" onclick="javascript:parent.main.document.location.href='../_MemberInfo/ChangePass/ChangePass.aspx'" />
+                        class="change-password-button" onclick="javascript:ChangePass();" />
                     }
                 </div>
                 <div class="welcome">

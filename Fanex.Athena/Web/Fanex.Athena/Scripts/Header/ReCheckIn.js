@@ -1,4 +1,5 @@
-﻿function ReCheckin() {
+﻿
+function ReCheckin() {
 
     var Success = 0;
     var Unknown = -1;
@@ -10,7 +11,7 @@
 
     var isInternal = $("#IsInternal").val() == "1";
     $.ajax({
-        url: ibc.GetBaseUrl() + "_authorization/handlers/recheckin.ashx?onid=" + _page.OnUserID,
+        url: resolveClientUrl("_authorization/handlers/recheckin.ashx?onid=" + _page.OnUserID),
         async: true,
         type: "POST",
         dataType: "json",
@@ -22,7 +23,7 @@
                 alert(errMsg);
                 if (isInternal || SessionOverride == errCode) {
 
-                    var signOutUrl = '../_Authorization/Handlers/SignOut.ashx';
+                    var signOutUrl = resolveClientUrl('_Authorization/Handlers/SignOut.ashx');
                     $.ajax({
                         url: signOutUrl,
                         complete: function (rs) {
@@ -33,7 +34,7 @@
                     });
                 }
                 else {
-                    ibc.SignOut();
+                    SignOut();
                 }
             }
             else {

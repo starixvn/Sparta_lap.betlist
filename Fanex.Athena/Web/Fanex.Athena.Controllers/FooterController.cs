@@ -13,7 +13,7 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class FooterController : Controller
     {
-        public ActionResult Footer()
+        public ActionResult Index()
         {
             return View("~/Views/Footer/Index.cshtml");
         }
