@@ -276,6 +276,9 @@
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
     <Content Include="Content\Report\winlossbyleague.css" />
+    <Content Include="Scripts\Header\header.js" />
+    <Content Include="Scripts\Header\jquery.jclock.js" />
+    <Content Include="Scripts\Header\ReCheckIn.js" />
     <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
       <DependentUpon>ViewResources.ko-KR.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1051,11 +1054,12 @@
     <Content Include="Views\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
     <Content Include="Views\Note\DailyStatement.cshtml" />
     <Content Include="Scripts\Web.config" />
-    <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Footer\Index.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Content.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Main.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Filter.cshtml" />
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
+    <Content Include="Views\Header\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
