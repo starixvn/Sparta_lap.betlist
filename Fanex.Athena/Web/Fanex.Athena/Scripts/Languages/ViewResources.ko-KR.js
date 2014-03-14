@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:02:54 PM
+// Lasted generated date: 3/14/2014 11:11:46 AM
 // </history>
 
 var _language_ko_KR={
@@ -599,6 +599,8 @@ var _language_ko_KR={
                      June:"6월",
 				 	
                      KeepCurrentComm:"현재 수수료 유지하기",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"경기 시작. 시간",
 				 	
