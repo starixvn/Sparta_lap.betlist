@@ -21,8 +21,8 @@ namespace Fanex.Athena.Models.DataDomain
         public const int Eur = -1;
 
         /// <summary>
-        /// USD, value = 2.
+        /// USD, value = -2.
         /// </summary>
-        public const int Usd = 2;
+        public const int Usd = -2;
     }
 }
