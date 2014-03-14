@@ -124,7 +124,7 @@ namespace Fanex.Athena.Excel.Report
                     {
                         AssignTotalData(sheet, rowIndex + RowContentTemplate);
                     }
-
+                    
                     ProcessUi(sheet);
                 }
             }
@@ -163,10 +163,10 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign data to sheet.
+        /// Assign data row.
         /// </summary>
-        /// <param name="sheet">The sheet.</param>
-        /// <param name="pageIndex">The sheet index.</param>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="pageIndex">The page index. </param>
         /// <returns>The row index.</returns>
         public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
