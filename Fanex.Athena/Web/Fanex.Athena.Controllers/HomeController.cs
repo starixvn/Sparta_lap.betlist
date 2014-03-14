@@ -17,7 +17,5 @@ namespace Fanex.Athena.Controllers
         {
             return Redirect("~/Index.aspx");
         }
-
-     
     }
 }
