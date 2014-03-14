@@ -55,6 +55,7 @@ namespace Fanex.Athena.Controllers
         {
             metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString())
                 ? BaseCurrencyType.Usd : BaseCurrencyType.All;
+            
         }
 
         [NonAction]
