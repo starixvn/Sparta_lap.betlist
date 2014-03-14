@@ -2,13 +2,14 @@
     Layout = null;
 }
 @model Fanex.Athena.Models.ViewModel.HeaderPageViewModel
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Header</title>
-    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" />
-    <link href="@Url.ContentLink("/Content/Global/Global.css")" />
+    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" rel="Stylesheet" />
+    <link href="@Url.ContentLink("/Content/Global/Global.css")"  rel="Stylesheet" />
     <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.cookie.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
@@ -29,7 +30,7 @@
             index.location = resolveClientUrl('_Authorization/Handlers/SignOut.ashx');
         }
         function ChangePass() {
-         window.parent.main.document.location.href=resolveClientUrl("_MemberInfo/ChangePass/ChangePass.aspx");
+            window.parent.main.document.location.href = resolveClientUrl("_MemberInfo/ChangePass/ChangePass.aspx");
         }
     </script>
     @if (!Model.IsDisabledRecheckIn)
@@ -49,11 +50,13 @@
             <div class="content">
                 @if (Model.LicenseeList.Count > 1)
                 {
+                    
                     <div class="licensee">
                         <select id="ddlLicensee" name="ddlLicensee" style="position: relative;">
                             @foreach (var licensee in Model.LicenseeList)
                             {
-                                <option value="@licensee.Id" selected="@licensee.Id==@Model.CurrentLicenseeId? "selected":""">@licensee.Name</option>
+                                var selectedStr = licensee.Id == Model.CurrentLicenseeId ? "selected=\"selected\"" : string.Empty;
+                                <option  value="@licensee.Id" @selectedStr >@licensee.Name</option>
                             }
                         </select>
                     </div>
@@ -62,7 +65,9 @@
                     <select id="languagesite" name="languagesite">
                         @foreach (var language in Model.SupportedLanguageList)
                         {
-                            <option value="@language.Key" selected="@language.Key.Equals(Model.Language)? "selected":""">@language.Value</option>
+                            var selectedStr = language.Key.Equals(Model.Language) ? "selected=\"selected\"" : string.Empty;
+
+                            <option value="@language.Key" @selectedStr>@language.Value</option>
 
                         }
                     </select>
@@ -84,6 +89,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="IsInternal" value="@Model.IsInternalLogin?"1" : "0""/>
+    @{var internalLoginStr = Model.IsInternalLogin ? "1" : "0";}
+    <input type="hidden" id="IsInternal" value="@internalLoginStr"/>
 </body>
 </html>
