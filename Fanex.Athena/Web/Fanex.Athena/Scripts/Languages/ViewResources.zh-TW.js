@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:03:27 PM
+// Lasted generated date: 3/14/2014 11:12:27 AM
 // </history>
 
 var _language_zh_TW={
@@ -601,6 +601,8 @@ var _language_zh_TW={
                      June:"6月",
 				 	
                      KeepCurrentComm:"保持當前的佣金",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"开赛时间",
 				 	
