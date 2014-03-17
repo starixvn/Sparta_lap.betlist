@@ -51,6 +51,12 @@ namespace Fanex.Athena.Controllers
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }
+
+        /// <summary>
+        /// Change language.
+        /// </summary>
+        /// <param name="languagesite">The language code.</param>
+        /// <returns>Return "1" if changing is success.</returns>
         [HttpGet]
         public string ChangeLanguage(string languagesite)
         {
@@ -67,8 +73,10 @@ namespace Fanex.Athena.Controllers
                     }
                 }
             }
+
             return changed ? "1" : "0";
         }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = _langService.GetCurrentLanguage();
