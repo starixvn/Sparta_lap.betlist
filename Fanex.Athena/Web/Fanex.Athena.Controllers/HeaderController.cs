@@ -51,7 +51,24 @@ namespace Fanex.Athena.Controllers
             };
             return View("~/Views/Header/Index.cshtml", viewModel);
         }
-
+        [HttpGet]
+        public string ChangeLanguage(string languagesite)
+        {
+            var changed = false;
+            if (!string.IsNullOrEmpty(languagesite))
+            {
+                var languageCode = languagesite.Trim();
+                if (Util.IsValidLanguage(languageCode))
+                {
+                    var currentLang = _langService.GetCurrentLanguage();
+                    if (!currentLang.Equals(languageCode))
+                    {
+                        changed = _langService.ChangeLanguage(languageCode);
+                    }
+                }
+            }
+            return changed ? "1" : "0";
+        }
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = _langService.GetCurrentLanguage();

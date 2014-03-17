@@ -11,7 +11,7 @@ $(document).ready(function () {
         var lang = $(this).val();
 
         $.ajax({
-            url: resolveClientUrl("_header/handlers/ChangeLanguage.ashx?languagesite=" + lang),
+            url: resolveClientUrl("Header/ChangeLanguage?languagesite=" + lang),
             async: false,
             type: "GET",
             cache: false,
@@ -19,7 +19,7 @@ $(document).ready(function () {
                 if (result == "1") {
                     top.frames["menu"].location.href = resolveClientUrl("_menu/Menu.aspx");
                     top.frames["header"].location.href = resolveClientUrl("Header/Index");
-                    top.frames["main"].location.href =  resolveClientUrl("Report/Balance");
+                    top.frames["main"].location.href = resolveClientUrl("Report/Balance");
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
                 }
             },
@@ -30,5 +30,5 @@ $(document).ready(function () {
         var licenseeId = $(this).val();
         top.frames["main"].location.href = resolveClientUrl("Account/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + +(new Date().getTime());
 
-     });
+    });
 });
