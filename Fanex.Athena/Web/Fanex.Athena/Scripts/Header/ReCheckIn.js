@@ -1,4 +1,5 @@
-﻿function ReCheckin() {
+﻿
+function ReCheckin() {
 
     var Success = 0;
     var Unknown = -1;
@@ -10,7 +11,7 @@
 
     var isInternal = $("#IsInternal").val() == "1";
     $.ajax({
-        url: ibc.GetBaseUrl() + "_authorization/handlers/recheckin.ashx?onid=" + _page.OnUserID,
+        url: Site.getBaseUrl() + "_authorization/handlers/recheckin.ashx?onid=" + _page.OnUserID,
         async: true,
         type: "POST",
         dataType: "json",
@@ -19,10 +20,10 @@
             if (errCode != Success) {
                 clearInterval(handle);
                 var errMsg = result.errMsg;
-                alert(errMsg);
+                alert(errMsg,true);
                 if (isInternal || SessionOverride == errCode) {
 
-                    var signOutUrl = '../_Authorization/Handlers/SignOut.ashx';
+                    var signOutUrl = Site.getBaseUrl() + '_Authorization/Handlers/SignOut.ashx';
                     $.ajax({
                         url: signOutUrl,
                         complete: function (rs) {
@@ -33,13 +34,9 @@
                     });
                 }
                 else {
-                    ibc.SignOut();
+                    Site.signOut();
                 }
             }
-            else {
-                $("#ddlLicensee").val(result.errMsg);
-            }
-
         },
         error: function (request, status, error) { }
     });

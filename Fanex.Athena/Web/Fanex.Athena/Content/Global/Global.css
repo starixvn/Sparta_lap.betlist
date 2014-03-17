@@ -64,7 +64,6 @@ input[type=password]
 {
     display: none;
 }
-
 .show
 {
     display: block;
@@ -868,7 +867,7 @@ table tr.report-header td
 
 div.note-message
 {
-    background: url("../../_GlobalResources/Images/more.gif") no-repeat scroll left center transparent;
+    background: url("Images/more.gif") no-repeat scroll left center transparent;
     color: #454545;
     font-weight: normal;
     height: 25px;
@@ -884,10 +883,11 @@ div.note-message
     font-size: 1.3em;
     padding: 1em;
     text-align: center;
-    white-space: pre-wrap;
+    white-space:pre-wrap;
     width: auto;
     min-width: 200px;
     max-width: 300px;
     word-wrap: normal;
-    overflow: hidden;
+    overflow:hidden;
+	
 }

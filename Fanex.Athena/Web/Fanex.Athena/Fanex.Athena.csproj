@@ -244,6 +244,7 @@
     <Content Include="Content\Forecast\images\plus.png" />
     <Content Include="Content\Forecast\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
+    <Content Include="Content\Global\images\bg_clock.jpg" />
     <Content Include="Content\Global\images\btDown.png" />
     <Content Include="Content\Global\images\btRefresh.png" />
     <Content Include="Content\Global\images\check.png" />

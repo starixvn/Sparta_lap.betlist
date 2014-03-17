@@ -1,9 +1,4 @@
 ﻿
-function ChangeLicensee() {
-    var licenseeId = $("#ddlLicensee").val();
-    top.frames["main"].location.href = "../Account/ChangeLicensee?licenseeid=" + licenseeId + "&nocache=" + +(new Date().getTime());
-}
-
 $(document).ready(function () {
     // init clock
     var options = {
@@ -16,19 +11,31 @@ $(document).ready(function () {
         var lang = $(this).val();
 
         $.ajax({
-            url: ibc.GetBaseUrl() + "_header/handlers/ChangeLanguage.ashx?languagesite=" + lang,
+            url: Site.getBaseUrl() + "Header/ChangeLanguage?languagesite=" + lang,
             async: false,
             type: "GET",
             cache: false,
             success: function (result) {
                 if (result == "1") {
-                    top.frames["menu"].location.href = ibc.GetBaseUrl() + "_menu/Menu.aspx";
-                    top.frames["header"].location.href = ibc.GetBaseUrl() + "_header/Header.aspx";
-                    top.frames["main"].location.href = ibc.GetBaseUrl() + "/Report/Balance";
+                    top.frames["menu"].location.href = Site.getBaseUrl() + "_menu/Menu.aspx";
+                    top.frames["header"].location.href = Site.getBaseUrl() + "Header/Index";
+                    top.frames["main"].location.href = Site.getBaseUrl() + "Report/Balance";
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
                 }
             },
             error: function (request, status, error) { }
         });
+    });
+    $("#ddlLicensee").change(function () {
+        var licenseeId = $(this).val();
+        top.frames["main"].location.href = Site.getBaseUrl() + "Account/ChangeLicensee?licenseeid=" + licenseeId + "&nocache=" + +(new Date().getTime());
+
+    });
+    $("#change-pass-btn").click(function () {
+        window.parent.main.document.location.href = Site.getBaseUrl() + "_MemberInfo/ChangePass/ChangePass.aspx";
+
+    });
+    $("#lougout-btn").click(function () {
+        Site.signOut();
     });
 });
