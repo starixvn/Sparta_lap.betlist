@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -35,7 +36,11 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerWinLoss()
         {
-            var metaModel = new CustomerWinLossMetaModel { LicenseeId = this.SessionService.LicenseeSession.LicenseeId };
+            var metaModel = new CustomerWinLossMetaModel
+            {
+                LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
+                DrawFilter = DrawFilterType.Normal
+            };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false);
@@ -54,10 +59,9 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,                    
                     ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false),
-                    CurrencyList = currencyList,
+                    CurrencyList = currencyList,                    
                     Param = metaModel,
                     IsHistory = false
                 };
@@ -76,10 +80,11 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
                 {
                     LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId
+                    UserId = SessionService.UserSession.UserId,
+                    DrawFilter = DrawFilterType.Normal
                 };
-            historyParam.BaseCurrency = historyParam.BaseUsdLicensees.Contains(historyParam.LicenseeId.ToString()) ? "usd" : "eur";
 
+            SetConvetedUSDCurrencyName(historyParam);
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption

@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
@@ -14,11 +13,9 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
-    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// WinLossByLeagueController class.
@@ -26,37 +23,43 @@ namespace Fanex.Athena.Api.Report
     public partial class ReportController
     {
         #region Action
-       
+
         /// <summary>
         /// Win Loss By Product - Level 0.
         /// </summary>
         /// <param name="metaModel">The level 0 MetaModel.</param>
         /// <returns>Process Request.</returns>
-        [HttpPost]        
+        [HttpPost]
         public dynamic WinLossByLeague([FromBody] WinLossByLeagueMetaModel metaModel)
-        {                     
+        {
             return ProcessRequest(metaModel);
         }
 
-        #endregion Action  
+        #endregion Action
 
         #region ProcessRequest
-        
+
         /// <summary>
         /// Win Loss By Product - Export excel.
         /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>        
+        /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Http Response Message.</returns>
-        [HttpGet]        
+        [HttpGet]
         public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
         {
+            if (!IsValidRequest(metaModel))
+            {
+                RedirectToErrorPage();
+            }
+
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
+            WinLossByLeague grandTotal;
             var totalrows = 0;
-            var dataList = GetData(metaModel, ref totalrows);
+            var dataList = GetData(metaModel, out grandTotal, ref totalrows);
             const string FileName = "WinLossByLeague.xls";
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
-            var licenseeSession = SessionService.LicenseeSession;           
+            var licenseeSession = SessionService.LicenseeSession;
 
             var currencyList = SessionService.UserSession.CurrencyList;
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.CurrencyId));
@@ -70,13 +73,12 @@ namespace Fanex.Athena.Api.Report
 
             var viewModel = new WinLossByLeagueViewModel
             {
-                MainResult = dataList                
+                MainResult = dataList
             };
 
-            var totalData = CalculateTotal(dataList);
-            var winlossByLeague = new WinlossByLeagueExcel(templatePath, FileName, convertingOption, metaModel, viewModel, totalData)
+            var winlossByLeague = new WinlossByLeagueExcel(templatePath, FileName, convertingOption, metaModel, viewModel, grandTotal)
             {
-                Level = metaModel.Level               
+                Level = metaModel.Level
             };
             winlossByLeague.Export();
 
@@ -87,9 +89,10 @@ namespace Fanex.Athena.Api.Report
         /// Win Loss By Product - Get report data.
         /// </summary>
         /// <param name="metaModel">MetaModel object.</param>
+        /// <param name="grandTotal">Grand total object.</param>
         /// <param name="totalrows">Total rows.</param>
         /// <returns>Report data list.</returns>
-        private IList<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, ref int totalrows)
+        private IList<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var licenseeId = licenseeSession.LicenseeId;
@@ -97,51 +100,42 @@ namespace Fanex.Athena.Api.Report
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
-            
-            return metaModel.Level == 0 ? 
-                    _winlossByLeagueService.GetWinlossByLeagues(metaModel) :
-                    _winlossByLeagueService.GetWinlossByLeagueCustomers(metaModel, ref totalrows);            
-        }
 
-        /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(WinLossByLeagueMetaModel metaModel, int currencyId = 0)
-        {
-            if (!IsValidSession)
+            IList<WinLossByLeague> dataList = null;
+            if (metaModel.Level == 0)
             {
-                return false;
+                dataList = _winlossByLeagueService.GetWinlossByLeagues(metaModel);
+                grandTotal = CalculateTotal(dataList);
+            }
+            else
+            {
+                dataList = _winlossByLeagueService.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalrows);
             }
 
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
-                                 || currencyList.Values.Contains(currencyId);
-
-            return validModel && validCurrency;
+            return dataList;
         }
-        
+
         /// <summary>
         ///  Process request.
         /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>        
+        /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
+            if (!IsValidRequest(metaModel))
+            {
+                RedirectToErrorPage();
+            }
+
+            WinLossByLeague grandTotal;
             var totalrows = 0;
-            var dataList = GetData(metaModel, ref totalrows);
+            var dataList = GetData(metaModel, out grandTotal, ref totalrows);
             return dataList.Count > 0
                 ? (dynamic)new
                 {
                     TotalRows = totalrows,
                     Data = dataList,
-                    Total = CalculateTotal(dataList)
+                    Total = grandTotal
                 }
                 : new
                 {
@@ -159,15 +153,16 @@ namespace Fanex.Athena.Api.Report
         private WinLossByLeague CalculateTotal(IList<WinLossByLeague> dataList)
         {
             return new WinLossByLeague()
-                    {
-                        BetCount = dataList.Sum(x => x.BetCount),
-                        TurnOver = dataList.Sum(x => x.TurnOver),
-                        CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
-                        LicenseeWL = dataList.Sum(x => x.LicenseeWL),
-                        BaCommission = dataList.Sum(x => x.BaCommission),
-                        AmountDue = dataList.Sum(x => x.AmountDue)
-                    };
+            {
+                BetCount = dataList.Sum(x => x.BetCount),
+                TurnOver = dataList.Sum(x => x.TurnOver),
+                CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
+                LicenseeWL = dataList.Sum(x => x.LicenseeWL),
+                BaCommission = dataList.Sum(x => x.BaCommission),
+                AmountDue = dataList.Sum(x => x.AmountDue)
+            };
         }
+
         #endregion ProcessRequest
     }
 }

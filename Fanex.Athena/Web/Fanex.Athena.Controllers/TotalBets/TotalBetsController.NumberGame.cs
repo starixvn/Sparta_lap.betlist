@@ -19,6 +19,10 @@ namespace Fanex.Athena.Controllers.TotalBets
     /// </summary>
     public partial class TotalBetsController
     {
+        /// <summary>
+        /// Number-game page.
+        /// </summary>
+        /// <returns>The report page.</returns>
         [FunctionAuthorization]
         public ActionResult NumberGame()
         {
@@ -26,7 +30,8 @@ namespace Fanex.Athena.Controllers.TotalBets
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            param.BaseCurrency = param.BaseUsdLicensees.Contains(param.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(param);
 
             return this.NumberGameView(param);
         }

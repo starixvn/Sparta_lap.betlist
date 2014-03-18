@@ -14,10 +14,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -50,6 +52,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {                
                 using (var db = new ObjectDb(UspName))
                 {
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
@@ -63,7 +68,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-                  
+                    db.AddInParameter("showsb", DbType.Boolean, showSb);
+                    db.AddInParameter("showba", DbType.Boolean, showBa);
+
                     using (var reader = db.ExecuteReader())
                     {             
                         return GetMatches(reader, metaModel, false);                        
@@ -81,16 +88,20 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// Get win loss by product customer.
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
+        /// <param name="grandTotal">Grand total object.</param>
         /// <param name="totalRows">Total rows.</param>
         /// <returns>The result value.</returns>
         public IList<WinLossByLeague> GetWinlossByLeagueCustomers(
-            WinLossByLeagueMetaModel metaModel, ref int totalRows)
+            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+
                     IList<WinLossByLeague> dataList = null;
 
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -99,20 +110,24 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);                    
+                    db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
+                    db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);                    
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
+                    db.AddInParameter("showsb", DbType.Boolean, showSb);
+                    db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
-                     
-                    using (var reader = db.ExecuteReader())
-                    {
-                        dataList = GetCustomers(reader, metaModel);
-                    }
 
+                    var dataSet = db.ExecuteDataSet();
+                    var reportTable = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
+                    var grandTotalTable = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
+
+                    dataList = GetCustomers(reportTable, grandTotalTable, metaModel, out grandTotal);
+                   
                     totalRows = Converter.ToInt(db.GetParameterValue("totalrows")); 
                     
                     return dataList;
@@ -170,12 +185,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <summary>
         /// Get data list.
         /// </summary>
-        /// <param name="reader">Reader value.</param>
+        /// <param name="reportTable">Report data table.</param>
+        /// <param name="grandTotalTable">Grand total data table.</param>
         /// <param name="metaModel">Meta model value.</param>          
+        /// <param name="grandTotal">Grand total object.</param>          
         /// <returns>The result value.</returns>
         private IList<WinLossByLeague> GetCustomers(
-            IDataReader reader,
-            WinLossByLeagueMetaModel metaModel)
+            DataTable reportTable,
+            DataTable grandTotalTable,
+            WinLossByLeagueMetaModel metaModel,
+            out WinLossByLeague grandTotal)
         {
             var result = new List<WinLossByLeague>();
 
@@ -183,7 +202,20 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var turnoverCol = "turnover" + metaModel.BaseCurrency;
             var memberWlCol = "memberwinlost" + metaModel.BaseCurrency;
             var licenseeWlCol = "licenseewl" + metaModel.BaseCurrency;
+            var bacommCol = "CommBA" + metaModel.BaseCurrency;
 
+            grandTotal = new WinLossByLeague();
+
+            foreach (DataRow row in grandTotalTable.Rows)
+            {
+                grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
+                grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
+                grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
+                grandTotal.BaCommission = Converter.ToDecimal(row[bacommCol]);
+                grandTotal.BetCount = Converter.ToInt(row["betcount"]);                
+            }
+            
+            var reader = reportTable.CreateDataReader();
             while (reader.Read())
             {
                 var systemIdOrdinal = reader.TryGetOrdinal("username");
@@ -198,7 +230,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
                     TurnOver = reader.ToDecimal(turnoverCol),
                     CustomerWinLoss = reader.ToDecimal(memberWlCol),
-                    LicenseeWL = reader.ToDecimal(licenseeWlCol),                    
+                    LicenseeWL = reader.ToDecimal(licenseeWlCol),    
+                    BaCommission = reader.ToDecimal(bacommCol),
                     BetCount = reader.ToInt("betcount")                                      
                 };
                 result.Add(item);

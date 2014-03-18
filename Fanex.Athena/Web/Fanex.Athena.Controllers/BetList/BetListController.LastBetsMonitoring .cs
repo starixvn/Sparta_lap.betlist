@@ -33,8 +33,9 @@ namespace Fanex.Athena.Controllers.BetList
         {
             this._sportTypeService = new SportTypeService(this._balanceUpService.BalanceUpInfo);
             var metaModel = new Models.MetaModel.BetList.BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
+          
+            SetConvetedUSDCurrencyName(metaModel);
+           
             var model = new LastBetsMonitoringViewModel
             {
                 CurrencyList = SessionService.UserSession.CurrencyList,

@@ -28,7 +28,7 @@ var LicenseeWinLoss = (function ($) {
         },
 
         initialize: function () {
-            _pageSize = LicenseeWinLossOption.gridOption.pageSize;
+            _pageSize = LicenseeWinLossOption.pageSize;
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index, columnIndex, sortOrder) {
@@ -192,7 +192,7 @@ var LicenseeWinLoss = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
                 success: function (response) {
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);

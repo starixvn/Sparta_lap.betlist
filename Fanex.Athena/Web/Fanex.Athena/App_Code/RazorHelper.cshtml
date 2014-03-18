@@ -4,6 +4,8 @@
 @using Fanex.Athena.Extension.Helper;
 @using Fanex.Athena.Models.DTO.Common
 @using Fanex.Athena.Models.MetaModel.Product;
+@using Fanex.Athena.Web.HtmlExtension;
+
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
 {
     var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
@@ -160,6 +162,10 @@
             <input type="hidden" value="@product.Name" name="ProductOptions[@i].Name" />
             i++;
         }
+        @{
+            var Url = new UrlHelper(Context.Request.RequestContext);
+            }
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="product-null" class="hide" />
         <script type="text/javascript">
             $(window).load(function () {
                 $("#ProductList input[type=checkbox]").checkboxgroup();

@@ -105,6 +105,7 @@ var BetSetting = (function ($) {
                     BetSetting.checkEnable(11, enable);
                     BetSetting.checkEnable(99, enable);
                     BetSetting.checkEnable("99MP", enable);
+                    BetSetting.checkEnable(154, enable);
                     break;
                 case 2:
                     BetSetting.checkEnable("151_31", enable);
@@ -209,6 +210,7 @@ var BetSetting = (function ($) {
             if (false == BetSetting.checkLimitMinMaxBet(11)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(99)) return false;
             if (false == BetSetting.checkLimitMinMaxBet("99MP")) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(154)) return false;
             return true;
         },
         checkValidationRacing: function () {
@@ -259,6 +261,7 @@ var BetSetting = (function ($) {
             params += BetSetting.getBetSettingParams(11);
             params += BetSetting.getBetSettingParams(99);
             params += BetSetting.getBetSettingParams("99MP");
+            params += BetSetting.getBetSettingParams(154);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName

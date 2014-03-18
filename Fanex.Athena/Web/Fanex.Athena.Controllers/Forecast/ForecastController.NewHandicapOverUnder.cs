@@ -55,9 +55,15 @@ namespace Fanex.Athena.Controllers.Forecast
                     CurrencyId = currencyId,
                     LeagueId = leagueId,
                 };
-                metaModel.BaseCurrency = baseCurrency == null 
-                    ? metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur"
-                    : baseCurrency;                
+
+                if (string.IsNullOrEmpty(baseCurrency))
+                {
+                    SetConvetedUSDCurrencyName(metaModel);
+                }
+                else
+                {
+                    metaModel.BaseCurrency = baseCurrency;
+                }
 
                 return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetForecastHdpOuViewModel(metaModel));
             }

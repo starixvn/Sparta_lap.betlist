@@ -151,30 +151,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(LicenseeWinLossMetaModel metaModel, int currencyId = 0)
-        {
-            if (!IsValidSession)
-            {
-                return false;
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
-                                 || currencyList.Values.Contains(currencyId);
-
-            return validModel && validCurrency;
-        }
-
-        /// <summary>
         ///  Process request.
         /// </summary>
         /// <param name="metaModel">Meta model object.</param>
@@ -192,42 +168,45 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            if (!IsValidRequest(metaModel, currencyId))
+            if (IsValidRequest(metaModel, currencyId))
             {
-                return null;
-            }
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.UserId = SessionService.UserSession.UserId; // focus here
+                metaModel.DrillDownCurrencyId = currencyId;
+                metaModel.DrillDownLevel = level;
+                metaModel.DrillDownCustomerId = custId;
+                metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
+                metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId; // focus here
-            metaModel.DrillDownCurrencyId = currencyId;
-            metaModel.DrillDownLevel = level;
-            metaModel.DrillDownCustomerId = custId;
-            metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
-            metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+                IDictionary<string, LicenseeWinLoss> summaryTotal;
+                SortableList<LicenseeWinLoss> dataList;
+                GetData(metaModel, out dataList, out summaryTotal);
 
-            IDictionary<string, LicenseeWinLoss> summaryTotal;
-            SortableList<LicenseeWinLoss> dataList;
-            GetData(metaModel, out dataList, out summaryTotal);
-
-            if (metaModel.IsExportExcel)
-            {
-                return ExportExcel(metaModel, dataList, summaryTotal);
-            }
-
-            if (dataList != null && dataList.Count > 0)
-            {
-                dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
-
-                var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
-                return new
+                if (metaModel.IsExportExcel)
                 {
-                    Data = dataList.Select(MapToGridView).ToList(),
-                    Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
-                    SummaryTotal = summaryTotalView,
-                    ProductOptions = metaModel.ProductOptions.ToJson()
-                };
+                    return ExportExcel(metaModel, dataList, summaryTotal);
+                }
+
+                if (dataList != null && dataList.Count > 0)
+                {
+                    dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+
+                    var summaryTotalView = summaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
+                    return new
+                    {
+                        Data = dataList.Select(MapToGridView).ToList(),
+                        Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
+                        SummaryTotal = summaryTotalView,
+                        ProductOptions = metaModel.ProductOptions.ToJson()
+                    };
+                }
             }
 
+            return GetEmptyResult(metaModel);
+        }
+
+        private dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
+        {
             return new
             {
                 Data = new List<LicenseeWinLossGridViewModel>(),
@@ -245,9 +224,9 @@ namespace Fanex.Athena.Api.Report
         /// <param name="sortOrder">ASC or DESC.</param>
         /// <returns>Data list after being sorted.</returns>
         private SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
-        {        
+        {
             if (sortBy != null)
-            {                
+            {
                 // Sort for grouping columns, get the real column name
                 if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
                 {
@@ -267,7 +246,7 @@ namespace Fanex.Athena.Api.Report
                 }
                 else
                 {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));                                    
+                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
             }
 
@@ -293,12 +272,12 @@ namespace Fanex.Athena.Api.Report
                 AmtDueToRacing = item.AmtDueToRacing,
                 BACommission = item.BACommission,
                 CurrencyId = item.CurrencyId,
-                SystemId = item.SystemId,                
+                SystemId = item.SystemId,
                 CurrencyName = item.CurrencyName,
                 CustomerComm = item.CustomerComm,
                 CustomerWinLoss = item.CustomerWinLoss,
                 TotalTransaction = item.TotalTransaction,
-                RacingRevenue = item.RacingRevenue,                
+                RacingRevenue = item.RacingRevenue,
                 CustomerId = item.CustomerId,
                 Date = item.Date,
                 ExternalId = item.ExternalId,

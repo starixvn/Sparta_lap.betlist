@@ -109,18 +109,22 @@ namespace Fanex.Athena.Excel.Report
             else
             {
                 int rowCount = _exportData.Count;
-                int sheetCount = rowCount % MaxExcelRowCount == 0
-                                 ? rowCount / MaxExcelRowCount
-                                 : (rowCount / MaxExcelRowCount) + 1;
-
+                int sheetCount = rowCount % MaxRowCount == 0
+                                 ? rowCount / MaxRowCount
+                                 : (rowCount / MaxRowCount) + 1;
+                var rowIndex = 0;
                 for (int i = 0; i < sheetCount; i++)
                 {
                     ISheet sheet = Workbook.CloneSheet("Template", "Customer Balance" + (i + 1));
                     AssignTitle(sheet);
                     AssignHeader(sheet);
-                    AssignSheetData(sheet, i, i == sheetCount - 1);
+                    rowIndex = AssignSheetData(sheet, i);
 
-                    // Hide unnecessary column
+                    if (i == sheetCount - 1)
+                    {
+                        AssignTotalData(sheet, rowIndex + RowContentTemplate);
+                    }
+                    
                     ProcessUi(sheet);
                 }
             }
@@ -162,13 +166,13 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        /// <param name="sheetNum">The row index. </param>
-        /// <param name="showTotalRow">If it equals True, show total row.</param>
-        public void AssignSheetData(ISheet sheet, int sheetNum, bool showTotalRow)
+        /// <param name="pageIndex">The page index. </param>
+        /// <returns>The row index.</returns>
+        public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = _exportData.Count;
-            int startIndex = sheetNum * MaxExcelRowCount;
-            int endIndex = startIndex + MaxExcelRowCount > rowCount ? rowCount : startIndex + MaxExcelRowCount;
+            int startIndex = pageIndex * MaxRowCount;
+            int endIndex = startIndex + MaxRowCount > rowCount ? rowCount : startIndex + MaxRowCount;
             int rowIndex = 0;
 
             for (int index = startIndex; index < endIndex; index++)
@@ -200,10 +204,7 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
             }
 
-            if (showTotalRow)
-            {
-                AssignTotalData(sheet, rowIndex + RowContentTemplate);
-            }
+            return rowIndex;
         }
 
         /// <summary>

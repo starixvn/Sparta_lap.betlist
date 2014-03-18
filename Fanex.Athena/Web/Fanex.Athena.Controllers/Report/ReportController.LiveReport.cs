@@ -43,7 +43,8 @@ namespace Fanex.Athena.Controllers.Report
                     IsViewedHistory = isViewedHistory,
                     CurrencyId = 0
                 };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
 

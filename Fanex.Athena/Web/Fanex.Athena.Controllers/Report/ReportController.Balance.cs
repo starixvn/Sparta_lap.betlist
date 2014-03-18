@@ -25,8 +25,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Balance()
         {
             var metaModel = new BalanceMetaModel() { LicenseeId = SessionService.LicenseeSession.LicenseeId };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
+            SetConvetedUSDCurrencyName(metaModel);
             return Balance(metaModel);
         }
 

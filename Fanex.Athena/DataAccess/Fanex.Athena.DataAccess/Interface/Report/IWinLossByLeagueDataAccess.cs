@@ -16,6 +16,6 @@ namespace Fanex.Athena.DataAccess.Interface.Report
             WinLossByLeagueMetaModel metaModel);
 
         IList<WinLossByLeague> GetWinlossByLeagueCustomers(
-            WinLossByLeagueMetaModel metaModel, ref int totalrows);        
+            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows);        
     }
 }

@@ -32,6 +32,9 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },
+        gotoErrorPage: function () {
+            window.location.href = Site.resolveClientUrl("Error.aspx");
+        },
         unBlockUI: function () {
             $('div.block-body').hide();
             $('div.loading').hide();

@@ -47,12 +47,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-
-                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
-                {
-                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                }
-
+                db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
@@ -77,6 +72,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             ExternalId = reader.ToString("nickname"),
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
+                            TotalTransaction = reader.ToInt("betcount"),
                             MemberWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             MemberTotalWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
@@ -97,6 +93,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             totalData = new CustomerWinLoss
                             {
                                 Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency),
+                                TotalTransaction = reader.ToInt("sumbetcount"),
                                 MemberWl = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
                                 PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency),
                                 LicenseeWl = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),

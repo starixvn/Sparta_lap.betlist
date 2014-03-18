@@ -35,7 +35,9 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult CorrectScoreBetList()
         {
             var metaModel = CreateDefaultMetaModel();
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);
+          
             var licenseeSession = this.SessionService.LicenseeSession;
             var model = new BetListBaseViewModel
             {

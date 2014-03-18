@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Report
 {
     using System;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     /// MobileWinLossMetaModel class.
@@ -23,7 +24,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
             ToDay = today.Day;
             CurrencyId = 0;
             DrawFilter = 1;
-            Site = 2;
+            Site = SiteType.SmartPhone;
             IsExcludeTest = true;
         }
 
@@ -55,7 +56,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                return base.IsValid && Site <= 3 && Site >= 1;
+                return base.IsValid && Site <= SiteType.Others && Site >= SiteType.Wap;
             }
         }
     }

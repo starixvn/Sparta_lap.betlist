@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;           
+            metaModel.UserId = SessionService.UserSession.UserId;
 
             if (metaModel.IsExportExcel)
             {
@@ -52,9 +52,8 @@ namespace Fanex.Athena.Controllers.BetList
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
-            
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
+            SetConvetedUSDCurrencyName(metaModel);
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,

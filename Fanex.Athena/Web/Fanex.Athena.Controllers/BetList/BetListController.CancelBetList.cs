@@ -35,8 +35,9 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult CancelledBetsBetList()
         {
             var metaModel = CreateDefaultMetaModel();
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
+            SetConvetedUSDCurrencyName(metaModel);
+            
             var licenseeSession = this.SessionService.LicenseeSession;
 
             var custList = this._betListService.GetCancelBetCustList(metaModel);

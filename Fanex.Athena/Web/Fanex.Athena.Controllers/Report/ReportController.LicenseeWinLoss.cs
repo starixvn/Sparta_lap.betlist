@@ -46,8 +46,9 @@ namespace Fanex.Athena.Controllers.Report
                             Status = i.ProductCode == Product.Sb
                         }).ToList(),
                 };
-            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? -2 : 0;
-
+           
+            SetConvetedUSDCurrencyId(metaModel);
+           
             var model = new LicenseeWinLossViewModel
                 {
                     ShowEmptyContent = true,
