@@ -1,5 +1,7 @@
 ﻿/// <reference path="/@JSense.js" />
+
 /* Preset */
+
 // root JSON object
 var Site = (function ($) {
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
