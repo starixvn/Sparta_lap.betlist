@@ -65,6 +65,9 @@
     <Reference Include="Fanex.Result.Core">
       <HintPath>..\..\..\DLLs\Fanex\Fanex.Result\Fanex.Result.Core.dll</HintPath>
     </Reference>
+    <Reference Include="LicenseeAgent.API">
+      <HintPath>..\..\..\DLLs\LAS\LicenseeAgent.API.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
       <HintPath>..\..\..\DLLs\Microsoft\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -143,6 +146,7 @@
     <Compile Include="BetList\BetListController.MobileWl.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
+    <Compile Include="Integration\IntegrationController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
