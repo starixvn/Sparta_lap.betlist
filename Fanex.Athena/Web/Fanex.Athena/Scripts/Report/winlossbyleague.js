@@ -411,7 +411,7 @@ var WinLossByLeague = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { console.log(1); Site.gotoErrorPage(); },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
                 success: function (response) {
                     WinLossByLeague.ajaxComplete(_level, response);
                     if (response != null && response.Data.length > 0) {
