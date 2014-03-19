@@ -55,7 +55,7 @@ var MobileWinLoss = (function ($) {
             };
         },
         initSetting: function () {
-            _pageSize = MobileWinLossOption.gridOption.pageSize;
+            _pageSize = MobileWinLossOption.pageSize;
             MobileWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             MobileWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
         },
