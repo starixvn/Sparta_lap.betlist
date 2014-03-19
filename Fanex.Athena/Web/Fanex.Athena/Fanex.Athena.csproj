@@ -184,7 +184,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="%40JSense.js" />
     <Content Include="AccessDenied.aspx" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
