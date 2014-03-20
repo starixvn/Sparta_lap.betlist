@@ -1,3 +1,4 @@
+/// <reference path="/@JSense.js" />
 /*
 * jQuery jclock - Clock plugin - v 2.3.2
 * http://plugins.jquery.com/project/jclock

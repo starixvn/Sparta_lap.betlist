@@ -1,4 +1,5 @@
-﻿ 
+﻿/// <reference path="/@JSense.js" />
+ 
 // <copyright file="ViewResources.zh-TW.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>

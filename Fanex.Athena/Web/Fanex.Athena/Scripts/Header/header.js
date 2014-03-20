@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="/@JSense.js" />
+
 $(document).ready(function () {
     // init clock
     var options = {

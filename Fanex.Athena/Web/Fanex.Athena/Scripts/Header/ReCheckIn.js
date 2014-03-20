@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="/@JSense.js" />
+
 function ReCheckin() {
 
     var Success = 0;
