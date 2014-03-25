@@ -22,7 +22,6 @@ $(document).ready(function () {
                     top.frames["menu"].location.href = Site.getBaseUrl() + "_menu/Menu.aspx";
                     top.frames["header"].location.href = Site.getBaseUrl() + "Header/Index";
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
-                    top.frames["main"].Site.unBlockUI();
                 }
             },
             error: function (request, status, error) { }
