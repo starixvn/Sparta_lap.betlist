@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
                     return DailyRacingWlPost(metaModel);
                 }
@@ -67,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetList
                 + string.Format(
                 " - {0} - {1}",
                 metaModel.Date.ToString("MMM dd, yyyy"),
-                ViewResources.Viewin + " " + (metaModel.CurrencyId == 0 || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                ViewResources.Viewin + " " + (metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, null);
 

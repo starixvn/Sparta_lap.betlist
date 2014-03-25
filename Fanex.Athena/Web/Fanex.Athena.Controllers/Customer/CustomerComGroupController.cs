@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var model = _customerComService.GetAll(licenseeId);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNg;
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult Create()
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             /*Gathering group list*/
             var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
 
@@ -184,7 +184,7 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult Update(int groupId)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             /*Gathering group list*/
             var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
@@ -297,7 +297,7 @@ namespace Fanex.Athena.Controllers.Customer
             if (ModelState.IsValid)
             {
                 var licenseeSession = SessionService.LicenseeSession;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
                 _customerComService.DeleteGroup(
                     new DeleteGroupMetaModel()
@@ -362,7 +362,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
                 {
                     RbVisible = productAccess.IsAllowRb,

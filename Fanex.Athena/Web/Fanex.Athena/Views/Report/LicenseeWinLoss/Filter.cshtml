@@ -1,4 +1,5 @@
 ﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DataDomain
 @model Fanex.Athena.Models.ViewModel.Report.LicenseeWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
@@ -29,11 +30,11 @@
         </label>
     </div>
     <div class="grid_5 filter-input option-list">
-        <input type="radio" value="1" @(Model.Param.ReportBy == 1 ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
+        <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
         <label for="reportbydaily">
             @ViewResources.Daily
         </label>
-        <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == 2 ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
+        <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
         <label for="reportbymonthly">
             @ViewResources.Monthly
         </label>
@@ -44,13 +45,13 @@
         </label>
     </div>
     <div class="grid_9 filter-input option-list">
-        <input type="radio" value="1" @(Model.Param.DrawFilter == 1 ? "checked=checked" : "") name="drawfilter" id="DrawFilter"/>
+        <input type="radio" value="1" @(Model.Param.DrawFilter == DrawFilterType.Normal ? "checked=checked" : "") name="drawfilter" id="DrawFilter"/>
         <label for="DrawFilter">@ViewResources.Normal</label>
-        <input type="radio" value="2" @(Model.Param.DrawFilter == 2 ? "checked=checked" : "") name="drawfilter"  id="DrawFilterNoDraw" />
+        <input type="radio" value="2" @(Model.Param.DrawFilter == DrawFilterType.NoDraws ? "checked=checked" : "") name="drawfilter"  id="DrawFilterNoDraw" />
         <label for="DrawFilterNoDraw">
             @ViewResources.NoDraws
         </label>
-        <input type="radio" value="3" @(Model.Param.DrawFilter == 3 ? "checked=checked" : "") name="drawfilter" id="DrawFilterNoDrawsForTurnoverOnly" />
+        <input type="radio" value="3" @(Model.Param.DrawFilter == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="drawfilter" id="DrawFilterNoDrawsForTurnoverOnly" />
         <label for="DrawFilterNoDrawsForTurnoverOnly">
             @ViewResources.NoDrawsForTurnoverOnly
         </label>

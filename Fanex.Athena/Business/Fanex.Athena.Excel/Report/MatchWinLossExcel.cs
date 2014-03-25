@@ -66,7 +66,6 @@ namespace Fanex.Athena.Excel.Report
             _model = model;
             ExportData = exportData;
             _totalData = totalData;
-
             AddExtraColumns();
 
             HeaderTextList = new List<string>

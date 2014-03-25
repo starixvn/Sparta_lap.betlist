@@ -95,7 +95,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",
@@ -111,7 +111,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",
@@ -127,7 +127,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: 'currency',
+        formatter: jqGridAdditional.formatDecimal,
         formatoptions:
         {
             decimalSeparator: ".",

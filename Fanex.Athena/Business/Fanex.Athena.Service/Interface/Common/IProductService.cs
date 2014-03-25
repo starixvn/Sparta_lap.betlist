@@ -24,11 +24,11 @@ namespace Fanex.Athena.Service.Interface.Common
         /// </summary>
         /// <param name="licenseeId">Licensee Id.</param>
         /// <param name="languageCode">The language code.</param>
-        /// <param name="ignoredCsAndBg">True, If you want to ignore Casino and Bingo.</param>
+        /// <param name="ignoreProducts">Ignored products.</param>
         /// <returns>
         ///     Product-Access object.
         /// </returns>
-        ProductAccess GetProductAccess(int licenseeId, string languageCode, bool ignoredCsAndBg = true);
+        ProductAccess GetProductAccess(int licenseeId, string languageCode, string[] ignoreProducts = null);
 
         /// <summary>
         ///     The get product list.

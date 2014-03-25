@@ -27,23 +27,23 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class LicenseeWinLossExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 29;
-        private const int ColumnAmtDueToRacing = 30;
-        private const int ColumnBaCommission = 27;
-        private const int ColumnCurrency = 4;
-        private const int ColumnCustomerComm = 16;
-        private const int ColumnCustomerTotal = 17;
-        private const int ColumnCustomerWl = 15;
+        private const int ColumnTurnoverTotal = 14;
+        private const int ColumnTotalTransaction = 15;
+        private const int ColumnCustomerWl = 16;
+        private const int ColumnCustomerComm = 17;
+        private const int ColumnCustomerTotal = 18;
+        private const int ColumnLicenseeWlSportsBook = 19;
+        private const int ColumnLicenseeWlTotal = 28;
+        private const int ColumnBaCommission = 29;
+        private const int ColumnRacingRevenue = 30;
+        private const int ColumnAmtDueToBa = 31;
+        private const int ColumnAmtDueToRacing = 32;
+        private const int ColumnTemplateCount = 33;
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
-        private const int ColumnLicenseeWlSportsBook = 18;
-        private const int ColumnLicenseeWlTotal = 26;
-        private const int ColumnRacingRevenue = 28;
         private const int ColumnSystemId = 3;
-        private const int ColumnTemplateCount = 31;
-        private const int ColumnTotalTransaction = 14;
+        private const int ColumnCurrency = 4;
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 13;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
@@ -136,7 +136,6 @@ namespace Fanex.Athena.Excel.Report
 
             // row 2
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-
             row2.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
@@ -151,6 +150,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.VirtualSports,
                 ViewResources.RNGCasino,
                 ViewResources.Bingo,
+                ViewResources.Keno,
                 ViewResources.Total
             };
 
@@ -241,7 +241,7 @@ namespace Fanex.Athena.Excel.Report
                 ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
                 : GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.CustomerBetList + ", {0} --> {1} - {2}", fromdate, todate, title);
+            ReportTitle = string.Format(ViewResources.LicenseeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
@@ -411,6 +411,7 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.Vs, Status = false },
                 new ProductOption { Code = Product.Cs, Status = false },
                 new ProductOption { Code = Product.Bg, Status = false },
+                new ProductOption { Code = Product.Kn, Status = false }
             };
 
             foreach (var t in products)

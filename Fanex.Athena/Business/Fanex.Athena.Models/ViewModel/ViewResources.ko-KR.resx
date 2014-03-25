@@ -2346,4 +2346,7 @@
   <data name="CSComm" xml:space="preserve">
     <value>CS 수수료</value>
   </data>
+  <data name="Keno" xml:space="preserve">
+    <value>Keno</value>
+  </data>
 </root>

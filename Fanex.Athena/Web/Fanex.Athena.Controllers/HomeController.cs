@@ -17,25 +17,5 @@ namespace Fanex.Athena.Controllers
         {
             return Redirect("~/Index.aspx");
         }
-
-        public string GetLeauge(int id)
-        {
-            return Fanex.Athena.Models.Cache.CacheRef.GetLeagueName(id);
-        }
-
-        public string GetOutRightName(int id)
-        {
-            return Fanex.Athena.Models.Cache.CacheRef.GetTeamName(id);
-        }
-
-        public string GetLCTeamName(int id)
-        {
-            return Fanex.Athena.Models.Cache.CacheRef.GetCasinoBetItem(id);
-        }
-
-        public ActionResult Footer()
-        {
-            return View("~/Views/Home/Footer.cshtml");
-        }
     }
 }

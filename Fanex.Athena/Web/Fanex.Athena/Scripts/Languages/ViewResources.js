@@ -1,4 +1,5 @@
-﻿ 
+﻿/// <reference path="/@JSense.js" />
+ 
 // <copyright file="ViewResources.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -8,7 +9,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:03:19 PM
+// Lasted generated date: 3/14/2014 11:12:19 AM
 // </history>
 
 var _language_en_US={
@@ -603,6 +604,8 @@ var _language_en_US={
                      June:"June",
 				 	
                      KeepCurrentComm:"Keep current commission",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"Kick Off. Time",
 				 	

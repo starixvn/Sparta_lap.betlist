@@ -1,4 +1,5 @@
-﻿ 
+﻿/// <reference path="/@JSense.js" />
+ 
 // <copyright file="ViewResources.zh-CN.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -8,7 +9,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:03:23 PM
+// Lasted generated date: 3/14/2014 11:12:24 AM
 // </history>
 
 var _language_zh_CN={
@@ -601,6 +602,8 @@ var _language_zh_CN={
                      June:"6月",
 				 	
                      KeepCurrentComm:"保持当前的佣金",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"开赛时间",
 				 	

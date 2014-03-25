@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
@@ -26,7 +27,10 @@ namespace Fanex.Athena.Controllers
     public class BaseController : Controller
     {
         #region Members
-
+        public readonly string[] IgnoreCasinoAngBingo = { Product.Cs, Product.Bg };
+        public readonly string[] IgnoreKeno = { Product.Kn };
+        public readonly string[] IgnoreBingo = { Product.Bg };
+        public readonly string[] IgnoreCasinoAndBingoAndKeno = { Product.Cs, Product.Bg, Product.Kn };
         public readonly ILanguageService LangService;
         public readonly ISessionService SessionService;
         public readonly ICurrencyService CurrencyService;
@@ -38,8 +42,6 @@ namespace Fanex.Athena.Controllers
             LangService = new LanguageService();
             SessionService = new SessionService();
             CurrencyService = new CurrencyService();
-
-            ViewBag.HasCustComm = this.SessionService.LicenseeSession != null && this.SessionService.LicenseeSession.IsAllowedCustomerComm;
         }
 
         public bool IsDebuggingEnabled
