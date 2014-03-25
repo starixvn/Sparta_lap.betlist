@@ -516,7 +516,6 @@
     <Content Include="Scripts\Forecast\forecast.onextwo.js" />
     <Content Include="Scripts\Forecast\forecastpopup.js" />
     <Content Include="Scripts\Global\prototype.js" />
-    <Content Include="Scripts\Global\data.domain.js" />
     <Content Include="Scripts\Global\query.string.js" />
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
