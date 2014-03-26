@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                 DrawFilter = DrawFilterType.Normal
             };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(historyParam);
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {

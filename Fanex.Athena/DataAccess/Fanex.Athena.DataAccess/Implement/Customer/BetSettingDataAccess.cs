@@ -195,6 +195,28 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Get Keno bet setting.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <returns>List result.</returns>
+        public IList<BetSetting> GetKenoBetSetting(int custId)
+        {
+            var uspName = "Lrf_CustomerSelEditCustomer";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                var dataSet = db.ExecuteDataSet();
+                if (dataSet != null)
+                {
+                    return RenderSportBookBetSetting(dataSet.Tables[0]);
+                }
+
+                return new List<BetSetting>();
+            }
+        }
+
         #endregion Get bet setting data
 
         #region Update bet setting
@@ -497,6 +519,48 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Live Casino
+
+        #region Keno
+
+        /// <summary>
+        /// Update sport book bet setting.
+        /// </summary>
+        /// <param name="common">The common setting.</param>
+        /// <param name="setting">The customer setting.</param>
+        /// <returns>The result value.</returns>
+        public IResultInfo UpdateKenoBetSetting(CommonBetSetting common, IDictionary<string, object> setting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_All";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("licenseeid", DbType.Int32, common.LicenseeId);
+                db.AddInParameter("ip", DbType.String, common.Ip);
+                db.AddInParameter("language", DbType.String, common.Language);
+                db.AddInParameter("userid", DbType.Int32, common.UserId);
+                db.AddInParameter("custid", DbType.Int32, common.CustId);
+                foreach (var item in setting)
+                {
+                    if (item.Key.Contains("UpdateMinMaxBet"))
+                    {
+                        db.AddInParameter(item.Key, DbType.Boolean, item.Value);
+                    }
+                    else
+                    {
+                        db.AddInParameter(item.Key, DbType.Decimal, item.Value);
+                    }
+                }
+
+                db.AddOutParameter("ErrCode", DbType.String, 600);
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
+            }
+        }
+
+        #endregion Keno
 
         #endregion Update bet setting
 

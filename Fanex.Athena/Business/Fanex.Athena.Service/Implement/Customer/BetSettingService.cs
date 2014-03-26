@@ -205,6 +205,18 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         /// <summary>
+        /// Get Keno bet setting.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <returns>The  bet setting list.</returns>
+        public IList<BetSetting> GetKenoBetSetting(int custId)
+        {
+            return _authorizationService.HasPermissionOnData(custId, 0)
+                        ? _betSettingDataAccess.GetSportBookBetSetting(custId)
+                        : new List<BetSetting>();
+        }
+
+        /// <summary>
         ///  Update SportsBook bet setting.
         /// </summary>
         /// <param name="sportsBook">The sport-book setting.</param>
@@ -383,6 +395,27 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
+        }
+
+        /// <summary>
+        ///  Update Keno bet setting.
+        /// </summary>
+        /// <param name="betSetting">The bet setting.</param>
+        /// <param name="setting">The metal model.</param>
+        /// <returns>The information of result.</returns>
+        public IResultInfo UpdateKenoBetSetting(CommonBetSetting betSetting, IDictionary<string, object> setting)
+        {
+            if (betSetting == null)
+            {
+                return ErrorResult("Invalid parameter. Keno is null");
+            }
+
+            if (!_authorizationService.HasPermissionOnData(betSetting.CustId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateSportsBookBetSetting(betSetting, setting);
         }
 
         #region Utility

@@ -55,6 +55,9 @@ var BetSetting = (function ($) {
                 case 6:
                     $('#rngcasino').addClass('activeTab');
                     break;
+                case 7:
+                    $('#keno').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
@@ -195,6 +198,12 @@ var BetSetting = (function ($) {
                 case 5:
                     BetSetting.showConfirmAction(Site.getSingleResource('UpdateLiveCasinoBetSettings'),
                             custId, userName, nickName, BetSetting.updateLiveCasinoBetSetting);
+                    break;
+                case 7:
+                    if (BetSetting.checkValidationSportsBook()) {
+                        BetSetting.showConfirmAction(Site.getSingleResource('UpdateSportsbookBetSettings'),
+                            custId, userName, nickName, BetSetting.updateSportsbookBetSetting);
+                    }
                     break;
             }
         },
