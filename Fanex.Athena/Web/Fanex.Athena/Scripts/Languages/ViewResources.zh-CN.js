@@ -1,5 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
- 
+﻿ 
 // <copyright file="ViewResources.zh-CN.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -9,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/14/2014 11:12:24 AM
+// Lasted generated date: 3/26/2014 6:59:10 PM
 // </history>
 
 var _language_zh_CN={
@@ -1396,6 +1395,10 @@ var _language_zh_CN={
                      UpdateCustomerCommission:"更新客户的佣金",
 				 	
                      UpdateFunctionSuccessfulMsg:"更新成功",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"您确定您要更新真人娱乐场投注设置吗？",
 				 	

@@ -1,5 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
- 
+﻿ 
 // <copyright file="ViewResources.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -9,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/14/2014 11:12:19 AM
+// Lasted generated date: 3/26/2014 6:59:05 PM
 // </history>
 
 var _language_en_US={
@@ -1398,6 +1397,10 @@ var _language_en_US={
                      UpdateCustomerCommission:"Update Customer Commission",
 				 	
                      UpdateFunctionSuccessfulMsg:"Updating Functions is successul.",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"Are you sure you want to update Live Casino bet settings?",
 				 	

@@ -17,6 +17,11 @@ namespace Fanex.Athena.Models.Cache
     /// </summary>
     public class CacheRef
     {
+        public static string GetKenoBetTypeName(string kenoBettypeID)
+        {
+            return RefData.GetKenoBettype(kenoBettypeID, GetCurrentLanguage());
+        }
+
         public static string GetBettype(object bettypeId)
         {
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentLanguage(), string.Empty);
@@ -53,7 +58,7 @@ namespace Fanex.Athena.Models.Cache
         }
 
         public static string GetCasinoBetItem(object betTeam)
-        {            
+        {
             var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
             return RefData.GetCasinoBetItem(betTeamString, GetCurrentLanguage());
         }
@@ -93,7 +98,7 @@ namespace Fanex.Athena.Models.Cache
                 {
                     betTypeName = ViewResources.FT + " " + betTypeName;
                 }
-            }            
+            }
 
             return betTypeName;
         }

@@ -212,7 +212,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         public IList<BetSetting> GetKenoBetSetting(int custId)
         {
             return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetSportBookBetSetting(custId)
+                        ? _betSettingDataAccess.GetKenoBetSetting(custId)
                         : new List<BetSetting>();
         }
 
@@ -398,24 +398,38 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         /// <summary>
-        ///  Update Keno bet setting.
+        /// Update Keno bet setting.
         /// </summary>
-        /// <param name="betSetting">The bet setting.</param>
-        /// <param name="setting">The metal model.</param>
-        /// <returns>The information of result.</returns>
-        public IResultInfo UpdateKenoBetSetting(CommonBetSetting betSetting, IDictionary<string, object> setting)
+        /// <param name="custId">The customer id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="language">The language id.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="betSettings">The bet setting.</param>
+        /// <returns>The result.</returns>
+        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings)
         {
-            if (betSetting == null)
-            {
-                return ErrorResult("Invalid parameter. Keno is null");
-            }
-
-            if (!_authorizationService.HasPermissionOnData(betSetting.CustId, 0))
+            const string XMLPattern = "<settings>{0}</settings>";
+            const string XMLElement = "<setting gametypeid=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateSportsBookBetSetting(betSetting, setting);
+            var xmlElementBuilder = new StringBuilder();
+
+            foreach (var setting in betSettings)
+            {
+                xmlElementBuilder.Append(string.Format(XMLElement, setting.SportId, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+            }
+
+            var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
+
+            return _betSettingDataAccess.UpdateVirtualSportsBetSetting(
+                custId,
+                userId,
+                language,
+                ip,
+                xmlparam);
         }
 
         #region Utility

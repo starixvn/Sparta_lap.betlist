@@ -41,6 +41,6 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
-        IResultInfo UpdateKenoBetSetting(CommonBetSetting common, IDictionary<string, object> setting);
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

@@ -78,6 +78,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
                 case ProductType.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
+                case ProductType.Keno:
+                    return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }

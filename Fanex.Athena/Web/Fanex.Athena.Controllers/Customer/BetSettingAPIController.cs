@@ -158,6 +158,38 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update Keno settings.
+        /// </summary>
+        /// <param name="nickName">The user name.</param>
+        /// <returns>The JSON result.</returns>
+        [HttpGet]
+        public JsonResult UpdateKenoBetSetting(string nickName)
+        {
+            var commonParam = GetBetSettingCommonParam();
+            var dataParams = GetKenoParam();
+            /*Validate parameter*/
+            if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
+            {
+                return Json(new ResultInfo { Code = 0, Message = "Invalid parameters" }, JsonRequestBehavior.AllowGet);
+            }
+
+            var result = _betSettingService
+                .UpdateKenoBetSetting(
+                commonParam.CustId,
+                commonParam.UserId,
+                commonParam.Language,
+                commonParam.Ip,
+                dataParams);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateKenoBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update virtual sport settings.
         /// </summary>
         /// <param name="nickName">The user name.</param>
@@ -383,6 +415,30 @@ namespace Fanex.Athena.Controllers.Customer
                                };
 
             return hashData;
+        }
+
+        /// <summary>
+        /// Get Keno requested parameters.
+        /// </summary>
+        /// <returns>The parameters.</returns>
+        private IList<VSBetSetting> GetKenoParam()
+        {
+            string[] sports = { "10", "11", "12", "13", "14", "15", "16", "17" };
+
+            var settings = new List<VSBetSetting>();
+
+            foreach (var sport in sports)
+            {
+                settings.Add(new VSBetSetting
+                {
+                    MaxBet = GetDecimalRequest("maxbet" + sport, 0),
+                    MinBet = GetDecimalRequest("minbet" + sport, 0),
+                    MaxPerMatch = GetDecimalRequest("maxpermatch" + sport, 0),
+                    SportId = sport
+                });
+            }
+
+            return settings;
         }
 
         /// <summary>
