@@ -13,7 +13,7 @@
                     : Model.Param.CurrencyName.ToUpper()) - 
                 <input type="checkbox" id="chkIsShowPic" name="chkIsShowPic" @(Model.Param.IsShowPic ? "checked='checked'" : string.Empty)/>
                 <label for="chkIsShowPic">@ViewResources.Resultswithpictures</label>
-                <div onclick="history.go(-1)" class="history-link">
+                <div onclick="history.back()" class="history-link">
                 </div>
                 <input type="hidden" id="casino-detail-currency-id" value="@Model.Param.CurrencyId" />
                 <input type="hidden" id="casino-detail-currency-name" value="@Model.Param.CurrencyName" />
