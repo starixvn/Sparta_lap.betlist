@@ -1,5 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
- 
+﻿ 
 // <copyright file="ViewResources.zh-TW.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -9,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/14/2014 11:11:46 AM
+// Lasted generated date: 3/26/2014 6:58:59 PM
 // </history>
 
 var _language_ko_KR={
@@ -1394,6 +1393,10 @@ var _language_ko_KR={
                      UpdateCustomerCommission:"고객 수수료 업데이트하기",
 				 	
                      UpdateFunctionSuccessfulMsg:"기능 업데이트가 성공적으로 완료되었습니다.",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"실시간 카지노 배팅 설정을 업데이트하시렵니까?",
 				 	

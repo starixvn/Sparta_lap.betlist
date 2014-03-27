@@ -1059,6 +1059,7 @@
     <Content Include="Views\Report\WinLossByLeague\Filter.cshtml" />
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
     <Content Include="Views\Header\Index.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

@@ -55,6 +55,9 @@ var BetSetting = (function ($) {
                 case 6:
                     $('#rngcasino').addClass('activeTab');
                     break;
+                case 7:
+                    $('#keno').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
@@ -164,7 +167,7 @@ var BetSetting = (function ($) {
             custId = $(this).attr("data-cust-id");
             userName = $(this).attr("data-user-name");
             nickName = $(this).attr("data-nick-name");
-
+            
             switch (tabid) {
                 case 1:
                     if (BetSetting.checkValidationSportsBook()) {
@@ -195,6 +198,12 @@ var BetSetting = (function ($) {
                 case 5:
                     BetSetting.showConfirmAction(Site.getSingleResource('UpdateLiveCasinoBetSettings'),
                             custId, userName, nickName, BetSetting.updateLiveCasinoBetSetting);
+                    break;
+                case 7:                    
+                    if (BetSetting.checkValidationKeno()) {
+                        BetSetting.showConfirmAction(Site.getSingleResource('UpdateKenoBetSettings'),
+                            custId, userName, nickName, BetSetting.updateKenoBetSetting);
+                    }
                     break;
             }
         },
@@ -240,6 +249,18 @@ var BetSetting = (function ($) {
 
             return true;
         },
+        checkValidationKeno: function () {
+            alert(1);
+            if (false == BetSetting.checkLimitMinMaxBet(10)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(11)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(12)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(13)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(14)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(15)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(16)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(17)) return false;
+            return true;
+        },
         checkValidationVirtualSports: function () {
             if (false == BetSetting.checkLimitMinMaxBet(180)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(181)) return false;
@@ -247,6 +268,35 @@ var BetSetting = (function ($) {
             if (false == BetSetting.checkLimitMinMaxBet(182)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(184)) return false;
             return true;
+        },
+        updateKenoBetSetting: function (custId, userName, nickName) {
+            var params = "";
+
+            params += BetSetting.getBetSettingParams(10);
+            params += BetSetting.getBetSettingParams(11);
+            params += BetSetting.getBetSettingParams(12);
+            params += BetSetting.getBetSettingParams(13);
+            params += BetSetting.getBetSettingParams(14);
+            params += BetSetting.getBetSettingParams(15);
+            params += BetSetting.getBetSettingParams(16);
+            params += BetSetting.getBetSettingParams(17);
+            params += "&custid=" + custId;
+            params += "&userName=" + userName;
+            params += "&nickName=" + nickName
+            params = params.substring(1);
+
+            $.ajax({
+                type: 'GET',
+                url: resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
+                data: params,
+                dataType: "json",
+                success: function (result) {
+                    BetSetting.showUpdateSettingResult(result);
+                },
+                error: function (request, status, err) {
+                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
+                }
+            });
         },
         // Update Sportsbook
         updateSportsbookBetSetting: function (custId, userName, nickName) {

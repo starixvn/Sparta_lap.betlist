@@ -29,6 +29,8 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId);
 
+        IList<BetSetting> GetKenoBetSetting(int custId);
+
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting common, IDictionary<string, object> setting);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
@@ -38,5 +40,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
+
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

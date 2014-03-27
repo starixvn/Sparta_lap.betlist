@@ -18,6 +18,8 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
+        IList<BetSetting> GetKenoBetSetting(int custId);
+
         IList<BetSetting> GetSportBookBetSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
@@ -27,6 +29,8 @@ namespace Fanex.Athena.Service.Interface.Customer
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId);
+
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting param, IDictionary<string, object> hashParam);
 
