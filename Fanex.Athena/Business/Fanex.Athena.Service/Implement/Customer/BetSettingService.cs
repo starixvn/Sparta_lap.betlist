@@ -406,7 +406,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="ip">The IP address.</param>
         /// <param name="betSettings">The bet setting.</param>
         /// <returns>The result.</returns>
-        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings)
+        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings)
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
@@ -419,7 +419,7 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             foreach (var setting in betSettings)
             {
-                xmlElementBuilder.Append(string.Format(XMLElement, setting.SportId, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+                xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
             }
 
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());

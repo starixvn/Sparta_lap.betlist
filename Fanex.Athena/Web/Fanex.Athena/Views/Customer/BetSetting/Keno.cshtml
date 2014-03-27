@@ -11,9 +11,8 @@
 {
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
-@{
-    ViewBag.BetSettingType = ViewResources.GameType;
-    var hasData = Model.MainData != null || Model.MainData.Count > 0;
+@{    
+    var hasData = Model.MainData != null && Model.MainData.Count > 0;
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
@@ -33,7 +32,7 @@
 @Html.Hidden("dataCount", (Model.MainData==null ? 0 :Model.MainData.Count))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
-    <div class="row" style="width: 190px;">@ViewBag.betSettingType</div>
+    <div class="row" style="width: 190px;">@ViewResources.GameType</div>
     <div class="row" style="width: 230px;">
         @ViewResources.MinBet
     </div>

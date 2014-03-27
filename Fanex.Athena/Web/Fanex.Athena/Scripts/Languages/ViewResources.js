@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/26/2014 6:59:05 PM
+// Lasted generated date: 3/27/2014 9:28:22 AM
 // </history>
 
 var _language_en_US={
@@ -219,6 +219,8 @@ var _language_en_US={
                      ConfirmPassword:"Confirm Password",
 				 	
                      ConvertTo:"Convert to",
+				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 				 	
                      CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
 				 	
@@ -583,6 +585,8 @@ var _language_en_US={
                      InvalidCaptchaMsg:"You inputed an invalid code.",
 				 	
                      InValidParamMsg:"The param of URL is in valid",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"Request is not valid",
 				 	

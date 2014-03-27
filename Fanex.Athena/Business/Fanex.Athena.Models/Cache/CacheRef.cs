@@ -16,12 +16,7 @@ namespace Fanex.Athena.Models.Cache
     /// CacheRef class.
     /// </summary>
     public class CacheRef
-    {
-        public static string GetKenoBetTypeName(string kenoBettypeID)
-        {
-            return RefData.GetKenoBettype(kenoBettypeID, GetCurrentLanguage());
-        }
-
+    {       
         public static string GetBettype(object bettypeId)
         {
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentLanguage(), string.Empty);

@@ -172,7 +172,7 @@ namespace Fanex.Athena.Controllers.Customer
             /*Validate parameter*/
             if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
-                return Json(new ResultInfo { Code = 0, Message = "Invalid parameters" }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
 
             var result = _betSettingService
@@ -204,7 +204,7 @@ namespace Fanex.Athena.Controllers.Customer
             /*Validate parameter*/
             if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
-                return Json(new ResultInfo { Code = 0, Message = "Invalid parameters" }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
 
             var result = _betSettingService
@@ -424,18 +424,18 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="ids">Game type ids.</param>
         /// <returns>The parameters.</returns>
-        private IList<VSBetSetting> GetKenoParam(string[] ids)
-        {            
-            var settings = new List<VSBetSetting>();
+        private IList<KenoBetSetting> GetKenoParam(string[] ids)
+        {
+            var settings = new List<KenoBetSetting>();
 
             foreach (var id in ids)
             {
-                settings.Add(new VSBetSetting
+                settings.Add(new KenoBetSetting
                 {
                     MaxBet = GetDecimalRequest("maxbet" + id, 0),
                     MinBet = GetDecimalRequest("minbet" + id, 0),
                     MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
-                    SportId = id
+                    GameTypeID = id
                 });
             }
 

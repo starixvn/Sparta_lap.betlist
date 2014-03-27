@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/26/2014 6:59:10 PM
+// Lasted generated date: 3/27/2014 9:28:25 AM
 // </history>
 
 var _language_zh_CN={
@@ -219,6 +219,8 @@ var _language_zh_CN={
                      ConfirmPassword:"确认密码",
 				 	
                      ConvertTo:"转换为",
+				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 				 	
                      CopyBetSettingFromRacing:"从赛马赛事复制所有投注设定",
 				 	
@@ -581,6 +583,8 @@ var _language_zh_CN={
                      InvalidCaptchaMsg:"您输入了无效的编码",
 				 	
                      InValidParamMsg:"网址参数是有效的",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"请求无效",
 				 	
