@@ -87,8 +87,14 @@
             </div>
         }
     }
-</div>
+</div> 
 <!--/Content-->
+<!-- Hidden-->
+@if(hasData)
+{
+    <input type="hidden" id="IDList" value="@(String.Join(",", Model.MainData.Select(x => x.SportId)))" />
+}
+<!--/Hidden-->
 <!--SubmitButton-->
 @if (Model.Param.Editable)
 {
