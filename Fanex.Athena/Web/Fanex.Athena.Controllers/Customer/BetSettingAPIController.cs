@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Common;
 
     /// <summary>
     /// Bet setting API controller.
@@ -165,8 +166,9 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public JsonResult UpdateKenoBetSetting(string nickName)
         {
+            var ids = Converter.ToString2(Request["ids"]).Split(',');
             var commonParam = GetBetSettingCommonParam();
-            var dataParams = GetKenoParam();
+            var dataParams = GetKenoParam(ids);
             /*Validate parameter*/
             if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
@@ -420,21 +422,20 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get Keno requested parameters.
         /// </summary>
+        /// <param name="ids">Game type ids.</param>
         /// <returns>The parameters.</returns>
-        private IList<VSBetSetting> GetKenoParam()
-        {
-            string[] sports = { "10", "11", "12", "13", "14", "15", "16", "17" };
-
+        private IList<VSBetSetting> GetKenoParam(string[] ids)
+        {            
             var settings = new List<VSBetSetting>();
 
-            foreach (var sport in sports)
+            foreach (var id in ids)
             {
                 settings.Add(new VSBetSetting
                 {
-                    MaxBet = GetDecimalRequest("maxbet" + sport, 0),
-                    MinBet = GetDecimalRequest("minbet" + sport, 0),
-                    MaxPerMatch = GetDecimalRequest("maxpermatch" + sport, 0),
-                    SportId = sport
+                    MaxBet = GetDecimalRequest("maxbet" + id, 0),
+                    MinBet = GetDecimalRequest("minbet" + id, 0),
+                    MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
+                    SportId = id
                 });
             }
 

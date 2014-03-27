@@ -409,7 +409,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings)
         {
             const string XMLPattern = "<settings>{0}</settings>";
-            const string XMLElement = "<setting gametypeid=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
+            const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
@@ -424,7 +424,7 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
 
-            return _betSettingDataAccess.UpdateVirtualSportsBetSetting(
+            return _betSettingDataAccess.UpdateKenoBetSetting(
                 custId,
                 userId,
                 language,
