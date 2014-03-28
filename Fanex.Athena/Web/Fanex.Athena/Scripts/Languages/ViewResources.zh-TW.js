@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/27/2014 9:28:28 AM
+// Lasted generated date: 3/28/2014 10:57:41 AM
 // </history>
 
 var _language_zh_TW={
@@ -294,7 +294,7 @@ var _language_zh_TW={
 				 	
                      CustomerWinLoss:"客戶輸贏",
 				 	
-                     CustomerWinLossTitle:"客戶輸贏，{0} - {1} - {2}",
+                     CustomerWinLossTitle:"客戶輸贏，{0} --&gt; {1} - {2}",
 				 	
                      DA:"和客",
 				 	
