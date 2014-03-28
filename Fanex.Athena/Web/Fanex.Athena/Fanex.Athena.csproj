@@ -676,6 +676,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="App_Browsers\firefox.browser" />
     <None Include="App_Data\Fanex.Result\Badminton.xls" />
     <None Include="App_Data\Fanex.Result\BaseBall.xls" />
     <None Include="App_Data\Fanex.Result\Basketball.xls" />
