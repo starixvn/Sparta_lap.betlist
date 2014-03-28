@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/26/2014 6:58:59 PM
+// Lasted generated date: 3/27/2014 9:28:17 AM
 // </history>
 
 var _language_ko_KR={
@@ -217,6 +217,8 @@ var _language_ko_KR={
                      ConfirmPassword:"비밀번호 확인",
 				 	
                      ConvertTo:"로 전환",
+				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 				 	
                      CopyBetSettingFromRacing:"레이싱에서 모든 배팅 설정 복사하기",
 				 	
@@ -579,6 +581,8 @@ var _language_ko_KR={
                      InvalidCaptchaMsg:"유효하지 않은 코드를 입력했습니다.",
 				 	
                      InValidParamMsg:"URL의 param이 유효하지 않습니다.",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"요청은 유효하지 않습니다",
 				 	

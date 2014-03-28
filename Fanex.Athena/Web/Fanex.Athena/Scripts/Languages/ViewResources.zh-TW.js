@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/26/2014 6:59:13 PM
+// Lasted generated date: 3/27/2014 9:28:28 AM
 // </history>
 
 var _language_zh_TW={
@@ -219,6 +219,8 @@ var _language_zh_TW={
                      ConfirmPassword:"確認密碼",
 				 	
                      ConvertTo:"轉換為",
+				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
 				 	
                      CopyBetSettingFromRacing:"從賽馬賽事複製所有投注設定",
 				 	
@@ -581,6 +583,8 @@ var _language_zh_TW={
                      InvalidCaptchaMsg:"您輸入了無效的編碼",
 				 	
                      InValidParamMsg:"網址參數是有效的",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"請求無效",
 				 	

@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var workbook = excel.Export(ticketResult, title);
 
-            return new ExcelResult(workbook, "LicenseeWinLossBetList");
+            return new ExcelResult(workbook, "CustomerWinLossBetList");
         }
     }
 }

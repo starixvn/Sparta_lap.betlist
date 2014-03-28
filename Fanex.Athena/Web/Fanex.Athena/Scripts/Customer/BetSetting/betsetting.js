@@ -144,6 +144,9 @@ var BetSetting = (function ($) {
                     break;
                 case 7:
                     {
+                        if (!enable) {
+                            $('#copy-settting').hide();
+                        }
                         $.each(_ids, function (index, value) {
                             BetSetting.checkEnable(value, enable);
                         });
@@ -265,14 +268,13 @@ var BetSetting = (function ($) {
         },
         checkValidationKeno: function () {
             BetSetting.checkCopyAllValues($('#chkCopyAll'));
-            var isValid = true;
-            $.each(_ids, function (index, value) {
-                if (false == BetSetting.checkLimitMinMaxBet(value)) {
-                    isValid = false;
-                    return;
+            for (var i in _ids) {
+                if (false == BetSetting.checkLimitMinMaxBet(_ids[i])) {                    
+                    return false;
                 }
-            });
-            return isValid;
+            }
+
+            return true;
         },
         checkValidationVirtualSports: function () {
             if (false == BetSetting.checkLimitMinMaxBet(180)) return false;

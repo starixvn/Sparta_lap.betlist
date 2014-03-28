@@ -1330,7 +1330,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Win/Loss, {0} - {1} - {2}.
+        ///   Looks up a localized string similar to Customer Win/Loss, {0} --&gt; {1} - {2}.
         /// </summary>
         public static string CustomerWinLossTitle {
             get {
@@ -2640,6 +2640,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string InValidParamMsg {
             get {
                 return ResourceManager.GetString("InValidParamMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid parameters.
+        /// </summary>
+        public static string InvalidParams {
+            get {
+                return ResourceManager.GetString("InvalidParams", resourceCulture);
             }
         }
         

@@ -444,7 +444,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result info.</returns>
         public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData)
         {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet202";
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBetKN";
 
             using (var db = new ObjectDb(uspName))
             {
@@ -854,15 +854,15 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             foreach (DataRow row in table.Rows)
             {
                 var gameTypeId = Converter.ToString2(row["GameTypeID"]);
-                var sportName = CacheRef.GetKenoBetTypeName(gameTypeId);
-
                 var sport = new BetSetting
-                {                    
-                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),
-                    MaxPerMatchMin = Converter.ToDecimal(row["MaxPerMatch_Min"]),
+                {
+                    MaxBet = Converter.ToDecimal(row["MaxBet"]),
+                    MinBet = Converter.ToDecimal(row["MinBet"]),
+                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),                    
+                    MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch"]),
                     BetValueMax = Converter.ToDecimal(row["MaxBet_Min"]),
                     BetValueMin = Converter.ToDecimal(row["MinBet_Max"]),
-                    BetSettingType = sportName,
+                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(row["IBCBetTypeID"])),
                     SportId = gameTypeId
                 };
 

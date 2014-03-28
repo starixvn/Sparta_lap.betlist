@@ -30,7 +30,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId);
 
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting param, IDictionary<string, object> hashParam);
 
