@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/27/2014 9:28:22 AM
+// Lasted generated date: 3/28/2014 10:57:34 AM
 // </history>
 
 var _language_en_US={
@@ -294,7 +294,7 @@ var _language_en_US={
 				 	
                      CustomerWinLoss:"Customer Win Loss",
 				 	
-                     CustomerWinLossTitle:"Customer Win/Loss, {0} - {1} - {2}",
+                     CustomerWinLossTitle:"Customer Win/Loss, {0} --&gt; {1} - {2}",
 				 	
                      DA:"DA",
 				 	

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/27/2014 9:28:17 AM
+// Lasted generated date: 3/28/2014 10:56:53 AM
 // </history>
 
 var _language_ko_KR={
@@ -292,7 +292,7 @@ var _language_ko_KR={
 				 	
                      CustomerWinLoss:"고객 승리 패배",
 				 	
-                     CustomerWinLossTitle:"고객 승리/패배, {0} - {1} - {2}",
+                     CustomerWinLossTitle:"고객 승리/패배, {0} --&gt; {1} - {2}",
 				 	
                      DA:"DA",
 				 	
