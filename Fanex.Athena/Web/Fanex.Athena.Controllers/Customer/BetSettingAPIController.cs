@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Controllers.Customer
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
@@ -19,8 +20,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Common;
-    using System;
 
     /// <summary>
     /// Bet setting API controller.
