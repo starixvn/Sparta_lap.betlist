@@ -276,6 +276,8 @@
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
     <Content Include="Content\Report\winlossbyleague.css" />
+    <Content Include="Scripts\Customer\customers.js" />
+    <Content Include="Scripts\Customer\customers.option.js" />
     <Content Include="Scripts\Header\header.js" />
     <Content Include="Scripts\Header\jquery.jclock.js" />
     <Content Include="Scripts\Header\ReCheckIn.js" />
@@ -1062,6 +1064,7 @@
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
     <Content Include="Views\Header\Index.cshtml" />
     <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
+    <Content Include="Views\Customer\Customers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

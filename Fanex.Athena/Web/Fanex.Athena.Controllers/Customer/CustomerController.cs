@@ -93,7 +93,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             this.SetValueForBaStatus(model);
 
-            return View("~/Views/Customer/CustomerList.cshtml", model);
+            return View("~/Views/Customer/Customers.cshtml", model);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult CustomerList(CustomerListMetaModel metaModel)
+        public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             this.SetValueForBaStatus(model);
 
-            return View("~/Views/Customer/CustomerList.cshtml", model);
+            return model;
         }
 
         /// <summary>
