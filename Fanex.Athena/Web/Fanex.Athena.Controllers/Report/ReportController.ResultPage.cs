@@ -170,6 +170,13 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion PopUpPage
+        #region KenoPage
+        [HttpGet]
+        public ActionResult KenoResult()
+        {
+            return View("~/Views/Report/Result/Keno.cshtml");
+        }
+        #endregion
 
         #region Utilities
 
