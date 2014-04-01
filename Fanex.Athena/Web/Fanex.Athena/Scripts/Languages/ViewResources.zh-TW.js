@@ -1,5 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
- 
+﻿ 
 // <copyright file="ViewResources.zh-TW.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -9,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/14/2014 11:12:27 AM
+// Lasted generated date: 3/28/2014 10:57:41 AM
 // </history>
 
 var _language_zh_TW={
@@ -221,6 +220,8 @@ var _language_zh_TW={
 				 	
                      ConvertTo:"轉換為",
 				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
+				 	
                      CopyBetSettingFromRacing:"從賽馬賽事複製所有投注設定",
 				 	
                      CopyBetSettingFromSoccer:"從足球複製所有投注設定",
@@ -293,7 +294,7 @@ var _language_zh_TW={
 				 	
                      CustomerWinLoss:"客戶輸贏",
 				 	
-                     CustomerWinLossTitle:"客戶輸贏，{0} - {1} - {2}",
+                     CustomerWinLossTitle:"客戶輸贏，{0} --&gt; {1} - {2}",
 				 	
                      DA:"和客",
 				 	
@@ -582,6 +583,8 @@ var _language_zh_TW={
                      InvalidCaptchaMsg:"您輸入了無效的編碼",
 				 	
                      InValidParamMsg:"網址參數是有效的",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"請求無效",
 				 	
@@ -1396,6 +1399,10 @@ var _language_zh_TW={
                      UpdateCustomerCommission:"更新客戶的佣金",
 				 	
                      UpdateFunctionSuccessfulMsg:"更新成功",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"您確定您要更新真人娛樂場投注設置嗎？",
 				 	

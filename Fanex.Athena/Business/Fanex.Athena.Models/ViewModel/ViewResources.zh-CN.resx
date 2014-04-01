@@ -490,7 +490,7 @@
     <value>客户输赢</value>
   </data>
   <data name="CustomerWinLossTitle" xml:space="preserve">
-    <value>客户输赢, {0} - {1} - {2}</value>
+    <value>客户输赢, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="CustomerW_L" xml:space="preserve">
     <value>客户输赢</value>
@@ -2358,5 +2358,17 @@
   </data>
   <data name="Keno" xml:space="preserve">
     <value>Keno</value>
+  </data>
+  <data name="UpdateKenoBetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all Keno bet settings?</value>
+  </data>
+  <data name="UpdateKenoBetSettingSuccessMsg" xml:space="preserve">
+    <value>The Keno bet setting of {0} was updated successfully</value>
+  </data>
+  <data name="CopyBetSettingFrom" xml:space="preserve">
+    <value>Copy All Bet Setting from {0}</value>
+  </data>
+  <data name="InvalidParams" xml:space="preserve">
+    <value>Invalid parameters</value>
   </data>
 </root>

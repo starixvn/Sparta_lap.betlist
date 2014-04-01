@@ -676,6 +676,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="App_Browsers\firefox.browser" />
     <None Include="App_Data\Fanex.Result\Badminton.xls" />
     <None Include="App_Data\Fanex.Result\BaseBall.xls" />
     <None Include="App_Data\Fanex.Result\Basketball.xls" />
@@ -1059,6 +1061,7 @@
     <Content Include="Views\Report\WinLossByLeague\Filter.cshtml" />
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
     <Content Include="Views\Header\Index.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

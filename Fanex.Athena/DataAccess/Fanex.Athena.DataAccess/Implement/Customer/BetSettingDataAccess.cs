@@ -195,6 +195,28 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Get Keno bet setting.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <returns>List result.</returns>
+        public IList<BetSetting> GetKenoBetSetting(int custId)
+        {
+            var uspName = "Lrf_CustomerSelEditKN";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                var dataSet = db.ExecuteDataSet();
+                if (dataSet != null)
+                {
+                    return RenderKenoBetSetting(dataSet.Tables[0]);
+                }
+
+                return new List<BetSetting>();
+            }
+        }
+
         #endregion Get bet setting data
 
         #region Update bet setting
@@ -410,6 +432,37 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Number game
 
+        #region Keno
+        /// <summary>
+        /// Update Keno bet setting.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="language">The language code. </param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="xmlData">The XML parameters.</param>
+        /// <returns>The result info.</returns>
+        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBetKN";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("language", DbType.String, language);
+                db.AddInParameter("ip", DbType.String, ip);
+                db.AddInParameter("dataxml", DbType.String, xmlData);
+                db.AddOutParameter("errcode", DbType.Int32, 4);
+                db.AddOutParameter("errmsg", DbType.String, 8000);
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
+            }
+        }
+
+        #endregion Keno
+
         #region Virtual sports
 
         /// <summary>
@@ -497,7 +550,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Live Casino
-
+        
         #endregion Update bet setting
 
         #region Casino Status
@@ -789,6 +842,35 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Racing
+
+        /// <summary>
+        /// Render Keno bet setting.
+        /// </summary>
+        /// <param name="table">Data table value.</param>
+        /// <returns>The result value.</returns>
+        private IList<BetSetting> RenderKenoBetSetting(DataTable table)
+        {
+            var betSettings = new List<BetSetting>();
+            foreach (DataRow row in table.Rows)
+            {
+                var gameTypeId = Converter.ToString2(row["GameTypeID"]);
+                var sport = new BetSetting
+                {
+                    MaxBet = Converter.ToDecimal(row["MaxBet"]),
+                    MinBet = Converter.ToDecimal(row["MinBet"]),
+                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),                    
+                    MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch"]),
+                    BetValueMax = Converter.ToDecimal(row["MaxBet_Min"]),
+                    BetValueMin = Converter.ToDecimal(row["MinBet_Max"]),
+                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(row["IBCBetTypeID"])),
+                    SportId = gameTypeId
+                };
+
+                betSettings.Add(sport);
+            }
+
+            return betSettings;
+        }
 
         #region Get Bet Setting Details
 

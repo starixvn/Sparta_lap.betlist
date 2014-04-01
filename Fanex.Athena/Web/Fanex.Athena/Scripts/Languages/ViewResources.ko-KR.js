@@ -1,5 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
- 
+﻿ 
 // <copyright file="ViewResources.zh-TW.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
 // </copyright>
@@ -9,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/14/2014 11:11:46 AM
+// Lasted generated date: 3/28/2014 10:56:53 AM
 // </history>
 
 var _language_ko_KR={
@@ -219,6 +218,8 @@ var _language_ko_KR={
 				 	
                      ConvertTo:"로 전환",
 				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
+				 	
                      CopyBetSettingFromRacing:"레이싱에서 모든 배팅 설정 복사하기",
 				 	
                      CopyBetSettingFromSoccer:"축구에서 모든 배팅 설정 복사하기",
@@ -291,7 +292,7 @@ var _language_ko_KR={
 				 	
                      CustomerWinLoss:"고객 승리 패배",
 				 	
-                     CustomerWinLossTitle:"고객 승리/패배, {0} - {1} - {2}",
+                     CustomerWinLossTitle:"고객 승리/패배, {0} --&gt; {1} - {2}",
 				 	
                      DA:"DA",
 				 	
@@ -580,6 +581,8 @@ var _language_ko_KR={
                      InvalidCaptchaMsg:"유효하지 않은 코드를 입력했습니다.",
 				 	
                      InValidParamMsg:"URL의 param이 유효하지 않습니다.",
+				 	
+                     InvalidParams:"Invalid parameters",
 				 	
                      InvalidRequestMsg:"요청은 유효하지 않습니다",
 				 	
@@ -1394,6 +1397,10 @@ var _language_ko_KR={
                      UpdateCustomerCommission:"고객 수수료 업데이트하기",
 				 	
                      UpdateFunctionSuccessfulMsg:"기능 업데이트가 성공적으로 완료되었습니다.",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"실시간 카지노 배팅 설정을 업데이트하시렵니까?",
 				 	

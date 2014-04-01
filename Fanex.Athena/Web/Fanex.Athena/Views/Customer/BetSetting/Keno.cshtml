@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Models.DataDomain;
+@section pagecss
+{
+}
+@section pagejs
+{
+}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+@{    
+    var hasData = Model.MainData != null && Model.MainData.Count > 0;
+}
+<div class="content-title" style="width: 855px">
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+</div>
+
+@if(hasData)
+{
+<!--Check box-->
+<div class="copy-setting" id="copy-settting" style="width: 855px">
+    @Html.CheckBox("chkCopyAll")
+    <label for="chkCopyAll">@(string.Format(ViewResources.CopyBetSettingFrom,Model.MainData.First().BetSettingType))</label>
+</div>
+<!--Check box-->
+}
+    
+@Html.Hidden("editable", Model.Param.Editable)
+@Html.Hidden("dataCount", (Model.MainData==null ? 0 :Model.MainData.Count))
+<!--Header-->
+<div class="header-content" style="width: 884px;">
+    <div class="row" style="width: 190px;">@ViewResources.GameType</div>
+    <div class="row" style="width: 230px;">
+        @ViewResources.MinBet
+    </div>
+    <div class="row" style="width: 230px;">
+        @ViewResources.MaxBet
+    </div>
+    <div class="row" style="width: 230px;">
+        @ViewResources.MaxPerMatch
+    </div>
+</div>
+<!--/Header-->
+<!--Content-->
+<div class="data-content">
+    @if (!hasData)
+    {
+        <div class="content-row" style="width: 885px!important">
+            <div class="no-info">
+                <div>@ViewResources.NoInfo</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model.MainData)
+        {
+            <div class="content-row">
+                <div class="row text-data first-column" style="width: 190px">
+                    <div>@item.BetSettingType</div>
+                </div>
+                <div class="row text-data" style="width: 230px">
+                    <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
+                    @if (item.BetValueMin > 0)
+                    {
+                        <span>&gt;=@item.BetValueMin.ToString("#,###,##0.##")</span>
+                    }
+                </div>
+                <div class="row text-data" style="width: 230px">
+                    <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-max-value="@item.BetValueMax.ToString("#,###,##0.##")" data-original="@item.MaxBet.ToString("#,###,##0.##")"/>
+                    @if (item.BetValueMax > 0)
+                    {
+                        <span>&lt;=@item.BetValueMax.ToString("#,###,##0.##")</span>
+                    }
+                </div>
+                <div class="row text-data" style="width: 230px">
+                    <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-min-value="@item.MaxPerMatchMin.ToString("#,###,##0.##")" data-max-value="@item.MaxPerMatchMax.ToString("#,###,##0.##")" data-original="@item.MaxPerMatch.ToString("#,###,##0.##")"/>
+                    @if (item.MaxPerMatchMax > 0)
+                    {
+                        <span>&lt;=@item.MaxPerMatchMax.ToString("#,###,##0.##")</span>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div> 
+<!--/Content-->
+<!-- Hidden-->
+@if(hasData)
+{
+    <input type="hidden" id="IDList" value="@(String.Join(",", Model.MainData.Select(x => x.SportId)))" />
+}
+<!--/Hidden-->
+<!--SubmitButton-->
+@if (Model.Param.Editable)
+{
+    <div style="width: 855px">
+        <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
+        id="btnSubmitBetSetting"/>
+        <input type="button" class="button" value="@ViewResources.Reset"
+        id="btnReset" />
+    </div>
+}
+<!--/SubmitButton-->

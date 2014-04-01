@@ -1,5 +1,6 @@
 ﻿@model Fanex.Athena.Models.MetaModel.Customer.BetSetting.BetSettingMetaModel
 @using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DataDomain
 <div id="header_tab">
     <div id="button_main">
         <ul class="header-menu">
@@ -93,6 +94,21 @@
                 </a></li>
             }
             <!--/RNG Tab-->
+            <!--Keno Tab-->
+            @if (Model.IsAllowKeno)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 7,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.Keno
+                        })" id="keno">
+                    @ViewResources.Keno
+                </a></li>
+            }
+            <!--/Keno Tab-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

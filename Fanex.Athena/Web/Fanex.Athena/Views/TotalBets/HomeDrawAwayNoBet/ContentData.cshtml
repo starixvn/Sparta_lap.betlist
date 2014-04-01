@@ -6,6 +6,7 @@
                             .OrderBy(x => x.LeagueName)
                             .OrderByDescending(x => x.LiveIndicator)
                             .ToList();
+                            
     var index = 1;
 }
 <div class="data-content">
@@ -20,15 +21,15 @@
                 </tr>
                 var matchOfLeague = Model.MainData
                             .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
-                            .ToList();
+                            .ToList();                   
 
                 // Render Match League
                 foreach (var match in matchOfLeague)
                 { 
                 <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
-                    <td style="width: 3%" class="order-number">@(index++)
+                    <td style="width: 34px" class="order-number">@(index++)
                     </td>
-                    <td style="width: 10%">
+                    <td style="width: 126px">
                         @if (match.LiveIndicator == 1)
                         {
                             <div class="show-time">
@@ -44,11 +45,11 @@
                             </div>
                         }
                     </td>
-                    <td style="width: 38%" class="match-name">
+                    <td style="width: 427px" class="match-name">
                         @match.HomeTeamName -vs- @match.AwayTeamName
                     </td>
                     <!--Home No Bet-->
-                    <td style="width: 12%" class="score-value">
+                    <td style="width: 135px" class="score-value">
                         @if (match.BetCountHomeNoBet != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="121" href="javascript:;">
@@ -58,7 +59,7 @@
                     </td>
                     <!--/Home No Bet-->
                     <!--Draw No Bet-->
-                    <td style="width: 12%" class="score-value">
+                    <td style="width: 135px" class="score-value">
                         @if (match.BetCountDrawNoBet != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="25" href="javascript:;">
@@ -68,7 +69,7 @@
                     </td>
                     <!--/Draw No Bet-->
                     <!--Away No Bet-->
-                    <td style="width: 12%" class="score-value">
+                    <td style="width: 135px" class="score-value">
                         @if (match.BetCountAwayNoBet != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="122" href="javascript:;">
