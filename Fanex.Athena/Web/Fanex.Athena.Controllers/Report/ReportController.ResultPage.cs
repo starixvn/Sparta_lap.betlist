@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Report
                     BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay
                 }
             };
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             ViewBag.IsAllowedRNG = productAccess.IsAllowBg || productAccess.IsAllowCs;
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
@@ -63,7 +63,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The actin result.</returns>
-        [FunctionAuthorization]
+        [AjaxFunctionAuthorization]
         [HttpPost]
         [AjaxRequest]
         public ActionResult Result(ResultMetalModel metalModel)
@@ -298,7 +298,7 @@ namespace Fanex.Athena.Controllers.Report
             if (sports.Count > 0)
             {
                 IEnumerable<Sport> limitedSports;
-                var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, true);
+                var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
                 var limitedProduct =
                     productAccess.IsAllowRb && productAccess.IsAllowLc && productAccess.IsAllowNg
                     && productAccess.IsAllowVs;

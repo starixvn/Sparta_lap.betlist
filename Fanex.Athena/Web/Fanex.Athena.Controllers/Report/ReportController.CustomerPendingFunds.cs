@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = SessionService.UserSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
                     TotalData = new CustPendingFunds(),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     Param = metaModel,
                     TotalRows = 0,
@@ -76,7 +76,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
-        [OutputCache(Duration = 0, VaryByParam = "None")]
         [FunctionAuthorization]
         [ValidateInput(false)]
         public ActionResult CustomerPendingFunds(CustomerPendingFundsMetaModel metaModel)
@@ -92,13 +91,13 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     TotalRows = totalRows,
                 };
 
-            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);            
+            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             model.TotalRows = totalRows;
             model.DataList = dataList;

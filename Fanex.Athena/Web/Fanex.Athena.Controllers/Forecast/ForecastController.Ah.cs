@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Globalization;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Forecast.ForecastAH;
     using Models.MetaModel.Forecast;
     using Models.ViewModel;
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 /* Set default currentScore*/
                 if (Request.QueryString["CurrentScore"] == null)
                 {
-                    if (metaModel.BetType == 3 || metaModel.BetType == 8)
+                    if (metaModel.BetType == (int)BetType.OverUnder || metaModel.BetType == (int)BetType.FirstHalfOverUnder)
                     {
                         // Overunder
                         metaModel.CurrentScore = forecastHeaderParam.LiveHomeScore + forecastHeaderParam.LiveAwayScore;
@@ -68,15 +69,15 @@ namespace Fanex.Athena.Controllers.Forecast
                 }
 
                 /*Handicap or 1st Handicap*/
-                if (metaModel.BetType == 1 || metaModel.BetType == 7)
+                if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {
-                    forecastHeaderParam.ForecastName = metaModel.BetType == 1 ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
+                    forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.Handicap ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
                     forecastValue = _forecastService.GetForecastHandicap(metaModel, SessionService.UserSession.UserId);
                 }
                 else
                 {
                     /* Over/Under or 1st Over/Under*/
-                    forecastHeaderParam.ForecastName = metaModel.BetType == 3 ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
+                    forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.OverUnder ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
                     forecastValue = _forecastService.GetForacastOverUnder(metaModel, SessionService.UserSession.UserId);
                 }
 
@@ -104,7 +105,7 @@ namespace Fanex.Athena.Controllers.Forecast
             var startIndex = currentScore + 5;
             var endIndex = currentScore - 5;
 
-            if (betType == 3 || betType == 8)
+            if (betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder)
             {
                 endIndex = Math.Max(0, endIndex);
             }
@@ -126,7 +127,7 @@ namespace Fanex.Athena.Controllers.Forecast
         private List<int> RenderForecastHeader(int betType, int currentScore)
         {
             var forecastHeader = new List<int>();
-            var startIndex = betType == 1 || betType == 7 ? currentScore + 2 : currentScore + 4;
+            var startIndex = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap ? currentScore + 2 : currentScore + 4;
             var endIndex = startIndex - 4;
 
             for (int i = endIndex; i <= startIndex; i++)

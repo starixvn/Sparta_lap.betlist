@@ -156,7 +156,7 @@ var LicenseeWinLoss = (function ($) {
                     //update productOption
                     $("#ProductOptionJson").val(response.ProductOptions);
                     //update drildownValue
-                    $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());                    
+                    $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());
                     $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
                     $("#OriginalCurrencyId").val($("#CurrencyId").val());
                     $("#OriginalReportBy").val(reportBy);
@@ -378,7 +378,7 @@ var LicenseeWinLoss = (function ($) {
                     return 'stop';
                 }
             };
-            gridOption.gridComplete = function () {
+            gridOption.gridComplete = function () {                
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
 
                 if (level == 2 && numOfRow > LicenseeWinLossOption.pageSize) {

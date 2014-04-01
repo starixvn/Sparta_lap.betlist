@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -37,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var date = DateTime.Now;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.Sb || x.ProductCode == Product.Ba);
             var metaModel = new WinLossByLeagueMetaModel
             {
@@ -59,9 +58,7 @@ namespace Fanex.Athena.Controllers.Report
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
                             {
-                                CurrencyId = 0,
                                 LicenseeId = licenseeSession.LicenseeId,
-                                SportId = 0,
                                 UserId = SessionService.UserSession.UserId,
                                 FromDate = metaModel.FromDate,
                                 ToDate = metaModel.ToDate

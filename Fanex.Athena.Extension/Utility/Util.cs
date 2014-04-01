@@ -72,6 +72,9 @@ namespace Fanex.Athena.Extension.Utility
             const int CSMaxBetType = 71;
             const int BGMinBetType = 73;
             const int BGMaxBetType = 73;
+            const int KenoMinBetType = 1501;
+            const int KenoMaxBetType = 1509;
+
             if (string.IsNullOrEmpty(productCode))
             {
                 return false;
@@ -96,6 +99,8 @@ namespace Fanex.Athena.Extension.Utility
                     return bettype >= BGMinBetType && bettype <= BGMaxBetType;
                 case "CS":
                     return bettype >= CSMinBetType && bettype <= CSMaxBetType;
+                case "KN":
+                    return bettype >= KenoMinBetType && bettype <= KenoMaxBetType;
             }
 
             return false;

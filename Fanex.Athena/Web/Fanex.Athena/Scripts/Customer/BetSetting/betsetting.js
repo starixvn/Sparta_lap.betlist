@@ -1,7 +1,12 @@
 ﻿/// <reference path="/@JSense.js" />
 var BetSetting = (function ($) {
+    var _ids = null;
     return {
         initialize: function () {
+            var $idList = $("#IDList");
+            if ($idList.length > 0) {
+                _ids = $idList.val().split(",");
+            }
             BetSetting.initMenu();
             BetSetting.initEvent();
         },
@@ -54,6 +59,9 @@ var BetSetting = (function ($) {
                     break;
                 case 6:
                     $('#rngcasino').addClass('activeTab');
+                    break;
+                case 7:
+                    $('#keno').addClass('activeTab');
                     break;
             }
 
@@ -130,8 +138,20 @@ var BetSetting = (function ($) {
                     BetSetting.checkEnable("182", enable);
                     BetSetting.checkEnable("184", enable);
                     BetSetting.checkEnable("186", enable);
+                    break;
                 case 5:
                     BetSetting.checkEnableLiveCasino(enable);
+                    break;
+                case 7:
+                    {
+                        if (!enable) {
+                            $('#copy-settting').hide();
+                        }
+                        $.each(_ids, function (index, value) {
+                            BetSetting.checkEnable(value, enable);
+                        });
+                        break;
+                    }
             }
         },
         checkEnable: function (sportId, enable) {
@@ -196,6 +216,12 @@ var BetSetting = (function ($) {
                     BetSetting.showConfirmAction(Site.getSingleResource('UpdateLiveCasinoBetSettings'),
                             custId, userName, nickName, BetSetting.updateLiveCasinoBetSetting);
                     break;
+                case 7:
+                    if (BetSetting.checkValidationKeno()) {
+                        BetSetting.showConfirmAction(Site.getSingleResource('UpdateKenoBetSettings'),
+                            custId, userName, nickName, BetSetting.updateKenoBetSetting);
+                    }
+                    break;
             }
         },
         checkValidationSportsBook: function () {
@@ -240,6 +266,16 @@ var BetSetting = (function ($) {
 
             return true;
         },
+        checkValidationKeno: function () {
+            BetSetting.checkCopyAllValues($('#chkCopyAll'));
+            for (var i in _ids) {
+                if (false == BetSetting.checkLimitMinMaxBet(_ids[i])) {                    
+                    return false;
+                }
+            }
+
+            return true;
+        },
         checkValidationVirtualSports: function () {
             if (false == BetSetting.checkLimitMinMaxBet(180)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(181)) return false;
@@ -247,6 +283,30 @@ var BetSetting = (function ($) {
             if (false == BetSetting.checkLimitMinMaxBet(182)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(184)) return false;
             return true;
+        },
+        updateKenoBetSetting: function (custId, userName, nickName) {
+            var params = "";
+            $.each(_ids, function (index, value) {
+                params += BetSetting.getBetSettingParams(value);
+            });
+            params += "&custid=" + custId;
+            params += "&userName=" + userName;
+            params += "&nickName=" + nickName
+            params += "&ids=" + _ids.toString();
+            params = params.substring(1);
+
+            $.ajax({
+                type: 'GET',
+                url: resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
+                data: params,
+                dataType: "json",
+                success: function (result) {
+                    BetSetting.showUpdateSettingResult(result);
+                },
+                error: function (request, status, err) {
+                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
+                }
+            });
         },
         // Update Sportsbook
         updateSportsbookBetSetting: function (custId, userName, nickName) {
@@ -264,7 +324,7 @@ var BetSetting = (function ($) {
             params += BetSetting.getBetSettingParams(154);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
-            params += "&nickName=" + nickName
+            params += "&nickName=" + nickName;
             params = params.substring(1);
 
             $.ajax({
@@ -517,6 +577,11 @@ var BetSetting = (function ($) {
             // Check limit min max bet
             if (tabid == 1) {
                 if (!BetSetting.checkLimitMinMaxBet(1)) {
+                    return false;
+                }
+            }
+            else if (tabid == 7) {
+                if (!BetSetting.checkLimitMinMaxBet(_ids[0])) {
                     return false;
                 }
             }

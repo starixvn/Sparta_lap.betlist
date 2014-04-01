@@ -86,6 +86,9 @@ namespace Fanex.Athena.Models.DTO.Report
                         case "BG":
                             _productName = ViewResources.Bingo;
                             break;
+                        case "KN":
+                            _productName = ViewResources.Keno;
+                            break;
                         default:
                             _productName = _productCode;
                             break;

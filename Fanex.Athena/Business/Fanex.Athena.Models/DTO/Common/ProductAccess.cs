@@ -88,6 +88,14 @@ namespace Fanex.Athena.Models.DTO.Common
             }
         }
 
+        public bool IsAllowKN
+        {
+            get
+            {
+                return ProductList.Any(p => p.ProductCode == Product.Kn);
+            }
+        }
+
         public bool CanUseRacing
         {
             get

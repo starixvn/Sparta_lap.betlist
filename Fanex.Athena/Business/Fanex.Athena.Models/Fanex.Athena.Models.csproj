@@ -68,6 +68,7 @@
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\ProductType.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
+    <Compile Include="DataDomain\ReportByType.cs" />
     <Compile Include="DataDomain\SiteType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="DTO\Common\SportProductItem.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
+    <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
     <Compile Include="DTO\Customer\BetSetting\NumberGameBetSetting.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="ViewModel\Forecast\ForecastOneXTwoViewModel.cs" />
     <Compile Include="ViewModel\Forecast\NewForecastHdpOuData.cs" />
     <Compile Include="ViewModel\Forecast\NewForecastHdpOuViewModel.cs" />
+    <Compile Include="ViewModel\HeaderPageViewModel.cs" />
     <Compile Include="ViewModel\Menu.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

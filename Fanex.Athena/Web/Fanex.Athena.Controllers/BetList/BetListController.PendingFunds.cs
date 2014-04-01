@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
@@ -46,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.Values.Contains(metaModel.CurrencyId))
                 {
                     return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
                 }

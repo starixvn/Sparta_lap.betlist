@@ -35,15 +35,14 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult CustomerWinLoss()
-        {
+        {            
             var metaModel = new CustomerWinLossMetaModel
             {
                 LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
                 DrawFilter = DrawFilterType.Normal
             };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -53,15 +52,15 @@ namespace Fanex.Athena.Controllers.Report
                                                  }).ToList();
 
             metaModel.ProductOptions = productOption;
-
             var currencyList = SessionService.UserSession.CurrencyList;
 
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,                    
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false),
-                    CurrencyList = currencyList,                    
+                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    ProductAccess = productAccess,
+                    CurrencyList = currencyList,
                     Param = metaModel,
                     IsHistory = false
                 };
@@ -80,12 +79,13 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
                 {
                     LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId,
+
                     DrawFilter = DrawFilterType.Normal
                 };
 
             SetConvetedUSDCurrencyName(historyParam);
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+
+            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     HistoryParam = historyParam,
                     IsHistory = true
@@ -127,17 +127,17 @@ namespace Fanex.Athena.Controllers.Report
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            
+
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     Param = metaModel,
                     IsHistory = false
                 };
-                        
+
             model.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;
@@ -166,12 +166,12 @@ namespace Fanex.Athena.Controllers.Report
             var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-            
+
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno),
                     CurrencyList = currencyList,
                     HistoryParam = metaModel,
                     TotalRows = totalRows,
@@ -208,8 +208,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
                 {
@@ -255,8 +254,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-
-            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
 
             var convertingOption = new ConvertingOption
                 {

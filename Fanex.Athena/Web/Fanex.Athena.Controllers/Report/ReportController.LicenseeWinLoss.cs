@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -29,7 +30,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult LicenseeWinLoss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productList = productAccess.ProductList;
             var metaModel = new LicenseeWinLossMetaModel
                 {
@@ -37,8 +38,8 @@ namespace Fanex.Athena.Controllers.Report
                     ToDate = DateTime.Now,
                     LicenseeId = licenseeSession.LicenseeId,                    
                     IsExcludedTestData = true,
-                    DrawFilter = 1,
-                    ReportBy = 1,
+                    DrawFilter = DrawFilterType.Normal,
+                    ReportBy = ReportByType.Daily,
                     ProductOptions = productList.Select(i => new ProductOption
                         {
                             Code = i.ProductCode,

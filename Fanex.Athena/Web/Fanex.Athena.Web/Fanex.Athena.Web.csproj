@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\AjaxFunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttribute.cs" />
     <Compile Include="ActionFilter\AuthenticationAttribute.cs" />
     <Compile Include="ActionFilter\FunctionAuthorizationAttribute.cs" />

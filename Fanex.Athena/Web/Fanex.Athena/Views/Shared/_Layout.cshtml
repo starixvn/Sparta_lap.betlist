@@ -48,7 +48,11 @@
             };
         });        
     </script>
-    <input type="hidden" id="HasCustComm" value="@(ViewBag.HasCustComm == true ? 1 : 0)" />
+    @{
+        var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
+        var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+    }
+    <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     @MiniProfiler.RenderIncludes()
 </body>
 </html>

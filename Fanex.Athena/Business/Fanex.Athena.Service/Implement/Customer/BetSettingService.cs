@@ -205,6 +205,18 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         /// <summary>
+        /// Get Keno bet setting.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <returns>The  bet setting list.</returns>
+        public IList<BetSetting> GetKenoBetSetting(int custId)
+        {
+            return _authorizationService.HasPermissionOnData(custId, 0)
+                        ? _betSettingDataAccess.GetKenoBetSetting(custId)
+                        : new List<BetSetting>();
+        }
+
+        /// <summary>
         ///  Update SportsBook bet setting.
         /// </summary>
         /// <param name="sportsBook">The sport-book setting.</param>
@@ -383,6 +395,41 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
+        }
+
+        /// <summary>
+        /// Update Keno bet setting.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="language">The language id.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="betSettings">The bet setting.</param>
+        /// <returns>The result.</returns>
+        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings)
+        {
+            const string XMLPattern = "<settings>{0}</settings>";
+            const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            var xmlElementBuilder = new StringBuilder();
+
+            foreach (var setting in betSettings)
+            {
+                xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+            }
+
+            var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
+
+            return _betSettingDataAccess.UpdateKenoBetSetting(
+                custId,
+                userId,
+                language,
+                ip,
+                xmlparam);
         }
 
         #region Utility

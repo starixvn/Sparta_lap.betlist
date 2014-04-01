@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var model = new LiveReportViewModel
                 {
@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
 
             var model = new LiveReportViewModel
                 {
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var dataList = _liveReportService.GetLiveReportWinLossByMatch(metaModel);
 
             var model = new LiveReportMatchListViewModel
@@ -134,7 +134,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "LiveReport";
             var productCode = Request.Form["productCode"];
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, false);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,

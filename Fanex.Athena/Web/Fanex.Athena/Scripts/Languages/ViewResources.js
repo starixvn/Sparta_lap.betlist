@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:03:19 PM
+// Lasted generated date: 3/28/2014 10:57:34 AM
 // </history>
 
 var _language_en_US={
@@ -220,6 +220,8 @@ var _language_en_US={
 				 	
                      ConvertTo:"Convert to",
 				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
+				 	
                      CopyBetSettingFromRacing:"Copy All Bet Setting from Racing",
 				 	
                      CopyBetSettingFromSoccer:"Copy All Bet Setting from Soccer",
@@ -292,7 +294,7 @@ var _language_en_US={
 				 	
                      CustomerWinLoss:"Customer Win Loss",
 				 	
-                     CustomerWinLossTitle:"Customer Win/Loss, {0} - {1} - {2}",
+                     CustomerWinLossTitle:"Customer Win/Loss, {0} --&gt; {1} - {2}",
 				 	
                      DA:"DA",
 				 	
@@ -584,6 +586,8 @@ var _language_en_US={
 				 	
                      InValidParamMsg:"The param of URL is in valid",
 				 	
+                     InvalidParams:"Invalid parameters",
+				 	
                      InvalidRequestMsg:"Request is not valid",
 				 	
                      InvalidRequestOrNotAuthorizedMsg:"Invalid request or you are not authorized to access the requested resource!",
@@ -603,6 +607,8 @@ var _language_en_US={
                      June:"June",
 				 	
                      KeepCurrentComm:"Keep current commission",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"Kick Off. Time",
 				 	
@@ -1395,6 +1401,10 @@ var _language_en_US={
                      UpdateCustomerCommission:"Update Customer Commission",
 				 	
                      UpdateFunctionSuccessfulMsg:"Updating Functions is successul.",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"Are you sure you want to update Live Casino bet settings?",
 				 	

@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+@model Fanex.Athena.Models.ViewModel.HeaderPageViewModel
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Header</title>
+    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" rel="Stylesheet" />
+    <link href="@Url.ContentLink("/Content/Global/Global.css")"  rel="Stylesheet" />
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/site.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Header/header.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Header/jquery.jclock.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var _page = { "Language": "@Model.Language", "OnUserID": "@Model.OnUserId", lang: '@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag' };
+    </script>
+    @if (!Model.IsDisabledRecheckIn)
+    {
+        <script src="@Url.ContentLink("/Scripts/Header/ReCheckIn.js")" type="text/javascript"></script>
+    }
+</head>
+<body>
+    <div id="header-wrapper">
+        <div class="header">
+            <div class="timer">
+                <div id="current-time">
+                    <label id='current-time-clock'>
+                        @DateTime.Now.ToString()</label>@DateTime.Now.ToString("%z")
+                </div>
+            </div>
+            <div class="content">
+                @if (Model.LicenseeList.Count > 1)
+                {
+                    
+                    <div class="licensee">
+                        <select id="ddlLicensee" name="ddlLicensee" style="position: relative;">
+                            @foreach (var licensee in Model.LicenseeList)
+                            {
+                                var selectedStr = licensee.Id == Model.CurrentLicenseeId ? "selected=\"selected\"" : string.Empty;
+                                <option  value="@licensee.Id" @selectedStr >@licensee.Name</option>
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="languageList">
+                    <select id="languagesite" name="languagesite">
+                        @foreach (var language in Model.SupportedLanguageList)
+                        {
+                            var selectedStr = language.Key.Equals(Model.Language) ? "selected=\"selected\"" : string.Empty;
+
+                            <option value="@language.Key" @selectedStr>@language.Value</option>
+
+                        }
+                    </select>
+                </div>
+                <div class="languageIcon languageIcon_@Model.Language">
+                </div>
+                <div class="user-section">
+                    @if (!Model.IsInternalLogin)
+                    {
+                        <input type="button" class="logout-button" value="@ViewResources.Logout" id="lougout-btn" />
+                        <input type="button" id="change-pass-btn" value="@ViewResources.ChangePassword"
+                        class="change-password-button" />
+                    }
+                </div>
+                <div class="welcome">
+                    <span class="welcome-text">@ViewResources.Welcome,</span>&nbsp; <span class="user-name-text">@Html.Encode(Model.UserName)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @{var internalLoginStr = Model.IsInternalLogin ? "1" : "0";}
+    <input type="hidden" id="IsInternal" value="@internalLoginStr"/>
+</body>
+</html>

@@ -997,6 +997,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy All Bet Setting from {0}.
+        /// </summary>
+        public static string CopyBetSettingFrom {
+            get {
+                return ResourceManager.GetString("CopyBetSettingFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy All Bet Setting from Racing.
         /// </summary>
         public static string CopyBetSettingFromRacing {
@@ -1321,7 +1330,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Win/Loss, {0} - {1} - {2}.
+        ///   Looks up a localized string similar to Customer Win/Loss, {0} --&gt; {1} - {2}.
         /// </summary>
         public static string CustomerWinLossTitle {
             get {
@@ -2635,6 +2644,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid parameters.
+        /// </summary>
+        public static string InvalidParams {
+            get {
+                return ResourceManager.GetString("InvalidParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request is not valid.
         /// </summary>
         public static string InvalidRequestMsg {
@@ -2721,6 +2739,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string KeepCurrentComm {
             get {
                 return ResourceManager.GetString("KeepCurrentComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keno.
+        /// </summary>
+        public static string Keno {
+            get {
+                return ResourceManager.GetString("Keno", resourceCulture);
             }
         }
         
@@ -6285,6 +6312,24 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string UpdateFunctionSuccessfulMsg {
             get {
                 return ResourceManager.GetString("UpdateFunctionSuccessfulMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to update all Keno bet settings?.
+        /// </summary>
+        public static string UpdateKenoBetSettings {
+            get {
+                return ResourceManager.GetString("UpdateKenoBetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Keno bet setting of {0} was updated successfully.
+        /// </summary>
+        public static string UpdateKenoBetSettingSuccessMsg {
+            get {
+                return ResourceManager.GetString("UpdateKenoBetSettingSuccessMsg", resourceCulture);
             }
         }
         

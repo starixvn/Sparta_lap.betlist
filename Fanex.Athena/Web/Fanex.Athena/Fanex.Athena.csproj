@@ -184,7 +184,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="%40JSense.js" />
     <Content Include="AccessDenied.aspx" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
@@ -244,6 +243,7 @@
     <Content Include="Content\Forecast\images\plus.png" />
     <Content Include="Content\Forecast\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
+    <Content Include="Content\Global\images\bg_clock.jpg" />
     <Content Include="Content\Global\images\btDown.png" />
     <Content Include="Content\Global\images\btRefresh.png" />
     <Content Include="Content\Global\images\check.png" />
@@ -276,6 +276,9 @@
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
     <Content Include="Content\Report\winlossbyleague.css" />
+    <Content Include="Scripts\Header\header.js" />
+    <Content Include="Scripts\Header\jquery.jclock.js" />
+    <Content Include="Scripts\Header\ReCheckIn.js" />
     <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
       <DependentUpon>ViewResources.ko-KR.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -513,7 +516,6 @@
     <Content Include="Scripts\Forecast\forecast.onextwo.js" />
     <Content Include="Scripts\Forecast\forecastpopup.js" />
     <Content Include="Scripts\Global\prototype.js" />
-    <Content Include="Scripts\Global\data.domain.js" />
     <Content Include="Scripts\Global\query.string.js" />
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
@@ -674,6 +676,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="App_Browsers\firefox.browser" />
     <None Include="App_Data\Fanex.Result\Badminton.xls" />
     <None Include="App_Data\Fanex.Result\BaseBall.xls" />
     <None Include="App_Data\Fanex.Result\Basketball.xls" />
@@ -1051,11 +1055,13 @@
     <Content Include="Views\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
     <Content Include="Views\Note\DailyStatement.cshtml" />
     <Content Include="Scripts\Web.config" />
-    <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Footer\Index.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Content.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Main.cshtml" />
     <Content Include="Views\Report\WinLossByLeague\Filter.cshtml" />
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
+    <Content Include="Views\Header\Index.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

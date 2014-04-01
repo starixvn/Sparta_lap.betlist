@@ -23,7 +23,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
             FromDay = 1;
             ToDay = today.Day;
             CurrencyId = 0;
-            DrawFilter = 1;
+            DrawFilter = DrawFilterType.Normal;
             Site = SiteType.SmartPhone;
             IsExcludeTest = true;
         }

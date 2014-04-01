@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/15/2014 2:03:27 PM
+// Lasted generated date: 3/28/2014 10:57:41 AM
 // </history>
 
 var _language_zh_TW={
@@ -220,6 +220,8 @@ var _language_zh_TW={
 				 	
                      ConvertTo:"轉換為",
 				 	
+                     CopyBetSettingFrom:"Copy All Bet Setting from {0}",
+				 	
                      CopyBetSettingFromRacing:"從賽馬賽事複製所有投注設定",
 				 	
                      CopyBetSettingFromSoccer:"從足球複製所有投注設定",
@@ -292,7 +294,7 @@ var _language_zh_TW={
 				 	
                      CustomerWinLoss:"客戶輸贏",
 				 	
-                     CustomerWinLossTitle:"客戶輸贏，{0} - {1} - {2}",
+                     CustomerWinLossTitle:"客戶輸贏，{0} --&gt; {1} - {2}",
 				 	
                      DA:"和客",
 				 	
@@ -582,6 +584,8 @@ var _language_zh_TW={
 				 	
                      InValidParamMsg:"網址參數是有效的",
 				 	
+                     InvalidParams:"Invalid parameters",
+				 	
                      InvalidRequestMsg:"請求無效",
 				 	
                      InvalidRequestOrNotAuthorizedMsg:"無效的請求或您未被授權訪問所請求的資源",
@@ -601,6 +605,8 @@ var _language_zh_TW={
                      June:"6月",
 				 	
                      KeepCurrentComm:"保持當前的佣金",
+				 	
+                     Keno:"Keno",
 				 	
                      KickOffTime:"开赛时间",
 				 	
@@ -1393,6 +1399,10 @@ var _language_zh_TW={
                      UpdateCustomerCommission:"更新客戶的佣金",
 				 	
                      UpdateFunctionSuccessfulMsg:"更新成功",
+				 	
+                     UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
+				 	
+                     UpdateKenoBetSettingSuccessMsg:"The Keno bet setting of {0} was updated successfully",
 				 	
                      UpdateLiveCasinoBetSettings:"您確定您要更新真人娛樂場投注設置嗎？",
 				 	

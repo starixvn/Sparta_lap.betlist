@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Controllers.Customer
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
@@ -158,6 +159,39 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update Keno settings.
+        /// </summary>
+        /// <param name="nickName">The user name.</param>
+        /// <returns>The JSON result.</returns>
+        [HttpGet]
+        public JsonResult UpdateKenoBetSetting(string nickName)
+        {            
+            var ids = Convert.ToString(Request["ids"]).Split(',');
+            var commonParam = GetBetSettingCommonParam();
+            var dataParams = GetKenoParam(ids);
+            /*Validate parameter*/
+            if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
+            {
+                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
+            }
+
+            var result = _betSettingService
+                .UpdateKenoBetSetting(
+                commonParam.CustId,
+                commonParam.UserId,
+                commonParam.Language,
+                commonParam.Ip,
+                dataParams);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateKenoBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update virtual sport settings.
         /// </summary>
         /// <param name="nickName">The user name.</param>
@@ -170,7 +204,7 @@ namespace Fanex.Athena.Controllers.Customer
             /*Validate parameter*/
             if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
-                return Json(new ResultInfo { Code = 0, Message = "Invalid parameters" }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
 
             var result = _betSettingService
@@ -383,6 +417,29 @@ namespace Fanex.Athena.Controllers.Customer
                                };
 
             return hashData;
+        }
+
+        /// <summary>
+        /// Get Keno requested parameters.
+        /// </summary>
+        /// <param name="ids">Game type ids.</param>
+        /// <returns>The parameters.</returns>
+        private IList<KenoBetSetting> GetKenoParam(string[] ids)
+        {
+            var settings = new List<KenoBetSetting>();
+
+            foreach (var id in ids)
+            {
+                settings.Add(new KenoBetSetting
+                {
+                    MaxBet = GetDecimalRequest("maxbet" + id, 0),
+                    MinBet = GetDecimalRequest("minbet" + id, 0),
+                    MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
+                    GameTypeID = id
+                });
+            }
+
+            return settings;
         }
 
         /// <summary>

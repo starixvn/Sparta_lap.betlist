@@ -78,6 +78,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
                 case ProductType.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
+                case ProductType.Keno:
+                    return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -105,7 +107,7 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeList = _licenseeService.GetByResellerId(userId, BopingResellerId);
             metaModel.Editable = licenseeList.Contains(licenceeId) || metaModel.LicenessId == Licensee12Bet ||
                                  metaModel.LicenessId == LicenseeSpondemo;
-            var productAccess = this._productService.GetProductAccess(licenceeId, SessionService.UserSession.Language, false);
+            var productAccess = this._productService.GetProductAccess(licenceeId, SessionService.UserSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
             metaModel.IsAllowRacing = productAccess.IsAllowRb;            
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVs;
@@ -113,6 +115,9 @@ namespace Fanex.Athena.Controllers.Customer
             var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);            
             metaModel.IsAllowRngCasino = productAccess.IsAllowCs && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLc && customerInfo.SyncLiveCasino;
+            metaModel.IsAllowKeno = productAccess.IsAllowKN;
+
+            ViewBag.HasCustComm = SessionService.LicenseeSession != null && SessionService.LicenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
         }
 
@@ -159,6 +164,9 @@ namespace Fanex.Athena.Controllers.Customer
                     }
 
                     model.IsEnabled = IsRngCasinoEnabled(customerInfo);
+                    break;
+                case ProductType.Keno:
+                    model.MainData = _betSettingService.GetKenoBetSetting(metaModel.CustId);
                     break;
             }
 

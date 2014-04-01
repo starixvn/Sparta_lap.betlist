@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
 
     /// <summary>
@@ -20,7 +21,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
-            ReportBy = 1;
+            ReportBy = ReportByType.Daily;
             ShowWin = true;
             ShowLoss = true;
             ShowDraw = true;
