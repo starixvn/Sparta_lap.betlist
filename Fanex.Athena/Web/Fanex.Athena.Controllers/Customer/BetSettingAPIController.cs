@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Common;
+    using System;
 
     /// <summary>
     /// Bet setting API controller.
@@ -165,8 +166,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The JSON result.</returns>
         [HttpGet]
         public JsonResult UpdateKenoBetSetting(string nickName)
-        {
-            var ids = Converter.ToString2(Request["ids"]).Split(',');
+        {            
+            var ids = Convert.ToString(Request["ids"]).Split(',');
             var commonParam = GetBetSettingCommonParam();
             var dataParams = GetKenoParam(ids);
             /*Validate parameter*/
