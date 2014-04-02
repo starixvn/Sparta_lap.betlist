@@ -176,17 +176,21 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult KenoResult()
         {
-
             ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(), DateTime.Now);
             return View("~/Views/Report/Result/Keno.cshtml");
         }
 
         [HttpPost]
+        [AjaxRequest]
         public string KenoResult(string userId)
         {
             var err = string.Empty;
-            var result= ResultEngine.KeepKenoLived(GetKenoSetting(), userId, out err);
-            Fanex.Logging.LogService.Error(err);
+            var result = ResultEngine.KeepKenoLived(GetKenoSetting(), userId, out err);
+            if (!string.IsNullOrEmpty(err))
+            {
+                Fanex.Logging.LogService.Error(err);
+            }
+
             return result;
         }
 
