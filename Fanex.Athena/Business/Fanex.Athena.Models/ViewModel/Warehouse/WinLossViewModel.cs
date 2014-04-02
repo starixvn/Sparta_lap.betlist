@@ -21,7 +21,5 @@ namespace Fanex.Athena.Models.ViewModel.Warehouse
         public IList<WinLoss> MainResult { get; set; }
 
         public IDictionary<string, decimal> TotalValues { get; set; }
-
-        public IList<Licensee> LicenseeList { get; set; }
     }
 }

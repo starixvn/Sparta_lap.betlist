@@ -21,10 +21,10 @@ namespace Fanex.Athena.Service.Interface.Warehouse
     {
         #region Public Methods and Operators
 
-        DataTable GetDataForExcel(TopCustomerMetaModel model, string licenseeList);
+        DataTable GetDataForExcel(TopCustomerMetaModel model);
 
         IList<TopCustomer> GetTopCustomerList(
-            TopCustomerMetaModel model, string licenseeList, ref Dictionary<string, decimal> totalValues);
+            TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues);
 
         Dictionary<string, decimal> GetTopCustomerTotalInfo(IList<TopCustomer> dataList);
 

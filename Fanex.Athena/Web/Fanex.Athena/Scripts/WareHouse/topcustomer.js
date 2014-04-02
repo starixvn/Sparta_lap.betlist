@@ -2,14 +2,8 @@
 var WareHouseTopCustomer = (function ($) {
     return {
         serializeParam: function () {
-            var licenseeId = WareHouseTopCustomer.getLicenseeId();
-            $('#LicenseeId').val(licenseeId);
             $('#ActiveMin').val($('#SelectReportBy').val());
             $('#SportId').val($('#SelectSport').val());
-        },
-
-        getLicenseeId: function () {
-            return $('#LicenseeList').length > 0 ? $('#LicenseeList').val() : $('#LicenseeId').val();
         },
 
         initExcelExporting: function () {
@@ -80,25 +74,7 @@ var WareHouseTopCustomer = (function ($) {
             });
             Site.unBlockUI();
         },
-
-        getSportAjax: function () {
-            Site.blockUI();
-            var params = "FromDate=" + $('#FromDate').val() + "&ToDate=" + $('#ToDate').val();
-            $.ajax({
-                type: 'POST',
-                url: "GetSportList",
-                data: params,
-                success: function (result) {
-                    $("#SportList").html(result);
-                    $("#note1").show();
-                    $("#note3").hide();
-                },
-                error: function () {
-                    //window.location.reload();
-                }
-            });
-            Site.unBlockUI();
-        },
+               
         submitForm: function () {
             var betCountMin = parseInt($('#BetCountMin').val());
             var winlossTotal = parseFloat($('WinLossTotalMin').val());

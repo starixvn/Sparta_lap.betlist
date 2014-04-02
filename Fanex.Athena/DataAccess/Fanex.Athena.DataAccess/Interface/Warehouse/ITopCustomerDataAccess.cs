@@ -21,9 +21,9 @@ namespace Fanex.Athena.DataAccess.Interface.Warehouse
     {
         #region Public Methods and Operators
 
-        DataTable GetDataForExcel(TopCustomerMetaModel model, string licenseeList);
+        DataTable GetDataForExcel(TopCustomerMetaModel model);
 
-        IList<TopCustomer> GetDataList(TopCustomerMetaModel model, string licenseeList);
+        IList<TopCustomer> GetDataList(TopCustomerMetaModel model);
 
         #endregion Public Methods and Operators
     }

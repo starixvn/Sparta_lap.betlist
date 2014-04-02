@@ -4,38 +4,13 @@
 @using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.DTO.Common
 @model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
-@{
-    var minDate = DateTime.Today.AddYears(-15);
-    var maxDate = DateTime.Now.AddHours(-9).AddDays(-1);
+@{    
+    var maxDate = (DateTime)ViewBag.MaxDate;
+    var minDate = maxDate.AddMonths(-3);
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
     @using (Html.BeginForm("WinLoss", "WareHouse", FormMethod.Post, new { @id = "WarehouseWinLossForm" }))
     {
-        <div class="grid_2 filter-label new-line">
-            <label>@ViewResources.Licensee</label>
-        </div>    
-        var licenseeList = Model.LicenseeList;
-        if (licenseeList.Count == 1)
-        {
-        <div class="grid_3 one-licensee filter-input">@licenseeList[0].Name</div>
-        }
-        else
-        {           
-        <div class="grid_3 filter-input">
-            <select id="LicenseeList" style="width: 100%">
-                @{var selectedAttr = 0 == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);}
-                <option @selectedAttr value="0">@ViewResources.All</option>
-                @{
-                  foreach (Licensee item in Model.LicenseeList)
-                  {
-                      selectedAttr = item.Id == Model.Param.LicenseeId ? new HtmlString("selected='selected'") : new HtmlString(string.Empty);
-                    <option @selectedAttr value="@item.Id">@item.Name</option>
-                  }    
-                }
-            </select>
-        </div>
-        }
-    
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
@@ -63,12 +38,11 @@
         </div>
         
         <div>
-            @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
             @Html.Hidden("ReportBy", Model.Param.ReportBy)
             @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
             @Html.HiddenFor(m => m.Param.IsExportExcel)
         </div>
-        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate, "date-range", "date-range", 2, 3, 2, 3)
         <div class="grid_2 filter-label">
             <label>@ViewResources.ReportBy</label>
         </div>

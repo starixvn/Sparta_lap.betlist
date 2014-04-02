@@ -7,9 +7,7 @@
 namespace Fanex.Athena.Controllers.WareHouse
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Globalization;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Warehouse;
@@ -33,23 +31,23 @@ namespace Fanex.Athena.Controllers.WareHouse
         [HttpGet]
         public ActionResult WinLoss()
         {
-            _licenseeList = _licenseeService.GetByUser(SessionService.LicenseeSession.UserId);
-
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var currencyList = SessionService.UserSession.CurrencyList;
             var metaModel = new WinLossMetaModel { LicenseeId = licenseeId };
+            metaModel.FromDate = metaModel.ToDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
+
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
 
             var model = new WinLossViewModel
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    LicenseeList = _licenseeList,
                     CurrencyList = currencyList,
                     ProductAccess = productAccess,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 
+            ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
         }
 
@@ -86,13 +84,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                  metaModel.FromDate.ToString("MM/dd/yyyy"),
                  metaModel.ToDate.ToString("MM/dd/yyyy"),
                  viewByCurrency);
-            var licenseeList = GetLicenseeList(metaModel.LicenseeId);
-            _licenseeList = _licenseeService.GetByUser(SessionService.LicenseeSession.UserId);
-            var exportData = new DataTable();
-            if (_licenseeList.Any(a => a.Id == metaModel.LicenseeId))
-            {
-                exportData = _winLossService.GetDataForExcel(metaModel, licenseeList);
-            }
+            var exportData = _winLossService.GetDataForExcel(metaModel);
 
             var currencyConvert = new ConvertingOption
                 {
@@ -127,34 +119,21 @@ namespace Fanex.Athena.Controllers.WareHouse
                 return ExportExcel(metaModel);
             }
 
-            var licenseeList = GetLicenseeList(metaModel.LicenseeId);
-
-            _licenseeList = _licenseeService.GetByUser(SessionService.LicenseeSession.UserId);
-
             /*Set default values*/
             var model = new WinLossViewModel
                 {
                     Param = metaModel,
-                    LicenseeList = _licenseeList,
                     CurrencyList = SessionService.UserSession.CurrencyList,
                     ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 
-            if (_licenseeList.Any(a => a.Id == metaModel.LicenseeId))
-            {
-                IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
+            IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
 
-                model.MainResult = _winLossService.GetDataList(metaModel, licenseeList, ref totalValues);
-                model.TotalValues = totalValues;
-            }
-            else
-            {
-                /*Set default values when user edit value in brower*/
-                model.MainResult = new List<Models.DTO.Warehouse.WinLoss>();
-                model.TotalValues = new Dictionary<string, decimal>();
-            }
+            model.MainResult = _winLossService.GetDataList(metaModel, ref totalValues);
+            model.TotalValues = totalValues;
 
+            ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
         }
     }

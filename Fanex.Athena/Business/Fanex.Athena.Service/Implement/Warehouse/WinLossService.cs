@@ -59,12 +59,12 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <returns>
         /// The data table.
         /// </returns>
-        public DataTable GetDataForExcel(WinLossMetaModel model, string licenseeList)
+        public DataTable GetDataForExcel(WinLossMetaModel model)
         {
             try
             {
                 return model.IsValid
-                           ? this._winLossDataAccess.GetDataForExcel(model, licenseeList)
+                           ? this._winLossDataAccess.GetDataForExcel(model)
                            : new DataTable();
             }
             catch (System.Exception ex)
@@ -91,12 +91,12 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// The data list.
         /// </returns>
         public IList<WinLoss> GetDataList(
-            WinLossMetaModel model, string licenseeList, ref IDictionary<string, decimal> totalValues)
+            WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
         {
             try
             {
                 var dataList = model.IsValid
-                                   ? this._winLossDataAccess.GetDataList(model, licenseeList)
+                                   ? this._winLossDataAccess.GetDataList(model)
                                    : new List<WinLoss>();
                 totalValues = this.GetWinlossTotalInfo(dataList);
 

@@ -37,20 +37,19 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <param name="metaModel"> The model. </param>
         /// <param name="licenseeList"> The licensee list. </param>
         /// <returns> List win loss.</returns>
-        public IList<WinLoss> GetDataList(WinLossMetaModel metaModel, string licenseeList)
+        public IList<WinLoss> GetDataList(WinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Get_Licensees_Winloss";
+            const string UspName = "Lrf_rpt_DWWinloss";
             var dataList = new List<WinLoss>();
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
                                 {
-                                    datestart = metaModel.FromDate,
-                                    dateend = metaModel.ToDate,
-                                    currencyid = metaModel.CurrencyId == 0 ? -1 : metaModel.CurrencyId,
+                                    FromDate = metaModel.FromDate,
+                                    ToDate = metaModel.ToDate,
+                                    CurrencyId = metaModel.CurrencyId,
                                     groupingid = metaModel.ReportBy,
-                                    licenseelist = licenseeList,
-                                    basedcurrency = baseCurrency,
-                                    drawfilter = metaModel.DrawFilter
+                                    drawfilter = metaModel.DrawFilter,
+                                    UserId = metaModel.UserId,
                                 };
 
             try
@@ -95,9 +94,9 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <param name="metaModel">Meta model.</param>
         /// <param name="licenseeList">Licensee list.</param>
         /// <returns>Data table.</returns>
-        public DataTable GetDataForExcel(WinLossMetaModel metaModel, string licenseeList)
+        public DataTable GetDataForExcel(WinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Get_Licensees_Winloss";
+            const string UspName = "Lrf_rpt_DWWinloss";
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
                             {
@@ -105,7 +104,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 dateend = metaModel.ToDate,
                                 currencyid = metaModel.CurrencyId == 0 ? -1 : metaModel.CurrencyId,
                                 groupingid = metaModel.ReportBy,
-                                licenseelist = licenseeList,
                                 basedcurrency = baseCurrency,
                                 drawfilter = metaModel.DrawFilter
                             };

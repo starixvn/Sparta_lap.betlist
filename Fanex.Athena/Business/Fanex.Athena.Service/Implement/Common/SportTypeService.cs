@@ -45,9 +45,9 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <returns>
         /// The sport list.
         /// </returns>
-        public IList<Sport> GetSportByDate(DateTime fromdate, DateTime todate)
+        public IList<Sport> GetAllWHSports()
         {
-            return this._sportTypeDataAcess.SelSportByDate(fromdate, todate);
+            return this._sportTypeDataAcess.GetAllWHSports();
         }
 
         /// <summary>

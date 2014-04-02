@@ -50,7 +50,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <param name="metaModel"> The model. </param>
         /// <param name="licenseeList"> The licensee list. </param>
         /// <returns>List top customer. </returns>
-        public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel, string licenseeList)
+        public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Get_Licensees_TopCustomer";
             var dataList = new List<TopCustomer>();
@@ -63,7 +63,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                licenseelist = licenseeList,
                                 basedcurrency = baseCurrency,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
@@ -121,7 +120,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <param name="metaModel"> The model. </param>
         /// <param name="licenseeList"> The licensee list. </param>
         /// <returns> Data table.</returns>
-        public DataTable GetDataForExcel(TopCustomerMetaModel metaModel, string licenseeList)
+        public DataTable GetDataForExcel(TopCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Get_Licensees_TopCustomer";
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
@@ -133,7 +132,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                licenseelist = licenseeList,
                                 basedcurrency = baseCurrency,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,

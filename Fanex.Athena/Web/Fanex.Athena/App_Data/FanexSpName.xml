@@ -89,9 +89,9 @@
   </Function>
 
   <Function Name="DataWareHouse">
-    <Setting Key="Lrf_Get_Licensees_Winloss" SpName="Lrf_Get_Licensees_Winloss" DbName="DBDWH.bodb_dwrs.bodbLicenseeNet" />
-    <Setting Key="Lrf_Get_Licensees_TopCustomer" SpName="Lrf_Get_Licensees_TopCustomer" DbName="DBDWH.bodb_dwrs.bodbLicenseeNet" />
-    <Setting Key="Lrf_DW_SportSelByDate" SpName="Lrf_DW_SportSelByDate" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_rpt_DWWinloss" SpName="Lrf_rpt_DWWinloss" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_Get_Licensees_TopCustomer" SpName="Lrf_Get_Licensees_TopCustomer" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SportSel" SpName="Lrf_SportSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="GroupComm">

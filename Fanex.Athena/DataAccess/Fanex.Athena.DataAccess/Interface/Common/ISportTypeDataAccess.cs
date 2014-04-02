@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     {
         IDictionary<string, int> GetAllSports();
 
-        IList<Sport> SelSportByDate(DateTime fromDate, DateTime toDate);
+        IList<Sport> GetAllWHSports();
 
         DataTable GetSportsAndProducts(int licenseeId, string languageCode);
     }

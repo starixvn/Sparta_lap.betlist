@@ -33,8 +33,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         private readonly ITopCustomerService _topCustomerService;
         private readonly IWinLossService _winLossService;
 
-        private IList<Licensee> _licenseeList;
-
         #endregion field
 
         public WareHouseController()
@@ -45,23 +43,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             this._productService = new ProductService();
             this._balancUpService = new BalanceUpService();
         }
-
-        /// <summary>
-        ///     Get licenseeSession list.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <returns>The licensee list.</returns>
-        public string GetLicenseeList(int licenseeId)
-        {
-            if (licenseeId == 0)
-            {
-                _licenseeList = _licenseeService.GetByUser(SessionService.LicenseeSession.UserId);
-                return string.Join(",", _licenseeList.Select(l => l.Id));
-            }
-
-            return licenseeId.ToString(CultureInfo.InvariantCulture);
-        }
-
+        
         [HttpPost]
         public ActionResult GetCurrecyList(int licenseeId, int currencyId)
         {

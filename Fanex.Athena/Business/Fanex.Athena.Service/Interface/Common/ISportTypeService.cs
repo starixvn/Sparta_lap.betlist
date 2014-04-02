@@ -33,7 +33,7 @@ namespace Fanex.Athena.Service.Interface.Common
         /// <returns>
         /// The sport list.
         /// </returns>
-        IList<Sport> GetSportByDate(DateTime fromDate, DateTime toDate);
+        IList<Sport> GetAllWHSports();
 
         IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null);
     }

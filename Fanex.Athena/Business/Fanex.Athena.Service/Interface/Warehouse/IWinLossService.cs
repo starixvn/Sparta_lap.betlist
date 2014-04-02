@@ -21,11 +21,10 @@ namespace Fanex.Athena.Service.Interface.Warehouse
     {
         #region Public Methods and Operators
 
-        DataTable GetDataForExcel(WinLossMetaModel model, string licenseeList);
+        DataTable GetDataForExcel(WinLossMetaModel model);
 
         IList<WinLoss> GetDataList(
             WinLossMetaModel model,
-            string licenseeList,
             ref IDictionary<string, decimal> totalValues);
 
         Dictionary<string, decimal> GetWinlossTotalInfo(IList<WinLoss> dataList);

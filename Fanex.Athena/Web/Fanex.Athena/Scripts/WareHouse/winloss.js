@@ -1,14 +1,8 @@
 ﻿/// <reference path="/@JSense.js" />
 var WareHouseWinLoss = (function ($) {
     return {
-        serializeParam: function () {
-            var licenseeId = WareHouseWinLoss.getLicenseeId();
-            $('#LicenseeId').val(licenseeId);
+        serializeParam: function () {            
             $('#ReportBy').val($('#SelectReportBy').val());
-        },
-
-        getLicenseeId: function () {
-            return $('#LicenseeList').length > 0 ? $('#LicenseeList').val() : $('#LicenseeId').val();
         },
 
         initExcelExporting: function () {

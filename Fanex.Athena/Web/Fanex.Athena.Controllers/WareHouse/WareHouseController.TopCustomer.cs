@@ -8,8 +8,6 @@ namespace Fanex.Athena.Controllers.WareHouse
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Warehouse;
@@ -38,7 +36,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         public ActionResult GetSportList(DateTime fromDate, DateTime toDate)
         {
             _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
-            var sportList = _sportTypeService.GetSportByDate(fromDate, toDate);
+            var sportList = _sportTypeService.GetAllWHSports();
             return View("~/Views/WareHouse/TopCustomer/AjaxTemplate/SportList.cshtml", sportList);
         }
 
@@ -57,23 +55,22 @@ namespace Fanex.Athena.Controllers.WareHouse
             var licenseeSession = SessionService.LicenseeSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new TopCustomerMetaModel { LicenseeId = licenseeId };
-
+            metaModel.FromDate = metaModel.ToDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             var currencyList = SessionService.UserSession.CurrencyList;
-            var sportList = _sportTypeService.GetSportByDate(metaModel.FromDate, metaModel.ToDate);
+            var sportList = _sportTypeService.GetAllWHSports();
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            _licenseeList = _licenseeService.GetByUser(licenseeSession.UserId);
 
             var model = new TopCustomerViewModel
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
                     ProductAccess = productAccess,
-                    LicenseeList = _licenseeList,
                     CurrencyList = currencyList,
                     SportList = sportList,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
                 };
 
+            ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
         }
 
@@ -118,13 +115,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 metaModel.ToDate.ToShortDateString(),
                 viewByCurrency);
 
-            var licenseeList = GetLicenseeList(metaModel.LicenseeId);
-            var exportData = new DataTable();
-            _licenseeList = _licenseeService.GetByUser(SessionService.LicenseeSession.UserId);
-            if (_licenseeList.Any(a => a.Id == metaModel.LicenseeId))
-            {
-                exportData = _topCustomerService.GetDataForExcel(metaModel, licenseeList);
-            }
+            var exportData = _topCustomerService.GetDataForExcel(metaModel);
 
             var topCustExcel = new TopCustomer(templatePath, FileName, currencyConvert, showingOption, exportData)
                 {
@@ -156,33 +147,24 @@ namespace Fanex.Athena.Controllers.WareHouse
             }
 
             var licenseeSession = SessionService.LicenseeSession;
-            _licenseeList = _licenseeService.GetByUser(licenseeSession.UserId);
+
             /*Set default values*/
             var model = new TopCustomerViewModel
                 {
                     Param = metaModel,
-                    LicenseeList = _licenseeList,
                     CurrencyList = SessionService.UserSession.CurrencyList,
                     ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    SportList = _sportTypeService.GetSportByDate(metaModel.FromDate, metaModel.ToDate)
+                    SportList = _sportTypeService.GetAllWHSports(),
                 };
 
-            if (_licenseeList.Any(a => a.Id == metaModel.LicenseeId))
-            {
-                var licenseeList = GetLicenseeList(metaModel.LicenseeId);
-                var totalValues = new Dictionary<string, decimal>();
+            var totalValues = new Dictionary<string, decimal>();
 
-                ViewBag.BalanceUpDay = _balancUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
-                model.MainResult = _topCustomerService.GetTopCustomerList(metaModel, licenseeList, ref totalValues);
-                model.TotalValues = totalValues;
-            }
-            else
-            {
-                model.MainResult = new List<Models.DTO.Warehouse.TopCustomer>();
-                model.TotalValues = new Dictionary<string, decimal>();
-            }
+            ViewBag.BalanceUpDay = _balancUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
+            model.MainResult = _topCustomerService.GetTopCustomerList(metaModel, ref totalValues);
+            model.TotalValues = totalValues;
 
+            ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
         }
     }

@@ -91,17 +91,14 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <param name="fromDate"> The from date. </param>
         /// <param name="toDate"> The to date. </param>
         /// <returns> The result value.</returns>
-        public IList<Sport> SelSportByDate(DateTime fromDate, DateTime toDate)
+        public IList<Sport> GetAllWHSports()
         {
-            const string UspName = "Lrf_DW_SportSelByDate";
+            const string UspName = "Lrf_SportSel";
 
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("fromdate", System.Data.DbType.DateTime, fromDate);
-                    db.AddInParameter("todate", System.Data.DbType.DateTime, toDate);
-                    db.AddInParameter("@balanceupday", System.Data.DbType.DateTime, BalanceUp.BalanceUpDay);
                     var result = new List<Sport>();
                     using (var reader = db.ExecuteReader())
                     {

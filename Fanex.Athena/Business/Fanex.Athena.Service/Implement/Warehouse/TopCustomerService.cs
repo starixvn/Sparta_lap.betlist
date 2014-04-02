@@ -54,12 +54,12 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <param name="model">The metal model.</param>
         /// <param name="licenseeList">The licensee list.</param>
         /// <returns>The data table.</returns>
-        public DataTable GetDataForExcel(TopCustomerMetaModel model, string licenseeList)
+        public DataTable GetDataForExcel(TopCustomerMetaModel model)
         {
             try
             {
                 return model.IsValid
-                           ? this._topCustDataAccess.GetDataForExcel(model, licenseeList)
+                           ? this._topCustDataAccess.GetDataForExcel(model)
                            : new DataTable();
             }
             catch (System.Exception ex)
@@ -77,12 +77,12 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <param name="totalValues">The total dictionary result.</param>
         /// <returns>The top customer list.</returns>
         public IList<TopCustomer> GetTopCustomerList(
-            TopCustomerMetaModel model, string licenseeList, ref Dictionary<string, decimal> totalValues)
+            TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
         {
             try
             {
                 var dataList = model.IsValid
-                                   ? this._topCustDataAccess.GetDataList(model, licenseeList)
+                                   ? this._topCustDataAccess.GetDataList(model)
                                    : new List<TopCustomer>();
                 totalValues = this.GetTopCustomerTotalInfo(dataList);
                 return dataList;
