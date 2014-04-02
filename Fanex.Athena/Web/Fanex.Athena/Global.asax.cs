@@ -48,7 +48,7 @@ namespace Fanex.Athena
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");
-            
+
             if (!AppSettings.LocalTest)
             {
                 SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
@@ -81,10 +81,9 @@ namespace Fanex.Athena
             string message = ex.Message +
                              "\r\nSOURCE: " + ex.Source +
                              "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
-                             "\r\nFORM: " + Request.Form +
+                             "\r\nFORM: " + string.Join("~", Request.Form) +
                              "\r\nUrl: " + Request.RawUrl +
-                             "\r\nQUERYSTRING: " + Request.QueryString +
-                             "\r\nUrl: " + Request.RawUrl +
+                             "\r\nQUERYSTRING: " + string.Join("~",Request.QueryString) +
                              "\r\nTARGETSITE: " + ex.TargetSite +
                              "\r\nSTACKTRACE: " + ex.StackTrace;
 
@@ -95,7 +94,7 @@ namespace Fanex.Athena
         {
             if (Request.IsLocal)
             {
-                  MiniProfiler.Start();
+                MiniProfiler.Start();
             }
         }
 

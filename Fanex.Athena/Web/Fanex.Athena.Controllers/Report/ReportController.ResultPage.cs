@@ -170,13 +170,27 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion PopUpPage
+
         #region KenoPage
+
         [HttpGet]
         public ActionResult KenoResult()
         {
+
+            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(), DateTime.Now);
             return View("~/Views/Report/Result/Keno.cshtml");
         }
-        #endregion
+
+        [HttpPost]
+        public string KenoResult(string userId)
+        {
+            var err = string.Empty;
+            var result= ResultEngine.KeepKenoLived(GetKenoSetting(), userId, out err);
+            Fanex.Logging.LogService.Error(err);
+            return result;
+        }
+
+        #endregion KenoPage
 
         #region Utilities
 
@@ -548,6 +562,22 @@ namespace Fanex.Athena.Controllers.Report
         {
             const string PatternKey = "{0}{1}Result.OutRight.Data_{2}";
             return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, SessionService.UserSession.UserId);
+        }
+
+        private KenoResultSetting GetKenoSetting()
+        {
+            return new KenoResultSetting
+            {
+                Language = "en",
+                SiteID = AppSettings.GetValue("KenoSiteID"),
+                AuthorizedUrl = AppSettings.GetValue("KenoAuthorizedUrl"),
+                ExpireTokenUrl = AppSettings.GetValue("KenoExpireTokenUrl"),
+                ExtendTokenUrl = AppSettings.GetValue("KenoExtendTokenUrl"),
+                VenderKey = AppSettings.GetValue("KenoVenderKey"),
+                Vendor = AppSettings.GetValue("KenoVendor"),
+                ResultUrl = AppSettings.GetValue("KenoResultUrl"),
+                KickOutUrl = Url.Content("~/AccessDenied.aspx")
+            };
         }
 
         #endregion Utilities
