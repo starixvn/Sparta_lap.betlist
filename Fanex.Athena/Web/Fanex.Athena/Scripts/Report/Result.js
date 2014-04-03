@@ -153,7 +153,14 @@ var result = new function () {
         ajaxRequest = $.ajax(option);
     };
     me.init = function () {
-        showOutRight(false);
+        var isShowedRight = self.location.hash.substr(1) === "outright";
+        showOutRight(isShowedRight);
+        $("#submit-keno").click(function () {
+
+            self.location.href = Site.getBaseUrl() + "Report/KenoResult";
+
+        });
+
         $("#submit-outright").click(function () {
             clearExcelExport();
             clearResult();

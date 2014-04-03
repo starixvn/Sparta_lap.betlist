@@ -32,8 +32,11 @@
             <input type="button" id="submit-yesterdate" data-date="@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")" value="@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")" class="button" />
         </div>
        
-        <div id="div-container-outright-button" class="prefix_6 grid_2 filter-input">
+        <div id="div-container-outright-button" class="prefix_4 grid_2 filter-input">
             <input type="button" data-isOutright="0" id="submit-outright" value="@ViewResources.Outright" class="button" />
+        </div>
+         <div class="grid_2 filter-input">
+            <input type="button" id="submit-keno" value="@ViewResources.Keno" class="button" />
         </div>
         <div class="note-group">
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"

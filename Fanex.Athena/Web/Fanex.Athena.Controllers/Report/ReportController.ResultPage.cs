@@ -180,10 +180,22 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/Result/Keno.cshtml");
         }
 
+        /// <summary>
+        /// Extend Keno result session.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The result.</returns>
         [HttpPost]
         [AjaxRequest]
         public string KenoResult(string userId)
         {
+            if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
+            {
+                Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
+
+                return Url.Content("~/AccessDenied.aspx");
+            }
+
             var err = string.Empty;
             var result = ResultEngine.KeepKenoLived(GetKenoSetting(), userId, out err);
             if (!string.IsNullOrEmpty(err))
@@ -568,11 +580,15 @@ namespace Fanex.Athena.Controllers.Report
             return string.Format(PatternKey, metalModel.FromDate, metalModel.ToDate, SessionService.UserSession.UserId);
         }
 
+        /// <summary>
+        /// Get Keno API setting.
+        /// </summary>
+        /// <returns>The API setting.</returns>
         private KenoResultSetting GetKenoSetting()
         {
             return new KenoResultSetting
             {
-                Language = "en",
+                Language = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag,
                 SiteID = AppSettings.GetValue("KenoSiteID"),
                 AuthorizedUrl = AppSettings.GetValue("KenoAuthorizedUrl"),
                 ExpireTokenUrl = AppSettings.GetValue("KenoExpireTokenUrl"),
