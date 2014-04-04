@@ -1,15 +1,17 @@
 ﻿@{
     ViewBag.Title = "LRF - " + ViewResources.CustomerList;
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel;
 @model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
 @section pagecss {
     <link href="@Url.ContentLink("/Content/Customer/CustomerList.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
 }
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>    
     <script src="@Url.ContentLink("/Scripts/Customer/Customers.option.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Customer/Customers.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Customer/CustomerCommList.js")" type="text/javascript"></script>
@@ -24,69 +26,6 @@
 }
 <div id="ajax-panel">
 
-@{
-    foreach (var item in Model.Param.GridColumns)
-    {
-        if (item.Checked)
-        {
-            ViewData[item.Name] = item.Name;
-        }
-    }
-
-    ViewBag.CommCount = 1;
-    ViewBag.CommCount += Model.ProductAccess.IsAllowRb ? 1 : 0;
-    ViewBag.CommCount += Model.ProductAccess.IsAllowNg ? 1 : 0;
-    ViewBag.CommCount += Model.ProductAccess.IsAllowLc ? 1 : 0;
-    ViewBag.CommCount += Model.ProductAccess.IsAllowCs ? 1 : 0;
-
-    ViewBag.NumberWidth = 30;
-    ViewBag.GroupWidth = ViewData["Group"] != null ? 95 : 0;
-    ViewBag.ExternalIdWidth = ViewData["ExternalId"] != null ? 110 : 0;
-    ViewBag.SystemIdWidth = ViewData["SystemId"] != null ? 110 : 0;
-    ViewBag.AvailableFundsWidth = ViewData["AvailableFunds"] != null ? 85 : 0;
-    ViewBag.PendingFundsWidth = ViewData["PendingFunds"] != null ? 80 : 0;
-    ViewBag.StatusWidth = ViewData["Status"] != null ? 75 : 0;
-    ViewBag.BaStatusWidth = ViewData["BaStatus"] != null ? 70 : 0;
-    ViewBag.SpecialLevelWidth = ViewData["SpecialLevel"] != null ? 80 : 0;
-    ViewBag.CustomerOptionWidth = ViewData["CustomerOption"] != null ? 90 : 0;
-    ViewBag.CommMergeWidth = ViewData["Commission"] != null ? 150 : 0;
-    ViewBag.CommWidth = ViewData["Commission"] != null ? 150 / ViewBag.CommCount : 0;
-    ViewBag.CommMergeWidth = ViewBag.CommWidth * ViewBag.CommCount + ViewBag.CommCount - 1;
-
-    ViewBag.ColumnCount = Model.Param.GridColumns.Where(i => i.Checked).Count();
-    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa && ViewData["BaStatus"] != null ? 2 : 0;
-    ViewBag.ColumnCount += Model.IsAllowedCustomerCommission && ViewData["Commission"] != null ? 1 : 0;
-
-    ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth +
-    ViewBag.SystemIdWidth + ViewBag.AvailableFundsWidth + ViewBag.PendingFundsWidth +
-    ViewBag.StatusWidth + ViewBag.SpecialLevelWidth + ViewBag.CustomerOptionWidth;
-    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBa ? ViewBag.BaStatusWidth : 0;
-    ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CommMergeWidth + ViewBag.GroupWidth : 0;
-
-    ViewBag.ContainerWidth += ViewBag.ColumnCount - 1;
-    if (ViewBag.ContainerWidth < 300)
-    {
-        ViewBag.NumberWidth = 300 - ViewBag.ContainerWidth + 30;
-        ViewBag.ContainerWidth = 300;
-
-    }
-    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
-
-    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
-    if (ViewBag.TitleWidth < 600)
-    {
-        if (!string.IsNullOrEmpty(Model.BaTimeCheck))
-        {
-            ViewBag.TitleWidth = 600;
-        }
-        else if (ViewBag.TitleWidth < 300)
-        {
-            ViewBag.TitleWidth = 300;
-        }
-    }
-
-    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
-}
 @if (Model.DataList != null)
 {
     if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
@@ -99,7 +38,7 @@
     </div>
     }
  
-    <div class="container_26">
+    <div class=" theme_jqGrid container_26">
         <div class="grid_26">
             <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
                 @ViewResources.SearchResult:
@@ -116,17 +55,18 @@
                 </div>
                 <label class="ba-time-notice">@Model.BaTimeCheck</label>
             </div>
-             <div class="report-content"  style="width:@(ViewBag.WrapperWidth)px;">
+             <div id="report-content" class="report-content"  style="">
+             <div class="paging">
+                    </div>
                 <div style="width: 100%">
+                    
                     <table id="ReportGrid" data-hidden-column="">
                         <tr>
                             <td>
                             </td>
                         </tr>
                     </table>
-                    <div id="ppdata">
-                    </div>
-                    <div id="footer" class="hide">
+                     <div class="paging">
                     </div>
                 </div>
             </div>
@@ -136,30 +76,32 @@
     <div title="@ViewResources.BetSetting" id="bet-setting-dialog" class="hide">
         <iframe id="bet-setting-frame" style="border: none;" src=""></iframe>
     </div>
-                  if (Model.IsAllowedCustomerCommission)
-                  {
+                    if (Model.IsAllowedCustomerCommission)
+                    {
     <div id="MoveToGroupPopUp" class="hide" title="@ViewResources.MoveToGroup">
         @{
-                      Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
+                        Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
         }
     </div>
     <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission">
         @{
-                      Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
+                        Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
         }
     </div>
     <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup">
         @{
-                      Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
+                        Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
         }
     </div>
   
-                  }
-                  if (Model.DataList != null)
-                  {
+                    }
+                    if (Model.DataList != null)
+                    {
     @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
-                  }
-                  Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml", Model);   
+                    }
+                    Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml", Model);   
     <!--/popup-->
 }
+<input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
+<input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
 </div>

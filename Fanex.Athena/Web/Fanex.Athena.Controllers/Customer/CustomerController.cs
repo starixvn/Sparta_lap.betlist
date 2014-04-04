@@ -112,11 +112,14 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
 
-            var model = GetCustomers(metaModel, licenseeSession, userSession);
+            var totalRows = 0;
+            var dataList = _customerService.Search(metaModel, ref totalRows);
 
-            this.SetValueForBaStatus(model);
-
-            return model;
+            return Json( new
+            {
+                Data = dataList,
+                TotalRows = totalRows
+            });
         }
 
         /// <summary>
@@ -193,6 +196,24 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
+        private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
+        {
+            var model = new CustomerListViewModel { Param = metaModel };
+            model.CurrencyList = SessionService.UserSession.CurrencyList;
+            model.LicenseeTypeList = licenseeSession.LicenseeType;
+            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
+            model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
+            model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
+            if (licenseeSession.IsAllowedCustomerComm)
+            {
+                model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
+                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
+            }
+
+            return model;
+        }
+
         /// <summary>
         /// Get customers.
         /// </summary>
@@ -202,26 +223,15 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The view model.</returns>
         private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
         {
-            var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = SessionService.UserSession.CurrencyList;
-            model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
-            model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
-            model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
+            var model = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
 
             var totalRows = 0;
             model.DataList = _customerService.Search(model.Param, ref totalRows);
             model.TotalRows = totalRows;
 
-            if (licenseeSession.IsAllowedCustomerComm)
-            {
-                model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
-                model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
-            }
-
+            
             return model;
-        }
+        }        
 
         /// <summary>
         ///     This function relates to special BA permission of Justin - Martin.
@@ -299,7 +309,7 @@ namespace Fanex.Athena.Controllers.Customer
                 });
             }
 
-            if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
+            if (true || allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
             {
                 items.Add(new CheckedItem
                 {

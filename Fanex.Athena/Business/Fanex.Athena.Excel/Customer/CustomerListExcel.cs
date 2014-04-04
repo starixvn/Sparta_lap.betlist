@@ -187,7 +187,7 @@ namespace Fanex.Athena.Excel.Customer
                 /*group columns*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
-                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.GroupName);
+                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
                 }
 
                 /* commission column*/

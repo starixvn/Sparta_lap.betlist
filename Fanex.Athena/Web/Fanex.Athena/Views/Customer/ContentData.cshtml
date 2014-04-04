@@ -27,10 +27,10 @@
                     <input type="checkbox" title="@cust.CustId.ToString()" id="@cust.CustId.ToString()" data-group-comm-id="@(cust.GroupCommId)" class="select-cust-checkbox check-child" />
                 </div>
                 <div   style="width: @(ViewBag.GroupWidth - 1)px;"
-                                    class="row text-data" title="@cust.GroupName">
+                                    class="row text-data" title="@cust.Group">
                     <div id="groupName-@cust.CustId.ToString()" style="background-color:@cust.GroupColor;" class="commission-color">
                         @{
-                var groupName = cust.GroupName;
+                var groupName = cust.Group;
 
                 if (groupName.Length > 17)
                 {

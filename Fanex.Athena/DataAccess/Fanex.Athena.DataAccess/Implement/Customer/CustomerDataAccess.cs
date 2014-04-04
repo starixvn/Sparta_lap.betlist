@@ -105,10 +105,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     var availableFundsCol = "TotalBalance" + baseCurrency;
                     var pendingFundsCol = "OutStanding" + baseCurrency;
 
+                    var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                     foreach (DataRow dr in dataTable.Rows)
                     {
                         var cust = new CustomerDTO
                         {
+                            Index = startIndex++,
                             CustId = Converter.ToInt(dr["custid"]),
                             SystemId = dr["username"].ToString(),
                             ExternalId = dr["nickname"].ToString(),
@@ -121,7 +123,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                             PendingFunds = Converter.ToDecimal(dr[pendingFundsCol]),
                             GroupCommId = Converter.ToInt(dr["GroupCommId"]),
                             GroupColor = dr["GroupColor"].ToString(),
-                            GroupName = dr["GroupName"].ToString(),
+                            Group = dr["GroupName"].ToString(),
                             SbComm = Convert.ToDecimal(dr["SBComm"]),
                             RbComm = Convert.ToDecimal(dr["RacingComm"]),
                             NgComm = Convert.ToDecimal(dr["NGComm"]),

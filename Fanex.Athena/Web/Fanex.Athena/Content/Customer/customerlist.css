@@ -1,5 +1,18 @@
 ﻿/* Common element*/
 
+
+.specialLevel div
+{
+    cursor: pointer;
+}
+
+.levelLink
+{
+    width: 60px;
+    height: 15px;
+    cursor: pointer;
+}
+
 select
 {
     width: 100px;
@@ -102,6 +115,17 @@ a.underline
 }
 
 /* Popup */
+
+#LevelListContainer
+{
+    display: none;
+    position: absolute;
+    text-align: left !important;
+    background-color: #FFFFFF;
+    border: 2px solid #666666;
+    width: 60px;
+    height: 165px;
+}
 
 .view-cust-option
 {
@@ -250,6 +274,7 @@ a.underline
 .ba-on
 {
     background: url("images/off-on_hr.png") no-repeat 0 0;
+    cursor: pointer;
 }
 .ba-on:hover
 {
@@ -259,6 +284,7 @@ a.underline
 .ba-off
 {
     background: url("images/off-on_hr.png") no-repeat -54px 0;
+    cursor: pointer;
 }
 
 /* Status*/
@@ -274,6 +300,7 @@ a.underline
 .cust-option-link
 {
     position: relative;
+    text-align: center;
 }
 
 .container_26 .grid_2

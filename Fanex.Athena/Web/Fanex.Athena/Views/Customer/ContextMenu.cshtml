@@ -37,3 +37,15 @@
         <img alt="" src="@Url.Content("~/Content/Customer/images/arrow-up-left.gif")" class="popup-close-button" />
     </a>
 </div>
+
+ <!-- /Dropdown Special Level -->
+<div id="LevelListContainer" >
+    <div id="LevelList" style="width:100%" class="level-0">
+    <div id="" class="levelLink level-0" data-level="0" title="None">None</div>
+    @for (var i = 1; i <= 10; i++)
+    {
+        <div id="" class="levelLink level-@(i)"  data-level="@(i)">@(i)</div>
+    }
+    </div>    
+</div>    
+<!-- /Dropdown Special Level -->

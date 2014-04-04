@@ -11,6 +11,8 @@ namespace Fanex.Athena.Models.DTO.Customer
     /// </summary>
     public class CustomerDTO
     {
+        public int Index { get; set; }
+
         public int CustId { get; set; }
 
         public string ExternalId { get; set; }
@@ -33,7 +35,7 @@ namespace Fanex.Athena.Models.DTO.Customer
 
         public int GroupCommId { get; set; }
 
-        public string GroupName { get; set; }
+        public string Group { get; set; }
 
         public string GroupColor { get; set; }
 

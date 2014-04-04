@@ -18,9 +18,7 @@ var CustomerComm = (function ($) {
 
             $("#GroupListSelect").change(function () {
                 CustomerComm.newGroupChanged(this);
-            });            
-
-            $(".select-cust-checkbox").checkboxgroup();
+            });                        
 
             // Commission dropdownlist change
             $('#CustSBComm1').on('change', function () {
@@ -438,6 +436,6 @@ var CustomerComm = (function ($) {
     }
 })(jQuery);
 
-$(window).load(function () {
+jQuery(function () {
     CustomerComm.initialize();
 });
