@@ -25,7 +25,11 @@ var CustomersOption = (function () {
         align: 'left',
         sortable: false,
         formatter: function (cellValue, options, rowObject) {
-            return "<div id='" + cellValue + "-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor + "' class='commission-color'>" + cellValue + "</div>";
+            if (rowObject.GroupCommId == 0) {
+                cellValue = Site.getSingleResource("None");
+            }
+
+            return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor + "' class='commission-color'>" + cellValue + "</div>";
         }
 
     };
@@ -83,7 +87,8 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             return "<span custid='" + rowObject.CustId + "' class='link cust-status-option' issuspended='" +
                 rowObject.IsSuspended + "'  isclosed='" + rowObject.IsClosed + "' externalid='" + rowObject.ExternalId +
-                "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue + "</span>";
+                "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue +
+                "<span class='arrow1' title='" + Site.getSingleResource("Status") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
         }
     };
     var baStatusColumn =
@@ -96,7 +101,7 @@ var CustomersOption = (function () {
         sortable: false,
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
-            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + cellValue + "#" + rowObject.ExternalId + "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
+            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId + "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
         }
     };
     var specialLevelColumn = {
@@ -109,7 +114,9 @@ var CustomersOption = (function () {
         frozen: true,
         classes: "specialLevel",
         formatter: function (cellValue, options, rowObject) {
-            return "<div data-custid='" + rowObject.CustId + "'  data-level='" + cellValue + "' class='level-" + cellValue + "' style='text-align: center;color:black'>" + cellValue + "</div>";
+            return "<div data-custid='" + rowObject.CustId + "'  data-level='" + cellValue + "' class='level-" + cellValue +
+                     "' style='text-align: center;color:black;width:80px;float:left'>" + cellValue +
+                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
         }
 
     };
@@ -133,7 +140,6 @@ var CustomersOption = (function () {
     var commissionColumn =
     {
         name: 'Commission',
-        classes: 'highlight',
         index: 'Commission',
         width: 40,
         align: 'right',
@@ -141,7 +147,7 @@ var CustomersOption = (function () {
         resizable: false,
         title: true,
         formatter: 'number',
-        formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' }
+        formatteroptions: { decimalSeparator: ".", decimalPlaces: 2, defaultValue: '0.00' }
     };
     //#endregion
     var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
@@ -208,19 +214,31 @@ var CustomersOption = (function () {
 
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
+
+            function getCellAttrFunction(CommName) {
+                var name = col.name;
+                return function (rowId, val, rowObj) {
+                    return " id='" + name + "-" + rowObj.CustId + "' ";
+                };
+            };
+
             var col = Site.clone(groupColumn);
             temp.insertAfter(col, 0);
 
             col = Site.clone(commissionColumn);
             col.name = "SbComm";
             col.index = col.name;
+            col.cellattr = getCellAttrFunction(col.name);
             temp.push(col);
+
+
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
                     col = Site.clone(commissionColumn);
                     col.name = value + "Comm";
                     col.index = col.name;
+                    col.cellattr = getCellAttrFunction(col.name);
                     temp.push(col);
                 }
             });

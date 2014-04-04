@@ -89,7 +89,8 @@ namespace Fanex.Athena.Controllers.Customer
                         };
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
 
-            var model = GetCustomers(metaModel, licenseeSession, userSession);
+
+            var model  = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
 
             this.SetValueForBaStatus(model);
 
@@ -128,7 +129,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
@@ -206,7 +206,7 @@ namespace Fanex.Athena.Controllers.Customer
             model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
             model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
             if (licenseeSession.IsAllowedCustomerComm)
-            {
+            { 
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
                 model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
             }
@@ -309,7 +309,7 @@ namespace Fanex.Athena.Controllers.Customer
                 });
             }
 
-            if (true || allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
+            if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
             {
                 items.Add(new CheckedItem
                 {

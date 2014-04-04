@@ -1,4 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
+window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
     var ajaxRequest = null;
 
@@ -10,8 +11,8 @@ var CustomerList = (function ($) {
     var _pagingOption =
         {
             pageindex: 1,
-            pagesize: 10,
-            pagelist: [10, 100, 1000],
+            pagesize: 1000,
+            pagelist: [1000, 2000, 3000, 4000, 5000],
             totalrow: 1,
             elementcontainer: ".paging",
             method: "AJAX",
@@ -20,8 +21,13 @@ var CustomerList = (function ($) {
         };
 
     function setSpecialLevel(list, level) {
-        var custId = list.attr("data-custid");
         var oldValue = list.attr("data-level");
+        if (oldValue == level) {
+            closeSpecialLevelList();
+            return;
+        }
+        var custId = list.attr("data-custid");
+
         var msg = level == 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
         var answer = confirm(msg);
         if (!answer) {
@@ -110,10 +116,7 @@ var CustomerList = (function ($) {
 
         var reportGrid = $("#ReportGrid");
 
-        var numOfRow = response.Data.length;
-
-        var numOfTotalRow = 0; // response.Total.length;
-        totalRowCount = numOfTotalRow;
+        $("#num-of-customer").html(response.TotalRows + " ");
 
         _pagingOption.totalrow = parseInt(response.TotalRows);
         if (_pagingOption.totalrow > 0) {
@@ -121,7 +124,7 @@ var CustomerList = (function ($) {
             pagingHeper.render(_pagingOption);
         }
 
-
+       
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
@@ -137,7 +140,7 @@ var CustomerList = (function ($) {
 
         for (var i in gridOption.colModel) {
             var col = gridOption.colModel[i];
-            if (col.name === "Index") {
+            if (!col.name || col.name === "Index") {
                 continue;
             }
             // If col is commission
@@ -151,15 +154,7 @@ var CustomerList = (function ($) {
         gridOption.data = response.Data;
         gridOption.rowNum = _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
-        gridOption.gridComplete = function () {
-            jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
-
-            if (response == null || numOfRow == 0) {
-                jqGridAdditional.setNoInfo(gridOption.colModel);
-            }
-
-            Site.unBlockUI();
-        };
+      
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
@@ -173,7 +168,7 @@ var CustomerList = (function ($) {
         } else {
             $("#jqgh_ReportGrid_Index").html("#");
         }
-
+        
         $gridBody = $(".ui-jqgrid-bdiv");
         if ($gridBody.length > 0) {
             $gridBody[0].scrollLeft = scrollLeft;
@@ -185,13 +180,17 @@ var CustomerList = (function ($) {
 
         if (gridWidth < 500) {
             gridWidth = 500;
+        } else {
+            gridWidth += 20;
             reportGrid.jqGrid("setGridWidth", gridWidth);
-
         }
 
+        reportGrid.jqGrid("setGridWidth", gridWidth);
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
         $(".content-filter").width(gridWidth < 1030 ? 1030 : gridWidth);
+
+        Site.unBlockUI();
     }
 
     function ajaxComplete(response) {
@@ -382,7 +381,7 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-            CustomerList.generateParam();
+           
             var data = $("#CustomerForm").serializeObject();
 
             if (data.LicenseeType === "") {
@@ -400,7 +399,6 @@ var CustomerList = (function ($) {
                 });
             });
             $("#excelParam").val(JSON.stringify(data));
-            // data.PageSize = 1;
             var option = {
                 type: "POST",
                 data: data,
@@ -409,14 +407,13 @@ var CustomerList = (function ($) {
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 error: function (xhRequest, errorText, thrownError) { /*Site.gotoErrorPage();*/ },
                 success: function (response) {
-                    //LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");                    
                     ajaxComplete(response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
-                    Site.unBlockUI();
+                complete: function (jqXhr, textStatus) {                    
+                    //Site.unBlockUI();
                 }
             };
             if (ajaxRequest != null) {
@@ -425,18 +422,6 @@ var CustomerList = (function ($) {
             ajaxRequest = $.ajax(option);
 
             return true;
-        },
-        generateParam: function () {
-            var username = $("#txtUsername").val();
-            if (username == Site.getSingleResource('ExternalIdOrSystemId')) {
-                username = '';
-            };
-            $("#Username").val(username);
-            $("#PageIndex").val(1);
-            $("#PageSize").val(500);
-            $("#BaFilter").val($("#BAFilterOption").val());
-            $("#CustStatus").val($("#CustStatusOption").val());
-            $("#SpecialLevel").val($("#special-level-list-search").val());
         },
         generateGroupCommSelect: function () {
             $("#GroupCommId").val($("#DdlGroupCommId").val());
@@ -829,8 +814,8 @@ var CustomerList = (function ($) {
     };
 })(jQuery);
 
-$(document).ready(function () {
+$(document).ready(function () {    
     parent.document.title = 'LRF - ' + $('.content-title').html();
-    CustomerList.initialize();
-    CustomerList.submit();
+    CustomerList.initialize();    
+    CustomerList.submit();    
 });

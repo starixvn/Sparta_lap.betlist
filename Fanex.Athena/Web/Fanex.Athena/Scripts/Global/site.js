@@ -35,13 +35,12 @@ var Site = (function ($) {
         gotoErrorPage: function () {
             window.location.href = Site.resolveClientUrl("Error.aspx");
         },
-        unBlockUI: function () {
+        unBlockUI: function () {            
             $('div.block-body').hide();
             $('div.loading').hide();
             $.unblockUI();
         },
-
-        blockUI: function () {
+        blockUI: function () {            
             $('div.block-body').show();
             $('div.loading').show();
             $.blockUI({
@@ -162,7 +161,9 @@ var Site = (function ($) {
             $(".blockui").click(function () {
                 Site.blockUI();
             });
-            Site.unBlockUI();
+            if (!window.KeepBlockingAfterInit) {
+                Site.unBlockUI();
+            }
         },
 
         currencyConstraint: function (userChange) {

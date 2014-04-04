@@ -6,11 +6,17 @@
     cursor: pointer;
 }
 
+.levelLink:hover
+{
+    opacity:0.6;
+}
+
 .levelLink
 {
     width: 60px;
     height: 15px;
     cursor: pointer;
+    margin-top: 1px;
 }
 
 select
@@ -124,7 +130,7 @@ a.underline
     background-color: #FFFFFF;
     border: 2px solid #666666;
     width: 60px;
-    height: 165px;
+    height: 175px;
 }
 
 .view-cust-option

@@ -83,7 +83,7 @@ namespace Fanex.Athena
                              "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
                              "\r\nFORM: " + string.Join("~", Request.Form) +
                              "\r\nUrl: " + Request.RawUrl +
-                             "\r\nQUERYSTRING: " + string.Join("~",Request.QueryString) +
+                             "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
                              "\r\nTARGETSITE: " + ex.TargetSite +
                              "\r\nSTACKTRACE: " + ex.StackTrace;
 

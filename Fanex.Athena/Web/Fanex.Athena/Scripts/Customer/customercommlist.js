@@ -18,7 +18,7 @@ var CustomerComm = (function ($) {
 
             $("#GroupListSelect").change(function () {
                 CustomerComm.newGroupChanged(this);
-            });                        
+            });
 
             // Commission dropdownlist change
             $('#CustSBComm1').on('change', function () {
@@ -140,21 +140,22 @@ var CustomerComm = (function ($) {
                 success: function (result) {
                     if (result.Success) {
                         CustomerComm.showMsg(Site.getSingleResource('MoveSuccessulMsg'), result.Success);
-                        $.each(param.Customers, function (index, item) {
+                        $.each(param.Customers, function (index, item) {                            
                             var groupName = result.ExtendedData.GroupName;
                             if (groupName.length > 17) {
                                 groupName = groupName.substring(0, 14);
                                 groupName += "...";
                             };
                             var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
-                            $("div#groupName-" + item).css("background-color", result.ExtendedData.GroupColor);
-                            $("div#groupName-" + item).html(groupNameText);
+                            
+                            $("div#groupName-" + item).css("background-color", result.ExtendedData.GroupColor)
+                                                      .html(groupNameText);
 
-                            $("div#sbCom-" + item).html(result.ExtendedData.SBComm);
-                            $("div#ngCom-" + item).html(result.ExtendedData.NGComm);
-                            $("div#rcCom-" + item).html(result.ExtendedData.RCComm);
-                            $("div#lcCom-" + item).html(result.ExtendedData.LCComm);
-                            $("div#csCom-" + item).html(result.ExtendedData.RNGComm);
+                            $("td#SbComm-" + item).html(result.ExtendedData.SBComm);
+                            $("td#NgComm-" + item).html(result.ExtendedData.NGComm);
+                            $("td#RbComm-" + item).html(result.ExtendedData.RCComm);
+                            $("td#LcComm-" + item).html(result.ExtendedData.LCComm);
+                            $("td#CsComm-" + item).html(result.ExtendedData.RNGComm);
                             $("input#" + item).attr("data-group-comm-id", groupid);
                         });
                     }
@@ -254,14 +255,14 @@ var CustomerComm = (function ($) {
                         //updated = true;
                         CustomerComm.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
                         $.each(param.Customers, function (index, item) {
-                            $("#groupName-" + item).css("background-color", result.ExtendedData.GroupColor);
-                            $("#groupName-" + item).html(result.ExtendedData.GroupName);
+                            $("#groupName-" + item).css("background-color", result.ExtendedData.GroupColor)
+                                                   .html(result.ExtendedData.GroupName);
 
-                            $("#sbCom-" + item).html(result.ExtendedData.SBComm);
-                            $("#ngCom-" + item).html(result.ExtendedData.NGComm);
-                            $("#rcCom-" + item).html(result.ExtendedData.RCComm);
-                            $("#lcCom-" + item).html(result.ExtendedData.LCComm);
-                            $("#csCom-" + item).html(result.ExtendedData.RNGComm);
+                            $("#SbComm-" + item).html(result.ExtendedData.SBComm);
+                            $("#NgComm-" + item).html(result.ExtendedData.NGComm);
+                            $("#RbComm-" + item).html(result.ExtendedData.RCComm);
+                            $("#LcComm-" + item).html(result.ExtendedData.LCComm);
+                            $("#CsComm-" + item).html(result.ExtendedData.RNGComm);
                             $("#" + item).attr("data-group-comm-id", 0);
                         });
                     }
@@ -361,14 +362,14 @@ var CustomerComm = (function ($) {
                         }
                         if (param.isRemovePlayercomm) {
                             $.each(param.Customers, function (index, item) {
-                                $("div#groupName-" + item).css("background-color", "");
-                                $("div#groupName-" + item).html(result.ExtendedData.GroupName);
+                                $("div#groupName-" + item).css("background-color", "")
+                                                          .html(result.ExtendedData.GroupName);
 
-                                $("div#sbCom-" + item).html(result.ExtendedData.SBComm.toFixed(2));
-                                $("div#ngCom-" + item).html(result.ExtendedData.NGComm.toFixed(2));
-                                $("div#rcCom-" + item).html(result.ExtendedData.RCComm.toFixed(2));
-                                $("div#lcCom-" + item).html(result.ExtendedData.LCComm.toFixed(2));
-                                $("div#csCom-" + item).html(result.ExtendedData.RNGComm.toFixed(2));
+                                $("td#SbComm-" + item).html(result.ExtendedData.SBComm.toFixed(2));
+                                $("td#NgComm-" + item).html(result.ExtendedData.NGComm.toFixed(2));
+                                $("td#RbComm-" + item).html(result.ExtendedData.RCComm.toFixed(2));
+                                $("td#LcComm-" + item).html(result.ExtendedData.LCComm.toFixed(2));
+                                $("td#CsComm-" + item).html(result.ExtendedData.RNGComm.toFixed(2));
                                 $("input#" + item).attr("data-group-comm-id", 0);
                             });
                         }

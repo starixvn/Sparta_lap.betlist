@@ -11,7 +11,7 @@
 }
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>    
+    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Customer/Customers.option.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Customer/Customers.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Customer/CustomerCommList.js")" type="text/javascript"></script>
@@ -25,28 +25,23 @@
     @{Html.RenderPartial("~/Views/Customer/Filter.cshtml", Model);}
 }
 <div id="ajax-panel">
-
-@if (Model.DataList != null)
-{
-    if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
+    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
 
-    <div class="grid_9 filter-input new-line" style="padding-bottom: 2px;">
-        <input type="button" id="MoveToGroup" value="@ViewResources.MoveToGroup" class="button" />&nbsp;&nbsp;&nbsp;
-        <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="button" data-group-id="@Model.Param.GroupCommId"/>&nbsp;&nbsp;&nbsp;
-        <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="button" />&nbsp;&nbsp;&nbsp;
-    </div>
+        <div class="grid_9 filter-input new-line" style="padding-bottom: 2px;">
+            <input type="button" id="MoveToGroup" value="@ViewResources.MoveToGroup" class="button" />&nbsp;&nbsp;&nbsp;
+            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="button" data-group-id="@Model.Param.GroupCommId"/>&nbsp;&nbsp;&nbsp;
+            <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="button" />&nbsp;&nbsp;&nbsp;
+        </div>
     }
- 
     <div class=" theme_jqGrid container_26">
         <div class="grid_26">
             <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
                 @ViewResources.SearchResult:
-                <label class="num-of-customer">@Model.TotalRows @ViewResources.Customers.ToLower()</label>
+                <label id="num-of-customer" class="num-of-customer">0 </label>@ViewResources.Customers.ToLower()
                 <div style="float: right;">
                     @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
                     {
-                        @Html.AntiForgeryToken()
                         <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
                         <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"
@@ -55,18 +50,17 @@
                 </div>
                 <label class="ba-time-notice">@Model.BaTimeCheck</label>
             </div>
-             <div id="report-content" class="report-content"  style="">
-             <div class="paging">
-                    </div>
+            <div id="report-content" class="report-content" style="">
+                <div class="paging">
+                </div>
                 <div style="width: 100%">
-                    
                     <table id="ReportGrid" data-hidden-column="">
                         <tr>
                             <td>
                             </td>
                         </tr>
                     </table>
-                     <div class="paging">
+                    <div class="paging">
                     </div>
                 </div>
             </div>
@@ -76,32 +70,31 @@
     <div title="@ViewResources.BetSetting" id="bet-setting-dialog" class="hide">
         <iframe id="bet-setting-frame" style="border: none;" src=""></iframe>
     </div>
-                    if (Model.IsAllowedCustomerCommission)
-                    {
-    <div id="MoveToGroupPopUp" class="hide" title="@ViewResources.MoveToGroup">
-        @{
-                        Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
-        }
-    </div>
-    <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission">
-        @{
-                        Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
-        }
-    </div>
-    <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup">
-        @{
-                        Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
-        }
-    </div>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div id="MoveToGroupPopUp" class="hide" title="@ViewResources.MoveToGroup">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
+            }
+        </div>
+        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
+            }
+        </div>
+        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
+            }
+        </div>
   
-                    }
-                    if (Model.DataList != null)
-                    {
-    @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
-                    }
-                    Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml", Model);   
+    }
+    @if (Model.DataList != null)
+    {
+        @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
+    }
+    @{ Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml",Model); }
     <!--/popup-->
-}
-<input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
-<input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
+    <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
+    <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
 </div>

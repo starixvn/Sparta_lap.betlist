@@ -124,11 +124,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                             GroupCommId = Converter.ToInt(dr["GroupCommId"]),
                             GroupColor = dr["GroupColor"].ToString(),
                             Group = dr["GroupName"].ToString(),
-                            SbComm = Convert.ToDecimal(dr["SBComm"]),
-                            RbComm = Convert.ToDecimal(dr["RacingComm"]),
-                            NgComm = Convert.ToDecimal(dr["NGComm"]),
-                            LcComm = Convert.ToDecimal(dr["LCComm"]),
-                            CsComm = Convert.ToDecimal(dr["RNGComm"])
+                            SbComm = Convert.ToDecimal(dr["SBComm"]) * 100,
+                            RbComm = Convert.ToDecimal(dr["RacingComm"]) * 100,
+                            NgComm = Convert.ToDecimal(dr["NGComm"]) * 100,
+                            LcComm = Convert.ToDecimal(dr["LCComm"]) * 100,
+                            CsComm = Convert.ToDecimal(dr["RNGComm"]) * 100
                         };
 
                         cust.Status = cust.IsClosed ? ViewResources.Closed : cust.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
