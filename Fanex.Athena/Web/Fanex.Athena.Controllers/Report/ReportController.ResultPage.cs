@@ -596,7 +596,7 @@ namespace Fanex.Athena.Controllers.Report
                 VenderKey = AppSettings.GetValue("KenoVenderKey"),
                 Vendor = AppSettings.GetValue("KenoVendor"),
                 ResultUrl = AppSettings.GetValue("KenoResultUrl"),
-                KickOutUrl = Url.Content("~/AccessDenied.aspx")
+                KickOutUrl = Url.Content("~/Utility/AccessDenied")
             };
         }
 
