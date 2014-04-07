@@ -18,11 +18,16 @@ var result = new function () {
     var showOutRight = function (isShow) {
         if (isShow) {
             $(".for-out-right").show();
+            $("#submit-outright").attr("disabled", "disabled");
+            $("#submit-normal").removeAttr("disabled");
+
         } else {
             $(".for-out-right").hide();
+            $("#submit-outright").removeAttr("disabled");
+            $("#submit-normal").attr("disabled", "disabled");
+
         }
         $("#submit-outright").attr("data-isOutright", isShow ? "1" : "0");
-        $("#submit-outright").val(isShow ? Site.getSingleResource("Normal") : Site.getSingleResource("Outright"));
     };
     var getData = function () {
         if (param.IsExportExcel) {
@@ -165,6 +170,13 @@ var result = new function () {
             clearExcelExport();
             clearResult();
             var data = $(this).attr("data-isoutright");
+            showOutRight(data == "0");
+            $("#SubmitButton").trigger("click");
+        });
+        $("#submit-normal").click(function () {
+            clearExcelExport();
+            clearResult();
+            var data = "1";
             showOutRight(data == "0");
             $("#SubmitButton").trigger("click");
         });

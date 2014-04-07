@@ -33,7 +33,7 @@ namespace Fanex.Athena
         {
             _sessionService = new SessionService();
 
-            _sessionService.CreateNewSession(5, 5, "pgmson", false, licenseeid, lang);
+            _sessionService.CreateNewSession(5, 5, "pgmjacob", false, licenseeid, lang);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace Fanex.Athena
             var lang = Convert.ToString(Request["lang"]);
             SetLanguage(string.IsNullOrEmpty(lang) ? "en-US" : lang);
             SetDefault(licenseeId != 0 ? licenseeId : 1, string.IsNullOrEmpty(lang) ? "en-US" : lang);
-            FormsAuthentication.SetAuthCookie("pgmson", false);
+            FormsAuthentication.SetAuthCookie("pgmjacob", false);
             Response.Redirect("~/Report/Balance");
         }
     }

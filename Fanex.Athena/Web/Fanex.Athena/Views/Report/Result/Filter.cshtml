@@ -33,11 +33,15 @@
         </div>
        
         <div id="div-container-outright-button" class="prefix_4 grid_2 filter-input">
-            <input type="button" data-isOutright="0" id="submit-outright" value="@ViewResources.Outright" class="button" />
+            <input type="button"  id="submit-normal" value="@ViewResources.Normal" class="button" />
+        </div>
+          <div class="grid_2 filter-input">
+            <input type="button" id="submit-outright" data-isOutright="1" value="@ViewResources.Outright" class="button" />
         </div>
          <div class="grid_2 filter-input">
             <input type="button" id="submit-keno" value="@ViewResources.Keno" class="button" />
         </div>
+       
         <div class="note-group">
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                    type="image" id="ExportToExcel" name="exporttoexcel"
