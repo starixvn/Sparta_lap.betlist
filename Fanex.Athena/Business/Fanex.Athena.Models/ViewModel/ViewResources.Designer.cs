@@ -5182,6 +5182,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RNG Casino and Keno are not included in the report.
+        /// </summary>
+        public static string RngCasinoAndKenoExcludedNote {
+            get {
+                return ResourceManager.GetString("RngCasinoAndKenoExcludedNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RNG Casino Database is not currently available. Please try again later..
         /// </summary>
         public static string RNGCasinoUpdateSettingUnAvailableMsg {

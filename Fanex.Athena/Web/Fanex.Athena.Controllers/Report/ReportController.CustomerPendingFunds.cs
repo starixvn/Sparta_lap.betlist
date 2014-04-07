@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = SessionService.UserSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {

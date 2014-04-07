@@ -2371,4 +2371,8 @@
   <data name="InvalidParams" xml:space="preserve">
     <value>Invalid parameters</value>
   </data>
+  <data name="RngCasinoAndKenoExcludedNote" xml:space="preserve">
+    <value>RNG Casino and Keno are not included in the report</value>
+    <comment>#13958</comment>
+  </data>
 </root>

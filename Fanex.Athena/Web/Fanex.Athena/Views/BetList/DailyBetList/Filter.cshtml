@@ -41,9 +41,7 @@
         <label>@ViewResources.Product</label>
     </div> 
     <div class="grid_3 filter-input">
-        <select id="ProductCode" name="ProductCode">
-            <option value="ALL"@("ALL" == Model.Param.ProductCode ? "selected='selected'" : string.Empty)>
-                @ViewResources.All</option>
+        <select id="ProductCode" name="ProductCode">            
             @foreach (var prd in Model.ProductAccess.ProductList)
             {
                 <option value="@prd.ProductCode" @(prd.ProductCode == Model.Param.ProductCode ? "selected='selected'" : string.Empty)>

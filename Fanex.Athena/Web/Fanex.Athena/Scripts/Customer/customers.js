@@ -124,7 +124,6 @@ var CustomerList = (function ($) {
             pagingHeper.render(_pagingOption);
         }
 
-
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
@@ -154,7 +153,6 @@ var CustomerList = (function ($) {
         gridOption.data = response.Data;
         gridOption.rowNum = _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
-
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
@@ -190,13 +188,10 @@ var CustomerList = (function ($) {
         $(".report-title").width(gridWidth - 25);
         $(".content-filter").width(gridWidth < 1030 ? 1030 : gridWidth);
 
-        Site.unBlockUI();
-    }
+        // Display 20 rows in grid
+        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 540)
 
-    function ajaxComplete(response) {
-        if (response != null) {
-            bindData(response);
-        }
+        Site.unBlockUI();
     }
 
     return {
@@ -218,8 +213,8 @@ var CustomerList = (function ($) {
         initEvent: function () {
             CustomerList.loadPostbackParam();
 
-            $("#report-content").on("click", ".specialLevel div", function () {
-                var $this = $(this);
+            $("#report-content").on("click", ".specialLevel *", function () {
+                var $this = $(this).parent().find("div");
                 $specialLevelCell = $this;
                 viewSpecialLevelList($this);
             });
@@ -407,7 +402,9 @@ var CustomerList = (function ($) {
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 error: function (xhRequest, errorText, thrownError) { /*Site.gotoErrorPage();*/ },
                 success: function (response) {
-                    ajaxComplete(response);
+                    if (response != null) {
+                        bindData(response);
+                    }
                 },
                 beforeSend: function () {
                     Site.blockUI();
