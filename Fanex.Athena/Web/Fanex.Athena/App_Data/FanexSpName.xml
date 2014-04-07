@@ -90,7 +90,7 @@
 
   <Function Name="DataWareHouse">
     <Setting Key="Lrf_rpt_DWWinloss" SpName="Lrf_rpt_DWWinloss" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_Get_Licensees_TopCustomer" SpName="Lrf_Get_Licensees_TopCustomer" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_rpt_DWTopCustomerSel" SpName="Lrf_rpt_DWTopCustomerSel" DbName="DBREP.bodb_LicenseeReport.bodbLicenseeNet" />
     <Setting Key="Lrf_SportSel" SpName="Lrf_SportSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 

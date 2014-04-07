@@ -85,6 +85,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             const string FileName = "TopCustomer";
             const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
+            metaModel.UserId = SessionService.UserSession.UserId;
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
@@ -139,6 +140,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         [FunctionAuthorization]
         public ActionResult TopCustomer(TopCustomerMetaModel metaModel)
         {
+            metaModel.UserId = SessionService.UserSession.UserId;
             _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
 
             if (metaModel.IsExportExcel)

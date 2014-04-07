@@ -52,7 +52,6 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// Get data for excel.
         /// </summary>
         /// <param name="model">The metal model.</param>
-        /// <param name="licenseeList">The licensee list.</param>
         /// <returns>The data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel model)
         {
@@ -73,11 +72,9 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// Get top customer list.
         /// </summary>
         /// <param name="model">The metal model.</param>
-        /// <param name="licenseeList">The licensee list.</param>
         /// <param name="totalValues">The total dictionary result.</param>
         /// <returns>The top customer list.</returns>
-        public IList<TopCustomer> GetTopCustomerList(
-            TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
+        public IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
         {
             try
             {

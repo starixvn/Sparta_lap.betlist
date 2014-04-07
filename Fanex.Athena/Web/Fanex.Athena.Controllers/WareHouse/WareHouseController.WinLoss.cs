@@ -62,6 +62,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             const string FileName = "WinLoss";
             const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
+            metaModel.UserId = SessionService.UserSession.UserId;
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
@@ -114,6 +115,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         [HttpPost]
         public ActionResult WinLoss(WinLossMetaModel metaModel)
         {
+            metaModel.UserId = SessionService.UserSession.UserId;
             if (metaModel.IsExportExcel)
             {
                 return ExportExcel(metaModel);

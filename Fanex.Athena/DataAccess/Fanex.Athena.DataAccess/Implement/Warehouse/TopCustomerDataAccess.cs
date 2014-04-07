@@ -48,18 +48,17 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// Get data list.
         /// </summary>
         /// <param name="metaModel"> The model. </param>
-        /// <param name="licenseeList"> The licensee list. </param>
         /// <returns>List top customer. </returns>
         public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
-            const string UspName = "Lrf_Get_Licensees_TopCustomer";
+            const string UspName = "Lrf_rpt_DWTopCustomerSel";
             var dataList = new List<TopCustomer>();
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
                             {
-                                datestart = metaModel.FromDate,
-                                dateend = metaModel.ToDate,
-                                currencyid = metaModel.CurrencyId == 0 ? -1 : metaModel.CurrencyId,
+                                FromDate = metaModel.FromDate,
+                                ToDate = metaModel.ToDate,
+                                currencyid = metaModel.CurrencyId,
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
@@ -67,13 +66,15 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,
-                                toprow = metaModel.TopRow
+                                toprow = metaModel.TopRow,
+                                UserID = metaModel.UserId
                             };
 
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    db.DbCommand.CommandTimeout = 180;
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         while (reader.Read())
@@ -86,17 +87,17 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                             }
                             else
                             {
-                                topcustomer.Member = reader.FieldExists("member")
-                                                         ? reader.ToString("member")
+                                topcustomer.Member = reader.FieldExists("UserName")
+                                                         ? reader.ToString("UserName")
                                                          : string.Empty;
-                                topcustomer.Currency = reader.ToString("currency");
-                                topcustomer.BaComm = reader.ToDecimal("commission");
-                                topcustomer.MemberWinLoss = reader.ToDecimal("memberwl");
-                                topcustomer.MemberWinLossCom = reader.ToDecimal("playercomm");
+                                topcustomer.Currency = reader.ToString("Currency");
+                                topcustomer.BaComm = reader.FieldExists("Comm") ? reader.ToDecimal("Comm") : 0;
+                                topcustomer.MemberWinLoss = reader.ToDecimal("MemberWinlost");
+                                topcustomer.MemberWinLossCom = reader.FieldExists("playercomm") ? reader.ToDecimal("playercomm") : 0;
                                 topcustomer.BetCount = reader.ToInt("betcount");
-                                topcustomer.Turnover = reader.ToDecimal("turnover100");
-                                topcustomer.LastLoginDate = reader.FieldExists("lastactivitydate")
-                                                                ? reader["lastactivitydate"]
+                                topcustomer.Turnover = reader.ToDecimal("Turnover");
+                                topcustomer.LastLoginDate = reader.FieldExists("LastActiveDate")
+                                                                ? reader["LastActiveDate"]
                                                                 : null;
                             }
 
@@ -118,17 +119,16 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         ///   Get Data For Excel.
         /// </summary>
         /// <param name="metaModel"> The model. </param>
-        /// <param name="licenseeList"> The licensee list. </param>
         /// <returns> Data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel metaModel)
         {
-            const string UspName = "Lrf_Get_Licensees_TopCustomer";
+            const string UspName = "Lrf_rpt_DWTopCustomerSel";
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
                             {
-                                datestart = metaModel.FromDate,
-                                dateend = metaModel.ToDate,
-                                currencyid = metaModel.CurrencyId == 0 ? -1 : metaModel.CurrencyId,
+                                FromDate = metaModel.FromDate,
+                                ToDate = metaModel.ToDate,
+                                currencyid = metaModel.CurrencyId,
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
@@ -136,13 +136,15 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,
-                                toprow = metaModel.TopRow
+                                toprow = metaModel.TopRow,
+                                UserID = metaModel.UserId
                             };
 
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    db.DbCommand.CommandTimeout = 180;
                     var dataset = db.ExecuteDataSet(uspParams);
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
                 }

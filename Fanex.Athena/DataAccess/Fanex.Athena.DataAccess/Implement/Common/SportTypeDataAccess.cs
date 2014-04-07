@@ -87,9 +87,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
 
         /// <summary>
         /// Get sport by date.
-        /// </summary>
-        /// <param name="fromDate"> The from date. </param>
-        /// <param name="toDate"> The to date. </param>
+        /// </summary>        
         /// <returns> The result value.</returns>
         public IList<Sport> GetAllWHSports()
         {

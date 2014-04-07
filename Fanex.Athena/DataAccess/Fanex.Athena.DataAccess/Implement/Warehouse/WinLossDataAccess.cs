@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
@@ -31,11 +32,13 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
     {
         #region IWinLossDataAccess Members
 
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+
         /// <summary>
         /// Get data list.
         /// </summary>
         /// <param name="metaModel"> The model. </param>
-        /// <param name="licenseeList"> The licensee list. </param>
         /// <returns> List win loss.</returns>
         public IList<WinLoss> GetDataList(WinLossMetaModel metaModel)
         {
@@ -43,19 +46,20 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             var dataList = new List<WinLoss>();
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
-                                {
-                                    FromDate = metaModel.FromDate,
-                                    ToDate = metaModel.ToDate,
-                                    CurrencyId = metaModel.CurrencyId,
-                                    groupingid = metaModel.ReportBy,
-                                    drawfilter = metaModel.DrawFilter,
-                                    UserId = metaModel.UserId,
-                                };
-
+                {
+                    FromDate = metaModel.FromDate,
+                    ToDate = metaModel.ToDate,
+                    CurrencyId = metaModel.CurrencyId,
+                    groupingid = metaModel.ReportBy,
+                    drawfilter = metaModel.DrawFilter,
+                    UserId = metaModel.UserId,
+                    basedcurrency = baseCurrency,
+                };
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    db.DbCommand.CommandTimeout = 180;
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         var groupingList = GroupingMetaModel.GetCollection();
@@ -68,12 +72,13 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 ReportBy = metaModel.ReportBy,
                                 BetCount = reader.ToInt("betcount"),
                                 GroupByValue = reader[groupByName],
-                                MemberWinLoss = reader.ToDecimal("winlossmember_total"),
-                                Turnover = reader.ToDecimal("turnover100_total"),
-                                BaComm = reader.ToDecimal("commission"),
+                                MemberWinLoss = reader.ToDecimal("MemberWinLost"),
+                                LicenseeWinloss = reader.ToDecimal("LicenseeWL"),
+                                Turnover = reader.ToDecimal("Turnover"),
+                                BaComm = reader.FieldExists("comm") ? reader.ToDecimal("comm") : 0,
                                 Liveindicator = reader.FieldExists("liveindicator") && (reader.ToInt("liveindicator") == 1),
-                                BettypeId = reader.FieldExists("bettypeid") ? reader.ToInt("bettypeid") : 0,
-                                MemberWinLossCom = reader.ToDecimal("playercomm"),
+                                BettypeId = reader.FieldExists("bettype") ? reader.ToInt("bettype") : 0,
+                                MemberWinLossCom = reader.FieldExists("playercomm") ? reader.ToDecimal("playercomm") : 0,
                             });
                         }
                     }
@@ -92,7 +97,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// Get data for excel.
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
-        /// <param name="licenseeList">Licensee list.</param>
         /// <returns>Data table.</returns>
         public DataTable GetDataForExcel(WinLossMetaModel metaModel)
         {
@@ -100,18 +104,20 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
             var uspParams = new
                             {
-                                datestart = metaModel.FromDate,
-                                dateend = metaModel.ToDate,
-                                currencyid = metaModel.CurrencyId == 0 ? -1 : metaModel.CurrencyId,
+                                FromDate = metaModel.FromDate,
+                                ToDate = metaModel.ToDate,
+                                CurrencyId = metaModel.CurrencyId,
                                 groupingid = metaModel.ReportBy,
+                                drawfilter = metaModel.DrawFilter,
+                                UserId = metaModel.UserId,
                                 basedcurrency = baseCurrency,
-                                drawfilter = metaModel.DrawFilter
                             };
 
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {
+                    db.DbCommand.CommandTimeout = 180;
                     return db.ExecuteDataSet(uspParams).Tables[0];
                 }
             }

@@ -181,6 +181,7 @@
     <Compile Include="DTO\Report\WinLossByProduct.cs" />
     <Compile Include="DTO\Common\Sport.cs" />
     <Compile Include="DTO\Warehouse\TopCustomer.cs" />
+    <Compile Include="DTO\Warehouse\WarehouseReportBy.cs" />
     <Compile Include="DTO\Warehouse\WinLoss.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />

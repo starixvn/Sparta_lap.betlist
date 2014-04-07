@@ -1,5 +1,6 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.MetaModel.Warehouse
+@using Fanex.Athena.Models.DTO.Warehouse
 @model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
 <!--Grid Header-->
 <div class="header-content" style="width: @(ViewBag.ContainerWidth)px;">
@@ -9,19 +10,19 @@
     <div class="row" style="width: @(ViewBag.ReportByWidth)px;">
         @switch (Model.Param.ReportBy)
         {
-            case 1:
+            case (int)WarehouseReportBy.Day:
             @(ViewResources.Date)
         break;
-            case 3:
+            case (int)WarehouseReportBy.Month:
             @(ViewResources.Month)
         break;
-            case -10:
+            case (int)WarehouseReportBy.Currency:
             @(ViewResources.Currency)
         break;
-            case 0:
+            case (int)WarehouseReportBy.Bettype:
             @(ViewResources.BetType)
         break;
-            case 4:
+            case (int)WarehouseReportBy.League:
             @(ViewResources.League)
         break;
 

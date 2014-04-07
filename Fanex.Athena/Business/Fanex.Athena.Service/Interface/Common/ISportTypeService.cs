@@ -20,19 +20,7 @@ namespace Fanex.Athena.Service.Interface.Common
     public interface ISportTypeService
     {
         IDictionary<string, int> GetAllSports();
-
-        /// <summary>
-        ///     The get sport by date.
-        /// </summary>
-        /// <param name="fromDate">
-        ///     The from date.
-        /// </param>
-        /// <param name="toDate">
-        ///     The to date.
-        /// </param>
-        /// <returns>
-        /// The sport list.
-        /// </returns>
+                
         IList<Sport> GetAllWHSports();
 
         IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null);

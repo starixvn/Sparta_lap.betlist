@@ -16,9 +16,9 @@ namespace Fanex.Athena.Models.MetaModel.Warehouse
     {
         private static readonly string[,] GroupingMap = new[,]
         {
-            { "1", ViewResources.Day }, { "3", ViewResources.Month },
-            { "-10", ViewResources.Currency }, { "0", ViewResources.BetType },
-            { "4", ViewResources.League }
+            { "1", ViewResources.Day }, { "2", ViewResources.Month },
+            { "3", ViewResources.Currency }, { "4", ViewResources.BetType },
+            { "5", ViewResources.League }
         };
 
         public static int DefaultValue

@@ -33,18 +33,6 @@ namespace Fanex.Athena.Service.Implement.Common
             return this._sportTypeDataAcess.GetAllSports();
         }
 
-        /// <summary>
-        ///     The get sport by date.
-        /// </summary>
-        /// <param name="fromdate">
-        ///     The from date.
-        /// </param>
-        /// <param name="todate">
-        ///     The to date.
-        /// </param>
-        /// <returns>
-        /// The sport list.
-        /// </returns>
         public IList<Sport> GetAllWHSports()
         {
             return this._sportTypeDataAcess.GetAllWHSports();

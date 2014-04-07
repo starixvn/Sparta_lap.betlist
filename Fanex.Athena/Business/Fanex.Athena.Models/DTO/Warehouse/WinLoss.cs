@@ -50,10 +50,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 
         public decimal MemberWinLossCom { get; set; }
 
-        public decimal LicenseeWinloss
-        {
-            get { return -1 * MemberWinLoss; }
-        }
+        public decimal LicenseeWinloss { get; set; }
 
         public decimal BaComm { get; set; }
 
@@ -85,17 +82,19 @@ namespace Fanex.Athena.Models.DTO.Warehouse
             {
                 switch (_reportBy)
                 {
-                    case 1:
+                    case (int)WarehouseReportBy.Day:
                         return Convert.ToDateTime(_groupByvalue).ToString("MM/dd/yyyy");
 
-                    case 3:
-                    case -10:
-                    case 4:
+                    case (int)WarehouseReportBy.Month:
+                    case (int)WarehouseReportBy.Currency:
                         return _groupByvalue.ToString();
 
-                    case 0:
+                    case (int)WarehouseReportBy.League:
+                        return CacheRef.GetLeagueName(_groupByvalue);
+
+                    case (int)WarehouseReportBy.Bettype:
                         return _bettypeId >= 81 && _bettypeId < 120
-                            ? CacheRef.GetBettype(_bettypeId, _liveindicator) : _groupByvalue.ToString();
+                            ? CacheRef.GetBettype(_bettypeId, _liveindicator) : CacheRef.GetBettype(_groupByvalue);
 
                     default:
                         return string.Empty;

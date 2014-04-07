@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_ReportLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DTO.Warehouse
 @model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
 @{
                
@@ -10,7 +11,7 @@
     ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 1 : 0;
     ViewBag.NumberWidth = 30;
     // If report by league, set width = 180, otherwise, set width = 80
-    ViewBag.ReportByWidth = Model.Param.ReportBy == 4 ? 300 : (Model.Param.ReportBy == 0 ? 150 : 80);
+    ViewBag.ReportByWidth = Model.Param.ReportBy == (int)WarehouseReportBy.League ? 300 : (Model.Param.ReportBy == (int)WarehouseReportBy.Bettype ? 150 : 80);
     ViewBag.TurnoverWidth = 80;
     ViewBag.BetCountWidth = 100;
     ViewBag.CustomerWLLargeWidth = 80;

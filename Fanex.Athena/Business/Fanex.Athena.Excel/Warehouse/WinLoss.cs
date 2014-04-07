@@ -15,6 +15,7 @@ namespace Fanex.Athena.Excel.Warehouse
     using Common;
     using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Models.DTO.Warehouse;
     using Models.ViewModel;
     using NPOI.SS.UserModel;
 
@@ -39,20 +40,20 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private static readonly IDictionary<int, string> GroupColumnNameMap = new Dictionary<int, string>
         {
-            { 0, "bettype" },
-            { 1, "date" },
-            { 3, "month" },
-            { 4, "league" },
-            { -10, "currency" }
+            { (int)WarehouseReportBy.Day, "date" },
+            { (int)WarehouseReportBy.Month, "month" },
+            { (int)WarehouseReportBy.Currency, "currency" },
+            { (int)WarehouseReportBy.Bettype, "bettype" },
+            { (int)WarehouseReportBy.League, "league" },
          };
 
         private static readonly IDictionary<int, int> GroupNameIndexMap = new Dictionary<int, int>
         {
-            { 0, 4 },
-            { 1, 1 },
-            { 3, 2 },
-            { 4, 5 },
-            { -10, 3 }
+            { (int)WarehouseReportBy.Day, (int)WarehouseReportBy.Day },
+            { (int)WarehouseReportBy.Month, (int)WarehouseReportBy.Month },
+            { (int)WarehouseReportBy.Currency, (int)WarehouseReportBy.Currency },
+            { (int)WarehouseReportBy.Bettype, (int)WarehouseReportBy.Bettype },
+            { (int)WarehouseReportBy.League, (int)WarehouseReportBy.League },
          };
 
         public WinLoss(
@@ -195,12 +196,11 @@ namespace Fanex.Athena.Excel.Warehouse
         // / </summary>
         protected void AddExtraColumns()
         {
-            const string Expression = "IIF(turnover100_total > 0, winlossmember_total/turnover100_total, 0)";
-            const string MemberTotalExpresssion = "IIF(playercomm IS NULL, winlossmember_total, winlossmember_total+playercomm)";
+            const string Expression = "IIF(Turnover > 0, MemberWinLost/Turnover, 0)";
+            const string MemberTotalExpresssion = "IIF(playcomm IS NULL, MemberWinLost, MemberWinLost+playcomm)";
             ExportData.Columns.Add("membertotal", typeof(decimal), MemberTotalExpresssion);
             ExportData.Columns.Add("margin", typeof(decimal), Expression);
-            ExportData.Columns.Add("licenseewinloss", typeof(decimal), "-1*winlossmember_total");
-            ExportData.Columns.Add("licenseetotal", typeof(decimal), "licenseewinloss + commission");
+            ExportData.Columns.Add("licenseetotal", typeof(decimal), "LicenseeWL + Comm");
         }
 
         /// <summary>
@@ -221,8 +221,8 @@ namespace Fanex.Athena.Excel.Warehouse
                 cellIndex++;
             }
 
-            decimal winlossTotal = Converter.ToDecimal(ExportData.Compute("Sum(winlossmember_total)", string.Empty));
-            decimal turnoverTotal = Converter.ToDecimal(ExportData.Compute("Sum(turnover100_total)", string.Empty));
+            decimal winlossTotal = Converter.ToDecimal(ExportData.Compute("Sum(MemberWinlost)", string.Empty));
+            decimal turnoverTotal = Converter.ToDecimal(ExportData.Compute("Sum(Turnover)", string.Empty));
             decimal totalMargin = turnoverTotal != 0 ? winlossTotal / turnoverTotal : 0;
             row.Cells[ColumnMargin].SetCellValue(totalMargin);
 
@@ -237,14 +237,14 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             return new List<string>
             {
-                "turnover100_total",
+                "Turnover",
                 "betcount",
-                "winlossmember_total",
-                "playercomm",
+                "MemberWinlost",
+                "playcomm",
                 "membertotal",
                 "margin",
-                "licenseewinloss",
-                "commission",
+                "LicenseeWL",
+                "comm",
                 "licenseetotal"
              };
         }

@@ -183,10 +183,15 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             if (ExportData.Columns.Count > 2)
             {
-                const string TotalWinlossMemberExpresssion = "IIF(playercomm IS NULL, memberwl, memberwl + playercomm)";
+                const string TotalWinlossMemberExpresssion = "IIF(playercomm IS NULL, MemberWinlost, MemberWinlost + playercomm)";
                 ExportData.Columns.Add("membertotal", typeof(decimal), TotalWinlossMemberExpresssion);
-                ExportData.Columns.Add("licenseewinloss", typeof(decimal), "-1*memberwl");
-                ExportData.Columns.Add("licenseetotal", typeof(decimal), "licenseewinloss + commission");
+
+                if (!ExportData.Columns.Contains("comm"))
+                {
+                    ExportData.Columns.Add("comm", typeof(decimal), "0");
+                }
+
+                ExportData.Columns.Add("licenseetotal", typeof(decimal), "LicenseeWL + comm");
             }
         }
 
@@ -236,17 +241,17 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             return new List<string>
             {
-                "member",
+                "UserName",
                 "currency",
-                "turnover100",
+                "Turnover",
                 "betcount",
-                "memberwl",
+                "MemberWinlost",
                 "playercomm",
                 "membertotal",
-                "licenseewinloss",
-                "commission",
+                "LicenseeWL",
+                "comm",
                 "licenseetotal",
-                "lastactivitydate"
+                "lastactivedate"
             };
         }
 
@@ -258,13 +263,13 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             return new List<string>
             {
-                "turnover100",
+                "Turnover",
                 "betcount",
-                "memberwl",
+                "MemberWinlost",
                 "playercomm",
                 "membertotal",
-                "licenseewinloss",
-                "commission",
+                "LicenseeWL",
+                "comm",
                 "licenseetotal"
             };
         }

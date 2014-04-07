@@ -52,10 +52,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// </summary>
         /// <param name="model">
         ///     The model.
-        /// </param>
-        /// <param name="licenseeList">
-        ///     The licensee list.
-        /// </param>
+        /// </param>        
         /// <returns>
         /// The data table.
         /// </returns>
@@ -79,10 +76,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// </summary>
         /// <param name="model">
         ///     The model.
-        /// </param>
-        /// <param name="licenseeList">
-        ///     The licensee list.
-        /// </param>
+        /// </param>        
         /// <param name="totalValues">
         ///     The total values.
         /// </param>
@@ -90,8 +84,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <returns>
         /// The data list.
         /// </returns>
-        public IList<WinLoss> GetDataList(
-            WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
+        public IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
         {
             try
             {

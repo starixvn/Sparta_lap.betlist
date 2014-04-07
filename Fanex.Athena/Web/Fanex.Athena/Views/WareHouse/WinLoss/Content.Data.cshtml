@@ -1,5 +1,6 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.MetaModel.Warehouse
+@using Fanex.Athena.Models.DTO.Warehouse
 @using Fanex.Athena.Extension.Helper
 @model Fanex.Athena.Models.ViewModel.Warehouse.WinLossViewModel
 @{            
@@ -28,7 +29,7 @@
                 @rowNumber
             </div>
             <div class="row " style="width: @(ViewBag.ReportByWidth)px">
-                <div class="report-by @(Model.Param.ReportBy == 0 || Model.Param.ReportBy == 4 ? "text-data" : "title-text")">
+                <div class="report-by @(Model.Param.ReportBy == (int)WarehouseReportBy.Bettype || Model.Param.ReportBy == (int)WarehouseReportBy.League ? "text-data" : "title-text")">
                     @RazorHelper.TruncateWithTip(groupByString, 47)
                 </div>
             </div>
