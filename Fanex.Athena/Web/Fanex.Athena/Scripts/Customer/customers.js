@@ -124,7 +124,7 @@ var CustomerList = (function ($) {
             pagingHeper.render(_pagingOption);
         }
 
-       
+
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
@@ -150,11 +150,11 @@ var CustomerList = (function ($) {
                 col.hidden = showingColumns[col.name] === undefined;
             }
         }
-        
+
         gridOption.data = response.Data;
         gridOption.rowNum = _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
-      
+
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
@@ -168,7 +168,7 @@ var CustomerList = (function ($) {
         } else {
             $("#jqgh_ReportGrid_Index").html("#");
         }
-        
+
         $gridBody = $(".ui-jqgrid-bdiv");
         if ($gridBody.length > 0) {
             $gridBody[0].scrollLeft = scrollLeft;
@@ -381,7 +381,7 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-           
+
             var data = $("#CustomerForm").serializeObject();
 
             if (data.LicenseeType === "") {
@@ -412,7 +412,7 @@ var CustomerList = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {                    
+                complete: function (jqXhr, textStatus) {
                     //Site.unBlockUI();
                 }
             };
@@ -611,7 +611,6 @@ var CustomerList = (function ($) {
                 alert(canUpdateBAMessage);
                 return;
             }
-
             var paramString = $(context).attr("data-val");
             var params = paramString.split("#");
             var baparam = (params[2] == "True" || params[2] == "true") ? true : false;
@@ -637,7 +636,9 @@ var CustomerList = (function ($) {
                         success: function (data) {
                             //ConfirmMessage
                             if (data.IsSuccessful) {
-                                $(ctx).html('<div class="ba-' + data.BAStatus.toLowerCase() + '"></div>');
+                                $(ctx).html("")
+                                      .removeClass("ba-on ba-off")
+                                      .addClass('ba-' + data.BAStatus.toLowerCase());
                                 if (data.IsBA) {
                                     $(ctx).css("color", "#000000");
                                 }
