@@ -1,10 +1,10 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
+/// <reference path="/@JSense.js" />
 window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
+    "use strict";
     var ajaxRequest = null;
-
     var $specialLevelCell = null;
-
     var _isAllowedCustomerCommission = false;
     var _productAccess = null;
 
@@ -21,14 +21,15 @@ var CustomerList = (function ($) {
         };
 
     function setSpecialLevel(list, level) {
-        var oldValue = list.attr("data-level");
-        if (oldValue == level) {
+        level = Number(level);
+        var oldValue = Number(list.attr("data-level"));
+        if (oldValue === level) {
             closeSpecialLevelList();
             return;
         }
         var custId = list.attr("data-custid");
 
-        var msg = level == 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
+        var msg = level === 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
         var answer = confirm(msg);
         if (!answer) {
             list.html(oldValue);
@@ -37,7 +38,7 @@ var CustomerList = (function ($) {
         }
 
         list.html(level);
-        var requestUrl = resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
+        var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
         list.attr('class', 'level-' + level);
         var param =
             {
@@ -50,7 +51,7 @@ var CustomerList = (function ($) {
             url: requestUrl,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            beforeSend: function (xhr) {
+            beforeSend: function () {
                 list.attr('class', 'level-' + level);
             },
             success: function (data) {
@@ -67,7 +68,7 @@ var CustomerList = (function ($) {
                 }
                 closeSpecialLevelList();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function (/*jqXHR, textStatus, errorThrown*/) {
                 list.html(oldValue);
                 list.attr('class', 'level-' + oldValue);
                 alert("Error");
@@ -88,7 +89,7 @@ var CustomerList = (function ($) {
         var popup = $("#LevelListContainer");
         var link = $("#cust-option-link-" + custId);
 
-        if (popup.attr("custid") == custId) {
+        if (popup.attr("custid") === custId) {
             popup.toggle();
         }
         else {
@@ -108,7 +109,6 @@ var CustomerList = (function ($) {
     }
 
     function bindData(response) {
-
         jqGridAdditional.clearGrid("ReportGrid");
 
         var $gridBody = $(".ui-jqgrid-bdiv");
@@ -128,7 +128,6 @@ var CustomerList = (function ($) {
         var hasData = response !== null && response.TotalRows > 0;
 
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
-
 
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
@@ -155,7 +154,6 @@ var CustomerList = (function ($) {
             }
         }
 
-
         gridOption.data = response.Data;
         gridOption.rowNum = _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
@@ -163,7 +161,7 @@ var CustomerList = (function ($) {
         // Show the grid
         reportGrid.jqGrid(gridOption);
         reportGrid.jqGrid('showCol', 'rn');
-        CustomersOption.setGroupHeaderColumns(reportGrid);        
+        CustomersOption.setGroupHeaderColumns(reportGrid);
 
         if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='select-cust-checkbox' id='CheckAll' />");
@@ -193,10 +191,10 @@ var CustomerList = (function ($) {
         $(".content-filter").width(gridWidth < 1030 ? 1030 : gridWidth);
 
         // Display 20 rows in grid
-        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 540)
+        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 540);
 
         if (hasData) {
-            $("div.paging").show();            
+            $("div.paging").show();
         } else {
             jqGridAdditional.setNoInfo(gridOption.colModel);
             $("div.paging").hide();
@@ -230,13 +228,16 @@ var CustomerList = (function ($) {
                 viewSpecialLevelList($this);
             });
 
-            $("#LevelListContainer .levelLink").click(function (e) {
+            $("#LevelListContainer .levelLink").click(function () {
                 var $this = $(this);
                 var level = $this.attr("data-level");
                 setSpecialLevel($specialLevelCell, level);
             });
 
-            $('#SubmitButtonComm').click(CustomerList.submit);
+            $('#SubmitButtonComm').click(function () {
+                _pagingOption.pageindex = 1;
+                CustomerList.submit();
+            });
 
             $("#txtUsername").click(CustomerList.setUsernameOnFocus)
                              .blur(CustomerList.setDefaultUsername);
@@ -246,12 +247,12 @@ var CustomerList = (function ($) {
                 return CustomerList.updateBASetting(this);
             });
 
-            $("#report-content").on("click", ".cust-status-option", function (event) {
+            $("#report-content").on("click", ".cust-status-option", function () {
                 CustomerList.viewUpdatePopUp($(this));
                 return false;
             });
 
-            $("#report-content").on("click", ".cust-option-link", function (event) {
+            $("#report-content").on("click", ".cust-option-link", function () {
                 CustomerList.viewCustOption($(this));
                 return false;
             });
@@ -293,7 +294,7 @@ var CustomerList = (function ($) {
                     CssClass: ""
                 });
             }
-            var ischeckAll = checkedCount == totalColumns;
+            var ischeckAll = checkedCount === totalColumns;
             $("#grid-columns-multiselect").multiSelect(
         {
             minWidth: 160,
@@ -308,7 +309,7 @@ var CustomerList = (function ($) {
             listData: dataUI,
             onCheck: function () {
                 var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
-                if (checkedItems.length == 0) {
+                if (checkedItems.length === 0) {
                     $("#SubmitButtonComm").prop("disabled", true);
                     $("#grid-columns-multiselect-null").removeClass("hide");
                     $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
@@ -317,7 +318,7 @@ var CustomerList = (function ($) {
                     $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
                     for (var i = 0; i < checkedItems.length; i++) {
                         $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
-                    };
+                    }
                     $("#SubmitButtonComm").prop("disabled", false);
                     $("#grid-columns-multiselect-null").addClass("hide");
                 }
@@ -326,7 +327,7 @@ var CustomerList = (function ($) {
         },
         initAutoComplete: function () {
             var txtUserName = $('#txtUsername');
-            var serUrl = resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
                 CustomerList.setDefaultUsername();
@@ -347,8 +348,7 @@ var CustomerList = (function ($) {
             });
 
             // Hide popup if scroll
-            $("#data-content").scroll(function (e) {
-                var context = $(this);
+            $("#data-content").scroll(function () {
                 $(popupList).each(function (index, element) {
                     var popup = $(element);
                     if (popup.is(":visible")) {
@@ -359,7 +359,6 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-
             var data = $("#CustomerForm").serializeObject();
 
             if (data.LicenseeType === "") {
@@ -370,6 +369,7 @@ var CustomerList = (function ($) {
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
             data.Username = $("#txtUsername").val().trim();
+            data.BaFilter = $("#BAFilterOption").val();
             data.GridColumns = [];
             $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
                 data.GridColumns.push({
@@ -384,13 +384,10 @@ var CustomerList = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
+                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
                 success: bindData,
                 beforeSend: function () {
                     Site.blockUI();
-                },
-                complete: function (jqXhr, textStatus) {
-
                 }
             };
             if (ajaxRequest != null) {
@@ -402,19 +399,19 @@ var CustomerList = (function ($) {
         },
         loadPostbackParam: function () {
             var username = $('#Username').val();
-            if (username == '' || username == undefined) {
+            if (username === '' || username === undefined) {
                 $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
             }
             else {
                 $('#txtUsername').val(username);
                 $('#txtUsername').attr('class', '');
-            };
+            }
             Site.currencyConstraint();
         },
 
         setDefaultUsername: function () {
             var username = $('#txtUsername').val();
-            if (username == '' || username == Site.getSingleResource('ExternalIdOrSystemId')) {
+            if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
                 $('#txtUsername').attr('class', 'default-username');
             }
@@ -425,7 +422,7 @@ var CustomerList = (function ($) {
 
         setUsernameOnFocus: function () {
             var username = $('#txtUsername').val();
-            if (username == Site.getSingleResource('ExternalIdOrSystemId')) {
+            if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 $('#txtUsername').val('');
                 $('#txtUsername').removeAttr('class');
             }
@@ -441,7 +438,7 @@ var CustomerList = (function ($) {
             var popup = $("#view-cust-option");
             var link = $("#cust-option-link-" + custId);
 
-            if (popup.attr("custid") == custId) {
+            if (popup.attr("custid") === custId) {
                 popup.toggle();
             }
             else {
@@ -460,7 +457,7 @@ var CustomerList = (function ($) {
             return false;
         },
 
-        closeCustOption: function (custId) {
+        closeCustOption: function () {
             var popup = $("#view-cust-option");
             if (popup.is(":visible")) {
                 popup.hide();
@@ -474,12 +471,12 @@ var CustomerList = (function ($) {
             var statusLink = $("#edit-cust-status-" + custId);
             var popup = $("#update-cust-status-popup");
 
-            if (popup.attr("custid") == custId) {
+            if (popup.attr("custid") === custId) {
                 popup.toggle();
             }
             else {
-                var isClosed = statusLink.attr("isclosed").toLowerCase() == "true";
-                var isSuspended = statusLink.attr("issuspended").toLowerCase() == "true";
+                var isClosed = statusLink.attr("isclosed").toLowerCase() === "true";
+                var isSuspended = statusLink.attr("issuspended").toLowerCase() === "true";
                 var externalId = statusLink.attr("externalid");
 
                 $("#popup-external-id").html(externalId);
@@ -511,14 +508,11 @@ var CustomerList = (function ($) {
         // option popup
         custStatusCheckedChanged: function () {
             var popup = $("#update-cust-status-popup");
-            var custId = popup.attr("custid");
             var isSuspended = $("#popup-suspended").is(':checked');
             var isClosed = $("#popup-closed").is(':checked');
-            var chkSuspended = $("#CheckSuspended" + custId).is(":checked");
-            var chkClose = $("#CheckClose" + custId).is(":checked");
 
-            var changed = popup.attr("closed") != isClosed || popup.attr("suspended") != isSuspended;
-            $("#popup-update").attr("disabled", !changed);
+            var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
+            $("#popup-update").prop("disabled", !changed);
         },
 
         // ---------------update cust status------------------------------------------------
@@ -534,7 +528,7 @@ var CustomerList = (function ($) {
 
             var isSuspended = $("#popup-suspended").is(':checked');
             var isClosed = $("#popup-closed").is(':checked');
-            var requestUrl = resolveClientUrl("CustomerAPI/UpdateCustStatus");
+            var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
             $.ajax({
                 type: "POST",
                 data:
@@ -554,10 +548,11 @@ var CustomerList = (function ($) {
                     CustomerList.closeUpdatePopUp(custId);
                 },
                 success: function (result) {
-                    if (result.Code == 0) {
-                        var color = isClosed == true ? "#ccc7ba" : isSuspended == true ? "#f8ded7" : "#F6F8F9";
+                    if (Number(result.Code) === 0) {
+                        var color = isClosed === true ? "#ccc7ba" : isSuspended === true ? "#f8ded7" : "#F6F8F9";
 
-                        var statusText = isClosed == true ? Site.getSingleResource("Closed") : isSuspended == true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
+                        var statusText = isClosed === true ? Site.getSingleResource("Closed") :
+                                    isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
 
                         statusLink.html(statusText + '<span title="' + Site.getSingleResource('Status') + '" class="arrow1" >&nbsp;&nbsp;&nbsp;</span>');
                         statusLink.attr("isclosed", isClosed);
@@ -569,9 +564,8 @@ var CustomerList = (function ($) {
                         alert(result.Message);
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus) {
                     alert(textStatus);
-                    //window.location.href = window.location.href;
                 }
             });
         },
@@ -587,17 +581,15 @@ var CustomerList = (function ($) {
             }
             var paramString = $(context).attr("data-val");
             var params = paramString.split("#");
-            var baparam = (params[2] == "True" || params[2] == "true") ? true : false;
-            var confirmMsg = params[2].toLowerCase() == "true" ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
-            if (params.length == 4) {
-                var requestUrl = resolveClientUrl("CustomerAPI/UpdateBAStatus?custId=" + params[1] + "&isAllowBA=" + baparam + "&externalId=" + params[3]);
+            var baparam = (params[2] === "True" || params[2] === "true") ? true : false;
+            var confirmMsg = params[2].toLowerCase() === "true" ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
+            if (params.length === 4) {
+                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus?custId=" + params[1] + "&isAllowBA=" + baparam + "&externalId=" + params[3]);
                 var isUpdate = window.confirm(confirmMsg);
                 if (isUpdate) {
                     var ctx = context;
                     var currentBAStatus = $(ctx).html();
                     var ajaxloading = $("#ajaxLoaDingUpdateBA").html();
-                    var warningMes = $("#ErrorWhenUpdateBA").html();
-                    var contextId = "aBA_" + params[1];
                     $.ajax({
                         type: "POST",
                         url: requestUrl,
@@ -628,7 +620,7 @@ var CustomerList = (function ($) {
                                 alert(data.Message);
                             }
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function (jqXHR, textStatus) {
                             $(ctx).html(currentBAStatus);
                             alert(textStatus);
                         },
@@ -641,9 +633,9 @@ var CustomerList = (function ($) {
                         }
                     });
                     return;
-                };
+                }
                 return;
-            };
+            }
         },
         //------------------------------------------------------------------------
 
@@ -656,7 +648,7 @@ var CustomerList = (function ($) {
 
             CustomerList.closeCustOption();
 
-            var url = resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
+            var url = Site.resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
 
             var popH = 450, popW = 905;
 
@@ -670,7 +662,7 @@ var CustomerList = (function ($) {
                 modal: true,
                 width: popW + 15,
                 height: popH + 50,
-                close: function (event, ui) {
+                close: function (/*event, ui*/) {
                     dialogFrame.attr("src", "");
                 }
             });
@@ -689,13 +681,13 @@ var CustomerList = (function ($) {
             var url = "Customer/LogInfo?custid=" + custId;
             url += "&externalid=" + externalId;
             url += "&systemid=" + systemId;
-            url = resolveClientUrl(url);
+            url = Site.resolveClientUrl(url);
 
             var dialog = $('<div title="' + Site.getSingleResource('LogInfo') + '" style="display:none" class="loading"></div>').appendTo('body');
 
             dialog.dialog({
                 // add a close listener to prevent adding multiple divs to the document
-                close: function (event, ui) {
+                close: function (/*event, ui*/) {
                     // remove div with all data and events
                     dialog.remove();
                 },
@@ -706,8 +698,7 @@ var CustomerList = (function ($) {
             // load remote content
             dialog.load(url,
                 {}, // omit this param object to issue a GET request instead a POST request, otherwise you may provide post parameters within the object
-                function (responseText, textStatus, XMLHttpRequest) {
-                    // remove the loading class
+                function (/*responseText, textStatus, XMLHttpRequest*/) {                    
                     dialog.removeClass('loading');
                 }
             );
@@ -724,7 +715,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -732,7 +723,8 @@ var CustomerList = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             var popH = 700, popW = 900;
 
-            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetList') + '"><iframe scrolling="no" frameborder="0" width="' + popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
+            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetList') + '"><iframe scrolling="no" frameborder="0" width="' +
+                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
@@ -750,7 +742,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -758,7 +750,8 @@ var CustomerList = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             var popH = 700, popW = 900;
 
-            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('DailyStatement') + '"><iframe frameborder="0" width="' + popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
+            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('DailyStatement') + '"><iframe frameborder="0" width="' +
+                        popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
@@ -769,7 +762,7 @@ var CustomerList = (function ($) {
         // ------------------------------------------------------------------------
         // ---------------View Running Betlist-------------------------------------
         viewRunningBetlist: function (custId, systemId, externalId) {
-            var url = resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -778,7 +771,8 @@ var CustomerList = (function ($) {
 
             var popH = 700, popW = 900;
 
-            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetListRunning') + '"><iframe frameborder="0" width="' + popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
+            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetListRunning') + '"><iframe frameborder="0" width="' +
+                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
@@ -789,8 +783,9 @@ var CustomerList = (function ($) {
     };
 })(jQuery);
 
-$(document).ready(function () {    
+$(document).ready(function () {
+    "use strict";
     parent.document.title = 'LRF - ' + $('.content-title').html();
-    CustomerList.initialize();    
-    CustomerList.submit();    
+    CustomerList.initialize();
+    CustomerList.submit();
 });

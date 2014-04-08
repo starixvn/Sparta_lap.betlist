@@ -1,11 +1,13 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site */
+/*exported CustomersOption */
+/// <reference path="/@JSense.js" />
 /*
 * Author:Alex.Nguyen
 * Created Date:10/15/2013
 */
 //#region Columns
 var CustomersOption = (function () {
-
+    "use strict";
 
     var indexColumn = {
         name: 'Index',
@@ -25,11 +27,12 @@ var CustomersOption = (function () {
         align: 'left',
         sortable: false,
         formatter: function (cellValue, options, rowObject) {
-            if (rowObject.GroupCommId == 0) {
+            if (Number(rowObject.GroupCommId) === 0) {
                 cellValue = Site.getSingleResource("None");
             }
 
-            return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor + "' class='commission-color'>" + cellValue + "</div>";
+            return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
+                     "' class='commission-color'>" + cellValue + "</div>";
         }
 
     };
@@ -101,7 +104,8 @@ var CustomersOption = (function () {
         sortable: false,
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
-            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId + "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
+            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId + 
+                    "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
         }
     };
     var specialLevelColumn = {
@@ -157,13 +161,9 @@ var CustomersOption = (function () {
                     pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];
 
 
-    var me = {
-        hasCustomerComm: false,
-        totalColspan: 6,
+    var me = {           
         urlData: 'Customer/CustomerList',
-        urlExcelData: 'Customer/ExportExcel',
-        reportBy: 1, //1:daily ,2 :monthly,
-        pageSize: 10,
+        urlExcelData: 'Customer/ExportExcel',            
         gridOption: {
             datatype: 'local',
             colNames: [],
@@ -215,10 +215,9 @@ var CustomersOption = (function () {
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
 
-            function getCellAttrFunction(CommName) {
-                var name = col.name;
+            var getCellAttrFunction = function (colName) {                
                 return function (rowId, val, rowObj) {
-                    return " id='" + name + "-" + rowObj.CustId + "' ";
+                    return " id='" + colName + "-" + rowObj.CustId + "' ";
                 };
             };
 
@@ -230,8 +229,6 @@ var CustomersOption = (function () {
             col.index = col.name;
             col.cellattr = getCellAttrFunction(col.name);
             temp.push(col);
-
-
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
