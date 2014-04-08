@@ -108,11 +108,12 @@ var CustomerList = (function ($) {
     }
 
     function bindData(response) {
+
+        jqGridAdditional.clearGrid("ReportGrid");
+
         var $gridBody = $(".ui-jqgrid-bdiv");
 
         var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
-        jqGridAdditional.clearGrid("ReportGrid");
 
         var reportGrid = $("#ReportGrid");
 
@@ -124,11 +125,15 @@ var CustomerList = (function ($) {
             pagingHeper.render(_pagingOption);
         }
 
+        var hasData = response !== null && response.TotalRows > 0;
+
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+
+
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
         // Change formatter for Index col
-        if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+        if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
                 return "<input type='checkbox' title='" + rowObject.CustId +
                         "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />";
@@ -150,16 +155,15 @@ var CustomerList = (function ($) {
             }
         }
 
+
         gridOption.data = response.Data;
         gridOption.rowNum = _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
-
         reportGrid.jqGrid('showCol', 'rn');
-        CustomersOption.setGroupHeaderColumns(reportGrid);
-        // jqGridAdditional.resetLayout(reportGrid);
+        CustomersOption.setGroupHeaderColumns(reportGrid);        
 
         if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='select-cust-checkbox' id='CheckAll' />");
@@ -190,6 +194,13 @@ var CustomerList = (function ($) {
 
         // Display 20 rows in grid
         $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 540)
+
+        if (hasData) {
+            $("div.paging").show();            
+        } else {
+            jqGridAdditional.setNoInfo(gridOption.colModel);
+            $("div.paging").hide();
+        }
 
         Site.unBlockUI();
     }
@@ -225,20 +236,10 @@ var CustomerList = (function ($) {
                 setSpecialLevel($specialLevelCell, level);
             });
 
-            $('#SubmitButton').click(function () {
-                CustomerList.submit();
-            });
+            $('#SubmitButtonComm').click(CustomerList.submit);
 
-            $('#SubmitButtonComm').click(function () {
-                // CustomerList.generateGroupCommSelect();
-                CustomerList.submit();
-            });
-
-            $("#txtUsername").click(function () {
-                CustomerList.setUsernameOnFocus();
-            }).blur(function () {
-                CustomerList.setDefaultUsername();
-            });
+            $("#txtUsername").click(CustomerList.setUsernameOnFocus)
+                             .blur(CustomerList.setDefaultUsername);
 
             $("#report-content").on("click", ".ba-off, .ba-on", function (event) {
                 event.preventDefault();
@@ -255,36 +256,18 @@ var CustomerList = (function ($) {
                 return false;
             });
 
-            $("#popup-update").on("click", function () {
-                CustomerList.updateCustStatus();
-            });
-            $("#popup-close").on("click", function () {
-                CustomerList.closeUpdatePopUp();
-            })
+            $("#popup-update").on("click", CustomerList.updateCustStatus);
+            $("#popup-close").on("click", CustomerList.closeUpdatePopUp);
 
-            $("#popup-suspended").change(function () {
-                CustomerList.custStatusCheckedChanged();
-            });
+            $("#popup-suspended").change(CustomerList.custStatusCheckedChanged);
+            $("#popup-closed").change(CustomerList.custStatusCheckedChanged);
 
-            $("#popup-closed").change(function () {
-                CustomerList.custStatusCheckedChanged()
-            });
+            $("#bet-setting-link").on("click", CustomerList.viewBetSetting);
+            $("#bet-list-link").on("click", CustomerList.viewBetList);
+            $("#statement-link").on("click", CustomerList.viewStatement);
+            $("#login-info-link").on("click", CustomerList.viewLogInfo);
 
-            $("#bet-setting-link").on("click", function () {
-                CustomerList.viewBetSetting();
-            });
-            $("#bet-list-link").on("click", function () {
-                CustomerList.viewBetList();
-            });
-            $("#statement-link").on("click", function () {
-                CustomerList.viewStatement();
-            });
-            $("#login-info-link").on("click", function () {
-                CustomerList.viewLogInfo();
-            });
-            $("#close-cust-option-link").on("click", function () {
-                CustomerList.closeCustOption();
-            });
+            $("#close-cust-option-link").on("click", CustomerList.closeCustOption);
 
             $(document).on('mousedown', function (e) {
                 CustomerList.mousePosition = { x: e.pageX, y: e.pageY };
@@ -386,6 +369,7 @@ var CustomerList = (function ($) {
             data.PageSize = _pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
+            data.Username = $("#txtUsername").val().trim();
             data.GridColumns = [];
             $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
                 data.GridColumns.push({
@@ -400,17 +384,13 @@ var CustomerList = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { /*Site.gotoErrorPage();*/ },
-                success: function (response) {
-                    if (response != null) {
-                        bindData(response);
-                    }
-                },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
+                success: bindData,
                 beforeSend: function () {
                     Site.blockUI();
                 },
                 complete: function (jqXhr, textStatus) {
-                    //Site.unBlockUI();
+
                 }
             };
             if (ajaxRequest != null) {
@@ -419,9 +399,6 @@ var CustomerList = (function ($) {
             ajaxRequest = $.ajax(option);
 
             return true;
-        },
-        generateGroupCommSelect: function () {
-            $("#GroupCommId").val($("#DdlGroupCommId").val());
         },
         loadPostbackParam: function () {
             var username = $('#Username').val();
