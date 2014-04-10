@@ -176,10 +176,10 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult KenoResult()
         {
-            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(), DateTime.Now);
+            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(),DateTime.Now);
             return View("~/Views/Report/Result/Keno.cshtml");
         }
-
+        
         /// <summary>
         /// Extend Keno result session.
         /// </summary>
@@ -193,7 +193,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
 
-                return Url.Content("~/AccessDenied.aspx");
+                return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
             var err = string.Empty;
@@ -596,7 +596,7 @@ namespace Fanex.Athena.Controllers.Report
                 VenderKey = AppSettings.GetValue("KenoVenderKey"),
                 Vendor = AppSettings.GetValue("KenoVendor"),
                 ResultUrl = AppSettings.GetValue("KenoResultUrl"),
-                KickOutUrl = Url.Content("~/Utility/AccessDenied")
+                KickOutUrl = Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme)
             };
         }
 
