@@ -359,17 +359,28 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-            var data = $("#CustomerForm").serializeObject();
+            var data = {}; // $("#CustomerForm").serializeObject();
 
             if (data.LicenseeType === "") {
                 data.LicenseeType = null;
             }
+
             data.PageIndex = _pagingOption.pageindex;
             data.PageSize = _pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
             data.Username = $("#txtUsername").val().trim();
+            if (data.Username == Site.getSingleResource('ExternalIdOrSystemId')) {
+                data.Username = '';
+            };
+
             data.BaFilter = $("#BAFilterOption").val();
+            data.GroupCommId = $("#DdlGroupCommId").val();
+            data.BaseCurrency = $("#BaseCurrency").val();
+            data.CustStatus = $("#CustStatusOption").val();
+
+            $("#BaseCurrency").attr("data-original", data.BaseCurrency);
+
             data.GridColumns = [];
             $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
                 data.GridColumns.push({
@@ -471,6 +482,7 @@ var CustomerList = (function ($) {
             var statusLink = $("#edit-cust-status-" + custId);
             var popup = $("#update-cust-status-popup");
 
+
             if (popup.attr("custid") === custId) {
                 popup.toggle();
             }
@@ -479,9 +491,10 @@ var CustomerList = (function ($) {
                 var isSuspended = statusLink.attr("issuspended").toLowerCase() === "true";
                 var externalId = statusLink.attr("externalid");
 
+
                 $("#popup-external-id").html(externalId);
-                $("#popup-suspended").attr('checked', isSuspended);
-                $("#popup-closed").attr('checked', isClosed);
+                $("#popup-suspended").prop('checked', isSuspended);
+                $("#popup-closed").prop('checked', isClosed);
 
                 popup.attr("custid", custId);
                 popup.attr("closed", isClosed);
@@ -698,7 +711,7 @@ var CustomerList = (function ($) {
             // load remote content
             dialog.load(url,
                 {}, // omit this param object to issue a GET request instead a POST request, otherwise you may provide post parameters within the object
-                function (/*responseText, textStatus, XMLHttpRequest*/) {                    
+                function (/*responseText, textStatus, XMLHttpRequest*/) {
                     dialog.removeClass('loading');
                 }
             );
