@@ -637,8 +637,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Content\Report\balance.css" />
     <Content Include="Test.aspx" />
-    <Content Include="w3c\p3p.xml" />
-    <None Include="w3c\policy.3p3" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
