@@ -176,10 +176,10 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult KenoResult()
         {
-            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(),DateTime.Now);
+            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(), DateTime.Now);
             return View("~/Views/Report/Result/Keno.cshtml");
         }
-        
+
         /// <summary>
         /// Extend Keno result session.
         /// </summary>
@@ -588,7 +588,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             return new KenoResultSetting
             {
-                Language = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag,
+                Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
                 SiteID = AppSettings.GetValue("KenoSiteID"),
                 AuthorizedUrl = AppSettings.GetValue("KenoAuthorizedUrl"),
                 ExpireTokenUrl = AppSettings.GetValue("KenoExpireTokenUrl"),
