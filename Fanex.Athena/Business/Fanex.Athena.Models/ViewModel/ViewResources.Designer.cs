@@ -4948,6 +4948,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RB.
+        /// </summary>
+        public static string RB {
+            get {
+                return ResourceManager.GetString("RB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RB Comm.
         /// </summary>
         public static string RBComm {

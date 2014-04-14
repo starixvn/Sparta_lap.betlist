@@ -33,7 +33,7 @@
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowRb ? "hide" : "")">
         <td>
-            @ViewResources.RacingComm (%)
+            @ViewResources.RBComm (%)
         </td>
         <td>
             <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2, false) : string.Empty)"/>

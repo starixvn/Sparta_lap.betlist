@@ -1558,7 +1558,7 @@
     <value>賽馬賽事所得：賽馬所得</value>
   </data>
   <data name="RBComm" xml:space="preserve">
-    <value>Racebook傭金</value>
+    <value>RB傭金</value>
   </data>
   <data name="RCCommission" xml:space="preserve">
     <value>赛马赛事佣金</value>
@@ -2374,5 +2374,11 @@
   <data name="RngCasinoAndKenoExcludedNote" xml:space="preserve">
     <value>RNG Casino and Keno are not included in the report</value>
     <comment>#13958</comment>
+  </data>
+  <data name="RB" xml:space="preserve">
+    <value>RB</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
 </root>

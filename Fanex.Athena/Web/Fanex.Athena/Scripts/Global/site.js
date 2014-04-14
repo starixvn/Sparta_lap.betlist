@@ -32,15 +32,25 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },
+        asNull: function (text) {
+            if (text != null) {
+                text = text.trim();
+                if (text === '') {
+                    return null;
+                }
+            }
+
+            return text;
+        },
         gotoErrorPage: function () {
             window.location.href = Site.resolveClientUrl("Error.aspx");
         },
-        unBlockUI: function () {            
+        unBlockUI: function () {
             $('div.block-body').hide();
             $('div.loading').hide();
             $.unblockUI();
         },
-        blockUI: function () {            
+        blockUI: function () {
             $('div.block-body').show();
             $('div.loading').show();
             $.blockUI({

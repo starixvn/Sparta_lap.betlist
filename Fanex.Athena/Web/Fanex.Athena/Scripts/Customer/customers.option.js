@@ -104,7 +104,7 @@ var CustomersOption = (function () {
         sortable: false,
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
-            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId + 
+            return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
                     "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
         }
     };
@@ -161,9 +161,9 @@ var CustomersOption = (function () {
                     pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];
 
 
-    var me = {           
+    var me = {
         urlData: 'Customer/CustomerList',
-        urlExcelData: 'Customer/ExportExcel',            
+        urlExcelData: 'Customer/ExportExcel',
         gridOption: {
             datatype: 'local',
             colNames: [],
@@ -193,8 +193,10 @@ var CustomersOption = (function () {
     };
 
     var products = ["Rb", "Ng", "Lc", "Cs"];
+    var numOfProductColumns = 0;
 
     var getColName = function (productAccess, isAllowedCustomerCommission) {
+        numOfProductColumns = 1;
         var temp = Site.clone(colNameList);
         if (isAllowedCustomerCommission) {
             temp.insertAfter("Group", 0);
@@ -202,6 +204,7 @@ var CustomersOption = (function () {
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
+                    numOfProductColumns++;
                     temp.push(value.toUpperCase());
                 }
             });
@@ -210,12 +213,11 @@ var CustomersOption = (function () {
         return Site.getResources(temp);
     };
 
-    var getColModel = function (productAccess, isAllowedCustomerCommission) {
-
+    var getColModel = function (productAccess, isAllowedCustomerCommission) {        
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
 
-            var getCellAttrFunction = function (colName) {                
+            var getCellAttrFunction = function (colName) {
                 return function (rowId, val, rowObj) {
                     return " id='" + colName + "-" + rowObj.CustId + "' ";
                 };
@@ -250,7 +252,7 @@ var CustomersOption = (function () {
             useColSpanStyle: true,
             groupHeaders: [{
                 startColumnName: "SbComm",
-                numberOfColumns: 4,
+                numberOfColumns: numOfProductColumns,
                 titleText: Site.getSingleResource('Commission') + " (%)"
             }]
         });

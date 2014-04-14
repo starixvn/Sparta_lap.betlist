@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Customer
             row = sheet.CopyRow(_templateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             row.Cells[SBCommColumn].SetCellValue(ViewResources.SB);
-            row.Cells[RCCommColumn].SetCellValue(ViewResources.Racing);
+            row.Cells[RCCommColumn].SetCellValue(ViewResources.RB);
             row.Cells[NGCommColumn].SetCellValue(ViewResources.NG);
             row.Cells[LCCommColumn].SetCellValue(ViewResources.LC);
             row.Cells[CSCommColumn].SetCellValue(ViewResources.CS);
