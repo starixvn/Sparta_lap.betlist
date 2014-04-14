@@ -126,6 +126,9 @@
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuDetailItem.cs" />
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuMatchInfo.cs" />
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuTotalItem.cs" />
+    <Compile Include="DTO\Keno\KenoAuthorization.cs" />
+    <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
+    <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
     <Compile Include="DTO\Report\WinLossByLeague.cs" />
     <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
     <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
@@ -209,6 +212,7 @@
     <Compile Include="MetaModel\Forecast\ForecastHdpOuMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\NewForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="MetaModel\Report\BalanceMetaModel.cs" />

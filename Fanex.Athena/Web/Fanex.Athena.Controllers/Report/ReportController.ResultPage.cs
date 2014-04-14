@@ -16,9 +16,12 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.MetaModel.Keno;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Keno;
+    using Fanex.Athena.Service.Interface.Keno;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
     using Fanex.Result.Core.DTO;
@@ -174,10 +177,16 @@ namespace Fanex.Athena.Controllers.Report
         #region KenoPage
 
         [HttpGet]
+        [AjaxRequest]
         public ActionResult KenoResult()
         {
-            ViewBag.Data = ResultEngine.KenoHtmlParser(GetKenoSetting(), SessionService.UserSession.UserId.ToString(), DateTime.Now);
-            return View("~/Views/Report/Result/Keno.cshtml");
+            IKenoApi api = new KenoApi();
+            var userId = SessionService.UserSession.UserId;
+            return Json(new
+            {
+                Url = api.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
+                UserId = userId
+            },JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -189,6 +198,8 @@ namespace Fanex.Athena.Controllers.Report
         [AjaxRequest]
         public string KenoResult(string userId)
         {
+            IKenoApi api = new KenoApi();
+
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
                 Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
@@ -196,14 +207,14 @@ namespace Fanex.Athena.Controllers.Report
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            var err = string.Empty;
-            var result = ResultEngine.KeepKenoLived(GetKenoSetting(), userId, out err);
-            if (!string.IsNullOrEmpty(err))
+            var result = api.ExtendToken(GetKenoSetting(), userId);
+
+            if (result.ErrorCode > 0)
             {
-                Fanex.Logging.LogService.Error(err);
+                Fanex.Logging.LogService.Error(result.ErrorMsg);
             }
 
-            return result;
+            return result.ErrorCode > 0 ? Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme) : string.Empty;
         }
 
         #endregion KenoPage
@@ -584,9 +595,9 @@ namespace Fanex.Athena.Controllers.Report
         /// Get Keno API setting.
         /// </summary>
         /// <returns>The API setting.</returns>
-        private KenoResultSetting GetKenoSetting()
+        private KenoResultMetalModel GetKenoSetting()
         {
-            return new KenoResultSetting
+            return new KenoResultMetalModel
             {
                 Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
                 SiteID = AppSettings.GetValue("KenoSiteID"),

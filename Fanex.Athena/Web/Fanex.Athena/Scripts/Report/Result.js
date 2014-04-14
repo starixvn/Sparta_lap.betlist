@@ -4,8 +4,12 @@ var result = new function () {
     var api = "Report/Result";
     var apiExcel = "Report/ResultExcel?";
     var apiSport = "Report/GetSports";
+    var kenoResultApi = "Report/KenoResult";
     var ajaxRequest = null;
     var ajaxFilterRequest = null;
+    var kenoAjaxRequest = null;
+    var kenoIntervalId = 0;
+    var kenoUserId = 0;
     var param =
         {
             FromDate: "",
@@ -94,9 +98,6 @@ var result = new function () {
                 Site.blockUI();
             },
             complete: function () {
-                //                if (ajaxRequest != null) {
-                //                    Site.unBlockUI();
-                //                }
             }
         };
         if (ajaxFilterRequest != null) {
@@ -157,13 +158,51 @@ var result = new function () {
         }
         ajaxRequest = $.ajax(option);
     };
+    var extendKenoSession = function () {
+        kenoIntervalId = setInterval(function () {
+            var option = {
+                type: "POST",
+                cache: false,
+                data: "userid=" + kenoUserId,
+                url: Site.resolveClientUrl(kenoResultApi),
+                error: function () { },
+                success: function (response) {
+
+                }
+            };
+            if (kenoAjaxRequest != null) {
+                kenoAjaxRequest.abort();
+            }
+            kenoAjaxRequest = $.ajax(option);
+        }, 6000);
+    };
     me.init = function () {
         var isShowedRight = self.location.hash.substr(1) === "outright";
         showOutRight(isShowedRight);
         $("#submit-keno").click(function () {
-
-            self.location.href = Site.getBaseUrl() + "Report/KenoResult";
-
+            var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=0');
+            var option = {
+                type: "GET",
+                cache: false,
+                url: Site.resolveClientUrl(kenoResultApi),
+                error: function () { },
+                success: function (response) {
+                    kenoUserId = response.UserId;
+                    kenoWindow.location = response.Url;
+                    clearInterval(kenoIntervalId);
+                    extendKenoSession();
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            };
+            if (kenoAjaxRequest != null) {
+                kenoAjaxRequest.abort();
+            }
+            kenoAjaxRequest = $.ajax(option);
         });
 
         $("#submit-outright").click(function () {
@@ -251,7 +290,7 @@ var result = new function () {
         var toDate = new Date();
         param.FromDate = $("#hiddenToDate").val();
         param.ToDate = $("#hiddenToDate").val();
-        getData();
+        
     };
 };
 $(document).ready(function () {
