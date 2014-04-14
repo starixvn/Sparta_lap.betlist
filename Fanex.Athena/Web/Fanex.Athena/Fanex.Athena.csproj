@@ -500,7 +500,6 @@
     <Content Include="Scripts\Customer\BetSetting\betsetting.js" />
     <Content Include="Scripts\Customer\BetSetting\rngcasino.js" />
     <Content Include="Scripts\Customer\customercommlist.js" />
-    <Content Include="Scripts\Customer\customerlist.js" />
     <Content Include="Scripts\Customer\CustomerComm\updategroup.js" />
     <Content Include="Scripts\Customer\CustomerComm\createnewgroup.js" />
     <Content Include="Scripts\Customer\CustomerComm\groupcomm.js" />
@@ -637,6 +636,8 @@
     <Content Include="Default.aspx" />
     <Content Include="Content\Report\balance.css" />
     <Content Include="Test.aspx" />
+    <Content Include="w3c\p3p.xml" />
+    <None Include="w3c\policy.3p3" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1065,6 +1066,7 @@
     <Content Include="Views\Header\Index.cshtml" />
     <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
     <Content Include="Views\Customer\Customers.cshtml" />
+    <Content Include="Views\Report\Result\Keno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
