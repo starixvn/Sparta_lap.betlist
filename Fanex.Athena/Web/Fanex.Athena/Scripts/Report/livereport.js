@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
 var LiveReport = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             LiveReport.initEvent();
@@ -8,7 +10,7 @@ var LiveReport = (function ($) {
         initEvent: function () {
             $("#switchreport").click(function () {
                 var mod = $(this).attr("data-history-mode");
-                if (mod == "False") {
+                if (mod === "False") {
                     location.href = Site.resolveClientUrl("Report/LiveReport?isViewedHistory=True");
                 }
                 else {
@@ -20,7 +22,7 @@ var LiveReport = (function ($) {
             /*-affect the action excel*/
             window.onbeforeunload = function () {
                 $("ProductCode").val("");
-            }
+            };
             /**************/
             /*date-range*/
 
@@ -73,7 +75,7 @@ var LiveReport = (function ($) {
             data = Site.setLicenseeOptionOriginalParam(data);
             /*selected*/
             var isSelected = $(target).parent().hasClass("selected");
-            if (isSelected) return;
+            if (isSelected) { return; }
             /* selected*/
 
             $("a.product-detail-link").parent().removeClass("selected");
@@ -86,15 +88,15 @@ var LiveReport = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 url: Site.resolveClientUrl("Report/LiveReportDetail"),
-                error: function (xhRequest, ErrorText, thrownError) {
+                error: function () {
                     LiveReport.ajaxComplete();
                 },
-                success: function (response) {
+                success: function () {
                 },
                 beforeSend: function () {
                     LiveReport.ajaxStart();
                 },
-                complete: function (jqXHR, textStatus) {
+                complete: function (jqXHR) {
                     if (jqXHR.readyState === 4) {
                         $("#ProductCode").val(data.productCode);
                         $("#detail-content").html(jqXHR.responseText);
@@ -125,7 +127,7 @@ var LiveReport = (function ($) {
             url = QueryString.setParam(url, "showsb", false);
             url = QueryString.setParam(url, "showba", false);
             $(productOptions).each(function (index, element) {
-                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true)
+                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
                 url = QueryString.setParam(url, "show" + element, true);
             });
 
@@ -134,25 +136,26 @@ var LiveReport = (function ($) {
         },
 
         getMatchListProductOption: function (sportId, productCode) {
-            var productOptions = new Array();
+            sportId = Number(sportId);
+            var productOptions = [];
             if (sportId > 0) {
-                if (sportId == 180 || sportId == 186) {
+                if (sportId === 180 || sportId === 186) {
                     productOptions.push("VS");
                 }
-                else if (sportId == 162) {
+                else if (sportId === 162) {
                     productOptions.push("LC");
                 }
                 else {
-                    if (productCode == "SB" || productCode == "ALL") {
+                    if (productCode === "SB" || productCode === "ALL") {
                         productOptions.push("SB");
                     }
-                    if (productCode == "BA" || productCode == "ALL") {
+                    if (productCode === "BA" || productCode === "ALL") {
                         productOptions.push("BA");
                     }
                 }
             }
             else {
-                if (productCode == "ALL") {
+                if (productCode === "ALL") {
                     productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
                 }
                 else {
@@ -182,10 +185,10 @@ var LiveReport = (function ($) {
             };
 
             var url = urlMap["Key" + jsonData.SportId];
-            var showBetList = url != null && url != undefined;
-            url = url == null || url == undefined
-                    ? resolveClientUrl("Report/LiveReportMatchList")
-                    : resolveClientUrl(url);
+            var showBetList = url !== null && url !== undefined;
+            url = url === null || url === undefined
+                    ? Site.resolveClientUrl("Report/LiveReportMatchList")
+                    : Site.resolveClientUrl(url);
 
             if (showBetList) {
                 LiveReport.viewBetList(url, jsonData.TotalValue, productOptions);
@@ -220,5 +223,6 @@ var LiveReport = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     LiveReport.initialize();
 });

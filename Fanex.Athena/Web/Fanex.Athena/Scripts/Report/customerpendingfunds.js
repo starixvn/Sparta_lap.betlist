@@ -1,12 +1,14 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
 var CustPendingFunds = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             CustPendingFunds.initEvent();
             Site.createSortingIcon(CustPendingFunds.sortReport);
         },
         initEvent: function () {
-            $("#data-content").on("click", ".bet-list-link", function (e) {
+            $("#data-content").on("click", ".bet-list-link", function () {
                 var target = $(this);
                 var custId = target.attr("data-cust-id");
                 var systemId = target.attr("data-system-id");
@@ -32,7 +34,7 @@ var CustPendingFunds = (function ($) {
 
         viewPendingFundsBetList: function (custid, systemId, externalId) {
             Site.blockUI();
-            var url = resolveClientUrl("BetList/PendingFunds");
+            var url = Site.resolveClientUrl("BetList/PendingFunds");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = Site.setProductOptionOriginalParamList(url);
             url = QueryString.setParam(url, "custid", custid);
@@ -40,7 +42,7 @@ var CustPendingFunds = (function ($) {
             url = QueryString.setParam(url, "externalid", externalId);
             window.location.href = url;
         },
-        sortReport: function (sortColumn) {
+        sortReport: function () {
             Site.blockUI();
             $('#IsExportExcel').val(false);
             $("#CustomerPendingFundsForm").submit();
@@ -50,5 +52,6 @@ var CustPendingFunds = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CustPendingFunds.initialize();
 });

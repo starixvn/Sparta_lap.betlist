@@ -1,4 +1,5 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Report, QueryString, MobileWinLossOption, JSLINQ,jqGridAdditional*/
+/// <reference path="/@JSense.js" />
 /// //##
 /*
 * Note:in this report, parameter level have 3 value
@@ -6,17 +7,18 @@
 */
 
 var MobileWinLoss = (function ($) {
+    "use strict";
     var cacheData = {};
-    var _level = {};
-    var _sortColumnName = undefined;
+    var _level = null;
+    var _sortColumnName = null;
     var _sortOrder = "desc";
     var _removeSorting = false;
     var _pageSize = 0;
 
     function sortData(arrayData) {
-        var data = _sortOrder == "asc" ?
+        var data = _sortOrder === "asc" ?
              JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
-             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items
+             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items;
         for (var i = 0; i < data.length; i++) {
             data[i].Index = i + 1;
         }
@@ -31,13 +33,13 @@ var MobileWinLoss = (function ($) {
             MobileWinLoss.initEvent();
             MobileWinLoss.setExcelUrl(0, 0, 0, "");
 
-            MobileWinLossOption.gridOption.onSortCol = function (index, columnIndex, sortOrder) {
+            MobileWinLossOption.gridOption.onSortCol = function (index) {
 
                 Site.blockUI();
                 window.setTimeout(function () {
                     _removeSorting = false;
-                    if (_sortColumnName == index) {
-                        _sortOrder = _sortOrder == "asc" ? "desc" : "asc";
+                    if (_sortColumnName === index) {
+                        _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
 
                     } else {
                         _sortOrder = "asc";
@@ -75,8 +77,6 @@ var MobileWinLoss = (function ($) {
                 afterChangeDay: function () {
                     $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
                     $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
-                },
-                log: function (msg) {
                 }
             });
         },
@@ -107,7 +107,7 @@ var MobileWinLoss = (function ($) {
             });
 
             $("#level-link-container").on("click", ".level-link", function () {
-                var level = $(this).attr("data-level");
+                var level = Number($(this).attr("data-level"));
                 return MobileWinLoss.goBack(level);
             });
         },
@@ -125,7 +125,7 @@ var MobileWinLoss = (function ($) {
 
         renderBreadCrumb: function (level) {
             //hide history link
-            if (level == 0) {
+            if (level === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
@@ -139,9 +139,9 @@ var MobileWinLoss = (function ($) {
                 $(".breadCrumbHolder").show();
                 $(".level0").show();
 
-                $(".level2").showHide(level == 2);
-                $(".level1").showHide(MobileWinLossOption.licenseeId == 1);
-                $(".level1").toggleClass("level-link", level != 1);
+                $(".level2").showHide(level === 2);
+                $(".level1").showHide(MobileWinLossOption.licenseeId === 1);
+                $(".level1").toggleClass("level-link", level !== 1);
             }
         },
         setReportTitle: function (currencyId, site, fromdate, todate) {
@@ -164,7 +164,8 @@ var MobileWinLoss = (function ($) {
             //get site
             var siteStr = MobileWinLossOption.sites[site];
             var licenseeWLNote = jqGridAdditional.getLicenseeWLNote($("#ProductOptionJson").val());
-            var title = $.format(titlePattern, fromdate.toString("M/d/yyyy"), todate.toString("M/d/yyyy"), currencyStr, siteStr, (licenseeWLNote.trim() == '' ? '' : ', ' + licenseeWLNote));
+            var title = $.format(titlePattern, fromdate.toString("M/d/yyyy"), todate.toString("M/d/yyyy"), 
+                        currencyStr, siteStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
             $("div.report-title").html(title);
         },
         //#endregion
@@ -196,7 +197,7 @@ var MobileWinLoss = (function ($) {
             gridOption.onPaging = function (pgButton) {
                 if (numOfRow > MobileWinLossOption.pageSize) {
                     onPaging = true;
-                    if ($("#" + pgButton).hasClass("ui-state-disabled") == false) {
+                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                         Site.blockUI();
                     }
                 }
@@ -215,7 +216,7 @@ var MobileWinLoss = (function ($) {
                     $("#pg_ppdata").hide();
                 }
 
-                if (response == null || numOfRow == 0) {
+                if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
@@ -241,12 +242,13 @@ var MobileWinLoss = (function ($) {
                 jqGridAdditional.resetHeaderHeight(reportGrid);
             }
             jqGridAdditional.resetLayout(reportGrid);
-            //if (level == 2) {
+            
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-            //}            
+            
 
             if (!_removeSorting) {
-                reportGrid.closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+                reportGrid.closest("div.ui-jqgrid-view")
+                           .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                 .each(function (index, element) {
                     var $this = $(element);
                     $this.find("span.s-ico").remove();
@@ -267,7 +269,7 @@ var MobileWinLoss = (function ($) {
         //#region GetData
 
         ajaxComplete: function (level, response) {
-            _level = level;
+            _level = Number(level);
             if (response != null) {
                 cacheData[level] = response;
                 //reset layout
@@ -314,8 +316,7 @@ var MobileWinLoss = (function ($) {
                 data: mainForm.serialize(),
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { },
+                url: Site.resolveClientUrl(MobileWinLossOption.urlData),                
                 success: function (response) {
                     MobileWinLoss.setExcelUrl(0, 0, 0, "");
                     MobileWinLoss.ajaxComplete(0, response);
@@ -323,7 +324,7 @@ var MobileWinLoss = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function () {
                     Site.unBlockUI();
                 }
             });
@@ -348,8 +349,9 @@ var MobileWinLoss = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
-                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
+                url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level + 
+                            "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
+                error: function () { Site.gotoErrorPage(); },
                 success: function (response) {
                     MobileWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
@@ -361,7 +363,7 @@ var MobileWinLoss = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function () {
                     Site.unBlockUI();
                 }
             });
@@ -370,7 +372,7 @@ var MobileWinLoss = (function ($) {
         goBack: function (level) {
 
             MobileWinLoss.bindData(level, cacheData[level]);
-            if (level == 0) {
+            if (level === 0) {
                 MobileWinLoss.renderBreadCrumb(level);
                 //reset excel Link
                 MobileWinLoss.setExcelUrl(0, 0, 0, "");
@@ -381,7 +383,7 @@ var MobileWinLoss = (function ($) {
                 var site = $("input[name='Site']:checked").val();
                 MobileWinLoss.setReportTitle(currencyId, site, fromdate, todate);
             }
-            else if (level == 1) {
+            else if (level === 1) {
                 MobileWinLossOption.urlExcelData = MobileWinLossOption.urlExcelData.replace("level=2", "level=1");
                 MobileWinLoss.renderBreadCrumb(level);
             }
@@ -394,10 +396,10 @@ var MobileWinLoss = (function ($) {
         openBetlistPopUp: function (dataDrillDown) {
             dataDrillDown = $.parseJSON(dataDrillDown);
             dataDrillDown.DrawFilter = $("#drillDownDrawFilter").val();
-            dataDrillDown.IsExcludedTestData = $("#OriginalIsExcludedTestData").val() == 'True';
+            dataDrillDown.IsExcludedTestData = $("#OriginalIsExcludedTestData").val() === 'True';
             dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();
             dataDrillDown.CurrencyName = $("#OriginalCurrencyName").val();
-            dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original")
+            dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
             var currencyName = $.trim($("#CurrencyId option[value=" + dataDrillDown.DrillDownCurrencyId + "]").text());
             var url = Site.resolveClientUrl("BetList/MobileWl");
@@ -431,14 +433,17 @@ var MobileWinLoss = (function ($) {
     };
 })(jQuery);
 $(window).load(function () {
+    "use strict";
     MobileWinLoss.initialize();
 });
 //#end
 $(window).resize(function () {
+    "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
 });
 
 $(window).unload(function () {
+    "use strict";
     $(window).unbind("resize");
 });

@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site,jqGridAdditional*/
+/*exported MobileWinLossOption*/
+/// <reference path="/@JSense.js" />
 //##
 /*
 * Note:in this report, parameter level have 3 value
@@ -6,6 +8,7 @@
 */
 
 var MobileWinLossOption = (function () {
+    "use strict";
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
         {
@@ -228,10 +231,12 @@ var MobileWinLossOption = (function () {
         hidden: true
     };
 
-    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
-    var colModelList = [indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
+    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 
+                'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
+    var colModelList = [indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
+                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, 
+                baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
     var customerWlTotalIndex = 8;
-    var licenseeWlIndex = 9;
 
     var me = {
         licenseeId: 0,

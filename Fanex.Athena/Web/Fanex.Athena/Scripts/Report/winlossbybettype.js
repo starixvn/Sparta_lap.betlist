@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
 var WinLossByBetType = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             WinLossByBetType.initEvent();
@@ -18,7 +20,7 @@ var WinLossByBetType = (function ($) {
                 $('#WinLossByBetTypeForm').submit();
             });
         },
-        sortReport: function (sortColumn) {
+        sortReport: function () {
             Site.blockUI();
             $('#IsExportExcel').val(false);
             $('#WinLossByBetTypeForm').submit();
@@ -28,5 +30,6 @@ var WinLossByBetType = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     WinLossByBetType.initialize();
 });

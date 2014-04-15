@@ -1,6 +1,8 @@
-﻿/// <reference path="/@JSense.js" />
-var result = new function () {
-    var me = this;
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+var result = (function () {
+    "use strict";
+
     var api = "Report/Result";
     var apiExcel = "Report/ResultExcel?";
     var apiSport = "Report/GetSports";
@@ -24,12 +26,10 @@ var result = new function () {
             $(".for-out-right").show();
             $("#submit-outright").attr("disabled", "disabled");
             $("#submit-normal").removeAttr("disabled");
-
         } else {
             $(".for-out-right").hide();
             $("#submit-outright").removeAttr("disabled");
             $("#submit-normal").attr("disabled", "disabled");
-
         }
         $("#submit-outright").attr("data-isOutright", isShow ? "1" : "0");
     };
@@ -52,8 +52,8 @@ var result = new function () {
         var defaultLeague = $('#league option[value="0"]').clone();
         $('#league option').remove();
         $('#league').append(defaultLeague);
-        if (data != null && data.toString().length > 1) {
-            if (param.SportId == 0 && data.Sports.length > 0) {
+        if (data != null && data.toString().length > 1) {            
+            if (param.SportId === 0 && data.Sports.length > 0) {
                 var firtSport = data.Sports[0].SportId;
                 param.SportId = firtSport;
                 $("#sport option").remove();
@@ -164,11 +164,7 @@ var result = new function () {
                 type: "POST",
                 cache: false,
                 data: "userid=" + kenoUserId,
-                url: Site.resolveClientUrl(kenoResultApi),
-                error: function () { },
-                success: function (response) {
-
-                }
+                url: Site.resolveClientUrl(kenoResultApi)                
             };
             if (kenoAjaxRequest != null) {
                 kenoAjaxRequest.abort();
@@ -176,123 +172,124 @@ var result = new function () {
             kenoAjaxRequest = $.ajax(option);
         }, 6000);
     };
-    me.init = function () {
-        var isShowedRight = self.location.hash.substr(1) === "outright";
-        showOutRight(isShowedRight);
-        $("#submit-keno").click(function () {
-            var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
-            var option = {
-                type: "GET",
-                cache: false,
-                url: Site.resolveClientUrl(kenoResultApi),
-                error: function () { },
-                success: function (response) {
-                    kenoUserId = response.UserId;
-                    kenoWindow.location = response.Url;
-                    clearInterval(kenoIntervalId);
-                    extendKenoSession();
-                },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function () {
-                    Site.unBlockUI();
+
+    return {
+        init: function () {
+            var isShowedRight = self.location.hash.substr(1) === "outright";
+            showOutRight(isShowedRight);
+            $("#submit-keno").click(function () {                
+                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                var option = {
+                    type: "GET",
+                    cache: false,
+                    url: Site.resolveClientUrl(kenoResultApi),
+                    error: function () { },
+                    success: function (response) {
+                        kenoUserId = response.UserId;
+                        kenoWindow.location = response.Url;
+                        clearInterval(kenoIntervalId);
+                        extendKenoSession();
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+                if (kenoAjaxRequest != null) {
+                    kenoAjaxRequest.abort();
                 }
-            };
-            if (kenoAjaxRequest != null) {
-                kenoAjaxRequest.abort();
-            }
-            kenoAjaxRequest = $.ajax(option);
-        });
+                kenoAjaxRequest = $.ajax(option);
+            });
 
-        $("#submit-outright").click(function () {
-            clearExcelExport();
-            clearResult();
-            var data = $(this).attr("data-isoutright");
-            showOutRight(data == "0");
-            $("#SubmitButton").trigger("click");
-        });
-        $("#submit-normal").click(function () {
-            clearExcelExport();
-            clearResult();
-            var data = "1";
-            showOutRight(data == "0");
-            $("#SubmitButton").trigger("click");
-        });
-        $("#SubmitButton").click(function () {
-            clearExcelExport();
-            clearResult();
-            var data = $("#submit-outright").attr("data-isoutright");
-            param.FromDate = $("#FromDate").val();
-            param.ToDate = $("#ToDate").val();
-            param.IsExportExcel = false;
-            param.IsOutRight = data == "1";
-            param.SportId = 0;
-            param.LeagueId = 0;
-            getData();
-        });
-        $("#submit-todate").click(function () {
-            clearExcelExport();
-            clearResult();
-            var date = $(this).attr("data-date");
-            var outright = $("#submit-outright").attr("data-isoutright");
-            param.FromDate = date;
-            param.ToDate = date;
-            param.IsExportExcel = false;
-            param.IsOutRight = outright == "1";
-            param.SportId = 0;
-            param.LeagueId = 0;
+            $("#submit-outright").click(function () {
+                clearExcelExport();
+                clearResult();
+                var data = $(this).attr("data-isoutright");
+                showOutRight(data === "0");
+                $("#SubmitButton").trigger("click");
+            });
+            $("#submit-normal").click(function () {
+                clearExcelExport();
+                clearResult();                
+                showOutRight(false);
+                $("#SubmitButton").trigger("click");
+            });
+            $("#SubmitButton").click(function () {
+                clearExcelExport();
+                clearResult();
+                var data = $("#submit-outright").attr("data-isoutright");
+                param.FromDate = $("#FromDate").val();
+                param.ToDate = $("#ToDate").val();
+                param.IsExportExcel = false;
+                param.IsOutRight = data === "1";
+                param.SportId = 0;
+                param.LeagueId = 0;
+                getData();
+            });
+            $("#submit-todate").click(function () {
+                clearExcelExport();
+                clearResult();
+                var date = $(this).attr("data-date");
+                var outright = $("#submit-outright").attr("data-isoutright");
+                param.FromDate = date;
+                param.ToDate = date;
+                param.IsExportExcel = false;
+                param.IsOutRight = outright === "1";
+                param.SportId = 0;
+                param.LeagueId = 0;
 
-            $('#FromDate').datepicker('setDate', date);
-            $('#ToDate').datepicker('setDate', date);
-            getData();
-        });
-        $("#submit-yesterdate").click(function () {
-            clearExcelExport();
-            clearResult();
-            var date = $(this).attr("data-date");
-            var outright = $("#submit-outright").attr("data-isoutright");
-            param.FromDate = date;
-            param.ToDate = date;
-            param.IsExportExcel = false;
-            param.IsOutRight = outright == "1";
-            param.SportId = 0;
-            param.LeagueId = 0;
+                $('#FromDate').datepicker('setDate', date);
+                $('#ToDate').datepicker('setDate', date);
+                getData();
+            });
+            $("#submit-yesterdate").click(function () {
+                clearExcelExport();
+                clearResult();
+                var date = $(this).attr("data-date");
+                var outright = $("#submit-outright").attr("data-isoutright");
+                param.FromDate = date;
+                param.ToDate = date;
+                param.IsExportExcel = false;
+                param.IsOutRight = outright === "1";
+                param.SportId = 0;
+                param.LeagueId = 0;
 
-            $('#FromDate').datepicker('setDate', date);
-            $('#ToDate').datepicker('setDate', date);
+                $('#FromDate').datepicker('setDate', date);
+                $('#ToDate').datepicker('setDate', date);
 
-            getData();
-        });
-        $("#ExportToExcel").click(function (e) {
-            e.preventDefault();
+                getData();
+            });
+            $("#ExportToExcel").click(function (e) {
+                e.preventDefault();
 
-            var data = $("#submit-outright").attr("data-isoutright");
-            param.FromDate = $("#FromDate").val();
-            param.ToDate = $("#ToDate").val();
-            param.IsExportExcel = true;
-            param.IsOutRight = data == "1";
-            param.SportId = $("#sport option").length > 0 ? $("#sport").val() : 0;
-            param.LeagueId = $("#league").val();
-            getData();
-        });
-        $("#sport").change(function () {
-            clearExcelExport();
-            param.SportId = $(this).val();
-            param.LeagueId = 0;
-            getData();
-        });
-        $("#league").change(function () {
-            clearExcelExport();
-            param.LeagueId = $(this).val();
-            getReportData();
-        });
-        var toDate = new Date();
-        param.FromDate = $("#hiddenToDate").val();
-        param.ToDate = $("#hiddenToDate").val();
-        
+                var data = $("#submit-outright").attr("data-isoutright");
+                param.FromDate = $("#FromDate").val();
+                param.ToDate = $("#ToDate").val();
+                param.IsExportExcel = true;
+                param.IsOutRight = data === "1";
+                param.SportId = $("#sport option").length > 0 ? $("#sport").val() : 0;
+                param.LeagueId = $("#league").val();
+                getData();
+            });
+            $("#sport").change(function () {
+                clearExcelExport();
+                param.SportId = $(this).val();
+                param.LeagueId = 0;
+                getData();
+            });
+            $("#league").change(function () {
+                clearExcelExport();
+                param.LeagueId = $(this).val();
+                getReportData();
+            });            
+            param.FromDate = $("#hiddenToDate").val();
+            param.ToDate = $("#hiddenToDate").val();
+        }
     };
-};
+} ());
 $(document).ready(function () {
+    "use strict";
     result.init();
 });

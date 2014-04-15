@@ -1,6 +1,8 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, BetList*/
+/// <reference path="/@JSense.js" />
 
 var DailyBetList = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             DailyBetList.initEvent();
@@ -46,5 +48,6 @@ var DailyBetList = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     DailyBetList.initialize();
 });

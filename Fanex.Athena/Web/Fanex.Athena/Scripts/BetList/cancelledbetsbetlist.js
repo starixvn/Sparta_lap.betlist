@@ -1,6 +1,8 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, BetList*/
+/// <reference path="/@JSense.js" />
 
 var CancelledBetsBetList = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             CancelledBetsBetList.initEvent();
@@ -44,5 +46,6 @@ var CancelledBetsBetList = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CancelledBetsBetList.initialize();
 });
