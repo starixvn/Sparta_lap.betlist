@@ -18,6 +18,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
@@ -53,7 +54,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         {
             const string UspName = "Lrf_rpt_DWTopCustomerSel";
             var dataList = new List<TopCustomer>();
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
+            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
             var uspParams = new
                             {
                                 FromDate = metaModel.FromDate,
@@ -122,7 +123,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         public DataTable GetDataForExcel(TopCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_rpt_DWTopCustomerSel";
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
+            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
             var uspParams = new
                             {
                                 FromDate = metaModel.FromDate,

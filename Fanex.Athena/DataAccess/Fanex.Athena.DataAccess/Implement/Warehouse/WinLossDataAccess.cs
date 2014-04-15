@@ -19,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
     using Fanex.Common.Extensions;
@@ -44,7 +45,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         {
             const string UspName = "Lrf_rpt_DWWinloss";
             var dataList = new List<WinLoss>();
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
+            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
             var uspParams = new
                 {
                     FromDate = metaModel.FromDate,
@@ -100,7 +101,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         public DataTable GetDataForExcel(WinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_rpt_DWWinloss";
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? 2 : (metaModel.BaseCurrency == "usd") ? 1 : 0;
+            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
             var uspParams = new
                             {
                                 FromDate = metaModel.FromDate,

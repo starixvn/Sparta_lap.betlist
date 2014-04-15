@@ -12,7 +12,7 @@
     
 }
 @section content{
-    <li>@string.Format(ViewResources.DateRangeNote, RazorHelper.TitleDateTime(availableDate, null))
+    <li>@string.Format(ViewResources.DateRangeLimitNote, RazorHelper.TitleDateTime(Model.MoveBetsDate.AddMonths(-3), null), RazorHelper.TitleDateTime(Model.MoveBetsDate, null))
     </li>
     <li>@ViewResources.SupportForOnlyNote&nbsp;@ViewResources.Sportsbook
         @if (allowNg)
