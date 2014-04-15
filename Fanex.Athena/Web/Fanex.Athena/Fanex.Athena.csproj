@@ -832,7 +832,6 @@
     <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
     <Content Include="Views\Report\LiveReport\HistoryFilter.cshtml" />
     <Content Include="Views\Report\Balance\Content.Header.cshtml" />
-    <Content Include="Views\WareHouse\AjaxTemplate\CurrencyList.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\AjaxTemplate\SportList.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\Content.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\Content.Data.cshtml" />

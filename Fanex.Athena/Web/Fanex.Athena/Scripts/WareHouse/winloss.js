@@ -1,4 +1,5 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*jshint strict: false */
+/*global Site */
 var WareHouseWinLoss = (function ($) {
     return {
         serializeParam: function () {            
@@ -10,11 +11,7 @@ var WareHouseWinLoss = (function ($) {
             $('#IsExportExcel').val(true);
             $('#WarehouseWinLossForm').submit();
         },
-        initialize: function () {
-            $('#LicenseeList').change(function () {
-                WareHouseWinLoss.getCurrencyListAjax();
-            });
-
+        initialize: function () {           
             $('#SubmitButton').click(function () {
                 WareHouseWinLoss.submitForm();
             });
@@ -23,32 +20,7 @@ var WareHouseWinLoss = (function ($) {
                 WareHouseWinLoss.initExcelExporting();
             });
         },
-
-        getCurrencyListAjax: function () {
-            Site.blockUI();
-            WareHouseWinLoss.serializeParam();
-
-            var params = {
-                "licenseeid": WareHouseWinLoss.getLicenseeId(),
-                "currencyid": $("#CurrencyId").val(),
-                "currencyname": $("#CurrencyName").val()
-            };
-            $.ajax({
-                type: 'POST',
-                url: "GetCurrecyList",
-                data: params,
-                success: function (result) {
-                    $("#CurrencyResult").html(result);
-                    $("currencyid").val(params.currencyId);
-                },
-                error: function () {
-                    //window.location.reload();
-                }
-            });
-
-            Site.unBlockUI();
-        },
-
+                
         submitForm: function () {
             Site.blockUI();
             WareHouseWinLoss.serializeParam();

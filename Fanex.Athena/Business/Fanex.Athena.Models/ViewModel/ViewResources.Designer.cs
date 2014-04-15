@@ -1438,7 +1438,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This report can support viewing from {0} to {1}..
+        ///   Looks up a localized string similar to Data is available within 3 months, from {0} to {1}..
         /// </summary>
         public static string DateRangeLimitNote {
             get {

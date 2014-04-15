@@ -25,21 +25,7 @@ namespace Fanex.Athena.Controllers.WareHouse
     public partial class WareHouseController
     {
         private ISportTypeService _sportTypeService;
-
-        /// <summary>
-        ///     Get sport list.
-        /// </summary>
-        /// <param name="fromDate">The from date.</param>
-        /// <param name="toDate">The end date.</param>
-        /// <returns>The sport list.</returns>
-        [HttpPost]
-        public ActionResult GetSportList(DateTime fromDate, DateTime toDate)
-        {
-            _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
-            var sportList = _sportTypeService.GetAllWHSports();
-            return View("~/Views/WareHouse/TopCustomer/AjaxTemplate/SportList.cshtml", sportList);
-        }
-
+                
         /// <summary>
         /// The top customer report.
         /// </summary>

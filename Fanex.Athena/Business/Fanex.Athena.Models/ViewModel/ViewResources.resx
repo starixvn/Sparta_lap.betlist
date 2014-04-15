@@ -2384,7 +2384,7 @@
     <value>Invalid parameters</value>
   </data>
   <data name="DateRangeLimitNote" xml:space="preserve">
-    <value>This report can support viewing from {0} to {1}.</value>
+    <value>Data is available within 3 months, from {0} to {1}.</value>
   </data>
   <data name="RngCasinoAndKenoExcludedNote" xml:space="preserve">
     <value>RNG Casino and Keno are not included in the report</value>
