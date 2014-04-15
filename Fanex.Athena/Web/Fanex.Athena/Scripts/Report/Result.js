@@ -180,7 +180,7 @@ var result = new function () {
         var isShowedRight = self.location.hash.substr(1) === "outright";
         showOutRight(isShowedRight);
         $("#submit-keno").click(function () {
-            var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=0');
+            var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
             var option = {
                 type: "GET",
                 cache: false,
