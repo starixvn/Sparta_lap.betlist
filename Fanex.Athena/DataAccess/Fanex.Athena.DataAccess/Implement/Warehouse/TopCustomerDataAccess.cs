@@ -91,7 +91,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                                          ? reader.ToString("UserName")
                                                          : string.Empty;
                                 topcustomer.Currency = reader.ToString("Currency");
-                                topcustomer.BaComm = reader.FieldExists("Comm") ? reader.ToDecimal("Comm") : 0;
                                 topcustomer.MemberWinLoss = reader.ToDecimal("MemberWinlost");
                                 topcustomer.MemberWinLossCom = reader.FieldExists("playercomm") ? reader.ToDecimal("playercomm") : 0;
                                 topcustomer.BetCount = reader.ToInt("betcount");

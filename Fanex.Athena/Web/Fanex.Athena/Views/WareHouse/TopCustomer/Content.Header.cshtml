@@ -23,16 +23,7 @@
                 (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
     <div class="row" style="width: @(ViewBag.LicenseeWLWidth)px;">
         @ViewResources.LicenseeW_L
-    </div>
-    @if (Model.ProductAccess.IsAllowBa)
-    {
-        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
-            @ViewResources.BACommission
-        </div>
-        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px;">
-            @ViewResources.TotalGrossProfit
-        </div>
-    }
+    </div>    
     @if (ViewBag.ShowActiveDate)
     {
         <div class="row" style="width: @(ViewBag.LastActivityDateWidth + 2)px;">

@@ -47,8 +47,6 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             ExportData = exportData;
 
-            AddExtraColumns();
-
             HeaderTextList = new List<string>
             {
                 "#",
@@ -60,8 +58,6 @@ namespace Fanex.Athena.Excel.Warehouse
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L + " (" + ViewResources.SB + " + " + ViewResources.NG + ")",
-                ViewResources.BACommission,
-                ViewResources.TotalGrossProfit,
                 ViewResources.LastActivityDate,
             };
         }
@@ -163,36 +159,11 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUi(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
-            {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
-            }
+            HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
+            HideRow(sheet, RowTableHeaderTemplate + 1);
 
-            if (!ShowingOption.BaVisible)
-            {
-                HideColumn(sheet, ColumnBaCommission);
-                HideColumn(sheet, ColumnLicenseeTotal);
-            }
-        }
-
-        /// <summary>
-        ///     Add columns licensee win loss, total gross profit.
-        /// </summary>
-        protected void AddExtraColumns()
-        {
-            if (ExportData.Columns.Count > 2)
-            {
-                const string TotalWinlossMemberExpresssion = "IIF(playercomm IS NULL, MemberWinlost, MemberWinlost + playercomm)";
-                ExportData.Columns.Add("membertotal", typeof(decimal), TotalWinlossMemberExpresssion);
-
-                if (!ExportData.Columns.Contains("comm"))
-                {
-                    ExportData.Columns.Add("comm", typeof(decimal), "0");
-                }
-
-                ExportData.Columns.Add("licenseetotal", typeof(decimal), "LicenseeWL + comm");
-            }
+            HideColumn(sheet, ColumnBaCommission);
+            HideColumn(sheet, ColumnLicenseeTotal);
         }
 
         /// <summary>
@@ -246,11 +217,9 @@ namespace Fanex.Athena.Excel.Warehouse
                 "Turnover",
                 "betcount",
                 "MemberWinlost",
-                "playercomm",
-                "membertotal",
+                "MemberWinlost",
+                "MemberWinlost",
                 "LicenseeWL",
-                "comm",
-                "licenseetotal",
                 "lastactivedate"
             };
         }
@@ -266,11 +235,9 @@ namespace Fanex.Athena.Excel.Warehouse
                 "Turnover",
                 "betcount",
                 "MemberWinlost",
-                "playercomm",
-                "membertotal",
+                "MemberWinlost",
+                "MemberWinlost",
                 "LicenseeWL",
-                "comm",
-                "licenseetotal"
             };
         }
     }

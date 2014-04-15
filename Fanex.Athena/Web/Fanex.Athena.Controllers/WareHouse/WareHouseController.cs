@@ -42,12 +42,6 @@ namespace Fanex.Athena.Controllers.WareHouse
             this._topCustomerService = new TopCustomerService();
             this._productService = new ProductService();
             this._balancUpService = new BalanceUpService();
-        }
-        
-        [HttpPost]
-        public ActionResult GetCurrecyList(int licenseeId, int currencyId)
-        {
-            return View("~/Views/WareHouse/AjaxTemplate/CurrencyList.cshtml", this.SessionService.UserSession.CurrencyList);
-        }
+        }               
     }
 }

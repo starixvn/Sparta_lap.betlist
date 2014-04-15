@@ -42,15 +42,6 @@
     </div>
     <div class="row" style="width: @(ViewBag.LicenseeWLWidth)px;">
         @ViewResources.LicenseeW_L
-    </div>
-    @if (Model.ProductAccess.IsAllowBa)
-    {
-        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px;">
-            @ViewResources.BACommission
-        </div>
-        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth + 1)px;">
-            @ViewResources.TotalGrossProfit
-        </div>
-    }
+    </div>    
 </div>
 <!--Grid Header-->

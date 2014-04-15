@@ -70,20 +70,7 @@
             </div>
             <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px">
                 @FormatHelper.NegativeFormat(item.LicenseeWinloss)
-            </div>
-            @if (Model.ProductAccess.IsAllowBa)
-            {
-                <div class="row" style="width: @(ViewBag.BaCommissionWidth)px">
-                    <div>
-                        @item.BaComm.ToStringExt()
-                    </div>
-                </div>
-                <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px">
-                    <div>
-                        @item.TotalGrossProfit.ToStringExt()
-                    </div>
-                </div>
-            }
+            </div>            
         </div>
 
     }
@@ -137,18 +124,5 @@
   
     <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px">
         @FormatHelper.NegativeFormat(licenseeWinlossTotal)
-    </div>
-    @if (Model.ProductAccess.IsAllowBa)
-    {
-        <div class="row" style="width: @(ViewBag.BaCommissionWidth)px">
-            <div>
-                @bacommtotal.ToStringExt()
-            </div>
-        </div>
-        <div class="row" style="width: @(ViewBag.TotalGrossProfitWidth)px">
-            <div>
-                @grossfixtotal.ToStringExt()
-            </div>
-        </div>
-    }
+    </div>    
 </div>

@@ -32,7 +32,6 @@
                 ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
                 (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
                 ViewBag.LicenseeWLWidth +
-                (Model.ProductAccess.IsAllowBa ? ViewBag.BaCommissionWidth + ViewBag.TotalGrossProfitWidth : 0) +
                 (ViewBag.ShowActiveDate ? ViewBag.LastActivityDateWidth : 0);
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;

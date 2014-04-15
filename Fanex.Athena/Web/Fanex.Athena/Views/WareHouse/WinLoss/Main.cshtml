@@ -11,7 +11,7 @@
     ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 1 : 0;
     ViewBag.NumberWidth = 30;
     // If report by league, set width = 180, otherwise, set width = 80
-    ViewBag.ReportByWidth = Model.Param.ReportBy == (int)WarehouseReportBy.League ? 300 : (Model.Param.ReportBy == (int)WarehouseReportBy.Bettype ? 150 : 80);
+    ViewBag.ReportByWidth = Model.Param.ReportBy == (int)WarehouseReportBy.League ? 300 : (Model.Param.ReportBy == (int)WarehouseReportBy.Bettype ? 200 : 150);
     ViewBag.TurnoverWidth = 80;
     ViewBag.BetCountWidth = 100;
     ViewBag.CustomerWLLargeWidth = 80;
@@ -27,9 +27,7 @@
     ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ReportByWidth +
                 ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
                 (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
-                ViewBag.MarginWidth + ViewBag.LicenseeWLWidth +
-                (Model.ProductAccess.IsAllowBa ? ViewBag.BaCommissionWidth : 0) +
-                (Model.ProductAccess.IsAllowBa ? ViewBag.TotalGrossProfitWidth : 0);
+                ViewBag.MarginWidth + ViewBag.LicenseeWLWidth;
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
     ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;

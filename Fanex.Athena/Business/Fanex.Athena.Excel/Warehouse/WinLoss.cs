@@ -83,8 +83,6 @@ namespace Fanex.Athena.Excel.Warehouse
                 ViewResources.CustomerW_L,
                 ViewResources.Margin,
                 ViewResources.LicenseeW_L + " (" + ViewResources.SB + " + " + ViewResources.NG + ")",
-                ViewResources.BACommission,
-                ViewResources.TotalGrossProfit,
              };
         }
 
@@ -169,17 +167,11 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUi(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
-            {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                HideRow(sheet, RowTableHeaderTemplate + 1);
-            }
+            HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
+            HideRow(sheet, RowTableHeaderTemplate + 1);
 
-            if (!ShowingOption.BaVisible)
-            {
-                HideColumn(sheet, ColumnBaCommission);
-                HideColumn(sheet, ColumnLicenseeTotal);
-            }
+            HideColumn(sheet, ColumnBaCommission);
+            HideColumn(sheet, ColumnLicenseeTotal);
 
             int groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
@@ -197,10 +189,7 @@ namespace Fanex.Athena.Excel.Warehouse
         protected void AddExtraColumns()
         {
             const string Expression = "IIF(Turnover > 0, MemberWinLost/Turnover, 0)";
-            const string MemberTotalExpresssion = "IIF(playcomm IS NULL, MemberWinLost, MemberWinLost+playcomm)";
-            ExportData.Columns.Add("membertotal", typeof(decimal), MemberTotalExpresssion);
             ExportData.Columns.Add("margin", typeof(decimal), Expression);
-            ExportData.Columns.Add("licenseetotal", typeof(decimal), "LicenseeWL + Comm");
         }
 
         /// <summary>
@@ -240,12 +229,10 @@ namespace Fanex.Athena.Excel.Warehouse
                 "Turnover",
                 "betcount",
                 "MemberWinlost",
-                "playcomm",
-                "membertotal",
+                "MemberWinlost",
+                "MemberWinlost",
                 "margin",
                 "LicenseeWL",
-                "comm",
-                "licenseetotal"
              };
         }
 
