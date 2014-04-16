@@ -32,7 +32,52 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
             : base(balanceUp)
         {
+        }        
+
+        #region Utility
+
+        /// <summary>
+        /// Set to list.
+        /// </summary>
+        /// <param name="reader">Reader value.</param>
+        /// <param name="baseCurrency">Base currency value.</param>
+        /// <returns>The result value.</returns>
+        public static SortableList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
+        {
+            var dataList = new SortableList<WinLossByBetType>();
+            var turnoverColumn = "Turnover" + baseCurrency;
+            var winlossColumn = "MemberWinLost" + baseCurrency;
+            var custCommColumn = "PlayerComm" + baseCurrency;
+            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
+            var commBaColumn = "CommBA" + baseCurrency;
+            var commRbColumn = "CommRB" + baseCurrency;
+            var racebookRevenue = "WinLossRB" + baseCurrency;
+            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
+            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
+
+            while (reader.Read())
+            {
+                var winLossByBetType = new WinLossByBetType();
+
+                winLossByBetType.LiveIndicator = reader.ToBool("liveindicator");
+                winLossByBetType.BetType = reader.ToInt("bettype");
+                winLossByBetType.Turnover = reader.ToDecimal(turnoverColumn);
+                winLossByBetType.CustomerWinLoss = reader.ToDecimal(winlossColumn);
+                winLossByBetType.CustomerComm = reader.ToDecimal(custCommColumn);
+                winLossByBetType.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
+                winLossByBetType.BACommission = reader.ToDecimal(commBaColumn);
+                winLossByBetType.RbComm = reader.ToDecimal(commRbColumn);
+                winLossByBetType.RacingRevenue = reader.ToDecimal(racebookRevenue);
+                winLossByBetType.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
+                winLossByBetType.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
+
+                dataList.Add(winLossByBetType);
+            }
+
+            return dataList;
         }
+
+        #endregion Utility
 
         #region Win Loss By Bet Type Data
 
@@ -62,7 +107,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
-                        return this.SetToList(reader, metaModel.BaseCurrency);
+                        return SetToList(reader, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -111,51 +156,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        #endregion Get Dataset For Excel
-
-        #region Utility
-
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>The result value.</returns>
-        public SortableList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
-        {
-            var dataList = new SortableList<WinLossByBetType>();
-            var turnoverColumn = "Turnover" + baseCurrency;
-            var winlossColumn = "MemberWinLost" + baseCurrency;
-            var custCommColumn = "PlayerComm" + baseCurrency;
-            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
-            var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
-            var racebookRevenue = "WinLossRB" + baseCurrency;
-            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
-
-            while (reader.Read())
-            {
-                var winLossByBetType = new WinLossByBetType();
-
-                winLossByBetType.LiveIndicator = reader.ToBool("liveindicator");
-                winLossByBetType.BetType = reader.ToInt("bettype");
-                winLossByBetType.Turnover = reader.ToDecimal(turnoverColumn);
-                winLossByBetType.CustomerWinLoss = reader.ToDecimal(winlossColumn);
-                winLossByBetType.CustomerComm = reader.ToDecimal(custCommColumn);
-                winLossByBetType.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
-                winLossByBetType.BACommission = reader.ToDecimal(commBaColumn);
-                winLossByBetType.RbComm = reader.ToDecimal(commRbColumn);
-                winLossByBetType.RacingRevenue = reader.ToDecimal(racebookRevenue);
-                winLossByBetType.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
-                winLossByBetType.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
-
-                dataList.Add(winLossByBetType);
-            }
-
-            return dataList;
-        }
-
-        #endregion Utility
+        #endregion Get Dataset For Excel     
     }
 }

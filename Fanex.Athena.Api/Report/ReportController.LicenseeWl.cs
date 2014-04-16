@@ -66,6 +66,17 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Action
 
+        private static dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
+        {
+            return new
+            {
+                Data = new List<LicenseeWinLossGridViewModel>(),
+                Total = new List<LicenseeWinLossGridViewModel>(),
+                SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
+                ProductOptions = metaModel.ProductOptions.ToJson()
+            };
+        }
+
         #region ProcessRequest
 
         /// <summary>
@@ -203,17 +214,6 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyResult(metaModel);
-        }
-
-        private dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
-        {
-            return new
-            {
-                Data = new List<LicenseeWinLossGridViewModel>(),
-                Total = new List<LicenseeWinLossGridViewModel>(),
-                SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
-                ProductOptions = metaModel.ProductOptions.ToJson()
-            };
         }
 
         /// <summary>

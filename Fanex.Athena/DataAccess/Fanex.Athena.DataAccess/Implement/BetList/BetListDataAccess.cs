@@ -350,7 +350,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+                    db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
                     return db.Query<CustomerCancelBetItem>().ToList();
                 }
@@ -423,7 +423,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             CreateBetListPagingParameters(db, metaModel);
@@ -830,7 +830,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             CreateBetListPagingParameters(db, metaModel);
         }
 
@@ -892,6 +892,44 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         #endregion CommonParam
 
         #endregion CreateComonBetlistParameter
+
+        /// <summary>
+        /// Numbers the report.
+        /// </summary>
+        /// <param name="value">The decimal number. value.</param>
+        /// <returns>The result value.</returns>
+        private static string NumberReport(object value)
+        {
+            decimal number = Convert.ToDecimal(value);
+            return (number >= 0)
+                       ? "<span class='bl-underdog'>" + string.Format("{0:#,##0.00}", number) + "</span>"
+                       : "<span class='bl-favorite'>" + string.Format("{0:#,##0.00}", number) + "</span>";
+        }
+
+        /// <summary>
+        /// Read boolean value.
+        /// </summary>
+        /// <param name="value">Convert value.</param>
+        /// <returns>The result value.</returns>
+        private static bool ReadBoolean(object value)
+        {
+            if (value == null || value == Convert.DBNull)
+            {
+                return false;
+            }
+
+            if (value.GetType() == typeof(bool))
+            {
+                return Convert.ToBoolean(value);
+            }
+
+            if (value.GetType() == typeof(int))
+            {
+                return Convert.ToInt32(value) > 0;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Create a hash table of parameter.
@@ -1013,44 +1051,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                     break;
             }
-        }
-
-        /// <summary>
-        /// Numbers the report.
-        /// </summary>
-        /// <param name="value">The decimal number. value.</param>
-        /// <returns>The result value.</returns>
-        private string NumberReport(object value)
-        {
-            decimal number = Convert.ToDecimal(value);
-            return (number >= 0)
-                       ? "<span class='bl-underdog'>" + string.Format("{0:#,##0.00}", number) + "</span>"
-                       : "<span class='bl-favorite'>" + string.Format("{0:#,##0.00}", number) + "</span>";
-        }
-
-        /// <summary>
-        /// Read boolean value.
-        /// </summary>
-        /// <param name="value">Convert value.</param>
-        /// <returns>The result value.</returns>
-        private bool ReadBoolean(object value)
-        {
-            if (value == null || value == Convert.DBNull)
-            {
-                return false;
-            }
-
-            if (value.GetType() == typeof(bool))
-            {
-                return Convert.ToBoolean(value);
-            }
-
-            if (value.GetType() == typeof(int))
-            {
-                return Convert.ToInt32(value) > 0;
-            }
-
-            return false;
         }
 
         #endregion Utility

@@ -59,7 +59,6 @@ namespace Fanex.Athena.Api.Report
             var dataList = GetData(metaModel, out grandTotal, ref totalrows);
             const string FileName = "WinLossByLeague.xls";
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
-            var licenseeSession = SessionService.LicenseeSession;
 
             var currencyList = SessionService.UserSession.CurrencyList;
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.CurrencyId));
@@ -83,6 +82,24 @@ namespace Fanex.Athena.Api.Report
             winlossByLeague.Export();
 
             return ExcelStream(winlossByLeague.Workbook, FileName);
+        }
+
+        /// <summary>
+        /// Get total data.
+        /// </summary>
+        /// <param name="dataList">List data.</param>
+        /// <returns>Total data.</returns>
+        private static WinLossByLeague CalculateTotal(IList<WinLossByLeague> dataList)
+        {
+            return new WinLossByLeague()
+            {
+                BetCount = dataList.Sum(x => x.BetCount),
+                TurnOver = dataList.Sum(x => x.TurnOver),
+                CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
+                LicenseeWL = dataList.Sum(x => x.LicenseeWL),
+                BaCommission = dataList.Sum(x => x.BaCommission),
+                AmountDue = dataList.Sum(x => x.AmountDue)
+            };
         }
 
         /// <summary>
@@ -143,24 +160,6 @@ namespace Fanex.Athena.Api.Report
                     Data = new List<LicenseeWinLossGridViewModel>(),
                     Total = new List<LicenseeWinLossGridViewModel>(),
                 };
-        }
-
-        /// <summary>
-        /// Get total data.
-        /// </summary>
-        /// <param name="dataList">List data.</param>
-        /// <returns>Total data.</returns>
-        private WinLossByLeague CalculateTotal(IList<WinLossByLeague> dataList)
-        {
-            return new WinLossByLeague()
-            {
-                BetCount = dataList.Sum(x => x.BetCount),
-                TurnOver = dataList.Sum(x => x.TurnOver),
-                CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
-                LicenseeWL = dataList.Sum(x => x.LicenseeWL),
-                BaCommission = dataList.Sum(x => x.BaCommission),
-                AmountDue = dataList.Sum(x => x.AmountDue)
-            };
         }
 
         #endregion ProcessRequest

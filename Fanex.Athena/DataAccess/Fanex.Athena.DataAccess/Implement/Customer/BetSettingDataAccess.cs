@@ -553,8 +553,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         
         #endregion Update bet setting
 
-        #region Casino Status
-
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
             return UpdateCasinoStatus(userId, custId, this.LiveCasinoSportId, status, ip, language);
@@ -564,6 +562,39 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         {           
             return UpdateCasinoStatus(userId, custId, this.RngCasinoSportId, status, ip, language);
         }
+
+        #region Get Sport Name
+
+        /// <summary>
+        /// Get sport name.
+        /// </summary>
+        /// <param name="sportId">Sport ID value.</param>
+        /// <returns>The result value.</returns>
+        private static string GetSportName(string sportId)
+        {
+            if (_sportNameMap == null)
+            {
+                _sportNameMap = new Dictionary<string, string>
+                    {
+                        { "99MP", "Mix Sports Parlay" },
+                        { "151_31", "Horse Racing SA Tote" },
+                        { "151_41", "Horse Racing UK/Irish Tote" },
+                        { "151_51", "Horse Racing Aust Tote" },
+                        { "152_41", "Greyhound UK/Irish Tote" },
+                        { "152_51", "Greyhound Aust Tote" },
+                        { "153_51", "Harness Aust Tote" },
+                    };
+            }
+
+            if (_sportNameMap.ContainsKey(sportId))
+            {
+                return _sportNameMap[sportId];
+            }
+
+            return "OtherSports";
+        }
+
+        #endregion Get Sport Name
 
         /// <summary>
         /// Update live casino and RNG casino status.
@@ -612,9 +643,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     Message = Converter.ToString2(errorMessage)
                 };
             }
-        }
-
-        #endregion
+        }      
 
         #region Write Log
 
@@ -872,7 +901,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             return betSettings;
         }
 
-        #region Get Bet Setting Details
+        #region Get Bet Setting Details        
 
         /// <summary>
         /// Render sport.
@@ -909,40 +938,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             resultList.Add(sport);
         }
 
-        #endregion Get Bet Setting Details
-
-        #region Get Sport Name
-
-        /// <summary>
-        /// Get sport name.
-        /// </summary>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <returns>The result value.</returns>
-        private string GetSportName(string sportId)
-        {
-            if (_sportNameMap == null)
-            {
-                _sportNameMap = new Dictionary<string, string>
-                    {
-                        { "99MP", "Mix Sports Parlay" },
-                        { "151_31", "Horse Racing SA Tote" },
-                        { "151_41", "Horse Racing UK/Irish Tote" },
-                        { "151_51", "Horse Racing Aust Tote" },
-                        { "152_41", "Greyhound UK/Irish Tote" },
-                        { "152_51", "Greyhound Aust Tote" },
-                        { "153_51", "Harness Aust Tote" },
-                    };
-            }
-
-            if (_sportNameMap.ContainsKey(sportId))
-            {
-                return _sportNameMap[sportId];
-            }
-
-            return "OtherSports";
-        }
-
-        #endregion Get Sport Name
+        #endregion Get Bet Setting Details    
 
         #endregion Utility
     }

@@ -144,7 +144,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="dataList">The data list.</param>
         /// <returns>The total object.</returns>
-        private WinLossByBetType GetWinLossByBetTypeTotal(IList<WinLossByBetType> dataList)
+        private static WinLossByBetType GetWinLossByBetTypeTotal(IList<WinLossByBetType> dataList)
         {
             return new WinLossByBetType
             {

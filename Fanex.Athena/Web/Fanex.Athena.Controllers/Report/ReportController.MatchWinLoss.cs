@@ -224,38 +224,11 @@ namespace Fanex.Athena.Controllers.Report
         #region Utility
 
         /// <summary>
-        /// Count number of column.
-        /// </summary>
-        /// <param name="licenseeSession">The licensee session.</param>
-        /// <returns>The number of column.</returns>
-        private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
-        {
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
-            var columnCount = 5;
-            if (productAccess.IsAllowBa)
-            {
-                columnCount += 2;
-            }
-
-            if (productAccess.IsAllowRb)
-            {
-                columnCount += 2;
-            }
-
-            if (SessionService.LicenseeSession.IsAllowedCustomerComm)
-            {
-                columnCount += 2;
-            }
-
-            return columnCount;
-        }
-
-        /// <summary>
         /// Get total data.
         /// </summary>
         /// <param name="dataList">The data list.</param>
         /// <returns>The total data.</returns>
-        private MatchWinLoss GetMatchWinLossTotal(IList<MatchWinLoss> dataList)
+        private static MatchWinLoss GetMatchWinLossTotal(IList<MatchWinLoss> dataList)
         {
             var totalMatchWinLoss = new MatchWinLoss
             {
@@ -278,7 +251,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="dataListOutright">The out right data list.</param>
         /// <param name="total">The total data.</param>
         /// <returns>The grand total. </returns>
-        private MatchWinLoss GetMatchWinLossGrandTotal(IList<MatchWinLoss> dataListOutright, MatchWinLoss total)
+        private static MatchWinLoss GetMatchWinLossGrandTotal(IList<MatchWinLoss> dataListOutright, MatchWinLoss total)
         {
             var grandTotalMatchWinLoss = new MatchWinLoss
             {
@@ -306,8 +279,6 @@ namespace Fanex.Athena.Controllers.Report
             return grandTotalMatchWinLoss;
         }
 
-        #endregion Utility
-
         #region Obsolete
 
         /// <summary>
@@ -321,7 +292,7 @@ namespace Fanex.Athena.Controllers.Report
               "StyleCop.CSharp.Nexcel.NexcelCustomRules",
               "SP2101:MethodMustNotContainMoreLinesThan",
               Justification = "Reviewed. Suppression is OK here.")]
-        private DataTable SortMatchWinlossTable(DataTable mainTable)
+        private static DataTable SortMatchWinlossTable(DataTable mainTable)
         {
             mainTable.Columns.Add("productname", typeof(string));
             mainTable.Columns.Add("newproductid", typeof(int));
@@ -417,5 +388,34 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion Obsolete
+
+        /// <summary>
+        /// Count number of column.
+        /// </summary>
+        /// <param name="licenseeSession">The licensee session.</param>
+        /// <returns>The number of column.</returns>
+        private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
+        {
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
+            var columnCount = 5;
+            if (productAccess.IsAllowBa)
+            {
+                columnCount += 2;
+            }
+
+            if (productAccess.IsAllowRb)
+            {
+                columnCount += 2;
+            }
+
+            if (SessionService.LicenseeSession.IsAllowedCustomerComm)
+            {
+                columnCount += 2;
+            }
+
+            return columnCount;
+        }
+
+        #endregion Utility     
     }
 }

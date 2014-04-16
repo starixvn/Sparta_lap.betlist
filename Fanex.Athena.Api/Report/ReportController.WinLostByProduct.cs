@@ -58,6 +58,59 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Action
 
+        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel)
+        {
+            return new
+            {
+                Data = new List<WinLossByProduct>(),
+                Total = new List<WinLossByProduct>(),
+                ProductOptions = metaModel.ProductOptions.ToJson()
+            };
+        }
+
+        /// <summary>
+        /// Restructure data.
+        /// </summary>
+        /// <param name="groupData">The grouping data.</param>
+        /// <returns>Restructure data list.</returns>
+        private static IList<WinLossByProduct> DoRestructureData(dynamic groupData)
+        {
+            var newDataList = new List<WinLossByProduct>();
+
+            var index = 0;
+            foreach (var item in groupData)
+            {
+                var rowSpanFlag = true;
+                var temps = (IList<WinLossByProduct>)item;
+                /*processing index value*/
+                var numOfItem = temps.Count();
+
+                foreach (var col in temps)
+                {
+                    if (rowSpanFlag && numOfItem > 1)
+                    {
+                        index++;
+                        col.RowSpan = numOfItem;
+                        rowSpanFlag = false;
+                    }
+                    else if (numOfItem > 1)
+                    {
+                        col.RowSpan = -1;
+                    }
+                    else
+                    {
+                        index++;
+                        col.RowSpan = 0;
+                    }
+
+                    col.Index = index;
+                    newDataList.Add(col);
+                }
+            }
+
+            return newDataList;
+        }
+
         #region ProcessRequest
 
         /// <summary>
@@ -231,59 +284,6 @@ namespace Fanex.Athena.Api.Report
         #endregion ProcessRequest
 
         #region Private Utility
-
-        private dynamic GetEmptyResult(WinLossByProductMetaModel metaModel)
-        {
-            return new
-            {
-                Data = new List<WinLossByProduct>(),
-                Total = new List<WinLossByProduct>(),
-                ProductOptions = metaModel.ProductOptions.ToJson()
-            };
-        }
-
-        /// <summary>
-        /// Restructure data.
-        /// </summary>
-        /// <param name="groupData">The grouping data.</param>
-        /// <returns>Restructure data list.</returns>
-        private IList<WinLossByProduct> DoRestructureData(dynamic groupData)
-        {
-            var newDataList = new List<WinLossByProduct>();
-
-            var index = 0;
-            foreach (var item in groupData)
-            {
-                var rowSpanFlag = true;
-                var temps = (IList<WinLossByProduct>)item;
-                /*processing index value*/
-                var numOfItem = temps.Count();
-
-                foreach (var col in temps)
-                {
-                    if (rowSpanFlag && numOfItem > 1)
-                    {
-                        index++;
-                        col.RowSpan = numOfItem;
-                        rowSpanFlag = false;
-                    }
-                    else if (numOfItem > 1)
-                    {
-                        col.RowSpan = -1;
-                    }
-                    else
-                    {
-                        index++;
-                        col.RowSpan = 0;
-                    }
-
-                    col.Index = index;
-                    newDataList.Add(col);
-                }
-            }
-
-            return newDataList;
-        }
 
         /// <summary>
         /// Restructure data.

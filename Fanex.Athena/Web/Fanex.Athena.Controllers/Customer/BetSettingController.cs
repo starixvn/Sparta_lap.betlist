@@ -90,6 +90,46 @@ namespace Fanex.Athena.Controllers.Customer
         #region Common
 
         /// <summary>
+        /// Check if Live Casino is enabled.
+        /// </summary>
+        /// <param name="customerInfo">Customer Information.</param>
+        /// <returns>Enabled value.</returns>
+        private static bool? IsLiveCasinoEnabled(CustomerInfo customerInfo)
+        {
+            bool? resultValue = false;
+            if (customerInfo.DisableLiveCasino == false && customerInfo.SyncLiveCasino)
+            {
+                resultValue = true;
+            }
+            else if (customerInfo.SyncLiveCasino == false)
+            {
+                resultValue = null;
+            }
+
+            return resultValue;
+        }
+
+        /// <summary>
+        /// Check if RNG Casino is enabled.
+        /// </summary>
+        /// <param name="customerInfo">Customer Information.</param>
+        /// <returns>Enabled value.</returns>
+        private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
+        {
+            bool? resultValue = false;
+            if (customerInfo.DisableCasino == false && customerInfo.SyncCasino)
+            {
+                resultValue = true;
+            }
+            else if (customerInfo.SyncCasino == false)
+            {
+                resultValue = null;
+            }
+
+            return resultValue;
+        }
+
+        /// <summary>
         /// Get view model.
         /// Get list of LicenseeId base on ResellerId.
         /// BOPING's Id = 7.
@@ -171,47 +211,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return model;
-        }
-
-        /// <summary>
-        /// Check if Live Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
-        private bool? IsLiveCasinoEnabled(CustomerInfo customerInfo)
-        {
-            bool? resultValue = false;
-            if (customerInfo.DisableLiveCasino == false && customerInfo.SyncLiveCasino)
-            {
-                resultValue = true;
-            }
-            else if (customerInfo.SyncLiveCasino == false)
-            {
-                resultValue = null;
-            }
-
-            return resultValue;
-        }
-
-        /// <summary>
-        /// Check if RNG Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
-        private bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
-        {
-            bool? resultValue = false;
-            if (customerInfo.DisableCasino == false && customerInfo.SyncCasino)
-            {
-                resultValue = true;
-            }
-            else if (customerInfo.SyncCasino == false)
-            {
-                resultValue = null;
-            }
-
-            return resultValue;
-        }
+        }        
 
         #endregion Common
     }

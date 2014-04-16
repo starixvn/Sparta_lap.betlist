@@ -10,11 +10,12 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Extension.Helper;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         result.Add(new CustTurnover
                         {
                             // Get turnover row to list item
-                            ReportBy = ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy),
+                            ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
                             UserName = reader.ToString("username"),
                             Currency = reader.ToString("currency"),
                             SportId = reader.ToInt("sporttype"),
@@ -119,37 +120,5 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         }
 
         #endregion ICustTurnoverDataAccess Members
-
-        #region Utility
-
-        /// <summary>
-        /// Convert to date time.
-        /// </summary>
-        /// <param name="date">Date value.</param>
-        /// <param name="type">
-        /// Return current date if type is invalid.
-        ///  value.</param>
-        /// <returns>The result value.</returns>
-        private DateTime ToDateTime(string date, int type)
-        {
-            switch (type)
-            {
-                case 1:
-                    // daily
-                    var year = Convert.ToInt32(date.Substring(0, 4));
-                    var month = Convert.ToInt32(date.Substring(4, 2));
-                    var day = Convert.ToInt32(date.Substring(6, 2));
-                    return new DateTime(year, month, day);
-                case 2:
-                    // month
-                    var year2 = Convert.ToInt32(date.Substring(0, 4));
-                    var month2 = Convert.ToInt32(date.Substring(4, 2));
-                    return new DateTime(year2, month2, 1);
-            }
-
-            return DateTime.Now;
-        }
-
-        #endregion Utility
     }
 }

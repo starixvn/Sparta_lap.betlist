@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KenoApi.cs" company="">
+// <copyright file="KenoApi.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -23,6 +23,12 @@ namespace Fanex.Athena.Service.Implement.Keno
         private const string SERVICENAME = "KenoApi";
         private const string GAMENAME = "Keno";
 
+        /// <summary>
+        /// Authorize for Keno.
+        /// </summary>
+        /// <param name="setting">Setting meta model.</param>
+        /// <param name="userId">User Id value.</param>
+        /// <returns>KenoAuthorization value.</returns>
         public Models.DTO.Keno.KenoAuthorization Authorize(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
@@ -59,6 +65,12 @@ namespace Fanex.Athena.Service.Implement.Keno
             }
         }
 
+        /// <summary>
+        /// Extend token for Keno.
+        /// </summary>
+        /// <param name="setting">Setting value.</param>
+        /// <param name="userId">User Id value.</param>
+        /// <returns>KenoExtendedToken value.</returns>
         public Models.DTO.Keno.KenoExtendedToken ExtendToken(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
@@ -95,9 +107,15 @@ namespace Fanex.Athena.Service.Implement.Keno
             }
         }
 
+        /// <summary>
+        /// Create Keno Result Url.
+        /// </summary>
+        /// <param name="setting">Setting value.</param>
+        /// <param name="userId">User Id value.</param>
+        /// <param name="resultDate">Result date value.</param>
+        /// <returns>String Url value.</returns>
         public string CreateKenoResultUrl(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId, DateTime resultDate)
         {
-
             var authorizedData = this.Authorize(setting, userId);
             if (authorizedData.ErrorCode > 0)
             {
@@ -123,6 +141,5 @@ namespace Fanex.Athena.Service.Implement.Keno
                 return client.DownloadString(url);
             }
         }
-
     }
 }

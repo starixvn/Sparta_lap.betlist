@@ -168,8 +168,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// Update customer BA status.
         /// </summary>
         /// <param name="custId">The customer id.</param>
-        /// <param name="isAllowBa">Allowed BA if ISALLOWBA equals true.</param>
-        /// <param name="externalId">The external id.</param>
+        /// <param name="isAllowBa">Allowed BA if ISALLOWBA equals true.</param>        
         /// <returns>The action result.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -177,7 +176,7 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
-        public ActionResult UpdateBaStatus(int custId, bool isAllowBa, string externalId)
+        public ActionResult UpdateBaStatus(int custId, bool isAllowBa)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
@@ -371,7 +370,6 @@ namespace Fanex.Athena.Controllers.Customer
                     currentGroup.IsUpdateLC = productAccess.IsAllowLc;
                     currentGroup.IsUpdateCS = productAccess.IsAllowCs;
 
-                    var userId = SessionService.UserSession.UserId;
                     _groupComService.UpdateGroup(currentGroup, request, SessionService.UserSession, out result);
 
                     result.Message = result.Success ? ViewResources.MessageSuccess : ViewResources.Error;

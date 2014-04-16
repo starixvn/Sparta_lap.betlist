@@ -52,7 +52,7 @@ namespace Fanex.Athena.Api.Report
             _balanceUpService = new BalanceUpService();
         }
 
-        private void RedirectToErrorPage()
+        private static void RedirectToErrorPage()
         {
             HttpContext.Current.Response.Redirect("~/Error.aspx");
         }

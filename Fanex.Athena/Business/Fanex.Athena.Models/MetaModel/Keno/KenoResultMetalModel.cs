@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Models.MetaModel.Keno
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

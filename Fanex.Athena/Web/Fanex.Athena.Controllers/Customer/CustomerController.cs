@@ -87,8 +87,7 @@ namespace Fanex.Athena.Controllers.Customer
                             AllowLicensees = allowLicensees,
                             GridColumns = this.IniGridColumns(productAccess, allowLicensees)
                         };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
-
+            SetConvetedUSDCurrencyName(metaModel);
 
             var model  = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
 
@@ -106,8 +105,7 @@ namespace Fanex.Athena.Controllers.Customer
         [FunctionAuthorization]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;            
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
@@ -173,11 +171,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// The log info report.
         /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="externalId">The external id.</param>
-        /// <param name="systemId">The system id.</param>
+        /// <param name="custId">The customer id.</param>        
         /// <returns>The action result.</returns>
-        public ActionResult LogInfo(int custId, string externalId, string systemId)
+        public ActionResult LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;
 

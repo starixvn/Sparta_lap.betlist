@@ -176,17 +176,23 @@ namespace Fanex.Athena.Controllers.Report
 
         #region KenoPage
 
+        /// <summary>
+        /// Keno result action.
+        /// </summary>
+        /// <returns>Action result.</returns>
         [HttpGet]
         [AjaxRequest]
         public ActionResult KenoResult()
         {
             IKenoApi api = new KenoApi();
             var userId = SessionService.UserSession.UserId;
-            return Json(new
+            return Json(
+                new
             {
                 Url = api.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
                 UserId = userId
-            },JsonRequestBehavior.AllowGet);
+            }, 
+            JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

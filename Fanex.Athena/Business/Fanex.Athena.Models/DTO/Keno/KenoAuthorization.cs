@@ -1,12 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KenoAuthorization.cs" company="">
+// <copyright file="KenoAuthorization.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.Models.DTO.Keno
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

@@ -669,7 +669,6 @@
     <Content Include="Views\Shared\_GroupCommLayout.cshtml" />
     <Content Include="Views\Customer\CustomerComm\CreateNewGroup.cshtml" />
     <Content Include="Views\Customer\CustomerComm\UpdateGroup.cshtml" />
-    <Content Include="Views\Customer\CustomerList.cshtml" />
     <Content Include="Views\Customer\CustomerDialog\MoveToGroup.cshtml" />
     <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <Content Include="App_Code\DatePickerHelper.cshtml" />
@@ -848,8 +847,6 @@
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Report\Turnover\Content.Data.Empty.cshtml" />
     <Content Include="Views\Account\ChangeLicensee.cshtml" />
-    <Content Include="Views\Customer\ContentData.cshtml" />
-    <Content Include="Views\Customer\ContentHeader.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentHeader.cshtml" />

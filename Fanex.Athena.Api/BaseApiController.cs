@@ -58,7 +58,7 @@ namespace Fanex.Athena.Api
         /// <param name="fileName">Excel file name.</param>
         /// <returns>Http Response Message.</returns>
         [NonAction]
-        public HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
+        public static HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {
             var memoryStream = new MemoryStream();
             workbook.Write(memoryStream);

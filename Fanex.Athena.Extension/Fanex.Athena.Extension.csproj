@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashtableExtensions.cs" />
+    <Compile Include="Helper\ConvertHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\NumberHelper.cs" />
     <Compile Include="Utility\AppSettings.cs" />

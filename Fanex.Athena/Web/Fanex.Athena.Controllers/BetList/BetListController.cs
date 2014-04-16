@@ -134,7 +134,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="betType">The bet type.</param>
         /// <returns>True or false.</returns>
         [NonAction]
-        private bool IsRacing(int betType)
+        private static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
         }

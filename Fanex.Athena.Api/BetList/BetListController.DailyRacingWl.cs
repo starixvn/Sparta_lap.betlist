@@ -29,8 +29,6 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic DailyRacingWl(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 

@@ -114,6 +114,67 @@ namespace Fanex.Athena.Api.BetList
         }
 
         /// <summary>
+        /// Build odds text.
+        /// </summary>
+        /// <param name="metaModel">Meta model object.</param>
+        /// <param name="ticketResult">Ticket result.</param>
+        /// <param name="ticket">LRF ticket object.</param>
+        /// <param name="builder">Bet list builder.</param>
+        private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
+        {
+            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
+            if (metaModel == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(metaModel.OddsType)
+                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
+            {
+                builder.AddOdds(
+                    ticket,
+                    ticketResult.TicketDataList,
+                    "<td data-name=\"Odds\" class='bl-odds'>",
+                    "</td>",
+                    CacheRefHelper.GetOddsTypeName);
+            }
+            else
+            {
+                builder.Append(
+                    string.Format(
+                        OddStr,
+                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
+                        ticket.Odds < 0 ? "negative" : string.Empty,
+                        metaModel.OddsType));
+            }
+        }
+
+        /// <summary>
+        /// Get platform name from code
+        /// WEB => d
+        /// WAP => m
+        /// SMARTPHONE => s  or l
+        /// Others => not (d,m,s,l).
+        /// </summary>
+        /// <param name="code">Platform code.</param>
+        /// <returns>Platform name.</returns>
+        private static string MapPlatForm(string code)
+        {
+            switch (code.Trim().ToLower())
+            {
+                case "d":
+                    return ViewResources.WEB;
+                case "m":
+                    return ViewResources.Wap.ToUpper();
+                case "s":
+                case "l":
+                    return ViewResources.SmartPhone.ToUpper();
+                default:
+                    return ViewResources.Others;
+            }
+        }
+
+        /// <summary>
         /// Get status text of a ticket.
         /// </summary>
         /// <param name="ticket">LRF ticket object.</param>
@@ -139,31 +200,6 @@ namespace Fanex.Athena.Api.BetList
             return ticket.IsLive
                 ? string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live)
                 : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
-        }
-
-        /// <summary>
-        /// Get platform name from code
-        /// WEB => d
-        /// WAP => m
-        /// SMARTPHONE => s  or l
-        /// Others => not (d,m,s,l).
-        /// </summary>
-        /// <param name="code">Platform code.</param>
-        /// <returns>Platform name.</returns>
-        private string MapPlatForm(string code)
-        {
-            switch (code.Trim().ToLower())
-            {
-                case "d":
-                    return ViewResources.WEB;
-                case "m":
-                    return ViewResources.Wap.ToUpper();
-                case "s":
-                case "l":
-                    return ViewResources.SmartPhone.ToUpper();
-                default:
-                    return ViewResources.Others;
-            }
         }
 
         /// <summary>
@@ -264,42 +300,6 @@ namespace Fanex.Athena.Api.BetList
             }
 
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Build odds text.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="ticketResult">Ticket result.</param>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <param name="builder">Bet list builder.</param>
-        private void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
-        {
-            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
-            if (metaModel == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(metaModel.OddsType)
-                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
-            {
-                builder.AddOdds(
-                    ticket,
-                    ticketResult.TicketDataList,
-                    "<td data-name=\"Odds\" class='bl-odds'>",
-                    "</td>",
-                    CacheRefHelper.GetOddsTypeName);
-            }
-            else
-            {
-                builder.Append(
-                    string.Format(
-                        OddStr,
-                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
-                        ticket.Odds < 0 ? "negative" : string.Empty,
-                        metaModel.OddsType));
-            }
-        }
+        }        
     }
 }

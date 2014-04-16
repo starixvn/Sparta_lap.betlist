@@ -189,7 +189,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="topCount">The current top count.</param>
         /// <returns>The select list item.</returns>
-        private List<SelectListItem> GenerateTopCountList(int topCount)
+        private static List<SelectListItem> GenerateTopCountList(int topCount)
         {
             const string Label100 = "100";
             const string Label500 = "500";
@@ -223,7 +223,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="orderItem">The order item.</param>
         /// <returns>The select list item.</returns>
-        private IEnumerable<SelectListItem> GenerateOrderItemList(short orderItem)
+        private static IEnumerable<SelectListItem> GenerateOrderItemList(short orderItem)
         {
             var result = new List<SelectListItem>
                 {

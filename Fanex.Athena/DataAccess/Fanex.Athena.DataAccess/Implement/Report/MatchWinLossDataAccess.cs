@@ -41,6 +41,62 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         #region IMatchWinLossDataAccess Members
 
         /// <summary>
+        /// Set to list.
+        /// </summary>
+        /// <param name="reader">Reader  value.</param>
+        /// <param name="baseCurrency">Base currency  value.</param>
+        /// <returns> The result value.</returns>
+        public static IList<MatchWinLoss> SetToList(IDataReader reader, string baseCurrency)
+        {
+            var dataList = new List<MatchWinLoss>();
+            var turnoverColumn = "Turnover" + baseCurrency;
+            var winlossColumn = "MemberWinLost" + baseCurrency;
+            var custCommColumn = "PlayerComm" + baseCurrency;
+            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
+            var commBaColumn = "CommBA" + baseCurrency;
+            var commRbColumn = "CommRB" + baseCurrency;
+            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
+            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
+            var winLossRbColumn = "WinlossRB" + baseCurrency;
+
+            var custCommExisted = reader.FieldExists(custCommColumn);
+            var betTypeExisted = reader.FieldExists("bettype");
+            var productNameExisted = reader.FieldExists("productname");
+            var liveIndicatorExisted = reader.FieldExists("liveindicator");
+            var isNeutralExisted = reader.FieldExists("isneutral");
+            var kickofTime = reader.FieldExists("KickoffTime");
+
+            while (reader.Read())
+            {
+                var matchWinLoss = new MatchWinLoss();
+                matchWinLoss.LeagueId = reader.ToInt("leagueid");
+                matchWinLoss.MatchId = reader.ToInt("matchid");
+                matchWinLoss.MatchCode = reader.ToString("matchcode");
+                matchWinLoss.HomeId = reader.ToInt("homeid");
+                matchWinLoss.AwayId = reader.ToInt("awayid");
+                matchWinLoss.Turnover = reader.ToDecimal(turnoverColumn);
+                matchWinLoss.CustomerWl = reader.ToDecimal(winlossColumn);
+                matchWinLoss.CustomerComm = custCommExisted ? reader.ToDecimal(custCommColumn) : 0;
+                matchWinLoss.LicenseeWl = reader.ToDecimal(licenseeWlColumn);
+                matchWinLoss.BaCommission = reader.ToDecimal(commBaColumn);
+                matchWinLoss.RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn);
+                matchWinLoss.AmtDueToBa = reader.ToDecimal(amtDueToBaComumn);
+                matchWinLoss.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
+                matchWinLoss.RaceNo = reader.ToString("race");
+                matchWinLoss.BetType = betTypeExisted ? reader.ToInt("bettype") : 0;
+                matchWinLoss.ProductName = productNameExisted ? reader.ToString("productname") : string.Empty;
+                matchWinLoss.IsLive = liveIndicatorExisted && Converter.ToBool(reader["liveindicator"]);
+                matchWinLoss.IsNeutral = isNeutralExisted && Converter.ToBool(reader["isNeutral"]);
+                matchWinLoss.ShowTime = reader.FieldExists("showtime") ? reader.ToString("showtime") : string.Empty;
+                matchWinLoss.SportType = reader.FieldExists("sporttype") ? reader.ToShort("sporttype") : (short)0;
+                matchWinLoss.KickofTime = kickofTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
+                dataList.Add(matchWinLoss);
+            }
+
+            return dataList;
+        }
+
+        /// <summary>
         /// Get data list.
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
@@ -66,7 +122,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return this.SetToList(reader, metaModel.BaseCurrency);
+                        return SetToList(reader, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -143,7 +199,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return this.SetToList(reader, metaModel.BaseCurrency);
+                        return SetToList(reader, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -180,7 +236,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return this.SetToList(reader, metaModel.BaseCurrency);
+                        return SetToList(reader, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -222,61 +278,5 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         }
 
         #endregion IMatchWinLossDataAccess Members
-
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader  value.</param>
-        /// <param name="baseCurrency">Base currency  value.</param>
-        /// <returns> The result value.</returns>
-        public IList<MatchWinLoss> SetToList(IDataReader reader, string baseCurrency)
-        {
-            var dataList = new List<MatchWinLoss>();
-            var turnoverColumn = "Turnover" + baseCurrency;
-            var winlossColumn = "MemberWinLost" + baseCurrency;
-            var custCommColumn = "PlayerComm" + baseCurrency;
-            var licenseeWlColumn = "LicenseeWL" + baseCurrency;
-            var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
-            var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
-            var winLossRbColumn = "WinlossRB" + baseCurrency;
-
-            var custCommExisted = reader.FieldExists(custCommColumn);
-            var betTypeExisted = reader.FieldExists("bettype");
-            var productNameExisted = reader.FieldExists("productname");
-            var liveIndicatorExisted = reader.FieldExists("liveindicator");
-            var isNeutralExisted = reader.FieldExists("isneutral");
-            var kickofTime = reader.FieldExists("KickoffTime");
-
-            while (reader.Read())
-            {
-                var matchWinLoss = new MatchWinLoss();
-                matchWinLoss.LeagueId = reader.ToInt("leagueid");
-                matchWinLoss.MatchId = reader.ToInt("matchid");
-                matchWinLoss.MatchCode = reader.ToString("matchcode");
-                matchWinLoss.HomeId = reader.ToInt("homeid");
-                matchWinLoss.AwayId = reader.ToInt("awayid");
-                matchWinLoss.Turnover = reader.ToDecimal(turnoverColumn);
-                matchWinLoss.CustomerWl = reader.ToDecimal(winlossColumn);
-                matchWinLoss.CustomerComm = custCommExisted ? reader.ToDecimal(custCommColumn) : 0;
-                matchWinLoss.LicenseeWl = reader.ToDecimal(licenseeWlColumn);
-                matchWinLoss.BaCommission = reader.ToDecimal(commBaColumn);
-                matchWinLoss.RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn);
-                matchWinLoss.AmtDueToBa = reader.ToDecimal(amtDueToBaComumn);
-                matchWinLoss.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
-                matchWinLoss.RaceNo = reader.ToString("race");
-                matchWinLoss.BetType = betTypeExisted ? reader.ToInt("bettype") : 0;
-                matchWinLoss.ProductName = productNameExisted ? reader.ToString("productname") : string.Empty;
-                matchWinLoss.IsLive = liveIndicatorExisted && Converter.ToBool(reader["liveindicator"]);
-                matchWinLoss.IsNeutral = isNeutralExisted && Converter.ToBool(reader["isNeutral"]);
-                matchWinLoss.ShowTime = reader.FieldExists("showtime") ? reader.ToString("showtime") : string.Empty;
-                matchWinLoss.SportType = reader.FieldExists("sporttype") ? reader.ToShort("sporttype") : (short)0;
-                matchWinLoss.KickofTime = kickofTime ? reader.ToDateTime("KickoffTime") : DateTime.MinValue;
-                dataList.Add(matchWinLoss);
-            }
-
-            return dataList;
-        }
     }
 }

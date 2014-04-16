@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     UpdateUspParams(db, metaModel, metaModel.CurrencyId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return this.GetData(reader, metaModel, 0, out summaryTotal);
+                        return this.GetData(reader, metaModel, out summaryTotal);
                     }
                 }
             }
@@ -98,16 +98,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// Get data list.
         /// </summary>
         /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="level">Level value.</param>
+        /// <param name="metaModel">Meta model value.</param>        
         /// <param name="summaryTotal">Summary total value.</param>
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private IList<MobileWinLoss> GetData(
             IDataReader reader,
-            MobileWinLossMetaModel metaModel,
-            int level,
+            MobileWinLossMetaModel metaModel,            
             out Dictionary<string, MobileWinLoss> summaryTotal)
         {
             var dataList = new List<MobileWinLoss>();

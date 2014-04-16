@@ -204,7 +204,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             /*Convert decimal of each comm to int value to display in web.*/
-            SetDropDownListComm(ref model);
+            SetDropDownListComm(model);
 
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);
         }
@@ -248,8 +248,7 @@ namespace Fanex.Athena.Controllers.Customer
                     {
                         Language = SessionService.UserSession.Language,
                         Ip = Request.UserHostAddress
-                    };
-                    var userId = SessionService.LicenseeSession.UserId;
+                    };                    
                     var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
                     if (currentGroup != null && !currentGroup.Equals(metaModel))
                     {                        
@@ -468,7 +467,7 @@ namespace Fanex.Athena.Controllers.Customer
         ///  Repair commission values in order to binding them to drop down list control.
         /// </summary>
         /// <param name="model">The group commission metal model.</param>
-        private void SetDropDownListComm(ref GroupCommMetaModel model)
+        private static void SetDropDownListComm(GroupCommMetaModel model)
         {
             var decSbComm = model.SBComm;
             var decRcComm = model.RCComm;
@@ -493,7 +492,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             model.CsComm1 = SetComm(decCsComm, 1);
             model.CsComm2 = SetComm(decCsComm, 2);
-            model.CsComm3 = SetComm(decCsComm, 3);
+            model.CsComm3 = SetComm(decCsComm, 3);            
         }
 
         #endregion Utility

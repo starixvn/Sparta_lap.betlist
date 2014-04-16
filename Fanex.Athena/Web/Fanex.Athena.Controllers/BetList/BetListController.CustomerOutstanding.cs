@@ -42,9 +42,10 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var status = true;
                 var statusURL = "productoptions[" + i + "].status";
-                if (Request.QueryString[statusURL] != null)
+                var statusText = Request.QueryString[statusURL];
+                if (statusText != null)
                 {
-                    bool.TryParse(Request.QueryString[statusURL], out status);
+                    bool.TryParse(statusText, out status);
                 }
 
                 metaModel.ProductOptions.Add(new ProductOption

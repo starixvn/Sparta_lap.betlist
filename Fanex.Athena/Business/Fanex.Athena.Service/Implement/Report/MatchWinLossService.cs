@@ -120,6 +120,47 @@ namespace Fanex.Athena.Service.Implement.Report
         #region Utility
 
         /// <summary>
+        /// Get home team name.
+        /// </summary>
+        /// <param name="matchWinLoss">The match win-loss.</param>
+        /// <returns>The home team name.</returns>
+        private static string GetHomeName(MatchWinLoss matchWinLoss)
+        {
+            switch (matchWinLoss.ProductName)
+            {
+                case Product.Rb:
+                    return string.Empty;
+                case Product.Ng:
+                    return string.Empty;
+                default:
+                    var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
+                                   (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
+
+                    return homeName;
+            }
+        }
+
+        /// <summary>
+        /// Get away team name.
+        /// </summary>
+        /// <param name="matchWinLoss">The match win-loss.</param>
+        /// <returns>The away team name.</returns>
+        private static string GetAwayName(MatchWinLoss matchWinLoss)
+        {
+            switch (matchWinLoss.ProductName)
+            {
+                case Product.Rb:
+                    return string.Empty;
+                case Product.Ng:
+                    return string.Empty;
+                default:
+                    var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
+
+                    return awayName;
+            }
+        }
+
+        /// <summary>
         /// Order data list.
         /// </summary>
         /// <param name="dataList">The original data list.</param>
@@ -224,48 +265,7 @@ namespace Fanex.Athena.Service.Implement.Report
                     var matchName = homeName + "-vs-" + awayName;
                     return matchName;
             }
-        }
-
-        /// <summary>
-        /// Get home team name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss.</param>
-        /// <returns>The home team name.</returns>
-        private string GetHomeName(MatchWinLoss matchWinLoss)
-        {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.Rb:
-                    return string.Empty;
-                case Product.Ng:
-                    return string.Empty;
-                default:
-                    var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
-                                   (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
-
-                    return homeName;
-            }
-        }
-
-        /// <summary>
-        /// Get away team name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss.</param>
-        /// <returns>The away team name.</returns>
-        private string GetAwayName(MatchWinLoss matchWinLoss)
-        {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.Rb:
-                    return string.Empty;
-                case Product.Ng:
-                    return string.Empty;
-                default:
-                    var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
-
-                    return awayName;
-            }
-        }
+        }        
 
         #endregion Utility
     }
