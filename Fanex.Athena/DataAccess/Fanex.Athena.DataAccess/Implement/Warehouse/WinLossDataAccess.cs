@@ -92,42 +92,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
 
             return dataList;
         }
-
-        /// <summary>
-        /// Get data for excel.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Data table.</returns>
-        public DataTable GetDataForExcel(WinLossMetaModel metaModel)
-        {
-            const string UspName = "Lrf_rpt_DWWinloss";
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
-            var uspParams = new
-                            {
-                                FromDate = metaModel.FromDate,
-                                ToDate = metaModel.ToDate,
-                                CurrencyId = metaModel.CurrencyId,
-                                groupingid = metaModel.ReportBy,
-                                drawfilter = metaModel.DrawFilter,
-                                UserId = metaModel.UserId,
-                                basedcurrency = baseCurrency,
-                            };
-
-            try
-            {
-                using (var db = new ObjectDb(UspName))
-                {
-                    db.DbCommand.CommandTimeout = 180;
-                    return db.ExecuteDataSet(uspParams).Tables[0];
-                }
-            }
-            catch (SqlException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
+               
         #endregion IWinLossDataAccess Members
     }
 }

@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                basedcurrency = (byte)baseCurrency,
+                                basedcurrency = baseCurrency,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,
@@ -88,17 +88,13 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                             }
                             else
                             {
-                                topcustomer.Member = reader.FieldExists("UserName")
-                                                         ? reader.ToString("UserName")
-                                                         : string.Empty;
+                                topcustomer.Member = reader.FieldExists("UserName") ? reader.ToString("UserName") : string.Empty;
                                 topcustomer.Currency = reader.ToString("Currency");
                                 topcustomer.MemberWinLoss = reader.ToDecimal("MemberWinlost");
                                 topcustomer.MemberWinLossCom = reader.FieldExists("playercomm") ? reader.ToDecimal("playercomm") : 0;
                                 topcustomer.BetCount = reader.ToInt("betcount");
                                 topcustomer.Turnover = reader.ToDecimal("Turnover");
-                                topcustomer.LastLoginDate = reader.FieldExists("LastActiveDate")
-                                                                ? reader["LastActiveDate"]
-                                                                : null;
+                                topcustomer.LastLoginDate = reader.FieldExists("LastActiveDate") ? reader["LastActiveDate"] : null;
                             }
 
                             dataList.Add(topcustomer);
@@ -132,7 +128,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                basedcurrency = (byte)baseCurrency,
+                                basedcurrency = baseCurrency,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,

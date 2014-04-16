@@ -22,8 +22,6 @@ namespace Fanex.Athena.DataAccess.Interface.Warehouse
     {
         #region Public Methods and Operators
 
-        DataTable GetDataForExcel(WinLossMetaModel model);
-
         IList<WinLoss> GetDataList(WinLossMetaModel model);
 
         #endregion Public Methods and Operators

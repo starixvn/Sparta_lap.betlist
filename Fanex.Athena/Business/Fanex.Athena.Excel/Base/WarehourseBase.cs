@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
+//   <change who="Bravo.Tran" date="2014.4.16">Created</change>
 // </history>
 
 namespace Fanex.Athena.Excel.Base
