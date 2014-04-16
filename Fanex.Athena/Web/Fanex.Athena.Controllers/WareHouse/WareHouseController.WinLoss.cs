@@ -85,7 +85,8 @@ namespace Fanex.Athena.Controllers.WareHouse
                  metaModel.FromDate.ToString("MM/dd/yyyy"),
                  metaModel.ToDate.ToString("MM/dd/yyyy"),
                  viewByCurrency);
-            var exportData = _winLossService.GetDataForExcel(metaModel);
+            IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
+            var exportData = _winLossService.GetDataList(metaModel, ref totalValues);
 
             var currencyConvert = new ConvertingOption
                 {
@@ -93,7 +94,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                     BaseCurrency = metaModel.BaseCurrency,
                     CurrencyName = metaModel.CurrencyName
                 };
-            var winLossExcel = new WinLoss(templatePath, FileName, currencyConvert, showingOption, exportData)
+            var winLossExcel = new WinLoss(templatePath, FileName, currencyConvert, showingOption, exportData, totalValues)
                 {
                     GroupingId = metaModel.ReportBy,
                     ReportTitle = titleText

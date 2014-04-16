@@ -11,6 +11,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Warehouse;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
     using Fanex.Athena.Models.DTO.Warehouse;
@@ -46,31 +47,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         #endregion Constructors and Destructors
 
         #region Public Methods and Operators
-
-        /// <summary>
-        ///     The get data for excel.
-        /// </summary>
-        /// <param name="model">
-        ///     The model.
-        /// </param>        
-        /// <returns>
-        /// The data table.
-        /// </returns>
-        public DataTable GetDataForExcel(WinLossMetaModel model)
-        {
-            try
-            {
-                return model.IsValid
-                           ? this._winLossDataAccess.GetDataForExcel(model)
-                           : new DataTable();
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseWinLossService");
-            }
-        }
-
+        
         /// <summary>
         ///     The get data list.
         /// </summary>
@@ -93,7 +70,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
                                    : new List<WinLoss>();
                 totalValues = this.GetWinlossTotalInfo(dataList);
 
-                return dataList;
+                return dataList.OrderBy(x => x.GroupByString).ToList();
             }
             catch (System.Exception ex)
             {

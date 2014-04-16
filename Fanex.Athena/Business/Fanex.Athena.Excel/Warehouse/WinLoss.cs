@@ -22,17 +22,17 @@ namespace Fanex.Athena.Excel.Warehouse
     /// <summary>
     /// Win Loss Report - Export excel.
     /// </summary>
-    public class WinLoss : ReportBase
+    public class WinLoss : WarehourseBase
     {
-        private const int ColumnBaCommission = 13;
         private const int ColumnCustomerComm = 9;
         private const int ColumnCustomerTotal = 10;
         private const int ColumnCustomerWinLoss = 8;
-        private const int ColumnLicenseeTotal = 14;
         private const int ColumnLicenseeWl = 12;
         private const int ColumnMargin = 11;
         private const int ColumnTemplateCount = 15;
         private const int ColumnTurnover = 6;
+        private const int ColumnTotalTrans = 7;
+        private const int ColumnCustomerWL = 8;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -56,17 +56,24 @@ namespace Fanex.Athena.Excel.Warehouse
             { (int)WarehouseReportBy.League, (int)WarehouseReportBy.League },
          };
 
+        private IList<Fanex.Athena.Models.DTO.Warehouse.WinLoss> _dataList;
+
+        private IDictionary<string, decimal> _totalValues;
+
         public WinLoss(
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
-                DataTable exportData)
+                IList<Fanex.Athena.Models.DTO.Warehouse.WinLoss> dataList,
+                IDictionary<string, decimal> totalValues)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
         {
-            ExportData = exportData;
+            _dataList = dataList;
 
-            AddExtraColumns();
+            _totalValues = totalValues;
+
+            NumOfDataRow = dataList.Count;
 
             HeaderTextList = new List<string>
             {
@@ -86,11 +93,7 @@ namespace Fanex.Athena.Excel.Warehouse
              };
         }
 
-        public int GroupingId
-        {
-            get;
-            set;
-        }
+        public int GroupingId { get; set; }
 
         /// <summary>
         /// Assign data to header section.
@@ -123,21 +126,22 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
-            var rowCount = ExportData.Rows.Count;
-            var columnNameList = GetColumnNameList();
-            var groupNameIndex = GetGroupNameIndex();
-            var groupColumnName = GetGroupColumnName();
+            var rowCount = _dataList.Count;
 
             for (int index = 0; index < rowCount; index++)
             {
-                DataRow dataRow = ExportData.Rows[index];
+                var item = _dataList[index];
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
                 row.Cells[0].SetCellValue(index + 1);
-                row.Cells[groupNameIndex].SetCellValue(dataRow[groupColumnName]);
-                AssignRowContent(row, dataRow, columnNameList, ColumnTurnover);
+                row.Cells[GroupingId].SetCellValue(item.GroupByString);
+                row.Cells[ColumnTurnover].SetCellValue(item.Turnover);
+                row.Cells[ColumnTotalTrans].SetCellValue(item.BetCount);
+                row.Cells[ColumnCustomerWinLoss].SetCellValue(item.MemberWinLoss);
+                row.Cells[ColumnMargin].SetCellValue(item.Margin);
+                row.Cells[ColumnLicenseeWl].SetCellValue(item.LicenseeWinloss);
             }
 
-            AssignTotalData(sheet, ExportData.Rows.Count + RowContentTemplate);
+            AssignTotalData(sheet, _dataList.Count + RowContentTemplate);
         }
 
         /// <summary>
@@ -169,10 +173,7 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
             HideRow(sheet, RowTableHeaderTemplate + 1);
-
-            HideColumn(sheet, ColumnBaCommission);
-            HideColumn(sheet, ColumnLicenseeTotal);
-
+            
             int groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
             {
@@ -182,16 +183,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 }
             }
         }
-
-        // / <summary>
-        // / Add columns margin, licenseewinloss, licenseetotal
-        // / </summary>
-        protected void AddExtraColumns()
-        {
-            const string Expression = "IIF(Turnover > 0, MemberWinLost/Turnover, 0)";
-            ExportData.Columns.Add("margin", typeof(decimal), Expression);
-        }
-
+                
         /// <summary>
         /// Assign data to total section.
         /// </summary>
@@ -199,55 +191,20 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="currentRow">Excel row index.</param>
         protected void AssignTotalData(ISheet sheet, int currentRow)
         {
-            int cellIndex = ColumnTurnover;
+            var marginTotal = _totalValues["turnover"] != 0 ? (_totalValues["memberwinloss"] / _totalValues["turnover"]) * 100 : 0;
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
-            List<string> columnNameList = GetColumnNameList();
-            foreach (string columnName in columnNameList)
-            {
-                object sumValue = ExportData.Compute("Sum(" + columnName + ")", string.Empty);
-                row.Cells[cellIndex].SetCellValue(Converter.ToDecimal(sumValue));
-                cellIndex++;
-            }
-
-            decimal winlossTotal = Converter.ToDecimal(ExportData.Compute("Sum(MemberWinlost)", string.Empty));
-            decimal turnoverTotal = Converter.ToDecimal(ExportData.Compute("Sum(Turnover)", string.Empty));
-            decimal totalMargin = turnoverTotal != 0 ? winlossTotal / turnoverTotal : 0;
-            row.Cells[ColumnMargin].SetCellValue(totalMargin);
-
+            row.Cells[ColumnTurnover].SetCellValue(_totalValues["turnover"]);
+            row.Cells[ColumnTotalTrans].SetCellValue(_totalValues["betcount"]);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(_totalValues["memberwinloss"]);
+            row.Cells[ColumnMargin].SetCellValue(marginTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue(_totalValues["licenseewinloss"]);
             sheet.MergeCells(currentRow, 0, currentRow, 5);
         }
-
-        /// <summary>
-        /// Get column name in data table.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        protected List<string> GetColumnNameList()
-        {
-            return new List<string>
-            {
-                "Turnover",
-                "betcount",
-                "MemberWinlost",
-                "MemberWinlost",
-                "MemberWinlost",
-                "margin",
-                "LicenseeWL",
-             };
-        }
-
-        protected string GetGroupColumnName()
-        {
-            return GroupColumnNameMap.ContainsKey(GroupingId)
-                   ? GroupColumnNameMap[GroupingId]
-                   : "currency";
-        }
-
+                        
         protected int GetGroupNameIndex()
         {
-            return GroupNameIndexMap.ContainsKey(GroupingId)
-                   ? GroupNameIndexMap[GroupingId]
-                   : 3;
+            return GroupNameIndexMap[GroupingId];
         }
     }
 }

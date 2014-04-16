@@ -34,9 +34,9 @@
     <div class="row" style="width: @(ViewBag.BetCountWidth)px;">
         @ViewResources.TotalTransaction
     </div>
-    @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
-        (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
-                (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth)
+    <div class="row" style="width: @(ViewBag.CustomerWLLargeWidth)px;">
+        @ViewResources.CustomerW_L
+    </div>
     <div class="row" style="width: @(ViewBag.MarginWidth)px;">
         @ViewResources.Margin
     </div>

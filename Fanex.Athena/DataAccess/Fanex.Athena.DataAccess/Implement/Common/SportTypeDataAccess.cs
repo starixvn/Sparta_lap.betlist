@@ -110,7 +110,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     }
 
                     result.Insert(0, new Sport("0", ViewResources.All));
-                    result.Add(new Sport("-1", ViewResources.OtherSport));
                     return result;
                 }
             }

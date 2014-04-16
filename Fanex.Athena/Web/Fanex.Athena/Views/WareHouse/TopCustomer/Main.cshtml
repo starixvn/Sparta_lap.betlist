@@ -23,16 +23,11 @@
     ViewBag.CustomerCommWidth = 40;
     ViewBag.CustomerWLTotalWidth = 80;
     ViewBag.LicenseeWLWidth = 100;
-    ViewBag.BaCommissionWidth = 80;
-    ViewBag.TotalGrossProfitWidth = 100;
     ViewBag.LastActivityDateWidth = 100;
 
-
     ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.CustomerWidth + ViewBag.CurrencyWidth +
-                ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
-                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
-                ViewBag.LicenseeWLWidth +
-                (ViewBag.ShowActiveDate ? ViewBag.LastActivityDateWidth : 0);
+                ViewBag.TurnoverWidth + ViewBag.BetCountWidth + ViewBag.CustomerWLLargeWidth +
+                ViewBag.LicenseeWLWidth + (ViewBag.ShowActiveDate ? ViewBag.LastActivityDateWidth : 0);
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
     ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
@@ -42,7 +37,7 @@
 
 }
 @section pagecss {
-    <link href="@Url.ContentLink("/Content/Warehouse/warehouse.css")" rel="stylesheet" type="text/css" />
+    
 }
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Warehouse/topcustomer.js")" type="text/javascript"></script>

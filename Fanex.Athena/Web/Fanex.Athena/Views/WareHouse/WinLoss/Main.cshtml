@@ -21,13 +21,10 @@
     ViewBag.CustomerWLTotalWidth = 80;
     ViewBag.MarginWidth = 80;
     ViewBag.LicenseeWLWidth = 100;
-    ViewBag.BaCommissionWidth = 75;
-    ViewBag.TotalGrossProfitWidth = 90;
 
     ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ReportByWidth +
                 ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
-                (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
-                ViewBag.MarginWidth + ViewBag.LicenseeWLWidth;
+                ViewBag.CustomerWLLargeWidth + ViewBag.MarginWidth + ViewBag.LicenseeWLWidth;
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
     ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
@@ -36,7 +33,7 @@
     if (ViewBag.FilterWidth < 600) { ViewBag.FilterWidth = 600; }
 }
 @section pagecss {
-    <link href="@Url.ContentLink("/Content/Warehouse/warehouse.css")" rel="stylesheet" type="text/css" />
+    
 }
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Warehouse/WinLoss.js")" type="text/javascript"></script>

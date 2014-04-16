@@ -446,7 +446,6 @@
     <Content Include="Content\TotalBets\outright.css" />
     <Content Include="Content\TotalBets\refreshcountdown.css" />
     <Content Include="Content\TotalBets\totalbetsbase.css" />
-    <Content Include="Content\Warehouse\Images\more.gif" />
     <Content Include="Content\Global\images\shadow.png" />
     <Content Include="Content\Global\images\undo.png" />
     <Content Include="Content\Plugin\DateRangePicker\daterangepicker.css" />
@@ -466,7 +465,6 @@
     <Content Include="Content\Global\images\tab_topbg02.jpg" />
     <Content Include="Content\Global\images\tab_topbg38.gif" />
     <Content Include="Content\Global\lrf.global.content.css" />
-    <Content Include="Content\Warehouse\warehouse.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Global\images\bg_boxTop.jpg" />
     <Content Include="Content\Global\images\bg_buttonsite.jpg" />

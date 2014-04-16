@@ -45,29 +45,14 @@
                     @item.BetCount.ToString("#,###")
                 </div>
             </div>
-            @if (Model.IsAllowedCustomerCommission)
-            {
-                <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
-                    <div>@item.MemberWinLoss.ToStringExt()</div>
+            <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                <div>
+                    @item.MemberWinLoss.ToStringExt()
                 </div>
-                <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
-                    <div>@item.MemberWinLossCom.ToStringExt()</div>
-                </div>
-                <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
-                    <div>@((item.MemberWinLoss + item.MemberWinLossCom).ToStringExt())</div>
-                </div>
-            }
-            else
-            {
-                <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
-                    <div>
-                        @item.MemberWinLoss.ToStringExt()
-                    </div>
-                </div>
-            }
+            </div>
             <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px;">
                 @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
-            </div>            
+            </div>
             @if (ViewBag.ShowActiveDate)
             {
                 <div class="row title-text" style="width: @(ViewBag.LastActivityDateWidth)px;">
@@ -94,36 +79,14 @@
             @betCountTotal.ToString("#,###")
         </div>
     </div>
-    @if (Model.IsAllowedCustomerCommission)
-    {
-        <div class="row" style="width:@ViewBag.CustomerWLWidth@("px")">
-            <div>
-                @memberWinlossTotal.ToStringExt()
-            </div>
+    <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+        <div>
+            @memberWinlossTotal.ToStringExt()
         </div>
-        <div class="row" style="width:@ViewBag.CustomerCommWidth@("px")">
-            <div>
-                @memberWinLossComTotal.ToStringExt()
-            </div>
-        </div>
-        <div class="row" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
-            <div>
-                @{ var totalComm2 = memberWinlossTotal + memberWinLossComTotal;}
-                @totalComm2.ToStringExt()
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="row" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
-            <div>
-                @memberWinlossTotal.ToStringExt()
-            </div>
-        </div>
-    }
+    </div>
     <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px;">
         @FormatHelper.NegativeFormat(licenseeWinlossTotal)
-    </div>    
+    </div>
     <div class="row title-text" style="width: @(ViewBag.LastActivityDateWidth)px;">
         <div>
             -
