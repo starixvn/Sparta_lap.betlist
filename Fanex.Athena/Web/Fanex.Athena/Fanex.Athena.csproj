@@ -635,8 +635,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Content\Report\balance.css" />
     <Content Include="Test.aspx" />
-    <Content Include="w3c\p3p.xml" />
-    <None Include="w3c\policy.3p3" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -830,7 +828,6 @@
     <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
     <Content Include="Views\Report\LiveReport\HistoryFilter.cshtml" />
     <Content Include="Views\Report\Balance\Content.Header.cshtml" />
-    <Content Include="Views\WareHouse\TopCustomer\AjaxTemplate\SportList.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\Content.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\Content.Data.cshtml" />
     <Content Include="Views\WareHouse\TopCustomer\Content.Header.cshtml" />
@@ -1061,7 +1058,6 @@
     <Content Include="Views\Header\Index.cshtml" />
     <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
     <Content Include="Views\Customer\Customers.cshtml" />
-    <Content Include="Views\Report\Result\Keno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
