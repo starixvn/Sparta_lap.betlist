@@ -35,8 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         ///   Initializes a new instance of the <see cref="TopCustomerDataAccess" /> class.
         /// </summary>
         /// <param name="balanceUp"> The balance up. </param>
-        public TopCustomerDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
+        public TopCustomerDataAccess()
         {
         }
 
@@ -91,7 +90,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 topcustomer.Member = reader.FieldExists("UserName") ? reader.ToString("UserName") : string.Empty;
                                 topcustomer.Currency = reader.ToString("Currency");
                                 topcustomer.MemberWinLoss = reader.ToDecimal("MemberWinlost");
-                                topcustomer.MemberWinLossCom = reader.FieldExists("playercomm") ? reader.ToDecimal("playercomm") : 0;
                                 topcustomer.BetCount = reader.ToInt("betcount");
                                 topcustomer.Turnover = reader.ToDecimal("Turnover");
                                 topcustomer.LastLoginDate = reader.FieldExists("LastActiveDate") ? reader["LastActiveDate"] : null;

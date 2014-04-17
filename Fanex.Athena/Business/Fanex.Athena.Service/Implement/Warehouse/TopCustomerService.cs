@@ -41,7 +41,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         public TopCustomerService()
         {
             this._balanceUpService = new BalanceUpService();
-            this._topCustDataAccess = new TopCustomerDataAccess(this._balanceUpService.BalanceUpInfo);
+            this._topCustDataAccess = new TopCustomerDataAccess();
         }
 
         #endregion Constructors and Destructors
