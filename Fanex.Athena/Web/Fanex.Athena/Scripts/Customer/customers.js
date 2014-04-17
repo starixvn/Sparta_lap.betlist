@@ -361,19 +361,15 @@ var CustomerList = (function ($) {
             Site.blockUI();
             var data = {};
 
-            if (data.LicenseeType === "") {
-                data.LicenseeType = null;
-            }
             data.LicenseeType = Site.asNull($("#LicenseeType").val());
             data.PageIndex = _pagingOption.pageindex;
             data.PageSize = _pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
-            data.Username = $("#txtUsername").val();
+            data.Username = Site.asNull($("#txtUsername").val());
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                data.Username = '';
+                data.Username = null;
             }
-            data.Username = Site.asNull(data.Username);
             data.BaFilter = $("#BAFilterOption").val();
             data.GroupCommId = $("#DdlGroupCommId").val();
             data.BaseCurrency = $("#BaseCurrency").val();

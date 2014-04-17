@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Customer
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -27,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Logging;
-    using System.Collections.Generic;
 
     #endregion Using
 
@@ -383,7 +383,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Remove customer from group commission.
         /// </summary>
-        /// <param name="metaModel">The metal model.</param>
+        /// <param name="customers">Customer id list.</param>
+        /// <param name="isRemovePlayercomm">Remove Player commission or not.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
@@ -428,7 +429,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Move customer in a group commission.
         /// </summary>
-        /// <param name="metaModel">The metal model.</param>
+        /// <param name="customers">Customer id list.</param>
+        /// <param name="groupComId">Group commission id.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
@@ -439,7 +441,8 @@ namespace Fanex.Athena.Controllers.Customer
                     Success = false,
                     ErrorMessage = ViewResources.Error
                 };
-            var metaModel=new MoveToGroupComMetaModel
+
+            var metaModel = new MoveToGroupComMetaModel
             {
                 Customers = customers,
                 GroupComId = groupComId
