@@ -56,10 +56,11 @@ var CustomerList = (function ($) {
             },
             success: function (data) {
                 if (data.Success) {
+                    list.attr("data-level", level)
                     list.unbind("change");
                     list.change(function () {
                         CustomerList.setSpecialLevel($(this), custId, level);
-                    });
+                    });                    
                 }
                 else {
                     list.html(oldValue);
