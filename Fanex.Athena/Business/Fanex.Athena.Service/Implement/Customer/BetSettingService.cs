@@ -25,6 +25,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Exception;
 
     #endregion
 
@@ -246,13 +247,13 @@ namespace Fanex.Athena.Service.Implement.Customer
         {
             if (racingParam == null || racingParam.Count == 0)
             {
-                throw new Exception("Invalid parameter. racingParam is null");
+                throw new ServiceException("Invalid parameter. racingParam is null", "BetSetting");
             }
 
             var custId = racingParam.First().Value.CustId;
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
-                throw new Exception(ViewResources.UpdateSpecialLevelMsg);
+                throw new ServiceException(ViewResources.UpdateSpecialLevelMsg, "BetSetting");
             }
 
             return _betSettingDataAccess.UpdateRacingBetSetting(racingParam);
