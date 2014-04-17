@@ -137,7 +137,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 row.Cells[ColumnTurnover].SetCellValue(item.Turnover);
                 row.Cells[ColumnTotalTrans].SetCellValue(item.BetCount);
                 row.Cells[ColumnCustomerWinLoss].SetCellValue(item.MemberWinLoss);
-                row.Cells[ColumnMargin].SetCellValue(item.Margin);
+                row.Cells[ColumnMargin].SetCellValue(item.Margin / 100);
                 row.Cells[ColumnLicenseeWl].SetCellValue(item.LicenseeWinloss);
             }
 
@@ -191,7 +191,7 @@ namespace Fanex.Athena.Excel.Warehouse
         /// <param name="currentRow">Excel row index.</param>
         protected void AssignTotalData(ISheet sheet, int currentRow)
         {
-            var marginTotal = _totalValues["turnover"] != 0 ? (_totalValues["memberwinloss"] / _totalValues["turnover"]) * 100 : 0;
+            var marginTotal = _totalValues["turnover"] != 0 ? (_totalValues["memberwinloss"] / _totalValues["turnover"]) : 0;
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             row.Cells[ColumnTurnover].SetCellValue(_totalValues["turnover"]);
