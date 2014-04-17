@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/28/2014 10:57:41 AM
+// Lasted generated date: 4/17/2014 1:42:03 PM
 // </history>
 
 var _language_zh_TW={
@@ -1096,7 +1096,9 @@ var _language_zh_TW={
 				 	
                      RacingRevenueBalanceNote:"賽馬賽事所得：賽馬所得",
 				 	
-                     RBComm:"Racebook傭金",
+                     RB:"RB",
+				 	
+                     RBComm:"RB傭金",
 				 	
                      RCCommission:"赛马赛事佣金",
 				 	
@@ -1147,6 +1149,8 @@ var _language_zh_TW={
                      RNGCasino:"娛樂城",
 				 	
                      RngCasinoAndBingoExcludedNote:"此報告不包含娛樂城及賓果",
+				 	
+                     RngCasinoAndKenoExcludedNote:"RNG Casino and Keno are not included in the report",
 				 	
                      RNGCasinoUpdateSettingUnAvailableMsg:"RNG Casino Database is not currently available. Please try again later.",
 				 	
@@ -1261,6 +1265,8 @@ var _language_zh_TW={
                      Statement:"賬目",
 				 	
                      Status:"狀態",
+				 	
+                     String1:"",
 				 	
                      Su:"Su",
 				 	

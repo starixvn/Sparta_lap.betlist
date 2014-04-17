@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/28/2014 10:56:53 AM
+// Lasted generated date: 4/17/2014 1:41:38 PM
 // </history>
 
 var _language_ko_KR={
@@ -1094,6 +1094,8 @@ var _language_ko_KR={
 				 	
                      RacingRevenueBalanceNote:"경주 매출: 승마경기 매출.",
 				 	
+                     RB:"RB",
+				 	
                      RBComm:"RB 수수료",
 				 	
                      RCCommission:"RB 수수료",
@@ -1145,6 +1147,8 @@ var _language_ko_KR={
                      RNGCasino:"RNG 카지노",
 				 	
                      RngCasinoAndBingoExcludedNote:"RNG 카지노와 빙고는 이 보고서에 포함되지 않습니다",
+				 	
+                     RngCasinoAndKenoExcludedNote:"RNG Casino and Keno are not included in the report",
 				 	
                      RNGCasinoUpdateSettingUnAvailableMsg:"RNG 카지노 데이터베이스를 현재 사용할 수 없습니다. 나중에 다시 시도해주십시오.",
 				 	
@@ -1259,6 +1263,8 @@ var _language_ko_KR={
                      Statement:"명세서",
 				 	
                      Status:"상태",
+				 	
+                     String1:"",
 				 	
                      Su:"Su",
 				 	

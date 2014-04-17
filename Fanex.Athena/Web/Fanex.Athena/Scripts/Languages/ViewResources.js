@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/28/2014 10:57:34 AM
+// Lasted generated date: 4/17/2014 1:41:57 PM
 // </history>
 
 var _language_en_US={
@@ -317,6 +317,8 @@ var _language_en_US={
                      Date:"Date",
 				 	
                      DateRange:"Date Range",
+				 	
+                     DateRangeLimitNote:"Data is available within 3 months, from {0} to {1}.",
 				 	
                      DateRangeNote:"Data is available from {0:d MMM yyyy}",
 				 	
@@ -1098,6 +1100,8 @@ var _language_en_US={
 				 	
                      RacingRevenueBalanceNote:"Racing Revenue: Horse racing Revenue.",
 				 	
+                     RB:"RB",
+				 	
                      RBComm:"RB Comm",
 				 	
                      RCCommission:"RC Commission",
@@ -1149,6 +1153,8 @@ var _language_en_US={
                      RNGCasino:"RNG Casino",
 				 	
                      RngCasinoAndBingoExcludedNote:"RNG Casino and Bingo are not included in the report",
+				 	
+                     RngCasinoAndKenoExcludedNote:"RNG Casino and Keno are not included in the report",
 				 	
                      RNGCasinoUpdateSettingUnAvailableMsg:"RNG Casino Database is not currently available. Please try again later.",
 				 	

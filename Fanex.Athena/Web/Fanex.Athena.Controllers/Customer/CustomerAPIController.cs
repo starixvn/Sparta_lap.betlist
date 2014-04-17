@@ -27,6 +27,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Logging;
+    using System.Collections.Generic;
 
     #endregion Using
 
@@ -386,7 +387,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        public ActionResult RemoveFromGroupCom(RemoveFromGroupComMetaModel metaModel)
+        public ActionResult RemoveFromGroupCom(IList<int> customers, bool isRemovePlayercomm)
         {
             var result = new ResultViewModel
                 {
@@ -394,6 +395,11 @@ namespace Fanex.Athena.Controllers.Customer
                     ErrorMessage = ViewResources.Error
                 };
 
+            var metaModel = new RemoveFromGroupComMetaModel()
+            {
+                Customers = customers,
+                IsRemovePlayercomm = isRemovePlayercomm
+            };
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -426,14 +432,18 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        public ActionResult MoveToGroupCom(MoveToGroupComMetaModel metaModel)
+        public ActionResult MoveToGroupCom(IList<int> customers, int groupComId)
         {
             var result = new ResultViewModel
                 {
                     Success = false,
                     ErrorMessage = ViewResources.Error
                 };
-
+            var metaModel=new MoveToGroupComMetaModel
+            {
+                Customers = customers,
+                GroupComId = groupComId
+            };
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
