@@ -34,7 +34,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <summary>
         ///   Initializes a new instance of the <see cref="TopCustomerDataAccess" /> class.
         /// </summary>
-        /// <param name="balanceUp"> The balance up. </param>
         public TopCustomerDataAccess()
         {
         }
