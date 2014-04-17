@@ -25,7 +25,6 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
-    using Fanex.Athena.Service.Exception;
 
     #endregion
 
