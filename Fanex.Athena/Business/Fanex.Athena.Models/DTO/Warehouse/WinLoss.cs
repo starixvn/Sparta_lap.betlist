@@ -87,10 +87,8 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 
                     case (int)WarehouseReportBy.Month:
                     case (int)WarehouseReportBy.Currency:
-                        return _groupByvalue.ToString();
-
                     case (int)WarehouseReportBy.League:
-                        return CacheRef.GetLeagueName(_groupByvalue);
+                        return _groupByvalue.ToString();
 
                     case (int)WarehouseReportBy.Bettype:
                         return _bettypeId >= 81 && _bettypeId < 120
