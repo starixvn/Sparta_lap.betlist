@@ -33,6 +33,50 @@ var result = (function () {
         }
         $("#submit-outright").attr("data-isOutright", isShow ? "1" : "0");
     };
+    var showKeno = function () {
+
+        if ($("#submit-keno").length) {
+            $("#submit-keno").click(function () {
+                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                var option = {
+                    type: "GET",
+                    cache: false,
+                    url: Site.resolveClientUrl(kenoResultApi),
+                    error: function () { },
+                    success: function (response) {
+                        kenoUserId = response.UserId;
+                        kenoWindow.location = response.Url;
+                        clearInterval(kenoIntervalId);
+                        extendKenoSession();
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+                if (kenoAjaxRequest != null) {
+                    kenoAjaxRequest.abort();
+                }
+                kenoAjaxRequest = $.ajax(option);
+            });
+        }
+    };
+    var extendKenoSession = function () {
+        kenoIntervalId = setInterval(function () {
+            var option = {
+                type: "POST",
+                cache: false,
+                data: "userid=" + kenoUserId,
+                url: Site.resolveClientUrl(kenoResultApi)
+            };
+            if (kenoAjaxRequest != null) {
+                kenoAjaxRequest.abort();
+            }
+            kenoAjaxRequest = $.ajax(option);
+        }, 6000);
+    };
     var getData = function () {
         if (param.IsExportExcel) {
             exportExcel();
@@ -52,7 +96,7 @@ var result = (function () {
         var defaultLeague = $('#league option[value="0"]').clone();
         $('#league option').remove();
         $('#league').append(defaultLeague);
-        if (data != null && data.toString().length > 1) {            
+        if (data != null && data.toString().length > 1) {
             if (param.SportId === 0 && data.Sports.length > 0) {
                 var firtSport = data.Sports[0].SportId;
                 param.SportId = firtSport;
@@ -158,51 +202,13 @@ var result = (function () {
         }
         ajaxRequest = $.ajax(option);
     };
-    var extendKenoSession = function () {
-        kenoIntervalId = setInterval(function () {
-            var option = {
-                type: "POST",
-                cache: false,
-                data: "userid=" + kenoUserId,
-                url: Site.resolveClientUrl(kenoResultApi)                
-            };
-            if (kenoAjaxRequest != null) {
-                kenoAjaxRequest.abort();
-            }
-            kenoAjaxRequest = $.ajax(option);
-        }, 6000);
-    };
+
 
     return {
         init: function () {
             var isShowedRight = self.location.hash.substr(1) === "outright";
             showOutRight(isShowedRight);
-            $("#submit-keno").click(function () {                
-                var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
-                var option = {
-                    type: "GET",
-                    cache: false,
-                    url: Site.resolveClientUrl(kenoResultApi),
-                    error: function () { },
-                    success: function (response) {
-                        kenoUserId = response.UserId;
-                        kenoWindow.location = response.Url;
-                        clearInterval(kenoIntervalId);
-                        extendKenoSession();
-                    },
-                    beforeSend: function () {
-                        Site.blockUI();
-                    },
-                    complete: function () {
-                        Site.unBlockUI();
-                    }
-                };
-                if (kenoAjaxRequest != null) {
-                    kenoAjaxRequest.abort();
-                }
-                kenoAjaxRequest = $.ajax(option);
-            });
-
+            showKeno();
             $("#submit-outright").click(function () {
                 clearExcelExport();
                 clearResult();
@@ -212,7 +218,7 @@ var result = (function () {
             });
             $("#submit-normal").click(function () {
                 clearExcelExport();
-                clearResult();                
+                clearResult();
                 showOutRight(false);
                 $("#SubmitButton").trigger("click");
             });
@@ -283,7 +289,7 @@ var result = (function () {
                 clearExcelExport();
                 param.LeagueId = $(this).val();
                 getReportData();
-            });            
+            });
             param.FromDate = $("#hiddenToDate").val();
             param.ToDate = $("#hiddenToDate").val();
         }

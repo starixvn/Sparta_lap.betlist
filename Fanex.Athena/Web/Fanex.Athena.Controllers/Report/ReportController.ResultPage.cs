@@ -58,6 +58,7 @@ namespace Fanex.Athena.Controllers.Report
             };
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             ViewBag.IsAllowedRNG = productAccess.IsAllowBg || productAccess.IsAllowCs;
+            ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
 
