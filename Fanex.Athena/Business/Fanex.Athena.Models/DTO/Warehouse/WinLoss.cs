@@ -8,6 +8,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 {
     using System;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     /// WinLoss class.
@@ -86,9 +87,19 @@ namespace Fanex.Athena.Models.DTO.Warehouse
                         return Convert.ToDateTime(_groupByvalue).ToString("MM/dd/yyyy");
 
                     case (int)WarehouseReportBy.Month:
-                    case (int)WarehouseReportBy.Currency:
-                    case (int)WarehouseReportBy.League:
+                    case (int)WarehouseReportBy.Currency:                    
                         return _groupByvalue.ToString();
+
+                    case (int)WarehouseReportBy.League:
+                        switch(Convert.ToInt32(_groupByvalue))
+                        {
+                            case -9:
+                                return ViewResources.SystemParlay;
+                            case -1:
+                                return ViewResources.Outright + " " + ViewResources.Horse + "" + ViewResources.Racing;
+                            default:
+                                return CacheRef.GetLeagueName(_groupByvalue);
+                        }
 
                     case (int)WarehouseReportBy.Bettype:
                         return _bettypeId >= 81 && _bettypeId < 120

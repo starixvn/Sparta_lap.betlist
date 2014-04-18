@@ -48,21 +48,9 @@
             <label>@ViewResources.InactiveSinceLast</label>
         </div>
         <div class="gird_2 filter-input">
-            @Html.DropDownList("SelectReportBy", new SelectList(new Dictionary<int, string>() { { -1, ViewResources.All},{14,ViewResources.TwoWeek},
+            @Html.DropDownList("SelectReportBy", new SelectList(new Dictionary<int, string>() { { 0, ViewResources.All},{14,ViewResources.TwoWeek},
                     {30,ViewResources.OneMonth},{90,ViewResources.lbl3Month}}, "Key", "Value", Model.Param.ActiveMin))
-        </div>
-        <div>
-            <script type="text/ecmascript">
-                $(window).load(function () {
-                    dateRangePicker.daterangepicker("option", {
-                        onChange: function () {
-                            WareHouseTopCustomer.getSportAjax();
-                        }
-                    });
-                });
-            
-            </script>
-        </div>
+        </div>        
         <div class="grid_3 new-line filter-label new-line">
             <label>@ViewResources.SystemId</label>
         </div>

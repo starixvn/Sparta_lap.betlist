@@ -18,7 +18,7 @@ namespace Fanex.Athena.Models.MetaModel.Warehouse
         {
             { "1", "date" }, { "2", "month" },
             { "3", "currency" }, { "4", "betType" },
-            { "5", "leaguename" }
+            { "5", "league" }
         };
 
         public static int DefaultValue

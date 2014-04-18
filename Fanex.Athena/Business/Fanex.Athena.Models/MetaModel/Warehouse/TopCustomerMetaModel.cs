@@ -15,7 +15,7 @@ namespace Fanex.Athena.Models.MetaModel.Warehouse
     {
         public TopCustomerMetaModel()
         {
-            ActiveMin = -1;
+            ActiveMin = 0;
             SortingId = 0;
             FromDate = DateTime.Now;
             ToDate = DateTime.Now;
