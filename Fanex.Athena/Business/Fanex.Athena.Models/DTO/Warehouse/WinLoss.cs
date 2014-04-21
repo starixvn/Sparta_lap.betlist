@@ -20,7 +20,6 @@ namespace Fanex.Athena.Models.DTO.Warehouse
         private bool _liveindicator;
         private object _groupByvalue;
         private int _reportBy;
-        private object _groupByString;
 
         public WinLoss()
         {
@@ -108,11 +107,6 @@ namespace Fanex.Athena.Models.DTO.Warehouse
                     default:
                         return string.Empty;
                 }
-            }
-
-            set
-            {
-                _groupByString = value;
             }
         }
     }
