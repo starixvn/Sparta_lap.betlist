@@ -161,9 +161,6 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
             HideRow(sheet, RowTableHeaderTemplate + 1);
-
-            HideColumn(sheet, ColumnBaCommission);
-            HideColumn(sheet, ColumnLicenseeTotal);
         }
 
         /// <summary>

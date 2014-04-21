@@ -87,16 +87,16 @@ namespace Fanex.Athena.Models.DTO.Warehouse
                         return Convert.ToDateTime(_groupByvalue).ToString("MM/dd/yyyy");
 
                     case (int)WarehouseReportBy.Month:
-                    case (int)WarehouseReportBy.Currency:                    
+                    case (int)WarehouseReportBy.Currency:
                         return _groupByvalue.ToString();
 
                     case (int)WarehouseReportBy.League:
-                        switch(Convert.ToInt32(_groupByvalue))
+                        switch (Convert.ToInt32(_groupByvalue))
                         {
                             case -9:
                                 return ViewResources.SystemParlay;
                             case -1:
-                                return ViewResources.Outright + " " + ViewResources.Horse + "" + ViewResources.Racing;
+                                return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.Racing;
                             default:
                                 return CacheRef.GetLeagueName(_groupByvalue);
                         }
