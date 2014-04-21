@@ -76,8 +76,17 @@ var CustomersOption = (function () {
         align: 'right',
         sortable: false,
         frozen: true,
-        formatter: 'number',
-        formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' }
+        formatter: function (cellValue, options, rowObject) {
+            var number = Number(cellValue);
+            if (number === 0) {
+                return Site.formatDecimal(cellValue);
+            }
+            else {
+                return "<a style='color: #1E1EEB' href=\"javascript:CustomerList.viewRunningBetlist(" + 
+                    rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
+                    + Site.formatDecimal(cellValue) + "</a>";
+            }
+        }
     };
     var statusColumn =
     {
@@ -213,7 +222,7 @@ var CustomersOption = (function () {
         return Site.getResources(temp);
     };
 
-    var getColModel = function (productAccess, isAllowedCustomerCommission) {        
+    var getColModel = function (productAccess, isAllowedCustomerCommission) {
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
 

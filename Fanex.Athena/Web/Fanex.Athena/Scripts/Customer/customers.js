@@ -371,6 +371,7 @@ var CustomerList = (function ($) {
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
+            data.CurrencyName = $("#CurrencyName").val();
             data.BaFilter = $("#BAFilterOption").val();
             data.GroupCommId = $("#DdlGroupCommId").val();
             data.BaseCurrency = $("#BaseCurrency").val();
@@ -386,6 +387,11 @@ var CustomerList = (function ($) {
                 });
             });
             $("#excelParam").val(JSON.stringify(data));
+
+            $("#LicenseeType").attr('data-original', data.LicenseeType);
+            $("#CurrencyId").attr('data-original', data.CurrencyId);
+            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+
             var option = {
                 type: "POST",
                 data: data,

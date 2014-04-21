@@ -32,6 +32,11 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },
+        formatDecimal: function (number) {
+            return Number(number).toFixed(2).replace(/./g, function (c, i, a) {
+                return i && c !== "." && !((a.length - i) % 3) ? ',' + c : c;
+            });
+        },
         asNull: function (text) {
             if (text != null) {
                 text = text.trim();
@@ -67,7 +72,7 @@ var Site = (function ($) {
             if (currencyName == undefined) {
                 currencyName = $("#CurrencyName").val();
             }
-
+            
             return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
         },
 
@@ -75,11 +80,10 @@ var Site = (function ($) {
             var licenseeType = $("#LicenseeType").attr('data-original');
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
+            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();            
             if (currencyName == undefined) {
                 currencyName = $("#CurrencyName").val();
-            }
-
+            }                        
             return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
         },
 
