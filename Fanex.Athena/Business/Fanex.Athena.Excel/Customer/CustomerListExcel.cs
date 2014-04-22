@@ -195,27 +195,27 @@ namespace Fanex.Athena.Excel.Customer
                 {
                     if (_exportData.ProductAccess.IsAllowSB)
                     {
-                        row.Cells[SBCommColumn].SetCellValue((item.SbComm * 100).ToStringExt(2));
+                        row.Cells[SBCommColumn].SetCellValue(item.SbComm.ToStringExt(2));
                     }
 
                     if (_exportData.ProductAccess.IsAllowNg)
                     {
-                        row.Cells[NGCommColumn].SetCellValue((item.NgComm * 100).ToStringExt(2));
+                        row.Cells[NGCommColumn].SetCellValue(item.NgComm.ToStringExt(2));
                     }
 
                     if (_exportData.ProductAccess.IsAllowRb)
                     {
-                        row.Cells[RCCommColumn].SetCellValue((item.RbComm * 100).ToStringExt(2));
+                        row.Cells[RCCommColumn].SetCellValue(item.RbComm.ToStringExt(2));
                     }
 
                     if (_exportData.ProductAccess.IsAllowLc)
                     {
-                        row.Cells[LCCommColumn].SetCellValue((item.LcComm * 100).ToStringExt(2));
+                        row.Cells[LCCommColumn].SetCellValue(item.LcComm.ToStringExt(2));
                     }
 
                     if (_exportData.ProductAccess.IsAllowCs)
                     {
-                        row.Cells[CSCommColumn].SetCellValue((item.CsComm * 100).ToStringExt(2));
+                        row.Cells[CSCommColumn].SetCellValue(item.CsComm.ToStringExt(2));
                     }
                 }
 
