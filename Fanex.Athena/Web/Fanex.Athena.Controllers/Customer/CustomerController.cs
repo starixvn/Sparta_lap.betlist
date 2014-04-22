@@ -89,7 +89,7 @@ namespace Fanex.Athena.Controllers.Customer
                         };
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model  = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
+            var model = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
 
             this.SetValueForBaStatus(model);
 
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Customer
         [FunctionAuthorization]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;            
+            var licenseeSession = SessionService.LicenseeSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
@@ -114,7 +114,7 @@ namespace Fanex.Athena.Controllers.Customer
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
 
-            return Json( new
+            return Json(new
             {
                 Data = dataList,
                 TotalRows = totalRows
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// The log info report.
         /// </summary>
-        /// <param name="custId">The customer id.</param>        
+        /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
         public ActionResult LogInfo(int custId)
         {
@@ -192,6 +192,13 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
+        /// <summary>
+        /// Create customer view model.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <param name="licenseeSession">The licensee session.</param>
+        /// <param name="userSession">The user session.</param>
+        /// <returns>The customer view model.</returns>
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
         {
             var model = new CustomerListViewModel { Param = metaModel };
@@ -202,7 +209,7 @@ namespace Fanex.Athena.Controllers.Customer
             model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
             model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
             if (licenseeSession.IsAllowedCustomerComm)
-            { 
+            {
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
                 model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
             }
@@ -225,9 +232,8 @@ namespace Fanex.Athena.Controllers.Customer
             model.DataList = _customerService.Search(model.Param, ref totalRows);
             model.TotalRows = totalRows;
 
-            
             return model;
-        }        
+        }
 
         /// <summary>
         ///     This function relates to special BA permission of Justin - Martin.

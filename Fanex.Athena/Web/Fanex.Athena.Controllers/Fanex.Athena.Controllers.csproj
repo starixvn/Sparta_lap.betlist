@@ -165,7 +165,7 @@
     <Compile Include="Customer\BetSettingController.cs" />
     <Compile Include="Customer\BetSettingAPIController.cs" />
     <Compile Include="Customer\CustomerController.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Customer\CustomerAPIController.cs" />
     <Compile Include="Customer\CustomerComGroupController.cs" />
