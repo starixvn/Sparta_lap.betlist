@@ -9,7 +9,7 @@ namespace Fanex.Athena.Models.DTO.Report
     using System;
 
     /// <summary>
-    /// Playtech Casino Item.
+    /// PLAYTECH Casino Item.
     /// </summary>
     public class PlaytechCasino
     {

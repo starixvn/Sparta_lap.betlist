@@ -13,7 +13,7 @@
         <table id="TableTotal" class="total-table" cellpadding="0" cellspacing="0" style="width:@(ViewBag.ContainerWidth)@("px");">
             @foreach (var item in Model.TotalData)
             {
-                <tr class="total-rows @(isFirst ? "total-first-row" : string.Empty)" style="width:@ViewBag.ContainerWidth@("px");">
+                <tr class="total-rows bold @(isFirst ? "total-first-row" : string.Empty)" style="width:@ViewBag.ContainerWidth@("px");">
                     @if(isFirst)
                     {
                         isFirst = false;

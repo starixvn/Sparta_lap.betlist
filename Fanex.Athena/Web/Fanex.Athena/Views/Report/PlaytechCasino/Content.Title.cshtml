@@ -10,7 +10,7 @@
                 <li data-level="0" class="level-link">@ViewResources.Main</li>
                 @if (Model.Param.Level == 1)
                 {
-                    <li data-level="1" class="">@ViewResources.Licensee</li>
+                    <li data-level="1" class="current-level">@ViewResources.Licensee</li>
                 }
                 @if (Model.Param.Level == 2)
                 {   
@@ -18,7 +18,7 @@
                     {
                         <li data-level="1" class="level-link">@ViewResources.Licensee</li>
                     }
-                    <li data-level="2" class="">@ViewResources.Customer </li>
+                    <li data-level="2" class="current-level">@ViewResources.Customer </li>
                 }                
             </ul>
         </div>

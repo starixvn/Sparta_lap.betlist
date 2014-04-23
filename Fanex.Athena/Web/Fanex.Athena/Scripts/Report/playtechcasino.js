@@ -1,4 +1,5 @@
-﻿/* File Created: April 22, 2014 */
+﻿"use strict";
+/*global Site */
 
 var PlaytechCasino = (function ($) {
     return {
@@ -7,7 +8,7 @@ var PlaytechCasino = (function ($) {
         },
 
         initEvent: function () {
-            $('#ExportToExcel').click(function () {                
+            $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
                 $('#PlaytechCasinoForm').submit();
             });
@@ -24,9 +25,12 @@ var PlaytechCasino = (function ($) {
             $('#SubmitButton').click(function () {
                 PlaytechCasino.submit();
             });
-        },        
+
+            var contentWidth = $(".data-content").width() + 5;
+            $(".content-filter").width(contentWidth < 650 ? 650 : contentWidth);
+        },
         submit: function () {
-            Site.blockUI();            
+            Site.blockUI();
             $("#Level").val(0);
             $('#IsExportExcel').val(false);
             $('#PlaytechCasinoForm').submit();
@@ -49,10 +53,9 @@ var PlaytechCasino = (function ($) {
             $('#PlaytechCasinoForm').submit();
         },
         goBack: function (context) {
-            var currentLevel = parseInt($("#Level").val(), 10);
+            var currentLevel = parseInt($(".current-level").attr("data-level"), 10);
             var licenseeId = parseInt($("#LicenseeId").val(), 10);
             var goBackLevel = parseInt($(context).attr("data-level"), 10);
-            $("#Level").val(goBackLevel);
 
             if (goBackLevel === 1) { // go back agent level                
                 history.go(-1);
