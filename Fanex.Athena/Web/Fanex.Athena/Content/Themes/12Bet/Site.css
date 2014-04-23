@@ -24,104 +24,7 @@ a:hover
 
 /* End page structure */
 
-/* Report  table*/
 
-table.report-table
-{
-    border-right: 1px solid #A3D1E1;
-    border-top: 1px solid #A3D1E1;
-}
-
-table.report-table tr:hover, tr.hover
-{
-    background: #f8ff8d;
-}
-
-table.report-table td
-{
-    border-left: 1px solid #A3D1E1;
-    border-bottom: 1px solid #A3D1E1;
-    color: #454545;
-}
-
-table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
-{
-    border-top: 2px solid #FFFFFF;
-    background-image: url("images/tab_topbg02.jpg");
-}
-table.report-table tr.report-table-header td, table.report-table tr.report-table-header th
-{
-    background-image: url("images/tab_topbg.gif");
-}
-
-table.report-table tr.report-table-header td:first-child, table.report-table tr.report-table-header-02 td:first-child
-{
-    border-left: 1px solid #A3D1E1;
-}
-
-table.report-table tr.report-table-header td, table.report-table tr.report-table-header th, table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
-{
-    background-color: #C7E9F5;
-    border-left: 1px solid #FFFFFF;
-    color: #024584;
-}
-
-table.report-table tr.report-table-header-double td, table.report-table tr.report-table-header-double th
-{
-    background-color: #C7E9F5;
-    border-left: 1px solid #FFFFFF;
-    color: #024584;
-    background-image: url("images/tab_topbg38.gif");
-}
-
-table.report-table td.league, .league
-{
-    background: url("images/bg_header03.jpg") repeat-x scroll center top #F8F1E9;
-    color: #333333;
-    background-color: #DAE6ED;
-}
-
-table.report-table tr td.report-title
-{
-    background: url(images/icon_content.gif) no-repeat scroll 5px center #FFEFDE;
-    border: 1px solid #A3D1E1;
-}
-
-table.report-table td.highlight
-{
-    background-color: #F8F1A0 !important;
-}
-
-table.report-table tr.no-info td, table.report-table tr.no-info td
-{
-    background-color: #FFFFFF;
-}
-
-table.report-table tr.total-rows td
-{
-    color: #454545;
-}
-
-table.report-table .report-table-footer td
-{
-    background-color: #b2dfef;
-    border-top: 2px solid #ff6600;
-    color: #003333;
-}
-
-table.report-table .report-table-footer-reset-border td
-{
-    border-top: 1px solid #A3D1E1 !important;
-}
-table.report-table .report-table-footer-background-goldenrod-pale td
-{
-    background-color: #F8F1A0 !important;
-}
-tr.tr-background-light-salmon
-{
-    background-color: #FFA07A !important;
-}
-/* End report table*/
 
 /* Link */
 
@@ -329,23 +232,8 @@ div#menu-wraper td.sub-menu:hover
 
 /* End menu */
 
-/* Balance */
 
-table.report-table tr.balance-information
-{
-    border-bottom: 2px solid #FFF;
-}
 
-/* End Balance */
-
-/* Utility */
-
-.downline-link
-{
-    color: #5672AB;
-}
-
-/* End utility*/
 /*
  * Default Layout Theme
  *
@@ -446,29 +334,7 @@ table.report-table tr.balance-information
 /*
  *	TOGGLER-BUTTONS
  */
-/*.ui-layout-toggler
-{
-    border: 1px solid #062359 !important;
-    background: #06F url(images/toggler_icon.jpg) center no-repeat;
-	height: 66px !important;
-}*/
-/*.ui-layout-resizer-hover .ui-layout-toggler
-{
-    border: 1px solid #062359 !important;
-    background: #06F url(images/toggler_icon_hover.jpg) center no-repeat !important;
-	height: 66px !important;
-}*/
-/*.ui-layout-toggler-hover, .ui-layout-resizer-hover .ui-layout-toggler-hover
-{
-    /* need specificity when IS resizable
-    border: 1px solid #062359 !important;
-    background: #06F url(images/toggler_icon_hover.jpg) center no-repeat !important;
-	height: 66px !important;
 
-	background-color: #FC6;
-    opacity: 1.00;
-    filter: alpha(opacity=100);
-} */
 .ui-layout-toggler-north, .ui-layout-toggler-south
 {
     border-width: 0 1px; /*  left/right borders */
@@ -542,98 +408,3 @@ div#header-wrapper div.header div.timer
     cursor: pointer;
 }
 
-/* Mobile Winloss Report */
-.header-main
-{
-    background: url(images/icon_title.gif) no-repeat left top;
-    color: #D2592D;
-}
-
-.box-header
-{
-    background: url("images/bg_boxTop.jpg") repeat-x scroll center top #E7E7E7;
-    border: 1px solid #CACACA;
-}
-
-.content-title
-{
-    background: url(Images/icon_content.gif) no-repeat scroll 5px center #FFEFDE;
-    border: 1px solid #CACACA;
-}
-
-.data-content
-{
-    border-right: 1px solid #A3D1E1;
-}
-
-.total-table
-{
-    border-right: 1px solid #A3D1E1;
-    border-top: 1px solid #A3D1E1;
-}
-
-.total-table td
-{
-    border-left: 1px solid #A3D1E1;
-    border-bottom: 1px solid #A3D1E1;
-    color: #454545;
-}
-
-tr.report-header td, th
-{
-    background-image: url("images/tab_topbg.gif");
-}
-tr.report-header02 td
-{
-    background-image: url("images/tab_topbg02.jpg");
-}
-
-tr.report-header td:first-child, tr.report-header02 td:first-child
-{
-    border-left: 1px solid #A3D1E1;
-}
-tr.report-header td, tr.report-header02 td, tr.report-header th
-{
-    background-color: #C7E9F5;
-    border-left: 1px solid #FFFFFF;
-    color: #024584;
-}
-
-.total-row
-{
-    background-color: #FFFFFF;
-}
-
-.total-row:hover
-{
-    background-color: #f8ff8d;
-}
-
-.total-first-row
-{
-    background-color: #FFFFFF;
-}
-
-.total-first-row td
-{
-    border-top: 2px solid #FF8446 !important;
-}
-
-.total-first-row:hover
-{
-    background-color: #f8ff8d;
-}
-
-td.negative-number
-{
-    color: #ff0000 !important;
-}
-
-.total-in-eur td
-{
-    background-color: #C7E9F5;
-    font-weight: bold;
-    border-top: 2px solid #FF8446 !important;
-}
-
-/* End of Mobile Winloss Report */
