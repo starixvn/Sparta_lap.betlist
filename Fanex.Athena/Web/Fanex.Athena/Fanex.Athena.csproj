@@ -276,6 +276,7 @@
     <Content Include="Content\Global\images\collapse.png" />
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
+    <Content Include="Content\Report\playtechcasino.css" />
     <Content Include="Content\Report\winlossbyleague.css" />
     <Content Include="Scripts\Customer\customers.js" />
     <Content Include="Scripts\Customer\customers.option.js" />
@@ -596,6 +597,7 @@
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.js" />
     <Content Include="Scripts\Plugin\Note\note.js" />
     <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
+    <Content Include="Scripts\Report\playtechcasino.js" />
     <Content Include="Scripts\Report\balance.js" />
     <Content Include="Scripts\Report\winlossbyleague.js" />
     <Content Include="Scripts\Report\winlossbyleague.option.js" />
@@ -1057,6 +1059,12 @@
     <Content Include="Views\Header\Index.cshtml" />
     <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
     <Content Include="Views\Customer\Customers.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Filter.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Main.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Header.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

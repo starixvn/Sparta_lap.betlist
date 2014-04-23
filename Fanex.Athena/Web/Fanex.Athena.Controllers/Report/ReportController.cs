@@ -50,6 +50,7 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ITurnoverService _turnoverService;
         private readonly IWinLossByBetTypeServive _winLossByBetTypeService;
         private readonly IBetTypeService _betTypeService;
+        private readonly IPlaytechCasinoService _playtechCasinoService;
 
         private readonly ISportTypeService _sportTypeService;
         private readonly ILeagueService _leagueService;
@@ -82,6 +83,7 @@ namespace Fanex.Athena.Controllers.Report
             this._betTypeService = new BetTypeService();
             this._leagueService = new LeagueService();
             this._matchService = new MatchService();
+            this._playtechCasinoService = new PlaytechCasinoService();
         }
 
         [HttpPost]

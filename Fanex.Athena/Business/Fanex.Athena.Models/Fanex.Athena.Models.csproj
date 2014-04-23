@@ -129,6 +129,7 @@
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
+    <Compile Include="DTO\Report\PlaytechCasino.cs" />
     <Compile Include="DTO\Report\WinLossByLeague.cs" />
     <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
     <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="MetaModel\Report\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
+    <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\Report\CustomerWinlossHistoryMetaModel.cs" />
     <Compile Include="MetaModel\Report\LiveReportMatchListMetalModel.cs" />
@@ -282,6 +284,7 @@
     </Compile>
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\Report\BalanceViewModel.cs" />
+    <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\Report\ResultReportViewModel.cs" />

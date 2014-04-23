@@ -4813,6 +4813,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playtech Casino.
+        /// </summary>
+        public static string PlaytechCasino {
+            get {
+                return ResourceManager.GetString("PlaytechCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postponed.
         /// </summary>
         public static string Postponed {

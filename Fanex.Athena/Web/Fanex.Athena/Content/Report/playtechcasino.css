@@ -1,0 +1,13 @@
+﻿/* File Created: April 22, 2014 */
+.data-content {
+}
+#data-total {
+	border-top: 2px solid #FF6600;
+}
+.total-content {
+	border-top: none !important;	
+}
+.drill-down-link {
+	cursor: pointer;
+	color: #1E1EEB;
+}

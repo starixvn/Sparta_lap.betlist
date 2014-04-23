@@ -6,11 +6,31 @@
 
 namespace Fanex.Athena.Models.MetaModel.Report
 {
+    using System;
+
     /// <summary>
     /// PLAYTECH Casino Meta Model.
     /// </summary>
     public class PlaytechCasinoMetaModel : BaseReportMetaModel
     {
+        public DateTime DrillDownFromDate { get; set; }
+
+        public DateTime DrillDownToDate{ get; set; }
+
+        public int DrillDownCurrency { get; set; }
+
         public byte ReportBy { get; set; }
+
+        public int CustId { get; set; }
+
+        public int Level { get; set; }
+
+        public override bool IsValid
+        {
+            get
+            {
+                return FromDate <= ToDate;
+            }
+        }
     }
 }

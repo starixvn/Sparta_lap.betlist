@@ -132,6 +132,7 @@
     <Compile Include="Implement\Common\LeagueService.cs" />
     <Compile Include="Implement\Common\ExChangeRateService.cs" />
     <Compile Include="Implement\Keno\KenoApi.cs" />
+    <Compile Include="Implement\Report\PlaytechCasinoService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
     <Compile Include="Interface\Casino\IRNGCasinoService.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Interface\BetList\IBetListService.cs" />
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
+    <Compile Include="Interface\Report\IPlaytechCasinoService.cs" />
     <Compile Include="Interface\Report\IWinLossByLeagueService.cs" />
     <Compile Include="Interface\Report\IResultService.cs" />
     <Compile Include="Interface\TotalBets\IFirstGoalLastGoalService.cs" />

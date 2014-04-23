@@ -388,7 +388,7 @@ bool addBasedOption = false)
 }
 @helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
     {
-    @(ViewResources.Viewin + " " + (converter ? BaseCurrency.ToUpper() : CurrencyName.ToUpper()))
+    @(ViewResources.Viewin + " " + (converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 @helper ViewInCurrency(int currenceId, string currencyName)
     {

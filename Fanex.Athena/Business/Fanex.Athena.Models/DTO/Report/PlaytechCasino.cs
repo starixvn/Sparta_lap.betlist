@@ -15,17 +15,31 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         public DateTime WinlossDate { get; set; }
 
+        public int CustId { get; set; }
+
         public string ExternalId { get; set; }
 
         public string SystemId { get; set; }
 
-        public string Currency { get; set; }
+        public int CurrencyId { get; set; }
+
+        public string CurrencyName { get; set; }
 
         public decimal Turnover { get; set; }
 
         public int TotalTrans { get; set; }
 
         public decimal CustomerWinLoss { get; set; }
+
+        public decimal CustomerComm { get; set; }
+
+        public decimal CustomerTotal
+        {
+            get
+            {
+                return CustomerWinLoss + CustomerComm;
+            }
+        }
 
         public decimal LicenseeWinLoss { get; set; }
     }
