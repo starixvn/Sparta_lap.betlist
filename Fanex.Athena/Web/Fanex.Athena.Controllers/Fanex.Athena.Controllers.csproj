@@ -94,7 +94,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
@@ -129,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountController.cs" />
-    <Compile Include="AuthorizationController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
     <Compile Include="BetList\BetListController.cs" />
@@ -152,16 +150,13 @@
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportController.PlaytechCasino.cs" />
-    <Compile Include="MenuController.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.ResultPage.cs" />
     <Compile Include="Forecast\ForecastController.NewHandicapOverUnder.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="UtilityController.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
+    <Compile Include="UtilityController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.GroupCommission.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />

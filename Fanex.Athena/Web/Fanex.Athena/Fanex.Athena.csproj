@@ -62,13 +62,6 @@
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\DLLs\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="HandHistoryLibrary, Version=1.0.0.43, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\HandHistoryLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCasinoLibrary">
-      <HintPath>..\..\..\DLLs\Casino\LiveCasinoLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
       <HintPath>..\..\..\DLLs\Casino\log4net.dll</HintPath>
     </Reference>
@@ -100,10 +93,6 @@
     </Reference>
     <Reference Include="RSACryptoPad">
       <HintPath>..\..\..\DLLs\3rds\RSACryptoPad.dll</HintPath>
-    </Reference>
-    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -175,88 +164,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form\GenHistoryImg.aspx.cs">
-      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
-      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_BJ.aspx.cs">
-      <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Champions.aspx.cs">
-      <DependentUpon>HistoryImage_Champions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_ePoker.aspx.cs">
-      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Holdem.aspx.cs">
-      <DependentUpon>HistoryImage_Holdem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_MiniRoulette.aspx.cs">
-      <DependentUpon>HistoryImage_MiniRoulette.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_PokerWheel.aspx.cs">
-      <DependentUpon>HistoryImage_PokerWheel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Scratch.aspx.cs">
-      <DependentUpon>HistoryImage_Scratch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Taizen.aspx.cs">
-      <DependentUpon>HistoryImage_Taizen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_TattooArt.aspx.cs">
-      <DependentUpon>HistoryImage_TattooArt.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\GenImage\LiveGenHistoryImg.aspx.cs">
-      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\HistoryImage_ePoker.aspx.cs">
-      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Form\LiveGenHistoryImg.aspx.cs">
-      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sso.aspx.cs">
-      <DependentUpon>sso.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessDenied.aspx" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
     <Content Include="Content\BetList\betlist.core.css" />
@@ -315,7 +244,6 @@
     <Content Include="Content\Forecast\images\plus.png" />
     <Content Include="Content\Forecast\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
-    <Content Include="Content\Global\images\arrow-back.png" />
     <Content Include="Content\Global\images\bg_clock.jpg" />
     <Content Include="Content\Global\images\btDown.png" />
     <Content Include="Content\Global\images\btRefresh.png" />
@@ -323,18 +251,9 @@
     <Content Include="Content\Global\images\down.png" />
     <Content Include="Content\Global\images\error2.png" />
     <Content Include="Content\Global\images\flag_en-US.png" />
-    <Content Include="Content\Global\images\flag_ko-KR.png" />
     <Content Include="Content\Global\images\flag_zh-CN.png" />
     <Content Include="Content\Global\images\flag_zh-TW.png" />
-    <Content Include="Content\Global\images\UnderMaintenance.gif" />
     <Content Include="Content\Global\images\up.png" />
-    <Content Include="Content\Layout\images\Checked.png" />
-    <Content Include="Content\Layout\images\Chrome.png" />
-    <Content Include="Content\Layout\images\close_hover.png" />
-    <Content Include="Content\Layout\images\close_icon.png" />
-    <Content Include="Content\Layout\images\Firefox.png" />
-    <Content Include="Content\Layout\images\IE.png" />
-    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -357,86 +276,8 @@
     <Content Include="Content\Global\images\collapse.png" />
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
+    <Content Include="Content\Report\playtechcasino.css" />
     <Content Include="Content\Report\winlossbyleague.css" />
-    <Content Include="Content\SignIn\images\bg-loop.png" />
-    <Content Include="Content\SignIn\images\bg-main.png" />
-    <Content Include="Content\SignIn\images\bg.png" />
-    <Content Include="Content\SignIn\images\bot.png" />
-    <Content Include="Content\SignIn\images\btn-hover.png" />
-    <Content Include="Content\SignIn\images\btn.png" />
-    <Content Include="Content\SignIn\images\captcha.png" />
-    <Content Include="Content\SignIn\images\close.png" />
-    <Content Include="Content\SignIn\images\go.png" />
-    <Content Include="Content\SignIn\images\loop.png" />
-    <Content Include="Content\SignIn\images\top.png" />
-    <Content Include="Content\SignIn\SignIn.css" />
-    <Content Include="Content\Utility\ChangePass.css" />
-    <Content Include="Content\Utility\images\banner.jpg" />
-    <Content Include="Content\Utility\images\bg.jpg" />
-    <Content Include="Content\Utility\images\bg_btn_login.png" />
-    <Content Include="Content\Utility\images\bg_btn_login_o.png" />
-    <Content Include="Content\Utility\images\bg_header.jpg" />
-    <Content Include="Content\Utility\images\bg_main.jpg" />
-    <Content Include="Content\Utility\images\bg_menu.jpg" />
-    <Content Include="Content\Utility\images\bg_title.jpg" />
-    <Content Include="Content\Utility\images\bg_title1.jpg" />
-    <Content Include="Content\Utility\images\border.png" />
-    <Content Include="Content\Utility\images\box.jpg" />
-    <Content Include="Content\Utility\images\box.png" />
-    <Content Include="Content\Utility\images\btnlogin.gif" />
-    <Content Include="Content\Utility\images\but.png" />
-    <Content Include="Content\Utility\images\but1.png" />
-    <Content Include="Content\Utility\images\emsg_1_1.gif" />
-    <Content Include="Content\Utility\images\emsg_1_2.gif" />
-    <Content Include="Content\Utility\images\emsg_1_3.gif" />
-    <Content Include="Content\Utility\images\emsg_2_1.gif" />
-    <Content Include="Content\Utility\images\emsg_2_2.gif" />
-    <Content Include="Content\Utility\images\emsg_3_1.gif" />
-    <Content Include="Content\Utility\images\emsg_3_2.gif" />
-    <Content Include="Content\Utility\images\emsg_3_3.gif" />
-    <Content Include="Content\Utility\images\error-icon.gif" />
-    <Content Include="Content\Utility\images\icon_pen.gif" />
-    <Content Include="Content\Utility\images\index_fotbg.gif" />
-    <Content Include="Content\Utility\images\index_logo.jpg" />
-    <Content Include="Content\Utility\images\index_pic01.jpg" />
-    <Content Include="Content\Utility\images\index_pic02.jpg" />
-    <Content Include="Content\Utility\images\index_pic03.jpg" />
-    <Content Include="Content\Utility\images\index_pic04.jpg" />
-    <Content Include="Content\Utility\images\logo.png" />
-    <Content Include="Content\Utility\images\message-content-bg.png" />
-    <Content Include="Content\Utility\images\message-content-bottom.png" />
-    <Content Include="Content\Utility\images\restriction.png" />
-    <Content Include="Content\Utility\images\session-timeout.png" />
-    <Content Include="Content\Utility\images\Success.gif" />
-    <Content Include="Content\Utility\images\succ_1_1.gif" />
-    <Content Include="Content\Utility\images\succ_1_2.gif" />
-    <Content Include="Content\Utility\images\succ_1_3.gif" />
-    <Content Include="Content\Utility\images\succ_2_1.gif" />
-    <Content Include="Content\Utility\images\succ_2_2.gif" />
-    <Content Include="Content\Utility\images\succ_3_1.gif" />
-    <Content Include="Content\Utility\images\succ_3_2.gif" />
-    <Content Include="Content\Utility\images\succ_3_3.gif" />
-    <Content Include="Content\Utility\images\valid.png" />
-    <Content Include="Content\Utility\LocationRestriction.css" />
-    <Content Include="Content\Utility\SelectLicensee.css" />
-    <Content Include="Form\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\GenHistoryImg.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_BJ.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Champions.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx" />
-    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx" />
-    <Content Include="Form\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\LiveGenHistoryImg.aspx" />
-    <Content Include="Scripts\ChangePass.js" />
-    <Content Include="Scripts\BetList\outstandingrunningbetlist.js" />
     <Content Include="Scripts\Customer\customers.js" />
     <Content Include="Scripts\Customer\customers.option.js" />
     <Content Include="Scripts\Header\header.js" />
@@ -447,7 +288,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="Scripts\Menu\Menu.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
     <Content Include="Scripts\Library\BigDecimal-all-last.min.js" />
     <Content Include="Content\Plugin\Note\images\note.png" />
@@ -781,7 +621,6 @@
     <Content Include="Scripts\Report\report.js" />
     <Content Include="Scripts\Report\winlossbybettype.js" />
     <Content Include="Scripts\Report\turnover.js" />
-    <Content Include="Scripts\SignIn\SignIn.js" />
     <Content Include="Scripts\TotalBets\firstgoallastgoal.js" />
     <Content Include="Scripts\TotalBets\halftimefulltime.js" />
     <Content Include="Scripts\TotalBets\handicapoverunder.js" />
@@ -795,11 +634,9 @@
     <Content Include="Scripts\TotalBets\totalgoal.js" />
     <Content Include="Scripts\WareHouse\topcustomer.js" />
     <Content Include="Scripts\WareHouse\winloss.js" />
+    <Content Include="Default.aspx" />
     <Content Include="Content\Report\balance.css" />
-    <Content Include="sso.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="under-maintenance.gif" />
+    <Content Include="Test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -865,7 +702,6 @@
     <None Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
     <None Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
     <None Include="App_Data\Template\Reports\Balance.xls" />
-    <None Include="App_Data\Template\Reports\PlaytechCasino.xls" />
     <None Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <None Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
     <None Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />
@@ -879,7 +715,7 @@
     <None Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
     <None Include="DBConnectionData\GlobalSetting.ini" />
-    <None Include="Integrate\RSAPrivateKey\12bet.snk" />
+    <Content Include="lrf-old.zip" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Customer\Filter.cshtml" />
@@ -1229,17 +1065,6 @@
     <Content Include="Views\Report\PlaytechCasino\Content.Header.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.Title.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\IndexIpad.cshtml" />
-    <Content Include="Views\Utility\SSODenyAccess.cshtml" />
-    <Content Include="Views\Utility\Error.cshtml" />
-    <Content Include="Views\Utility\UnderMaintenance.cshtml" />
-    <Content Include="Views\Authorization\SignIn.cshtml" />
-    <Content Include="Views\Utility\LocationRestriction.cshtml" />
-    <Content Include="Views\Utility\SelectLicensee.cshtml" />
-    <Content Include="Views\Utility\ChangePass.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

@@ -15,13 +15,11 @@ namespace Fanex.Athena.Models.MetaModel.Report
     {
         public DateTime DrillDownFromDate { get; set; }
 
-        public DateTime DrillDownToDate { get; set; }
+        public DateTime DrillDownToDate{ get; set; }
 
         public int DrillDownCurrency { get; set; }
 
         public byte ReportBy { get; set; }
-
-        public bool IsExcludedTestData { get; set; }
 
         public int CustId { get; set; }
 

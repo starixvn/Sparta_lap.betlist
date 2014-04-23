@@ -3,48 +3,46 @@
 }
 @using Fanex.Athena.Models.ViewModel
 @model Fanex.Athena.Models.ViewModel.Report.PlaytechCasinoViewModel
-<div id="ContentMainHeader" style="width:@(ViewBag.WrapperWidth)@("px");">
-    <table cellpadding="0" cellspacing="0" class="report-table" style="width:@(ViewBag.ContainerWidth)@("px");">
-        <tr class="report-header" style="width:@(ViewBag.ContainerWidth - 1)@("px");">
-            <td class="row" style="width:@ViewBag.NumberWidth@("px")">
-                #
-            </td>
-            @if (Model.Param.Level == 0)
-            {
-                <td class="row">
-                    @ViewResources.Date
-                </td>        
-            }
-            @if (Model.Param.Level == 1)
-            {    
-                <td class="row">
-                    @ViewResources.SystemId
-                </td>
-            }
-            @if (Model.Param.Level == 2)
-            {
-                <td class="row">
-                    @ViewResources.ExternalId
-                </td>    
-                <td class="row" style="width:@ViewBag.SystemIdWidth@("px")">
-                    @ViewResources.SystemId
-                </td>
-            }
-            <td class="row" style="width:@ViewBag.CurrencyWidth@("px")">
-                @ViewResources.Currency
-            </td>
-            <td class="row" style="width:@ViewBag.TurnoverWidth@("px")">
-                @ViewResources.Turnover
-            </td>
-            <td class="row" style="width:@ViewBag.TotalTransWidth@("px")">
-                @ViewResources.TotalTransaction
-            </td>
-            <td class="row" style="width:@ViewBag.CustomerWLWidth@("px")">
-                @ViewResources.CustomerW_L
-            </td>
-            <td class="row" style="width:@ViewBag.LicenseeWLWidth@("px")">
-                @ViewResources.LicenseeW_L
-            </td>
-        </tr>
-    </table>
-</div>
+<table cellpadding="0" cellspacing="0">
+    <tr id="header-content" class="header-content" style="width:@(ViewBag.ContainerWidth - 1)@("px");">
+        <td class="row" style="width:@ViewBag.NumberWidth@("px")">
+            #
+        </td>
+        @if (Model.Param.Level == 0)
+        {
+        <td class="row" style="width:@ViewBag.DateWidth@("px")">
+            @ViewResources.Date
+        </td>        
+        }
+        @if (Model.Param.Level == 1)
+        {    
+        <td class="row" style="width:@ViewBag.SystemIdWidth@("px")">
+            @ViewResources.SystemId
+        </td>
+        }
+        @if (Model.Param.Level == 2)
+        {
+        <td class="row" style="width:@ViewBag.ExternalIdWidth@("px")">
+            @ViewResources.ExternalId
+        </td>    
+        <td class="row" style="width:@ViewBag.SystemIdWidth@("px")">
+            @ViewResources.SystemId
+        </td>
+        }
+        <td class="row" style="width:@ViewBag.CurrencyWidth@("px")">
+            @ViewResources.Currency
+        </td>
+        <td class="row" style="width:@ViewBag.TurnoverWidth@("px")">
+            @ViewResources.Turnover
+        </td>
+        <td class="row" style="width:@ViewBag.TotalTransWidth@("px")">
+            @ViewResources.TotalTransaction
+        </td>        
+        <td class="row" style="width:@ViewBag.CustomerWLWidth@("px")">
+            @ViewResources.CustomerW_L            
+        </td>
+        <td class="row" style="width:@ViewBag.LicenseeWLWidth@("px")">
+            @ViewResources.LicenseeW_L            
+        </td>   
+    </tr>    
+</table>

@@ -6,37 +6,38 @@
 @using Fanex.Athena.Extension.Helper
 @using Fanex.Athena.Models.ViewModel
 @model Fanex.Athena.Models.ViewModel.Report.PlaytechCasinoViewModel
-@{
+@if (Model.MainData == null || Model.MainData.Count == 0)
+{
+    <!--No result-->
+    <div class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
+        <div class="row grid-noinfo "style="width:@ViewBag.ContainerWidth@("px");">
+            <div>
+                @ViewResources.NoInfo
+            </div>
+        </div>
+    </div>
+}
+else
+{
     var rowNumber = 1;
     var formatDateString = Model.Param.ReportBy == Fanex.Athena.Models.DataDomain.ReportByType.Monthly ? "MM/yyyy" : "MM/dd/yyyy";
-    <div id="ContentMainContent" class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:@(maxHeight)px">
-        <table id="data-content" class="report-table" cellpadding="0" cellspacing="0" style="width:@(ViewBag.ContainerWidth)@("px");">
-            @if (Model.MainData == null || Model.MainData.Count == 0)
+    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:@(maxHeight)px">
+        <table cellpadding="0" cellspacing="0">
+            @foreach (var item in Model.MainData)
             {
-                <tr class="no-info">
-                    <td class="no-info" colspan="@(Model.Param.Level == 2 ? 8 : 7)">
-                        @ViewResources.NoInfo
-                    </td>
-                </tr>                           
-            }
-            else
-            {
-                foreach (var item in Model.MainData)
-                {
                 <tr class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
-                    <td class="row
-                    title-text" style="width:@ViewBag.NumberWidth@("px")">
+                    <td class="row title-text" style="width:@ViewBag.NumberWidth@("px")">
                         @rowNumber
                     </td>
                     @if (Model.Param.Level == 0)
                     {
-                        <td class="row title-text">
+                        <td class="row title-text" style="width:@ViewBag.DateWidth@("px");">
                             @item.WinlossDate.ToString(formatDateString)
                         </td>   
                     }
                     @if (Model.Param.Level == 1)
                     {    
-                        <td class="row text-data">
+                        <td class="row text-data" style="width:@ViewBag.SystemIdWidth@("px")">
                             <span class="drill-down-link" data-level="2" data-currency="@item.CurrencyId" data-custid="@item.CustId">
                                 @item.SystemId
                             </span>
@@ -44,7 +45,7 @@
                     }
                     @if (Model.Param.Level == 2)
                     {
-                        <td class="row text-data">
+                        <td class="row text-data" style="width:@ViewBag.ExternalIdWidth@("px")">
                             @item.ExternalId
                         </td>    
                         <td class="row text-data" style="width:@ViewBag.SystemIdWidth@("px")">
@@ -54,9 +55,10 @@
                     <td class="row title-text" style="width:@ViewBag.CurrencyWidth@("px")">
                         @if (Model.Param.Level == 0)
                         {
-                            <span class="drill-down-link" data-level="@(Model.Param.LicenseeId == 1 ? 1 : 2)" data-currency="@item.CurrencyId" data-custid="@item.CustId" data-date="@item.WinlossDate.ToShortDateString()">
-                                @item.CurrencyName
-                            </span>
+                        <span class="drill-down-link" data-level="@(Model.Param.LicenseeId == 1 ? 1 : 2)" data-currency="@item.CurrencyId" 
+                            data-custid="@item.CustId" data-date="@item.WinlossDate.ToShortDateString()">
+                            @item.CurrencyName
+                        </span>
                         }
                         else
                         {
@@ -76,8 +78,7 @@
                         @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
                     </td>
                 </tr>
-                        rowNumber++;
-                }
+                    rowNumber++;
             }
         </table>
     </div>
