@@ -839,7 +839,6 @@
     <Content Include="Views\WareHouse\WinLoss\Filter.cshtml" />
     <Content Include="Views\WareHouse\WinLoss\Main.cshtml" />
     <Content Include="Views\Note\Warehouse.cshtml" />
-    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Report\Turnover\Content.Data.Empty.cshtml" />
     <Content Include="Views\Account\ChangeLicensee.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />

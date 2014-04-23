@@ -37,7 +37,7 @@ var CustomerList = (function ($) {
             return;
         }
 
-        list.html(level);
+        list.html(level === 0 ? Site.getSingleResource("None") : level);
         var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
         list.attr('class', 'level-' + level);
         var param =
