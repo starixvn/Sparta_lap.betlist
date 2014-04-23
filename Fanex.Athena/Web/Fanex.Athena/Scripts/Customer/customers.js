@@ -485,7 +485,6 @@ var CustomerList = (function ($) {
             var statusLink = $("#edit-cust-status-" + custId);
             var popup = $("#update-cust-status-popup");
 
-
             if (popup.attr("custid") === custId) {
                 popup.toggle();
             }
@@ -493,7 +492,6 @@ var CustomerList = (function ($) {
                 var isClosed = statusLink.attr("isclosed").toLowerCase() === "true";
                 var isSuspended = statusLink.attr("issuspended").toLowerCase() === "true";
                 var externalId = statusLink.attr("externalid");
-
 
                 $("#popup-external-id").html(externalId);
                 $("#popup-suspended").prop('checked', isSuspended);

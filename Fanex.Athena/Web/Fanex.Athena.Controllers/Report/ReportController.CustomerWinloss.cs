@@ -41,7 +41,8 @@ namespace Fanex.Athena.Controllers.Report
                 LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
                 DrawFilter = DrawFilterType.Normal
             };
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+
+            SetConvetedUSDCurrencyName(metaModel);            
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
