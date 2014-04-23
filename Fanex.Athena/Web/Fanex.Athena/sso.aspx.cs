@@ -8,16 +8,10 @@ using Fanex.Athena.Service.Implement.Integration;
 
 public partial class sso : System.Web.UI.Page
 {
-    private IMaintenanceService _maintenanceService = new MaintenanceService();
-    private ILanguageService langService = new LanguageService();
-    protected override void InitializeCulture()
-    {
-        base.InitializeCulture();
-        var currentLanguage = langService.GetCurrentLanguage();
-        langService.SetPageCulture(currentLanguage);
-    }
     protected override void OnLoad(EventArgs e)
     {
+        IMaintenanceService _maintenanceService = new MaintenanceService();
+
         if (_maintenanceService.MaintenanceInfo.IsDownTime)
         {
             Server.Transfer("~/Utility/UnderMaintenance");
