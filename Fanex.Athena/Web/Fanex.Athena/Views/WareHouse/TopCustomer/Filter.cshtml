@@ -8,7 +8,7 @@
 @model Fanex.Athena.Models.ViewModel.Warehouse.TopCustomerViewModel
 @{
     var maxDate = (DateTime)ViewBag.MaxDate;
-    var minDate = maxDate.AddMonths(-3);
+    var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
     @using (Html.BeginForm("TopCustomer", "WareHouse", FormMethod.Post, new { @id = "TopCustomerForm" }))
@@ -98,7 +98,7 @@
         <div class="grid_3 filter-label new-line">
             &nbsp;</div>
         <div class="grid_2 filter-input">
-            <input type="submit" id="SubmitButton" value="@ViewResources.Submit" class="button blockui" />
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
     }
 </div>
