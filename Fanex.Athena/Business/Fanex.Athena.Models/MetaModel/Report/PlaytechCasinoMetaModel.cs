@@ -13,6 +13,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
     /// </summary>
     public class PlaytechCasinoMetaModel : BaseReportMetaModel
     {
+
+
         public DateTime DrillDownFromDate { get; set; }
 
         public DateTime DrillDownToDate { get; set; }
@@ -20,6 +22,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         public int DrillDownCurrency { get; set; }
 
         public byte ReportBy { get; set; }
+
 
         public bool IsExcludedTestData { get; set; }
 
