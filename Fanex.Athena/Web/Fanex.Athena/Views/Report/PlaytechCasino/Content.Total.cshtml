@@ -8,18 +8,19 @@
 @if (Model.MainData != null && Model.MainData.Count > 0)
 {  
     var isFirst = true;
-    <div id="data-total" class="data-content">
-        <table cellpadding="0" cellspacing="0">
+    var colSpan = Model.Param.Level == 2 ? 3 : 2;
+    <div id="ContentMainFooter" style="width:@(ViewBag.WrapperWidth)@("px");">
+        <table id="TableTotal" class="total-table" cellpadding="0" cellspacing="0" style="width:@(ViewBag.ContainerWidth)@("px");">
             @foreach (var item in Model.TotalData)
             {
-                <tr class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
-                   @* @if(isFirst)
+                <tr class="total-rows bold @(isFirst ? "total-first-row" : string.Empty)" style="width:@ViewBag.ContainerWidth@("px");">
+                    @if(isFirst)
                     {
-                        isFirst = false;*@
-                    <td class="row title-text" rowspan="@Model.TotalData.Count" style="width:@ViewBag.TotalWidth@("px")">
+                        isFirst = false;
+                    <td class="row title-text" rowspan="@Model.TotalData.Count" colspan="@(colSpan++)">
                         @ViewResources.Total
                     </td>
-                    @*}*@
+                    }
                     <td class="row title-text" style="width:@ViewBag.CurrencyWidth@("px")">
                         @item.CurrencyName
                     </td>
@@ -35,10 +36,10 @@
                     <td class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
                         @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
                     </td>
-                </tr>
+                </tr>                
             }
-            <tr class="total-content" style="width:@ViewBag.ContainerWidth@("px");border-bottom: 1px solid #A3D1E1;">
-                <td class="row title-text" style="width:@ViewBag.GrantTotalWidth@("px")">
+            <tr class="total-rows grant-total-row" style="width:@ViewBag.ContainerWidth@("px")">
+                <td class="row title-text" colspan="@colSpan">
                     @ViewResources.Totalin @ViewResources.USD
                 </td>
                 <td class="row" style="width:@ViewBag.TurnoverWidth@("px")">
@@ -50,12 +51,12 @@
                 <td class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
                     <div>@Model.TotalInUsd.CustomerWinLoss.ToStringExt()</div>
                 </td>
-                <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth+2)@("px")">
+                <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
                     @FormatHelper.NegativeFormat(Model.TotalInUsd.LicenseeWinLoss)
                 </td>
             </tr>
-            <tr class="total-content" style="width:@ViewBag.ContainerWidth@("px");">
-                <td class="row title-text" style="width:@ViewBag.GrantTotalWidth@("px")">
+            <tr class="total-rows grant-total-row" style="width:@ViewBag.ContainerWidth@("px");">
+                <td class="row title-text" colspan="@colSpan">
                     @ViewResources.Totalin @ViewResources.EUR
                 </td>
                 <td class="row" style="width:@ViewBag.TurnoverWidth@("px")">
@@ -67,7 +68,7 @@
                 <td class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
                     <div>@Model.TotalInEur.CustomerWinLoss.ToStringExt()</div>
                 </td>
-                <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth + 2)@("px")">
+                <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
                     @FormatHelper.NegativeFormat(Model.TotalInEur.LicenseeWinLoss)
                 </td>
             </tr>
