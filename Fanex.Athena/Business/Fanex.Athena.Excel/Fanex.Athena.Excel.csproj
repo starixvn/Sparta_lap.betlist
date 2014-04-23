@@ -105,6 +105,7 @@
     <Compile Include="BetList\BetListExcel.cs" />
     <Compile Include="BetList\LrfBetListExcelBuilder.cs" />
     <Compile Include="Customer\CustomerListExcel.cs" />
+    <Compile Include="Report\PlaytechCasinoExcel.cs" />
     <Compile Include="Report\WinlossByLeagueExcel.cs" />
     <Compile Include="Report\CustomerBalanceExcel.cs" />
     <Compile Include="Report\CustomerCommGroup.cs" />

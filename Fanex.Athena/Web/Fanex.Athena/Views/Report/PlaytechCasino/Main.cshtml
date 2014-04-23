@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = string.Format("LRF - {0} - {1} {2}", ViewResources.Report, ViewResources.PlaytechCasino, ViewResources.WinLoss);
-    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    Layout = "~/Views/Shared/_ReportTableLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.DTO.Common
@@ -28,7 +28,6 @@
     ViewBag.LicenseeWLWidth = 100;
 
     ViewBag.ColumnWidth = Model.Param.Level == 2 ? 8 : 7;
-    ViewBag.TotalColumn = Model.Param.Level == 2 ? 2 : 1;
 
     ViewBag.ContainerWidth = ViewBag.NumberWidth;// +ViewBag.DateWidth + ViewBag.SystemIdWidth + ViewBag.ExternalIdWidth;
     
@@ -45,7 +44,7 @@
             break;
     }
 
-    ViewBag.TotalWidth = ViewBag.ContainerWidth + ViewBag.TotalColumn;
+    ViewBag.TotalWidth = ViewBag.ContainerWidth + ViewBag.ColumnWidth;
     ViewBag.GrantTotalWidth = ViewBag.TotalWidth + ViewBag.CurrencyWidth;
     ViewBag.ContainerWidth += ViewBag.CurrencyWidth + ViewBag.TurnoverWidth + ViewBag.TotalTransWidth + ViewBag.CustomerWLWidth + ViewBag.LicenseeWLWidth;    
 

@@ -702,6 +702,7 @@
     <None Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
     <None Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
     <None Include="App_Data\Template\Reports\Balance.xls" />
+    <None Include="App_Data\Template\Reports\PlaytechCasino.xls" />
     <None Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <None Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
     <None Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />
@@ -1065,6 +1066,7 @@
     <Content Include="Views\Report\PlaytechCasino\Content.Header.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Title.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

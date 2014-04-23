@@ -299,4 +299,9 @@ td.negative-number
     border-top: 2px solid #FF8446 !important;
 }
 
+.grant-total-row 
+{
+    background-color: #C7E9F5;
+    font-weight: bold;
+}
 /* End report table*/

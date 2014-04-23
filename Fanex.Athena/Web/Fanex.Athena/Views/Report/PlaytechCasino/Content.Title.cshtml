@@ -1,0 +1,31 @@
+﻿@model Fanex.Athena.Models.ViewModel.Report.PlaytechCasinoViewModel
+@{
+    var param = Model.Param;
+}
+@if (Model.Param.Level > 0)
+{
+    <div class="breadCrumbHolder module" style="width:@ViewBag.WrapperWidth@("px");">
+        <div class="breadCrumb module" id="level-link-container" style="width:@ViewBag.WrapperWidth@("px");">
+            <ul>
+                <li data-level="0" class="level-link">@ViewResources.Main</li>
+                @if (Model.Param.Level == 1)
+                {
+                    <li data-level="1" class="">@ViewResources.Licensee</li>
+                }
+                @if (Model.Param.Level == 2)
+                {   
+                    if(Model.Param.LicenseeId == 1)
+                    {
+                        <li data-level="1" class="level-link">@ViewResources.Licensee</li>
+                    }
+                    <li data-level="2" class="">@ViewResources.Customer </li>
+                }                
+            </ul>
+        </div>
+    </div>
+}
+<div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
+    @ViewResources.PlaytechCasino @ViewResources.WinLoss,
+    @RazorHelper.TitleDateTime(param.FromDate, param.ToDate)
+    - @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName ?? ViewResources.AllCurrencies)
+</div>

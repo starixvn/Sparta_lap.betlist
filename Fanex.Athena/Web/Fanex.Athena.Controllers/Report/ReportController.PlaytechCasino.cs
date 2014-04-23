@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.CustomerPendingFunds.cs" company="Nexcel">
+// <copyright file="ReportController.PlaytechCasino.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,18 +7,20 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
+    using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
-    using Fanex.Athena.Models.DTO.Report;
-    using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// The PLAYTECH Casino controller.
@@ -66,6 +68,7 @@ namespace Fanex.Athena.Controllers.Report
         [ValidateInput(false)]
         public ActionResult PlaytechCasino(PlaytechCasinoMetaModel metaModel)
         {
+            IPlaytechCasinoService playtechCasinoService = new PlaytechCasinoService();
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.BaseCurrency = metaModel.CurrencyId == -1 ? "EUR" : metaModel.CurrencyId == -2 ? "USD" : string.Empty;
@@ -83,13 +86,13 @@ namespace Fanex.Athena.Controllers.Report
             switch (metaModel.Level)
             {
                 case 0:
-                    dataList = _playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd);
                     break;
                 case 1:
-                    dataList = _playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd);
                     break;
                 default:
-                    dataList = _playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd);
                     break;
             }
 
@@ -105,6 +108,11 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
+            if (metaModel.IsExportExcel)
+            {
+                return PlaytechCasinoExcel(model);
+            }
+
             return View("~/Views/Report/PlaytechCasino/Main.cshtml", model);
         }
 
@@ -118,11 +126,11 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="viewModel">The view model.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult PlaytechCasinoExcel(CustomerPendingFundsViewModel viewModel)
+        public ActionResult PlaytechCasinoExcel(PlaytechCasinoViewModel viewModel)
         {
-            const string FileName = "CustomerPendingFunds";
+            const string FileName = "PlaytechCasino";
 
-            var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerPendingFunds.xls");
+            var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/PlaytechCasino.xls");
             if (!System.IO.File.Exists(templatePath))
             {
                 throw new FileNotFoundException(templatePath);
@@ -135,14 +143,19 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyName = viewModel.Param.CurrencyName
                 };
 
-            var custPendingFundsExcel = new CustomerPendingFundsExcel(templatePath, FileName, convertingOption, viewModel);
-            custPendingFundsExcel.Export();
+            var playtechCasinoExcel = new PlaytechCasinoExcel(templatePath, FileName, convertingOption, viewModel);
+            playtechCasinoExcel.Export();
 
-            return new ExcelResult(custPendingFundsExcel.Workbook, FileName);
+            return new ExcelResult(playtechCasinoExcel.Workbook, FileName);
         }
 
         #endregion Export excel
 
+        /// <summary>
+        /// Get total data list.
+        /// </summary>
+        /// <param name="dataList">Data list value.</param>
+        /// <returns>Data list.</returns>
         private IList<PlaytechCasino> GetTotalDataList(IList<PlaytechCasino> dataList)
         {
             return dataList.GroupBy(d => d.CurrencyName)
