@@ -162,7 +162,6 @@ var CustomerList = (function ($) {
             }
         }
 
-        console.log(gridOption.colModel.length, gridOption.colModel);
         gridOption.scroll = true;
         gridOption.data = response.Data;
         gridOption.rowNum = 40; // _pagingOption.pagesize;       
