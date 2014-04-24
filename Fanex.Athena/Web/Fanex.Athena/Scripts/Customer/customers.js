@@ -142,22 +142,30 @@ var CustomerList = (function ($) {
             gridOption.colModel[0].formatter = undefined;
         }
 
-        for (var i in gridOption.colModel) {
-            var col = gridOption.colModel[i];
+        var collength = gridOption.colModel.length;
+        var colIndex = 0;
+        while (colIndex < collength) {
+            var col = gridOption.colModel[colIndex];
             if (!col.name || col.name === "Index") {
+                colIndex++;
                 continue;
             }
-            // If col is commission
-            if (col.name.match(/^\w\wComm$/) !== null) {
-                col.hidden = showingColumns["Commission"] === undefined;
+
+            var colName = col.name.match(/^\w\wComm$/) !== null ? "Commission" : col.name;
+
+            if (showingColumns[colName] === undefined) {
+                gridOption.colModel.splice(colIndex, 1);
+                gridOption.colNames.splice(colIndex, 1);
+                collength--;
             } else {
-                col.hidden = showingColumns[col.name] === undefined;
+                colIndex++;
             }
         }
-        gridOption.scroll = 1;
+
+        console.log(gridOption.colModel.length, gridOption.colModel);
+        gridOption.scroll = true;
         gridOption.data = response.Data;
-        gridOption.rowNum = 30;// _pagingOption.pagesize;
-        gridOption.rowList = CustomersOption.rowList;
+        gridOption.rowNum = 40; // _pagingOption.pagesize;       
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
