@@ -77,7 +77,6 @@ namespace Fanex.Athena.Controllers.Report
             IList<PlaytechCasino> dataList = new List<PlaytechCasino>();
             var totalInEur = new PlaytechCasino();
             var totalInUsd = new PlaytechCasino();
-
             if (metaModel.ReportBy == ReportByType.Monthly && metaModel.Level > 0)
             {
                 metaModel.DrillDownToDate = metaModel.DrillDownToDate.AddMonths(1).AddDays(-1);

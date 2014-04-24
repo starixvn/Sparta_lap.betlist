@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="WarehourseBase.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="NewReportBase.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -26,7 +26,7 @@ namespace Fanex.Athena.Excel.Base
     /// <summary>
     /// The report base.
     /// </summary>
-    public abstract class WarehourseBase : ExcelBase
+    public abstract class NewReportBase : ExcelBase
     {
         public const int RowHeaderTemplate = 1;
         public const int RowTitleTemplate = 0;
@@ -34,7 +34,7 @@ namespace Fanex.Athena.Excel.Base
 
         private int _pageSize;
 
-        protected WarehourseBase(
+        protected NewReportBase(
             string templatePath,
             string exportingFileName,
             ShowingOption showingOption,

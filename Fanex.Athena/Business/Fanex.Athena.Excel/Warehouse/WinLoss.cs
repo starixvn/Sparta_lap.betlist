@@ -22,7 +22,7 @@ namespace Fanex.Athena.Excel.Warehouse
     /// <summary>
     /// Win Loss Report - Export excel.
     /// </summary>
-    public class WinLoss : WarehourseBase
+    public class WinLoss : NewReportBase
     {
         private const int ColumnCustomerComm = 9;
         private const int ColumnCustomerTotal = 10;
