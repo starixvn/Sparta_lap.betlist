@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseBetList.cs" />
     <Compile Include="Base\ReportBase.cs" />
+    <Compile Include="Base\WarehourseBase.cs" />
     <Compile Include="BetList\BetListExcel.cs" />
     <Compile Include="BetList\LrfBetListExcelBuilder.cs" />
     <Compile Include="Customer\CustomerListExcel.cs" />
