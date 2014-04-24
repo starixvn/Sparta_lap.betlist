@@ -276,7 +276,6 @@
     <Content Include="Content\Global\images\collapse.png" />
     <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
-    <Content Include="Content\Report\playtechcasino.css" />
     <Content Include="Content\Report\winlossbyleague.css" />
     <Content Include="Scripts\Customer\customers.js" />
     <Content Include="Scripts\Customer\customers.option.js" />
