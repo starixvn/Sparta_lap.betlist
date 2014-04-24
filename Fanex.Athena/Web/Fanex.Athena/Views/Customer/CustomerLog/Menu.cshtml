@@ -9,6 +9,10 @@
 {
     <script src="@Url.ContentLink("/Scripts/Customer/CustomerLog/customerlog.js")" type="text/javascript"></script>
 }
+@{
+    var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
+    var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+}
 @using Fanex.Athena.Models.ViewModel
 <div id="header_tab">
     <div id="button_main">
@@ -22,9 +26,9 @@
             </a></li>
             <!--/Customer setting log-->
             <!--Group commission tab-->
-            @if (ViewBag.HasCustComm != null && ViewBag.HasCustComm)
+            @if (hasCustComm)
             {
-                <li><a href="@Url.Action("GroupCommission", "CustomerLog")" id="groupcommlog">aaa @ViewResources.GroupCommission</a></li>
+                <li><a href="@Url.Action("GroupCommission", "CustomerLog")" id="groupcommlog">@ViewResources.GroupCommission</a></li>
             }
             <!--/Group commission tab-->
         </ul>
