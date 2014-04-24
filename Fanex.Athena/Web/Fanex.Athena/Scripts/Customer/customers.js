@@ -154,14 +154,13 @@ var CustomerList = (function ($) {
                 col.hidden = showingColumns[col.name] === undefined;
             }
         }
-
+        gridOption.scroll = 1;
         gridOption.data = response.Data;
-        gridOption.rowNum = _pagingOption.pagesize;
+        gridOption.rowNum = 30;// _pagingOption.pagesize;
         gridOption.rowList = CustomersOption.rowList;
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
-        reportGrid.jqGrid('showCol', 'rn');
         CustomersOption.setGroupHeaderColumns(reportGrid);
 
         if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
@@ -183,7 +182,6 @@ var CustomerList = (function ($) {
             gridWidth = 500;
         } else {
             gridWidth += 20;
-            reportGrid.jqGrid("setGridWidth", gridWidth);
         }
 
         reportGrid.jqGrid("setGridWidth", gridWidth);
