@@ -47,7 +47,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         #endregion Constructors and Destructors
 
         #region Public Methods and Operators
-        
+
         /// <summary>
         ///     The get data list.
         /// </summary>
@@ -63,20 +63,12 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// </returns>
         public IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
         {
-            try
-            {
-                var dataList = model.IsValid
-                                   ? this._winLossDataAccess.GetDataList(model)
-                                   : new List<WinLoss>();
-                totalValues = this.GetWinlossTotalInfo(dataList);
+            var dataList = model.IsValid
+                               ? this._winLossDataAccess.GetDataList(model)
+                               : new List<WinLoss>();
+            totalValues = this.GetWinlossTotalInfo(dataList);
 
-                return dataList.OrderBy(x => x.GroupByString).ToList();
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseWinLossService");
-            }
+            return dataList.OrderBy(x => x.GroupByString).ToList();
         }
 
         /// <summary>
@@ -90,9 +82,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// </returns>
         public Dictionary<string, decimal> GetWinlossTotalInfo(IList<WinLoss> dataList)
         {
-            try
-            {
-                var totalValues = new Dictionary<string, decimal>
+            var totalValues = new Dictionary<string, decimal>
                     {
                         { "betcount", 0 },
                         { "turnover", 0 },
@@ -103,28 +93,22 @@ namespace Fanex.Athena.Service.Implement.Warehouse
                         { "totalrows", 0 }
                     };
 
-                if (dataList != null)
+            if (dataList != null)
+            {
+                foreach (var entity in dataList)
                 {
-                    foreach (var entity in dataList)
-                    {
-                        totalValues["betcount"] += entity.BetCount;
-                        totalValues["turnover"] += entity.Turnover;
-                        totalValues["memberwinloss"] += entity.MemberWinLoss;
-                        totalValues["memberwinlosscomm"] += entity.MemberWinLossCom;
-                        totalValues["licenseewinloss"] += entity.LicenseeWinloss;
-                        totalValues["bacomm"] += entity.BaComm;
-                    }
-
-                    totalValues["totalrows"] = dataList.Count;
+                    totalValues["betcount"] += entity.BetCount;
+                    totalValues["turnover"] += entity.Turnover;
+                    totalValues["memberwinloss"] += entity.MemberWinLoss;
+                    totalValues["memberwinlosscomm"] += entity.MemberWinLossCom;
+                    totalValues["licenseewinloss"] += entity.LicenseeWinloss;
+                    totalValues["bacomm"] += entity.BaComm;
                 }
 
-                return totalValues;
+                totalValues["totalrows"] = dataList.Count;
             }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseWinLossService");
-            }
+
+            return totalValues;
         }
 
         #endregion Public Methods and Operators

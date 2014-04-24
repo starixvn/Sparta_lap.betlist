@@ -60,7 +60,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.DbCommand.CommandTimeout = 180;
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         var groupingList = GroupingMetaModel.GetCollection();

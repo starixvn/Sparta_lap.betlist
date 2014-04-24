@@ -11,6 +11,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Warehouse;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
     using Fanex.Athena.Models.DTO.Warehouse;
@@ -55,17 +56,9 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <returns>The data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel model)
         {
-            try
-            {
-                return model.IsValid
-                           ? this._topCustDataAccess.GetDataForExcel(model)
-                           : new DataTable();
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseTopCustomerService");
-            }
+            return model.IsValid
+                       ? this._topCustDataAccess.GetDataForExcel(model)
+                       : new DataTable();
         }
 
         /// <summary>
@@ -76,19 +69,11 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <returns>The top customer list.</returns>
         public IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
         {
-            try
-            {
-                var dataList = model.IsValid
-                                   ? this._topCustDataAccess.GetDataList(model)
-                                   : new List<TopCustomer>();
-                totalValues = this.GetTopCustomerTotalInfo(dataList);
-                return dataList;
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseTopCustomerService");
-            }
+            var dataList = model.IsValid
+                               ? this._topCustDataAccess.GetDataList(model)
+                               : new List<TopCustomer>();
+            totalValues = this.GetTopCustomerTotalInfo(dataList);
+            return dataList;
         }
 
         /// <summary>
@@ -98,9 +83,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// <returns>The summary data.</returns>
         public Dictionary<string, decimal> GetTopCustomerTotalInfo(IList<TopCustomer> dataList)
         {
-            try
-            {
-                var totalValues = new Dictionary<string, decimal>
+            var totalValues = new Dictionary<string, decimal>
                     {
                         { "betcount", 0 },
                         { "turnover", 0 },
@@ -111,28 +94,19 @@ namespace Fanex.Athena.Service.Implement.Warehouse
                         { "totalrows", 0 }
                     };
 
-                if (dataList != null)
-                {
-                    foreach (var entity in dataList)
-                    {
-                        totalValues["betcount"] += entity.BetCount;
-                        totalValues["turnover"] += entity.Turnover;
-                        totalValues["memberwinloss"] += entity.MemberWinLoss;
-                        totalValues["memberwinlosscomm"] += entity.MemberWinLossCom;
-                        totalValues["licenseewinloss"] += entity.LicenseeWinLoss;
-                        totalValues["bacomm"] += entity.BaComm;
-                    }
-
-                    totalValues["totalrows"] = dataList.Count;
-                }
-
-                return totalValues;
-            }
-            catch (System.Exception ex)
+            if (dataList != null)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "WarehouseTopCustomerService");
+                totalValues["betcount"] = dataList.Sum(x => x.BetCount);
+                totalValues["turnover"] = dataList.Sum(x => x.Turnover);
+                totalValues["memberwinloss"] = dataList.Sum(x => x.MemberWinLoss);
+                totalValues["memberwinlosscomm"] = dataList.Sum(x => x.MemberWinLossCom);
+                totalValues["licenseewinloss"] = dataList.Sum(x => x.LicenseeWinLoss);
+                totalValues["bacomm"] = dataList.Sum(x => x.BaComm);
+
+                totalValues["totalrows"] = dataList.Count;
             }
+
+            return totalValues;
         }
 
         #endregion Public Methods and Operators

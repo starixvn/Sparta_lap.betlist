@@ -73,7 +73,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.DbCommand.CommandTimeout = 180;
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         while (reader.Read())
@@ -137,7 +136,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.DbCommand.CommandTimeout = 180;
                     var dataset = db.ExecuteDataSet(uspParams);
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
                 }
