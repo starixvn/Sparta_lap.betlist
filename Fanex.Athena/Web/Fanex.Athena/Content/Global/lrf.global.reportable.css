@@ -53,6 +53,12 @@ table.report-table td
     color: #454545;
 }
 
+table.report-table td .drill-down-link {
+    color: #1E1EEB;
+	cursor: pointer;
+	
+}
+
 table.report-table tr.report-table-header-02 td, table.report-table tr.report-table-header-02 th
 {
     background-position: center bottom;
