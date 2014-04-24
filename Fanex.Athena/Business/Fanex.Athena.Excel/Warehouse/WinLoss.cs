@@ -89,7 +89,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.Margin,
-                ViewResources.LicenseeW_L + " (" + ViewResources.SB + " + " + ViewResources.NG + ")",
+                ViewResources.LicenseeW_L,
              };
         }
 
