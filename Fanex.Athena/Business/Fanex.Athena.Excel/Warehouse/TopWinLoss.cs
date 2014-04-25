@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="WinLoss.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="TopWinLoss.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Excel.Warehouse
     /// <summary>
     /// Win Loss Report - Export excel.
     /// </summary>
-    public class WinLoss : NewReportBase
+    public class TopWinLoss : ReportBase
     {
         private const int ColumnCustomerComm = 9;
         private const int ColumnCustomerTotal = 10;
@@ -60,7 +60,7 @@ namespace Fanex.Athena.Excel.Warehouse
 
         private IDictionary<string, decimal> _totalValues;
 
-        public WinLoss(
+        public TopWinLoss(
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,

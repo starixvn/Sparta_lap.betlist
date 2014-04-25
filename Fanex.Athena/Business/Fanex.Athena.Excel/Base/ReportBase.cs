@@ -133,12 +133,22 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
+        public int NumOfDataRow
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Assign data.
         /// </summary>
         public virtual void AssignData()
         {
-            int numOfDataRow = ExportData.Rows.Count;
+            if (ExportData != null && ExportData.Rows.Count > 0)
+            {
+                NumOfDataRow = ExportData.Rows.Count;
+            }
+
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
             ColumnTemplateIndexList = GetColumnTemplateIndex();
@@ -147,7 +157,7 @@ namespace Fanex.Athena.Excel.Base
 
             AssignTitle(sheet);
 
-            if (numOfDataRow == 0)
+            if (NumOfDataRow == 0)
             {
                 AssignNoInfoRow(sheet);
             }

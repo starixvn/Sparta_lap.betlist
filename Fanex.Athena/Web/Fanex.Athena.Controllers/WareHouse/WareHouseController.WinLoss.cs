@@ -94,7 +94,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                     BaseCurrency = metaModel.BaseCurrency,
                     CurrencyName = metaModel.CurrencyName
                 };
-            var winLossExcel = new WinLoss(templatePath, FileName, currencyConvert, showingOption, exportData, totalValues)
+            var winLossExcel = new TopWinLoss(templatePath, FileName, currencyConvert, showingOption, exportData, totalValues)
                 {
                     GroupingId = metaModel.ReportBy,
                     ReportTitle = titleText

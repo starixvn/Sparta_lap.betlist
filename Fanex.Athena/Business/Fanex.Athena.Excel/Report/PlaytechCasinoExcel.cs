@@ -17,7 +17,7 @@ namespace Fanex.Athena.Excel.Report
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class PlaytechCasinoExcel : NewReportBase
+    public class PlaytechCasinoExcel : ReportBase
     {
         private const int ColumnCount = 9;
         private const int ColumnDate = 1;
