@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
@@ -16,26 +15,22 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using DNAide.Utils;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
-    using Fanex.Athena.Models.MetaModel.Authorization;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.MetaModel.Authorization;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class AuthorizationController : BaseController
     {
-        /// <summary>
-        /// The sign-in page.
-        /// </summary>
-        /// <returns>The sign in page.</returns>
+        private const string PageError = "_page={errCode:{0},errMsg:\"{1}\"};";
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
@@ -57,111 +52,46 @@ namespace Fanex.Athena.Controllers
             {
                 Server.Transfer("~/Utility/LocationRestriction");
             }
-
-            SinglePageData(0, string.Empty);
+            ViewBag.PageError = string.Format(PageError, 0, string.Empty);
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
-        /// <summary>
-        /// The sign in page.
-        /// </summary>
-        /// <param name="model">The sign in metal model.</param>
-        /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [AllowAnonymous]
         [HttpPost]
-        [SuppressMessage(
-  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-  "SP2101:MethodMustNotContainMoreLinesThan",
-  Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)
         {
-            var isValid = true;
             var isAllowAutomationCaptchaCode =
            AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (model.Captcha != SessionService.CaptchaCode)
             {
-                /*if IsAllowAutomationCaptchaCode = true
-                 then allow selenium testing
-                 */
+                // if IsAllowAutomationCaptchaCode = true 
+                // then allow selenium testing
                 if (!isAllowAutomationCaptchaCode)
                 {
+                    // Create new code
                     SessionService.CaptchaCode = Encryption.RandomNumberString(4).ToUpperInvariant();
-                    SinglePageData(101, ViewResources.InvalidCaptchaMsg);
-                }
+                    // Return error
+                    ViewBag.PageError = string.Format(PageError, 0, string.Empty);
 
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(model.UserName))
-            {
-                SinglePageData(102, ViewResources.AlertUserNameMsg);
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(model.PassWord))
-            {
-                SinglePageData(103, ViewResources.AlertPasswordEmptyMsg);
-                isValid = false;
-            }
-
-            if (isValid)
-            {
-                var userService = new UserService();
-                IResultInfo resultInfo;
-                var requestUser = new User
-                {
-                    Username = model.UserName,
-                    Password = model.PassWord,
-                    Request = new Request { Ip = Request.UserHostAddress },
-                };
-
-                User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
-                if (resultInfo.IsSuccessful)
-                {
-                    SessionService.CreateNewSession(
-                        user.Id,
-                        userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
-                        user.Username,
-                        user.IsInternal,
-                        user.Licensee.Id);
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
-
-                    if (user.IsInRole(UserRole.Admin.ToString()))
-                    {
-                        return RedirectToAction("SelectLicensee", "Utility");
-                    }
-                    else
-                    {
-                        FormsAuthentication.RedirectFromLoginPage(user.Username, false);
-                    }
-                }
-                else
-                {
-                    SinglePageData(resultInfo.Code, resultInfo.Message);
                 }
             }
 
-            return View("~/Views/Authorization/SignIn.cshtml");
         }
 
-        /// <summary>
-        /// The re-check in service.
-        /// </summary>
-        /// <returns>The JSON data.</returns>
         [HttpGet]
         public ActionResult ReCheckin()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();
-            int currentLoginId = 0;
-            int.TryParse(Request["onid"], out currentLoginId);
+            int onId = 0;
+            int.TryParse(Request["onid"], out onId);
 
             // Invalid re-check-in
-            if (currentLoginId == 0 || !Request.IsAuthenticated || SessionService.UserSession == null)
+            if (onId == 0 || !Request.IsAuthenticated || SessionService.UserSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
             }
 
-            if (currentLoginId != SessionService.UserSession.OnUserId)
+            if (onId != SessionService.UserSession.OnUserId)
             {
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
@@ -172,7 +102,6 @@ namespace Fanex.Athena.Controllers
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, message), JsonRequestBehavior.AllowGet);
             }
-
             IUserService userService = new UserService();
             bool isSuccess = !userService.ReCheckin(SessionService.UserSession.OnUserId);
 
@@ -182,10 +111,21 @@ namespace Fanex.Athena.Controllers
             return Json(RecheckInResult(errCode, errMsg), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Generate captcha.
-        /// </summary>
-        /// <returns>Return the image.</returns>
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            // Kick-out
+            IUserService userService = new UserService();
+            if (SessionService.UserSession != null)
+            {
+                userService.Logout(SessionService.UserSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LocationRestriction", "Utility");
+        }
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
@@ -196,7 +136,7 @@ namespace Fanex.Athena.Controllers
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;
-            var iwidth = (code.Length * 12) + 10;
+            int iwidth = code.Length * 12 + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, 20))
             using (var gfx = Graphics.FromImage((Image)bmp))
@@ -235,10 +175,21 @@ namespace Fanex.Athena.Controllers
              };
         }
 
-        private void SinglePageData(int errorCode, string errorMsg)
+        private void ClearCookies()
         {
-            ViewBag.errCode = errorCode;
-            ViewBag.errMsg = errorMsg;
+            var cookieList = HttpContext.Response.Cookies;
+            var cookieNameList = HttpContext.Response.Cookies.AllKeys;
+            foreach (var name in cookieNameList)
+            {
+                if (Request.Cookies[name] == null)
+                {
+                    continue;
+                }
+
+                var cookie = new System.Web.HttpCookie(name);
+                cookie.Expires = System.DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookie);
+            }
         }
     }
 }

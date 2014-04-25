@@ -94,6 +94,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountController.cs" />
+    <Compile Include="AuthorizationController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
     <Compile Include="BetList\BetListController.cs" />
