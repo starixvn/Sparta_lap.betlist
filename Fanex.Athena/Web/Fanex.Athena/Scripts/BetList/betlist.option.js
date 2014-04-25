@@ -62,16 +62,16 @@ var BetListOption = (function () {
         index: 'Stake',
         width: 60,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false
     };
     var winloss =
     {
-        name: 'WinLoss',
-        index: 'WinLoss',
+        name: 'WinLossComm',
+        index: 'WinLossComm',
         width: 75,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         title: false
     };
@@ -81,7 +81,7 @@ var BetListOption = (function () {
         index: 'LicenseeWL',
         width: 100,
         align: 'right',
-        sortable: false,
+        sortable: true,
         resizable: false,
         title: false
     };
@@ -91,7 +91,7 @@ var BetListOption = (function () {
         index: 'Status',
         width: 60,
         align: 'center',
-        sortable: false,
+        sortable: true,
         resizable: false,
         title: false
     };
@@ -102,8 +102,8 @@ var BetListOption = (function () {
         gridOption:
         {
             datatype: 'local',
-            rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowNum: 2,
+            rowList: [2, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
             pager: '#pager2',
             loadtext: "Loading...",
             viewrecords: true,
@@ -125,7 +125,7 @@ var BetListOption = (function () {
                 if ($("#" + pgButton).hasClass("ui-state-disabled") == false) {
                     Site.blockUI();
                 }
-            }
+            }            
         },
 
         columnModel: columnModel,

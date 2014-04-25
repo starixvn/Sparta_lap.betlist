@@ -20,7 +20,7 @@ namespace Fanex.Athena.Models.DTO.BetList
             TicketDataList = new List<ITicketData>();
         }
 
-        public IList<LrfTicket> MainTicketList { get; set; }
+        public List<LrfTicket> MainTicketList { get; set; }
 
         public List<ITicketData> TicketDataList { get; set; }
 

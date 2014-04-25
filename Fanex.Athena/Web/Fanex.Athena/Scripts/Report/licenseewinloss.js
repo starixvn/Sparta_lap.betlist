@@ -52,8 +52,6 @@ var LicenseeWinLoss = (function ($) {
                 }, 100);
                 return 'stop';
             };
-
-
         },
 
         initSetting: function () {

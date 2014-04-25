@@ -34,6 +34,10 @@ namespace Fanex.Athena.Models.MetaModel.BetList
             set;
         }
 
+        public string SortBy { get; set; }
+
+        public string SortOrder { get; set; }
+
         #region Currency chosen on filter
 
         public int OriginalCurrenceId { get; set; }

@@ -22,5 +22,12 @@ namespace Fanex.Athena.Models.DTO.BetList
         public int SpecialLevel { get; set; }
 
         public string BetFrom { get; set; }
+
+        public decimal WinLossComm {
+            get
+            {
+                return Winlost + Comm;
+            }        
+        }
     }
 }

@@ -8,7 +8,7 @@ var CommonBetList = (function ($) {
             var actionName = $("#ActionName").val();
             var url = Site.resolveClientUrl('api/betlist/' + actionName);
             var serverPaging = $("#IsServerPaging").val();
-
+            console.log("serverPaging", serverPaging);
             if (serverPaging === "1") {
                 var params = QueryString.getQueryString(location.href);
                 BetList.loadDataPaging(url + "?" + params);
@@ -21,13 +21,13 @@ var CommonBetList = (function ($) {
                 params.FromDate = params.FromDateString;
                 params.ToDate = params.ToDateString;
                 params.Date = params.DateString;
-
+                console.log("load");
                 BetList.loadData(params, url, window.loadBetListSuccessCallback);
             }
 
             $(".content-title").width($(".content-main").width() - 50);
 
-            $("#ExportToExcel").click(CommonBetList.exportToExcel);            
+            $("#ExportToExcel").click(CommonBetList.exportToExcel);
         },
         exportToExcel: function () {
             var url = window.location.href;
@@ -41,7 +41,7 @@ var CommonBetList = (function ($) {
             }
 
             url = QueryString.setParam(url, "IsExportExcel", true);
-            window.location.href = url;            
+            window.location.href = url;
         }
     };
 })(jQuery);

@@ -25,7 +25,7 @@ namespace Fanex.Athena.Models.DTO.BetList
 
         public string Stake { get; set; }
 
-        public string WinLoss { get; set; }
+        public string WinLossComm { get; set; }
 
         public string LicenseeWl { get; set; }
 

@@ -176,8 +176,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 {
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
-                    {
-                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, baseCurrency).OrderBy(x => x.TransId).ToList();
+                    {                                               
+                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, baseCurrency).ToList();                        
                         ticketResult.TicketDataList = reader.NextResult()
                                     ? this.ReadLrfReferneceTicket(reader, baseCurrency).ToList()
                                     : new List<ITicketData>();

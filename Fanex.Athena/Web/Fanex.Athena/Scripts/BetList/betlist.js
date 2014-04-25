@@ -1,6 +1,9 @@
 ﻿/// <reference path="/@JSense.js" />
 
 var BetList = (function ($) {
+    var _sortColumnName, _sortOrder;
+    var _params, _url;
+
     return {
         submiting: true,
         initialize: function () {
@@ -10,6 +13,22 @@ var BetList = (function ($) {
         },
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
+            // add sort icon
+            $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+                        .each(function (index, element) {
+                            var $this = $(element);
+                            $this.find("span.s-ico").remove();
+
+                            if (element.id.indexOf(_sortColumnName) > -1) {
+                                var sortClass = "sort-" + _sortOrder;
+                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
+                                sortSpan.addClass(sortClass);
+                                $this.append(sortSpan);
+                                $this.addClass("sorted-heading");
+                            }
+
+                        });
+
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
             jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
@@ -38,6 +57,26 @@ var BetList = (function ($) {
 
         getGridOption: function () {
             var gridOption = $.extend(true, {}, BetListOption.gridOption);
+
+            gridOption.onSortCol = function (index, columnIndex, sortOrder) {
+                if (window.disableBetListSorting) {
+                    return 'stop';
+                }
+                Site.blockUI();
+                if (_sortColumnName == index) {
+                    _sortOrder = _sortOrder == "asc" ? "desc" : "asc";
+
+                } else {
+                    _sortOrder = "asc";
+                    _sortColumnName = index;
+                }
+
+                BetList.loadData(_params, _url);
+
+                Site.unBlockUI();
+                return 'stop';
+            };
+
             // Specify the hidden column
             var hiddenColumnList = $("#HiddenColumnList").val();
             var hiddenColumnTokens = hiddenColumnList.split(",");
@@ -52,7 +91,7 @@ var BetList = (function ($) {
             var hasCustComm = $('#HasCustComm').val();
             if (hasCustComm === '1') {
                 gridOption.colNames = $.map(gridOption.colNames, function (val, i) {
-                    if (val === 'WinLoss')
+                    if (val === 'WinLossComm')
                         return '@[WinLoss]/@[Comm]';
                     return val;
                 });
@@ -62,7 +101,21 @@ var BetList = (function ($) {
         },
 
         loadData: function (params, url) {
+
+            if (typeof params === "string") {
+                params = JSON.parse(params);
+            }
+
+            _params = params;
+            _url = url;
+
+            if (params && _sortColumnName) {
+                params.SortBy = _sortColumnName;
+                params.SortOrder = _sortOrder;
+            }
+
             var paramString = typeof (params) === "object" ? JSON.stringify(params) : params;
+
             $.ajax({
                 type: "POST",
                 data: paramString,
@@ -76,7 +129,7 @@ var BetList = (function ($) {
                     if (response != null) {
                         BetList.bindData(response);
                         BetList.setLeagueTitle(response.LeagueName);
-                    }                    
+                    }
                 },
                 beforeSend: function () {
                     Site.blockUI();
