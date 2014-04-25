@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// Base controller.
     /// </summary>
+    [Authorize]
     public class BaseController : Controller
     {
         #region Members

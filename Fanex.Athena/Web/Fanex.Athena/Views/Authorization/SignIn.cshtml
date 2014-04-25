@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewResources.InternalSystem</title>
+    <link href="@Url.ContentLink("/Content/SignIn/SignIn.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/SignIn/SignIn.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+     @ViewBag.PageError;
+    </script>
+</head>
+<body>
+    <form action="@Url.Content("~/Authorization/SignIn")" method="post" name="fLogin">
+    <div id="main_login">
+        <div class="main_login">
+            <div class="top">
+            </div>
+            <div class="mid">
+                <table width="346px" align="center">
+                    <tr>
+                        <td style="font-weight: bold; padding-bottom: 4px;">
+                            @ViewResources.Username
+                        </td>
+                        <td>
+                            <input input type="text" id="userName" name="userName" value="" class="inputtxt" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding-bottom: 4px;">
+                            @ViewResources.Password
+                        </td>
+                        <td>
+                            <input type="password" id="passWord" name="passWord" class="inputtxt" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="GetValidateImage()">
+                            <div style="padding: 5px 2px 5px 2px;">
+                                <img src="@Url.Content("~/Authorization/Captcha")" id="imgCode" width="65" height="18" alt="" />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" maxlength="4" autocomplete="off" onkeydown="DoEnter(event, 'DoLogin()')"
+                                value="" id="captcha" name="captcha" class="inputtxt" />
+                        </td>
+                    </tr>
+                </table>
+                <table align="center">
+                    <tr>
+                        <td style="width: 70%">
+                            <div id="errmsg" class="errmsg">
+                            </div>
+                        </td>
+                        <td>
+                            <input id="button" name="button" type="button" class="log_button" value="@ViewResources.Login"
+                                onclick="return DoLogin();" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bot">
+            </div>
+        </div>
+    </div>
+    </form>
+    <input type="hidden" id="captchaUrl" value="@Url.Content("~/Authorization/Captcha")" />
+</body>
+</html>

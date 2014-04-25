@@ -84,6 +84,7 @@
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetail.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
     <Compile Include="DTO\Common\CheckedItem.cs" />
+    <Compile Include="DataDomain\ErrorType.cs" />
     <Compile Include="DTO\Common\ExChangeRate.cs" />
     <Compile Include="DTO\Common\IRequest.cs" />
     <Compile Include="DTO\Common\IResultInfo.cs" />

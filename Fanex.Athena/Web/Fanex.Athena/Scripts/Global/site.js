@@ -58,10 +58,14 @@ var Site = (function ($) {
         blockUI: function () {
             $('div.block-body').show();
             $('div.loading').show();
-            $.blockUI({
-                message: "",
-                timeout: 30000
-            });
+            try {
+                $.blockUI({
+                    message: "",
+                    timeout: 30000
+                });
+            }
+            catch (err) {
+            }
         },
 
         setLicenseeOptionParam: function (urlOrParams) {
@@ -72,7 +76,7 @@ var Site = (function ($) {
             if (currencyName == undefined) {
                 currencyName = $("#CurrencyName").val();
             }
-            
+
             return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
         },
 
@@ -80,10 +84,10 @@ var Site = (function ($) {
             var licenseeType = $("#LicenseeType").attr('data-original');
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();            
+            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
             if (currencyName == undefined) {
                 currencyName = $("#CurrencyName").val();
-            }                        
+            }
             return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
         },
 

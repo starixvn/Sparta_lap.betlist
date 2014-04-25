@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Common
+namespace Fanex.Athena.Models.DataDomain
 {
     public enum ErrorType
     {

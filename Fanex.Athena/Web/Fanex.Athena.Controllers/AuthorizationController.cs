@@ -13,23 +13,69 @@ namespace Fanex.Athena.Controllers
     using System.Web;
     using System.Web.Caching;
     using System.Web.Mvc;
+    using System.Web.Security;
     using DNAide.Utils;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Configuration;
+    using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
-    using Fanex.Athena.Service.Implement.Users;
-    using System.Web.Security;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.MetaModel.Authorization;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class AuthorizationController : BaseController
     {
+        private const string PageError = "_page={errCode:{0},errMsg:\"{1}\"};";
+        [AllowAnonymous]
+        [HttpGet]
         public ActionResult SignIn()
         {
-            return View("~/Views/Authorization/SignIn");
+            IMaintenanceService maintenanceService = new MaintenanceService();
+            var acceptIp = AppSettings.GetValue("AcceptIp");
+            var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
+
+            if (isDeploying || maintenanceService.MaintenanceInfo.IsDownTime)
+            {
+                Server.Transfer("~/Utility/UnderMaintenance");
+            }
+
+            var requestHost = Request.Url.AbsoluteUri;
+
+            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
+
+            if (!isInternalDomain)
+            {
+                Server.Transfer("~/Utility/LocationRestriction");
+            }
+            ViewBag.PageError = string.Format(PageError, 0, string.Empty);
+            return View("~/Views/Authorization/SignIn.cshtml");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult SignIn(LoginMetalModel model)
+        {
+            var isAllowAutomationCaptchaCode =
+           AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
+            if (model.Captcha != SessionService.CaptchaCode)
+            {
+                // if IsAllowAutomationCaptchaCode = true 
+                // then allow selenium testing
+                if (!isAllowAutomationCaptchaCode)
+                {
+                    // Create new code
+                    SessionService.CaptchaCode = Encryption.RandomNumberString(4).ToUpperInvariant();
+                    // Return error
+                    ViewBag.PageError = string.Format(PageError, 0, string.Empty);
+
+                }
+            }
+
         }
 
         [HttpGet]
@@ -80,7 +126,7 @@ namespace Fanex.Athena.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("LocationRestriction", "Utility");
         }
-
+        [AllowAnonymous]
         public FileContentResult Captcha()
         {
             Response.Cache.SetCacheability(HttpCacheability.Public);
@@ -128,6 +174,7 @@ namespace Fanex.Athena.Controllers
                  ErrMsg = msg
              };
         }
+
         private void ClearCookies()
         {
             var cookieList = HttpContext.Response.Cookies;
