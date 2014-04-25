@@ -128,7 +128,7 @@
     <Compile Include="Utility\Formater.cs" />
     <Compile Include="Warehouse\TopCustomer.cs" />
     <Compile Include="Report\TurnoverExcel.cs" />
-    <Compile Include="Warehouse\WinLoss.cs" />
+    <Compile Include="Warehouse\TopWinLoss.cs" />
     <Compile Include="Report\WinLossByBetTypeExcel.cs" />
     <Compile Include="Report\WinlossByProductExcel.cs" />
     <Compile Include="Utility\DataHelper.cs" />
