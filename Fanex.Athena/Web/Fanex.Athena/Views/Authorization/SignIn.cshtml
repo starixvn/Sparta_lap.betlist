@@ -10,7 +10,11 @@
     <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/SignIn/SignIn.js")" type="text/javascript"></script>
     <script type="text/javascript">
-     @ViewBag.PageError;
+     var _page=
+     {
+      errCode:@ViewBag.errCode,
+      errMsg:'@ViewBag.errMsg'
+     }; 
     </script>
 </head>
 <body>
@@ -26,7 +30,7 @@
                             @ViewResources.Username
                         </td>
                         <td>
-                            <input input type="text" id="userName" name="userName" value="" class="inputtxt" />
+                            <input type="text" id="userName" name="userName" value="" class="inputtxt" />
                         </td>
                     </tr>
                     <tr>
@@ -40,7 +44,7 @@
                     <tr>
                         <td onclick="GetValidateImage()">
                             <div style="padding: 5px 2px 5px 2px;">
-                                <img src="@Url.Content("~/Authorization/Captcha")" id="imgCode" width="65" height="18" alt="" />
+                                <img src="@Url.Content("~/Authorization/Captcha")" class="img-captcha" id="imgCode" alt="" />
                             </div>
                         </td>
                         <td>

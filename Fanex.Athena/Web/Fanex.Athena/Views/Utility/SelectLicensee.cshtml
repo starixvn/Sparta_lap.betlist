@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LRF &bull; Select a Licensee</title>
+    <link href="@Url.Content("/Content/Utility/SelectLicensee.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/Site.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        Site.resolveClientUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="userSec" class="r_div">
+                <a id="btnLogout" href='javascript:Site.signOut()'>
+                    @Fanex.Athena.Models.ViewModel.ViewResources.Logout
+                </a>
+            </div>
+            <div id="welkom" class="r_div">
+                <span>@Fanex.Athena.Models.ViewModel.ViewResources.Welcome @ViewBag.CurrentUsername</span>
+            </div>
+        </div>
+    </div>
+    <div class="sel_licensee_title">@Fanex.Athena.Models.ViewModel.ViewResources.SelectLicenseeMsg</div>
+    <div class="sel_licensee_main">
+       
+        @foreach (Fanex.Athena.Models.DTO.Common.Licensee item in ViewBag.LicenseeList)
+        {
+             <p onclick="document.location.href='@Url.Content("~/Utility/SelectLicensee?licenseeid=")@item.Id'" style="cursor:pointer">
+                    <a>
+                        @item.Name
+                    </a>
+             </p>
+        }
+
+    </div>
+</body>
+</html>

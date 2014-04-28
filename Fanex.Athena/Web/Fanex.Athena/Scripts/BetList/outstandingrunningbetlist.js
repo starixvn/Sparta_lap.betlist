@@ -9,7 +9,7 @@
 
         initEvent: function () {
 
-            $("#ViewOption").click(functin(){
+            $("#ViewOption").click(function(){
                 var params = OutstandingBetList.getParamsSubmit();
                 OutstandingBetList.submit(params);
             });
@@ -124,7 +124,7 @@
             {
                 OutstandingBetList.submitDailyStatementBetList(params);
             }
-        },
+        }
     };
 })(jQuery);
 

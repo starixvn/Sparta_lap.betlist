@@ -12,15 +12,15 @@ $(document).ready(function () {
         var lang = $(this).val();
         top.frames["main"].Site.blockUI();
         $.ajax({
-            url: Site.getBaseUrl() + "Header/ChangeLanguage?languagesite=" + lang,
+            url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
             async: false,
             type: "GET",
             cache: false,
             success: function (result) {
                 if (result == "1") {
-                    top.frames["main"].location.href = Site.getBaseUrl() + "Report/Balance";
-                    top.frames["menu"].location.href = Site.getBaseUrl() + "_menu/Menu.aspx";
-                    top.frames["header"].location.href = Site.getBaseUrl() + "Header/Index";
+                    top.frames["main"].location.href = Site.resolveClientUrl("Report/Balance");
+                    top.frames["menu"].location.href = Site.resolveClientUrl("Menu/Index");
+                    top.frames["header"].location.href = Site.resolveClientUrl("Header/Index");
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
                 }
             },
@@ -29,11 +29,11 @@ $(document).ready(function () {
     });
     $("#ddlLicensee").change(function () {
         var licenseeId = $(this).val();
-        top.frames["main"].location.href = Site.getBaseUrl() + "Account/ChangeLicensee?licenseeid=" + licenseeId + "&nocache=" + +(new Date().getTime());
+        top.frames["main"].location.href = Site.resolveClientUrl("Account/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" +(new Date().getTime());
 
     });
     $("#change-pass-btn").click(function () {
-        window.parent.main.document.location.href = Site.getBaseUrl() + "_MemberInfo/ChangePass/ChangePass.aspx";
+        window.parent.main.document.location.href = Site.resolveClientUrl("Utility/ChangePass/");
 
     });
     $("#lougout-btn").click(function () {

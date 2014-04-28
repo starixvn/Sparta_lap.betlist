@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Configuration;
+    using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
 
     /// <summary>
@@ -134,6 +135,61 @@ namespace Fanex.Athena.Controllers
             ViewBag.UmTimeFrom = umTimeFrom;
             ViewBag.UmTimeTo = umTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult SelectLicensee(int? licenseeId)
+        {
+            var isSessionValid = SessionService.UserSession != null && SessionService.UserSession.UserId > 0;
+            if (!isSessionValid)
+            {
+                return RedirectToAction("SignIn", "Authorization");
+            }
+
+            if (licenseeId.HasValue && licenseeId.Value > 0)
+            {
+               return RedirectFromLoginPage(licenseeId.Value);
+            }
+            else
+            {
+                var licenseeService = new LicenseeService();
+
+                var licenseeList = licenseeService.GetByUser(SessionService.UserSession.UserId);
+                ///Admin, but not assinged to handle any licensees
+                if (licenseeList.Count <= 0)
+                {
+                    return RedirectToAction("SignIn", "Authorization");
+                }
+
+                ///Admin user handle only one licensee
+                if (licenseeList.Count == 1)
+                {
+                   return RedirectFromLoginPage(licenseeList[0].Id);
+                }
+
+                ViewBag.CurrentUsername = SessionService.UserSession.UserName;
+                ViewBag.LicenseeList = licenseeList;
+            }
+
+            return View("~/Views/Utility/SelectLicensee.cshtml");
+        }
+        [HttpGet]
+        public ActionResult ChangePass()
+        {
+            return View("~/Views/Utility/ChangePass.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult ChangePass(string txtOldPwd, string txtNewPwd, string txtConfirmPwd)
+        {
+            return View("~/Views/Utility/ChangePass.cshtml");
+
+        }
+        private ActionResult RedirectFromLoginPage(int licenseeId)
+        {
+            SessionService.UpdateLiceseeSession(licenseeId);
+
+           return RedirectToAction("Index", "Home");
         }
     }
 }

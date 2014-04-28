@@ -189,6 +189,7 @@
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
     <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
+    <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
     <Compile Include="MetaModel\BetList\BetListMetaModel.cs" />
     <Compile Include="MetaModel\BetList\SystemParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\Casino\CasinoStatusMetaModel.cs" />

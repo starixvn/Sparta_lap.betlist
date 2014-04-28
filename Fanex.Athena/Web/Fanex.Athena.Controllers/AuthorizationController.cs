@@ -15,22 +15,24 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using DNAide.Utils;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Models.MetaModel.Authorization;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.MetaModel.Authorization;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class AuthorizationController : BaseController
     {
-        private const string PageError = "_page={errCode:{0},errMsg:\"{1}\"};";
+        private const string PageError = "_page={\"errCode\":{0},\"errMsg\":\"{1}\"};";
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
@@ -52,7 +54,8 @@ namespace Fanex.Athena.Controllers
             {
                 Server.Transfer("~/Utility/LocationRestriction");
             }
-            ViewBag.PageError = string.Format(PageError, 0, string.Empty);
+
+            SinglePageData(0, string.Empty);
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
@@ -64,18 +67,57 @@ namespace Fanex.Athena.Controllers
            AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (model.Captcha != SessionService.CaptchaCode)
             {
-                // if IsAllowAutomationCaptchaCode = true 
+                // if IsAllowAutomationCaptchaCode = true
                 // then allow selenium testing
                 if (!isAllowAutomationCaptchaCode)
                 {
                     // Create new code
                     SessionService.CaptchaCode = Encryption.RandomNumberString(4).ToUpperInvariant();
                     // Return error
-                    ViewBag.PageError = string.Format(PageError, 0, string.Empty);
-
+                    SinglePageData(101, ViewResources.InvalidCaptchaMsg);
                 }
             }
 
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                SinglePageData(102, ViewResources.AlertUserNameMsg);
+            }
+
+            if (string.IsNullOrEmpty(model.PassWord))
+            {
+                SinglePageData(103, ViewResources.AlertPasswordEmptyMsg);
+            }
+            var userService = new UserService();
+            IResultInfo resultInfo;
+            var requestUser = new User
+            {
+                Username = model.UserName,
+                Password = model.PassWord,
+                Request = new Request { Ip = Request.UserHostAddress },
+            };
+
+            User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
+            if (resultInfo.IsSuccessful)
+            {
+                SessionService.CreateNewSession(user.Id, userService.LoginOnUser(user, Session.SessionID,
+                    user.ServerId, Request.UserHostAddress), user.Username, user.IsInternal, user.Licensee.Id);
+                FormsAuthentication.SetAuthCookie(user.Username, false);
+
+                if (user.IsInRole(UserRole.Admin.ToString()))
+                {
+                    return RedirectToAction("SelectLicensee", "Utility");
+                }
+                else
+                {
+                    FormsAuthentication.RedirectFromLoginPage(user.Username, false);
+                }
+            }
+            else
+            {
+                SinglePageData(resultInfo.Code, resultInfo.Message);
+            }
+
+            return View("~/Views/Authorization/SignIn.cshtml");
         }
 
         [HttpGet]
@@ -111,21 +153,6 @@ namespace Fanex.Athena.Controllers
             return Json(RecheckInResult(errCode, errMsg), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult SignOut()
-        {
-            // Kick-out
-            IUserService userService = new UserService();
-            if (SessionService.UserSession != null)
-            {
-                userService.Logout(SessionService.UserSession.OnUserId);
-            }
-
-            Session.Clear();
-            ClearCookies();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("LocationRestriction", "Utility");
-        }
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
@@ -175,21 +202,11 @@ namespace Fanex.Athena.Controllers
              };
         }
 
-        private void ClearCookies()
+        private void SinglePageData(int errorCode, string errorMsg)
         {
-            var cookieList = HttpContext.Response.Cookies;
-            var cookieNameList = HttpContext.Response.Cookies.AllKeys;
-            foreach (var name in cookieNameList)
-            {
-                if (Request.Cookies[name] == null)
-                {
-                    continue;
-                }
-
-                var cookie = new System.Web.HttpCookie(name);
-                cookie.Expires = System.DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(cookie);
-            }
+            ViewBag.errCode = errorCode;
+            ViewBag.errMsg = errorMsg;
         }
+
     }
 }

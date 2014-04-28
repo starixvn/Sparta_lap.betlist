@@ -1,0 +1,102 @@
+﻿/* File Created: April 28, 2014 */
+.emsg_1_1
+{
+	background: transparent url(images/emsg_1_1.gif) no-repeat scroll right bottom;
+	height: 9px;
+	width: 11px;
+}
+.emsg_1_2
+{
+	background: transparent url(images/emsg_1_2.gif) repeat-x scroll left bottom;
+}
+.emsg_1_3
+{
+	background: transparent url(images/emsg_1_3.gif) no-repeat scroll left bottom;
+	width: 9px;
+}
+.emsg_2_1
+{
+	background: transparent url(images/emsg_2_1.gif) repeat-y scroll right top;
+}
+.emsg_2_2
+{
+	background: transparent url(images/emsg_2_2.gif) repeat-y scroll left top;
+}
+.emsg_3_1
+{
+	background: transparent url(images/emsg_3_1.gif) no-repeat scroll right top;
+	height: 8px;
+}
+.emsg_3_2
+{
+	background: transparent url(images/emsg_3_2.gif) repeat-x scroll left top;
+}
+.emsg_3_3
+{
+	background: transparent url(images/emsg_3_3.gif) no-repeat scroll left top;
+}
+.msgerr
+{
+	background: transparent url(images/error-icon.gif) no-repeat scroll left top;
+	color: #DF2267;
+	height: 24px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-left: 5px;
+	padding: 1px 0 4px 30px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+
+.succ_1_1
+{
+	background: url(images/succ_1_1.gif) no-repeat right bottom;
+	width: 11px;
+	height: 9px;
+}
+.succ_1_2
+{
+	background: url(images/succ_1_2.gif) repeat-x left bottom;
+}
+.succ_1_3
+{
+	background: url(images/succ_1_3.gif) no-repeat left bottom; 
+	width: 9px;
+}
+.succ_2_1
+{
+	background: url(images/succ_2_1.gif) repeat-y right top;
+}
+.succ_2_2
+{
+	background: url(images/succ_2_2.gif) repeat-y left top; 
+}
+.succ_3_1
+{
+	background: url(images/succ_3_1.gif) no-repeat right top;
+	height: 8px;
+}
+.succ_3_2
+{
+	background: url(images/succ_3_2.gif) repeat-x left top;
+}
+.succ_3_3
+{
+	background: url(images/succ_3_3.gif) no-repeat left top; 
+}
+
+.msgscc
+{
+	background: transparent url(images/Success.gif) no-repeat scroll left top;
+	color: #2d9d3b;
+	height: 24px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-left: 5px;
+	padding: 1px 0 4px 30px;
+	text-align: left;
+	vertical-align: middle;
+}

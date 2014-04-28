@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
+    using System.Web.Security;
 
     /// <summary>
     /// TODO: Update summary.
@@ -75,6 +76,38 @@ namespace Fanex.Athena.Controllers
             }
 
             return changed ? "1" : "0";
+        }
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            // Kick-out
+            IUserService userService = new UserService();
+            if (SessionService.UserSession != null)
+            {
+                userService.Logout(SessionService.UserSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LocationRestriction", "Utility");
+        }
+
+        private void ClearCookies()
+        {
+            var cookieList = HttpContext.Response.Cookies;
+            var cookieNameList = HttpContext.Response.Cookies.AllKeys;
+            foreach (var name in cookieNameList)
+            {
+                if (Request.Cookies[name] == null)
+                {
+                    continue;
+                }
+
+                var cookie = new System.Web.HttpCookie(name);
+                cookie.Expires = System.DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookie);
+            }
         }
 
     }

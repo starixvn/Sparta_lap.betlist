@@ -463,28 +463,7 @@ var Site = (function ($) {
             }
             return copy;
         },
-        getBaseUrl: function () {
-
-            var url = window.location.href;
-            var mark = '))/';
-            var end = url.indexOf(mark);
-            if (end == -1) {
-                var slashNum = 3; // Public site
-                if (url.indexOf('.com') == -1 && url.indexOf('.net') == -1 && url.indexOf('.org') == -1) slashNum = 4; // Local site
-                end = 0;
-                for (var i = 0; i < slashNum; i++) {
-
-                    end = url.indexOf('/', end + 1);
-                    if (end == -1) return null;
-                }
-                end++;
-            }
-            else {
-                end += mark.length;
-            }
-
-            return url.substr(0, end);
-        },
+      
         signOut: function () {
 
             var index = window;
@@ -492,7 +471,7 @@ var Site = (function ($) {
             {
                 index = index.parent;
             }
-            index.location = Site.getBaseUrl() + 'Authorization/SignOut';
+            index.location = Site.resolveClientUrl('Header/SignOut');
         }
 
     };

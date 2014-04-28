@@ -15,6 +15,9 @@
     <script src="@Url.ContentLink("/Scripts/Header/header.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Header/jquery.jclock.js")" type="text/javascript"></script>
     <script type="text/javascript">
+        Site.resolveClientUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
         var _page = { "Language": "@Model.Language", "OnUserID": "@Model.OnUserId", lang: '@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag' };
     </script>
     @if (!Model.IsDisabledRecheckIn)

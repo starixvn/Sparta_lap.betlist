@@ -1,0 +1,113 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LRF &bull; @Fanex.Athena.Models.ViewModel.ViewResources.ChangePassword</title>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Global/Site.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/ChangePass.js")" type="text/javascript"></script>
+    <link href="@Url.ContentLink("/Content/Global/Global.css")" rel="Stylesheet" />
+    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" rel="Stylesheet" />
+    <link href="@Url.ContentLink("/Content/Utility/ChangePass.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        Site.resolveClientUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+    </script>
+</head>
+<body>
+    <form method="post" name="ChangePass" action="@Url.Content("~/Utility/ChangePass")">
+    <div id="page-content">
+        <div id="header-title">
+            @Fanex.Athena.Models.ViewModel.ViewResources.ChangePassword
+        </div>
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div style="width: 370px">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="diverrmsg" style="display: none;">
+                            <tr>
+                                <td id="1_1" class="emsg_1_1">
+                                    &nbsp;
+                                </td>
+                                <td id="1_2" class="emsg_1_2">
+                                    &nbsp;
+                                </td>
+                                <td id="1_3" class="emsg_1_3">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="2_1" valign="top" class="emsg_2_1">
+                                    &nbsp;
+                                </td>
+                                <td valign="top" id="spmsgerr" class="msgerr">
+                                </td>
+                                <td id="2_2" class="emsg_2_2">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="3_1" class="emsg_3_1">
+                                    &nbsp;
+                                </td>
+                                <td id="3_2" class="emsg_3_2">
+                                    &nbsp;
+                                </td>
+                                <td id="3_3" class="emsg_3_3">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table width="250px" border="0" cellpadding="2" cellspacing="0" class="report-table">
+                        <tr>
+                            <td style="width: 120px">
+                                @Fanex.Athena.Models.ViewModel.ViewResources.OldPassword
+                            </td>
+                            <td class="change-pass">
+                                <input type="password" name="txtOldPwd" id="txtOldPwd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Fanex.Athena.Models.ViewModel.ViewResources.Password
+                            </td>
+                            <td class="change-pass" title="{static:Fanex.Athena.Models.ViewModel.ViewResources.PasswordNoteMsg}">
+                                <input type="password" name="txtNewPwd" onkeyup="return CheckPass(this,'spnNewPwdIcon');"
+                                    id="txtNewPwd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Fanex.Athena.Models.ViewModel.ViewResources.ConfirmPassword
+                            </td>
+                            <td class="change-pass" title="@Fanex.Athena.Models.ViewModel.ViewResources.PasswordNoteMsg">
+                                <input type="password" name="txtConfirmPwd" onkeyup="return CheckPass(this,'spnConfirmPwdIcon');"
+                                    id="txtConfirmPwd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="c" style="text-align: center;">
+                                <input value="@Fanex.Athena.Models.ViewModel.ViewResources.Submit" onclick="ChangePassword();"
+                                    id="btnSubmit" class="button" type="button" />&nbsp;
+                                <input value="@Fanex.Athena.Models.ViewModel.ViewResources.Reset" onclick="Reset();"
+                                    id="btnReset" class="button" type="reset" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    <div class="loading">
+    </div>
+    <div class="block-body">
+    </div>
+</body>
+</html>

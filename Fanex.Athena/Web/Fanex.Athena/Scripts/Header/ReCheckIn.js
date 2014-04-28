@@ -12,7 +12,7 @@ function ReCheckin() {
 
     var isInternal = $("#IsInternal").val() == "1";
     $.ajax({
-        url: Site.getBaseUrl() + "Authorization/ReCheckIn?onid=" + _page.OnUserID,
+        url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _page.OnUserID,
         async: true,
         type: "GET",
         success: function (result) {
@@ -23,7 +23,7 @@ function ReCheckin() {
                 alert(errMsg,true);
                 if (isInternal || SessionOverride == ErrCode) {
 
-                    var signOutUrl = Site.getBaseUrl() + 'Authorization/SignOut';
+                    var signOutUrl = Site.resolveClientUrl('Header/SignOut');
                     $.ajax({
                         url: signOutUrl,
                         complete: function (rs) {
