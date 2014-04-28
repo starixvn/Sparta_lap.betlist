@@ -141,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
             for (int i = 0; i < _viewModel.TotalData.Count; i++)
             {
                 var item = _viewModel.TotalData[i];
-                var row = sheet.CopyRow(TemplateSheet, i == 0 ? RowTotalTop : RowTotal, rowIndex + i);
+                var row = sheet.CopyRow(TemplateSheet, i == 0 ? RowTotalTop : RowTotal, checked(rowIndex + i));
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
                 row.Cells[ColumnTurnover].SetCellValue(item.Turnover);
@@ -161,13 +161,15 @@ namespace Fanex.Athena.Excel.Report
             grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInUsd.LicenseeWinLoss);
             sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
 
-            grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex + 1);
+            var nextIndex = checked(rowIndex + 1);
+            grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, nextIndex);
+
             grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.EUR);
             grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInEur.Turnover);
             grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInEur.TotalTrans);
             grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInEur.CustomerWinLoss);
             grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInEur.LicenseeWinLoss);
-            sheet.MergeCells(rowIndex + 1, ColumnIndex, rowIndex + 1, ColumnCurrency);
+            sheet.MergeCells(nextIndex, ColumnIndex, nextIndex, ColumnCurrency);
         }
 
         /// <summary>
