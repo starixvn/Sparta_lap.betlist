@@ -46,6 +46,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -95,6 +96,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("CurrencyID", DbType.Int32, metaModel.DrillDownCurrency);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.DrillDownFromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.DrillDownToDate);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -146,6 +148,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("CurrencyID", DbType.Int32, metaModel.DrillDownCurrency);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.DrillDownFromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.DrillDownToDate);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {

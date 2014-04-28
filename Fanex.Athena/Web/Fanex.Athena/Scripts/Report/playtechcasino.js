@@ -8,9 +8,8 @@ var PlaytechCasino = (function ($) {
         },
 
         initEvent: function () {
-            $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
-                $('#PlaytechCasinoForm').submit();
+            $('#ExportToExcel').click(function () {                
+                $('#PlaytechCasinoExcelForm').submit();
             });
 
             $(".drill-down-link").click(function () {

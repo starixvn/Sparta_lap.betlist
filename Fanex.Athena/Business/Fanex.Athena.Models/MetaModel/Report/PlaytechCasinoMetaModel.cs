@@ -21,6 +21,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public byte ReportBy { get; set; }
 
+        public bool IsExcludedTestData { get; set; }
+
         public int CustId { get; set; }
 
         public int Level { get; set; }

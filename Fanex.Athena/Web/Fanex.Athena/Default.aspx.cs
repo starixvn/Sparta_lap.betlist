@@ -29,7 +29,7 @@ namespace Fanex.Athena
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(languageCode);
         }
 
-        public void SetDefault(int licenseeid = 3, string lang = "en-US")
+        public void SetDefault(int licenseeid = 1, string lang = "en-US")
         {
             _sessionService = new SessionService();
 

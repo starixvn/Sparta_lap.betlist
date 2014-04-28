@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult PlaytechCasino()
+        public ActionResult PlaytechCasinoWinloss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var metaModel = new PlaytechCasinoMetaModel
@@ -45,6 +45,7 @@ namespace Fanex.Athena.Controllers.Report
                 ToDate = DateTime.Now,
                 LicenseeId = licenseeSession.LicenseeId,
                 ReportBy = ReportByType.Daily,
+                IsExcludedTestData = true,
             };
 
             var model = new PlaytechCasinoViewModel
@@ -66,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [FunctionAuthorization]
         [ValidateInput(false)]
-        public ActionResult PlaytechCasino(PlaytechCasinoMetaModel metaModel)
+        public ActionResult PlaytechCasinoWinloss(PlaytechCasinoMetaModel metaModel)
         {
             IPlaytechCasinoService playtechCasinoService = new PlaytechCasinoService();
             metaModel.UserId = SessionService.UserSession.UserId;
@@ -111,7 +112,7 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                return PlaytechCasinoExcel(model);
+                return PlaytechCasinoWinlossExcel(model);
             }
 
             return View("~/Views/Report/PlaytechCasino/Main.cshtml", model);
@@ -127,7 +128,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="viewModel">The view model.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult PlaytechCasinoExcel(PlaytechCasinoViewModel viewModel)
+        public ActionResult PlaytechCasinoWinlossExcel(PlaytechCasinoViewModel viewModel)
         {
             const string FileName = "PlaytechCasino";
 
