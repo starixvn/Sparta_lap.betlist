@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System.Collections.Generic;
     using Common.Extensions;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
@@ -48,6 +49,32 @@ namespace Fanex.Athena.Excel.Report
             _viewModel = viewModel;
 
             NumOfDataRow = viewModel.MainData.Count;
+
+            HeaderTextList = new List<string>
+            {
+                "#",
+                ViewResources.Date,
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.Currency,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L
+            };
+        }
+
+        /// <summary>
+        /// Assign data to header section.
+        /// </summary>
+        /// <param name="sheet">Excel sheet.</param>
+        public override void AssignHeader(ISheet sheet)
+        {
+            IRow row = sheet.CopyRow(TemplateSheet, RowHeader, RowHeader);
+            for (int i = 0; i < HeaderTextList.Count; i++)
+            {
+                row.Cells[i].SetCellValue(HeaderTextList[i]);
+            }
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
