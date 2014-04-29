@@ -136,7 +136,9 @@ var BetSetting = (function ($) {
                     BetSetting.checkEnable("180", enable);
                     BetSetting.checkEnable("181", enable);
                     BetSetting.checkEnable("182", enable);
+                    BetSetting.checkEnable("183", enable);
                     BetSetting.checkEnable("184", enable);
+                    BetSetting.checkEnable("185", enable);
                     BetSetting.checkEnable("186", enable);
                     break;
                 case 5:
@@ -278,10 +280,12 @@ var BetSetting = (function ($) {
         },
         checkValidationVirtualSports: function () {
             if (false == BetSetting.checkLimitMinMaxBet(180)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(181)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(186)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(181)) return false;            
             if (false == BetSetting.checkLimitMinMaxBet(182)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(183)) return false;
             if (false == BetSetting.checkLimitMinMaxBet(184)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(185)) return false;
+            if (false == BetSetting.checkLimitMinMaxBet(186)) return false;
             return true;
         },
         updateKenoBetSetting: function (custId, userName, nickName) {
@@ -401,7 +405,9 @@ var BetSetting = (function ($) {
             params += BetSetting.getBetSettingParams(180);
             params += BetSetting.getBetSettingParams(181);
             params += BetSetting.getBetSettingParams(182);
+            params += BetSetting.getBetSettingParams(183);
             params += BetSetting.getBetSettingParams(184);
+            params += BetSetting.getBetSettingParams(185);
             params += BetSetting.getBetSettingParams(186);
             params += "&custid=" + custId;
             params += "&userName=" + userName;

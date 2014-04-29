@@ -4,6 +4,7 @@
 var DailyBetList = (function ($) {
     "use strict";
     return {
+        submitUrl: null,
         initialize: function () {
             DailyBetList.initEvent();
         },
@@ -27,7 +28,7 @@ var DailyBetList = (function ($) {
             url = QueryString.setParam(url, "productCode", $("#ProductCode").val());
             url = QueryString.setParam(url, "status", $("#DailyBetListStatus").val());
             url = QueryString.setParam(url, "date", $("#Date").val());
-
+            BetList.submitUrl = url;
             BetList.loadDataPaging(url);
         },
 

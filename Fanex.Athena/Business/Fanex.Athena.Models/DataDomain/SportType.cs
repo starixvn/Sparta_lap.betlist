@@ -274,9 +274,19 @@ namespace Fanex.Athena.Models.DataDomain
         VirtualGreyhound = 182,
 
         /// <summary>
+        /// Value = 183.
+        /// </summary>
+        VirtualSpeedway = 183,
+
+        /// <summary>
         /// VirtualMotoRacing sport, value = 181.
         /// </summary>
         VirtualMotoRacing = 184,
+
+        /// <summary>
+        /// Value = 185.
+        /// </summary>
+        VirtualCycling = 185,
 
         /// <summary>
         /// Keno product ,value=202.

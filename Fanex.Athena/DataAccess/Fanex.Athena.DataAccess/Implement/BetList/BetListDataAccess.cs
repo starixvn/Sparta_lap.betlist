@@ -167,7 +167,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     { "sumplayercommeur", 0 },
                     { "sumstake", 0 },
                     { "sumstakeusd", 0 },
-                    { "sumstakeeur", 0 }
+                    { "sumstakeeur", 0 },
+                    { "sort", metaModel.SortBy + " " + metaModel.SortOrder }
             };
             var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();

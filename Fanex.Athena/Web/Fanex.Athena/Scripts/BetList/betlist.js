@@ -74,7 +74,12 @@ var BetList = (function ($) {
                     _sortColumnName = index;
                 }
 
-                BetList.loadData(_params, _url);
+                if (DailyBetList) {
+                    BetList.loadDataPaging(BetList.submitUrl);
+                }
+                else {
+                    BetList.loadData(_params, _url);
+                }
 
                 Site.unBlockUI();
                 return 'stop';
@@ -144,6 +149,10 @@ var BetList = (function ($) {
 
         loadDataPaging: function (url) {
             Site.blockUI();
+//            if (url && _sortColumnName) {
+//                url += "&SortBy=" + _sortColumnName;
+//                url += "&SortOrder=" + _sortOrder;
+//            }
 
             var rows = BetListOption.gridOption.rowList[0];
             BetList.submiting = true;

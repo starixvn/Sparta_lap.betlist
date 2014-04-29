@@ -69,7 +69,7 @@ namespace Fanex.Athena.Service.Implement.Report
                 return new List<MatchWinLoss>();
             }
 
-            var dataList = _matchWinLossDataAccess.GetDataList(metaModel).Where(x => x.SportType == 185).ToList();
+            var dataList = _matchWinLossDataAccess.GetDataList(metaModel);
 
             foreach (var data in dataList)
             {
@@ -250,7 +250,9 @@ namespace Fanex.Athena.Service.Implement.Report
                     {
                         (int)SportType.VirtualHorseRacing,
                         (int)SportType.VirtualGreyhound,
-                        (int)SportType.VirtualMotoRacing
+                        (int)SportType.VirtualMotoRacing,
+                        (int)SportType.VirtualSpeedway,
+                        (int)SportType.VirtualCycling
                     };
 
                     if (racingSportTypes.Contains(matchWinLoss.SportType))

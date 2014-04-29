@@ -448,7 +448,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The parameters.</returns>
         private IList<VSBetSetting> GetVirtualSportsParam()
         {
-            string[] sports = { "180", "181", "182", "184", "186" };
+            string[] sports = { "180", "181", "182", "183", "184", "185", "186" };
 
             var settings = new List<VSBetSetting>();
 

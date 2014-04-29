@@ -34,6 +34,8 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="date">Search date.</param>
         /// <param name="productCode">Product code.</param>
         /// <param name="status">Status value.</param>
+        /// <param name="sortBy">Sort by column.</param>
+        /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
         public dynamic DailyBetList(
@@ -45,7 +47,9 @@ namespace Fanex.Athena.Api.BetList
             string baseCurrency,
             DateTime date,
             string productCode,
-            string status)
+            string status,
+            string sortBy,
+            string sortOrder)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
@@ -60,7 +64,9 @@ namespace Fanex.Athena.Api.BetList
                 ToDate = date.Date,
                 UserId = SessionService.UserSession.UserId,
                 ProductCode = productCode,
-                DailyBetListStatus = status
+                DailyBetListStatus = status,
+                SortBy = sortBy,
+                SortOrder = sortOrder
             };
 
             return GetPagingBetListResult(metaModel, UspKey, page, rows);
