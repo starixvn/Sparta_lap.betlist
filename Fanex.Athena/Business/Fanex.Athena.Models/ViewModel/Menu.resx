@@ -288,6 +288,9 @@
     <value>Internal Login</value>
     <comment>#9502</comment>
   </data>
+  <data name="Menu_61" xml:space="preserve">
+    <value>Playtech Casino Win Loss</value>
+  </data>
   <data name="Menu_7" xml:space="preserve">
     <value>Handicap/Over Under/Live</value>
   </data>
