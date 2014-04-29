@@ -74,8 +74,8 @@ var BetList = (function ($) {
                     _sortColumnName = index;
                 }
 
-                if (DailyBetList) {
-                    BetList.loadDataPaging(BetList.submitUrl);
+                if (window.serverPaging) {
+                    BetList.loadDataPaging(_url);
                 }
                 else {
                     BetList.loadData(_params, _url);
@@ -110,7 +110,6 @@ var BetList = (function ($) {
         },
 
         loadData: function (params, url) {
-
             if (typeof params === "string") {
                 params = JSON.parse(params);
             }
@@ -148,11 +147,12 @@ var BetList = (function ($) {
         },
 
         loadDataPaging: function (url) {
+            _url = url;
             Site.blockUI();
-//            if (url && _sortColumnName) {
-//                url += "&SortBy=" + _sortColumnName;
-//                url += "&SortOrder=" + _sortOrder;
-//            }
+            if (url && _sortColumnName) {
+                url = Site.updateQueryStringParameter(url, "SortBy", _sortColumnName === "WinLoss" ? "Winlost" : _sortColumnName);
+                url = Site.updateQueryStringParameter(url, "SortOrder", _sortOrder);
+            }
 
             var rows = BetListOption.gridOption.rowList[0];
             BetList.submiting = true;

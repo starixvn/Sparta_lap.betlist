@@ -1,6 +1,8 @@
 ﻿/*global Site, QueryString, BetList*/
 /// <reference path="/@JSense.js" />
 
+window.serverPaging = true; // used in betlist.js
+
 var DailyBetList = (function ($) {
     "use strict";
     return {

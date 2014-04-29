@@ -48,8 +48,8 @@ namespace Fanex.Athena.Api.BetList
             DateTime date,
             string productCode,
             string status,
-            string sortBy,
-            string sortOrder)
+            string sortBy = null,
+            string sortOrder = null)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
@@ -66,7 +66,7 @@ namespace Fanex.Athena.Api.BetList
                 ProductCode = productCode,
                 DailyBetListStatus = status,
                 SortBy = sortBy,
-                SortOrder = sortOrder
+                SortOrder = sortOrder 
             };
 
             return GetPagingBetListResult(metaModel, UspKey, page, rows);

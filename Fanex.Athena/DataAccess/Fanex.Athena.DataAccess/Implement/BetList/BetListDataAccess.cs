@@ -167,8 +167,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     { "sumplayercommeur", 0 },
                     { "sumstake", 0 },
                     { "sumstakeusd", 0 },
-                    { "sumstakeeur", 0 },
-                    { "sort", metaModel.SortBy + " " + metaModel.SortOrder }
+                    { "sumstakeeur", 0 }
             };
             var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();
@@ -560,6 +559,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         private static void CreateMatchWLParlayBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
+            if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
+            {
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            }
+
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
@@ -767,6 +771,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <param name="metaModel">The metal model.</param>
         private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
+            {
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            }
+
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);

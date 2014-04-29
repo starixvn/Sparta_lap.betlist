@@ -84,6 +84,8 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="toDate">To date value.</param>
         /// <param name="showSb">Show sports book or not.</param>
         /// <param name="showBa">Show Ba or not.</param>
+        /// <param name="sortBy">Sort by column.</param>
+        /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpGet]
         public dynamic MatchWlMixParlay(
@@ -96,7 +98,9 @@ namespace Fanex.Athena.Api.BetList
             DateTime fromDate,
             DateTime toDate,
             bool showSb,
-            bool showBa)
+            bool showBa,
+            string sortBy = null,
+            string sortOrder = null)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
 
@@ -127,7 +131,9 @@ namespace Fanex.Athena.Api.BetList
                     ProductOptions = productOptions,
                     BaseCurrency = baseCurrency ?? string.Empty,
                     FromDate = fromDate.Date,
-                    ToDate = toDate.Date
+                    ToDate = toDate.Date,
+                    SortBy = sortBy,
+                    SortOrder = sortOrder
                 };
 
                 return GetPagingBetListResult(metaModel, UspKey, page, rows);
