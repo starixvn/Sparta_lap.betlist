@@ -10,6 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using Common.Extensions;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using NPOI.SS.UserModel;
@@ -118,7 +119,8 @@ namespace Fanex.Athena.Excel.Report
                 var item = _viewModel.MainData[rowIndex];
                 var row = sheet.CopyRow(TemplateSheet, RowContent, RowContent + rowIndex);
                 row.Cells[ColumnIndex].SetCellValue(rowIndex + 1);
-                row.Cells[ColumnDate].SetCellValue(item.WinlossDate);
+                row.Cells[ColumnDate].SetCellValue(_viewModel.Param.ReportBy == ReportByType.Monthly
+                    ? item.WinlossDate.ToString("MM/yyyy") : item.WinlossDate.ToShortDateString());
                 row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);

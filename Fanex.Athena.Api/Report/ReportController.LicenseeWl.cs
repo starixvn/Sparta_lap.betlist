@@ -130,7 +130,6 @@ namespace Fanex.Athena.Api.Report
             var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel)
             {
                 Level = metaModel.DrillDownLevel,
-                EnableReportByMonth = metaModel.ReportBy
             };
 
             licenseeWinLoss.Export();

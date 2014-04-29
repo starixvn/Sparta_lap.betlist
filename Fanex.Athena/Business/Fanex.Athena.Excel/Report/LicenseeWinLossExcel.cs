@@ -14,6 +14,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Models.DTO.Common;
     using Models.DTO.Report;
     using Models.MetaModel.Product;
@@ -73,12 +74,6 @@ namespace Fanex.Athena.Excel.Report
             _licenseeWinLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             _productOption = GetProductOption(metaModel.ProductOptions);
-        }
-
-        public byte EnableReportByMonth
-        {
-            get;
-            set;
         }
 
         public int Level
@@ -193,7 +188,7 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = EnableReportByMonth != 1
+                var reportDateString = _metaModel.ReportBy == ReportByType.Monthly
                                           ? licenseeWinLoss.Date.ToString("MM/yyyy")
                                           : licenseeWinLoss.Date.ToShortDateString();
 
