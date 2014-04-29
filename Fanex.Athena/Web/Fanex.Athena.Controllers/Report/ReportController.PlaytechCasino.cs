@@ -81,6 +81,8 @@ namespace Fanex.Athena.Controllers.Report
             if (metaModel.ReportBy == ReportByType.Monthly && metaModel.Level > 0)
             {
                 metaModel.DrillDownToDate = metaModel.DrillDownToDate.AddMonths(1).AddDays(-1);
+                metaModel.DrillDownFromDate = metaModel.FromDate > metaModel.DrillDownFromDate ? metaModel.FromDate : metaModel.DrillDownFromDate;
+                metaModel.DrillDownToDate = metaModel.ToDate < metaModel.DrillDownToDate ? metaModel.ToDate : metaModel.DrillDownToDate;
             }
             
             switch (metaModel.Level)
