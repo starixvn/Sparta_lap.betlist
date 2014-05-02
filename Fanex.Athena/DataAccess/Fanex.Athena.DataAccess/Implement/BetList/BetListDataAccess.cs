@@ -182,6 +182,18 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                         ticketResult.TicketDataList = reader.NextResult()
                                     ? this.ReadLrfReferneceTicket(reader, baseCurrency).ToList()
                                     : new List<ITicketData>();
+
+                        if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
+                        {
+                            // Because Winloss and Commission are shared the same column (in grid)
+                            // so we need to sort by the total of two values which is stored in WinlossComm property.
+                            if (metaModel.SortBy.Equals("WinLoss", StringComparison.OrdinalIgnoreCase))
+                            {
+                                metaModel.SortBy = "WinLossComm";
+                            }
+
+                            ticketResult.MainTicketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                        }
                     }
 
                     var outSqlParams = db.GetOuputParams();
@@ -561,7 +573,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSiteParameters(db, metaModel);
             if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
             {
-                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
             }
 
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
@@ -773,7 +785,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
             {
-                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
             }
 
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);

@@ -112,7 +112,7 @@ namespace Fanex.Athena.Api.BetList
                     Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
                     LicenseeWl = builder.BuildLicenseeWl(ticket, is12Bet),
-                    WinLossComm = builder.BuildCustomerWl(ticket, showPlayerComm),
+                    WinLoss = builder.BuildCustomerWl(ticket, showPlayerComm),
                 };
 
                 ticketTextList.Add(ticketText);
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Api.BetList
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [NonAction]
         private dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
-        {
+        {           
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUpInfo = _balanceUpService.BalanceUpInfo;
 
@@ -138,23 +138,12 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-            
-            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);            
+
+            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)
-            {
-                if (string.IsNullOrWhiteSpace(metaModel.SortBy))
-                {
-                    metaModel.SortBy = "TransId";
-                    metaModel.SortOrder = "asc";
-                }
-                
-                var comparer = new PropertyComparer<LrfTicket>(
-                    metaModel.SortBy,
-                    metaModel.SortOrder.Equals("desc", StringComparison.OrdinalIgnoreCase) ? ListSortDirection.Descending : ListSortDirection.Ascending);
-                ticketResult.MainTicketList.Sort(comparer);                
-
+            {               
                 leagueName = CacheRef.GetLeagueName(ticketResult.MainTicketList.Any()
                    ? firstOrDefault.LeagueId : 0);
             }

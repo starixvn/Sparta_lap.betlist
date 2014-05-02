@@ -7,7 +7,7 @@ var CommonBetList = (function ($) {
 
             var actionName = $("#ActionName").val();
             var url = Site.resolveClientUrl('api/betlist/' + actionName);
-            var serverPaging = $("#IsServerPaging").val();            
+            var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {
                 var params = QueryString.getQueryString(location.href);
                 BetList.loadDataPaging(url + "?" + params);
@@ -19,7 +19,7 @@ var CommonBetList = (function ($) {
                 // Update datetime because js-engine parser jsonDatetime wrongly
                 params.FromDate = params.FromDateString;
                 params.ToDate = params.ToDateString;
-                params.Date = params.DateString;                
+                params.Date = params.DateString;
                 BetList.loadData(params, url, window.loadBetListSuccessCallback);
             }
 
@@ -35,7 +35,13 @@ var CommonBetList = (function ($) {
             var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {
                 url = QueryString.setParam(url, "PageIndex", page);
-                url = QueryString.setParam(url, "PageSize", size);
+                url = QueryString.setParam(url, "PageSize", size);                
+            }
+
+            var sortParams = BetList.getSortParams();
+            if (sortParams) {
+                url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
+                url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
             }
 
             url = QueryString.setParam(url, "IsExportExcel", true);

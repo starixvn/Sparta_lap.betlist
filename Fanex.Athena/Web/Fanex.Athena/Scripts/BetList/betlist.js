@@ -8,6 +8,16 @@ var BetList = (function ($) {
     var _params, _url;
 
     return {
+        getSortParams: function () {
+            if (!_sortColumnName) {
+                return null;
+            }
+
+            return {
+                SortBy: _sortColumnName,
+                SortOrder: _sortOrder
+            };
+        },
         submiting: true,
         initialize: function () {
             $(window).on('resize', function () {
@@ -66,12 +76,12 @@ var BetList = (function ($) {
                     return 'stop';
                 }
                 Site.blockUI();
+                 index = index === "WinLoss" ? "Winlost" : index;
                 if (_sortColumnName === index) {
                     _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
-
                 } else {
-                    _sortOrder = "asc";
-                    _sortColumnName = index;
+                    _sortOrder = "desc";
+                    _sortColumnName = index 
                 }
 
                 if (window.serverPaging) {
@@ -81,7 +91,6 @@ var BetList = (function ($) {
                     BetList.loadData(_params, _url);
                 }
 
-                Site.unBlockUI();
                 return 'stop';
             };
 
@@ -99,7 +108,7 @@ var BetList = (function ($) {
             var hasCustComm = $('#HasCustComm').val();
             if (hasCustComm === '1') {
                 gridOption.colNames = $.map(gridOption.colNames, function (val) {
-                    if (val === 'WinLossComm') {
+                    if (val === 'WinLoss') {
                         return '@[WinLoss]/@[Comm]';
                     }
                     return val;
@@ -150,8 +159,8 @@ var BetList = (function ($) {
             _url = url;
             Site.blockUI();
             if (url && _sortColumnName) {
-                url = Site.updateQueryStringParameter(url, "SortBy", _sortColumnName === "WinLoss" ? "Winlost" : _sortColumnName);
-                url = Site.updateQueryStringParameter(url, "SortOrder", _sortOrder);
+                url = QueryString.setParam(url, "SortBy", _sortColumnName);
+                url = QueryString.setParam(url, "SortOrder", _sortOrder);
             }
 
             var rows = BetListOption.gridOption.rowList[0];

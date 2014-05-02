@@ -34,6 +34,8 @@ namespace Fanex.Athena.Models.MetaModel.BetList
             set;
         }
 
+        public bool IsServerPaging { get; set; }
+
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }

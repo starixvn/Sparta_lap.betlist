@@ -80,6 +80,7 @@ namespace Fanex.Athena.Controllers.BetList
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
             const int MaxPageSizeExcel = 5000;
 
+            metaModel.IsServerPaging = true;
             metaModel.PageSize = metaModel.PageSize > MaxPageSizeExcel ? MaxPageSizeExcel : metaModel.PageSize;
             var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
 

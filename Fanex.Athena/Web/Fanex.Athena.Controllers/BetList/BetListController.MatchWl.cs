@@ -64,14 +64,13 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchWlMixParlay(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
-
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
-
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Parlay";
+                    metaModel.IsServerPaging = true;
                     return MatchWlExcel(metaModel, UspKey, true);
                 }
 
@@ -116,7 +115,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         [NonAction]
         public ActionResult MatchWlExcel(BetListMetaModel metaModel, string uspKey, bool onePageOnly = false)
-        {
+        {            
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
             if (onePageOnly)
             {

@@ -133,7 +133,8 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SortBy = sortBy,
-                    SortOrder = sortOrder
+                    SortOrder = sortOrder,
+                    IsServerPaging = true
                 };
 
                 return GetPagingBetListResult(metaModel, UspKey, page, rows);

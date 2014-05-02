@@ -66,7 +66,8 @@ namespace Fanex.Athena.Api.BetList
                 ProductCode = productCode,
                 DailyBetListStatus = status,
                 SortBy = sortBy,
-                SortOrder = sortOrder 
+                SortOrder = sortOrder,
+                IsServerPaging = true
             };
 
             return GetPagingBetListResult(metaModel, UspKey, page, rows);

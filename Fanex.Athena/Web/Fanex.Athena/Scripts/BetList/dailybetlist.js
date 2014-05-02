@@ -45,6 +45,11 @@ var DailyBetList = (function ($) {
             url = QueryString.setParam(url, "DailyBetListStatus", $("#DailyBetListStatus").val());
             url = QueryString.setParam(url, "PageIndex", page);
             url = QueryString.setParam(url, "PageSize", size);
+            var sortParams = BetList.getSortParams();
+            if (sortParams) {
+                url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
+                url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
+            }
             window.location.href = url;
         }
     };
