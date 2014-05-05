@@ -330,6 +330,7 @@
     <EmbeddedResource Include="ViewModel\Menu.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Menu.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewModel\Menu.zh-CN.resx" />
     <EmbeddedResource Include="ViewModel\Menu.zh-TW.resx" />

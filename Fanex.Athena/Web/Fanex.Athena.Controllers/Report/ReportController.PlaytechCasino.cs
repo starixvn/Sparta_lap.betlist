@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.Report
             IPlaytechCasinoService playtechCasinoService = new PlaytechCasinoService();
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.BaseCurrency = metaModel.CurrencyId == -1 ? "EUR" : metaModel.CurrencyId == -2 ? "USD" : string.Empty;
+            metaModel.BaseCurrency = metaModel.CurrencyId == BaseCurrencyType.Eur ? "EUR" : metaModel.CurrencyId == BaseCurrencyType.Usd ? "USD" : string.Empty;
             var currencyList = SessionService.UserSession.CurrencyList;
             metaModel.CurrencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrency)).Key;
             IList<PlaytechCasino> dataList = new List<PlaytechCasino>();
