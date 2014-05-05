@@ -1,6 +1,8 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site,BetList,QueryString*/
+/// <reference path="/@JSense.js" />
 
 var CommonBetList = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             $(".content-filter").remove();
@@ -9,8 +11,8 @@ var CommonBetList = (function ($) {
             var url = Site.resolveClientUrl('api/betlist/' + actionName);
             var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {
-                var params = QueryString.getQueryString(location.href);
-                BetList.loadDataPaging(url + "?" + params);
+                var paramString = QueryString.getQueryString(location.href);
+                BetList.loadDataPaging(url + "?" + paramString);
                 //BetList.loadDataPaging2(url, params);
             }
             else {
@@ -35,7 +37,7 @@ var CommonBetList = (function ($) {
             var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {
                 url = QueryString.setParam(url, "PageIndex", page);
-                url = QueryString.setParam(url, "PageSize", size);                
+                url = QueryString.setParam(url, "PageSize", size);
             }
 
             var sortParams = BetList.getSortParams();
@@ -51,5 +53,6 @@ var CommonBetList = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CommonBetList.initialize();
 });

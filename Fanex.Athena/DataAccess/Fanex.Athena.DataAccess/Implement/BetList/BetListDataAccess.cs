@@ -1022,7 +1022,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 case "Lrf_BetList_LiveReport_SelWinlossRacing":
                 case "Lrf_BetList_LiveReport_SelWinlossVHRacing":
                     CreateLiveReportBetListRacingParameters(db, metaModel);
-
                     break;
 
                 case "Lrf_BetList_MatchWL_Racing":

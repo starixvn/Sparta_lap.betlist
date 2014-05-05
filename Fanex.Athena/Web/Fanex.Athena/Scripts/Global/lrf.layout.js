@@ -126,6 +126,7 @@ $(document).ready(function () {
 
     if ((browser.msie && browser.version < 8) || (browser.mozilla && browser.version < 3.6)) {
         $("#browser").html(browser.msie ? "IE" : "Firefox");
+
         if (!IsHideBrowserNotification()) {
             $("#notification_popup").show("slow");
         }
@@ -138,6 +139,8 @@ $(document).ready(function () {
             setCookie("hidebrowsernotification", "true", 14);
             $("#notification_popup").slideUp("slow");
         });
+    } else {
+        $("#notification_popup").hide();
     }
     lrf.layout.init();
 });

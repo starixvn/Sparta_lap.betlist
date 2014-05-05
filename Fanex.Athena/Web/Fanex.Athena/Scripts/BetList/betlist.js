@@ -76,12 +76,12 @@ var BetList = (function ($) {
                     return 'stop';
                 }
                 Site.blockUI();
-                 index = index === "WinLoss" ? "Winlost" : index;
+                index = index === "WinLoss" ? "Winlost" : index;
                 if (_sortColumnName === index) {
                     _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                 } else {
                     _sortOrder = "desc";
-                    _sortColumnName = index 
+                    _sortColumnName = index;
                 }
 
                 if (window.serverPaging) {

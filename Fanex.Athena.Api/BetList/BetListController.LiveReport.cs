@@ -273,7 +273,9 @@ namespace Fanex.Athena.Api.BetList
                 {
                     (int)SportType.VirtualHorseRacing,
                     (int)SportType.VirtualGreyhound,
-                    (int)SportType.VirtualMotoRacing
+                    (int)SportType.VirtualMotoRacing,
+                    (int)SportType.VirtualSpeedway,
+                    (int)SportType.VirtualCycling
                 };
                 var uspKey = racingBettypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
                 return GetLiveReportPagingBetListResult(metaModel, uspKey, page, rows);

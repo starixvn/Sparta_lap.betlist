@@ -181,7 +181,9 @@ var LiveReport = (function ($) {
                 Key153: "BetList/LiveReportRacing?SportType=153",
                 Key181: "BetList/LiveReportRacing?SportType=181",
                 Key182: "BetList/LiveReportRacing?SportType=182",
-                Key184: "BetList/LiveReportRacing?SportType=184"
+                Key183: "BetList/LiveReportRacing?SportType=183",
+                Key184: "BetList/LiveReportRacing?SportType=184",
+                Key185: "BetList/LiveReportRacing?SportType=185"
             };
 
             var url = urlMap["Key" + jsonData.SportId];
