@@ -68,6 +68,8 @@ div.match + div.league
     padding: 0 4px;
     width: 14px;
 }
+.fhFirstGoal{background: url(Images/1F.gif) no-repeat scroll center center transparent;display: inline;height: 10px;	padding: 0 4px;	width: 14px;}
+.fhLastGoal{background: url(Images/1L.gif) no-repeat scroll center center transparent;display: inline;	height: 10px;	padding: 0 4px;	width: 14px;}
 .match
 {
     color: #000000;
@@ -106,6 +108,11 @@ div.match + div.league
 {
     color: #b50000;
 }
+.iplink {
+    color: #1E1EEB;
+    cursor: pointer;
+    font-size: 11px;
+}
 .detail
 {
     background: url("images/q_Icon2_1.png") no-repeat scroll center center transparent;
@@ -132,7 +139,21 @@ div.match + div.league
 {
     line-height: 20px;
 }
-
+.scoremap {
+    float: left;
+}
+.scoremapIcon {
+    background: url("Images/ScoreMapWL.png") no-repeat scroll 0 0 transparent;
+    height: 18px;
+    margin: 3px;
+    width: 18px;
+}
+/* Trans */
+.iplink ,.betsliplink{
+	cursor: pointer;
+	color:#1E1EEB;
+	font-size: 11px;
+}
 .time
 {
     color: #434343;
@@ -262,7 +283,6 @@ span.active-switch-link
 {
     color: #3547E3;
 }
-
 .blue
 {
     color: #2673CE;
