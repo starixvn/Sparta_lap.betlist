@@ -33,21 +33,6 @@ var RunningBetList = (function ($) {
             window.location.href = url;
         },
 
-        showCombMPDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
-            if (custId == 0) return;
-            var url = Site.resolveClientUrl("_BetList/Popup/ViewSystemParlay.aspx");
-            url = QueryString.setParam(url, "transid", transId);
-            url = QueryString.setParam(url, "refno", refNo);
-            url = QueryString.setParam(url, "betteam", betTeam);
-            url = QueryString.setParam(url, "betid", betId);
-            url = QueryString.setParam(url, "custid", custId);
-            url = QueryString.setParam(url, "basecurrency", baseCurrency);
-
-            Site.blockUI();
-            $("#popupSystemParlay").load(url).dialog();
-            //window.location.href = url;
-        },
-
         switchItemSelectedMixParlay: function () {
             var betType = RunningBetList.getUrlParams("bettype");
             var mixParlay = $("#mixparlay_9");
