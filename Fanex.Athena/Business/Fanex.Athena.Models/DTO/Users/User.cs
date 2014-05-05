@@ -67,11 +67,6 @@ namespace Fanex.Athena.Models.DTO.Users
             }
         }
 
-        public bool HasPermission(string function)
-        {
-            return !string.IsNullOrEmpty(function) && FuntionList.Contains(function);
-        }
-
         public bool IsInRole(string roleName)
         {
             if (string.IsNullOrEmpty(roleName))
