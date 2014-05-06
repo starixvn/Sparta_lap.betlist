@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Extension.Utility
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
@@ -107,15 +108,23 @@ namespace Fanex.Athena.Extension.Utility
         }
 
         /// <summary>
-        /// Return true if password contains least 2 numbers and 2 letters and have length >= 6
+        /// Return true if password contains least 2 numbers and 2 letters and have length >= 6.
         /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="password">The password.</param>
+        /// <returns>The valid password or invalid password.</returns>
+        [SuppressMessage(
+"StyleCop.CSharp.Nexcel.NexcelCustomRules",
+"SP2101:MethodMustNotContainMoreLinesThan",
+Justification = "Reviewed. Suppression is OK here.")]
         public static bool CheckValidPassword(string password)
         {
             password = password.ToLower();
-            if (password.Length < 6) return false;
-            var bValid = false;
+            if (password.Length < 6)
+            {
+                return false;
+            }
+
+            var isValid = false;
             var j3 = -1;
             for (var i = 0; i < 10; i++)
             {
@@ -123,38 +132,51 @@ namespace Fanex.Athena.Extension.Utility
                 var j2 = password.LastIndexOf(i.ToString());
                 if (j1 != j2)
                 {
-                    bValid = true;
+                    isValid = true;
                     break;
                 }
+
                 if (j3 == -1)
                 {
                     j3 = j1;
                     continue;
                 }
-                if (j3 == -1 || j3 == j1) continue;
-                bValid = true;
+
+                if (j3 == -1 || j3 == j1)
+                {
+                    continue;
+                }
+
+                isValid = true;
                 break;
             }
 
-            if (bValid)
+            if (isValid)
             {
-                const string az = "abcdefghijklmnopqrstuvwxyz";
+                const string AtoZ = "abcdefghijklmnopqrstuvwxyz";
                 var count = 0;
                 for (var i = 0; i < password.Length; i++)
                 {
-                    if (az.Contains(password.Substring(i, 1)))
+                    if (AtoZ.Contains(password.Substring(i, 1)))
                     {
                         ++count;
                     }
 
-                    if (count != 2) continue;
+                    if (count != 2)
+                    {
+                        continue;
+                    }
+
                     break;
                 }
 
-                if (count < 2) bValid = false;
+                if (count < 2)
+                {
+                    isValid = false;
+                }
             }
 
-            return bValid;
+            return isValid;
         }
     }
 }

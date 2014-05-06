@@ -6,12 +6,11 @@
 
 namespace Fanex.Athena.Service.Interface.Integration
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public interface ISSOService
     {
-         void SSO();
+        void SSO();
     }
 }

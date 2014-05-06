@@ -10,7 +10,6 @@ namespace Fanex.Athena.Extension.Utility
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using System.Web;
 
     /// <summary>
     /// Setting class.
@@ -37,8 +36,6 @@ namespace Fanex.Athena.Extension.Utility
         {
             get { return GetValue("RemoteRefURL"); }
         }
-
-      
 
         public static string JsVersion
         {
@@ -195,6 +192,5 @@ namespace Fanex.Athena.Extension.Utility
         {
             return ConfigurationManager.AppSettings[key];
         }
-
     }
 }

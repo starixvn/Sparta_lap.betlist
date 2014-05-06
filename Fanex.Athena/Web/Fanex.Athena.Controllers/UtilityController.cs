@@ -22,18 +22,16 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class UtilityController : BaseController
     {
-        private readonly IDictionary<string, string> ChangePassPageData = new Dictionary<string, string>(){
-        {"alertInputOldPwd",ViewResources.AlertInputOldPwdMsg},{"alertPasswordEmpty",ViewResources.AlertPasswordEmptyMsg},
-        {"alertErrorConfirm",ViewResources.PasswordConfirmErrorMsg},{"alertPasswordRequire",ViewResources.PasswordNoteMsg},
-        {"alertPasswordSucc",ViewResources.PasswordChangedMsg}
-        };
-
         [AllowAnonymous]
         public ActionResult AccessDenied()
         {
             return View("~/Views/Utility/AccessDenied.cshtml");
         }
 
+        /// <summary>
+        /// The denied page.
+        /// </summary>
+        /// <returns>The denied message.</returns>
         [AllowAnonymous]
         public ActionResult SSODenyAccess()
         {
@@ -68,6 +66,10 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/SSODenyAccess.cshtml");
         }
 
+        /// <summary>
+        /// The location restriction page.
+        /// </summary>
+        /// <returns>The restriction information.</returns>
         [AllowAnonymous]
         public ActionResult LocationRestriction()
         {
@@ -83,12 +85,20 @@ namespace Fanex.Athena.Controllers
             }
         }
 
+        /// <summary>
+        /// The error page.
+        /// </summary>
+        /// <returns>The error information.</returns>
         [AllowAnonymous]
         public ActionResult Error()
         {
             string errorStr = string.Empty;
             string errCode = Request.QueryString["err"];
-            if (string.IsNullOrEmpty(errCode)) errCode = string.Empty;
+            if (string.IsNullOrEmpty(errCode))
+            {
+                errCode = string.Empty;
+            }
+
             switch (errCode)
             {
                 case "400":
@@ -107,20 +117,27 @@ namespace Fanex.Athena.Controllers
                     errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
                     break;
             }
+
             if (string.IsNullOrEmpty(errorStr))
+            {
                 errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
+            }
 
             ViewBag.Message = errorStr;
             return View("~/Views/Utility/Error.cshtml");
         }
 
+        /// <summary>
+        /// The under maintenance page.
+        /// </summary>
+        /// <returns>The maintenance information.</returns>
         [AllowAnonymous]
         public ActionResult UnderMaintenance()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();
 
-            var umTimeFrom = string.Empty;
-            var umTimeTo = string.Empty;
+            var underMaintenanceTimeFrom = string.Empty;
+            var underMaintenanceTimeTo = string.Empty;
             var maintenanceInfo = maintenanceService.MaintenanceInfo;
             var acceptIp = AppSettings.GetValue("AcceptIp");
             var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
@@ -132,20 +149,26 @@ namespace Fanex.Athena.Controllers
             }
             else
             {
-                umTimeFrom = maintenanceInfo.UmTimeFrom;
-                umTimeTo = maintenanceInfo.UmTimeTo;
+                underMaintenanceTimeFrom = maintenanceInfo.UmTimeFrom;
+                underMaintenanceTimeTo = maintenanceInfo.UmTimeTo;
 
-                if (string.IsNullOrEmpty(umTimeFrom) || string.IsNullOrEmpty(umTimeTo))
+                if (string.IsNullOrEmpty(underMaintenanceTimeFrom) || string.IsNullOrEmpty(underMaintenanceTimeTo))
                 {
-                    umTimeFrom = Request.QueryString["from"] != null ? Request.QueryString["from"] : string.Empty;
-                    umTimeTo = Request.QueryString["to"] != null ? Request.QueryString["to"] : string.Empty;
+                    underMaintenanceTimeFrom = Request.QueryString["from"] != null ? Request.QueryString["from"] : string.Empty;
+                    underMaintenanceTimeTo = Request.QueryString["to"] != null ? Request.QueryString["to"] : string.Empty;
                 }
             }
-            ViewBag.UmTimeFrom = umTimeFrom;
-            ViewBag.UmTimeTo = umTimeTo;
+
+            ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
+            ViewBag.UmTimeTo = underMaintenanceTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
         }
 
+        /// <summary>
+        /// The licensee list page.
+        /// </summary>
+        /// <param name="licenseeId">The licensee ID.</param>
+        /// <returns>The licensee list.</returns>
         [HttpGet]
         public ActionResult SelectLicensee(int? licenseeId)
         {
@@ -164,13 +187,13 @@ namespace Fanex.Athena.Controllers
                 var licenseeService = new LicenseeService();
 
                 var licenseeList = licenseeService.GetByUser(SessionService.UserSession.UserId);
-                ///Admin, but not assinged to handle any licensees
+                //// Admin, but not assinged to handle any licensees
                 if (licenseeList.Count <= 0)
                 {
                     return RedirectToAction("SignIn", "Authorization");
                 }
 
-                ///Admin user handle only one licensee
+                //// Admin user handle only one licensee
                 if (licenseeList.Count == 1)
                 {
                     return RedirectFromLoginPage(licenseeList[0].Id);
@@ -183,13 +206,31 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/SelectLicensee.cshtml");
         }
 
+        /// <summary>
+        /// The changing password page.
+        /// </summary>
+        /// <returns>The changing password form.</returns>
         [HttpGet]
         public ActionResult ChangePass()
         {
-            ViewBag.PageData = ChangePassPageData;
+            ViewBag.PageData = new Dictionary<string, string>()
+            {
+            { "alertInputOldPwd", ViewResources.AlertInputOldPwdMsg },
+            { "alertPasswordEmpty", ViewResources.AlertPasswordEmptyMsg },
+            { "alertErrorConfirm", ViewResources.PasswordConfirmErrorMsg },
+            { "alertPasswordRequire", ViewResources.PasswordNoteMsg },
+            { "alertPasswordSucc", ViewResources.PasswordChangedMsg }
+            };
             return View("~/Views/Utility/ChangePass.cshtml");
         }
 
+        /// <summary>
+        /// Change password.
+        /// </summary>
+        /// <param name="txtOldPwd">The old password.</param>
+        /// <param name="txtNewPwd">The new password.</param>
+        /// <param name="txtConfirmPwd">The confirmed new password.</param>
+        /// <returns>The result of changing password.</returns>
         [HttpPost]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd, string txtConfirmPwd)
         {
@@ -201,6 +242,7 @@ namespace Fanex.Athena.Controllers
                     errMsg = ViewResources.PasswordNoteMsg
                 });
             }
+
             var userService = new UserService();
 
             if (SessionService.UserSession.IsInternal)
@@ -213,15 +255,17 @@ namespace Fanex.Athena.Controllers
             }
             else
             {
-                IResultInfo resultInfo = userService.ChangePassword(SessionService.UserSession.UserName
-                 , txtOldPwd, txtNewPwd, Request.UserHostAddress);
+                IResultInfo resultInfo = userService.ChangePassword(
+                    SessionService.UserSession.UserName,
+                    txtOldPwd,
+                    txtNewPwd,
+                    Request.UserHostAddress);
                 return Json(new
                 {
                     errCode = resultInfo.Code,
                     errMsg = resultInfo.Message
                 });
             }
-
         }
 
         private ActionResult RedirectFromLoginPage(int licenseeId)

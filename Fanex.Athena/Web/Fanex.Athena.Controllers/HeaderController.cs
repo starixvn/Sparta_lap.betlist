@@ -7,13 +7,13 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
+    using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
-    using System.Web.Security;
 
     /// <summary>
     /// TODO: Update summary.
@@ -77,6 +77,11 @@ namespace Fanex.Athena.Controllers
 
             return changed ? "1" : "0";
         }
+
+        /// <summary>
+        /// The Sign-Page.
+        /// </summary>
+        /// <returns>Redirect to Sing-In page.</returns>
         [HttpGet]
         public ActionResult SignOut()
         {
@@ -93,6 +98,9 @@ namespace Fanex.Athena.Controllers
             return RedirectToAction("LocationRestriction", "Utility");
         }
 
+        /// <summary>
+        /// Clear cookies.
+        /// </summary>
         private void ClearCookies()
         {
             var cookieList = HttpContext.Response.Cookies;
@@ -109,6 +117,5 @@ namespace Fanex.Athena.Controllers
                 Response.Cookies.Add(cookie);
             }
         }
-
     }
 }

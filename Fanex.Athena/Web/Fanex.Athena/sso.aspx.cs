@@ -1,13 +1,15 @@
 ﻿using System;
 using Fanex.Athena.Service.Implement.Configuration;
-using Fanex.Athena.Service.Interface.Configuration;
-using Fanex.Athena.Service.Interface.Common;
-using Fanex.Athena.Service.Implement.Common;
-using Fanex.Athena.Service.Interface.Integration;
 using Fanex.Athena.Service.Implement.Integration;
+using Fanex.Athena.Service.Interface.Configuration;
+using Fanex.Athena.Service.Interface.Integration;
 
 public partial class sso : System.Web.UI.Page
 {
+    /// <summary>
+    /// Processing when loading page.
+    /// </summary>
+    /// <param name="e">The event argument.</param>
     protected override void OnLoad(EventArgs e)
     {
         IMaintenanceService _maintenanceService = new MaintenanceService();

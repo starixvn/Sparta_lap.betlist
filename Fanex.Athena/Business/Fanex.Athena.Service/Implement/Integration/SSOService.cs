@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 {
     using System.Collections.Specialized;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Web;
     using System.Web.Security;
@@ -38,45 +39,56 @@ namespace Fanex.Athena.Service.Implement.Integration
 
         private readonly HttpContext _context;
         private readonly string _keyPath = string.Empty;
-        private readonly string _unAccessPath = string.Empty;
+        private readonly string _deniedPath = string.Empty;
         private readonly ISessionService _sessionService = new SessionService();
 
         public SSOService()
         {
             _context = HttpContext.Current;
-            _unAccessPath = ConfigurationManager.AppSettings["SSOUnAuthorizePath"];
+            _deniedPath = ConfigurationManager.AppSettings["SSOUnAuthorizePath"];
             _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
         }
 
-        private void InternalLogin(string licname, string userName, string passWord, long timeSpan, string siteOutUrl,
-            string languageCode,
-                                   out IResultInfo resultInfo)
+        private string CurrentUserName
         {
-            var userService = new UserService();
-            var requestUser = new User
+            get
             {
-                Username = userName,
-                Password = passWord,
-                Request = new Request
+                var user = System.Web.HttpContext.Current.User;
+                if (user != null)
                 {
-                    Ip = _context.Request.UserHostAddress,
-                    Browser = _context.Request.Browser.Browser,
-                    Platform = _context.Request.Browser.Platform,
-                    Domain = siteOutUrl,
+                    return user.Identity == null ? string.Empty : user.Identity.Name;
                 }
-            };
-            IResultInfo loginResultInfo;
-            User user = userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
 
-            if (loginResultInfo.IsSuccessful)
-            {
-                _sessionService.CreateNewSession(user.Id, userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress), user.Username,
-                    true, user.Licensee.Id, languageCode);
+                return string.Empty;
             }
-
-            resultInfo = loginResultInfo;
         }
 
+        private bool IsUserAuthenticated
+        {
+            get
+            {
+                var context = System.Web.HttpContext.Current;
+                var isAuthenticated = context.User != null
+                    && context.User.Identity != null
+                    && context.User.Identity.IsAuthenticated
+                    && context.Request.IsAuthenticated;
+
+                var isSessionValid = _sessionService.UserSession != null
+                    && _sessionService.UserSession.UserId > 0
+                    && _sessionService.LicenseeSession != null
+                    && _sessionService.LicenseeSession.LicenseeId > 0;
+
+                return isAuthenticated && isSessionValid;
+            }
+        }
+
+        /// <summary>
+        /// Single sign on from internal site.
+        /// </summary>
+        [SuppressMessage(
+"StyleCop.CSharp.Nexcel.NexcelCustomRules",
+"SP2101:MethodMustNotContainMoreLinesThan",
+Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
             string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
@@ -102,11 +114,12 @@ namespace Fanex.Athena.Service.Implement.Integration
                         {
                             languageCode = DefaultLanguage;
                         }
+
                         if (IsUserAuthenticated)
                         {
                             if (userName == CurrentUserName)
                             {
-                                //update language code
+                                //// update language code
                                 var langService = new LanguageService();
                                 langService.ChangeLanguage(languageCode);
                                 FormsAuthentication.SetAuthCookie(userName, false);
@@ -128,31 +141,26 @@ namespace Fanex.Athena.Service.Implement.Integration
                             }
                             else
                             {
-                                //check error code
+                                //// check error code
                                 switch (resultInfo.Code)
                                 {
                                     case 101:
-                                        _context.Response.Redirect(Util.GetRootPath() +
-                                                                   string.Format(_unAccessPath, NotFoundUser, resultInfo.Message));
+                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotFoundUser, resultInfo.Message));
 
                                         break;
 
                                     case 102:
-                                        _context.Response.Redirect(Util.GetRootPath() +
-                                                                   string.Format(_unAccessPath, NotActive, resultInfo.Message));
+                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotActive, resultInfo.Message));
 
                                         break;
 
                                     case 103:
-                                        _context.Response.Redirect(Util.GetRootPath() +
-                                                                   string.Format(_unAccessPath, TooManyLicensee,
-                                                                                 resultInfo.Message));
+                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, TooManyLicensee, resultInfo.Message));
 
                                         break;
 
                                     case 104:
-                                        _context.Response.Redirect(Util.GetRootPath() +
-                                                                   string.Format(_unAccessPath, NotFoundLicensee, resultInfo));
+                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotFoundLicensee, resultInfo));
 
                                         break;
                                 }
@@ -160,59 +168,72 @@ namespace Fanex.Athena.Service.Implement.Integration
                         }
                         else
                         {
-                            _context.Response.Redirect(Util.GetRootPath() +
-                                                       string.Format(_unAccessPath, InValidParam, string.Empty));
+                            _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, InValidParam, string.Empty));
                         }
                     }
                     else
                     {
-                        _context.Response.Redirect(Util.GetRootPath() +
-                                                   string.Format(_unAccessPath, DisableSso, string.Empty));
+                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, DisableSso, string.Empty));
                     }
                 }
                 else
                 {
-                    _context.Response.Redirect(Util.GetRootPath() +
-                                               string.Format(_unAccessPath, DisableSso, string.Empty));
+                    _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, DisableSso, string.Empty));
                 }
             }
             else
             {
-                _context.Response.Redirect(Util.GetRootPath() +
-                                           string.Format(_unAccessPath, InValidParam, string.Empty));
+                _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, InValidParam, string.Empty));
             }
         }
 
-        private string CurrentUserName
+        /// <summary>
+        /// Internal sign in.
+        /// </summary>
+        /// <param name="licname">The licensee name.</param>
+        /// <param name="userName">The user name.</param>
+        /// <param name="passWord">The pass word.</param>
+        /// <param name="timeSpan">The time span.</param>
+        /// <param name="siteOutUrl">The sign out url.</param>
+        /// <param name="languageCode">The language code.</param>
+        /// <param name="resultInfo">The result information.</param>
+        private void InternalLogin(
+          string licname,
+          string userName,
+          string passWord,
+          long timeSpan,
+          string siteOutUrl,
+          string languageCode,
+          out IResultInfo resultInfo)
         {
-            get
+            var userService = new UserService();
+            var requestUser = new User
             {
-                var user = System.Web.HttpContext.Current.User;
-                if (user != null)
+                Username = userName,
+                Password = passWord,
+                Request = new Request
                 {
-                    return user.Identity == null ? string.Empty : user.Identity.Name;
+                    Ip = _context.Request.UserHostAddress,
+                    Browser = _context.Request.Browser.Browser,
+                    Platform = _context.Request.Browser.Platform,
+                    Domain = siteOutUrl,
                 }
-                return string.Empty;
-            }
-        }
+            };
+            IResultInfo loginResultInfo;
+            User user = userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
 
-        private bool IsUserAuthenticated
-        {
-            get
+            if (loginResultInfo.IsSuccessful)
             {
-                var context = System.Web.HttpContext.Current;
-                var isAuthenticated = context.User != null
-                    && context.User.Identity != null
-                    && context.User.Identity.IsAuthenticated
-                    && context.Request.IsAuthenticated;
-
-                var isSessionValid = _sessionService.UserSession != null
-                    && _sessionService.UserSession.UserId > 0
-                    && _sessionService.LicenseeSession != null
-                    && _sessionService.LicenseeSession.LicenseeId > 0;
-
-                return isAuthenticated && isSessionValid;
+                _sessionService.CreateNewSession(
+                    user.Id,
+                    userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
+                    user.Username,
+                    true,
+                    user.Licensee.Id,
+                    languageCode);
             }
+
+            resultInfo = loginResultInfo;
         }
     }
 }

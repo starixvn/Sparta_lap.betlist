@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MenuController.cs" company="">
+// <copyright file="MenuController.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,6 +20,11 @@ namespace Fanex.Athena.Controllers
     {
         private readonly IFunctionService _functionManager = new FunctionService();
         private readonly IFunctionAccessService _functionAccess = new FunctionAccessService();
+
+        /// <summary>
+        /// The menu page.
+        /// </summary>
+        /// <returns>The menu list.</returns>
         [HttpGet]
         [Authorize]
         public ActionResult Index()
@@ -39,7 +44,6 @@ namespace Fanex.Athena.Controllers
 
             viewModel.MasterFunctions = _functionManager.GetMasterFunctions(viewModel.UserFunctions);
             viewModel.UserDetailFunctions = _functionManager.GetSubFunctions(viewModel.UserFunctions);
-
 
             return View("~/Views/Menu/Index.cshtml", viewModel);
         }

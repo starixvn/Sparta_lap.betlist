@@ -23,6 +23,11 @@ namespace Fanex.Athena.Controllers
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
+        /// <summary>
+        /// Checking existing user in the system.
+        /// </summary>
+        /// <param name="defaultView">The client device (IPAD or others).</param>
+        /// <returns>Redirect to sign in page or the home page.</returns>
         private ActionResult ReAuthorize(string defaultView)
         {
             var user = SessionService.UserSession;
@@ -32,6 +37,7 @@ namespace Fanex.Athena.Controllers
                 Session.Clear();
                 return RedirectToAction("LocationRestriction", "Utility");
             }
+
             return View(defaultView);
         }
     }

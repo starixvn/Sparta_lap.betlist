@@ -159,7 +159,9 @@
     <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="UtilityController.cs" />
+    <Compile Include="UtilityController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Customer\CustomerLog\CustomerLogController.GroupCommission.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />

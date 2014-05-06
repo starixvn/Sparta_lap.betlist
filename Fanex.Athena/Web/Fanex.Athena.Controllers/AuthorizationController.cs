@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
@@ -31,7 +32,10 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class AuthorizationController : BaseController
     {
-
+        /// <summary>
+        /// The sign-in page.
+        /// </summary>
+        /// <returns>The sign in page.</returns>
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
@@ -58,8 +62,17 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
+        /// <summary>
+        /// The sign in page.
+        /// </summary>
+        /// <param name="model">The sign in metal model.</param>
+        /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [AllowAnonymous]
         [HttpPost]
+        [SuppressMessage(
+  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+  "SP2101:MethodMustNotContainMoreLinesThan",
+  Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)
         {
             var isValid = true;
@@ -67,15 +80,15 @@ namespace Fanex.Athena.Controllers
            AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (model.Captcha != SessionService.CaptchaCode)
             {
-                // if IsAllowAutomationCaptchaCode = true
-                // then allow selenium testing
+                /*if IsAllowAutomationCaptchaCode = true
+                 then allow selenium testing
+                 */
                 if (!isAllowAutomationCaptchaCode)
                 {
-                    // Create new code
                     SessionService.CaptchaCode = Encryption.RandomNumberString(4).ToUpperInvariant();
-                    // Return error
                     SinglePageData(101, ViewResources.InvalidCaptchaMsg);
                 }
+
                 isValid = false;
             }
 
@@ -83,15 +96,14 @@ namespace Fanex.Athena.Controllers
             {
                 SinglePageData(102, ViewResources.AlertUserNameMsg);
                 isValid = false;
-
             }
 
             if (string.IsNullOrEmpty(model.PassWord))
             {
                 SinglePageData(103, ViewResources.AlertPasswordEmptyMsg);
                 isValid = false;
-
             }
+
             if (isValid)
             {
                 var userService = new UserService();
@@ -106,8 +118,12 @@ namespace Fanex.Athena.Controllers
                 User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
-                    SessionService.CreateNewSession(user.Id, userService.LoginOnUser(user, Session.SessionID,
-                        user.ServerId, Request.UserHostAddress), user.Username, user.IsInternal, user.Licensee.Id);
+                    SessionService.CreateNewSession(
+                        user.Id,
+                        userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
+                        user.Username,
+                        user.IsInternal,
+                        user.Licensee.Id);
                     FormsAuthentication.SetAuthCookie(user.Username, false);
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
@@ -116,7 +132,6 @@ namespace Fanex.Athena.Controllers
                     }
                     else
                     {
-                        
                         FormsAuthentication.RedirectFromLoginPage(user.Username, false);
                     }
                 }
@@ -129,20 +144,24 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
+        /// <summary>
+        /// The re-check in service.
+        /// </summary>
+        /// <returns>The JSON data.</returns>
         [HttpGet]
         public ActionResult ReCheckin()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();
-            int onId = 0;
-            int.TryParse(Request["onid"], out onId);
+            int currentLoginId = 0;
+            int.TryParse(Request["onid"], out currentLoginId);
 
             // Invalid re-check-in
-            if (onId == 0 || !Request.IsAuthenticated || SessionService.UserSession == null)
+            if (currentLoginId == 0 || !Request.IsAuthenticated || SessionService.UserSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
             }
 
-            if (onId != SessionService.UserSession.OnUserId)
+            if (currentLoginId != SessionService.UserSession.OnUserId)
             {
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
@@ -153,6 +172,7 @@ namespace Fanex.Athena.Controllers
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, message), JsonRequestBehavior.AllowGet);
             }
+
             IUserService userService = new UserService();
             bool isSuccess = !userService.ReCheckin(SessionService.UserSession.OnUserId);
 
@@ -162,6 +182,10 @@ namespace Fanex.Athena.Controllers
             return Json(RecheckInResult(errCode, errMsg), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Generate captcha.
+        /// </summary>
+        /// <returns>Return the image.</returns>
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
@@ -172,7 +196,7 @@ namespace Fanex.Athena.Controllers
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;
-            int iwidth = code.Length * 12 + 10;
+            var iwidth = (code.Length * 12) + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, 20))
             using (var gfx = Graphics.FromImage((Image)bmp))
@@ -216,6 +240,5 @@ namespace Fanex.Athena.Controllers
             ViewBag.errCode = errorCode;
             ViewBag.errMsg = errorMsg;
         }
-
     }
 }
