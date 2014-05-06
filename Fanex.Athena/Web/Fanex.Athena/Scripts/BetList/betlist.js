@@ -6,7 +6,6 @@ var BetList = (function ($) {
     "use strict";
     var _sortColumnName, _sortOrder;
     var _params, _url;
-
     return {
         getSortParams: function () {
             if (!_sortColumnName) {
@@ -27,13 +26,15 @@ var BetList = (function ($) {
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
             // add sort icon
+
+            var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
             $(grid).closest("div.ui-jqgrid-view")
                     .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                     .each(function (index, element) {
                         var $this = $(element);
                         $this.find("span.s-ico").remove();
 
-                        if (element.id.indexOf(_sortColumnName) > -1) {
+                        if (element.id.indexOf(sortCol) > -1) {
                             var sortClass = "sort-" + _sortOrder;
                             var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
                             sortSpan.addClass(sortClass);
@@ -84,7 +85,7 @@ var BetList = (function ($) {
                     _sortColumnName = index;
                 }
 
-                if (window.serverPaging) {
+                if (window.serverPaging || $("#IsServerPaging").val()==="1") {
                     BetList.loadDataPaging(_url);
                 }
                 else {
@@ -163,10 +164,11 @@ var BetList = (function ($) {
                 url = QueryString.setParam(url, "SortOrder", _sortOrder);
             }
 
-            var rows = BetListOption.gridOption.rowList[0];
+
             BetList.submiting = true;
 
             var gridOption = BetList.getGridOption();
+            var rows = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
             gridOption.url = url;
             gridOption.rowNum = rows;
             gridOption.height = 0;
@@ -195,6 +197,7 @@ var BetList = (function ($) {
 
                 // Show the grid
                 var gridOption = BetList.getGridOption();
+                gridOption.rowNum = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWl: sumLicenseeWl };
 
@@ -212,6 +215,8 @@ var BetList = (function ($) {
 
                 $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
+
+
             }
         },
 

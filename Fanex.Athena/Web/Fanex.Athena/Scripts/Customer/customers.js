@@ -258,7 +258,7 @@ var CustomerList = (function ($) {
                 return false;
             });
 
-            $("#report-content").on("click", ".cust-option-link", function () {
+            $("#report-content").on("click", ".custoptionlink", function () {
                 CustomerList.viewCustOption($(this));
                 return false;
             });

@@ -138,14 +138,14 @@ var CustomersOption = (function () {
         name: 'CustomerOption',
         index: 'CustomerOption',
         width: 80,
-        align: 'right',
+        align: 'center',
         sortable: false,
         resizable: false,
         frozen: true,
         formatter: function (cellValue, options, rowObject) {
             return "<div systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
             "' title='" + Site.getSingleResource("CustomerOption") +
-            "' class='link cust-option-link' id='cust-option-link-" + rowObject.CustId + "'>" + Site.getSingleResource("View") +
+            "' class='link custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>" + Site.getSingleResource("View") +
             "<img alt='' style='width:10px;height:10px' src='" + Site.resolveClientUrl("Content/MemberInfo/images/arrow.gif?") + "'> </div>";
 
         }
