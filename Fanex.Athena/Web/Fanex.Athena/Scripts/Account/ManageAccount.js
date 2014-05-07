@@ -31,8 +31,8 @@ var ManageAccount = (function ($) {
             var target = $(sender);
             var url = Site.resolveClientUrl("Account/PermissionPage");
             url += "?UserId=" + target.attr("data-custid");
-            var host = window.location.host;
-            window.location.href = "http://" + host + url;
+          
+            window.location.href = url
         },
 
         showPopup: function (title, width, height, url, callback) {
