@@ -229,6 +229,8 @@
     <Content Include="Content\Customer\images\validatefail.png" />
     <Content Include="Content\Customer\images\viewcustomerlist.png" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
+    <Content Include="Content\Fanex.Result\images\1F.gif" />
+    <Content Include="Content\Fanex.Result\images\1L.gif" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
     <Content Include="Content\Fanex.Result\images\first-goal.gif" />
     <Content Include="Content\Fanex.Result\images\last-goal.gif" />

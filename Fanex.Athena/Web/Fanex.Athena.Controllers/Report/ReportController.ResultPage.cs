@@ -280,6 +280,8 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualGreyhounds:
+                case SportType.VirtualSpeedway:
+                case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
                         var dataRc = this._resultService.GetPopUpRacingMatch(
@@ -505,6 +507,8 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualGreyhounds:
                 case SportType.VirtualMotorRacing:
+                case SportType.VirtualCycling:
+                case SportType.VirtualSpeedway:
                     var dataRc = this._resultService.GetRacingMatch(metalModel);
                     if (dataRc != null)
                     {
