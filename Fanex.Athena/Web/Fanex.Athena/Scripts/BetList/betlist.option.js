@@ -104,8 +104,8 @@ var BetListOption = (function () {
         gridOption:
         {
             datatype: 'local',
-            rowNum: 3,
-            rowList: [3, 10, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowNum: 50,
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
             pager: '#pager2',
             loadtext: "Loading...",
             viewrecords: true,

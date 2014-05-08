@@ -135,7 +135,7 @@ var BetList = (function ($) {
 
             _params = params;
             _url = url;
-            
+
             if (params && _sortColumnName) {
                 params.SortBy = _sortColumnName;
                 params.SortOrder = _sortOrder;
@@ -316,9 +316,10 @@ var BetList = (function ($) {
         },
 
         resetContentHeight: function () {
-            var bodyHeight = 650;
+            var bodyHeight = $(window.frames).height() - 120; // 650;
             var actualHeight = $('.ui-jqgrid-bdiv .ui-jqgrid-btable').height();
             var bodyDiv = $('.ui-jqgrid-bdiv');
+            
             bodyDiv.css({ 'height': actualHeight });
             bodyDiv.css({ 'max-height': bodyHeight });
         },
