@@ -108,13 +108,10 @@ namespace Fanex.Athena.Controllers.Report
 
                 this.GetData(metalModel);
                 var response = ControllerContext.HttpContext.Response;
-                byte[] bfr = _excelStream.ToArray();
-                response.ContentType = "application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                response.Clear();
+                response.ContentType = "application/vnd.ms-excel";
                 response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
-                response.OutputStream.Write(bfr, 0, bfr.Length);
+                _excelStream.WriteTo(response.OutputStream);
                 response.Flush();
-                response.Close();
             }
 
             return null;
