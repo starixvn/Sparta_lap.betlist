@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, BetList*/
+/// <reference path="/@JSense.js" />
 var RunningBetList = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             RunningBetList.initEvent();
@@ -27,17 +29,36 @@ var RunningBetList = (function ($) {
         },
 
         switchMixParlayTotalBet: function (bettype) {
-            if (bettype.length == 0) return;
+            if (bettype.length === 0) {
+                return;
+            }
             var url = document.location.href;
             url = QueryString.setParam(url, "bettype", bettype);
             window.location.href = url;
+        },
+
+        showCombMPDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
+            if (Number(custId) === 0) {
+                return;
+            }
+            var url = Site.resolveClientUrl("_BetList/Popup/ViewSystemParlay.aspx");
+            url = QueryString.setParam(url, "transid", transId);
+            url = QueryString.setParam(url, "refno", refNo);
+            url = QueryString.setParam(url, "betteam", betTeam);
+            url = QueryString.setParam(url, "betid", betId);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "basecurrency", baseCurrency);
+
+            Site.blockUI();
+            $("#popupSystemParlay").load(url).dialog();
+            //window.location.href = url;
         },
 
         switchItemSelectedMixParlay: function () {
             var betType = RunningBetList.getUrlParams("bettype");
             var mixParlay = $("#mixparlay_9");
             var systemParlay = $("#mixparlay_29");
-            if (betType == 9) {
+            if (Number(betType) === 9) {
                 mixParlay.removeClass("active-switch-link");
                 mixParlay.addClass("inactive-switch-link");
 
@@ -69,6 +90,11 @@ var RunningBetList = (function ($) {
                 var url = window.location.href;
                 url = Site.setLicenseeOptionParam(url);
                 url = QueryString.setParam(url, "IsExportExcel", true);
+                var sortParams = BetList.getSortParams();
+                if (sortParams) {
+                    url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
+                    url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
+                }
                 window.location.href = url;
             });
         }
@@ -76,6 +102,7 @@ var RunningBetList = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     RunningBetList.initialize();
     RunningBetList.exportToExcel();
 });

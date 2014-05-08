@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 4/17/2014 1:42:00 PM
+// Lasted generated date: 5/6/2014 5:41:48 PM
 // </history>
 
 var _language_zh_CN={
@@ -1454,9 +1454,13 @@ var _language_zh_CN={
 				 	
                      Viewin:"以查看",
 				 	
+                     VirtualCycling:"Virtual Cycling",
+				 	
                      VirtualHorseRacing:"Virtual Horse Racing",
 				 	
                      VirtualSoccer:"Virtual Soccer",
+				 	
+                     VirtualSpeedway:"Virtual Speedway",
 				 	
                      VirtualSports:"虚拟运动",
 				 	

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 4/17/2014 1:41:38 PM
+// Lasted generated date: 5/6/2014 5:41:38 PM
 // </history>
 
 var _language_ko_KR={
@@ -1454,9 +1454,13 @@ var _language_ko_KR={
 				 	
                      Viewin:"에서 보기",
 				 	
+                     VirtualCycling:"Virtual Cycling",
+				 	
                      VirtualHorseRacing:"가상의 경마",
 				 	
                      VirtualSoccer:"가상의 축구",
+				 	
+                     VirtualSpeedway:"Virtual Speedway",
 				 	
                      VirtualSports:"가상의 스포츠",
 				 	

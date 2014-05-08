@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.BetList
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CustomerList = custList
+                CustomerList = custList,                
             };
 
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);

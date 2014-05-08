@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 4/17/2014 1:41:57 PM
+// Lasted generated date: 5/6/2014 5:41:45 PM
 // </history>
 
 var _language_en_US={
@@ -1068,6 +1068,8 @@ var _language_en_US={
 				 	
                      PlayerHistoryNo:"Player History No",
 				 	
+                     PlaytechCasino:"Playtech Casino",
+				 	
                      Postponed:"Postponed",
 				 	
                      PreGame:"Pre Game",
@@ -1458,6 +1460,8 @@ var _language_en_US={
 				 	
                      Viewin:"View in",
 				 	
+                     VirtualCycling:"Virtual Cycling",
+				 	
                      VirtualGreyhounds:"Virtual Greyhounds",
 				 	
                      VirtualHorseRacing:"Virtual Horse Racing",
@@ -1465,6 +1469,8 @@ var _language_en_US={
                      VirtualMotoRacing:"Virtual Moto Racing",
 				 	
                      VirtualSoccer:"Virtual Soccer",
+				 	
+                     VirtualSpeedway:"Virtual Speedway",
 				 	
                      VirtualSports:"Virtual Sports",
 				 	

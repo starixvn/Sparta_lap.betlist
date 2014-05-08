@@ -22,13 +22,17 @@ var BetList = (function ($) {
             $(window).on('resize', function () {
                 $("#BetListGrid").setGridWidth($(window).width());
             }).trigger('resize');
+
+            _sortColumnName = _sortColumnName || $("#SortBy").val();
+            _sortOrder = _sortOrder || $("#SortOrder").val();
         },
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
             // add sort icon
 
             var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
-            $(grid).closest("div.ui-jqgrid-view")
+            if (sortCol) {
+                $(grid).closest("div.ui-jqgrid-view")
                     .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                     .each(function (index, element) {
                         var $this = $(element);
@@ -42,7 +46,7 @@ var BetList = (function ($) {
                             $this.addClass("sorted-heading");
                         }
                     });
-
+            }
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
             jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
@@ -85,7 +89,12 @@ var BetList = (function ($) {
                     _sortColumnName = index;
                 }
 
-                if (window.serverPaging || $("#IsServerPaging").val()==="1") {
+                if (window.CorrectScoreBetList || window.CancelledBetsBetList) {
+                    $("#SortBy").val(_sortColumnName);
+                    $("#SortOrder").val(_sortOrder);
+                }
+
+                if (window.serverPaging || $("#IsServerPaging").val() === "1") {
                     BetList.loadDataPaging(_url);
                 }
                 else {
@@ -126,7 +135,7 @@ var BetList = (function ($) {
 
             _params = params;
             _url = url;
-
+            
             if (params && _sortColumnName) {
                 params.SortBy = _sortColumnName;
                 params.SortOrder = _sortOrder;

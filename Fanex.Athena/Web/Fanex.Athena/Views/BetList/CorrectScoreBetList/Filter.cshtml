@@ -31,7 +31,7 @@
     <div class="grid_2 note-group">
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
+               type="image" id="ExportToExcela" name="exporttoexcel"
                title="@ViewResources.ExportToExcel" class="hand" />
         </div>
     </div>
@@ -39,4 +39,6 @@
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
     </div>
     <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.Param.LicenseeId" />
+    <input type="hidden" name="SortBy" id="SortBy" value="" />
+    <input type="hidden" name="SortOrder" id="SortOrder" value="" />
 }
