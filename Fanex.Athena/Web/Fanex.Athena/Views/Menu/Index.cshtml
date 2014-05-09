@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+    var fucntionAddNewAccount = 47;
+    var functionCustCommGroup = 55;
+}
+@model Fanex.Athena.Models.ViewModel.MenuViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LRF-Menu</title>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Menu/Menu.js")" type="text/javascript"></script>
+    <link href="@Url.ContentLink("/Content/Global/Global.css")" rel="Stylesheet" />
+    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" rel="Stylesheet" />
+</head>
+<body>
+    <div id="menu-wraper">
+        <div id="menu-container">
+            @if (Model.IsAllowedManagementMember)
+            {
+                <div id="quick-search-box">
+                    <input type="text" name="txtUserName" value="@ViewResources.ExternalIdOrSystemId"
+                    onblur="onblurUser('@ViewResources.ExternalIdOrSystemId')" onclick="onclickUser('@ViewResources.ExternalIdOrSystemId')"
+                    onkeydown="onclickUser('@ViewResources.ExternalIdOrSystemId'); KeyPress(event);"
+                    id="txtUserName" class="search-text" maxlength="50" autocomplete="off" />
+                    <input id="search-button" type="button"
+                    title="@ViewResources.Search" class="search_submit" value="" />
+                </div>
+            }
+            @{
+
+                var langService = new Fanex.Athena.Service.Implement.Common.LanguageService();
+                var masterFunctions = langService.MapWithLanguage(Model.MasterFunctions);
+                foreach (var masterFunction in masterFunctions)
+                {
+                    var subFunctions = langService.MapWithLanguage(Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
+                                    ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
+                                    : null);
+                    var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
+                    if (subMenuCount > 0)
+                    {
+                <div onmousedown="javascript:menuToggle('@masterFunction.FunctionId');" id="menu-@masterFunction.FunctionId">
+                    <table cellspacing="0" cellpadding="0" border="0" class="menu-title">
+                        <tbody>
+                            <tr>
+                                <td id="menu-arrow-@masterFunction.FunctionId" class="parent-menu-collapse">
+                                </td>
+                                <td>
+                                    <span style="white-space: nowrap;" id="menu-title-@masterFunction.FunctionId">@masterFunction.Name</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table cellspacing="0" cellpadding="2" border="0" align="center" class="sub-menu-container"
+                            style="display: none" id="children-menu-@masterFunction.FunctionId">
+                    <tbody>
+                        <!--MenuItem-->
+                        @for (var i = 0; i < subMenuCount; i++)
+                        {
+                            var subFunction = subFunctions[i];
+                            if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
+                            {
+                                continue;
+                            }
+                            if (Model.IsInternalLogin && subFunction.FunctionId == fucntionAddNewAccount)
+                            {
+                                continue;
+                            }
+                            <tr>
+                                <td class="sub-menu" id="child-menu-@subFunction.FunctionId">
+                                    <a id="child-menu-link-@subFunction.FunctionId" class="blockui" onclick="menuItemSelect('@subFunction.FunctionId', this);"
+                                        url="@Url.Content("~/" + subFunction.Url)" href="@Url.Content("~/" + subFunction.Url)" target="main">@subFunction.Name</a>
+                                    @if (subFunction.IsNew)
+                                    {
+                                        <img src="@Url.Content("~/Content/Global/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <!--/MenuItem-->
+                    </tbody>
+                </table>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="menu-footer">
+    </div>
+</body>
+</html>

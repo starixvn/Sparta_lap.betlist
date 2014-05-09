@@ -105,5 +105,56 @@ namespace Fanex.Athena.Extension.Utility
 
             return false;
         }
+
+        /// <summary>
+        /// Return true if password contains least 2 numbers and 2 letters and have length >= 6
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static bool CheckValidPassword(string password)
+        {
+            password = password.ToLower();
+            if (password.Length < 6) return false;
+            var bValid = false;
+            var j3 = -1;
+            for (var i = 0; i < 10; i++)
+            {
+                var j1 = password.IndexOf(i.ToString());
+                var j2 = password.LastIndexOf(i.ToString());
+                if (j1 != j2)
+                {
+                    bValid = true;
+                    break;
+                }
+                if (j3 == -1)
+                {
+                    j3 = j1;
+                    continue;
+                }
+                if (j3 == -1 || j3 == j1) continue;
+                bValid = true;
+                break;
+            }
+
+            if (bValid)
+            {
+                const string az = "abcdefghijklmnopqrstuvwxyz";
+                var count = 0;
+                for (var i = 0; i < password.Length; i++)
+                {
+                    if (az.Contains(password.Substring(i, 1)))
+                    {
+                        ++count;
+                    }
+
+                    if (count != 2) continue;
+                    break;
+                }
+
+                if (count < 2) bValid = false;
+            }
+
+            return bValid;
+        }
     }
 }

@@ -284,6 +284,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Menu.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\Report\BalanceViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />

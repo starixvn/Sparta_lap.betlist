@@ -7,36 +7,32 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
 
     /// <summary>
     /// Home controller.
     /// </summary>
-    public class HomeController : ReadonlyBaseController
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            ReAuthorize();
-            return View("~/Views/Home/Index.cshtml");
+            return ReAuthorize("~/Views/Home/Index.cshtml");
         }
 
         public ActionResult IndexIpad()
         {
-            ReAuthorize();
-            return View("~/Views/Home/IndexIpad.cshtml");
+            return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
-        private void ReAuthorize()
+        private ActionResult ReAuthorize(string defaultView)
         {
             var user = SessionService.UserSession;
             if (user == null || user.UserId <= 0
-                || string.IsNullOrEmpty(user.UserName))
+                || string.IsNullOrEmpty(user.UserName) || SessionService.LicenseeSession == null)
             {
-                Session.RemoveAll();
                 Session.Clear();
-                RedirectToAction("LocationRestriction", "Utility");
+                return RedirectToAction("LocationRestriction", "Utility");
             }
+            return View(defaultView);
         }
-
     }
 }

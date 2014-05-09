@@ -430,6 +430,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
+    <Content Include="Scripts\Menu\Menu.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
     <Content Include="Scripts\Library\BigDecimal-all-last.min.js" />
     <Content Include="Content\Plugin\Note\images\note.png" />
@@ -1219,6 +1220,7 @@
     <Content Include="Views\Utility\LocationRestriction.cshtml" />
     <Content Include="Views\Utility\SelectLicensee.cshtml" />
     <Content Include="Views\Utility\ChangePass.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

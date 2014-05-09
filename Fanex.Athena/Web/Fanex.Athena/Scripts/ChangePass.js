@@ -1,5 +1,7 @@
 ﻿/* File Created: April 28, 2014 */
-
+// Detect browser
+function isIE() { return /msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
+IE = isIE();
 // Prototype
 IbcMsg = function () {
     this.spmsgerr = 'spmsgerr';
@@ -41,6 +43,17 @@ IbcMsg.prototype.Hide = function () {
 
 ibcMsg = new IbcMsg();
 var errMsg = null;
+// Password must be at least 6 in length and at least 2 characters and 2 digits
+function IsPassWord(str) {
+    numbers = "0123456789";
+    var i = 0;
+    var nCount = 0;
+    while (i < str.length) {
+        (numbers.indexOf(str.substring(i, i + 1)) >= 0) ? nCount++ : false;
+        i++;
+    }
+    return ((nCount > (str.length - 2)) || nCount < 2 || str.length < 6) ? false : true;
+}
 function ChangePassword() {
     // Validate password
     var txtOldPwd = $('#txtOldPwd').val();

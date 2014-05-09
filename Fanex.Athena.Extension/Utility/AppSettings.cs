@@ -38,10 +38,7 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("RemoteRefURL"); }
         }
 
-        public static string BaseUrl
-        {
-            get { return GetBaseUrl(); }
-        }
+      
 
         public static string JsVersion
         {
@@ -199,25 +196,5 @@ namespace Fanex.Athena.Extension.Utility
             return ConfigurationManager.AppSettings[key];
         }
 
-        #region Domain
-
-        /// <summary>
-        /// Get base url of current website with cookie less.
-        /// </summary>
-        /// <returns>The base URL.</returns>
-        private static string GetBaseUrl()
-        {
-            var hostName = HttpContext.Current.Request.Headers["Host"];
-            var appPath =
-                HttpContext.Current.Response.ApplyAppPathModifier(HttpContext.Current.Request.ApplicationPath);
-            if (appPath[appPath.Length - 1] != UrlSlash)
-            {
-                appPath += UrlSlash;
-            }
-
-            return HttpSlashSlash + hostName + appPath;
-        }
-
-        #endregion Domain
     }
 }

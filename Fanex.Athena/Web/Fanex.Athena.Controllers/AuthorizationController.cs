@@ -31,7 +31,6 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class AuthorizationController : BaseController
     {
-        private const string PageError = "_page={\"errCode\":{0},\"errMsg\":\"{1}\"};";
 
         [AllowAnonymous]
         [HttpGet]
@@ -63,6 +62,7 @@ namespace Fanex.Athena.Controllers
         [HttpPost]
         public ActionResult SignIn(LoginMetalModel model)
         {
+            var isValid = true;
             var isAllowAutomationCaptchaCode =
            AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (model.Captcha != SessionService.CaptchaCode)
@@ -76,45 +76,54 @@ namespace Fanex.Athena.Controllers
                     // Return error
                     SinglePageData(101, ViewResources.InvalidCaptchaMsg);
                 }
+                isValid = false;
             }
 
             if (string.IsNullOrEmpty(model.UserName))
             {
                 SinglePageData(102, ViewResources.AlertUserNameMsg);
+                isValid = false;
+
             }
 
             if (string.IsNullOrEmpty(model.PassWord))
             {
                 SinglePageData(103, ViewResources.AlertPasswordEmptyMsg);
+                isValid = false;
+
             }
-            var userService = new UserService();
-            IResultInfo resultInfo;
-            var requestUser = new User
+            if (isValid)
             {
-                Username = model.UserName,
-                Password = model.PassWord,
-                Request = new Request { Ip = Request.UserHostAddress },
-            };
-
-            User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
-            if (resultInfo.IsSuccessful)
-            {
-                SessionService.CreateNewSession(user.Id, userService.LoginOnUser(user, Session.SessionID,
-                    user.ServerId, Request.UserHostAddress), user.Username, user.IsInternal, user.Licensee.Id);
-                FormsAuthentication.SetAuthCookie(user.Username, false);
-
-                if (user.IsInRole(UserRole.Admin.ToString()))
+                var userService = new UserService();
+                IResultInfo resultInfo;
+                var requestUser = new User
                 {
-                    return RedirectToAction("SelectLicensee", "Utility");
+                    Username = model.UserName,
+                    Password = model.PassWord,
+                    Request = new Request { Ip = Request.UserHostAddress },
+                };
+
+                User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                if (resultInfo.IsSuccessful)
+                {
+                    SessionService.CreateNewSession(user.Id, userService.LoginOnUser(user, Session.SessionID,
+                        user.ServerId, Request.UserHostAddress), user.Username, user.IsInternal, user.Licensee.Id);
+                    FormsAuthentication.SetAuthCookie(user.Username, false);
+
+                    if (user.IsInRole(UserRole.Admin.ToString()))
+                    {
+                        return RedirectToAction("SelectLicensee", "Utility");
+                    }
+                    else
+                    {
+                        
+                        FormsAuthentication.RedirectFromLoginPage(user.Username, false);
+                    }
                 }
                 else
                 {
-                    FormsAuthentication.RedirectFromLoginPage(user.Username, false);
+                    SinglePageData(resultInfo.Code, resultInfo.Message);
                 }
-            }
-            else
-            {
-                SinglePageData(resultInfo.Code, resultInfo.Message);
             }
 
             return View("~/Views/Authorization/SignIn.cshtml");

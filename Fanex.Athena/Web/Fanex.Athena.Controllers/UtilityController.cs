@@ -6,9 +6,12 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
@@ -19,6 +22,12 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class UtilityController : BaseController
     {
+        private readonly IDictionary<string, string> ChangePassPageData = new Dictionary<string, string>(){
+        {"alertInputOldPwd",ViewResources.AlertInputOldPwdMsg},{"alertPasswordEmpty",ViewResources.AlertPasswordEmptyMsg},
+        {"alertErrorConfirm",ViewResources.PasswordConfirmErrorMsg},{"alertPasswordRequire",ViewResources.PasswordNoteMsg},
+        {"alertPasswordSucc",ViewResources.PasswordChangedMsg}
+        };
+
         [AllowAnonymous]
         public ActionResult AccessDenied()
         {
@@ -148,7 +157,7 @@ namespace Fanex.Athena.Controllers
 
             if (licenseeId.HasValue && licenseeId.Value > 0)
             {
-               return RedirectFromLoginPage(licenseeId.Value);
+                return RedirectFromLoginPage(licenseeId.Value);
             }
             else
             {
@@ -164,7 +173,7 @@ namespace Fanex.Athena.Controllers
                 ///Admin user handle only one licensee
                 if (licenseeList.Count == 1)
                 {
-                   return RedirectFromLoginPage(licenseeList[0].Id);
+                    return RedirectFromLoginPage(licenseeList[0].Id);
                 }
 
                 ViewBag.CurrentUsername = SessionService.UserSession.UserName;
@@ -173,23 +182,53 @@ namespace Fanex.Athena.Controllers
 
             return View("~/Views/Utility/SelectLicensee.cshtml");
         }
+
         [HttpGet]
         public ActionResult ChangePass()
         {
+            ViewBag.PageData = ChangePassPageData;
             return View("~/Views/Utility/ChangePass.cshtml");
         }
 
         [HttpPost]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd, string txtConfirmPwd)
         {
-            return View("~/Views/Utility/ChangePass.cshtml");
+            if (!Util.CheckValidPassword(txtNewPwd) || string.IsNullOrEmpty(txtOldPwd))
+            {
+                return Json(new
+                {
+                    errCode = ErrorType.Unknown,
+                    errMsg = ViewResources.PasswordNoteMsg
+                });
+            }
+            var userService = new UserService();
+
+            if (SessionService.UserSession.IsInternal)
+            {
+                return Json(new
+                {
+                    errCode = ErrorType.AccessDenied,
+                    errMsg = ViewResources.AccessDeniedMsg
+                });
+            }
+            else
+            {
+                IResultInfo resultInfo = userService.ChangePassword(SessionService.UserSession.UserName
+                 , txtOldPwd, txtNewPwd, Request.UserHostAddress);
+                return Json(new
+                {
+                    errCode = resultInfo.Code,
+                    errMsg = resultInfo.Message
+                });
+            }
 
         }
+
         private ActionResult RedirectFromLoginPage(int licenseeId)
         {
             SessionService.UpdateLiceseeSession(licenseeId);
 
-           return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -3,6 +3,9 @@
 * Revision ?@? - ... 
 * 
 */
+function isIE() { return /msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
+IE = isIE();
+
 var LanguageMessages = {
     errUserName: "Please input username and password",
     errValidCode: "You must input validation code."
@@ -40,7 +43,6 @@ function GetValidateImage() {
     setTimeout(GetValidateImage, 120000);
 }
 function DoEnter(evt, action) {
-    if (null == ibc) return;
     if (IE) {
         if (window.event.keyCode == 13) eval(action);
     }
@@ -55,7 +57,8 @@ function InitLogin() {
         window.parent.location = location.href;
     }
 
-    setTimeout(GetValidateImage, 120000);
+    GetValidateImage();
+    
     if (typeof _page.errCode != 'undefined' && _page.errCode != 0) {
         $("#errmsg").html(_page.errMsg);
         if (_page.errCode == 101) {
