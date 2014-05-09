@@ -79,6 +79,7 @@ namespace Fanex.Athena.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult ReCheckin()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();

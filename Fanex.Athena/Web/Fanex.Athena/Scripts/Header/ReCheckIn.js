@@ -19,8 +19,7 @@ function ReCheckin() {
             var errCode = result.ErrCode;
             if (errCode !== Success) {
                 clearInterval(handle);
-                var errMsg = result.ErrMsg;
-                alert(errMsg,true);
+                alert(result.ErrMsg, true);
                 if (isInternal || SessionOverride == errCode) {
 
                     var signOutUrl = Site.resolveClientUrl('Header/SignOut');
