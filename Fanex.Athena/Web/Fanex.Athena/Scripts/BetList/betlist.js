@@ -204,9 +204,14 @@ var BetList = (function ($) {
                 var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
                 var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
 
-                // Show the grid
                 var gridOption = BetList.getGridOption();
-                gridOption.rowNum = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
+
+                var rowNum = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
+                if (rowNum < gridOption.rowList[0]) {
+                    rowNum = gridOption.rowList[0];
+                }
+                // Show the grid                
+                gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWl: sumLicenseeWl };
 
@@ -319,7 +324,7 @@ var BetList = (function ($) {
             var bodyHeight = $(window.frames).height() - 120; // 650;
             var actualHeight = $('.ui-jqgrid-bdiv .ui-jqgrid-btable').height();
             var bodyDiv = $('.ui-jqgrid-bdiv');
-            
+
             bodyDiv.css({ 'height': actualHeight });
             bodyDiv.css({ 'max-height': bodyHeight });
         },
