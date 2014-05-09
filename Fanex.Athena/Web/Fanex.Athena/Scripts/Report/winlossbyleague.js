@@ -45,7 +45,6 @@ var WinLossByLeague = (function ($) {
             afterChangeMonth: function () {
                 $('#Year').val(new Date($("#DateControl").monPickr("getFromDate")).getFullYear());
                 $('#Month').val(new Date($("#DateControl").monPickr("getFromDate")).getMonth() + 1);
-                loadLeagues();
             },
             afterChangeDay: function () {
                 $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate")).getDate());
@@ -62,17 +61,23 @@ var WinLossByLeague = (function ($) {
         if (ajaxLeagues != null) {
             ajaxLeagues.abort();
         }
+        var fromDate = $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy");
+        var toDate = $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy");
+        if (!fromDate || !toDate) {
+            return;
+        }
         Site.blockUI();
         $("#SubmitButton").prop("disabled", true);
         $("#League").html("");
+
         ajaxLeagues = $.ajax({
             type: "POST",
             url: Site.resolveClientUrl("report/GetLeaguesBySport"),
             data: {
                 currencyId: $("#CurrencyId").val(),
                 sportid: $("#Sport").val(),
-                fromDate: $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy"),
-                toDate: $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy")
+                fromDate: fromDate,
+                toDate: toDate
             },
             success: function (data) {
                 var str = "";
@@ -124,8 +129,8 @@ var WinLossByLeague = (function ($) {
 
     var me = {
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();            
-            
+            _pagingOption = pagingHeper.getSetting();
+
             me.drillDown(_leagueid, _leaguename);
         },
         //#region Init

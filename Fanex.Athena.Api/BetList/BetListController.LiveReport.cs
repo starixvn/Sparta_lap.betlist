@@ -239,6 +239,8 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
         /// <param name="baseCurrency">Base currency.</param>
+        /// <param name="sortBy">Sort By column.</param>
+        /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
         public dynamic LiveReportRacing(
@@ -253,7 +255,9 @@ namespace Fanex.Athena.Api.BetList
             decimal sumPlayerComm,
             decimal sumWinLost,
             int totalRows,
-            string baseCurrency)
+            string baseCurrency,
+            string sortBy = null,
+            string sortOrder = null)
         {
             const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";
             const string UspKeyVHRacing = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
@@ -273,7 +277,8 @@ namespace Fanex.Athena.Api.BetList
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
                     BaseCurrency = baseCurrency,
-
+                    SortBy = sortBy,
+                    SortOrder = sortOrder,
                     UserId = SessionService.UserSession.UserId,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     SportType = sportType

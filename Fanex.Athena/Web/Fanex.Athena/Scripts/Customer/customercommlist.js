@@ -95,18 +95,17 @@ var CustomerComm = (function ($) {
 
         moveCustomerToGroup: function (ctx) {
             var groupid = parseInt($('#GroupListSelect').val(), 10);
-            var strList = new Array();
-            var custList = new Array();
-            var list = $("input:checkbox.check-child:checked");
-            for (var i = 0; i < list.length; i++) {
-                strList.push($(list[i]).attr("id"));
-                var currenntGroupId = parseInt($(list[i]).attr("data-group-comm-id"));
+            var checkedCustomers = CustomerList.getCheckedCustomers();
+            var custList = [];
+
+            for (var i = 0; i < checkedCustomers.length; i++) {
+                var currenntGroupId = checkedCustomers[i].Group;
                 if (currenntGroupId == 0 || currenntGroupId != groupid) {
-                    custList.push($(list[i]).attr("id"));
+                    custList.push(checkedCustomers[i].Id);
                 }
             };
 
-            if (strList.length == 0) {
+            if (checkedCustomers.length == 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                 return;
             };
@@ -116,7 +115,7 @@ var CustomerComm = (function ($) {
                 CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                 return;
             }
-            if (strList.length > 0 && custList.length == 0) {
+            if (checkedCustomers.length > 0 && custList.length == 0) {
                 CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false)
                 return;
             }
@@ -140,14 +139,14 @@ var CustomerComm = (function ($) {
                 success: function (result) {
                     if (result.Success) {
                         CustomerComm.showMsg(Site.getSingleResource('MoveSuccessulMsg'), result.Success);
-                        $.each(param.Customers, function (index, item) {                            
+                        $.each(param.Customers, function (index, item) {
                             var groupName = result.ExtendedData.GroupName;
                             if (groupName.length > 17) {
                                 groupName = groupName.substring(0, 14);
                                 groupName += "...";
                             };
                             var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
-                            
+
                             $("div#groupName-" + item).css("background-color", result.ExtendedData.GroupColor)
                                                       .html(groupNameText);
 
@@ -170,12 +169,13 @@ var CustomerComm = (function ($) {
 
         /* update customer*/
         showUpdateCustComm: function (groupCommId) {
-            var list = $("input:checkbox.check-child:checked");
             var isShowInfo = false;
-            for (var i = 0; i < list.length; i++) {
-                if ($(list[i]).attr("data-group-comm-id") != 0) {
+            var checkedCustomers = CustomerList.getCheckedCustomers();
+            for (var i = 0; i < checkedCustomers.length; i++) {
+                if (checkedCustomers[i].Group != 0) {
                     isShowInfo = true;
-                };
+                    break;
+                }
             };
 
             $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
@@ -211,11 +211,9 @@ var CustomerComm = (function ($) {
             return comm;
         },
         updateCustomerComm: function (ctx, groupCommId) {
-            var custList = new Array();
-            var list = $("input:checkbox.check-child:checked");
-            for (var i = 0; i < list.length; i++) {
-                custList.push($(list[i]).attr("id"));
-            };
+
+            var checkedCustomers = CustomerList.getCheckedCustomers();
+            var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 
             if (custList.length == 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
@@ -277,8 +275,9 @@ var CustomerComm = (function ($) {
 
         /* remove from group*/
         showRemoveFromGroup: function () {
-            var childCheckedCount = $("input:checkbox.check-child:checked").length;
-            var msg = childCheckedCount > 1
+            var checkedCustomers = CustomerList.getCheckedCustomers();
+
+            var msg = checkedCustomers.length > 1
 				? Site.getSingleResource('RemoveTheseCustomersFromGroupMsg')
 				: Site.getSingleResource('RemoveThisCustomerFromGroupMsg');
 
@@ -310,23 +309,21 @@ var CustomerComm = (function ($) {
             });
         },
 
-        removeFromGroupComm: function (ctx) {
-            var strList = new Array();
-            var custList = new Array();
-            var list = $("input:checkbox.check-child:checked");
-            for (var i = 0; i < list.length; i++) {
-                strList.push($(list[i]).attr("id"));
-                var currentGroupId = parseInt($(list[i]).attr("data-group-comm-id"));
-                if (currentGroupId > 0) {
-                    custList.push($(list[i]).attr("id"));
+        removeFromGroupComm: function (ctx) {            
+            var checkedCustomers = CustomerList.getCheckedCustomers();
+            var custList = [];
+
+            for (var i = 0; i < checkedCustomers.length; i++) {                
+                if (checkedCustomers[i].Group > 0) {
+                    custList.push(checkedCustomers[i].Id);
                 }
             };
 
-            if (strList.length == 0) {
+            if (checkedCustomers.length == 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                 return;
             };
-            if (strList.length > 0 && custList.length == 0) {
+            if (checkedCustomers.length > 0 && custList.length == 0) {
                 CustomerComm.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
                 return;
             }
@@ -354,7 +351,7 @@ var CustomerComm = (function ($) {
                     if (result.Success) {
                         //removed = true;
 
-                        if (strList.length > 0 && custList.length > 0 && custList.length < strList.length) {
+                        if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
                             CustomerComm.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
                         }
                         else {

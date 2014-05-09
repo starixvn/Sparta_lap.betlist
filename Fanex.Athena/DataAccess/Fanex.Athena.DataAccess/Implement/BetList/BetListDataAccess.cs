@@ -661,6 +661,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <param name="metaModel">The metal model.</param>
         private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            CreateBetListSortingParameters(db, metaModel);
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);

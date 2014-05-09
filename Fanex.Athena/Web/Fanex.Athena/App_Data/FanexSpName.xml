@@ -183,7 +183,7 @@
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossOutright" SpName="Lrf_BetList_LiveReport_SelWinlossOutright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Outright" SpName="Lrf_BetList_MatchWL_Outright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -197,7 +197,7 @@
     <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MobileReport_SelWinloss_Mem" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Forecast_SelByMatch" SpName="Lrf_BetList_Forecast_SelByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 

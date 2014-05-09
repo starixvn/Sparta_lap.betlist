@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
+﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
 window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
@@ -7,6 +7,9 @@ var CustomerList = (function ($) {
     var $specialLevelCell = null;
     var _isAllowedCustomerCommission = false;
     var _productAccess = null;
+    var _cacheData = null;
+    var _checkedAllRows = false;
+    var _checkedCustomers = [];
 
     var _pagingOption =
         {
@@ -110,12 +113,11 @@ var CustomerList = (function ($) {
     }
 
     function bindData(response) {
+
         jqGridAdditional.clearGrid("ReportGrid");
 
         var $gridBody = $(".ui-jqgrid-bdiv");
-
         var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
         var reportGrid = $("#ReportGrid");
 
         $("#num-of-customer").html(response.TotalRows + " ");
@@ -133,9 +135,10 @@ var CustomerList = (function ($) {
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
         // Change formatter for Index col
+        var checkedText = _checkedAllRows ? "checked" : "";
         if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
-                return "<input type='checkbox' title='" + rowObject.CustId +
+                return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
                         "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />";
             };
         } else {
@@ -171,7 +174,7 @@ var CustomerList = (function ($) {
         CustomersOption.setGroupHeaderColumns(reportGrid);
 
         if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
-            $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='select-cust-checkbox' id='CheckAll' />");
+            $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='' id='CheckAll' />");
         } else {
             $("#jqgh_ReportGrid_Index").html("#");
         }
@@ -181,7 +184,9 @@ var CustomerList = (function ($) {
             $gridBody[0].scrollLeft = scrollLeft;
         }
 
-        $(".select-cust-checkbox").checkboxgroup();
+        $("#CheckAll").prop("checked", _checkedAllRows);
+        // $(".select-cust-checkbox").checkboxgroup();
+
 
         var gridWidth = reportGrid.width();
 
@@ -209,7 +214,49 @@ var CustomerList = (function ($) {
         Site.unBlockUI();
     }
 
+    function addGridCheckBoxesEvent() {
+        $("#report-content").on("change", "#CheckAll", function () {
+
+            _checkedAllRows = this.checked;
+
+            if (_checkedAllRows) {
+                _checkedCustomers = JSLINQ(_cacheData.Data).Select(function (x) { return { Id: x.CustId, Group: x.GroupCommId }; }).ToArray();
+            } else {
+                _checkedCustomers = [];
+            }
+
+            bindData(_cacheData);
+        });
+
+        $("#report-content").on("change", ".select-cust-checkbox", function () {
+            var custid = Number(this.id);
+            var group = $(this).attr("data-group-comm-id");
+            if (this.checked) {
+                _checkedCustomers.push({ Id: custid, Group: group });
+                if (_checkedCustomers.length === _cacheData.Data.length) {
+                    $("#CheckAll").prop("checked", true);
+                    _checkedAllRows = true;
+                }
+            } else {
+                for (var i = 0; i < _checkedCustomers.length; i++) {
+                    if (_checkedCustomers[i].Id === custid) {
+                        _checkedCustomers.splice(i, 1);
+                        break;
+                    }
+                }
+
+                _checkedAllRows = false;
+                $("#CheckAll").prop("checked", false);
+            }
+
+        });
+
+    }
+
     return {
+        getCheckedCustomers: function () {
+            return _checkedCustomers;
+        },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
             CustomerList.submit();
@@ -224,6 +271,7 @@ var CustomerList = (function ($) {
             $("#SubmitButtonComm").prop("disabled", false);
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
+            addGridCheckBoxesEvent();
         },
         initEvent: function () {
             CustomerList.loadPostbackParam();
@@ -365,6 +413,8 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
+            _checkedCustomers = [];
+            _checkedAllRows = false;
             var data = {};
 
             data.LicenseeType = Site.asNull($("#LicenseeType").val());
@@ -404,7 +454,10 @@ var CustomerList = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
-                success: bindData,
+                success: function (response) {
+                    _cacheData = response;
+                    bindData(response);
+                },
                 beforeSend: function () {
                     Site.blockUI();
                 }
