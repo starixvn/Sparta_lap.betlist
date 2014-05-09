@@ -1,6 +1,7 @@
 ﻿/// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
+window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType == undefined ? "" : licenseeType;
@@ -51,9 +52,13 @@ var Site = (function ($) {
             window.location.href = Site.resolveClientUrl("Utility/Error");
         },
         unBlockUI: function () {
+
             $('div.block-body').hide();
             $('div.loading').hide();
-            $.unblockUI();
+            try {
+                $.unblockUI();
+            } catch (err) {
+            }
         },
         blockUI: function () {
             $('div.block-body').show();
@@ -175,12 +180,15 @@ var Site = (function ($) {
         },
 
         initBlockUI: function () {
-            //child-menu-link-60
-            $(".blockui").click(function () {
-                Site.blockUI();
-            });
-            if (!window.KeepBlockingAfterInit) {
-                Site.unBlockUI();
+            try {
+                $(".blockui").click(function () {
+                    Site.blockUI();
+                });
+
+                if (!window.KeepBlockingAfterInit) {
+                    Site.unBlockUI();
+                }
+            } catch (err) {
             }
         },
 
@@ -463,7 +471,7 @@ var Site = (function ($) {
             }
             return copy;
         },
-      
+
         signOut: function () {
 
             var index = window;

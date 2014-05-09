@@ -161,7 +161,7 @@ function activeDefaultLink() {
     });
 }
 
-$(document).ready(function () {
+$(window).load(function () {
 
     // auto suggest username
     var txtUserName = $('#txtUserName');
