@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 // -----------------------------------------------------------------------
 // <copyright file="IPlaytechCasinoService.cs" company="Nexcel">
 // TODO: Update copyright text.
