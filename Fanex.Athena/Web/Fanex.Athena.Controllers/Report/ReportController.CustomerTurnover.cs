@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = SessionService.UserSession.UserId;
             if (metaModel == null || !metaModel.IsValid)
             {
-                Response.Redirect("~/Error.aspx?errCode=400");
+                Response.Redirect("~/Utility/Error?errCode=400");
             }
 
             metaModel.UserId = SessionService.UserSession.UserId;

@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><@Fanex.Athena.Models.ViewModel.ViewResources.UnderMaintenance</title>
+    <style type="text/css">
+        body
+        {
+            margin-top: 10px;
+            font-family: Arial;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 1px;
+            line-height: 17px;
+            cursor: default;
+        }
+        .text_time
+        {
+            color: #F00;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            left: 00px;
+            right: 0px;
+            position: absolute;
+        }
+        .contain
+        {
+            background: url(/Content/Global/images/UnderMaintenance.gif) no-repeat scroll center center;
+            width: 90%;
+            left: 0px;
+            right: 0px;
+            top: 0px;
+            height: 286px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+     <div class="contain">
+        <div class="text_time" style="margin-top: 100px; padding-left: 9px; top: 0px;">
+            @ViewBag.UmTimeFrom
+            <font color="#555">until</font>
+             @ViewBag.UmTimeTo</div>
+        <div class="text_time" style="margin-top: 77px; padding-left: 85px; top: 118px;">
+             @ViewBag.UmTimeFrom
+            <font color="#555">至</font>
+             @ViewBag.UmTimeTo</div>
+    </div>
+</body>
+</html>

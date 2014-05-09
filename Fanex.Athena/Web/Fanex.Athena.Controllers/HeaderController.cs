@@ -17,7 +17,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class HeaderController : Controller
+    public class HeaderController : BaseController
     {
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
@@ -77,18 +77,5 @@ namespace Fanex.Athena.Controllers
             return changed ? "1" : "0";
         }
 
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
-        {
-            var currentLanguage = _langService.GetCurrentLanguage();
-            _langService.SetPageCulture(currentLanguage);
-            base.Initialize(requestContext);
-        }
-
-        protected override void Execute(System.Web.Routing.RequestContext requestContext)
-        {
-            var currentLanguage = _langService.GetCurrentLanguage();
-            _langService.SetPageCulture(currentLanguage);
-            base.Execute(requestContext);
-        }
     }
 }

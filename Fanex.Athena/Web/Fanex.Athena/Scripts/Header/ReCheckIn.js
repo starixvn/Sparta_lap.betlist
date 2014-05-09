@@ -12,25 +12,24 @@ function ReCheckin() {
 
     var isInternal = $("#IsInternal").val() == "1";
     $.ajax({
-        url: Site.getBaseUrl() + "_authorization/handlers/recheckin.ashx?onid=" + _page.OnUserID,
+        url: Site.getBaseUrl() + "Authorization/ReCheckIn?onid=" + _page.OnUserID,
         async: true,
-        type: "POST",
-        dataType: "json",
+        type: "GET",
         success: function (result) {
-            var errCode = result.errCode;
-            if (errCode != Success) {
+            var errCode = result.ErrCode;
+            if (errCode !== Success) {
                 clearInterval(handle);
-                var errMsg = result.errMsg;
+                var errMsg = result.ErrMsg;
                 alert(errMsg,true);
-                if (isInternal || SessionOverride == errCode) {
+                if (isInternal || SessionOverride == ErrCode) {
 
-                    var signOutUrl = Site.getBaseUrl() + '_Authorization/Handlers/SignOut.ashx';
+                    var signOutUrl = Site.getBaseUrl() + 'Authorization/SignOut';
                     $.ajax({
                         url: signOutUrl,
                         complete: function (rs) {
                             closeBrowser();
                         },
-                        type: "POST",
+                        type: "GET",
                         async: true
                     });
                 }

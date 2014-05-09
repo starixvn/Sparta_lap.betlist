@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 return View("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml", model);
             }
 
-            return Redirect("~/AccessDenied.aspx");
+            return Redirect("~/Utility/AccessDenied");
         }
 
         #endregion Utility

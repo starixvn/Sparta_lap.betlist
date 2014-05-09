@@ -169,23 +169,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="sso.aspx.cs">
+      <DependentUpon>sso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccessDenied.aspx" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
     <Content Include="Content\BetList\betlist.core.css" />
@@ -244,6 +233,7 @@
     <Content Include="Content\Forecast\images\plus.png" />
     <Content Include="Content\Forecast\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
+    <Content Include="Content\Global\images\arrow-back.png" />
     <Content Include="Content\Global\images\bg_clock.jpg" />
     <Content Include="Content\Global\images\btDown.png" />
     <Content Include="Content\Global\images\btRefresh.png" />
@@ -251,9 +241,18 @@
     <Content Include="Content\Global\images\down.png" />
     <Content Include="Content\Global\images\error2.png" />
     <Content Include="Content\Global\images\flag_en-US.png" />
+    <Content Include="Content\Global\images\flag_ko-KR.png" />
     <Content Include="Content\Global\images\flag_zh-CN.png" />
     <Content Include="Content\Global\images\flag_zh-TW.png" />
+    <Content Include="Content\Global\images\UnderMaintenance.gif" />
     <Content Include="Content\Global\images\up.png" />
+    <Content Include="Content\Layout\images\Checked.png" />
+    <Content Include="Content\Layout\images\Chrome.png" />
+    <Content Include="Content\Layout\images\close_hover.png" />
+    <Content Include="Content\Layout\images\close_icon.png" />
+    <Content Include="Content\Layout\images\Firefox.png" />
+    <Content Include="Content\Layout\images\IE.png" />
+    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -633,9 +632,9 @@
     <Content Include="Scripts\TotalBets\totalgoal.js" />
     <Content Include="Scripts\WareHouse\topcustomer.js" />
     <Content Include="Scripts\WareHouse\winloss.js" />
-    <Content Include="Default.aspx" />
     <Content Include="Content\Report\balance.css" />
-    <Content Include="Test.aspx" />
+    <Content Include="sso.aspx" />
+    <Content Include="under-maintenance.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -715,7 +714,7 @@
     <None Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
     <None Include="DBConnectionData\GlobalSetting.ini" />
-    <Content Include="lrf-old.zip" />
+    <None Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Customer\Filter.cshtml" />
@@ -1066,6 +1065,11 @@
     <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
     <Content Include="Views\Report\PlaytechCasino\Content.Title.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\IndexIpad.cshtml" />
+    <Content Include="Views\Utility\SSODenyAccess.cshtml" />
+    <Content Include="Views\Utility\Error.cshtml" />
+    <Content Include="Views\Utility\UnderMaintenance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

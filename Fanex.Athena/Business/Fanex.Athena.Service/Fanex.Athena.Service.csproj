@@ -109,10 +109,14 @@
     <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
       <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
     </Reference>
+    <Reference Include="RSACryptoPad">
+      <HintPath>..\..\..\DLLs\3rds\RSACryptoPad.dll</HintPath>
+    </Reference>
     <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\DLLs\Casino\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -131,6 +135,7 @@
     <Compile Include="Implement\Casino\RNGCasinoService.cs" />
     <Compile Include="Implement\Common\LeagueService.cs" />
     <Compile Include="Implement\Common\ExChangeRateService.cs" />
+    <Compile Include="Implement\Integration\SSOService.cs" />
     <Compile Include="Implement\Keno\KenoApi.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
@@ -197,6 +202,7 @@
     <Compile Include="Interface\Customer\IBetSettingService.cs" />
     <Compile Include="Interface\BetList\IBetListService.cs" />
     <Compile Include="Interface\Forecast\IForecastService.cs" />
+    <Compile Include="Interface\Integration\ISSOService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
     <Compile Include="Interface\Report\IPlaytechCasinoService.cs" />
     <Compile Include="Interface\Report\IWinLossByLeagueService.cs" />

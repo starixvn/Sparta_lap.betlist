@@ -402,7 +402,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (!isValid)
             {
-                return Redirect("~/AccessDenied.aspx");
+                return Redirect("~/Utility/AccessDenied");
             }
 
             var userService = new UserService();
@@ -415,7 +415,7 @@ namespace Fanex.Athena.Controllers.Account
                 return View("~/Views/Account/PermissionPage.cshtml", user);
             }
 
-            return this.Redirect("~/AccessDenied.aspx");
+            return this.Redirect("~/Utility/AccessDenied");
         }
 
         /// <summary>
@@ -432,7 +432,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (!isValid)
             {
-                return Redirect("~/AccessDenied.aspx");
+                return Redirect("~/Utility/AccessDenied");
             }
 
             var licenseeSession = SessionService.LicenseeSession;
@@ -459,10 +459,10 @@ namespace Fanex.Athena.Controllers.Account
                     return View("~/Views/Account/EditPermission.cshtml", model);
                 }
 
-                return this.Redirect("~/AccessDenied.aspx");
+                return this.Redirect("~/Utility/AccessDenied");
             }
 
-            return this.Redirect("~/AccessDenied.aspx");
+            return this.Redirect("~/Utility/AccessDenied");
         }
 
         /// <summary>
@@ -542,7 +542,7 @@ namespace Fanex.Athena.Controllers.Account
                 return View("~/Views/Account/AssignCurrency.cshtml");
             }
 
-            return Redirect("~/AccessDenied.aspx");
+            return Redirect("~/Utility/AccessDenied");
         }
 
         /// <summary>

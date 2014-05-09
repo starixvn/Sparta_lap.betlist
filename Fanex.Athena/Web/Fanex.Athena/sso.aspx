@@ -1,15 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Fanex.Athena.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="true" CodeFile="sso.aspx.cs" Inherits="sso" %>
 
-<%@ Import Namespace="Fanex.Caching" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>LRF-SSO</title>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-        Hello 12bet.
+    
     </div>
     </form>
 </body>

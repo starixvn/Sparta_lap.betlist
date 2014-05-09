@@ -170,7 +170,7 @@ namespace Fanex.Athena.Controllers.Report
                 return View("~/Views/Report/Result/Popup/Main.cshtml");
             }
 
-            return this.Redirect(Util.GetRootPath() + "Error.aspx?err=400");
+            return this.Redirect(Util.GetRootPath() + "Utility/Error?err=400");
         }
 
         #endregion PopUpPage

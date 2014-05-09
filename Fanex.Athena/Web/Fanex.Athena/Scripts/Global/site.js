@@ -48,7 +48,7 @@ var Site = (function ($) {
             return text;
         },
         gotoErrorPage: function () {
-            window.location.href = Site.resolveClientUrl("Error.aspx");
+            window.location.href = Site.resolveClientUrl("Utility/Error");
         },
         unBlockUI: function () {
             $('div.block-body').hide();
@@ -488,7 +488,7 @@ var Site = (function ($) {
             {
                 index = index.parent;
             }
-            index.location = Site.getBaseUrl() + '_Authorization/Handlers/SignOut.ashx';
+            index.location = Site.getBaseUrl() + 'Authorization/SignOut';
         }
 
     };

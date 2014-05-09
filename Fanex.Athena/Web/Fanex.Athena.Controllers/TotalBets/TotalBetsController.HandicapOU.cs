@@ -90,7 +90,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 return View("~/Views/TotalBets/HandicapOverUnder/Main.cshtml", model);
             }
 
-            return Redirect("~/AccessDenied.aspx");
+            return Redirect("~/Utility/AccessDenied");
         }
 
         #endregion Utility

@@ -54,7 +54,7 @@ namespace Fanex.Athena.Api.Report
 
         private static void RedirectToErrorPage()
         {
-            HttpContext.Current.Response.Redirect("~/Error.aspx");
+            HttpContext.Current.Response.Redirect("~/Utility/Error");
         }
 
         /// <summary>

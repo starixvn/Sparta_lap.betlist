@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+      <title>LRF - @Fanex.Athena.Models.ViewModel.ViewResources.LocationRestriction </title>
+          <link href="@Url.ContentLink("/Content/Authorization/SignIn.css") rel="stylesheet" type="text/css" />
+ <script type="text/ecmascript">
+     var index = window;
+     while (index != index.parent) // Jump out
+     {
+         index = index.parent;
+     }
+
+     var currentLocation = index.location.href.toLowerCase();
+     var isSigninPage = currentLocation.indexOf("locationrestriction") >= 0 || currentLocation.indexOf("signin") >= 0;
+
+     if (!isSigninPage) {
+         index.location.href = location.href;
+     }
+
+    </script>
+</head>
+<body>
+   <div class="message-content">
+        <div class="restriction-header">
+        </div>
+        <div class="message-content-bg">
+            <p>
+            @string.Format(Fanex.Athena.Models.ViewModel.ViewResources.LocationRestrictionMsg,"<b style=\"color: Red\">CS ONEONONE </b>(<a href=\"mailto:cs@oneonone-solutions.com\"><b>cs@oneonone-solutions.com</b></a>)")
+            </p>
+        </div>
+        <div class="message-content-bottom">
+        </div>
+    </div>
+</body>
+</html>
