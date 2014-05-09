@@ -83,6 +83,7 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         /// <returns>Redirect to Sing-In page.</returns>
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult SignOut()
         {
             // Kick-out

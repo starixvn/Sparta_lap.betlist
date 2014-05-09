@@ -21,7 +21,7 @@ function ReCheckin() {
                 clearInterval(handle);
                 var errMsg = result.ErrMsg;
                 alert(errMsg,true);
-                if (isInternal || SessionOverride == ErrCode) {
+                if (isInternal || SessionOverride == errCode) {
 
                     var signOutUrl = Site.resolveClientUrl('Header/SignOut');
                     $.ajax({
