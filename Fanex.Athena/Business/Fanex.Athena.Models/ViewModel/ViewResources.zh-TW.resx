@@ -2387,4 +2387,16 @@
   <data name="VirtualSpeedway" xml:space="preserve">
     <value>Virtual Speedway</value>
   </data>
+  <data name="NetGaming" xml:space="preserve">
+    <value>Net Gaming</value>
+    <comment>15876</comment>
+  </data>
+  <data name="PShare" xml:space="preserve">
+    <value>P.Share</value>
+    <comment>15876</comment>
+  </data>
+  <data name="PWin" xml:space="preserve">
+    <value>P.Win</value>
+    <comment>15876</comment>
+  </data>
 </root>

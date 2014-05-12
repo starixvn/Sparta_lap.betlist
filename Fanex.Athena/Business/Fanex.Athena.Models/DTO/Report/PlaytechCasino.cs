@@ -42,5 +42,11 @@ namespace Fanex.Athena.Models.DTO.Report
         }
 
         public decimal LicenseeWinLoss { get; set; }
+
+        public decimal ProgressiveShare { get; set; }
+
+        public decimal ProgressiveWin { get; set; }
+
+        public decimal NetGaming { get; set; }
     }
 }

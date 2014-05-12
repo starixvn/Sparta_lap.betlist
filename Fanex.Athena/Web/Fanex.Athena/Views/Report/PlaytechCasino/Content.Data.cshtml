@@ -77,6 +77,15 @@ else
                     <td class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
                         @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
                     </td>
+                    <td class="row" style="width:@ViewBag.ProgressiveShareWidth@("px")">
+                        <div>@item.ProgressiveShare.ToStringExt()</div>
+                    </td>
+                    <td class="row" style="width:@ViewBag.ProgressiveWinWidth@("px")">
+                        <div>@item.ProgressiveWin.ToStringExt()</div>
+                    </td>
+                    <td class="row" style="width:@ViewBag.NetGamingWidth@("px")">
+                        <div>@item.NetGaming.ToStringExt()</div>
+                    </td>
                 </tr>
                     rowNumber++;
             }
