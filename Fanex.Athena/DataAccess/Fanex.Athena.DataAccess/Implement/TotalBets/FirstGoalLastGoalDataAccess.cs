@@ -70,6 +70,11 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             var awayFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_awayFG", isConvert, baseCurrency);
             var awayLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_awayLG", isConvert, baseCurrency);
             var nonGoalColumn = DataHelper.GetCurrencyColumnName("winlost_NoGoal", isConvert, baseCurrency);
+            var homeFirstHalfFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HhomeFG", isConvert, baseCurrency);
+            var homeFirstHalfLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HhomeLG", isConvert, baseCurrency);
+            var awayFirstHalfFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HawayFG", isConvert, baseCurrency);
+            var awayFirstHalfLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HawayLG", isConvert, baseCurrency);
+            var firstHalfNonGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HNoGoal", isConvert, baseCurrency);
 
             while (reader.Read())
             {
@@ -85,7 +90,12 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     HomeLastGoal = reader.ToDecimal(homeLastGoalColumn),
                     AwayFirstGoal = reader.ToDecimal(awayFirstGoalColumn),
                     AwayLastGoal = reader.ToDecimal(awayLastGoalColumn),
-                    NoGoal = reader.ToDecimal(nonGoalColumn)
+                    NoGoal = reader.ToDecimal(nonGoalColumn),
+                    HomeFirstHalfFirstGoal = reader.ToDecimal(homeFirstHalfFirstGoalColumn),
+                    HomeFirstHalfLastGoal = reader.ToDecimal(homeFirstHalfLastGoalColumn),
+                    AwayFirstHalfFirstGoal = reader.ToDecimal(awayFirstHalfFirstGoalColumn),
+                    AwayFirstHalfLastGoal = reader.ToDecimal(awayFirstHalfLastGoalColumn),
+                    FirstHalfNoGoal = reader.ToDecimal(firstHalfNonGoalColumn)
                 };
 
                 dataList.Add(item);

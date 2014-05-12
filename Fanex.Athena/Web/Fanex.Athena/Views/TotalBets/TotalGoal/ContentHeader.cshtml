@@ -3,25 +3,40 @@
     <table class="report-table">
         <thead>
             <tr class="report-header">
-                <td style="width: 3%">
+                <td style="width: 3%" rowspan="2">
                     #
                 </td>
-                <td style="width: 20%">@ViewResources.Home
+                <td style="width: 14%" rowspan="2">@ViewResources.Home
                 </td>
-                <td style="width: 20%">@ViewResources.Away
+                <td style="width: 14%" rowspan="2">@ViewResources.Away
                 </td>
-                <td style="width: 14%">
+                <td style="width: 40%" colspan="4">@ViewResources.FullTime
+                </td>
+                <td style="width: 30%" colspan="3">@ViewResources.lbl1stHalf
+                </td>
+            </tr>
+            <tr class="report-header">
+                <td style="width: 10%">
                     0 - 1
                 </td>
-                <td style="width: 14%">
+                <td style="width: 10%">
                     2 - 3
                 </td>
-                <td style="width: 14%">
+                <td style="width: 10%">
                     4 - 6
                 </td>
-                <td style="width: 14%">
-                @ViewResources.lbl7Over
+                <td style="width: 10%">
+                    @ViewResources.lbl7Over
                 </td>
+                <td style="width: 10%">
+                    0 - 1
+                </td>
+                <td style="width: 10%">
+                    2 - 3
+                </td>
+                <td style="width: 10%">
+                    4@(ViewResources.Over)
+                </td>                
             </tr>
         </thead>
     </table>

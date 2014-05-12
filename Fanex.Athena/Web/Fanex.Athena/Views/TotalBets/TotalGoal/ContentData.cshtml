@@ -13,36 +13,33 @@
                     <td style="width: 3%" class="order-number">
                         @(index++)
                     </td>
-                    <!--Home-->
-                    <td style="width: 20%" class="match-name">
+                    <td style="width: 14%" class="match-name">
                         <a data-leagueid="@match.LeagueId" data-match-id="@match.MatchId" class="team" href="javascript:;">@match.HomeTeamName</a>
                     </td>
-                    <!--/Home-->
-                    <!--Away-->
-                    <td style="width: 20%" class="match-name">
+                    <td style="width: 14%" class="match-name">
                         @match.AwayTeamName
                     </td>
-                    <!--/Away-->
-                    <!--0 - 1-->
-                    <td style="width: 14%" class="score-value">
+                    <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormat(match.Total01, true)
                     </td>
-                    <!--/0 - 1-->
-                    <!--2 - 3-->
-                    <td style="width: 14%" class="score-value">
+                    <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormat(match.Total23, true)
                     </td>
-                    <!--/2 - 3-->
-                    <!--4 - 6-->
-                    <td style="width: 14%" class="score-value">
+                    <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormat(match.Total46, true)
                     </td>
-                    <!--/4-6-->
-                    <!--7 Over-->
-                    <td style="width: 14%" class="score-value">
+                    <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormat(match.Total7Over, true)
                     </td>
-                    <!--/7 Over-->
+                    <td style="width: 10%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.TotalFirstHalf01, true)
+                    </td>
+                    <td style="width: 10%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.TotalFirstHalf23, true)
+                    </td>
+                    <td style="width: 10%" class="score-value">
+                        @RazorHelper.PositiveFormat(match.Total4Over, true)
+                    </td>
                 </tr>
             }
         </tbody>

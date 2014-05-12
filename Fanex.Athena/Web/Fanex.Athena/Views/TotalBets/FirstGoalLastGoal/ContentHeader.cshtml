@@ -1,20 +1,34 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 <div class="header-content">
-<table class="report-table">
-    <thead>
-        <tr class="report-header" style="height:48px!important;">
-            <td style="width: 3%">#</td>
-            <td style="width: 20%">@ViewResources.Time
-            </td>
-            <td style="width: 30%">@ViewResources.Home/@ViewResources.Away
-            </td>
-            <td style="width: 15%">@ViewResources.FirstGoal
-            </td>
-            <td style="width: 15%">@ViewResources.LastGoal
-            </td>
-            <td style="width: 15%">@ViewResources.NoGoal
-            </td>
-        </tr>
-    </thead>
-</table>
+    <table class="report-table">
+        <thead>
+            <tr class="report-header">
+                <td style="width: 3%"rowspan="2">
+                    #
+                </td>
+                <td style="width: 15%"rowspan="2">@ViewResources.Time
+                </td>
+                <td style="width: 25%"rowspan="2">@ViewResources.Home/@ViewResources.Away
+                </td>
+                <td style="width: 30%" colspan="3">@ViewResources.FullTime
+                </td>
+                <td style="width: 30%" colspan="3">@ViewResources.lbl1stHalf
+                </td>
+            </tr>
+            <tr class="report-header">
+                <td style="width: 10%">@ViewResources.FirstGoal
+                </td>
+                <td style="width: 10%">@ViewResources.LastGoal
+                </td>
+                <td style="width: 10%">@ViewResources.NoGoal
+                </td>
+                <td style="width: 10%">@ViewResources.FirstGoal
+                </td>
+                <td style="width: 10%">@ViewResources.LastGoal
+                </td>
+                <td style="width: 10%">@ViewResources.NoGoal
+                </td>
+            </tr>
+        </thead>
+    </table>
 </div>
