@@ -1,16 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AuthenticationAttribute.cs" company="Nexcel">
+// <copyright file="AuthorizeAttribute.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.ActionFilter
 {
     using System.Web.Mvc;
+    using System.Web.Routing;
+    using Fanex.Athena.Service.Implement.Users;
 
     /// <summary>
     /// Class: AuthenticationAttribute.
     /// </summary>
-    public class AuthenticationAttribute : AuthorizeAttribute
+    public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         #region Override
 
@@ -25,6 +27,20 @@ namespace Fanex.Athena.Web.ActionFilter
             if (!skipAuthorization)
             {
                 base.OnAuthorization(filterContext);
+                var sessionService = new SessionService();
+                var licenseeSession = sessionService.LicenseeSession;
+                var userSession = sessionService.UserSession;
+                var authorized = licenseeSession != null && userSession != null;
+                if (!authorized)
+                {
+                    var routeValue = new
+                    {
+                        controller = "Utility",
+                        action = "LocationRestriction",
+                    };
+
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
+                }
             }
         }
 

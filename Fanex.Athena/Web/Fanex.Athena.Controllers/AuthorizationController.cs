@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers
 
             if (isDeploying || maintenanceService.MaintenanceInfo.IsDownTime)
             {
-              return RedirectToAction("UnderMaintenance","Utility");
+                return RedirectToAction("UnderMaintenance", "Utility");
             }
 
             var requestHost = Request.Url.AbsoluteUri;
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Controllers
 
             if (!isInternalDomain)
             {
-               return RedirectToAction("LocationRestriction", "Utility");
+                return RedirectToAction("LocationRestriction", "Utility");
             }
             ViewBag.PageError = string.Format(PageError, 0, string.Empty);
             return View("~/Views/Authorization/SignIn.cshtml");

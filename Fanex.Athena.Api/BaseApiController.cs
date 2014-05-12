@@ -20,10 +20,12 @@ namespace Fanex.Athena.Api
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
     using NPOI.SS.UserModel;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Base API Controller.
     /// </summary>
+    [CustomApiAuthorize]
     public class BaseApiController : ApiController
     {
         public readonly string[] IgnoreCasinoAngBingo = new string[] { Product.Cs, Product.Bg };
@@ -43,13 +45,6 @@ namespace Fanex.Athena.Api
             LangService = new LanguageService();
         }
 
-        protected bool IsValidSession
-        {
-            get
-            {
-                return SessionService.LicenseeSession != null && SessionService.LicenseeSession.LicenseeId > 0;
-            }
-        }
 
         /// <summary>
         /// Generate excel steam.

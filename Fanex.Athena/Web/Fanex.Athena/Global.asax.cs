@@ -36,15 +36,16 @@ namespace Fanex.Athena
         {
             TplSettings.UrlVersion = AppSettings.JsVersion;
             AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
-
-            GlobalFilters.Filters.Add(new AuthenticationAttribute());
-
+            
+            GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
             // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
+            /*Web API*/
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
+            GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-
+            /*End Web API*/
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");

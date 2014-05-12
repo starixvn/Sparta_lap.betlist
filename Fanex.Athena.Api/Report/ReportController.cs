@@ -67,11 +67,6 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Request is valid or not.</returns>
         private bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
-            if (!IsValidSession)
-            {
-                return false;
-            }
-
             var currencyList = SessionService.UserSession.CurrencyList;
             var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
                              || currencyList.Values.Contains(metaModel.CurrencyId);

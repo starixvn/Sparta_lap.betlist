@@ -28,22 +28,16 @@ namespace Fanex.Athena.Controllers
     public class BaseController : Controller
     {
         #region Members
+
         public readonly string[] IgnoreCasinoAngBingo = { Product.Cs, Product.Bg };
         public readonly string[] IgnoreKeno = { Product.Kn };
         public readonly string[] IgnoreBingo = { Product.Bg };
         public readonly string[] IgnoreCasinoAndBingoAndKeno = { Product.Cs, Product.Bg, Product.Kn };
-        public readonly ILanguageService LangService;
-        public readonly ISessionService SessionService;
-        public readonly ICurrencyService CurrencyService;
+        public readonly ILanguageService LangService = new LanguageService();
+        public readonly ISessionService SessionService = new SessionService();
+        public readonly ICurrencyService CurrencyService = new CurrencyService();
 
         #endregion Members
-
-        public BaseController()
-        {
-            LangService = new LanguageService();
-            SessionService = new SessionService();
-            CurrencyService = new CurrencyService();
-        }
 
         public bool IsDebuggingEnabled
         {

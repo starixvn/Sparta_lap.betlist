@@ -34,7 +34,6 @@ namespace Fanex.Athena.Controllers.Report
 
         #region Fields
 
-        private readonly IResultService _resultService;
         private readonly IBalanceUpService _balanceUpService;
         private readonly ICreditBalanceService _creditBalanceService;
         private readonly ICustBalanceService _custBalanceService;
@@ -50,7 +49,6 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ITurnoverService _turnoverService;
         private readonly IWinLossByBetTypeServive _winLossByBetTypeService;
         private readonly IBetTypeService _betTypeService;
-        private readonly IPlaytechCasinoService _playtechCasinoService;
 
         private readonly ISportTypeService _sportTypeService;
         private readonly ILeagueService _leagueService;
@@ -62,8 +60,8 @@ namespace Fanex.Athena.Controllers.Report
         ///     Initializes a new instance of the <see cref="ReportController" /> class.
         /// </summary>
         public ReportController()
+            : base()
         {
-            this._resultService = new ResultService();
             this._balanceUpService = new BalanceUpService();
 
             this._matchWinLossService = new MatchWinLossService();
@@ -83,7 +81,6 @@ namespace Fanex.Athena.Controllers.Report
             this._betTypeService = new BetTypeService();
             this._leagueService = new LeagueService();
             this._matchService = new MatchService();
-            this._playtechCasinoService = new PlaytechCasinoService();
         }
 
         [HttpPost]
