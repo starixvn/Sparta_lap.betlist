@@ -28,7 +28,6 @@ namespace Fanex.Athena.Web.ActionFilter
             if (!IsAuthorized(actionContext))
             {
                 var challengeMessage = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
-                challengeMessage.Headers.Add("WWW-Authenticate", "Basic");
                 throw new HttpResponseException(challengeMessage);
             }
         }
