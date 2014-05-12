@@ -130,7 +130,7 @@ function searchByUserName() {
     var userName = $('#txtUserName').val();
     userName = null == userName ? "" : userName;
 
-    var url = "../Customer/CustomerList?useName="+userName;
+    var url = "../Customer/CustomerList?userName="+userName;
 
     //active menu memberinformation
     var tdCustomerList = $('#MemberInfoCustomerList').closest('td');
