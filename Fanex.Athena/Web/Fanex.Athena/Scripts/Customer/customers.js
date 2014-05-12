@@ -59,6 +59,7 @@ var CustomerList = (function ($) {
                 list.attr('class', 'level-' + level);
             },
             success: function (data) {
+
                 if (data.Success) {
                     list.attr("data-level", level);
                     list.unbind("change");
@@ -271,10 +272,6 @@ var CustomerList = (function ($) {
     }
 
     return {
-        logA: function () {
-            console.log(_checkedCustomerArray);
-            console.log(_checkedCustomerObject);
-        },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;
             var length = _checkedCustomerArray.length;
