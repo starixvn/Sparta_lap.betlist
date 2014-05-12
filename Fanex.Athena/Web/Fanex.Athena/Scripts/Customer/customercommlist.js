@@ -139,24 +139,17 @@ var CustomerComm = (function ($) {
                 success: function (result) {
                     if (result.Success) {
                         CustomerComm.showMsg(Site.getSingleResource('MoveSuccessulMsg'), result.Success);
-                        $.each(param.Customers, function (index, item) {
-                            var groupName = result.ExtendedData.GroupName;
-                            if (groupName.length > 17) {
-                                groupName = groupName.substring(0, 14);
-                                groupName += "...";
-                            };
-                            var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
 
-                            $("div#groupName-" + item).css("background-color", result.ExtendedData.GroupColor)
-                                                      .html(groupNameText);
+                        var groupName = result.ExtendedData.GroupName;
+                        if (groupName.length > 17) {
+                            groupName = groupName.substring(0, 14);
+                            groupName += "...";
+                        };
+                        var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
 
-                            $("td#SbComm-" + item).html(result.ExtendedData.SBComm);
-                            $("td#NgComm-" + item).html(result.ExtendedData.NGComm);
-                            $("td#RbComm-" + item).html(result.ExtendedData.RCComm);
-                            $("td#LcComm-" + item).html(result.ExtendedData.LCComm);
-                            $("td#CsComm-" + item).html(result.ExtendedData.RNGComm);
-                            $("input#" + item).attr("data-group-comm-id", groupid);
-                        });
+                        CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
+                                             result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -252,17 +245,10 @@ var CustomerComm = (function ($) {
                     if (result.Success) {
                         //updated = true;
                         CustomerComm.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
-                        $.each(param.Customers, function (index, item) {
-                            $("#groupName-" + item).css("background-color", result.ExtendedData.GroupColor)
-                                                   .html(result.ExtendedData.GroupName);
 
-                            $("#SbComm-" + item).html(result.ExtendedData.SBComm);
-                            $("#NgComm-" + item).html(result.ExtendedData.NGComm);
-                            $("#RbComm-" + item).html(result.ExtendedData.RCComm);
-                            $("#LcComm-" + item).html(result.ExtendedData.LCComm);
-                            $("#CsComm-" + item).html(result.ExtendedData.RNGComm);
-                            $("#" + item).attr("data-group-comm-id", 0);
-                        });
+                        CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
+                                             result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -309,11 +295,11 @@ var CustomerComm = (function ($) {
             });
         },
 
-        removeFromGroupComm: function (ctx) {            
+        removeFromGroupComm: function (ctx) {
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = [];
 
-            for (var i = 0; i < checkedCustomers.length; i++) {                
+            for (var i = 0; i < checkedCustomers.length; i++) {
                 if (checkedCustomers[i].Group > 0) {
                     custList.push(checkedCustomers[i].Id);
                 }
@@ -358,24 +344,13 @@ var CustomerComm = (function ($) {
                             CustomerComm.showMsg(result.Message, result.Success);
                         }
                         if (param.isRemovePlayercomm) {
-                            $.each(param.Customers, function (index, item) {
-                                $("div#groupName-" + item).css("background-color", "")
-                                                          .html(result.ExtendedData.GroupName);
+                            CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
+                                             result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
 
-                                $("td#SbComm-" + item).html(result.ExtendedData.SBComm.toFixed(2));
-                                $("td#NgComm-" + item).html(result.ExtendedData.NGComm.toFixed(2));
-                                $("td#RbComm-" + item).html(result.ExtendedData.RCComm.toFixed(2));
-                                $("td#LcComm-" + item).html(result.ExtendedData.LCComm.toFixed(2));
-                                $("td#CsComm-" + item).html(result.ExtendedData.RNGComm.toFixed(2));
-                                $("input#" + item).attr("data-group-comm-id", 0);
-                            });
                         }
                         else {
-                            $.each(param.Customers, function (index, item) {
-                                $("div#groupName-" + item).css("background-color", result.ExtendedData.GroupColor);
-                                $("div#groupName-" + item).html(result.ExtendedData.GroupName);
-                                $("input#" + item).attr("data-group-comm-id", 0);
-                            });
+                            CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
                         }
                     }
                     else {

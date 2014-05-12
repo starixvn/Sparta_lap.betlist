@@ -95,7 +95,7 @@ namespace Fanex.Athena
         {
             if (Request.IsLocal)
             {
-                MiniProfiler.Start();
+                // MiniProfiler.Start();
             }
         }
 

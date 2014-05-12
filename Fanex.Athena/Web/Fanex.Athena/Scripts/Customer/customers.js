@@ -9,7 +9,8 @@ var CustomerList = (function ($) {
     var _productAccess = null;
     var _cacheData = null;
     var _checkedAllRows = false;
-    var _checkedCustomers = [];
+    var _checkedCustomerArray = [];
+    var _checkedCustomerObject = {}; // used to quickly check if a customer is checked or not
 
     var _pagingOption =
         {
@@ -135,9 +136,10 @@ var CustomerList = (function ($) {
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
         // Change formatter for Index col
-        var checkedText = _checkedAllRows ? "checked" : "";
+
         if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
+                var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
                 return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
                         "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />";
             };
@@ -213,16 +215,25 @@ var CustomerList = (function ($) {
 
         Site.unBlockUI();
     }
-
+    function convertCustomerArrayToObject(array) {
+        var obj = {};
+        for (var i = 0; i < array.length; ++i) {
+            var id = array[i].Id;
+            obj[id] = true;
+        }
+        return obj;
+    }
     function addGridCheckBoxesEvent() {
         $("#report-content").on("change", "#CheckAll", function () {
 
             _checkedAllRows = this.checked;
 
             if (_checkedAllRows) {
-                _checkedCustomers = JSLINQ(_cacheData.Data).Select(function (x) { return { Id: x.CustId, Group: x.GroupCommId }; }).ToArray();
+                _checkedCustomerArray = JSLINQ(_cacheData.Data).Select(function (x) { return { Id: x.CustId, Group: x.GroupCommId }; }).ToArray();
+                _checkedCustomerObject = convertCustomerArrayToObject(_checkedCustomerArray);
             } else {
-                _checkedCustomers = [];
+                _checkedCustomerArray = [];
+                _checkedCustomerObject = {};
             }
 
             bindData(_cacheData);
@@ -232,15 +243,17 @@ var CustomerList = (function ($) {
             var custid = Number(this.id);
             var group = $(this).attr("data-group-comm-id");
             if (this.checked) {
-                _checkedCustomers.push({ Id: custid, Group: group });
-                if (_checkedCustomers.length === _cacheData.Data.length) {
+                _checkedCustomerObject[custid] = true;
+                _checkedCustomerArray.push({ Id: custid, Group: group });
+                if (_checkedCustomerArray.length === _cacheData.Data.length) {
                     $("#CheckAll").prop("checked", true);
                     _checkedAllRows = true;
                 }
             } else {
-                for (var i = 0; i < _checkedCustomers.length; i++) {
-                    if (_checkedCustomers[i].Id === custid) {
-                        _checkedCustomers.splice(i, 1);
+                delete _checkedCustomerObject[custid];
+                for (var i = 0; i < _checkedCustomerArray.length; i++) {
+                    if (_checkedCustomerArray[i].Id === custid) {
+                        _checkedCustomerArray.splice(i, 1);
                         break;
                     }
                 }
@@ -248,14 +261,65 @@ var CustomerList = (function ($) {
                 _checkedAllRows = false;
                 $("#CheckAll").prop("checked", false);
             }
-
         });
+    }
 
+    function updateGroupForCheckCustomerArray(groupid) {
+        $.each(_checkedCustomerArray, function (index, item) {
+            item.Group = groupid;
+        });
     }
 
     return {
+        logA: function () {
+            console.log(_checkedCustomerArray);
+            console.log(_checkedCustomerObject);
+        },
+        updateGridGroup: function (groupid, groupName, groupColor) {
+            var count = 0;
+            var length = _checkedCustomerArray.length;
+            $.each(_cacheData.Data, function (index, item) {
+                if (count === length) {
+                    return false;
+                }
+
+                if (_checkedCustomerObject[item.CustId] === true) {
+                    item.GroupCommId = groupid;
+                    item.Group = groupName;
+                    item.GroupColor = groupColor;
+                    count++;
+                }
+            });
+
+            updateGroupForCheckCustomerArray(groupid);
+            bindData(_cacheData);
+        },
+        updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
+            var count = 0;
+            var length = _checkedCustomerArray.length;
+            $.each(_cacheData.Data, function (index, item) {
+                if (count === length) {
+                    return false;
+                }
+                if (_checkedCustomerObject[item.CustId] === true) {
+                    item.GroupCommId = groupid;
+                    item.Group = groupName;
+                    item.GroupColor = groupColor;
+                    item.SbComm = sbCom;
+                    item.NgComm = ngCom;
+                    item.RbComm = rbCom;
+                    item.LcComm = lcCom;
+                    item.csComm = csCom;
+                    count++;
+                }
+            });
+
+            updateGroupForCheckCustomerArray(groupid);
+            bindData(_cacheData);
+        },
+
         getCheckedCustomers: function () {
-            return _checkedCustomers;
+            return _checkedCustomerArray;
         },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
@@ -413,7 +477,8 @@ var CustomerList = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-            _checkedCustomers = [];
+            _checkedCustomerObject = {};
+            _checkedCustomerArray = [];
             _checkedAllRows = false;
             var data = {};
 
