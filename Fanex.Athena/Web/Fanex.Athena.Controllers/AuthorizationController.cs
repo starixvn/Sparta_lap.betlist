@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Caching;
     using System.Web.Mvc;
     using System.Web.Security;
+    using System.Web.UI;
     using DNAide.Utils;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -80,6 +81,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public ActionResult ReCheckin()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();

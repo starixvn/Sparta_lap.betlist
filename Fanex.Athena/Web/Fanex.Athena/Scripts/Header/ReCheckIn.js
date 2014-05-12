@@ -15,6 +15,7 @@ function ReCheckin() {
         url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _page.OnUserID,
         async: true,
         type: "GET",
+        cache:false,
         success: function (result) {
             var errCode = result.ErrCode;
             if (errCode !== Success) {
