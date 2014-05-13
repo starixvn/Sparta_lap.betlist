@@ -148,11 +148,11 @@ namespace Fanex.Athena.Service.Implement.Report
                                                     FinalAwayScore =
                                                         i["finalawayscore"] != DBNull.Value
                                                             ? int.Parse(i["finalawayscore"].ToString())
-                                                            : -1,
+                                                            : new Nullable<int>(),
                                                     HtAwayScore =
                                                         i["htawayscore"] != DBNull.Value
                                                             ? int.Parse(i["htawayscore"].ToString())
-                                                            : -1,
+                                                            : new Nullable<int>(),
                                                     Color = i.Table.Columns.Contains("lcolor") &&
                                                         i["lcolor"] != DBNull.Value
                                                             ? i["lcolor"].ToString()
@@ -160,11 +160,11 @@ namespace Fanex.Athena.Service.Implement.Report
                                                     FinalHomeScore =
                                                         i["finalhomescore"] != DBNull.Value
                                                             ? int.Parse(i["finalhomescore"].ToString())
-                                                            : -1,
+                                                            :new Nullable<int>(),
                                                     HtHomeScore =
                                                         i["finalhomescore"] != DBNull.Value
                                                             ? int.Parse(i["hthomescore"].ToString())
-                                                            : -1,
+                                                            : new Nullable<int>(),
                                                     EventDate = DateTime.Parse(i["eventdate"].ToString()),
                                                     IsNeutral = bool.Parse(i["IsNeutral"].ToString()),
                                                     IsPending = bool.Parse(i["IsPending"].ToString()),
@@ -242,18 +242,18 @@ namespace Fanex.Athena.Service.Implement.Report
                                     FinalAwayScore =
                                         i["finalawayscore"] != DBNull.Value
                                             ? int.Parse(i["finalawayscore"].ToString())
-                                            : -1,
+                                            : new Nullable<int>(),
                                     HtAwayScore =
-                                        i["htawayscore"] != DBNull.Value ? int.Parse(i["htawayscore"].ToString()) : -1,
+                                        i["htawayscore"] != DBNull.Value ? int.Parse(i["htawayscore"].ToString()) : new Nullable<int>(),
                                     Color = i.Table.Columns.Contains("lcolor") && i["lcolor"] != DBNull.Value ? i["lcolor"].ToString() : string.Empty,
                                     FinalHomeScore =
                                         i["finalhomescore"] != DBNull.Value
                                             ? int.Parse(i["finalhomescore"].ToString())
-                                            : -1,
+                                            : new Nullable<int>(),
                                     HtHomeScore =
                                         i["hthomescore"] != DBNull.Value
                                             ? int.Parse(i["hthomescore"].ToString())
-                                            : -1,
+                                            : new Nullable<int>(),
                                     EventDate = DateTime.Parse(i["eventdate"].ToString()),
                                     IsNeutral = bool.Parse(i["IsNeutral"].ToString()),
                                     IsPending = bool.Parse(i["IsPending"].ToString()),
@@ -263,7 +263,7 @@ namespace Fanex.Athena.Service.Implement.Report
                                     ResultValue = "6-1 *30-40 40-30* *40-0 40-0* *40-0 40-0* *40-0",
                                     IsHTCal = Convert.ToBoolean(i["IsHTCal"]),
                                     Calculate = Convert.ToBoolean(i["Calculate"]),
-                                    RefNo = "12"
+                                    RefNo = string.Empty
                                 })
                         .ToList();
             }
@@ -334,9 +334,9 @@ namespace Fanex.Athena.Service.Implement.Report
                                     LeagueId = int.Parse(i["leagueid"].ToString()),
                                     EventStatus = i["eventstatus"].ToString(),
                                     FinalAwayScore =
-                                        i["finalawayscore"] != DBNull.Value ? int.Parse(i["finalawayscore"].ToString()) : -1,
+                                        i["finalawayscore"] != DBNull.Value ? int.Parse(i["finalawayscore"].ToString()) : new Nullable<int>(),
                                     FinalHomeScore =
-                                        i["finalhomescore"] != DBNull.Value ? int.Parse(i["finalhomescore"].ToString()) : -1,
+                                        i["finalhomescore"] != DBNull.Value ? int.Parse(i["finalhomescore"].ToString()) : new Nullable<int>(),
                                     EventDate = DateTime.Parse(i["eventdate"].ToString()),
                                     IsPending = bool.Parse(i["IsPending"].ToString()),
                                     KickOffTime = DateTime.Parse(i["kickofftime"].ToString()),
