@@ -194,16 +194,25 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             playTechCasinoItem.TotalTrans = reader.ToInt("BetCount");
             playTechCasinoItem.CustomerWinLoss = reader.ToDecimal("Winlost" + baseCurrency);
             playTechCasinoItem.LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + baseCurrency);
+            playTechCasinoItem.ProgressiveShare = reader.ToDecimal("PShare" + baseCurrency);
+            playTechCasinoItem.ProgressiveWin = reader.ToDecimal("PWin" + baseCurrency);
+            playTechCasinoItem.NetGaming = reader.ToDecimal("NetGaming" + baseCurrency);
 
             totalInEur.Turnover += reader.ToDecimal("TurnoverEUR");
             totalInEur.TotalTrans += reader.ToInt("BetCount");
             totalInEur.CustomerWinLoss += reader.ToDecimal("WinlostEUR");
             totalInEur.LicenseeWinLoss += reader.ToDecimal("LicenseeWLEUR");
+            totalInEur.ProgressiveShare += reader.ToDecimal("PShareEUR");
+            totalInEur.ProgressiveWin += reader.ToDecimal("PWinEUR");
+            totalInEur.NetGaming += reader.ToDecimal("NetGamingEUR");
 
             totalInUsd.Turnover += reader.ToDecimal("TurnoverUSD");
             totalInUsd.TotalTrans += reader.ToInt("BetCount");
             totalInUsd.CustomerWinLoss += reader.ToDecimal("WinlostUSD");
             totalInUsd.LicenseeWinLoss += reader.ToDecimal("LicenseeWLUSD");
+            totalInUsd.ProgressiveShare += reader.ToDecimal("PShareUSD");
+            totalInUsd.ProgressiveWin += reader.ToDecimal("PWinUSD");
+            totalInUsd.NetGaming += reader.ToDecimal("NetGamingUSD");
         }
     }
 }
