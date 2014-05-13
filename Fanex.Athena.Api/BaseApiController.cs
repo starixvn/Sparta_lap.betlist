@@ -19,8 +19,8 @@ namespace Fanex.Athena.Api
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
-    using NPOI.SS.UserModel;
     using Fanex.Athena.Web.ActionFilter;
+    using NPOI.SS.UserModel;
 
     /// <summary>
     /// Base API Controller.
@@ -44,7 +44,6 @@ namespace Fanex.Athena.Api
             CurrencyService = new CurrencyService();
             LangService = new LanguageService();
         }
-
 
         /// <summary>
         /// Generate excel steam.

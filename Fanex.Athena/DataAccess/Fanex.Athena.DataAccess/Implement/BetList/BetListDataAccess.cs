@@ -54,10 +54,9 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     db.AddInParameter("TransId", DbType.Int64, transId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return new TicketResult()
-                        {
-                            MainTicketList = this.ReadLrfTicket(reader, string.Empty)
-                        };
+                        var result = new TicketResult();
+                        result.MainTicketList.AddRange(this.ReadLrfTicket(reader, string.Empty));
+                        return result;
                     }
                 }
             }
@@ -178,10 +177,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, baseCurrency);                     
-                        ticketResult.TicketDataList = reader.NextResult()
-                                    ? this.ReadLrfReferneceTicket(reader, baseCurrency).ToList()
-                                    : new List<ITicketData>();
+                        ticketResult.MainTicketList.AddRange( this.ReadLrfTicket(reader, baseCurrency));
+                        if (reader.NextResult())
+                        {
+                             ticketResult.TicketDataList.AddRange(this.ReadLrfReferneceTicket(reader, baseCurrency).ToList());
+                        }
 
                         if (!metaModel.IsServerPaging && !string.IsNullOrWhiteSpace(metaModel.SortBy))
                         {
@@ -262,8 +262,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     {
                         var mainTicket = this.ReadLrfTicket(reader, metaModel.BasedCurrency);
                         mainTicket.Sort("TransId", false);
-                        ticketResult.MainTicketList = mainTicket;
-                        ticketResult.TicketDataList = new List<ITicketData>();
+                        ticketResult.MainTicketList.AddRange(mainTicket);
                     }
 
                     return ticketResult;
