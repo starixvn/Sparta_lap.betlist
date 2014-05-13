@@ -733,6 +733,7 @@
     <None Include="App_Data\Fanex.Result\Soccer.xls" />
     <None Include="App_Data\Fanex.Result\Tennis.xls" />
     <None Include="App_Data\Fanex.Result\VSHRacing.xls" />
+    <None Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <None Include="App_Data\Fanex.Result\VSTennis.xls" />
     <None Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
     <None Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
