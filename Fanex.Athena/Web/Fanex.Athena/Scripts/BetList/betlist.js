@@ -70,6 +70,12 @@ var BetList = (function ($) {
                 $("#pager2").show();
             }
 
+            // Hide vertical scrollbar in IE when the grid has only one row.
+            
+            if (rowCount < 2) {
+                $(".ui-jqgrid .ui-jqgrid-bdiv").css("overflow-y", "hidden");
+            }
+
             Site.unBlockUI();
         },
 

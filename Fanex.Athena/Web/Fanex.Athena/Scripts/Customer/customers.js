@@ -170,7 +170,7 @@ var CustomerList = (function ($) {
 
         gridOption.scroll = true;
         gridOption.data = response.Data;
-        gridOption.rowNum = 40; // _pagingOption.pagesize;       
+        gridOption.rowNum = 40; // _pagingOption.pagesize;
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
