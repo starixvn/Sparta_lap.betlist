@@ -13,11 +13,9 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
     using System.Web.Http;
     using DNAide.Utils;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -129,7 +127,7 @@ namespace Fanex.Athena.Api.BetList
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [NonAction]
         private dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
-        {           
+        {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUpInfo = _balanceUpService.BalanceUpInfo;
 
@@ -143,9 +141,8 @@ namespace Fanex.Athena.Api.BetList
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)
-            {               
-                leagueName = CacheRef.GetLeagueName(ticketResult.MainTicketList.Any()
-                   ? firstOrDefault.LeagueId : 0);
+            {
+                leagueName = CacheRef.GetLeagueName(firstOrDefault.LeagueId);
             }
 
             return new
