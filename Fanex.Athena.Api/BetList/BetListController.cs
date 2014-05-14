@@ -136,8 +136,24 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-
+                        
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
+            
+            // Add more first half data
+            if (metaModel.BetType == 6 || metaModel.BetType == 14)
+            {
+                metaModel.BetType = metaModel.BetType == 6 ? 126 : 127;
+                var firstHalfResult = _betListService.GetBetListData(metaModel, uspKey);
+                ticketResult.MainTicketList.AddRange(firstHalfResult.MainTicketList);
+                ticketResult.TicketDataList.AddRange(firstHalfResult.TicketDataList);
+                ticketResult.TotalRows += firstHalfResult.TotalRows;
+                ticketResult.SumWinLoss += firstHalfResult.SumWinLoss;
+                ticketResult.SumLicenseeWl += firstHalfResult.SumLicenseeWl;
+                ticketResult.SumComm += firstHalfResult.SumComm;
+                ticketResult.SumPlayerComm += firstHalfResult.SumPlayerComm;
+                ticketResult.SumStake += firstHalfResult.SumStake;
+            }
+
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)
