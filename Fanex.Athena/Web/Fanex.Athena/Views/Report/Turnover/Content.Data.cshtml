@@ -9,7 +9,7 @@
     var isDataAvailable = Model.DataList != null && Model.DataList.Count > 0;
     var contentHeight = isDataAvailable ? Model.DataList.Count * (26 + 1) + 17 : 26;
 }
-<div id="data-content" class="data-content" style="width: @(ViewBag.TotalWrapperWidth + 2)@("px"); max-height:500px; height:@(contentHeight)px;  overflow-x:auto; @(isDataAvailable ? "overflow-y:scroll" : "")">
+<div id="data-content" class="data-content" style="width: @(ViewBag.WrapperWidth + 1)@("px"); max-height:500px; height:100%;  overflow-x:auto; @(isDataAvailable ? "overflow-y:scroll" : "")">
     @foreach (var item in Model.DataList)
     {
         rowNumber++;
