@@ -29,6 +29,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnTotalTrans = 6;
         private const int ColumnCustomerWL = 7;
         private const int ColumnLicenseeWL = 8;
+        private const int ColumnPShare = 9;
+        private const int ColumnPWin = 10;
+        private const int ColumnNetGaming = 11;
 
         private const int RowTitle = 0;
         private const int RowHeader = 1;
@@ -61,7 +64,10 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Turnover,
                 ViewResources.TotalTransaction,
                 ViewResources.CustomerW_L,
-                ViewResources.LicenseeW_L
+                ViewResources.LicenseeW_L,
+                ViewResources.PShare,
+                ViewResources.PWin,
+                ViewResources.NetGaming
             };
         }
 
@@ -128,6 +134,9 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnTotalTrans].SetCellValue(item.TotalTrans);
                 row.Cells[ColumnCustomerWL].SetCellValue(item.CustomerWinLoss);
                 row.Cells[ColumnLicenseeWL].SetCellValue(item.LicenseeWinLoss);
+                row.Cells[ColumnPShare].SetCellValue(item.ProgressiveShare);
+                row.Cells[ColumnPWin].SetCellValue(item.ProgressiveWin);
+                row.Cells[ColumnNetGaming].SetCellValue(item.NetGaming);
             }
 
             AssignTotalData(sheet, RowContent + rowIndex);
@@ -150,6 +159,9 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnTotalTrans].SetCellValue(item.TotalTrans);
                 row.Cells[ColumnCustomerWL].SetCellValue(item.CustomerWinLoss);
                 row.Cells[ColumnLicenseeWL].SetCellValue(item.LicenseeWinLoss);
+                row.Cells[ColumnPShare].SetCellValue(item.ProgressiveShare);
+                row.Cells[ColumnPWin].SetCellValue(item.ProgressiveWin);
+                row.Cells[ColumnNetGaming].SetCellValue(item.NetGaming);
             }
 
             sheet.MergeCells(rowIndex, ColumnIndex, rowIndex + _viewModel.TotalData.Count - 1, ColumnSystemId);
@@ -161,6 +173,9 @@ namespace Fanex.Athena.Excel.Report
             grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInUsd.TotalTrans);
             grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInUsd.CustomerWinLoss);
             grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInUsd.LicenseeWinLoss);
+            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInUsd.ProgressiveShare);
+            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInUsd.ProgressiveWin);
+            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInUsd.NetGaming);
             sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
 
             var nextIndex = checked(rowIndex + 1);
@@ -171,6 +186,9 @@ namespace Fanex.Athena.Excel.Report
             grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInEur.TotalTrans);
             grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInEur.CustomerWinLoss);
             grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInEur.LicenseeWinLoss);
+            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInEur.ProgressiveShare);
+            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInEur.ProgressiveWin);
+            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInEur.NetGaming);
             sheet.MergeCells(nextIndex, ColumnIndex, nextIndex, ColumnCurrency);
         }
 

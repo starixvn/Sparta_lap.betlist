@@ -153,6 +153,9 @@ namespace Fanex.Athena.Controllers.Report
                                Turnover = g.Sum(m => m.Turnover),
                                CustomerWinLoss = g.Sum(m => m.CustomerWinLoss),
                                LicenseeWinLoss = g.Sum(m => m.LicenseeWinLoss),
+                               ProgressiveShare= g.Sum(m => m.ProgressiveShare),
+                               ProgressiveWin = g.Sum(m => m.ProgressiveWin),
+                               NetGaming = g.Sum(m => m.NetGaming),
                            })
                            .ToList();
         }
