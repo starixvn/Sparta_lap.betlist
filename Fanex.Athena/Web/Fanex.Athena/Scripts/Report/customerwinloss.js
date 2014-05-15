@@ -60,11 +60,12 @@ var CustomerWinLoss = (function ($) {
 
                 var pageSize = $('.pageSizeSelected').val();
                 if (pageSize !== undefined) {
-                    var pageSizeHtml = '<input type="hidden" value="' + pageSize + '" name="PageSize" />';
+                    var pageSizeHtml = '<input type="hidden" class="page-size-param" value="' + pageSize + '" name="PageSize" />';
                     $("#CustomerWinlossForm").append(pageSizeHtml);
                 }
 
                 $("#CustomerWinlossForm").submit();
+                $(".page-size-param").remove();
                 return false;
             });
 
