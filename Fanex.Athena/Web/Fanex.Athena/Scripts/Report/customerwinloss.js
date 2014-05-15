@@ -61,7 +61,7 @@ var CustomerWinLoss = (function ($) {
                 var pageSize = $('.pageSizeSelected').val();
                 if (pageSize !== undefined) {
                     var pageSizeHtml = '<input type="hidden" value="' + pageSize + '" name="PageSize" />';
-                    $("#CustomerWinlossForm").append(pageSize);
+                    $("#CustomerWinlossForm").append(pageSizeHtml);
                 }
 
                 $("#CustomerWinlossForm").submit();
