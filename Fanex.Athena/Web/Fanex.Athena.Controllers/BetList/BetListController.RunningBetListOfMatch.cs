@@ -78,6 +78,7 @@ namespace Fanex.Athena.Controllers.BetList
                 ticketResult.SumComm += firstHalfResult.SumComm;
                 ticketResult.SumPlayerComm += firstHalfResult.SumPlayerComm;
                 ticketResult.SumStake += firstHalfResult.SumStake;
+                metaModel.BetType = metaModel.BetType == 126 ? 6 : 14;
             }
 
             var showingOption = new ShowingOption
