@@ -28,7 +28,7 @@ namespace Fanex.Athena.Web.RouterConfig
                 responseToCompleteTask =>
                 {
                     HttpResponseMessage response = responseToCompleteTask.Result;
-
+                    response.EnsureSuccessStatusCode();
                     if (response.RequestMessage.Headers.AcceptEncoding != null)
                     {
                         var encodingType = response.RequestMessage.Headers.AcceptEncoding.FirstOrDefault();

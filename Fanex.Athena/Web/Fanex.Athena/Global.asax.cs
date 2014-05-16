@@ -87,7 +87,10 @@ namespace Fanex.Athena
                              "\r\nUrl: " + Request.RawUrl +
                              "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
                              "\r\nTARGETSITE: " + ex.TargetSite +
-                             "\r\nSTACKTRACE: " + ex.StackTrace;
+                             "\r\nSTACKTRACE: " + ex.StackTrace +
+                             "\r\nBrowser:" + Request.Browser.Type.ToString() +
+                             "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
+                             "\r\nAgent:" + Request.UserAgent.ToString();
             try
             {
                 ISessionService sessionService = new SessionService();
