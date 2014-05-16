@@ -18,6 +18,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     using Fanex.Common.Extensions;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
+    using System;
 
     /// <summary>
     /// First goal/last goal data access.
@@ -91,11 +92,11 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     AwayFirstGoal = reader.ToDecimal(awayFirstGoalColumn),
                     AwayLastGoal = reader.ToDecimal(awayLastGoalColumn),
                     NoGoal = reader.ToDecimal(nonGoalColumn),
-                    HomeFirstHalfFirstGoal = reader.ToDecimal(homeFirstHalfFirstGoalColumn),
-                    HomeFirstHalfLastGoal = reader.ToDecimal(homeFirstHalfLastGoalColumn),
-                    AwayFirstHalfFirstGoal = reader.ToDecimal(awayFirstHalfFirstGoalColumn),
-                    AwayFirstHalfLastGoal = reader.ToDecimal(awayFirstHalfLastGoalColumn),
-                    FirstHalfNoGoal = reader.ToDecimal(firstHalfNonGoalColumn)
+                    HomeFirstHalfFirstGoal = reader[homeFirstHalfFirstGoalColumn],
+                    HomeFirstHalfLastGoal = reader[homeFirstHalfLastGoalColumn],
+                    AwayFirstHalfFirstGoal = reader[awayFirstHalfFirstGoalColumn],
+                    AwayFirstHalfLastGoal = reader[awayFirstHalfLastGoalColumn],
+                    FirstHalfNoGoal = reader[firstHalfNonGoalColumn]
                 };
 
                 dataList.Add(item);

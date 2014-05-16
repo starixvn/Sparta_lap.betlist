@@ -5,23 +5,21 @@
 @using Fanex.Athena.Models.DTO.Common
 @using Fanex.Athena.Models.MetaModel.Product;
 @using Fanex.Athena.Web.HtmlExtension;
-
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
-{
+    {
     var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
     var prdText = string.Empty;
-    foreach(var prd in prdOptionTitleList)
+    foreach (var prd in prdOptionTitleList)
     {
-        if(prd.Status)
+        if (prd.Status)
         {
             prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
         }
     }
-    prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})",ViewResources.LicenseeW_L, prdText);
+    prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
     
     @prdText
 }
-
 @helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
     {
     <select id="@name" name="@name" class="@className">
@@ -164,7 +162,7 @@
         }
         @{
             var Url = new UrlHelper(Context.Request.RequestContext);
-            }
+        }
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="product-null" class="hide" />
         <script type="text/javascript">
             $(window).load(function () {
@@ -254,14 +252,14 @@ bool addBasedOption = false)
         {
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
-                Text =ViewResources.Based + " USD",
+                Text = ViewResources.Based + " USD",
                 Value = "-2",
                 Selected = "-2" == selected.ToString()
             });
 
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
-                Text = ViewResources.Based +" EUR",
+                Text = ViewResources.Based + " EUR",
                 Value = "-1",
                 Selected = "-1" == selected.ToString()
             });
@@ -297,8 +295,10 @@ bool addBasedOption = false)
         selectedBasedCurrency = selectedBasedCurrency.ToLower();
   
     <select class="based-currency" name="BaseCurrency" id="BaseCurrency"  data-original="@selectedBasedCurrency">
-        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
-        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
+        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>
+            EUR</option>
+        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>
+            USD</option>
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
@@ -415,10 +415,28 @@ bool addBasedOption = false)
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)
     {
     
-         @(fromDate.ToString("MM/dd/yyyy"))
+    @(fromDate.ToString("MM/dd/yyyy"))
         if (toDate != null)
         {
-            @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+    @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
         }
         
+}
+@helper PositiveFormatExt(object objValue, bool isFormatZero)
+    {
+        if (!(objValue is DBNull))
+        {
+            var value = Convert.ToDecimal(objValue);
+            if (value != null)
+            {
+                if (value > 0)
+                {
+                    <span class="positive-number">@value.ToString("#,##0.00")</span>
+                }
+                else
+                {
+                    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
+                }
+            }
+        }
 }
