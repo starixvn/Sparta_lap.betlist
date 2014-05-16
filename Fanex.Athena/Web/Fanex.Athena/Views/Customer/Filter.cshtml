@@ -6,13 +6,13 @@
 @{
     var pushSubmitButton = 10;
 }
-<div class="grid_26 content-filter">
+<div class="grid_25 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
         //-----------------------------Type of licensee---------------------------//
         if (Model.LicenseeTypeList.Count > 0)
         {
-            pushSubmitButton = 5;
+            pushSubmitButton = 4;
         <div class="grid_2 filter-label">
             <label>@ViewResources.Type</label>
         </div>

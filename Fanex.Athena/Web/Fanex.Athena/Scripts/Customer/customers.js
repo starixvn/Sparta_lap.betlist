@@ -198,14 +198,14 @@ var CustomerList = (function ($) {
         } else {
             gridWidth += 20;
         }
-
+        gridWidth = Math.min(960, gridWidth);
         reportGrid.jqGrid("setGridWidth", gridWidth);
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
-        $(".content-filter").width(gridWidth < 1030 ? 1030 : gridWidth);
+        $(".content-filter").width(Math.max(960, gridWidth));
 
         // Display 20 rows in grid
-        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 540);
+        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 500);
 
         if (hasData) {
             $("div.paging").show();
