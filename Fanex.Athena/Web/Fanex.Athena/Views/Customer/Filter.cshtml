@@ -3,16 +3,13 @@
 @using Fanex.Athena.Models.MetaModel.Customer;
 @using Fanex.Athena.Models.DTO.Common
 @model CustomerListViewModel
-@{
-    var pushSubmitButton = 10;
-}
+
 <div class="grid_25 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
         //-----------------------------Type of licensee---------------------------//
         if (Model.LicenseeTypeList.Count > 0)
-        {
-            pushSubmitButton = 4;
+        {            
         <div class="grid_2 filter-label">
             <label>@ViewResources.Type</label>
         </div>
@@ -40,7 +37,7 @@
         <div class="grid_3 filter-input">
             <input type="text" id="txtUsername" class="text_f1" style="width: 120px" />
         </div>
-        <div class="grid_2 push_@pushSubmitButton filter-input">
+        <div class="grid_2 push_@(Model.LicenseeTypeList.Count > 0 ? 4 : 10) filter-input">
             <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
         </div>
         <div class="gird_1 note-group">

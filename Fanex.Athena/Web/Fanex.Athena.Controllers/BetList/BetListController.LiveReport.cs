@@ -200,7 +200,9 @@ namespace Fanex.Athena.Controllers.BetList
                     {
                         (int)SportType.VirtualHorseRacing,
                         (int)SportType.VirtualGreyhound,
-                        (int)SportType.VirtualMotoRacing
+                        (int)SportType.VirtualMotoRacing,
+                        (int)SportType.VirtualSpeedway,
+                        (int)SportType.VirtualCycling
                     };
 
                     var spkey = racingBettypes.Contains(metaModel.SportType) ? UspKeyVHRacing : UspKeyRacing;

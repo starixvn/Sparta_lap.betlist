@@ -168,7 +168,7 @@ var CustomerList = (function ($) {
             }
         }
 
-        gridOption.scroll = true;
+        gridOption.scroll = 1;
         gridOption.data = response.Data;
         gridOption.rowNum = 40; // _pagingOption.pagesize;
 
