@@ -14,6 +14,8 @@ namespace Fanex.Athena
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
     using StackExchange.Profiling;
@@ -36,9 +38,8 @@ namespace Fanex.Athena
         {
             TplSettings.UrlVersion = AppSettings.JsVersion;
             AreaRegistration.RegisterAllAreas();
-            
+
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
-            // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
@@ -87,6 +88,15 @@ namespace Fanex.Athena
                              "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
                              "\r\nTARGETSITE: " + ex.TargetSite +
                              "\r\nSTACKTRACE: " + ex.StackTrace;
+            try
+            {
+                ISessionService sessionService = new SessionService();
+                var licenseeSession = sessionService.LicenseeSession;
+                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
+            }
+            catch (Exception)
+            {
+            }
 
             Logging.LogService.Error(message, ex);
         }
@@ -95,7 +105,7 @@ namespace Fanex.Athena
         {
             if (Request.IsLocal)
             {
-                // MiniProfiler.Start();
+                MiniProfiler.Start();
             }
         }
 

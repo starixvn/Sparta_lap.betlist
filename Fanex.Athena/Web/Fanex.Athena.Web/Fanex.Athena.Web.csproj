@@ -76,7 +76,6 @@
     <Compile Include="RouterConfig\BundleConfig.cs" />
     <Compile Include="RouterConfig\CompressedContent.cs" />
     <Compile Include="RouterConfig\CompressHandler.cs" />
-    <Compile Include="RouterConfig\FilterConfig.cs" />
     <Compile Include="RouterConfig\ReadonlySessionRouteHandler.cs" />
     <Compile Include="RouterConfig\RouteConfig.cs" />
   </ItemGroup>
