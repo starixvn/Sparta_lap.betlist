@@ -31,8 +31,8 @@ namespace Fanex.Athena.Web.RouterConfig
 
                     if (response.RequestMessage.Headers.AcceptEncoding != null)
                     {
-                        string encodingType = response.RequestMessage.Headers.AcceptEncoding.First().Value;
-                        response.Content = new CompressedContent(response.Content, encodingType);
+                        var encodingType = response.RequestMessage.Headers.AcceptEncoding.FirstOrDefault();
+                        response.Content = new CompressedContent(response.Content, encodingType != null ? encodingType.Value : "gzip");
                     }
 
                     return response;
