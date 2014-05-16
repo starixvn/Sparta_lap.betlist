@@ -27,15 +27,15 @@
 <div id="ajax-panel">
     @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
-
         <div class="grid_9 filter-input new-line" style="padding-bottom: 2px;">
             <input type="button" id="MoveToGroup" value="@ViewResources.MoveToGroup" class="button" />&nbsp;&nbsp;&nbsp;
             <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="button" data-group-id="@Model.Param.GroupCommId"/>&nbsp;&nbsp;&nbsp;
             <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="button" />&nbsp;&nbsp;&nbsp;
         </div>
     }
-    <div class=" theme_jqGrid container_25">
-        <div class="grid_25">
+
+    <div class="theme_jqGrid container_25">
+        <div class="grid_25 new-line"  style="margin-left: 0px">
             <div class="report-title" style="">
                 @ViewResources.SearchResult:
                 <label id="num-of-customer" class="num-of-customer">0 </label>@ViewResources.Customers.ToLower()
