@@ -32,11 +32,12 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult WinLossByBetType()
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var metaModel = new WinLossByBetTypeMetaModel
                 {
                     BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay,
                     LicenseeId = licenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId
+                    UserId = userSession.UserId
                 };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -46,13 +47,13 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     Param = metaModel,
                     BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    CurrencyList = userSession.CurrencyList,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 };
 
-            ViewBag.IsShowCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
         }
@@ -66,6 +67,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult WinLossByBetType(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
 
@@ -79,15 +81,15 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     MainResult = reportData,
                     BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    CurrencyList = userSession.CurrencyList,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language),
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     ColumnCount = GetMatchWinlossColumnCount(licenseeSession),
                     Total = total
                 };
 
-            ViewBag.IsShowCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return metaModel.IsExportExcel ?
                 WinLossByBetTypeExcel(model) :

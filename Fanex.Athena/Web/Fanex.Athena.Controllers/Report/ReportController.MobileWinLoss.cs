@@ -30,9 +30,10 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult MobileWinloss()
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new MobileWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -49,9 +50,9 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,
-                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
             return View("~/Views/Report/MobileWinLoss/Main.cshtml", model);

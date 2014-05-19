@@ -54,15 +54,14 @@ namespace Fanex.Athena.Controllers.Report
                                                      Status = i.ProductCode == Product.Sb
                                                  }).ToList();
 
-            metaModel.ProductOptions = productOption;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            metaModel.ProductOptions = productOption;            
             var model = new CustomerBalanceViewModel
                 {
                     ShowEmptyContent = true,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = currencyList,
+                    CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     IsValidTimeRequest = true,
                 };
@@ -101,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo),
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     Param = metaModel
                 };
 

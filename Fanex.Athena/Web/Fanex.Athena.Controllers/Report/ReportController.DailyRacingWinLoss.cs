@@ -93,7 +93,8 @@ namespace Fanex.Athena.Controllers.Report
         {
             const string FileName = "DailyRacingWinLossReport";
 
-            var templatePath = this.SessionService.LicenseeSession.LicenseeId == 1
+            var licenseeSession = SessionService.LicenseeSession;
+            var templatePath = licenseeSession.LicenseeId == 1
                                    ? Server.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss12Bet.xls")
                                    : Server.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss.xls");
 
@@ -106,11 +107,11 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
 
             // Export excel
-            if (this.SessionService.LicenseeSession.LicenseeId == 1)
+            if (licenseeSession.LicenseeId == 1)
             {
                 var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
                 racingWinLossExcel12Bet.Export();

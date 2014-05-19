@@ -69,11 +69,14 @@ namespace Fanex.Athena.Controllers.Report
         [ValidateInput(false)]
         public ActionResult PlaytechCasinoWinloss(PlaytechCasinoMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
             IPlaytechCasinoService playtechCasinoService = new PlaytechCasinoService();
-            metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BaseCurrency = metaModel.CurrencyId == BaseCurrencyType.Eur ? "EUR" : metaModel.CurrencyId == BaseCurrencyType.Usd ? "USD" : string.Empty;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencyList = userSession.CurrencyList;
             metaModel.CurrencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrency)).Key;
             IList<PlaytechCasino> dataList = new List<PlaytechCasino>();
             var totalInEur = new PlaytechCasino();
@@ -107,7 +110,7 @@ namespace Fanex.Athena.Controllers.Report
                 TotalInUsd = totalInUsd,
                 ShowEmptyContent = false,
                 CurrencyList = currencyList,
-                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
 
             if (metaModel.IsExportExcel)

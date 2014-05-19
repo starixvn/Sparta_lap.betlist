@@ -7,9 +7,9 @@
         <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
             <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
                 <div>
-                    @*Do not show sport link for Live Casino*@
+                    @*Do not show sport link for Live Casino, Keno*@
                     @{
-                        var liveCasinoSports = new List<int> {162,251,252,253};                        
+                        var liveCasinoSports = new List<int> {162,251,252,253,202};                        
                         if (Model.IsShowedDetailLink && !liveCasinoSports.Contains(sportId))
                         {
                             var detailParam = new

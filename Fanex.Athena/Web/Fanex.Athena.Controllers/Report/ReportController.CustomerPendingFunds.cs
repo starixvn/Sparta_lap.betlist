@@ -80,19 +80,21 @@ namespace Fanex.Athena.Controllers.Report
         [ValidateInput(false)]
         public ActionResult CustomerPendingFunds(CustomerPendingFundsMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.LicenseeSession.UserId;
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
 
-            var currencyList = SessionService.UserSession.CurrencyList;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = licenseeSession.UserId;
+
             var totalData = new CustPendingFunds();
             var totalRows = 0;
 
             var model = new CustomerPendingFundsViewModel
                 {
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno),
-                    CurrencyList = currencyList,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno),
+                    CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     TotalRows = totalRows,
                 };

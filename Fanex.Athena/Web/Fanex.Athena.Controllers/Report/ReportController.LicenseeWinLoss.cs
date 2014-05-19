@@ -30,7 +30,8 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult LicenseeWinLoss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var userSession = SessionService.UserSession;
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var productList = productAccess.ProductList;
             var metaModel = new LicenseeWinLossMetaModel
                 {
@@ -54,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess,
                 };

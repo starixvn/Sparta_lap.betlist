@@ -36,10 +36,11 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerTurnover()
         {
+            var licenseeSession = SessionService.LicenseeSession;
             var model = new CustomerTurnoverViewModel
             {
-                Param = new CustomerTurnoverMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId },
-                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                Param = new CustomerTurnoverMetaModel { LicenseeId = licenseeSession.LicenseeId },
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = SessionService.UserSession.CurrencyList,
             };
 
@@ -94,16 +95,18 @@ namespace Fanex.Athena.Controllers.Report
                 return null;
             }
 
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             CustomerTurnoverMetaModel metaModel = JsonConvert.DeserializeObject<CustomerTurnoverMetaModel>(excelParam);
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
             if (metaModel == null || !metaModel.IsValid)
             {
                 Response.Redirect("~/Utility/Error?errCode=400");
             }
 
-            metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.IsExportExcel = true;
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");
             var formatDateTime = metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
@@ -114,9 +117,9 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
             {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
-            var currencyName = SessionService.UserSession.CurrencyList
+            var currencyName = userSession.CurrencyList
                 .Where(i => i.Value == metaModel.CurrencyId).Select(i => i.Key).SingleOrDefault();
               
             CustTurnover totalData = new CustTurnover();

@@ -35,13 +35,14 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult WinLossByLeague()
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var date = DateTime.Now;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.Sb || x.ProductCode == Product.Ba);
             var metaModel = new WinLossByLeagueMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                UserId = SessionService.UserSession.UserId,
+                UserId = userSession.UserId,
                 FromDate = new DateTime(date.Year, date.Month, 1),
                 ToDate = date,
                 ProductOptions = productList.Select(i => new ProductOption
@@ -54,12 +55,12 @@ namespace Fanex.Athena.Controllers.Report
             
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, SessionService.UserSession.Language, SPORTSBOOK);
+            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, SPORTSBOOK);
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
                             {
                                 LicenseeId = licenseeSession.LicenseeId,
-                                UserId = SessionService.UserSession.UserId,
+                                UserId = userSession.UserId,
                                 FromDate = metaModel.FromDate,
                                 ToDate = metaModel.ToDate
                             });                
@@ -70,8 +71,8 @@ namespace Fanex.Athena.Controllers.Report
                             : this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate); 
             var viewModel = new WinLossByLeagueViewModel
             {                
-                Param = metaModel,                
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess
             };
 

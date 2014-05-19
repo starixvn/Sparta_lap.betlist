@@ -35,8 +35,9 @@ namespace Fanex.Athena.Controllers.Report
                 };
 
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
 
             SetConvetedUSDCurrencyName(metaModel);
 
@@ -45,7 +46,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     Param = metaModel,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 };
 
@@ -62,8 +63,9 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult RacingCommission(RacingCommissionMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
 
             var total = new RacingCommission();
             var reportData = _racingCommissionService.GetDataList(metaModel, ref total);
@@ -75,7 +77,7 @@ namespace Fanex.Athena.Controllers.Report
                     RacingCommissionList = reportData,
                     Param = metaModel,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     Total = total,
                 };

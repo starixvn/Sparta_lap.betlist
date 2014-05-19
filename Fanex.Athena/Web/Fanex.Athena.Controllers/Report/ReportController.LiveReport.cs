@@ -33,29 +33,30 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult LiveReport(bool isViewedHistory = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var balance = _balanceUpService.BalanceUpInfo;
             var metaModel = new LiveReportMetalModel
                 {
                     FromDate = DateTime.Now,
                     ToDate = DateTime.Now,
                     LicenseeId = licenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId,
+                    UserId = userSession.UserId,
                     IsViewedHistory = isViewedHistory,
                     CurrencyId = 0
                 };
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var model = new LiveReportViewModel
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedNumberGame = productAccess.IsAllowNg,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess
                 };
 
@@ -71,20 +72,23 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult LiveReport(LiveReportMetalModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
             var isExportedExcel = Request.Form["exporttoexcel.x"] != null;
             var balance = _balanceUpService.BalanceUpInfo;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
 
             var model = new LiveReportViewModel
                 {
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedNumberGame = productAccess.IsAllowNg,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess,
                     MainResult = _liveReportService.GetLiveReportSummary(metaModel)
                 };
@@ -137,7 +141,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
                 {
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                     BaVisible = productAccess.CanUseBa,
                     RbVisible = productAccess.IsAllowRb
                 };
