@@ -245,7 +245,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <param name="cell1">The value for first cell.</param>
         /// <param name="cell2">The value for second cell.</param>
-        protected void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        protected static void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -274,7 +274,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <param name="cell1">The string value for first cell.</param>
         /// <param name="cell2">The string value for second cell.</param>
-        protected void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        protected static void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -303,7 +303,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <param name="cell1">The value for first cell.</param>
         /// <param name="cell2">The value for second row.</param>
-        protected void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        protected static void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -332,7 +332,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <param name="cell1">The value  for first cell.</param>
         /// <param name="cell2">The value for second cell.</param>
-        protected void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        protected static void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
         {
             row.Cells[0].SetCellValue(cell1);
             row.Cells[1].SetCellValue(cell2);
@@ -359,7 +359,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <returns>Return the match name.</returns>
-        private string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
+        private static string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
         {
             int leagueId = dailyRacingWinLoss.LeagueId;
             string curCurrency = dailyRacingWinLoss.CurrencyName;

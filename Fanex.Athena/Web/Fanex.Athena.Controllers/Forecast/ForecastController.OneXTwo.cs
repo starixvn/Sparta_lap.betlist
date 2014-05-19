@@ -23,6 +23,26 @@ namespace Fanex.Athena.Controllers.Forecast
     public partial class ForecastController
     {
         /// <summary>
+        /// Get League Id.
+        /// </summary>
+        /// <param name="leagueId">The league Id.</param>
+        /// <param name="leagueList">League List.</param>
+        /// <returns>The league id.</returns>
+        public static int GetLeagueId(int leagueId, IList<League> leagueList)
+        {
+            if (
+                leagueList.Any(l => l.LeagueId == leagueId))
+            {
+                return leagueId;
+            }
+            else
+            {
+                var first = leagueList.FirstOrDefault();
+                return first != null ? first.LeagueId : -1;
+            }
+        }
+
+        /// <summary>
         /// Get Forecast OneXTwo.
         /// </summary>
         /// <returns>Action Result.</returns>
@@ -36,7 +56,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 };
 
             SetConvetedUSDCurrencyName(metaModel);
-            
+
             var model = this.GetForecastViewModel(metaModel);
 
             return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
@@ -79,26 +99,6 @@ namespace Fanex.Athena.Controllers.Forecast
         #region Utility
 
         /// <summary>
-        /// Get League Id.
-        /// </summary>
-        /// <param name="leagueId">The league Id.</param>
-        /// <param name="leagueList">League List.</param>
-        /// <returns>The league id.</returns>
-        public int GetLeagueId(int leagueId, IList<League> leagueList)
-        {
-            if (
-                leagueList.Any(l => l.LeagueId == leagueId))
-            {
-                return leagueId;
-            }
-            else
-            {
-                var first = leagueList.FirstOrDefault();
-                return first != null ? first.LeagueId : -1;
-            }
-        }
-
-        /// <summary>
         /// Get Forecast ViewModel.
         /// </summary>
         /// <param name="metaModel">Meta Model.</param>
@@ -121,7 +121,7 @@ namespace Fanex.Athena.Controllers.Forecast
             }
             else
             {
-                metaModel.LeagueId = this.GetLeagueId(currentLeagueId, leagueList);
+                metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
                 var forecastcOneXTwoByLeague = _forecastService.GetFcOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;

@@ -134,33 +134,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         #region Private
 
         /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
-        private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
-        {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, currencyId);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
-            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
-            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
-
-            foreach (var product in metaModel.ProductOptions)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
-        }
-
-        /// <summary>
         /// Get data list.
         /// </summary>
         /// <param name="reader">Reader value.</param>
@@ -170,7 +143,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private SortableList<LicenseeWinLoss> GetData(
+        private static SortableList<LicenseeWinLoss> GetData(
             IDataReader reader,
             LicenseeWinLossMetaModel metaModel,
             bool drilldown,
@@ -286,7 +259,34 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
 
             return result;
-        }        
+        }
+
+        /// <summary>
+        /// Update USP parameter.
+        /// </summary>
+        /// <param name="db">Database value.</param>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="drilldown">Drill down value.</param>
+        private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
+        {
+            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
+            currencyId = currencyId < 0 ? 0 : currencyId;
+
+            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+            db.AddInParameter("currencyid", DbType.Int32, currencyId);
+            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
+            db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
+            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
+            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
+
+            foreach (var product in metaModel.ProductOptions)
+            {
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+            }
+        }
 
         #endregion Private
     }

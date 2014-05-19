@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     UpdateUspParams(db, metaModel, metaModel.CurrencyId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return this.GetData(reader, metaModel, out summaryTotal);
+                        return GetData(reader, metaModel, out summaryTotal);
                     }
                 }
             }
@@ -69,43 +69,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         #region Private
 
         /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="currencyId">Currency ID value.</param>
-        private void UpdateUspParams(ObjectDb db, MobileWinLossMetaModel metaModel, int currencyId)
-        {
-            currencyId = Math.Max(0, currencyId);
-
-            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("sitetype", DbType.Byte, metaModel.Site);
-            db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
-            db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
-            db.AddInParameter("CurrencyId", DbType.Int32, currencyId);
-            db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-
-            foreach (var product in metaModel.ProductOptions)
-            {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
-            }
-        }
-
-        /// <summary>
         /// Get data list.
         /// </summary>
         /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>        
+        /// <param name="metaModel">Meta model value.</param>
         /// <param name="summaryTotal">Summary total value.</param>
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IList<MobileWinLoss> GetData(
+        private static IList<MobileWinLoss> GetData(
             IDataReader reader,
-            MobileWinLossMetaModel metaModel,            
+            MobileWinLossMetaModel metaModel,
             out Dictionary<string, MobileWinLoss> summaryTotal)
         {
             var dataList = new List<MobileWinLoss>();
@@ -170,6 +144,32 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
 
             return dataList;
+        }
+
+        /// <summary>
+        /// Update USP parameter.
+        /// </summary>
+        /// <param name="db">Database value.</param>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="currencyId">Currency ID value.</param>
+        private void UpdateUspParams(ObjectDb db, MobileWinLossMetaModel metaModel, int currencyId)
+        {
+            currencyId = Math.Max(0, currencyId);
+
+            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+            db.AddInParameter("sitetype", DbType.Byte, metaModel.Site);
+            db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
+            db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
+            db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
+            db.AddInParameter("CurrencyId", DbType.Int32, currencyId);
+            db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+
+            foreach (var product in metaModel.ProductOptions)
+            {
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+            }
         }
 
         #endregion Private

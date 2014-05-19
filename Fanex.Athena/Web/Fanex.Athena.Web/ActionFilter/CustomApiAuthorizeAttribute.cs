@@ -11,17 +11,9 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// Class: AuthenticationAttribute.
     /// </summary>
-    public class CustomApiAuthorizeAttribute : AuthorizeAttribute
+    public sealed class CustomApiAuthorizeAttribute : AuthorizeAttribute
     {
         #region Override
-
-        protected override bool IsAuthorized(System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var userSession = sessionService.UserSession;
-            return licenseeSession != null && userSession != null;
-        }
 
         public override void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
@@ -30,6 +22,14 @@ namespace Fanex.Athena.Web.ActionFilter
                 var challengeMessage = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
                 throw new HttpResponseException(challengeMessage);
             }
+        }
+
+        protected override bool IsAuthorized(System.Web.Http.Controllers.HttpActionContext actionContext)
+        {
+            var sessionService = new SessionService();
+            var licenseeSession = sessionService.LicenseeSession;
+            var userSession = sessionService.UserSession;
+            return licenseeSession != null && userSession != null;
         }
 
         #endregion Override

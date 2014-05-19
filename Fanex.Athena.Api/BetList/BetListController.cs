@@ -71,7 +71,6 @@ namespace Fanex.Athena.Api.BetList
         public List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var is12Bet = licenseeSession.LicenseeId == 1;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
             var builder = new BetListHTMLBuilder();
@@ -109,7 +108,7 @@ namespace Fanex.Athena.Api.BetList
                     Choice = builder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
-                    LicenseeWl = builder.BuildLicenseeWl(ticket, is12Bet),
+                    LicenseeWl = builder.BuildLicenseeWl(ticket),
                     WinLoss = builder.BuildCustomerWl(ticket, showPlayerComm),
                 };
 

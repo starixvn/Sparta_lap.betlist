@@ -212,7 +212,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">The current row.</param>
         /// <param name="mobileWinLoss">The mobile win-loss.</param>
-        protected void AssignCellData(IRow row, MobileWinLoss mobileWinLoss)
+        protected static void AssignCellData(IRow row, MobileWinLoss mobileWinLoss)
         {
             row.Cells[ColumnExternalId].SetCellValue(mobileWinLoss.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(mobileWinLoss.SystemId);

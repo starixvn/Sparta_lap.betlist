@@ -260,7 +260,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 var salt = Cryptography.CreateSalt();
                 if (string.IsNullOrEmpty(salt))
                 {
-                    throw new System.Exception("Salt cannot be null or empty");
+                    throw new ServiceException("Salt cannot be null or empty", "User Service");
                 }
 
                 user.Password = Cryptography.CreateHash(user.Password, salt);

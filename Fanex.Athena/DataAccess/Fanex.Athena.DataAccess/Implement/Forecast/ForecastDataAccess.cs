@@ -31,6 +31,50 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     /// </summary>
     public class ForecastDataAccess : IForecastDataAccess
     {
+        /// <summary>
+        /// Set forecast data to list.
+        /// </summary>
+        /// <param name="metaModel">The parameter.</param>
+        /// <param name="reader">Data reader.</param>
+        /// <returns>A list of forecast one x two.</returns>
+        public static IList<ForecastOneXTwo> SetToFcOneXTwoList(ForecastOneXTwoMetaModel metaModel, IDataReader reader)
+        {
+            var forecastList = new List<ForecastOneXTwo>();
+
+            // Column name
+            var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
+
+            while (reader.Read())
+            {
+                var item = new ForecastOneXTwo
+                {
+                    MatchId = reader.ToInt("matchid"),
+                    HomeId = reader.ToInt("homeid"),
+                    AwayId = reader.ToInt("awayid"),
+                    LiveIndicator = reader.ToBool("liveindicator"),
+                    LiveHomeScore = reader.ToByte("livehomescore"),
+                    LiveAwayScore = reader.ToByte("liveawayscore"),
+                    ShowTime = reader.ToString("showtime"),
+                    IsNeutral = reader.ToBool("isNeutral"),
+                    HomeWinLoss = reader.ToDecimal(homeWinLossColumn),
+                    DrawWinLoss = reader.ToDecimal(drawWinLossColumn),
+                    AwayWinLoss = reader.ToDecimal(awayWinLossColumn),
+                    HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn),
+                    HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn),
+                    HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn)
+                };
+
+                forecastList.Add(item);
+            }
+
+            return forecastList;
+        }
+
         #region Forecast AH
 
         /// <summary>
@@ -184,50 +228,6 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             }
         }
 
-        /// <summary>
-        /// Set forecast data to list.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="reader">Data reader.</param>
-        /// <returns>A list of forecast one x two.</returns>
-        public IList<ForecastOneXTwo> SetToFcOneXTwoList(ForecastOneXTwoMetaModel metaModel, IDataReader reader)
-        {
-            var forecastList = new List<ForecastOneXTwo>();
-
-            // Column name
-            var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
-
-            while (reader.Read())
-            {
-                var item = new ForecastOneXTwo
-                {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral"),
-                    HomeWinLoss = reader.ToDecimal(homeWinLossColumn),
-                    DrawWinLoss = reader.ToDecimal(drawWinLossColumn),
-                    AwayWinLoss = reader.ToDecimal(awayWinLossColumn),
-                    HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn),
-                    HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn),
-                    HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn)
-                };
-
-                forecastList.Add(item);
-            }
-
-            return forecastList;
-        }
-
         #endregion Forecast 1 x 2
 
         #region Forecast HDP OU
@@ -260,84 +260,6 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     return SetFcHandicapOverUnderList(reader, metaModel);
                 }
             }
-        }
-
-        /// <summary>
-        /// Set forecast handicap over under.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>List result.</returns>
-        public IList<ForecastHandicapOverUnder> SetFcHandicapOverUnderList(IDataReader reader, ForecastHdpOuMetaModel metaModel)
-        {
-            var forecastList = new List<ForecastHandicapOverUnder>();
-
-            // Full time column name
-            var winLossHdpMinus1 = DataHelper.GetCurrencyColumnName("WinLost_M1_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var winLossHdp = DataHelper.GetCurrencyColumnName("WinLost_0_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var winLossHdpPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var winLossOuPlus2 = DataHelper.GetCurrencyColumnName("WinLost_2_OU", metaModel.IsConvert, metaModel.BaseCurrency);
-            var winLossOuPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_OU", metaModel.IsConvert, metaModel.BaseCurrency);
-            var winLossOu = DataHelper.GetCurrencyColumnName("WinLost_0_OU", metaModel.IsConvert, metaModel.BaseCurrency);
-
-            // Half time column name
-            var halfTimeWinLossHdpMinus1 = DataHelper.GetCurrencyColumnName("WinLost_M1_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeWinLossHdp = DataHelper.GetCurrencyColumnName("WinLost_0_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeWinLossHdpPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeWinLossOuPlus2 = DataHelper.GetCurrencyColumnName("WinLost_2_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeWinLossOuPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeWinLossOu = DataHelper.GetCurrencyColumnName("WinLost_0_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
-
-            while (reader.Read())
-            {
-                var item = new ForecastHandicapOverUnder
-                {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral"),
-                    HandicapMinus1 = reader.ToDecimal(winLossHdpMinus1),
-                    Handicap = reader.ToDecimal(winLossHdp),
-                    HandicapPlus1 = reader.ToDecimal(winLossHdpPlus1),
-                    OverUnderPlus2 = reader.ToDecimal(winLossOuPlus2),
-                    OverUnderPlus1 = reader.ToDecimal(winLossOuPlus1),
-                    OverUnder = reader.ToDecimal(winLossOu),
-                    HtHandicapMinus1 = reader.ToDecimal(halfTimeWinLossHdpMinus1),
-                    HtHandicap = reader.ToDecimal(halfTimeWinLossHdp),
-                    HtHandicapPlus1 = reader.ToDecimal(halfTimeWinLossHdpPlus1),
-                    HtOverUnderPlus2 = reader.ToDecimal(halfTimeWinLossOuPlus2),
-                    HtOverUnderPlus1 = reader.ToDecimal(halfTimeWinLossOuPlus1),
-                    HtOverUnder = reader.ToDecimal(halfTimeWinLossOu)
-                };
-                CalculateOffsetHandicapOverUnder(ref item);
-                forecastList.Add(item);
-            }
-
-            return forecastList;
-        }
-
-        /// <summary>
-        /// Calculate offset.
-        /// </summary>
-        /// <param name="hdpOu">Parameter value.</param>
-        public void CalculateOffsetHandicapOverUnder(ref ForecastHandicapOverUnder hdpOu)
-        {
-            var liveHomeScore = hdpOu.LiveHomeScore;
-            var liveAwayScore = hdpOu.LiveAwayScore;
-
-            var offsetHdp = liveHomeScore - liveAwayScore;
-            var offsetOu = liveHomeScore + liveAwayScore;
-
-            hdpOu.OffsetHdpMinus1 = offsetHdp - 1;
-            hdpOu.OffsetHdp = offsetHdp;
-            hdpOu.OffsetHdpPlus1 = offsetHdp + 1;
-            hdpOu.OffsetOuPlus2 = offsetOu + 2;
-            hdpOu.OffsetOuPlus1 = offsetOu + 1;
-            hdpOu.OffsetOu = offsetOu;
         }
 
         #endregion Forecast HDP OU
@@ -408,5 +330,83 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         }
 
         #endregion New Forecast
+
+        /// <summary>
+        /// Set forecast handicap over under.
+        /// </summary>
+        /// <param name="reader">Reader value.</param>
+        /// <param name="metaModel">Meta model.</param>
+        /// <returns>List result.</returns>
+        private static IList<ForecastHandicapOverUnder> SetFcHandicapOverUnderList(IDataReader reader, ForecastHdpOuMetaModel metaModel)
+        {
+            var forecastList = new List<ForecastHandicapOverUnder>();
+
+            // Full time column name
+            var winLossHdpMinus1 = DataHelper.GetCurrencyColumnName("WinLost_M1_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var winLossHdp = DataHelper.GetCurrencyColumnName("WinLost_0_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var winLossHdpPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var winLossOuPlus2 = DataHelper.GetCurrencyColumnName("WinLost_2_OU", metaModel.IsConvert, metaModel.BaseCurrency);
+            var winLossOuPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_OU", metaModel.IsConvert, metaModel.BaseCurrency);
+            var winLossOu = DataHelper.GetCurrencyColumnName("WinLost_0_OU", metaModel.IsConvert, metaModel.BaseCurrency);
+
+            // Half time column name
+            var halfTimeWinLossHdpMinus1 = DataHelper.GetCurrencyColumnName("WinLost_M1_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeWinLossHdp = DataHelper.GetCurrencyColumnName("WinLost_0_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeWinLossHdpPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HTHDP", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeWinLossOuPlus2 = DataHelper.GetCurrencyColumnName("WinLost_2_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeWinLossOuPlus1 = DataHelper.GetCurrencyColumnName("WinLost_1_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeWinLossOu = DataHelper.GetCurrencyColumnName("WinLost_0_HTOU", metaModel.IsConvert, metaModel.BaseCurrency);
+
+            while (reader.Read())
+            {
+                var item = new ForecastHandicapOverUnder
+                {
+                    MatchId = reader.ToInt("matchid"),
+                    HomeId = reader.ToInt("homeid"),
+                    AwayId = reader.ToInt("awayid"),
+                    LiveIndicator = reader.ToBool("liveindicator"),
+                    LiveHomeScore = reader.ToByte("livehomescore"),
+                    LiveAwayScore = reader.ToByte("liveawayscore"),
+                    ShowTime = reader.ToString("showtime"),
+                    IsNeutral = reader.ToBool("isNeutral"),
+                    HandicapMinus1 = reader.ToDecimal(winLossHdpMinus1),
+                    Handicap = reader.ToDecimal(winLossHdp),
+                    HandicapPlus1 = reader.ToDecimal(winLossHdpPlus1),
+                    OverUnderPlus2 = reader.ToDecimal(winLossOuPlus2),
+                    OverUnderPlus1 = reader.ToDecimal(winLossOuPlus1),
+                    OverUnder = reader.ToDecimal(winLossOu),
+                    HtHandicapMinus1 = reader.ToDecimal(halfTimeWinLossHdpMinus1),
+                    HtHandicap = reader.ToDecimal(halfTimeWinLossHdp),
+                    HtHandicapPlus1 = reader.ToDecimal(halfTimeWinLossHdpPlus1),
+                    HtOverUnderPlus2 = reader.ToDecimal(halfTimeWinLossOuPlus2),
+                    HtOverUnderPlus1 = reader.ToDecimal(halfTimeWinLossOuPlus1),
+                    HtOverUnder = reader.ToDecimal(halfTimeWinLossOu)
+                };
+                CalculateOffsetHandicapOverUnder(ref item);
+                forecastList.Add(item);
+            }
+
+            return forecastList;
+        }
+
+        /// <summary>
+        /// Calculate offset.
+        /// </summary>
+        /// <param name="hdpOu">Parameter value.</param>
+        private static void CalculateOffsetHandicapOverUnder(ref ForecastHandicapOverUnder hdpOu)
+        {
+            var liveHomeScore = hdpOu.LiveHomeScore;
+            var liveAwayScore = hdpOu.LiveAwayScore;
+
+            var offsetHdp = liveHomeScore - liveAwayScore;
+            var offsetOu = liveHomeScore + liveAwayScore;
+
+            hdpOu.OffsetHdpMinus1 = offsetHdp - 1;
+            hdpOu.OffsetHdp = offsetHdp;
+            hdpOu.OffsetHdpPlus1 = offsetHdp + 1;
+            hdpOu.OffsetOuPlus2 = offsetOu + 2;
+            hdpOu.OffsetOuPlus1 = offsetOu + 1;
+            hdpOu.OffsetOu = offsetOu;
+        }
     }
 }

@@ -169,7 +169,7 @@ namespace Fanex.Athena.Controllers
             return File(img.FileContents, img.ContentType);
         }
 
-        private dynamic RecheckInResult(ErrorType type, string msg)
+        private static dynamic RecheckInResult(ErrorType type, string msg)
         {
             return new
              {

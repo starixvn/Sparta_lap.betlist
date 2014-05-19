@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Field
 
-        #region Get bet setting data       
+        #region Get bet setting data
 
         /// <summary>
         /// Get sport book bet setting.
@@ -433,6 +433,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #endregion Number game
 
         #region Keno
+
         /// <summary>
         /// Update Keno bet setting.
         /// </summary>
@@ -495,7 +496,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Virtual sports
 
-        #region Live Casino        
+        #region Live Casino
 
         /// <summary>
         /// Update live casino bet setting.
@@ -550,7 +551,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Live Casino
-        
+
         #endregion Update bet setting
 
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
@@ -559,7 +560,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip)
-        {           
+        {
             return UpdateCasinoStatus(userId, custId, this.RngCasinoSportId, status, ip, language);
         }
 
@@ -596,6 +597,107 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Get Sport Name
 
+        #region Write Log
+
+        #region Live Casino
+
+        /// <summary>
+        /// Get tracking value for update casino status.
+        /// </summary>
+        /// <param name="storeProcedureName">Store procedure name value.</param>
+        /// <param name="userId">User ID value.</param>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="sportid">Sport ID value.</param>
+        /// <param name="status">The Status value.</param>
+        /// <param name="ip">The IP value.</param>
+        /// <param name="language">Language value.</param>
+        /// <param name="resultInfo">Result Information value.</param>
+        /// <returns>The result value.</returns>
+        private static string GetTrackingValueForUpdateStatus(
+            string storeProcedureName,
+            int userId,
+            int custId,
+            int sportid,
+            int status,
+            string ip,
+            string language,
+            IResultInfo resultInfo = null)
+        {
+            var casinoLog = new BetSettingWriteLog { SpName = storeProcedureName };
+            casinoLog.TrackingParams.Add(new LogParam { Param = "UserID", Value = userId });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = custId });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "SportID", Value = sportid });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "Status", Value = status });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = ip });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = language });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "RoleID", Value = 1 });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = resultInfo != null ? resultInfo.Code : 0 });
+            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = resultInfo != null ? resultInfo.Message : string.Empty });
+
+            return casinoLog.TrackingValue;
+        }
+
+        /// <summary>
+        /// Render Keno bet setting.
+        /// </summary>
+        /// <param name="table">Data table value.</param>
+        /// <returns>The result value.</returns>
+        private static IList<BetSetting> RenderKenoBetSetting(DataTable table)
+        {
+            var betSettings = new List<BetSetting>();
+            foreach (DataRow row in table.Rows)
+            {
+                var gameTypeId = Converter.ToString2(row["GameTypeID"]);
+                var sport = new BetSetting
+                {
+                    MaxBet = Converter.ToDecimal(row["MaxBet"]),
+                    MinBet = Converter.ToDecimal(row["MinBet"]),
+                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),
+                    MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch"]),
+                    BetValueMax = Converter.ToDecimal(row["MaxBet_Min"]),
+                    BetValueMin = Converter.ToDecimal(row["MinBet_Max"]),
+                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(row["IBCBetTypeID"])),
+                    SportId = gameTypeId
+                };
+
+                betSettings.Add(sport);
+            }
+
+            return betSettings;
+        }
+
+        /// <summary>
+        /// Get tracking value.
+        /// </summary>
+        /// <param name="storeProcedureName">Store procedure name value.</param>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="param">Parameter value.</param>
+        /// <param name="ip">The IP value.</param>
+        /// <param name="language">Language value.</param>
+        /// <param name="resultInfo">Result Information value.</param>
+        /// <returns>The result value.</returns>
+        private static string GetTrackingValue(
+            string storeProcedureName,
+            int custId,
+            LiveCasinoBetSetting param,
+            string ip,
+            string language,
+            IResultInfo resultInfo = null)
+        {
+            var liveCasinoLog = new BetSettingWriteLog { SpName = storeProcedureName };
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = custId });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "GameTypeID", Value = param.GameTypeId });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "BetTypeID", Value = param.BetTypeId });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "StakeLevel", Value = param.StakeLevelName });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = ip });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = language });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "RoleID", Value = 1 });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = resultInfo != null ? resultInfo.Code : 0 });
+            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = resultInfo != null ? resultInfo.Message : string.Empty });
+
+            return liveCasinoLog.TrackingValue;
+        }
+
         /// <summary>
         /// Update live casino and RNG casino status.
         /// </summary>
@@ -611,10 +713,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             var uspName = "Lrf_CustomerUpdCasinoStatus";
 
             var trackingValue1 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status == 1 ? 0 : 1, ip, language);
-            var trackingValue2 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status, ip, language); 
+            var trackingValue2 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status, ip, language);
 
             using (var db = new ObjectDb(uspName))
-            {                
+            {
                 db.AddInParameter("userid", DbType.Int32, userId);
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("sportid", DbType.Int32, sportid);
@@ -628,13 +730,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 var errorCode = db.GetParameterValue("ErrCode");
                 var errorMessage = db.GetParameterValue("ErrMsg");
-
-                var result = new ResultInfo
-                {
-                    Code = Converter.ToInt(errorCode),
-                    Message = Converter.ToString2(errorMessage)
-                };
-
                 WriteLogUpdatingAction(userId, custId, uspName, trackingValue1, trackingValue2);
 
                 return new ResultInfo
@@ -643,11 +738,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     Message = Converter.ToString2(errorMessage)
                 };
             }
-        }      
-
-        #region Write Log
-
-        #region Live Casino
+        }
 
         /// <summary>
         /// Write log live casino.
@@ -673,74 +764,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 db.ExecuteNonQuery();
             }
-        }
-
-        /// <summary>
-        /// Get tracking value for update casino status.
-        /// </summary>
-        /// <param name="storeProcedureName">Store procedure name value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="sportid">Sport ID value.</param>
-        /// <param name="status">The Status value.</param>
-        /// <param name="ip">The IP value.</param>
-        /// <param name="language">Language value.</param>
-        /// <param name="resultInfo">Result Information value.</param>
-        /// <returns>The result value.</returns>       
-        private string GetTrackingValueForUpdateStatus(
-            string storeProcedureName,
-            int userId,
-            int custId,
-            int sportid,
-            int status,
-            string ip,
-            string language,
-            IResultInfo resultInfo = null)
-        {
-            var casinoLog = new BetSettingWriteLog { SpName = storeProcedureName };
-            casinoLog.TrackingParams.Add(new LogParam { Param = "UserID", Value = userId });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = custId });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "SportID", Value = sportid });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "Status", Value = status });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = ip });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = language });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "RoleID", Value = 1 });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = resultInfo != null ? resultInfo.Code : 0 });
-            casinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = resultInfo != null ? resultInfo.Message : string.Empty });
-
-            return casinoLog.TrackingValue;
-        }
-
-        /// <summary>
-        /// Get tracking value.
-        /// </summary>
-        /// <param name="storeProcedureName">Store procedure name value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="param">Parameter value.</param>
-        /// <param name="ip">The IP value.</param>
-        /// <param name="language">Language value.</param>
-        /// <param name="resultInfo">Result Information value.</param>
-        /// <returns>The result value.</returns>
-        private string GetTrackingValue(
-            string storeProcedureName,
-            int custId,
-            LiveCasinoBetSetting param,
-            string ip,
-            string language,
-            IResultInfo resultInfo = null)
-        {
-            var liveCasinoLog = new BetSettingWriteLog { SpName = storeProcedureName };
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "CustID", Value = custId });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "GameTypeID", Value = param.GameTypeId });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "BetTypeID", Value = param.BetTypeId });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "StakeLevel", Value = param.StakeLevelName });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "Ip", Value = ip });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "Lang", Value = language });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "RoleID", Value = 1 });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "ErrCode", Value = resultInfo != null ? resultInfo.Code : 0 });
-            liveCasinoLog.TrackingParams.Add(new LogParam { Param = "ErrMsg", Value = resultInfo != null ? resultInfo.Message : string.Empty });
-
-            return liveCasinoLog.TrackingValue;
         }
 
         /// <summary>
@@ -799,7 +822,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             RenderSport(row, "8", sportList); // Baseball
             RenderSport(row, "10", sportList); // Golf
             RenderSport(row, "11", sportList); // Moto
-            RenderSport(row, "99", sportList); // Other sports            
+            RenderSport(row, "99", sportList); // Other sports
 
             if (AppSettings.IsShowMixedSport)
             {
@@ -872,36 +895,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Racing
 
-        /// <summary>
-        /// Render Keno bet setting.
-        /// </summary>
-        /// <param name="table">Data table value.</param>
-        /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderKenoBetSetting(DataTable table)
-        {
-            var betSettings = new List<BetSetting>();
-            foreach (DataRow row in table.Rows)
-            {
-                var gameTypeId = Converter.ToString2(row["GameTypeID"]);
-                var sport = new BetSetting
-                {
-                    MaxBet = Converter.ToDecimal(row["MaxBet"]),
-                    MinBet = Converter.ToDecimal(row["MinBet"]),
-                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),                    
-                    MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch"]),
-                    BetValueMax = Converter.ToDecimal(row["MaxBet_Min"]),
-                    BetValueMin = Converter.ToDecimal(row["MinBet_Max"]),
-                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(row["IBCBetTypeID"])),
-                    SportId = gameTypeId
-                };
-
-                betSettings.Add(sport);
-            }
-
-            return betSettings;
-        }
-
-        #region Get Bet Setting Details        
+        #region Get Bet Setting Details
 
         /// <summary>
         /// Render sport.
@@ -938,7 +932,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             resultList.Add(sport);
         }
 
-        #endregion Get Bet Setting Details    
+        #endregion Get Bet Setting Details
 
         #endregion Utility
     }

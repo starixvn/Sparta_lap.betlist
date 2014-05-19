@@ -43,6 +43,51 @@ namespace Fanex.Athena.Controllers.Forecast
         #region Utility
 
         /// <summary>
+        /// Render Forecast Link.
+        /// </summary>
+        /// <param name="betType">Bet type value.</param>
+        /// <param name="currentScore">The current Score.</param>
+        /// <returns>The key core link.</returns>
+        private static List<string> RenderForecastLink(int betType, int currentScore)
+        {
+            var forecastLink = new List<string>();
+            var startIndex = currentScore + 5;
+            var endIndex = currentScore - 5;
+
+            if (betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder)
+            {
+                endIndex = Math.Max(0, endIndex);
+            }
+
+            for (var i = startIndex; i >= endIndex; i--)
+            {
+                forecastLink.Add(i.ToString(CultureInfo.InvariantCulture));
+            }
+
+            return forecastLink;
+        }
+
+        /// <summary>
+        /// Render Forecast Header.
+        /// </summary>
+        /// <param name="betType">The bet type.</param>
+        /// <param name="currentScore">The current score.</param>
+        /// <returns>The key core list.</returns>
+        private static List<int> RenderForecastHeader(int betType, int currentScore)
+        {
+            var forecastHeader = new List<int>();
+            var startIndex = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap ? currentScore + 2 : currentScore + 4;
+            var endIndex = startIndex - 4;
+
+            for (int i = endIndex; i <= startIndex; i++)
+            {
+                forecastHeader.Add(i);
+            }
+
+            return forecastHeader;
+        }
+
+        /// <summary>
         /// Get Forecast View Model.
         /// </summary>
         /// <param name="metaModel">Meta Model.</param>
@@ -81,8 +126,8 @@ namespace Fanex.Athena.Controllers.Forecast
                     forecastValue = _forecastService.GetForacastOverUnder(metaModel, SessionService.UserSession.UserId);
                 }
 
-                forecastValue.ForeCastLink = this.RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);
-                forecastValue.ForecastHeader = this.RenderForecastHeader(metaModel.BetType, metaModel.CurrentScore);
+                forecastValue.ForeCastLink = RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);
+                forecastValue.ForecastHeader = RenderForecastHeader(metaModel.BetType, metaModel.CurrentScore);
             }
 
             return new ForecastAhViewModel
@@ -91,51 +136,6 @@ namespace Fanex.Athena.Controllers.Forecast
                 ForecastHeaderParam = forecastHeaderParam,
                 ForecastValue = forecastValue
             };
-        }
-
-        /// <summary>
-        /// Render Forecast Link.
-        /// </summary>
-        /// <param name="betType">Bet type value.</param>
-        /// <param name="currentScore">The current Score.</param>        
-        /// <returns>The key core link.</returns>
-        private List<string> RenderForecastLink(int betType, int currentScore)
-        {
-            var forecastLink = new List<string>();
-            var startIndex = currentScore + 5;
-            var endIndex = currentScore - 5;
-
-            if (betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder)
-            {
-                endIndex = Math.Max(0, endIndex);
-            }
-
-            for (var i = startIndex; i >= endIndex; i--)
-            {
-                forecastLink.Add(i.ToString(CultureInfo.InvariantCulture));
-            }
-
-            return forecastLink;
-        }
-
-        /// <summary>
-        /// Render Forecast Header.
-        /// </summary>
-        /// <param name="betType">The bet type.</param>
-        /// <param name="currentScore">The current score.</param>
-        /// <returns>The key core list.</returns>
-        private List<int> RenderForecastHeader(int betType, int currentScore)
-        {
-            var forecastHeader = new List<int>();
-            var startIndex = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap ? currentScore + 2 : currentScore + 4;
-            var endIndex = startIndex - 4;
-
-            for (int i = endIndex; i <= startIndex; i++)
-            {
-                forecastHeader.Add(i);
-            }
-
-            return forecastHeader;
         }
 
         #endregion Utility

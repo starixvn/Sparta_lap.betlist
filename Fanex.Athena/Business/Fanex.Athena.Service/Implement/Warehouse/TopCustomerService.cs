@@ -16,11 +16,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
     using Fanex.Athena.DataAccess.Interface.Warehouse;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
-    using Fanex.Athena.Service.Exception;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Warehouse;
-    using Fanex.Logging;
 
     /// <summary>
     ///     The top customer service.
@@ -31,8 +27,6 @@ namespace Fanex.Athena.Service.Implement.Warehouse
 
         public const int CacheTimeoutMinute = 1;
 
-        private readonly IBalanceUpService _balanceUpService;
-
         private readonly ITopCustomerDataAccess _topCustDataAccess;
 
         #endregion Constants and Fields
@@ -41,7 +35,6 @@ namespace Fanex.Athena.Service.Implement.Warehouse
 
         public TopCustomerService()
         {
-            this._balanceUpService = new BalanceUpService();
             this._topCustDataAccess = new TopCustomerDataAccess();
         }
 

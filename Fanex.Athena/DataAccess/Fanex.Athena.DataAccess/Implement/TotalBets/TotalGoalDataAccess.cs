@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">The convert value.</param>
         /// <param name="baseCurrency">The base currency value.</param>
         /// <returns>The result value.</returns>
-        private IList<TotalGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<TotalGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<TotalGoal>();
 

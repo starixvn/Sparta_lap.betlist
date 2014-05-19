@@ -148,86 +148,9 @@ namespace Fanex.Athena.Service.Implement.BetList
 
         #endregion
 
-        #region Update Match
-
-        private void UpdateCommonInfo(BetListMetaModel metaModel)
-        {
-            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
-            metaModel.MoveBetsDay = balanceUpInfo.MoveBetsDay;
-            metaModel.BalanceUpDay = balanceUpInfo.BalanceUpDay;
-        }
-
-        /// <summary>
-        /// Update match data for last bet monitoring.
-        /// </summary>
-        /// <param name="ticketResult">The ticket result.</param>
-        private void UpdateMatchInfo(TicketResult ticketResult)
-        {
-            var mainTicketList = ticketResult.MainTicketList;
-
-            foreach (LrfTicket ticket in mainTicketList)
-            {
-                var match = GetMatchInfo(ticket.MatchId, ticket.BetTypeId);
-                if (match != null)
-                {
-                    ticket.SportTypeId = match.SportType;
-                    ticket.LeagueId = match.LeagueId;
-                    ticket.MatchCode = match.MatchCode;
-                    ticket.HomeId = match.HomeId;
-                    ticket.AwayId = match.AwayId;
-                    ticket.Race = match.Race;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Update match data for last bet monitoring.
-        /// Update time zone.
-        /// Update odds.
-        /// </summary>
-        /// <param name="metaModel">The metal mode.</param>
-        /// <param name="ticketResult">The ticket result.</param>
-        private void UpdateMatchInfo(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
-        {
-            var mainTicketList = ticketResult.MainTicketList;
-            var timeZoneDelta = metaModel.TimeZone - (-4);
-            foreach (LrfTicket ticket in mainTicketList)
-            {
-                var match = GetMatchInfo(ticket.MatchId, ticket.BetTypeId);
-                if (match != null)
-                {
-                    ticket.SportTypeId = match.SportType;
-                    ticket.LeagueId = match.LeagueId;
-                    ticket.MatchCode = match.MatchCode;
-                    ticket.HomeId = match.HomeId;
-                    ticket.AwayId = match.AwayId;
-                    ticket.Race = match.Race;
-                }
-
-                // Update time zone
-                if (timeZoneDelta > 0)
-                {
-                    ticket.TransDate = ticket.TransDate.ToUniversalTime().AddHours(timeZoneDelta).ToLocalTime();
-                }
-
-                //// Update odds
-                if (metaModel.OddsType.ToLower() == "dec" && IsConvertToOdd(ticket.BetTypeId))
-                {
-                    ConvertToDecimalOdds(ticket);
-                }
-
-                if (metaModel.OddsType.ToLower() == "my" && IsConvertToOdd(ticket.BetTypeId))
-                {
-                    ConvertToMyOdds(ticket);
-                }
-            }
-        }
-
-        #endregion
-
         #region Update Odds
 
-        private bool IsConvertToOdd(int betTypeId)
+        private static bool IsConvertToOdd(int betTypeId)
         {
             return convertingDecimalOddsBetType.Contains(betTypeId);
         }
@@ -241,7 +164,7 @@ namespace Fanex.Athena.Service.Implement.BetList
         /// Odd-type equals five , converting American to DEC.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        private void ConvertToDecimalOdds(LrfTicket ticket)
+        private static void ConvertToDecimalOdds(LrfTicket ticket)
         {
             switch (ticket.OddsType)
             {
@@ -280,7 +203,7 @@ namespace Fanex.Athena.Service.Implement.BetList
         /// Converting odd type.
         /// </summary>
         /// <param name="ticket">The ticket.</param>
-        private void ConvertToMyOdds(LrfTicket ticket)
+        private static void ConvertToMyOdds(LrfTicket ticket)
         {
             switch (ticket.OddsType)
             {
@@ -370,6 +293,59 @@ namespace Fanex.Athena.Service.Implement.BetList
                 outrightMatchList.Clear();
                 outrightMatchList = this._betlistDataAccess.GetMatchList(OutrightMatchListSpKey);
                 _reloadedOutrightMatch = true;
+            }
+        }
+
+        #endregion
+        #region Update Match
+
+        private void UpdateCommonInfo(BetListMetaModel metaModel)
+        {
+            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
+            metaModel.MoveBetsDay = balanceUpInfo.MoveBetsDay;
+            metaModel.BalanceUpDay = balanceUpInfo.BalanceUpDay;
+        }
+
+        /// <summary>
+        /// Update match data for last bet monitoring.
+        /// Update time zone.
+        /// Update odds.
+        /// </summary>
+        /// <param name="metaModel">The metal mode.</param>
+        /// <param name="ticketResult">The ticket result.</param>
+        private void UpdateMatchInfo(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
+        {
+            var mainTicketList = ticketResult.MainTicketList;
+            var timeZoneDelta = metaModel.TimeZone - (-4);
+            foreach (LrfTicket ticket in mainTicketList)
+            {
+                var match = GetMatchInfo(ticket.MatchId, ticket.BetTypeId);
+                if (match != null)
+                {
+                    ticket.SportTypeId = match.SportType;
+                    ticket.LeagueId = match.LeagueId;
+                    ticket.MatchCode = match.MatchCode;
+                    ticket.HomeId = match.HomeId;
+                    ticket.AwayId = match.AwayId;
+                    ticket.Race = match.Race;
+                }
+
+                // Update time zone
+                if (timeZoneDelta > 0)
+                {
+                    ticket.TransDate = ticket.TransDate.ToUniversalTime().AddHours(timeZoneDelta).ToLocalTime();
+                }
+
+                //// Update odds
+                if (metaModel.OddsType.ToLower() == "dec" && IsConvertToOdd(ticket.BetTypeId))
+                {
+                    ConvertToDecimalOdds(ticket);
+                }
+
+                if (metaModel.OddsType.ToLower() == "my" && IsConvertToOdd(ticket.BetTypeId))
+                {
+                    ConvertToMyOdds(ticket);
+                }
             }
         }
 

@@ -58,6 +58,24 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Action
 
+        #region Private Utility
+
+        /// <summary>
+        /// Restructure data.
+        /// </summary>
+        /// <param name="dataList">The data collection.</param>
+        /// <param name="level">The Level value.</param>
+        /// <returns>Return the grid view data collection.</returns>
+        private static IList<WinLossByProduct> WinLossByProductRestructureData(IList<WinLossByProduct> dataList, int level)
+        {
+            // Calculate rowspan
+            return level == 0
+                ? DoRestructureData(dataList.GroupBy(i => new { i.Date, i.CurrencyName }))
+                : DoRestructureData(dataList.GroupBy(i => new { i.SystemId, i.CurrencyName }));
+        }
+
+        #endregion Private Utility
+
         private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel)
         {
             return new
@@ -278,23 +296,5 @@ namespace Fanex.Athena.Api.Report
         }
 
         #endregion ProcessRequest
-
-        #region Private Utility
-
-        /// <summary>
-        /// Restructure data.
-        /// </summary>
-        /// <param name="dataList">The data collection.</param>
-        /// <param name="level">The Level value.</param>
-        /// <returns>Return the grid view data collection.</returns>
-        private IList<WinLossByProduct> WinLossByProductRestructureData(IList<WinLossByProduct> dataList, int level)
-        {
-            // Calculate rowspan
-            return level == 0
-                ? DoRestructureData(dataList.GroupBy(i => new { i.Date, i.CurrencyName }))
-                : DoRestructureData(dataList.GroupBy(i => new { i.SystemId, i.CurrencyName }));
-        }
-
-        #endregion Private Utility
     }
 }

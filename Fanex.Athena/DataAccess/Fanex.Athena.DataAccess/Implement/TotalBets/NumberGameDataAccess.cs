@@ -15,6 +15,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     using System.Diagnostics.CodeAnalysis;
     using Data;
     using Extension;
+    using Fanex.Athena.DataAccess.Interface.TotalBets;
     using Fanex.Common.Extensions;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     /// <summary>
     /// Number game data access.
     /// </summary>
-    public class NumberGameDataAccess
+    public class NumberGameDataAccess : INumberGameDataAccess
     {
         /// <summary>
         /// Get number game data list.
@@ -47,12 +48,27 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
         }
 
         #region Utility
+
+        /// <summary>
+        /// Get Total.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="first">First column value.</param>
+        /// <param name="second">Second column value.</param>
+        /// <returns>Total value.</returns>
+        private static decimal GetTotal(IDataReader reader, string first, string second)
+        {
+            var firstValue = reader.ToDecimal(first);
+            var secondValue = reader.ToDecimal(second);
+
+            return firstValue - secondValue;
+        }
 
         /// <summary>
         /// Set data to list.
@@ -63,7 +79,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <returns>A list of Number game.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
-        private IList<NumberGame> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<NumberGame> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<NumberGame>();
 
@@ -116,14 +132,14 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     MatchCode = reader.ToString("matchcode"),
                     Warrior2Nd = reader.ToDecimal(warrior2Nd),
                     Warrior3Rd = reader.ToDecimal(warrior3Rd),
-                    OverUnderFirstBall = this.GetTotal(reader, overFirstBall, underFirstBall),
-                    OddEvenFirstBall = this.GetTotal(reader, oddFirstBall, evenFirstBall),
-                    OverUnderLastBall = this.GetTotal(reader, overLastBall, underLastBall),
-                    OddEvenLastBall = this.GetTotal(reader, oddLastBall, evenLastBall),
-                    OddEvenFullTime = this.GetTotal(reader, oddFullTime, evenFullTime),
-                    OverUnderNext = this.GetTotal(reader, overNextBall, underNextBall),
-                    OddEvenNext = this.GetTotal(reader, oddNextBall, evenNextBall),
-                    HighLow = this.GetTotal(reader, highColumn, lowColumn),
+                    OverUnderFirstBall = GetTotal(reader, overFirstBall, underFirstBall),
+                    OddEvenFirstBall = GetTotal(reader, oddFirstBall, evenFirstBall),
+                    OverUnderLastBall = GetTotal(reader, overLastBall, underLastBall),
+                    OddEvenLastBall = GetTotal(reader, oddLastBall, evenLastBall),
+                    OddEvenFullTime = GetTotal(reader, oddFullTime, evenFullTime),
+                    OverUnderNext = GetTotal(reader, overNextBall, underNextBall),
+                    OddEvenNext = GetTotal(reader, oddNextBall, evenNextBall),
+                    HighLow = GetTotal(reader, highColumn, lowColumn),
                     NextComboOo = reader.ToDecimal(nextComboOverOdd),
                     NextComboOe = reader.ToDecimal(nextComboOverEven),
                     NextComboUo = reader.ToDecimal(nextComboUnderOdd),
@@ -148,21 +164,6 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
-        }
-
-        /// <summary>
-        /// Get Total.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="first">First column value.</param>
-        /// <param name="second">Second column value.</param>
-        /// <returns>Total value.</returns>
-        private decimal GetTotal(IDataReader reader, string first, string second)
-        {
-            var firstValue = reader.ToDecimal(first);
-            var secondValue = reader.ToDecimal(second);
-
-            return firstValue - secondValue;
         }
 
         #endregion Utility

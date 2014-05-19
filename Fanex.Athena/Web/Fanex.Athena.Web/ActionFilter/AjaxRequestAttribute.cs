@@ -11,7 +11,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     ///  Ajax request attribute class.
     /// </summary>
-    public class AjaxRequestAttribute : ActionMethodSelectorAttribute
+    public sealed class AjaxRequestAttribute : ActionMethodSelectorAttribute
     {
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
         {

@@ -124,7 +124,7 @@ namespace Fanex.Athena.Excel.Report
                     {
                         AssignTotalData(sheet, rowIndex + RowContentTemplate);
                     }
-                    
+
                     ProcessUi(sheet);
                 }
             }
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Excel.Report
         public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = _exportData.Count;
-            int startIndex = pageIndex * MaxRowCount;
+            int startIndex = checked(pageIndex * MaxRowCount);
             int endIndex = startIndex + MaxRowCount > rowCount ? rowCount : startIndex + MaxRowCount;
             int rowIndex = 0;
 

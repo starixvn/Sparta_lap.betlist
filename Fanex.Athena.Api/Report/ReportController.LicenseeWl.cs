@@ -80,6 +80,92 @@ namespace Fanex.Athena.Api.Report
         #region ProcessRequest
 
         /// <summary>
+        /// Sort data list by property (column name).
+        /// </summary>
+        /// <param name="dataList">Data list to be sorted.</param>
+        /// <param name="sortBy">Sort column name.</param>
+        /// <param name="sortOrder">ASC or DESC.</param>
+        /// <returns>Data list after being sorted.</returns>
+        private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
+        {
+            if (sortBy != null)
+            {
+                // Sort for grouping columns, get the real column name
+                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
+                {
+                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single"));
+                }
+
+                var property = typeof(LicenseeWinLoss).GetProperty(sortBy);
+
+                if (property == null)
+                {
+                    // The two last characters is product code.
+                    var indexProductCode = sortBy.Length - 2;
+                    var propertyName = sortBy.Substring(0, indexProductCode);
+                    var productCode = sortBy.Substring(indexProductCode);
+
+                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                }
+                else
+                {
+                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                }
+            }
+
+            return dataList;
+        }
+
+        #endregion ProcessRequest
+
+        #region Private Utility
+
+        /// <summary>
+        /// Convert to view model of grid.
+        /// </summary>
+        /// <param name="item">The data object.</param>
+        /// <param name="index">Row index.</param>
+        /// <returns>Licensee WinLoss Grid View Model.</returns>
+        private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
+        {
+            return new LicenseeWinLossGridViewModel
+            {
+                Index = index + 1,
+                AmtDueToBA = item.AmtDueToBA,
+                AmtDueToRacing = item.AmtDueToRacing,
+                BACommission = item.BACommission,
+                CurrencyId = item.CurrencyId,
+                SystemId = item.SystemId,
+                CurrencyName = item.CurrencyName,
+                CustomerComm = item.CustomerComm,
+                CustomerWinLoss = item.CustomerWinLoss,
+                TotalTransaction = item.TotalTransaction,
+                RacingRevenue = item.RacingRevenue,
+                CustomerId = item.CustomerId,
+                Date = item.Date,
+                ExternalId = item.ExternalId,
+                LicenseeWLBA = item.LicenseeWL.Keys.Contains(Product.Ba) ? item.LicenseeWL[Product.Ba] : 0,
+                LicenseeWLSB = item.LicenseeWL.Keys.Contains(Product.Sb) ? item.LicenseeWL[Product.Sb] : 0,
+                LicenseeWLRB = item.LicenseeWL.Keys.Contains(Product.Rb) ? item.LicenseeWL[Product.Rb] : 0,
+                LicenseeWLNG = item.LicenseeWL.Keys.Contains(Product.Ng) ? item.LicenseeWL[Product.Ng] : 0,
+                LicenseeWLLC = item.LicenseeWL.Keys.Contains(Product.Lc) ? item.LicenseeWL[Product.Lc] : 0,
+                LicenseeWLVS = item.LicenseeWL.Keys.Contains(Product.Vs) ? item.LicenseeWL[Product.Vs] : 0,
+                LicenseeWLBG = item.LicenseeWL.Keys.Contains(Product.Bg) ? item.LicenseeWL[Product.Bg] : 0,
+                LicenseeWLCS = item.LicenseeWL.Keys.Contains(Product.Cs) ? item.LicenseeWL[Product.Cs] : 0,
+                LicenseeWLKN = item.LicenseeWL.Keys.Contains(Product.Kn) ? item.LicenseeWL[Product.Kn] : 0,
+                TurnOverBA = item.TurnOver.Keys.Contains(Product.Ba) ? item.TurnOver[Product.Ba] : 0,
+                TurnOverSB = item.TurnOver.Keys.Contains(Product.Sb) ? item.TurnOver[Product.Sb] : 0,
+                TurnOverRB = item.TurnOver.Keys.Contains(Product.Rb) ? item.TurnOver[Product.Rb] : 0,
+                TurnOverNG = item.TurnOver.Keys.Contains(Product.Ng) ? item.TurnOver[Product.Ng] : 0,
+                TurnOverLC = item.TurnOver.Keys.Contains(Product.Lc) ? item.TurnOver[Product.Lc] : 0,
+                TurnOverVS = item.TurnOver.Keys.Contains(Product.Vs) ? item.TurnOver[Product.Vs] : 0,
+                TurnOverCS = item.TurnOver.Keys.Contains(Product.Cs) ? item.TurnOver[Product.Cs] : 0,
+                TurnOverBG = item.TurnOver.Keys.Contains(Product.Bg) ? item.TurnOver[Product.Bg] : 0,
+                TurnOverKN = item.TurnOver.Keys.Contains(Product.Kn) ? item.TurnOver[Product.Kn] : 0,
+            };
+        }
+
+        /// <summary>
         /// Licensee win loss - Export excel.
         /// </summary>
         /// <param name="metaModel">MetaModel object.</param>
@@ -214,92 +300,6 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyResult(metaModel);
-        }
-
-        /// <summary>
-        /// Sort data list by property (column name).
-        /// </summary>
-        /// <param name="dataList">Data list to be sorted.</param>
-        /// <param name="sortBy">Sort column name.</param>
-        /// <param name="sortOrder">ASC or DESC.</param>
-        /// <returns>Data list after being sorted.</returns>
-        private SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
-        {
-            if (sortBy != null)
-            {
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
-                {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single"));
-                }
-
-                var property = typeof(LicenseeWinLoss).GetProperty(sortBy);
-
-                if (property == null)
-                {
-                    // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
-
-                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-                else
-                {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-            }
-
-            return dataList;
-        }
-
-        #endregion ProcessRequest
-
-        #region Private Utility
-
-        /// <summary>
-        /// Convert to view model of grid.
-        /// </summary>
-        /// <param name="item">The data object.</param>
-        /// <param name="index">Row index.</param>
-        /// <returns>Licensee WinLoss Grid View Model.</returns>
-        private LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
-        {
-            return new LicenseeWinLossGridViewModel
-            {
-                Index = index + 1,
-                AmtDueToBA = item.AmtDueToBA,
-                AmtDueToRacing = item.AmtDueToRacing,
-                BACommission = item.BACommission,
-                CurrencyId = item.CurrencyId,
-                SystemId = item.SystemId,
-                CurrencyName = item.CurrencyName,
-                CustomerComm = item.CustomerComm,
-                CustomerWinLoss = item.CustomerWinLoss,
-                TotalTransaction = item.TotalTransaction,
-                RacingRevenue = item.RacingRevenue,
-                CustomerId = item.CustomerId,
-                Date = item.Date,
-                ExternalId = item.ExternalId,
-                LicenseeWLBA = item.LicenseeWL.Keys.Contains(Product.Ba) ? item.LicenseeWL[Product.Ba] : 0,
-                LicenseeWLSB = item.LicenseeWL.Keys.Contains(Product.Sb) ? item.LicenseeWL[Product.Sb] : 0,
-                LicenseeWLRB = item.LicenseeWL.Keys.Contains(Product.Rb) ? item.LicenseeWL[Product.Rb] : 0,
-                LicenseeWLNG = item.LicenseeWL.Keys.Contains(Product.Ng) ? item.LicenseeWL[Product.Ng] : 0,
-                LicenseeWLLC = item.LicenseeWL.Keys.Contains(Product.Lc) ? item.LicenseeWL[Product.Lc] : 0,
-                LicenseeWLVS = item.LicenseeWL.Keys.Contains(Product.Vs) ? item.LicenseeWL[Product.Vs] : 0,
-                LicenseeWLBG = item.LicenseeWL.Keys.Contains(Product.Bg) ? item.LicenseeWL[Product.Bg] : 0,
-                LicenseeWLCS = item.LicenseeWL.Keys.Contains(Product.Cs) ? item.LicenseeWL[Product.Cs] : 0,
-                LicenseeWLKN = item.LicenseeWL.Keys.Contains(Product.Kn) ? item.LicenseeWL[Product.Kn] : 0,
-                TurnOverBA = item.TurnOver.Keys.Contains(Product.Ba) ? item.TurnOver[Product.Ba] : 0,
-                TurnOverSB = item.TurnOver.Keys.Contains(Product.Sb) ? item.TurnOver[Product.Sb] : 0,
-                TurnOverRB = item.TurnOver.Keys.Contains(Product.Rb) ? item.TurnOver[Product.Rb] : 0,
-                TurnOverNG = item.TurnOver.Keys.Contains(Product.Ng) ? item.TurnOver[Product.Ng] : 0,
-                TurnOverLC = item.TurnOver.Keys.Contains(Product.Lc) ? item.TurnOver[Product.Lc] : 0,
-                TurnOverVS = item.TurnOver.Keys.Contains(Product.Vs) ? item.TurnOver[Product.Vs] : 0,
-                TurnOverCS = item.TurnOver.Keys.Contains(Product.Cs) ? item.TurnOver[Product.Cs] : 0,
-                TurnOverBG = item.TurnOver.Keys.Contains(Product.Bg) ? item.TurnOver[Product.Bg] : 0,
-                TurnOverKN = item.TurnOver.Keys.Contains(Product.Kn) ? item.TurnOver[Product.Kn] : 0,
-            };
         }
 
         #endregion Private Utility

@@ -137,6 +137,97 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         #region Private
 
         /// <summary>
+        /// Get data list.
+        /// </summary>
+        /// <param name="reader">Reader value.</param>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="drilldown">Drill down value.</param>
+        /// <param name="summaryTotal">Summary total value.</param>
+        /// <returns>The result value.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private static IList<WinLossByProduct> GetData(
+            IDataReader reader,
+            WinLossByProductMetaModel metaModel,
+            bool drilldown,
+            out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
+        {
+            var result = new List<WinLossByProduct>();
+            var summaryCurrencyList = new List<string> { "EUR", "USD" };
+            var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
+            summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
+            foreach (var c in summaryCurrencyList)
+            {
+                summaryTotalTemp.Add(c, new List<WinLossByProduct>());
+            }
+
+            var systemIdOrdinal = reader.TryGetOrdinal("username");
+            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
+            var customerIdOrdinal = reader.TryGetOrdinal("custid");
+
+            while (reader.Read())
+            {
+                // Read Item
+                var item = new WinLossByProduct
+                {
+                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
+                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    ProductCode = reader.ToString("productcode"),
+                    CurrencyId = reader.ToInt("currency"),
+                    CurrencyName = reader.ToString("currencyname"),
+                    TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
+                    CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
+                    CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                    LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
+                    TotalTransaction = reader.ToInt("betcount"),
+                    AmountDue = reader.ToDecimal("amtdueto3rd" + metaModel.BaseCurrency),
+                    LicenseeWLComm = reader.ToDecimal("comm" + metaModel.BaseCurrency),
+                    Date = drilldown
+                    ? metaModel.DrillDownFromDate
+                    : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                };
+                result.Add(item);
+
+                // Read Summary
+                foreach (var c in summaryCurrencyList)
+                {
+                    var summaryItem = new WinLossByProduct
+                    {
+                        ProductCode = reader.ToString("productcode"),
+                        TurnOver = reader.ToDecimal("turnover" + c.ToLower()),
+                        CustomerWinLoss = reader.ToDecimal("winlost" + c.ToLower()),
+                        CustomerComm = reader.ToDecimal("playercomm" + c.ToLower()),
+                        LicenseeWL = reader.ToDecimal("licenseewl" + c.ToLower()),
+                        TotalTransaction = reader.ToInt("betcount"),
+                        AmountDue = reader.ToDecimal("amtdueto3rd" + c.ToLower()),
+                        LicenseeWLComm = reader.ToDecimal("comm" + c.ToLower()),
+                    };
+                    summaryTotalTemp[c].Add(summaryItem);
+                }
+            }
+
+            // Calculate summary
+            foreach (var c in summaryCurrencyList)
+            {
+                summaryTotal[c] = summaryTotalTemp[c].GroupBy(i => new { i.ProductCode })
+                                    .Select(i => new WinLossByProduct
+                                    {
+                                        ProductCode = i.Key.ProductCode,
+                                        TurnOver = i.Sum(j => j.TurnOver),
+                                        CustomerWinLoss = i.Sum(j => j.CustomerWinLoss),
+                                        CustomerComm = i.Sum(j => j.CustomerComm),
+                                        LicenseeWL = i.Sum(j => j.LicenseeWL),
+                                        TotalTransaction = i.Sum(j => j.TotalTransaction),
+                                        AmountDue = i.Sum(j => j.AmountDue),
+                                        LicenseeWLComm = i.Sum(j => j.LicenseeWLComm),
+                                    }).ToList();
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Update USP parameter.
         /// </summary>
         /// <param name="db">Database value.</param>
@@ -161,97 +252,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
-        }
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private IList<WinLossByProduct> GetData(
-            IDataReader reader,
-            WinLossByProductMetaModel metaModel,
-            bool drilldown,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
-        {
-            var result = new List<WinLossByProduct>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
-            var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
-            summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
-            foreach (var c in summaryCurrencyList)
-            {
-                summaryTotalTemp.Add(c, new List<WinLossByProduct>());
-            }
-
-            var systemIdOrdinal = reader.TryGetOrdinal("username");
-            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-            var customerIdOrdinal = reader.TryGetOrdinal("custid");
-
-            while (reader.Read())
-            {
-                // Read Item
-                var item = new WinLossByProduct
-                    {
-                        SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                        ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                        CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
-                        ProductCode = reader.ToString("productcode"),
-                        CurrencyId = reader.ToInt("currency"),
-                        CurrencyName = reader.ToString("currencyname"),
-                        TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
-                        CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
-                        CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                        LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                        TotalTransaction = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal("amtdueto3rd" + metaModel.BaseCurrency),
-                        LicenseeWLComm = reader.ToDecimal("comm" + metaModel.BaseCurrency),
-                        Date = drilldown
-                        ? metaModel.DrillDownFromDate
-                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
-                    };
-                result.Add(item);
-
-                // Read Summary
-                foreach (var c in summaryCurrencyList)
-                {
-                    var summaryItem = new WinLossByProduct
-                        {
-                            ProductCode = reader.ToString("productcode"),
-                            TurnOver = reader.ToDecimal("turnover" + c.ToLower()),
-                            CustomerWinLoss = reader.ToDecimal("winlost" + c.ToLower()),
-                            CustomerComm = reader.ToDecimal("playercomm" + c.ToLower()),
-                            LicenseeWL = reader.ToDecimal("licenseewl" + c.ToLower()),
-                            TotalTransaction = reader.ToInt("betcount"),
-                            AmountDue = reader.ToDecimal("amtdueto3rd" + c.ToLower()),
-                            LicenseeWLComm = reader.ToDecimal("comm" + c.ToLower()),
-                        };
-                    summaryTotalTemp[c].Add(summaryItem);
-                }
-            }
-
-            // Calculate summary
-            foreach (var c in summaryCurrencyList)
-            {
-                summaryTotal[c] = summaryTotalTemp[c].GroupBy(i => new { i.ProductCode })
-                                    .Select(i => new WinLossByProduct
-                                    {
-                                        ProductCode = i.Key.ProductCode,
-                                        TurnOver = i.Sum(j => j.TurnOver),
-                                        CustomerWinLoss = i.Sum(j => j.CustomerWinLoss),
-                                        CustomerComm = i.Sum(j => j.CustomerComm),
-                                        LicenseeWL = i.Sum(j => j.LicenseeWL),
-                                        TotalTransaction = i.Sum(j => j.TotalTransaction),
-                                        AmountDue = i.Sum(j => j.AmountDue),
-                                        LicenseeWLComm = i.Sum(j => j.LicenseeWLComm),
-                                    }).ToList();
-            }
-
-            return result;
         }
 
         #endregion Private

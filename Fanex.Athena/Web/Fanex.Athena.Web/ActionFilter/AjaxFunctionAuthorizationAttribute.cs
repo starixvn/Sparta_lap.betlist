@@ -13,7 +13,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class AjaxFunctionAuthorizationAttribute : ActionFilterAttribute
+    public sealed class AjaxFunctionAuthorizationAttribute : ActionFilterAttribute
     {
         #region Override
 

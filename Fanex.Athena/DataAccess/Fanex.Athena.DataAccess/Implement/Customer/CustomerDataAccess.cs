@@ -234,9 +234,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                     db.AddOutParameter("strCustID", DbType.String, int.MaxValue);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
-                    var result = this.GetResult(db);
+                    var result = GetResult(db);
                     result.ExtendedData = Convert.ToString(db.GetParameterValue("strCustId"));
                     return result;
                 }
@@ -270,9 +270,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                     db.AddOutParameter("strCustID", DbType.String, int.MaxValue);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
-                    var result = this.GetResult(db);
+                    var result = GetResult(db);
                     result.ExtendedData = Convert.ToString(db.GetParameterValue("strCustId"));
                     return result;
                 }
@@ -305,10 +305,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("Closed", DbType.String, metaModel.IsOn);
                     db.AddInParameter("IP", DbType.String, metaModel.Ip);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -335,10 +335,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("Suspended", DbType.String, metaModel.IsOn);
                     db.AddInParameter("IP", DbType.String, metaModel.Ip);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -370,10 +370,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("IsBA", DbType.Boolean, allowBa);
                     db.AddInParameter("langkey", DbType.String, request.Language);
                     db.AddInParameter("IP", DbType.String, request.Ip);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -412,11 +412,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
 
                     db.AddOutParameter("strCustID", DbType.String, int.MaxValue);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
 
                     db.ExecuteNonQuery();
 
-                    var result = this.GetResult(db);
+                    var result = GetResult(db);
                     result.ExtendedData = Convert.ToString(db.GetParameterValue("strCustId"));
                     return result;
                 }
@@ -449,10 +449,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("speciallevel", DbType.Int32, level);
                     db.AddInParameter("ip", DbType.String, ip);
                     db.AddInParameter("langkey", DbType.String, language);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)

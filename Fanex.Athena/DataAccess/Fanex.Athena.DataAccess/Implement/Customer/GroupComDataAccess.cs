@@ -173,12 +173,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                     // add output parameter
                     db.AddOutParameter("GroupCommID", DbType.Int32, 4);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
                     item.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
 
-                    resultInfo = this.GetResult(db);
+                    resultInfo = GetResult(db);
                 }
 
                 return resultInfo.Code;
@@ -224,10 +224,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("IsDefault", DbType.Boolean, newItem.IsDefaultGroup);
                     db.AddInParameter("IsResetDefault", DbType.Boolean, newItem.IsResetDefault);
                     db.AddOutParameter("StrCustID", DbType.String, int.MaxValue);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
                     newItem.GroupCommId = Converter.ToInt(db.GetParameterValue("GroupCommID"));
-                    resultInfo = this.GetResult(db);
+                    resultInfo = GetResult(db);
                     resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
                 }
 
@@ -274,10 +274,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("langkey", DbType.String, language);
                     db.AddInParameter("IsRemovePlayercomm", DbType.Boolean, isRemoveCommSetting);
                     db.AddInParameter("IsResetDefault", DbType.Boolean, isResetDefault);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.AddOutParameter("StrCustID", DbType.String, int.MaxValue);
                     db.ExecuteScalar();
-                    resultInfo = this.GetResult(db);
+                    resultInfo = GetResult(db);
                     resultInfo.ExtendedData = Converter.ToString2(db.GetParameterValue("StrCustID"));
                 }
 

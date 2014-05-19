@@ -164,7 +164,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="dataList">The original data list.</param>
         /// <returns>The ordered data list.</returns>
-        private IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
+        private static IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
         {
             var result = dataList.Where(p => p.ProductName == Product.Sb || p.ProductName == Product.Ba)
                                  .GroupBy(p => p.MatchId)
@@ -214,7 +214,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="matchWinLoss">The match win-loss DTO.</param>
         /// <returns>The league name.</returns>
-        private string GetLeagueName(MatchWinLoss matchWinLoss)
+        private static string GetLeagueName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {

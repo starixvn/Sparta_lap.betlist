@@ -80,6 +80,26 @@ namespace Fanex.Athena.Excel.Base
         }
 
         /// <summary>
+        ///     Get the result status.
+        /// </summary>
+        /// <param name="dr">Data table row.</param>
+        /// <returns>The result status.</returns>
+        protected static string GetResultStatus(DataRow dr)
+        {
+            bool isPending = dr.Table.Columns.Contains("ispending") && Convert.ToBoolean(dr["ispending"]);
+            string eventStatus = Convert.ToString(dr["eventstatus"]).ToLower();
+
+            if (isPending)
+            {
+                return ViewResources.Pending;
+            }
+
+            return ResultStatusMap.ContainsKey(eventStatus)
+                   ? ResultStatusMap[eventStatus]
+                   : Convert.ToString(dr["eventstatus"]);
+        }
+
+        /// <summary>
         ///     Assign array string to row.
         /// </summary>
         /// <param name="row">Row in sheet export excel.</param>
@@ -167,26 +187,6 @@ namespace Fanex.Athena.Excel.Base
                     }
                 }
             }
-        }
-
-        /// <summary>
-        ///     Get the result status.
-        /// </summary>
-        /// <param name="dr">Data table row.</param>
-        /// <returns>The result status.</returns>
-        protected string GetResultStatus(DataRow dr)
-        {
-            bool isPending = dr.Table.Columns.Contains("ispending") && Convert.ToBoolean(dr["ispending"]);
-            string eventStatus = Convert.ToString(dr["eventstatus"]).ToLower();
-
-            if (isPending)
-            {
-                return ViewResources.Pending;
-            }
-
-            return ResultStatusMap.ContainsKey(eventStatus)
-                   ? ResultStatusMap[eventStatus]
-                   : Convert.ToString(dr["eventstatus"]);
         }
 
         /// <summary>

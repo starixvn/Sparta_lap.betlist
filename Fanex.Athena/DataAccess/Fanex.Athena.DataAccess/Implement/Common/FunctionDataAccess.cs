@@ -144,10 +144,10 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     db.AddInParameter("LangKey", DbType.String, langKey);
                     db.AddInParameter("IP", DbType.String, ip);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -182,10 +182,10 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     db.AddInParameter("LangKey", DbType.String, langKey);
                     db.AddInParameter("IP", DbType.String, ip);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)

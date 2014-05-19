@@ -15,6 +15,7 @@ namespace Fanex.Athena.Service.Implement.Casino
     using CasinoLibrary.SBAgent;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
+    using Fanex.Athena.Service.Exception;
     using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Common;
     using Fanex.Logging;
@@ -54,7 +55,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (System.Exception e)
             {
-                throw new System.Exception("Error when call casino api UpdateCustSuspend. Message: " + e.Message, e);
+                throw new ServiceException("Error when call casino api UpdateCustSuspend. Message: " + e.Message, "casino api service");
             }
         }
 
@@ -79,7 +80,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (System.Exception e)
             {
-                throw new System.Exception("Error when call casino api UpdateCustClosed. Message: " + e.Message, e);
+                throw new ServiceException("Error when call casino api UpdateCustClosed. Message: " + e.Message, "Casino api service");
             }
         }
 
@@ -97,18 +98,18 @@ namespace Fanex.Athena.Service.Implement.Casino
 
             try
             {
-                gameKindList = this.GetGameKind();
+                gameKindList = GetGameKind();
 
                 foreach (var gameKind in gameKindList)
                 {
                     // Get game type base on game kind
-                    var gameTypeList = this.GetGameType(gameKind.GameKindId);
+                    var gameTypeList = GetGameType(gameKind.GameKindId);
                     gameKind.GameTypeList = gameTypeList;
 
                     foreach (var gameType in gameTypeList)
                     {
                         // Get stake level base on game type
-                        var stakeLevelList = this.GetCustStakeLevel(custId, gameType.GameTypeId);
+                        var stakeLevelList = GetCustStakeLevel(custId, gameType.GameTypeId);
                         gameType.StakeLevelList = stakeLevelList;
                     }
                 }
@@ -117,7 +118,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             {
                 gameKindList = new List<GameKind>();
                 LogService.Error(exception.Message, exception);
-            }            
+            }
 
             return new RngCasinoBetSetting
             {
@@ -141,7 +142,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (System.Exception e)
             {
-                throw new System.Exception("Error when call casino api UpdateCustSuspend. Message: " + e.Message, e);
+                throw new ServiceException("Error when call casino api UpdateCustSuspend. Message: " + e.Message, "casino api");
             }
         }
 
@@ -151,7 +152,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// Get RNG casino game kind.
         /// </summary>
         /// <returns>The game kind list.</returns>
-        private List<GameKind> GetGameKind()
+        private static List<GameKind> GetGameKind()
         {
             var bacsicInfo = new BasicInfo();
             DataTable gameKindTable = bacsicInfo.GetGameKind("01");
@@ -181,7 +182,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="gameKindId">The game kind id.</param>
         /// <returns>The game type list. </returns>
-        private IList<GameType> GetGameType(int gameKindId)
+        private static IList<GameType> GetGameType(int gameKindId)
         {
             var bacsicInfo = new BasicInfo();
             DataTable gameTypeTable = bacsicInfo.GetGameType(gameKindId);
@@ -212,7 +213,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <param name="custId">The customer id.</param>
         /// <param name="gameTypeId">The game type id.</param>
         /// <returns>The stack level list.</returns>
-        private List<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
+        private static List<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
         {
             var customer = new CustomerCasinoSetting();
             DataTable stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);

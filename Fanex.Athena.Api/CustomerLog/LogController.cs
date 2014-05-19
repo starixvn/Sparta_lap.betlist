@@ -59,38 +59,11 @@ namespace Fanex.Athena.Api.CustomerLog
         #region Remove HTML tag
 
         /// <summary>
-        /// Remove HTML Tag.
-        /// </summary>
-        /// <param name="datalist">A list of Customer Log.</param>
-        /// <returns>A list of customer log has been removed HTML tag.</returns>
-        private IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
-        {
-            foreach (var item in datalist)
-            {
-                var trackingCharCount = item.TrackingValue.Length;
-                var trackingOldCharCount = item.TrackingValueOld.Length;
-
-                // Remove HTML tag inside tracking value
-                if (trackingCharCount > 0 && trackingOldCharCount > 0)
-                {
-                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
-                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
-
-                    // Add </> tag after remove all html tag
-                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
-                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
-                }
-            }
-
-            return datalist;
-        }
-
-        /// <summary>
         /// Remove HTML tag inside tracking value.
         /// </summary>
         /// <param name="source">Tracking Value.</param>
         /// <returns>Tracking Value has been removed HTML Tag.</returns>
-        private string StripTags(string source)
+        private static string StripTags(string source)
         {
             source = source.Replace(@"/", string.Empty);
             source = source.Replace(@"<", string.Empty);
@@ -101,51 +74,6 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Remove HTML tag
 
-        #region Get detail data
-
-        /// <summary>
-        /// Get details column.
-        /// </summary>
-        /// <param name="dataList">A list of customer log.</param>
-        /// <returns>A list has been formatted.</returns>
-        private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
-        {
-            _resourcesMap = new Dictionary<string, string>
-            {
-                { "Closed", ViewResources.Closed },
-                { "Suspended", ViewResources.Suspended },
-                { "SpecialLevel", ViewResources.SpecialLevel },
-                { "GroupId", ViewResources.GroupId },
-                { "GroupName", ViewResources.GroupName },
-                { "GroupColor", ViewResources.GroupColor },
-                { "SBComm", ViewResources.SBComm },
-                { "RBComm", ViewResources.RBComm },
-                { "NGComm", ViewResources.NGComm },
-                { "LCComm", ViewResources.LCComm },
-                { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
-                { "Yes", ViewResources.Yes },
-                { "No", ViewResources.No },
-                { "OldColor", ViewResources.OldColor }
-            };
-            foreach (var item in dataList)
-            {
-                // No need to read xml data for BA
-                if (item.ActionId == 2401 || item.ActionId == 2403 || item.ActionId == 2801)
-                {
-                    item.Details = string.Empty;
-                    continue;
-                }
-
-                var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
-
-                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = _resourcesMap });
-            }
-
-            return dataList;
-        }
-
-        #endregion Get detail data
-
         #region Parse dictonary to razor view
 
         /// <summary>
@@ -154,7 +82,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="actionId">Action id.</param>
         /// <param name="viewModel">View Model.</param>
         /// <returns> HTML string.</returns>
-        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
+        private static string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
             var templateFormat = string.Format("~/Views/Customer/CustomerLog/Action/{0}.cshtml", actionId);
             var template = File.ReadAllText(HostingEnvironment.MapPath(templateFormat));
@@ -176,7 +104,7 @@ namespace Fanex.Athena.Api.CustomerLog
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private Dictionary<string, string> GetXmlAttr(string trackingValue, string trackingValueOld)
+        private static Dictionary<string, string> GetXmlAttr(string trackingValue, string trackingValueOld)
         {
             var dictonary = new Dictionary<string, string>();
             var actionTypes = new List<string>
@@ -236,5 +164,77 @@ namespace Fanex.Athena.Api.CustomerLog
         #endregion Get XML attribute
 
         #endregion Utility
+
+        /// <summary>
+        /// Remove HTML Tag.
+        /// </summary>
+        /// <param name="datalist">A list of Customer Log.</param>
+        /// <returns>A list of customer log has been removed HTML tag.</returns>
+        private static IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
+        {
+            foreach (var item in datalist)
+            {
+                var trackingCharCount = item.TrackingValue.Length;
+                var trackingOldCharCount = item.TrackingValueOld.Length;
+
+                // Remove HTML tag inside tracking value
+                if (trackingCharCount > 0 && trackingOldCharCount > 0)
+                {
+                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
+                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
+
+                    // Add </> tag after remove all html tag
+                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
+                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
+                }
+            }
+
+            return datalist;
+        }
+
+        #region Get detail data
+
+        /// <summary>
+        /// Get details column.
+        /// </summary>
+        /// <param name="dataList">A list of customer log.</param>
+        /// <returns>A list has been formatted.</returns>
+        private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
+        {
+            _resourcesMap = new Dictionary<string, string>
+            {
+                { "Closed", ViewResources.Closed },
+                { "Suspended", ViewResources.Suspended },
+                { "SpecialLevel", ViewResources.SpecialLevel },
+                { "GroupId", ViewResources.GroupId },
+                { "GroupName", ViewResources.GroupName },
+                { "GroupColor", ViewResources.GroupColor },
+                { "SBComm", ViewResources.SBComm },
+                { "RBComm", ViewResources.RBComm },
+                { "NGComm", ViewResources.NGComm },
+                { "LCComm", ViewResources.LCComm },
+                { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
+                { "Yes", ViewResources.Yes },
+                { "No", ViewResources.No },
+                { "OldColor", ViewResources.OldColor }
+            };
+            foreach (var item in dataList)
+            {
+                // No need to read xml data for BA
+                if (item.ActionId == 2401 || item.ActionId == 2403 || item.ActionId == 2801)
+                {
+                    item.Details = string.Empty;
+                    continue;
+                }
+
+                var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
+
+                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = _resourcesMap });
+            }
+
+            return dataList;
+        }
+
+        #endregion Get detail data
     }
 }

@@ -60,6 +60,18 @@ namespace Fanex.Athena.Controllers
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
+        [NonAction]
+        protected static IList<string> GetAllowLicenseesForStatusFunction()
+        {
+            var items = AppSettings.GetValue("LicenseeOfferStatusFunction");
+            if (!string.IsNullOrEmpty(items))
+            {
+                return items.Split(',');
+            }
+
+            return new List<string>();
+        }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();
@@ -72,18 +84,6 @@ namespace Fanex.Athena.Controllers
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
             base.Execute(requestContext);
-        }
-
-        [NonAction]
-        protected IList<string> GetAllowLicenseesForStatusFunction()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferStatusFunction");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
         }
     }
 }

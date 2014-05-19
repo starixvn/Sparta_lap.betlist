@@ -164,6 +164,43 @@ namespace Fanex.Athena.Excel.Warehouse
         }
 
         /// <summary>
+        /// Get column name in data table.
+        /// </summary>
+        /// <returns>The list of column name in data table.</returns>
+        protected static IList<string> GetColumnNameList()
+        {
+            return new List<string>
+            {
+                "UserName",
+                "currency",
+                "Turnover",
+                "betcount",
+                "MemberWinlost",
+                "MemberWinlost",
+                "MemberWinlost",
+                "LicenseeWL",
+                "lastactivedate"
+            };
+        }
+
+        /// <summary>
+        /// Get column name in data table to get total data.
+        /// </summary>
+        /// <returns>The list of column name in data table.</returns>
+        protected static IList<string> GetTotalColumnNameList()
+        {
+            return new List<string>
+            {
+                "Turnover",
+                "betcount",
+                "MemberWinlost",
+                "MemberWinlost",
+                "MemberWinlost",
+                "LicenseeWL",
+            };
+        }
+
+        /// <summary>
         /// Assign data to total section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
@@ -199,43 +236,6 @@ namespace Fanex.Athena.Excel.Warehouse
             return ExportData.Columns.Contains("message")
                    ? Converter.ToString2(ExportData.Rows[0]["message"])
                    : string.Empty;
-        }
-
-        /// <summary>
-        /// Get column name in data table.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        protected IList<string> GetColumnNameList()
-        {
-            return new List<string>
-            {
-                "UserName",
-                "currency",
-                "Turnover",
-                "betcount",
-                "MemberWinlost",
-                "MemberWinlost",
-                "MemberWinlost",
-                "LicenseeWL",
-                "lastactivedate"
-            };
-        }
-
-        /// <summary>
-        /// Get column name in data table to get total data.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        protected IList<string> GetTotalColumnNameList()
-        {
-            return new List<string>
-            {
-                "Turnover",
-                "betcount",
-                "MemberWinlost",
-                "MemberWinlost",
-                "MemberWinlost",
-                "LicenseeWL",
-            };
         }
     }
 }

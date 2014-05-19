@@ -275,6 +275,25 @@ namespace Fanex.Athena.Excel.Base
         }
 
         /// <summary>
+        ///     Clear the template from header row.
+        /// </summary>
+        /// <param name="sheet">The excel sheet.</param>
+        /// <param name="startRowIndex">The starting row index of sheet.</param>
+        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
+        {
+            int lastRowNum = sheet.LastRowNum;
+            for (int i = startRowIndex; i <= lastRowNum; i++)
+            {
+                sheet.DeleteRow(i);
+            }
+        }
+
+        protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
+        {
+            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
+        }
+
+        /// <summary>
         ///     Assign array decimal to row.
         /// </summary>
         /// <param name="row">Row in sheet export excel.</param>
@@ -316,20 +335,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         /// <summary>
-        ///     Clear the template from header row.
-        /// </summary>
-        /// <param name="sheet">The excel sheet.</param>
-        /// <param name="startRowIndex">The starting row index of sheet.</param>
-        protected void ClearTemplate(ISheet sheet, int startRowIndex)
-        {
-            int lastRowNum = sheet.LastRowNum;
-            for (int i = startRowIndex; i <= lastRowNum; i++)
-            {
-                sheet.DeleteRow(i);
-            }
-        }
-
-        /// <summary>
         /// Get column index.
         /// </summary>
         /// <returns>The integer array.</returns>
@@ -340,7 +345,7 @@ namespace Fanex.Athena.Excel.Base
 
         protected string GetCurrencyColumn(string columnName)
         {
-            return DataHelper.GetCurrencyColumnName(columnName, ConvertingOption);
+            return DataHelper.GetCurrencyColumnName(columnName, this.ConvertingOption);
         }
 
         /// <summary>
@@ -406,11 +411,6 @@ namespace Fanex.Athena.Excel.Base
             IRow row = sheet.CopyRow(TemplateSheet, sourceRowIndex, destRowIndex);
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
             row.Cells[0].SetCellValue(value);
-        }
-
-        protected int GetNumberOfSheets(int numberOfItems, int pageSize)
-        {
-            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
         }
     }
 }

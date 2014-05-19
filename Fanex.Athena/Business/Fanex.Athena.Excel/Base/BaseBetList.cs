@@ -48,7 +48,7 @@ namespace Fanex.Athena.Excel.Base
             ShowingOption = showingOption;
         }
 
-        public void AddNoInfoRow(BetListExcelBuilder builder)
+        public static void AddNoInfoRow(BetListExcelBuilder builder)
         {
             ICellStyle titleStyle = builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.CENTER;
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Excel.Base
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="title">The title.</param>
-        public void AddTitle(BetListExcelBuilder builder, string title)
+        public static void AddTitle(BetListExcelBuilder builder, string title)
         {
             IFont font = builder.CreateFont();
             font.Boldweight = (short)FontBoldWeight.BOLD;

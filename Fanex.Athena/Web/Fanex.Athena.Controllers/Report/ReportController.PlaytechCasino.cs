@@ -161,7 +161,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="dataList">Data list value.</param>
         /// <returns>Data list.</returns>
-        private IList<PlaytechCasino> GetTotalDataList(IList<PlaytechCasino> dataList)
+        private static IList<PlaytechCasino> GetTotalDataList(IList<PlaytechCasino> dataList)
         {
             return dataList.GroupBy(d => d.CurrencyName)
                            .Select(g => new PlaytechCasino

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 {
     using System.Collections.Generic;
     using DataAccess.Implement.TotalBets;
+    using Fanex.Athena.DataAccess.Interface.TotalBets;
     using Interface.TotalBets;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Field
 
-        protected readonly NumberGameDataAccess NumberGameDataAccess;
+        protected readonly INumberGameDataAccess NumberGameDataAccess;
 
         #endregion Field
 

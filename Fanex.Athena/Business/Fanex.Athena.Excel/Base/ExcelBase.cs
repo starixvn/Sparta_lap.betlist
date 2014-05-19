@@ -83,7 +83,7 @@ namespace Fanex.Athena.Excel.Base
         /// </summary>
         /// <param name="sheet">The excel sheet.</param>
         /// <param name="columnIndex">Column Index of column will be hidden.</param>
-        protected void HideColumn(ISheet sheet, params int[] columnIndex)
+        protected static void HideColumn(ISheet sheet, params int[] columnIndex)
         {
             // Clear content
             int firstRowNum = sheet.FirstRowNum;

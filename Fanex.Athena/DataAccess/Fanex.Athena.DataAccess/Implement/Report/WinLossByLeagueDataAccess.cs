@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     using (var reader = db.ExecuteReader())
                     {             
-                        return GetMatches(reader, metaModel, false);                        
+                        return GetMatches(reader, metaModel);                        
                     }
                 }
             }
@@ -149,12 +149,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="reader">Reader value.</param>
         /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>        
         /// <returns>The result value.</returns>
-        private IList<WinLossByLeague> GetMatches(
+        private static IList<WinLossByLeague> GetMatches(
             IDataReader reader,
-            WinLossByLeagueMetaModel metaModel,
-            bool drilldown)
+            WinLossByLeagueMetaModel metaModel)
         {            
             var result = new List<WinLossByLeague>();
 
@@ -190,7 +188,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>          
         /// <param name="grandTotal">Grand total object.</param>          
         /// <returns>The result value.</returns>
-        private IList<WinLossByLeague> GetCustomers(
+        private static IList<WinLossByLeague> GetCustomers(
             DataTable reportTable,
             DataTable grandTotalTable,
             WinLossByLeagueMetaModel metaModel,

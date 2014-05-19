@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="row">The row of sheet.</param>
         /// <param name="balanceDetails">The detail balance.</param>
         /// <param name="timeText">The time text.</param>
-        protected void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
+        protected static void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
         {
             row.Cells[ColumnDate].SetCellValue(timeText);
             row.Cells[ColumnLicenseeWl].SetCellValue(balanceDetails.LicWinLoss);

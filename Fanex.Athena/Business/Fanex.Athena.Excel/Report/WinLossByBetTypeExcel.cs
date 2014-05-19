@@ -191,7 +191,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="winlossByBetType">Win Loss By Bet Type data.</param>
-        protected void AssignCommonData(IRow row, WinLossByBetType winlossByBetType)
+        protected static void AssignCommonData(IRow row, WinLossByBetType winlossByBetType)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByBetType.Turnover);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByBetType.CustomerWinLoss);

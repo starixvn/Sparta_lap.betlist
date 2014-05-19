@@ -18,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     using Fanex.Common.Extensions;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
-    using System;
 
     /// <summary>
     /// First goal/last goal data access.
@@ -48,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
         }
@@ -62,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base Currency value.</param>
         /// <returns>A list of FG/LG.</returns>
-        private IList<FirstGoalLastGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<FirstGoalLastGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<FirstGoalLastGoal>();
 

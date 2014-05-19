@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AuthorizeAttribute.cs" company="Nexcel">
+// <copyright file="CustomAuthorizeAttribute.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// Class: AuthenticationAttribute.
     /// </summary>
-    public class CustomAuthorizeAttribute : AuthorizeAttribute
+    public sealed class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         #region Override
 

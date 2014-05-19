@@ -63,7 +63,7 @@ namespace Fanex.Athena.Service.Implement.Report
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IList<CustTurnover> RestructureData(IList<CustTurnover> datalist)
+        private static IList<CustTurnover> RestructureData(IList<CustTurnover> datalist)
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
                 .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();

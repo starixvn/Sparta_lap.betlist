@@ -112,6 +112,20 @@ namespace Fanex.Athena.Excel.Customer
         }
 
         /// <summary>
+        ///     Clear the template from header row.
+        /// </summary>
+        /// <param name="sheet">The excel sheet.</param>
+        /// <param name="startRowIndex">The starting row index of sheet.</param>
+        private static void ClearTemplate(ISheet sheet, int startRowIndex)
+        {
+            int lastRowNum = sheet.LastRowNum;
+            for (int i = startRowIndex; i <= lastRowNum; i++)
+            {
+                sheet.DeleteRow(i);
+            }
+        }
+
+        /// <summary>
         /// Assign data to sheet.
         /// </summary>
         private void AssignData()
@@ -359,20 +373,6 @@ namespace Fanex.Athena.Excel.Customer
         private void Write(Stream stream)
         {
             this.Workbook.Write(stream);
-        }
-
-        /// <summary>
-        ///     Clear the template from header row.
-        /// </summary>
-        /// <param name="sheet">The excel sheet.</param>
-        /// <param name="startRowIndex">The starting row index of sheet.</param>
-        private void ClearTemplate(ISheet sheet, int startRowIndex)
-        {
-            int lastRowNum = sheet.LastRowNum;
-            for (int i = startRowIndex; i <= lastRowNum; i++)
-            {
-                sheet.DeleteRow(i);
-            }
         }
 
         private void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)

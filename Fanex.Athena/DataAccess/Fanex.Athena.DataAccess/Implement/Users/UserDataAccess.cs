@@ -308,11 +308,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("langkey", DbType.String, user.Request.Language);
                     db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
 
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -343,11 +343,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("Status", DbType.String, user.Status);
                     db.AddInParameter("langkey", DbType.String, user.Request.Language);
                     db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
 
                     db.ExecuteNonQuery();
 
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)
@@ -383,11 +383,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
                     db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
                     db.AddInParameter("Language", DbType.String, requestUser.Request.Language);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
                     using (var reader = db.ExecuteReader())
                     {
-                        resultInfo = this.GetResult(db);
+                        resultInfo = GetResult(db);
                         if (reader.Read())
                         {
                             user = new User
@@ -435,11 +435,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("UserPwd", DbType.String, requestUser.Password);
                     db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
 
                     using (var reader = db.ExecuteReader())
                     {
-                        resultInfo = this.GetResult(db);
+                        resultInfo = GetResult(db);
                         if (reader.Read())
                         {
                             user = new User
@@ -488,12 +488,12 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
                     db.AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
                     db.AddInParameter("langkey", DbType.String, requestUser.Request.Language);
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
 
                     using (var reader = db.ExecuteReader())
                     {
-                        resultInfo = this.GetResult(db);
+                        resultInfo = GetResult(db);
 
                         if (reader.Read())
                         {

@@ -87,7 +87,7 @@ namespace Fanex.Athena.Service.Implement.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private DailyRacingWinLoss GetSumDailyRacingWinLoss(IList<DailyRacingWinLoss> rawData, string currencyName)
+        private static DailyRacingWinLoss GetSumDailyRacingWinLoss(IList<DailyRacingWinLoss> rawData, string currencyName)
         {
             return new DailyRacingWinLoss
                 {

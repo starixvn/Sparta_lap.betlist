@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Forecast
         [HttpGet]
         public ActionResult NewForecastHdpOu(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
-            this._licenseeOfferNewForecastList = this.GetLicenseeOfferNewForecastList();
+            this._licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
 
             if (this._licenseeOfferNewForecastList.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
             {
@@ -102,6 +102,21 @@ namespace Fanex.Athena.Controllers.Forecast
         #endregion New Forecast
 
         #region Utility
+
+        /// <summary>
+        /// Get offered licensee.
+        /// </summary>
+        /// <returns>The licensee id list.</returns>
+        private static IList<string> GetLicenseeOfferNewForecastList()
+        {
+            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
+            if (!string.IsNullOrEmpty(items))
+            {
+                return items.Split(',');
+            }
+
+            return new List<string>();
+        }
 
         /// <summary>
         /// Get New Forecast Handicap Over/Under ViewModel.
@@ -176,21 +191,6 @@ namespace Fanex.Athena.Controllers.Forecast
             }
 
             return model;
-        }
-
-        /// <summary>
-        /// Get offered licensee.
-        /// </summary>
-        /// <returns>The licensee id list.</returns>
-        private IList<string> GetLicenseeOfferNewForecastList()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
         }
 
         #endregion Utility

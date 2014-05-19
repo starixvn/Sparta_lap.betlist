@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.Base
         ///  The add result parameter.
         /// </summary>
         /// <param name="db"> The database. </param>
-        public void AddResultParam(ObjectDb db)
+        public static void AddResultParam(ObjectDb db)
         {
             db.AddOutParameter("ErrCode", DbType.Int32, 4);
             db.AddOutParameter("ErrMsg", DbType.String, 4000);
@@ -64,7 +64,7 @@ namespace Fanex.Athena.DataAccess.Implement.Base
         /// </summary>
         /// <param name="db"> The database. </param>
         /// <returns> Result value.</returns>
-        public IResultInfo GetResult(ObjectDb db)
+        public static IResultInfo GetResult(ObjectDb db)
         {
             var errorCode = db.GetParameterValue("ErrCode");
             var errorMessage = db.GetParameterValue("ErrMsg");

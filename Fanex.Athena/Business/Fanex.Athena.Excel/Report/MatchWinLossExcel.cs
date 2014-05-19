@@ -225,6 +225,26 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
+        /// Get column name in data table.
+        /// </summary>
+        /// <returns>The list of column name in data table.</returns>
+        private static IList<string> GetCommonColumnNameList()
+        {
+            return new List<string>
+            {
+                "turnover",
+                "memberwinlost",
+                "playercomm",
+                "totalwl",
+                "licenseewl",
+                "commba",
+                "rbrevenue",
+                "amtduetoba",
+                "amtduetorb"
+            };
+        }
+
+        /// <summary>
         /// Sum column: race book revenue, total win loss, sum total win loss, sum race book revenue.
         /// </summary>
         private void AddExtraColumns()
@@ -311,7 +331,6 @@ namespace Fanex.Athena.Excel.Report
                 DataRow matchWinloss = matchInfoList[i];
                 IRow betTypeRow = sheet.CopyRow(TemplateSheet, RowBetTypeContentTemplate, currentRow);
                 int betType = Converter.ToInt(matchWinloss["bettype"]);
-                int sportType = matchWinloss.Table.Columns.Contains("sporttype") ? Converter.ToInt(matchWinloss["sporttype"]) : 0;
                 var liveIndicator = Converter.To<bool>(matchWinloss["liveindicator"]);
                 string betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
 
@@ -393,26 +412,6 @@ namespace Fanex.Athena.Excel.Report
 
             return currencyColumnList.Select(s => s == "rbrevenue" ? "rbrevenue" : GetCurrencyColumn(s))
                    .ToList();
-        }
-
-        /// <summary>
-        /// Get column name in data table.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        private IList<string> GetCommonColumnNameList()
-        {
-            return new List<string>
-            {
-                "turnover",
-                "memberwinlost",
-                "playercomm",
-                "totalwl",
-                "licenseewl",
-                "commba",
-                "rbrevenue",
-                "amtduetoba",
-                "amtduetorb"
-            };
         }
 
         /// <summary>

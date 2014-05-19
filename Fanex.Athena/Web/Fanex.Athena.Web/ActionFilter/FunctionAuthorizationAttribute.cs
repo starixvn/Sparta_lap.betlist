@@ -17,7 +17,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     ///  Only use for left menu URL.
     /// </summary>
-    public class FunctionAuthorizationAttribute : ActionFilterAttribute
+    public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
         #region Override
 

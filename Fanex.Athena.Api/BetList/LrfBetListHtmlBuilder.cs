@@ -78,9 +78,8 @@ namespace Fanex.Athena.Api.BetList
         /// </summary>
         /// <param name="builder">Bet list builder.</param>
         /// <param name="ticket">LRF ticket object.</param>
-        /// <param name="is12Bet">Is bet list for 12BET.</param>
         /// <returns>Licensee win loss text.</returns>
-        public static string BuildLicenseeWl(this BetListHTMLBuilder builder, LrfTicket ticket, bool is12Bet)
+        public static string BuildLicenseeWl(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||

@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base Currency value.</param>
         /// <returns>A list of HT/FT.</returns>
-        private IList<HalfTimeFullTime> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<HalfTimeFullTime> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HalfTimeFullTime>();
 

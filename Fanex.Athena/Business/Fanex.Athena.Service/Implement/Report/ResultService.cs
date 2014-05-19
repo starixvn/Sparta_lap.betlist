@@ -112,6 +112,7 @@ namespace Fanex.Athena.Service.Implement.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
         public IList<Parlay> GetPopUpParlayMatch(long refNo)
         {
             var data = this._dataAccess.GetPopUpParalayMatch(refNo);
@@ -160,7 +161,7 @@ namespace Fanex.Athena.Service.Implement.Report
                                                     FinalHomeScore =
                                                         i["finalhomescore"] != DBNull.Value
                                                             ? int.Parse(i["finalhomescore"].ToString())
-                                                            :new Nullable<int>(),
+                                                            : new Nullable<int>(),
                                                     HtHomeScore =
                                                         i["finalhomescore"] != DBNull.Value
                                                             ? int.Parse(i["hthomescore"].ToString())
@@ -222,6 +223,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="data">The data table.</param>
         /// <returns>The sport-book data list.</returns>
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
         private static IList<Sportbook> BindSportbook(DataTable data)
         {
             if (data != null && data.Rows.Count > 0)
@@ -320,6 +322,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="dataLc">The data table.</param>
         /// <returns>The live casino data list.</returns>
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
         private static IList<LiveCasino> BidingLiveCasinos(DataTable dataLc)
         {
             if (dataLc != null && dataLc.Rows.Count > 0)

@@ -110,7 +110,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
         {
             metaModel.CurrencyName = metaModel.CurrencyName.ToUpper();
             const string ViewPathTemplate = "~/Views/RNGCasino/RNGCasinoDetail/Group{0}.cshtml";
-            var group = this.GetGroupByGameTypeId(metaModel.GameTypeId);
+            var group = GetGroupByGameTypeId(metaModel.GameTypeId);
             var model = metaModel.IsValid && (metaModel.CurrencyId == 0 || this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
                 ? this._rgnCasinoService.GetRNGCasinoResultDetail(metaModel)
                 : new CasinoHandHistoryDetailViewModel();
@@ -139,7 +139,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
               "StyleCop.CSharp.Nexcel.NexcelCustomRules",
               "SP2101:MethodMustNotContainMoreLinesThan",
               Justification = "Reviewed. Suppression is OK here.")]
-        private string GetGroupByGameTypeId(int gameTypeId)
+        private static string GetGroupByGameTypeId(int gameTypeId)
         {
             switch (gameTypeId)
             {

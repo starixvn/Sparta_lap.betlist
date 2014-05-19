@@ -38,15 +38,6 @@ namespace Fanex.Athena.Excel.Warehouse
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private static readonly IDictionary<int, string> GroupColumnNameMap = new Dictionary<int, string>
-        {
-            { (int)WarehouseReportBy.Day, "date" },
-            { (int)WarehouseReportBy.Month, "month" },
-            { (int)WarehouseReportBy.Currency, "currency" },
-            { (int)WarehouseReportBy.Bettype, "bettype" },
-            { (int)WarehouseReportBy.League, "league" },
-         };
-
         private static readonly IDictionary<int, int> GroupNameIndexMap = new Dictionary<int, int>
         {
             { (int)WarehouseReportBy.Day, (int)WarehouseReportBy.Day },

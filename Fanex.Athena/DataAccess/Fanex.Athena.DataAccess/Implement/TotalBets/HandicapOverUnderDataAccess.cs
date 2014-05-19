@@ -46,12 +46,27 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
         }
 
         #region Utility
+
+        /// <summary>
+        /// Get Total Score.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="homeColumnName">Home column name value.</param>
+        /// <param name="awayColumnName">Away column name value.</param>
+        /// <returns>Total Score.</returns>
+        private static decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
+        {
+            var homeScore = reader.ToDecimal(homeColumnName);
+            var awayScore = reader.ToDecimal(awayColumnName);
+
+            return homeScore - awayScore;
+        }
 
         /// <summary>
         /// Set data to list.
@@ -60,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>A list of Handicap Over/Under.</returns>
-        private IList<HandicapOverUnder> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<HandicapOverUnder> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HandicapOverUnder>();
 
@@ -92,31 +107,16 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     BetCountOverUnder = reader.ToInt("betcount_ou"),
                     BetCountHandicap1StHalf = reader.ToInt("BetCount_HTHDP"),
                     BetCountOverUnder1StHalf = reader.ToInt("BetCount_HTOU"),
-                    FullTimeHandicap = this.GetTotalScore(reader, hdpHomeScoreColumnName, hdpAwayScoreColumnName),
-                    FullTimeOverUnder = this.GetTotalScore(reader, overUnderHomeScoreColumnName, overUnderAwayScoreColumnName),
-                    FirstTimeHandicap = this.GetTotalScore(reader, hdpHomeScore1StHalfColumnName, hdpAwayScore1StHalfColumnName),
-                    FirstTimeOverUnder = this.GetTotalScore(reader, overUnderHomeScore1StHalfColumnName, overUnderAwayScore1StHalfColumnName),
+                    FullTimeHandicap = GetTotalScore(reader, hdpHomeScoreColumnName, hdpAwayScoreColumnName),
+                    FullTimeOverUnder = GetTotalScore(reader, overUnderHomeScoreColumnName, overUnderAwayScoreColumnName),
+                    FirstTimeHandicap = GetTotalScore(reader, hdpHomeScore1StHalfColumnName, hdpAwayScore1StHalfColumnName),
+                    FirstTimeOverUnder = GetTotalScore(reader, overUnderHomeScore1StHalfColumnName, overUnderAwayScore1StHalfColumnName),
                 };
 
                 dataList.Add(item);
             }
 
             return dataList;
-        }
-
-        /// <summary>
-        /// Get Total Score.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="homeColumnName">Home column name value.</param>
-        /// <param name="awayColumnName">Away column name value.</param>
-        /// <returns>Total Score.</returns>
-        private decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
-        {
-            var homeScore = reader.ToDecimal(homeColumnName);
-            var awayScore = reader.ToDecimal(awayColumnName);
-
-            return homeScore - awayScore;
         }
 
         #endregion Utility

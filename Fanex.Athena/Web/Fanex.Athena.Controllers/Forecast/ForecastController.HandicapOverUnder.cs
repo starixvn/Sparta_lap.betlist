@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Forecast
         public ActionResult ForecastHandicapOverUnder()
         {
             var liceseeSession = SessionService.LicenseeSession;
-            this._licenseeOfferNewForecastList = this.GetLicenseeOfferNewForecastList();
+            this._licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
 
             if (_licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
             {

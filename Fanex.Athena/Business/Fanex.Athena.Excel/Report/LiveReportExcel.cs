@@ -187,6 +187,23 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
+        /// Assign common data to excel row.
+        /// </summary>
+        /// <param name="row">Excel row.</param>
+        /// <param name="liveReport">Live report data.</param>
+        protected static void AssignCommonData(IRow row, LiveReport liveReport)
+        {
+            row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(liveReport.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(liveReport.CustomerTotal);
+            row.Cells[ColumnTurnover].SetCellValue(liveReport.TurnOver);
+            row.Cells[ColumnBetCount].SetCellValue(liveReport.BetCount);
+            row.Cells[ColumnLicenseeComm].SetCellValue(liveReport.LicenseeComm);
+            row.Cells[ColumnLicenseeWl].SetCellValue(liveReport.LicenseeWinLoss);
+            row.Cells[ColumnAmountDue].SetCellValue(liveReport.AmountDue);
+        }
+
+        /// <summary>
         /// Assign data to bet type section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
@@ -213,8 +230,10 @@ namespace Fanex.Athena.Excel.Report
 
                     var row = sheet.CopyRow(TemplateSheet, RowByBetTypeProductTitle, currentRow);
                     sheet.MergeCells(currentRow, ColumnProduct, currentRow, ColumnAmountDue);
-
-                    currentRow++;
+                    checked
+                    {
+                        currentRow++;
+                    }
 
                     string productName = liveReportBetType.ProductName.Equals(ViewResources.SB)
                         ? ViewResources.Sportsbook
@@ -305,23 +324,6 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return currentRow + liveReportSportList.Count;
-        }
-
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="liveReport">Live report data.</param>
-        protected void AssignCommonData(IRow row, LiveReport liveReport)
-        {
-            row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].SetCellValue(liveReport.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(liveReport.CustomerTotal);
-            row.Cells[ColumnTurnover].SetCellValue(liveReport.TurnOver);
-            row.Cells[ColumnBetCount].SetCellValue(liveReport.BetCount);
-            row.Cells[ColumnLicenseeComm].SetCellValue(liveReport.LicenseeComm);
-            row.Cells[ColumnLicenseeWl].SetCellValue(liveReport.LicenseeWinLoss);
-            row.Cells[ColumnAmountDue].SetCellValue(liveReport.AmountDue);
         }
 
         /// <summary>

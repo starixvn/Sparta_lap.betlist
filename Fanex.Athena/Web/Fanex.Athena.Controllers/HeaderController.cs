@@ -104,7 +104,6 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         private void ClearCookies()
         {
-            var cookieList = HttpContext.Response.Cookies;
             var cookieNameList = HttpContext.Response.Cookies.AllKeys;
             foreach (var name in cookieNameList)
             {

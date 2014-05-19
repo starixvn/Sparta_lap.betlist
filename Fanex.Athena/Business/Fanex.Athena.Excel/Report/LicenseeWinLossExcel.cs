@@ -289,6 +289,41 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
+        /// Get full product option list for licensee win loss report with exactly 8 products.
+        /// </summary>
+        /// <param name="products">The product option list. This list may contain 0-8 items.</param>
+        /// <returns>The full product option list.</returns>
+        protected static IList<ProductOption> GetProductOption(IList<ProductOption> products)
+        {
+            var newProducts = new List<ProductOption>
+            {
+                new ProductOption { Code = Product.Sb, Status = false },
+                new ProductOption { Code = Product.Rb, Status = false },
+                new ProductOption { Code = Product.Ng, Status = false },
+                new ProductOption { Code = Product.Ba, Status = false },
+                new ProductOption { Code = Product.Lc, Status = false },
+                new ProductOption { Code = Product.Vs, Status = false },
+                new ProductOption { Code = Product.Cs, Status = false },
+                new ProductOption { Code = Product.Bg, Status = false },
+                new ProductOption { Code = Product.Kn, Status = false }
+            };
+
+            foreach (var t in products)
+            {
+                for (var j = 0; j < newProducts.Count; j++)
+                {
+                    if (t.Code == newProducts[j].Code)
+                    {
+                        newProducts[j] = t;
+                        break;
+                    }
+                }
+            }
+
+            return newProducts;
+        }
+
+        /// <summary>
         /// Assign common data to excel row.
         /// </summary>
         /// <param name="row">Excel row.</param>
@@ -314,8 +349,7 @@ namespace Fanex.Athena.Excel.Report
             // Set data for customerwinloss
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status && _productOption[i].Code != Product.Rb &&
-                    _productOption[i].Code != Product.Ba)
+                if (_productOption[i].Status && _productOption[i].Code != Product.Rb && _productOption[i].Code != Product.Ba)
                 {
                     row.Cells[ColumnLicenseeWlSportsBook + i].SetCellValue(data.LicenseeWL[_productOption[i].Code]);
                 }
@@ -349,7 +383,10 @@ namespace Fanex.Athena.Excel.Report
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                rowIndex++;
+                checked
+                {
+                    rowIndex++;
+                }
             }
 
             return rowIndex;
@@ -387,41 +424,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
-        }
-
-        /// <summary>
-        /// Get full product option list for licensee win loss report with exactly 8 products.
-        /// </summary>
-        /// <param name="products">The product option list. This list may contain 0-8 items.</param>
-        /// <returns>The full product option list.</returns>
-        protected IList<ProductOption> GetProductOption(IList<ProductOption> products)
-        {
-            var newProducts = new List<ProductOption>
-            {
-                new ProductOption { Code = Product.Sb, Status = false },
-                new ProductOption { Code = Product.Rb, Status = false },
-                new ProductOption { Code = Product.Ng, Status = false },
-                new ProductOption { Code = Product.Ba, Status = false },
-                new ProductOption { Code = Product.Lc, Status = false },
-                new ProductOption { Code = Product.Vs, Status = false },
-                new ProductOption { Code = Product.Cs, Status = false },
-                new ProductOption { Code = Product.Bg, Status = false },
-                new ProductOption { Code = Product.Kn, Status = false }
-            };
-
-            foreach (var t in products)
-            {
-                for (var j = 0; j < newProducts.Count; j++)
-                {
-                    if (t.Code == newProducts[j].Code)
-                    {
-                        newProducts[j] = t;
-                        break;
-                    }
-                }
-            }
-
-            return newProducts;
         }
 
         /// <summary>
@@ -503,7 +505,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dataList">Report data.</param>
         /// <returns>List of LicenseeWinLoss entity.</returns>
-        private List<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
+        private static List<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new LicenseeWinLoss

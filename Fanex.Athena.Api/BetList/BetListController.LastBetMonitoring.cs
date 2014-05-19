@@ -179,7 +179,7 @@ namespace Fanex.Athena.Api.BetList
         /// </summary>
         /// <param name="ticket">LRF ticket object.</param>
         /// <returns>Status text.</returns>
-        private string GetLasBetMonitoringStatus(LrfTicket ticket)
+        private static string GetLasBetMonitoringStatus(LrfTicket ticket)
         {
             const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
             if (ticket.BetTypeId == (int)BetType.MixParlay)

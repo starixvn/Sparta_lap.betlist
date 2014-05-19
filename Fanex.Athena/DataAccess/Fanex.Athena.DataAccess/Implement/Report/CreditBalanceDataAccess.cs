@@ -51,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 using (var reader = db.ExecuteReader(uspParam))
                 {
-                    return this.BindData(reader, metaModel.BaseCurrency);
+                    return BindData(reader, metaModel.BaseCurrency);
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private Balance BindData(IDataReader reader, string baseCurrency)
+        private static Balance BindData(IDataReader reader, string baseCurrency)
         {
             // Selected Month Columns
             var selectedMonthLicColumn = "SelectedMonthLicenseeWL" + baseCurrency;

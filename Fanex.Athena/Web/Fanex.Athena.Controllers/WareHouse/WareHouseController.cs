@@ -28,7 +28,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         #region field
 
         private readonly IBalanceUpService _balancUpService;
-        private readonly ILicenseeService _licenseeService;
         private readonly IProductService _productService;
         private readonly ITopCustomerService _topCustomerService;
         private readonly IWinLossService _winLossService;
@@ -37,7 +36,6 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         public WareHouseController()
         {
-            this._licenseeService = new LicenseeService();
             this._winLossService = new WinLossService();
             this._topCustomerService = new TopCustomerService();
             this._productService = new ProductService();

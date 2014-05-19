@@ -621,7 +621,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <param name="idliststring">The function string.</param>
         /// <returns>The list id of functions.</returns>
-        private IList<int> ParseFunctionIdList(string idliststring)
+        private static IList<int> ParseFunctionIdList(string idliststring)
         {
             var idlist = new List<int>();
 

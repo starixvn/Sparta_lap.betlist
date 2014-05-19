@@ -47,12 +47,27 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return this.SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
         }
 
         #region Utility
+
+        /// <summary>
+        /// Get total.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="homeColumnName">Home column name value.</param>
+        /// <param name="awayColumnName">Away column name value.</param>
+        /// <returns>Total value.</returns>
+        private static decimal GetTotal(IDataReader reader, string homeColumnName, string awayColumnName)
+        {
+            var homeValue = reader.ToDecimal(homeColumnName);
+            var awayValue = reader.ToDecimal(awayColumnName);
+
+            return homeValue - awayValue;
+        }
 
         /// <summary>
         /// Set data to list.
@@ -61,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>A list of Home/Draw/Away no bet.</returns>
-        private IList<HomeDrawAwayNoBet> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
+        private static IList<HomeDrawAwayNoBet> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HomeDrawAwayNoBet>();
 
@@ -88,30 +103,15 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     BetCountHomeNoBet = reader.ToInt("betcount_hnb"),
                     BetCountDrawNoBet = reader.ToInt("betcount_dnb"),
                     BetCountAwayNoBet = reader.ToInt("betcount_anb"),
-                    HomeNoBet = this.GetTotal(reader, homOddsHnb, awayOddsHnb),
-                    DrawNoBet = this.GetTotal(reader, homeOddsDnb, awayOddsDnb),
-                    AwayNoBet = this.GetTotal(reader, homeOddsAnb, awayOddsAnb)
+                    HomeNoBet = GetTotal(reader, homOddsHnb, awayOddsHnb),
+                    DrawNoBet = GetTotal(reader, homeOddsDnb, awayOddsDnb),
+                    AwayNoBet = GetTotal(reader, homeOddsAnb, awayOddsAnb)
                 };
 
                 dataList.Add(item);
             }
 
             return dataList;
-        }
-
-        /// <summary>
-        /// Get total.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="homeColumnName">Home column name value.</param>
-        /// <param name="awayColumnName">Away column name value.</param>
-        /// <returns>Total value.</returns>
-        private decimal GetTotal(IDataReader reader, string homeColumnName, string awayColumnName)
-        {
-            var homeValue = reader.ToDecimal(homeColumnName);
-            var awayValue = reader.ToDecimal(awayColumnName);
-
-            return homeValue - awayValue;
         }
 
         #endregion Utility

@@ -49,7 +49,7 @@ namespace Fanex.Athena.Service.Implement.Integration
             _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
         }
 
-        private string CurrentUserName
+        private static string CurrentUserName
         {
             get
             {

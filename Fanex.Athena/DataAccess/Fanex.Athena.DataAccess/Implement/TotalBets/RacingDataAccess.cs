@@ -54,6 +54,14 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 
         #region Utility
 
+        private static decimal GetRacingValue(DataRow dr, string com, string winLoss)
+        {
+            var comValue = Converter.ToDecimal(dr[com]);
+            var winLossValue = Converter.ToDecimal(dr[winLoss]);
+
+            return comValue + winLossValue;
+        }
+
         /// <summary>
         /// Get racing data.
         /// </summary>
@@ -63,7 +71,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private Racing GetRacingData(DataSet ds, bool isConvert, string baseCurrency)
+        private static Racing GetRacingData(DataSet ds, bool isConvert, string baseCurrency)
         {
             var matchTable = ds.Tables.Count > 0 ? ds.Tables[0] : new DataTable();
             var totalTable = ds.Tables.Count > 1 ? ds.Tables[1] : new DataTable();
@@ -132,14 +140,6 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return racingData;
-        }
-
-        private decimal GetRacingValue(DataRow dr, string com, string winLoss)
-        {
-            var comValue = Converter.ToDecimal(dr[com]);
-            var winLossValue = Converter.ToDecimal(dr[winLoss]);
-
-            return comValue + winLossValue;
         }
 
         #endregion Utility

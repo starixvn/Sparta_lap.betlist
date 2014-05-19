@@ -121,13 +121,13 @@ namespace Fanex.Athena.Service.Implement.Users
             return _authorizationDataAccess.IsCustomerBelonging(licenseeSession.LicenseeId, custId, transId);
         }
 
-        private string GetExecutionUrl(string rawUrl)
+        private static string GetExecutionUrl(string rawUrl)
         {
             var index = rawUrl.IndexOf("?", System.StringComparison.Ordinal);
             return index > 0 ? rawUrl.Substring(0, index) : rawUrl;
         }
 
-        private NameValueCollection GetUrlParameters(string rawUrl)
+        private static NameValueCollection GetUrlParameters(string rawUrl)
         {
             var index = rawUrl.IndexOf("?", System.StringComparison.Ordinal);
             var query = index > 0 ? rawUrl.Substring(index + 1) : string.Empty;
@@ -143,7 +143,7 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <param name="rawUrl">The url which need be checked.</param>
         /// <param name="urlPattern">The url pattern.</param>
         /// <returns>Can map url.</returns>
-        private bool CanMapUrl(string rawUrl, string urlPattern)
+        private static bool CanMapUrl(string rawUrl, string urlPattern)
         {
             if (urlPattern.Length == 0)
             {

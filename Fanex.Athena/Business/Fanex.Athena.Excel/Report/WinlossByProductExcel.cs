@@ -182,7 +182,7 @@ namespace Fanex.Athena.Excel.Report
 
                 WinLossByProduct winlossByProduct = _winlossByProductList[index];
 
-                indexReport = SetDateWinLoss(sheet, row, winlossByProduct, indexReport, ref date, ref currentRow);
+                indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
 
                 IRow rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
@@ -283,7 +283,31 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
+        /// <summary>
+        ///     Get array template rows.
+        /// </summary>
+        /// <param name="nameOfRow">Name of row.</param>
+        /// <returns>Row number list.</returns>
+        protected static int[] GetRowNumberFromTemplate(string nameOfRow)
+        {
+            var numberRowList = new[] { 4, 5, 6, 7 };
+            switch (nameOfRow)
+            {
+                case "RowTotalHeader":
+                    return new[] { 8, 9, 10, 11 };
+                case "RowTotal":
+                    return new[] { 12, 13, 14, 15 };
+                case "RowTotalInEURHeader":
+                    return new[] { 16, 17, 18, 19 };
+                case "RowTotalInEUR":
+
+                    return new[] { 20, 21, 22, 23 };
+            }
+
+            return numberRowList;
+        }
+
+        protected static void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByProduct.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(winlossByProduct.TotalTransaction);
@@ -395,30 +419,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        ///     Get array template rows.
-        /// </summary>
-        /// <param name="nameOfRow">Name of row.</param>
-        /// <returns>Row number list.</returns>
-        protected int[] GetRowNumberFromTemplate(string nameOfRow)
-        {
-            var numberRowList = new[] { 4, 5, 6, 7 };
-            switch (nameOfRow)
-            {
-                case "RowTotalHeader":
-                    return new[] { 8, 9, 10, 11 };
-                case "RowTotal":
-                    return new[] { 12, 13, 14, 15 };
-                case "RowTotalInEURHeader":
-                    return new[] { 16, 17, 18, 19 };
-                case "RowTotalInEUR":
-
-                    return new[] { 20, 21, 22, 23 };
-            }
-
-            return numberRowList;
-        }
-
-        /// <summary>
         /// Calculate row span for a group of currency and product.
         /// </summary>
         /// <param name="winlossByProduct">The full data list.</param>
@@ -466,7 +466,6 @@ namespace Fanex.Athena.Excel.Report
         /// Set win loss date for report row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        /// <param name="row">Excel row.</param>
         /// <param name="winlossByProduct">Win loss by product data.</param>
         /// <param name="indexReport">Report index value.</param>
         /// <param name="date">Win loss date.</param>
@@ -474,7 +473,6 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The row index after assign data.</returns>
         protected int SetDateWinLoss(
             ISheet sheet,
-            IRow row,
             WinLossByProduct winlossByProduct,
             int indexReport,
             ref string date,

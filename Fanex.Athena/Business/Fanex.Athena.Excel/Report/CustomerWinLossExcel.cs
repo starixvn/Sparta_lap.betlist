@@ -44,7 +44,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<CustomerWinLoss> _customerWinlossList;
         private readonly CustomerWinLoss _total;
-        private readonly CustomerWinLossViewModel _viewModel;        
+        private readonly CustomerWinLossViewModel _viewModel;
 
         public CustomerWinLossExcel(
                                     string templatePath,
@@ -145,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>Row index.</returns>
         public override int AssignSheetData(ISheet sheet, int startIndex)
         {
-            int rowCount = Math.Min(_customerWinlossList.Count, (startIndex + 1) * PageSize);
+            int rowCount = Math.Min(_customerWinlossList.Count, checked((startIndex + 1) * PageSize));
             int rowIndex = 0;
 
             for (int index = startIndex * PageSize; index < rowCount; index++)
@@ -222,13 +222,25 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
+        /// Merge cells in total rows.
+        /// </summary>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="row">The first total row.</param>
+        /// <param name="rowTotalNumber">The last total row index.</param>
+        protected static void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
+        {
+            sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
+            row.Cells[0].SetCellValue(ViewResources.Total);
+        }
+
+        /// <summary>
         /// Assign total data to summary row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="startIndex">Start index.</param>
         protected void AssignSumData(ISheet sheet, int startIndex)
         {
-            int rowTotalNumber = startIndex + RowContentTemplate;
+            int rowTotalNumber = checked(startIndex + RowContentTemplate);
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotalNumber);
 
@@ -244,18 +256,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
 
             MergeTotalCell(sheet, row, rowTotalNumber);
-        }
-
-        /// <summary>
-        /// Merge cells in total rows.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="row">The first total row.</param>
-        /// <param name="rowTotalNumber">The last total row index.</param>
-        protected void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
-        {
-            sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
-            row.Cells[0].SetCellValue(ViewResources.Total);
         }
     }
 }

@@ -47,21 +47,13 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Get data list after check product access
 
-        private List<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
-            IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
-        {
-            var listAfterCheckProduct = settledMatchCountList.Where(item => this.CheckProductAccess(item.SportType, productAccess)).ToList();
-
-            return this.ConvertDtoDataToViewData(listAfterCheckProduct);
-        }
-
         /// <summary>
         /// Check acceptable product based on sport type.
         /// </summary>
         /// <param name="sportType">The sport type.</param>
         /// <param name="productAccess">The products object.</param>
         /// <returns>True or false.</returns>
-        private bool CheckProductAccess(int sportType, ProductAccess productAccess)
+        private static bool CheckProductAccess(int sportType, ProductAccess productAccess)
         {
             if (sportType == (int)SportType.HorseRacing)
             {
@@ -105,7 +97,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="dtoData">The data list.</param>
         /// <returns>The view model.</returns>
-        private List<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
+        private static List<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
         {
             var resultList = dtoData.Where(x => x.IsToday == 0)
                                     .Select(i => new SettledMatchCountViewModel
@@ -151,6 +143,14 @@ namespace Fanex.Athena.Service.Implement.Report
         }
 
         #endregion Convert DTO data to View data for display
+
+        private List<SettledMatchCountViewModel> GetDataListAfterCheckProductAccess(
+         IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
+        {
+            var listAfterCheckProduct = settledMatchCountList.Where(item => CheckProductAccess(item.SportType, productAccess)).ToList();
+
+            return ConvertDtoDataToViewData(listAfterCheckProduct);
+        }
 
         #endregion Utility
     }

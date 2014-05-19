@@ -47,11 +47,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     db.AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
 
-                    this.AddResultParam(db);
+                    AddResultParam(db);
                     db.ExecuteNonQuery();
 
                     isAllow = Convert.ToBoolean(db.GetParameterValue("isallow"));
-                    return this.GetResult(db);
+                    return GetResult(db);
                 }
             }
             catch (SqlException sqlException)

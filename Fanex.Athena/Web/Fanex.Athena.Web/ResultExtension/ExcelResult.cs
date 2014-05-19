@@ -24,16 +24,6 @@ namespace Fanex.Athena.Web.ResultExtension
             this._fileName = fileName;
         }
 
-        protected string ContentType
-        {
-            get { return "application/vnd.ms-excel"; }
-        }
-
-        protected string Extension
-        {
-            get { return ".xls"; }
-        }
-
         /// <summary>
         /// Execute result.
         /// </summary>
@@ -42,8 +32,8 @@ namespace Fanex.Athena.Web.ResultExtension
         {
             var response = context.HttpContext.Response;
             response.Clear();
-            response.ContentType = this.ContentType;
-            response.AddHeader("Content-disposition", "attachment; filename=" + this._fileName + this.Extension);
+            response.ContentType = "application/vnd.ms-excel";
+            response.AddHeader("Content-disposition", "attachment; filename=" + this._fileName + ".xls");
             this._hssfWorkBook.Write(response.OutputStream);
         }
     }

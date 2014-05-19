@@ -154,7 +154,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             return success;
         }
 
-        #endregion
+        #endregion Commission
 
         #region Ultilities
 
@@ -188,6 +188,70 @@ namespace Fanex.Athena.Service.Implement.Casino
                 RNGCasinoSetting._CASINO_GROUP1,
                 metalModel.IsShowPic);
             }
+        }
+
+        /// <summary>
+        /// Get value by base currency.
+        /// </summary>
+        /// <param name="originValue">The original value.</param>
+        /// <param name="exchangeRate">The exchange rate.</param>
+        /// <param name="currency">The base currency.</param>
+        /// <returns>The converted value.</returns>
+        private static decimal GetBaseCurrencyValue(string originValue, ExChangeRate exchangeRate, string currency)
+        {
+            var rate = GetExchangeRate(exchangeRate, currency);
+            try
+            {
+                if (!string.IsNullOrEmpty(originValue))
+                {
+                    var array = originValue.Split(' ').ToList();
+                    if (array.Any())
+                    {
+                        return Converter.ToDecimal(array.LastOrDefault()) * rate;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Get coin size value by currency.
+        /// </summary>
+        /// <param name="originValue">The original value.</param>
+        /// <param name="exchangeRate">The exchange rate.</param>
+        /// <param name="currency">The base currency.</param>
+        /// <returns>The converted value.</returns>
+        private static string GetCoinSizeByBaseCurrency(string originValue, ExChangeRate exchangeRate, string currency)
+        {
+            var rate = GetExchangeRate(exchangeRate, currency);
+
+            if (!string.IsNullOrEmpty(originValue))
+            {
+                var array = originValue.Split(' ');
+                if (array.Length > 3)
+                {
+                    return (Converter.ToDecimal(array[1]) * rate) + " " + array[2] + array[3];
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private static string GetDataRowExtension(DataRow row, string columnName)
+        {
+            return row.Table.Columns.Contains(columnName) ? row[columnName].ToString() : string.Empty;
+        }
+
+        private static string GetDataRowExtensionMultiple(DataRow row, string columnName, string extColumnName)
+        {
+            return row.Table.Columns.Contains(columnName) ? row[columnName].ToString()
+                    : row.Table.Columns.Contains(extColumnName) ? row[extColumnName].ToString()
+                    : string.Empty;
         }
 
         /// <summary>
@@ -249,35 +313,6 @@ namespace Fanex.Athena.Service.Implement.Casino
         }
 
         /// <summary>
-        /// Get value by base currency.
-        /// </summary>
-        /// <param name="originValue">The original value.</param>
-        /// <param name="exchangeRate">The exchange rate.</param>
-        /// <param name="currency">The base currency.</param>
-        /// <returns>The converted value.</returns>
-        private decimal GetBaseCurrencyValue(string originValue, ExChangeRate exchangeRate, string currency)
-        {
-            var rate = GetExchangeRate(exchangeRate, currency);
-            try
-            {
-                if (!string.IsNullOrEmpty(originValue))
-                {
-                    var array = originValue.Split(' ').ToList();
-                    if (array.Any())
-                    {
-                        return Converter.ToDecimal(array.LastOrDefault()) * rate;
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-            }
-
-            return 0;
-        }
-
-        /// <summary>
         /// Get columns by language.
         /// </summary>
         /// <param name="columnName">The original column name.</param>
@@ -304,43 +339,6 @@ namespace Fanex.Athena.Service.Implement.Casino
 
             return columnName + langKey;
         }
-
-        /// <summary>
-        /// Get coin size value by currency.
-        /// </summary>
-        /// <param name="originValue">The original value.</param>
-        /// <param name="exchangeRate">The exchange rate.</param>
-        /// <param name="currency">The base currency.</param>
-        /// <returns>The converted value.</returns>
-        private string GetCoinSizeByBaseCurrency(string originValue, ExChangeRate exchangeRate, string currency)
-        {
-            var rate = GetExchangeRate(exchangeRate, currency);
-
-            if (!string.IsNullOrEmpty(originValue))
-            {
-                var array = originValue.Split(' ');
-                if (array.Length > 3)
-                {
-                    return (Converter.ToDecimal(array[1]) * rate) + " " + array[2] + array[3];
-                }
-            }
-
-            return string.Empty;
-        }
-
-        private string GetDataRowExtension(DataRow row, string columnName)
-        {
-            return row.Table.Columns.Contains(columnName) ? row[columnName].ToString() : string.Empty;
-        }
-
-        private string GetDataRowExtensionMultiple(DataRow row, string columnName, string extColumnName)
-        {
-            return row.Table.Columns.Contains(columnName) ? row[columnName].ToString()
-                    : row.Table.Columns.Contains(extColumnName) ? row[extColumnName].ToString()
-                    : string.Empty;
-        }
-
-        #endregion Ultilities
 
         #region Map Data
 
@@ -455,5 +453,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         }
 
         #endregion Map Data
+
+        #endregion Ultilities
     }
 }

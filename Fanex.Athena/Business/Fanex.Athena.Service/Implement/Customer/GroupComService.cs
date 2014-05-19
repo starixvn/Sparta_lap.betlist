@@ -12,7 +12,6 @@ namespace Fanex.Athena.Service.Implement.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using CasinoLibrary.SBAgent;
     using Fanex.Athena.DataAccess.Implement.Customer;
     using Fanex.Athena.DataAccess.Interface.Customer;
     using Fanex.Athena.Models.DTO.Common;
@@ -39,8 +38,6 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// </summary>
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        private readonly Customer _customerApi;
-
         #endregion
 
         #region Constructors and Destructors
@@ -53,7 +50,6 @@ namespace Fanex.Athena.Service.Implement.Customer
         public GroupComService(IGroupComDataAccess groupDataAccess)
         {
             this._groupDataAccess = groupDataAccess;
-            this._customerApi = new Customer();
         }
 
         #endregion
@@ -227,7 +223,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             Justification = "Reviewed. Suppression is OK here.")]
         public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
         {
-            var testmsg = string.Empty;
             try
             {
                 IResultInfo dataResultInfo;
@@ -252,9 +247,9 @@ namespace Fanex.Athena.Service.Implement.Customer
 
                 if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
                 {
-                    var custtomerList = dataResultInfo.ExtendedData.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);                
+                    var custtomerList = dataResultInfo.ExtendedData.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     if (custtomerList.Length > 0)
-                    {                     
+                    {
                         var rngCasinoService = new RNGCasinoService();
                         callApiSuccess = rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
                         {
@@ -262,7 +257,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                             CustomerId = custtomerList,
                             FromIp = model.Ip,
                             ModifyBy = model.UserId,
-                            ModifyUserName = model.UserName                           
+                            ModifyUserName = model.UserName
                         });
                     }
                 }

@@ -434,7 +434,7 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #region Utility
 
-        private IResultInfo ErrorResult(string message)
+        private static IResultInfo ErrorResult(string message)
         {
             return new ResultInfo
             {
