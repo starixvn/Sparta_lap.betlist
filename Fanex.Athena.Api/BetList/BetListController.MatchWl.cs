@@ -32,14 +32,15 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic MatchWlMatchBetType(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             var uspKey = IsRacing(metaModel.BetType)
@@ -57,11 +58,12 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic MatchWlOutright(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
-                metaModel.UserId = SessionService.UserSession.UserId;
+                metaModel.UserId = userSession.UserId;
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -102,7 +104,8 @@ namespace Fanex.Athena.Api.BetList
             string sortBy = null,
             string sortOrder = null)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (currencyId == 0 || currencyList.Values.Contains(currencyId))
             {
@@ -125,7 +128,7 @@ namespace Fanex.Athena.Api.BetList
                 {
                     LicenseeType = licenseeType,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId,
+                    UserId = userSession.UserId,
                     CurrencyId = currencyId,
                     BetType = betType,
                     ProductOptions = productOptions,

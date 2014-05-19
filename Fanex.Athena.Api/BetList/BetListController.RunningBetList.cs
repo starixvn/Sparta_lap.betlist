@@ -36,14 +36,15 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic RunningBetList(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.UserId;
 
             const string UspKey = "Lrf_BetList_SelRunningByBettype";

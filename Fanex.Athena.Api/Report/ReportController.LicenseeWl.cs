@@ -89,16 +89,17 @@ namespace Fanex.Athena.Api.Report
         private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             const string FileName = "LicenseeWinLoss.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencyList = userSession.CurrencyList;
             var showingOption = new ShowingOption
             {
                 BaVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.Ba) && productAccess.IsAllowBa,
                 RbVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.Rb) && productAccess.IsAllowRb,
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));

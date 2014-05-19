@@ -38,14 +38,15 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic LiveReportMatch(LiveReportBetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
@@ -61,11 +62,12 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic LiveReportOutright(LiveReportBetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
-                metaModel.UserId = SessionService.UserSession.UserId;
+                metaModel.UserId = userSession.UserId;
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
@@ -112,7 +114,8 @@ namespace Fanex.Athena.Api.BetList
             string sortBy = null,
             string sortOrder = null)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (currencyId == 0 || currencyList.Values.Contains(currencyId))
             {
@@ -130,7 +133,7 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = SessionService.UserSession.UserId,
+                    UserId = userSession.UserId,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId
                 };
 
@@ -179,7 +182,8 @@ namespace Fanex.Athena.Api.BetList
             string sortBy = null,
             string sortOrder = null)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (currencyId == 0 || currencyList.Values.Contains(currencyId))
             {
@@ -211,7 +215,7 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = SessionService.UserSession.UserId,
+                    UserId = userSession.UserId,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId
                 };
 
@@ -262,7 +266,8 @@ namespace Fanex.Athena.Api.BetList
             const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";
             const string UspKeyVHRacing = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var currencyList = userSession.CurrencyList;
 
             if (currencyId == 0 || currencyList.Values.Contains(currencyId))
             {
@@ -279,7 +284,7 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = SessionService.UserSession.UserId,
+                    UserId = userSession.UserId,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     SportType = sportType
                 };

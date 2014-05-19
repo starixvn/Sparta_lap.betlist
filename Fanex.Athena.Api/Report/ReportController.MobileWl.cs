@@ -69,8 +69,9 @@ namespace Fanex.Athena.Api.Report
         {
             const string FileName = "MobileWinLoss.xls";
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno);
 
             var showingOption = new ShowingOption
                 {
@@ -105,10 +106,10 @@ namespace Fanex.Athena.Api.Report
                     SummaryTotal = summaryTotal,
                     TotalResult = _mobileWinLossService.TotalCalc(dataList),
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     ProductAccess = productAccess,
                     Colspan = 7 + (productAccess.IsAllowBa ? 2 : 0) + (productAccess.IsAllowRb ? 2 : 0),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
                 };
 
             var mobileWinLossExcel = new MobileWinLossExcel(templatePath, FileName, exccelModel, showingOption, convertingOption);

@@ -128,7 +128,8 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "WinLossByProduct.xls";
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var userSession = SessionService.UserSession;
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             metaModel.FromDate = metaModel.Level == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
             metaModel.ToDate = metaModel.Level == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
@@ -142,10 +143,10 @@ namespace Fanex.Athena.Api.Report
                 SbVisible = productAccess.IsAllowSB,
                 VsVisible = productAccess.IsAllowVs,
                 KnVisible = productAccess.IsAllowKN,
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencyList = userSession.CurrencyList;
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             var convertingOption = new ConvertingOption
