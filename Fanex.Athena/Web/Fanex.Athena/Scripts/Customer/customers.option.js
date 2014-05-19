@@ -79,12 +79,12 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             var number = Number(cellValue);
             if (number === 0) {
-                return Site.formatDecimal(cellValue);
+                return jqGridAdditional.formatDecimal(cellValue);
             }
             else {
                 return "<a style='color: #1E1EEB' href=\"javascript:CustomerList.viewRunningBetlist(" + 
                     rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
-                    + Site.formatDecimal(cellValue) + "</a>";
+                    + jqGridAdditional.formatDecimal(cellValue) + "</a>";
             }
         }
     };

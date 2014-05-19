@@ -33,11 +33,6 @@ var Site = (function ($) {
                 Site.currencyConstraint(true);
             });
         },       
-        formatDecimal: function (number) {
-            return Number(number).toFixed(2).replace(/./g, function (c, i, a) {
-                return i && c !== "." && !((a.length - i) % 3) ? ',' + c : c;
-            });
-        },
         asNull: function (text) {
             if (text != null) {
                 text = text.trim();
