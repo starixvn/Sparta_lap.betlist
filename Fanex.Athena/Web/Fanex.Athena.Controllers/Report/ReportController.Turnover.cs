@@ -34,17 +34,18 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Turnover()
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var metaModel = new TurnoverMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                UserId = SessionService.UserSession.UserId,
+                UserId = userSession.UserId,
             };
 
             SetConvetedUSDCurrencyName(metaModel);
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.Ba) == false)
                                              .Select(i => new ProductOption
                                                  {
@@ -61,8 +62,8 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     ProductAccess = productAccess,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
                 };
 
@@ -78,14 +79,16 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
 
             metaModel.Username = metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
 
             var dataList = _turnoverService.GetDataList(metaModel);
-            var licenseeSession = SessionService.LicenseeSession;
 
             var model = new TurnoverViewModel
                 {
@@ -94,8 +97,8 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     ProductAccess = productAccess,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    CurrencyList = userSession.CurrencyList,
                     IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
                 };
 

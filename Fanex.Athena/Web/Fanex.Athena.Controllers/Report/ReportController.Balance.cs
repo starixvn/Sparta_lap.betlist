@@ -40,10 +40,11 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Balance(BalanceMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             var reportData = _creditBalanceService.GetReportData(metaModel);
 
@@ -52,7 +53,7 @@ namespace Fanex.Athena.Controllers.Report
                     MainData = reportData,
                     Param = metaModel,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
+                    CurrencyList = userSession.CurrencyList,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
                 };

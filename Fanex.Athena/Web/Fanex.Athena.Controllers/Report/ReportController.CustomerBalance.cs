@@ -36,13 +36,16 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerBalance()
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
             var metaModel = new CustomerBalanceMetaModel
                 {
-                    LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
+                    LicenseeId = licenseeSession.LicenseeId,
                     CurrencyId = 0
                 };
 
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.Ba)
                                              .Select(i => new ProductOption
                                                  {
@@ -56,8 +59,8 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerBalanceViewModel
                 {
                     ShowEmptyContent = true,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     Param = metaModel,
@@ -87,15 +90,18 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerBalance(CustomerBalanceMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
             var model = new CustomerBalanceViewModel
                 {
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreBingo),
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo),
                     CurrencyList = SessionService.UserSession.CurrencyList,
                     Param = metaModel
                 };
