@@ -96,8 +96,8 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignTitle(ISheet sheet)
         {
             var metaModel = _viewModel.Param;
-            var fromdate = metaModel.FromDate.ToString(FormatDate);
-            var todate = metaModel.ToDate.ToString(FormatDate);
+            var fromdate = metaModel.Level == 0 ? metaModel.FromDate.ToString(FormatDate) : metaModel.DrillDownFromDate.ToString(FormatDate);
+            var todate = metaModel.Level == 0 ? metaModel.ToDate.ToString(FormatDate) : metaModel.DrillDownToDate.ToString(FormatDate);
             var title = metaModel.Level > 0 && metaModel.CurrencyId == 0
                 ? GetExactTitleCurrencyName(metaModel.DrillDownCurrency)
                 : GetExactTitleCurrencyName(metaModel.CurrencyId);
