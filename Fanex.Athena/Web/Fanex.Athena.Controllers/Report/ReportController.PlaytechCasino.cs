@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -67,6 +68,10 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [FunctionAuthorization]
         [ValidateInput(false)]
+        [SuppressMessage(
+          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult PlaytechCasinoWinloss(PlaytechCasinoMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
