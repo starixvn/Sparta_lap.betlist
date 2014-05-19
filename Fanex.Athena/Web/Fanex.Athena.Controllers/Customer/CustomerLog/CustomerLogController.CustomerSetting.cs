@@ -26,7 +26,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// <returns>Customer setting log view.</returns>
         public ActionResult CustomerSetting()
         {
-            var productOption = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var licenseeSession = SessionService.LicenseeSession;
+            var productOption = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var model = new CustomerLogViewModel
             {
@@ -35,7 +36,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             };
 
             model.Param.IsAllowBA = productOption.IsAllowBa;
-            model.Param.IsAllowCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            model.Param.IsAllowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return View("~/Views/Customer/CustomerLog/CustomerSettingLog/Main.cshtml", model);
         }

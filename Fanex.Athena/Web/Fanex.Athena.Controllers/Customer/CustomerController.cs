@@ -74,16 +74,15 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult CustomerList(string userName = "", int groupId = -1)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
             var metaModel = new CustomerListMetaModel
                         {
                             Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
                             GroupCommId = groupId,
                             LicenseeId = licenseeSession.LicenseeId,
-                            UserId = SessionService.UserSession.UserId,
+                            UserId = userSession.UserId,
                             AllowLicensees = allowLicensees,
                             GridColumns = this.IniGridColumns(productAccess, allowLicensees)
                         };
@@ -105,8 +104,7 @@ namespace Fanex.Athena.Controllers.Customer
         [FunctionAuthorization]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
@@ -139,13 +137,15 @@ namespace Fanex.Athena.Controllers.Customer
                 CustomerListMetaModel metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
                 if (metaModel != null)
                 {
-                    metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                    metaModel.UserId = SessionService.UserSession.UserId;
+                    var licenseeSession = SessionService.LicenseeSession;
+                    var userSession = SessionService.UserSession;
+                    metaModel.LicenseeId = licenseeSession.LicenseeId;
+                    metaModel.UserId = userSession.UserId;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
 
                     if (metaModel.GridColumns.Where(i => i.Checked).Count() > 0)
                     {
-                        var model = GetCustomers(metaModel, SessionService.LicenseeSession, SessionService.UserSession);
+                        var model = GetCustomers(metaModel, licenseeSession, userSession);
                         var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
                         var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
                         if (!System.IO.File.Exists(templatePath))
@@ -202,9 +202,9 @@ namespace Fanex.Athena.Controllers.Customer
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
         {
             var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = SessionService.UserSession.CurrencyList;
+            model.CurrencyList = userSession.CurrencyList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
             model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
             model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
@@ -245,11 +245,12 @@ namespace Fanex.Athena.Controllers.Customer
         private void SetValueForBaStatus(CustomerListViewModel model)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var specialBaPermission = SessionService.UserSession.IsAllowedSpecialBA;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var userSession = SessionService.UserSession;
+            var specialBaPermission = userSession.IsAllowedSpecialBA;
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var request = new Request
                 {
-                    Language = SessionService.UserSession.Language,
+                    Language = userSession.Language,
                     Ip = Request.UserHostAddress
                 };
             var canUpdateBa = specialBaPermission;

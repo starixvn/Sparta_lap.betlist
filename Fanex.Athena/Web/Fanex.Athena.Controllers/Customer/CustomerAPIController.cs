@@ -45,6 +45,7 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeService _licenseeService;
         private readonly IProductService _productService;
+
         #endregion Fields
 
         #region Constructor
@@ -128,6 +129,8 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
+            var userSession = SessionService.UserSession;
+
             var result = new ResultViewModel
             {
                 Success = false,
@@ -138,11 +141,11 @@ namespace Fanex.Athena.Controllers.Customer
             try
             {
                 var dataResult = _customerService.UpdateSpecialLevel(
-                    SessionService.UserSession.UserId,
+                    userSession.UserId,
                     custId,
                     level,
                     Request.UserHostAddress,
-                    SessionService.UserSession.Language);
+                    userSession.Language);
                 result = new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,
@@ -169,7 +172,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// Update customer BA status.
         /// </summary>
         /// <param name="custId">The customer id.</param>
-        /// <param name="isAllowBa">Allowed BA if ISALLOWBA equals true.</param>        
+        /// <param name="isAllowBa">Allowed BA if ISALLOWBA equals true.</param>
         /// <returns>The action result.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -180,7 +183,8 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult UpdateBaStatus(int custId, bool isAllowBa)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var userSession = SessionService.UserSession;
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             if (!productAccess.IsAllowBa)
             {
                 return Json(new
@@ -196,12 +200,12 @@ namespace Fanex.Athena.Controllers.Customer
 
             var request = new Request
                 {
-                    Language = SessionService.UserSession.Language,
+                    Language = userSession.Language,
 
                     Ip = Request.UserHostAddress
                 };
 
-            var specialBaPermission = SessionService.UserSession.IsAllowedSpecialBA;
+            var specialBaPermission = userSession.IsAllowedSpecialBA;
             if (!specialBaPermission)
             {
                 bool isAllowUpdateBa;
@@ -224,7 +228,7 @@ namespace Fanex.Athena.Controllers.Customer
             var updateResult = _customerService.UpdateCustomerBaStatus(
                 licenseeSession.LicenseeId,
                 custId,
-                SessionService.UserSession.UserId,
+                userSession.UserId,
                 isAllowBa,
                 request);
             if (updateResult.IsSuccessful)
@@ -282,18 +286,20 @@ namespace Fanex.Athena.Controllers.Customer
                               commList.Any(i => i.Value == metaModel.LCComm) &&
                               commList.Any(i => i.Value == metaModel.CSComm);
                 var licenseeSession = SessionService.LicenseeSession;
+                var userSession = SessionService.UserSession;
+
                 var productAccess =
-                    _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+                    _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
                 if (isvalid)
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
-                    metaModel.UserId = this.SessionService.UserSession.UserId;
+                    metaModel.UserId = userSession.UserId;
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNg;
                     metaModel.IsAllowedRC = productAccess.IsAllowRb;
                     metaModel.IsAllowedLC = productAccess.IsAllowLc;
                     metaModel.IsAllowedCS = productAccess.IsAllowCs;
-                    metaModel.Language = this.SessionService.UserSession.Language;
+                    metaModel.Language = userSession.Language;
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
                      * exclude groupId = -1, 0 (get all group or get none group)*/
@@ -356,7 +362,9 @@ namespace Fanex.Athena.Controllers.Customer
             if (isvalid)
             {
                 var licenseeSession = SessionService.LicenseeSession;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+                var userSession = SessionService.UserSession;
+
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
                 var currentGroup = _groupComService.GetById(groupCommId);
                 if (currentGroup != null)
                 {
@@ -371,7 +379,7 @@ namespace Fanex.Athena.Controllers.Customer
                     currentGroup.IsUpdateLC = productAccess.IsAllowLc;
                     currentGroup.IsUpdateCS = productAccess.IsAllowCs;
 
-                    _groupComService.UpdateGroup(currentGroup, request, SessionService.UserSession, out result);
+                    _groupComService.UpdateGroup(currentGroup, request, userSession, out result);
 
                     result.Message = result.Success ? ViewResources.MessageSuccess : ViewResources.Error;
                 }
@@ -402,11 +410,13 @@ namespace Fanex.Athena.Controllers.Customer
                 IsRemovePlayercomm = isRemovePlayercomm
             };
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var userSession = SessionService.UserSession;
+
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
-            metaModel.Language = SessionService.UserSession.Language;
+            metaModel.Language = userSession.Language;
             var temp = _customerService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCs);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
@@ -448,16 +458,16 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupComId = groupComId
             };
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var userSession = SessionService.UserSession;
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.IsAllowedNG = productAccess.IsAllowNg;
             metaModel.IsAllowedRC = productAccess.IsAllowRb;
             metaModel.IsAllowedLC = productAccess.IsAllowLc;
             metaModel.IsAllowedRNG = productAccess.IsAllowCs;
             metaModel.Ip = Request.UserHostAddress;
-            metaModel.Language = SessionService.UserSession.Language;
-
+            metaModel.Language = userSession.Language;
             var temp = _customerService.MoveCustomersToGroup(metaModel);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;

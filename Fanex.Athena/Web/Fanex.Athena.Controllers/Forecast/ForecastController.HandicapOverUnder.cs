@@ -26,16 +26,17 @@ namespace Fanex.Athena.Controllers.Forecast
         [FunctionAuthorization]
         public ActionResult ForecastHandicapOverUnder()
         {
+            var liceseeSession = SessionService.LicenseeSession;
             this._licenseeOfferNewForecastList = this.GetLicenseeOfferNewForecastList();
 
-            if (_licenseeOfferNewForecastList.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
+            if (_licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
             {
                 return this.RedirectToAction("NewForecastHdpOu");
             }
 
             var metaModel = new ForecastHdpOuMetaModel
             {
-                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                LicenseeId = liceseeSession.LicenseeId,
                 UserId = SessionService.UserSession.UserId
             };
 

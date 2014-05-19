@@ -92,7 +92,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
@@ -110,11 +109,9 @@ namespace Fanex.Athena.Controllers.Report
             ViewBag.TopCountList = GenerateTopCountList(metaModel.TopCount);
             ViewBag.OrderItemList = orderItemList;
             var firstOrDefault = orderItemList.FirstOrDefault(i => i.Value == metaModel.OrderItem.ToString(CultureInfo.InvariantCulture));
-            if (firstOrDefault
-                != null)
+            if (firstOrDefault != null)
             {
-                this.ViewBag.SortByText =
-                    firstOrDefault.Text;
+                this.ViewBag.SortByText = firstOrDefault.Text;
             }
 
             var isExportedExcel = Request.Form["exporttoexcel.x"];

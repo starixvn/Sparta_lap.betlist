@@ -55,11 +55,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>Result value.</returns>
         public JsonResult UpdateLiveCasinoStatus(int custId, string nickName, int status)
         {
-            var userId = SessionService.UserSession.UserId;
-            var ip = Request.UserHostAddress;
-
-            var language = SessionService.UserSession.Language;
-            var result = _betSettingService.UpdateLiveCasinoStatus(userId, custId, status, language, ip);
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language,  Request.UserHostAddress);
 
             if (result.Code == 0)
             {
@@ -78,11 +75,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>Result value.</returns>
         public JsonResult UpdateRngCasinoStatus(int custId, string nickName, int status)
         {
-            var userId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
             var userName = SessionService.UserSession.UserName;
-            var ip = Request.UserHostAddress;
             var language = SessionService.UserSession.Language;
-            var result = _betSettingService.UpdateRngCasinoStatus(userId, custId, status, language, ip, userName);
+            var result = _betSettingService.UpdateRngCasinoStatus(
+                userSession.UserId, 
+                custId, 
+                status, 
+                userSession.Language,
+                Request.UserHostAddress, 
+                userSession.UserName);
 
             if (result.Code == 0)
             {
@@ -231,11 +233,10 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public JsonResult UpdateLiveCasinoBetSetting(string nickName)
         {
-            var userId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
             var custId = int.Parse(HttpContext.Request["custid"]);
             var ip = Request.UserHostAddress;
 
-            var language = SessionService.UserSession.Language;
             var gameTypeCount = int.Parse(HttpContext.Request["gameTypeCount"]);
 
             var liveCasinoBetSetting = new List<LiveCasinoBetSetting>();
@@ -259,7 +260,7 @@ namespace Fanex.Athena.Controllers.Customer
                 liveCasinoBetSetting.Add(liveCasino);
             }
 
-            var result = _betSettingService.UpdateLiveCasinoBetSetting(userId, custId, liveCasinoBetSetting, ip, language);
+            var result = _betSettingService.UpdateLiveCasinoBetSetting(userSession.UserId, custId, liveCasinoBetSetting, ip, userSession.Language);
 
             if (result.Code == 0)
             {
@@ -323,12 +324,13 @@ namespace Fanex.Athena.Controllers.Customer
         [NonAction]
         private CommonBetSetting GetBetSettingCommonParam()
         {
+            var userSession = SessionService.UserSession;
             var commonItem = new CommonBetSetting
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     Ip = Request.UserHostAddress,
-                    Language = SessionService.UserSession.Language,
-                    UserId = SessionService.LicenseeSession.UserId,
+                    Language = userSession.Language,
+                    UserId = userSession.UserId,
                     CustId = int.Parse(Request["custid"])
                 };
 

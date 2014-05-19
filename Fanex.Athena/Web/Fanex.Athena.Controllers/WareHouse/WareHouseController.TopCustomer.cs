@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.WareHouse
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
@@ -25,7 +24,7 @@ namespace Fanex.Athena.Controllers.WareHouse
     public partial class WareHouseController
     {
         private ISportTypeService _sportTypeService;
-                
+
         /// <summary>
         /// The top customer report.
         /// </summary>
@@ -39,12 +38,13 @@ namespace Fanex.Athena.Controllers.WareHouse
             _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
 
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new TopCustomerMetaModel { LicenseeId = licenseeId };
             metaModel.FromDate = metaModel.ToDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencyList = userSession.CurrencyList;
             var sportList = _sportTypeService.GetAllWHSports();
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
             var model = new TopCustomerViewModel
                 {
@@ -68,18 +68,18 @@ namespace Fanex.Athena.Controllers.WareHouse
         [HttpPost]
         public ActionResult ExportExcel(TopCustomerMetaModel metaModel)
         {
+            var userSession = SessionService.UserSession;
             const string FileName = "TopCustomer";
             const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.UserId = userSession.UserId;
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
-            var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
                 {
                     BaVisible = productAccess.IsAllowBa,
                     RbVisible = productAccess.IsAllowRb,
-                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     NgVisible = productAccess.IsAllowNg,
                     SbVisible = productAccess.IsAllowSB
                 };
@@ -126,7 +126,8 @@ namespace Fanex.Athena.Controllers.WareHouse
         [FunctionAuthorization]
         public ActionResult TopCustomer(TopCustomerMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
             _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
 
             if (metaModel.IsExportExcel)
@@ -134,14 +135,12 @@ namespace Fanex.Athena.Controllers.WareHouse
                 return ExportExcel(metaModel);
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-
             /*Set default values*/
             var model = new TopCustomerViewModel
                 {
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
+                    CurrencyList = userSession.CurrencyList,
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                     SportList = _sportTypeService.GetAllWHSports(),
                 };

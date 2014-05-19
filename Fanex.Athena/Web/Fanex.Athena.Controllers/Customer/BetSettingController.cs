@@ -141,13 +141,13 @@ namespace Fanex.Athena.Controllers.Customer
         [NonAction]
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
         {
-            var licenceeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.LicenessId = licenceeId;
-            var userId = SessionService.UserSession.UserId;
-            var licenseeList = _licenseeService.GetByResellerId(userId, BopingResellerId);
-            metaModel.Editable = licenseeList.Contains(licenceeId) || metaModel.LicenessId == Licensee12Bet ||
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            metaModel.LicenessId = licenseeSession.LicenseeId;
+            var licenseeList = _licenseeService.GetByResellerId(userSession.UserId, BopingResellerId);
+            metaModel.Editable = licenseeList.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
                                  metaModel.LicenessId == LicenseeSpondemo;
-            var productAccess = this._productService.GetProductAccess(licenceeId, SessionService.UserSession.Language);
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
             metaModel.IsAllowRacing = productAccess.IsAllowRb;            
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVs;
@@ -157,7 +157,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLc && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
 
-            ViewBag.HasCustComm = SessionService.LicenseeSession != null && SessionService.LicenseeSession.IsAllowedCustomerComm;
+            ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
         }
 

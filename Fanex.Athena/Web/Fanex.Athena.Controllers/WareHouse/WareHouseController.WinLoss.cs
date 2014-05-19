@@ -31,12 +31,14 @@ namespace Fanex.Athena.Controllers.WareHouse
         [HttpGet]
         public ActionResult WinLoss()
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            var licenseeId = licenseeSession.LicenseeId;
+            var currencyList = userSession.CurrencyList;
             var metaModel = new WinLossMetaModel { LicenseeId = licenseeId };
             metaModel.FromDate = metaModel.ToDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
 
-            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
             var model = new WinLossViewModel
                 {
@@ -44,7 +46,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                     Param = metaModel,
                     CurrencyList = currencyList,
                     ProductAccess = productAccess,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
                 };
 
             ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
@@ -62,9 +64,10 @@ namespace Fanex.Athena.Controllers.WareHouse
             const string FileName = "WinLoss";
             const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
                 {
                     BaVisible = productAccess.IsAllowBa,
@@ -116,7 +119,8 @@ namespace Fanex.Athena.Controllers.WareHouse
         [HttpPost]
         public ActionResult WinLoss(WinLossMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
             if (metaModel.IsExportExcel)
             {
                 return ExportExcel(metaModel);
@@ -126,8 +130,8 @@ namespace Fanex.Athena.Controllers.WareHouse
             var model = new WinLossViewModel
                 {
                     Param = metaModel,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
+                    CurrencyList = userSession.CurrencyList,
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 

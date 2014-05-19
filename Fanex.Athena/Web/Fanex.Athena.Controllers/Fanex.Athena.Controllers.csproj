@@ -182,7 +182,9 @@
     <Compile Include="HomeController.cs" />
     <Compile Include="Report\ReportController.CustomerPendingFunds.cs" />
     <Compile Include="Report\ReportController.CustomerWinloss.cs" />
-    <Compile Include="Report\ReportController.CustomerBalance.cs" />
+    <Compile Include="Report\ReportController.CustomerBalance.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Report\ReportController.CustomerTurnover.cs" />
     <Compile Include="Report\ReportController.LicenseeWinLoss.cs" />
     <Compile Include="Report\ReportController.DailyRacingWinLoss.cs" />

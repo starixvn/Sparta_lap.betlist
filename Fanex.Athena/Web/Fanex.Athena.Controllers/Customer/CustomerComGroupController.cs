@@ -120,8 +120,9 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         public ActionResult Create(GroupCommMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
             var result = new ResultViewModel { Success = false };
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
             if (ModelState.IsValid)
             {
                 /*Check valid group name (exclude 'None')*/
@@ -145,7 +146,7 @@ namespace Fanex.Athena.Controllers.Customer
                             Language = SessionService.UserSession.Language,
                             Ip = Request.UserHostAddress
                         };
-                    _customerComService.InsertGroup(metaModel, request, SessionService.LicenseeSession.UserId, out result);
+                    _customerComService.InsertGroup(metaModel, request, licenseeSession.UserId, out result);
                     GetCreateErrorMessage(result);
                 }
                 else
@@ -223,6 +224,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var result = new ResultViewModel();
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             
             if (ModelState.IsValid)
@@ -246,13 +248,13 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var request = new Request
                     {
-                        Language = SessionService.UserSession.Language,
+                        Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };                    
                     var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
                     if (currentGroup != null && !currentGroup.Equals(metaModel))
-                    {                        
-                        _customerComService.UpdateGroup(metaModel, request, SessionService.UserSession, out result);
+                    {
+                        _customerComService.UpdateGroup(metaModel, request, userSession, out result);
                         
                         if (string.IsNullOrWhiteSpace(result.ErrorMessage))
                         {
@@ -296,17 +298,18 @@ namespace Fanex.Athena.Controllers.Customer
             if (ModelState.IsValid)
             {
                 var licenseeSession = SessionService.LicenseeSession;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+                var userSession = SessionService.UserSession;
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
                 _customerComService.DeleteGroup(
                     new DeleteGroupMetaModel()
                     {
                         GroupId = groupId,
                         LicenseeId = licenseeSession.LicenseeId,
-                        UserId = SessionService.UserSession.UserId,
-                        UserName = SessionService.UserSession.UserName,
+                        UserId = userSession.UserId,
+                        UserName = userSession.UserName,
                         Ip = Request.UserHostAddress,
-                        Language = SessionService.UserSession.Language,
+                        Language = userSession.Language,
                         IsRemoveCommSetting = isRemovePlayerComm,
                         IsAllowedCSComm = productAccess.IsAllowCs,
                         IsResetDefault = isResetDefault

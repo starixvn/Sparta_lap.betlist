@@ -46,11 +46,12 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult RunningBetList(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel = CreateDefaultMetaModel(metaModel);
             
             if (metaModel.IsExportExcel)
             {
-                var currencyList = SessionService.UserSession.CurrencyList;
+                var currencyList = userSession.CurrencyList;
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
@@ -68,7 +69,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = SessionService.UserSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
+                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
