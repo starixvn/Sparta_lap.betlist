@@ -76,8 +76,6 @@ namespace Fanex.Athena.Controllers.Customer
         public JsonResult UpdateRngCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
-            var userName = SessionService.UserSession.UserName;
-            var language = SessionService.UserSession.Language;
             var result = _betSettingService.UpdateRngCasinoStatus(
                 userSession.UserId, 
                 custId, 
