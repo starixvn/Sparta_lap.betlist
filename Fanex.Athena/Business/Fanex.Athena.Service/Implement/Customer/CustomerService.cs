@@ -189,7 +189,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                         callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
                         {
                             Comm = groupInfo.CSComm,
-                            CustomerId = metalModel.Customers.Select(x => x.ToString()).ToArray(),
+                            CustomerId = customerIds,
                             FromIp = metalModel.Ip,
                             ModifyBy = user.UserId,
                             ModifyUserName = user.UserName
