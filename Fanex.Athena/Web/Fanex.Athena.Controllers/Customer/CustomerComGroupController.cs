@@ -101,7 +101,7 @@ namespace Fanex.Athena.Controllers.Customer
             var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
             var model = new GroupCommMetaModel
                 {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                    LicenseeId = licenseeSession.LicenseeId,
                     IsUpdateNG = productAccess.IsAllowNg,
                     IsUpdateRacing = productAccess.IsAllowRb,
                     IsUpdateLC = productAccess.IsAllowLc,
@@ -196,7 +196,7 @@ namespace Fanex.Athena.Controllers.Customer
             var model = _customerComService.GetById(groupId);
             if (model != null)
             {
-                model.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                model.LicenseeId = licenseeSession.LicenseeId;
                 model.IsUpdateNG = productAccess.IsAllowNg;
                 model.IsUpdateRacing = productAccess.IsAllowRb;
                 model.IsUpdateLC = productAccess.IsAllowLc;
@@ -372,7 +372,7 @@ namespace Fanex.Athena.Controllers.Customer
                     CsVisible = productAccess.IsAllowCs
                 };
 
-            var mainTable = _customerComService.GetDataForExcel(SessionService.LicenseeSession.LicenseeId);
+            var mainTable = _customerComService.GetDataForExcel(licenseeSession.LicenseeId);
 
             var custmerCommGroupExcel = new CustomerCommGroup(templatePath, FileName, mainTable, showingOption);
 

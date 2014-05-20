@@ -44,12 +44,12 @@ namespace Fanex.Athena.Controllers.Forecast
         public ActionResult NewForecastHdpOu(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
             this._licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
-
-            if (this._licenseeOfferNewForecastList.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            if (this._licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
             {
                 var metaModel = new NewForecastHdpOuMetaModel
                 {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                    LicenseeId = licenseeId,
                     UserId = SessionService.UserSession.UserId,
                     MatchId = matchId,
                     CurrencyId = currencyId,

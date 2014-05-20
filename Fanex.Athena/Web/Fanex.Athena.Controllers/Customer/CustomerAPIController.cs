@@ -343,6 +343,9 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+
             var result = new ResultViewModel
                 {
                     Success = false,
@@ -350,7 +353,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
             var request = new Request
                 {
-                    Language = SessionService.UserSession.Language,
+                    Language = userSession.Language,
                     Ip = Request.UserHostAddress
                 };
 
@@ -361,9 +364,6 @@ namespace Fanex.Athena.Controllers.Customer
                           commList.Any(i => i.Value == rngcomm);
             if (isvalid)
             {
-                var licenseeSession = SessionService.LicenseeSession;
-                var userSession = SessionService.UserSession;
-
                 var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
                 var currentGroup = _groupComService.GetById(groupCommId);
                 if (currentGroup != null)

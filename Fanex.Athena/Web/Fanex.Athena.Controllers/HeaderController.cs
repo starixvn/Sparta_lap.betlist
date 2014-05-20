@@ -88,9 +88,10 @@ namespace Fanex.Athena.Controllers
         {
             // Kick-out
             IUserService userService = new UserService();
-            if (SessionService.UserSession != null)
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
             {
-                userService.Logout(SessionService.UserSession.OnUserId);
+                userService.Logout(userSession.OnUserId);
             }
 
             Session.Clear();

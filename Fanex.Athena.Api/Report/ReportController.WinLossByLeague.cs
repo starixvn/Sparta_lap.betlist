@@ -111,9 +111,7 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Report data list.</returns>
         private IList<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var licenseeId = licenseeSession.LicenseeId;
-            metaModel.LicenseeId = licenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;

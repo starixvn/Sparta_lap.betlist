@@ -173,7 +173,8 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult SelectLicensee(int? licenseeId)
         {
-            var isSessionValid = SessionService.UserSession != null && SessionService.UserSession.UserId > 0;
+            var userSession = SessionService.UserSession;
+            var isSessionValid = userSession != null && userSession.UserId > 0;
             if (!isSessionValid)
             {
                 return RedirectToAction("SignIn", "Authorization");
@@ -187,7 +188,7 @@ namespace Fanex.Athena.Controllers
             {
                 var licenseeService = new LicenseeService();
 
-                var licenseeList = licenseeService.GetByUser(SessionService.UserSession.UserId);
+                var licenseeList = licenseeService.GetByUser(userSession.UserId);
                 //// Admin, but not assinged to handle any licensees
                 if (licenseeList.Count <= 0)
                 {
@@ -200,7 +201,7 @@ namespace Fanex.Athena.Controllers
                     return RedirectFromLoginPage(licenseeList[0].Id);
                 }
 
-                ViewBag.CurrentUsername = SessionService.UserSession.UserName;
+                ViewBag.CurrentUsername = userSession.UserName;
                 ViewBag.LicenseeList = licenseeList;
             }
 
@@ -235,6 +236,7 @@ namespace Fanex.Athena.Controllers
         [HttpPost]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd, string txtConfirmPwd)
         {
+            var userSession = SessionService.UserSession;
             if (!Util.CheckValidPassword(txtNewPwd) || string.IsNullOrEmpty(txtOldPwd))
             {
                 return Json(new
@@ -246,7 +248,7 @@ namespace Fanex.Athena.Controllers
 
             var userService = new UserService();
 
-            if (SessionService.UserSession.IsInternal)
+            if (userSession.IsInternal)
             {
                 return Json(new
                 {
@@ -257,7 +259,7 @@ namespace Fanex.Athena.Controllers
             else
             {
                 IResultInfo resultInfo = userService.ChangePassword(
-                    SessionService.UserSession.UserName,
+                    userSession.UserName,
                     txtOldPwd,
                     txtNewPwd,
                     Request.UserHostAddress);

@@ -200,10 +200,9 @@ namespace Fanex.Athena.Controllers.Account
             IUserService userService = new UserService();
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
-            var isInternal = SessionService.UserSession.IsInternal;
-            var model = userService.GetByLicensee(licenseeSession.LicenseeId, isInternal)
+            var model = userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
                 .Where(i => i.Id != userSession.UserId).ToList();
-            ViewBag.PageSession = this.SessionService.UserSession;
+            ViewBag.PageSession = userSession;
 
             return View("~/Views/Account/Manage.cshtml", model);
         }
@@ -218,15 +217,16 @@ namespace Fanex.Athena.Controllers.Account
         [HttpGet]
         public ActionResult EditAccount()
         {
+            var userSession = SessionService.UserSession;
             int userId;
             int.TryParse(this.Request.Params["UserId"], out userId);
 
-            if (userId > 0 && userId != SessionService.UserSession.UserId)
+            if (userId > 0 && userId != userSession.UserId)
             {
                 var userService = new UserService();
                 var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
-                if (user != null && user.IsInternal == SessionService.UserSession.IsInternal)
+                if (user != null && user.IsInternal == userSession.IsInternal)
                 {
                     var model = new EditAccountMetaModel
                     {
@@ -261,10 +261,12 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
+            var userSession = SessionService.UserSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userService = new UserService();
-            var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, model.UserId);
+            var user = userService.GetUserInfo(licenseeId, model.UserId);
 
-            if (user != null && user.IsInternal == SessionService.UserSession.IsInternal)
+            if (user != null && user.IsInternal == userSession.IsInternal)
             {
                 // set info
                 user.FirstName = string.IsNullOrEmpty(model.FirstName) ? string.Empty : model.FirstName.Trim();
@@ -273,12 +275,12 @@ namespace Fanex.Athena.Controllers.Account
                 user.Request = new Request
                 {
                     Ip = Request.UserHostAddress,
-                    Language = SessionService.UserSession.Language
+                    Language = userSession.Language
                 };
-                user.Licensee = new Licensee { Id = SessionService.LicenseeSession.LicenseeId };
+                user.Licensee = new Licensee { Id = licenseeId };
 
                 // proceed updating
-                IResultInfo resultInfo = userService.UpdateInfo(user, SessionService.UserSession.UserId);
+                IResultInfo resultInfo = userService.UpdateInfo(user, userSession.UserId);
                 if (resultInfo.IsSuccessful)
                 {
                     resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
@@ -337,15 +339,16 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
+            var userSession = SessionService.UserSession;
             var userService = new UserService();
             Models.DTO.Users.User user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, model.UserId);
 
-            if (user != null && user.IsInternal == SessionService.UserSession.IsInternal)
+            if (user != null && user.IsInternal == userSession.IsInternal)
             {
                 user.Request = new Request
                 {
                     Ip = Request.UserHostAddress,
-                    Language = SessionService.UserSession.Language
+                    Language = userSession.Language
                 };
 
                 var validPassword = ValidatePassword(model.Password);
@@ -360,7 +363,7 @@ namespace Fanex.Athena.Controllers.Account
                     });
                 }
 
-                IResultInfo resultInfo = userService.ResetPassword(user, SessionService.UserSession.UserId);
+                IResultInfo resultInfo = userService.ResetPassword(user, userSession.UserId);
 
                 if (resultInfo.IsSuccessful)
                 {
@@ -569,15 +572,15 @@ namespace Fanex.Athena.Controllers.Account
 
             if (model.UserId > 0 && !string.IsNullOrEmpty(model.CurrencyList))
             {
-                model.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
+                var userSession = SessionService.UserSession;
+                model.LicenseeId = licenseeId;
                 model.IP = Request.UserHostAddress;
                 model.LangKey = LangService.GetCurrentLanguage();
-                model.ModifyBy = SessionService.UserSession.UserId;
+                model.ModifyBy = userSession.UserId;
 
                 // convert currencies into xml
-                var currencyDict = CurrencyService.GetCurrenciesByUser(
-                    SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.UserId);
+                var currencyDict = CurrencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
                 var xmlPattern = "<currencies>{0}</currencies>";
                 var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
                 var xmlElementBuilder = new StringBuilder();

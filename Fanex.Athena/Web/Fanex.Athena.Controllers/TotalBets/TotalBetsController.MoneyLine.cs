@@ -54,8 +54,9 @@ namespace Fanex.Athena.Controllers.TotalBets
         /// <returns>The action result.</returns>
         private ActionResult MoneyLineView(MoneyLineMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            metaModel.UserId = userSession.UserId;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
@@ -66,7 +67,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList
+                    CurrencyList = currencyList
                 };
                 return View("~/Views/TotalBets/MoneyLine/Main.cshtml", model);
             }

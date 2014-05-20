@@ -72,11 +72,12 @@ namespace Fanex.Athena.Service.Implement.Integration
                     && context.User.Identity != null
                     && context.User.Identity.IsAuthenticated
                     && context.Request.IsAuthenticated;
-
-                var isSessionValid = _sessionService.UserSession != null
-                    && _sessionService.UserSession.UserId > 0
-                    && _sessionService.LicenseeSession != null
-                    && _sessionService.LicenseeSession.LicenseeId > 0;
+                var userSession = _sessionService.UserSession;
+                var licenseeSession = _sessionService.LicenseeSession;
+                var isSessionValid = userSession != null
+                    && userSession.UserId > 0
+                    && licenseeSession != null
+                    && licenseeSession.LicenseeId > 0;
 
                 return isAuthenticated && isSessionValid;
             }

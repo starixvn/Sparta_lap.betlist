@@ -96,7 +96,7 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastHeaderParam = _forecastService.GetFcTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
-
+            var userSession = SessionService.UserSession;
             if (forecastHeaderParam != null)
             {
                 /* Set default currentScore*/
@@ -117,13 +117,13 @@ namespace Fanex.Athena.Controllers.Forecast
                 if (metaModel.BetType == (int)BetType.Handicap || metaModel.BetType == (int)BetType.FirstHalfHandicap)
                 {
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.Handicap ? ViewResources.Handicap : ViewResources.lbl1stHandicap;
-                    forecastValue = _forecastService.GetForecastHandicap(metaModel, SessionService.UserSession.UserId);
+                    forecastValue = _forecastService.GetForecastHandicap(metaModel, userSession.UserId);
                 }
                 else
                 {
                     /* Over/Under or 1st Over/Under*/
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.OverUnder ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
-                    forecastValue = _forecastService.GetForacastOverUnder(metaModel, SessionService.UserSession.UserId);
+                    forecastValue = _forecastService.GetForacastOverUnder(metaModel, userSession.UserId);
                 }
 
                 forecastValue.ForeCastLink = RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);

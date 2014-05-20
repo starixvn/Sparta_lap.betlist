@@ -23,10 +23,9 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult SettledMatchCount()
         {
-            var licenseeSession = SessionService.LicenseeSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isShowAll = AppSettings.IsTesting;
-            var producAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var licenseeId = licenseeSession.LicenseeId;
+            var producAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
 
             var model = _settledMatchCountService.GetDataList(isShowAll, licenseeId, producAccess);
 

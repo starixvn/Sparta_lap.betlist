@@ -82,8 +82,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic LastMonitorBetListNew(LastBetsMonitoringMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
             var ticketResult = _betListService.GetLastBetsMonitoringData(metaModel);

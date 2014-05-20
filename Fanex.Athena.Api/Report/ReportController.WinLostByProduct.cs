@@ -257,9 +257,7 @@ namespace Fanex.Athena.Api.Report
                 RedirectToErrorPage();
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            var licenseeId = licenseeSession.LicenseeId;
-            metaModel.LicenseeId = licenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
             metaModel.DrillDownCurrencyId = currencyId;

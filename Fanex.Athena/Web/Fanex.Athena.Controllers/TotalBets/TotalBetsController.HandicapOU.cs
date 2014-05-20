@@ -59,8 +59,10 @@ namespace Fanex.Athena.Controllers.TotalBets
         /// <returns>The action result.</returns>
         private ActionResult HandicapOverUnderView(HandicapOverUnderMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var userSession = SessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;
+            metaModel.UserId = userSession.UserId;
+            var currencyList = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
@@ -70,8 +72,8 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    CurrencyList = currencyList
                 };
                 /*set content view follow by licensee*/
                 ViewBag.LicenseeView = "ContentData.cshtml";
@@ -81,7 +83,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 if (!string.IsNullOrEmpty(items))
                 {
                     var licenseeOfferNewForecasts = items.Split(',');
-                    if (licenseeOfferNewForecasts.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
+                    if (licenseeOfferNewForecasts.Contains(licenseeSession.LicenseeId.ToString()))
                     {
                         ViewBag.LicenseeView = "ContentDataBodog.cshtml";
                     }

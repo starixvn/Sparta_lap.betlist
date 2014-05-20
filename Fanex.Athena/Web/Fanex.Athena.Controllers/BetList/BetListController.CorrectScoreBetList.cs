@@ -40,13 +40,14 @@ namespace Fanex.Athena.Controllers.BetList
             SetConvetedUSDCurrencyName(metaModel);
           
             var licenseeSession = this.SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language),
+                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -64,7 +65,6 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult CorrectScoreBetList(BetListMetaModel metaModel)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";

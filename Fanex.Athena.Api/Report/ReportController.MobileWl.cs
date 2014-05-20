@@ -154,8 +154,7 @@ namespace Fanex.Athena.Api.Report
                 RedirectToErrorPage();
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
             Dictionary<string, MobileWinLoss> summaryTotal;
