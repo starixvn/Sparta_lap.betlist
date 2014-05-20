@@ -430,15 +430,33 @@
     <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
-    <Content Include="Form\GenImage\HistoryImage_Champions.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx" />
-    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_Champions.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
     <Content Include="Form\HistoryImage_ePoker.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
