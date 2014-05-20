@@ -439,10 +439,17 @@
     <Content Include="Form\GenImage\HistoryImage_Holdem.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
+<<<<<<< Feature-15189-UAT
     <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx">
+=======
+    <Content Include="Form\HistoryImage_ePoker.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\LiveGenHistoryImg.aspx">
+>>>>>>> local
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_Scratch.aspx">

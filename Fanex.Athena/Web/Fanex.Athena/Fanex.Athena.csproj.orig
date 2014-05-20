@@ -1,0 +1,1375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CE8FBEBC-3312-4881-8486-42C9F70DDADF}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena</RootNamespace>
+    <AssemblyName>Fanex.Athena</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <JSLintSkip>\Scripts\</JSLintSkip>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
+    </Reference>
+    <Reference Include="DNAide">
+      <HintPath>..\..\..\DLLs\3rds\DNAide.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.96, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data, Version=0.5.404.54, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging">
+      <HintPath>..\..\..\DLLs\Fanex\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="HandHistoryLibrary, Version=1.0.0.43, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\HandHistoryLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCasinoLibrary">
+      <HintPath>..\..\..\DLLs\Casino\LiveCasinoLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
+      <HintPath>..\..\..\DLLs\Casino\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
+      <HintPath>..\..\..\DLLs\Microsoft\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler">
+      <HintPath>..\..\..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="NetUtility, Version=1.0.4199.22106, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\3rds\NetUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RemotingRef, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\3rds\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="RSACryptoPad">
+      <HintPath>..\..\..\DLLs\3rds\RSACryptoPad.dll</HintPath>
+    </Reference>
+    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\Sunplus.Libraries.AOP.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TplCore">
+      <HintPath>..\..\..\DLLs\3rds\TplCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form\GenHistoryImg.aspx.cs">
+      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
+      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_BJ.aspx.cs">
+      <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_Champions.aspx.cs">
+      <DependentUpon>HistoryImage_Champions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_ePoker.aspx.cs">
+      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_Holdem.aspx.cs">
+      <DependentUpon>HistoryImage_Holdem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_MiniRoulette.aspx.cs">
+      <DependentUpon>HistoryImage_MiniRoulette.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_PokerWheel.aspx.cs">
+      <DependentUpon>HistoryImage_PokerWheel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_Scratch.aspx.cs">
+      <DependentUpon>HistoryImage_Scratch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_Taizen.aspx.cs">
+      <DependentUpon>HistoryImage_Taizen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\HistoryImage_TattooArt.aspx.cs">
+      <DependentUpon>HistoryImage_TattooArt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\GenImage\LiveGenHistoryImg.aspx.cs">
+      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\HistoryImage_ePoker.aspx.cs">
+      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Form\LiveGenHistoryImg.aspx.cs">
+      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sso.aspx.cs">
+      <DependentUpon>sso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Account\AccountManagement.css" />
+    <Content Include="Content\Account\Permission.css" />
+    <Content Include="Content\BetList\betlist.core.css" />
+    <Content Include="Content\BetList\lastbetmonitornew.css" />
+    <Content Include="Content\BetList\systemparlaydetail.css" />
+    <Content Include="Content\BetList\dailystatement.css" />
+    <Content Include="Content\BetList\images\ajax-loader.gif" />
+    <Content Include="Content\BetList\images\firstGoal.gif" />
+    <Content Include="Content\BetList\images\lastGoal.gif" />
+    <Content Include="Content\BetList\images\q_Icon2_1.png" />
+    <Content Include="Content\BetList\images\q_Icon_2.png" />
+    <Content Include="Content\BetList\images\tab_topbg.gif" />
+    <Content Include="Content\BetList\images\undo.png" />
+    <Content Include="Content\BetList\lastbetmonitor.css" />
+    <Content Include="Content\BetList\lastbetmonitor.table.css" />
+    <Content Include="Content\Customer\BetSetting\BetSetting.css" />
+    <Content Include="Content\Customer\BetSetting\images\arrow.gif" />
+    <Content Include="Content\Customer\BetSetting\images\bgDIVIDER.gif" />
+    <Content Include="Content\Customer\BetSetting\images\bgOFF.gif" />
+    <Content Include="Content\Customer\BetSetting\images\bgON.gif" />
+    <Content Include="Content\Customer\BetSetting\images\bg_button.jpg" />
+    <Content Include="Content\Customer\BetSetting\images\more.gif" />
+    <Content Include="Content\Customer\BetSetting\images\off-on_hr.png" />
+    <Content Include="Content\Customer\BetSetting\images\shadow.png" />
+    <Content Include="Content\Customer\BetSetting\rngcasino.css" />
+    <Content Include="Content\Customer\customerlist.css" />
+    <Content Include="Content\Customer\CustomerLog\customerlog.css" />
+    <Content Include="Content\Customer\groupcomm.css" />
+    <Content Include="Content\Customer\images\ajax-loader.gif" />
+    <Content Include="Content\Customer\images\ajax-loader_arrow.gif" />
+    <Content Include="Content\Customer\images\arrow-down-right.png" />
+    <Content Include="Content\Customer\images\arrow-up-left.gif" />
+    <Content Include="Content\Customer\images\arrow.gif" />
+    <Content Include="Content\Customer\images\betlist.png" />
+    <Content Include="Content\Customer\images\betsetting.png" />
+    <Content Include="Content\Customer\images\edit.png" />
+    <Content Include="Content\Customer\images\loginfo.png" />
+    <Content Include="Content\Customer\images\off-on_hr.png" />
+    <Content Include="Content\Customer\images\statement.png" />
+    <Content Include="Content\Customer\images\validated.png" />
+    <Content Include="Content\Customer\images\validatefail.png" />
+    <Content Include="Content\Customer\images\viewcustomerlist.png" />
+    <Content Include="Content\Fanex.Result\fanex.result.css" />
+    <Content Include="Content\Fanex.Result\images\1F.gif" />
+    <Content Include="Content\Fanex.Result\images\1L.gif" />
+    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
+    <Content Include="Content\Fanex.Result\images\first-goal.gif" />
+    <Content Include="Content\Fanex.Result\images\last-goal.gif" />
+    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
+    <Content Include="Content\Footer\Footer.css" />
+    <Content Include="Content\Footer\images\bg_footer.jpg" />
+    <Content Include="Content\Forecast\forecast.newforecast.css" />
+    <Content Include="Content\Forecast\forecast.ah.css" />
+    <Content Include="Content\Forecast\forecasthandicapoverunder.css" />
+    <Content Include="Content\Forecast\forecast.css" />
+    <Content Include="Content\Forecast\images\icon_add.jpg" />
+    <Content Include="Content\Forecast\images\minus.gif" />
+    <Content Include="Content\Forecast\images\plus.png" />
+    <Content Include="Content\Forecast\images\tab_topbg.gif" />
+    <Content Include="Content\Global\Global.css" />
+    <Content Include="Content\Global\images\arrow-back.png" />
+    <Content Include="Content\Global\images\bg_clock.jpg" />
+    <Content Include="Content\Global\images\btDown.png" />
+    <Content Include="Content\Global\images\btRefresh.png" />
+    <Content Include="Content\Global\images\check.png" />
+    <Content Include="Content\Global\images\down.png" />
+    <Content Include="Content\Global\images\error2.png" />
+    <Content Include="Content\Global\images\flag_en-US.png" />
+    <Content Include="Content\Global\images\flag_ko-KR.png" />
+    <Content Include="Content\Global\images\flag_zh-CN.png" />
+    <Content Include="Content\Global\images\flag_zh-TW.png" />
+    <Content Include="Content\Global\images\UnderMaintenance.gif" />
+    <Content Include="Content\Global\images\up.png" />
+    <Content Include="Content\Layout\images\Checked.png" />
+    <Content Include="Content\Layout\images\Chrome.png" />
+    <Content Include="Content\Layout\images\close_hover.png" />
+    <Content Include="Content\Layout\images\close_icon.png" />
+    <Content Include="Content\Layout\images\Firefox.png" />
+    <Content Include="Content\Layout\images\IE.png" />
+    <Content Include="Content\Layout\master.css" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Library\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Library\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Library\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Library\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Library\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Library\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Library\smoothness\jqgrid-custom.css" />
+    <Content Include="Content\Library\start\jquery-ui.min.css" />
+    <Content Include="Content\Library\ui.jqgrid\images\tab_topbg.gif" />
+    <Content Include="Content\Library\ui.jqgrid\jqgrid.extension.css" />
+    <Content Include="Content\Plugin\ColorPicker\spectrum.css" />
+    <Content Include="Content\Plugin\Common\bread-crumb.css" />
+    <Content Include="Content\Global\images\collapse.png" />
+    <Content Include="Content\Global\images\expand.png" />
+    <Content Include="Content\Plugin\Common\images\Chevron.gif" />
+    <Content Include="Content\Report\winlossbyleague.css" />
+    <Content Include="Content\SignIn\images\bg-loop.png" />
+    <Content Include="Content\SignIn\images\bg-main.png" />
+    <Content Include="Content\SignIn\images\bg.png" />
+    <Content Include="Content\SignIn\images\bot.png" />
+    <Content Include="Content\SignIn\images\btn-hover.png" />
+    <Content Include="Content\SignIn\images\btn.png" />
+    <Content Include="Content\SignIn\images\captcha.png" />
+    <Content Include="Content\SignIn\images\close.png" />
+    <Content Include="Content\SignIn\images\go.png" />
+    <Content Include="Content\SignIn\images\loop.png" />
+    <Content Include="Content\SignIn\images\top.png" />
+    <Content Include="Content\SignIn\SignIn.css" />
+    <Content Include="Content\Utility\ChangePass.css" />
+    <Content Include="Content\Utility\images\banner.jpg" />
+    <Content Include="Content\Utility\images\bg.jpg" />
+    <Content Include="Content\Utility\images\bg_btn_login.png" />
+    <Content Include="Content\Utility\images\bg_btn_login_o.png" />
+    <Content Include="Content\Utility\images\bg_header.jpg" />
+    <Content Include="Content\Utility\images\bg_main.jpg" />
+    <Content Include="Content\Utility\images\bg_menu.jpg" />
+    <Content Include="Content\Utility\images\bg_title.jpg" />
+    <Content Include="Content\Utility\images\bg_title1.jpg" />
+    <Content Include="Content\Utility\images\border.png" />
+    <Content Include="Content\Utility\images\box.jpg" />
+    <Content Include="Content\Utility\images\box.png" />
+    <Content Include="Content\Utility\images\btnlogin.gif" />
+    <Content Include="Content\Utility\images\but.png" />
+    <Content Include="Content\Utility\images\but1.png" />
+    <Content Include="Content\Utility\images\emsg_1_1.gif" />
+    <Content Include="Content\Utility\images\emsg_1_2.gif" />
+    <Content Include="Content\Utility\images\emsg_1_3.gif" />
+    <Content Include="Content\Utility\images\emsg_2_1.gif" />
+    <Content Include="Content\Utility\images\emsg_2_2.gif" />
+    <Content Include="Content\Utility\images\emsg_3_1.gif" />
+    <Content Include="Content\Utility\images\emsg_3_2.gif" />
+    <Content Include="Content\Utility\images\emsg_3_3.gif" />
+    <Content Include="Content\Utility\images\error-icon.gif" />
+    <Content Include="Content\Utility\images\icon_pen.gif" />
+    <Content Include="Content\Utility\images\index_fotbg.gif" />
+    <Content Include="Content\Utility\images\index_logo.jpg" />
+    <Content Include="Content\Utility\images\index_pic01.jpg" />
+    <Content Include="Content\Utility\images\index_pic02.jpg" />
+    <Content Include="Content\Utility\images\index_pic03.jpg" />
+    <Content Include="Content\Utility\images\index_pic04.jpg" />
+    <Content Include="Content\Utility\images\logo.png" />
+    <Content Include="Content\Utility\images\message-content-bg.png" />
+    <Content Include="Content\Utility\images\message-content-bottom.png" />
+    <Content Include="Content\Utility\images\restriction.png" />
+    <Content Include="Content\Utility\images\session-timeout.png" />
+    <Content Include="Content\Utility\images\Success.gif" />
+    <Content Include="Content\Utility\images\succ_1_1.gif" />
+    <Content Include="Content\Utility\images\succ_1_2.gif" />
+    <Content Include="Content\Utility\images\succ_1_3.gif" />
+    <Content Include="Content\Utility\images\succ_2_1.gif" />
+    <Content Include="Content\Utility\images\succ_2_2.gif" />
+    <Content Include="Content\Utility\images\succ_3_1.gif" />
+    <Content Include="Content\Utility\images\succ_3_2.gif" />
+    <Content Include="Content\Utility\images\succ_3_3.gif" />
+    <Content Include="Content\Utility\images\valid.png" />
+    <Content Include="Content\Utility\LocationRestriction.css" />
+    <Content Include="Content\Utility\SelectLicensee.css" />
+    <Content Include="Form\GenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\GenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+<<<<<<< HEAD
+    <Content Include="Form\GenImage\HistoryImage_Champions.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx" />
+    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx" />
+    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx" />
+=======
+    <Content Include="Form\GenImage\HistoryImage_Champions.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+>>>>>>> #15189 - Exclude Stylecop some files
+    <Content Include="Form\HistoryImage_ePoker.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\LiveGenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Scripts\ChangePass.js" />
+    <Content Include="Scripts\BetList\outstandingrunningbetlist.js" />
+    <Content Include="Scripts\Customer\customers.js" />
+    <Content Include="Scripts\Customer\customers.option.js" />
+    <Content Include="Scripts\Header\header.js" />
+    <Content Include="Scripts\Header\jquery.jclock.js" />
+    <Content Include="Scripts\Header\ReCheckIn.js" />
+    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
+      <DependentUpon>ViewResources.ko-KR.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Scripts\Menu\Menu.js" />
+    <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
+    <Content Include="Scripts\Library\BigDecimal-all-last.min.js" />
+    <Content Include="Content\Plugin\Note\images\note.png" />
+    <Content Include="Content\Global\lrf.global.grid.css" />
+    <Content Include="Content\Global\grid26.css" />
+    <Content Include="Content\Global\images\calendar.png" />
+    <Content Include="Content\Global\images\Checked.png" />
+    <Content Include="Content\Global\images\Chrome.png" />
+    <Content Include="Content\Global\images\close_hover.png" />
+    <Content Include="Content\Global\images\close_icon.png" />
+    <Content Include="Content\Global\images\ui-bg_gloss-wave_55_6790cf_500x100.png" />
+    <Content Include="Content\Global\images\ui-icons-disabled.png" />
+    <Content Include="Content\Global\images\ui-icons-over.png" />
+    <Content Include="Content\Global\images\ui-icons.png" />
+    <Content Include="Content\Global\Paging.css" />
+    <Content Include="Content\Library\start\images\calendar.gif" />
+    <Content Include="Content\Library\start\images\calendar.png" />
+    <Content Include="Content\Library\start\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\Library\start\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\Library\start\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Content\Library\start\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\Library\start\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Content\Library\start\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\Library\start\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="Content\Library\start\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Content\Library\start\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\Library\start\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\Library\start\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\MemberInfo\images\arrow.gif" />
+    <Content Include="Content\MemberInfo\images\bgDIVIDER.gif" />
+    <Content Include="Content\MemberInfo\images\bgOFF.gif" />
+    <Content Include="Content\MemberInfo\images\bgON.gif" />
+    <Content Include="Content\MemberInfo\images\bg_button.jpg" />
+    <Content Include="Content\MemberInfo\images\more.gif" />
+    <Content Include="Content\MemberInfo\images\off-on_hr.png" />
+    <Content Include="Content\MemberInfo\images\shadow.png" />
+    <Content Include="Content\MemberInfo\MemberInfo.css" />
+    <Content Include="Content\Plugin\Calendar\border-radius.css" />
+    <Content Include="Content\Plugin\Calendar\img\cool-bg-hard-inv.png" />
+    <Content Include="Content\Plugin\Calendar\img\cool-bg-hard.png" />
+    <Content Include="Content\Plugin\Calendar\img\cool-bg-inv.png" />
+    <Content Include="Content\Plugin\Calendar\img\cool-bg.png" />
+    <Content Include="Content\Plugin\Calendar\img\drop-down.gif" />
+    <Content Include="Content\Plugin\Calendar\img\drop-up.gif" />
+    <Content Include="Content\Plugin\Calendar\img\nav-left-x2.gif" />
+    <Content Include="Content\Plugin\Calendar\img\nav-left.gif" />
+    <Content Include="Content\Plugin\Calendar\img\nav-right-x2.gif" />
+    <Content Include="Content\Plugin\Calendar\img\nav-right.gif" />
+    <Content Include="Content\Plugin\Calendar\img\time-down.png" />
+    <Content Include="Content\Plugin\Calendar\img\time-up.png" />
+    <Content Include="Content\Plugin\Calendar\jscal2.css" />
+    <Content Include="Content\Plugin\Calendar\matrix\matrix.css" />
+    <Content Include="Content\Plugin\Calendar\matrix\nav-left-x2.gif" />
+    <Content Include="Content\Plugin\Calendar\matrix\nav-left.gif" />
+    <Content Include="Content\Plugin\Calendar\matrix\nav-right-x2.gif" />
+    <Content Include="Content\Plugin\Calendar\matrix\nav-right.gif" />
+    <Content Include="Content\Plugin\Calendar\reduce-spacing.css" />
+    <Content Include="Content\Plugin\Calendar\shadow-b.png" />
+    <Content Include="Content\Plugin\Calendar\steel\brushed-steel.jpg" />
+    <Content Include="Content\Plugin\Calendar\steel\brushed-steel.png" />
+    <Content Include="Content\Plugin\Calendar\steel\coolbg.png" />
+    <Content Include="Content\Plugin\Calendar\steel\steel.css" />
+    <Content Include="Content\Plugin\Calendar\steel\steel.jpg" />
+    <Content Include="Content\Plugin\Calendar\win2k\win2k.css" />
+    <Content Include="Content\Plugin\Note\images\close.png" />
+    <Content Include="Content\Plugin\Note\images\tooltip-arr.png" />
+    <Content Include="Content\Plugin\Note\note.css" />
+    <Content Include="Content\Report\customerpendingfunds.css" />
+    <Content Include="Content\Report\customerwinloss.css" />
+    <Content Include="Content\Report\customertbalance.css" />
+    <Content Include="Content\Report\customerturnover.css" />
+    <Content Include="Content\Report\dailyracingwinloss.css" />
+    <Content Include="Content\Report\images\arrow-down.png" />
+    <Content Include="Content\Report\images\arrow-right.png" />
+    <Content Include="Content\Report\images\arrow-up.png" />
+    <Content Include="Content\Global\images\more.gif" />
+    <Content Include="Content\Report\images\bg_header03.jpg" />
+    <Content Include="Content\Report\images\Chevron.gif" />
+    <Content Include="Content\Report\images\ChevronOverlay.png" />
+    <Content Include="Content\Report\images\down.png" />
+    <Content Include="Content\Report\images\IconHome.gif" />
+    <Content Include="Content\Report\images\icon_arrowrd.gif" />
+    <Content Include="Content\Report\images\icon_content.gif" />
+    <Content Include="Content\Report\images\icon_error.gif" />
+    <Content Include="Content\Report\images\noexpand.png" />
+    <Content Include="Content\Global\images\Firefox.png" />
+    <Content Include="Content\Global\images\icon_search.png" />
+    <Content Include="Content\Global\images\IE.png" />
+    <Content Include="Content\Global\images\loader.gif" />
+    <Content Include="Content\Report\images\expand.png" />
+    <Content Include="Content\Global\lrf.global.reportable.css" />
+    <Content Include="Content\Global\lrf.layout.css" />
+    <Content Include="Content\Report\images\more.gif" />
+    <Content Include="Content\Report\images\tab_topbg.gif" />
+    <Content Include="Content\Report\images\tab_topbg02.jpg" />
+    <Content Include="Content\Report\images\undo.png" />
+    <Content Include="Content\Report\images\up.png" />
+    <Content Include="Content\Report\licenseewinloss.css" />
+    <Content Include="Content\Report\livereport.css" />
+    <Content Include="Content\Report\livereportmatchlist.css" />
+    <Content Include="Content\Report\matchWinLoss.css" />
+    <Content Include="Content\Report\racingcommission.css" />
+    <Content Include="Content\Report\settledmatchcount.css" />
+    <Content Include="Content\Report\turnover.css" />
+    <Content Include="Content\Report\winLossbybettype.css" />
+    <Content Include="Content\Report\winlossbyproduct.css" />
+    <Content Include="Content\Library\ui.jqgrid\ui.jqgrid.css" />
+    <Content Include="Content\RNGCasino\images\undo.png" />
+    <Content Include="Content\RNGCasino\rng-casino-hand-history.css" />
+    <Content Include="Content\Themes\12Bet\images\arrow-x.gif" />
+    <Content Include="Content\Themes\12Bet\images\arrow.gif" />
+    <Content Include="Content\Themes\12Bet\images\bgn_logout_hover.png" />
+    <Content Include="Content\Themes\12Bet\images\bg_buttonsite.jpg" />
+    <Content Include="Content\Themes\12Bet\images\bg_buttonsiteOV.jpg" />
+    <Content Include="Content\Themes\12Bet\images\bg_clock.jpg" />
+    <Content Include="Content\Themes\12Bet\images\btn_logout.png" />
+    <Content Include="Content\Themes\12Bet\images\btn_pwd.png" />
+    <Content Include="Content\Themes\12Bet\images\btn_pwd_hover.png" />
+    <Content Include="Content\Themes\12Bet\images\Chrome.png" />
+    <Content Include="Content\Themes\12Bet\images\close_hover.png" />
+    <Content Include="Content\Themes\12Bet\images\close_icon.png" />
+    <Content Include="Content\Themes\12Bet\images\Firefox.png" />
+    <Content Include="Content\Themes\12Bet\images\icon_arrowo.gif" />
+    <Content Include="Content\Themes\12Bet\images\icon_arrowrd.gif" />
+    <Content Include="Content\Themes\12Bet\images\icon_content.gif" />
+    <Content Include="Content\Themes\12Bet\images\icon_search.png" />
+    <Content Include="Content\Themes\12Bet\images\icon_title.gif" />
+    <Content Include="Content\Themes\12Bet\images\IE.png" />
+    <Content Include="Content\Themes\12Bet\images\left_foot.gif" />
+    <Content Include="Content\Themes\12Bet\images\logo.png" />
+    <Content Include="Content\Themes\12Bet\images\logout.png" />
+    <Content Include="Content\Themes\12Bet\images\new_icon.gif" />
+    <Content Include="Content\Themes\12Bet\images\resizer_bg.jpg" />
+    <Content Include="Content\Themes\12Bet\images\resizer_movin_bg.jpg" />
+    <Content Include="Content\Themes\12Bet\images\search_bn.png" />
+    <Content Include="Content\Themes\12Bet\images\search_bn_hover.png" />
+    <Content Include="Content\Themes\12Bet\images\search_icon.png" />
+    <Content Include="Content\Themes\12Bet\images\shadow.png" />
+    <Content Include="Content\Themes\12Bet\images\tab_topbg.gif" />
+    <Content Include="Content\Themes\12Bet\images\tab_topbg02.jpg" />
+    <Content Include="Content\Themes\12Bet\images\Time_bg.jpg" />
+    <Content Include="Content\Themes\12Bet\images\toggler_icon.jpg" />
+    <Content Include="Content\Themes\12Bet\images\toggler_icon_expand.jpg" />
+    <Content Include="Content\Themes\12Bet\images\toggler_icon_hover.jpg" />
+    <Content Include="Content\Themes\12Bet\images\toggler_icon_hover_expand.jpg" />
+    <Content Include="Content\Themes\12Bet\Site.css" />
+    <Content Include="Content\TotalBets\Images\btDown.png" />
+    <Content Include="Content\TotalBets\Images\btRefresh.png" />
+    <Content Include="Content\TotalBets\Images\check.png" />
+    <Content Include="Content\TotalBets\Images\icon_add.jpg" />
+    <Content Include="Content\TotalBets\numbergame.css" />
+    <Content Include="Content\TotalBets\outright.css" />
+    <Content Include="Content\TotalBets\refreshcountdown.css" />
+    <Content Include="Content\TotalBets\totalbetsbase.css" />
+    <Content Include="Content\Global\images\shadow.png" />
+    <Content Include="Content\Global\images\undo.png" />
+    <Content Include="Content\Plugin\DateRangePicker\daterangepicker.css" />
+    <Content Include="Content\Plugin\MonthPickr\monpickr.css" />
+    <Content Include="Content\Plugin\MonthPickr\images\bg-demo-docs-param.gif" />
+    <Content Include="Content\Plugin\MonthPickr\images\demo-spindown-closed.gif" />
+    <Content Include="Content\Plugin\MonthPickr\images\demo-spindown-open.gif" />
+    <Content Include="Content\Report\mobileWinLoss.css" />
+    <Content Include="Content\Global\images\arrow-x.gif" />
+    <Content Include="Content\Global\images\arrow.gif" />
+    <Content Include="Content\Global\images\bg_header.jpg" />
+    <Content Include="Content\Global\images\bg_header03.jpg" />
+    <Content Include="Content\Global\images\icon_arrowo.gif" />
+    <Content Include="Content\Global\images\icon_arrowrd.gif" />
+    <Content Include="Content\Global\images\left_foot.gif" />
+    <Content Include="Content\Global\images\logo.png" />
+    <Content Include="Content\Global\images\tab_topbg02.jpg" />
+    <Content Include="Content\Global\images\tab_topbg38.gif" />
+    <Content Include="Content\Global\lrf.global.content.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Global\images\bg_boxTop.jpg" />
+    <Content Include="Content\Global\images\bg_buttonsite.jpg" />
+    <Content Include="Content\Global\images\bg_buttonsiteOV.jpg" />
+    <Content Include="Content\Global\images\excel.gif" />
+    <Content Include="Content\Global\images\icon_content.gif" />
+    <Content Include="Content\Global\images\icon_title.gif" />
+    <Content Include="Content\Global\images\tab_topbg.gif" />
+    <Content Include="Resources\Images\collapse.png" />
+    <Content Include="Resources\Images\expand.png" />
+    <Content Include="Resources\Images\icon_checked.gif" />
+    <Content Include="Resources\Images\loader.gif" />
+    <Content Include="Resources\Images\null.png" />
+    <Content Include="Resources\Images\tree-branch.gif" />
+    <Content Include="Scripts\Account\EditPermission.js" />
+    <Content Include="Scripts\Account\EditAccount.js" />
+    <Content Include="Scripts\Account\ResetPassword.js" />
+    <Content Include="Scripts\Account\ManageAccount.js" />
+    <Content Include="Scripts\BetList\betlist.js" />
+    <Content Include="Scripts\BetList\cancelledbetsbetlist.js" />
+    <Content Include="Scripts\BetList\commonbetlist.js" />
+    <Content Include="Scripts\BetList\lastbetsmonitornew.js" />
+    <Content Include="Scripts\BetList\correctscorebetlist.js" />
+    <Content Include="Scripts\BetList\customer.dailystatement.js" />
+    <Content Include="Scripts\BetList\customer.dailystatement.option.js" />
+    <Content Include="Scripts\BetList\dailybetlist.js" />
+    <Content Include="Scripts\BetList\betlist.option.js" />
+    <Content Include="Scripts\BetList\customer.outstandingbetlist.js" />
+    <Content Include="Scripts\BetList\runningbetlist.js" />
+    <Content Include="Scripts\Casino\RNGCasinoResult.js" />
+    <Content Include="Scripts\Casino\RNGCasinoResult.option.js" />
+    <Content Include="Scripts\Customer\BetSetting\betsetting.js" />
+    <Content Include="Scripts\Customer\BetSetting\rngcasino.js" />
+    <Content Include="Scripts\Customer\customercommlist.js" />
+    <Content Include="Scripts\Customer\CustomerComm\updategroup.js" />
+    <Content Include="Scripts\Customer\CustomerComm\createnewgroup.js" />
+    <Content Include="Scripts\Customer\CustomerComm\groupcomm.js" />
+    <Content Include="Scripts\Customer\CustomerLog\groupcommission.js" />
+    <Content Include="Scripts\Customer\CustomerLog\customersetting.js" />
+    <Content Include="Scripts\Customer\CustomerLog\customersetting.option.js" />
+    <Content Include="Scripts\Customer\CustomerLog\customerlog.js" />
+    <Content Include="Scripts\Customer\CustomerLog\loginlog.js" />
+    <Content Include="Scripts\Customer\CustomerLog\loginlog.option.js" />
+    <Content Include="Scripts\Forecast\forecast.newforecasthdpou.js" />
+    <Content Include="Scripts\Global\jquery.jqgrid.additional.js" />
+    <Content Include="Scripts\Extension\jquery.extension.js" />
+    <Content Include="Scripts\Forecast\forecast.ah.js" />
+    <Content Include="Scripts\Forecast\forecast.handicapoverunder.js" />
+    <Content Include="Scripts\Forecast\forecast.onextwo.js" />
+    <Content Include="Scripts\Forecast\forecastpopup.js" />
+    <Content Include="Scripts\Global\prototype.js" />
+    <Content Include="Scripts\Global\query.string.js" />
+    <Content Include="Scripts\Global\lrf.layout.js" />
+    <Content Include="Scripts\Global\Paging.js" />
+    <Content Include="Scripts\Global\site.js" />
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.zh-CN.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.zh-TW.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Library\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Library\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Library\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\Library\jquery-ui.min.js" />
+    <Content Include="Scripts\Library\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\Library\jquery.min.js" />
+    <Content Include="Scripts\Library\jquery.autocomplete.js" />
+    <Content Include="Scripts\Library\jquery.balloon.js" />
+    <Content Include="Scripts\Library\jquery.blockUI.js" />
+    <Content Include="Scripts\Library\jquery.jqGrid.en.js" />
+    <Content Include="Scripts\Library\jquery.layout.js" />
+    <Content Include="Scripts\Plugin\FormatNumber\jquery.numberformatter.js" />
+    <Content Include="Scripts\Library\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Library\jquery.validate.js" />
+    <Content Include="Scripts\Library\jquery.validate.min.js" />
+    <Content Include="Scripts\Library\modernizr-1.7.js" />
+    <Content Include="Scripts\Library\modernizr-1.7.min.js" />
+    <Content Include="Scripts\Library\jquery.cookie.js" />
+    <Content Include="App_Data\FanexSpName.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\Plugin\Calendar\jscal2.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\ca.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\cn.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\cz.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\de.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\en.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\es.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\fr.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\hr.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\it.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\jp.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\nl.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\pl.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\pt.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\ro.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\ru.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\sk.js" />
+    <Content Include="Scripts\Plugin\Calendar\lang\sv.js" />
+    <Content Include="Scripts\Plugin\Calendar\unicode-letter.js" />
+    <Content Include="Scripts\Plugin\ColorPicker\spectrum.js" />
+    <Content Include="Scripts\Plugin\DateRangePicker\date.min.js" />
+    <Content Include="Scripts\Plugin\FormatNumber\jshashtable.js" />
+    <Content Include="Scripts\Plugin\DateRangePicker\daterangepicker.js" />
+    <Content Include="Scripts\Plugin\LinqJs\JSLINQ-vsdoc.js" />
+    <Content Include="Scripts\Plugin\LinqJs\JSLINQ.js" />
+    <Content Include="Scripts\Plugin\MonthPickr\monpickr.js" />
+    <Content Include="Content\Plugin\MultiSelect\images\BottomLine.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\FirstNodeSpan.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\MiddleLine.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\NodeSpan.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\PlusMinus.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\sprites.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\TopLine.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="Content\Plugin\MultiSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Plugin\MultiSelect\jquery.multiselect.css" />
+    <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.js" />
+    <Content Include="Scripts\Plugin\Note\note.js" />
+    <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
+    <Content Include="Scripts\Report\playtechcasino.js" />
+    <Content Include="Scripts\Report\balance.js" />
+    <Content Include="Scripts\Report\winlossbyleague.js" />
+    <Content Include="Scripts\Report\winlossbyleague.option.js" />
+    <Content Include="Scripts\Report\customerturnover.option.js" />
+    <Content Include="Scripts\Report\Result.js" />
+    <Content Include="Scripts\Report\winlossbyproduct.option.js" />
+    <Content Include="Scripts\Report\licenseewinloss.option.js" />
+    <Content Include="Scripts\Report\mobilewinloss.option.js" />
+    <Content Include="Scripts\Report\winlossbyproduct.js" />
+    <Content Include="Scripts\Report\customerpendingfunds.js" />
+    <Content Include="Scripts\Report\customerwinloss.js" />
+    <Content Include="Scripts\Report\customerbalance.js" />
+    <Content Include="Scripts\Report\customerturnover.js" />
+    <Content Include="Scripts\Report\dailyracingwinloss.js" />
+    <Content Include="Scripts\Report\licenseewinloss.js" />
+    <Content Include="Scripts\Report\livereport.js" />
+    <Content Include="Scripts\Report\livereportmatchlist.js" />
+    <Content Include="Scripts\Report\matchwinloss.js" />
+    <Content Include="Scripts\Report\mobilewinloss.js" />
+    <Content Include="Scripts\Report\racingcommission.js" />
+    <Content Include="Scripts\Report\report.js" />
+    <Content Include="Scripts\Report\winlossbybettype.js" />
+    <Content Include="Scripts\Report\turnover.js" />
+    <Content Include="Scripts\SignIn\SignIn.js" />
+    <Content Include="Scripts\TotalBets\firstgoallastgoal.js" />
+    <Content Include="Scripts\TotalBets\halftimefulltime.js" />
+    <Content Include="Scripts\TotalBets\handicapoverunder.js" />
+    <Content Include="Scripts\TotalBets\homedrawawaynobet.js" />
+    <Content Include="Scripts\TotalBets\moneyline.js" />
+    <Content Include="Scripts\TotalBets\numbergame.js" />
+    <Content Include="Scripts\TotalBets\oddevendrawnodraw.js" />
+    <Content Include="Scripts\TotalBets\outright.js" />
+    <Content Include="Scripts\TotalBets\racing.js" />
+    <Content Include="Scripts\TotalBets\totalbetsbase.js" />
+    <Content Include="Scripts\TotalBets\totalgoal.js" />
+    <Content Include="Scripts\WareHouse\topcustomer.js" />
+    <Content Include="Scripts\WareHouse\winloss.js" />
+    <Content Include="Content\Report\balance.css" />
+    <Content Include="sso.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="under-maintenance.gif" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Library\MicrosoftAjax.js" />
+    <Content Include="Scripts\Library\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\Library\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\Library\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\Library\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\Library\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Report\MatchWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.cshtml" />
+    <Content Include="App_Code\RazorHelper.cshtml" />
+    <Content Include="Views\Customer\CustomerComm\GroupCommList.cshtml" />
+    <Content Include="Views\Shared\_GroupCommLayout.cshtml" />
+    <Content Include="Views\Customer\CustomerComm\CreateNewGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerComm\UpdateGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\MoveToGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
+    <Content Include="App_Code\DatePickerHelper.cshtml" />
+    <Content Include="App_Code\SplitingProductHelper.cshtml" />
+    <Content Include="App_Code\FormatHelper.cshtml" />
+    <Content Include="WhoAmI.aspx" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="App_Browsers\firefox.browser" />
+    <None Include="App_Data\Fanex.Result\Badminton.xls" />
+    <None Include="App_Data\Fanex.Result\BaseBall.xls" />
+    <None Include="App_Data\Fanex.Result\Basketball.xls" />
+    <None Include="App_Data\Fanex.Result\Billiard.xls" />
+    <None Include="App_Data\Fanex.Result\Hockey.xls" />
+    <None Include="App_Data\Fanex.Result\HorseRacing.xls" />
+    <None Include="App_Data\Fanex.Result\LiveCasino.xls" />
+    <None Include="App_Data\Fanex.Result\NumberGame.xls" />
+    <None Include="App_Data\Fanex.Result\OtherSport.xls" />
+    <None Include="App_Data\Fanex.Result\Outright.xls" />
+    <None Include="App_Data\Fanex.Result\Soccer.xls" />
+    <None Include="App_Data\Fanex.Result\Tennis.xls" />
+    <None Include="App_Data\Fanex.Result\VSHRacing.xls" />
+    <None Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
+    <None Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <None Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
+    <None Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
+    <None Include="App_Data\Template\CustomerReports\CustomerPendingFunds.xls" />
+    <None Include="App_Data\Template\CustomerReports\CustomerTurnover.xls" />
+    <None Include="App_Data\Template\CustomerReports\CustomerWinLoss.xls" />
+    <None Include="App_Data\Template\Customers\CustomerList.xls" />
+    <None Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
+    <None Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
+    <None Include="App_Data\Template\Reports\Balance.xls" />
+    <None Include="App_Data\Template\Reports\PlaytechCasino.xls" />
+    <None Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
+    <None Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
+    <None Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />
+    <None Include="App_Data\Template\Reports\LicenseeWinLoss.xls" />
+    <None Include="App_Data\Template\Reports\LiveReport.xls" />
+    <None Include="App_Data\Template\Reports\MatchWinLoss.xls" />
+    <None Include="App_Data\Template\Reports\MobileWinLoss.xls" />
+    <None Include="App_Data\Template\Reports\RacingCommission.xls" />
+    <None Include="App_Data\Template\Reports\Turnover.xls" />
+    <None Include="App_Data\Template\Reports\WinLossByBetType.xls" />
+    <None Include="App_Data\Template\Reports\WinLossByProducts.xls" />
+    <Content Include="Content\Web.config" />
+    <None Include="DBConnectionData\GlobalSetting.ini" />
+    <None Include="Integrate\RSAPrivateKey\12bet.snk" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
+    <Content Include="Views\Customer\Filter.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Main.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Filter.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.cshtml" />
+    <Content Include="Views\Report\Turnover\Main.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\LiveReportDetail.cshtml" />
+    <Content Include="Views\Report\LiveReport\Content.cshtml" />
+    <Content Include="Views\Report\LiveReport\Filter.cshtml" />
+    <Content Include="Views\Report\LiveReport\MatchList\Content.cshtml" />
+    <Content Include="Views\Report\LiveReport\Main.cshtml" />
+    <Content Include="Views\Report\Turnover\Filter.cshtml" />
+    <Content Include="Views\Report\Turnover\Content.cshtml" />
+    <Content Include="Views\Report\LicenseeWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\LicenseeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\LicenseeWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Content.cshtml" />
+    <Content Include="Views\Report\CustomerTurnover\Main.cshtml" />
+    <Content Include="Views\Report\CustomerTurnover\Filter.cshtml" />
+    <Content Include="Views\Report\CustomerTurnover\Content.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Content.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Filter.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Main.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\HistoryFilter.cshtml" />
+    <Content Include="Views\Report\SettledMatchCount\Main.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Main.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Filter.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Content.cshtml" />
+    <Content Include="Views\Report\CustomerPendingFunds\Content.cshtml" />
+    <Content Include="Views\Report\CustomerPendingFunds\Filter.cshtml" />
+    <Content Include="Views\Report\CustomerPendingFunds\Main.cshtml" />
+    <Content Include="Views\Report\WinLossByProduct\Main.cshtml" />
+    <Content Include="Views\Report\WinLossByProduct\Content.cshtml" />
+    <Content Include="Views\Report\WinLossByProduct\Filter.cshtml" />
+    <Content Include="Views\Report\SettledMatchCount\ContentHeader.cshtml" />
+    <Content Include="Views\Report\SettledMatchCount\ContentData.cshtml" />
+    <Content Include="Views\Customer\ContextMenu.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Main.cshtml" />
+    <Content Include="Views\Shared\_BetSettingLayout.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Menu.cshtml" />
+    <Content Include="Views\Customer\BetSetting\LiveCasino.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\LogInfo.cshtml" />
+    <Content Include="Views\Customer\BetSetting\NumberGame.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Content.Data.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Content.Total.cshtml" />
+    <Content Include="Views\Report\CustomerWinloss\Content.Header.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.TotalCommon.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.TotalCurrency.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.Data.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.Header.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.GrandTotal.cshtml" />
+    <Content Include="Views\Report\LiveReport\MatchList\Content.Data.cshtml" />
+    <Content Include="Views\Report\LiveReport\MatchList\Content.Header.cshtml" />
+    <Content Include="Views\Report\LiveReport\Content.Data.cshtml" />
+    <Content Include="Views\Report\LiveReport\Content.Header.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByBettype\Content.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByBettype\Content.Data.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByBettype\Content.Header.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByCurrency\Content.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByCurrency\Content.Data.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\ByCurrency\Content.Header.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\BySport\Content.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\BySport\Content.Data.cshtml" />
+    <Content Include="Views\Report\LiveReport\AjaxTemplate\BySport\Content.Header.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.Data.Detail.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.Data.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.NoInfo.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.GrandTotal.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.Header.cshtml" />
+    <Content Include="Views\Report\MatchWinLoss\Content.Total.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Content.Data.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Content.Total.cshtml" />
+    <Content Include="Views\Report\RacingCommission\Content.Header.cshtml" />
+    <Content Include="Views\Report\Turnover\Content.Data.cshtml" />
+    <Content Include="Views\Report\Turnover\Content.Total.cshtml" />
+    <Content Include="Views\Report\Turnover\Content.Header.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Content.Data.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Content.Total.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Content.Header.cshtml" />
+    <Content Include="Views\Report\WinLossByBetType\Content.NoInfo.cshtml" />
+    <Content Include="Views\Report\Balance\Content.cshtml" />
+    <Content Include="Views\Report\Balance\ContentData.BalanceNote.cshtml" />
+    <Content Include="Views\Report\Balance\ContentData.cshtml" />
+    <Content Include="Views\Report\Balance\ContentData.CustomerInfo.cshtml" />
+    <Content Include="Views\Report\Balance\Filter.cshtml" />
+    <Content Include="Views\Report\Balance\Main.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Content.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Content.Data.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Content.Header.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Content.Total.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Filter.cshtml" />
+    <Content Include="Views\Report\CustomerBalance\Main.cshtml" />
+    <Content Include="Views\Note\LiveReport.cshtml" />
+    <Content Include="Views\Note\LicenseeWinLoss.cshtml" />
+    <Content Include="Views\Shared\_NoteLayout.cshtml" />
+    <Content Include="Views\Note\MatchWinLoss.cshtml" />
+    <Content Include="Views\Note\WinLossByProduct.cshtml" />
+    <Content Include="Views\Note\WinLossByBetType.cshtml" />
+    <Content Include="Views\Note\RacingCommission.cshtml" />
+    <Content Include="Views\Note\DailyRacingWinLoss.cshtml" />
+    <Content Include="Views\Note\Turnover.cshtml" />
+    <Content Include="Views\Note\MobileWinLoss.cshtml" />
+    <Content Include="Views\Note\Balance.cshtml" />
+    <Content Include="Views\Note\CustomerWinLoss.cshtml" />
+    <Content Include="Views\Note\CustomerPendingFunds.cshtml" />
+    <Content Include="Views\Note\CustomerBalance.cshtml" />
+    <Content Include="Views\Note\CustomerTurnover.cshtml" />
+    <Content Include="Views\Note\CustomerList.cshtml" />
+    <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
+    <Content Include="Views\Report\LiveReport\HistoryFilter.cshtml" />
+    <Content Include="Views\Report\Balance\Content.Header.cshtml" />
+    <Content Include="Views\WareHouse\TopCustomer\Content.cshtml" />
+    <Content Include="Views\WareHouse\TopCustomer\Content.Data.cshtml" />
+    <Content Include="Views\WareHouse\TopCustomer\Content.Header.cshtml" />
+    <Content Include="Views\WareHouse\TopCustomer\Filter.cshtml" />
+    <Content Include="Views\WareHouse\TopCustomer\Main.cshtml" />
+    <Content Include="Views\WareHouse\WinLoss\Content.cshtml" />
+    <Content Include="Views\WareHouse\WinLoss\Content.Data.cshtml" />
+    <Content Include="Views\WareHouse\WinLoss\Content.Header.cshtml" />
+    <Content Include="Views\WareHouse\WinLoss\Filter.cshtml" />
+    <Content Include="Views\WareHouse\WinLoss\Main.cshtml" />
+    <Content Include="Views\Note\Warehouse.cshtml" />
+    <Content Include="Views\Report\Turnover\Content.Data.Empty.cshtml" />
+    <Content Include="Views\Account\ChangeLicensee.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\Filter.cshtml" />
+    <Content Include="Views\TotalBets\FirstGoalLastGoal\Main.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\Content.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\Filter.cshtml" />
+    <Content Include="Views\TotalBets\HalfTimeFullTime\Main.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\Content.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\Filter.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\Main.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\Content.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\Filter.cshtml" />
+    <Content Include="Views\TotalBets\HomeDrawAwayNoBet\Main.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\Content.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\Filter.cshtml" />
+    <Content Include="Views\TotalBets\MoneyLine\Main.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\Content.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\Filter.cshtml" />
+    <Content Include="Views\TotalBets\NumberGame\Main.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\Content.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\Filter.cshtml" />
+    <Content Include="Views\TotalBets\OddEvenDrawNoDraw\Main.cshtml" />
+    <Content Include="Views\TotalBets\Outright\Content.cshtml" />
+    <Content Include="Views\TotalBets\Outright\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\Outright\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\Outright\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\Outright\Filter.cshtml" />
+    <Content Include="Views\TotalBets\Outright\Main.cshtml" />
+    <Content Include="Views\TotalBets\Racing\Content.cshtml" />
+    <Content Include="Views\TotalBets\Racing\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\Racing\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\Racing\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\Racing\Filter.cshtml" />
+    <Content Include="Views\TotalBets\Racing\Main.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\Content.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\ContentData.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\ContentHeader.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\ContentNoInfo.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\Filter.cshtml" />
+    <Content Include="Views\TotalBets\TotalGoal\Main.cshtml" />
+    <Content Include="Views\Shared\_TotalBetsLayout.cshtml" />
+    <Content Include="Views\Forecast\ForecastAH\Main.cshtml" />
+    <Content Include="Views\Forecast\ForecastAH\ContentHeader.cshtml" />
+    <Content Include="Views\Forecast\ForecastAH\Content.cshtml" />
+    <Content Include="Views\Forecast\ForecastAH\ContentNoInfo.cshtml" />
+    <Content Include="Views\Forecast\ForecastAH\ContentData.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\Main.cshtml" />
+    <Content Include="Views\Shared\_ForecastLayout.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\Filter.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\ContentNoInfo.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\ContentHeader.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\ContentData.cshtml" />
+    <Content Include="Views\Forecast\Forecast1X2\Content.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\Content.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\Main.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\ContentData.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\ContentHeader.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\ContentNoInfo.cshtml" />
+    <Content Include="Views\Forecast\ForecastHDPOU\Filter.cshtml" />
+    <Content Include="Views\Shared\_Report.jqGridLayout.cshtml" />
+    <Content Include="Views\Shared\_BetListLayout.cshtml" />
+    <Content Include="Views\BetList\DailyBetList\Main.cshtml" />
+    <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />
+    <Content Include="Views\Utility\AccessDenied.cshtml" />
+    <Content Include="Views\Note\SettledMatchCount.cshtml" />
+    <Content Include="Views\Note\CancelledBetList.cshtml" />
+    <Content Include="Views\Note\LastBetsMonitoring.cshtml" />
+    <Content Include="Views\Shared\_ReportLayout.SettledMatchCount.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.Data.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.GrandTotal.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.Header.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.TotalCommon.cshtml" />
+    <Content Include="Views\Report\DailyRacingWinLoss\Content.TotalCurrency.cshtml" />
+    <Content Include="Views\Customer\BetSetting\RngCasino.cshtml" />
+    <Content Include="Views\Shared\_CustomerLogLayout.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\LoginLog\Filter.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\LoginLog\Main.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\LoginLog\Content.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\CustomerSettingLog\Main.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\CustomerSettingLog\Filter.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\CustomerSettingLog\Content.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2200.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2612.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2407.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\GroupCommLog\Main.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\GroupCommLog\Filter.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\GroupCommLog\Content.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Menu.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2609.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2610.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2611.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2201.cshtml" />
+    <Content Include="Views\BetList\DailyBetList\Filter.cshtml" />
+    <Content Include="Views\BetList\RunningBetList\Main.cshtml" />
+    <Content Include="Views\BetList\RunningBetList\Filter.cshtml" />
+    <Content Include="Views\BetList\CorrectScoreBetList\Main.cshtml" />
+    <Content Include="Views\BetList\CorrectScoreBetList\Filter.cshtml" />
+    <Content Include="Views\BetList\CancelledBetsBetList\Main.cshtml" />
+    <Content Include="Views\BetList\CancelledBetsBetList\Filter.cshtml" />
+    <Content Include="Views\BetList\RunningBetListOfMatch\Main.cshtml" />
+    <Content Include="Views\BetList\CustomerOutstanding\Filter.cshtml" />
+    <Content Include="Views\BetList\CustomerOutstanding\Main.cshtml" />
+    <Content Include="Views\BetList\LicenseeWl\Main.cshtml" />
+    <Content Include="Views\BetList\DailyRacingWl\Main.cshtml" />
+    <Content Include="Views\BetList\CustomerWl\Main.cshtml" />
+    <Content Include="Views\BetList\NumberGameWl\Main.cshtml" />
+    <Content Include="Views\Shared\_BetListSimpleLayout.cshtml" />
+    <Content Include="Views\BetList\LiveReport\Match.cshtml" />
+    <Content Include="Views\BetList\LiveReport\NumberGame.cshtml" />
+    <Content Include="Views\BetList\LiveReport\Racing.cshtml" />
+    <Content Include="Views\BetList\LiveReport\Outright.cshtml" />
+    <Content Include="Views\BetList\LiveReport\MixParlay.cshtml" />
+    <Content Include="Views\BetList\PendingFunds\Main.cshtml" />
+    <Content Include="Views\BetList\MatchWl\Outright.cshtml" />
+    <Content Include="Views\BetList\MatchWl\MatchBetType.cshtml" />
+    <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
+    <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
+    <Content Include="Views\Note\DailyBetList.cshtml" />
+    <None Include="Scripts\Languages\ViewResources.ko-KR.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.ko-KR.js</LastGenOutput>
+    </None>
+    <None Include="Scripts\Languages\ViewResources.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.js</LastGenOutput>
+    </None>
+    <None Include="Scripts\Languages\ViewResources.zh-CN.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.zh-CN.js</LastGenOutput>
+    </None>
+    <None Include="Scripts\Languages\ViewResources.zh-TW.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.zh-TW.js</LastGenOutput>
+    </None>
+    <Content Include="Views\BetList\LastBetsMonitoringNew\Filter.cshtml" />
+    <Content Include="Views\BetList\LastBetsMonitoringNew\Main.cshtml" />
+    <Content Include="Views\BetList\MobileWl\Main.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\EditPermission.cshtml" />
+    <Content Include="Views\Account\AssignCurrency.cshtml" />
+    <Content Include="Views\BetList\LastBetsMonitoringNew\Filter.cshtml" />
+    <Content Include="Views\BetList\LastBetsMonitoringNew\Main.cshtml" />
+    <Content Include="Views\BetList\MobileWl\Main.cshtml" />
+    <Content Include="Views\Customer\CustomerLog\Action\2801.cshtml" />
+    <Content Include="Views\Account\PermissionPage.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group1.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group2.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group3.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group4.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group5.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group6.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group8.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group9.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-0.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-2.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-3.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-4.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-5.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-6.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-8.cshtml" />
+    <Content Include="Views\RNGCasino\Main.cshtml" />
+    <Content Include="Views\RNGCasino\Content.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Noinfo.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group1-1.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group4-1.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group6-1.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-1.cshtml" />
+    <Content Include="Views\RNGCasino\RNGCasinoDetail\NoGameErr.cshtml" />
+    <Content Include="Views\Forecast\NewForecastHdpOu\Main.cshtml" />
+    <Content Include="Views\Forecast\NewForecastHdpOu\Filter.cshtml" />
+    <Content Include="Views\Forecast\NewForecastHdpOu\MatchOptionList.cshtml" />
+    <Content Include="Views\Forecast\NewForecastHdpOu\Content.cshtml" />
+    <Content Include="Views\Forecast\NewForecastHdpOu\Content.ForecastItem.cshtml" />
+    <Content Include="Views\BetList\NewForecastBetlist\Main.cshtml" />
+    <Content Include="Views\Report\Result\Content.cshtml" />
+    <Content Include="Views\Report\Result\Filter.cshtml" />
+    <Content Include="Views\Report\Result\Main.cshtml" />
+    <Content Include="Views\Report\Result\Popup\Main.cshtml" />
+    <Content Include="Views\Report\MobileWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\MobileWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\MobileWinLoss\Main.cshtml" />
+    <Content Include="Views\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
+    <Content Include="Views\Note\DailyStatement.cshtml" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Views\Footer\Index.cshtml" />
+    <Content Include="Views\Report\WinLossByLeague\Content.cshtml" />
+    <Content Include="Views\Report\WinLossByLeague\Main.cshtml" />
+    <Content Include="Views\Report\WinLossByLeague\Filter.cshtml" />
+    <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
+    <Content Include="Views\Header\Index.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
+    <Content Include="Views\Customer\Customers.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Filter.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Main.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Header.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
+    <Content Include="Views\Report\PlaytechCasino\Content.Title.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\IndexIpad.cshtml" />
+    <Content Include="Views\Utility\SSODenyAccess.cshtml" />
+    <Content Include="Views\Utility\Error.cshtml" />
+    <Content Include="Views\Utility\UnderMaintenance.cshtml" />
+    <Content Include="Views\Authorization\SignIn.cshtml" />
+    <Content Include="Views\Utility\LocationRestriction.cshtml" />
+    <Content Include="Views\Utility\SelectLicensee.cshtml" />
+    <Content Include="Views\Utility\ChangePass.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api\Fanex.Athena.Api.csproj">
+      <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
+      <Name>Fanex.Athena.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
+      <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>
+      <Name>Fanex.Athena.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
+      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
+      <Name>Fanex.Athena.Models</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
+      <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
+      <Name>Fanex.Athena.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
+      <Project>{BEC66A01-FA27-4418-8F8A-C2B4388A7905}</Project>
+      <Name>Fanex.Athena.Controllers</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
+      <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
+      <Name>Fanex.Athena.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_WareHouseLayout.cshtml" />
+    <Content Include="Views\Shared\_ReportLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Plugin\MultiSelect\images\images\" />
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53292</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>
