@@ -178,37 +178,44 @@
     <Compile Include="Form\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_BJ.aspx.cs">
       <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Champions.aspx.cs">
       <DependentUpon>HistoryImage_Champions.aspx</DependentUpon>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_ePoker.aspx.cs">
       <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Holdem.aspx.cs">
       <DependentUpon>HistoryImage_Holdem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_MiniRoulette.aspx.cs">
       <DependentUpon>HistoryImage_MiniRoulette.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_PokerWheel.aspx.cs">
       <DependentUpon>HistoryImage_PokerWheel.aspx</DependentUpon>
@@ -219,31 +226,37 @@
       <DependentUpon>HistoryImage_Scratch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Taizen.aspx.cs">
       <DependentUpon>HistoryImage_Taizen.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_TattooArt.aspx.cs">
       <DependentUpon>HistoryImage_TattooArt.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\LiveGenHistoryImg.aspx.cs">
       <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\HistoryImage_ePoker.aspx.cs">
       <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\LiveGenHistoryImg.aspx.cs">
       <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,6 +267,7 @@
       <DependentUpon>sso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+        <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
   </ItemGroup>
   <ItemGroup>
