@@ -177,13 +177,13 @@
   <ItemGroup>
     <Compile Include="Form\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -191,71 +191,71 @@
       <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Champions.aspx.cs">
       <DependentUpon>HistoryImage_Champions.aspx</DependentUpon>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_ePoker.aspx.cs">
       <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Holdem.aspx.cs">
       <DependentUpon>HistoryImage_Holdem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_MiniRoulette.aspx.cs">
       <DependentUpon>HistoryImage_MiniRoulette.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_PokerWheel.aspx.cs">
       <DependentUpon>HistoryImage_PokerWheel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Scratch.aspx.cs">
       <DependentUpon>HistoryImage_Scratch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_Taizen.aspx.cs">
       <DependentUpon>HistoryImage_Taizen.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_TattooArt.aspx.cs">
       <DependentUpon>HistoryImage_TattooArt.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\GenImage\LiveGenHistoryImg.aspx.cs">
       <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\HistoryImage_ePoker.aspx.cs">
       <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Form\LiveGenHistoryImg.aspx.cs">
       <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -266,7 +266,7 @@
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
         <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
   </ItemGroup>
@@ -436,46 +436,46 @@
     <Content Include="Content\Utility\LocationRestriction.css" />
     <Content Include="Content\Utility\SelectLicensee.css" />
     <Content Include="Form\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_Champions.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_ePoker.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_Holdem.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_Scratch.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_Taizen.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\LiveGenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\HistoryImage_ePoker.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\LiveGenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\BetList\outstandingrunningbetlist.js" />
@@ -839,7 +839,7 @@
     <Content Include="Scripts\WareHouse\winloss.js" />
     <Content Include="Content\Report\balance.css" />
     <Content Include="sso.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="under-maintenance.gif" />
     <Content Include="Web.config">
