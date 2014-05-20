@@ -90,7 +90,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId; 
+            metaModel.UserId = userSession.UserId; 
             if (metaModel.IsExportExcel)
             {
                 var currencyList = userSession.CurrencyList;

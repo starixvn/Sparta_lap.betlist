@@ -101,7 +101,7 @@ namespace Fanex.Athena.Controllers.Report
                     CsVisible = productAccess.IsAllowCs,
                     BgVisible = productAccess.IsAllowBg,
                     KnVisible = productAccess.IsAllowKN,
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
 
             var balance = new BalanceExcel(

@@ -239,17 +239,18 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         private void GetPopUpData(ResultPopupMetalModel metalModel)
         {
+            var userSession = SessionService.UserSession;
             IResultService resultService = new ResultService();
             var sportType = (SportType)metalModel.SportType;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var userId = SessionService.UserSession.UserId;
+            var userId = userSession.UserId;
             var setting = new ResultSetting
             {
                 SportType = sportType,
                 IsOutRight = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
                 IsPopUp = true,
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = userSession.Language
             };
             if (setting.IsParlayPopUp)
             {
@@ -357,13 +358,13 @@ namespace Fanex.Athena.Controllers.Report
         private ActionResult GetNormalSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
         {
             IResultService resultService = new ResultService();
-
+            var licenseeSession = SessionService.LicenseeSession;
             leagues = null;
-            sports = resultService.GetSports(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId);
+            sports = resultService.GetSports(metalModel.FromDate, licenseeSession.LicenseeId);
             if (sports.Count > 0)
             {
                 IEnumerable<Sport> limitedSports;
-                var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
                 var limitedProduct =
                     productAccess.IsAllowRb && productAccess.IsAllowLc && productAccess.IsAllowNg
                     && productAccess.IsAllowVs;

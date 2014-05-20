@@ -36,13 +36,15 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerPendingFunds()
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var metaModel = new CustomerPendingFundsMetaModel
                 {
-                    LicenseeId = this.SessionService.LicenseeSession.LicenseeId,
-                    UserId = SessionService.UserSession.UserId
+                    LicenseeId = licenseeSession.LicenseeId,
+                    UserId = userSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, IgnoreCasinoAngBingo);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -53,14 +55,14 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.ProductOptions = productOption;
 
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencyList = userSession.CurrencyList;
             var model = new CustomerPendingFundsViewModel
                 {
                     ShowEmptyContent = true,
                     DataList = new List<CustPendingFunds>(),
                     TotalData = new CustPendingFunds(),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
                     CurrencyList = currencyList,
                     Param = metaModel,
