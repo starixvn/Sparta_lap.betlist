@@ -425,7 +425,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Content>
     <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
