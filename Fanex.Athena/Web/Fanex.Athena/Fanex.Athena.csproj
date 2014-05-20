@@ -424,8 +424,12 @@
     <Content Include="Form\GenHistoryImg.aspx">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Content>
-    <Content Include="Form\GenImage\GenHistoryImg.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_BJ.aspx" />
+    <Content Include="Form\GenImage\GenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
     <Content Include="Form\GenImage\HistoryImage_Champions.aspx" />
     <Content Include="Form\GenImage\HistoryImage_ePoker.aspx" />
     <Content Include="Form\GenImage\HistoryImage_Holdem.aspx" />
@@ -435,8 +439,12 @@
     <Content Include="Form\GenImage\HistoryImage_Taizen.aspx" />
     <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx" />
     <Content Include="Form\GenImage\LiveGenHistoryImg.aspx" />
-    <Content Include="Form\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\LiveGenHistoryImg.aspx" />
+    <Content Include="Form\HistoryImage_ePoker.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Form\LiveGenHistoryImg.aspx">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\BetList\outstandingrunningbetlist.js" />
     <Content Include="Scripts\Customer\customers.js" />
