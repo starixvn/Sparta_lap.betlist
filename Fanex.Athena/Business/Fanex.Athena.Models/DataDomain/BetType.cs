@@ -37,7 +37,10 @@ namespace Fanex.Athena.Models.DataDomain
         /// TotalGoal bet type, value = 6.
         /// </summary>
         TotalGoal = 6,
-
+        /// <summary>
+        /// First Half Total Goal bet type ,value=126
+        /// </summary>
+        FirstHalfTotalGoal = 126,
         /// <summary>
         /// FirstHalfHandicap bet type, value = 7.
         /// </summary>
@@ -82,7 +85,10 @@ namespace Fanex.Athena.Models.DataDomain
         /// FirstGoalLastGoal bet type, value = 14.
         /// </summary>
         FirstGoalLastGoal = 14,
-
+        /// <summary>
+        /// First Half first goal,last goal,value=127
+        /// </summary>
+        FirstHalFirsGoalLastGoal = 127,
         /// <summary>
         /// FirstHalf_1X2 bet type, value = 15.
         /// </summary>
