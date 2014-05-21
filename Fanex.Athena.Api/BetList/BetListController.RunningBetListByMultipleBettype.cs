@@ -44,7 +44,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            string uspKey = "Lrf_BetList_SelRunningByBettypeMatch";
+            string uspKey = IsRacing(metaModel.BetType)
+                                              ? "Lrf_BetList_SelAllByDateHR"
+                                              : "Lrf_BetList_SelRunningByBettypeMatch";
             return GetBetListResultByMultipleBettype(metaModel, uspKey);
         }
 

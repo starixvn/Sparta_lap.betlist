@@ -111,9 +111,9 @@
     <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
     <Compile Include="BetList\BetListController.MixParlay.cs" />
     <Compile Include="BetList\BetListController.MobileWl.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettype.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
+    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettype.cs" />
     <Compile Include="CustomerLog\LogController.cs" />
     <Compile Include="CustomerLog\LogController.GroupCommission.cs" />
     <Compile Include="CustomerLog\LogController.CustomerSetting.cs" />
