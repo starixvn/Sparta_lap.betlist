@@ -76,6 +76,15 @@ var BetList = (function ($) {
                 $(".ui-jqgrid .ui-jqgrid-bdiv").css("overflow-y", "hidden");
             }
 
+            // fix cursor on non-sortable columns
+            var cm = $(grid)[0].p.colModel;
+            $.each($(grid)[0].grid.headers, function (index, value) {
+                var cmi = cm[index], colName = cmi.name;
+                if (cmi.sortable) {
+                    $('div.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
+                }
+            });
+
             Site.unBlockUI();
         },
 

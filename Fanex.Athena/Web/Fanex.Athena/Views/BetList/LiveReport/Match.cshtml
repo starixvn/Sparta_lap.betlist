@@ -10,10 +10,15 @@
 @section ContentTitle
 {
     @{var matchName = Model.HomeId > 0 && Model.AwayId > 0
-          ? CacheRef.GetTeamName(Model.HomeId) + " vs " + CacheRef.GetTeamName(Model.AwayId) + " -"
+          ? CacheRef.GetTeamName(Model.HomeId) + " vs " + CacheRef.GetTeamName(Model.AwayId) + " - "
           : string.Empty;
+      var betTypeName = CacheRef.GetBettype(Model.BetType);
+      if(!string.IsNullOrWhiteSpace(betTypeName))
+      {
+         betTypeName = betTypeName + " -";
+      }
     }
-    @ViewResources.BetList - @matchName@CacheRef.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()<span
+    @ViewResources.BetList - @matchName@CacheRef.GetBettype(Model.BetType) @Model.FromDate.ToShortDateString()<span
         class="header-title-arrow"> → </span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
