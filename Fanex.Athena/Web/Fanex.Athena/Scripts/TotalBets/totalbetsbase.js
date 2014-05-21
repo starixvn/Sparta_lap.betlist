@@ -20,6 +20,14 @@ var Totalbets = (function ($) {
 
             window.location.href = url;
         },
+        viewRunningBetListMultiBettype: function (matchId, betType) {
+            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatch");
+            url = Site.setLicenseeOptionOriginalParam(url);
+            url = QueryString.setParam(url, "matchid", matchId);
+            url = QueryString.setParam(url, "bettype", betType);
+
+            window.location.href = url;
+        },
         initialize: function () {
             Site.unBlockUI();
             this.initEvent();

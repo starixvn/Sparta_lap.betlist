@@ -14,7 +14,7 @@ var FirstGoalLastGoal = (function ($) {
             // Home team click
             $('#Refresh-Content').on('click', '.team', function () {
                 var matchId = $(this).attr("data-match-id");
-                Totalbets.viewRunningBetListMatch(matchId, 14);
+                Totalbets.viewRunningBetListMultiBettype(matchId, 14);
             });
         },
         submit: function () {
