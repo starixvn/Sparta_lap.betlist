@@ -1,14 +1,17 @@
-﻿/// <reference path="/@JSense.js" />
-var FirstGoalLastGoal = (function ($) {
-    var firstGoalLastGoal = 14, firstHalfFirsGoalLastGoal = 127
-    var bettypeParameter = firstGoalLastGoal + "," + firstHalfFirsGoalLastGoal;
+﻿/*global Site,Totalbets */
 
+/// <reference path="/@JSense.js" />
+var FirstGoalLastGoal = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             Totalbets.initialize();
             FirstGoalLastGoal.initEvent();
         },
         initEvent: function () {
+            var firstGoalLastGoal = 14, firstHalfFirsGoalLastGoal = 127;
+            var bettypeParameter = firstGoalLastGoal + "," + firstHalfFirsGoalLastGoal;
+
             // Submit event.
             $("#SubmitButton").on("click", function () {
                 FirstGoalLastGoal.submit();
@@ -25,4 +28,4 @@ var FirstGoalLastGoal = (function ($) {
             $("#FirstGoalLastGoalForm").submit();
         }
     };
-})(jQuery)
+})(jQuery);

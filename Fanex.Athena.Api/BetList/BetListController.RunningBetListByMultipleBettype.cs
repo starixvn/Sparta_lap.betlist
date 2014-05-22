@@ -11,11 +11,7 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
-    using System;
-    using System.Linq;
     using System.Web.Http;
-    using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
 
     #endregion Using
@@ -47,6 +43,5 @@ namespace Fanex.Athena.Api.BetList
             string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             return GetBetListResult(metaModel, uspKey);
         }
-
     }
 }

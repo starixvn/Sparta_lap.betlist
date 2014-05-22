@@ -1,13 +1,16 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site,Totalbets */
+/// <reference path="/@JSense.js" />
 var TotalGoal = (function ($) {
-    var totalGoalBettype = 6, firstHalfTotalGoal = 126;
-    var bettypeParameter=totalGoalBettype+","+firstHalfTotalGoal;
+    "use strict";
     return {
         initialize: function () {
             Totalbets.initialize();
             TotalGoal.initEvent();
         },
         initEvent: function () {
+            var totalGoalBettype = 6, firstHalfTotalGoal = 126;
+            var bettypeParameter = totalGoalBettype + "," + firstHalfTotalGoal;
+
             // Submit event.
             $("#SubmitButton").on("click", function () {
                 TotalGoal.submit();
