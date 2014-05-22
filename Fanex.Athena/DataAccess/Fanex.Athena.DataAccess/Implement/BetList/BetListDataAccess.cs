@@ -1253,7 +1253,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
-            db.AddInParameter("bettype", DbType.String, metaModel.MultipleBettype);
+            db.AddInParameter("bettype", DbType.String, !string.IsNullOrEmpty(metaModel.MultipleBettype) ? metaModel.MultipleBettype : string.Empty);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             CreateBetListPagingParameters(db, metaModel);
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);

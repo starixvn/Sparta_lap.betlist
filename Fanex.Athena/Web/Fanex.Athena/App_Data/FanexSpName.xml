@@ -37,15 +37,15 @@
 
   <Function Name="Report">
     <Setting Key="Lrf_Result_Outright" SpName="Lrf_Result_Outright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Result_SportSelByDate" SpName="Lrf_Result_SportSelByDate_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Result_RaceSelByMeeting" SpName="Lrf_Result_RaceSelByMeeting_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Result_SportSelByDate" SpName="Lrf_Result_SportSelByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Result_RaceSelByMeeting" SpName="Lrf_Result_RaceSelByMeeting" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Result_MatchSelByLeague" SpName="Lrf_Result_MatchSelByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Result_MatchSelNumberGameByLeague" SpName="Lrf_Result_MatchSelNumberGameByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Result_LeagueSelByDate" SpName="Lrf_Result_LeagueSelByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_MobileWinloss" SpName="Lrf_Rpt_MobileWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_MatchWinLossDetail" SpName="Lrf_Rpt_MatchWinLossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLoss" SpName="Lrf_Rpt_MatchWinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_MatchWinLossByBettype" SpName="Lrf_Rpt_MatchWinLossByBettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_MatchWinLossByOutrightParlay" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_LicWinloss" SpName="Lrf_Rpt_LicWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_LicWinlossDetail" SpName="Lrf_Rpt_LicWinlossDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -57,7 +57,7 @@
     <Setting Key="Lrf_Rpt_LiveReportBySport" SpName="Lrf_Rpt_LiveReportBySport" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_TurnOver" SpName="Lrf_Rpt_TurnOver" DbName="DBACC.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_WinLossByBettype" SpName="Lrf_Rpt_WinLossByBettype" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Rpt_CustomerTurnOver" SpName="Lrf_Rpt_CustomerTurnOver_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" TimeOut="240"></Setting>
+    <Setting Key="Lrf_Rpt_CustomerTurnOver" SpName="Lrf_Rpt_CustomerTurnOver" DbName="DBEXT.bodb02.bodbLicenseeNet" TimeOut="240"></Setting>
     <Setting Key="Lrf_BetTypesGetAll" SpName="Lrf_BetTypesGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_SportsGetAll" SpName="Lrf_SportsGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.bodbLicenseeNet"></Setting>
@@ -72,9 +72,9 @@
     <Setting Key="Lrf_Rpt_WinlossByLeague" SpName="Lrf_Rpt_WinlostByLeague"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByLeagueDetail" SpName="Lrf_Rpt_WinlossByLeagueDetail"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_PlaytechWinloss" SpName="Lrf_Rpt_PlaytechWinloss_15876" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_PlaytechWinlossDetail_Ag" SpName="Lrf_Rpt_PlaytechWinlossDetail_Ag_15876" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_PlaytechWinlossDetail" SpName="Lrf_Rpt_PlaytechWinlossDetail_15876" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PlaytechWinloss" SpName="Lrf_Rpt_PlaytechWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PlaytechWinlossDetail_Ag" SpName="Lrf_Rpt_PlaytechWinlossDetail_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_PlaytechWinlossDetail" SpName="Lrf_Rpt_PlaytechWinlossDetail" DbName="DBACC.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
@@ -114,7 +114,7 @@
     <Setting Key="Lrf_CustomerSelEditNG" SpName="Lrf_CustomerSelEditNG" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditRB" SpName="Lrf_CustomerSelEditRB" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditKN" SpName="Lrf_CustomerSelEditKN" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSelMember_MinMaxBetVS" SpName="Lrf_CustomerSelMember_MinMaxBetVS_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSelMember_MinMaxBetVS" SpName="Lrf_CustomerSelMember_MinMaxBetVS" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="TP_Admin_StakeLevel_GetCustStakeLevelMulti" SpName="TP_Admin_StakeLevel_GetCustStakeLevelMulti" DbName="live_casino" />
     <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet151_31" SpName="Lrf_CustomerUpdMember_MinMaxBet151_31" DbName="DBTXN.CustDB.bodbLicenseeNet" />
@@ -124,7 +124,7 @@
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet152_51" SpName="Lrf_CustomerUpdMember_MinMaxBet152_51" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet153_51" SpName="Lrf_CustomerUpdMember_MinMaxBet153_51" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet161" SpName="Lrf_CustomerUpdMember_MinMaxBet161" DbName="DBTXN.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMember_MinMaxBetVS" SpName="Lrf_CustomerUpdMember_MinMaxBetVS_15189" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMember_MinMaxBetVS" SpName="Lrf_CustomerUpdMember_MinMaxBetVS" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBetKN" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="TP_User_CustGameType_UpdStakeLevel" SpName="TP_User_CustGameType_UpdStakeLevel" DbName="live_casino" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
@@ -134,10 +134,10 @@
     <Setting Key="Lrf_TotalBets_Sel1378" SpName="Lrf_TotalBets_Sel1378" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel2021" SpName="Lrf_TotalBets_Sel2021" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel25" SpName="Lrf_TotalBets_Sel25" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel6" SpName="Lrf_TotalBets_Sel6_15189" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel6" SpName="Lrf_TotalBets_Sel6" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel10" SpName="Lrf_TotalBets_Sel10" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel16" SpName="Lrf_TotalBets_Sel16" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel14" SpName="Lrf_TotalBets_Sel14_15189" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel14" SpName="Lrf_TotalBets_Sel14" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel121" SpName="Lrf_TotalBets_Sel121" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_SelHR" SpName="Lrf_TotalBets_SelHR" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel161" SpName="Lrf_TotalBets_Sel161" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
@@ -158,14 +158,14 @@
   <Function Name="Common">
     <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetExchangeRateByDate" SpName="Lrf_GetExchangeRateByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport_15189" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelMatchByLeague" SpName="Lrf_SelMatchByLeague" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail_15189" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="BetList">
-    <Setting Key="Lrf_BetList_SelMatchResult" SpName="Lrf_BetList_SelMatchResult_15189" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelMatchResult" SpName="Lrf_BetList_SelMatchResult" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelMatchResultParlay" SpName="Lrf_BetList_SelMatchResultParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelMatchResultNumberGame" SpName="Lrf_BetList_SelMatchResultNumberGame" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelRunningByBettype" SpName="Lrf_BetList_SelRunningByBettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -182,12 +182,12 @@
     <Setting Key="Lrf_BetList_SelByDayAll_Mem" SpName="Lrf_BetList_SelByDayAll_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossOutright" SpName="Lrf_BetList_LiveReport_SelWinlossOutright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Outright" SpName="Lrf_BetList_MatchWL_Outright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Bettype" SpName="Lrf_BetList_MatchWL_Bettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Racing" SpName="Lrf_BetList_MatchWL_Racing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_MatchSel" SpName="Lrf_Monitor_MatchSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -198,8 +198,11 @@
     <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MobileReport_SelWinloss_Mem" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Forecast_SelByMatch" SpName="Lrf_BetList_Forecast_SelByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily_14877" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+      <Setting Key="Lrf_BetList_SelRunningByMultipleBettypeMatch" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+
+      
   </Function>
 
   <Function Name="CustomerLog">

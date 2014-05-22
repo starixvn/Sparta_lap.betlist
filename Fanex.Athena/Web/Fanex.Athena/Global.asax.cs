@@ -95,7 +95,10 @@ namespace Fanex.Athena
             {
                 ISessionService sessionService = new SessionService();
                 var licenseeSession = sessionService.LicenseeSession;
-                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
+                if (licenseeSession != null)
+                {
+                    message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
+                }
             }
             catch (Exception)
             {
