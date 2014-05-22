@@ -7,9 +7,11 @@
 namespace Fanex.Athena.Web.RouterConfig
 {
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using Fanex.Athena.Service.Implement.Users;
 
     /// <summary>
     /// Compress Handler class.
@@ -28,8 +30,13 @@ namespace Fanex.Athena.Web.RouterConfig
                 responseToCompleteTask =>
                 {
                     HttpResponseMessage response = responseToCompleteTask.Result;
-                    response.EnsureSuccessStatusCode();
-                    if (response.RequestMessage.Headers.AcceptEncoding != null)
+
+                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        response.Content = new StringContent("Unauthorized.");
+                    }
+
+                    if (response.RequestMessage != null && response.RequestMessage.Headers.AcceptEncoding != null)
                     {
                         var encodingType = response.RequestMessage.Headers.AcceptEncoding.FirstOrDefault();
                         response.Content = new CompressedContent(response.Content, encodingType != null ? encodingType.Value : "gzip");

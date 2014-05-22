@@ -176,7 +176,9 @@ var BetList = (function ($) {
                 },
                 complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
-                }
+                },
+                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); }
+
             });
         },
 

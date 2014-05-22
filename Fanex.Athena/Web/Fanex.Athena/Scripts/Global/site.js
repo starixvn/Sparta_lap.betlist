@@ -32,6 +32,13 @@ var Site = (function ($) {
             $("#CurrencyId").change(function () {
                 Site.currencyConstraint(true);
             });
+            $.ajaxSetup({
+                statusCode: {
+                    401: function (jqXHR, textStatus, errorThrown) {
+                        window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
+                    }
+                } 
+            });
         },       
         asNull: function (text) {
             if (text != null) {

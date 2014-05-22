@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.ActionFilter
 {
+    using System.Net;
+    using System.Net.Http;
     using System.Web.Http;
     using Fanex.Athena.Service.Implement.Users;
 
@@ -15,21 +17,17 @@ namespace Fanex.Athena.Web.ActionFilter
     {
         #region Override
 
-        public override void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-            if (!IsAuthorized(actionContext))
-            {
-                var challengeMessage = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
-                throw new HttpResponseException(challengeMessage);
-            }
-        }
-
         protected override bool IsAuthorized(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
             var userSession = sessionService.UserSession;
             return licenseeSession != null && userSession != null;
+        }
+
+        protected override void HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext actionContext)
+        {
+            actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized) { Content = new StringContent("Unauthorized.") };
         }
 
         #endregion Override
