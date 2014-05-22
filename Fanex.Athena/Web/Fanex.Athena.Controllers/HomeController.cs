@@ -6,7 +6,10 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System;
     using System.Web.Mvc;
+    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Interface.Users;
 
     /// <summary>
     /// Home controller.
@@ -21,6 +24,28 @@ namespace Fanex.Athena.Controllers
         public ActionResult IndexIpad()
         {
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
+        }
+
+        /// <summary>
+        /// Get number online user.
+        /// </summary>
+        /// <returns>The amount online users.</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public string NumOfOnlineUser()
+        {
+            var result = string.Empty;
+            try
+            {
+                ILicenseeService licenseeService = new LicenseeService();
+                result = licenseeService.GetNumberOfOnlineUser();
+            }
+            catch (Exception exception)
+            {
+                result = "Error!" + exception.Message;
+            }
+
+            return result;
         }
 
         /// <summary>

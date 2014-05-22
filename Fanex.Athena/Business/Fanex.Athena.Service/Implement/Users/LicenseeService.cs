@@ -194,5 +194,10 @@ namespace Fanex.Athena.Service.Implement.Users
         }
 
         #endregion Public Methods and Operators
+
+        public string GetNumberOfOnlineUser()
+        {
+            return _licenseeDataAccess.GetNumberOfOnlineUser();
+        }
     }
 }

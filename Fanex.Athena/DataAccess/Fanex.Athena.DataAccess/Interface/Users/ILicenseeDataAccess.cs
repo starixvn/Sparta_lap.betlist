@@ -32,6 +32,8 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         IList<int> GetByResellerId(int userId, int resellerId);
 
+        string GetNumberOfOnlineUser();
+
         #endregion Public Methods and Operators
     }
 }
