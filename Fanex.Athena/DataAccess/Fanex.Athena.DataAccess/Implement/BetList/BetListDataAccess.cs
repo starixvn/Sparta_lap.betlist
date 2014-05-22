@@ -1236,12 +1236,27 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 case "Lrf_BetList_SelRunningByBettypeMatch":
                     CreateMatchRunningBetLitByBettypeParameters(db, metaModel);
                     break;
-
+                case "Lrf_BetList_SelRunningByMultipleBettypeMatch":
+                    CreateMatchRunningBetLitByMultipleBettypeParameters(db, metaModel);
+                    break;
                 case "Lrf_BetList_Forecast_SelByMatch":
                     CreateRunningBetListByForeCastMatchParameters(db, metaModel);
 
                     break;
             }
+        }
+
+        private static void CreateMatchRunningBetLitByMultipleBettypeParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("bettype", DbType.String, metaModel.MultipleBettype);
+            db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
+            CreateBetListPagingParameters(db, metaModel);
+            db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
+
         }
 
         #endregion Utility

@@ -24,7 +24,7 @@ var Totalbets = (function ($) {
             var url = Site.resolveClientUrl("BetList/RunningBetListByMultipleBettype");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
-            url = QueryString.setParam(url, "bettype", betType);
+            url = QueryString.setParam(url, "multiplebettype", betType);
 
             window.location.href = url;
         },

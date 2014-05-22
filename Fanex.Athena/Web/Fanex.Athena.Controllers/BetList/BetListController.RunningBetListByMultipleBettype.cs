@@ -60,25 +60,8 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult RunningBetListByMultipleBettypeExcel(BetListMetaModel metaModel)
         {
-            string uspKey = IsRacing(metaModel.BetType)
-                                              ? "Lrf_BetList_SelAllByDateHR"
-                                              : "Lrf_BetList_SelRunningByBettypeMatch";
+            string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
-
-            if (metaModel.BetType == (int)BetType.TotalGoal || metaModel.BetType == (int)BetType.FirstGoalLastGoal)
-            {
-                metaModel.BetType = metaModel.BetType == (int)BetType.TotalGoal ? (int)BetType.FirstHalfTotalGoal : (int)BetType.FirstHalFirsGoalLastGoal;
-                var firstHalfResult = _betListService.GetBetListData(metaModel, uspKey);
-                ticketResult.MainTicketList.AddRange(firstHalfResult.MainTicketList);
-                ticketResult.TicketDataList.AddRange(firstHalfResult.TicketDataList);
-                ticketResult.TotalRows += firstHalfResult.TotalRows;
-                ticketResult.SumWinLoss += firstHalfResult.SumWinLoss;
-                ticketResult.SumLicenseeWl += firstHalfResult.SumLicenseeWl;
-                ticketResult.SumComm += firstHalfResult.SumComm;
-                ticketResult.SumPlayerComm += firstHalfResult.SumPlayerComm;
-                ticketResult.SumStake += firstHalfResult.SumStake;
-                metaModel.BetType = metaModel.BetType == 126 ? 6 : 14;
-            }
 
             var showingOption = new ShowingOption
             {

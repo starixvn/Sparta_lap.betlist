@@ -113,7 +113,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
         public int LeagueId { get; set; }
 
         public int BetType { get; set; }
-
+        public string MultipleBettype { get; set; }
         public string BetTeam { get; set; }
 
         public int? LiveIndicator { get; set; }

@@ -1,5 +1,8 @@
 ﻿/// <reference path="/@JSense.js" />
 var FirstGoalLastGoal = (function ($) {
+    var firstGoalLastGoal = 14, firstHalfFirsGoalLastGoal = 127
+    var bettypeParameter = firstGoalLastGoal + "," + firstHalfFirsGoalLastGoal;
+
     return {
         initialize: function () {
             Totalbets.initialize();
@@ -14,7 +17,7 @@ var FirstGoalLastGoal = (function ($) {
             // Home team click
             $('#Refresh-Content').on('click', '.team', function () {
                 var matchId = $(this).attr("data-match-id");
-                Totalbets.viewRunningBetListMultiBettype(matchId, 14);
+                Totalbets.viewRunningBetListMultiBettype(matchId, bettypeParameter);
             });
         },
         submit: function () {

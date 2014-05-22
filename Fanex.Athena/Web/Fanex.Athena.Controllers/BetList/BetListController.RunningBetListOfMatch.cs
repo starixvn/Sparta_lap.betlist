@@ -65,22 +65,6 @@ namespace Fanex.Athena.Controllers.BetList
                                               : "Lrf_BetList_SelRunningByBettypeMatch";
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
 
-            // Add more first half data
-            if (metaModel.BetType == 6 || metaModel.BetType == 14)
-            {
-                metaModel.BetType = metaModel.BetType == 6 ? 126 : 127;
-                var firstHalfResult = _betListService.GetBetListData(metaModel, uspKey);
-                ticketResult.MainTicketList.AddRange(firstHalfResult.MainTicketList);
-                ticketResult.TicketDataList.AddRange(firstHalfResult.TicketDataList);
-                ticketResult.TotalRows += firstHalfResult.TotalRows;
-                ticketResult.SumWinLoss += firstHalfResult.SumWinLoss;
-                ticketResult.SumLicenseeWl += firstHalfResult.SumLicenseeWl;
-                ticketResult.SumComm += firstHalfResult.SumComm;
-                ticketResult.SumPlayerComm += firstHalfResult.SumPlayerComm;
-                ticketResult.SumStake += firstHalfResult.SumStake;
-                metaModel.BetType = metaModel.BetType == 126 ? 6 : 14;
-            }
-
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
