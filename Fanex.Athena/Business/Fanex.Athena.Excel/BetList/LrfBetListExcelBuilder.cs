@@ -87,10 +87,10 @@ namespace Fanex.Athena.Excel.BetList
             ICellStyle footerStyle = builder.CreateCellStyle();
             footerStyle.CloneStyleFrom(builder.EvenCellStyle);
             footerStyle.FillForegroundColor = 47;
-            footerStyle.Alignment = HorizontalAlignment.RIGHT;
-            footerStyle.BorderTop = BorderStyle.NONE;
-            footerStyle.BorderLeft = BorderStyle.NONE;
-            footerStyle.BorderBottom = BorderStyle.NONE;
+            footerStyle.Alignment = HorizontalAlignment.Right;
+            footerStyle.BorderTop = BorderStyle.None;
+            footerStyle.BorderLeft = BorderStyle.None;
+            footerStyle.BorderBottom = BorderStyle.None;
             footerStyle.SetFont(builder.RTFHelper.PosFont);
 
             // Total Text
@@ -131,8 +131,8 @@ namespace Fanex.Athena.Excel.BetList
             var headerStyle = builder.CreateCellStyle();
             headerStyle.CloneStyleFrom(builder.EvenCellStyle);
             headerStyle.FillForegroundColor = 44;
-            headerStyle.Alignment = HorizontalAlignment.CENTER;
-            headerStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            headerStyle.Alignment = HorizontalAlignment.Center;
+            headerStyle.VerticalAlignment = VerticalAlignment.Center;
             headerStyle.SetFont(builder.RTFHelper.PosFont);
 
             // Index

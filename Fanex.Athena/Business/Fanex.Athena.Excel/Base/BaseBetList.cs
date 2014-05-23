@@ -51,7 +51,7 @@ namespace Fanex.Athena.Excel.Base
         public static void AddNoInfoRow(BetListExcelBuilder builder)
         {
             ICellStyle titleStyle = builder.CreateCellStyle();
-            titleStyle.Alignment = HorizontalAlignment.CENTER;
+            titleStyle.Alignment = HorizontalAlignment.Center;
 
             builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
             builder.MergeCell(new CellRangeAddress(2, 2, 0, 9));
@@ -65,11 +65,11 @@ namespace Fanex.Athena.Excel.Base
         public static void AddTitle(BetListExcelBuilder builder, string title)
         {
             IFont font = builder.CreateFont();
-            font.Boldweight = (short)FontBoldWeight.BOLD;
-            font.Color = HSSFColor.ORANGE.index;
+            font.Boldweight = (short)FontBoldWeight.Bold;
+            font.Color = HSSFColor.Orange.Index;
 
             ICellStyle titleStyle = builder.CreateCellStyle();
-            titleStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            titleStyle.VerticalAlignment = VerticalAlignment.Center;
             titleStyle.SetFont(font);
 
             builder.AddCell(new HSSFRichTextString(title), titleStyle);
@@ -153,13 +153,13 @@ namespace Fanex.Athena.Excel.Base
         {
             _oddCellStyleLeftAligned = builder.CreateCellStyle();
             _oddCellStyleLeftAligned.CloneStyleFrom(builder.OddCellStyle);
-            _oddCellStyleLeftAligned.Alignment = HorizontalAlignment.LEFT;
+            _oddCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
             _oddCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
             _oddCellStyleLeftAligned.WrapText = true;
 
             _evenCellStyleLeftAligned = builder.CreateCellStyle();
             _evenCellStyleLeftAligned.CloneStyleFrom(builder.EvenCellStyle);
-            _evenCellStyleLeftAligned.Alignment = HorizontalAlignment.LEFT;
+            _evenCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
             _evenCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
             _evenCellStyleLeftAligned.WrapText = true;
         }
@@ -167,11 +167,11 @@ namespace Fanex.Athena.Excel.Base
         private void InitializeFonts(BetListExcelBuilder builder)
         {
             _negativeWinLossFont = builder.CreateFont();
-            _negativeWinLossFont.Boldweight = (short)FontBoldWeight.BOLD;
-            _negativeWinLossFont.Color = (short)FontColor.RED;
+            _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
+            _negativeWinLossFont.Color = (short)FontColor.Red;
 
             _winLossFont = builder.CreateFont();
-            _winLossFont.Boldweight = (short)FontBoldWeight.BOLD;
+            _winLossFont.Boldweight = (short)FontBoldWeight.Bold;
             _winLossFont.Color = (short)FontColor.None;
         }
 
