@@ -45,10 +45,6 @@ namespace Fanex.Athena.Models.DTO.Users
         /// <value>The currency List.</value>
         public IList<int> FunctionIdList { get; set; }
 
-        public IList<int> LicenseeFunctionIdList { get; set; }
-
-        public IList<int> LicenseeUserFunctionIdList { get; set; }
-
         public bool IsAllowedEditCommission
         {
             get
