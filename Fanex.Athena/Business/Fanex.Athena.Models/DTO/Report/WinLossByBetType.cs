@@ -72,7 +72,5 @@ namespace Fanex.Athena.Models.DTO.Report
         {
             get { return CustomerWinLoss + CustomerComm; }
         }
-
-       
     }
 }

@@ -158,8 +158,7 @@ namespace Fanex.Athena.Controllers.Report
                 RacingRevenue = dataList.Sum(item => item.RacingRevenue),
                 RbComm = dataList.Sum(item => item.RbComm),
                 AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing),
-                LicenseeWL=dataList.Sum(i=>i.LicenseeWL),
-                
+                LicenseeWL = dataList.Sum(i => i.LicenseeWL),
             };
         }
 

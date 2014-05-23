@@ -253,7 +253,7 @@
     </violations>
   </sourcecode>
   <project key="-164696552">
-    <configuration>DEBUG;TRACE</configuration>
+    <configuration>TRACE</configuration>
   </project>
   <sourcecode name="Global.asax.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
