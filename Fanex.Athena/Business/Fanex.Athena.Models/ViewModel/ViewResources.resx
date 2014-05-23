@@ -2397,4 +2397,10 @@
     <value>Playtech Casino</value>
     <comment>14488</comment>
   </data>
+  <data name="VirtualCycling" xml:space="preserve">
+    <value>Virtual Cycling</value>
+  </data>
+  <data name="VirtualSpeedway" xml:space="preserve">
+    <value>Virtual Speedway</value>
+  </data>
 </root>

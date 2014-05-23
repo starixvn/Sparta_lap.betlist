@@ -30,7 +30,6 @@ var BetList = (function ($) {
                             $this.append(sortSpan);
                             $this.addClass("sorted-heading");
                         }
-
                     });
 
             betListGrid.setGridWidth($("#BodyContent").width());

@@ -89,6 +89,12 @@ namespace Fanex.Athena.Models.DTO.Report
                         case "KN":
                             _productName = ViewResources.Keno;
                             break;
+                        case "VS183":
+                            _productName = ViewResources.VirtualSpeedway;
+                            break;
+                        case "VS185":
+                            _productName = ViewResources.VirtualCycling;
+                            break;                        
                         default:
                             _productName = _productCode;
                             break;

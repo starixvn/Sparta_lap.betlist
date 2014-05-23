@@ -69,7 +69,7 @@ namespace Fanex.Athena.Service.Implement.Report
                 return new List<MatchWinLoss>();
             }
 
-            var dataList = _matchWinLossDataAccess.GetDataList(metaModel);
+            var dataList = _matchWinLossDataAccess.GetDataList(metaModel).Where(x => x.SportType == 185).ToList();
 
             foreach (var data in dataList)
             {
@@ -135,7 +135,6 @@ namespace Fanex.Athena.Service.Implement.Report
                 default:
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
                                    (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
-
                     return homeName;
             }
         }

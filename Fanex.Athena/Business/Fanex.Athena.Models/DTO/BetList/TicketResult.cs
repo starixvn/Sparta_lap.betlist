@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.DTO.BetList
 {
     using System.Collections.Generic;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.BetList.Core.Entities;
 
     /// <summary>
@@ -16,11 +17,11 @@ namespace Fanex.Athena.Models.DTO.BetList
     {
         public TicketResult()
         {
-            MainTicketList = new List<LrfTicket>();
+            MainTicketList = new SortableList<LrfTicket>();
             TicketDataList = new List<ITicketData>();
         }
 
-        public List<LrfTicket> MainTicketList { get; set; }
+        public SortableList<LrfTicket> MainTicketList { get; set; }
 
         public List<ITicketData> TicketDataList { get; set; }
 

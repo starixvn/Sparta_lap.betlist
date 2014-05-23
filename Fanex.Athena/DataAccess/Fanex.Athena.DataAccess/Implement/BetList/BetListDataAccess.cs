@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.BetList;
     using Fanex.Athena.Extension;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer;
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     {
                         return new TicketResult()
                         {
-                            MainTicketList = this.ReadLrfTicket(reader, string.Empty).ToList()
+                            MainTicketList = this.ReadLrfTicket(reader, string.Empty)
                         };
                     }
                 }
@@ -176,8 +177,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 {
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
-                    {                                               
-                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, baseCurrency).ToList();                        
+                    {
+                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, baseCurrency);                     
                         ticketResult.TicketDataList = reader.NextResult()
                                     ? this.ReadLrfReferneceTicket(reader, baseCurrency).ToList()
                                     : new List<ITicketData>();
@@ -245,10 +246,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveStatus);
                     db.AddInParameter("BaseCurrency", DbType.String, metaModel.BasedCurrency);
                     db.AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
-
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList = this.ReadLrfTicket(reader, metaModel.BasedCurrency).OrderByDescending(x => x.TransId).ToList();
+                        var mainTicket = this.ReadLrfTicket(reader, metaModel.BasedCurrency);
+                        mainTicket.Sort("TransId", false);
+                        ticketResult.MainTicketList = mainTicket;
                         ticketResult.TicketDataList = new List<ITicketData>();
                     }
 
@@ -1063,7 +1065,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency)
+        private SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -1123,6 +1125,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var ordinalHandicap1 = reader.TryGetOrdinal("hdp1");
             var ordinalHandicap2 = reader.TryGetOrdinal("hdp2");
 
+            var tickets = new SortableList<LrfTicket>();
             while (reader.Read())
             {
                 var ticket = new LrfTicket();
@@ -1178,8 +1181,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.Handicap1 = ordinalHandicap1 >= 0 ? reader.ToDecimal("hdp1") : 0;
                 ticket.Handicap2 = ordinalHandicap2 >= 0 ? reader.ToDecimal("hdp2") : 0;
 
-                yield return ticket;
+                tickets.Add(ticket);
             }
+
+            return tickets;
         }
 
         /// <summary>

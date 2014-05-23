@@ -2378,4 +2378,10 @@
   <data name="RB" xml:space="preserve">
     <value>RB</value>
   </data>
+  <data name="VirtualCycling" xml:space="preserve">
+    <value>Virtual Cycling</value>
+  </data>
+  <data name="VirtualSpeedway" xml:space="preserve">
+    <value>Virtual Speedway</value>
+  </data>
 </root>

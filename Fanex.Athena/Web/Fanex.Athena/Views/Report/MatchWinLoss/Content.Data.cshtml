@@ -26,11 +26,10 @@
                 var awayName = matchWinLoss.AwayName;
                 var matchNameHtmlString = new HtmlString(string.Empty);
                 var maxLength = 36;
-                var racingSportTypes = new List<int> { 181, 182, 184 };
-
+                var racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };
+                var a = matchWinLoss.SportType;
                 if (productName.Equals(Product.Rb) || productName.Equals(Product.Ng) || productName.Equals(Product.Lc))
                 {
-
                     if (matchName.Length > maxLength)
                     {
                         matchName = String.Format("<span title='{0}'>{1}...</span>", matchName.Replace("'", "&#39;"),
@@ -64,7 +63,7 @@
                     matchName = String.Format(
                     "{0} <br /><div style='height:4px'></div> {1}", homeName, awayName);
                 }
-                
+
                 matchNameHtmlString = new HtmlString(matchName);
             <tr>
                 <td style="width: 30px" class="order-number">
