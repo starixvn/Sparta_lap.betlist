@@ -1,6 +1,9 @@
 ﻿/// <reference path="/@JSense.js" />
+/*global Site, QueryString,jqGridAdditional, BetListOption*/
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult*/
 
 var BetList = (function ($) {
+    "use strict";
     var _sortColumnName, _sortOrder;
     var _params, _url;
 
@@ -14,20 +17,21 @@ var BetList = (function ($) {
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
             // add sort icon
-            $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
-                        .each(function (index, element) {
-                            var $this = $(element);
-                            $this.find("span.s-ico").remove();
+            $(grid).closest("div.ui-jqgrid-view")
+                    .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+                    .each(function (index, element) {
+                        var $this = $(element);
+                        $this.find("span.s-ico").remove();
 
-                            if (element.id.indexOf(_sortColumnName) > -1) {
-                                var sortClass = "sort-" + _sortOrder;
-                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-                                sortSpan.addClass(sortClass);
-                                $this.append(sortSpan);
-                                $this.addClass("sorted-heading");
-                            }
+                        if (element.id.indexOf(_sortColumnName) > -1) {
+                            var sortClass = "sort-" + _sortOrder;
+                            var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
+                            sortSpan.addClass(sortClass);
+                            $this.append(sortSpan);
+                            $this.addClass("sorted-heading");
+                        }
 
-                        });
+                    });
 
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
@@ -38,8 +42,8 @@ var BetList = (function ($) {
             $(".content-filter").attr("style", "width: " + $("#gbox_BetListGrid").css("width"));
 
             // Show no information if there is no record
-            var rowCount = $("#BetListGrid").getGridParam("reccount");
-            if (rowCount == 0) {
+            var rowCount = Number($("#BetListGrid").getGridParam("reccount"));
+            if (rowCount === 0) {
                 jqGridAdditional.setNoInfo(BetListOption.columnModel);
                 $("#pager2").hide();
             }
@@ -58,13 +62,13 @@ var BetList = (function ($) {
         getGridOption: function () {
             var gridOption = $.extend(true, {}, BetListOption.gridOption);
 
-            gridOption.onSortCol = function (index, columnIndex, sortOrder) {
+            gridOption.onSortCol = function (index) {
                 if (window.disableBetListSorting) {
                     return 'stop';
                 }
                 Site.blockUI();
-                if (_sortColumnName == index) {
-                    _sortOrder = _sortOrder == "asc" ? "desc" : "asc";
+                if (_sortColumnName === index) {
+                    _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
 
                 } else {
                     _sortOrder = "asc";
@@ -90,9 +94,10 @@ var BetList = (function ($) {
             gridOption.footerrow = showSummary;
             var hasCustComm = $('#HasCustComm').val();
             if (hasCustComm === '1') {
-                gridOption.colNames = $.map(gridOption.colNames, function (val, i) {
-                    if (val === 'WinLossComm')
+                gridOption.colNames = $.map(gridOption.colNames, function (val) {
+                    if (val === 'WinLossComm') {
                         return '@[WinLoss]/@[Comm]';
+                    }
                     return val;
                 });
             }
@@ -123,8 +128,6 @@ var BetList = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: url,
-                error: function (xhRequest, errorText, thrownError) {
-                },
                 success: function (response) {
                     if (response != null) {
                         BetList.bindData(response);
@@ -134,7 +137,7 @@ var BetList = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 }
             });
@@ -178,7 +181,7 @@ var BetList = (function ($) {
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWl: sumLicenseeWl };
 
-                if (response.IsShowTotal == undefined || response.IsShowTotal) {
+                if (response.IsShowTotal === undefined || response.IsShowTotal) {
                     gridOption.userDataOnFooter = true;
                 }
                 else {
@@ -217,19 +220,21 @@ var BetList = (function ($) {
         },
 
         setLeagueTitle: function (leagueName) {
-            var leagueNameText = leagueName == '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
+            var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
         },
 
         showResult: function (matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright) {
-            var url = bettype == 9 || bettype == 29
+            bettype = Number(bettype);
+            var url = bettype === 9 || bettype === 29
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright);
 
-            var height = bettype == 9 || bettype == 29 ? 450 : 150;
+            var height = bettype === 9 || bettype === 29 ? 450 : 150;
             var width = 750;
             var title = Site.getSingleResource("Result");
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' + width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
@@ -240,20 +245,19 @@ var BetList = (function ($) {
 
         showMixParlayDetail: function (transId, divEvent) {
             var url = Site.resolveClientUrl('api/betlist/MixParlayDetail?transId=' + transId);
-            if (divEvent.css("display") == 'none') {
+            if (divEvent.css("display") === 'none') {
                 $.ajax({
                     type: "GET",
                     contentType: 'application/json',
                     dataType: "json",
                     cache: false,
                     url: url,
-                    error: function (xhRequest, errorText, thrownError) {
-                    },
+                    // error: function (xhRequest, errorText, thrownError) { },
                     success: function (response) {
                         var choice = "";
                         var len = response.length;
                         $.each(response, function (index, item) {
-                            if (index == len - 1) {
+                            if (index === len - 1) {
                                 choice += item.Choice;
                             }
                             else {
@@ -268,7 +272,7 @@ var BetList = (function ($) {
                     beforeSend: function () {
                         Site.blockUI();
                     },
-                    complete: function (jqXhr, textStatus) {
+                    complete: function (/*jqXhr, textStatus*/) {
                         Site.unBlockUI();
                     }
                 });
@@ -289,7 +293,7 @@ var BetList = (function ($) {
         },
 
         showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
-            if (transId == 0) return;
+            if (Number(transId) === 0) { return; }
 
             var url = Site.resolveClientUrl('BetList/SystemParlayDetail');
             url = QueryString.setParam(url, "transId", transId);
@@ -302,7 +306,8 @@ var BetList = (function ($) {
             var height = 450;
             var width = 750;
 
-            var dialogForm = '<div title="' + betTeam + '"><iframe frameborder="0" width="' + width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+            var dialogForm = '<div title="' + betTeam + '"><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
@@ -313,7 +318,7 @@ var BetList = (function ($) {
         ValidProducts: function () {
             var temp = true;
             $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($("input.childCheckbox:checked").length == 0) {
+            if ($("input.childCheckbox:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
@@ -324,7 +329,8 @@ var BetList = (function ($) {
                         $('#SubmitButton').removeAttr('disabled');
                     }
                 });
-            };
+            }
+
             return temp;
         },
 
@@ -344,12 +350,14 @@ var ViewBetSlip = function () {
 var ViewResult = BetList.showResult;
 
 var showMP = function (transId) {
+    "use strict";
     var divEvent = $('#divEvent_' + transId);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
     BetList.showMixParlayDetail(transId, divEvent);
 };
 
 var showCombMP = function (transId, index) {
+    "use strict";
     var divEvent = $('#divEvent_' + transId + "" + index);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
     BetList.showMixParlayDetail(transId, divEvent);

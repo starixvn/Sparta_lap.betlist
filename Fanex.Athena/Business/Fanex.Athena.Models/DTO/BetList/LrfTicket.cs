@@ -23,7 +23,8 @@ namespace Fanex.Athena.Models.DTO.BetList
 
         public string BetFrom { get; set; }
 
-        public decimal WinLossComm {
+        public decimal WinLossComm 
+        {
             get
             {
                 return Winlost + Comm;

@@ -7,8 +7,7 @@ var CommonBetList = (function ($) {
 
             var actionName = $("#ActionName").val();
             var url = Site.resolveClientUrl('api/betlist/' + actionName);
-            var serverPaging = $("#IsServerPaging").val();
-            console.log("serverPaging", serverPaging);
+            var serverPaging = $("#IsServerPaging").val();            
             if (serverPaging === "1") {
                 var params = QueryString.getQueryString(location.href);
                 BetList.loadDataPaging(url + "?" + params);
@@ -20,8 +19,7 @@ var CommonBetList = (function ($) {
                 // Update datetime because js-engine parser jsonDatetime wrongly
                 params.FromDate = params.FromDateString;
                 params.ToDate = params.ToDateString;
-                params.Date = params.DateString;
-                console.log("load");
+                params.Date = params.DateString;                
                 BetList.loadData(params, url, window.loadBetListSuccessCallback);
             }
 

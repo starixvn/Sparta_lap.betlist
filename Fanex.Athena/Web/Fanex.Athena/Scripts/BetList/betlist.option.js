@@ -1,7 +1,9 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+/*exported BetListOption*/
 var BetListOption = (function () {
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLoss', '@[LicenseeWL]/@[Comm]', 'Status'];
+    "use strict";
+    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLossComm', '@[LicenseeWL]/@[Comm]', 'Status'];
     var indexColumn =
     {
         name: 'Index',
@@ -102,8 +104,8 @@ var BetListOption = (function () {
         gridOption:
         {
             datatype: 'local',
-            rowNum: 2,
-            rowList: [2, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowNum: 50,
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
             pager: '#pager2',
             loadtext: "Loading...",
             viewrecords: true,
@@ -122,10 +124,10 @@ var BetListOption = (function () {
                 return false;
             },
             onPaging: function (pgButton) {
-                if ($("#" + pgButton).hasClass("ui-state-disabled") == false) {
+                if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                     Site.blockUI();
                 }
-            }            
+            }
         },
 
         columnModel: columnModel,

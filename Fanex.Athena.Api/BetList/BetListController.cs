@@ -13,9 +13,11 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Web.Http;
     using DNAide.Utils;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -26,8 +28,6 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using System.ComponentModel;
-    using Fanex.Athena.Extension.Utility;
 
     #endregion Using
 
@@ -150,8 +150,9 @@ namespace Fanex.Athena.Api.BetList
                     metaModel.SortOrder = "asc";
                 }
                 
-                var comparer = new PropertyComparer<LrfTicket>(metaModel.SortBy,
-                              metaModel.SortOrder.Equals("desc", StringComparison.OrdinalIgnoreCase) ? ListSortDirection.Descending : ListSortDirection.Ascending);
+                var comparer = new PropertyComparer<LrfTicket>(
+                    metaModel.SortBy,
+                    metaModel.SortOrder.Equals("desc", StringComparison.OrdinalIgnoreCase) ? ListSortDirection.Descending : ListSortDirection.Ascending);
                 ticketResult.MainTicketList.Sort(comparer);                
 
                 leagueName = CacheRef.GetLeagueName(ticketResult.MainTicketList.Any()
