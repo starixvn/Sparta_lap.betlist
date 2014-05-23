@@ -46,6 +46,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -59,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     CurrencyId = reader.ToInt("Currency"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, ref totalInEur, ref totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -95,6 +96,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("CurrencyID", DbType.Int32, metaModel.DrillDownCurrency);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.DrillDownFromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.DrillDownToDate);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -109,7 +111,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     CurrencyId = reader.ToInt("Currency"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, ref totalInEur, ref totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -146,6 +148,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("CurrencyID", DbType.Int32, metaModel.DrillDownCurrency);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.DrillDownFromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.DrillDownToDate);
+                    db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -159,7 +162,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     ExternalId = reader.ToString("nickname"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, ref totalInEur, ref totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -183,11 +186,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="totalInEur">Total in EUR.</param>
         /// <param name="totalInUsd">Total in USD.</param>
         /// <param name="baseCurrency">Base currency.</param>
-        private void GetWinLossData(
+        private static void GetWinLossData(
             IDataReader reader, 
             PlaytechCasino playTechCasinoItem, 
-            ref PlaytechCasino totalInEur, 
-            ref PlaytechCasino totalInUsd, 
+            PlaytechCasino totalInEur, 
+            PlaytechCasino totalInUsd, 
             string baseCurrency)
         {
             playTechCasinoItem.Turnover = reader.ToDecimal("Turnover" + baseCurrency);

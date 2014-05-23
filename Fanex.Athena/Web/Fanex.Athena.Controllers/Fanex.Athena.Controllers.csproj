@@ -153,13 +153,16 @@
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportController.PlaytechCasino.cs" />
+    <Compile Include="MenuController.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.ResultPage.cs" />
     <Compile Include="Forecast\ForecastController.NewHandicapOverUnder.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="UtilityController.cs" />
+    <Compile Include="UtilityController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Customer\CustomerLog\CustomerLogController.GroupCommission.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />

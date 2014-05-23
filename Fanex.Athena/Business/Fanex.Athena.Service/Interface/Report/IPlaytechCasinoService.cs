@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="IPlaytechCasinoService.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Interface.Report
     using Fanex.Athena.Models.MetaModel.Report;
 
     /// <summary>
-    /// PLAYTECH Casion Service.
+    /// PLAYTECH Casino Service.
     /// </summary>
     public interface IPlaytechCasinoService
     {

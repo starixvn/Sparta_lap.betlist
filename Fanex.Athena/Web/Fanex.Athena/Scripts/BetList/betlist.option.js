@@ -3,7 +3,7 @@
 /*exported BetListOption*/
 var BetListOption = (function () {
     "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLossComm', '@[LicenseeWL]/@[Comm]', 'Status'];
+    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLoss', '@[LicenseeWL]/@[Comm]', 'Status'];
     var indexColumn =
     {
         name: 'Index',
@@ -69,8 +69,8 @@ var BetListOption = (function () {
     };
     var winloss =
     {
-        name: 'WinLossComm',
-        index: 'WinLossComm',
+        name: 'WinLoss',
+        index: 'WinLoss',
         width: 75,
         align: 'right',
         sortable: true,
@@ -93,7 +93,7 @@ var BetListOption = (function () {
         index: 'Status',
         width: 60,
         align: 'center',
-        sortable: true,
+        sortable: false,
         resizable: false,
         title: false
     };

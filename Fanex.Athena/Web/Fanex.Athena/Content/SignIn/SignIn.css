@@ -41,13 +41,14 @@
     margin: 0 -6px 5px 0;
 }
 
-#captcha
+.img-captcha
 {
-    background: url(images/captcha.png) no-repeat right;
+   /* background: url(images/captcha.png) no-repeat right;*/
     display: block;
-    width: 59px;
-    height: 20px;
+    width: 63px;
+    height: 18px;
     padding: 5px 0px 5px 5px;
+    border: none;
 }
 .errmsg
 {
