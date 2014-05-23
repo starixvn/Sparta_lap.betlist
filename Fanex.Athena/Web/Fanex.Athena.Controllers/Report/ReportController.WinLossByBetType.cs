@@ -150,17 +150,16 @@ namespace Fanex.Athena.Controllers.Report
         {
             return new WinLossByBetType
             {
-                TotalTurnover = dataList.Sum(item => item.Turnover),
-                TotalWinLoss = dataList.Sum(item => item.CustomerWinLoss),
-                TotalCustomerComm = dataList.Sum(item => item.CustomerComm),
-                TotalLicenseeWl = dataList.Sum(item => item.LicenseeWL),
+                Turnover = dataList.Sum(item => item.Turnover),
                 CustomerWinLoss = dataList.Sum(item => item.CustomerWinLoss),
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
-                TotalBaCommission = dataList.Sum(item => item.BACommission),
-                TotalAmtDueToBa = dataList.Sum(item => item.AmtDueToBA),
-                TotalRacingRevenue = dataList.Sum(item => item.RacingRevenue),
-                TotalRacingComm = dataList.Sum(item => item.RbComm),
-                TotalAmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing)
+                BACommission = dataList.Sum(item => item.BACommission),
+                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
+                RacingRevenue = dataList.Sum(item => item.RacingRevenue),
+                RbComm = dataList.Sum(item => item.RbComm),
+                AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing),
+                LicenseeWL=dataList.Sum(i=>i.LicenseeWL),
+                
             };
         }
 

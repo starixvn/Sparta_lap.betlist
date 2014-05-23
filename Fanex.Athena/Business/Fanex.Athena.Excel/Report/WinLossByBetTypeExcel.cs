@@ -217,15 +217,15 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, 1);
 
             row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
-            row.Cells[ColumnTurnover].SetCellValue(_total.TotalTurnover);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(_total.TotalCustomerWl);
-            row.Cells[ColumnCustomerComm].SetCellValue(_total.TotalCustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(_total.TotalCustomerWl + _total.TotalCustomerComm);
-            row.Cells[ColumnLicenseeWl].SetCellValue(_total.TotalLicenseeWl);
-            row.Cells[ColumnBaCommission].SetCellValue(_total.TotalBaCommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(_total.TotalRacingWinLoss);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(_total.TotalAmtDueToBa);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.TotalAmtDueToRacing);
+            row.Cells[ColumnTurnover].SetCellValue(_total.Turnover);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(_total.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(_total.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue(_total.BACommission);
+            row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingRevenue);
+            row.Cells[ColumnAmtDueToBa].SetCellValue(_total.AmtDueToBA);
+            row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
         }
     }
 }

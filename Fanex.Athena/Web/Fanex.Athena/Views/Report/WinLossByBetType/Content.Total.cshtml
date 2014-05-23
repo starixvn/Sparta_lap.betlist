@@ -6,7 +6,7 @@
         @ViewResources.Total
     </div>
     <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
-        <div>@Model.Total.TotalTurnover.ToStringExt()</div>
+        <div>@Model.Total.Turnover.ToStringExt()</div>
     </div>
     @SplitingProductHelper.CustomerWLContent(Model.Total as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
                                              Model.IsAllowedCustomerCommission,
@@ -15,31 +15,31 @@
                                              ViewBag.CustomerCommWidth,
                                              ViewBag.CustomerWLTotalWidth)
     <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
-        @FormatHelper.NegativeFormat(Model.Total.TotalLicenseeWl)
+        @FormatHelper.NegativeFormat(Model.Total.LicenseeWL)
     </div>
     @*Check BA, RB Commission*@
     @if (Model.ProductAccess.IsAllowBa)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-            @FormatHelper.NegativeFormat(Model.Total.TotalBaCommission)
+            @FormatHelper.NegativeFormat(Model.Total.BACommission)
         </div>
     }
     @if (Model.ProductAccess.IsAllowRb)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-            @FormatHelper.NegativeFormat(Model.Total.TotalRacingWinLoss)
+            @FormatHelper.NegativeFormat(Model.Total.RacingWinLoss)
         </div>
     }
     @if (Model.ProductAccess.IsAllowBa)
     { 
         <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
-            <div>@Model.Total.TotalAmtDueToBa.ToStringExt()</div>
+            <div>@Model.Total.AmtDueToBA.ToStringExt()</div>
         </div>
     }
     @if (Model.ProductAccess.IsAllowRb)
     { 
         <div class="row" style="width:@(ViewBag.AmtRacingWidth)@("px")">
-            <div>@Model.Total.TotalAmtDueToRacing.ToStringExt()</div>
+            <div>@Model.Total.AmtDueToRacing.ToStringExt()</div>
         </div>
     }
 </div>

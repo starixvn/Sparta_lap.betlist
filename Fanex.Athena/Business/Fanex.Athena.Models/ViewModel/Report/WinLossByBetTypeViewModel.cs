@@ -25,6 +25,5 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public WinLossByBetType Total { get; set; }
 
-        public WinLossByBetType GrandTotal { get; set; }
     }
 }

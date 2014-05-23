@@ -73,36 +73,6 @@ namespace Fanex.Athena.Models.DTO.Report
             get { return CustomerWinLoss + CustomerComm; }
         }
 
-        #region Total
-
-        public decimal TotalTurnover { get; set; }
-
-        public decimal TotalWinLoss { get; set; }
-
-        public decimal TotalCustomerComm { get; set; }
-
-        public decimal TotalCustomerWl
-        {
-            get { return TotalWinLoss + TotalCustomerComm; }
-        }
-
-        public decimal TotalLicenseeWl { get; set; }
-
-        public decimal TotalBaCommission { get; set; }
-
-        public decimal TotalRacingRevenue { get; set; }
-
-        public decimal TotalRacingComm { get; set; }
-
-        public decimal TotalRacingWinLoss
-        {
-            get { return TotalRacingRevenue + TotalRacingComm; }
-        }
-
-        public decimal TotalAmtDueToBa { get; set; }
-
-        public decimal TotalAmtDueToRacing { get; set; }
-
-        #endregion Total
+       
     }
 }
