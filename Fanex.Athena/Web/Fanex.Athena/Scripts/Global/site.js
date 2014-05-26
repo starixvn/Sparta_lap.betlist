@@ -509,11 +509,4 @@ window.alert = function (message, fallback) {
 $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
-
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-        }
-    });
 });
