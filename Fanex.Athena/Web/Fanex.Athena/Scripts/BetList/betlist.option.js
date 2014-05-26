@@ -80,7 +80,7 @@ var BetListOption = (function () {
     var licenseeWl =
     {
         name: 'LicenseeWl',
-        index: 'LicenseeWL',
+        index: 'LicenseeWl',
         width: 100,
         align: 'right',
         sortable: true,
