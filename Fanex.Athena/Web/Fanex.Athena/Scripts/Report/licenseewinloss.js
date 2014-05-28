@@ -1,13 +1,17 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site */
+/// <reference path="/@JSense.js" />
 ///
 var LicenseeWinLoss = (function ($) {
+    "use strict";
     var cacheData = {};
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _sortColumnName = undefined;
     var _sortOrder = "desc";
     var _level = 0;
-    var _currencyId = _customerId = _datetime = null;
+    var _currencyId = null;
+    var _customerId = null;
+    var _datetime = null;
     var _removeSorting = false;
     var _reportBy = null;
     var _pageSize = 0;
@@ -31,7 +35,7 @@ var LicenseeWinLoss = (function ($) {
             _pageSize = LicenseeWinLossOption.pageSize;
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
-            LicenseeWinLossOption.gridOption.onSortCol = function (index, columnIndex, sortOrder) {
+            LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
                 Site.blockUI();
                 window.setTimeout(function () {
                     _removeSorting = false;
@@ -190,7 +194,7 @@ var LicenseeWinLoss = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); },
+                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
                 success: function (response) {
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);
@@ -290,7 +294,7 @@ var LicenseeWinLoss = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 }
             };
@@ -376,12 +380,12 @@ var LicenseeWinLoss = (function ($) {
                     return 'stop';
                 }
             };
-            gridOption.gridComplete = function () {                
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
-
+            gridOption.gridComplete = function () {
+                //    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                var isShowPager = false;
                 if (level == 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                     _pageSize = $("#ReportGrid").getGridParam("rowNum");
-                    $("#pg_ppdata").show();
+                    $("#pg_ppdata").show();                    
                 }
                 else {
                     $("#pg_ppdata").hide();
@@ -403,6 +407,10 @@ var LicenseeWinLoss = (function ($) {
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
+                var gridTop = $("#ReportGrid").offset().top;
+                var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
+                gridHeight = Math.max(200, gridHeight);
+                $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight); ;
 
                 Site.unBlockUI();
             };
@@ -440,7 +448,6 @@ var LicenseeWinLoss = (function ($) {
             if ($gridBody.length > 0) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
-
         },
 
         //#end
@@ -497,7 +504,7 @@ var LicenseeWinLoss = (function ($) {
 
             url = Site.setProductOptionOriginalParamList(url);
 
-            var popH = 650, popW = 920;
+            var popH = Math.max($(window).height() - 100, 300) , popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({

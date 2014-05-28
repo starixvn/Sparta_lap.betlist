@@ -2399,4 +2399,7 @@
     <value>P.Win</value>
     <comment>15876</comment>
   </data>
+  <data name="BestViewResolution" xml:space="preserve">
+    <value>Resolution 1280x1024</value>
+  </data>
 </root>

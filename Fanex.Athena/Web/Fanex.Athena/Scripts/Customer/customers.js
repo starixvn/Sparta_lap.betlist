@@ -114,27 +114,9 @@ var CustomerList = (function ($) {
         return false;
     }
 
-    function bindData(response) {
-
-        jqGridAdditional.clearGrid("ReportGrid");
-
-        var $gridBody = $(".ui-jqgrid-bdiv");
-        var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-        var reportGrid = $("#ReportGrid");
-
-        $("#num-of-customer").html(response.TotalRows + " ");
-
-        _pagingOption.totalrow = parseInt(response.TotalRows);
-        if (_pagingOption.totalrow > 0) {
-            $(".paging").show();
-            pagingHeper.render(_pagingOption);
-        }
-
-        var hasData = response !== null && response.TotalRows > 0;
+    function processGridOption(hasData, showingColumns) {
 
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
-
-        var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
 
         // Change formatter for Index col
 
@@ -168,6 +150,29 @@ var CustomerList = (function ($) {
             }
         }
 
+        return gridOption;
+    }
+
+    function bindData(response) {
+        jqGridAdditional.clearGrid("ReportGrid");
+
+        var $gridBody = $(".ui-jqgrid-bdiv");
+        var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
+        var reportGrid = $("#ReportGrid");
+
+        $("#num-of-customer").html(response.TotalRows + " ");
+
+        _pagingOption.totalrow = parseInt(response.TotalRows);
+        if (_pagingOption.totalrow > 0) {
+            $(".paging").show();
+            pagingHeper.render(_pagingOption);
+        }
+
+        var hasData = response !== null && response.TotalRows > 0;
+
+        var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
+        var gridOption = processGridOption(hasData, showingColumns);
+
         gridOption.scroll = 1;
         gridOption.data = response.Data;
         gridOption.rowNum = 40; // _pagingOption.pagesize;
@@ -190,7 +195,6 @@ var CustomerList = (function ($) {
         $("#CheckAll").prop("checked", _checkedAllRows);
         // $(".select-cust-checkbox").checkboxgroup();
 
-
         var gridWidth = reportGrid.width();
 
         if (gridWidth < 500) {
@@ -204,8 +208,10 @@ var CustomerList = (function ($) {
         $(".report-title").width(gridWidth - 25);
         $(".content-filter").width(Math.max(1030, gridWidth));
 
-        // Display 20 rows in grid
-        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", 470);
+        var gridTop = reportGrid.offset().top;
+        var gridHeight = $(window).height() - gridTop - 50;
+        gridHeight = Math.max(200, gridHeight);
+        $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
 
         if (hasData) {
             $("div.paging").show();
@@ -216,6 +222,7 @@ var CustomerList = (function ($) {
 
         Site.unBlockUI();
     }
+
     function convertCustomerArrayToObject(array) {
         var obj = {};
         for (var i = 0; i < array.length; ++i) {
@@ -224,6 +231,7 @@ var CustomerList = (function ($) {
         }
         return obj;
     }
+
     function addGridCheckBoxesEvent() {
         $("#report-content").on("change", "#CheckAll", function () {
 
@@ -784,7 +792,7 @@ var CustomerList = (function ($) {
 
             var url = Site.resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
 
-            var popH = 450, popW = 905;
+            var popH = 480, popW = 905;
 
             var dialogFrame = $("#bet-setting-frame");
             dialogFrame.attr("height", popH);
@@ -795,7 +803,7 @@ var CustomerList = (function ($) {
             dialogForm.dialog({
                 modal: true,
                 width: popW + 15,
-                height: popH + 50,
+                height: popH + 70,
                 close: function (/*event, ui*/) {
                     dialogFrame.attr("src", "");
                 }
@@ -855,7 +863,7 @@ var CustomerList = (function ($) {
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "betlistname", "betlist");
             url = Site.setLicenseeOptionOriginalParam(url);
-            var popH = 700, popW = 900;
+            var popH = Math.max($(window).height() - 120, 300), popW = 900;
 
             var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetList') + '"><iframe scrolling="no" frameborder="0" width="' +
                          popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
@@ -863,7 +871,7 @@ var CustomerList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: popW + 30,
-                height: popH + 50
+                height: popH + 70
             });
         },
 
