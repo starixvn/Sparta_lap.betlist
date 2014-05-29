@@ -100,6 +100,10 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     TotalRows = totalRows,
                 };
+            if (metaModel.IsExportExcel)
+            {
+                metaModel.PageSize = PageSizeExcel;
+            }
 
             var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
@@ -109,7 +113,6 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                metaModel.PageSize = PageSizeExcel;
                 return CustomerPendingFundsExcel(model);
             }
 
