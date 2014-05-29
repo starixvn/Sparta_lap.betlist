@@ -90,21 +90,30 @@ namespace Fanex.Athena.Excel.Report
         {
             int numOfDataRow = _winlossByLeagueList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            ISheet sheet;
 
-            AssignHeader(sheet);
-            AssignTitle(sheet);
+            ColumnTemplateIndexList = GetColumnTemplateIndex();
 
             if (numOfDataRow == 0)
             {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
+                ProcessUi(sheet);
             }
             else
             {
-                AssignSheetData(sheet);
+                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
+                for (int i = 0; i < numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUi(sheet);
+                }
             }
-
-            ProcessUi(sheet);
         }
 
         /// <summary>
@@ -134,21 +143,22 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        /// <param name="startIndex">Start index.</param>
+        /// <returns>Row index.</returns>
+        public override int AssignSheetData(ISheet sheet, int startIndex)
         {
             if (Level == 1)
             {
                 HideRow(sheet, 3);
             }
 
+            int rowCount = Math.Min(_winlossByLeagueList.Count, checked((startIndex + 1) * PageSize));
             int currentRow = 4;
-
-            int rowCount = _winlossByLeagueList.Count;
 
             var row = sheet.CopyRow(TemplateSheet, RowContentTitleTemplate, 3);
             row.Cells[0].SetCellValue(_metaModel.LeagueName);
 
-            for (int index = 0; index < rowCount; index++)
+            for (int index = startIndex * PageSize; index < rowCount; index++)
             {                
                 WinLossByLeague winlossByLeague = _winlossByLeagueList[index];                
 
@@ -172,7 +182,8 @@ namespace Fanex.Athena.Excel.Report
                 currentRow++;
             }
                         
-            AssignTotalData(sheet, currentRow);            
+            AssignTotalData(sheet, currentRow);
+            return currentRow;
         }
 
         /// <summary>

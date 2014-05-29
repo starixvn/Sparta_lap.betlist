@@ -9,8 +9,10 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Base;
     using Common.Extensions;
     using Entities;
@@ -77,21 +79,29 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignData()
         {
             int numOfDataRow = _customerTurnoverList.Count;
-
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
-            AssignTitle(sheet);
-            AssignHeader(sheet);
+            ISheet sheet;
 
             if (numOfDataRow == 0)
             {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
+                ProcessUi(sheet);
             }
             else
             {
-                AssignSheetData(sheet);
+                PageSize = 1500;
+                var numOfSheet = GetNumberOfSheets(_customerTurnoverList.Last().Index, PageSize);
+                for (int i = 1; i <= numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + i.ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUi(sheet);
+                }
             }
-
-            ProcessUi(sheet);
         }
 
         /// <summary>
@@ -128,18 +138,23 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        /// <param name="startIndex">Start index.</param>
+        /// <returns>Row index.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        public override void AssignSheetData(ISheet sheet)
+        public override int AssignSheetData(ISheet sheet, int startIndex)
         {
-            int rowCount = _customerTurnoverList.Count;
+            int rowIndex = 0;
+            int minGroup = checked((startIndex - 1) * PageSize);
+            int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(startIndex * PageSize));
+            var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
-            for (int index = 0; index < rowCount; index++)
+            for (int index = 0; index < dataInRange.Count(); index++)
             {
-                CustTurnover customerTurnover = _customerTurnoverList[index];
-                var realIndex = index + RowContentTemplate;
+                CustTurnover customerTurnover = dataInRange[index];
+                var realIndex = rowIndex + RowContentTemplate;
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, realIndex);
                 if (customerTurnover.RowSpan > -1)
                 {
@@ -176,9 +191,12 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnCustomerComm].SetCellValue(customerTurnover.CustomerComm);
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss +
                         customerTurnover.CustomerComm);
+
+                rowIndex++;
             }
 
-            AssignTotalRow(sheet, rowCount + RowContentTemplate);
+            AssignTotalRow(sheet, rowIndex + RowContentTemplate);
+            return rowIndex;
         }
 
         /// <summary>

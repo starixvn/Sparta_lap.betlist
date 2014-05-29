@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using Base;
     using Common.Extensions;
@@ -99,21 +100,30 @@ namespace Fanex.Athena.Excel.Report
         {
             int numOfDataRow = _turnoverList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            ISheet sheet;
 
-            AssignHeader(sheet);
-            AssignTitle(sheet);
+            ColumnTemplateIndexList = GetColumnTemplateIndex();
 
             if (numOfDataRow == 0)
             {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
+                ProcessUi(sheet);
             }
             else
             {
-                AssignSheetData(sheet);
+                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
+                for (int i = 0; i < numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUi(sheet);
+                }
             }
-
-            ProcessUi(sheet);
         }
 
         /// <summary>
@@ -149,12 +159,14 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        /// <param name="startIndex">Start index.</param>
+        /// <returns>Row index.</returns>
+        public override int AssignSheetData(ISheet sheet, int startIndex)
         {
-            var rowCount = _turnoverList.Count;
+            int rowCount = Math.Min(_turnoverList.Count, checked((startIndex + 1) * PageSize));
             var currentRow = 3;
 
-            for (int index = 0; index < rowCount; index++)
+            for (int index = startIndex * PageSize; index < rowCount; index++)
             {
                 var turnover = _turnoverList[index];
 
@@ -171,6 +183,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             AssignTotalCellData(sheet, currentRow);
+            return currentRow;
         }
 
         /// <summary>
