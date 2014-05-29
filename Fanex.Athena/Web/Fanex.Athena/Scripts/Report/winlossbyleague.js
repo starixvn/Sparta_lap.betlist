@@ -128,6 +128,13 @@ var WinLossByLeague = (function ($) {
     }
 
     var me = {
+        resizeGrid: function () {
+            var gridTop = $("#ReportGrid").offset().top;
+            var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
+            gridHeight = Math.max(130, gridHeight);
+            // console.log(gridTop, gridHeight, $("#ReportGrid"))
+            $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
+        },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
 
@@ -139,7 +146,7 @@ var WinLossByLeague = (function ($) {
             WinLossByLeague.initSetting();
 
             initMonthPicker();
-
+            Site.addFilterCollapseExpand();
             _productCount = $("#ProductList input[type=checkbox]").length - 1;
 
             $("#searchForm").submit(function () {
@@ -483,7 +490,7 @@ var WinLossByLeague = (function ($) {
                 }
             };
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
+                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
 
                 if (response == null || numOfRow == 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
@@ -499,6 +506,7 @@ var WinLossByLeague = (function ($) {
 
                     onPaging = false;
                 }
+                WinLossByLeague.resizeGrid();
                 Site.unBlockUI();
             };
 
@@ -530,6 +538,7 @@ $(window).load(function () {
 $(window).resize(function () {
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
+    WinLossByLeague.resizeGrid();
 });
 
 $(window).unload(function () {

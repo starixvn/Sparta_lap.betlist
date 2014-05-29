@@ -11,10 +11,7 @@ There is a special rule in match win loss report
 var MatchWinLoss = (function ($) {
     "use strict";
     return {
-        initialize: function () {
-            MatchWinLoss.initProductList();
-            MatchWinLoss.initEvent();
-
+        resizeGrid: function () {
             var $grid = $("#ContentMainContent");
             if ($grid.length > 0) {
                 var gridTop = $grid.offset().top;
@@ -22,6 +19,12 @@ var MatchWinLoss = (function ($) {
                 gridHeight = Math.max(160, gridHeight);
                 $grid.css("max-height", gridHeight);
             }
+        },
+        initialize: function () {
+            MatchWinLoss.initProductList();
+            MatchWinLoss.initEvent();
+            MatchWinLoss.resizeGrid();
+            Site.addFilterCollapseExpand();
         },
 
         initEvent: function () {
@@ -131,7 +134,7 @@ var MatchWinLoss = (function ($) {
             else {
                 data.IsLive = '';
             }
-            
+
             var url = Site.resolveClientUrl("BetList/MatchWlMatchBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", date);
@@ -189,4 +192,14 @@ var MatchWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     MatchWinLoss.initialize();
+});
+
+$(window).resize(function () {
+    "use strict";
+    MatchWinLoss.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

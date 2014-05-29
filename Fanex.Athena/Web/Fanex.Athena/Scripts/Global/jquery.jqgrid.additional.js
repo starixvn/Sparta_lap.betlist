@@ -146,21 +146,21 @@ var jqGridAdditional = (function () {
         },
 
         gridComplete: function (grid, gridOption, totalRowCount) {
+            totalRowCount = totalRowCount === undefined ? 0 : totalRowCount;
             var refineHeight = function (bodyHeight, gridId) {
                 var actualHeight = $('#' + gridId).height();
 
                 // [Bravo]: if the grid have horizontal sroll, the grid will plus scroll height (18px)
                 var scrollHeight = $("#ReportGrid").width() > $('.ui-jqgrid-bdiv').width() ? 18 : 0;
-
+                var height = (actualHeight > bodyHeight ? bodyHeight : actualHeight) + scrollHeight;
                 $('.ui-jqgrid-bdiv').css({
-                    'height': Math.max((actualHeight > bodyHeight ? bodyHeight : actualHeight) + scrollHeight, 150)
+                    'height': totalRowCount < 4 ? height : Math.max(height, 150)
                 });
                 $('.ui-jqgrid-bdiv').css({
-                    'max-height': Math.max(bodyHeight - 50, 150)
+                    'max-height': totalRowCount < 4 ? bodyHeight - 50 : Math.max(bodyHeight - 50, 150)
                 });
             };
-
-            totalRowCount = totalRowCount === undefined ? 0 : totalRowCount;
+            
             // Refine grid layout
             var gridId = grid.p.id;
             var gridContainer = $("#gview_" + gridId);

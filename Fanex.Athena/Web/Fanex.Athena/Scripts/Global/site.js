@@ -37,9 +37,33 @@ var Site = (function ($) {
                     401: function (jqXHR, textStatus, errorThrown) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     }
-                } 
+                }
             });
-        },       
+        },
+        addFilterCollapseExpand: function (containerSelector) {
+            if (!containerSelector) {
+                containerSelector = ".content-filter";
+            }
+
+            var $handler = $("<div class='filter-handle filter-handle-collapse'></div>");
+            var $container = $(containerSelector);
+            $container.append($handler);
+
+            var originalHeight = $container.height();
+            var originalTop = originalHeight - 20;
+            var isCollapsed = false;
+            $handler.css("top", originalTop);
+            $handler.click(function () {
+                isCollapsed = !isCollapsed;                
+                $container.find("*").toggle();
+                $container.height(isCollapsed ? 5 : originalHeight);
+                $handler.css("top", isCollapsed ? -15 : originalTop);
+                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
+                $container.css("background", isCollapsed ? "#E7E7E7" : "");
+                $(window).resize();
+            });
+
+        },
         asNull: function (text) {
             if (text != null) {
                 text = text.trim();

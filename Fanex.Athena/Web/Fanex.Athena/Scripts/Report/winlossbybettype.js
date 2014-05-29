@@ -5,7 +5,7 @@ var WinLossByBetType = (function ($) {
     return {
         initialize: function () {
             WinLossByBetType.initEvent();
-            Site.createSortingIcon(WinLossByBetType.sortReport);
+            Site.createSortingIcon(WinLossByBetType.sortReport);            
         },
 
         initEvent: function () {

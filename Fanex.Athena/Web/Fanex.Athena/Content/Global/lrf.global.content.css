@@ -64,7 +64,41 @@ select.based-currency
 {
     width: 60px;
 }
+
 /* common*/
+.filter-handle
+{    
+    background-image: url("images/collapse_expand_sprites.png");
+    width: 52px !important;
+    height: 8px;
+    position: absolute;
+    margin-top: 20px;
+    margin-bottom: -20px !important;
+    float: left;
+    left: 480px;    
+    cursor: pointer;
+}
+
+.filter-handle-collapse
+{    
+    background-position: 0px 0px;
+}
+
+.filter-handle-collapse:hover
+{    
+    background-position: 0 -12px;
+}
+
+.filter-handle-expand
+{    
+    background-position: 0 -24px;
+}
+
+.filter-handle-expand:hover
+{    
+    background-position: 0 -36px;
+}
+
 .hide
 {
     display: none;
