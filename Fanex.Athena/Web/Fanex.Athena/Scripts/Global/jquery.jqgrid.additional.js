@@ -153,10 +153,10 @@ var jqGridAdditional = (function () {
                 var scrollHeight = $("#ReportGrid").width() > $('.ui-jqgrid-bdiv').width() ? 18 : 0;
 
                 $('.ui-jqgrid-bdiv').css({
-                    'height': (actualHeight > bodyHeight ? bodyHeight : actualHeight) + scrollHeight
+                    'height': Math.max((actualHeight > bodyHeight ? bodyHeight : actualHeight) + scrollHeight, 150)
                 });
                 $('.ui-jqgrid-bdiv').css({
-                    'max-height': bodyHeight - 50
+                    'max-height': Math.max(bodyHeight - 50, 150)
                 });
             };
 

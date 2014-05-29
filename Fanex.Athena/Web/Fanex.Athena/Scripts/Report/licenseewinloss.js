@@ -415,7 +415,7 @@ var LicenseeWinLoss = (function ($) {
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
                 var gridTop = $("#ReportGrid").offset().top;
                 var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
-                gridHeight = Math.max(200, gridHeight);
+                gridHeight = Math.max(150, gridHeight);
                 $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
 
                 Site.unBlockUI();

@@ -1,4 +1,5 @@
-﻿﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
 /*
 There is a special rule in match win loss report
 
@@ -8,10 +9,19 @@ There is a special rule in match win loss report
 */
 
 var MatchWinLoss = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             MatchWinLoss.initProductList();
             MatchWinLoss.initEvent();
+
+            var $grid = $("#ContentMainContent");
+            if ($grid.length > 0) {
+                var gridTop = $grid.offset().top;
+                var gridHeight = $(window).height() - gridTop - $("#TableTotal").height() - 10;
+                gridHeight = Math.max(160, gridHeight);
+                $grid.css("max-height", gridHeight);
+            }
         },
 
         initEvent: function () {
@@ -26,7 +36,7 @@ var MatchWinLoss = (function ($) {
         },
 
         initProductList: function () {
-            if ($('#ProductList').hasClass('all-products') == false) {
+            if ($('#ProductList').hasClass('all-products') === false) {
                 $('.product-lable').remove();
             }
         },
@@ -40,15 +50,15 @@ var MatchWinLoss = (function ($) {
         getProductOption: function (productCode) {
             var codeList = ["RB", "NG", "LC", "VS"];
             var productList = $("#ProductList");
-            var productOptions = new Array();
-            var showSb = (productCode == 'SB' || productCode == 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") == 'True';
-            var showBa = (productCode == 'SB' || productCode == 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") == 'True';
-            if (showSb) { productOptions.push({ Code: "SB", Status: true }); };
-            if (showBa) { productOptions.push({ Code: "BA", Status: true }); };
+            var productOptions = [];
+            var showSb = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
+            if (showSb) { productOptions.push({ Code: "SB", Status: true }); }
+            if (showBa) { productOptions.push({ Code: "BA", Status: true }); }
 
             $(codeList).each(function (index, element) {
-                var show = productCode == element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") == 'True';
-                if (show) { productOptions.push({ Code: element, Status: true }); };
+                var show = productCode === element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
+                if (show) { productOptions.push({ Code: element, Status: true }); }
             });
 
             return productOptions;
@@ -114,13 +124,14 @@ var MatchWinLoss = (function ($) {
             var productCode = $(".current-expanding-column", reportTable).attr("data-product-code");
             var date = $("#Date").attr('data-original');
 
-            if (data.BetType == 85 || data.BetType == 86) {
+            var bettype = Number(data.BetType);
+            if (bettype === 85 || bettype === 86) {
                 data.IsLive = data.IsLive ? '1' : '0';
             }
             else {
                 data.IsLive = '';
             }
-
+            
             var url = Site.resolveClientUrl("BetList/MatchWlMatchBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", date);
@@ -136,14 +147,14 @@ var MatchWinLoss = (function ($) {
 
             // Sport Type params
             var productList = $("#ProductList");
-            var showSb = (productCode == 'SB' || productCode == 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") == 'True';
-            var showBa = (productCode == 'SB' || productCode == 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") == 'True';
+            var showSb = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
             url = Site.setProductOptionParam(url, 0, "SB", showSb);
             url = Site.setProductOptionParam(url, 1, "BA", showBa);
 
             var codeList = ["RB", "NG", "LC", "VS"];
             $(codeList).each(function (index, element) {
-                var show = productCode == element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") == 'True';
+                var show = productCode === element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
                 url = Site.setProductOptionParam(url, index + 2, element, show);
             });
 
@@ -152,7 +163,7 @@ var MatchWinLoss = (function ($) {
         },
         viewOutrightMixParlay: function (betType) {
             var date = $("#Date").attr("data-original");
-            var url = betType == 10
+            var url = betType === 10
                         ? Site.resolveClientUrl("BetList/MatchWlOutright")
                         : Site.resolveClientUrl("BetList/MatchWlMixParlay");
             url = Site.setLicenseeOptionOriginalParam(url);
@@ -162,8 +173,8 @@ var MatchWinLoss = (function ($) {
 
             // Sport type
             var productList = $("#ProductList");
-            var showSb = $('input[data-product-code="SB"]', productList).attr("data-original") == 'True';
-            var showBa = $('input[data-product-code="BA"]', productList).attr("data-original") == 'True';
+            var showSb = $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
             url = Site.setProductOptionParam(url, 0, "SB", showSb);
             url = Site.setProductOptionParam(url, 1, "BA", showBa);
             url = QueryString.setParam(url, "showsb", showSb);
@@ -176,5 +187,6 @@ var MatchWinLoss = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     MatchWinLoss.initialize();
 });

@@ -792,7 +792,7 @@ var CustomerList = (function ($) {
 
             var url = Site.resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
 
-            var popH = 480, popW = 905;
+            var popH = 440, popW = 905;
 
             var dialogFrame = $("#bet-setting-frame");
             dialogFrame.attr("height", popH);
@@ -834,7 +834,7 @@ var CustomerList = (function ($) {
                     dialog.remove();
                 },
                 width: 360,
-                height: 260,
+                height: 280,
                 modal: true
             });
             // load remote content
@@ -890,7 +890,7 @@ var CustomerList = (function ($) {
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "betlistname", "dailystatement");
             url = Site.setLicenseeOptionOriginalParam(url);
-            var popH = 700, popW = 900;
+            var popH = Math.max($(window).height() - 120, 300), popW = 900;
 
             var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('DailyStatement') + '"><iframe frameborder="0" width="' +
                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
@@ -898,7 +898,7 @@ var CustomerList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: popW + 30,
-                height: popH + 50
+                height: popH + 70
             });
         },
         // ------------------------------------------------------------------------

@@ -1,4 +1,5 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, MobileWinLoss, JSLINQ, jqGridAdditional*/
+/// <reference path="/@JSense.js" />
 //#regions licenseeWL options
 /*
 * Note:in this report, parameter level have 3 value
@@ -6,11 +7,13 @@
 */
 
 var WinLossByProductOption = (function () {
+    "use strict";
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return WinLossByProduct.drillDown(' + level + ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+        return '<a class="drilldown" href="javascript:;" onclick="return WinLossByProduct.drillDown(' + level +
+         ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = WinLossByProductOption.licenseeId == 1 ? 1 : 2;
+        var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
         return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
     var systemIdFormatter = function (cellvalue, options, rowObject) {
@@ -249,8 +252,11 @@ var WinLossByProductOption = (function () {
         };
 
     //#endregion
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Product', 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'Comm', 'AmountDue', 'CurrencyId', 'CustomerId'];
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn, productColumn, turnoverColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, LicenseeWlCommColumn, amtDueToColumn, currencyIdColumn, customerIdColumn];
+    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Product', 'Turnover',
+                'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'Comm', 'AmountDue', 'CurrencyId', 'CustomerId'];
+    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn, productColumn, turnoverColumn,
+                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn,
+                 licenseeWlColumn, LicenseeWlCommColumn, amtDueToColumn, currencyIdColumn, customerIdColumn];
 
     var me =
         {
@@ -298,24 +304,25 @@ var WinLossByProductOption = (function () {
     };
 
     me.getColModel = function (level, reportBy) {
+        level = Number(level);
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
 
         // Column hidden by level
-        currencyColumn.formatter = level == 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level == 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level == 0;
+        systemIdColumn.hidden = level === 0;
 
-        if (level == 2) {
+        if (level === 2) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }
 
-        if (reportBy == 2) {
+        if (Number(reportBy) === 2) {
             dateColumn.formatoptions = {
                 newformat: 'm/Y'
             };
@@ -327,25 +334,25 @@ var WinLossByProductOption = (function () {
         return colModelList;
     };
 
-    me.getGridOption = function (level, reportBy, productOptions) {
+    me.getGridOption = function (level, reportBy) {
         me.gridOption.colNames = me.getColName();
         me.gridOption.colModel = me.getColModel(level, reportBy);
         return me.gridOption;
     };
     //#end
 
-    me.getTotalColModel = function (level, productOptions) {
+    me.getTotalColModel = function (level) {
         var colModel = me.getColModel(level, -1);
         // Not show drill down link on total link
         var curCol = JSLINQ(colModel).First(function (item) {
-            return item.name == "CurrencyName";
+            return item.name === "CurrencyName";
         });
 
         curCol.formatter = null;
         return colModel;
     };
 
-    me.setGrouping = function (reportBy) {
+    me.setGrouping = function () {
         /// <summary>
         /// Grouping
         /// Set rowspan
@@ -399,7 +406,7 @@ var WinLossByProductOption = (function () {
         while (i < numofRow) {
             grid = $("#" + gridId);
             var me = $('tbody tr:eq(' + i + ') td:eq(' + colIdx + ')', grid);
-            if (that != null && $(me).html() == $(that).html()) {
+            if (that != null && $(me).html() === $(that).html()) {
                 rowMerged++;
             }
             else {
@@ -407,7 +414,7 @@ var WinLossByProductOption = (function () {
             }
             i++;
             lastItem = me;
-        };
+        }
         ///processing  for last group rows
         i--;
         rowMerged--;
