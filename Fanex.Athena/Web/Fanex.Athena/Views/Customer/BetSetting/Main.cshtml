@@ -38,7 +38,7 @@
     <!--Check box-->
 }
 @Html.Hidden("editable", Model.Param.Editable)
-@Html.Hidden("dataCount", (Model.MainData==null ? 0 :Model.MainData.Count))
+@Html.Hidden("dataCount", (Model.MainData.Count))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
     <div class="row" style="width: 190px;">@ViewBag.betSettingType</div>
@@ -55,7 +55,7 @@
 <!--/Header-->
 <!--Content-->
 <div class="data-content">
-    @if (Model.MainData == null || Model.MainData.Count == 0)
+    @if (Model.MainData.Count == 0)
     {
         <div class="content-row" style="width: 885px!important">
             <div class="no-info">
@@ -98,7 +98,7 @@
 </div>
 <!--/Content-->
 <!--SubmitButton-->
-@if (Model.Param.Editable)
+@if (Model.Param.Editable && Model.MainData.Count > 0)
 {
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"

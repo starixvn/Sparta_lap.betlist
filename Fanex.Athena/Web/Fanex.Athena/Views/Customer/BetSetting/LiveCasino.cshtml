@@ -100,7 +100,7 @@
         id="btnSubmitBetSetting"/>
     <input type="button" class="button" value="@ViewResources.Reset"
         id="btnReset" />
-    @if (Model.IsEnabled.HasValue)
+    @if (Model.IsEnabled.HasValue && Model.LiveCasinoData.Count > 0)
     {
         <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 1 : 0)" 
         data-cust-id="@Model.Param.CustId" 
@@ -110,7 +110,7 @@
     else
     {
         <p>
-        @string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")
+            @string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")
         </p>
     }
 </div>

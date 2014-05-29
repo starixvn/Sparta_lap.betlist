@@ -174,20 +174,20 @@ namespace Fanex.Athena.Controllers.Customer
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData = _betSettingService.GetSportBookBetSetting(metaModel.CustId);
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId));
                     break;
                 case ProductType.Racing:
                     var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(metaModel.CustId);
-                    model.MainData = _betSettingService.GetRacingBetSetting(metaModel.CustId, isAllowSaToteCurrency);
+                    model.MainData.AddRange(_betSettingService.GetRacingBetSetting(metaModel.CustId, isAllowSaToteCurrency));
                     break;
                 case ProductType.NumberGame:
-                    model.MainData = _betSettingService.GetNumberGameBetSetting(metaModel.CustId);
+                    model.MainData.AddRange(_betSettingService.GetNumberGameBetSetting(metaModel.CustId));
                     break;
                 case ProductType.VirtualSports:
-                    model.MainData = _betSettingService.GetVirtualSportsBetSetting(metaModel.CustId);
+                    model.MainData.AddRange(_betSettingService.GetVirtualSportsBetSetting(metaModel.CustId));
                     break;
                 case ProductType.LiveCasino:
-                    model.LiveCasinoData = _betSettingService.GetLiveCasinoBetSetting(metaModel.CustId);
+                    model.LiveCasinoData.AddRange(_betSettingService.GetLiveCasinoBetSetting(metaModel.CustId));
                     model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
                 case ProductType.RngCasino:
@@ -206,7 +206,7 @@ namespace Fanex.Athena.Controllers.Customer
                     model.IsEnabled = IsRngCasinoEnabled(customerInfo);
                     break;
                 case ProductType.Keno:
-                    model.MainData = _betSettingService.GetKenoBetSetting(metaModel.CustId);
+                    model.MainData.AddRange(_betSettingService.GetKenoBetSetting(metaModel.CustId));
                     break;
             }
 

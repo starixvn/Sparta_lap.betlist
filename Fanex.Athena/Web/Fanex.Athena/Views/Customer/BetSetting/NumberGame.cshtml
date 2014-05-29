@@ -76,7 +76,7 @@
     <!--/Content-->
 </div>
 <!--SubmitButton-->
-@if (Model.Param.Editable)
+@if (Model.Param.Editable && Model.MainData.Count > 0)
 {
     <div>
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"

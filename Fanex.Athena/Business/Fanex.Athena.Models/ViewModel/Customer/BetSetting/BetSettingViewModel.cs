@@ -16,11 +16,26 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     /// </summary>
     public class BetSettingViewModel
     {
+        private List<BetSetting> _mainData = new List<BetSetting>();
+        private List<LiveCasinoBetSettingViewModel> _liveCasinoData = new List<LiveCasinoBetSettingViewModel>();
+
         public BetSettingMetaModel Param { get; set; }
 
-        public IList<BetSetting> MainData { get; set; }
+        public List<BetSetting> MainData
+        {
+            get
+            {
+                return _mainData;
+            }
+        }
 
-        public IList<LiveCasinoBetSettingViewModel> LiveCasinoData { get; set; }
+        public List<LiveCasinoBetSettingViewModel> LiveCasinoData
+        {
+            get
+            {
+                return _liveCasinoData;
+            }
+        }
 
         public RngCasinoBetSetting RngCasinoData { get; set; }
 
