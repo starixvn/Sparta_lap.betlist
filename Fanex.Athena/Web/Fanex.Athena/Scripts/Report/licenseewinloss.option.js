@@ -1,20 +1,22 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site,LicenseeWinLoss, JSLINQ, jqGridAdditional*/
+/// <reference path="/@JSense.js" />
 /*
 * Note:in this report, parameter level have 3 value
 *  "0" for master,"1" for agent and "2" for member
 */
 
 var LicenseeWinLossOption = (function () {
-
+    "use strict";
     // store state of toggle() function
     var _expanseTypes = {};
 
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return LicenseeWinLoss.drillDown(' + level + ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+        return '<a class="drilldown" href="javascript:;" onclick="return LicenseeWinLoss.drillDown(' + level + ',' +
+         currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = LicenseeWinLossOption.licenseeId == 1 ? 1 : 2;
+        var level = Number(LicenseeWinLossOption.licenseeId) === 1 ? 1 : 2;
         return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
@@ -45,8 +47,7 @@ var LicenseeWinLossOption = (function () {
         width: 30,
         align: 'center',
         valign: 'middle',
-        sortable: false,
-        resizable: false
+        sortable: false
     };
 
     var dateColumn =
@@ -58,7 +59,6 @@ var LicenseeWinLossOption = (function () {
         align: 'center',
         valign: 'middle',
         sortable: true,
-        resizable: false,   
         formatter: 'date',
         formatoptions:
         {
@@ -306,13 +306,17 @@ var LicenseeWinLossOption = (function () {
 
     //#endregion
 
-    var colNameList = ['#','Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
+    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+      'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]',
+     '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
 
-    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
+    var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+        turnoverColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, baCommissionColumn,
+        racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
 
     var me =
     {
-        
+
         licenseeId: 0,
         currencyIndex: 4,
         turnoverIndex: 5,
@@ -360,17 +364,17 @@ var LicenseeWinLossOption = (function () {
 
     me.setGroupHeaderColumns = function (grid, productOptions) {
         var num = JSLINQ(productOptions).Count(function (item) {
-            return item.Status == true;
+            return item.Status === true;
         }) + 1;
         var last = JSLINQ(productOptions).Last(function (item) {
-            return item.Status == true;
+            return item.Status === true;
         });
 
         var numOfLicenseeWL = JSLINQ(productOptions).Count(function (item) {
-            return item.Status == true && item.Code !== "BA" && item.Code !== "RB";
+            return item.Status === true && item.Code !== "BA" && item.Code !== "RB";
         }) + 1;
         var lastOfLicenseeWL = JSLINQ(productOptions).Last(function (item) {
-            return item.Status == true && item.Code !== "BA" && item.Code !== "RB";
+            return item.Status === true && item.Code !== "BA" && item.Code !== "RB";
         });
         var groupCustomerWinloss = me.hasCustomerComm ?
         {
@@ -405,8 +409,8 @@ var LicenseeWinLossOption = (function () {
         var customerWLTotalIndex = me.customerWlTotalIndex;
         temp[me.customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'CustomerW_L';
         $.each(productOptions, function (index, value) {
-            //insert turn over column
-            if (value.Status == true) {
+            //insert turn over column            
+            if (value.Status === true) {
                 temp.insertAfter(value.Name, me.currencyIndex);
                 turnOverIndex++;
                 licenseeIndex++;
@@ -426,19 +430,20 @@ var LicenseeWinLossOption = (function () {
     };
 
     me.getColModel = function (level, reportBy, productOptions) {
+        reportBy = Number(reportBy);
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
-
+        level = Number(level);
         //set width of licenseeWL column
         if (!me.hasCustomerComm) { licenseeWlColumn.width = 90; }
         // Column hidden by level
-        currencyColumn.formatter = level == 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level == 1 ? systemIdFormatter : null;
+        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level == 0;
+        systemIdColumn.hidden = level === 0;
 
         // Column hidden by product
         var allowedBa = $("#ProductList input[data-product-code=BA]:checked").length > 0;
@@ -450,13 +455,13 @@ var LicenseeWinLossOption = (function () {
         amtDueToRacingColumn.hidden = !allowedRacing;
 
         // Row span setting
-       // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-       // dateColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-        if (level == 2) {
+        // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
+        // dateColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
+        if (level === 2) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }
-        if (reportBy == 2) {
+        if (reportBy === 2) {
             dateColumn.formatoptions = {
                 newformat: 'm/Y'
             };
@@ -475,7 +480,7 @@ var LicenseeWinLossOption = (function () {
         var customerWLTotalIndex = me.customerWlTotalIndex;
         $.each(productOptions, function (index, value) {
             //insert turn over column
-            if (value.Status == true) {
+            if (value.Status === true) {
                 var turnOver = Site.clone(productColumn);
                 turnOver.name = "TurnOver" + value.Code;
                 turnOver.index = "TurnOver" + value.Code;
@@ -523,7 +528,7 @@ var LicenseeWinLossOption = (function () {
         var colModel = me.getColModel(level, -1, productOptions);
         // Not show drill down link on total link
         var curCol = JSLINQ(colModel).First(function (item) {
-            return item.name == "CurrencyName";
+            return item.name === "CurrencyName";
         });
 
         curCol.formatter = null;
@@ -537,11 +542,11 @@ var LicenseeWinLossOption = (function () {
         /// <param name="grid">grid instance</param>
 
         var expandHeaders = null, collapseHeaders = null;
-        var mumOfActiveLicPro = JSLINQ(productOptions).Count(function (item) { return item.Status == true && item.Code !== "BA" && item.Code !== "RB" });
-        var mumOfActiveTurnPro = JSLINQ(productOptions).Count(function (item) { return item.Status == true });
+        var mumOfActiveLicPro = JSLINQ(productOptions).Count(function (item) { return item.Status === true && item.Code !== "BA" && item.Code !== "RB"; });
+        var mumOfActiveTurnPro = JSLINQ(productOptions).Count(function (item) { return item.Status === true; });
         var clear = function (button) {
             $(button).unbind("click").remove();
-        }
+        };
         //reset licenseWL column
         var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();
 
@@ -551,23 +556,24 @@ var LicenseeWinLossOption = (function () {
 
         //#region Toggle
         var toggle = function (isShow, type) {
+            type = Number(type);
             _expanseTypes[type] = isShow;
 
             var param = isShow ? "showCol" : "hideCol";
-            var extCol = type == 0 ? "TurnOver" : "LicenseeWL";
+            var extCol = type === 0 ? "TurnOver" : "LicenseeWL";
             var fColumns = [];
 
             //footer product columns
             $.each(productOptions, function (index, value) {
                 //insert turn over column
-                if (value.Status == true) {
+                if (value.Status === true) {
                     var columnName = extCol + value.Code;
                     fColumns.push(gridName + "_" + columnName);
                     grid.jqGrid(param, columnName);
                 }
             });
 
-            var totalColumn = type == 0 ? 'TotalTurnOver' : 'TotalLicenseeWL';
+            var totalColumn = type === 0 ? 'TotalTurnOver' : 'TotalLicenseeWL';
 
             var fTotalColumn = gridName + "_" + totalColumn;
 
@@ -576,7 +582,7 @@ var LicenseeWinLossOption = (function () {
             grid.jqGrid(param, totalColumn);
 
             /*show /hide single column*/
-            var singleColumn = type == 0 ? "TotalTurnOverSingle" : "TotalLicenseeWLSingle";
+            var singleColumn = type === 0 ? "TotalTurnOverSingle" : "TotalLicenseeWLSingle";
 
             var singleParam = isShow ? "hideCol" : "showCol";
 
@@ -589,7 +595,7 @@ var LicenseeWinLossOption = (function () {
 
             jqGridAdditional.setFooterColumns(singleParam, [singleFColumn]);
 
-            if (type == 0) {
+            if (type === 0) {
                 addTurnOverExpand();
             }
             else {
@@ -617,7 +623,7 @@ var LicenseeWinLossOption = (function () {
             }
 
             var actualHeight = $("#ReportGrid").height();
-            var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight
+            var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
 
             var tableWidth = $("#ReportGrid").width();
             var contentWidth = $(".ui-jqgrid-bdiv").width();
@@ -637,10 +643,11 @@ var LicenseeWinLossOption = (function () {
             if (mumOfActiveTurnPro > 1) {
                 clear("#btnTurnOverExpand");
 
-                expandHeaders = $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable");
+                expandHeaders = $(grid).closest("div.ui-jqgrid-view")
+                        .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable");
 
                 var turnoverSingle = JSLINQ(expandHeaders).First(function (item) {
-                    return item.id == gridId + "_" + "TotalTurnOverSingle";
+                    return item.id === gridId + "_" + "TotalTurnOverSingle";
                 });
 
                 $('<button title="Expand to view details" id="btnTurnOverExpand">').css({
@@ -652,7 +659,7 @@ var LicenseeWinLossOption = (function () {
                     primary: "ui-icon-circle-triangle-e"
                 },
                     text: false
-                }).click(function (e) {
+                }).click(function () {
                     return toggle(true, 0);
                 });
             }
@@ -662,10 +669,11 @@ var LicenseeWinLossOption = (function () {
             if (mumOfActiveLicPro > 1) {
                 clear("#btnLicenseeWLExpand");
 
-                expandHeaders = $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable");
+                expandHeaders = $(grid).closest("div.ui-jqgrid-view")
+                            .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable");
 
                 var licenseeWLSingle = JSLINQ(expandHeaders).First(function (item) {
-                    return item.id == gridId + "_" + "TotalLicenseeWLSingle";
+                    return item.id === gridId + "_" + "TotalLicenseeWLSingle";
                 });
 
                 $('<button title="Expand to view details" id="btnLicenseeWLExpand">').css({
@@ -677,7 +685,7 @@ var LicenseeWinLossOption = (function () {
                     primary: "ui-icon-circle-triangle-e"
                 },
                     text: false
-                }).click(function (e) {
+                }).click(function () {
                     return toggle(true, 1);
                 });
             }
@@ -686,7 +694,8 @@ var LicenseeWinLossOption = (function () {
 
         //#region add collapse button
         var addTurnOverCollapse = function () {
-            collapseHeaders = $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column-header");
+            collapseHeaders = $(grid).closest("div.ui-jqgrid-view")
+                        .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column-header");
 
             clear("#btnTurnOverCollapse");
 
@@ -699,7 +708,7 @@ var LicenseeWinLossOption = (function () {
                     primary: "ui-icon-circle-triangle-w"
                 },
                 text: false
-            }).click(function (e) {
+            }).click(function () {
                 return toggle(false, 0);
             });
         };
@@ -707,7 +716,8 @@ var LicenseeWinLossOption = (function () {
         var addLicenseeWlCollapse = function () {
             clear("#btnLicenseeWLCollapse");
 
-            collapseHeaders = $(grid).closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column-header");
+            collapseHeaders = $(grid).closest("div.ui-jqgrid-view")
+                        .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column-header");
 
             var licenseeWlIndex = me.hasCustomerComm ? 2 : 1;
             $('<button id="btnLicenseeWLCollapse">').css({
@@ -719,7 +729,7 @@ var LicenseeWinLossOption = (function () {
                     primary: "ui-icon-circle-triangle-w"
                 },
                 text: false
-            }).click(function (e) {
+            }).click(function () {
                 return toggle(false, 1);
             });
         };
@@ -736,7 +746,7 @@ var LicenseeWinLossOption = (function () {
 
         addLicenseeWlCollapse();
         //#endregion
-    }
+    };
 
     return me;
 })();
