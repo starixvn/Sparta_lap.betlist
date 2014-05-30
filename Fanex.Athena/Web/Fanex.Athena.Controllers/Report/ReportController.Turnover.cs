@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -87,13 +88,13 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
 
             metaModel.Username = metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
-
-            var dataList = _turnoverService.GetDataList(metaModel);
+            var turnoverService = new TurnoverService();            
+            var dataList = turnoverService.GetDataList(metaModel);
 
             var model = new TurnoverViewModel
                 {
                     DataList = dataList,
-                    TotalData = _turnoverService.SumTotalData(dataList),
+                    TotalData = turnoverService.SumTotalData(dataList),
                     Param = metaModel,
                     ProductAccess = productAccess,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

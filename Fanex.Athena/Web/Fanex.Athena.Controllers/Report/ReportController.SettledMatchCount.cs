@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
@@ -26,8 +27,9 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isShowAll = AppSettings.IsTesting;
             var producAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var settledMatchCountService = new SettledMatchCountService();
 
-            var model = _settledMatchCountService.GetDataList(isShowAll, licenseeId, producAccess);
+            var model = settledMatchCountService.GetDataList(isShowAll, licenseeId, producAccess);
 
             return View("~/Views/Report/SettledMatchCount/Main.cshtml", model);
         }

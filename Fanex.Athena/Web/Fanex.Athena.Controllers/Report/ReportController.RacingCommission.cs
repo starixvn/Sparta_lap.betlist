@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -68,7 +69,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
 
             var total = new RacingCommission();
-            var reportData = _racingCommissionService.GetDataList(metaModel, ref total);
+            var racingCommissionService = new RacingCommissionService();
+            var reportData = racingCommissionService.GetDataList(metaModel, ref total);
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 

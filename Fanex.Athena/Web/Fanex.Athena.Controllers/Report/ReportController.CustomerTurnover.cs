@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Newtonsoft.Json;
@@ -153,7 +154,9 @@ namespace Fanex.Athena.Controllers.Report
         {
             totalData = new CustTurnover();
             totalRow = 0;
-            return _custTurnoverService.GetDataList(metalModel, SessionService.UserSession.Language, out totalData, out totalRow);
+            var custTurnoverService = new CustomerTurnoverService();
+
+            return custTurnoverService.GetDataList(metalModel, SessionService.UserSession.Language, out totalData, out totalRow);
         }
 
         #endregion Utilities

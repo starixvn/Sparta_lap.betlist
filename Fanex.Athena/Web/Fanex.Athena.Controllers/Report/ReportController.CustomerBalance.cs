@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -121,16 +122,17 @@ namespace Fanex.Athena.Controllers.Report
                 return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
             }
 
+            var custBalanceService = new CustomerBalanceService();
             if (isExportedExcel != null)
             {
                 metaModel.PageSize = PageSizeExcel;
-                var dataListExcel = _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+                var dataListExcel = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
                 model.DataList = dataListExcel;
                 model.TotalData = totalData;
                 return CustomerBalanceExcel(model);
             }
 
-            var dataList = _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var dataList = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
             ViewBag.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;

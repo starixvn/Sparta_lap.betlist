@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -66,7 +67,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
             metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
-            var dailyRacingWlData = _dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
+            var dailyRacingWinLossService = new DailyRacingWinLossService();
+            var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 
             var model = new DailyRacingWinLossViewModel
                 {

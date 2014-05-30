@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report.LiveReports;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
@@ -44,7 +45,8 @@ namespace Fanex.Athena.Controllers.Report
             IList<LiveReportByBetType> dataByBetType;
 
             var productList = productAccess.ProductList.Where(i => i.ProductCode == productCode || productCode == "ALL").ToList();
-            _liveReportService.GetLiveReportSumaryDetail(metaModel, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
+            var liveReportService = new LiveReportService();
+            liveReportService.GetLiveReportSumaryDetail(metaModel, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
 
             return View(
                 "~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",

@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -105,7 +106,8 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.PageSize = PageSizeExcel;
             }
 
-            var dataList = _custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var custPendingFundsService = new CustomerPendingFundsService();
+            var dataList = custPendingFundsService.GetDataList(metaModel, ref totalData, ref totalRows);
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             model.TotalRows = totalRows;
             model.DataList = dataList;

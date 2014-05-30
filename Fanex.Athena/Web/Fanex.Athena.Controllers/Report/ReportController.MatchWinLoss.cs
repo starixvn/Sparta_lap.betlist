@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
@@ -103,12 +104,14 @@ namespace Fanex.Athena.Controllers.Report
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            var reportData = _matchWinLossService.GetDataList(metaModel);
+            var matchWinLossService = new MatchWinLossService();
+
+            var reportData = matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
             if (metaModel.ProductOptions.Count(i => (i.Code == Product.Ba || i.Code == Product.Sb) && i.Status) > 0)
             {
-                reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
+                reportDataOutrightParlay = matchWinLossService.GetOutrightParlayList(metaModel).ToList();
             }
 
             // Calculate the league list
@@ -156,7 +159,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
-            var reportData = _matchWinLossService.GetDetailDataList(metaModel);
+            var matchWinLossService = new MatchWinLossService();
+            var reportData = matchWinLossService.GetDetailDataList(metaModel);
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno);
 
@@ -205,7 +209,8 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             metaModel.PageSize = 63000;
-            var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
+            var matchWinLossService = new MatchWinLossService();
+            var reportData = matchWinLossService.GetDetailDataSet(metaModel);
             var mainTable = reportData.Tables[0];
             mainTable = SortMatchWinlossTable(mainTable);
             mainTable.DefaultView.Sort = "newproductid asc, leaguename asc, matchname ASC";

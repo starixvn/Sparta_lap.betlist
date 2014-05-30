@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -70,8 +71,8 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
-
-            var reportData = _winLossByBetTypeService.GetDataList(metaModel);
+            var winLossByBetTypeService = new WinLossByBetTypeService();
+            var reportData = winLossByBetTypeService.GetDataList(metaModel);
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 

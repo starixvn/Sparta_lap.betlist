@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -128,7 +129,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;            
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
-            var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var custWinlossService = new CustomerWinlossService();
+            var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
@@ -169,7 +171,8 @@ namespace Fanex.Athena.Controllers.Report
             
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
-            var dataList = _custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var custWinlossService = new CustomerWinlossService();
+            var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 

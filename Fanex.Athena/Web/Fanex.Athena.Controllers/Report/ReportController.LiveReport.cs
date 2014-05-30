@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report.LiveReports;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -81,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
 
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
-
+            var liveReportService = new LiveReportService();
             var model = new LiveReportViewModel
                 {
                     Param = metaModel,
@@ -90,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess,
-                    MainResult = _liveReportService.GetLiveReportSummary(metaModel)
+                    MainResult = liveReportService.GetLiveReportSummary(metaModel)
                 };
 
             return isExportedExcel
@@ -111,7 +112,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = licenseeSession.UserId;
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var dataList = _liveReportService.GetLiveReportWinLossByMatch(metaModel);
+            var liveReportService = new LiveReportService();
+            var dataList = liveReportService.GetLiveReportWinLossByMatch(metaModel);
 
             var model = new LiveReportMatchListViewModel
                 {
@@ -158,10 +160,9 @@ namespace Fanex.Athena.Controllers.Report
 
             if (!string.IsNullOrEmpty(productCode))
             {
-                var productList =
-                    productAccess.ProductList.Where(i => i.ProductCode == productCode || productCode == "ALL").ToList();
-
-                _liveReportService.GetLiveReportSumaryDetail(viewModel.Param, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
+                var productList = productAccess.ProductList.Where(i => i.ProductCode == productCode || productCode == "ALL").ToList();
+                var liveReportService = new LiveReportService();
+                liveReportService.GetLiveReportSumaryDetail(viewModel.Param, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
             }
 
             var liveReportDetail = new LiveReportDetailViewModel

@@ -35,21 +35,8 @@ namespace Fanex.Athena.Controllers.Report
         #region Fields
 
         private readonly IBalanceUpService _balanceUpService;
-        private readonly ICreditBalanceService _creditBalanceService;
-        private readonly ICustBalanceService _custBalanceService;
-        private readonly ICustPendingFundsService _custPendingFundsService;
-        private readonly ICustTurnoverService _custTurnoverService;
-        private readonly ICustWinlossService _custWinlossService;
-        private readonly IDailyRacingWinLossService _dailyRacingWinLossService;
-        private readonly ILiveReportService _liveReportService;
-        private readonly IMatchWinLossService _matchWinLossService;
         private readonly IProductService _productService;
-        private readonly IRacingCommissionService _racingCommissionService;
-        private readonly ISettledMatchCountService _settledMatchCountService;
-        private readonly ITurnoverService _turnoverService;
-        private readonly IWinLossByBetTypeServive _winLossByBetTypeService;
         private readonly IBetTypeService _betTypeService;
-
         private readonly ISportTypeService _sportTypeService;
         private readonly ILeagueService _leagueService;
         private readonly IMatchService _matchService;
@@ -63,20 +50,7 @@ namespace Fanex.Athena.Controllers.Report
             : base()
         {
             this._balanceUpService = new BalanceUpService();
-
-            this._matchWinLossService = new MatchWinLossService();
             this._productService = new ProductService();
-            this._dailyRacingWinLossService = new DailyRacingWinLossService();
-            this._liveReportService = new LiveReportService();
-            this._turnoverService = new TurnoverService();
-            this._winLossByBetTypeService = new WinLossByBetTypeService();
-            this._custTurnoverService = new CustomerTurnoverService();
-            this._custBalanceService = new CustomerBalanceService();
-            this._custWinlossService = new CustomerWinlossService();
-            this._settledMatchCountService = new SettledMatchCountService();
-            this._racingCommissionService = new RacingCommissionService();
-            this._custPendingFundsService = new CustomerPendingFundsService();
-            this._creditBalanceService = new CreditBalanceService();
             _sportTypeService = new SportTypeService(this._balanceUpService.BalanceUpInfo);
             this._betTypeService = new BetTypeService();
             this._leagueService = new LeagueService();

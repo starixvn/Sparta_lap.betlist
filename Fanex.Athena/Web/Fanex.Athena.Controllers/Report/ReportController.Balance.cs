@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -46,7 +47,8 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
-            var reportData = _creditBalanceService.GetReportData(metaModel);
+            var creditBalanceService = new CreditBalanceService();            
+            var reportData = creditBalanceService.GetReportData(metaModel);
 
             var viewData = new BalanceViewModel
                 {
