@@ -223,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerTotal);
             row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(_total.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingRevenue);
+            row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingWinLoss);
             row.Cells[ColumnAmtDueToBa].SetCellValue(_total.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
         }
