@@ -26,6 +26,12 @@ var MobileWinLoss = (function ($) {
     }
 
     return {
+        resizeGrid: function () {
+            var gridTop = $("#ReportGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height();
+            gridHeight = Math.max(150, gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+        },
         //#region Init
         initialize: function () {
             MobileWinLoss.initSetting();
@@ -164,7 +170,7 @@ var MobileWinLoss = (function ($) {
             //get site
             var siteStr = MobileWinLossOption.sites[site];
             var licenseeWLNote = jqGridAdditional.getLicenseeWLNote($("#ProductOptionJson").val());
-            var title = $.format(titlePattern, fromdate.toString("M/d/yyyy"), todate.toString("M/d/yyyy"), 
+            var title = $.format(titlePattern, fromdate.toString("M/d/yyyy"), todate.toString("M/d/yyyy"),
                         currencyStr, siteStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
             $("div.report-title").html(title);
         },
@@ -207,7 +213,7 @@ var MobileWinLoss = (function ($) {
             };
 
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (numOfRow > MobileWinLossOption.pageSize) {
                     _pageSize = $("#ReportGrid").getGridParam("rowNum");
                     $("#pg_ppdata").show();
@@ -242,9 +248,9 @@ var MobileWinLoss = (function ($) {
                 jqGridAdditional.resetHeaderHeight(reportGrid);
             }
             jqGridAdditional.resetLayout(reportGrid);
-            
+
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-            
+
 
             if (!_removeSorting) {
                 reportGrid.closest("div.ui-jqgrid-view")
@@ -262,6 +268,8 @@ var MobileWinLoss = (function ($) {
                     }
                 });
             }
+
+            MobileWinLoss.resizeGrid();
         },
 
         //#endregion
@@ -316,7 +324,7 @@ var MobileWinLoss = (function ($) {
                 data: mainForm.serialize(),
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData),                
+                url: Site.resolveClientUrl(MobileWinLossOption.urlData),
                 success: function (response) {
                     MobileWinLoss.setExcelUrl(0, 0, 0, "");
                     MobileWinLoss.ajaxComplete(0, response);
@@ -349,7 +357,7 @@ var MobileWinLoss = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level + 
+                url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level +
                             "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
                 error: function () { Site.gotoErrorPage(); },
                 success: function (response) {
@@ -420,7 +428,8 @@ var MobileWinLoss = (function ($) {
 
             url = Site.setProductOptionOriginalParamList(url);
 
-            var popH = 650, popW = 920;
+            var popH = Math.min(600, window.innerHeight - 50), popW = 920;
+            popH = Math.max(400, popH);
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
@@ -441,6 +450,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
+    MobileWinLoss.resizeGrid();
 });
 
 $(window).unload(function () {

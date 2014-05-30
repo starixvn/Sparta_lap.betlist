@@ -1,9 +1,27 @@
 ﻿/// <reference path="/@JSense.js" />
 var OddEvenDND = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $(".data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 10;
+            gridHeight = Math.max(150, gridHeight);
+            gridHeight = Math.min($grid.height(), gridHeight);
+            $grid.css("height", gridHeight);
+        },
         initialize: function () {
             Totalbets.initialize();
             OddEvenDND.initEvent();
+            OddEvenDND.resizeGrid();
+
+            $(document).ajaxComplete(function (event, request, settings) {
+                OddEvenDND.resizeGrid();
+            });
         },
         initEvent: function () {
             // Submit event.

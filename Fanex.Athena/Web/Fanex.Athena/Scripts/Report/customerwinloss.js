@@ -1,10 +1,22 @@
 ﻿/// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - 30;
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         initialize: function () {
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);
+            Site.addFilterCollapseExpand();
         },
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() == "True") {
@@ -121,4 +133,14 @@ var CustomerWinLoss = (function ($) {
 
 $(window).load(function () {
     CustomerWinLoss.initialize();
+    CustomerWinLoss.resizeGrid();
+});
+$(window).resize(function () {
+    "use strict";
+    CustomerWinLoss.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

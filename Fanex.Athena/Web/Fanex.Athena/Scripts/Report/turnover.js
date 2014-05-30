@@ -2,6 +2,18 @@
 var Turnover = (function ($) {
     return {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - 10;
+            gridHeight = Math.max(100, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         initialize: function () {
             Turnover.initMonthPicker();
             Turnover.initEvent();
@@ -89,4 +101,14 @@ var Turnover = (function ($) {
 
 $(window).load(function () {
     Turnover.initialize();
+    Turnover.resizeGrid();
+});
+$(window).resize(function () {
+    "use strict";    
+    Turnover.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

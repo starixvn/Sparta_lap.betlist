@@ -220,6 +220,7 @@ var CustomerList = (function ($) {
             $("div.paging").hide();
         }
 
+        CustomerList.resizeGrid();
         Site.unBlockUI();
     }
 
@@ -280,6 +281,12 @@ var CustomerList = (function ($) {
     }
 
     return {
+        resizeGrid: function () {
+            var gridTop = $("#ReportGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 15;
+            gridHeight = Math.max(130, gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+        },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;
             var length = _checkedCustomerArray.length;
@@ -930,4 +937,14 @@ $(document).ready(function () {
     parent.document.title = 'LRF - ' + $('.content-title').html();
     CustomerList.initialize();
     CustomerList.submit();
+});
+
+$(window).resize(function () {
+    "use strict";
+    CustomerList.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

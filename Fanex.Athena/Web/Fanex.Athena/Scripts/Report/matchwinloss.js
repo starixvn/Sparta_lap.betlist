@@ -15,7 +15,7 @@ var MatchWinLoss = (function ($) {
             var $grid = $("#ContentMainContent");
             if ($grid.length > 0) {
                 var gridTop = $grid.offset().top;
-                var gridHeight = $(window).height() - gridTop - $("#TableTotal").height() - 10;
+                var gridHeight = window.innerHeight - gridTop - $("#TableTotal").height() - 10;
                 gridHeight = Math.max(160, gridHeight);
                 $grid.css("max-height", gridHeight);
             }

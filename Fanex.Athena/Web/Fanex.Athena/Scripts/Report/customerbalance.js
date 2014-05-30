@@ -1,8 +1,20 @@
 ﻿/// <reference path="/@JSense.js" />
 var CustBalance = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - 10;
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         initialize: function () {
             CustBalance.initEvent();
+            CustBalance.resizeGrid();
         },
         initEvent: function () {
             $("#data-content").scroll(function () {
@@ -30,4 +42,14 @@ var CustBalance = (function ($) {
 $(window).load(function () {
     CustBalance.initialize();
     CustBalance.checkIsValidTimeRequest();
+});
+
+$(window).resize(function () {
+    "use strict";
+    CustBalance.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

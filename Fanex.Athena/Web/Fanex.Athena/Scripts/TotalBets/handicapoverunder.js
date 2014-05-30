@@ -1,9 +1,27 @@
 ﻿/// <reference path="/@JSense.js" />
 var HandicapOU = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $(".data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 10;
+            gridHeight = Math.max(150, gridHeight);
+            gridHeight = Math.min($grid.height(), gridHeight);
+            $grid.css("height", gridHeight);    
+        },
         initialize: function () {
             Totalbets.initialize();
             HandicapOU.initEvent();
+            HandicapOU.resizeGrid();
+
+            $(document).ajaxComplete(function (event, request, settings) {
+                HandicapOU.resizeGrid();
+            });
         },
         initEvent: function () {
             // Submit event.

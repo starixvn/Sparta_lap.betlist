@@ -10,9 +10,9 @@ var WinLossByProduct = (function ($) {
     return {
         resizeGrid: function () {
             var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
-            gridHeight = Math.max(130, gridHeight);
-            $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 30;
+            gridHeight = Math.max(130, gridHeight);            
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
         },
         //#region Init
         initialize: function () {
@@ -426,7 +426,7 @@ var WinLossByProduct = (function ($) {
 
                     onPaging = false;
                 }
-                WinLossByProduct.resizeGrid();
+
 
                 Site.unBlockUI();
             };
@@ -444,6 +444,7 @@ var WinLossByProduct = (function ($) {
             }
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
+            WinLossByProduct.resizeGrid();
         },
 
         //#endregion

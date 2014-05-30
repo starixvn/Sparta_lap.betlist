@@ -23,20 +23,21 @@ var LicenseeWinLoss = (function ($) {
         for (var i = 0; i < data.length; i++) {
             data[i].Index = i + 1;
         }
+
         return data;
     }
 
     return {
         resizeGrid: function () {
             var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
-            gridHeight = Math.max(130, gridHeight);
-            $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
+
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 35;
+            gridHeight = Math.max(100, gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
         },
         getTotalRowCount: function () {
             return totalRowCount;
         },
-
         initialize: function () {
             _pageSize = LicenseeWinLossOption.pageSize;
             LicenseeWinLoss.initEvent();
@@ -420,7 +421,7 @@ var LicenseeWinLoss = (function ($) {
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
-                LicenseeWinLoss.resizeGrid();
+
                 Site.unBlockUI();
             };
 
@@ -458,6 +459,8 @@ var LicenseeWinLoss = (function ($) {
             if ($gridBody.length > 0) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
+
+            LicenseeWinLoss.resizeGrid();
         },
 
         //#end

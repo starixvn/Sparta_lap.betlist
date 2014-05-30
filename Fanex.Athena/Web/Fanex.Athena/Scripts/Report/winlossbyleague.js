@@ -105,6 +105,7 @@ var WinLossByLeague = (function ($) {
             Site.unBlockUI();
             return;
         }
+
         ajaxMatches = $.ajax({
             type: "POST",
             datatype: "json",
@@ -130,10 +131,11 @@ var WinLossByLeague = (function ($) {
     var me = {
         resizeGrid: function () {
             var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = $(window).height() - gridTop - $(".ui-jqgrid-ftable").height() - 50;
+            var pagerHeight = $(".pagingContainer:visible").height() || 0;
+
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - (pagerHeight > 0 ? pagerHeight + 25 : 5);
             gridHeight = Math.max(130, gridHeight);
-            // console.log(gridTop, gridHeight, $("#ReportGrid"))
-            $(".theme_jqGrid .ui-jqgrid-bdiv").css("max-height", gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);          
         },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
@@ -490,7 +492,7 @@ var WinLossByLeague = (function ($) {
                 }
             };
             gridOption.gridComplete = function () {
-                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
+                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);                
 
                 if (response == null || numOfRow == 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
@@ -506,7 +508,7 @@ var WinLossByLeague = (function ($) {
 
                     onPaging = false;
                 }
-                WinLossByLeague.resizeGrid();
+
                 Site.unBlockUI();
             };
 
@@ -523,6 +525,10 @@ var WinLossByLeague = (function ($) {
                 WinLossByLeagueOption.addLeagueGroupRow($("#League").val(), $("#League option:selected").text());
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
+            setTimeout(function () {
+                WinLossByLeague.resizeGrid();
+            }, 100);
+
         }
 
         //#endregion

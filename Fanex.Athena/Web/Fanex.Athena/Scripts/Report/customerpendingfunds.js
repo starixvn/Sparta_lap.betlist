@@ -3,9 +3,21 @@
 var CustPendingFunds = (function ($) {
     "use strict";
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - 10;
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         initialize: function () {
             CustPendingFunds.initEvent();
             Site.createSortingIcon(CustPendingFunds.sortReport);
+            CustPendingFunds.resizeGrid();
         },
         initEvent: function () {
             $("#data-content").on("click", ".bet-list-link", function () {
@@ -54,4 +66,13 @@ var CustPendingFunds = (function ($) {
 $(window).load(function () {
     "use strict";
     CustPendingFunds.initialize();
+});
+$(window).resize(function () {
+    "use strict";
+    CustPendingFunds.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });
