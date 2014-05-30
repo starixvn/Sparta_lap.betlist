@@ -115,7 +115,6 @@ namespace Fanex.Athena.Controllers.Report
             }
 
             var isExportedExcel = Request.Form["exporttoexcel.x"];
-
             if (metaModel.FromDate.AddMonths(2) < metaModel.ToDate)
             {
                 model.IsValidTimeRequest = false;
