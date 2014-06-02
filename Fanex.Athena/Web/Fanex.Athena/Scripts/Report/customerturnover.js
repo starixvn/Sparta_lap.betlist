@@ -66,8 +66,16 @@ var CustTurnover = (function ($) {
             CustTurnover.initEvent();
             CustTurnover.setDefaultUsername();
             CustTurnover.initAutoComplete();
+            setTimeout(function () {
+                Site.addFilterCollapseExpand();
+            }, 500);
         },
-
+        resizeGrid: function () {
+            var gridTop = $("#ReportGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $("#paging:visible").height() - 30;
+            gridHeight = Math.max(120, gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+        },
         initEvent: function () {
             /*product list*/
 
@@ -323,8 +331,8 @@ var CustTurnover = (function ($) {
             var odds = parseFloat($('#Odds').val());
             var isValid = true;
             if (username == '' || username == CustTurnover.defaultUserName) {
-                    username = "";
-            } 
+                username = "";
+            }
             if (isNaN(odds) || odds == null || odds < 0) odds = 0;
             /* check date range ,only support two month.*/
             var fromDateTokens = $("#FromDate").val().split("/");
@@ -441,7 +449,7 @@ var CustTurnover = (function ($) {
             gridOption.rowNum = response.Data.length,
             gridOption.rowTotal = response.Data.length;
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, 1);
+                // jqGridAdditional.gridComplete(this, gridOption, 1);
                 $("#pg_ppdata").hide();
 
                 if (response == null ||
@@ -469,6 +477,8 @@ var CustTurnover = (function ($) {
             if (CustTurnover.pagingOption.totalrow > 0) {
                 pagingHeper.render(CustTurnover.pagingOption);
             }
+
+            CustTurnover.resizeGrid();
         },
         ajaxPaging: function () {
             CustTurnover.clearExcelExport();
@@ -517,6 +527,7 @@ $(window).load(function () {
 $(window).resize(function () {
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
+    CustTurnover.resizeGrid();
 });
 
 $(window).unload(function () {

@@ -1,12 +1,26 @@
 ﻿/// <reference path="/@JSense.js" />
 var ForecastOneXTwo = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $(".data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 10;
+            gridHeight = Math.max(150, gridHeight);
+            gridHeight = Math.min($grid.height(), gridHeight);
+            $grid.css("height", gridHeight);
+        },
         initialize: function () {
             Site.unBlockUI();
             // Init refresh count down.
             RefreshCountDown.initialize();
 
             ForecastOneXTwo.initEvent();
+            ForecastOneXTwo.resizeGrid();
         },
         initEvent: function () {
             // Check popup
@@ -88,4 +102,15 @@ $(window).load(function () {
     parent.$('#myframe').attr('height', 400);
     parent.$('#forecast-dialog').attr('style', 'width:680px;height:400px');
     parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
+});
+
+
+$(window).resize(function () {
+    "use strict";
+    ForecastOneXTwo.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
 });

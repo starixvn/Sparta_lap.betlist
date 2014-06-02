@@ -7,6 +7,24 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     return {
+        resizeGrid: function () {
+            if ($(".no-info-row").length > 0) {
+                return;
+            }
+
+            var gridTop = $("#BetListGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - 40;
+            gridHeight = Math.max(130, gridHeight);
+
+            var $container = $(".ui-jqgrid-bdiv");
+            var $child = $container.find(">div");
+            $container.css("max-height", gridHeight);
+
+            if ($child.height() > Math.min($container.height(), gridHeight)) {
+                $container.css("height", Math.min($child.height(), gridHeight));
+                console.log(Math.min($child.height(), gridHeight));
+            }
+        },
         getSortParams: function () {
             if (!_sortColumnName) {
                 return null;
@@ -49,7 +67,7 @@ var BetList = (function ($) {
             }
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
-            // jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
+            jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
             // Remove unnecessary item
             $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("Total")).removeAttr("title");
             $("table.ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
@@ -143,7 +161,7 @@ var BetList = (function ($) {
             return gridOption;
         },
 
-        loadData: function (params, url, callback) {
+        loadData: function (params, url) {
             if (typeof params === "string") {
                 params = JSON.parse(params);
             }
@@ -167,7 +185,7 @@ var BetList = (function ($) {
                 url: url,
                 success: function (response) {
                     if (response != null) {
-                        BetList.bindData(response, callback);
+                        BetList.bindData(response);
                         BetList.setLeagueTitle(response.LeagueName);
                     }
                 },
@@ -213,7 +231,7 @@ var BetList = (function ($) {
             $("#BetListGrid").jqGrid(gridOption);
         },
 
-        bindData: function (response, callback) {
+        bindData: function (response) {
             if (response != null) {
                 var rawData = response.Main;
                 var summary = response.Total;
@@ -245,10 +263,9 @@ var BetList = (function ($) {
 
                 $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
-
-                if (typeof (callback) === "function") {
-                    callback();
-                }
+                setTimeout(function () {
+                    BetList.resizeGrid();
+                }, 100);
             }
         },
 
@@ -322,6 +339,7 @@ var BetList = (function ($) {
                         divEvent.css("display", "");
 
                         BetList.resetContentHeight();
+                        BetList.resizeGrid();
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -335,6 +353,9 @@ var BetList = (function ($) {
                 divEvent.css("display", "none");
                 divEvent.html("");
                 BetList.resetContentHeight();
+                $(".ui-jqgrid-bdiv").css("height",0);
+                $(".ui-jqgrid-bdiv>div").css("height", "auto");
+                BetList.resizeGrid();
             }
         },
 
@@ -409,6 +430,7 @@ var showMP = function (transId) {
     var divEvent = $('#divEvent_' + transId);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
     BetList.showMixParlayDetail(transId, divEvent);
+
 };
 
 var showCombMP = function (transId, index) {

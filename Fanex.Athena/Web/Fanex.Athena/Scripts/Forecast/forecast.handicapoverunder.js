@@ -1,11 +1,25 @@
 ﻿/// <reference path="/@JSense.js" />
 var ForecastHDPOU = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $(".data-content");
+            if ($grid.length == 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 10;
+            gridHeight = Math.max(150, gridHeight);
+            gridHeight = Math.min($grid.height(), gridHeight);
+            $grid.css("height", gridHeight);
+        },
         initialize: function () {
             Site.unBlockUI();
             // Init timer count down
             RefreshCountDown.initialize();
             ForecastHDPOU.initEvent();
+            ForecastHDPOU.resizeGrid();
         },
         initEvent: function () {
             // League change
@@ -59,3 +73,14 @@ var ForecastHDPOU = (function ($) {
         }
     };
 })(jQuery);
+
+
+$(window).resize(function () {
+    "use strict";
+    ForecastHDPOU.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
+});

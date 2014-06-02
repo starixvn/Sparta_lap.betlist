@@ -110,6 +110,7 @@ var RefreshCountDown = (function ($) {
                 if ($(".data-content").length) {
                     $(".data-content").scrollTop(oldScrollTop);
                 }
+                $(window).resize();
             });
 
             return true;

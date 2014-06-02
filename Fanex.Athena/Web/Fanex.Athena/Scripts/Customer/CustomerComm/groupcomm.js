@@ -82,6 +82,7 @@ var GroupComm = (function ($) {
                 url: url,
                 type: 'GET',
                 dataType: 'JSon',
+                cache: false,
                 success: function (id) {
                     // Delete group
                     GroupComm.deleteGroup(groupId, id.id == groupId ? true : false);

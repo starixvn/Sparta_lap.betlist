@@ -15,6 +15,10 @@ var CustBalance = (function ($) {
         initialize: function () {
             CustBalance.initEvent();
             CustBalance.resizeGrid();
+
+            setTimeout(function () {
+                Site.addFilterCollapseExpand();
+            }, 500);
         },
         initEvent: function () {
             $("#data-content").scroll(function () {

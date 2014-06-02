@@ -3,7 +3,7 @@ var MoneyLine = (function ($) {
     return {
         initialize: function () {
             Totalbets.initialize();
-            MoneyLine.initEvent();
+            MoneyLine.initEvent();          
         },
         initEvent: function () {
             // Submit event.
@@ -13,7 +13,7 @@ var MoneyLine = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-            $("#MoneyLineForm").submit();
+            $("#MoneyLineForm").submit();            
         }
     };
 })(jQuery);
