@@ -49,7 +49,7 @@ var BetList = (function ($) {
             }
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
-            jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
+            // jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
             // Remove unnecessary item
             $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("Total")).removeAttr("title");
             $("table.ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
@@ -71,7 +71,7 @@ var BetList = (function ($) {
             }
 
             // Hide vertical scrollbar in IE when the grid has only one row.
-            
+
             if (rowCount < 2) {
                 $(".ui-jqgrid .ui-jqgrid-bdiv").css("overflow-y", "hidden");
             }
@@ -143,7 +143,7 @@ var BetList = (function ($) {
             return gridOption;
         },
 
-        loadData: function (params, url) {
+        loadData: function (params, url, callback) {
             if (typeof params === "string") {
                 params = JSON.parse(params);
             }
@@ -167,7 +167,7 @@ var BetList = (function ($) {
                 url: url,
                 success: function (response) {
                     if (response != null) {
-                        BetList.bindData(response);
+                        BetList.bindData(response, callback);
                         BetList.setLeagueTitle(response.LeagueName);
                     }
                 },
@@ -189,7 +189,6 @@ var BetList = (function ($) {
                 url = QueryString.setParam(url, "SortBy", _sortColumnName);
                 url = QueryString.setParam(url, "SortOrder", _sortOrder);
             }
-
 
             BetList.submiting = true;
 
@@ -214,7 +213,7 @@ var BetList = (function ($) {
             $("#BetListGrid").jqGrid(gridOption);
         },
 
-        bindData: function (response) {
+        bindData: function (response, callback) {
             if (response != null) {
                 var rawData = response.Main;
                 var summary = response.Total;
@@ -247,7 +246,9 @@ var BetList = (function ($) {
                 $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
 
-
+                if (typeof (callback) === "function") {
+                    callback();
+                }
             }
         },
 
@@ -338,12 +339,12 @@ var BetList = (function ($) {
         },
 
         resetContentHeight: function () {
-            var bodyHeight = $(window.frames).height() - 120; // 650;
+            var bodyHeight = window.innerHeight - 20; // 650;
             var actualHeight = $('.ui-jqgrid-bdiv .ui-jqgrid-btable').height();
             var bodyDiv = $('.ui-jqgrid-bdiv');
 
-            bodyDiv.css({ 'height': actualHeight });
-            bodyDiv.css({ 'max-height': bodyHeight });
+            //  bodyDiv.css({ 'height': actualHeight });
+            //   bodyDiv.css({ 'max-height': bodyHeight });
         },
 
         showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {

@@ -2,6 +2,16 @@
 
 var CorrectScoreBetList = (function ($) {
     return {
+        resizeGrid: function () {
+            var gridTop = $("#BetListGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - 40;
+            gridHeight = Math.max(130, gridHeight);
+
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            if ($(".ui-jqgrid-bdiv>div").height() > gridHeight) {
+                $(".ui-jqgrid-bdiv").css("height", gridHeight);
+            }
+        },
         initialize: function () {
             CorrectScoreBetList.initEvent();
             CorrectScoreBetList.submit();
@@ -21,7 +31,9 @@ var CorrectScoreBetList = (function ($) {
             var params = {};
             params = Site.setLicenseeOptionParam(params);
             var url = Site.resolveClientUrl('api/betlist/CorrectScoreBetList');
-            BetList.loadData(params, url);
+            BetList.loadData(params, url, setTimeout(function () {
+                CorrectScoreBetList.resizeGrid();
+            }, 300));
         }
     };
 })(jQuery);
