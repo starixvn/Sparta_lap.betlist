@@ -321,7 +321,7 @@ var CustomerList = (function ($) {
                     item.NgComm = ngCom;
                     item.RbComm = rbCom;
                     item.LcComm = lcCom;
-                    item.csComm = csCom;
+                    item.CsComm = csCom;
                     count++;
                 }
             });
