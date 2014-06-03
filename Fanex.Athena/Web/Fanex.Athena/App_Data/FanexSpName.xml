@@ -183,9 +183,9 @@
     <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossOutright" SpName="Lrf_BetList_LiveReport_SelWinlossOutright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Outright" SpName="Lrf_BetList_MatchWL_Outright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Bettype" SpName="Lrf_BetList_MatchWL_Bettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />

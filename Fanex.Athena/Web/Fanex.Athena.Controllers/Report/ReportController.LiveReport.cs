@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = userSession.UserId,
                     IsViewedHistory = isViewedHistory,
                     CurrencyId = 0,
-                    LiveStatus = 1
+                    LiveIndicator = 1
                 };
 
             SetConvetedUSDCurrencyName(metaModel);

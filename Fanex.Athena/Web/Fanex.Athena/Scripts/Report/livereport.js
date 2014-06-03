@@ -71,7 +71,7 @@ var LiveReport = (function ($) {
                 FromDate: $("#FromDate").attr('data-original').toString("MM/dd/yyyy"),
                 ToDate: $("#ToDate").attr('data-original').toString("MM/dd/yyyy"),
                 BaseCurrency: $("#BaseCurrency").attr('data-original'),
-                LiveStatus: $("#LiveStatus").attr('data-original')
+                LiveStatus: $("#LiveIndicator").attr('data-original')
             };
             data = Site.setLicenseeOptionOriginalParam(data);
             /*selected*/
@@ -205,7 +205,7 @@ var LiveReport = (function ($) {
                 url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
                 url = QueryString.setParam(url, "showsb", true);
                 url = QueryString.setParam(url, "showba", false);
-                url = QueryString.setParam(url, "LiveStatus", $("#LiveStatus").attr('data-original'));
+                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
 
                 $(productOptions).each(function (index, element) {
                     url = Site.setProductOptionParam(url, index, element, true);

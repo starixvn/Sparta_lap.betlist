@@ -16,7 +16,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     {
         public bool IsViewedHistory { get; set; }
 
-        public int LiveStatus { get; set; }
+        public int LiveIndicator { get; set; }
 
         public DateTime MinDate
         {

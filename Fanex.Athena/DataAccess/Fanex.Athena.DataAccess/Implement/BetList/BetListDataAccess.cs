@@ -715,6 +715,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
         /// <summary>

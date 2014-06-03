@@ -25,6 +25,7 @@ var LiveReportMatchList = (function ($) {
             url = QueryString.setParam(url, "HomeId", data.HomeId);
             url = QueryString.setParam(url, "AwayId", data.AwayId);
             url = QueryString.setParam(url, "BetType", data.BetType);
+            url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
             url = LiveReport.setSumParams(url, data);
 
             var productOptions = LiveReport.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
