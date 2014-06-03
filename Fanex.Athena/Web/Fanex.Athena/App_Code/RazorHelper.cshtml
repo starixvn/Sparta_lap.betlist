@@ -404,17 +404,17 @@ bool addBasedOption = false)
         switch (liveStatus)
         {
             case 0:
-                title = ViewResources.Live + " and " + ViewResources.NoneLive;
+                title = ViewResources.NoneLive;
                 break;
             case 1:
                 title = ViewResources.Live;
                 break;
             case 2:
-                title = ViewResources.NoneLive;
+                title = ViewResources.LiveAndNonLive;
                 break;
         }
 
-        @(string.Format("{0} data", title))
+        @(title + ViewResources.Data)
 }
 @helper ViewInCurrency(int currenceId, string currencyName)
     {

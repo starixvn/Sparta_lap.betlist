@@ -1429,6 +1429,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  data.
+        /// </summary>
+        public static string Data {
+            get {
+                return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Warehouse.
         /// </summary>
         public static string DataWareHouse {
@@ -3434,6 +3443,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Live {
             get {
                 return ResourceManager.GetString("Live", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live and Non-live.
+        /// </summary>
+        public static string LiveAndNonLive {
+            get {
+                return ResourceManager.GetString("LiveAndNonLive", resourceCulture);
             }
         }
         
