@@ -178,7 +178,7 @@ namespace Fanex.Athena.Service.Implement.Users
             catch (System.Exception ex)
             {
                 LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "CurrencyService");
+                throw new ServiceException(ex.Message, "LicenseeService");
             }
         }
 

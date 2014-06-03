@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/6/2014 5:41:38 PM
+// Lasted generated date: 6/3/2014 3:44:56 PM
 // </history>
 
 var _language_ko_KR={
@@ -119,6 +119,8 @@ var _language_ko_KR={
                      BAUpdatedBy:"BA가 업데이트",
 				 	
                      Bestviewedin:"에 최고로 보여진",
+				 	
+                     BestViewResolution:"Resolution 1280x1024",
 				 	
                      BestWinLoss:"최고의 승리 손실",
 				 	
@@ -286,6 +288,8 @@ var _language_ko_KR={
 				 	
                      CustomersExistedinGroupMsg:"선택된 고객들은 이미 이 그룹에 존재합니다.",
 				 	
+                     CustomerTurnover:"Customer Turnover",
+				 	
                      CustomerTurnOverNote:"제출된 시간에 대해 1개월의 데이터 보기만 허용됩니다.",
 				 	
                      CustomerW_L:"고객 승리/패배",
@@ -352,6 +356,10 @@ var _language_ko_KR={
 				 	
                      Disable:"불능시킴",
 				 	
+                     DisableLiveCasino:"Disable Live Casino",
+				 	
+                     DisableRNGCasino:"Disable RNG Casino",
+				 	
                      DisableSSOMsg:"SSO기능을 사용할 수 없습니다",
 				 	
                      DividendWon:"배당금을 획득했습니다",
@@ -381,6 +389,10 @@ var _language_ko_KR={
                      EditGroup:"그룹 수정하기",
 				 	
                      Enable:"활성화시킴",
+				 	
+                     EnableLiveCasino:"Enable Live Casino",
+				 	
+                     EnableRNGCasino:"Enable RNG Casino",
 				 	
                      EndBalance:"최종 잔액",
 				 	
@@ -880,6 +892,8 @@ var _language_ko_KR={
 				 	
                      Name:"이름",
 				 	
+                     NetGaming:"Net Gaming",
+				 	
                      NetTurnover:"순매출",
 				 	
                      NewGroup:"신규 그룹",
@@ -967,6 +981,10 @@ var _language_ko_KR={
                      October:"10월",
 				 	
                      Odd:"홀수",
+				 	
+                     Odd_Dec:"Dec",
+				 	
+                     Odd_MY:"MY",
 				 	
                      OddEven:"홀수/짝수",
 				 	
@@ -1071,6 +1089,10 @@ var _language_ko_KR={
                      Previous:"이전의",
 				 	
                      Product:"상품",
+				 	
+                     PShare:"P.Share",
+				 	
+                     PWin:"P.Win",
 				 	
                      Q1:"1Q",
 				 	
@@ -1349,6 +1371,8 @@ var _language_ko_KR={
                      TotalTO:"총 TO",
 				 	
                      TotalTransaction:"총 거래금액",
+				 	
+                     TotalTurnover:"Total Turnover",
 				 	
                      Tote:"토트",
 				 	

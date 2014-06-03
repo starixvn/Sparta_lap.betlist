@@ -147,7 +147,7 @@ var CustTurnoverOption = (function () {
     };
     //#endregion
     var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType',
-    'TotalTransaction', 'Turnover', '@[Total] @[Turnover]', '@[Win]/@[Loss]', 'Comm', 'Total'];
+    'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
     var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn, totalTransColumn, turnoverColumn, totalturnoverColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn];
     var customerWlTotalIndex = 11;

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/6/2014 5:41:48 PM
+// Lasted generated date: 6/3/2014 3:45:00 PM
 // </history>
 
 var _language_zh_CN={
@@ -58,19 +58,19 @@ var _language_zh_CN={
 				 	
                      AllSites:"所有网站",
 				 	
-                     AmountDue:"Amount Due",
+                     AmountDue:"应付金额",
 				 	
-                     AmountDueTo:"Amount Due To",
+                     AmountDueTo:"应付金额",
 				 	
                      AmtDueTo:"Amt Due To",
 				 	
                      AmtDueToBA:"BA金额",
 				 	
-                     AmtDueToBABalanceNote:"Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.",
+                     AmtDueToBABalanceNote:"BA金额: 在BA合作上，承租公司需支付或应获得的金额",
 				 	
-                     AmtDueToRacing:"竞赛金额",
+                     AmtDueToRacing:"赛事金额",
 				 	
-                     AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
+                     AmtDueToRacingBalanceNote:"赛事金额: 在赛事产品上，承租公司需支付或应获得的金额",
 				 	
                      Apr:"四月",
 				 	
@@ -98,9 +98,9 @@ var _language_zh_CN={
 				 	
                      BackToCurrentReport:"回到现有报告",
 				 	
-                     BAComissionBalanceNote:"投注总计佣金: Licensee佣金所得于投注总计注单。",
+                     BAComissionBalanceNote:"投注总计佣金: 承租公司佣金所得于投注总计注单。",
 				 	
-                     BACommission:"投注总计佣金",
+                     BACommission:"BA佣金",
 				 	
                      Balance:"余额",
 				 	
@@ -112,7 +112,7 @@ var _language_zh_CN={
 				 	
                      Based:"基于",
 				 	
-                     BaStatus:"投注总计状态",
+                     BaStatus:"BA 状态",
 				 	
                      BaTurnoverReferenceNote:"投注总计的数额仅供参考用途及仍然包含整体的投注额",
 				 	
@@ -120,11 +120,13 @@ var _language_zh_CN={
 				 	
                      Bestviewedin:"最佳浏览",
 				 	
+                     BestViewResolution:"Resolution 1280x1024",
+				 	
                      BestWinLoss:"最佳输赢",
 				 	
                      Bet:"下注",
 				 	
-                     BetCount:"投注统计",
+                     BetCount:"投注数",
 				 	
                      BetList:"投注历史",
 				 	
@@ -204,7 +206,7 @@ var _language_zh_CN={
 				 	
                      Commission:"佣金",
 				 	
-                     CommissionGroupList:"佣金组名单",
+                     CommissionGroupList:"佣金组别列表",
 				 	
                      CommIsUnChange:"客户的佣金是不变的",
 				 	
@@ -246,11 +248,11 @@ var _language_zh_CN={
 				 	
                      CurrentGroup:"当前组",
 				 	
-                     Currentmonth:"当前月",
+                     Currentmonth:"上周",
 				 	
                      CurrentReport:"当前报告",
 				 	
-                     Currentweek:"当前周",
+                     Currentweek:"本周",
 				 	
                      Customer:"客户",
 				 	
@@ -260,13 +262,13 @@ var _language_zh_CN={
 				 	
                      CustomerBetList:"会员注单",
 				 	
-                     CustomerCommission:"客户佣金",
+                     CustomerCommission:"会员佣金",
 				 	
                      CustomerHasNeverPlayed:"This customer has never played {0}.",
 				 	
                      CustomerInfo:"客户资料",
 				 	
-                     CustomerList:"会员",
+                     CustomerList:"会员列表",
 				 	
                      CustomerNotBelongAnyGroupMsg:"选择的客户不属于任何一组",
 				 	
@@ -274,7 +276,7 @@ var _language_zh_CN={
 				 	
                      CustomerOverall:"客户 (整体)",
 				 	
-                     CustomerPedingFunds:"客户待定资金",
+                     CustomerPedingFunds:"会员待定资金",
 				 	
                      CustomerPedingFundsTitle:"客户待定资金 - {0}",
 				 	
@@ -284,15 +286,17 @@ var _language_zh_CN={
 				 	
                      CustomerSetting:"客户设定",
 				 	
-                     CustomerSettinglog:"客户设定日志",
+                     CustomerSettinglog:"会员设定日志",
 				 	
                      CustomersExistedinGroupMsg:"选择的客户已经出现在此组",
 				 	
+                     CustomerTurnover:"会员交易额",
+				 	
                      CustomerTurnOverNote:"You are only allowed to view data in one months per each submited time.",
 				 	
-                     CustomerW_L:"客户输赢",
+                     CustomerW_L:"会员输赢",
 				 	
-                     CustomerWinLoss:"客户输赢",
+                     CustomerWinLoss:"会员輸贏",
 				 	
                      CustomerWinLossTitle:"客户输赢, {0} --&gt; {1} - {2}",
 				 	
@@ -306,7 +310,7 @@ var _language_zh_CN={
 				 	
                      DailyRacingTitle:"每日赛马赛事输赢于{1} - {2}",
 				 	
-                     DailyRacingWinLoss:"每日赛马赛事输赢",
+                     DailyRacingWinLoss:"每日赛事佣金",
 				 	
                      DailyStatement:"每日账目",
 				 	
@@ -334,7 +338,7 @@ var _language_zh_CN={
 				 	
                      December:"十二月",
 				 	
-                     DecimalOdds:"小数式赔率",
+                     DecimalOdds:"欧洲盘赔率",
 				 	
                      DefaultGroup:"默认组",
 				 	
@@ -354,6 +358,10 @@ var _language_zh_CN={
 				 	
                      Disable:"Disable",
 				 	
+                     DisableLiveCasino:"Disable Live Casino",
+				 	
+                     DisableRNGCasino:"停用娱乐城",
+				 	
                      DisableSSOMsg:"SSO功能被禁用",
 				 	
                      DividendWon:"赢得分红",
@@ -368,7 +376,7 @@ var _language_zh_CN={
 				 	
                      DrawFilter:"和局筛选",
 				 	
-                     DrawGame:"和局游戏",
+                     DrawGame:"和局",
 				 	
                      DrawNoBet:"获胜球队(平局退款)",
 				 	
@@ -378,11 +386,15 @@ var _language_zh_CN={
 				 	
                      EditAccount:"编辑账号",
 				 	
-                     Editedby:"编辑由",
+                     Editedby:"编辑者",
 				 	
                      EditGroup:"编辑组别",
 				 	
                      Enable:"Enable",
+				 	
+                     EnableLiveCasino:"启用娱乐厅",
+				 	
+                     EnableRNGCasino:"Enable RNG Casino",
 				 	
                      EndBalance:"结束余额",
 				 	
@@ -432,15 +444,15 @@ var _language_zh_CN={
 				 	
                      Forecast:"预测",
 				 	
-                     ForecastAway:"客场预测",
+                     ForecastAway:"客队预测",
 				 	
-                     ForecastHome:"主场预测",
+                     ForecastHome:"主队预测",
 				 	
                      Fr:"Fr",
 				 	
                      FreeSpin:"免费旋转",
 				 	
-                     Freeze:"Freeze",
+                     Freeze:"暂停更新",
 				 	
                      Friday:"星期五",
 				 	
@@ -492,7 +504,7 @@ var _language_zh_CN={
 				 	
                      GroupCommission:"佣金组别",
 				 	
-                     GroupCommissionlog:"佣金组日志",
+                     GroupCommissionlog:"佣金组别日志",
 				 	
                      GroupCommNote:"若默认组已被选择, 所有新注册之客户将被自动分配至此佣金组。这将不会对现有的客户进行任何更改。",
 				 	
@@ -522,9 +534,9 @@ var _language_zh_CN={
 				 	
                      HalfTime:"半场",
 				 	
-                     Handicap:"亚洲盘",
+                     Handicap:"让球",
 				 	
-                     HandicapOverUnderLive:"亚洲盘/大小盘/滚球",
+                     HandicapOverUnderLive:"让球/大小/滚球",
 				 	
                      HandNo:"每局号码",
 				 	
@@ -538,7 +550,7 @@ var _language_zh_CN={
 				 	
                      hide:"隐藏",
 				 	
-                     HighLow:"High/Low",
+                     HighLow:"高/低",
 				 	
                      HistoricalReportDateRangeNote:"只提供{0:MM/dd/yyyy} 之后的资料。如果需要更多的历史数据",
 				 	
@@ -634,7 +646,7 @@ var _language_zh_CN={
 				 	
                      LastUpdatedMsg:"最近更新的特殊级别",
 				 	
-                     Lastweek:"上星球",
+                     Lastweek:"上周",
 				 	
                      LayoutNoteMsg:"看起来您使用是过期的版本{0}。您需要更新至最新版本已获得更好的体验。",
 				 	
@@ -694,7 +706,7 @@ var _language_zh_CN={
 				 	
                      LCCasinoUpdateSettingUnAvailableMsg:"Live Casino Database is not currently available. Please try again later.",
 				 	
-                     LCComm:"LC 佣金",
+                     LCComm:"娱乐厅佣金",
 				 	
                      LCCommission:"LC 佣金",
 				 	
@@ -762,7 +774,7 @@ var _language_zh_CN={
 				 	
                      LiveReportTitle:"滚球报告, {0} --&gt; {1} - {2}",
 				 	
-                     LiveStatus:"Live Status",
+                     LiveStatus:"滚球状态",
 				 	
                      Loading:"Loading",
 				 	
@@ -780,7 +792,7 @@ var _language_zh_CN={
 				 	
                      Logout:"注销",
 				 	
-                     Lose:"Lose",
+                     Lose:"输",
 				 	
                      Loss:"输",
 				 	
@@ -850,7 +862,7 @@ var _language_zh_CN={
 				 	
                      MinTotalWinLoss:"Min total customer WL",
 				 	
-                     MixLiveAndNoneLive:"Mix Live &amp; Non-Live",
+                     MixLiveAndNoneLive:"混合滚球&amp;非滚球",
 				 	
                      MixParlay:"混合过关",
 				 	
@@ -858,9 +870,9 @@ var _language_zh_CN={
 				 	
                      Mobile:"移动",
 				 	
-                     MobileWinLoss:"移动输赢",
+                     MobileWinLoss:"手机输赢",
 				 	
-                     MobileWinLossTitle:"移动输赢 - {0} --&gt; {1} - {2} - {3}",
+                     MobileWinLossTitle:"手机输赢 - {0} --&gt; {1} - {2} - {3}",
 				 	
                      Mode:"模式",
 				 	
@@ -882,7 +894,9 @@ var _language_zh_CN={
 				 	
                      Name:"姓名",
 				 	
-                     NetTurnover:"净投注额",
+                     NetGaming:"Net Gaming",
+				 	
+                     NetTurnover:"净交易额",
 				 	
                      NewGroup:"新组别",
 				 	
@@ -908,7 +922,7 @@ var _language_zh_CN={
 				 	
                      NoDraws:"没有和局",
 				 	
-                     NoDrawsForTurnoverOnly:"只有投注额不包括和局",
+                     NoDrawsForTurnoverOnly:"只有交易额不包括和局",
 				 	
                      NoGoal:"无进球",
 				 	
@@ -920,11 +934,11 @@ var _language_zh_CN={
 				 	
                      NoneLevel:"None level",
 				 	
-                     NoneLive:"Non-Live",
+                     NoneLive:"非滚球",
 				 	
                      NonEntered:"成绩还没输入场数",
 				 	
-                     NoOfCustmer:"客户编号",
+                     NoOfCustmer:"会员数",
 				 	
                      Noothers:"th",
 				 	
@@ -970,17 +984,21 @@ var _language_zh_CN={
 				 	
                      Odd:"单",
 				 	
-                     OddEven:"单/双",
+                     Odd_Dec:"欧洲盘",
 				 	
-                     OddEvenDND:"单双盘 + 标准盘 + 平局/不是平局",
+                     Odd_MY:"马来盘",
+				 	
+                     OddEven:"单双盘",
+				 	
+                     OddEvenDND:"单双盘 + 1 X 2 + 平局/不是和局",
 				 	
                      Odds:"赔率",
 				 	
-                     OddsType:"Odds Type",
+                     OddsType:"赔率类型",
 				 	
                      OEFT:"全场单/双",
 				 	
-                     of:"of",
+                     of:"之",
 				 	
                      Off:"关闭",
 				 	
@@ -996,11 +1014,11 @@ var _language_zh_CN={
 				 	
                      OneMonth:"1个月",
 				 	
-                     OneXTwo:"标准盘",
+                     OneXTwo:"1 X 2",
 				 	
                      Open:"开启",
 				 	
-                     OpeningBalance:"期初余额",
+                     OpeningBalance:"前期余额",
 				 	
                      OT:"延时",
 				 	
@@ -1016,7 +1034,7 @@ var _language_zh_CN={
 				 	
                      Over:"上盘",
 				 	
-                     OverUnder:"大/小",
+                     OverUnder:"大小",
 				 	
                      P1:"1P",
 				 	
@@ -1026,7 +1044,7 @@ var _language_zh_CN={
 				 	
                      Page:"页面",
 				 	
-                     Parlay:"Parlay",
+                     Parlay:"混合过关",
 				 	
                      Password:"密码",
 				 	
@@ -1056,7 +1074,7 @@ var _language_zh_CN={
 				 	
                      Place:"位置",
 				 	
-                     PlaceTO:"位置彩池",
+                     PlaceTO:"位置交易额",
 				 	
                      Platform:"平台",
 				 	
@@ -1074,6 +1092,10 @@ var _language_zh_CN={
 				 	
                      Product:"产品",
 				 	
+                     PShare:"P.Share",
+				 	
+                     PWin:"P.Win",
+				 	
                      Q1:"1Q",
 				 	
                      Q2:"2Q",
@@ -1084,17 +1106,17 @@ var _language_zh_CN={
 				 	
                      Race:"赛事",
 				 	
-                     Racing:"赛马赛事",
+                     Racing:"赛事",
 				 	
-                     RacingComm:"赛马赛事佣金",
+                     RacingComm:"赛事佣金",
 				 	
                      RacingCommission:"赛马赛事佣金",
 				 	
-                     RacingCommissionTitle:"赛马赛事佣金,{0} --&gt; {1} - {2}",
+                     RacingCommissionTitle:"赛事佣金,{0} --&gt; {1} - {2}",
 				 	
-                     RacingRevenue:"赛马赛事所得",
+                     RacingRevenue:"赛事所得",
 				 	
-                     RacingRevenueBalanceNote:"赛马赛事所得: 赛马所得",
+                     RacingRevenueBalanceNote:"赛事所得:赛事相关产品所得",
 				 	
                      RB:"RB",
 				 	
@@ -1158,9 +1180,9 @@ var _language_zh_CN={
 				 	
                      RoundType:"每局类型",
 				 	
-                     Runner:"马匹",
+                     Runner:"跑者",
 				 	
-                     RunnerNo:"马匹编号",
+                     RunnerNo:"跑者编号",
 				 	
                      Running:"进行中",
 				 	
@@ -1200,7 +1222,7 @@ var _language_zh_CN={
 				 	
                      SelectCurrency:"选择货币",
 				 	
-                     SelectedItemCount:"# selected",
+                     SelectedItemCount:"已选  # 个项目",
 				 	
                      SelectGroup:"选择组",
 				 	
@@ -1254,7 +1276,7 @@ var _language_zh_CN={
 				 	
                      Stake:"投注额",
 				 	
-                     StakeFrom:"Stake From",
+                     StakeFrom:"投注额从",
 				 	
                      StartBalance:"开始余额",
 				 	
@@ -1304,7 +1326,7 @@ var _language_zh_CN={
 				 	
                      Time:"时间",
 				 	
-                     TimeZone:"Time Zone",
+                     TimeZone:"时区",
 				 	
                      To:"至",
 				 	
@@ -1346,9 +1368,11 @@ var _language_zh_CN={
 				 	
                      TotalSet:"总盘数",
 				 	
-                     TotalTO:"总投注额",
+                     TotalTO:"总交易额",
 				 	
-                     TotalTransaction:"总交易额",
+                     TotalTransaction:"总交易数",
+				 	
+                     TotalTurnover:"总交易额",
 				 	
                      Tote:"彩池",
 				 	
@@ -1366,11 +1390,11 @@ var _language_zh_CN={
 				 	
                      TurnOnBaTooltip:"点击打开",
 				 	
-                     Turnover:"投注额",
+                     Turnover:"交易额",
 				 	
-                     TurnoverTitle:"投注额, {0} --&gt; {1} - {2} {3} ({4})",
+                     TurnoverTitle:"交易額, {0} --&gt; {1} - {2} {3} ({4})",
 				 	
-                     TurnoverTitleNoUser:"投注额, {0} --&gt; {1} - {2}",
+                     TurnoverTitleNoUser:"交易額, {0} --&gt; {1} - {2}",
 				 	
                      TwoWeek:"两星期",
 				 	
@@ -1446,7 +1470,7 @@ var _language_zh_CN={
 				 	
                      Username:"用户名",
 				 	
-                     View:"览",
+                     View:"检视",
 				 	
                      ViewBy:"查看由",
 				 	
@@ -1480,7 +1504,7 @@ var _language_zh_CN={
 				 	
                      Welcome:"欢迎",
 				 	
-                     Win:"赢",
+                     Win:"独赢",
 				 	
                      WinLoss:"输赢",
 				 	
@@ -1498,7 +1522,7 @@ var _language_zh_CN={
 				 	
                      WinPlace:"独赢 位置",
 				 	
-                     WinTO:"独赢独赢",
+                     WinTO:"独赢交易额",
 				 	
                      Withdrawal:"提款",
 				 	
@@ -1506,7 +1530,7 @@ var _language_zh_CN={
 				 	
                      WorstWinLoss:"最差的输赢",
 				 	
-                     WPTO:"独赢/位置彩池",
+                     WPTO:"独赢/位置交易额",
 				 	
                      Year:"年份",
 				 	

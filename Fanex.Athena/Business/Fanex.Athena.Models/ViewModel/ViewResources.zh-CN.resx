@@ -184,10 +184,10 @@
     <value>所有网站</value>
   </data>
   <data name="AmountDue" xml:space="preserve">
-    <value>Amount Due</value>
+    <value>应付金额</value>
   </data>
   <data name="AmountDueTo" xml:space="preserve">
-    <value>Amount Due To</value>
+    <value>应付金额</value>
   </data>
   <data name="AmtDueTo" xml:space="preserve">
     <value>Amt Due To</value>
@@ -196,13 +196,13 @@
     <value>BA金额</value>
   </data>
   <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.</value>
+    <value>BA金额: 在BA合作上，承租公司需支付或应获得的金额</value>
   </data>
   <data name="AmtDueToRacing" xml:space="preserve">
-    <value>竞赛金额</value>
+    <value>赛事金额</value>
   </data>
   <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products</value>
+    <value>赛事金额: 在赛事产品上，承租公司需支付或应获得的金额</value>
   </data>
   <data name="Apr" xml:space="preserve">
     <value>四月</value>
@@ -238,10 +238,10 @@
     <value>回到现有报告</value>
   </data>
   <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>投注总计佣金: Licensee佣金所得于投注总计注单。</value>
+    <value>投注总计佣金: 承租公司佣金所得于投注总计注单。</value>
   </data>
   <data name="BACommission" xml:space="preserve">
-    <value>投注总计佣金</value>
+    <value>BA佣金</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>余额</value>
@@ -259,7 +259,7 @@
     <value>基于</value>
   </data>
   <data name="BaStatus" xml:space="preserve">
-    <value>投注总计状态</value>
+    <value>BA 状态</value>
   </data>
   <data name="BaTurnoverReferenceNote" xml:space="preserve">
     <value>投注总计的数额仅供参考用途及仍然包含整体的投注额</value>
@@ -274,7 +274,7 @@
     <value>最佳输赢</value>
   </data>
   <data name="BetCount" xml:space="preserve">
-    <value>投注统计</value>
+    <value>投注数</value>
   </data>
   <data name="BetList" xml:space="preserve">
     <value>投注历史</value>
@@ -373,7 +373,7 @@
     <value>佣金</value>
   </data>
   <data name="CommissionGroupList" xml:space="preserve">
-    <value>佣金组名单</value>
+    <value>佣金组别列表</value>
   </data>
   <data name="CommIsUnChange" xml:space="preserve">
     <value>客户的佣金是不变的</value>
@@ -430,13 +430,13 @@
     <value>当前组</value>
   </data>
   <data name="Currentmonth" xml:space="preserve">
-    <value>当前月</value>
+    <value>上周</value>
   </data>
   <data name="CurrentReport" xml:space="preserve">
     <value>当前报告</value>
   </data>
   <data name="Currentweek" xml:space="preserve">
-    <value>当前周</value>
+    <value>本周</value>
   </data>
   <data name="Customer" xml:space="preserve">
     <value>客户</value>
@@ -448,13 +448,13 @@
     <value>日期范围超过2个月. 请再试一次!</value>
   </data>
   <data name="CustomerCommission" xml:space="preserve">
-    <value>客户佣金</value>
+    <value>会员佣金</value>
   </data>
   <data name="CustomerInfo" xml:space="preserve">
     <value>客户资料</value>
   </data>
   <data name="CustomerList" xml:space="preserve">
-    <value>会员</value>
+    <value>会员列表</value>
   </data>
   <data name="CustomerNotBelongAnyGroupMsg" xml:space="preserve">
     <value>选择的客户不属于任何一组</value>
@@ -466,7 +466,7 @@
     <value>客户 (整体)</value>
   </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
-    <value>客户待定资金</value>
+    <value>会员待定资金</value>
   </data>
   <data name="CustomerPedingFundsTitle" xml:space="preserve">
     <value>客户待定资金 - {0}</value>
@@ -481,19 +481,19 @@
     <value>客户设定</value>
   </data>
   <data name="CustomerSettinglog" xml:space="preserve">
-    <value>客户设定日志</value>
+    <value>会员设定日志</value>
   </data>
   <data name="CustomersExistedinGroupMsg" xml:space="preserve">
     <value>选择的客户已经出现在此组</value>
   </data>
   <data name="CustomerWinLoss" xml:space="preserve">
-    <value>客户输赢</value>
+    <value>会员輸贏</value>
   </data>
   <data name="CustomerWinLossTitle" xml:space="preserve">
     <value>客户输赢, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="CustomerW_L" xml:space="preserve">
-    <value>客户输赢</value>
+    <value>会员输赢</value>
   </data>
   <data name="DA" xml:space="preserve">
     <value>和客</value>
@@ -511,7 +511,7 @@
     <value>每日赛马赛事输赢于{1} - {2}</value>
   </data>
   <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>每日赛马赛事输赢</value>
+    <value>每日赛事佣金</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日账目</value>
@@ -595,7 +595,7 @@
     <value>和局筛选</value>
   </data>
   <data name="DrawGame" xml:space="preserve">
-    <value>和局游戏</value>
+    <value>和局</value>
   </data>
   <data name="DrawNoBet" xml:space="preserve">
     <value>获胜球队(平局退款)</value>
@@ -610,7 +610,7 @@
     <value>编辑账号</value>
   </data>
   <data name="Editedby" xml:space="preserve">
-    <value>编辑由</value>
+    <value>编辑者</value>
   </data>
   <data name="EditGroup" xml:space="preserve">
     <value>编辑组别</value>
@@ -682,16 +682,16 @@
     <value>预测</value>
   </data>
   <data name="ForecastAway" xml:space="preserve">
-    <value>客场预测</value>
+    <value>客队预测</value>
   </data>
   <data name="ForecastHome" xml:space="preserve">
-    <value>主场预测</value>
+    <value>主队预测</value>
   </data>
   <data name="Fr" xml:space="preserve">
     <value>Fr</value>
   </data>
   <data name="Freeze" xml:space="preserve">
-    <value>Freeze</value>
+    <value>暂停更新</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>星期五</value>
@@ -748,7 +748,7 @@
     <value>佣金组别</value>
   </data>
   <data name="GroupCommissionlog" xml:space="preserve">
-    <value>佣金组日志</value>
+    <value>佣金组别日志</value>
   </data>
   <data name="GroupCommNote" xml:space="preserve">
     <value>若默认组已被选择, 所有新注册之客户将被自动分配至此佣金组。这将不会对现有的客户进行任何更改。</value>
@@ -787,10 +787,10 @@
     <value>半场</value>
   </data>
   <data name="Handicap" xml:space="preserve">
-    <value>亚洲盘</value>
+    <value>让球</value>
   </data>
   <data name="HandicapOverUnderLive" xml:space="preserve">
-    <value>亚洲盘/大小盘/滚球</value>
+    <value>让球/大小/滚球</value>
   </data>
   <data name="HD" xml:space="preserve">
     <value>主和</value>
@@ -802,7 +802,7 @@
     <value>主主</value>
   </data>
   <data name="HighLow" xml:space="preserve">
-    <value>High/Low</value>
+    <value>高/低</value>
   </data>
   <data name="HistoricalReportDateRangeNote" xml:space="preserve">
     <value>只提供{0:MM/dd/yyyy} 之后的资料。如果需要更多的历史数据</value>
@@ -931,7 +931,7 @@
     <value>最近更新的特殊级别</value>
   </data>
   <data name="Lastweek" xml:space="preserve">
-    <value>上星球</value>
+    <value>上周</value>
   </data>
   <data name="LayoutNoteMsg" xml:space="preserve">
     <value>看起来您使用是过期的版本{0}。您需要更新至最新版本已获得更好的体验。</value>
@@ -1111,7 +1111,7 @@
     <value>滚球报告, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="LiveStatus" xml:space="preserve">
-    <value>Live Status</value>
+    <value>滚球状态</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading</value>
@@ -1240,7 +1240,7 @@
     <value>Min total customer WL</value>
   </data>
   <data name="MixLiveAndNoneLive" xml:space="preserve">
-    <value>Mix Live &amp; Non-Live</value>
+    <value>混合滚球&amp;非滚球</value>
   </data>
   <data name="MixParlay" xml:space="preserve">
     <value>混合过关</value>
@@ -1252,10 +1252,10 @@
     <value>移动</value>
   </data>
   <data name="MobileWinLoss" xml:space="preserve">
-    <value>移动输赢</value>
+    <value>手机输赢</value>
   </data>
   <data name="MobileWinLossTitle" xml:space="preserve">
-    <value>移动输赢 - {0} --&gt; {1} - {2} - {3}</value>
+    <value>手机输赢 - {0} --&gt; {1} - {2} - {3}</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>星期一</value>
@@ -1276,7 +1276,7 @@
     <value>转移至组</value>
   </data>
   <data name="NetTurnover" xml:space="preserve">
-    <value>净投注额</value>
+    <value>净交易额</value>
   </data>
   <data name="NewGroup" xml:space="preserve">
     <value>新组别</value>
@@ -1312,7 +1312,7 @@
     <value>没有和局</value>
   </data>
   <data name="NoDrawsForTurnoverOnly" xml:space="preserve">
-    <value>只有投注额不包括和局</value>
+    <value>只有交易额不包括和局</value>
   </data>
   <data name="NoGoal" xml:space="preserve">
     <value>无进球</value>
@@ -1330,13 +1330,13 @@
     <value>None level</value>
   </data>
   <data name="NoneLive" xml:space="preserve">
-    <value>Non-Live</value>
+    <value>非滚球</value>
   </data>
   <data name="NonEntered" xml:space="preserve">
     <value>成绩还没输入场数</value>
   </data>
   <data name="NoOfCustmer" xml:space="preserve">
-    <value>客户编号</value>
+    <value>会员数</value>
   </data>
   <data name="Noothers" xml:space="preserve">
     <value>th</value>
@@ -1387,22 +1387,22 @@
     <value>单</value>
   </data>
   <data name="OddEven" xml:space="preserve">
-    <value>单/双</value>
+    <value>单双盘</value>
   </data>
   <data name="OddEvenDND" xml:space="preserve">
-    <value>单双盘 + 标准盘 + 平局/不是平局</value>
+    <value>单双盘 + 1 X 2 + 平局/不是和局</value>
   </data>
   <data name="Odds" xml:space="preserve">
     <value>赔率</value>
   </data>
   <data name="OddsType" xml:space="preserve">
-    <value>Odds Type</value>
+    <value>赔率类型</value>
   </data>
   <data name="OEFT" xml:space="preserve">
     <value>全场单/双</value>
   </data>
   <data name="of" xml:space="preserve">
-    <value>of</value>
+    <value>之</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>关闭</value>
@@ -1423,13 +1423,13 @@
     <value>1个月</value>
   </data>
   <data name="OneXTwo" xml:space="preserve">
-    <value>标准盘</value>
+    <value>1 X 2</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>开启</value>
   </data>
   <data name="OpeningBalance" xml:space="preserve">
-    <value>期初余额</value>
+    <value>前期余额</value>
   </data>
   <data name="OT" xml:space="preserve">
     <value>延时</value>
@@ -1447,7 +1447,7 @@
     <value>优胜冠军赛果</value>
   </data>
   <data name="OverUnder" xml:space="preserve">
-    <value>大/小</value>
+    <value>大小</value>
   </data>
   <data name="O_E" xml:space="preserve">
     <value>单/双</value>
@@ -1471,7 +1471,7 @@
     <value>页面</value>
   </data>
   <data name="Parlay" xml:space="preserve">
-    <value>Parlay</value>
+    <value>混合过关</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
@@ -1510,7 +1510,7 @@
     <value>位置</value>
   </data>
   <data name="PlaceTO" xml:space="preserve">
-    <value>位置彩池</value>
+    <value>位置交易额</value>
   </data>
   <data name="Postponed" xml:space="preserve">
     <value>改期</value>
@@ -1543,22 +1543,22 @@
     <value>赛事</value>
   </data>
   <data name="Racing" xml:space="preserve">
-    <value>赛马赛事</value>
+    <value>赛事</value>
   </data>
   <data name="RacingComm" xml:space="preserve">
-    <value>赛马赛事佣金</value>
+    <value>赛事佣金</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
     <value>赛马赛事佣金</value>
   </data>
   <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>赛马赛事佣金,{0} --&gt; {1} - {2}</value>
+    <value>赛事佣金,{0} --&gt; {1} - {2}</value>
   </data>
   <data name="RacingRevenue" xml:space="preserve">
-    <value>赛马赛事所得</value>
+    <value>赛事所得</value>
   </data>
   <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>赛马赛事所得: 赛马所得</value>
+    <value>赛事所得:赛事相关产品所得</value>
   </data>
   <data name="RBComm" xml:space="preserve">
     <value>RB佣金</value>
@@ -1633,10 +1633,10 @@
     <value>此报告不包含娱乐城及宾果</value>
   </data>
   <data name="Runner" xml:space="preserve">
-    <value>马匹</value>
+    <value>跑者</value>
   </data>
   <data name="RunnerNo" xml:space="preserve">
-    <value>马匹编号</value>
+    <value>跑者编号</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>进行中</value>
@@ -1690,7 +1690,7 @@
     <value>选择货币</value>
   </data>
   <data name="SelectedItemCount" xml:space="preserve">
-    <value># selected</value>
+    <value>已选  # 个项目</value>
   </data>
   <data name="SelectGroup" xml:space="preserve">
     <value>选择组</value>
@@ -1762,7 +1762,7 @@
     <value>投注额</value>
   </data>
   <data name="StakeFrom" xml:space="preserve">
-    <value>Stake From</value>
+    <value>投注额从</value>
   </data>
   <data name="StartTime" xml:space="preserve">
     <value>开始时间</value>
@@ -1822,7 +1822,7 @@
     <value>时间</value>
   </data>
   <data name="TimeZone" xml:space="preserve">
-    <value>Time Zone</value>
+    <value>时区</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>至</value>
@@ -1882,10 +1882,10 @@
     <value>总盘数</value>
   </data>
   <data name="TotalTO" xml:space="preserve">
-    <value>总投注额</value>
+    <value>总交易额</value>
   </data>
   <data name="TotalTransaction" xml:space="preserve">
-    <value>总交易额</value>
+    <value>总交易数</value>
   </data>
   <data name="Tote" xml:space="preserve">
     <value>彩池</value>
@@ -1912,13 +1912,13 @@
     <value>点击打开</value>
   </data>
   <data name="Turnover" xml:space="preserve">
-    <value>投注额</value>
+    <value>交易额</value>
   </data>
   <data name="TurnoverTitle" xml:space="preserve">
-    <value>投注额, {0} --&gt; {1} - {2} {3} ({4})</value>
+    <value>交易額, {0} --&gt; {1} - {2} {3} ({4})</value>
   </data>
   <data name="TurnoverTitleNoUser" xml:space="preserve">
-    <value>投注额, {0} --&gt; {1} - {2}</value>
+    <value>交易額, {0} --&gt; {1} - {2}</value>
   </data>
   <data name="TwoWeek" xml:space="preserve">
     <value>两星期</value>
@@ -1999,7 +1999,7 @@
     <value>小/单</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>览</value>
+    <value>检视</value>
   </data>
   <data name="ViewBy" xml:space="preserve">
     <value>查看由</value>
@@ -2032,7 +2032,7 @@
     <value>欢迎</value>
   </data>
   <data name="Win" xml:space="preserve">
-    <value>赢</value>
+    <value>独赢</value>
   </data>
   <data name="WinLoss" xml:space="preserve">
     <value>输赢</value>
@@ -2056,7 +2056,7 @@
     <value>独赢 位置</value>
   </data>
   <data name="WinTO" xml:space="preserve">
-    <value>独赢独赢</value>
+    <value>独赢交易额</value>
   </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>提款</value>
@@ -2068,7 +2068,7 @@
     <value>最差的输赢</value>
   </data>
   <data name="WPTO" xml:space="preserve">
-    <value>独赢/位置彩池</value>
+    <value>独赢/位置交易额</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>年份</value>
@@ -2113,7 +2113,7 @@
     <value>组合</value>
   </data>
   <data name="DecimalOdds" xml:space="preserve">
-    <value>小数式赔率</value>
+    <value>欧洲盘赔率</value>
   </data>
   <data name="EndBalance" xml:space="preserve">
     <value>结束余额</value>
@@ -2310,7 +2310,7 @@
     <comment>new</comment>
   </data>
   <data name="LCComm" xml:space="preserve">
-    <value>LC 佣金</value>
+    <value>娱乐厅佣金</value>
     <comment>6900</comment>
   </data>
   <data name="LCCommission" xml:space="preserve">
@@ -2324,7 +2324,7 @@
     <value>Rolling Comm</value>
   </data>
   <data name="Lose" xml:space="preserve">
-    <value>Lose</value>
+    <value>输</value>
   </data>
   <data name="VirtualHorseRacing" xml:space="preserve">
     <value>Virtual Horse Racing</value>
@@ -2398,5 +2398,29 @@
   </data>
   <data name="BestViewResolution" xml:space="preserve">
     <value>Resolution 1280x1024</value>
+  </data>
+  <data name="Odd_Dec" xml:space="preserve">
+    <value>欧洲盘</value>
+  </data>
+  <data name="Odd_MY" xml:space="preserve">
+    <value>马来盘</value>
+  </data>
+  <data name="CustomerTurnover" xml:space="preserve">
+    <value>会员交易额</value>
+  </data>
+  <data name="TotalTurnover" xml:space="preserve">
+    <value>总交易额</value>
+  </data>
+  <data name="DisableLiveCasino" xml:space="preserve">
+    <value>Disable Live Casino    </value>
+  </data>
+  <data name="EnableLiveCasino" xml:space="preserve">
+    <value>启用娱乐厅</value>
+  </data>
+  <data name="DisableRNGCasino" xml:space="preserve">
+    <value>停用娱乐城</value>
+  </data>
+  <data name="EnableRNGCasino" xml:space="preserve">
+    <value>Enable RNG Casino</value>
   </data>
 </root>

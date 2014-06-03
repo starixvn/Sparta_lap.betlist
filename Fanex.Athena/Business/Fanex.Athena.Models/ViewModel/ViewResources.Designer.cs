@@ -1312,6 +1312,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Turnover     .
+        /// </summary>
+        public static string CustomerTurnover {
+            get {
+                return ResourceManager.GetString("CustomerTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are only allowed to view data in one months per each submited time..
         /// </summary>
         public static string CustomerTurnOverNote {
@@ -1618,6 +1627,24 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Live Casino .
+        /// </summary>
+        public static string DisableLiveCasino {
+            get {
+                return ResourceManager.GetString("DisableLiveCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable RNG Casino.
+        /// </summary>
+        public static string DisableRNGCasino {
+            get {
+                return ResourceManager.GetString("DisableRNGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSO Function was disabled.
         /// </summary>
         public static string DisableSSOMsg {
@@ -1749,6 +1776,26 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///          Enable Live Casino
+        ///      .
+        /// </summary>
+        public static string EnableLiveCasino {
+            get {
+                return ResourceManager.GetString("EnableLiveCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable RNG Casino.
+        /// </summary>
+        public static string EnableRNGCasino {
+            get {
+                return ResourceManager.GetString("EnableRNGCasino", resourceCulture);
             }
         }
         
@@ -1978,7 +2025,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forcast Home.
+        ///   Looks up a localized string similar to Forecast Home.
         /// </summary>
         public static string ForecastHome {
             get {
@@ -4408,6 +4455,24 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dec.
+        /// </summary>
+        public static string Odd_Dec {
+            get {
+                return ResourceManager.GetString("Odd_Dec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MY.
+        /// </summary>
+        public static string Odd_MY {
+            get {
+                return ResourceManager.GetString("Odd_MY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odd/Even.
         /// </summary>
         public static string OddEven {
@@ -6141,6 +6206,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string TotalTransaction {
             get {
                 return ResourceManager.GetString("TotalTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Turnover.
+        /// </summary>
+        public static string TotalTurnover {
+            get {
+                return ResourceManager.GetString("TotalTurnover", resourceCulture);
             }
         }
         

@@ -2392,4 +2392,28 @@
   <data name="BestViewResolution" xml:space="preserve">
     <value>Resolution 1280x1024</value>
   </data>
+  <data name="Odd_Dec" xml:space="preserve">
+    <value>Dec</value>
+  </data>
+  <data name="Odd_MY" xml:space="preserve">
+    <value>MY</value>
+  </data>
+  <data name="CustomerTurnover" xml:space="preserve">
+    <value>Customer Turnover     </value>
+  </data>
+  <data name="TotalTurnover" xml:space="preserve">
+    <value>Total Turnover</value>
+  </data>
+  <data name="DisableLiveCasino" xml:space="preserve">
+    <value>Disable Live Casino</value>
+  </data>
+  <data name="EnableLiveCasino" xml:space="preserve">
+    <value>Enable Live Casino</value>
+  </data>
+  <data name="DisableRNGCasino" xml:space="preserve">
+    <value>Disable RNG Casino</value>
+  </data>
+  <data name="EnableRNGCasino" xml:space="preserve">
+    <value>Enable RNG Casino</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/6/2014 5:41:45 PM
+// Lasted generated date: 6/3/2014 3:44:33 PM
 // </history>
 
 var _language_en_US={
@@ -119,6 +119,8 @@ var _language_en_US={
                      BAUpdatedBy:"BA Updated By",
 				 	
                      Bestviewedin:"Best viewed in",
+				 	
+                     BestViewResolution:"Resolution 1280x1024",
 				 	
                      BestWinLoss:"Best Win Loss",
 				 	
@@ -288,6 +290,8 @@ var _language_en_US={
 				 	
                      CustomersExistedinGroupMsg:"Selected customers already existed in this group.",
 				 	
+                     CustomerTurnover:"Customer Turnover",
+				 	
                      CustomerTurnOverNote:"You are only allowed to view data in one months per each submited time.",
 				 	
                      CustomerW_L:"Customer W/L",
@@ -356,6 +360,10 @@ var _language_en_US={
 				 	
                      Disable:"Disable",
 				 	
+                     DisableLiveCasino:"Disable Live Casino",
+				 	
+                     DisableRNGCasino:"Disable RNG Casino",
+				 	
                      DisableSSOMsg:"SSO Function was disabled",
 				 	
                      DividendWon:"Dividend Won",
@@ -385,6 +393,10 @@ var _language_en_US={
                      EditGroup:"Edit Group",
 				 	
                      Enable:"Enable",
+				 	
+                     EnableLiveCasino:"Enable Live Casino",
+				 	
+                     EnableRNGCasino:"Enable RNG Casino",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -436,7 +448,7 @@ var _language_en_US={
 				 	
                      ForecastAway:"Forecast Away",
 				 	
-                     ForecastHome:"Forcast Home",
+                     ForecastHome:"Forecast Home",
 				 	
                      Fr:"Fr",
 				 	
@@ -886,6 +898,8 @@ var _language_en_US={
 				 	
                      Name:"Name",
 				 	
+                     NetGaming:"Net Gaming",
+				 	
                      NetTurnover:"Net Turnover",
 				 	
                      NewGroup:"New Group",
@@ -973,6 +987,10 @@ var _language_en_US={
                      October:"October",
 				 	
                      Odd:"Odd",
+				 	
+                     Odd_Dec:"Dec",
+				 	
+                     Odd_MY:"MY",
 				 	
                      OddEven:"Odd/Even",
 				 	
@@ -1079,6 +1097,10 @@ var _language_en_US={
                      Previous:"Previous",
 				 	
                      Product:"Product",
+				 	
+                     PShare:"P.Share",
+				 	
+                     PWin:"P.Win",
 				 	
                      Q1:"1Q",
 				 	
@@ -1355,6 +1377,8 @@ var _language_en_US={
                      TotalTO:"Total TO",
 				 	
                      TotalTransaction:"Total Transaction",
+				 	
+                     TotalTurnover:"Total Turnover",
 				 	
                      Tote:"Tote",
 				 	

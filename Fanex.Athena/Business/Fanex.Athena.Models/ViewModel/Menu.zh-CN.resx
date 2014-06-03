@@ -142,7 +142,7 @@
     <comment>HT/FT</comment>
   </data>
   <data name="Menu_15" xml:space="preserve">
-    <value>最先得分 / 最后得分</value>
+    <value>最先进球/最后进球</value>
     <comment>FG/LG</comment>
   </data>
   <data name="Menu_16" xml:space="preserve">
@@ -154,7 +154,7 @@
     <comment>Double Chance</comment>
   </data>
   <data name="Menu_18" xml:space="preserve">
-    <value>Home/Draw/Away No Bet</value>
+    <value>&lt;span&gt;主队(不获胜球队)/获胜球队&lt;/span&gt;&lt;br/&gt;&lt;/span&gt;(和局退款)/客队(不获胜球队)&lt;/span&gt;</value>
     <comment>Home/Draw/Away No Bet</comment>
   </data>
   <data name="Menu_19" xml:space="preserve">
@@ -174,15 +174,15 @@
     <comment>3-Way Handicap</comment>
   </data>
   <data name="Menu_22" xml:space="preserve">
-    <value>赛马赛事</value>
+    <value>赛事</value>
     <comment>Racing</comment>
   </data>
   <data name="Menu_23" xml:space="preserve">
-    <value>数字游戏</value>
+    <value>百练赛</value>
     <comment>Number Game</comment>
   </data>
   <data name="Menu_24" xml:space="preserve">
-    <value>亚洲盘/大小盘/滚球</value>
+    <value>让球/大小/滚球</value>
     <comment>Handicap/Over Under/Live</comment>
   </data>
   <data name="Menu_25" xml:space="preserve">
@@ -198,7 +198,7 @@
     <comment>Licensee Win Loss</comment>
   </data>
   <data name="Menu_28" xml:space="preserve">
-    <value>成绩已输入场数</value>
+    <value>已结算赛事计数</value>
     <comment>Settled Match Count</comment>
   </data>
   <data name="Menu_29" xml:space="preserve">
@@ -210,7 +210,7 @@
     <comment>REPORTS</comment>
   </data>
   <data name="Menu_30" xml:space="preserve">
-    <value>会员未结束交易</value>
+    <value>会员待定资金</value>
     <comment>Customer Pending Funds</comment>
   </data>
   <data name="Menu_31" xml:space="preserve">
@@ -218,7 +218,7 @@
     <comment>Match Win Loss</comment>
   </data>
   <data name="Menu_32" xml:space="preserve">
-    <value>投注产品分类输赢</value>
+    <value>投注产品输赢</value>
     <comment>Win Loss By Products</comment>
   </data>
   <data name="Menu_33" xml:space="preserve">
@@ -226,11 +226,11 @@
     <comment>Win Loss By Bet Type</comment>
   </data>
   <data name="Menu_34" xml:space="preserve">
-    <value>赛马佣金</value>
+    <value>赛事佣金</value>
     <comment>Racing Commission</comment>
   </data>
   <data name="Menu_35" xml:space="preserve">
-    <value>每日赛马输赢</value>
+    <value>每日赛事输赢</value>
     <comment>Daily Racing Win Loss</comment>
   </data>
   <data name="Menu_36" xml:space="preserve">
@@ -242,11 +242,11 @@
     <comment>Daily Bet List</comment>
   </data>
   <data name="Menu_38" xml:space="preserve">
-    <value>即时报告</value>
+    <value>滚球报告</value>
     <comment>Live Report</comment>
   </data>
   <data name="Menu_39" xml:space="preserve">
-    <value>投注额</value>
+    <value>交易额</value>
     <comment>Turnover</comment>
   </data>
   <data name="Menu_4" xml:space="preserve">
@@ -266,7 +266,7 @@
     <comment>Balance</comment>
   </data>
   <data name="Menu_43" xml:space="preserve">
-    <value>会员</value>
+    <value>会员列表</value>
     <comment>Customer List</comment>
   </data>
   <data name="Menu_44" xml:space="preserve">
@@ -302,7 +302,7 @@
     <comment>Reset Password</comment>
   </data>
   <data name="Menu_51" xml:space="preserve">
-    <value>会员投注额</value>
+    <value>会员交易额</value>
     <comment>Customer Turnover</comment>
   </data>
   <data name="Menu_52" xml:space="preserve">
@@ -322,7 +322,7 @@
     <comment>Commission Group List</comment>
   </data>
   <data name="Menu_56" xml:space="preserve">
-    <value>Customer Log</value>
+    <value>会员日志</value>
     <comment>Customer Log</comment>
   </data>
   <data name="Menu_58" xml:space="preserve">
@@ -342,7 +342,7 @@
     <comment>#9502</comment>
   </data>
   <data name="Menu_7" xml:space="preserve">
-    <value>亚洲盘/大小盘/滚球</value>
+    <value>让球/大小/滚球</value>
     <comment>Handicap/Over Under/Live</comment>
   </data>
   <data name="Menu_8" xml:space="preserve">
@@ -350,7 +350,7 @@
     <comment>Money Line</comment>
   </data>
   <data name="Menu_9" xml:space="preserve">
-    <value>Odd/Even + 1x2 + DND</value>
+    <value>单双盘/1X2/和局/不是和局</value>
     <comment>Odd/Even + 1x2 + DND</comment>
   </data>
 </root>

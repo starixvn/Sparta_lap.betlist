@@ -72,7 +72,7 @@
                             <tr>
                                 <td class="sub-menu" id="child-menu-@subFunction.FunctionId">
                                     <a id="child-menu-link-@subFunction.FunctionId" class="blockui" onclick="menuItemSelect('@subFunction.FunctionId', this);"
-                                        url="@Url.Content("~/" + subFunction.Url)" href="@Url.Content("~/" + subFunction.Url)" target="main">@subFunction.Name</a>
+                                        url="@Url.Content("~/" + subFunction.Url)" href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
                                     @if (subFunction.IsNew)
                                     {
                                         <img src="@Url.Content("~/Content/Global/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />

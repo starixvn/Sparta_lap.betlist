@@ -1,10 +1,4 @@
-﻿﻿/// <reference path="/@JSense.js" />
-/**
-* Takes seven arguments,
-*
-*/
-
-/*---------------------------------------------------------------------------------
+﻿/*---------------------------------------------------------------------------------
 * Report monitor bet list display lastest when user bet
 ---------------------------------------------------------------------------------*/
 
@@ -50,9 +44,9 @@ var MonitorBetList = function () {
     $this.highlightClass = "monitor-hightlight";
     $this.highlightKeepClass = "monitor-keep";
     $this.columns =
-        [{ Name: "Platform", IsShow: 1 }, { Name: "SystemID", IsShow: 1 }, { Name: "ExternalId", IsShow: 1 },
-        { Name: "TransTime", IsShow: 1 }, { Name: "Choice", IsShow: 1 }, { Name: "Odds", IsShow: 1 },
-        { Name: "Stake", IsShow: 1 }, { Name: "Status", IsShow: 1 }
+        [{ Name:  Site.getSingleResource("Platform"), IsShow: 1 }, { Name: Site.getSingleResource("SystemID"), IsShow: 1 }, { Name: Site.getSingleResource("ExternalId"), IsShow: 1 },
+        { Name: Site.getSingleResource("TransTime"), IsShow: 1 }, { Name: Site.getSingleResource("Choice"), IsShow: 1 }, { Name: Site.getSingleResource("Odds"), IsShow: 1 },
+        { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];
     $this.initialize = function () {
         $this.updateParams();
