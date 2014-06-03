@@ -43,7 +43,8 @@ namespace Fanex.Athena.Controllers.Report
                     LicenseeId = licenseeSession.LicenseeId,
                     UserId = userSession.UserId,
                     IsViewedHistory = isViewedHistory,
-                    CurrencyId = 0
+                    CurrencyId = 0,
+                    LiveStatus = 1
                 };
 
             SetConvetedUSDCurrencyName(metaModel);

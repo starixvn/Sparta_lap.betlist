@@ -4,7 +4,7 @@
 <div class="container_26">
     <div class="grid_26">
         <div class="report-title" style="width:@(ViewBag.TitleWidth)px;">
-            @ViewResources.LiveReport, @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate)
+            @ViewResources.LiveReport - @RazorHelper.ViewLiveStatus(Model.Param.LiveStatus), @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate)
             - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
         </div>
         <div class="summary-title ">

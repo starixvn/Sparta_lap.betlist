@@ -7,7 +7,7 @@
     <!--grid_26-->
     <form id="livereport" name="livereport" method="post" action="@Url.Content("~/Report/LiveReport?isViewedHistory=false")">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate,
-        DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+        DateTime.Today, "date-range", "date-range", 1, 3, 1, 3)
     <div class="grid_2 filter-label">
         <label>
             @ViewResources.Currency
@@ -17,13 +17,21 @@
         @*@{var currencyList = Model.CurrencyList.Where(c => c.Key != "UUS").ToDictionary(c => c.Key, c => c.Value);}*@
         @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
     </div>
-    <div class="grid_3 filter-label">
+    <div class="grid_2 filter-label">
         <label>
             @ViewResources.Based
         </label>
     </div>
     <div class="grid_1 filter-input">
         @RazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+    </div>
+    <div class="grid_3 filter-label">
+        <label>
+            @ViewResources.LiveStatus
+        </label>
+    </div>
+    <div class="grid_1 filter-input">
+        @RazorHelper.LiveStatus(Model.Param.LiveStatus)
     </div>
     <div class="gird_2 note-group">
         <div>

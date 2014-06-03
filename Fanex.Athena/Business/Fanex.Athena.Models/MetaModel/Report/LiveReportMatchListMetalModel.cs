@@ -20,6 +20,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public string ProductCode { get; set; }
 
+        public int LiveStatus { get; set; }
+
         public override bool IsValid
         {
             get

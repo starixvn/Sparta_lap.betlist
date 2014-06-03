@@ -7,16 +7,16 @@
 @using Fanex.Athena.Web.HtmlExtension;
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
     {
-    var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
-    var prdText = string.Empty;
-    foreach (var prd in prdOptionTitleList)
-    {
-        if (prd.Status)
+        var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
+        var prdText = string.Empty;
+        foreach (var prd in prdOptionTitleList)
         {
-            prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
+            if (prd.Status)
+            {
+                prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
+            }
         }
-    }
-    prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
+        prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
     
     @prdText
 }
@@ -302,6 +302,14 @@ bool addBasedOption = false)
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
+@helper LiveStatus(int selectedStatus)
+    {
+    <select class="live-status" name="LiveStatus" id="LiveStatus"  data-original="@selectedStatus">
+        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
+        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
+        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
+    </select>
+}
 <!--Total bets-->
 <!--Timer countdown control-->
 @helper TimerCountDown(string name, int start)
@@ -390,6 +398,24 @@ bool addBasedOption = false)
     {
     @(ViewResources.Viewin + " " + (converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
+@helper ViewLiveStatus(int liveStatus)
+    {
+        string title = string.Empty;
+        switch (liveStatus)
+        {
+            case 0:
+                title = ViewResources.Live + " and " + ViewResources.NoneLive;
+                break;
+            case 1:
+                title = ViewResources.Live;
+                break;
+            case 2:
+                title = ViewResources.NoneLive;
+                break;
+        }
+
+        @(string.Format("{0} data", title))
+}
 @helper ViewInCurrency(int currenceId, string currencyName)
     {
         string title;
@@ -431,11 +457,11 @@ bool addBasedOption = false)
             {
                 if (value > 0)
                 {
-                    <span class="positive-number">@value.ToString("#,##0.00")</span>
+    <span class="positive-number">@value.ToString("#,##0.00")</span>
                 }
                 else
                 {
-                    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
+    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
                 }
             }
         }
