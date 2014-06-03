@@ -95,6 +95,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
         /// <param name="baseCurrency">Base currency.</param>
+        /// <param name="liveIndicator">Live Indicator.</param>
         /// <param name="sortBy">Sort by column.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
