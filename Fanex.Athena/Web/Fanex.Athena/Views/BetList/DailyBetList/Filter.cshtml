@@ -25,8 +25,8 @@
     <div class="grid_2 note-group">
         <div>
             @{Html.RenderAction("Index", "Note", new { viewName = "DailyBetList" });}
-        </div>
-        <div>
+        </div>       
+        <div class="export-excel-area" @(Model.Param.CurrencyId == 0 ? "style=display:none" : string.Empty) >
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"
                title="@ViewResources.ExportToExcel" class="hand" />

@@ -20,6 +20,16 @@ var DailyBetList = (function ($) {
             $("#ExportToExcel").click(function () {
                 DailyBetList.exportToExcel();
             });
+
+            $("#CurrencyId").change(function () {
+                var currency = parseInt($("#CurrencyId").val(), 10);
+                var currencyArea = $(".export-excel-area");
+                if (currency !== 0) {
+                    currencyArea.show();
+                } else {
+                    currencyArea.hide();
+                }
+            });
         },
 
         submit: function () {
