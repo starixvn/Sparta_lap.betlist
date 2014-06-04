@@ -50,6 +50,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
+                    db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
                     using (var reader = db.ExecuteReader())
                     {
                         var items = new List<LiveReport>();
