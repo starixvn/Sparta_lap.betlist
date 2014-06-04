@@ -120,6 +120,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                          db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                          db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                          db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
+                         db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
                          db.AddInParameter("productcode", DbType.String, productCode.Equals("ALL") ? string.Empty : productCode);
                          var result = new IList<LiveReport>[] { new List<LiveReport>(), new List<LiveReport>() };
                          using (var reader = db.ExecuteReader())
@@ -179,6 +180,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
                             db.AddInParameter("productcode", DbType.String, productCode.Equals("ALL") ? string.Empty : productCode);
+                            db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
 
                             using (var reader = db.ExecuteReader())
                             {

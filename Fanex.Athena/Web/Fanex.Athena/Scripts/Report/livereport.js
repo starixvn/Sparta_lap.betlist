@@ -71,7 +71,7 @@ var LiveReport = (function ($) {
                 FromDate: $("#FromDate").attr('data-original').toString("MM/dd/yyyy"),
                 ToDate: $("#ToDate").attr('data-original').toString("MM/dd/yyyy"),
                 BaseCurrency: $("#BaseCurrency").attr('data-original'),
-                LiveStatus: $("#LiveIndicator").attr('data-original')
+                LiveIndicator: $("#LiveIndicator").attr('data-original')
             };
             data = Site.setLicenseeOptionOriginalParam(data);
             /*selected*/
