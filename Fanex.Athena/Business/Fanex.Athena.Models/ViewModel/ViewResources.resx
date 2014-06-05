@@ -1591,7 +1591,7 @@
     <value>Update</value>
   </data>
   <data name="Viewin" xml:space="preserve">
-    <value>View in</value>
+    <value>View in {0}</value>
   </data>
   <data name="AmountDue" xml:space="preserve">
     <value>Amount Due</value>
@@ -2449,5 +2449,26 @@
   </data>
   <data name="LiveAndNonLive" xml:space="preserve">
     <value>Live and Non-live</value>
+  </data>
+  <data name="MixSportsParlay" xml:space="preserve">
+    <value>Mix Sports Parlay</value>
+  </data>
+  <data name="HorseRacingSATote" xml:space="preserve">
+    <value>Horse Racing SA Tote</value>
+  </data>
+  <data name="HorseRacingUK_IrishTote" xml:space="preserve">
+    <value>Horse Racing UK/Irish Tote</value>
+  </data>
+  <data name="HorseRacingAustTote" xml:space="preserve">
+    <value>Horse Racing Aust Tote</value>
+  </data>
+  <data name="GreyhoundUK_IrishTote" xml:space="preserve">
+    <value>Greyhound UK/Irish Tote</value>
+  </data>
+  <data name="GreyhoundAustTote" xml:space="preserve">
+    <value>Greyhound Aust Tote</value>
+  </data>
+  <data name="HarnessAustTote" xml:space="preserve">
+    <value>Harness Aust Tote</value>
   </data>
 </root>

@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
                         matchName + CacheRef.GetBettype(metaModel.BetType),
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        ViewResources.Viewin + " " + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
                     return LiveReportBetListExcel(metaModel, UspKey, title);
                 }
 
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Controllers.BetList
                         matchName + CacheRef.GetBettype(metaModel.BetType),
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        ViewResources.Viewin + " " + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
                     return LiveReportBetListExcel(metaModel, UspKey, title);
                 }
 
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Controllers.BetList
                         ViewResources.Outright,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        ViewResources.Viewin + " " + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
                     return LiveReportBetListExcel(metaModel, UspKey, title);
                 }
 
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Controllers.BetList
                         ViewResources.NumberGame,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        ViewResources.Viewin + " " + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
                     return LiveReportBetListExcel(metaModel, UspKey, title);
                 }
 
@@ -194,7 +194,7 @@ namespace Fanex.Athena.Controllers.BetList
                         ViewResources.Racing,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
-                        ViewResources.Viewin + " " + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
 
                     var racingBettypes = new List<int>()
                     {

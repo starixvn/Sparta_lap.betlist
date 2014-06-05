@@ -66,9 +66,9 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-            var currencyTitle = metaModel.IsConvert
-                    ? ViewResources.Viewin + " " + metaModel.BaseCurrency.ToUpper()
-                    : ViewResources.Viewin + " " + metaModel.CurrencyName;
+            var currencyTitle = string.Format(
+                ViewResources.Viewin,
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
                 " - {0} --> {1} - {2}({3}) - {4}",

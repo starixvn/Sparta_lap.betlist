@@ -2227,7 +2227,7 @@
     <value>월간 보기 데이터</value>
   </data>
   <data name="Viewin" xml:space="preserve">
-    <value>에서 보기</value>
+    <value>에서 보기 {0}</value>
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>가상의 스포츠</value>
@@ -2415,5 +2415,23 @@
   </data>
   <data name="EnableRNGCasino" xml:space="preserve">
     <value>Enable RNG Casino</value>
+  </data>
+  <data name="MixSportsParlay" xml:space="preserve">
+    <value>Mix Sports Parlay</value>
+  </data>
+  <data name="HorseRacingSATote" xml:space="preserve">
+    <value>Horse Racing SA Tote</value>
+  </data>
+  <data name="HorseRacingUK_IrishTote" xml:space="preserve">
+    <value>Horse Racing UK/Irish Tote</value>
+  </data>
+  <data name="HorseRacingAustTote" xml:space="preserve">
+    <value>Horse Racing Aust Tote</value>
+  </data>
+  <data name="GreyhoundUK_IrishTote" xml:space="preserve">
+    <value>Greyhound UK/Irish Tote</value>
+  </data>
+  <data name="GreyhoundAustTote" xml:space="preserve">
+    <value>Greyhound Aust Tote</value>
   </data>
 </root>

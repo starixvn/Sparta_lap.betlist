@@ -158,13 +158,13 @@ var MobileWinLoss = (function ($) {
             //get currencyName
             var currencyTextList =
             {
-                "-2": viewinKey + " USD",
-                "-1": viewinKey + " EUR",
+                "-2": viewinKey.replace("{0}", "USD"),
+                "-1": viewinKey.replace("{0}", "EUR"),
                 "0": Site.getSingleResource('AllCurrencies')
             };
 
             var currencyStr = currencyTextList[currencyId] === undefined
-                ? viewinKey + " " + $('#CurrencyId option[value="' + currencyId + '"]').text()
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
 
             //get site

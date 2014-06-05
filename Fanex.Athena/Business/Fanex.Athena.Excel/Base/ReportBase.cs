@@ -16,6 +16,7 @@ namespace Fanex.Athena.Excel.Base
     using System.Web;
     using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Models.DataDomain;
     using Models.DTO.Common;
     using Models.MetaModel.Product;
     using Models.ViewModel;
@@ -364,11 +365,11 @@ namespace Fanex.Athena.Excel.Base
                     break;
 
                 case -1:
-                    title = ViewResources.Viewin + " " + ViewResources.EUR;
+                    title = string.Format(ViewResources.Viewin, FormatKey.Eur);
                     break;
 
                 case -2:
-                    title = ViewResources.Viewin + " " + ViewResources.USD;
+                    title = string.Format(ViewResources.Viewin, FormatKey.Usd);
                     break;
 
                 default:
@@ -402,8 +403,8 @@ namespace Fanex.Athena.Excel.Base
         protected virtual string GetTitleCurrencyName()
         {
             return ConvertingOption.IsConvert
-                   ? ViewResources.Viewin + " " + ConvertingOption.BaseCurrency.ToUpper()
-                   : ViewResources.Viewin + " " + ConvertingOption.CurrencyName;
+                   ? string.Format(ViewResources.Viewin, ConvertingOption.BaseCurrency.ToUpper())
+                   : string.Format(ViewResources.Viewin, ConvertingOption.CurrencyName);
         }
 
         protected void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)

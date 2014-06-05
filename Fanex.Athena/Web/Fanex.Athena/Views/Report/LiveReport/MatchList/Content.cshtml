@@ -18,7 +18,7 @@
  {
     @{var param = Model.Param;}
     @CacheRef.GetSportName(param.SportId) - 
-    @(ViewResources.Viewin + " " + (param.IsConvert ? param.BaseCurrency.ToUpper() : param.CurrencyName.ToUpper()))
+    @(string.Format(ViewResources.Viewin, param.IsConvert ? param.BaseCurrency.ToUpper() : param.CurrencyName.ToUpper()))
     
 }
 @section ContentFilter

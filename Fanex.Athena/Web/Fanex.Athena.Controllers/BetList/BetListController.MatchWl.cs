@@ -115,7 +115,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         [NonAction]
         public ActionResult MatchWlExcel(BetListMetaModel metaModel, string uspKey, bool onePageOnly = false)
-        {            
+        {
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
             if (onePageOnly)
             {
@@ -134,7 +134,8 @@ namespace Fanex.Athena.Controllers.BetList
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
                   ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + "- "
                   : string.Empty;
-            var currencyTitle = metaModel.IsConvert ? ViewResources.Viewin + " " + metaModel.BaseCurrency.ToUpper() : ViewResources.Viewin + " " + metaModel.CurrencyName;
+            var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+
             var title = ViewResources.BetList
                 + string.Format(
                 " - {0} - {1} - {2}",

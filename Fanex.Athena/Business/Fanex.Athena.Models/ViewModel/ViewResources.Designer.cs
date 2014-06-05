@@ -2277,6 +2277,24 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Greyhound Aust Tote.
+        /// </summary>
+        public static string GreyhoundAustTote {
+            get {
+                return ResourceManager.GetString("GreyhoundAustTote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greyhound UK/Irish Tote.
+        /// </summary>
+        public static string GreyhoundUK_IrishTote {
+            get {
+                return ResourceManager.GetString("GreyhoundUK_IrishTote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group.
         /// </summary>
         public static string Group {
@@ -2466,6 +2484,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Harness Aust Tote.
+        /// </summary>
+        public static string HarnessAustTote {
+            get {
+                return ResourceManager.GetString("HarnessAustTote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HD.
         /// </summary>
         public static string HD {
@@ -2579,6 +2606,33 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string HorseNo {
             get {
                 return ResourceManager.GetString("HorseNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horse Racing Aust Tote.
+        /// </summary>
+        public static string HorseRacingAustTote {
+            get {
+                return ResourceManager.GetString("HorseRacingAustTote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horse Racing SA Tote.
+        /// </summary>
+        public static string HorseRacingSATote {
+            get {
+                return ResourceManager.GetString("HorseRacingSATote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horse Racing UK/Irish Tote.
+        /// </summary>
+        public static string HorseRacingUK_IrishTote {
+            get {
+                return ResourceManager.GetString("HorseRacingUK_IrishTote", resourceCulture);
             }
         }
         
@@ -3938,6 +3992,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string MixParlay {
             get {
                 return ResourceManager.GetString("MixParlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mix Sports Parlay.
+        /// </summary>
+        public static string MixSportsParlay {
+            get {
+                return ResourceManager.GetString("MixSportsParlay", resourceCulture);
             }
         }
         
@@ -6696,7 +6759,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View in.
+        ///   Looks up a localized string similar to View in {0}.
         /// </summary>
         public static string Viewin {
             get {

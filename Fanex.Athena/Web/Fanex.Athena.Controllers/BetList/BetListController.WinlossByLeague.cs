@@ -71,15 +71,15 @@ namespace Fanex.Athena.Controllers.BetList
                     break;
 
                 case BaseCurrencyType.Eur:
-                    viewinCurrency = ViewResources.Viewin + ": " + FormatKey.Eur;
+                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Eur);
                     break;
 
                 case BaseCurrencyType.Usd:
-                    viewinCurrency = ViewResources.Viewin + ": " + FormatKey.Usd;
+                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Usd);
                     break;
 
                 default:
-                    viewinCurrency = ViewResources.Viewin + ": " + metaModel.CurrencyName.ToUpper();
+                    viewinCurrency = string.Format(ViewResources.Viewin, metaModel.CurrencyName);
                     break;
             }
             

@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
             var metaModel = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(metaModel);
-            
+
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
             var custList = this._betListService.GetCancelBetCustList(metaModel);
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Controllers.BetList
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CustomerList = custList,                
+                CustomerList = custList,
             };
 
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
@@ -131,8 +131,9 @@ namespace Fanex.Athena.Controllers.BetList
                    {
                        CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                    };
-                var currencyTitle = metaModel.IsConvert ? ViewResources.Viewin + " " + metaModel.BaseCurrency.ToUpper()
-                        : ViewResources.Viewin + " " + metaModel.CurrencyName;
+                var currencyTitle = string.Format(
+                    ViewResources.Viewin,
+                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
                 var title = ViewResources.CancelledBets
                     + string.Format(" - {0}", currencyTitle);
 

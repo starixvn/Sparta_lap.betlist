@@ -24,6 +24,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     ///     Bet setting data access.
@@ -577,13 +578,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 _sportNameMap = new Dictionary<string, string>
                     {
-                        { "99MP", "Mix Sports Parlay" },
-                        { "151_31", "Horse Racing SA Tote" },
-                        { "151_41", "Horse Racing UK/Irish Tote" },
-                        { "151_51", "Horse Racing Aust Tote" },
-                        { "152_41", "Greyhound UK/Irish Tote" },
-                        { "152_51", "Greyhound Aust Tote" },
-                        { "153_51", "Harness Aust Tote" },
+                        { "99MP", ViewResources.MixSportsParlay },
+                        { "151_31", ViewResources.HorseRacingSATote },
+                        { "151_41", ViewResources.HorseRacingUK_IrishTote },
+                        { "151_51", ViewResources.HorseRacingAustTote },
+                        { "152_41", ViewResources.GreyhoundUK_IrishTote },
+                        { "152_51", ViewResources.GreyhoundAustTote },
+                        { "153_51", ViewResources.HarnessAustTote },
                     };
             }
 
@@ -592,7 +593,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 return _sportNameMap[sportId];
             }
 
-            return "OtherSports";
+            return ViewResources.OtherSport;
         }
 
         #endregion Get Sport Name

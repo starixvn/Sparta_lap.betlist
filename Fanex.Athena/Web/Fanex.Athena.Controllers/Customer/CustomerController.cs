@@ -153,8 +153,8 @@ namespace Fanex.Athena.Controllers.Customer
                             throw new FileNotFoundException(templatePath);
                         }
 
-                        var reportTitle = ViewResources.CustomerList + " - " + ViewResources.Viewin + " "
-                            + (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                        var reportTitle = ViewResources.CustomerList + " - " 
+                            + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
                         var excel = new CustomerListExcel(templatePath, reportTitle, model);
 

@@ -20,9 +20,9 @@
                 @{
                     var currencyText = Model.Param.CurrencyId == 0
                         ? ViewResources.AllCurrencies
-                        : (Model.Param.IsConvert
-                                ? ViewResources.Viewin + Model.Param.BaseCurrency
-                                : ViewResources.Viewin + Model.Param.CurrencyName);
+                        : string.Format(ViewResources.Viewin, Model.Param.IsConvert
+                                ? Model.Param.BaseCurrency
+                                : Model.Param.CurrencyName);
                     var siteText = ViewResources.Site + ": " + (Model.Param.Site == 0
                         ? ViewResources.AllSites
                         : Model.Param.Site == 1 ? ViewResources.Mobile : ViewResources.Others);    

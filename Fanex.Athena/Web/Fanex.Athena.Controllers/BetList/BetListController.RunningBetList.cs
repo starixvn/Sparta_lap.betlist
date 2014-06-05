@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.BetList
                + string.Format(
                "{0} - {1}",
                CacheRef.GetBettype(metaModel.BetType),
-               metaModel.IsConvert ? ViewResources.Viewin + " " + metaModel.BaseCurrency.ToUpper() : ViewResources.Viewin + " " + metaModel.CurrencyName);
+               string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { 7, 8 });
 

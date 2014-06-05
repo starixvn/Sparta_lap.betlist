@@ -94,9 +94,9 @@ namespace Fanex.Athena.Controllers.BetList
                {
                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
                };
-            var currencyTitle = metaModel.IsConvert
-                    ? ViewResources.Viewin + " " + metaModel.BaseCurrency.ToUpper()
-                    : ViewResources.Viewin + " " + metaModel.CurrencyName;
+            var currencyTitle = string.Format(
+                ViewResources.Viewin,
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var title = ViewResources.DailyBetList + " " + ViewResources.On
                 + string.Format(" {0} - {1}", metaModel.Date.ToString("MM/dd/yyyy"), currencyTitle);
 

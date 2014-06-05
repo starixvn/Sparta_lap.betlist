@@ -2008,7 +2008,7 @@
     <value>检阅每月数据</value>
   </data>
   <data name="Viewin" xml:space="preserve">
-    <value>以查看</value>
+    <value>以 {0} 查看</value>
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>虚拟运动</value>
@@ -2422,5 +2422,23 @@
   </data>
   <data name="EnableRNGCasino" xml:space="preserve">
     <value>Enable RNG Casino</value>
+  </data>
+  <data name="MixSportsParlay" xml:space="preserve">
+    <value>混合过关</value>
+  </data>
+  <data name="HorseRacingSATote" xml:space="preserve">
+    <value>南非赛马指南</value>
+  </data>
+  <data name="HorseRacingUK_IrishTote" xml:space="preserve">
+    <value>英国,爱尔兰赛马指南</value>
+  </data>
+  <data name="HorseRacingAustTote" xml:space="preserve">
+    <value>澳洲赛马指南</value>
+  </data>
+  <data name="GreyhoundUK_IrishTote" xml:space="preserve">
+    <value>英国,爱尔兰赛狗指南</value>
+  </data>
+  <data name="GreyhoundAustTote" xml:space="preserve">
+    <value>澳洲赛马车指南</value>
   </data>
 </root>

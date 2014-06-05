@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
             var metaModel = CreateDefaultMetaModel();
 
             SetConvetedUSDCurrencyName(metaModel);
-          
+
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var model = new BetListBaseViewModel
@@ -77,8 +77,9 @@ namespace Fanex.Athena.Controllers.BetList
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 };
 
-                var title = ViewResources.CorrectScore + " - " + ViewResources.Viewin + " " +
-                    (metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                var title = ViewResources.CorrectScore + " - " + string.Format(
+                    ViewResources.Viewin,
+                    metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
                 var hiddenColumnIdx = new List<int> { 7, 8 };
 

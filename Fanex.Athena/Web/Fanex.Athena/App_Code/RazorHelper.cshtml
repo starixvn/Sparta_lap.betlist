@@ -391,12 +391,12 @@ bool addBasedOption = false)
 <!--/Total bets-->
 @helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
     {
-    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin + " {0}", currencyName) : string.Format(ViewResources.Viewin + " {0}", basedCurrencyName.ToUpper()))
+    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin,currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
     
 }
 @helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
     {
-    @(ViewResources.Viewin + " " + (converter ? BaseCurrency.ToUpper() : CurrencyName))
+    @(string.Format(ViewResources.Viewin,converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 @helper ViewLiveStatus(int liveStatus)
     {
@@ -426,13 +426,13 @@ bool addBasedOption = false)
                 title = ViewResources.AllCurrencies;
                 break;
             case -1:
-                title = ViewResources.Viewin + " " + Fanex.Athena.Models.DataDomain.FormatKey.Eur;
+                title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Eur);
                 break;
             case -2:
-                title = ViewResources.Viewin + " " + Fanex.Athena.Models.DataDomain.FormatKey.Usd;
+                title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Usd);
                 break;
             default:
-                title = ViewResources.Viewin + " " + currencyName;
+                title = string.Format(ViewResources.Viewin, currencyName);
                 break;
         }
     @(title)

@@ -7,8 +7,8 @@
         <div class="grid_26 mobile_winloss">
             <div class="report-title hide">                
                 @ViewResources.Username: @(string.Format("{0}({1}) - ", Model.Param.ExternalId, Model.Param.SystemId))
-                @ViewResources.RefNo: @Model.Param.RefNo - @ViewResources.Viewin 
-                @(Model.Param.CurrencyId == 0 || !string.IsNullOrEmpty(Model.Param.BaseCurrency) 
+                @ViewResources.RefNo: @Model.Param.RefNo - @string.Format(ViewResources.Viewin, 
+                Model.Param.CurrencyId == 0 || !string.IsNullOrEmpty(Model.Param.BaseCurrency) 
                     ? Model.Param.BaseCurrency.ToUpper() 
                     : Model.Param.CurrencyName.ToUpper()) - 
                 <input type="checkbox" id="chkIsShowPic" name="chkIsShowPic" @(Model.Param.IsShowPic ? "checked='checked'" : string.Empty)/>

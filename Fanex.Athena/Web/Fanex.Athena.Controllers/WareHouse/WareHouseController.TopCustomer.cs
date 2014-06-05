@@ -89,9 +89,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                     BaseCurrency = metaModel.BaseCurrency,
                     CurrencyName = metaModel.CurrencyName
                 };
-            var viewByCurrency = metaModel.IsConvert
-                                     ? string.Format(FormatCurrency, ViewResources.Viewin, metaModel.BaseCurrency.ToUpper())
-                                     : string.Format(FormatCurrency, ViewResources.Viewin, metaModel.CurrencyName);
+            var viewByCurrency = string.Format(FormatCurrency, string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
             var titleText = string.Format(
                 FormatTitle,
                 ViewResources.Top,
