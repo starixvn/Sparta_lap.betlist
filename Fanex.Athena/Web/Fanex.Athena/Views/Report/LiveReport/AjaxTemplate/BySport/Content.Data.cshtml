@@ -15,8 +15,7 @@
                             var detailParam = new
                             {
                                 SportId = sportId,
-                                TotalValue = item,
-                                LiveIndicator = Model.Param.LiveIndicator
+                                TotalValue = item
                             };
                             <a href="javascript:;" class="sport-detailt-link" data-drill-down="@detailParam.ToJson()">
                                 @item.ProductName
