@@ -122,9 +122,9 @@ namespace Fanex.Athena.Excel.Report
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            row.Cells[4].SetCellValue(ViewResources.WinLoss);
-            row.Cells[5].SetCellValue(ViewResources.Comm);
-            row.Cells[6].SetCellValue(ViewResources.Total);
+            row.Cells[5].SetCellValue(ViewResources.WinLoss);
+            row.Cells[6].SetCellValue(ViewResources.Comm);
+            row.Cells[7].SetCellValue(ViewResources.Total);
         }
 
         /// <summary>
