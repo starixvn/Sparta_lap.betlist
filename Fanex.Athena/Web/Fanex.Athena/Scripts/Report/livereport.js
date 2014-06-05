@@ -123,6 +123,7 @@ var LiveReport = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original'));
             url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original'));
+            url = QueryString.setParam(url, "LiveIndicator", totalValue.LiveIndicator);
             url = LiveReport.setSumParams(url, totalValue);
             // [Jacob] Cheat for live report mix parlay, must send
             url = QueryString.setParam(url, "showsb", false);
@@ -170,6 +171,7 @@ var LiveReport = (function ($) {
         viewSportDetail: function (target) {
             var data = $(target).attr("data-drill-down");
             var jsonData = $.parseJSON(data);
+            jsonData.TotalValue["LiveIndicator"] = jsonData.LiveIndicator;
             var productCode = $("#ProductCode").val();
             var productOptions = LiveReport.getMatchListProductOption(jsonData.SportId, productCode);
             var urlMap = {
