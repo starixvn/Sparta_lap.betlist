@@ -20,11 +20,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     ///     Bet setting data access.

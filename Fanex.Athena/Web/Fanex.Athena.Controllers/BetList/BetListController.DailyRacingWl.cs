@@ -63,12 +63,14 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-
+            var currencyTitle = string.Format(
+                ViewResources.Viewin,
+                metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var title = ViewResources.DailyRacingWinLoss + " " + ViewResources.BetList
                 + string.Format(
                 " - {0} - {1}",
                 metaModel.Date.ToString("MMM dd, yyyy"),
-                string.Format(ViewResources.Viewin, metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                currencyTitle);
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, null);
 
