@@ -171,7 +171,7 @@ var LiveReport = (function ($) {
         viewSportDetail: function (target) {
             var data = $(target).attr("data-drill-down");
             var jsonData = $.parseJSON(data);
-            jsonData.TotalValue["LiveIndicator"] = jsonData.LiveIndicator;
+            jsonData.TotalValue["LiveIndicator"] = $("#LiveIndicator").attr('data-original');
             var productCode = $("#ProductCode").val();
             var productOptions = LiveReport.getMatchListProductOption(jsonData.SportId, productCode);
             var urlMap = {
