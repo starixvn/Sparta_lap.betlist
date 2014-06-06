@@ -368,8 +368,7 @@ var WinLossByProduct = (function ($) {
             var reportGrid = $("#ReportGrid");
             // var productOptions = $.parseJSON($("#ProductOptionJson").val());
 
-            var numOfRow = response.Data.length;
-            var numOfTotalRow = response.Total.length;
+            var numOfRow = response.Data.length;            
             var onPaging = false;
             var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
             gridOption.data = response.Data;

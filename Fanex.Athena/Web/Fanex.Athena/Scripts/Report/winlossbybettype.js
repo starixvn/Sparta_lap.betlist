@@ -5,7 +5,7 @@ var WinLossByBetType = (function ($) {
     return {
         resizeGrid: function () {
             var $grid = $("#data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -48,7 +48,6 @@ $(window).load(function () {
 
 $(window).resize(function () {
     "use strict";
-    var reportGrid = $("#ReportGrid");
     WinLossByBetType.resizeGrid();
 });
 

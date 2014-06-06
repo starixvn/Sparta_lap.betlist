@@ -1,15 +1,16 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Turnover = (function ($) {
     return {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
         resizeGrid: function () {
             var $grid = $("#data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
             var gridTop = $grid.offset().top;
-
             var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - 10;
             gridHeight = Math.max(100, gridHeight);
             $grid.css("max-height", gridHeight);
@@ -38,7 +39,7 @@ var Turnover = (function ($) {
                     $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
                     $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
                 },
-                log: function (msg) {
+                log: function (/*msg*/) {
                     //console.warn(msg);
                 }
             });
@@ -72,7 +73,7 @@ var Turnover = (function ($) {
 
         initAutoComplete: function () {
             var txtUserName = $('#Username');
-            var serUrl = resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
             }
@@ -80,7 +81,7 @@ var Turnover = (function ($) {
 
         setDefaultUsername: function () {
             var username = $('#Username').val();
-            if (username == '' || username == Turnover.defaultUserName) {
+            if (username === '' || username === Turnover.defaultUserName) {
                 $('#Username').val(Turnover.defaultUserName);
                 $('#Username').attr('class', 'default-username');
             }
@@ -91,7 +92,7 @@ var Turnover = (function ($) {
 
         setUsernameOnFocus: function () {
             var username = $('#Username').val();
-            if (username == Turnover.defaultUserName) {
+            if (username === Turnover.defaultUserName) {
                 $('#Username').val('');
                 $('#Username').removeAttr('class');
             }
@@ -104,11 +105,9 @@ $(window).load(function () {
     Turnover.resizeGrid();
 });
 $(window).resize(function () {
-    "use strict";    
     Turnover.resizeGrid();
 });
 
 $(window).unload(function () {
-    "use strict";
     $(window).unbind("resize");
 });

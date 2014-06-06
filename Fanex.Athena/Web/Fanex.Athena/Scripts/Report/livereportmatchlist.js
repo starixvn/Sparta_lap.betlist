@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, LiveReport*/
+/// <reference path="/@JSense.js" />
 var LiveReportMatchList = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             LiveReportMatchList.initEvent();
@@ -14,7 +16,7 @@ var LiveReportMatchList = (function ($) {
         viewMatchBetList: function (target) {
             var url = "BetList/LiveReportMatch";
             var currencyName = $('#CurrencyName').attr('data-original');
-            url = resolveClientUrl(url);
+            url = Site.resolveClientUrl(url);
 
             var data = $(target).attr("data-drill-down");
             data = $.parseJSON(data);
@@ -31,7 +33,7 @@ var LiveReportMatchList = (function ($) {
             var productOptions = LiveReport.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
 
             $(productOptions).each(function (index, element) {
-                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true)
+                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
             });
 
             Site.blockUI();
@@ -41,9 +43,10 @@ var LiveReportMatchList = (function ($) {
             var contentWidth = $(".data-content").width();
             $(".content-main").width(contentWidth);
         }
-    }
+    };
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     LiveReportMatchList.initialize();
 });

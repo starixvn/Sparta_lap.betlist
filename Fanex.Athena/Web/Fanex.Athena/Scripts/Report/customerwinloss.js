@@ -1,9 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
 var CustomerWinLoss = (function ($) {
+    "use strict";
     return {
         resizeGrid: function () {
             var $grid = $("#data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -19,7 +21,7 @@ var CustomerWinLoss = (function ($) {
             Site.addFilterCollapseExpand();
         },
         initMonthPicker: function () {
-            if ($("#IsHistoryReport").val() == "True") {
+            if ($("#IsHistoryReport").val() === "True") {
                 $('#DateControl').monPickr({
                     minDate: '2010/01/01',
                     showDateRange: true,
@@ -36,7 +38,7 @@ var CustomerWinLoss = (function ($) {
                         $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
                         $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
                     },
-                    log: function (msg) {
+                    log: function (/*msg*/) {
                         //console.warn(msg);
                     }
                 });
@@ -88,7 +90,7 @@ var CustomerWinLoss = (function ($) {
                 CustomerWinLoss.viewCurrentReport();
             });
 
-            $("#data-content").on("click", ".bet-list-link", function (e) {
+            $("#data-content").on("click", ".bet-list-link", function () {
                 var target = $(this);
                 var custId = target.attr("data-cust-id");
                 var systemId = target.attr("data-system-id");
@@ -99,16 +101,16 @@ var CustomerWinLoss = (function ($) {
 
         viewHistoryReport: function () {
             Site.blockUI();
-            window.location.href = resolveClientUrl("Report/CustomerWinlossHistory");
+            window.location.href = Site.resolveClientUrl("Report/CustomerWinlossHistory");
         },
 
         viewCurrentReport: function () {
             Site.blockUI();
-            window.location.href = resolveClientUrl("Report/CustomerWinLoss");
+            window.location.href = Site.resolveClientUrl("Report/CustomerWinLoss");
         },
 
         viewWinlossBetList: function (custId, systemId, externalId) {
-            var url = resolveClientUrl("BetList/CustomerWl");
+            var url = Site.resolveClientUrl("BetList/CustomerWl");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "custid", custId);
@@ -121,8 +123,7 @@ var CustomerWinLoss = (function ($) {
             Site.blockUI();
             window.location.href = url;
         },
-        sortReport: function (sortColumn) {
-
+        sortReport: function () {
             Site.blockUI();
             $('#IsExportExcel').val(false);
             $("#CustomerWinlossForm").submit();
@@ -132,6 +133,7 @@ var CustomerWinLoss = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CustomerWinLoss.initialize();
     CustomerWinLoss.resizeGrid();
 });

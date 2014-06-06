@@ -1,11 +1,13 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/*exported Report*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Report = (function ($) {
     return {
         ValidProducts: function () {
             var temp = true;
             $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($("input.childCheckbox:checked").length == 0) {
+            if ($("input.childCheckbox:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
@@ -16,7 +18,8 @@ var Report = (function ($) {
                         $('#SubmitButton').removeAttr('disabled');
                     }
                 });
-            };
+            }
+
             return temp;
         },
         setOriginalProduct: function () {
@@ -33,8 +36,30 @@ var Report = (function ($) {
             /// <param name="summaryTotal"></param>
             /// <returns type="int">Number of iserted row</returns>
             var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-            if (summaryTotal == undefined || summaryTotal == null || summaryTotal.length == 0) {
+            if (summaryTotal === undefined || summaryTotal == null || summaryTotal.length === 0) {
                 return;
+            }
+
+            function processColumnModel(columnModel) {
+                var firstCell = null;
+                $(columnModel).each(function (cellIndex, modelElement) {
+                    var cell = cellList.get(cellIndex);
+                    var isCustomFormater = typeof (modelElement.formatter) === "function";
+                    var rawValue = summaryData[modelElement.name];
+                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+                    var titleValue = value;
+                    if ($.isNumeric(rawValue) && rawValue < 0) {
+                        var wrapper = document.createElement('div');
+                        wrapper.innerHTML = value;
+                        titleValue = wrapper.outerHtml;
+                    }
+
+                    $(cell).html(value).attr("title", titleValue);
+                    firstCell = !firstCell ? $(cell) : firstCell;
+                });
+
+                return firstCell;
             }
 
             var rowCount = 0;
@@ -46,22 +71,7 @@ var Report = (function ($) {
                 var row = mainFooter.clone();
                 row.addClass("total-eur total-eur-none-top-se");
                 var cellList = $("td", row);
-                var firstCell = null;
-                $(columnModel).each(function (cellIndex, modelElement) {
-                    var cell = cellList.get(cellIndex);
-                    var isCustomFormater = typeof (modelElement.formatter) === "function";
-                    var rawValue = summaryData[modelElement.name];
-                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) : $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-                    var titleValue = value;
-                    if ($.isNumeric(rawValue) && rawValue < 0) {
-                        var wrapper = document.createElement('div');
-                        wrapper.innerHTML = value;
-                        titleValue = wrapper.outerHtml;
-                    };
-                    $(cell).html(value).attr("title", titleValue);
-                    firstCell = !firstCell ? $(cell) : firstCell;
-                });
-
+                var firstCell = processColumnModel(columnModel);
                 firstCell.html("Total in " + currency);
                 firstCell.addClass("group-" + currency);
                 row.insertAfter(mainFooter);

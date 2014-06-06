@@ -1,18 +1,19 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, jqGridAdditional*/
+/*exported WinLossByLeagueOption*/
+/// <reference path="/@JSense.js" />
 //#regions licenseeWL options
 /*
 * Note:in this report, parameter level have 3 value
 *  "0" for master,"1" for agent and "2" for member
 */
-
+"use strict";
 var WinLossByLeagueOption = (function () {
     var setDrillDownLink = function (custId, cellvalue,externalid, systemId) {
-        return '<a class="drilldown" href="javascript:;" data-custid="' + custId + '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
+        return '<a class="drilldown" href="javascript:;" data-custid="' + custId +
+         '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
     };
 
     //#region Columns
-
-
     var indexColumn =
         {
             name: 'Index',
@@ -225,7 +226,9 @@ var WinLossByLeagueOption = (function () {
     me.addLeagueGroupRow = function (leagueid, leagueName) {
         var $grid = $("#ReportGrid");
         var $row = $grid.find("tr.jqgrow:first");
-        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" + leagueid + "' href='javascript:void(0)' style='color:blue;text-decoration: underline !important'>* " + leagueName + "</a></td></tr>");
+        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" +
+                leagueid + "' href='javascript:void(0)' style='color:blue;text-decoration: underline !important'>* " +
+                leagueName + "</a></td></tr>");
     };
 
     return me;

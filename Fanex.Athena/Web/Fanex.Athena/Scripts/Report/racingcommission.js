@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var RacingCommission = (function ($) {
     return {
         initialize: function () {
@@ -18,9 +20,9 @@ var RacingCommission = (function ($) {
 
             $('#sortReport').click(function () {
                 RacingCommission.sortReport();
-            })
+            });
 
-            $("#data-content").on("click", ".bet-list-link", function (e) {
+            $("#data-content").on("click", ".bet-list-link", function () {
                 var target = $(this);
                 var custId = target.attr("data-cust-id");
                 var systemId = target.attr("data-system-id");
@@ -30,7 +32,7 @@ var RacingCommission = (function ($) {
         },
 
         viewRacingBetList: function (custid, systemId, externalId) {
-            var url = resolveClientUrl("BetList/CustomerWl");
+            var url = Site.resolveClientUrl("BetList/CustomerWl");
             url = Site.setProductOptionParam(url, 0, "RB", true);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", $("#FromDate").attr("data-original"));
@@ -47,14 +49,14 @@ var RacingCommission = (function ($) {
             $('#IsExportExcel').val(false);
             $('#ReportForm').submit();
         },
-        sortReport: function (sortColumn) {
+        sortReport: function () {
             Site.blockUI();
             $('#IsExportExcel').val(false);
             $('#ReportForm').submit();
         }
-    }
+    };
 })(jQuery);
 
-$(window).load(function () {
+$(window).load(function () {   
     RacingCommission.initialize();
 });

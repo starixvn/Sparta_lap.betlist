@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
 var DailyRacingWinLoss = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             DailyRacingWinLoss.initEvent();
@@ -14,7 +16,7 @@ var DailyRacingWinLoss = (function ($) {
                 $('#IsExportExcel').val(true);
             });
 
-            $("#data-content").on("click", ".bet-list-link", function (e) {
+            $("#data-content").on("click", ".bet-list-link", function () {
                 var target = $(this);
                 var leagueId = target.attr("data-league");
                 var raceNo = target.attr("data-race-no");
@@ -23,7 +25,7 @@ var DailyRacingWinLoss = (function ($) {
             });
         },
         viewRacingWinlossBetList: function (leagueid, raceNo, currency) {
-            var url = resolveClientUrl("BetList/DailyRacingWl");
+            var url = Site.resolveClientUrl("BetList/DailyRacingWl");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "date", $("#Date").val());
             url = QueryString.setParam(url, "leagueid", leagueid);
@@ -39,8 +41,9 @@ var DailyRacingWinLoss = (function ($) {
             $('#IsExportExcel').val(false);
             $('#ReportForm').submit();
         }
-    }
+    };
 })(jQuery);
 $(window).load(function () {
+    "use strict";
     DailyRacingWinLoss.initialize();
 });

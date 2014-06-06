@@ -1,11 +1,13 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, jqGridAdditional*/
+/*exported CustTurnoverOption*/
+/// <reference path="/@JSense.js" />
 /*
 * Author:Alex.Nguyen
 * Created Date:10/15/2013
 */
 //#region Columns
 var CustTurnoverOption = (function () {
-
+    "use strict";
     var indexColumn = {
         name: 'Index',
         index: 'Index',
@@ -149,7 +151,9 @@ var CustTurnoverOption = (function () {
     var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType',
     'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
-    var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn, totalTransColumn, turnoverColumn, totalturnoverColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn];
+    var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
+                    totalTransColumn, turnoverColumn, totalturnoverColumn, customerWlColumn, playerCommColumn,
+                    customerWlTotalColumn];
     var customerWlTotalIndex = 11;
 
     var me = {
@@ -198,7 +202,7 @@ var CustTurnoverOption = (function () {
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
 
-        if (me.reportBy == 2) {
+        if (Number(me.reportBy) === 2) {
 
             dateColumn.formatoptions = {
                 newformat: 'm/Y'
@@ -218,7 +222,6 @@ var CustTurnoverOption = (function () {
 
         return me.gridOption;
     };
-
 
     return me;
 })();
