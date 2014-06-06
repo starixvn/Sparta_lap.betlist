@@ -1381,7 +1381,7 @@
     <value>스포츠 유형에서 상세 데이터 목록 드릴 다운은 {0:d MM yyyy}이후에 볼 수 있습니다</value>
   </data>
   <data name="LiveReportTitle" xml:space="preserve">
-    <value>실시간 보고서, {0}--&gt; {1} - {2}</value>
+    <value>실시간 보고서 - {0}, {1}--&gt; {2} - {3}</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>로딩중</value>

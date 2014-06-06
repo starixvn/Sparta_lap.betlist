@@ -155,6 +155,7 @@ namespace Fanex.Athena.Excel.Report
         {
             ReportTitle = string.Format(
                                         ViewResources.LiveReportTitle,
+                                        GetLiveIndicatorString(_liveReportDetailList.Param.LiveIndicator),
                                         _liveReportDetailList.Param.FromDate.ToString("d MMMM yy"),
                                         _liveReportDetailList.Param.ToDate.ToString("d MMMM yy"),
                                         GetTitleCurrencyName());
@@ -392,6 +393,30 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
+        }
+
+        /// <summary>
+        /// Get live indicator string.
+        /// </summary>
+        /// <param name="liveIndicator">Live indicator.</param>
+        /// <returns>Live indicator string.</returns>
+        private string GetLiveIndicatorString(int liveIndicator)
+        { 
+            string title = string.Empty;
+            switch (liveIndicator)
+            {
+                case 0:
+                    title = ViewResources.NoneLive;
+                    break;
+                case 1:
+                    title = ViewResources.Live;
+                    break;
+                case 2:
+                    title = ViewResources.LiveAndNonLive;
+                    break;
+            }
+
+            return title + ViewResources.Data;
         }
     }
 }

@@ -3573,7 +3573,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Report, {0} --&gt; {1} - {2}.
+        ///   Looks up a localized string similar to Live Report - {0}, {1} --&gt; {2} - {3}.
         /// </summary>
         public static string LiveReportTitle {
             get {

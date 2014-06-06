@@ -1108,7 +1108,7 @@
     <value>从体育类型向下拖曳的详细数据只可用于{0:d MMM yyyy}后</value>
   </data>
   <data name="LiveReportTitle" xml:space="preserve">
-    <value>滚球报告, {0} --&gt; {1} - {2}</value>
+    <value>滚球报告 - {0}, {1} --&gt; {2} - {3}</value>
   </data>
   <data name="LiveStatus" xml:space="preserve">
     <value>滚球状态</value>
