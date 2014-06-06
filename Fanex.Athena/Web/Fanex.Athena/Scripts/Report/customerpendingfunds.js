@@ -5,7 +5,7 @@ var CustPendingFunds = (function ($) {
     return {
         resizeGrid: function () {
             var $grid = $("#data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 

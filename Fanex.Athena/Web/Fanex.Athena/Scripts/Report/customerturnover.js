@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, JSLINQ, jqGridAdditional, pagingHeper, CustTurnoverOption */
+/// <reference path="/@JSense.js" />
 var CustTurnover = (function ($) {
+    "use strict";
     return {
         defaultUserName: Site.getSingleResource('All'),
         defaultOdds: 0,
@@ -72,7 +74,12 @@ var CustTurnover = (function ($) {
         },
         resizeGrid: function () {
             var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $("#paging:visible").height() - 30;
+            var pagingHeight = $("#paging:visible").height();
+            if (pagingHeight > 0) {
+                pagingHeight += 10;
+            }
+
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight;
             gridHeight = Math.max(120, gridHeight);
             $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
         },
@@ -139,7 +146,7 @@ var CustTurnover = (function ($) {
             var createComboboxTree = function () {
                 var groupData = [];
                 var products = JSLINQ(CustTurnover.sports).Where(function (item) {
-                    return item.ParentId == -1;
+                    return item.ParentId === -1;
                 }).ToArray();
                 $.each(products, function (index, value) {
                     var groupItem = {
@@ -154,7 +161,7 @@ var CustTurnover = (function ($) {
                         Items: []
                     };
                     var childItems = JSLINQ(CustTurnover.sports).Where(function (item) {
-                        return item.ParentId == value.ID && item.ID > 0 && item.ParentId > -1
+                        return item.ParentId === value.ID && item.ID > 0 && item.ParentId > -1;
                     }).ToArray();
                     $.each(childItems, function (cindex, cvalue) {
                         var item = {
@@ -173,6 +180,32 @@ var CustTurnover = (function ($) {
                     groupData.push(groupItem);
                 });
 
+                function addCheckedSport(checkedValue) {
+                    var modelItem = JSLINQ(CustTurnover.sports).First(function (item)
+                    { return (item.ParentId + "-" + item.ID) === checkedValue; });
+                    if (modelItem != null) {
+                        modelItem.Checked = true;
+                        CustTurnover.checkedSports.push(modelItem);
+                        /*add parent item*/
+
+                        if (modelItem.ParentId > -1) {
+                            var parent = JSLINQ(CustTurnover.checkedSports).First(function (item)
+                            { return item.ID === modelItem.ParentId && item.ParentId === -1; });
+
+                            /* if not found parrent item in checked sports
+                            * Continue find parent item in sports and add it to checked sports.
+                            */
+                            if (parent == null) {
+                                parent = JSLINQ(CustTurnover.sports).First(function (item)
+                                { return item.ID === modelItem.ParentId && item.ParentId === -1; });
+                                if (parent != null) {
+                                    CustTurnover.checkedSports.push(parent);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 $("#sports").multiSelect({
                     showCheckAll: true,
                     maxHeight: 705,
@@ -184,29 +217,7 @@ var CustTurnover = (function ($) {
                         /*update checked sports*/
                         CustTurnover.checkedSports = [];
                         for (var i = 0; i < numOfCheckedItem; i++) {
-                            var checkedValue = checkedItems[i];
-                            var modelItem = JSLINQ(CustTurnover.sports).First(function (item)
-                            { return (item.ParentId + "-" + item.ID) == checkedValue });
-                            if (modelItem != null) {
-                                modelItem.Checked = true;
-                                CustTurnover.checkedSports.push(modelItem);
-                                /*add parent item*/
-                                if (modelItem.ParentId > -1) {
-                                    var parent = JSLINQ(CustTurnover.checkedSports).First(function (item)
-                                    { return item.ID == modelItem.ParentId && item.ParentId == -1 });
-
-                                    /* if not found parrent item in checked sports
-                                    * Continue find parent item in sports and add it to checked sports.
-                                    */
-                                    if (parent == null) {
-                                        parent = JSLINQ(CustTurnover.sports).First(function (item)
-                                        { return item.ID == modelItem.ParentId && item.ParentId == -1 });
-                                        if (parent != null) {
-                                            CustTurnover.checkedSports.push(parent);
-                                        }
-                                    }
-                                }
-                            }
+                            addCheckedSport(checkedItems[i]);
                         }
 
                         /*Load bet types*/
@@ -253,6 +264,14 @@ var CustTurnover = (function ($) {
                 };
                 dataList.push(item);
             });
+
+            function addCheckedBettype(checkedValue) {
+                var modelItem = JSLINQ(CustTurnover.bettypes).First(function (item)
+                { return item.ID.toString() === checkedValue.toString(); });
+                modelItem.Checked = true;
+                CustTurnover.checkedBettypes.push(modelItem);
+            }
+
             $("#bettypes").multiSelect({
                 showCheckAll: true,
                 maxHeight: 705,
@@ -264,11 +283,7 @@ var CustTurnover = (function ($) {
                     /*update checked bet types*/
                     CustTurnover.checkedBettypes = [];
                     for (var i = 0; i < numOfCheckedItem; i++) {
-                        var checkedValue = checkedItems[i];
-                        var modelItem = JSLINQ(CustTurnover.bettypes).First(function (item)
-                        { return item.ID == checkedValue });
-                        modelItem.Checked = true;
-                        CustTurnover.checkedBettypes.push(modelItem);
+                        addCheckedBettype(checkedItems[i]);
                     }
                 },
                 isUsedCustomCheckAllText: true,
@@ -298,7 +313,7 @@ var CustTurnover = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: CustTurnover.bettypeUrl,
-                error: function (xhRequest, errorText, thrownError) { },
+                error: function (/*xhRequest, errorText, thrownError*/) { },
                 success: function (response) {
                     CustTurnover.bettypes = response;
                     CustTurnover.checkedBettypes = response;
@@ -307,7 +322,7 @@ var CustTurnover = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 }
             };
@@ -318,7 +333,7 @@ var CustTurnover = (function ($) {
         },
         initAutoComplete: function () {
             var txtUserName = $('#Username');
-            var serUrl = resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({
                     serviceUrl: serUrl,
@@ -330,10 +345,12 @@ var CustTurnover = (function ($) {
             var username = $('#Username').val();
             var odds = parseFloat($('#Odds').val());
             var isValid = true;
-            if (username == '' || username == CustTurnover.defaultUserName) {
+            if (username === '' || username === CustTurnover.defaultUserName) {
                 username = "";
             }
-            if (isNaN(odds) || odds == null || odds < 0) odds = 0;
+            if (isNaN(odds) || odds == null || odds < 0) {
+                odds = 0;
+            }
             /* check date range ,only support two month.*/
             var fromDateTokens = $("#FromDate").val().split("/");
 
@@ -347,7 +364,7 @@ var CustTurnover = (function ($) {
                 isValid = false;
                 return alert(Site.getSingleResource("CustomerTurnOverNote"));
             }
-            if (CustTurnover.checkedSports.length == 0) {
+            if (CustTurnover.checkedSports.length === 0) {
                 isValid = false;
                 $("#sport-null").removeClass("hide");
                 return;
@@ -355,14 +372,14 @@ var CustTurnover = (function ($) {
                 $("#sport-null").addClass("hide");
             }
 
-            if (CustTurnover.checkedBettypes.length == 0) {
+            if (CustTurnover.checkedBettypes.length === 0) {
                 isValid = false;
                 $("#bettype-null").removeClass("hide");
                 return;
             } else {
                 $("#bettype-null").addClass("hide");
             }
-            if ($("#TickerFilter input:checked").length == 0) {
+            if ($("#TickerFilter input:checked").length === 0) {
                 isValid = false;
                 return $("#ticket-null").removeClass("hide");
             } else {
@@ -372,7 +389,7 @@ var CustTurnover = (function ($) {
             if (isValid) {
                 //get parameters
                 CustTurnover.excelParam.fromdate = $("#FromDate").val();
-                CustTurnover.excelParam.todate = $("#ToDate").val()
+                CustTurnover.excelParam.todate = $("#ToDate").val();
                 CustTurnover.excelParam.reportby = $("input[name='ReportBy']:checked").val();
                 CustTurnoverOption.reportBy = CustTurnover.excelParam.reportby;
                 CustTurnover.excelParam.showwin = $("#ShowWin").is(':checked');
@@ -393,7 +410,7 @@ var CustTurnover = (function ($) {
                     CustTurnover.loadData();
                     $(".report-title").removeClass("hide");
                 }
-            };
+            }
         },
         exportExcel: function () {
             var form = $("#CustomerTurnoverForm");
@@ -418,7 +435,7 @@ var CustTurnover = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: CustTurnover.urlData,
-                error: function (xhRequest, errorText, thrownError)
+                error: function (/*xhRequest, errorText, thrownError*/)
                 { Site.unBlockUI(); alert(Site.getSingleResource("Error")); },
                 success: function (response) {
                     CustTurnover.gridBiding(response);
@@ -426,7 +443,7 @@ var CustTurnover = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function (/*jqXhr, textStatus*/) {
                 }
             };
             if (CustTurnover.ajaxRequestData != null) {
@@ -453,7 +470,7 @@ var CustTurnover = (function ($) {
                 $("#pg_ppdata").hide();
 
                 if (response == null ||
-                 $.isEmptyObject(response) || response.length == 0 || response.Data.length == 0) {
+                 $.isEmptyObject(response) || response.length === 0 || response.Data.length === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
@@ -501,7 +518,7 @@ var CustTurnover = (function ($) {
         },
         setDefaultUsername: function () {
             var username = $('#Username').val();
-            if (username == '' || username == CustTurnover.defaultUserName) {
+            if (username === '' || username === CustTurnover.defaultUserName) {
                 $('#Username').val(CustTurnover.defaultUserName);
                 $('#Username').attr('class', 'default-username');
             }
@@ -512,9 +529,9 @@ var CustTurnover = (function ($) {
 
         setUsernameOnFocus: function () {
             var username = $('#Username').val();
-            if (username == CustTurnover.defaultUserName) {
+            if (username === CustTurnover.defaultUserName) {
                 $('#Username').val('');
-            } else if (username == '') {
+            } else if (username === '') {
                 $('#Username').val(CustTurnover.defaultUserName);
             }
         }
@@ -522,14 +539,17 @@ var CustTurnover = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CustTurnover.initialize();
 });
 $(window).resize(function () {
+    "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
     CustTurnover.resizeGrid();
 });
 
 $(window).unload(function () {
+    "use strict";
     $(window).unbind("resize");
 });

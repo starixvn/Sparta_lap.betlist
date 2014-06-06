@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site */
+/// <reference path="/@JSense.js" />
 var Balance = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             Balance.initializeParam();
@@ -36,5 +38,6 @@ var Balance = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     Balance.initialize();
 });

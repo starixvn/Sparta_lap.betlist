@@ -1,9 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site */
+/// <reference path="/@JSense.js" />
 var CustBalance = (function ($) {
+    "use strict";
     return {
         resizeGrid: function () {
             var $grid = $("#data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -33,7 +35,7 @@ var CustBalance = (function ($) {
             Site.unBlockUI();
         },
         checkIsValidTimeRequest: function () {
-            var isShowWarningPopup = $('#IsValidTimeRequest').val() == 'False';
+            var isShowWarningPopup = $('#IsValidTimeRequest').val() === 'False';
             if (isShowWarningPopup) {
                 var title = Site.getSingleResource("LrfNotification");
                 var message = Site.getSingleResource("CustomerBalanceDateRangeNotification");
@@ -44,6 +46,7 @@ var CustBalance = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+    "use strict";
     CustBalance.initialize();
     CustBalance.checkIsValidTimeRequest();
 });
