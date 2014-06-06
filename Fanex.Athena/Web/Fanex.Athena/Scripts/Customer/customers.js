@@ -753,7 +753,8 @@ var CustomerList = (function ($) {
                             if (data.IsSuccessful) {
                                 $(ctx).html("")
                                       .removeClass("ba-on ba-off")
-                                      .addClass('ba-' + data.BAStatus.toLowerCase());
+                                      .addClass('ba-' + data.BAStatus.toLowerCase())
+                                      .text(data.BAStatus.toUpperCase());
                                 if (data.IsBA) {
                                     $(ctx).css("color", "#000000");
                                 }

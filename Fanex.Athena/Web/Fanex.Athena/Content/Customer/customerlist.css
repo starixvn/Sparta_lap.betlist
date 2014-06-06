@@ -8,7 +8,7 @@
 
 .levelLink:hover
 {
-    opacity:0.6;
+    opacity: 0.6;
 }
 
 .levelLink
@@ -275,12 +275,21 @@ a.underline
     width: 54px;
     height: 18px;
     margin: auto;
+    font-weight: bold;
+    font-size: 10px;
 }
 
 .ba-on
 {
     background: url("images/off-on_hr.png") no-repeat 0 0;
     cursor: pointer;
+    padding-left: 8px;
+    width: 46px;
+    padding-top: 1px;
+    height: 17px;
+    color: #fff;
+    text-shadow: 0px 0px #ccc;
+    float: left;
 }
 .ba-on:hover
 {
@@ -291,6 +300,12 @@ a.underline
 {
     background: url("images/off-on_hr.png") no-repeat -54px 0;
     cursor: pointer;
+    padding-left: 27px;
+    width: 27px;
+    padding-top: 1px;
+    height: 17px;
+    color: rgb(102, 98, 98);
+    text-shadow: 0px 0px #8B8488;
 }
 
 /* Status*/

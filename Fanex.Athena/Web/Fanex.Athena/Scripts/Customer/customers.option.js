@@ -82,7 +82,7 @@ var CustomersOption = (function () {
                 return jqGridAdditional.formatDecimal(cellValue);
             }
             else {
-                return "<a style='color: #1E1EEB' href=\"javascript:CustomerList.viewRunningBetlist(" + 
+                return "<a style='color: #1E1EEB' href=\"javascript:CustomerList.viewRunningBetlist(" +
                     rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
                     + jqGridAdditional.formatDecimal(cellValue) + "</a>";
             }
@@ -114,7 +114,7 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
             return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-                    "' class='ba-" + (cellValue ? "on" : "off") + "'></div>";
+                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" + (cellValue ? "ON" : "OFF") + "</div>";
         }
     };
     var specialLevelColumn = {
@@ -128,7 +128,7 @@ var CustomersOption = (function () {
         classes: "specialLevel",
         formatter: function (cellValue, options, rowObject) {
             return "<div data-custid='" + rowObject.CustId + "'  data-level='" + cellValue + "' class='level-" + cellValue +
-                     "' style='text-align: center;color:black;width:80px;float:left'>" + 
+                     "' style='text-align: center;color:black;width:80px;float:left'>" +
                      (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
                      "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
         }

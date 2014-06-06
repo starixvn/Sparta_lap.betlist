@@ -308,7 +308,6 @@
     <Content Include="Content\Customer\images\betsetting.png" />
     <Content Include="Content\Customer\images\edit.png" />
     <Content Include="Content\Customer\images\loginfo.png" />
-    <Content Include="Content\Customer\images\off-on_hr.png" />
     <Content Include="Content\Customer\images\statement.png" />
     <Content Include="Content\Customer\images\validated.png" />
     <Content Include="Content\Customer\images\validatefail.png" />
