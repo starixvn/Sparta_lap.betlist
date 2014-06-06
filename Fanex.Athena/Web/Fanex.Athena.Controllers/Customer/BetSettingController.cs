@@ -149,10 +149,10 @@ namespace Fanex.Athena.Controllers.Customer
                                  metaModel.LicenessId == LicenseeSpondemo;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
-            metaModel.IsAllowRacing = productAccess.IsAllowRb;            
+            metaModel.IsAllowRacing = productAccess.IsAllowRb;
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVs;
             metaModel.IsAllowNumberGame = productAccess.IsAllowNg;
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);            
+            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
             metaModel.IsAllowRngCasino = productAccess.IsAllowCs && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLc && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
                 case ProductType.RngCasino:
                     if (customerInfo.SyncCasino)
                     {
-                        model.RngCasinoData = _casinoSetting.GetRngCasinoSetting(metaModel.CustId, SessionService.LicenseeSession.LicenseeName);
+                        model.RngCasinoData = _casinoSetting.GetRngCasinoSetting(metaModel.CustId, SessionService.LicenseeSession.LicenseeName, language);
                     }
                     else
                     {
@@ -213,7 +213,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return model;
-        }        
+        }
 
         #endregion Common
     }

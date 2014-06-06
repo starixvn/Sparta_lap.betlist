@@ -91,8 +91,9 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <param name="licenseeName">The licensee name.</param>
+        /// <param name="language">Language of licensee.</param>
         /// <returns>RNG casino setting.</returns>
-        public RngCasinoBetSetting GetRngCasinoSetting(int custId, string licenseeName)
+        public RngCasinoBetSetting GetRngCasinoSetting(int custId, string licenseeName, string language)
         {
             var gameKindList = new List<GameKind>();
 
@@ -103,7 +104,7 @@ namespace Fanex.Athena.Service.Implement.Casino
                 foreach (var gameKind in gameKindList)
                 {
                     // Get game type base on game kind
-                    var gameTypeList = GetGameType(gameKind.GameKindId);
+                    var gameTypeList = GetGameType(gameKind.GameKindId, language);
                     gameKind.GameTypeList = gameTypeList;
 
                     foreach (var gameType in gameTypeList)
@@ -181,10 +182,12 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// Get game types.
         /// </summary>
         /// <param name="gameKindId">The game kind id.</param>
+        /// <param name="language">Language of licensee.</param>
         /// <returns>The game type list. </returns>
-        private static IList<GameType> GetGameType(int gameKindId)
+        private static IList<GameType> GetGameType(int gameKindId, string language)
         {
             var bacsicInfo = new BasicInfo();
+            var gameTypeNameByLanguage = GetGameTypeNameByLanguage(language);
             DataTable gameTypeTable = bacsicInfo.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
@@ -194,7 +197,7 @@ namespace Fanex.Athena.Service.Implement.Casino
                 var gameType = new GameType
                 {
                     GameTypeId = Converter.ToInt(row["GameTypeId"].ToString()),
-                    GameTypeName = row["GameTypeName_En"].ToString()
+                    GameTypeName = row[gameTypeNameByLanguage].ToString()
                 };
 
                 gameTypeList.Add(gameType);
@@ -204,6 +207,34 @@ namespace Fanex.Athena.Service.Implement.Casino
         }
 
         #endregion Get Game Type
+
+        /// <summary>
+        /// Get game type name.
+        /// </summary>
+        /// <param name="language">Language of licensee.</param>
+        /// <returns>Game type name.</returns>
+        private static string GetGameTypeNameByLanguage(string language)
+        {
+            string gameTypeName = string.Empty;
+
+            switch (language)
+            {
+                case "en-US":
+                    gameTypeName = "GameTypeName_En";
+                    break;
+                case "zh-TW":
+                    gameTypeName = "GameTypeName_Ct";
+                    break;
+                case "zh-CN":
+                    gameTypeName = "GameTypeName_Cs";
+                    break;
+                case "ko-KR":
+                    gameTypeName = "GameTypeName_Ko";
+                    break;
+            }
+
+            return gameTypeName;
+        }
 
         #region Get Cust Stake Level
 
