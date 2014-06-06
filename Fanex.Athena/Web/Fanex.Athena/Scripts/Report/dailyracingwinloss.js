@@ -3,8 +3,20 @@
 var DailyRacingWinLoss = (function ($) {
     "use strict";
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length === 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".total-content").height() - 10;
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         initialize: function () {
             DailyRacingWinLoss.initEvent();
+            DailyRacingWinLoss.resizeGrid();
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -47,3 +59,14 @@ $(window).load(function () {
     "use strict";
     DailyRacingWinLoss.initialize();
 });
+
+$(window).resize(function () {
+    "use strict";
+    DailyRacingWinLoss.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
+});
+

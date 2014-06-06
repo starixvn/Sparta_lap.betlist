@@ -38,7 +38,7 @@ var MobileWinLoss = (function ($) {
             MobileWinLoss.initMonthPicker();
             MobileWinLoss.initEvent();
             MobileWinLoss.setExcelUrl(0, 0, 0, "");
-
+            Site.addFilterCollapseExpand();
             MobileWinLossOption.gridOption.onSortCol = function (index) {
 
                 Site.blockUI();
@@ -427,8 +427,7 @@ var MobileWinLoss = (function ($) {
 
             url = Site.setProductOptionOriginalParamList(url);
 
-            var popH = Math.min(600, window.innerHeight - 50), popW = 920;
-            popH = Math.max(400, popH);
+            var popH = Math.min(600, window.innerHeight - 100), popW = 920;            
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({

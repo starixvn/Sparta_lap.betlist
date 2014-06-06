@@ -1,6 +1,12 @@
 ﻿/// <reference path="/@JSense.js" />
 var GroupCommLog = (function ($) {
     return {
+        resizeGrid: function () {
+            var gridTop = $(".content-main").offset().top;
+            var gridHeight = window.innerHeight - gridTop;
+            gridHeight = Math.max(150, gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+        },
         initialize: function () {
             GroupCommLog.initMonthPicker();
             CustomerLog.initAutoComplete();
@@ -30,7 +36,7 @@ var GroupCommLog = (function ($) {
                     $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
                 },
                 log: function (msg) {
-                   // console.warn(msg);
+                    // console.warn(msg);
                 }
             });
         },
@@ -99,6 +105,8 @@ var GroupCommLog = (function ($) {
                         $(".ui-jqgrid-htable tbody .no-info-row").remove();
                     }
                 }
+
+                setTimeout(GroupCommLog.resizeGrid, 100);
             };
 
             groupCommLogGrid.jqGrid(grid);

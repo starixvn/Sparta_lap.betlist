@@ -499,7 +499,7 @@ var WinLossByProduct = (function ($) {
             url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
             url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
 
-            var popH = 500, popW = 920;
+            var popH = Math.min($(window).height() - 100, 500), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' + popW +
                          '" height="100%" src="' + url + '" ></iframe></div>';
 

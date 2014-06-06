@@ -871,7 +871,7 @@ var CustomerList = (function ($) {
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "betlistname", "betlist");
             url = Site.setLicenseeOptionOriginalParam(url);
-            var popH = Math.max($(window).height() - 120, 300), popW = 900;
+            var popH = Math.min(window.innerHeight - 100, 500), popW = 900;
 
             var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetList') + '"><iframe scrolling="no" frameborder="0" width="' +
                          popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
@@ -898,7 +898,7 @@ var CustomerList = (function ($) {
             url = QueryString.setParam(url, "systemid", systemId);
             url = QueryString.setParam(url, "betlistname", "dailystatement");
             url = Site.setLicenseeOptionOriginalParam(url);
-            var popH = Math.max($(window).height() - 120, 300), popW = 900;
+            var popH = Math.min(window.innerHeight - 100, 500), popW = 900;
 
             var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('DailyStatement') + '"><iframe frameborder="0" width="' +
                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';

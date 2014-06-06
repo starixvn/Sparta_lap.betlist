@@ -7,13 +7,13 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     return {
-        resizeGrid: function () {
+        resizeGrid: function() {
             if ($(".no-info-row").length > 0) {
                 return;
             }
 
             var gridTop = $("#BetListGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - 40;
+            var gridHeight = window.innerHeight - gridTop - 10 - $(".ui-jqgrid-sdiv:visible").height() - $(".ui-jqgrid-pager:visible").height();
             gridHeight = Math.max(130, gridHeight);
 
             var $container = $(".ui-jqgrid-bdiv");
@@ -21,8 +21,7 @@ var BetList = (function ($) {
             $container.css("max-height", gridHeight);
 
             if ($child.height() > Math.min($container.height(), gridHeight)) {
-                $container.css("height", Math.min($child.height(), gridHeight));
-                console.log(Math.min($child.height(), gridHeight));
+                $container.css("height", Math.min($child.height(), gridHeight));                
             }
         },
         getSortParams: function () {
@@ -102,6 +101,10 @@ var BetList = (function ($) {
                     $('div.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
                 }
             });
+
+            setTimeout(function () {
+                BetList.resizeGrid();
+            }, 100);
 
             Site.unBlockUI();
         },
@@ -263,9 +266,6 @@ var BetList = (function ($) {
 
                 $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
-                setTimeout(function () {
-                    BetList.resizeGrid();
-                }, 100);
             }
         },
 

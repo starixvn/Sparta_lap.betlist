@@ -518,7 +518,7 @@ var LicenseeWinLoss = (function ($) {
 
             url = Site.setProductOptionOriginalParamList(url);
 
-            var popH = Math.max($(window).height() - 100, 300), popW = 920;
+            var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
