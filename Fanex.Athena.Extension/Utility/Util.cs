@@ -74,7 +74,7 @@ namespace Fanex.Athena.Extension.Utility
             const int BGMinBetType = 73;
             const int BGMaxBetType = 73;
             const int KenoMinBetType = 1501;
-            const int KenoMaxBetType = 1509;
+            const int KenoMaxBetType = 1599;
 
             if (string.IsNullOrEmpty(productCode))
             {

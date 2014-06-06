@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             this._balanceUpService = new BalanceUpService();
             this._productService = new ProductService();
-            _sportTypeService = new SportTypeService(this._balanceUpService.BalanceUpInfo);
+            _sportTypeService = new SportTypeService();
             this._betTypeService = new BetTypeService();
             this._leagueService = new LeagueService();
             this._matchService = new MatchService();

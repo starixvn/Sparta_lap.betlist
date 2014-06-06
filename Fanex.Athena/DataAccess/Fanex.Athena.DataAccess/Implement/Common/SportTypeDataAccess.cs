@@ -29,8 +29,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
-        public SportTypeDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
+        public SportTypeDataAccess()
+            : base()
         {
         }
 

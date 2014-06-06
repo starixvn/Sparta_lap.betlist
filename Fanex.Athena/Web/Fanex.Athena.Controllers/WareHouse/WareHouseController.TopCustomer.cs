@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         [FunctionAuthorization]
         public ActionResult TopCustomer()
         {
-            _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
+            _sportTypeService = new SportTypeService();
 
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
-            _sportTypeService = new SportTypeService(this._balancUpService.BalanceUpInfo);
+            _sportTypeService = new SportTypeService();
 
             if (metaModel.IsExportExcel)
             {

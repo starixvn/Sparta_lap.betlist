@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
         [FunctionAuthorization]
         public ActionResult LastBetsMonitoring()
         {
-            this._sportTypeService = new SportTypeService(this._balanceUpService.BalanceUpInfo);
+            this._sportTypeService = new SportTypeService();
             var metaModel = new Models.MetaModel.BetList.BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
           
             SetConvetedUSDCurrencyName(metaModel);

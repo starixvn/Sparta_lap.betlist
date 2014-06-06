@@ -23,9 +23,9 @@ namespace Fanex.Athena.Service.Implement.Common
     {
         private readonly ISportTypeDataAccess _sportTypeDataAcess;
 
-        public SportTypeService(BalanceUp balanceUp)
+        public SportTypeService()
         {
-            _sportTypeDataAcess = new SportTypeDataAccess(balanceUp);
+            _sportTypeDataAcess = new SportTypeDataAccess();
         }
 
         public IDictionary<string, int> GetAllSports()
