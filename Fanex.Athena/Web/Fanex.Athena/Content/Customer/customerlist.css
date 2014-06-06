@@ -272,11 +272,11 @@ a.underline
 /* Ba */
 .ba-on, .ba-off, .ba-off-disable
 {
-    width: 54px;
-    height: 18px;
     margin: auto;
     font-weight: bold;
     font-size: 10px;
+    padding-top: 1px;
+    height: 17px;
 }
 
 .ba-on
@@ -285,11 +285,8 @@ a.underline
     cursor: pointer;
     padding-left: 8px;
     width: 46px;
-    padding-top: 1px;
-    height: 17px;
     color: #fff;
-    text-shadow: 0px 0px #ccc;
-    float: left;
+    text-shadow: 0px 1px #ccc;
 }
 .ba-on:hover
 {
@@ -302,10 +299,8 @@ a.underline
     cursor: pointer;
     padding-left: 27px;
     width: 27px;
-    padding-top: 1px;
-    height: 17px;
     color: rgb(102, 98, 98);
-    text-shadow: 0px 0px #8B8488;
+    text-shadow: 0px 1px #8B8488;
 }
 
 /* Status*/
