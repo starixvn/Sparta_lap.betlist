@@ -165,12 +165,15 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Get live casino bet setting.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
+        /// <param name="language">Language of licensee.</param>
         /// <returns>The result value.</returns>
-        public IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId)
+        public IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language)
         {
             var uspName = "TP_Admin_StakeLevel_GetCustStakeLevelMulti";
 
             var listCasinoBetSetting = new List<LiveCasinoBetSetting>();
+
+            var gameTypeName = GetGameTypeName(language);
 
             using (var db = new ObjectDb(uspName))
             {
@@ -182,7 +185,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 {
                     var liveCasinoItem = new LiveCasinoBetSetting
                     {
-                        GameType = reader.ToString("GameTypeName_En"),
+                        GameType = reader.ToString(gameTypeName),
                         GameTypeId = reader.ToInt("GameTypeId"),
                         StakeLevelId = reader.ToInt("StakeLevelID"),
                         StakeLevelName = reader.ToString("StakeLevelName"),
@@ -513,7 +516,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             var uspName = "TP_User_CustGameType_UpdStakeLevel";
 
             // Tracking value before update (Tracking value 2)
-            var oldParam = GetLiveCasinoLogParam(custId, param.GameTypeId);
+            var oldParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
             var trackingValue2 = GetTrackingValue(uspName, custId, oldParam, ip, language);
 
             using (var db = new ObjectDb(uspName))
@@ -537,7 +540,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 };
 
                 // Tracking value after update (Tracking value 1)
-                var newParam = GetLiveCasinoLogParam(custId, param.GameTypeId);
+                var newParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
                 var trackingValue1 = GetTrackingValue(uspName, custId, newParam, ip, language, result);
 
                 // Write Log
@@ -772,10 +775,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <param name="gameTypeIdSelected">Game type ID selected value.</param>
+        /// <param name="language">Language of licensee.</param>
         /// <returns>The result value.</returns>
-        private LiveCasinoBetSetting GetLiveCasinoLogParam(int custId, int gameTypeIdSelected)
+        private LiveCasinoBetSetting GetLiveCasinoLogParam(int custId, int gameTypeIdSelected, string language)
         {
-            var liveCasinoList = GetLiveCasinoBetSetting(custId);
+            var liveCasinoList = GetLiveCasinoBetSetting(custId, language);
             var gameType = liveCasinoList.Where(x => x.GameTypeId == gameTypeIdSelected && x.IsCheck).Select(x => x.GameType).FirstOrDefault();
             var gameTypeId = gameTypeIdSelected;
             var stakeLevelName = liveCasinoList
@@ -934,6 +938,38 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Get Bet Setting Details
+
+        #region Live Casino Utility
+
+        /// <summary>
+        /// Get game type name.
+        /// </summary>
+        /// <param name="language">Language of licensee.</param>
+        /// <returns>Game type name.</returns>
+        private string GetGameTypeName(string language)
+        {
+            string gameTypeName = string.Empty;
+
+            switch (language)
+            {
+                case "en-US":
+                    gameTypeName = "GameTypeName_En";
+                    break;
+                case "zh-TW":
+                    gameTypeName = "GameTypeName_Ct";
+                    break;
+                case "zh-CN":
+                    gameTypeName = "GameTypeName_Cs";
+                    break;
+                case "ko-KR":
+                    gameTypeName = "GameTypeName_Ko";
+                    break;
+            }
+
+            return gameTypeName;
+        }
+
+        #endregion
 
         #endregion Utility
     }

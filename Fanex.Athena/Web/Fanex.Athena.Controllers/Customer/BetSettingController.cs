@@ -171,6 +171,8 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = new BetSettingViewModel { Param = metaModel };
 
+            var language = SessionService.UserSession.Language;
+
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
@@ -187,7 +189,7 @@ namespace Fanex.Athena.Controllers.Customer
                     model.MainData.AddRange(_betSettingService.GetVirtualSportsBetSetting(metaModel.CustId));
                     break;
                 case ProductType.LiveCasino:
-                    model.LiveCasinoData.AddRange(_betSettingService.GetLiveCasinoBetSetting(metaModel.CustId));
+                    model.LiveCasinoData.AddRange(_betSettingService.GetLiveCasinoBetSetting(metaModel.CustId, language));
                     model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
                 case ProductType.RngCasino:

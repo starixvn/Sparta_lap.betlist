@@ -167,15 +167,16 @@ namespace Fanex.Athena.Service.Implement.Customer
         ///     Get live casino bet setting.
         /// </summary>
         /// <param name="custId">The customer id.</param>
+        /// <param name="language">Language of licensee.</param>
         /// <returns>The bet setting of live casino list.</returns>
-        public IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId)
+        public IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId, string language)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return new List<LiveCasinoBetSettingViewModel>();
             }
 
-            var liveCasinoList = _betSettingDataAccess.GetLiveCasinoBetSetting(custId);
+            var liveCasinoList = _betSettingDataAccess.GetLiveCasinoBetSetting(custId, language);
 
             var resultList = new List<LiveCasinoBetSettingViewModel>();
 

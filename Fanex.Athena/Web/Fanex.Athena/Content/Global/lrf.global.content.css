@@ -65,11 +65,6 @@ select.based-currency
     width: 60px;
 }
 
-select.live-status
-{
-    width: 72px;
-}
-
 /* common*/
 .filter-handle
 {    

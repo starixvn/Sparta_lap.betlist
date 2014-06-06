@@ -27,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
-        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId);
+        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
