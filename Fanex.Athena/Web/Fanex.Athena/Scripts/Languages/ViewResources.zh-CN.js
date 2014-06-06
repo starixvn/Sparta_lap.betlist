@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/3/2014 3:45:00 PM
+// Lasted generated date: 6/6/2014 1:34:19 PM
 // </history>
 
 var _language_zh_CN={
@@ -498,6 +498,10 @@ var _language_zh_CN={
 				 	
                      GrandTotalIn:"累计",
 				 	
+                     GreyhoundAustTote:"澳洲赛马车指南",
+				 	
+                     GreyhoundUK_IrishTote:"英国,爱尔兰赛狗指南",
+				 	
                      Group:"组",
 				 	
                      GroupColor:"组别颜色",
@@ -565,6 +569,12 @@ var _language_zh_CN={
                      Horse:"马",
 				 	
                      HorseNo:"马匹编号",
+				 	
+                     HorseRacingAustTote:"澳洲赛马指南",
+				 	
+                     HorseRacingSATote:"南非赛马指南",
+				 	
+                     HorseRacingUK_IrishTote:"英国,爱尔兰赛马指南",
 				 	
                      HTFT:"半场/全场",
 				 	
@@ -702,7 +712,7 @@ var _language_zh_CN={
 				 	
                      lbl7Over:"7或以上",
 				 	
-                     LC:"LC",
+                     LC:"娱乐厅",
 				 	
                      LCCasinoUpdateSettingUnAvailableMsg:"Live Casino Database is not currently available. Please try again later.",
 				 	
@@ -744,7 +754,7 @@ var _language_zh_CN={
 				 	
                      LicenseeType:"承租公司类型",
 				 	
-                     LicenseeW_L:"承租公司輸贏",
+                     LicenseeW_L:"承租公司输赢",
 				 	
                      LicenseeWinLoss:"承租公司輸贏",
 				 	
@@ -772,7 +782,7 @@ var _language_zh_CN={
 				 	
                      LiveReportNote3:"从体育类型向下拖曳的详细数据只可用于{0:d MMM yyyy}后",
 				 	
-                     LiveReportTitle:"滚球报告, {0} --&gt; {1} - {2}",
+                     LiveReportTitle:"滚球报告 - {0}, {1} --&gt; {2} - {3}",
 				 	
                      LiveStatus:"滚球状态",
 				 	
@@ -866,6 +876,8 @@ var _language_zh_CN={
 				 	
                      MixParlay:"混合过关",
 				 	
+                     MixSportsParlay:"混合过关",
+				 	
                      Mo:"Mo",
 				 	
                      Mobile:"移动",
@@ -910,7 +922,7 @@ var _language_zh_CN={
 				 	
                      NextCombo_U_E:"小/双",
 				 	
-                     NG:"NG",
+                     NG:"百练赛",
 				 	
                      NGComm:"百练赛佣金",
 				 	
@@ -1000,7 +1012,7 @@ var _language_zh_CN={
 				 	
                      of:"之",
 				 	
-                     Off:"关闭",
+                     Off:"关",
 				 	
                      Official:"官方",
 				 	
@@ -1010,7 +1022,7 @@ var _language_zh_CN={
 				 	
                      OldPassword:"旧密码",
 				 	
-                     On:"On",
+                     On:"开",
 				 	
                      OneMonth:"1个月",
 				 	
@@ -1118,7 +1130,7 @@ var _language_zh_CN={
 				 	
                      RacingRevenueBalanceNote:"赛事所得:赛事相关产品所得",
 				 	
-                     RB:"RB",
+                     RB:"赛事",
 				 	
                      RBComm:"RB佣金",
 				 	
@@ -1202,7 +1214,7 @@ var _language_zh_CN={
 				 	
                      Save:"保存",
 				 	
-                     SB:"SB",
+                     SB:"体育博彩",
 				 	
                      SBComm:"体育博彩佣金",
 				 	
@@ -1476,7 +1488,7 @@ var _language_zh_CN={
 				 	
                      ViewDataInMonth:"检阅每月数据",
 				 	
-                     Viewin:"以查看",
+                     Viewin:"以 {0} 查看",
 				 	
                      VirtualCycling:"Virtual Cycling",
 				 	

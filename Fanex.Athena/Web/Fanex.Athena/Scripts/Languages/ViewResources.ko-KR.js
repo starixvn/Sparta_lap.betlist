@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/3/2014 3:44:56 PM
+// Lasted generated date: 6/6/2014 1:34:16 PM
 // </history>
 
 var _language_ko_KR={
@@ -496,6 +496,10 @@ var _language_ko_KR={
 				 	
                      GrandTotalIn:"획득 총점",
 				 	
+                     GreyhoundAustTote:"Greyhound Aust Tote",
+				 	
+                     GreyhoundUK_IrishTote:"Greyhound UK/Irish Tote",
+				 	
                      Group:"그룹",
 				 	
                      GroupColor:"그룹색깔",
@@ -563,6 +567,12 @@ var _language_ko_KR={
                      Horse:"경마",
 				 	
                      HorseNo:"경마 말 번호",
+				 	
+                     HorseRacingAustTote:"Horse Racing Aust Tote",
+				 	
+                     HorseRacingSATote:"Horse Racing SA Tote",
+				 	
+                     HorseRacingUK_IrishTote:"Horse Racing UK/Irish Tote",
 				 	
                      HTFT:"HT/FT",
 				 	
@@ -770,7 +780,7 @@ var _language_ko_KR={
 				 	
                      LiveReportNote3:"스포츠 유형에서 상세 데이터 목록 드릴 다운은 {0:d MM yyyy}이후에 볼 수 있습니다",
 				 	
-                     LiveReportTitle:"실시간 보고서, {0}--&gt; {1} - {2}",
+                     LiveReportTitle:"실시간 보고서 - {0}, {1}--&gt; {2} - {3}",
 				 	
                      LiveStatus:"실시간 상황",
 				 	
@@ -863,6 +873,8 @@ var _language_ko_KR={
                      MixLiveAndNoneLive:"실시간과 비 실시간 믹스",
 				 	
                      MixParlay:"조합 베팅",
+				 	
+                     MixSportsParlay:"Mix Sports Parlay",
 				 	
                      Mo:"모바일",
 				 	
@@ -1476,7 +1488,7 @@ var _language_ko_KR={
 				 	
                      ViewDataInMonth:"월간 보기 데이터",
 				 	
-                     Viewin:"에서 보기",
+                     Viewin:"에서 보기 {0}",
 				 	
                      VirtualCycling:"Virtual Cycling",
 				 	

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/3/2014 3:44:33 PM
+// Lasted generated date: 6/6/2014 1:34:11 PM
 // </history>
 
 var _language_en_US={
@@ -316,6 +316,8 @@ var _language_en_US={
 				 	
                      DailyStatementMsg:"Support data up to 4 months only",
 				 	
+                     Data:"data",
+				 	
                      DataWareHouse:"Data Warehouse",
 				 	
                      Date:"Date",
@@ -502,6 +504,10 @@ var _language_en_US={
 				 	
                      GrandTotalIn:"Grand Total In",
 				 	
+                     GreyhoundAustTote:"Greyhound Aust Tote",
+				 	
+                     GreyhoundUK_IrishTote:"Greyhound UK/Irish Tote",
+				 	
                      Group:"Group",
 				 	
                      GroupColor:"Group Color",
@@ -544,6 +550,8 @@ var _language_en_US={
 				 	
                      HandNo:"Hand No",
 				 	
+                     HarnessAustTote:"Harness Aust Tote",
+				 	
                      HD:"HD",
 				 	
                      HDP:"HDP",
@@ -569,6 +577,12 @@ var _language_en_US={
                      Horse:"Horse",
 				 	
                      HorseNo:"Horse No",
+				 	
+                     HorseRacingAustTote:"Horse Racing Aust Tote",
+				 	
+                     HorseRacingSATote:"Horse Racing SA Tote",
+				 	
+                     HorseRacingUK_IrishTote:"Horse Racing UK/Irish Tote",
 				 	
                      HTFT:"HT/FT",
 				 	
@@ -762,6 +776,8 @@ var _language_en_US={
 				 	
                      Live:"Live",
 				 	
+                     LiveAndNonLive:"Live and Non-live",
+				 	
                      LiveCasino:"Live Casino",
 				 	
                      LiveGame:"Live Game",
@@ -776,7 +792,7 @@ var _language_en_US={
 				 	
                      LiveReportNote3:"Detailed data drilling down from Sports types is only available after {0:d MMM yyyy}",
 				 	
-                     LiveReportTitle:"Live Report, {0} --&gt; {1} - {2}",
+                     LiveReportTitle:"Live Report - {0}, {1} --&gt; {2} - {3}",
 				 	
                      LiveStatus:"Live Status",
 				 	
@@ -869,6 +885,8 @@ var _language_en_US={
                      MixLiveAndNoneLive:"Mix Live &amp; Non-Live",
 				 	
                      MixParlay:"Mix Parlay",
+				 	
+                     MixSportsParlay:"Mix Sports Parlay",
 				 	
                      Mo:"Mo",
 				 	
@@ -1482,7 +1500,7 @@ var _language_en_US={
 				 	
                      ViewDataInMonth:"View data in month",
 				 	
-                     Viewin:"View in",
+                     Viewin:"View in {0}",
 				 	
                      VirtualCycling:"Virtual Cycling",
 				 	

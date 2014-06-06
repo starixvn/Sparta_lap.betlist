@@ -210,12 +210,12 @@ var CustomersOption = (function () {
         var temp = Site.clone(colNameList);
         if (isAllowedCustomerCommission) {
             temp.insertAfter("Group", 0);
-            temp.push("SB");
+            temp.push(Site.getSingleResource("SB"));
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
                     numOfProductColumns++;
-                    temp.push(value.toUpperCase());
+                    temp.push(Site.getSingleResource(value.toUpperCase()));
                 }
             });
         }
