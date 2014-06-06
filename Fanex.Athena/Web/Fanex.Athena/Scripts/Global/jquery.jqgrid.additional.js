@@ -127,7 +127,7 @@ var jqGridAdditional = (function () {
 
         getLicenseeWLNote: function (productOptionJson) {
             var productOptions = $.parseJSON(productOptionJson);
-            var temp = Sitem.getSingleResource("LicenseeW_L");
+            var temp = Site.getSingleResource("LicenseeW_L");
             var productTemp = "";
             var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN"];
             for (var i = 0; i < productOptions.length; i++) {

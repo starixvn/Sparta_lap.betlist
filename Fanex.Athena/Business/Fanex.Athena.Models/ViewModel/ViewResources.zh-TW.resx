@@ -1012,7 +1012,7 @@
     <value>7或以上</value>
   </data>
   <data name="LC" xml:space="preserve">
-    <value>LC</value>
+    <value>娛樂廰</value>
   </data>
   <data name="League" xml:space="preserve">
     <value>聯賽</value>
@@ -1294,7 +1294,7 @@
     <value>小/雙</value>
   </data>
   <data name="NG" xml:space="preserve">
-    <value>NG</value>
+    <value>百練賽</value>
   </data>
   <data name="NGComm" xml:space="preserve">
     <value>百練賽佣金</value>
@@ -1663,7 +1663,7 @@
     <value>保存</value>
   </data>
   <data name="SB" xml:space="preserve">
-    <value>SB</value>
+    <value>體育博彩</value>
   </data>
   <data name="SBComm" xml:space="preserve">
     <value>體育博彩佣金</value>
@@ -2376,7 +2376,7 @@
     <comment>#13958</comment>
   </data>
   <data name="RB" xml:space="preserve">
-    <value>RB</value>
+    <value>賽事</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
