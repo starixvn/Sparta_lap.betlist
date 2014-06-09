@@ -173,7 +173,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
             var listCasinoBetSetting = new List<LiveCasinoBetSetting>();
 
-            var gameTypeName = GetGameTypeName(language);
+            var gameTypeName = GetGameTypeColumn(language);
 
             using (var db = new ObjectDb(uspName))
             {
@@ -601,6 +601,38 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Get Sport Name
 
+        #region Live Casino Utility
+
+        /// <summary>
+        /// Get game type name.
+        /// </summary>
+        /// <param name="language">Language of licensee.</param>
+        /// <returns>Game type name.</returns>
+        private static string GetGameTypeColumn(string language)
+        {
+            string gameTypeName = string.Empty;
+
+            switch (language)
+            {
+                case "zh-TW":
+                    gameTypeName = "GameTypeName_Ct";
+                    break;
+                case "zh-CN":
+                    gameTypeName = "GameTypeName_Cs";
+                    break;
+                case "ko-KR":
+                    gameTypeName = "GameTypeName_Ko";
+                    break;
+                default:
+                    gameTypeName = "GameTypeName_En";
+                    break;
+            }
+
+            return gameTypeName;
+        }
+
+        #endregion
+
         #region Write Log
 
         #region Live Casino
@@ -938,38 +970,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Get Bet Setting Details
-
-        #region Live Casino Utility
-
-        /// <summary>
-        /// Get game type name.
-        /// </summary>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>Game type name.</returns>
-        private string GetGameTypeName(string language)
-        {
-            string gameTypeName = string.Empty;
-
-            switch (language)
-            {
-                case "en-US":
-                    gameTypeName = "GameTypeName_En";
-                    break;
-                case "zh-TW":
-                    gameTypeName = "GameTypeName_Ct";
-                    break;
-                case "zh-CN":
-                    gameTypeName = "GameTypeName_Cs";
-                    break;
-                case "ko-KR":
-                    gameTypeName = "GameTypeName_Ko";
-                    break;
-            }
-
-            return gameTypeName;
-        }
-
-        #endregion
 
         #endregion Utility
     }

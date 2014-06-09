@@ -187,7 +187,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         private static IList<GameType> GetGameType(int gameKindId, string language)
         {
             var bacsicInfo = new BasicInfo();
-            var gameTypeNameByLanguage = GetGameTypeNameByLanguage(language);
+            var gameTypeNameByLanguage = GetGameTypeColumn(language);
             DataTable gameTypeTable = bacsicInfo.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
@@ -213,15 +213,12 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="language">Language of licensee.</param>
         /// <returns>Game type name.</returns>
-        private static string GetGameTypeNameByLanguage(string language)
+        private static string GetGameTypeColumn(string language)
         {
             string gameTypeName = string.Empty;
 
             switch (language)
             {
-                case "en-US":
-                    gameTypeName = "GameTypeName_En";
-                    break;
                 case "zh-TW":
                     gameTypeName = "GameTypeName_Ct";
                     break;
@@ -230,6 +227,9 @@ namespace Fanex.Athena.Service.Implement.Casino
                     break;
                 case "ko-KR":
                     gameTypeName = "GameTypeName_Ko";
+                    break;
+                default:
+                    gameTypeName = "GameTypeName_En";
                     break;
             }
 
