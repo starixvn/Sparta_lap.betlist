@@ -27,10 +27,12 @@ var MobileWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-            var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height();
-            gridHeight = Math.max(150, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            setTimeout(function () {
+                var gridTop = $("#ReportGrid").offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 10;
+                gridHeight = Math.max(120, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            }, 100);
         },
         //#region Init
         initialize: function () {
@@ -191,7 +193,8 @@ var MobileWinLoss = (function ($) {
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
             var gridOption = MobileWinLossOption.getGridOption(level);
-            var numOfRow = response.Data.length;            
+            var numOfRow = response.Data.length;
+            var numOfTotalRow = response.Total.length;
             gridOption.data = response.Data;
             gridOption.userData = response.TotalEur;
             gridOption.rowNum = _pageSize; // MobileWinLossOption.pageSize;
@@ -212,7 +215,7 @@ var MobileWinLoss = (function ($) {
             };
 
             gridOption.gridComplete = function () {
-                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (numOfRow > MobileWinLossOption.pageSize) {
                     _pageSize = $("#ReportGrid").getGridParam("rowNum");
                     $("#pg_ppdata").show();
@@ -427,7 +430,7 @@ var MobileWinLoss = (function ($) {
 
             url = Site.setProductOptionOriginalParamList(url);
 
-            var popH = Math.min(600, window.innerHeight - 100), popW = 920;            
+            var popH = Math.min(600, window.innerHeight - 100), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({

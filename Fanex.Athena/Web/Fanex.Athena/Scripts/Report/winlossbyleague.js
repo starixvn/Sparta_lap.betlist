@@ -139,7 +139,7 @@ var WinLossByLeague = (function ($) {
 
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - (pagerHeight > 0 ? pagerHeight + 25 : 5);
             gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
         },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
@@ -469,6 +469,7 @@ var WinLossByLeague = (function ($) {
             var reportGrid = $("#ReportGrid");
             $("#paging").hide();
             var numOfRow = response.Data.length;
+            var numOfTotalRow = response.Total.length;
             var onPaging = false;
             var gridOption = WinLossByLeagueOption.getGridOption(level);
 
@@ -494,7 +495,7 @@ var WinLossByLeague = (function ($) {
                 }
             };
             gridOption.gridComplete = function () {
-                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);                
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);                
 
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);

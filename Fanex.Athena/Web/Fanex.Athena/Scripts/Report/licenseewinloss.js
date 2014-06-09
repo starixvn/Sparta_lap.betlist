@@ -29,11 +29,13 @@ var LicenseeWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-            var gridTop = $("#ReportGrid").offset().top;
+            setTimeout(function () {
+                var gridTop = $("#ReportGrid").offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 35;
-            gridHeight = Math.max(100, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() - $(".ui-jqgrid-pager:visible").height() - 10;
+                gridHeight = Math.max(120, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            }, 200);
         },
         getTotalRowCount: function () {
             return totalRowCount;
@@ -142,13 +144,13 @@ var LicenseeWinLoss = (function ($) {
             //get currencyName
             var currencyTextList =
             {
-                "-2": viewinKey.replace("{0}","USD"),
+                "-2": viewinKey.replace("{0}", "USD"),
                 "-1": viewinKey.replace("{0}", "EUR"),
                 "0": Site.getSingleResource('AllCurrencies')
             };
 
             var currencyStr = currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}",$('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
 
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
@@ -396,7 +398,7 @@ var LicenseeWinLoss = (function ($) {
             };
             gridOption.gridComplete = function () {
                 level = Number(level);
-                //    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);                
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                     _pageSize = $("#ReportGrid").getGridParam("rowNum");
                     $("#pg_ppdata").show();
@@ -421,7 +423,7 @@ var LicenseeWinLoss = (function ($) {
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
-
+                LicenseeWinLoss.resizeGrid();
                 Site.unBlockUI();
             };
 
@@ -460,7 +462,7 @@ var LicenseeWinLoss = (function ($) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
 
-            LicenseeWinLoss.resizeGrid();
+
         },
 
         //#end

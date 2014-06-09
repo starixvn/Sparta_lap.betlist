@@ -794,7 +794,7 @@ var CustomerList = (function ($) {
 
             var url = Site.resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
 
-            var popH = 440, popW = 905;
+            var popH = 480, popW = 905;
 
             var dialogFrame = $("#bet-setting-frame");
             dialogFrame.attr("height", popH);

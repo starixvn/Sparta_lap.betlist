@@ -7,7 +7,7 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     return {
-        resizeGrid: function() {
+        resizeGrid: function () {
             if ($(".no-info-row").length > 0) {
                 return;
             }
@@ -21,7 +21,7 @@ var BetList = (function ($) {
             $container.css("max-height", gridHeight);
 
             if ($child.height() > Math.min($container.height(), gridHeight)) {
-                $container.css("height", Math.min($child.height(), gridHeight));                
+                $container.css("height", Math.min($child.height(), gridHeight));
             }
         },
         getSortParams: function () {
@@ -353,7 +353,7 @@ var BetList = (function ($) {
                 divEvent.css("display", "none");
                 divEvent.html("");
                 BetList.resetContentHeight();
-                $(".ui-jqgrid-bdiv").css("height",0);
+                $(".ui-jqgrid-bdiv").css("height", 0);
                 $(".ui-jqgrid-bdiv>div").css("height", "auto");
                 BetList.resizeGrid();
             }

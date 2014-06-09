@@ -54,7 +54,7 @@ var Site = (function ($) {
             var isCollapsed = false;
             $handler.css("top", originalTop);
             $handler.click(function () {
-                isCollapsed = !isCollapsed;                
+                isCollapsed = !isCollapsed;
                 $container.find("*").toggle();
                 $container.height(isCollapsed ? 5 : originalHeight);
                 $handler.css("top", isCollapsed ? -15 : originalTop);
@@ -73,6 +73,15 @@ var Site = (function ($) {
             }
 
             return text;
+        },
+        getScrollBarState: function () {
+            var result = { vScrollbar: true, hScrollbar: true };
+            try {
+                var root = document.compatMode == 'BackCompat' ? document.body : document.documentElement;
+                result.vScrollbar = root.scrollHeight > root.clientHeight;
+                result.hScrollbar = root.scrollWidth > root.clientWidth;
+            } catch (e) { }
+            return (result);
         },
         gotoErrorPage: function () {
             window.location.href = Site.resolveClientUrl("Utility/Error");

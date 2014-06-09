@@ -57,7 +57,7 @@ var ForecastOneXTwo = (function ($) {
             url = QueryString.setParam(url, "bettype", betType);
 
             if (isPopup === "true") {
-                var popH = 650, popW = 900;
+                var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
                 ForecastPopup.resizePopup(popW, popH, url);
             } else {
                 window.location.href = url;
@@ -90,17 +90,20 @@ var ForecastOneXTwo = (function ($) {
 })(jQuery);
 
 $(window).load(function () {
+
+    var height = Math.min(parent.innerHeight - 20, 460);
+    console.log(parent.innerHeight, height);
     // Set default value for popup
     parent.$('.ui-dialog').css({ 'width': 700 + 'px' });
-    parent.$('.ui-dialog').css({ 'height': 460 + 'px' });
-    parent.$('.ui-dialog').css({ 'top': '25%' });
+    parent.$('.ui-dialog').css({ 'height': height + 'px' });
+    parent.$('.ui-dialog').css({ 'top': (parent.innerHeight - height) / 2 + 'px' });
     parent.$('.ui-dialog').css({ 'left': '20%' });
     parent.$('.ui-dialog').css({ 'margin': 'auto' });
     parent.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
 
     parent.$('#myframe').attr('width', 690);
-    parent.$('#myframe').attr('height', 400);
-    parent.$('#forecast-dialog').attr('style', 'width:680px;height:400px');
+    parent.$('#myframe').attr('height', height);
+    parent.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height-60) + 'px');
     parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
 });
 

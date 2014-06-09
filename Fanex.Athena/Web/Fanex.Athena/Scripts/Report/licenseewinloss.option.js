@@ -630,7 +630,7 @@ var LicenseeWinLossOption = (function () {
             var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
             $(".ui-jqgrid-bdiv").height(newHeight);
             $(".ui-jqgrid-bdiv").css({ 'max-height': newHeight });
-
+            $(window).resize();
             return false;
         };
 

@@ -73,15 +73,17 @@ var CustTurnover = (function ($) {
             }, 500);
         },
         resizeGrid: function () {
-            var gridTop = $("#ReportGrid").offset().top;
-            var pagingHeight = $("#paging:visible").height();
-            if (pagingHeight > 0) {
-                pagingHeight += 10;
-            }
+            setTimeout(function () {
+                var gridTop = $("#ReportGrid").offset().top;
+                var pagingHeight = $("#paging:visible").height();
+                if (pagingHeight > 0) {
+                    pagingHeight += 15;
+                }
 
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight;
-            gridHeight = Math.max(120, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight;
+                gridHeight = Math.max(120, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            }, 100);
         },
         initEvent: function () {
             /*product list*/
@@ -466,7 +468,7 @@ var CustTurnover = (function ($) {
             gridOption.rowNum = response.Data.length,
             gridOption.rowTotal = response.Data.length;
             gridOption.gridComplete = function () {
-                // jqGridAdditional.gridComplete(this, gridOption, 1);
+                jqGridAdditional.gridComplete(this, gridOption, 1);
                 $("#pg_ppdata").hide();
 
                 if (response == null ||

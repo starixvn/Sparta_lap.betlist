@@ -9,10 +9,12 @@ var WinLossByProduct = (function ($) {
     var ajaxRequest = null;
     return {
         resizeGrid: function () {
-            var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 30;
-            gridHeight = Math.max(130, gridHeight);            
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            setTimeout(function () {
+                var gridTop = $("#ReportGrid").offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 10;
+                gridHeight = Math.max(130, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            }, 100);
         },
         //#region Init
         initialize: function () {
@@ -368,7 +370,8 @@ var WinLossByProduct = (function ($) {
             var reportGrid = $("#ReportGrid");
             // var productOptions = $.parseJSON($("#ProductOptionJson").val());
 
-            var numOfRow = response.Data.length;            
+            var numOfRow = response.Data.length;
+            var numOfTotalRow = response.Total.length;
             var onPaging = false;
             var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
             gridOption.data = response.Data;
@@ -389,7 +392,7 @@ var WinLossByProduct = (function ($) {
                 }
             };
             gridOption.gridComplete = function () {
-                // jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
                 switch (level) {
                     case 0:
                         WinLossByProductOption.setGrouping();
