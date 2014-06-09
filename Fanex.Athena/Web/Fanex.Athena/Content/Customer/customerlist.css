@@ -286,7 +286,7 @@ a.underline
     padding-left: 8px;
     width: 46px;
     color: #fff;
-    text-shadow: 0px 1px #ccc;
+    text-shadow: 0px 0px #ccc;
 }
 .ba-on:hover
 {
@@ -300,7 +300,7 @@ a.underline
     padding-left: 27px;
     width: 27px;
     color: rgb(102, 98, 98);
-    text-shadow: 0px 1px #8B8488;
+    text-shadow: 0px 0px #8B8488;
 }
 
 /* Status*/

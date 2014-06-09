@@ -755,12 +755,6 @@ var CustomerList = (function ($) {
                                       .removeClass("ba-on ba-off")
                                       .addClass('ba-' + data.BAStatus.toLowerCase())
                                       .text(data.BAStatus.toUpperCase());
-                                if (data.IsBA) {
-                                    $(ctx).css("color", "#000000");
-                                }
-                                else {
-                                    $(ctx).css("color", "#cc0033");
-                                }
                                 var hrefString = "#" + params[1] + "#" + data.IsBA + "#" + params[3];
                                 $(ctx).attr("data-val", hrefString);
                                 $(ctx).attr("title", data.Tooltip);
