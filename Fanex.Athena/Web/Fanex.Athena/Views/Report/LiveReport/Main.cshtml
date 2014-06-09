@@ -29,6 +29,11 @@
                 ViewBag.AmountDueWidth;
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
+    if (ViewBag.ContainerWidth < 850)
+    {
+        ViewBag.ProductWidth += 850 - ViewBag.ContainerWidth;
+        ViewBag.ContainerWidth = 850;
+    }
     ViewBag.WrapperWidth = ViewBag.ContainerWidth;
     ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
     ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
