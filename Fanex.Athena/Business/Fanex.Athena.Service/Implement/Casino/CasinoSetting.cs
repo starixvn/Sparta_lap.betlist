@@ -99,7 +99,7 @@ namespace Fanex.Athena.Service.Implement.Casino
 
             try
             {
-                gameKindList = GetGameKind();
+                gameKindList = GetGameKind(language);
 
                 foreach (var gameKind in gameKindList)
                 {
@@ -152,10 +152,12 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <summary>
         /// Get RNG casino game kind.
         /// </summary>
+        /// <param name="language">Language of name kind.</param>
         /// <returns>The game kind list.</returns>
-        private static List<GameKind> GetGameKind()
+        private static List<GameKind> GetGameKind(string language)
         {
             var bacsicInfo = new BasicInfo();
+            var gameKindNameByLanguage = GetGameKindColumn(language);
             DataTable gameKindTable = bacsicInfo.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
@@ -165,7 +167,7 @@ namespace Fanex.Athena.Service.Implement.Casino
                 var gameKind = new GameKind
                 {
                     GameKindId = Converter.ToInt(row["CodeId"].ToString()),
-                    GameKindName = row["CodeName_En"].ToString()
+                    GameKindName = row[gameKindNameByLanguage].ToString()
                 };
 
                 gameKindList.Add(gameKind);
@@ -209,13 +211,38 @@ namespace Fanex.Athena.Service.Implement.Casino
         #endregion Get Game Type
 
         /// <summary>
+        /// Get game kind name.
+        /// </summary>
+        /// <param name="language">Language of licensee.</param>
+        /// <returns>Game type name.</returns>
+        private static string GetGameKindColumn(string language)
+        {
+            string gameTypeKind = "CodeName_En";
+
+            switch (language)
+            {
+                case "zh-TW":
+                    gameTypeKind = "CodeName_Ct";
+                    break;
+                case "zh-CN":
+                    gameTypeKind = "CodeName_Cs";
+                    break;
+                case "ko-KR":
+                    gameTypeKind = "CodeName_Ko";
+                    break;
+            }
+
+            return gameTypeKind;
+        }
+
+        /// <summary>
         /// Get game type name.
         /// </summary>
         /// <param name="language">Language of licensee.</param>
         /// <returns>Game type name.</returns>
         private static string GetGameTypeColumn(string language)
         {
-            string gameTypeName = string.Empty;
+            string gameTypeName = "GameTypeName_En";
 
             switch (language)
             {
@@ -227,9 +254,6 @@ namespace Fanex.Athena.Service.Implement.Casino
                     break;
                 case "ko-KR":
                     gameTypeName = "GameTypeName_Ko";
-                    break;
-                default:
-                    gameTypeName = "GameTypeName_En";
                     break;
             }
 

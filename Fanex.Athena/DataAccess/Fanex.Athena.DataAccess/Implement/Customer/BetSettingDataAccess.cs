@@ -610,7 +610,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>Game type name.</returns>
         private static string GetGameTypeColumn(string language)
         {
-            string gameTypeName = string.Empty;
+            string gameTypeName = "GameTypeName_En";
 
             switch (language)
             {
@@ -622,9 +622,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     break;
                 case "ko-KR":
                     gameTypeName = "GameTypeName_Ko";
-                    break;
-                default:
-                    gameTypeName = "GameTypeName_En";
                     break;
             }
 
