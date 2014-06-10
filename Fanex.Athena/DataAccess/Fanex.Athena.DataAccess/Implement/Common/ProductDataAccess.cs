@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                         {
                             allowedProducts.Add(new Product
                                              {
-                                                 ProductName = Converter.ToString2(reader["productname"]),
+                                                 ProductName = GetProductName(Converter.ToString2(reader["productprefix"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
                                                  AllowWinloss = Converter.ToBool(reader["winloss"])
@@ -71,6 +71,33 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
             }
+        }
+
+        private static string GetProductName(string produtCode)
+        {
+            switch (produtCode)
+            {
+                case Product.Sb:
+                    return ViewResources.Sportsbook;
+                case Product.Ba:
+                    return ViewResources.BA;
+                case Product.Rb:
+                  return  ViewResources.Racing;
+                case Product.Ng:
+                  return ViewResources.NumberGame;
+                case Product.Vs:
+                  return ViewResources.VirtualSports;
+                case Product.Lc:
+                  return ViewResources.LiveCasino;
+                case Product.Bg:
+                  return ViewResources.Bingo;
+                case Product.Cs:
+                  return ViewResources.RNGCasino;
+                case Product.Kn:
+                  return ViewResources.Keno;
+            }
+
+            return produtCode;
         }
 
         /// <summary>
