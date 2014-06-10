@@ -78,7 +78,7 @@ var Forecast = (function ($) {
             url = QueryString.setParam(url, "currencyname", currencyName);
             url = QueryString.setParam(url, "licenseetype", licenseetype);
 
-            var popH = 700, popW = 960;
+            var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 
             ForecastPopup.resizePopup(popW, popH, url);
         },

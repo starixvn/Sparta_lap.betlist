@@ -32,7 +32,8 @@ var LicenseeWinLoss = (function ($) {
             setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
 
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() - $(".ui-jqgrid-pager:visible").height() - 10;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() 
+                            - $(".ui-jqgrid-pager:visible").height() -(Site.getScrollBarState().hScrollbar ? 20 : 10);
                 gridHeight = Math.max(120, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 200);

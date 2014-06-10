@@ -2,10 +2,10 @@
 var GroupCommLog = (function ($) {
     return {
         resizeGrid: function () {
-            var gridTop = $(".content-main").offset().top;
-            var gridHeight = window.innerHeight - gridTop;
+            var gridTop = $("#GroupCommLogGrid").offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-pager").height() - 10;
             gridHeight = Math.max(150, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
         },
         initialize: function () {
             GroupCommLog.initMonthPicker();

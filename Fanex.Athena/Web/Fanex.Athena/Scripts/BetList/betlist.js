@@ -13,7 +13,9 @@ var BetList = (function ($) {
             }
 
             var gridTop = $("#BetListGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - 10 - $(".ui-jqgrid-sdiv:visible").height() - $(".ui-jqgrid-pager:visible").height();
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
+                         - (Site.getScrollBarState().hScrollbar ? 20 : 10)
+                         - $(".ui-jqgrid-pager:visible").height();
             gridHeight = Math.max(130, gridHeight);
 
             var $container = $(".ui-jqgrid-bdiv");
@@ -21,6 +23,7 @@ var BetList = (function ($) {
             $container.css("max-height", gridHeight);
 
             if ($child.height() > Math.min($container.height(), gridHeight)) {
+                console.log($child.height(), gridHeight);
                 $container.css("height", Math.min($child.height(), gridHeight));
             }
         },
