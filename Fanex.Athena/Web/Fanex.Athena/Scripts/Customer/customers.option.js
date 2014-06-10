@@ -1,4 +1,4 @@
-﻿/*global Site */
+﻿/*global Site, jqGridAdditional */
 /*exported CustomersOption */
 /// <reference path="/@JSense.js" />
 /*

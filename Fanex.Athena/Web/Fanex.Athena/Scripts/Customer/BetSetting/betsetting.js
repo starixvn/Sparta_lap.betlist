@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var BetSetting = (function ($) {
     var _ids = null;
     return {
@@ -12,8 +14,8 @@ var BetSetting = (function ($) {
         },
         initEvent: function () {
             // Check data available
-            var dataCount = $("#dataCount").val();
-            if (dataCount == 0) {
+            var dataCount = Number($("#dataCount").val());
+            if (dataCount === 0) {
                 $("#btnSubmitBetSetting, #btnReset").attr('disabled', 'disabled').addClass("button-disabled");
                 return;
             }
@@ -73,7 +75,7 @@ var BetSetting = (function ($) {
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $(this).data("status");
             var custId = $(this).data("cust-id");
-            var url = tabid == 5 ? "BetSettingAPI/UpdateLiveCasinoStatus" : "BetSettingAPI/UpdateRngCasinoStatus";
+            var url = tabid === 5 ? "BetSettingAPI/UpdateLiveCasinoStatus" : "BetSettingAPI/UpdateRngCasinoStatus";
 
             $.ajax({
                 type: 'POST',
@@ -86,7 +88,7 @@ var BetSetting = (function ($) {
                 },
                 dataType: "json",
                 success: function (result) {
-                    if (result.Code == "0") {
+                    if (result.Code.toString() === "0") {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
                     }
                     else {
@@ -173,7 +175,7 @@ var BetSetting = (function ($) {
             var gameTypeCount = $("#gameTypeCount").val();
             if (!enable) {
                 for (var i = 1; i <= gameTypeCount; i++) {
-                    var oldCheck = $("#oldCheck" + i).val();
+                    // var oldCheck = $("#oldCheck" + i).val();
                     $("input[name=gameTypeName" + i + "]").attr('disabled', 'disabled');
                 }
                 $("#btnSubmitBetSetting, #btnReset").attr('disabled', 'disabled').addClass("button-disabled");
@@ -229,29 +231,29 @@ var BetSetting = (function ($) {
         checkValidationSportsBook: function () {
             BetSetting.checkCopyAllValues($('#chkCopyAll'));
 
-            if (false == BetSetting.checkLimitMinMaxBet(1)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(2)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(3)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(5)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(8)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(10)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(11)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(99)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("99MP")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(154)) return false;
+            if (false === BetSetting.checkLimitMinMaxBet(1)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(2)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(3)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(5)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(8)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(10)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(11)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(99)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("99MP")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(154)) { return false; }
             return true;
         },
         checkValidationRacing: function () {
-            if (false == BetSetting.checkLimitMinMaxBet("151_31")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("151_41")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("151_51")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("152_41")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("152_51")) return false;
-            if (false == BetSetting.checkLimitMinMaxBet("153_51")) return false;
+            if (false === BetSetting.checkLimitMinMaxBet("151_31")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("151_41")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("151_51")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("152_41")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("152_51")) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet("153_51")) { return false; }
             return true;
         },
         checkValidationNumberGame: function () {
-            if (false == BetSetting.checkLimitMinMaxBet(161)) return false;
+            if (false === BetSetting.checkLimitMinMaxBet(161)) { return false; }
 
             var maxPerBall = BetSetting.convertToFloat($("#max-per-ball-161").val());
             var maxPerBallLimit = BetSetting.convertToFloat($("#max-per-ball-161").attr('data-max-value'));
@@ -271,7 +273,7 @@ var BetSetting = (function ($) {
         checkValidationKeno: function () {
             BetSetting.checkCopyAllValues($('#chkCopyAll'));
             for (var i in _ids) {
-                if (false == BetSetting.checkLimitMinMaxBet(_ids[i])) {                    
+                if (false === BetSetting.checkLimitMinMaxBet(_ids[i])) {
                     return false;
                 }
             }
@@ -279,13 +281,13 @@ var BetSetting = (function ($) {
             return true;
         },
         checkValidationVirtualSports: function () {
-            if (false == BetSetting.checkLimitMinMaxBet(180)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(181)) return false;            
-            if (false == BetSetting.checkLimitMinMaxBet(182)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(183)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(184)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(185)) return false;
-            if (false == BetSetting.checkLimitMinMaxBet(186)) return false;
+            if (false === BetSetting.checkLimitMinMaxBet(180)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(181)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(182)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(183)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(184)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(185)) { return false; }
+            if (false === BetSetting.checkLimitMinMaxBet(186)) { return false; }
             return true;
         },
         updateKenoBetSetting: function (custId, userName, nickName) {
@@ -295,13 +297,13 @@ var BetSetting = (function ($) {
             });
             params += "&custid=" + custId;
             params += "&userName=" + userName;
-            params += "&nickName=" + nickName
+            params += "&nickName=" + nickName;
             params += "&ids=" + _ids.toString();
             params = params.substring(1);
 
             $.ajax({
                 type: 'GET',
-                url: resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -333,7 +335,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
-                url: resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -453,7 +455,7 @@ var BetSetting = (function ($) {
                 data: params,
                 dataType: "json",
                 success: function (result) {
-                    if (result.Code == "0") {
+                    if (result.Code.toString() === "0") {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
                     }
                     else {
@@ -470,9 +472,9 @@ var BetSetting = (function ($) {
             var maxBetId = $("#max-bet-" + sportId);
             var maxPerMatchId = $("#max-per-match-" + sportId);
 
-            if (minBetId.length == 0 ||
-                maxBetId.length == 0 ||
-                maxPerMatchId.length == 0) {
+            if (minBetId.length === 0 ||
+                maxBetId.length === 0 ||
+                maxPerMatchId.length === 0) {
                 return "";
             }
 
@@ -482,9 +484,9 @@ var BetSetting = (function ($) {
             var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
 
             // Check if data is changed
-            if (minBetId.val() == originalMinBet
-                && maxBetId.val() == originalMaxBet
-                && maxPerMatchId.val() == originalMaxPerMatch) {
+            if (minBetId.val() === originalMinBet
+                && maxBetId.val() === originalMaxBet
+                && maxPerMatchId.val() === originalMaxPerMatch) {
                 isUpdate = false;
             }
 
@@ -505,7 +507,7 @@ var BetSetting = (function ($) {
         // Reset bet setting
         resetBetSetting: function () {
             var tabid = parseInt($("#TabId").val());
-            if (tabid == 5) {
+            if (tabid === 5) {
                 BetSetting.resetLiveCasinoBetSetting();
             }
             else {
@@ -557,7 +559,7 @@ var BetSetting = (function ($) {
             var firstItemMaxPerBet = $('input[id^="max-per"]').first().val();
             var arrayItemMaxPerBet = $('input[id^="max-per"]');
 
-            if ($(obj).is(":checked") == true) {
+            if ($(obj).is(":checked") === true) {
                 BetSetting.setCopyValueBetSetting(arrayItemMinBet, firstItemMinBet, true);
 
                 BetSetting.setCopyValueBetSetting(arrayItemMaxBet, firstItemMaxBet, true);
@@ -581,12 +583,12 @@ var BetSetting = (function ($) {
             BetSetting.enableMixMaxBetSetting(obj, copyValue, enabled);
 
             // Check limit min max bet
-            if (tabid == 1) {
+            if (tabid === 1) {
                 if (!BetSetting.checkLimitMinMaxBet(1)) {
                     return false;
                 }
             }
-            else if (tabid == 7) {
+            else if (tabid === 7) {
                 if (!BetSetting.checkLimitMinMaxBet(_ids[0])) {
                     return false;
                 }
@@ -622,9 +624,9 @@ var BetSetting = (function ($) {
             var maxBetId = "max-bet-" + sportId;
             var maxPerMatchId = "max-per-match-" + sportId;
 
-            if ($("#" + minBetId).length == 0 ||
-                $("#" + maxBetId).length == 0 ||
-                $("#" + maxPerMatchId).length == 0) {
+            if ($("#" + minBetId).length === 0 ||
+                $("#" + maxBetId).length === 0 ||
+                $("#" + maxPerMatchId).length === 0) {
                 return true;
             }
 
@@ -640,9 +642,9 @@ var BetSetting = (function ($) {
             var minBetTextBox = $("#min-bet-" + sportId);
             var maxBetTextBox = $("#max-bet-" + sportId);
             var maxPerMatchTextBox = $("#max-per-match-" + sportId);
-            if (minBetTextBox.length == 0 ||
-                maxBetTextBox.length == 0 ||
-                maxPerMatchTextBox.length == 0) {
+            if (minBetTextBox.length === 0 ||
+                maxBetTextBox.length === 0 ||
+                maxPerMatchTextBox.length === 0) {
                 return true;
             }
 
@@ -670,7 +672,7 @@ var BetSetting = (function ($) {
                 return false;
             }
 
-            if (minBet == 0 && maxBet == 0 && maxPerMatcth == 0) return true;
+            if (minBet === 0 && maxBet === 0 && maxPerMatcth === 0) { return true; }
 
             // Check contrains
             // min bet <=maxbet <= max per match
@@ -702,7 +704,7 @@ var BetSetting = (function ($) {
             return true;
         },
         convertToFloat: function (str) {
-            var temp = BetSetting.str_replace(str, ",", "");
+            var temp = str.replace(/,/g, "");
             var temp2 = temp.replace(".", "");
 
             if (BetSetting.isInteger(temp2)) {
@@ -711,9 +713,6 @@ var BetSetting = (function ($) {
             else {
                 return NaN;
             }
-        },
-        str_replace: function (str, regexp, newstr) {
-            return str.replace(eval('/' + regexp + '/g'), newstr);
         },
         isInteger: function (s) {
             var i;
@@ -725,19 +724,18 @@ var BetSetting = (function ($) {
                 for (i = 0; i < s.length; i++) {
                     var c = s.charAt(i);
 
-                    if (!BetSetting.isDigit(c)) return false;
+                    if (!BetSetting.isDigit(c)) { return false; }
                 }
             }
 
             return true;
         },
         isDigit: function (c) {
-            return ((c >= "0") && (c <= "9"))
+            return ((c >= "0") && (c <= "9"));
         },
         isEmpty: function (s) {
-            var empty = ((s == null) || (s.length == 0));
-            if (!empty) {
-                var backspace = false;
+            var empty = ((s == null) || (s.length === 0));
+            if (!empty) {                
                 var news = s.replace(" ", "");
                 if (news.length > 0) {
                     return false;
@@ -751,7 +749,7 @@ var BetSetting = (function ($) {
         showBalloonMsg: function (id, strMsg) {
             var contents = '<div onclick="hideBalloonMsg(\'' + id + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
 
-            $("#" + id).blur(function () { BetSetting.hideBalloonMsg(id) });
+            $("#" + id).blur(function () { BetSetting.hideBalloonMsg(id); });
             $("#" + id).focus();
             $("#" + id).showBalloon({
                 contents: contents
@@ -777,8 +775,7 @@ var BetSetting = (function ($) {
                         $("#bet-setting-message").dialog("close");
                     }
                 }
-                ]
-                ,
+                ],
                 close: function () {
                     $("#bet-setting-message").remove();
                     $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
@@ -826,7 +823,7 @@ var BetSetting = (function ($) {
         },
 
         showUpdateSettingResult: function (result) {
-            if (result.Code == 0) {
+            if (result.Code.toString() === "0") {
                 BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
             }
             else {

@@ -10,9 +10,12 @@ var CustomerWinLoss = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - 30;
+            var gridHeight = window.innerHeight - gridTop - $("#report-total").height()
+                            - (Site.getScrollBarState().hScrollbar ? 22 : 10);
             gridHeight = Math.max(120, gridHeight);
-            $grid.css("max-height", gridHeight);
+
+            $grid.css("height", "auto").css("max-height", gridHeight);
+            $(".report-content").css("max-height", "");
         },
         initialize: function () {
             CustomerWinLoss.initEvent();

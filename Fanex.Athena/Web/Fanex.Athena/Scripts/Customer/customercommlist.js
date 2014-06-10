@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, CustomerList, JSLINQ*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CustomerComm = (function ($) {
     return {
         initialize: function () {
@@ -43,7 +45,7 @@ var CustomerComm = (function ($) {
         },
 
         commissionOnChange: function (value, id) {
-            if (value == 15) {
+            if (Number(value) === 15) {
                 $(id + 2 + ', ' + id + 3).val(0);
                 $(id + 2 + ', ' + id + 3).attr('disabled', 'disabled');
             } else {
@@ -53,15 +55,15 @@ var CustomerComm = (function ($) {
 
         //This function used to remove data row after updated/remove or move group commission.
         processGroupCommItem: function (status) {
-            var selectList = new Array();
+            var selectList = [];
             var list = $("input:checkbox.check-child:checked");
             for (var i = 0; i < list.length; i++) {
                 selectList.push(list[i].id);
-            };
+            }
 
             if (status) {
-                for (var i = 0; i < selectList.length; i++) {
-                    $('#row' + selectList[i]).remove();
+                for (var j = 0; j < selectList.length; j++) {
+                    $('#row' + selectList[j]).remove();
                 }
             }
         },
@@ -93,30 +95,30 @@ var CustomerComm = (function ($) {
             });
         },
 
-        moveCustomerToGroup: function (ctx) {
+        moveCustomerToGroup: function () {
             var groupid = parseInt($('#GroupListSelect').val(), 10);
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = [];
 
             for (var i = 0; i < checkedCustomers.length; i++) {
-                var currenntGroupId = checkedCustomers[i].Group;
-                if (currenntGroupId == 0 || currenntGroupId != groupid) {
+                var currenntGroupId = Number(checkedCustomers[i].Group);                
+                if (currenntGroupId === 0 || currenntGroupId !== groupid) {
                     custList.push(checkedCustomers[i].Id);
                 }
-            };
+            }
 
-            if (checkedCustomers.length == 0) {
+            if (checkedCustomers.length === 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                 return;
-            };
+            }
 
             //GroupId = - 1 is show all group.
-            if (groupid == -1) {
+            if (groupid === -1) {
                 CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                 return;
             }
-            if (checkedCustomers.length > 0 && custList.length == 0) {
-                CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false)
+            if (checkedCustomers.length > 0 && custList.length === 0) {
+                CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
                 return;
             }
             var param =
@@ -144,7 +146,7 @@ var CustomerComm = (function ($) {
                         if (groupName.length > 17) {
                             groupName = groupName.substring(0, 14);
                             groupName += "...";
-                        };
+                        }
                         var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
 
                         CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
@@ -153,7 +155,7 @@ var CustomerComm = (function ($) {
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
-                    };
+                    }
                 },
                 error: function () { }
             });
@@ -165,11 +167,11 @@ var CustomerComm = (function ($) {
             var isShowInfo = false;
             var checkedCustomers = CustomerList.getCheckedCustomers();
             for (var i = 0; i < checkedCustomers.length; i++) {
-                if (checkedCustomers[i].Group != 0) {
+                if (Number(checkedCustomers[i].Group) !== 0) {
                     isShowInfo = true;
                     break;
                 }
-            };
+            }
 
             $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
             CustomerComm.clearNotification();
@@ -208,10 +210,10 @@ var CustomerComm = (function ($) {
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 
-            if (custList.length == 0) {
+            if (custList.length === 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                 return;
-            };
+            }
 
             var sbcom = CustomerComm.initCommissionParam('#CustSBComm');
             var rbcom = CustomerComm.initCommissionParam('#CustRBComm');
@@ -252,9 +254,9 @@ var CustomerComm = (function ($) {
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
-                    };
+                    }
                 },
-                error: function (jqXHR, textStatus, errorThrown) { }
+                error: function (/*jqXHR, textStatus, errorThrown*/) { }
             });
         },
         /* end-update custom*/
@@ -295,7 +297,7 @@ var CustomerComm = (function ($) {
             });
         },
 
-        removeFromGroupComm: function (ctx) {
+        removeFromGroupComm: function () {
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = [];
 
@@ -303,13 +305,13 @@ var CustomerComm = (function ($) {
                 if (checkedCustomers[i].Group > 0) {
                     custList.push(checkedCustomers[i].Id);
                 }
-            };
+            }
 
-            if (checkedCustomers.length == 0) {
+            if (checkedCustomers.length === 0) {
                 CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                 return;
-            };
-            if (checkedCustomers.length > 0 && custList.length == 0) {
+            }
+            if (checkedCustomers.length > 0 && custList.length === 0) {
                 CustomerComm.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
                 return;
             }
@@ -355,9 +357,9 @@ var CustomerComm = (function ($) {
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
-                    };
+                    }
                 },
-                error: function (jqXHR, textStatus, errorThrown) { }
+                error: function (/*jqXHR, textStatus, errorThrown*/) { }
             });
         },
 
@@ -406,7 +408,7 @@ var CustomerComm = (function ($) {
             $('#NewLcComm').val($("#LCComm" + groupId).val());
             $('#NewCsComm').val($("#CSComm" + groupId).val());
         }
-    }
+    };
 })(jQuery);
 
 jQuery(function () {
