@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets, ForecastPopup*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var OddEvenDND = (function ($) {
     return {
         initialize: function () {
@@ -22,7 +24,7 @@ var OddEvenDND = (function ($) {
             var url = Site.resolveClientUrl("Forecast/ForecastOneXTwoPopup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
             url = Site.setLicenseeOptionOriginalParam(url);
 
-            var popH = 300, popW = 700;
+            var popH = Math.min(window.innerHeight - 100, 600), popW = 700;
 
             ForecastPopup.showPopup(popW, popH, url);
         },

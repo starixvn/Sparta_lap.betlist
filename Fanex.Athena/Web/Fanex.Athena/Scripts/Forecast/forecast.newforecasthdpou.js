@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, RefreshCountDown, QueryString*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var NewForecastHdpOu = (function ($) {
     return {
         initialize: function () {
@@ -52,7 +54,7 @@ var NewForecastHdpOu = (function ($) {
                     Site.unBlockUI();
                     $('#DdlMatchId').html(data);
                     var matchId = $('#DdlMatchId').val();
-                    if (matchId == undefined) {
+                    if (matchId === undefined) {
                         $('#SubmitButton').prop('disabled', true);
                     } else {
                         $('#SubmitButton').removeAttr('disabled');
@@ -82,7 +84,7 @@ var NewForecastHdpOu = (function ($) {
             url = QueryString.setParam(url, "CurrencyName", param.CurrencyName);
             url = QueryString.setParam(url, "BaseCurrency", param.BaseCurrency);
             url = QueryString.setParam(url, "bettype", betType);
-            url = QueryString.setParam(url, "handicap", handicap == undefined ? "" : handicap);
+            url = QueryString.setParam(url, "handicap", handicap === undefined ? "" : handicap);
 
             var popH = $(window).height(), popW = $(window).width();
             var formatter = new Array(

@@ -1,9 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, RefreshCountDown, QueryString, ForecastPopup*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var ForecastOneXTwo = (function ($) {
     return {
         resizeGrid: function () {
             var $grid = $(".data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -25,7 +27,7 @@ var ForecastOneXTwo = (function ($) {
         initEvent: function () {
             // Check popup
             var isPopup = $('#IsPopUp').val();
-            if (isPopup == "true") {
+            if (isPopup === "true") {
                 $('.content-title').hide();
                 $('#forecast-filter').hide();
 
@@ -41,7 +43,7 @@ var ForecastOneXTwo = (function ($) {
             // Forecast button click
             $('#Refresh-Content').on('click', '.button-add', function () {
                 var matchId = $(this).attr('data-match-id');
-                var betType = parseInt($(this).attr('data-bettype')) == 1 ? 5 : 15;
+                var betType = parseInt($(this).attr('data-bettype')) === 1 ? 5 : 15;
                 ForecastOneXTwo.openForecast(matchId, betType, isPopup);
             });
 
@@ -108,12 +110,10 @@ $(window).load(function () {
 });
 
 
-$(window).resize(function () {
-    "use strict";
+$(window).resize(function () {    
     ForecastOneXTwo.resizeGrid();
 });
 
-$(window).unload(function () {
-    "use strict";
+$(window).unload(function () {    
     $(window).unbind("resize");
 });

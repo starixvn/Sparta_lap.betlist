@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, RefreshCountDown, QueryString, ForecastPopup*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Forecast = (function ($) {
     var matchid, baseCurrency, licenseetype, currencyid, currencyName;
 
@@ -15,8 +17,7 @@ var Forecast = (function ($) {
             RefreshCountDown.initialize();
             Forecast.initEvent();
         },
-        initEvent: function () {
-            var self = this;
+        initEvent: function () {            
             // Forecast link click
             $('#Refresh-Content').on('click', '.forecast-link', function () {
                 var bettype = parseInt($(this).attr('data-bettype'));
@@ -82,15 +83,18 @@ var Forecast = (function ($) {
             ForecastPopup.resizePopup(popW, popH, url);
         },
         currentScoreKeyUp: function (evt) {
-            if (!evt) var evt = window.event;
-            if (evt.keyCode == 13) {
+            if (!evt) {
+                evt = window.event;
+            }
+            if (evt.keyCode === 13) {
                 $("#btn-currentscore").click();
             }
         },
         setCurrentScore: function () {
             var data = $("#txt-currentscore").val();
-            if (data === null || data === undefined || !Site.isInteger(data))
+            if (data === null || data === undefined || !Site.isInteger(data)) {
                 return;
+            }
             var bettype = $("#Refresh-Content a.view-betlist").attr("data-bettype");
             Forecast.loadForecast(data, bettype);
         }

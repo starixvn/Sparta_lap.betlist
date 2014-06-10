@@ -1,9 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, RefreshCountDown, QueryString, ForecastPopup*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var ForecastHDPOU = (function ($) {
     return {
         resizeGrid: function () {
             var $grid = $(".data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -75,12 +77,10 @@ var ForecastHDPOU = (function ($) {
 })(jQuery);
 
 
-$(window).resize(function () {
-    "use strict";
+$(window).resize(function () {    
     ForecastHDPOU.resizeGrid();
 });
 
-$(window).unload(function () {
-    "use strict";
+$(window).unload(function () {    
     $(window).unbind("resize");
 });

@@ -96,7 +96,7 @@ var BetList = (function ($) {
             // fix cursor on non-sortable columns
             var cm = $(grid)[0].p.colModel;
             $.each($(grid)[0].grid.headers, function (index, value) {
-                var cmi = cm[index], colName = cmi.name;
+                var cmi = cm[index];
                 if (cmi.sortable) {
                     $('div.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
                 }
@@ -198,7 +198,7 @@ var BetList = (function ($) {
                 complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 },
-                error: function (xhRequest, errorText, thrownError) { Site.gotoErrorPage(); }
+                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); }
 
             });
         },
