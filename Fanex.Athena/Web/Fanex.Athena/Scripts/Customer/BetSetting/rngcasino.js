@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var RnGCasino = (function ($) {
     return {
         initialize: function () {
@@ -63,10 +65,11 @@ var RnGCasino = (function ($) {
                 params += '&gameTypeChangedList=' + gameTypeChangedList;
             }
 
-            RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName, params, gameTypeChangedList, RnGCasino.updateStakeLevel);
+            RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName, 
+                        params, gameTypeChangedList, RnGCasino.updateStakeLevel);
         },
         updateStakeLevel: function (userName, params, gameTypeChangedList) {
-            var url = resolveClientUrl('BetsettingAPI/UpdateRngCasinoBetSetting?');
+            var url = Site.resolveClientUrl('BetsettingAPI/UpdateRngCasinoBetSetting?');
             if (gameTypeChangedList.length > 0) {
                 $.ajax({
                     url: url,
@@ -148,7 +151,7 @@ var RnGCasino = (function ($) {
             $('<div id="bet-setting-message" title="' + title + '">' + message + '</div>').dialog(options);
         },
         showUpdateSettingResult: function (result) {
-            if (result.Code == 0) {
+            if (result.Code.toString() === "0") {
                 RnGCasino.showDialogMesage("Success", result.Message, true);
             }
             else {

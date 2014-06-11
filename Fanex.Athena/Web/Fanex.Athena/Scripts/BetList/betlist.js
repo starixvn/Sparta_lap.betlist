@@ -14,14 +14,13 @@ var BetList = (function ($) {
 
             var gridTop = $("#BetListGrid").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                         - (Site.getScrollBarState().hScrollbar ? 20 : 10)
+                         - (Site.getScrollBarState().hScrollbar ? 22 : 10)
                          - $(".ui-jqgrid-pager:visible").height();
             gridHeight = Math.max(130, gridHeight);
 
             var $container = $(".ui-jqgrid-bdiv");
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
-
             if ($child.height() > Math.min($container.height(), gridHeight)) {
                 console.log($child.height(), gridHeight);
                 $container.css("height", Math.min($child.height(), gridHeight));
