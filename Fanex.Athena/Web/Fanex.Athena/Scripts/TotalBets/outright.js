@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Outright = (function ($) {
     return {
         initialize: function () {

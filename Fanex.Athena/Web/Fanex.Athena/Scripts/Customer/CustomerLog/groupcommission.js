@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, jqGridAdditional, CustomerSettingLogOption, CustomerLog*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var GroupCommLog = (function ($) {
     return {
         resizeGrid: function () {
@@ -35,7 +37,7 @@ var GroupCommLog = (function ($) {
                     $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
                     $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
                 },
-                log: function (msg) {
+                log: function (/*msg*/) {
                     // console.warn(msg);
                 }
             });
@@ -96,7 +98,7 @@ var GroupCommLog = (function ($) {
 
                 // Check noinfo
                 var recCount = groupCommLogGrid.getGridParam("reccount");
-                if (recCount == 0) {
+                if (recCount === 0) {
                     jqGridAdditional.setNoInfo(grid.colModel);
                 }
                 else {
@@ -120,7 +122,7 @@ var GroupCommLog = (function ($) {
             var toDay = $('#ToDay').val();
             var year = $('#Year').val();
             var month = $('#Month').val();
-            var param = resolveClientUrl('api/Log/GroupCommission?Year=' + year + '&Month=' + month + '&FromDay=' + fromDay + '&ToDay=' + toDay);
+            var param = Site.resolveClientUrl('api/Log/GroupCommission?Year=' + year + '&Month=' + month + '&FromDay=' + fromDay + '&ToDay=' + toDay);
             return param;
         }
     };

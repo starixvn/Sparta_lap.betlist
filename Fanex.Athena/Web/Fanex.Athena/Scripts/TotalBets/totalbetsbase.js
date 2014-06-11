@@ -1,9 +1,11 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, RefreshCountDown*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Totalbets = (function ($) {
     return {
         resizeGrid: function () {
             var $grid = $(".data-content");
-            if ($grid.length == 0) {
+            if ($grid.length === 0) {
                 return;
             }
 
@@ -25,7 +27,7 @@ var Totalbets = (function ($) {
                 Totalbets.viewRunningBetListMatch(matchId, betType);
             });
 
-            $(document).ajaxComplete(function (event, request, settings) {
+            $(document).ajaxComplete(function (/*event, request, settings*/) {
                 Totalbets.resizeGrid();
             });
         },
@@ -53,12 +55,10 @@ var Totalbets = (function ($) {
     };
 })(jQuery);
 
-$(window).resize(function () {
-    "use strict";
+$(window).resize(function () {    
     Totalbets.resizeGrid();
 });
 
-$(window).unload(function () {
-    "use strict";
+$(window).unload(function () {    
     $(window).unbind("resize");
 });

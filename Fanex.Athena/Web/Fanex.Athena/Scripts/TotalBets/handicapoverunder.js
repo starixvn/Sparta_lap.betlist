@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString, Totalbets, ForecastPopup*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var HandicapOU = (function ($) {
     return {
         initialize: function () {

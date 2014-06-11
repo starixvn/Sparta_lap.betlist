@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var Racing = (function ($) {
     return {
         initialize: function () {
@@ -23,4 +25,4 @@ var Racing = (function ($) {
             $("#HorseRacingForm").submit();
         }
     };
-})(jQuery)
+})(jQuery);

@@ -1,9 +1,12 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/*exported CustomerLog*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CustomerLog = (function ($) {
     return {
         initAutoComplete: function () {
             var txtUserName = $('#Username');
-            var serUrl = resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({
                     serviceUrl: serUrl,
@@ -18,7 +21,7 @@ var CustomerLog = (function ($) {
         },
         setDefaultUsername: function () {
             var username = $('#Username').val();
-            if (username == '' || username == Site.getSingleResource("ExternalIdOrSystemId")) {
+            if (username === '' || username === Site.getSingleResource("ExternalIdOrSystemId")) {
                 $('#Username').val(Site.getSingleResource("ExternalIdOrSystemId"));
                 $('#Username').attr('class', 'default-username');
             }
@@ -29,12 +32,12 @@ var CustomerLog = (function ($) {
 
         setUsernameOnFocus: function () {
             var username = $('#Username').val();
-            if (username == Site.getSingleResource("ExternalIdOrSystemId")) {
+            if (username === Site.getSingleResource("ExternalIdOrSystemId")) {
                 $('#Username').val('');
                 $('#Username').removeAttr('class');
             }
         },
-        checkShowAll: function (isShowAll) {
+        checkShowAll: function () {
             $('#showall').is(':checked') ? $('.old-value').show() : $('.old-value').hide();
         }
     };

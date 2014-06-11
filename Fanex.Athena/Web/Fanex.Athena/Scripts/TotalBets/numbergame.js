@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets, QueryString*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var NumberGame = (function ($) {
     return {
         initialize: function () {
@@ -35,4 +37,4 @@ var NumberGame = (function ($) {
             window.location.href = url;
         }
     };
-})(jQuery)
+})(jQuery);

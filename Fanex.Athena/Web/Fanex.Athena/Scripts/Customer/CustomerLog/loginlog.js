@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, LogInLogOption, jqGridAdditional, CustomerLog*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var LogInLog = (function ($) {
     return {
         initialize: function () {
@@ -52,7 +54,7 @@ var LogInLog = (function ($) {
 
                 // Check noinfo
                 var recCount = logInLogGrid.getGridParam("reccount");
-                if (recCount == 0) {
+                if (recCount === 0) {
                     jqGridAdditional.setNoInfoWithColspan(5);
                 }
                 else {
@@ -69,7 +71,7 @@ var LogInLog = (function ($) {
             if (userName === Site.getSingleResource("ExternalIdOrSystemId")) {
                 userName = '';
             }
-            var param = resolveClientUrl('api/Log/LoginLog?UserName=' + encodeURIComponent(userName));
+            var param = Site.resolveClientUrl('api/Log/LoginLog?UserName=' + encodeURIComponent(userName));
 
             return param;
         }

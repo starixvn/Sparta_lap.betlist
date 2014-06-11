@@ -1,4 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/*exported CustomerSettingLogOption*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CustomerSettingLogOption = (function () {
     var logIdColumn = {
         name: 'LogId',
@@ -6,8 +9,7 @@ var CustomerSettingLogOption = (function () {
         resizable: false,
         width: 50,
         align: 'center',
-        sortable: false,
-        resizable: false
+        sortable: false
     };
     var logDateColumn = {
         name: 'LogDate',
@@ -17,7 +19,6 @@ var CustomerSettingLogOption = (function () {
         align: 'center',
         valign: 'middle',
         sortable: false,
-        resizable: false,
         formatter: 'date',
         formatoptions:
         {
@@ -40,8 +41,7 @@ var CustomerSettingLogOption = (function () {
         resizable: false,
         width: 150,
         align: 'left',
-        sortable: false,
-        resizable: false
+        sortable: false
     };
     var detailColumn = {
         name: 'Details',
@@ -50,8 +50,7 @@ var CustomerSettingLogOption = (function () {
         width: 600,
         align: 'center',
         title: false,
-        sortable: false,
-        resizable: false
+        sortable: false
     };
 
     var colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
@@ -75,7 +74,6 @@ var CustomerSettingLogOption = (function () {
         autowidth: true,
         scroll: false,
         loadonce: true,
-        viewrecords: true,
         gridview: true,
         sortorder: "desc",
         pager: '#CustomerSettingLogPager',

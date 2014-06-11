@@ -1,4 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/*exported LogInLogOption*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var LogInLogOption = (function () {
     var userNameColumn = {
         name: 'UserName',
@@ -16,8 +19,7 @@ var LogInLogOption = (function () {
         width: 100,
         align: 'center',
         valign: 'middle',
-        sortable: false,
-        resizable: false,
+        sortable: false,        
         formatter: 'date',
         formatoptions:
         {
@@ -32,7 +34,6 @@ var LogInLogOption = (function () {
         width: 100,
         align: 'center',
         sortable: false,
-        resizable: false,
         formatter: 'date',
         formatoptions:
         {
@@ -62,8 +63,7 @@ var LogInLogOption = (function () {
         loadui: 'disable',
         autowidth: true,
         scroll: false,
-        loadonce: true,
-        viewrecords: true,
+        loadonce: true,        
         gridview: true,
         sortorder: "desc",
         pager: null,

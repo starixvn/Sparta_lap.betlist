@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var HalfTimeFullTime = (function ($) {
     return {
         initialize: function () {
@@ -22,4 +24,4 @@ var HalfTimeFullTime = (function ($) {
             $("#HalfTimeFullTimeForm").submit();
         }
     };
-})(jQuery)
+})(jQuery);

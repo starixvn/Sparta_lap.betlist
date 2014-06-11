@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Totalbets*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var HomeDrawAwayNoBet = (function ($) {
     return {
         initialize: function () {
