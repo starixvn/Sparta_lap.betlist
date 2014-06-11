@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, GroupComm*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CreateGroup = (function ($) {
     return {
         initialize: function () {
@@ -13,13 +15,13 @@ var CreateGroup = (function ($) {
                 color: currentGroupColor.length > 0 ? currentGroupColor : "#ffffff",
                 showPalette: true,
                 showInitial: true,
-                move: function (color) {
+                move: function () {
                 },
                 show: function () {
                 },
                 beforeShow: function () {
                 },
-                hide: function (color) {
+                hide: function () {
                 },
                 change: function (color) {
                     $('#GroupColor').val(color.toHexString());
@@ -31,7 +33,7 @@ var CreateGroup = (function ($) {
                 GroupComm.initDefaultParam("#create-group-popup");
             });
             $('#Cancel').click(function () {
-                window.location.href = resolveClientUrl("CustomerComGroup/Index");
+                window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
             });
 
             $('#Validate').click(function () {
@@ -106,11 +108,11 @@ var CreateGroup = (function ($) {
             var url = "CustomerComGroup/Validate?groupName=" + groupName;
 
             $.ajax({
-                url: resolveClientUrl(url),
+                url: Site.resolveClientUrl(url),
                 type: 'GET',
                 dataType: 'html',
                 cache: false,
-                beforeSend: function (xhr) {
+                beforeSend: function () {
                     Site.blockUI();
                 },
                 success: function (result) {
@@ -127,8 +129,7 @@ var CreateGroup = (function ($) {
 
                     Site.unBlockUI();
                 },
-                error: function (xhr, status, err) {
-                    handleAjaxError(xhr, status, err);
+                error: function (/*xhr, status, err*/) {
                 }
             });
         }

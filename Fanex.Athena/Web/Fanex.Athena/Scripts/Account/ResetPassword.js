@@ -1,4 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
+"use strict";
 var ResetPassword = (function ($) {
     return {
         init: function () {

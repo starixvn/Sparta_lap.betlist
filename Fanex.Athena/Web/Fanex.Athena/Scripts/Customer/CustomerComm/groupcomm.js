@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var GroupComm = (function ($) {
     return {
         getcolorPalette: function () {
@@ -49,11 +51,11 @@ var GroupComm = (function ($) {
             });
 
             $('#NewGroupButton').click(function () {
-                window.location.href = resolveClientUrl("CustomerComGroup/Create");
+                window.location.href = Site.resolveClientUrl("CustomerComGroup/Create");
             });
 
             $('#Cancel').click(function () {
-                window.location.href = resolveClientUrl("CustomerComGroup/Index");
+                window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
             });
 
             $('#keep').click(function () {
@@ -65,10 +67,10 @@ var GroupComm = (function ($) {
         },
         //Navigate customer list when clink on No.Of customer
         navigateNoOfCustomer: function (groupId) {
-            window.location.href = resolveClientUrl("Customer/CustomerList?groupId=" + groupId);
+            window.location.href = Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupId);
         },
         commissionOnChange: function (value, id) {
-            if (value == 15) {
+            if (Number(value) === 15) {
                 $(id + 2 + ', ' + id + 3).val(0);
                 $(id + 2 + ', ' + id + 3).prop('disabled', true);
             } else {
@@ -77,7 +79,7 @@ var GroupComm = (function ($) {
         },
         initDeleteGroup: function (groupId) {
             // Double check default group before delete
-            var url = resolveClientUrl("CustomerComGroup/GetDefaultGroup");
+            var url = Site.resolveClientUrl("CustomerComGroup/GetDefaultGroup");
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -85,9 +87,9 @@ var GroupComm = (function ($) {
                 cache: false,
                 success: function (id) {
                     // Delete group
-                    GroupComm.deleteGroup(groupId, id.id == groupId ? true : false);
+                    GroupComm.deleteGroup(groupId, id.id.toString() === groupId.toString() ? true : false);
                 },
-                error: function (xhr, status, err) {
+                error: function (/*xhr, status, err*/) {
                 }
             });
         },
@@ -136,9 +138,9 @@ var GroupComm = (function ($) {
             var url = "CustomerComGroup/Delete/?groupId=" + groupId + "&isRemovePlayerComm=" + isRemovePlayerComm + "&isResetDefault=" + isResetDefault;
 
             $.ajax({
-                url: resolveClientUrl(url),
+                url: Site.resolveClientUrl(url),
                 type: 'GET',
-                beforeSend: function (xhr) {
+                beforeSend: function () {
                     Site.blockUI();
                 },
                 success: function (result) {
@@ -154,17 +156,17 @@ var GroupComm = (function ($) {
                             buttons: {
                                 OK: function () {
                                     $(this).dialog("close");
-                                    window.location.href = resolveClientUrl("CustomerComGroup/Index");
+                                    window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
                                 }
                             }
                         });
                     } else {
-                        window.location.href = resolveClientUrl("CustomerComGroup/Index");
+                        window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
                     }
 
                     Site.unBlockUI();
                 },
-                error: function (xhr, status, err) {
+                error: function (/*xhr, status, err*/) {
                 }
             });
         },
@@ -207,7 +209,7 @@ var GroupComm = (function ($) {
             var isDefault = $('#IsDefaultGroup').is(':checked');
             var defaultGroupId = parseInt($('#DefaultGroupId').val());
             var currentGroupId = parseFloat($('#GroupCommId').val());
-            if (isDefault && defaultGroupId != currentGroupId && defaultGroupId != 0) {
+            if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                 GroupComm.showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), GroupComm.doSubmit, id);
             } else {
                 $('form').submit();
@@ -299,4 +301,4 @@ var GroupComm = (function ($) {
 
 $(window).load(function () {
     GroupComm.initialize();
-})
+});

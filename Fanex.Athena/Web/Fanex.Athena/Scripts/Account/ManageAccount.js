@@ -1,5 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var ManageAccount = (function ($) {
     return {
         resetPassword: function (sender) {
@@ -31,8 +32,8 @@ var ManageAccount = (function ($) {
             var target = $(sender);
             var url = Site.resolveClientUrl("Account/PermissionPage");
             url += "?UserId=" + target.attr("data-custid");
-          
-            window.location.href = url
+
+            window.location.href = url;
         },
 
         showPopup: function (title, width, height, url, callback) {

@@ -1,16 +1,18 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString*/
+/*exported RNGCasinoOption*/
+/// <reference path="/@JSense.js" />
 //##
 /*
 * Note:in this report, parameter level have 3 value
 *  "0" for master,"1" for agent and "2" for member
 */
-
+"use strict";
 var RNGCasinoOption = (function () {
     var historyDetailLink = function (cellvalue, options, rowObject) {
         var currencyId = $("#casino-detail-currency-id").val();
         var currencyName = $("#casino-detail-currency-name").val();
         var baseCurrency = $("#casino-detail-base-currency").val();
-        var drillDownCur = currencyId == 0 || baseCurrency != "" ? baseCurrency : currencyName;
+        var drillDownCur = currencyId === "0" || baseCurrency !== "" ? baseCurrency : currencyName;
         var url = Site.resolveClientUrl("HandHistory/RNGCasinoDetail");
         url = QueryString.setParam(url, "userBetId", rowObject.UserBetId);
         url = QueryString.setParam(url, "gameTypeId", rowObject.GameTypeId);
@@ -209,11 +211,12 @@ var RNGCasinoOption = (function () {
         resizable: false
     };
 
-    var colNameList = ['SessionLogId', '#', 'GameId', "PlayerHistoryNo", "GameType", 'GameGroup', 'StartDate', 'EndDate', 'StartBalance', 'EndBalance', 'Stake', 'Bet', '@[Win]/@[Loss]', 'RollingComm', 'Results'];
-    var colModelList = [sessionColumn, indexColumn, gameIdColumn, playHistoryNoColumn, gameTypeNameColumn, gameGroupNameColumn, startTimeColumn, endTimeColumn, beginBalanceColumn, endBlanceColumn, stakeColumn, betColumn, winLossColumn, rollingCommColumn, resultColumn];
-    var customerWlTotalIndex = 8;
-    var licenseeWlIndex = 9;
-
+    var colNameList = ['SessionLogId', '#', 'GameId', "PlayerHistoryNo", "GameType", 'GameGroup', 'StartDate', 
+                'EndDate', 'StartBalance', 'EndBalance', 'Stake', 'Bet', '@[Win]/@[Loss]', 'RollingComm', 'Results'];
+    var colModelList = [sessionColumn, indexColumn, gameIdColumn, playHistoryNoColumn, gameTypeNameColumn,
+                gameGroupNameColumn, startTimeColumn, endTimeColumn, beginBalanceColumn, endBlanceColumn,
+                 stakeColumn, betColumn, winLossColumn, rollingCommColumn, resultColumn];
+    
     var me = {
         licenseeId: 0,
         hasCustomerComm: true,

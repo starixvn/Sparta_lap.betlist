@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, GroupComm*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var UpdateGroup = (function ($) {
     return {
         initialize: function () {
@@ -26,13 +28,13 @@ var UpdateGroup = (function ($) {
                 showInitial: true,
 
                 change: function (color) {
-                    colorText = color.toHexString(); // #ff0000
+                    var colorText = color.toHexString(); // #ff0000
                     $('#GroupColor').val(colorText);
                 }
             });
 
             $('#Cancel').click(function () {
-                window.location.href = resolveClientUrl("CustomerComGroup/Index");
+                window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
             });
 
             $('#CustList').click(function () {
@@ -41,7 +43,7 @@ var UpdateGroup = (function ($) {
                 parent.$("#menu").contents().find("td.active-menu").removeClass('active-menu');
                 parent.$("#menu").contents().find("#child-menu-43").addClass('active-menu');
                 parent.document.title = 'LRF - Customer Information - Customer List';
-                window.location.href = resolveClientUrl("Customer/CustomerList") + "?groupId=" + groupCommId;
+                window.location.href = Site.resolveClientUrl("Customer/CustomerList") + "?groupId=" + groupCommId;
             });
 
             $('#Validate').click(function () {
@@ -94,7 +96,7 @@ var UpdateGroup = (function ($) {
                 GroupComm.commissionOnChange($(this).val(), '#DdlNGComm');
             });
 
-            $('#DdlLCComm1').on('change', function () {                
+            $('#DdlLCComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlLCComm');
             });
 
@@ -138,11 +140,11 @@ var UpdateGroup = (function ($) {
             var url = "CustomerComGroup/Validate?groupName=" + groupName;
 
             $.ajax({
-                url: resolveClientUrl(url),
+                url: Site.resolveClientUrl(url),
                 type: 'GET',
                 dataType: 'html',
                 cache: false,
-                beforeSend: function (xhr) {
+                beforeSend: function () {
                     Site.blockUI();
                 },
                 success: function (result) {
@@ -154,14 +156,12 @@ var UpdateGroup = (function ($) {
                         $('#Save').attr("disabled", false);
                     }
                     else {
-                        UpdateGroup.displayError(Site.getSingleResource('GroupNameExistedMsg'))
+                        UpdateGroup.displayError(Site.getSingleResource('GroupNameExistedMsg'));
                     }
 
                     Site.unBlockUI();
                 },
-                error: function (xhr, status, err) {
-                    handleAjaxError(xhr, status, err);
-                }
+                error: function (/*xhr, status, err*/) {}
             });
         }
     };

@@ -1,12 +1,9 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var EditPermission = (function ($) {
-    var lstDisplay = "img0";
     var colUrl = null;
-    var expUrl = null;
-    var lockUrl = null;
-    var userParam;
-    var idList = "";
+    var expUrl = null;    
 
     return {
         // #region: edit permission
@@ -16,7 +13,9 @@ var EditPermission = (function ($) {
             var id = target.attr('id');
             var curStatus = target.attr("data-status");
 
-            if (id == 'img6') return;
+            if (id === 'img6') {
+                return;
+            }
 
             if (curStatus === 'expand') {
                 target.attr('src', expUrl);
@@ -40,7 +39,7 @@ var EditPermission = (function ($) {
             }
             else {
                 EditPermission.uncheckAll(id);
-            };
+            }
 
             if (id !== '6') {
                 $('#group_img' + id).show();
@@ -53,7 +52,7 @@ var EditPermission = (function ($) {
             var container = $("#group_img" + id);
             var list = $("input", container);
 
-            for (i = 0; i < list.length; i++) {
+            for (var i = 0; i < list.length; i++) {
                 list[i].checked = true;
             }
         },
@@ -62,7 +61,7 @@ var EditPermission = (function ($) {
             var container = $("#group_img" + id);
             var list = $("input", container);
 
-            for (i = 0; i < list.length; i++) {
+            for (var i = 0; i < list.length; i++) {
                 list[i].checked = false;
             }
         },
@@ -157,7 +156,7 @@ var EditPermission = (function ($) {
             var container = $("#currency-content");
             var list = $("input", container);
 
-            for (i = 0; i < list.length; i++) {
+            for (var i = 0; i < list.length; i++) {
                 list[i].checked = checked;
             }
 
@@ -166,8 +165,7 @@ var EditPermission = (function ($) {
             $('#currency-img').attr("data-status", "expand");
         },
 
-        changeEachCurrency: function (sender) {
-            var target = $(sender);
+        changeEachCurrency: function (/*sender*/) {
 
             var container = $("#currency-content");
             var totalCurrency = $("input", container).length;
@@ -252,10 +250,9 @@ var EditPermission = (function ($) {
 
         // #endregion: assign currency
 
-        init: function (col_url, exp_url, null_url) {
-            colUrl = col_url;
-            expUrl = exp_url;
-            nullUrl = null_url;
+        init: function (colurl, expurl/*, null_url*/) {
+            colUrl = colurl;
+            expUrl = expurl;
 
             $.ajaxSetup({
                 cache: false
@@ -269,7 +266,7 @@ var EditPermission = (function ($) {
                             "If this wouldn't be a demo.");
                     });
                 },
-                load: function (event, ui) {
+                load: function (/*event, ui*/) {
                     var active = $(this).tabs("option", "active");
                     var enable = true;
 

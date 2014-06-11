@@ -1,6 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, RNGCasinoOption, QueryString, jqGridAdditional*/
+/// <reference path="/@JSense.js" />
 /// //##
-
+"use strict";
 var RNGCasino = (function ($) {
     return {
         initialize: function () {
@@ -38,7 +39,7 @@ var RNGCasino = (function ($) {
             });
         },
 
-        bindTotal: function (totalData, summaryTotal) {
+        bindTotal: function (totalData/*, summaryTotal*/) {
             var columnModel = RNGCasinoOption.getTotalColModel();
             var colspan = RNGCasinoOption.totalColspan[0];
             var summaryColspan = colspan + 1;
@@ -57,7 +58,6 @@ var RNGCasino = (function ($) {
             // resize when group collapse
             $(".tree-wrap-ltr").click(function () {
                 var scrollHeight = $("#ReportGrid").width() > $('.ui-jqgrid-bdiv').width() ? 18 : 0;
-                var borderHeight = $('.ui-jqgrid-bdiv').height();
                 var contentHeight = $("#ReportGrid").height();
                 $('.ui-jqgrid-bdiv').height(Math.min(contentHeight + scrollHeight, 778));
             });
@@ -74,7 +74,7 @@ var RNGCasino = (function ($) {
             gridOption.onPaging = function (pgButton) {
                 if (numOfRow > RNGCasinoOption.pageSize) {
                     onPaging = true;
-                    if ($("#" + pgButton).hasClass("ui-state-disabled") == false) {
+                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                         Site.blockUI();
                     }
                 }
@@ -92,7 +92,7 @@ var RNGCasino = (function ($) {
                     $("#pg_ppdata").hide();
                 }
 
-                if (response == null || numOfRow == 0) {
+                if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
@@ -128,14 +128,14 @@ var RNGCasino = (function ($) {
                 dataType: "json",
                 contentType: "application/json",
                 url: Site.resolveClientUrl(RNGCasinoOption.urlData) + "?" + urlTokens[1],
-                error: function (xhRequest, errorText, thrownError) { },
+                // error: function (xhRequest, errorText, thrownError) { },
                 success: function (response) {
                     RNGCasino.ajaxComplete(response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function () {
                     Site.unBlockUI();
                 }
             });
