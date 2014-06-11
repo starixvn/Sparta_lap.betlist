@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListByMultipleBettype.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="BetListController.RunningBetListByMultipleBettypeOfMatch.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -27,7 +27,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic RunningBetListByMultipleBettype(BetListMetaModel metaModel)
+        public dynamic RunningBetListByMultipleBettypeOfMatch(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

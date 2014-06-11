@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListByMultipleBettype.cs" company="Nexcel">
+// <copyright file="BetListController.RunningBetListByMultipleBettypeOfMatch.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult RunningBetListByMultipleBettype(BetListMetaModel metaModel)
+        public ActionResult RunningBetListByMultipleBettypeOfMatch(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return RunningBetListByMultipleBettypeExcel(metaModel);
+                    return RunningBetListByMultipleBettypeOfMatchExcel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [NonAction]
-        public ActionResult RunningBetListByMultipleBettypeExcel(BetListMetaModel metaModel)
+        public ActionResult RunningBetListByMultipleBettypeOfMatchExcel(BetListMetaModel metaModel)
         {
             string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
