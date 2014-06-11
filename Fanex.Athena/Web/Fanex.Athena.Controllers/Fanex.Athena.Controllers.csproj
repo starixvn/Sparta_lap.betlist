@@ -164,7 +164,7 @@
     <Compile Include="BetList\BetListController.MobileWl.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettype.cs" />
+    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="Integration\IntegrationController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
