@@ -21,8 +21,7 @@ var BetList = (function ($) {
             var $container = $(".ui-jqgrid-bdiv");
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
-            if ($child.height() > Math.min($container.height(), gridHeight)) {
-                console.log($child.height(), gridHeight);
+            if ($child.height() > Math.min($container.height(), gridHeight)) {                
                 $container.css("height", Math.min($child.height(), gridHeight));
             }
         },

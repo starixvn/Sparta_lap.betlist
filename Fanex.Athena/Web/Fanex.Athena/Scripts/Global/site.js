@@ -24,6 +24,8 @@ var Site = (function ($) {
     };
 
     return {
+        // A flag used to determine whether browser need to be overridden innerHeight or not (ex: IE8 in low resolution)
+        needOverrideInnerHeight: false, 
         initialize: function () {
             Site.currencyConstraint();
             Site.initEvent();
@@ -39,6 +41,12 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        overrideInnerHeight: function () {
+            if (Site.needOverrideInnerHeight) {
+                parent.innerHeight = parent.document.documentElement.clientHeight;
+                window.innerHeight = window.document.documentElement.clientHeight;
+            }
         },
         addFilterCollapseExpand: function (containerSelector) {
             if (!containerSelector) {
@@ -542,4 +550,14 @@ window.alert = function (message, fallback) {
 $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
+    Site.needOverrideInnerHeight = window.innerHeight === undefined;
+    Site.overrideInnerHeight();
 });
+$(window).resize(function () {
+    Site.overrideInnerHeight();
+});
+
+$(window).unload(function () {
+    $(window).unbind("resize");
+});
+

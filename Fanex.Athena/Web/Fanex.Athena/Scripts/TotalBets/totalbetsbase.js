@@ -15,6 +15,7 @@ var Totalbets = (function ($) {
             gridHeight = Math.max(150, gridHeight);
             gridHeight = Math.min($grid.height(), gridHeight);
             $grid.css("height", gridHeight);
+            $grid.height(gridHeight);
         },
         initEvent: function () {
             // Init refresh countdown

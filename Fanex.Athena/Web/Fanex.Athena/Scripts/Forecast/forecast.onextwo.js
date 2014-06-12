@@ -93,8 +93,7 @@ var ForecastOneXTwo = (function ($) {
 
 $(window).load(function () {
 
-    var height = Math.min(parent.innerHeight - 20, 460);
-    console.log(parent.innerHeight, height);
+    var height = Math.min(parent.innerHeight - 20, 460);    
     // Set default value for popup
     parent.$('.ui-dialog').css({ 'width': 700 + 'px' });
     parent.$('.ui-dialog').css({ 'height': height + 'px' });
