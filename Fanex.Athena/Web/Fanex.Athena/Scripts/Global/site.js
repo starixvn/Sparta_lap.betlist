@@ -24,8 +24,8 @@ var Site = (function ($) {
     };
 
     return {
-        // A flag used to determine whether browser need to be overridden innerHeight or not (ex: IE8 in low resolution)
-        needOverrideInnerHeight: false, 
+        // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
+        needOverrideInnerSize: false,
         initialize: function () {
             Site.currencyConstraint();
             Site.initEvent();
@@ -43,9 +43,11 @@ var Site = (function ($) {
             });
         },
         overrideInnerHeight: function () {
-            if (Site.needOverrideInnerHeight) {
+            if (Site.needOverrideInnerSize) {
                 parent.innerHeight = parent.document.documentElement.clientHeight;
                 window.innerHeight = window.document.documentElement.clientHeight;
+                parent.innerWidth = parent.document.documentElement.clientWidth;
+                window.innerWidth = window.document.documentElement.clientWidth;
             }
         },
         addFilterCollapseExpand: function (containerSelector) {
@@ -55,6 +57,7 @@ var Site = (function ($) {
 
             var $handler = $("<div class='filter-handle filter-handle-collapse'></div>");
             var $container = $(containerSelector);
+            
             $container.append($handler);
 
             var originalHeight = $container.height();
@@ -66,8 +69,8 @@ var Site = (function ($) {
                 $container.find("*").toggle();
                 $container.height(isCollapsed ? 5 : originalHeight);
                 $handler.css("top", isCollapsed ? -15 : originalTop);
-                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
-                $container.css("background", isCollapsed ? "#E7E7E7" : "");
+                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");                
+               // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
                 $(window).resize();
             });
 
@@ -550,8 +553,8 @@ window.alert = function (message, fallback) {
 $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
-    Site.needOverrideInnerHeight = window.innerHeight === undefined;
-    Site.overrideInnerHeight();
+    Site.needOverrideInnerSize = window.innerHeight === undefined;
+    Site.overrideInnerHeight();    
 });
 $(window).resize(function () {
     Site.overrideInnerHeight();

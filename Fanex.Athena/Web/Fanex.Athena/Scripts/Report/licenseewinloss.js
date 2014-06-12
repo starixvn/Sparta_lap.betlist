@@ -15,7 +15,7 @@ var LicenseeWinLoss = (function ($) {
     var _removeSorting = false;
     var _reportBy = null;
     var _pageSize = 0;
-
+    var _resizeTimer = null;
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
              JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
@@ -29,13 +29,14 @@ var LicenseeWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-            setTimeout(function () {
+                clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
 
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() 
-                            - $(".ui-jqgrid-pager:visible").height() -(Site.getScrollBarState().hScrollbar ? 20 : 10);
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
+                            - $(".ui-jqgrid-pager:visible").height() - (Site.getScrollBarState().hScrollbar ? 22 : 10);
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "100%").css("max-height", gridHeight);
             }, 200);
         },
         getTotalRowCount: function () {
@@ -424,7 +425,7 @@ var LicenseeWinLoss = (function ($) {
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
-                LicenseeWinLoss.resizeGrid();
+
                 Site.unBlockUI();
             };
 
@@ -463,7 +464,7 @@ var LicenseeWinLoss = (function ($) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
 
-
+            LicenseeWinLoss.resizeGrid();
         },
 
         //#end

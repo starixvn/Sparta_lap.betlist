@@ -137,7 +137,8 @@ var WinLossByLeague = (function ($) {
             var gridTop = $("#ReportGrid").offset().top;
             var pagerHeight = $(".pagingContainer:visible").height() || 0;
 
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - (pagerHeight > 0 ? pagerHeight + 25 : 5);
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
+                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - (Site.getScrollBarState().hScrollbar ? 22 : 0);
             gridHeight = Math.max(130, gridHeight);
             $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
         },
