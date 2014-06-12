@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/12/2014 2:22:36 PM
+// Lasted generated date: 6/12/2014 3:08:29 PM
 // </history>
 
 var _language_zh_TW={
@@ -238,7 +238,7 @@ var _language_zh_TW={
 				 	
                      CreditDebit:"貸記/借記",
 				 	
-                     CS:"CS",
+                     CS:"娛樂城",
 				 	
                      CSComm:"CS 佣金",
 				 	
