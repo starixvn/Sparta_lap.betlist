@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/6/2014 1:34:29 PM
+// Lasted generated date: 6/12/2014 2:22:36 PM
 // </history>
 
 var _language_zh_TW={
@@ -380,7 +380,7 @@ var _language_zh_TW={
 				 	
                      DrawNoBet:"獲胜球隊(平局退款)",
 				 	
-                     DrawNoDraw:"平局/不是平局",
+                     DrawNoDraw:"平局/不是和局",
 				 	
                      Edit:"編輯",
 				 	
@@ -1122,7 +1122,7 @@ var _language_zh_TW={
 				 	
                      RacingComm:"賽事佣金",
 				 	
-                     RacingCommission:"賽馬賽事佣金",
+                     RacingCommission:"賽事佣金",
 				 	
                      RacingCommissionTitle:"賽事佣金 ,{0} --&gt; {1} - {2}",
 				 	
@@ -1500,7 +1500,7 @@ var _language_zh_TW={
 				 	
                      VirtualSpeedway:"Virtual Speedway",
 				 	
-                     VirtualSports:"虚拟运动",
+                     VirtualSports:"虛擬運動",
 				 	
                      VirtualTennis:"Virtual Tennis",
 				 	

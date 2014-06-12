@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/6/2014 1:34:19 PM
+// Lasted generated date: 6/12/2014 2:22:34 PM
 // </history>
 
 var _language_zh_CN={
@@ -380,7 +380,7 @@ var _language_zh_CN={
 				 	
                      DrawNoBet:"获胜球队(平局退款)",
 				 	
-                     DrawNoDraw:"平局/不是平局",
+                     DrawNoDraw:"平局/不是和局",
 				 	
                      Edit:"编辑",
 				 	
@@ -1122,7 +1122,7 @@ var _language_zh_CN={
 				 	
                      RacingComm:"赛事佣金",
 				 	
-                     RacingCommission:"赛马赛事佣金",
+                     RacingCommission:"赛事佣金",
 				 	
                      RacingCommissionTitle:"赛事佣金,{0} --&gt; {1} - {2}",
 				 	

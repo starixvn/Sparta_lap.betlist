@@ -598,7 +598,7 @@
     <value>獲胜球隊(平局退款)</value>
   </data>
   <data name="DrawNoDraw" xml:space="preserve">
-    <value>平局/不是平局</value>
+    <value>平局/不是和局</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>編輯</value>
@@ -1546,7 +1546,7 @@
     <value>賽事佣金</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
-    <value>賽馬賽事佣金</value>
+    <value>賽事佣金</value>
   </data>
   <data name="RacingCommissionTitle" xml:space="preserve">
     <value>賽事佣金 ,{0} --&gt; {1} - {2}</value>

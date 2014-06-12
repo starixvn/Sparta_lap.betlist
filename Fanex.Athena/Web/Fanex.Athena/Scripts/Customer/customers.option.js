@@ -114,7 +114,7 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
             return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" + (cellValue ? "ON" : "OFF") + "</div>";
+                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" + cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off") + "</div>";
         }
     };
     var specialLevelColumn = {
