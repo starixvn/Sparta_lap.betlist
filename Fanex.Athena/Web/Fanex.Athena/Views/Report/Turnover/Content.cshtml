@@ -9,15 +9,14 @@
         <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
             @{ 
                 var currencyName = @Model.Param.IsConvert ? @Model.Param.BaseCurrency : @Model.CurrencyList.FirstOrDefault(a => a.Value == Model.Param.CurrencyId).Key;
-                var formatCurrency = "{0} {1}";
                 var formatTitle = "{0}, {1} - {2}";
                 var formatTitleUserName = "{0}, {1} - {2} {3} ({4})";
             }
             @if (Model.Param.Username.IsEmpty())
             {
-                var currencyTitle = Model.Param.IsConvert
-                    ? string.Format(formatCurrency, ViewResources.Viewin, Model.Param.BaseCurrency.ToUpper())
-                    : string.Format(formatCurrency, ViewResources.Viewin, currencyName.ToUpper());
+                var currencyTitle =string.Format(ViewResources.Viewin, Model.Param.IsConvert
+                    ? Model.Param.BaseCurrency.ToUpper()
+                    : currencyName.ToUpper());
                 
                 @(string.Format(formatTitle,
                                 ViewResources.Turnover,
