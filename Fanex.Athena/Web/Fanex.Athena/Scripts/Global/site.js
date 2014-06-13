@@ -42,7 +42,7 @@ var Site = (function ($) {
                 }
             });
         },
-        overrideInnerHeight: function () {
+        overrideInnerSize: function () {
             if (Site.needOverrideInnerSize) {
                 parent.innerHeight = parent.document.documentElement.clientHeight;
                 window.innerHeight = window.document.documentElement.clientHeight;
@@ -554,13 +554,12 @@ $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
     Site.needOverrideInnerSize = window.innerHeight === undefined;
-    Site.overrideInnerHeight();    
+    Site.overrideInnerSize();    
 });
 $(window).resize(function () {
-    Site.overrideInnerHeight();
+    Site.overrideInnerSize();
 });
 
 $(window).unload(function () {
     $(window).unbind("resize");
 });
-

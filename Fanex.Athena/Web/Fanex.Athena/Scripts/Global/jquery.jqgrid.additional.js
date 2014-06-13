@@ -214,7 +214,7 @@ var jqGridAdditional = (function () {
                 result = ' rowspan=' + '"' + rowSpan + '"';
             }
             else if (rowSpan < 0) {
-                result = 'style="display:none;"';
+                result = ' style="display:none;" ';
             }
             else {
                 result = '';
@@ -228,7 +228,7 @@ var jqGridAdditional = (function () {
                 result = ' rowspan=' + '"' + rowSpan + '"';
             }
             else if (rowSpan < 0) {
-                result = 'style="display:none;"';
+                result = ' style="display:none;" ';
             }
             else {
                 result = '';

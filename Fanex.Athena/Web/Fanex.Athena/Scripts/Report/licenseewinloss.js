@@ -29,7 +29,7 @@ var LicenseeWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-                clearTimeout(_resizeTimer);
+            clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
 
