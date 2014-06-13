@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/12/2014 3:08:27 PM
+// Lasted generated date: 6/13/2014 1:31:42 PM
 // </history>
 
 var _language_zh_CN={
@@ -240,7 +240,7 @@ var _language_zh_CN={
 				 	
                      CS:"娱乐城",
 				 	
-                     CSComm:"CS 佣金",
+                     CSComm:"娱乐城佣金",
 				 	
                      Currencies:"Currencies",
 				 	
