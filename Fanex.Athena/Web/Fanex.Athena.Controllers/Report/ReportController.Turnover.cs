@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using System.Web.Helpers;
 
     /// <summary>
     /// The turn over controller.
@@ -103,7 +104,12 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
                 };
 
-            return metaModel.IsExportExcel ? TurnoverExcel(model) : View("~/Views/Report/Turnover/Main.cshtml", model);
+            return metaModel.IsExportExcel ? TurnoverExcel(model) : 
+                Json(new
+                {
+                    TotalRows =  turnoverService.SumTotalData(dataList),
+                    Data = dataList
+                });
         }
 
         #endregion Web Controller

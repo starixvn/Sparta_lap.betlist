@@ -799,6 +799,7 @@
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.js" />
     <Content Include="Scripts\Plugin\Note\note.js" />
     <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
+    <Content Include="Scripts\Report\turnover.option.js" />
     <Content Include="Scripts\Report\playtechcasino.js" />
     <Content Include="Scripts\Report\balance.js" />
     <Content Include="Scripts\Report\winlossbyleague.js" />
