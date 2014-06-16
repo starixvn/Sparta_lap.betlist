@@ -556,6 +556,7 @@ var LicenseeWinLossOption = (function () {
 
         //#region Toggle
         var toggle = function (isShow, type) {
+
             type = Number(type);
             _expanseTypes[type] = isShow;
 
@@ -610,26 +611,6 @@ var LicenseeWinLossOption = (function () {
             $("#footer").html($(".ui-jqgrid-ftable").html());
 
             $('.report-content').css('cursor', 'default');
-
-            var gridContainer = $("#gview_ReportGrid");
-            var bodyHeight = Site.getMaxHeight(gridContainer);
-            var totalRowCount = LicenseeWinLoss.getTotalRowCount();
-            var totalHeight = totalRowCount * 14;
-            if (totalHeight >= 180) {
-                bodyHeight /= 2;
-            }
-            else {
-                bodyHeight -= totalHeight;
-            }
-
-            var actualHeight = $("#ReportGrid").height();
-            var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-
-            var tableWidth = $("#ReportGrid").width();
-            var contentWidth = $(".ui-jqgrid-bdiv").width();
-            var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-            $(".ui-jqgrid-bdiv").height(newHeight);
-            $(".ui-jqgrid-bdiv").css({ 'max-height': newHeight });
             $(window).resize();
             return false;
         };

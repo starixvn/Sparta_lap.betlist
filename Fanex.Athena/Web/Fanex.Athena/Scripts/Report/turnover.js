@@ -2,24 +2,28 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 var Turnover = (function ($) {
+    
     return {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
         resizeGrid: function () {
             var $grid = $("#data-content");
+
             if ($grid.length === 0) {
                 return;
             }
-
+            
             var gridTop = $grid.offset().top;
             var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - 10;
             gridHeight = Math.max(100, gridHeight);
             $grid.css("max-height", gridHeight);
         },
         initialize: function () {
-            Turnover.initMonthPicker();
-            Turnover.initEvent();
-            Turnover.initAutoComplete();
-            Turnover.setDefaultUsername();
+            
+                Turnover.initMonthPicker();
+                Turnover.initEvent();
+                Turnover.initAutoComplete();
+                Turnover.setDefaultUsername();
+            
         },
 
         initMonthPicker: function () {
@@ -59,7 +63,7 @@ var Turnover = (function ($) {
                 $('#IsExportExcel').val(false);
                 $("#TurnoverForm").submit();
             });
-
+            return;
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
                 $("#TurnoverForm").submit();
@@ -102,10 +106,10 @@ var Turnover = (function ($) {
 
 $(window).load(function () {
     Turnover.initialize();
-    Turnover.resizeGrid();
+  //  Turnover.resizeGrid();
 });
 $(window).resize(function () {
-    Turnover.resizeGrid();
+   // Turnover.resizeGrid();
 });
 
 $(window).unload(function () {

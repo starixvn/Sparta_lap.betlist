@@ -87,8 +87,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
 
-            metaModel.Username = metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
-            var turnoverService = new TurnoverService();            
+            metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
+            var turnoverService = new TurnoverService();
             var dataList = turnoverService.GetDataList(metaModel);
 
             var model = new TurnoverViewModel

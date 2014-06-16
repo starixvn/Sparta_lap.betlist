@@ -32,11 +32,20 @@ var LicenseeWinLoss = (function ($) {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
-
+                var scroll = Site.getScrollBarState();
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - (Site.getScrollBarState().hScrollbar ? 22 : 10);
+                            - $(".ui-jqgrid-pager:visible").height() - (scroll.hScrollbar ? 25 : (scroll.vScrollbar ? 25 : 10));
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "100%").css("max-height", gridHeight);
+
+                var gridContainer = $("#gview_ReportGrid");
+                var bodyHeight = window.innerHeight - gridContainer.offset().top;
+                var actualHeight = $("#ReportGrid").height();
+                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
+                var tableWidth = $("#ReportGrid").width();
+                var contentWidth = $(".ui-jqgrid-bdiv").width();
+                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
+                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
+                                    .css("max-height", gridHeight);
             }, 200);
         },
         getTotalRowCount: function () {
