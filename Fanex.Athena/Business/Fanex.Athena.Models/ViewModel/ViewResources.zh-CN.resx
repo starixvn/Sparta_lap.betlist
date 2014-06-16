@@ -442,7 +442,7 @@
     <value>客户</value>
   </data>
   <data name="CustomerBalance" xml:space="preserve">
-    <value>客户余额</value>
+    <value>会员余额</value>
   </data>
   <data name="CustomerBalanceDateRangeNotification" xml:space="preserve">
     <value>日期范围超过2个月. 请再试一次!</value>
