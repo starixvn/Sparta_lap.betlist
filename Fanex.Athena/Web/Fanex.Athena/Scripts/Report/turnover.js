@@ -8,12 +8,19 @@ var Turnover = (function ($) {
     return {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
         resizeGrid: function () {
+            if ($("#ReportGrid").length === 0) {
+                return;
+            }
+
             setTimeout(function () {
+                var height = $("#ReportGrid").height() + 20;
+                var scroll = Site.getScrollBarState();
+                var offset = scroll.hScrollbar || scroll.vScrollbar ? 20 : 0;
                 var gridTop = $("#ReportGrid").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 10;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - offset;
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
+                $(".ui-jqgrid-bdiv").height(height).css("max-height", gridHeight);
+            }, 200);
         },
         initialize: function () {
             Turnover.initMonthPicker();
@@ -268,9 +275,8 @@ var Turnover = (function ($) {
             $("table.ui-jqgrid-ftable").tableRowSpan([TurnoverOption.currencyIndex]);
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
-            setTimeout(function () {
-                Turnover.resizeGrid();
-            }, 100);
+
+            Turnover.resizeGrid();
         },
 
         bindTotal: function (totalData) {
@@ -290,7 +296,7 @@ $(window).load(function () {
     Turnover.resizeGrid();
 });
 $(window).resize(function () {
-    // Turnover.resizeGrid();
+   // Turnover.resizeGrid();
 });
 
 $(window).unload(function () {

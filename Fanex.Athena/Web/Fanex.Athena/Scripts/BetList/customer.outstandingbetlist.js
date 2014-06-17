@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, Report, QueryString, CustomerDailyStatement, BetList*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var OutstandingBetList = (function ($) {
     return {
         initialize: function () {
@@ -18,16 +20,15 @@ var OutstandingBetList = (function ($) {
         initEvent: function () {
             $("#ViewOption").change(function () {
                 Site.blockUI();
-
-                var title = betlistName == "betlistrunning"
+                var betlistName = $("#ViewOption").find(":selected").val();
+                var title = betlistName === "betlistrunning"
                     ? Site.getSingleResource("BetListRunning")
-                    : (betlistName == "betlist"
+                    : (betlistName === "betlist"
                             ? Site.getSingleResource("BetList")
                             : Site.getSingleResource("DailyStatement"));
                 $('.ui-dialog-title', window.parent.document).html(title);
 
-                var betlistName = $("#ViewOption").find(":selected").val();
-                var currentcurrency = QueryString.getParam(location.href, "currencyname")
+                var currentcurrency = QueryString.getParam(location.href, "currencyname");
                 var url = location.href;
                 url = QueryString.setParam(url, "currencyname", currentcurrency);
                 url = QueryString.setParam(url, "betlistname", betlistName);
@@ -50,10 +51,10 @@ var OutstandingBetList = (function ($) {
 
             var columsHidden = "";
 
-            if (betlistName == "betlistrunning") {
+            if (betlistName === "betlistrunning") {
                 columsHidden = "externalid,systemid,winloss,licenseewl";
             }
-            else if (betlistName == "betlist") {
+            else if (betlistName === "betlist") {
                 columsHidden = "externalid,systemid";
             }
             else {
@@ -90,17 +91,17 @@ var OutstandingBetList = (function ($) {
         submitDailyStatementBetList: function (params) {
             BetList.initialize();
             var url = Site.resolveClientUrl('api/betlist/OutstandingDailyStatementBetList');
-            CustomerDailyStatement.loadData(params, url)
+            CustomerDailyStatement.loadData(params, url);
         },
 
         submit: function (params) {
             BetList.ValidProducts();
             var betlistName = $("#ViewOption").find(":selected").val();
-            if (betlistName == "dailystatement") {
+            if (betlistName === "dailystatement") {
                 $("#ProductList").hide();
                 OutstandingBetList.submitDailyStatementBetList(params);
             }
-            else if (betlistName == "betlist") {
+            else if (betlistName === "betlist") {
                 $("#ProductList").show();
                 OutstandingBetList.submitCompletedBetList(params);
             }
@@ -115,7 +116,7 @@ var OutstandingBetList = (function ($) {
 
             var url = Site.resolveClientUrl('api/betlist/BetListDailyStatement');
 
-            var params = $.parseJSON($("#BetListMetaModel").val()); ;
+            var params = $.parseJSON($("#BetListMetaModel").val());
 
             params.CustId = custId;
             params.FromDate = date;

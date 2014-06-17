@@ -1,5 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site, BetList*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CorrectScoreBetList = (function ($) {
     return {      
         initialize: function () {

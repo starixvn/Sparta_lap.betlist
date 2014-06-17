@@ -1,8 +1,13 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/*exported CustomerOption*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CustomerOption = (function () {
     var setLink = function (rowObject) {
-        return rowObject.TransTypeHasBetList ? '<a  class=\'link\' href="javascript:OutstandingBetList.viewDailyStatementBetList(\'' + rowObject.CustId + '\',\'' + rowObject.Date + '\',\'' + rowObject.TransType + '\',\'' + rowObject.ExternalId + '\',\'' + rowObject.SystemId + '\');">' + rowObject.FullStatementDate + '</a>' : rowObject.FullStatementDate;
+        return rowObject.TransTypeHasBetList ? '<a  class=\'link\' href="javascript:OutstandingBetList.viewDailyStatementBetList' +
+                '(\'' + rowObject.CustId + '\',\'' + rowObject.Date + '\',\'' + rowObject.TransType + '\',\'' + 
+                rowObject.ExternalId + '\',\'' + rowObject.SystemId + '\');">' +
+         rowObject.FullStatementDate + '</a>' : rowObject.FullStatementDate;
     };
 
     var columnNames = ['#', 'Date', 'Remark', 'Turnover', 'CreditDebit', 'Commission', 'Balance'];
@@ -96,7 +101,7 @@ var CustomerOption = (function () {
             onRightClickRow: function () {
                 return false;
             },
-            onPaging: function (pgButton) {
+            onPaging: function (/*pgButton*/) {
                 Site.blockUI();
             }
         },

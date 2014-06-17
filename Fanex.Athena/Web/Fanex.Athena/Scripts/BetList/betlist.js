@@ -338,8 +338,6 @@ var BetList = (function ($) {
                         });
                         divEvent.html(choice);
                         divEvent.css("display", "");
-
-                        BetList.resetContentHeight();
                         BetList.resizeGrid();
                     },
                     beforeSend: function () {
@@ -353,20 +351,10 @@ var BetList = (function ($) {
             else {
                 divEvent.css("display", "none");
                 divEvent.html("");
-                BetList.resetContentHeight();
                 $(".ui-jqgrid-bdiv").css("height", 0);
                 $(".ui-jqgrid-bdiv>div").css("height", "auto");
                 BetList.resizeGrid();
             }
-        },
-
-        resetContentHeight: function () {
-            var bodyHeight = window.innerHeight - 20; // 650;
-            var actualHeight = $('.ui-jqgrid-bdiv .ui-jqgrid-btable').height();
-            var bodyDiv = $('.ui-jqgrid-bdiv');
-
-            //  bodyDiv.css({ 'height': actualHeight });
-            //   bodyDiv.css({ 'max-height': bodyHeight });
         },
 
         showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {

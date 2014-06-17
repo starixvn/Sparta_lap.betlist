@@ -15,7 +15,7 @@ var WinLossByLeague = (function ($) {
     var _postdata = null;
     var _currencyName = null;
     var _productCount = 0;
-
+    var _resizeTimer;
     var _pagingOption =
         {
             pageindex: 1,
@@ -134,13 +134,17 @@ var WinLossByLeague = (function ($) {
 
     var me = {
         resizeGrid: function () {
-            var gridTop = $("#ReportGrid").offset().top;
-            var pagerHeight = $(".pagingContainer:visible").height() || 0;
-
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
-                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - (Site.getScrollBarState().hScrollbar ? 22 : 0);
-            gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(function () {
+                var height = $("#ReportGrid").height() + 10;
+                var gridTop = $("#ReportGrid").offset().top;
+                var pagerHeight = $(".pagingContainer:visible").height() || 0;
+                var scroll = Site.getScrollBarState();
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
+                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - (scroll.hScrollbar || scroll.vScrollbar ? 25 : 0);
+                gridHeight = Math.max(130, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+            }, 100);
         },
         ajaxPaging: function () {
             _pagingOption = pagingHeper.getSetting();
@@ -297,13 +301,13 @@ var WinLossByLeague = (function ($) {
 
         submit: function () {
 
-            if ($("#TickerFilter input:checked").length === 0) {                
+            if ($("#TickerFilter input:checked").length === 0) {
                 return $("#ticket-null").removeClass("hide");
             } else {
                 $("#ticket-null").addClass("hide");
             }
 
-            if ($("#ProductList input:checked").length === 0) {                
+            if ($("#ProductList input:checked").length === 0) {
                 return $("#product-null").removeClass("hide");
             } else {
                 $("#product-null").addClass("hide");
@@ -496,7 +500,7 @@ var WinLossByLeague = (function ($) {
                 }
             };
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);                
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
 
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);

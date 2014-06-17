@@ -283,7 +283,7 @@ var CustomerList = (function ($) {
     return {
         resizeGrid: function () {
             var gridTop = $("#ReportGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - (Site.getScrollBarState().hScrollbar ? 30 : 15);
+            var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - (Site.getScrollBarState().hScrollbar ? 35 : 20);
             gridHeight = Math.max(130, gridHeight);
             $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
         },

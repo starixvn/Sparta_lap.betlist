@@ -1,5 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site, jqGridAdditional, CustomerOption, BetList*/
+/// <reference path="/@JSense.js" />
+"use strict";
 var CustomerDailyStatement = (function ($) {
     return {
         loadData: function (params, url) {
@@ -11,7 +12,7 @@ var CustomerDailyStatement = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: url,
-                error: function (xhRequest, errorText, thrownError) {
+                error: function (/*xhRequest, errorText, thrownError*/) {
                     Site.unBlockUI();
                 },
                 success: function (response) {
@@ -20,7 +21,7 @@ var CustomerDailyStatement = (function ($) {
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (jqXhr, textStatus) {
+                complete: function (/*jqXhr, textStatus*/) {
                 }
             });
         },
@@ -42,7 +43,7 @@ var CustomerDailyStatement = (function ($) {
             return gridOption;
         },
 
-        bindData: function (response, options) {
+        bindData: function (response) {
             var rawData = response.Main;
             var summary = response.Total;
             var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
@@ -50,10 +51,7 @@ var CustomerDailyStatement = (function ($) {
 
             var betListGrid = $("#BetListGrid");
             var gridOption = CustomerDailyStatement.getGridOption();
-            var maxHeight = 650;
-            // Specify the hidden column
-            var hiddenColumnList = "";
-
+            
             // Show the grid
             betListGrid.jqGrid({
                 datatype: 'local',

@@ -1,7 +1,10 @@
-﻿/*---------------------------------------------------------------------------------
+﻿/*global Site, JSLINQ*/
+/*---------------------------------------------------------------------------------
 * Report monitor bet list display lastest when user bet
 ---------------------------------------------------------------------------------*/
-
+"use strict";
+var monitor = null;
+var monitorUi = null;
 var MonitorBetList = function () {
     var $this = this;
 
@@ -44,8 +47,10 @@ var MonitorBetList = function () {
     $this.highlightClass = "monitor-hightlight";
     $this.highlightKeepClass = "monitor-keep";
     $this.columns =
-        [{ Name:  Site.getSingleResource("Platform"), IsShow: 1 }, { Name: Site.getSingleResource("SystemId"), IsShow: 1 }, { Name: Site.getSingleResource("ExternalId"), IsShow: 1 },
-        { Name: Site.getSingleResource("TransTime"), IsShow: 1 }, { Name: Site.getSingleResource("Choice"), IsShow: 1 }, { Name: Site.getSingleResource("Odds"), IsShow: 1 },
+        [{ Name: Site.getSingleResource("Platform"), IsShow: 1 }, 
+            { Name: Site.getSingleResource("SystemId"), IsShow: 1 }, { Name: Site.getSingleResource("ExternalId"), IsShow: 1 },
+        { Name: Site.getSingleResource("TransTime"), IsShow: 1 }, 
+            { Name: Site.getSingleResource("Choice"), IsShow: 1 }, { Name: Site.getSingleResource("Odds"), IsShow: 1 },
         { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];
     $this.initialize = function () {
@@ -54,14 +59,14 @@ var MonitorBetList = function () {
     };
 
     $this.numberParam = function (name, value) {
-        $this[name] = value == undefined || value == null || value == ""
+        $this[name] = value === undefined || value == null || value === ""
                             ? 0
                             : parseInt(value);
         $this.updateParams();
     };
 
     $this.stringParam = function (name, value) {
-        $this[name] = value == undefined || value == null || value == ""
+        $this[name] = value === undefined || value == null || value === ""
                             ? ""
                             : $.trim(value);
         $this.updateParams();
@@ -115,7 +120,7 @@ var MonitorBetList = function () {
         $this.currentParam = Site.clone($this.params);
         $this.isCriteriaChange = true;
 
-        if (parseInt(freeStatus) == 1) {
+        if (parseInt(freeStatus) === 1) {
             $this.startMonitor();
         }
         else {
@@ -139,11 +144,11 @@ var MonitorBetList = function () {
         $this.isLoading = true;
 
         var loadingTickBegin = (new Date()).getTime();
-        if ($this.lastTransId == 0 || $this.isCriteriaChange) {
+        if (Number($this.lastTransId) === 0 || $this.isCriteriaChange) {
             $this.clearContent();
         }
 
-        ajax = $.ajax({
+        $.ajax({
             url: $this.serviceUrl,
             type: "POST",
             data: JSON.stringify($this.currentParam),
@@ -152,7 +157,7 @@ var MonitorBetList = function () {
             async: true,
             cache: false,
             timeout: 10000,
-            beforeSend: function (xhr) {
+            beforeSend: function () {
                 $("#div-loading").show();
                 $this.isLoading = true;
                 $this.isCriteriaChange = false;
@@ -183,7 +188,7 @@ var MonitorBetList = function () {
                 // Continue
                 $this.doMonitor();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function (/*jqXHR, textStatus, errorThrown*/) {
                 $("#div-loading").hide();
 
                 $this.betListResult.Updated = false;
@@ -201,18 +206,18 @@ var MonitorBetList = function () {
             $this.isLoading = false;
 
             var message = $this.betListResult.Message;
-            if (message != undefined && message.length > 0) {
+            if (message !== undefined && message.length > 0) {
                 $this.bindNoInfoRow(message);
                 return;
             }
 
             var rowCount = $("tr.content-row", $this.containerTable).length;
-            if (rowCount == 0) {
+            if (rowCount === 0) {
                 $this.bindNoInfoRow(message);
             }
 
             return;
-        };
+        }
 
         /*--------------------------------------------------------------------------------------------
         Insert new rows from database
@@ -220,7 +225,7 @@ var MonitorBetList = function () {
         Update last transId
         --------------------------------------------------------------------------------------------*/
         //get hide columns
-        var hideColumns = JSLINQ($this.columns).Where(function (item) { return item.IsShow == 0 })
+        var hideColumns = JSLINQ($this.columns).Where(function (item) { return Number(item.IsShow) === 0; })
                                         .ToArray();
         if (hideColumns.length > 0) {
             var rows = $this.betListResult.Rows;
@@ -248,10 +253,10 @@ var MonitorBetList = function () {
     };
 
     $this.bindNoInfoRow = function (text) {
-        var noInfoMessage = text == undefined || text.length == 0
+        var noInfoMessage = text === undefined || text.length === 0
                         ? Site.getSingleResource("NoInfo")
                         : text;
-        var colspan = JSLINQ($this.columns).Count(function (item) { return item.IsShow == 1 });
+        var colspan = JSLINQ($this.columns).Count(function (item) { return Number(item.IsShow) === 1; });
 
         var row = "<tr class='content-row no-info-row'><td colspan='" + colspan + "'>" + noInfoMessage + "</td></tr>";
         $("tr:gt(0)", $this.containerTable).remove();
@@ -317,27 +322,27 @@ var MonitorBetListUI = function (monitorObj) {
     $this.initSports = function () {
         $("#sports").change(function () {
             $this.setHighlightSubmit();
-            var sportId = $(this).val();
+            var sportId = Number($(this).val());
             $this.monitor.numberParam("sportId", sportId);
 
             var mixParlaySportId = 999;
             $("#league").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
             $("#match").prop("disabled", true);
 
-            if (sportId == 0 || sportId == mixParlaySportId) {
+            if (sportId === 0 || sportId === mixParlaySportId) {
                 $("#league").prop("disabled", true);
             }
             else {
                 $("#league").prop("disabled", false);
 
                 // Reload league list & match list
-                var ajax = $.ajax({
+                $.ajax({
                     url: Site.resolveClientUrl('api/betlist/GetRunningMatchList'),
                     data: "sportid=" + sportId,
                     dataType: "json",
                     type: "GET",
                     contentType: "application/json; charset=utf-8",
-                    beforeSend: function (xhr) {
+                    beforeSend: function () {
                         Site.blockUI();
                     },
                     complete: function () {
@@ -357,25 +362,25 @@ var MonitorBetListUI = function (monitorObj) {
             $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
             //update leagueId and matchId
             $this.monitor.numberParam("leagueId", $("#league").val());
-            $this.monitor.numberParam("matchId", $("#match").val());                       
+            $this.monitor.numberParam("matchId", $("#match").val());
         });
     };
 
     $this.initLeague = function () {
         $("#league").change(function () {
             $this.setHighlightSubmit();
-            var leagueId = $(this).val();
+            var leagueId = Number($(this).val());
             $this.monitor.numberParam("leagueId", leagueId);
             $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
 
-            if (leagueId == 0) {
+            if (leagueId === 0) {
                 $("#match").prop("disabled", true);
             }
             else {
                 // Bind match league
-                var leagueItem = JSLINQ($this.currentLeagueList).First(function (item) { return item.LeagueId == leagueId });
-                if (leagueItem !== undefined && leagueItem !== null && Site.asBool(leagueItem.IsOutRight) == false) {
-                    var matchList = JSLINQ($this.currentMatchList).Where(function (item) { return item.LeagueId == leagueId })
+                var leagueItem = JSLINQ($this.currentLeagueList).First(function (item) { return Number(item.LeagueId) === leagueId; });
+                if (leagueItem !== undefined && leagueItem !== null && Site.asBool(leagueItem.IsOutRight) === false) {
+                    var matchList = JSLINQ($this.currentMatchList).Where(function (item) { return Number(item.LeagueId) === leagueId; })
                                         .ToArray();
                     var matchDropdown = $("#match");
                     $(matchList).each(function (i, e) {
@@ -432,7 +437,7 @@ var MonitorBetListUI = function (monitorObj) {
             specialList.push({
                 Id: "special-option-" + i,
                 Value: i.toString(),
-                Text: i == 0 ? Site.getSingleResource("None") : i.toString(),
+                Text: i === 0 ? Site.getSingleResource("None") : i.toString(),
                 Checked: true,
                 Enable: true,
                 Css: "",
@@ -456,7 +461,7 @@ var MonitorBetListUI = function (monitorObj) {
                 $this.setHighlightSubmit();
 
                 var selectedLevel = $("#special-level").multiSelect("getCheckedItems");
-                selectedLevel = selectedLevel.length == 11 ? "" : selectedLevel.join(",");
+                selectedLevel = selectedLevel.length === 11 ? "" : selectedLevel.join(",");
                 $this.monitor.stringParam("level", selectedLevel);
             }
         });
@@ -494,26 +499,25 @@ var MonitorBetListUI = function (monitorObj) {
                 $this.setHighlightSubmit();
 
                 var selectedCurrency = $("#currency").multiSelect("getCheckedItems");
-                selectedCurrency = currencyCount == selectedCurrency.length ? "" : selectedCurrency.join(",");
+                selectedCurrency = currencyCount === selectedCurrency.length ? "" : selectedCurrency.join(",");
 
                 // Update based currency
                 var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
                 var baseCurrencyObj = $("#based-currency");
-                var baseCurrency = baseCurrencyObj.val();
                 var noConvertOption = $("option[value='']", baseCurrencyObj);
 
                 if (selectedCurrencyText.length > 1) {
                     noConvertOption.remove();
                     baseCurrencyObj.val("eur");
                 }
-                else if (selectedCurrencyText.length == 1) {
+                else if (selectedCurrencyText.length === 1) {
                     var currencyName = selectedCurrencyText[0];
-                    if (currencyName.toLowerCase() == "eur" || currencyName.toLowerCase() == "usd") {
+                    if (currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
                         noConvertOption.remove();
-                        baseCurrencyObj.val(currencyName.toLowerCase() == "usd" ? "usd" : "eur");
+                        baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
                     }
                     else {
-                        if (noConvertOption.length == 0) {
+                        if (noConvertOption.length === 0) {
                             $("<option value=''>" + currencyName + "</option>").appendTo(baseCurrencyObj);
                         } else {
                             $("option[value='']", baseCurrencyObj).text(currencyName);
@@ -583,8 +587,8 @@ var MonitorBetListUI = function (monitorObj) {
 
     $this.initFreezeButton = function () {
         $("#freeze-button").click(function () {
-            var currentStatus = $(this).attr("data-status");
-            var newStatus = currentStatus == 1 ? 0 : 1;
+            var currentStatus = Number($(this).attr("data-status"));
+            var newStatus = currentStatus === 1 ? 0 : 1;
             var newValue = newStatus ? Site.getSingleResource("Freeze") : Site.getSingleResource("Unfreeze");
             if (newStatus) {
                 monitor.startMonitor();
@@ -593,13 +597,13 @@ var MonitorBetListUI = function (monitorObj) {
                 monitor.stopMonitor();
             }
 
-            $(this).val(newValue)
-            $(this).attr("data-status", newStatus)
+            $(this).val(newValue);
+            $(this).attr("data-status", newStatus);
         });
     };
 
     $this.initHighlight = function () {
-        $this.monitor.containerTable.on("click", "tr", function (eventObject) {
+        $this.monitor.containerTable.on("click", "tr", function () {
             $(this).toggleClass("monitor-keep");
         });
     };
@@ -628,12 +632,12 @@ var MonitorBetListUI = function (monitorObj) {
                 Id: "column-" + i,
                 Value: e.Name,
                 Text: e.Name,
-                Checked: e.IsShow == 1 ? true : false,
+                Checked: Number(e.IsShow) === 1 ? true : false,
                 Enable: true,
                 Css: "",
                 CssClass: ""
             });
-            if (e.IsShow == 0) {
+            if (Number(e.IsShow) === 0) {
                 $("td[data-name=\"" + e.Name + "\"]").hide();
             }
             $("#se-column").append('<option value="' + e.Name + '">' + e.Name + " " + '</option>');
@@ -652,7 +656,7 @@ var MonitorBetListUI = function (monitorObj) {
             listData: columns,
             onCheck: function () {
                 var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
-                if (selectedLevel.length == 8) {
+                if (selectedLevel.length === 8) {
                     $.each($this.monitor.columns, function (i, e) {
                         e.IsShow = 1; $('td[data-name="' + e.Name + '"]').show();
                     });
@@ -704,8 +708,7 @@ var MonitorBetListUI = function (monitorObj) {
 };
 
 /*******************/
-var monitor = null;
-var monitorUi = null;
+
 $(window).load(function () {
     monitor = new MonitorBetList();
     monitor.initialize();

@@ -14,7 +14,7 @@ var MobileWinLoss = (function ($) {
     var _sortOrder = "desc";
     var _removeSorting = false;
     var _pageSize = 0;
-
+    var _resizeTimer = null;
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
              JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
@@ -27,11 +27,13 @@ var MobileWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-            setTimeout(function () {
+            clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(function () {
+                var height = $("#ReportGrid").height() ;
                 var gridTop = $("#ReportGrid").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 10;
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", height).css("max-height", gridHeight);
             }, 100);
         },
         //#region Init
