@@ -18,7 +18,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
-    using System.Web.Helpers;
 
     /// <summary>
     /// The turn over controller.
@@ -107,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report
             return metaModel.IsExportExcel ? TurnoverExcel(model) : 
                 Json(new
                 {
-                    TotalRows =  turnoverService.SumTotalData(dataList),
+                    TotalRows = turnoverService.SumTotalData(dataList),
                     Data = dataList
                 });
         }

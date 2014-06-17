@@ -73,33 +73,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
             }
         }
 
-        private static string GetProductName(string produtCode)
-        {
-            switch (produtCode)
-            {
-                case Product.Sb:
-                    return ViewResources.Sportsbook;
-                case Product.Ba:
-                    return ViewResources.BA;
-                case Product.Rb:
-                  return  ViewResources.Racing;
-                case Product.Ng:
-                  return ViewResources.NumberGame;
-                case Product.Vs:
-                  return ViewResources.VirtualSports;
-                case Product.Lc:
-                  return ViewResources.LiveCasino;
-                case Product.Bg:
-                  return ViewResources.Bingo;
-                case Product.Cs:
-                  return ViewResources.RNGCasino;
-                case Product.Kn:
-                  return ViewResources.Keno;
-            }
-
-            return produtCode;
-        }
-
         /// <summary>
         /// Allow Tote currency.
         /// </summary>
@@ -127,6 +100,33 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, new { });
             }
+        }
+
+        private static string GetProductName(string produtCode)
+        {
+            switch (produtCode)
+            {
+                case Product.Sb:
+                    return ViewResources.Sportsbook;
+                case Product.Ba:
+                    return ViewResources.BA;
+                case Product.Rb:
+                  return ViewResources.Racing;
+                case Product.Ng:
+                  return ViewResources.NumberGame;
+                case Product.Vs:
+                  return ViewResources.VirtualSports;
+                case Product.Lc:
+                  return ViewResources.LiveCasino;
+                case Product.Bg:
+                  return ViewResources.Bingo;
+                case Product.Cs:
+                  return ViewResources.RNGCasino;
+                case Product.Kn:
+                  return ViewResources.Keno;
+            }
+
+            return produtCode;
         }
 
         #endregion Public Methods and Operators
