@@ -478,7 +478,6 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="Scripts\ChangePass.js" />
-    <Content Include="Scripts\BetList\outstandingrunningbetlist.js" />
     <Content Include="Scripts\Customer\customers.js" />
     <Content Include="Scripts\Customer\customers.option.js" />
     <Content Include="Scripts\Header\header.js" />
