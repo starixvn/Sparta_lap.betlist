@@ -50,7 +50,7 @@
             @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licensee-type", Model.Param.LicenseeType)
         </div>
                   }
-        <div class="grid_2 filter-label">
+        <div class="grid_@(Model.LicenseeTypeList.Count > 0 ? 2 : 3) filter-label">
             <label>@ViewResources.Currency</label>
         </div>
         <div class="grid_4 filter-input">

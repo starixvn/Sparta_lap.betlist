@@ -11,6 +11,8 @@ namespace Fanex.Athena.Models.DTO.Report
     /// </summary>
     public class TurnoverDTO
     {
+        public int Index { get; set; }
+
         public string Date { get; set; }
 
         public decimal OpeningBalance { get; set; }
@@ -46,5 +48,13 @@ namespace Fanex.Athena.Models.DTO.Report
         public decimal AmountDueToBA { get; set; }
 
         public decimal PlayerComm { get; set; }
+
+        public decimal WinLossComm
+        {
+            get
+            {
+                return WinLoss + PlayerComm;
+            }
+        }
     }
 }

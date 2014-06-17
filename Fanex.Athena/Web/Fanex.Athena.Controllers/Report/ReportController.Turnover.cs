@@ -43,7 +43,6 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-
             SetConvetedUSDCurrencyId(metaModel);
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
@@ -85,30 +84,35 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
-
+            
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) || metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
             var turnoverService = new TurnoverService();
             var dataList = turnoverService.GetDataList(metaModel);
 
-            var model = new TurnoverViewModel
-                {
-                    DataList = dataList,
-                    TotalData = turnoverService.SumTotalData(dataList),
-                    Param = metaModel,
-                    ProductAccess = productAccess,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = userSession.CurrencyList,
-                    IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
-                };
+            if (metaModel.IsExportExcel)
+            {
+                var model = new TurnoverViewModel
+                    {
+                        DataList = dataList,
+                        TotalData = turnoverService.SumTotalData(dataList),
+                        Param = metaModel,
+                        ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo),
+                        IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                        LicenseeTypeList = licenseeSession.LicenseeType,
+                        CurrencyList = userSession.CurrencyList,
+                        IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+                    };
 
-            return metaModel.IsExportExcel ? TurnoverExcel(model) : 
-                Json(new
+                return TurnoverExcel(model);
+            }
+            else
+            {
+                return Json(new
                 {
-                    TotalRows = turnoverService.SumTotalData(dataList),
+                    TotalData = turnoverService.SumTotalData(dataList),
                     Data = dataList
                 });
+            }
         }
 
         #endregion Web Controller

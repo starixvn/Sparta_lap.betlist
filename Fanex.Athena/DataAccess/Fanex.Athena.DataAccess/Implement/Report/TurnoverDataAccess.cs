@@ -56,10 +56,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 using (var reader = db.ExecuteReader())
                 {
+                    var index = 1;
                     while (reader.Read())
                     {
                         result.Add(new TurnoverDTO
                         {
+                            Index = index++,
                             Date = reader.ToDateTime("winlostdate").ToString("MM/dd/yyyy"),
                             OpeningBalance = reader.ToDecimal("OpeningBalance" + metaModel.BaseCurrency),
                             Deposit = reader.ToDecimal("Deposit" + metaModel.BaseCurrency),

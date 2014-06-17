@@ -1,4 +1,4 @@
-﻿/*global Site,jqGridAdditional*/
+﻿/*global Site*/
 /*exported MobileWinLossOption*/
 /// <reference path="/@JSense.js" />
 //##
@@ -15,15 +15,14 @@ var TurnoverOption = (function () {
         valign: 'middle',
         sortable: false,
         resizable: false,
-        frozen: true,
-        cellattr: jqGridAdditional.rowSpanSetting
+        frozen: true
     };
     var dateColumn = {
         name: 'Date',
         index: 'Date',
         width: 85,
         align: 'center',
-        sortable: true,
+        sortable: false,
         frozen: true,
         resizable: false
     };
@@ -32,20 +31,20 @@ var TurnoverOption = (function () {
         index: 'OpeningBalance',
         width: 110,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal
+        formatter: 'currency'
     };
     var depositColumn = {
         name: 'Deposit',
         index: 'Deposit',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal
+        formatter: 'currency'
     };
     var withdrawalColumn = {
         name: 'Withdrawal',
@@ -53,7 +52,7 @@ var TurnoverOption = (function () {
         resizable: false,
         width: 85,
         align: 'right',
-        sortable: true,
+        sortable: false,
         formatter: 'currency',
         frozen: true,
         formatoptions:
@@ -66,135 +65,89 @@ var TurnoverOption = (function () {
     var bonusColumn = {
         name: 'Bonus',
         index: 'Bonus',
-        width: 50,
+        width: 60,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
-        formatter: 'integer',
-        frozen: true,
-        formatoptions:
-        {
-            thousandsSeparator: ","
-        }
+        formatter: 'currency',
+        frozen: true
     };
     var adjustmentColumn = {
         name: 'Adjustment',
         index: 'Adjustment',
         width: 70,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var turnoverColumn = {
         name: 'Turnover',
         index: 'Turnover',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var drawGameColumn = {
         name: 'DrawGame',
         index: 'DrawGame',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var netTurnoverColumn = {
         name: 'NetTurnover',
         index: 'NetTurnover',
         width: 85,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         frozen: true,
         title: true,
-        formatter: jqGridAdditional.formatLicenseeWl
+        formatter: 'currency'
     };
     var pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
-        formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var winLossColumn = {
         name: 'WinLoss',
         index: 'WinLoss',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
-        formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var playerCommColumn = {
         name: 'PlayerComm',
         index: 'PlayerComm',
         width: 60,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
-        formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
-    var amtDueToRacingColumn = {
-        name: 'AmtDueToRacing',
-        index: 'AmtDueToRacing',
-        width: 70,
+    var winlossCommColumn = {
+        name: 'WinLossComm',
+        index: 'WinLossComm',
+        width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
-        formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatter: 'currency'
     };
     var closingBalanceColumn = {
         name: 'ClosingBalance',
@@ -258,7 +211,7 @@ var TurnoverOption = (function () {
                  'AffiliateTransfer', 'CasinoTransfer', 'Turnover', 'Comm', 'AmountDueTo'];
     var colModelList = [indexColumn, dateColumn, openingBalanceColumn, depositColumn, withdrawalColumn, bonusColumn, adjustmentColumn,
                  turnoverColumn, drawGameColumn, netTurnoverColumn, pendingFundsColumn,
-                 winLossColumn, playerCommColumn, amtDueToRacingColumn, closingBalanceColumn,
+                 winLossColumn, playerCommColumn, winlossCommColumn, closingBalanceColumn,
                 affiliateTransferColumn, transfer3rdColumn, turnoverBAColumn, commBAColumn, amountDueToBAColumn];
     var customerWlTotalIndex = 11;
 
@@ -331,7 +284,7 @@ var TurnoverOption = (function () {
         pendingFundsColumn.hidden = !allowedBa;
         playerCommColumn.hidden = !allowedBa;
         winLossColumn.hidden = !allowedRacing;
-        amtDueToRacingColumn.hidden = !allowedRacing;
+        winlossCommColumn.hidden = !allowedRacing;
 
         // Row span setting
         indexColumn.cellattr = jqGridAdditional.rowSpanSetting;

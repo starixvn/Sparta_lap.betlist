@@ -118,27 +118,21 @@ var Turnover = (function ($) {
 
             var currencyName = currencyTextList[_currencyId] === undefined
             ? $('#CurrencyId option[value="' + _currencyId + '"]').text().trim() : currencyTextList[_currencyId];
-
+            var dateString = _fromDate.toString("MM/dd/yyyy") + ' → ' + _toDate.toString("MM/dd/yyyy");
             if (username === '' || username === Turnover.defaultUserName) {
                 titlePattern += ", {0} - {1}";
                 var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName.toUpperCase());
-               
-                title = $.format(titlePattern, _fromDate.toString("M/dd/yyyy") + ' → ' + _toDate.toString("M/dd/yyyy"), currencyStr);
+                title = $.format(titlePattern, dateString, currencyStr);
             } else {
-                titlePattern += ", {0} → {1} {2} ({3})";
-                title = $.format(titlePattern, _fromDate.toString("M/dd/yyyy") + ' → ' + _toDate.toString("M/dd/yyyy"),
-                        Site.getSingleResource('Customer'), username, currencyName);
+                titlePattern += ", {0} - {1} {2} ({3})";
+                title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
             }
 
             $("div.report-title").html(title);
         },
         ajaxComplete: function (response) {
             if (response != null) {
-                //reset layout
-
                 Turnover.setReportTitle();
-
-                // Turnover.renderBreadCrumb(level);
                 Turnover.bindData(response);
             }
         },
@@ -230,14 +224,14 @@ var Turnover = (function ($) {
 
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
-                    $("tr.no-info-row td:first").css("text-align", "left").css("padding-left", window.innerWidth / 2 - 50)
+                    $("tr.no-info-row td:first").css("text-align", "left").css("padding-left", window.innerWidth / 2 - 50);
                 }
                 else {
                     if (onPaging) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        Turnover.bindTotal(response.TotalRows);
+                        Turnover.bindTotal(response.TotalData);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
@@ -284,9 +278,9 @@ var Turnover = (function ($) {
             var colspan = 2;
             jqGridAdditional.assignTotal(totalData, columnModel);
             jqGridAdditional.setGroupFooters(colspan, 0, 0);
-            var $td = $(".ui-jqgrid-sdiv table tr td");
-            $td.css("background-color", "#b2dfef");
-            $($td[2]).css("text-align", "center").html("-");
+            var $tr = $(".ui-jqgrid-sdiv table tr");
+            $tr.find("td").css("background-color", "#b2dfef");
+            $tr.find("td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]").css("text-align", "center").html("-");
         }
     };
 })(jQuery);
