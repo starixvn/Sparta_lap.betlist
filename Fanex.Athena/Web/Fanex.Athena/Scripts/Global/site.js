@@ -1,10 +1,12 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global QueryString, _language_en_US, _page*/
+/// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
+"use strict";
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
-        licenseeType = licenseeType == undefined ? "" : licenseeType;
+        licenseeType = licenseeType === undefined ? "" : licenseeType;
         currencyName = $.trim(currencyName);
         // Set Url
         if (typeof (urlOrParams) === "string") {
@@ -36,7 +38,7 @@ var Site = (function ($) {
             });
             $.ajaxSetup({
                 statusCode: {
-                    401: function (jqXHR, textStatus, errorThrown) {
+                    401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     }
                 }
@@ -57,7 +59,7 @@ var Site = (function ($) {
 
             var $handler = $("<div class='filter-handle filter-handle-collapse'></div>");
             var $container = $(containerSelector);
-            
+
             $container.append($handler);
 
             var originalHeight = $container.height();
@@ -69,8 +71,8 @@ var Site = (function ($) {
                 $container.find("*").toggle();
                 $container.height(isCollapsed ? 5 : originalHeight);
                 $handler.css("top", isCollapsed ? -15 : originalTop);
-                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");                
-               // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
+                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
+                // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
                 $(window).resize();
             });
 
@@ -88,7 +90,7 @@ var Site = (function ($) {
         getScrollBarState: function () {
             var result = { vScrollbar: true, hScrollbar: true };
             try {
-                var root = document.compatMode == 'BackCompat' ? document.body : document.documentElement;
+                var root = document.compatMode === 'BackCompat' ? document.body : document.documentElement;
                 result.vScrollbar = root.scrollHeight > root.clientHeight;
                 result.hScrollbar = root.scrollWidth > root.clientWidth;
             } catch (e) { }
@@ -124,7 +126,7 @@ var Site = (function ($) {
             var currencyId = $("#CurrencyId").val();
             var baseCurrency = $("#BaseCurrency").val();
             var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName == undefined) {
+            if (currencyName === undefined) {
                 currencyName = $("#CurrencyName").val();
             }
 
@@ -136,7 +138,7 @@ var Site = (function ($) {
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
             var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName == undefined) {
+            if (currencyName === undefined) {
                 currencyName = $("#CurrencyName").val();
             }
             return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
@@ -155,7 +157,7 @@ var Site = (function ($) {
                 var counter = 0;
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
-                    if (productCode != undefined && productCode.length > 0) {
+                    if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
                         counter++;
                     }
@@ -167,7 +169,7 @@ var Site = (function ($) {
                 urlOrParams.ProductOptions = [];
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
-                    if (productCode != undefined && productCode.length > 0) {
+                    if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
                     }
                 });
@@ -181,7 +183,7 @@ var Site = (function ($) {
                 var counter = 0;
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
-                    if (productCode != undefined && productCode.length > 0) {
+                    if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
                         counter++;
                     }
@@ -193,7 +195,7 @@ var Site = (function ($) {
                 urlOrParams.ProductOptions = [];
                 $("input[type='checkbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
-                    if (productCode != undefined && productCode.length > 0) {
+                    if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
                     }
                 });
@@ -203,7 +205,7 @@ var Site = (function ($) {
         },
 
         setProductOptionParam: function (url, counter, productCode, status) {
-            productCode = productCode == null || productCode == undefined ? undefined : productCode.toUpperCase();
+            productCode = productCode == null || productCode === undefined ? undefined : productCode.toUpperCase();
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Code", productCode);
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Name", productCode);
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Status", status);
@@ -239,24 +241,23 @@ var Site = (function ($) {
         },
 
         currencyConstraint: function (userChange) {
-            var currency = $("#CurrencyId").val();
+            var currency = Number($("#CurrencyId").val());
             var currencyName = $("#CurrencyId option:selected").text();
             currencyName = $.trim(currencyName);
             $("#CurrencyName").val(currencyName);
 
             // Handle outside based currency list in some reports (customer wl, balance)
             var baseCurrencyObj = $("#BaseCurrency");
-            var baseCurrency = baseCurrencyObj.val();
             var noConvertOption = $("option[value='']", baseCurrencyObj);
-            if (currency == 0 || currencyName.toLowerCase() == "eur" || currencyName.toLowerCase() == "usd") {
+            if (currency === 0 || currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
                 noConvertOption.remove();
                 if (userChange) {
                     $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
-                    baseCurrencyObj.val(currencyName.toLowerCase() == "usd" ? "usd" : "eur");
+                    baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
                 }
             }
             else {
-                if (noConvertOption.length == 0
+                if (noConvertOption.length === 0
                     && baseCurrencyObj.find('option').length > 0) { // make sure baseCurrencyObj is select object
                     $("<option value=''selected=selected>" + currencyName + "</option>").appendTo(baseCurrencyObj);
                 } else {
@@ -277,7 +278,7 @@ var Site = (function ($) {
         },
 
         sortReport: function (sortColumn) {
-            var sortDirection = $("#SortColumn").val() == sortColumn ? $("#SortDirection").val() == "DESC" ? "ASC" : "DESC" : "ASC";
+            var sortDirection = $("#SortColumn").val() === sortColumn ? $("#SortDirection").val() === "DESC" ? "ASC" : "DESC" : "ASC";
 
             $("#SortColumn").val(sortColumn);
             $("#SortDirection").val(sortDirection);
@@ -295,10 +296,10 @@ var Site = (function ($) {
                 $("#header-content .sort-heading").each(function (index, element) {
                     var headerDiv = $(element);
                     var sortColumn = headerDiv.attr("data-column-name");
-                    if (sortColumn == $("#SortColumn").val()) {
+                    if (sortColumn === $("#SortColumn").val()) {
                         headerDiv.addClass("sorted-heading");
 
-                        var sortClass = $("#SortDirection").val() == "DESC" ? "sort-desc" : "sort-asc";
+                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
                         var sortSpan = $("<span></span");
                         sortSpan.addClass(sortClass);
                         var left = 0;
@@ -339,7 +340,9 @@ var Site = (function ($) {
         detectBrowser: function (userAgent) {
             if (userAgent === undefined) { userAgent = navigator.userAgent; }
             userAgent = userAgent.toLowerCase();
-            var match = /(chrome)[ \/]([\w.]+)/.exec(userAgent) || /(webkit)[ \/]([\w.]+)/.exec(userAgent) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(userAgent) || /(msie) ([\w.]+)/.exec(userAgent) || userAgent.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(userAgent) || [];
+            var match = /(chrome)[ \/]([\w.]+)/.exec(userAgent) || /(webkit)[ \/]([\w.]+)/.exec(userAgent) ||
+                    /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(userAgent) || /(msie) ([\w.]+)/.exec(userAgent) ||
+                     userAgent.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(userAgent) || [];
 
             return {
                 browser: match[1] || "",
@@ -373,7 +376,7 @@ var Site = (function ($) {
             return height - offset.top - exHeight;
         },
 
-        getMaxWidth: function (element) {
+        getMaxWidth: function () {
             /// <summary>
             ///
             /// </summary>
@@ -405,31 +408,32 @@ var Site = (function ($) {
             /// <param name="obj"></param>
             /// <returns type=""></returns>
 
-            if (null == obj || "object" != typeof obj)
+            if (null == obj || "object" !== typeof obj) {
                 return obj;
-
+            }
             // Handle Date
             if (obj instanceof Date) {
-                var copy = new Date();
-                copy.setTime(obj.getTime());
-                return copy;
+                var date = new Date();
+                date.setTime(obj.getTime());
+                return date;
             }
 
             // Handle Array
             if (obj instanceof Array) {
-                var copy = [];
+                var array = [];
                 for (var i = 0, len = obj.length; i < len; i++) {
-                    copy[i] = Site.clone(obj[i]);
+                    array[i] = Site.clone(obj[i]);
                 }
-                return copy;
+                return array;
             }
 
             // Handle Object
             if (obj instanceof Object) {
                 var copy = {};
                 for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr))
+                    if (obj.hasOwnProperty(attr)) {
                         copy[attr] = Site.clone(obj[attr]);
+                    }
                 }
                 return copy;
             }
@@ -443,8 +447,8 @@ var Site = (function ($) {
             /// </summary>
             /// <param name="input">string or object</param>
             /// <returns type="">bool type</returns>
-            if (typeof input == 'string') {
-                return input.toLowerCase() == 'true';
+            if (typeof input === 'string') {
+                return input.toLowerCase() === 'true';
             }
 
             return !!input;
@@ -455,19 +459,21 @@ var Site = (function ($) {
             /// </summary>
             /// <param name="enghlishName"></param>
 
-            if (enghlishName == null || enghlishName == undefined) return enghlishName;
+            if (enghlishName == null || enghlishName === undefined) {
+                return enghlishName;
+            }
             var keyName = "_language_" + _page.lang.replace("-", "_");
 
             var resources = window[keyName];
             if (!resources) {
-                resources = _language_en_US;
+                resources = _language_en_US; // jshint ignore:line
             }
 
             var mapResource = function (key) {
                 var item = resources[key];
-                if (item == undefined) {
-                    item = _language_en_US[key];
-                    return item != undefined ? item : key;
+                if (item === undefined) {
+                    item = _language_en_US[key]; // jshint ignore:line
+                    return item !== undefined ? item : key;
                 } else {
                     return item;
                 }
@@ -494,8 +500,12 @@ var Site = (function ($) {
             /// </summary>
             /// <param name="arrayText">array text</param>
 
-            if (arrayText == null) return null;
-            if (arrayText.constructor !== Array) return null;
+            if (arrayText == null) {
+                return null;
+            }
+            if (arrayText.constructor !== Array) {
+                return null;
+            }
 
             var newArray = [];
             for (var i = 0; i < arrayText.length; i++) {
@@ -507,21 +517,25 @@ var Site = (function ($) {
             return !isNaN(parseFloat(text)) && isFinite(text);
         },
         isInteger: function (text) {
-            return typeof Site.isNumber(text) && parseFloat(text) == parseInt(text, 10) && !isNaN(text);
+            return typeof Site.isNumber(text) && parseFloat(text) === parseInt(text, 10) && !isNaN(text);
         },
-        clone: function (obj) {
-            if (null == obj || "object" != typeof obj) return obj;
+       /* clone: function (obj) {
+            if (null == obj || "object" !== typeof obj) {
+                return obj;
+            }
             var copy = obj.constructor();
             for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+                if (obj.hasOwnProperty(attr)) {
+                    copy[attr] = obj[attr];
+                }
             }
             return copy;
         },
-
+        */
         signOut: function () {
 
             var index = window;
-            while (index != index.parent) // Jump out
+            while (index !== index.parent) // Jump out
             {
                 index = index.parent;
             }
@@ -532,10 +546,10 @@ var Site = (function ($) {
 })(jQuery);
 
 /*override alert function*/
-window.old_alert = window.alert;
+window.oldAlert = window.alert;
 window.alert = function (message, fallback) {
     if (fallback) {
-        old_alert(message);
+        window.oldAlert(message);
         return;
     }
     $(document.createElement('div'))

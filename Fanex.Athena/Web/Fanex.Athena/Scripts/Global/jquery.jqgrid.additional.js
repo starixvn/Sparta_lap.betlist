@@ -1,6 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, MathContext, BigDecimal*/
+/// <reference path="/@JSense.js" />
 ///
-
+"use strict";
 var jqGridAdditional = (function () {
     return {
         resetLayout: function (grid, maxWidth) {
@@ -13,11 +14,11 @@ var jqGridAdditional = (function () {
             grid.setGridParam({
                 shrinkToFit: false
             });
+            var maxScreenWidth = Site.getMaxWidth($('div.ui-jqgrid-bdiv'));
             if (maxWidth === undefined) {
                 maxWidth = maxScreenWidth;
             }
 
-            var maxScreenWidth = Site.getMaxWidth($('div.ui-jqgrid-bdiv'));
             var minWidth = 800;
             /* set maxWidth*/
 
@@ -35,12 +36,13 @@ var jqGridAdditional = (function () {
                 }
             }
 
-            if (actualWidth > maxScreenWidth)
+            if (actualWidth > maxScreenWidth) {
                 actualWidth = maxScreenWidth;
-            if (actualWidth < minWidth)
+            }
+            if (actualWidth < minWidth) {
                 actualWidth = minWidth;
-
-            if (actualWidth == minWidth) {
+            }
+            if (actualWidth === minWidth) {
                 $(".theme_jqGrid div.container_26 div.grid_26").css("width", actualWidth);
             }
             else {
@@ -118,10 +120,10 @@ var jqGridAdditional = (function () {
                 }]
             });
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-one-line");
-            $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column span").css("height", "45px !important")
+            $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column span").css("height", "45px !important");
         },
 
-        resetHeaderHeight: function (grid) {
+        resetHeaderHeight: function () {
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
         },
 
@@ -132,7 +134,7 @@ var jqGridAdditional = (function () {
             var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN"];
             for (var i = 0; i < productOptions.length; i++) {
                 if ($.inArray(productOptions[i].Code, productAds) > -1 && Site.asBool(productOptions[i].Status)) {
-                    productTemp += productTemp.length == 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
+                    productTemp += productTemp.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
                 }
             }
             if (productTemp.length > 0) {
@@ -160,7 +162,7 @@ var jqGridAdditional = (function () {
                     'max-height': totalRowCount < 4 ? bodyHeight - 50 : Math.max(bodyHeight - 50, 150)
                 });
             };
-            
+
             // Refine grid layout
             var gridId = grid.p.id;
             var gridContainer = $("#gview_" + gridId);
@@ -197,7 +199,7 @@ var jqGridAdditional = (function () {
             $("div.report-title").removeClass("hide").show();
         },
 
-        clearGrid: function (reportId, pagingId) {
+        clearGrid: function (reportId) {
             /// <summary>
             /// clear grid
             /// </summary>
@@ -208,7 +210,7 @@ var jqGridAdditional = (function () {
             $("div.container_26 >div").css('width', '');
         },
 
-        rowSpanSetting: function (rowId, val, rawObject, colModel) {
+        rowSpanSetting: function (rowId, val, rawObject) {
             var rowSpan = rawObject.RowSpan, result;
             if (rowSpan > 1) {
                 result = ' rowspan=' + '"' + rowSpan + '"';
@@ -222,7 +224,7 @@ var jqGridAdditional = (function () {
 
             return result;
         },
-        rowSpanSetting2: function (rowId, val, rawObject, colModel) {
+        rowSpanSetting2: function (rowId, val, rawObject) {
             var rowSpan = rawObject.RowSpan2, result;
             if (rowSpan > 1) {
                 result = ' rowspan=' + '"' + rowSpan + '"';
@@ -254,13 +256,14 @@ var jqGridAdditional = (function () {
                         var cell = cellList.get(cellIndex);
                         var isCustomFormater = typeof (modelElement.formatter) === "function";
                         var rawValue = totalElement[modelElement.name];
-                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) : $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
                         var titleValue = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
                             var wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
                             titleValue = wrapper.outerHtml;
-                        };
+                        }
                         $(cell).html(value).attr("title", titleValue);
                     });
                     row.insertBefore(mainFooter);
@@ -276,7 +279,7 @@ var jqGridAdditional = (function () {
             /// <param name="param"></param>
             /// <param name="columnNames"></param>
             //#region Show-Hide
-            var isShow = "showCol" == param;
+            var isShow = "showCol" === param;
             var footers = $("table.ui-jqgrid-ftable tr");
             if (isShow) {
                 $.each(columnNames, function (index, value) {
@@ -298,7 +301,7 @@ var jqGridAdditional = (function () {
             var numOfHideColumns = 0;
             var info = Site.getSingleResource("NoInfo");
             $(columnModel).each(function (index, item) {
-                if (item.hidden == true) {
+                if (item.hidden === true) {
                     numOfHideColumns++;
                 }
                 else {
@@ -311,8 +314,10 @@ var jqGridAdditional = (function () {
             }
 
             var contentTable = $("table.ui-jqgrid-htable");
-            if (contentTable.find(".no-info-row").length == 0) {
-                var temps = '<tr role="row" class="no-info-row ui-widget-content jqgrow ui-row-ltr" style="height:auto;"> <td style="text-align:center;" role="role="gridcell" colspan="' + colspan + '">' + info + '</td><td class="hide" colspan="' + numOfHideColumns + '"></td></tr>';
+            if (contentTable.find(".no-info-row").length === 0) {
+                var temps = '<tr role="row" class="no-info-row ui-widget-content jqgrow ui-row-ltr" style="height:auto;">' +
+                        ' <td style="text-align:center;" role="role="gridcell" colspan="' +
+                        colspan + '">' + info + '</td><td class="hide" colspan="' + numOfHideColumns + '"></td></tr>';
                 contentTable.append(temps);
             }
 
@@ -327,8 +332,9 @@ var jqGridAdditional = (function () {
                 mainFooter.remove();
             }
             var contentTable = $("table.ui-jqgrid-htable");
-            if (contentTable.find(".no-info-row").length == 0) {
-                var temps = '<tr role="row" class="no-info-row  ui-widget-content jqgrow ui-row-ltr" style="height:auto;"> <td style="text-align:center;" role="role="gridcell" colspan="' + colspan + '">' + info + '</td></tr>';
+            if (contentTable.find(".no-info-row").length === 0) {
+                var temps = '<tr role="row" class="no-info-row  ui-widget-content jqgrow ui-row-ltr" style="height:auto;">' +
+                    ' <td style="text-align:center;" role="role="gridcell" colspan="' + colspan + '">' + info + '</td></tr>';
                 contentTable.append(temps);
             }
 
@@ -369,9 +375,8 @@ var jqGridAdditional = (function () {
                 totalCellWidth += (colspan - 1) * 5 - 1;
 
                 // Hide other columns to match the colspan & rowspan
-                for (var i = 0; i < rowCount - summaryRowCount; i++) {
-                    columnIndex = 0;
-                    $("td ", footerRowList[i]).each(function (j, cell) {
+                var processFooter = function ($td, colspan) {
+                    $td.each(function (j, cell) {
                         if (columnIndex < colspan) {
                             if ($(cell).is(":visible")) {
                                 $(cell).hide();
@@ -379,21 +384,19 @@ var jqGridAdditional = (function () {
                             }
                         }
                     });
+                };
+
+                for (var i = 0; i < rowCount - summaryRowCount; i++) {
+                    columnIndex = 0;
+                    processFooter($("td ", footerRowList[i]), colspan);
                 }
 
                 //#region Render total eur section
                 columnIndex = 0;
                 // Hide other eur columns to match the colspan & rowspan
-                for (var i = rowCount - summaryRowCount; i < rowCount; i++) {
+                for (var j = rowCount - summaryRowCount; j < rowCount; j++) {
                     columnIndex = 0;
-                    $("td ", footerRowList[i]).each(function (j, cell) {
-                        if (columnIndex < summaryColspan) {
-                            if ($(cell).is(":visible")) {
-                                $(cell).hide();
-                                columnIndex++;
-                            }
-                        }
-                    });
+                    processFooter($("td ", footerRowList[j]), summaryColspan);
                 }
                 var totalInText = Site.getSingleResource("Totalin");
                 //#region Render total eur section
@@ -402,10 +405,13 @@ var jqGridAdditional = (function () {
                 // Set colspan for total section
                 if (rowCount > 1) {
                     // Show total text
-                    $("td:first-child", footerRowList[0]).attr("colspan", colspan).attr("rowspan", rowCount - summaryRowCount).css("display", "").css("width", totalCellWidth + "px").html(totalText);
+                    $("td:first-child", footerRowList[0]).attr("colspan", colspan)
+                            .attr("rowspan", rowCount - summaryRowCount).css("display", "")
+                            .css("width", totalCellWidth + "px").html(totalText);
                 }
                 else {
-                    $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan).css("width", totalCellWidth + "px").html(totalInText + " EUR");
+                    $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
+                        .css("width", totalCellWidth + "px").html(totalInText + " EUR");
                     //remove border style
                     $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
                 }
@@ -415,18 +421,22 @@ var jqGridAdditional = (function () {
                 if (currencyListString) {
                     var currencyList = currencyListString.split(",");
                     $(currencyList).each(function (i, currency) {
-                        $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan).attr("rowspan", summaryRowCount / currencyList.length).css("display", "").attr("colspan", summaryColspan).html(totalInText + " " + currency);
+                        $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan)
+                                .attr("rowspan", summaryRowCount / currencyList.length).css("display", "")
+                                .attr("colspan", summaryColspan).html(totalInText + " " + currency);
                         $("td.group-" + currency + ":gt(0)", footerTable).hide();
                         $("td.group-" + currency + ":first-child", footerTable).parent().addClass("total-eur");
                     });
                 } else {
-                    if (footerRowList.length > 1) $(footerRowList[footerRowList.length = 1]).hide();
+                    if (footerRowList.length > 1) {
+                        $(footerRowList[footerRowList.length = 1]).hide();
+                    }
                 }
                 /*set scrolling*/
                 if (allowScrolling) {
                     footerTable.parent().css("position", "relative");
                     footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
-                  
+
                 }
             }
         },

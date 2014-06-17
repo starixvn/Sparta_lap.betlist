@@ -1,16 +1,29 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, _page*/
+/// <reference path="/@JSense.js" />
+"use strict";
+var handle;
+
+function closeBrowser() {
+    var index = window;
+    while (index !== index.parent) // Jump out
+    {
+        index = index.parent;
+    }
+
+    index.close();
+}
 
 function ReCheckin() {
 
     var Success = 0;
-    var Unknown = -1;
-    var AccessDenied = 1;
-    var AccountClosed = 2;
-    var KickedOut = 3;
-    var UnderMaintenance = 4;
+    // var Unknown = -1;
+    // var AccessDenied = 1;
+    // var AccountClosed = 2;
+    // var KickedOut = 3;
+    // var UnderMaintenance = 4;
     var SessionOverride = 5;
 
-    var isInternal = $("#IsInternal").val() == "1";
+    var isInternal = $("#IsInternal").val() === "1";
     $.ajax({
         url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _page.OnUserID,
         async: true,
@@ -21,12 +34,12 @@ function ReCheckin() {
             if (errCode !== Success) {
                 clearInterval(handle);
                 alert(result.ErrMsg, true);
-                if (isInternal || SessionOverride == errCode) {
+                if (isInternal || SessionOverride === errCode) {
 
                     var signOutUrl = Site.resolveClientUrl('Header/SignOut');
                     $.ajax({
                         url: signOutUrl,
-                        complete: function (rs) {
+                        complete: function () {
                             closeBrowser();
                         },
                         type: "GET",
@@ -38,22 +51,11 @@ function ReCheckin() {
                 }
             }
         },
-        error: function (request, status, error) { }
+        error: function (/*request, status, error*/) { }
     });
 }
 
-function closeBrowser() {
-    var index = window;
-    while (index != index.parent) // Jump out
-    {
-        index = index.parent;
-    }
-
-    index.close();
-}
-
-var handle;
 $(window).load(function () {
-    handle = setInterval("ReCheckin()", 30000);
+    handle = setInterval(ReCheckin, 30000);
 });
 

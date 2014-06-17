@@ -9,7 +9,8 @@
 */
 
 //#region String Prototype
-
+"use strict";
+/* jshint ignore:start */
 String.prototype.format = function () {
     /// <summary>
     /// simply format method
@@ -101,3 +102,4 @@ Array.prototype.insertBefore = function (value, before) {
 
 //#endregion
 
+/* jshint ignore:end */

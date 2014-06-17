@@ -1,5 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
 /// /* File Created: April 9, 2012 */
+"use strict";
 var lrf = {};
 /* lrf.layout */
 lrf.layout =
@@ -7,6 +9,7 @@ lrf.layout =
     lrfLayout: null,
     init: function (options) {
         var setOpts = options ? $.extend(options, this.defaults) : this.defaults;
+        /* jshint ignore:start */
         this.lrfLayout = $('body').layout({
             closable: true
             // pane can open & close
@@ -69,6 +72,7 @@ lrf.layout =
             ,
             useStateCookie: true
         });
+        /* jshint ignore:end */
         this.defaults = setOpts;
     },
 
@@ -86,37 +90,40 @@ lrf.layout =
 };
 /* fps.admin */
 
-function getCookie(cName) {
-    var i,
+
+$(document).ready(function () {
+
+
+    function getCookie(cName) {
+        var i,
     x,
     y,
     arRcookies = document.cookie.split(";");
-    for (i = 0; i < arRcookies.length; i++) {
-        x = arRcookies[i].substr(0, arRcookies[i].indexOf("="));
-        y = arRcookies[i].substr(arRcookies[i].indexOf("=") + 1);
-        x = x.replace(/^\s+|\s+$/g, "");
-        if (x == cName) {
-            return unescape(y);
+        for (i = 0; i < arRcookies.length; i++) {
+            x = arRcookies[i].substr(0, arRcookies[i].indexOf("="));
+            y = arRcookies[i].substr(arRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x === cName) {
+                return unescape(y);
+            }
         }
     }
-}
 
-function setCookie(cName, value, exdays) {
-    var exdate = new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var cValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString()) + "; path=/";
-    document.cookie = cName + "=" + cValue;
-}
-
-function IsHideBrowserNotification() {
-    var browserRemind = getCookie("hidebrowsernotification");
-    if (browserRemind != null && browserRemind != "") {
-        return true;
+    function setCookie(cName, value, exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var cValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString()) + "; path=/";
+        document.cookie = cName + "=" + cValue;
     }
-    return false;
-}
 
-$(document).ready(function () {
+    function isHideBrowserNotification() {
+        var browserRemind = getCookie("hidebrowsernotification");
+        if (browserRemind != null && browserRemind !== "") {
+            return true;
+        }
+        return false;
+    }
+
     var matched = Site.detectBrowser(navigator.userAgent);
     var browser = {};
     if (matched.browser) {
@@ -127,7 +134,7 @@ $(document).ready(function () {
     if ((browser.msie && browser.version < 8) || (browser.mozilla && browser.version < 3.6)) {
         $("#browser").html(browser.msie ? "IE" : "Firefox");
 
-        if (!IsHideBrowserNotification()) {
+        if (!isHideBrowserNotification()) {
             $("#notification_popup").show("slow");
         }
 

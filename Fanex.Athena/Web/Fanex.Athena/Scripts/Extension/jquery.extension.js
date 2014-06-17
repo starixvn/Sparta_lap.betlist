@@ -1,4 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
+"use strict";
 (function ($) {
     $.fn.checkboxgroup = function () {
         var allChk = this.first();
@@ -60,7 +61,7 @@
         if (window.getComputedStyle) {
             var camelize = function (a, b) {
                 return b.toUpperCase();
-            }
+            };
             style = window.getComputedStyle(dom, null);
             for (var i = 0, l = style.length; i < l; i++) {
                 var prop = style[i];
@@ -73,15 +74,15 @@
         try {
             if (dom.currentStyle) {
                 style = dom.currentStyle;
-                for (var prop in style) {
-                    returns[prop] = style[prop];
+                for (var p1 in style) {
+                    returns[p1] = style[p1];
                 }
                 return returns;
             }
-            if (style = dom.style) {
-                for (var prop in style) {
-                    if (typeof style[prop] != 'function') {
-                        returns[prop] = style[prop];
+            if (style === dom.style) {
+                for (var p2 in style) {
+                    if (typeof style[p2] !== 'function') {
+                        returns[p2] = style[p2];
                     }
                 }
                 return returns;
@@ -89,7 +90,7 @@
         } catch (err) {
         }
         return returns;
-    }
+    };
 
     jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
         /// <summary>
@@ -103,19 +104,18 @@
                 return;
             }
         }
-        return this.each(function () {
-            for (var i = 0; i < colIndexs.length; i++) {
-                var colIdx = colIndexs[i];
+
+        function process(element, colIdx){        
                 var that;
                 var ethat;
                 var ethis;
                 var rowspan = 1;
-                var len = $('tbody tr', this).length - 1;
-                $('tbody tr', this).each(function (index, row) {
+                var len = $('tbody tr', element).length - 1;
+                $('tbody tr', element).each(function (index) {
                     var currentRow = this;
-                    $('td:eq(' + colIdx + ')', this).each(function (col) {
+                    $('td:eq(' + colIdx + ')', this).each(function () {
                         ethis = $('td:eq(' + effectToIndex + ')', currentRow);
-                        var found = that != null && $(this).html() == $(that).html();
+                        var found = that != null && $(this).html() === $(that).html();
                         if (found && index < len) {
                             rowspan += 1;
                             $(this).hide();
@@ -124,7 +124,7 @@
                             }
                             //.remove// do your action for the old cell here
                         }
-                        else if (found && index == len) {
+                        else if (found && index === len) {
                             //do your action for lasted row
                             $(this).hide();
                             rowspan += 1;
@@ -155,6 +155,11 @@
                         // set the that if not already set
                     });
                 });
+        }
+
+        return this.each(function () {
+            for (var i = 0; i < colIndexs.length; i++) {
+                process(this, colIndexs[i]);
             }
         });
     };
@@ -164,16 +169,18 @@
             x = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
             while (pattern.test(x))
+            {
                 x = x.replace(pattern, "$1,$2");
+            }
             return x;
         };
 
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
-                if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
+                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
                 // Allow: Ctrl+A
-                    (event.keyCode == 65 && event.ctrlKey === true) ||
+                    (event.keyCode === 65 && event.ctrlKey === true) ||
                 // Allow: home, end, left, right
                     (event.keyCode >= 35 && event.keyCode <= 39)) {
                     // let it happen, don't do anything
@@ -205,14 +212,14 @@
 })(jQuery);
 
 jQuery.extend({
-    format: function (pattern) {
+    format: function () {
         /// <summary>
         /// simply format method
         /// </summary>
         /// <returns type="string">formated string</returns>
         var formatted = arguments[0];
         var passValue = $.grep(arguments, function (n, i) { return i > 0; });
-        for (arg in passValue) {
+        for (var arg in passValue) {
             formatted = formatted.replace("{" + arg + "}", passValue[arg]);
         }
         return formatted;

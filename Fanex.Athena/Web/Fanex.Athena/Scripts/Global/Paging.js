@@ -1,7 +1,7 @@
-﻿/// <reference path="/@JSense.js" />
-$(document).ready(function () {
-    pagingHeper.bindEvent();
-});
+﻿/*global Site, QueryString*/
+/// <reference path="/@JSense.js" />
+"use strict";
+
 var paging = function () {
     this.pageGo = function (method, index) {
         /// <summary>
@@ -9,7 +9,7 @@ var paging = function () {
         /// </summary>
         /// <param name="method">POST or GET or AJAX</param>
         /// <param name="index"></param>
-        if (method == "POST") {
+        if (method === "POST") {
             $("#IsExportExcel").val(false);
             var form = $("#" + $("div.pagingContainer input[name='FormName']").val());
             var size = parseInt($("div.pagingContainer input[name='PageSize']").val(), 10);
@@ -20,22 +20,22 @@ var paging = function () {
             Site.blockUI();
             form.submit();
         }
-        else if (method == "AJAX") {
+        else if (method === "AJAX") {
             $("div.pagingContainer input[name='PageIndex']").val(index);
             var fc = $("div.pagingContainer input[name='AjaxPagingFunction']").val();
-            eval(fc);
+            eval(fc); // jshint ignore:line
         } else {
-            var pageSize = $("div.pagingContainer input[name='PageSize']").val();
+            var pagesize = $("div.pagingContainer input[name='PageSize']").val();
             var url = location.href;
-            url = QueryString.setParam(url, "PageSize", pageSize);
+            url = QueryString.setParam(url, "PageSize", pagesize);
             url = QueryString.setParam(url, "PageIndex", index);
 
             location.href = url;
         }
-    }
-}
-var pagingHeper = new function () {
-    var me = this;
+    };
+};
+var pagingHeper = (function () {
+    var me = {};
     var setting =
         {
             pageindex: 1,
@@ -47,7 +47,7 @@ var pagingHeper = new function () {
             method: "AJAX",
             ajaxfunction: "",
             alwayshow: false
-        }
+        };
     me.render = function (option) {
         /// <summary>
         ///
@@ -62,14 +62,14 @@ var pagingHeper = new function () {
         var noOfPage = 1;
         if (setting.totalrow > setting.pagesize) {
             noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize == 0 ? 0 : 1));
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
         }
         var pagingVisible = setting.totalrow > setting.pagesize;
         if (pagingVisible || setting.alwayshow) {
             var pageControl = ['<div class="pagingContainer">',
                           '<input type="button" class="icon pagingFirst" />'];
             var pagePre = '<input type="button" class="icon pagingPrev'
-            + (setting.pageindex == 1 ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
+            + (setting.pageindex === 1 ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
 
             pageControl.push(pagePre);
             pageControl.push('<span class="pagingSeperator"></span>' + Site.getSingleResource("Page"));
@@ -86,18 +86,18 @@ var pagingHeper = new function () {
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
             pageControl.push('<span class="pagingSeperator"></span>');
             var pageNext = '<input type="button" class="icon pagingNext'
-            + (setting.pageindex == noOfPage ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
+            + (setting.pageindex === noOfPage ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
             pageControl.push(pageNext);
             var pageLast = '<input type="button" class="icon pagingLast'
-            + (setting.pageindex == noOfPage ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
+            + (setting.pageindex === noOfPage ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
             pageControl.push(pageLast);
             pageControl.push('<select class="pageSizeSelected">');
             var pageListLength = setting.pagelist.length;
             for (var i = 0; i < pageListLength; i++) {
-                var option = '<option value="' + setting.pagelist[i]
-                + '"' + (setting.pagesize == setting.pagelist[i] ? ' selected="selected"' : '')
+                var optionHtml = '<option value="' + setting.pagelist[i]
+                + '"' + (setting.pagesize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
-                pageControl.push(option);
+                pageControl.push(optionHtml);
             }
             pageControl.push('</select> </div>');
             pageHtml = pageControl.join("");
@@ -128,7 +128,6 @@ var pagingHeper = new function () {
         });
         $("div.pagingContainer input.pagingLast").on("click", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
-            var currentPage = parseInt($("div.pagingContainer input.pagingCurrent").val(), 10);
             pagingControl.pageGo(method, parseInt($('div.pagingContainer input[name="NoOfPage"]').val(), 10));
         });
         $("div.pagingContainer input.pagingNext").on("click", function () {
@@ -144,10 +143,9 @@ var pagingHeper = new function () {
         });
         $("div.pagingContainer input.pagingCurrent").on("keyup", function (e) {
             var method = $('div.pagingContainer input[name="Method"]').val();
-            var currentPage = parseInt($("div.pagingContainer input.pagingCurrent").val(), 10);
             var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 13) {
-                var value = parseInt($(this).val())
+            if (code === 13) {
+                var value = parseInt($(this).val());
                 var limit = parseInt($('div.pagingContainer input[name="NoOfPage"]').val(), 10);
                 if (value > 0 && value <= limit) {
                     $(this).val(value);
@@ -156,4 +154,10 @@ var pagingHeper = new function () {
             }
         });
     };
-}
+
+    return me;
+})();
+
+$(document).ready(function () {
+    pagingHeper.bindEvent();
+});

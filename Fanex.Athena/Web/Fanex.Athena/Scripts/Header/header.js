@@ -1,5 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
-
+﻿/*global Site*/
+/// <reference path="/@JSense.js" />
+"use strict";
 $(document).ready(function () {
     // init clock
     var options = {
@@ -17,14 +18,14 @@ $(document).ready(function () {
             type: "GET",
             cache: false,
             success: function (result) {
-                if (result == "1") {
+                if (result === "1") {
                     top.frames["main"].location.href = Site.resolveClientUrl("Report/Balance");
                     top.frames["menu"].location.href = Site.resolveClientUrl("Menu/Index");
                     top.frames["header"].location.href = Site.resolveClientUrl("Header/Index");
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
                 }
             },
-            error: function (request, status, error) { }
+            error: function (/*request, status, error*/) { }
         });
     });
     $("#ddlLicensee").change(function () {

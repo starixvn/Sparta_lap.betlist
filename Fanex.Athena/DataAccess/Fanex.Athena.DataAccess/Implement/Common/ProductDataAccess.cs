@@ -102,6 +102,11 @@ namespace Fanex.Athena.DataAccess.Implement.Common
             }
         }
 
+        /// <summary>
+        /// Get Product Name.
+        /// </summary>
+        /// <param name="produtCode">Product code.</param>
+        /// <returns>Product name.</returns>
         private static string GetProductName(string produtCode)
         {
             switch (produtCode)
