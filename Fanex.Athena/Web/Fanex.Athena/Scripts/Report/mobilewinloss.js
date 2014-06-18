@@ -364,7 +364,7 @@ var MobileWinLoss = (function ($) {
                 url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level +
                             "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
                 error: function (xhr) {
-                    Site.gotoErrorPage(xhr.status);
+                    Site.gotoErrorPageForAjax(xhr.status);
                 },
                 success: function (response) {
                     MobileWinLoss.ajaxComplete(level, response);

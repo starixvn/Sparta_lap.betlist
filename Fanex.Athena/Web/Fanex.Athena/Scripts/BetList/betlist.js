@@ -200,7 +200,7 @@ var BetList = (function ($) {
                     Site.unBlockUI();
                 },
                 error: function (xhr) {
-                    Site.gotoErrorPage(xhr.status);
+                    Site.gotoErrorPageForAjax(xhr.status);
                 }
 
             });

@@ -101,7 +101,7 @@ var Site = (function ($) {
             window.location.href = Site.resolveClientUrl("Utility/Error");
         },
 
-        gotoErrorPage: function (status) {
+        gotoErrorPageForAjax: function (status) {
             if (status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");
             } else {
