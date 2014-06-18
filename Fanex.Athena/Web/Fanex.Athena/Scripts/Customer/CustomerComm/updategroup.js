@@ -160,8 +160,7 @@ var UpdateGroup = (function ($) {
                     }
 
                     Site.unBlockUI();
-                },
-                error: function (/*xhr, status, err*/) { }
+                }
             });
         }
     };

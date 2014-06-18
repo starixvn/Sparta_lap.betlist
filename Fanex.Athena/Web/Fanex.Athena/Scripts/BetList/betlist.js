@@ -198,8 +198,7 @@ var BetList = (function ($) {
                 },
                 complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
-                },
-                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); }
+                }
             });
         },
 
@@ -323,7 +322,6 @@ var BetList = (function ($) {
                     dataType: "json",
                     cache: false,
                     url: url,
-                    // error: function (xhRequest, errorText, thrownError) { },
                     success: function (response) {
                         var choice = "";
                         var len = response.length;

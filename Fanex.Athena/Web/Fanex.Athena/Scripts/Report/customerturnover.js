@@ -315,7 +315,6 @@ var CustTurnover = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: CustTurnover.bettypeUrl,
-                error: function (/*xhRequest, errorText, thrownError*/) { },
                 success: function (response) {
                     CustTurnover.bettypes = response;
                     CustTurnover.checkedBettypes = response;
@@ -437,12 +436,6 @@ var CustTurnover = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: CustTurnover.urlData,
-                error: function (xhRequest) {
-                    Site.unBlockUI();
-                    if (xhRequest.status !== 0) {
-                        alert(Site.getSingleResource("Error"));
-                    }
-                },
                 success: function (response) {
                     CustTurnover.gridBiding(response);
                 },

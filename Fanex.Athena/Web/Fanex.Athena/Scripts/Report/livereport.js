@@ -89,9 +89,6 @@ var LiveReport = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 url: Site.resolveClientUrl("Report/LiveReportDetail"),
-                error: function () {
-                    LiveReport.ajaxComplete();
-                },
                 success: function () {
                 },
                 beforeSend: function () {

@@ -527,9 +527,6 @@ var CustomerList = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
-                error: function (xhr) {
-                    Site.gotoErrorPage(xhr.status);
-                },
                 success: function (response) {
                     _cacheData = response;
                     bindData(response);
@@ -711,9 +708,6 @@ var CustomerList = (function ($) {
                     else {
                         alert(result.Message);
                     }
-                },
-                error: function (jqXHR, textStatus) {
-                    alert(textStatus);
                 }
             });
         },

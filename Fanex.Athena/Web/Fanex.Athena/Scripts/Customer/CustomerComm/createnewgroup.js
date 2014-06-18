@@ -128,8 +128,6 @@ var CreateGroup = (function ($) {
                     }
 
                     Site.unBlockUI();
-                },
-                error: function (/*xhr, status, err*/) {
                 }
             });
         }

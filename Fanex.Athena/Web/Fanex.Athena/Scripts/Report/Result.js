@@ -41,7 +41,6 @@ var result = (function () {
                     type: "GET",
                     cache: false,
                     url: Site.resolveClientUrl(kenoResultApi),
-                    error: function () { },
                     success: function (response) {
                         kenoUserId = response.UserId;
                         kenoWindow.location = response.Url;
@@ -127,7 +126,6 @@ var result = (function () {
             contentType: "application/json",
             cache: false,
             url: url,
-            error: function () { },
             success: function (response) {
                 renderFilter(response);
                 if (response != null && response.toString().length > 1) {
@@ -179,7 +177,6 @@ var result = (function () {
             cache: false,
             data: data,
             url: url,
-            error: function () { },
             success: function (response) {
                 if (response != null && response.length > 0) {
                     $("#no-info").hide();

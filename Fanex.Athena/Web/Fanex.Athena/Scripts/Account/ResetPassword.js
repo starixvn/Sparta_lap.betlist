@@ -59,9 +59,7 @@ var ResetPassword = (function ($) {
 
                             $('#resultMessage').html(response.Message).show();
                             $('#resultMessage').animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
-                        },
-                        error: function () {
-                        },
+                        }
                     });
                 }
             });

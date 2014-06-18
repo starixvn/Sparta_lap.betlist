@@ -173,7 +173,6 @@ var Turnover = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(TurnoverOption.urlData),
-                // error: function (xhRequest, errorText, thrownError) { },
                 success: function (response) {
                     $("#BackLink").hide();
                     Turnover.ajaxComplete(response);

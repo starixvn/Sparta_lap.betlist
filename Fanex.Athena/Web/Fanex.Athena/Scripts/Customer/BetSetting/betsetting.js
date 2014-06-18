@@ -308,9 +308,6 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
                 }
             });
         },
@@ -340,9 +337,6 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
                 }
             });
         },
@@ -368,9 +362,6 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
                 }
             });
         },
@@ -394,9 +385,6 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
                 }
             });
         },
@@ -424,9 +412,6 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     BetSetting.showUpdateSettingResult(result);
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource('Error'), err, false);
                 }
             });
         },

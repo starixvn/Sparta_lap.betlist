@@ -24,8 +24,7 @@ $(document).ready(function () {
                     top.frames["header"].location.href = Site.resolveClientUrl("Header/Index");
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
                 }
-            },
-            error: function (/*request, status, error*/) { }
+            }
         });
     });
     $("#ddlLicensee").change(function () {

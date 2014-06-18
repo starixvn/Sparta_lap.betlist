@@ -359,7 +359,6 @@ var MobileWinLoss = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level +
                             "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
-                error: function () { Site.gotoErrorPage(); },
                 success: function (response) {
                     MobileWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

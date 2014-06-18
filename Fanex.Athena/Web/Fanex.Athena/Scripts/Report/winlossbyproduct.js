@@ -178,7 +178,6 @@ var WinLossByProduct = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(WinLossByProductOption.urlData),
-                error: function (/*xhRequest, errorText, thrownError*/) { },
                 success: function (response) {
                     WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
                     WinLossByProduct.ajaxComplete(0, response);
@@ -246,7 +245,6 @@ var WinLossByProduct = (function ($) {
 
                 url: Site.resolveClientUrl(WinLossByProductOption.urlData + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
                      "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
-                error: function () { Site.gotoErrorPage(); },
                 success: function (response) {
                     WinLossByProduct.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

@@ -88,8 +88,6 @@ var GroupComm = (function ($) {
                 success: function (id) {
                     // Delete group
                     GroupComm.deleteGroup(groupId, id.id.toString() === groupId.toString() ? true : false);
-                },
-                error: function (/*xhr, status, err*/) {
                 }
             });
         },
@@ -164,8 +162,6 @@ var GroupComm = (function ($) {
                     }
 
                     Site.unBlockUI();
-                },
-                error: function (/*xhr, status, err*/) {
                 }
             });
         },

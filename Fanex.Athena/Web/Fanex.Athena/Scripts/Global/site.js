@@ -38,6 +38,9 @@ var Site = (function ($) {
             });
             $.ajaxSetup({
                 statusCode: {
+                    0: function () {
+                        Site.unBlockUI();
+                    },
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     }

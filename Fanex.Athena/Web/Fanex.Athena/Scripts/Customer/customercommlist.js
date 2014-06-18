@@ -156,8 +156,7 @@ var CustomerComm = (function ($) {
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
                     }
-                },
-                error: function () { }
+                }
             });
         },
         /* End- move customer to group*/
@@ -254,8 +253,7 @@ var CustomerComm = (function ($) {
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
                     }
-                },
-                error: function (/*jqXHR, textStatus, errorThrown*/) { }
+                }
             });
         },
         /* end-update custom*/
@@ -356,8 +354,7 @@ var CustomerComm = (function ($) {
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
                     }
-                },
-                error: function (/*jqXHR, textStatus, errorThrown*/) { }
+                }
             });
         },
 

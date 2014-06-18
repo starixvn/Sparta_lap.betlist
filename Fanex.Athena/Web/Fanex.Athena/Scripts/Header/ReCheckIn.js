@@ -48,8 +48,7 @@ function ReCheckin() {
                     Site.signOut();
                 }
             }
-        },
-        error: function (/*request, status, error*/) { }
+        }
     });
 }
 

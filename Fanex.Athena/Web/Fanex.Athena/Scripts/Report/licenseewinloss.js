@@ -215,7 +215,6 @@ var LicenseeWinLoss = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
                 success: function (response) {
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);
@@ -301,7 +300,6 @@ var LicenseeWinLoss = (function ($) {
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
                     fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
-                error: function (/*xhRequest, errorText, thrownError*/) { },
                 success: function (response) {
                     LicenseeWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

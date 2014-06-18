@@ -241,8 +241,6 @@ var EditPermission = (function ($) {
                 url: url,
                 success: function (response) {
                     EditPermission.showResponseMessage(response);
-                },
-                error: function () {
                 }
             });
         },

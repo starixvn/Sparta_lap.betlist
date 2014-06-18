@@ -110,11 +110,6 @@ var MatchWinLoss = (function ($) {
                     firstColumn.addClass("current-expanding-column");
                     firstColumn.attr("data-product-code", data.ProductCode);
                 },
-                error: function (xhr) {
-                    if (xhr.status !== 0) {
-                        alert('error');
-                    }
-                },
                 beforeSend: function () {
                     Site.blockUI();
                 },
