@@ -97,12 +97,8 @@ var Site = (function ($) {
             return (result);
         },
 
-        gotoErrorPage: function () {
-            window.location.href = Site.resolveClientUrl("Utility/Error");
-        },
-
-        gotoErrorPageForAjax: function (status) {
-            if (status !== 0) {
+        gotoErrorPage: function (status) {
+            if (status !== undefined || status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");
             } else {
                 Site.unBlockUI();
@@ -529,17 +525,17 @@ var Site = (function ($) {
         isInteger: function (text) {
             return typeof Site.isNumber(text) && parseFloat(text) === parseInt(text, 10) && !isNaN(text);
         },
-       /* clone: function (obj) {
-            if (null == obj || "object" !== typeof obj) {
-                return obj;
-            }
-            var copy = obj.constructor();
-            for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) {
-                    copy[attr] = obj[attr];
-                }
-            }
-            return copy;
+        /* clone: function (obj) {
+        if (null == obj || "object" !== typeof obj) {
+        return obj;
+        }
+        var copy = obj.constructor();
+        for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+        copy[attr] = obj[attr];
+        }
+        }
+        return copy;
         },
         */
         signOut: function () {

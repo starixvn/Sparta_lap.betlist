@@ -217,9 +217,7 @@ var LicenseeWinLoss = (function ($) {
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-                error: function (xhr) {
-                    Site.gotoErrorPageForAjax(xhr.status);
-                },
+                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
                 success: function (response) {
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);

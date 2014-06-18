@@ -246,9 +246,7 @@ var WinLossByProduct = (function ($) {
 
                 url: Site.resolveClientUrl(WinLossByProductOption.urlData + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
                      "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
-                error: function (xhr) {
-                    Site.gotoErrorPageForAjax(xhr.status);
-                },
+                error: function () { Site.gotoErrorPage(); },
                 success: function (response) {
                     WinLossByProduct.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

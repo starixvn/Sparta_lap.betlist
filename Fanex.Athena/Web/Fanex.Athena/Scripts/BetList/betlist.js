@@ -199,9 +199,7 @@ var BetList = (function ($) {
                 complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 },
-                error: function (xhr) {
-                    Site.gotoErrorPageForAjax(xhr.status);
-                }
+                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); }
 
             });
         },

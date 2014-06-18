@@ -531,7 +531,7 @@ var CustomerList = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 error: function (xhr) {
-                    Site.gotoErrorPageForAjax(xhr.status);
+                    Site.gotoErrorPage(xhr.status);
                 },
                 success: function (response) {
                     _cacheData = response;
