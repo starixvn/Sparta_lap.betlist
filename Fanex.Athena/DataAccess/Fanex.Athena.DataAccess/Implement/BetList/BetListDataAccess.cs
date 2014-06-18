@@ -1240,7 +1240,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     break;
 
                 case "Lrf_BetList_SelRunningByMultipleBettypeMatch":
-                    CreateMatchRunningBetLitByMultipleBettypeParameters(db, metaModel);
+                    CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metaModel);
                     break;
 
                 case "Lrf_BetList_Forecast_SelByMatch":
@@ -1250,7 +1250,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             }
         }
 
-        private static void CreateMatchRunningBetLitByMultipleBettypeParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
