@@ -96,9 +96,19 @@ var Site = (function ($) {
             } catch (e) { }
             return (result);
         },
+
         gotoErrorPage: function () {
             window.location.href = Site.resolveClientUrl("Utility/Error");
         },
+
+        gotoErrorPage: function (status) {
+            if (status !== 0) {
+                window.location.href = Site.resolveClientUrl("Utility/Error");
+            } else {
+                Site.unBlockUI();
+            }
+        },
+
         unBlockUI: function () {
 
             $('div.block-body').hide();

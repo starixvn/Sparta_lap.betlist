@@ -530,7 +530,9 @@ var CustomerList = (function ($) {
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
-                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); },
+                error: function (xhr) {
+                    Site.gotoErrorPage(xhr.status);
+                },
                 success: function (response) {
                     _cacheData = response;
                     bindData(response);

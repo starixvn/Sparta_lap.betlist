@@ -21,7 +21,7 @@ var BetList = (function ($) {
             var $container = $(".ui-jqgrid-bdiv");
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
-            if ($child.height() > Math.min($container.height(), gridHeight)) {                
+            if ($child.height() > Math.min($container.height(), gridHeight)) {
                 $container.css("height", Math.min($child.height(), gridHeight));
             }
         },
@@ -199,7 +199,9 @@ var BetList = (function ($) {
                 complete: function (/*jqXhr, textStatus*/) {
                     Site.unBlockUI();
                 },
-                error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); }
+                error: function (xhr) {
+                    Site.gotoErrorPage(xhr.status);
+                }
 
             });
         },

@@ -437,8 +437,12 @@ var CustTurnover = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: CustTurnover.urlData,
-                error: function (/*xhRequest, errorText, thrownError*/)
-                { Site.unBlockUI(); alert(Site.getSingleResource("Error")); },
+                error: function (xhRequest) {
+                    Site.unBlockUI();
+                    if (xhRequest.status !== 0) {
+                        alert(Site.getSingleResource("Error"));
+                    }
+                },
                 success: function (response) {
                     CustTurnover.gridBiding(response);
                 },
