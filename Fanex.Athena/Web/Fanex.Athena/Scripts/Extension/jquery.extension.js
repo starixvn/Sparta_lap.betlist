@@ -105,56 +105,56 @@
             }
         }
 
-        function process(element, colIdx){        
-                var that;
-                var ethat;
-                var ethis;
-                var rowspan = 1;
-                var len = $('tbody tr', element).length - 1;
-                $('tbody tr', element).each(function (index) {
-                    var currentRow = this;
-                    $('td:eq(' + colIdx + ')', this).each(function () {
-                        ethis = $('td:eq(' + effectToIndex + ')', currentRow);
-                        var found = that != null && $(this).html() === $(that).html();
-                        if (found && index < len) {
-                            rowspan += 1;
-                            $(this).hide();
-                            if (effectToIndex !== undefined) {
-                                $(ethis).hide();
-                            }
-                            //.remove// do your action for the old cell here
-                        }
-                        else if (found && index === len) {
-                            //do your action for lasted row
-                            $(this).hide();
-                            rowspan += 1;
-                            $(that).attr("rowSpan", rowspan);
-                            that = this;
-                            if (effectToIndex !== undefined) {
-                                $(ethis).hide();
-                                $(ethat).attr("rowSpan", rowspan);
-                                ethat = ethis;
-                            }
-                            rowspan = 1;
-                            // do your action for the colSpan cell here
-                        }
-                        else {
-                            if (effectToIndex !== undefined) {
-                                $(ethat).attr("rowSpan", rowspan);
-                                ethat = ethis;
-                            }
-                            $(that).attr("rowSpan", rowspan);
-                            // do your action for the colSpan cell here
-                            that = this;
-                            rowspan = 1;
-                        }
-                        that = (that == null) ? this : that;
+        function process(element, colIdx) {
+            var that;
+            var ethat;
+            var ethis;
+            var rowspan = 1;
+            var len = $('tbody tr', element).length - 1;
+            $('tbody tr', element).each(function (index) {
+                var currentRow = this;
+                $('td:eq(' + colIdx + ')', this).each(function () {
+                    ethis = $('td:eq(' + effectToIndex + ')', currentRow);
+                    var found = that != null && $(this).html() === $(that).html();
+                    if (found && index < len) {
+                        rowspan += 1;
+                        $(this).hide();
                         if (effectToIndex !== undefined) {
-                            ethat = (ethat == null) ? ethis : ethat;
+                            $(ethis).hide();
                         }
-                        // set the that if not already set
-                    });
+                        //.remove// do your action for the old cell here
+                    }
+                    else if (found && index === len) {
+                        //do your action for lasted row
+                        $(this).hide();
+                        rowspan += 1;
+                        $(that).attr("rowSpan", rowspan);
+                        that = this;
+                        if (effectToIndex !== undefined) {
+                            $(ethis).hide();
+                            $(ethat).attr("rowSpan", rowspan);
+                            ethat = ethis;
+                        }
+                        rowspan = 1;
+                        // do your action for the colSpan cell here
+                    }
+                    else {
+                        if (effectToIndex !== undefined) {
+                            $(ethat).attr("rowSpan", rowspan);
+                            ethat = ethis;
+                        }
+                        $(that).attr("rowSpan", rowspan);
+                        // do your action for the colSpan cell here
+                        that = this;
+                        rowspan = 1;
+                    }
+                    that = (that == null) ? this : that;
+                    if (effectToIndex !== undefined) {
+                        ethat = (ethat == null) ? ethis : ethat;
+                    }
+                    // set the that if not already set
                 });
+            });
         }
 
         return this.each(function () {
@@ -168,8 +168,7 @@
         var thousandFormater = function (x) {
             x = x.toString();
             var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x))
-            {
+            while (pattern.test(x)) {
                 x = x.replace(pattern, "$1,$2");
             }
             return x;

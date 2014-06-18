@@ -34,7 +34,6 @@ var CustomersOption = (function () {
             return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
                      "' class='commission-color'>" + cellValue + "</div>";
         }
-
     };
 
     var externalIdColumn =
@@ -114,7 +113,8 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
             return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" + (cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off")).toUpperCase() + "</div>";
+                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" + 
+                    (cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off")).toUpperCase() + "</div>";
         }
     };
     var specialLevelColumn = {
@@ -132,7 +132,6 @@ var CustomersOption = (function () {
                      (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
                      "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
         }
-
     };
     var customerOptionColumn = {
         name: 'CustomerOption',
@@ -147,9 +146,7 @@ var CustomersOption = (function () {
             "' title='" + Site.getSingleResource("CustomerOption") +
             "' class='link custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>" + Site.getSingleResource("View") +
             "<img alt='' style='width:10px;height:10px' src='" + Site.resolveClientUrl("Content/MemberInfo/images/arrow.gif?") + "'> </div>";
-
         }
-
     };
     var commissionColumn =
     {
@@ -169,7 +166,6 @@ var CustomersOption = (function () {
 
     var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
                     pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];
-
 
     var me = {
         urlData: 'Customer/CustomerList',
@@ -226,7 +222,6 @@ var CustomersOption = (function () {
     var getColModel = function (productAccess, isAllowedCustomerCommission) {
         var temp = Site.clone(colModelList);
         if (isAllowedCustomerCommission) {
-
             var getCellAttrFunction = function (colName) {
                 return function (rowId, val, rowObj) {
                     return " id='" + colName + "-" + rowObj.CustId + "' ";
@@ -274,7 +269,6 @@ var CustomersOption = (function () {
 
         return me.gridOption;
     };
-
 
     return me;
 })();

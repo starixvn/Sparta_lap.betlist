@@ -1,4 +1,6 @@
-﻿/// <reference path="/@JSense.js" />
+﻿/*global Site, QueryString */
+/// <reference path="/@JSense.js" />
+"use strict";
 var RefreshCountDown = (function ($) {
     var curCountDown = 0;
     var countDownTimer = null;
@@ -33,14 +35,14 @@ var RefreshCountDown = (function ($) {
             cookieName = "RefeshCountDown" + countDownId;
             //read countdown from cookie
             var countDownFromCookie = jQuery.cookie(cookieName);
-            if (countDownFromCookie && countDownFromCookie != 0) {
+            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
                 RefreshCountDown.setCountDown(countDownFromCookie, false);
             } else {
                 RefreshCountDown.setCountDown(defaultCountDown, true);
             }
         },
         initMenu: function () {
-            var isVisible = $('#countdown-menu').css('display') != 'none';
+            var isVisible = $('#countdown-menu').css('display') !== 'none';
             if (isVisible) {
                 $('#countdown-menu').hide();
             }
@@ -66,7 +68,9 @@ var RefreshCountDown = (function ($) {
         tick: function () {
             document.getElementById('count').innerHTML = curCountDown;
             curCountDown--;
-            if (countDownTimer != null) clearTimeout(countDownTimer);
+            if (countDownTimer != null) {
+                clearTimeout(countDownTimer);
+            }
             countDownTimer = setTimeout(RefreshCountDown.tick, 1000);
             if (curCountDown < -1) {
                 RefreshCountDown.refresh();
@@ -78,11 +82,10 @@ var RefreshCountDown = (function ($) {
                 oldScrollTop = $(".data-content")[0].scrollTop;
             }
 
-            if (countDownTimer != null) clearTimeout(countDownTimer);
+            if (countDownTimer != null) {
+                clearTimeout(countDownTimer);
+            }
             document.getElementById('count').innerHTML = "<span class='timer-loading'>loading</span>";
-
-            // Check popup
-            var isPopUp = $('#IsPopUp').val();
 
             // Get param before load data
             var url = RefreshCountDown.calculateUrl();

@@ -1,15 +1,17 @@
-﻿/* File Created: April 28, 2014 */
+﻿/*global Site, _page*/
+/*exported Reset, ValidatePassword, IsPassWord, CheckPass, ChangePassword*/
+/* File Created: April 28, 2014 */
+"use strict";
 // Detect browser
-function isIE() { return /msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
-IE = isIE();
+function isIE() { return (/msie/i).test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
+window.IE = isIE();
 // Prototype
-IbcMsg = function () {
+window.IbcMsg = function () {
     this.spmsgerr = 'spmsgerr';
     this.diverrmsg = 'diverrmsg';
-}
+};
 
-IbcMsg.prototype.Show = function (msg, success) {
-
+window.IbcMsg.prototype.Show = function (msg, success) {
     if (success) {
         $('#spmsgerr').addClass('msgscc');
         document.getElementById('1_1').className = "succ_1_1";
@@ -34,18 +36,28 @@ IbcMsg.prototype.Show = function (msg, success) {
     }
 
     $('#' + this.spmsgerr).html(msg);
-    document.getElementById(this.diverrmsg).style.display = IE ? 'block' : 'table';
-}
+    document.getElementById(this.diverrmsg).style.display = window.IE ? 'block' : 'table';
+};
 
-IbcMsg.prototype.Hide = function () {
+window.IbcMsg.prototype.Hide = function () {
     $('#' + this.diverrmsg).hide();
-}
+};
 
-ibcMsg = new IbcMsg();
+var ibcMsg = new window.IbcMsg();
 var errMsg = null;
+
+function refresh() {
+    var wnd = window.parent;
+    while (wnd !== wnd.parent) // Jump out
+    {
+        wnd = wnd.parent;
+    }
+
+    wnd.location = wnd.location.href;
+}
 // Password must be at least 6 in length and at least 2 characters and 2 digits
 function IsPassWord(str) {
-    numbers = "0123456789";
+    var numbers = "0123456789";
     var i = 0;
     var nCount = 0;
     while (i < str.length) {
@@ -54,23 +66,34 @@ function IsPassWord(str) {
     }
     return ((nCount > (str.length - 2)) || nCount < 2 || str.length < 6) ? false : true;
 }
+function ValidatePassword(str) {
+    if (str.length === 0) {
+        return _page.alertPasswordEmpty;
+    }
+    else if (!window.IsPassWord(str)) {
+        return _page.alertPasswordRequire;
+    }
+
+    return null;
+}
+
 function ChangePassword() {
     // Validate password
     var txtOldPwd = $('#txtOldPwd').val();
     var txtNewPwd = $('#txtNewPwd').val();
     var txtConfirmPwd = $('#txtConfirmPwd').val();
 
-    if (txtOldPwd.length == 0) {
+    if (txtOldPwd.length === 0) {
         errMsg = _page.alertInputOldPwd;
 
         $('#txtOldPwd').focus();
     }
-    else if (txtNewPwd != txtConfirmPwd) {
+    else if (txtNewPwd !== txtConfirmPwd) {
         errMsg = _page.alertErrorConfirm;
         $('#txtNewPwd').focus();
     }
     else {
-        errMsg = ValidatePassword(txtNewPwd);
+        errMsg = window.ValidatePassword(txtNewPwd);
         $('#txtNewPwd').focus();
     }
 
@@ -79,8 +102,6 @@ function ChangePassword() {
         return;
     }
     Site.blockUI();
-
-
 
     $.ajax({
         url: Site.resolveClientUrl("Utility/ChangePass"),
@@ -95,7 +116,7 @@ function ChangePassword() {
             Site.unBlockUI();
             // Post with return result in JSON format
             var errCode = result.errCode;
-            if (errCode == 0) {
+            if (errCode === 0) {
                 ibcMsg.Show(_page.alertPasswordSucc, true);
                 if (_page.firstLogged) {
                     setTimeout(refresh(), 2000);
@@ -114,22 +135,15 @@ function Reset() {
     $('#txtNewPwd').val("");
     $('#txtConfirmPwd').val("");
 }
-function refresh() {
-    var wnd = window.parent;
-    while (wnd != wnd.parent) // Jump out
-    {
-        wnd = wnd.parent;
-    }
-
-    wnd.location = wnd.location.href;
-}
 
 // Check pass call in keyup event
 function CheckPass(pwdElement, iconElementId) {
-    var isPwd = IsPassWord(pwdElement.value);
+    var isPwd = window.IsPassWord(pwdElement.value);
     var iconElement = $(iconElementId);
 
-    if (!iconElement) return false;
+    if (!iconElement) {
+        return false;
+    }
 
     if (isPwd) {
         iconElement.className = 'PwdSuccess';
@@ -139,13 +153,6 @@ function CheckPass(pwdElement, iconElementId) {
     }
 
     return isPwd;
-}
-
-function ValidatePassword(str) {
-    if (str.length == 0) return _page.alertPasswordEmpty;
-    else if (!IsPassWord(str)) return _page.alertPasswordRequire;
-
-    return null;
 }
 
 $(window).load(function () {

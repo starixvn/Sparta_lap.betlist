@@ -75,7 +75,6 @@ var Site = (function ($) {
                 // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
                 $(window).resize();
             });
-
         },
         asNull: function (text) {
             if (text != null) {
@@ -106,7 +105,6 @@ var Site = (function ($) {
         },
 
         unBlockUI: function () {
-
             $('div.block-body').hide();
             $('div.loading').hide();
             try {
@@ -539,7 +537,6 @@ var Site = (function ($) {
         },
         */
         signOut: function () {
-
             var index = window;
             while (index !== index.parent) // Jump out
             {
@@ -547,7 +544,6 @@ var Site = (function ($) {
             }
             index.location = Site.resolveClientUrl('Header/SignOut');
         }
-
     };
 })(jQuery);
 
@@ -574,7 +570,7 @@ $(window).load(function () {
     Site.initBlockUI();
     Site.initialize();
     Site.needOverrideInnerSize = window.innerHeight === undefined;
-    Site.overrideInnerSize();    
+    Site.overrideInnerSize();
 });
 $(window).resize(function () {
     Site.overrideInnerSize();
