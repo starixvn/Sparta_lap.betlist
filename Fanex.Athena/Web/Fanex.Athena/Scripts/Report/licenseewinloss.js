@@ -71,7 +71,6 @@ var LicenseeWinLoss = (function ($) {
                     LicenseeWinLoss.bindData(_level, _reportBy, cacheData[_level]);
 
                     Site.unBlockUI();
-
                 }, 100);
                 return 'stop';
             };
@@ -198,7 +197,6 @@ var LicenseeWinLoss = (function ($) {
         },
 
         submit: function () {
-
             Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
 
@@ -293,7 +291,6 @@ var LicenseeWinLoss = (function ($) {
 
             var postData = JSON.stringify(param);
 
-
             var option = {
                 type: "POST",
                 data: postData,
@@ -375,7 +372,6 @@ var LicenseeWinLoss = (function ($) {
 
             var reportGrid = $("#ReportGrid");
 
-
             var productOptions = $.parseJSON($("#ProductOptionJson").val());
 
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
@@ -401,7 +397,6 @@ var LicenseeWinLoss = (function ($) {
                         Site.blockUI();
                     }
                     onPaging = true;
-
                 }
                 else {
                     return 'stop';
@@ -455,7 +450,6 @@ var LicenseeWinLoss = (function ($) {
                             $this.append(sortSpan);
                             $this.addClass("sorted-heading");
                         }
-
                     });
             }
 

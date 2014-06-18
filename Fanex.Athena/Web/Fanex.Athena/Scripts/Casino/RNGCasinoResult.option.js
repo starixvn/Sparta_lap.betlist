@@ -211,12 +211,12 @@ var RNGCasinoOption = (function () {
         resizable: false
     };
 
-    var colNameList = ['SessionLogId', '#', 'GameId', "PlayerHistoryNo", "GameType", 'GameGroup', 'StartDate', 
+    var colNameList = ['SessionLogId', '#', 'GameId', "PlayerHistoryNo", "GameType", 'GameGroup', 'StartDate',
                 'EndDate', 'StartBalance', 'EndBalance', 'Stake', 'Bet', '@[Win]/@[Loss]', 'RollingComm', 'Results'];
     var colModelList = [sessionColumn, indexColumn, gameIdColumn, playHistoryNoColumn, gameTypeNameColumn,
                 gameGroupNameColumn, startTimeColumn, endTimeColumn, beginBalanceColumn, endBlanceColumn,
                  stakeColumn, betColumn, winLossColumn, rollingCommColumn, resultColumn];
-    
+
     var me = {
         licenseeId: 0,
         hasCustomerComm: true,

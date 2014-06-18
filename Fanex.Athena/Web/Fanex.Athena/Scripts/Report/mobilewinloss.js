@@ -29,7 +29,7 @@ var MobileWinLoss = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var height = $("#ReportGrid").height() ;
+                var height = $("#ReportGrid").height();
                 var gridTop = $("#ReportGrid").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 10;
                 gridHeight = Math.max(120, gridHeight);
@@ -44,13 +44,11 @@ var MobileWinLoss = (function ($) {
             MobileWinLoss.setExcelUrl(0, 0, 0, "");
             Site.addFilterCollapseExpand();
             MobileWinLossOption.gridOption.onSortCol = function (index) {
-
                 Site.blockUI();
                 window.setTimeout(function () {
                     _removeSorting = false;
                     if (_sortColumnName === index) {
                         _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
-
                     } else {
                         _sortOrder = "asc";
                         _sortColumnName = index;
@@ -61,7 +59,6 @@ var MobileWinLoss = (function ($) {
                     MobileWinLoss.bindData(_level, cacheData[_level]);
 
                     Site.unBlockUI();
-
                 }, 100);
                 return 'stop';
             };
@@ -255,7 +252,6 @@ var MobileWinLoss = (function ($) {
 
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
-
             if (!_removeSorting) {
                 reportGrid.closest("div.ui-jqgrid-view")
                            .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
@@ -382,7 +378,6 @@ var MobileWinLoss = (function ($) {
         },
 
         goBack: function (level) {
-
             MobileWinLoss.bindData(level, cacheData[level]);
             if (level === 0) {
                 MobileWinLoss.renderBreadCrumb(level);

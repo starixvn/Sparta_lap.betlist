@@ -145,7 +145,6 @@ var Turnover = (function ($) {
         },
 
         submit: function () {
-
             if ($("#ProductList input:checked").length === 0) {
                 return $("#product-null").removeClass("hide");
             } else {
@@ -196,7 +195,6 @@ var Turnover = (function ($) {
         },
 
         bindData: function (response) {
-
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             $("#paging").hide();
@@ -204,7 +202,6 @@ var Turnover = (function ($) {
             // var numOfTotalRow = response.Total.length;
             var onPaging = false;
             var gridOption = TurnoverOption.getGridOption();
-
 
             gridOption.footerrow = true;
             gridOption.userDataOnFooter = true;
@@ -296,7 +293,7 @@ $(window).load(function () {
     Turnover.resizeGrid();
 });
 $(window).resize(function () {
-   // Turnover.resizeGrid();
+    // Turnover.resizeGrid();
 });
 
 $(window).unload(function () {

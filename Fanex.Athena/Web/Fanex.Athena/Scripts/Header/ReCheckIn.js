@@ -14,7 +14,6 @@ function closeBrowser() {
 }
 
 function ReCheckin() {
-
     var Success = 0;
     // var Unknown = -1;
     // var AccessDenied = 1;
@@ -28,14 +27,13 @@ function ReCheckin() {
         url: Site.resolveClientUrl("Authorization/ReCheckIn?onid=") + _page.OnUserID,
         async: true,
         type: "GET",
-        cache:false,
+        cache: false,
         success: function (result) {
             var errCode = result.ErrCode;
             if (errCode !== Success) {
                 clearInterval(handle);
                 alert(result.ErrMsg, true);
                 if (isInternal || SessionOverride === errCode) {
-
                     var signOutUrl = Site.resolveClientUrl('Header/SignOut');
                     $.ajax({
                         url: signOutUrl,
@@ -58,4 +56,3 @@ function ReCheckin() {
 $(window).load(function () {
     handle = setInterval(ReCheckin, 30000);
 });
-

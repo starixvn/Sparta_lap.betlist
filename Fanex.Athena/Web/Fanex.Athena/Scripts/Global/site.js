@@ -97,7 +97,7 @@ var Site = (function ($) {
         },
 
         gotoErrorPage: function (status) {
-            if (status !== undefined || status !== 0) {
+            if (status === undefined || status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");
             } else {
                 Site.unBlockUI();

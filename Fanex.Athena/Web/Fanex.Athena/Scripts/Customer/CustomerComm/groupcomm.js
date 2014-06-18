@@ -144,7 +144,6 @@ var GroupComm = (function ($) {
                     Site.blockUI();
                 },
                 success: function (result) {
-
                     if (result.ErrorCode > 0 || result.ErrorMessage.lengh > 0) {
                         $('#confirm-delete').html("<span style='padding-top:10px;'>" + result.ErrorMessage + "</span>");
                         $("#confirm-delete").dialog({

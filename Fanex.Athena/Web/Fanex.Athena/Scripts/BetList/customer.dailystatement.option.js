@@ -5,7 +5,7 @@
 var CustomerOption = (function () {
     var setLink = function (rowObject) {
         return rowObject.TransTypeHasBetList ? '<a  class=\'link\' href="javascript:OutstandingBetList.viewDailyStatementBetList' +
-                '(\'' + rowObject.CustId + '\',\'' + rowObject.Date + '\',\'' + rowObject.TransType + '\',\'' + 
+                '(\'' + rowObject.CustId + '\',\'' + rowObject.Date + '\',\'' + rowObject.TransType + '\',\'' +
                 rowObject.ExternalId + '\',\'' + rowObject.SystemId + '\');">' +
          rowObject.FullStatementDate + '</a>' : rowObject.FullStatementDate;
     };

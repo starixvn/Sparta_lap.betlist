@@ -7,15 +7,14 @@
 * Licensed under the MIT License:
 * http://www.opensource.org/licenses/mit-license.php
 */
-(function($) {
-
-    $.fn.jclock = function(options) {
+(function ($) {
+    $.fn.jclock = function (options) {
         var version = '2.3.2';
 
         // options
         var opts = $.extend({}, $.fn.jclock.defaults, options);
 
-        return this.each(function() {
+        return this.each(function () {
             $this = $(this);
             $this.timerID = null;
             $this.running = false;
@@ -92,31 +91,30 @@
             $this.monthsFullNames[11] = "December";
 
             $.fn.jclock.startClock($this);
-
         });
     };
 
-    $.fn.jclock.startClock = function(el) {
+    $.fn.jclock.startClock = function (el) {
         $.fn.jclock.stopClock(el);
         $.fn.jclock.displayTime(el);
     }
 
-    $.fn.jclock.stopClock = function(el) {
+    $.fn.jclock.stopClock = function (el) {
         if (el.running) {
             clearTimeout(el.timerID);
         }
         el.running = false;
     }
 
-    $.fn.jclock.displayTime = function(el) {
+    $.fn.jclock.displayTime = function (el) {
         var time = $.fn.jclock.currentTime(el);
         var formatted_time = $.fn.jclock.formatTime(time, el);
         el.attr('currentTime', time.getTime())
         el.html(formatted_time);
-        el.timerID = setTimeout(function() { $.fn.jclock.displayTime(el) }, el.timeout);
+        el.timerID = setTimeout(function () { $.fn.jclock.displayTime(el) }, el.timeout);
     }
 
-    $.fn.jclock.currentTime = function(el) {
+    $.fn.jclock.currentTime = function (el) {
         if (typeof (el.seedTime) == 'undefined') {
             // Seed time not being used, use current time
             el.serverTime.setSeconds(el.serverTime.getSeconds() + 1);
@@ -139,8 +137,7 @@
         return now
     }
 
-    $.fn.jclock.formatTime = function(time, el) {
-
+    $.fn.jclock.formatTime = function (time, el) {
         var timeNow = "";
         var i = 0;
         var index = 0;
@@ -159,8 +156,7 @@
         return timeNow;
     };
 
-    $.fn.jclock.getProperty = function(dateObject, el, property) {
-
+    $.fn.jclock.getProperty = function (dateObject, el, property) {
         switch (property) {
             case "a": // abbrv day names
                 return (el.daysAbbrvNames[dateObject.getDay()]);
@@ -199,7 +195,6 @@
             case "%":
                 return "%";
         }
-
     }
 
     // plugin defaults (24-hour)
@@ -215,5 +210,4 @@
         seedTime: undefined,
         timeout: 1000 // 1000 = one second, 60000 = one minute
     };
-
 })(jQuery);

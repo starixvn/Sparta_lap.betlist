@@ -57,6 +57,6 @@ var RacingCommission = (function ($) {
     };
 })(jQuery);
 
-$(window).load(function () {   
+$(window).load(function () {
     RacingCommission.initialize();
 });

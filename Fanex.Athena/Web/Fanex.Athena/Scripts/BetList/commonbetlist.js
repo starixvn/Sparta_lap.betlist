@@ -45,7 +45,7 @@ var CommonBetList = (function ($) {
                 url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
                 url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
             }
-                        
+
             url = QueryString.setParam(url, "IsExportExcel", true);
             window.location.href = url;
         }

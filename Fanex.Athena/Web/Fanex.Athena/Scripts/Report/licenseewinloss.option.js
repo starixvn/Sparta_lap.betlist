@@ -1,4 +1,4 @@
-﻿/*global Site,LicenseeWinLoss, JSLINQ, jqGridAdditional*/
+﻿/*global Site, JSLINQ, jqGridAdditional*/
 /// <reference path="/@JSense.js" />
 /*
 * Note:in this report, parameter level have 3 value
@@ -316,7 +316,6 @@ var LicenseeWinLossOption = (function () {
 
     var me =
     {
-
         licenseeId: 0,
         currencyIndex: 4,
         turnoverIndex: 5,
@@ -409,7 +408,7 @@ var LicenseeWinLossOption = (function () {
         var customerWLTotalIndex = me.customerWlTotalIndex;
         temp[me.customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'CustomerW_L';
         $.each(productOptions, function (index, value) {
-            //insert turn over column            
+            //insert turn over column
             if (value.Status === true) {
                 temp.insertAfter(value.Name, me.currencyIndex);
                 turnOverIndex++;
@@ -556,7 +555,6 @@ var LicenseeWinLossOption = (function () {
 
         //#region Toggle
         var toggle = function (isShow, type) {
-
             type = Number(type);
             _expanseTypes[type] = isShow;
 

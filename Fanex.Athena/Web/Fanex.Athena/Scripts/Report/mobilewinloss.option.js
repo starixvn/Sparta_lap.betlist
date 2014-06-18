@@ -231,10 +231,10 @@ var MobileWinLossOption = (function () {
         hidden: true
     };
 
-    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]', 
+    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
                 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
     var colModelList = [indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
-                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, 
+                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
                 baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
     var customerWlTotalIndex = 8;
 

@@ -436,7 +436,6 @@ var jqGridAdditional = (function () {
                 if (allowScrolling) {
                     footerTable.parent().css("position", "relative");
                     footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
-
                 }
             }
         },

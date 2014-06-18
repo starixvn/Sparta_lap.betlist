@@ -47,9 +47,9 @@ var MonitorBetList = function () {
     $this.highlightClass = "monitor-hightlight";
     $this.highlightKeepClass = "monitor-keep";
     $this.columns =
-        [{ Name: Site.getSingleResource("Platform"), IsShow: 1 }, 
+        [{ Name: Site.getSingleResource("Platform"), IsShow: 1 },
             { Name: Site.getSingleResource("SystemId"), IsShow: 1 }, { Name: Site.getSingleResource("ExternalId"), IsShow: 1 },
-        { Name: Site.getSingleResource("TransTime"), IsShow: 1 }, 
+        { Name: Site.getSingleResource("TransTime"), IsShow: 1 },
             { Name: Site.getSingleResource("Choice"), IsShow: 1 }, { Name: Site.getSingleResource("Odds"), IsShow: 1 },
         { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];

@@ -111,7 +111,7 @@ var CustomerSettingLog = (function ($) {
             var toDay = $('#ToDay').val();
             var year = $('#Year').val();
             var month = $('#Month').val();
-            var param = Site.resolveClientUrl('api/Log/CustomerSetting?UserName=' + encodeURIComponent(userName) 
+            var param = Site.resolveClientUrl('api/Log/CustomerSetting?UserName=' + encodeURIComponent(userName)
                     + '&Year=' + year + '&Month=' + month + '&FromDay=' + fromDay + '&ToDay=' + toDay);
             return param;
         }

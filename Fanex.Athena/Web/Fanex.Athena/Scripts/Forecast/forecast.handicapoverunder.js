@@ -76,11 +76,10 @@ var ForecastHDPOU = (function ($) {
     };
 })(jQuery);
 
-
-$(window).resize(function () {    
+$(window).resize(function () {
     ForecastHDPOU.resizeGrid();
 });
 
-$(window).unload(function () {    
+$(window).unload(function () {
     $(window).unbind("resize");
 });

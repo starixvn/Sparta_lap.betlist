@@ -51,7 +51,7 @@ var CustomerDailyStatement = (function ($) {
 
             var betListGrid = $("#BetListGrid");
             var gridOption = CustomerDailyStatement.getGridOption();
-            
+
             // Show the grid
             betListGrid.jqGrid({
                 datatype: 'local',

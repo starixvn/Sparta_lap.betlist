@@ -3,7 +3,7 @@
 "use strict";
 var EditPermission = (function ($) {
     var colUrl = null;
-    var expUrl = null;    
+    var expUrl = null;
 
     return {
         // #region: edit permission
@@ -166,7 +166,6 @@ var EditPermission = (function ($) {
         },
 
         changeEachCurrency: function (/*sender*/) {
-
             var container = $("#currency-content");
             var totalCurrency = $("input", container).length;
             var childCheckedCurrency = $("input:checked", container).length;

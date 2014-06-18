@@ -19,7 +19,7 @@ var LogInLogOption = (function () {
         width: 100,
         align: 'center',
         valign: 'middle',
-        sortable: false,        
+        sortable: false,
         formatter: 'date',
         formatoptions:
         {
@@ -63,7 +63,7 @@ var LogInLogOption = (function () {
         loadui: 'disable',
         autowidth: true,
         scroll: false,
-        loadonce: true,        
+        loadonce: true,
         gridview: true,
         sortorder: "desc",
         pager: null,

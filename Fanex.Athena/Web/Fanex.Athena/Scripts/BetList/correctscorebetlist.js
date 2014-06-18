@@ -2,7 +2,7 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 var CorrectScoreBetList = (function ($) {
-    return {      
+    return {
         initialize: function () {
             CorrectScoreBetList.initEvent();
             CorrectScoreBetList.submit();

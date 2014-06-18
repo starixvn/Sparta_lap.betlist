@@ -17,7 +17,7 @@ var Forecast = (function ($) {
             RefreshCountDown.initialize();
             Forecast.initEvent();
         },
-        initEvent: function () {            
+        initEvent: function () {
             // Forecast link click
             $('#Refresh-Content').on('click', '.forecast-link', function () {
                 var bettype = parseInt($(this).attr('data-bettype'));

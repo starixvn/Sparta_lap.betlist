@@ -1,7 +1,7 @@
 ﻿/*global Site,Totalbets */
 /// <reference path="/@JSense.js" />
 "use strict";
-var TotalGoal = (function ($) {    
+var TotalGoal = (function ($) {
     return {
         initialize: function () {
             Totalbets.initialize();

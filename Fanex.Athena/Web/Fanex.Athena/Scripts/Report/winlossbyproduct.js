@@ -11,7 +11,7 @@ var WinLossByProduct = (function ($) {
         resizeGrid: function () {
             setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() 
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height()
                                 - (Site.getScrollBarState().hScrollbar ? 22 : 10);
                 gridHeight = Math.max(130, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
@@ -430,7 +430,6 @@ var WinLossByProduct = (function ($) {
                     onPaging = false;
                 }
 
-
                 Site.unBlockUI();
             };
 
@@ -534,4 +533,3 @@ $(window).unload(function () {
     "use strict";
     $(window).unbind("resize");
 });
-

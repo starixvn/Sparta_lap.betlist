@@ -101,7 +101,7 @@ var CustomerComm = (function ($) {
             var custList = [];
 
             for (var i = 0; i < checkedCustomers.length; i++) {
-                var currenntGroupId = Number(checkedCustomers[i].Group);                
+                var currenntGroupId = Number(checkedCustomers[i].Group);
                 if (currenntGroupId === 0 || currenntGroupId !== groupid) {
                     custList.push(checkedCustomers[i].Id);
                 }
@@ -206,7 +206,6 @@ var CustomerComm = (function ($) {
             return comm;
         },
         updateCustomerComm: function (ctx, groupCommId) {
-
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 
@@ -349,7 +348,6 @@ var CustomerComm = (function ($) {
                             CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                             result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
-
                         }
                         else {
                             CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);

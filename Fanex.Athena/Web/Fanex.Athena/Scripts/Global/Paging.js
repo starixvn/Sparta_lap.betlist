@@ -101,13 +101,11 @@ var pagingHeper = (function () {
             }
             pageControl.push('</select> </div>');
             pageHtml = pageControl.join("");
-
         }
         $(setting.elementcontainer).html(pageHtml);
         me.bindEvent();
     };
     me.getSetting = function () {
-
         setting.pageindex = parseInt($("div.pagingContainer input[name='PageIndex']").val(), 10);
         setting.pagesize = parseInt($("div.pagingContainer input[name='PageSize']").val(), 10);
         return setting;

@@ -2,8 +2,8 @@
 /*exported InitLogin, GetValidateImage,DoLogin, DoEnter*/
 /*
 * Created 20100113@Lee - Sign-in javascript functions
-* Revision ?@? - ... 
-* 
+* Revision ?@? - ...
+*
 */
 "use strict";
 function isIE() { return (/msie/i).test(navigator.userAgent) && !/opera/i.test(navigator.userAgent); }
@@ -65,7 +65,7 @@ function InitLogin() {
     }
 
     window.GetValidateImage();
-    
+
     if (typeof _page.errCode !== 'undefined' && _page.errCode !== 0) {
         $("#errmsg").html(_page.errMsg);
         if (_page.errCode === 101) {

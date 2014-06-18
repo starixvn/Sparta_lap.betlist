@@ -65,7 +65,7 @@ var RnGCasino = (function ($) {
                 params += '&gameTypeChangedList=' + gameTypeChangedList;
             }
 
-            RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName, 
+            RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName,
                         params, gameTypeChangedList, RnGCasino.updateStakeLevel);
         },
         updateStakeLevel: function (userName, params, gameTypeChangedList) {

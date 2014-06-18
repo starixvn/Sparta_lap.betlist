@@ -55,4 +55,3 @@ $(window).unload(function () {
     "use strict";
     $(window).unbind("resize");
 });
-

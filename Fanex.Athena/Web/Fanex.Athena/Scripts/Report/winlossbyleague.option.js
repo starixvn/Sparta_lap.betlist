@@ -8,7 +8,7 @@
 */
 "use strict";
 var WinLossByLeagueOption = (function () {
-    var setDrillDownLink = function (custId, cellvalue,externalid, systemId) {
+    var setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
         return '<a class="drilldown" href="javascript:;" data-custid="' + custId +
          '" data-externalid="' + externalid + '" data-systemid="' + systemId + '">' + cellvalue + '</a>';
     };
@@ -122,7 +122,7 @@ var WinLossByLeagueOption = (function () {
             title: true,
             formatter: jqGridAdditional.formatLicenseeWl
         };
-   
+
     var baCommColumn =
         {
             name: 'BaCommission',
@@ -157,18 +157,16 @@ var WinLossByLeagueOption = (function () {
             }
         };
 
-
     //#endregion
     var colNames = [
          ['#', 'Match', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission', 'AmtDueTo'],
-         ['#', 'ExternalID', 'SystemID', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission']         
+         ['#', 'ExternalID', 'SystemID', 'BetCount', 'Turnover', 'CustomerW_L', 'LicenseeW_L', 'BACommission']
      ];
 
     var colModels = [
         [indexColumn, matchColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn, amtDueToColumn],
-        [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]        
+        [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]
     ];
-
 
     var me =
         {
@@ -176,7 +174,7 @@ var WinLossByLeagueOption = (function () {
             currencyIndex: 4,
             systemIdIndex: 3,
             externalIdIndex: 2,
-            customerWlTotalIndex: 10,            
+            customerWlTotalIndex: 10,
             pageSize: 50,
             nonePagingSize: 5000,
             rowNum: 50,
@@ -208,14 +206,14 @@ var WinLossByLeagueOption = (function () {
 
     //# getGidOptionregion
 
-    me.getColName = function (level) {        
+    me.getColName = function (level) {
         return Site.getResources(colNames[level]);
     };
 
-    me.getColModel = function (level) {       
+    me.getColModel = function (level) {
         return colModels[level];
     };
-    
+
     me.getGridOption = function (level) {
         me.gridOption.colNames = me.getColName(level);
         me.gridOption.colModel = me.getColModel(level);

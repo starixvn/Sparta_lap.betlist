@@ -56,10 +56,10 @@ var Totalbets = (function ($) {
     };
 })(jQuery);
 
-$(window).resize(function () {    
+$(window).resize(function () {
     Totalbets.resizeGrid();
 });
 
-$(window).unload(function () {    
+$(window).unload(function () {
     $(window).unbind("resize");
 });

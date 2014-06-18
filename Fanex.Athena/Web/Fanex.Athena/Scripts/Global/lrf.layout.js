@@ -90,10 +90,7 @@ lrf.layout =
 };
 /* fps.admin */
 
-
 $(document).ready(function () {
-
-
     function getCookie(cName) {
         var i,
     x,

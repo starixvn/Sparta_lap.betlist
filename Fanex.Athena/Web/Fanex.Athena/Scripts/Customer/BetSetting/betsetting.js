@@ -735,7 +735,7 @@ var BetSetting = (function ($) {
         },
         isEmpty: function (s) {
             var empty = ((s == null) || (s.length === 0));
-            if (!empty) {                
+            if (!empty) {
                 var news = s.replace(" ", "");
                 if (news.length > 0) {
                     return false;

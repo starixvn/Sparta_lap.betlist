@@ -3,7 +3,6 @@
 /// <reference path="/@JSense.js" />
 //##
 
-
 var TurnoverOption = (function () {
     "use strict";
 

@@ -8,7 +8,7 @@ var PlaytechCasino = (function ($) {
         },
 
         initEvent: function () {
-            $('#ExportToExcel').click(function () {                
+            $('#ExportToExcel').click(function () {
                 $('#PlaytechCasinoExcelForm').submit();
             });
 
@@ -56,7 +56,7 @@ var PlaytechCasino = (function ($) {
             var licenseeId = parseInt($("#LicenseeId").val(), 10);
             var goBackLevel = parseInt($(context).attr("data-level"), 10);
 
-            if (goBackLevel === 1) { // go back agent level                
+            if (goBackLevel === 1) { // go back agent level
                 history.go(-1);
             }
             else { // go back licensee level

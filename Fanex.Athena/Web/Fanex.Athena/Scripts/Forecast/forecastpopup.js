@@ -7,7 +7,7 @@ var ForecastPopup = (function ($) {
         showPopup: function (width, height, url) {
             $('#forecast-dialog').remove();
             var title = Site.getSingleResource("Forecast");
-            var dialogForm = '<div title="' + title + '" id="forecast-dialog"><iframe id="myframe" frameborder="0" width="100%" height="100%" src="' + 
+            var dialogForm = '<div title="' + title + '" id="forecast-dialog"><iframe id="myframe" frameborder="0" width="100%" height="100%" src="' +
                             url + '" ></iframe></div>';
             $(dialogForm).dialog({
                 modal: true,

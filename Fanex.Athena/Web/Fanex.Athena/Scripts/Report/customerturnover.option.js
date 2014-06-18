@@ -97,7 +97,6 @@ var CustTurnoverOption = (function () {
         sortable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal
-
     };
     var totalturnoverColumn = {
         name: 'TotalTurnover',
@@ -109,7 +108,6 @@ var CustTurnoverOption = (function () {
         frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting,
         formatter: jqGridAdditional.formatDecimal
-
     };
     var customerWlColumn = {
         name: 'CustomerWinLoss',
@@ -120,8 +118,6 @@ var CustTurnoverOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal
-
-
     };
     var playerCommColumn = {
         name: 'CustomerComm',
@@ -132,8 +128,6 @@ var CustTurnoverOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal
-
-
     };
     var customerWlTotalColumn = {
         name: 'CustomerTotal',
@@ -144,8 +138,6 @@ var CustTurnoverOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal
-
-
     };
     //#endregion
     var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType',
@@ -203,7 +195,6 @@ var CustTurnoverOption = (function () {
         playerCommColumn.hidden = !me.hasCustomerComm;
 
         if (Number(me.reportBy) === 2) {
-
             dateColumn.formatoptions = {
                 newformat: 'm/Y'
             };

@@ -34,7 +34,6 @@ var result = (function () {
         $("#submit-outright").attr("data-isOutright", isShow ? "1" : "0");
     };
     var showKeno = function () {
-
         if ($("#submit-keno").length) {
             $("#submit-keno").click(function () {
                 var kenoWindow = window.open("", '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
@@ -202,7 +201,6 @@ var result = (function () {
         }
         ajaxRequest = $.ajax(option);
     };
-
 
     return {
         init: function () {

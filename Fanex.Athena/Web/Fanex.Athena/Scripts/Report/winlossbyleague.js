@@ -87,7 +87,6 @@ var WinLossByLeague = (function ($) {
                 });
                 $("#League").html(str);
                 loadMatches(false);
-
             }
         });
     }
@@ -136,7 +135,6 @@ var WinLossByLeague = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var height = $("#ReportGrid").height() + 10;
                 var gridTop = $("#ReportGrid").offset().top;
                 var pagerHeight = $(".pagingContainer:visible").height() || 0;
                 var scroll = Site.getScrollBarState();
@@ -300,7 +298,6 @@ var WinLossByLeague = (function ($) {
         },
 
         submit: function () {
-
             if ($("#TickerFilter input:checked").length === 0) {
                 return $("#ticket-null").removeClass("hide");
             } else {
@@ -469,7 +466,6 @@ var WinLossByLeague = (function ($) {
         },
 
         bindData: function (level, response) {
-
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             $("#paging").hide();
@@ -477,7 +473,6 @@ var WinLossByLeague = (function ($) {
             var numOfTotalRow = response.Total.length;
             var onPaging = false;
             var gridOption = WinLossByLeagueOption.getGridOption(level);
-
 
             gridOption.footerrow = true;
             gridOption.userDataOnFooter = true;

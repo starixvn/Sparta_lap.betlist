@@ -200,7 +200,6 @@ var BetList = (function ($) {
                     Site.unBlockUI();
                 },
                 error: function (/*xhRequest, errorText, thrownError*/) { Site.gotoErrorPage(); }
-
             });
         },
 
@@ -248,7 +247,7 @@ var BetList = (function ($) {
                 if (rowNum < gridOption.rowList[0]) {
                     rowNum = gridOption.rowList[0];
                 }
-                // Show the grid                
+                // Show the grid
                 gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWl: sumLicenseeWl };
@@ -419,7 +418,6 @@ var showMP = function (transId) {
     var divEvent = $('#divEvent_' + transId);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
     BetList.showMixParlayDetail(transId, divEvent);
-
 };
 
 var showCombMP = function (transId, index) {

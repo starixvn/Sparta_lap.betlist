@@ -59,7 +59,6 @@ var CustomerList = (function ($) {
                 list.attr('class', 'level-' + level);
             },
             success: function (data) {
-
                 if (data.Success) {
                     list.attr("data-level", level);
                     list.unbind("change");
@@ -115,7 +114,6 @@ var CustomerList = (function ($) {
     }
 
     function processGridOption(hasData, showingColumns) {
-
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
 
         // Change formatter for Index col
@@ -235,7 +233,6 @@ var CustomerList = (function ($) {
 
     function addGridCheckBoxesEvent() {
         $("#report-content").on("change", "#CheckAll", function () {
-
             _checkedAllRows = this.checked;
 
             if (_checkedAllRows) {

@@ -8,11 +8,11 @@ var RNGCasino = (function ($) {
             RNGCasino.initEvent();
             RNGCasino.initSetting();
         },
-        
+
         initSetting: function () {
-            RNGCasinoOption.hasCustomerComm = Site.asBool($("#is-allow-cust-comm").val());            
+            RNGCasinoOption.hasCustomerComm = Site.asBool($("#is-allow-cust-comm").val());
         },
-        
+
         initEvent: function () {
             $("body").on("click", ".hand-history-detail-link", function () {
                 var dataUrl = $(this).attr("data-url");

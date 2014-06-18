@@ -161,7 +161,7 @@ var UpdateGroup = (function ($) {
 
                     Site.unBlockUI();
                 },
-                error: function (/*xhr, status, err*/) {}
+                error: function (/*xhr, status, err*/) { }
             });
         }
     };
