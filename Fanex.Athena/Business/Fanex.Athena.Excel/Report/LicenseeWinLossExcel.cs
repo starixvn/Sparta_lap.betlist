@@ -137,7 +137,7 @@ namespace Fanex.Athena.Excel.Report
 
             var prdHeaderList = new List<string>
             {
-                ViewResources.SB,
+                ViewResources.Sportsbook,
                 ViewResources.Racing,
                 ViewResources.NumberGame,
                 ViewResources.BA,

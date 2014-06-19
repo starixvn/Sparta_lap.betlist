@@ -365,9 +365,9 @@ namespace Fanex.Athena.Excel.Report
             {
                 ViewResources.Turnover,
                 ViewResources.BetCount,
-                ViewResources.LicenseeWinLoss,
+                ViewResources.LicenseeW_L,
                 ViewResources.Comm,
-                ViewResources.AmountDue
+                ViewResources.AmountDueTo
             };
 
             // group name

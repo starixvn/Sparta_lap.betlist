@@ -2434,9 +2434,7 @@
     <value>Disable Live Casino </value>
   </data>
   <data name="EnableLiveCasino" xml:space="preserve">
-    <value>
-          Enable Live Casino
-      </value>
+    <value>Enable Live Casino</value>
   </data>
   <data name="DisableRNGCasino" xml:space="preserve">
     <value>Disable RNG Casino</value>
