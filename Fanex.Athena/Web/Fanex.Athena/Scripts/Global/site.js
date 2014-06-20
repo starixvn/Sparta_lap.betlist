@@ -43,6 +43,9 @@ var Site = (function ($) {
                     },
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
+                    },
+                    500: function () {
+                        alert(Site.getSingleResource("ErrorProcessingMsg"));
                     }
                 }
             });
