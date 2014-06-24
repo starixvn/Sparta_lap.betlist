@@ -63,6 +63,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         var baseCurrency = metaModel.BaseCurrency;
+                        
                         return this.SetToList(reader, baseCurrency, ref total);
                     }
                 }
@@ -122,6 +123,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 while (reader.Read())
                 {
+                    total.TotalRows = reader.ToInt("TotalRows");
                     total.ToteWin = reader.ToDecimal(sumToteWinColumn);
                     total.TotePlace = reader.ToDecimal(sumTotePlaceColumn);
                     total.ToteWinPlace = reader.ToDecimal(sumToteWinPlaceColumn);

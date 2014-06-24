@@ -176,7 +176,7 @@ var WinLossByLeagueOption = (function () {
             externalIdIndex: 2,
             customerWlTotalIndex: 10,
             pageSize: 50,
-            nonePagingSize: 5000,
+            nonePagingSize: 500000,
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
             totalColspan: [1, 2, 3],

@@ -140,7 +140,7 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
             }
 
-            AssignSumData(sheet);
+            AssignSumData(sheet, rowIndex);
 
             ProcessUi(sheet);
             return rowIndex;
@@ -183,9 +183,9 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to summary section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSumData(ISheet sheet)
+        protected void AssignSumData(ISheet sheet, int rowIndex)
         {
-            int totalRow = _racingCommissionList.Count + RowContentTemplate;
+            int totalRow = rowIndex + RowContentTemplate;
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 

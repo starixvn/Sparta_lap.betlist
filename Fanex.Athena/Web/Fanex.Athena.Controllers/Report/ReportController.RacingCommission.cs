@@ -68,6 +68,11 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
+            if (metaModel.IsExportExcel)
+            {
+                metaModel.PageSize = PageSizeExcel;
+            }
+
             var total = new RacingCommission();
             var racingCommissionService = new RacingCommissionService();
             var reportData = racingCommissionService.GetDataList(metaModel, ref total);

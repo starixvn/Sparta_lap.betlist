@@ -11,6 +11,8 @@ namespace Fanex.Athena.Models.DTO.Report
     /// </summary>
     public class RacingCommission
     {
+        public int TotalRows { get; set; }
+
         public int CustID { get; set; }
 
         public string ExternalID { get; set; }

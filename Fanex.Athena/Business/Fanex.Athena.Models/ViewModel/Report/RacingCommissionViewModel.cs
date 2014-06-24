@@ -20,5 +20,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public IList<RacingCommission> RacingCommissionList { get; set; }
 
         public RacingCommission Total { get; set; }
+
+        public int TotalRows { get; set; }
     }
 }

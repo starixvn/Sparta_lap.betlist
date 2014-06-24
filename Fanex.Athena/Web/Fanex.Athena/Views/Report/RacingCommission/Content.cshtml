@@ -1,11 +1,7 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @model Fanex.Athena.Models.ViewModel.Report.RacingCommissionViewModel
-@{
-   
-    
-}
 <div class="container_26">
-    <div class="grid_26">
+    <div class="grid_26">        
         <div class="report-title" style="width: @(ViewBag.TitleWidth)px;">
             @ViewResources.RacingCommission, @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate)
             - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
@@ -26,6 +22,9 @@
                     </div>
                 </div>
             }
+        </div>
+        <div style="width:@(ViewBag.WrapperWidth + 2)px;">
+            @RazorHelper.Paging("ReportForm", Model.Total.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
         </div>
     </div>
 </div>
