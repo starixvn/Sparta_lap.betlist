@@ -21,6 +21,9 @@ var ForecastPopup = (function ($) {
             var $popup = parent.$('.ui-dialog');
             var top = Math.max(0, (parent.innerHeight - height - 50) / 2);
             var left = (parent.innerWidth - width) / 2;
+            if (left < 0) {
+                left = 50;
+            }
 
             $popup.css({ 'width': width + 25 + 'px' });
             $popup.css({ 'height': height + 50 + 'px' });

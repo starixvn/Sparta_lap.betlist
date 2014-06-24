@@ -369,13 +369,9 @@ var LicenseeWinLoss = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-
             var productOptions = $.parseJSON($("#ProductOptionJson").val());
-
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
-
             var numOfRow = response.Data.length;
-
             var numOfTotalRow = response.Total.length;
             totalRowCount = numOfTotalRow;
 
