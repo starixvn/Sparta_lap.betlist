@@ -313,8 +313,8 @@ var BetList = (function ($) {
             });
         },
 
-        showMixParlayDetail: function (transId, divEvent) {
-            var url = Site.resolveClientUrl('api/betlist/MixParlayDetail?transId=' + transId);
+        showMixParlayDetail: function (transId, divEvent, liveIndicator) {
+            var url = Site.resolveClientUrl('api/betlist/MixParlayDetail?transId=' + transId + '&liveIndicator=' + liveIndicator);
             if (divEvent.css("display") === 'none') {
                 $.ajax({
                     type: "GET",
@@ -415,14 +415,16 @@ var showMP = function (transId) {
     "use strict";
     var divEvent = $('#divEvent_' + transId);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-    BetList.showMixParlayDetail(transId, divEvent);
+    var liveIndicator = $("#LiveIndicator").attr('data-original');
+    BetList.showMixParlayDetail(transId, divEvent, liveIndicator);
 };
 
 var showCombMP = function (transId, index) {
     "use strict";
     var divEvent = $('#divEvent_' + transId + "" + index);
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-    BetList.showMixParlayDetail(transId, divEvent);
+    var liveIndicator = $("#LiveIndicator").attr('data-original');
+    BetList.showMixParlayDetail(transId, divEvent, liveIndicator);
 };
 
 var showCombMPDetail = BetList.showSystemParlayDetail;

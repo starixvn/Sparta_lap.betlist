@@ -64,11 +64,12 @@ namespace Fanex.Athena.Service.Implement.BetList
         /// Get Mix Parlay Detail data.
         /// </summary>
         /// <param name="transId">The transaction identity.</param>
+        /// <param name="liveIndicator">Live Indicator.</param>
         /// <returns>The ticket result.</returns>
-        public TicketResult GetMixParlayDetailTicket(long transId)
+        public TicketResult GetMixParlayDetailTicket(long transId, int liveIndicator)
         {
             return _authorizationService.HasPermissionOnData(0, transId)
-                        ? _betlistDataAccess.GetMixParlayDetailTicket(transId)
+                        ? _betlistDataAccess.GetMixParlayDetailTicket(transId, liveIndicator)
                         : new TicketResult();
         }
 

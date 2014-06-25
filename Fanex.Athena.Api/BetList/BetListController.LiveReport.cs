@@ -163,6 +163,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
         /// <param name="baseCurrency">Base currency.</param>
+        /// <param name="liveIndicator">Live indicator.</param>
         /// <param name="sortBy">Sort by column.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
@@ -182,6 +183,7 @@ namespace Fanex.Athena.Api.BetList
             decimal sumWinLost,
             int totalRows,
             string baseCurrency,
+            int liveIndicator,
             string sortBy = null,
             string sortOrder = null)
         {
@@ -219,7 +221,8 @@ namespace Fanex.Athena.Api.BetList
                     SortBy = sortBy,
                     SortOrder = sortOrder,
                     UserId = userSession.UserId,
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId
+                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                    LiveIndicator = liveIndicator
                 };
 
                 metaModel.ProductOptions = productOptions;

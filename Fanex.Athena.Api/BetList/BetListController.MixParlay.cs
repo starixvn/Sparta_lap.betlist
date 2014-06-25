@@ -24,11 +24,12 @@ namespace Fanex.Athena.Api.BetList
         /// Get data for running mix parlay bet list.
         /// </summary>
         /// <param name="transId">Transaction Id.</param>
+        /// <param name="liveIndicator">Live Indicator.</param>
         /// <returns>Dynamic objects, contain Mix Parlay result.</returns>
         [HttpGet]
-        public dynamic MixParlayDetail(long transId)
+        public dynamic MixParlayDetail(long transId, int liveIndicator)
         {
-            var ticketResult = _betListService.GetMixParlayDetailTicket(transId);
+            var ticketResult = _betListService.GetMixParlayDetailTicket(transId, liveIndicator);
             var ticket = Ticket(ticketResult: ticketResult, showOdds: true);
             return ticket;
         }

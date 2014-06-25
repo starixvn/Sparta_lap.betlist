@@ -43,8 +43,9 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// Get Mix Parlay Detail data.
         /// </summary>
         /// <param name="transId">Transaction ID value.</param>
+        /// <param name="liveIndicator">Live Indicator.</param>
         /// <returns>The result value.</returns>
-        public TicketResult GetMixParlayDetailTicket(long transId)
+        public TicketResult GetMixParlayDetailTicket(long transId, int liveIndicator)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
             try
@@ -52,6 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("TransId", DbType.Int64, transId);
+                    db.AddInParameter("LiveIndicator", DbType.Int32, liveIndicator);
                     using (var reader = db.ExecuteReader())
                     {
                         var result = new TicketResult();
@@ -699,6 +701,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             }
 
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
+            db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
         /// <summary>

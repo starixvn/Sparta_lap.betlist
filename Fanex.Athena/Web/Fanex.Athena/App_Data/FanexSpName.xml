@@ -182,7 +182,7 @@
     <Setting Key="Lrf_BetList_SelByDayAll_Mem" SpName="Lrf_BetList_SelByDayAll_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossOutright" SpName="Lrf_BetList_LiveReport_SelWinlossOutright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossRacing" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossNumberGame" SpName="Lrf_BetList_LiveReport_SelWinlossNumberGame_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -194,7 +194,7 @@
     <Setting Key="Lrf_Monitor_OutrightSel" SpName="Lrf_Monitor_OutrightSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelDeleted_UserList" SpName="Lrf_BetList_SelDeleted_UserList" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelCombinationParlayDetail" SpName="Lrf_BetList_SelCombinationParlayDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelParlayDetail" SpName="Lrf_BetList_SelParlayDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelParlayDetail" SpName="Lrf_BetList_SelParlayDetail_16676" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MobileReport_SelWinloss_Mem" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Forecast_SelByMatch" SpName="Lrf_BetList_Forecast_SelByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />

@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Interface.BetList
     {
         SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
-        TicketResult GetMixParlayDetailTicket(long transId);
+        TicketResult GetMixParlayDetailTicket(long transId, int liveIndicator);
 
         TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey);
 
