@@ -96,7 +96,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var toteWinPlaceColumn = "Tote_WinPlace" + baseCurrency;
             var toteTotalColumn = "Tote_Total" + baseCurrency;
             var customerCommColumn = "Tote_Total_PlayerComm" + baseCurrency;
-
             var sumToteWinColumn = "SumTote_Win" + baseCurrency;
             var sumTotePlaceColumn = "SumTote_Place" + baseCurrency;
             var sumToteWinPlaceColumn = "SumTote_WinPlace" + baseCurrency;

@@ -183,6 +183,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to summary section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        /// <param name="rowIndex">Row index.</param>
         protected void AssignSumData(ISheet sheet, int rowIndex)
         {
             int totalRow = rowIndex + RowContentTemplate;
