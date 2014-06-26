@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Interface.BetList
     /// </summary>
     public interface IBetListDataAccess
     {
-        TicketResult GetMixParlayDetailTicket(long transId, int liveIndicator);
+        TicketResult GetMixParlayDetailTicket(long transId);
 
         SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 
