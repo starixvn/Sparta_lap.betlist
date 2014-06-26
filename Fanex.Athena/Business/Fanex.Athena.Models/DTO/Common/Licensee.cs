@@ -25,7 +25,7 @@ namespace Fanex.Athena.Models.DTO.Common
             Id = info.GetInt32("Id");
             Name = info.GetString("Name");
             Description = info.GetString("Description");
-            IsAllowedCustomerComm = info.GetBoolean("IsAllowdCustomerComm");
+            IsAllowedCustomerComm = info.GetBoolean("IsAllowedCustomerComm");
         }
 
         public int Id { get; set; }
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Models.DTO.Common
             info.AddValue("Id", Id);
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
-            info.AddValue("IsAllowdCustomerComm", IsAllowedCustomerComm);
+            info.AddValue("IsAllowedCustomerComm", IsAllowedCustomerComm);
         }
 
         #endregion ISerializable Members
