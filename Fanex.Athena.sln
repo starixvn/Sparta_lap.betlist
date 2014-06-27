@@ -31,6 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Web", "Fanex.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{3E648ADD-986B-4630-BE56-F72B4A7E875E}"
 	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
 		CodeAnalysis\customrule.ruleset = CodeAnalysis\customrule.ruleset
 		CodeAnalysis\FanexRules.ruleset = CodeAnalysis\FanexRules.ruleset
 	EndProjectSection

@@ -62,7 +62,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DNAide">
+    <Reference Include="DNAide, Version=2.1.404.20, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\3rds\DNAide.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -71,9 +72,6 @@
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Logging">
-      <HintPath>..\..\..\DLLs\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\IBCFile.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -115,7 +113,6 @@
     <Compile Include="BetList\BetListExcel.cs" />
     <Compile Include="BetList\LrfBetListExcelBuilder.cs" />
     <Compile Include="Customer\CustomerListExcel.cs" />
-    <Compile Include="Extension\Converter.cs" />
     <Compile Include="Extension\HSSFCellExtension.cs" />
     <Compile Include="Extension\HSSFSheetExtension.cs" />
     <Compile Include="Extension\HSSFWorkbookExtension.cs" />
@@ -180,11 +177,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Excel.licenseheader" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

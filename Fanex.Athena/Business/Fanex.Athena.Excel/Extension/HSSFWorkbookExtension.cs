@@ -16,12 +16,12 @@ namespace Fanex.Athena.Excel.Extension
     internal static class HSSFWorkbookExtension
     {
         /// <summary>
-        /// CloneSheet method is used to copy a sheet to new sheet
+        /// CloneSheet method is used to copy a sheet to new sheet.
         /// </summary>
-        /// <param name="workbook">Target workbook</param>
-        /// <param name="sourceSheetName">Template sheet name</param>
-        /// <param name="newSheetName">New sheet name</param>
-        /// <returns>Return the copied sheet</returns>
+        /// <param name="workbook">Target workbook.</param>
+        /// <param name="sourceSheetName">Template sheet name.</param>
+        /// <param name="newSheetName">New sheet name.</param>
+        /// <returns>Return the copied sheet.</returns>
         public static ISheet CloneSheet(this IWorkbook workbook, string sourceSheetName, string newSheetName)
         {
             var sheetIndex = workbook.GetSheetIndex(sourceSheetName);
@@ -32,10 +32,10 @@ namespace Fanex.Athena.Excel.Extension
         }
 
         /// <summary>
-        /// Remove the sheet by sheet name
+        /// Remove the sheet by sheet name.
         /// </summary>
-        /// <param name="workbook">Target workbook</param>
-        /// <param name="sheetName">The sheet name</param>
+        /// <param name="workbook">Target workbook.</param>
+        /// <param name="sheetName">The sheet name.</param>
         public static void RemoveSheet(this IWorkbook workbook, string sheetName)
         {
             var sheet = workbook.GetSheet("Template");

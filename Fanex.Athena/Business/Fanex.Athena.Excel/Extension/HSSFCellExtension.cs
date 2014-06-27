@@ -9,28 +9,29 @@
 namespace Fanex.Athena.Excel.Extension
 {
     using System;
+    using Fanex.Common;
     using NPOI.SS.UserModel;
 
     /// <summary>
-    /// HSSFCellExtensions class contains extension method for HSSFCell
+    /// HSSFCellExtensions class contains extension method for HSSFCell.
     /// </summary>
     internal static class HSSFCellExtension
     {
         /// <summary>
-        /// Assign decimal value to cell
+        /// Assign decimal value to cell.
         /// </summary>
-        /// <param name="cell">Target cell</param>
-        /// <param name="value">The value to be set</param>
+        /// <param name="cell">Target cell.</param>
+        /// <param name="value">The value to be set.</param>
         public static void SetCellValue(this ICell cell, decimal value)
         {
             cell.SetCellValue(Convert.ToDouble(value));
         }
 
         /// <summary>
-        /// Assign object value to cell
+        /// Assign object value to cell.
         /// </summary>
-        /// <param name="cell">Target cell</param>
-        /// <param name="value">The value to be set</param>
+        /// <param name="cell">Target cell.</param>
+        /// <param name="value">The value to be set.</param>
         public static void SetCellValue(this ICell cell, object value)
         {
             var valueType = value.GetType();
@@ -79,22 +80,22 @@ namespace Fanex.Athena.Excel.Extension
         }
 
         /// <summary>
-        /// Assign int value to cell
+        /// Assign integer value to cell.
         /// </summary>
-        /// <param name="cell">Target cell</param>
-        /// <param name="value">The value to be set</param>
+        /// <param name="cell">Target cell.</param>
+        /// <param name="value">The value to be set.</param>
         public static void SetCellValue(this ICell cell, long value)
         {
             cell.SetCellValue(Convert.ToDouble(value));
         }
 
         /// <summary>
-        /// Set cell with default style
-        /// Assign cell with default value
+        /// Set cell with default style.
+        /// Assign cell with default value.
         /// </summary>
-        /// <param name="cell">Main cell object</param>
-        /// <param name="value">Default value</param>
-        /// <param name="defaultStyle">Default style</param>
+        /// <param name="cell">Main cell object.</param>
+        /// <param name="value">Default value.</param>
+        /// <param name="defaultStyle">Default style.</param>
         public static void SetEmptyCell(this ICell cell, object value, ICellStyle defaultStyle)
         {
             switch (value.GetType().Name)
