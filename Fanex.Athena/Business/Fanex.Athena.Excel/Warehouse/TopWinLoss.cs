@@ -10,11 +10,9 @@
 namespace Fanex.Athena.Excel.Warehouse
 {
     using System.Collections.Generic;
-    using System.Data;
     using Base;
-    using Common;
-    using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Models.ViewModel;
     using NPOI.SS.UserModel;

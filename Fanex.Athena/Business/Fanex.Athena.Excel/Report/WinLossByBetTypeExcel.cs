@@ -11,8 +11,8 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using Base;
-    using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
     using Models.ViewModel;
     using Models.ViewModel.Report;

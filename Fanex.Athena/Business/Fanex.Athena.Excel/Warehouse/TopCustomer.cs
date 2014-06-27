@@ -15,8 +15,8 @@ namespace Fanex.Athena.Excel.Warehouse
     using System.Data;
     using Base;
     using Common;
-    using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Excel.Extension;
     using Models.ViewModel;
     using NPOI.SS.UserModel;
 

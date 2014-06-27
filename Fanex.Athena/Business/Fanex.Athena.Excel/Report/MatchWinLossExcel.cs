@@ -19,8 +19,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Common;
-    using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Excel.Extension;
     using Models.Cache;
     using Models.DataDomain;
     using Models.DTO.Common;

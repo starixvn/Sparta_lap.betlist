@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.Base
     using System.IO;
     using System.Linq;
     using System.Web;
-    using Common.Extensions;
     using Entities;
+    using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Models.DataDomain;
     using Models.DTO.Common;
     using Models.MetaModel.Product;

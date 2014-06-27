@@ -7,9 +7,9 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
-    using Common.Extensions;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
