@@ -19,7 +19,6 @@ namespace Fanex.Athena
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
     using StackExchange.Profiling;
-    using TplCore;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -36,7 +35,6 @@ namespace Fanex.Athena
         /// <param name="e">The event ARGS.</param>
         public void Application_Start(object sender, EventArgs e)
         {
-            TplSettings.UrlVersion = AppSettings.JsVersion;
             AreaRegistration.RegisterAllAreas();
 
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());

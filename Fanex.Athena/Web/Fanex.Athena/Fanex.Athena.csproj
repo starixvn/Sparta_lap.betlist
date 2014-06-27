@@ -166,9 +166,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="TplCore">
-      <HintPath>..\..\..\DLLs\3rds\TplCore.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form\GenHistoryImg.aspx.cs">
