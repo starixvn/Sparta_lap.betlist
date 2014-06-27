@@ -105,9 +105,8 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\..\..\DLLs\Fanex\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="NetUtility, Version=1.0.3492.30464, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\NetUtility.dll</HintPath>
+    <Reference Include="NetUtility">
+      <HintPath>..\..\..\DLLs\Casino\NetUtility.dll</HintPath>
     </Reference>
     <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
       <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
