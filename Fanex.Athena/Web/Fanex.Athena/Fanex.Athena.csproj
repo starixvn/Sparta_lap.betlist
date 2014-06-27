@@ -90,10 +90,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\3rds\NetUtility.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\3rds\RemotingRef.dll</HintPath>
