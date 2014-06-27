@@ -71,7 +71,7 @@
       <HintPath>..\..\..\DLLs\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core">
-      <HintPath>..\..\..\DLLs\Fanex\Fanex.Result\Fanex.Result.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.5.1.0\lib\net40\Fanex.Result.Core.dll</HintPath>
     </Reference>
     <Reference Include="GotDotNet.ApplicationBlocks.Data">
       <HintPath>..\..\..\DLLs\Casino\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
