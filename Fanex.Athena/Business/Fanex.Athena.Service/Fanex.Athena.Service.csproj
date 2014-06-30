@@ -109,6 +109,10 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\packages\DotNetZip.1.9.1.5\lib\net40\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCasinoLibrary, Version=1.0.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\LiveCasinoLibrary.1.0.0.14\lib\net40\LiveCasinoLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.1.2.9.0\lib\net11\log4net.dll</HintPath>
     </Reference>
@@ -306,7 +310,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
