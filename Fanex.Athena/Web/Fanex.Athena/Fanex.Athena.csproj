@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary, Version=1.0.1.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CasinoLibrary.1.0.1.19\lib\net40\CasinoLibrary.dll</HintPath>
+    <Reference Include="CasinoLibrary, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\CasinoLibrary.1.0.2.2\lib\net40\CasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\CasinoSetting.1.0.0.0\lib\net40\CasinoSetting.dll</HintPath>
@@ -69,7 +70,7 @@
       <HintPath>..\..\..\DLLs\3rds\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.2.17.1457\lib\net40\HandHistoryLibrary.dll</HintPath>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.5.29.957\lib\net40\HandHistoryLibrary.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\IBCCrypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
@@ -80,9 +81,6 @@
     </Reference>
     <Reference Include="ILogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ILogger.1.0.0.0\lib\net40\ILogger.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCasinoLibrary, Version=1.0.0.13, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\LiveCasinoLibrary.1.0.0.13\lib\net40\LiveCasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
       <HintPath>..\..\..\packages\log4net.1.2.9.0\lib\net11\log4net.dll</HintPath>

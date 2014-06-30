@@ -44,8 +44,8 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="CasinoLibrary">
-      <HintPath>..\..\..\packages\CasinoLibrary.1.0.1.19\lib\net40\CasinoLibrary.dll</HintPath>
+    <Reference Include="CasinoLibrary, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\CasinoLibrary.1.0.2.2\lib\net40\CasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CasinoSetting">
       <HintPath>..\..\..\packages\CasinoSetting.1.0.0.0\lib\net40\CasinoSetting.dll</HintPath>
@@ -59,9 +59,9 @@
     <Reference Include="Enyim.Caching">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.BetList.Core, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.0.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Fanex.Caching.dll</HintPath>
@@ -87,8 +87,9 @@
     <Reference Include="GotDotNet.ApplicationBlocks.Data">
       <HintPath>..\..\..\DLLs\3rds\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
-    <Reference Include="HandHistoryLibrary">
-      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.2.17.1457\lib\net40\HandHistoryLibrary.dll</HintPath>
+    <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.5.29.957\lib\net40\HandHistoryLibrary.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt">
       <HintPath>..\..\..\packages\IBCCrypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
@@ -107,9 +108,6 @@
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\packages\DotNetZip.1.9.1.5\lib\net40\Ionic.Zip.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCasinoLibrary">
-      <HintPath>..\..\..\packages\LiveCasinoLibrary.1.0.0.13\lib\net40\LiveCasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.1.2.9.0\lib\net11\log4net.dll</HintPath>
