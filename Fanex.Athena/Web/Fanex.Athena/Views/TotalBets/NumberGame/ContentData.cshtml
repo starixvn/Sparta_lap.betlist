@@ -10,6 +10,9 @@
 }
 <div class="data-content">
     <table class="report-table">
+        @{
+            Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentHeader.cshtml");
+        }
         <tbody>
             @foreach (var league in leagueList)
             {

@@ -3,6 +3,20 @@
 "use strict";
 var RacingCommission = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length === 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $(".total-content").height()
+                            - (Site.getScrollBarState().hScrollbar ? 22 : 10);
+            gridHeight = Math.max(120, gridHeight);
+
+            $grid.css("height", "auto").css("max-height", gridHeight);
+            $(".report-content").css("max-height", "");
+        },
         initialize: function () {
             RacingCommission.initEvent();
             Site.createSortingIcon(RacingCommission.sortReport);
@@ -59,4 +73,13 @@ var RacingCommission = (function ($) {
 
 $(window).load(function () {
     RacingCommission.initialize();
+    RacingCommission.resizeGrid();
+});
+
+$(window).resize(function () {
+    RacingCommission.resizeGrid();
+});
+
+$(window).unload(function () {
+    $(window).unbind("resize");
 });

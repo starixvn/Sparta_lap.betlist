@@ -2,9 +2,14 @@
 @using Fanex.Athena.Models.ViewModel
 <div class="data-content">
     <table class="report-table">
-        <tr class="no-info" style="height:34px">
-            <td class="no-info" colspan="">@ViewResources.NoInfo
-            </td>
-        </tr>
+        @{
+            Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentHeader.cshtml");
+        }
+        <tbody>
+            <tr class="no-info" style="height:34px">
+                <td class="no-info" colspan="18">@ViewResources.NoInfo
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

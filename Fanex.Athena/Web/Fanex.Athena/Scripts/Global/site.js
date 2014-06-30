@@ -45,6 +45,7 @@ var Site = (function ($) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     },
                     500: function () {
+                        Site.unBlockUI();
                         alert(Site.getSingleResource("ErrorProcessingMsg"));
                     }
                 }
