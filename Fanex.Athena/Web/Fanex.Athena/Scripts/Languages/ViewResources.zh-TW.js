@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/13/2014 1:31:44 PM
+// Lasted generated date: 7/1/2014 11:20:48 AM
 // </history>
 
 var _language_zh_TW={
@@ -256,7 +256,7 @@ var _language_zh_TW={
 				 	
                      Customer:"客戶",
 				 	
-                     CustomerBalance:"客戶餘額",
+                     CustomerBalance:"會員餘額",
 				 	
                      CustomerBalanceDateRangeNotification:"日期範圍超過2個月。請再試一次!",
 				 	

@@ -1,7 +1,19 @@
 ﻿/*global Site*/
 /// <reference path="/@JSense.js" />
 "use strict";
+
 var BetSetting = (function ($) {
+    var TAB_SPORTSBOOK = 1;
+    var TAB_RACING = 2;
+    var TAB_NUMBERGAME = 3;
+    var TAB_VIRTUALSPORTS = 4;
+    var TAB_LIVECASINO = 5;
+    var TAB_RNGCASINO = 6;
+    var TAB_KENO = 7;
+
+    var SPORTSBOOKS_SPORTS = [1, 2, 3, 5, 8, 10, 11, 99, "99MP", 154];
+    var RACING_SPORTS = ["151_31", "151_41", "151_51", "152_41", "152_51", "153_51"];
+    var VIRTUAL_SPORTS = [180, 181, 182, 183, 184, 185, 186];
     var _ids = null;
     return {
         initialize: function () {
@@ -9,6 +21,7 @@ var BetSetting = (function ($) {
             if ($idList.length > 0) {
                 _ids = $idList.val().split(",");
             }
+
             BetSetting.initMenu();
             BetSetting.initEvent();
         },
@@ -16,7 +29,7 @@ var BetSetting = (function ($) {
             // Check data available
             var dataCount = Number($("#dataCount").val());
             if (dataCount === 0) {
-                $("#btnSubmitBetSetting, #btnReset").attr('disabled', 'disabled').addClass("button-disabled");
+                $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("button-disabled");
                 return;
             }
 
@@ -44,25 +57,25 @@ var BetSetting = (function ($) {
             var tabid = parseInt($("#TabId").val());
             var enable = $("#editable").val() === "False" ? false : true;
             switch (tabid) {
-                case 1:
+                case TAB_SPORTSBOOK:
                     $('#sportsbook').addClass('activeTab');
                     break;
-                case 2:
+                case TAB_RACING:
                     $('#racing').addClass('activeTab');
                     break;
-                case 3:
+                case TAB_NUMBERGAME:
                     $('#numbergame').addClass('activeTab');
                     break;
-                case 4:
+                case TAB_VIRTUALSPORTS:
                     $('#virtualsports').addClass('activeTab');
                     break;
-                case 5:
+                case TAB_LIVECASINO:
                     $('#livecasino').addClass('activeTab');
                     break;
-                case 6:
+                case TAB_RNGCASINO:
                     $('#rngcasino').addClass('activeTab');
                     break;
-                case 7:
+                case TAB_KENO:
                     $('#keno').addClass('activeTab');
                     break;
             }
@@ -102,73 +115,43 @@ var BetSetting = (function ($) {
         },
         checkEnableBetSetting: function (tabId, enable) {
             switch (tabId) {
-                case 1:
+                case TAB_SPORTSBOOK:
                     if (!enable) {
                         $('#copy-settting').hide();
                     }
-                    BetSetting.checkEnable(1, enable);
-                    BetSetting.checkEnable(2, enable);
-                    BetSetting.checkEnable(3, enable);
-                    BetSetting.checkEnable(5, enable);
-                    BetSetting.checkEnable(8, enable);
-                    BetSetting.checkEnable(10, enable);
-                    BetSetting.checkEnable(11, enable);
-                    BetSetting.checkEnable(99, enable);
-                    BetSetting.checkEnable("99MP", enable);
-                    BetSetting.checkEnable(154, enable);
+                    BetSetting.checkEnable(SPORTSBOOKS_SPORTS, enable);
                     break;
-                case 2:
-                    BetSetting.checkEnable("151_31", enable);
-                    BetSetting.checkEnable("151_41", enable);
-                    BetSetting.checkEnable("151_51", enable);
-                    BetSetting.checkEnable("152_41", enable);
-                    BetSetting.checkEnable("152_51", enable);
-                    BetSetting.checkEnable("153_51", enable);
+                case TAB_RACING:
+                    BetSetting.checkEnable(RACING_SPORTS, enable);
                     break;
-                case 3:
+                case TAB_NUMBERGAME:
                     BetSetting.checkEnable("161", enable);
-                    if (enable) {
-                        $("#max-per-ball-161").removeAttr('disabled');
-                    }
-                    else {
-                        $("#max-per-ball-161").attr('disabled', 'disabled');
-                    }
+                    $("#max-per-ball-161").prop('disabled', !enable);
                     break;
-                case 4:
-                    BetSetting.checkEnable("180", enable);
-                    BetSetting.checkEnable("181", enable);
-                    BetSetting.checkEnable("182", enable);
-                    BetSetting.checkEnable("183", enable);
-                    BetSetting.checkEnable("184", enable);
-                    BetSetting.checkEnable("185", enable);
-                    BetSetting.checkEnable("186", enable);
+                case TAB_VIRTUALSPORTS:
+                    BetSetting.checkEnable(VIRTUAL_SPORTS, enable);
                     break;
-                case 5:
+                case TAB_LIVECASINO:
                     BetSetting.checkEnableLiveCasino(enable);
                     break;
-                case 7:
+                case TAB_KENO:
                     {
                         if (!enable) {
                             $('#copy-settting').hide();
                         }
-                        $.each(_ids, function (index, value) {
-                            BetSetting.checkEnable(value, enable);
-                        });
+
+                        BetSetting.checkEnable(_ids, enable);
                         break;
                     }
             }
         },
-        checkEnable: function (sportId, enable) {
-            if (enable) {
-                $("#min-bet-" + sportId).removeAttr('disabled');
-                $("#max-bet-" + sportId).removeAttr('disabled');
-                $("#max-per-match-" + sportId).removeAttr('disabled');
-            }
-            else {
-                $("#min-bet-" + sportId).attr('disabled', 'disabled');
-                $("#max-bet-" + sportId).attr('disabled', 'disabled');
-                $("#max-per-match-" + sportId).attr('disabled', 'disabled');
-                $("#btnSubmitBetSetting, #btnReset").attr('disabled', 'disabled').addClass("button-disabled");
+        checkEnable: function (sportIds, enable) {
+            for (var i in sportIds) {
+                var sportId = sportIds[i];
+                $("#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId).prop("disabled", !enable);
+                if (!enable) {
+                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("button-disabled");
+                }
             }
         },
         checkEnableLiveCasino: function (enable) {
@@ -176,9 +159,9 @@ var BetSetting = (function ($) {
             if (!enable) {
                 for (var i = 1; i <= gameTypeCount; i++) {
                     // var oldCheck = $("#oldCheck" + i).val();
-                    $("input[name=gameTypeName" + i + "]").attr('disabled', 'disabled');
+                    $("input[name=gameTypeName" + i + "]").prop('disabled', true);
                 }
-                $("#btnSubmitBetSetting, #btnReset").attr('disabled', 'disabled').addClass("button-disabled");
+                $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("button-disabled");
             }
         },
         updateBetSetting: function () {
@@ -190,37 +173,37 @@ var BetSetting = (function ($) {
             nickName = $(this).attr("data-nick-name");
 
             switch (tabid) {
-                case 1:
+                case TAB_SPORTSBOOK:
                     if (BetSetting.checkValidationSportsBook()) {
                         BetSetting.showConfirmAction(Site.getSingleResource('UpdateSportsbookBetSettings'),
                             custId, userName, nickName, BetSetting.updateSportsbookBetSetting);
                     }
                     break;
-                case 2:
+                case TAB_RACING:
                     if (BetSetting.checkValidationRacing()) {
                         BetSetting.showConfirmAction(Site.getSingleResource('UpdateRacingBetSettings'),
                             custId, userName, nickName, BetSetting.updateRacingBetSetting);
                     }
                     break;
-                case 3:
+                case TAB_NUMBERGAME:
                     if (BetSetting.checkValidationNumberGame()) {
                         BetSetting.showConfirmAction(Site.getSingleResource('UpdateNumberGameBetSettings'),
                             custId, userName, nickName, BetSetting.updateNumberGameBetSetting);
                     }
 
                     break;
-                case 4:
+                case TAB_VIRTUALSPORTS:
                     if (BetSetting.checkValidationVirtualSports()) {
                         BetSetting.showConfirmAction(Site.getSingleResource('UpdateVirtualSportsBetSettings'),
                             custId, userName, nickName, BetSetting.updateVirtualSportsBetSetting);
                     }
 
                     break;
-                case 5:
+                case TAB_LIVECASINO:
                     BetSetting.showConfirmAction(Site.getSingleResource('UpdateLiveCasinoBetSettings'),
                             custId, userName, nickName, BetSetting.updateLiveCasinoBetSetting);
                     break;
-                case 7:
+                case TAB_KENO:
                     if (BetSetting.checkValidationKeno()) {
                         BetSetting.showConfirmAction(Site.getSingleResource('UpdateKenoBetSettings'),
                             custId, userName, nickName, BetSetting.updateKenoBetSetting);
@@ -230,27 +213,10 @@ var BetSetting = (function ($) {
         },
         checkValidationSportsBook: function () {
             BetSetting.checkCopyAllValues($('#chkCopyAll'));
-
-            if (false === BetSetting.checkLimitMinMaxBet(1)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(2)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(3)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(5)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(8)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(10)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(11)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(99)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("99MP")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(154)) { return false; }
-            return true;
+            return BetSetting.checkLimitMinMaxBets(SPORTSBOOKS_SPORTS);
         },
         checkValidationRacing: function () {
-            if (false === BetSetting.checkLimitMinMaxBet("151_31")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("151_41")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("151_51")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("152_41")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("152_51")) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet("153_51")) { return false; }
-            return true;
+            return BetSetting.checkLimitMinMaxBets(RACING_SPORTS);
         },
         checkValidationNumberGame: function () {
             if (false === BetSetting.checkLimitMinMaxBet(161)) { return false; }
@@ -281,20 +247,11 @@ var BetSetting = (function ($) {
             return true;
         },
         checkValidationVirtualSports: function () {
-            if (false === BetSetting.checkLimitMinMaxBet(180)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(181)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(182)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(183)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(184)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(185)) { return false; }
-            if (false === BetSetting.checkLimitMinMaxBet(186)) { return false; }
-            return true;
+            return BetSetting.checkLimitMinMaxBets(VIRTUAL_SPORTS);
         },
         updateKenoBetSetting: function (custId, userName, nickName) {
             var params = "";
-            $.each(_ids, function (index, value) {
-                params += BetSetting.getBetSettingParams(value);
-            });
+            params += BetSetting.getBetSettingParamsForSports(_ids);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName;
@@ -314,17 +271,7 @@ var BetSetting = (function ($) {
         // Update Sportsbook
         updateSportsbookBetSetting: function (custId, userName, nickName) {
             var params = "";
-
-            params += BetSetting.getBetSettingParams(1);
-            params += BetSetting.getBetSettingParams(2);
-            params += BetSetting.getBetSettingParams(3);
-            params += BetSetting.getBetSettingParams(5);
-            params += BetSetting.getBetSettingParams(8);
-            params += BetSetting.getBetSettingParams(10);
-            params += BetSetting.getBetSettingParams(11);
-            params += BetSetting.getBetSettingParams(99);
-            params += BetSetting.getBetSettingParams("99MP");
-            params += BetSetting.getBetSettingParams(154);
+            params += BetSetting.getBetSettingParamsForSports(SPORTSBOOKS_SPORTS);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName;
@@ -343,13 +290,7 @@ var BetSetting = (function ($) {
         // Update Racing
         updateRacingBetSetting: function (custId, userName, nickName) {
             var params = "";
-
-            params += BetSetting.getBetSettingParams("151_31");
-            params += BetSetting.getBetSettingParams("151_41");
-            params += BetSetting.getBetSettingParams("151_51");
-            params += BetSetting.getBetSettingParams("152_41");
-            params += BetSetting.getBetSettingParams("152_51");
-            params += BetSetting.getBetSettingParams("153_51");
+            params += BetSetting.getBetSettingParamsForSports(RACING_SPORTS);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName;
@@ -391,14 +332,7 @@ var BetSetting = (function ($) {
         // Update Virtual Sports
         updateVirtualSportsBetSetting: function (custId, userName, nickName) {
             var params = "";
-
-            params += BetSetting.getBetSettingParams(180);
-            params += BetSetting.getBetSettingParams(181);
-            params += BetSetting.getBetSettingParams(182);
-            params += BetSetting.getBetSettingParams(183);
-            params += BetSetting.getBetSettingParams(184);
-            params += BetSetting.getBetSettingParams(185);
-            params += BetSetting.getBetSettingParams(186);
+            params += BetSetting.getBetSettingParamsForSports(VIRTUAL_SPORTS);
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName;
@@ -452,6 +386,14 @@ var BetSetting = (function ($) {
                 }
             });
         },
+        getBetSettingParamsForSports: function (sportsIds) {
+            var params = "";
+            for (var i in sportsIds) {
+                params += BetSetting.getBetSettingParams(sportsIds[i]);
+            }
+
+            return params;
+        },
         getBetSettingParams: function (sportId) {
             var minBetId = $("#min-bet-" + sportId);
             var maxBetId = $("#max-bet-" + sportId);
@@ -492,7 +434,7 @@ var BetSetting = (function ($) {
         // Reset bet setting
         resetBetSetting: function () {
             var tabid = parseInt($("#TabId").val());
-            if (tabid === 5) {
+            if (tabid === TAB_LIVECASINO) {
                 BetSetting.resetLiveCasinoBetSetting();
             }
             else {
@@ -501,25 +443,9 @@ var BetSetting = (function ($) {
         },
 
         resetValues: function () {
-            // Reset value for min bet
-            $('input[id^="min"]').each(function () {
-                $(this).val($(this).attr('data-original'));
-                $(this).removeAttr('disabled');
-                $('#chkCopyAll').removeAttr('checked');
-            });
-
-            // Reset value for max bet
-            $('input[id^="max-bet"]').each(function () {
-                $(this).val($(this).attr('data-original'));
-                $(this).removeAttr('disabled');
-                $('#chkCopyAll').removeAttr('checked');
-            });
-
-            // Reset value for max per match and max per ball
-            $('input[id^="max-per"]').each(function () {
-                $(this).val($(this).attr('data-original'));
-                $(this).removeAttr('disabled');
-                $('#chkCopyAll').removeAttr('checked');
+            $('#chkCopyAll').removeAttr('checked');
+            $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
+                $(this).val($(this).attr('data-original')).prop('disabled', false);
             });
         },
         resetLiveCasinoBetSetting: function () {
@@ -533,47 +459,38 @@ var BetSetting = (function ($) {
 
         checkCopyAllValues: function (obj) {
             // Get values copy for min bet
-            var firstItemMinBet = $('input[id^="min"]').first().val();
             var arrayItemMinBet = $('input[id^="min"]');
+            var firstMinBet = arrayItemMinBet.first().val();
 
             // Get values copy for max bet
-            var firstItemMaxBet = $('input[id^="max-bet"]').first().val();
             var arrayItemMaxBet = $('input[id^="max-bet"]');
+            var firstMaxBet = arrayItemMaxBet.first().val();
 
             // Get values copy for max per bet
-            var firstItemMaxPerBet = $('input[id^="max-per"]').first().val();
             var arrayItemMaxPerBet = $('input[id^="max-per"]');
+            var firstMaxPerBet = arrayItemMaxPerBet.first().val();
 
-            if ($(obj).is(":checked") === true) {
-                BetSetting.setCopyValueBetSetting(arrayItemMinBet, firstItemMinBet, true);
+            var enable = $(obj).is(":checked");
 
-                BetSetting.setCopyValueBetSetting(arrayItemMaxBet, firstItemMaxBet, true);
-
-                BetSetting.setCopyValueBetSetting(arrayItemMaxPerBet, firstItemMaxPerBet, true);
-            }
-            else {
-                BetSetting.setCopyValueBetSetting(arrayItemMinBet, firstItemMinBet, false);
-
-                BetSetting.setCopyValueBetSetting(arrayItemMaxBet, firstItemMaxBet, false);
-
-                BetSetting.setCopyValueBetSetting(arrayItemMaxPerBet, firstItemMaxPerBet, false);
-            }
+            BetSetting.setCopyValueBetSetting(arrayItemMinBet, firstMinBet, enable);
+            BetSetting.setCopyValueBetSetting(arrayItemMaxBet, firstMaxBet, enable);
+            BetSetting.setCopyValueBetSetting(arrayItemMaxPerBet, firstMaxPerBet, enable);
         },
 
-        setCopyValueBetSetting: function (obj, copyValue, enabled) {
+        setCopyValueBetSetting: function ($element, copyValue, enabled) {
             // Check tab ids are sportsbook or racing
             var tabid = parseInt($("#TabId").val());
 
             // Enable or disable textbox
-            BetSetting.enableMixMaxBetSetting(obj, copyValue, enabled);
+            BetSetting.enableMixMaxBetSetting($element, copyValue, enabled);
 
             // Check limit min max bet
-            if (tabid === 1) {
+            if (tabid === TAB_SPORTSBOOK) {
                 if (!BetSetting.checkLimitMinMaxBet(1)) {
                     return false;
                 }
             }
-            else if (tabid === 7) {
+            else if (tabid === TAB_KENO) {
                 if (!BetSetting.checkLimitMinMaxBet(_ids[0])) {
                     return false;
                 }
@@ -585,22 +502,16 @@ var BetSetting = (function ($) {
             }
             if (enabled) {
                 // Copy value to textboxes
-                obj.not(':eq(0)').each(function () {
+                $element.not(':eq(0)').each(function () {
                     $(this).val(copyValue);
                 });
             }
         },
 
-        enableMixMaxBetSetting: function (obj, copyValue, enabled) {
+        enableMixMaxBetSetting: function ($element, copyValue, enabled) {
             // Don't disable first item
-            obj.not(':eq(0)').each(function () {
-                if (enabled) {
-                    // Disable textbox
-                    $(this).attr('disabled', 'disabled');
-                }
-                else {
-                    $(this).removeAttr('disabled');
-                }
+            $element.not(':eq(0)').each(function () {
+                $(this).prop('disabled', enabled);
             });
         },
 
@@ -618,6 +529,15 @@ var BetSetting = (function ($) {
             $("#" + minBetId).val(minBet);
             $("#" + maxBetId).val(maxBet);
             $("#" + maxPerMatchId).val(maxPerMatch);
+        },
+        checkLimitMinMaxBets: function (sportIds) {
+            for (var i in sportIds) {
+                if (BetSetting.checkLimitMinMaxBet(sportIds[i]) === false) {
+                    return false;
+                }
+            }
+
+            return true;
         },
         checkLimitMinMaxBet: function (sportId) {
             var minBetId = "min-bet-" + sportId;
@@ -751,7 +671,7 @@ var BetSetting = (function ($) {
                 resizable: false,
                 height: 150,
                 open: function () {
-                    $('#btnSubmitBetSetting, #btnReset').attr('disabled', 'disabled');
+                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                 },
                 buttons: [
                 {
@@ -780,7 +700,7 @@ var BetSetting = (function ($) {
                 resizable: false,
                 height: 150,
                 open: function () {
-                    $('#btnSubmitBetSetting, #btnReset').attr('disabled', 'disabled');
+                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
                 },
                 buttons: [
                 {
