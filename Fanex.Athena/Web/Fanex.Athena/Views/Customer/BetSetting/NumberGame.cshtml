@@ -11,6 +11,7 @@
 {
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+ @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 <div class="data-content">
     <!--Title-->
     <div class="content-title">

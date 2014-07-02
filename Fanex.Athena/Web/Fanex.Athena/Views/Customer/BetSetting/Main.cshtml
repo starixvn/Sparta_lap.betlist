@@ -37,6 +37,8 @@
     </div>
     <!--Check box-->
 }
+
+@Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("editable", Model.Param.Editable)
 @Html.Hidden("dataCount", (Model.MainData.Count))
 <!--Header-->

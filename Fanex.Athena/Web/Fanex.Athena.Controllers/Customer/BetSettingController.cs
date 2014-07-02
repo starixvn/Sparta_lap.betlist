@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using System.Linq;
 
     /// <summary>
     ///     Bet setting controller.
