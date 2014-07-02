@@ -5,12 +5,14 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.ActionFilter
 {
+    using System;
     using System.Reflection;
     using System.Web.Mvc;
 
     /// <summary>
     ///  Ajax request attribute class.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class AjaxRequestAttribute : ActionMethodSelectorAttribute
     {
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)

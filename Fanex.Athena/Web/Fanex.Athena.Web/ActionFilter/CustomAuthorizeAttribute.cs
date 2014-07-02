@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.ActionFilter
 {
+    using System;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Athena.Service.Implement.Users;
@@ -12,6 +13,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// Class: AuthenticationAttribute.
     /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class CustomAuthorizeAttribute : AuthorizeAttribute
     {
         #region Override

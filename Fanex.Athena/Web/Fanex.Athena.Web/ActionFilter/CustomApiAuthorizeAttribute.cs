@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.ActionFilter
 {
+    using System;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
@@ -13,6 +14,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// Class: AuthenticationAttribute.
     /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class CustomApiAuthorizeAttribute : AuthorizeAttribute
     {
         #region Override

@@ -11,7 +11,6 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -87,29 +86,18 @@ namespace Fanex.Athena.Api.BetList
 
             var ticketResult = _betListService.GetLastBetsMonitoringData(metaModel);
 
-            try
-            {
-                // Show empty content if data is empty
-                return ticketResult == null || ticketResult.MainTicketList.Count == 0
-                    ? (dynamic)new
-                    {
-                        NewRow = false
-                    }
-                    : new
-                    {
-                        NewRow = true,
-                        Rows = GetLastMonitorBetListContent(metaModel, ticketResult),
-                        LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
-                    };
-            }
-            catch (Exception e)
-            {
-                return new
+            // Show empty content if data is empty
+            return ticketResult == null || ticketResult.MainTicketList.Count == 0
+                ? (dynamic)new
                 {
-                    NewRow = false,
-                    e.Message
+                    NewRow = false
+                }
+                : new
+                {
+                    NewRow = true,
+                    Rows = GetLastMonitorBetListContent(metaModel, ticketResult),
+                    LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
-            }
         }
 
         /// <summary>
@@ -299,6 +287,6 @@ namespace Fanex.Athena.Api.BetList
             }
 
             return string.Empty;
-        }        
+        }
     }
 }

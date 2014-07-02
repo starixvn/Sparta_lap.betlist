@@ -10,6 +10,7 @@
 
 namespace Fanex.Athena.Web.ActionFilter
 {
+    using System;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Athena.Service.Implement.Users;
@@ -17,6 +18,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     ///  Only use for left menu URL.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
         #region Override

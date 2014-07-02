@@ -28,21 +28,17 @@ namespace Fanex.Athena.Api
     [CustomApiAuthorize]
     public class BaseApiController : ApiController
     {
-        public readonly string[] IgnoreCasinoAngBingo = new string[] { Product.Cs, Product.Bg };
-        public readonly string[] IgnoreKeno = new string[] { Product.Kn };
         public readonly string[] IgnoreCasinoAndBingoAndKeno = new string[] { Product.Cs, Product.Bg, Product.Kn };
 
         protected readonly IProductService ProductService;
-        protected readonly ICurrencyService CurrencyService;
         protected readonly ISessionService SessionService;
-        protected readonly ILanguageService LangService;
+        private readonly ILanguageService _langService;
 
         protected BaseApiController()
         {
             SessionService = new SessionService();
             ProductService = new ProductService();
-            CurrencyService = new CurrencyService();
-            LangService = new LanguageService();
+            _langService = new LanguageService();
         }
 
         /// <summary>
@@ -71,8 +67,8 @@ namespace Fanex.Athena.Api
 
         protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
         {
-            var currentLanguage = LangService.GetCurrentLanguage();
-            LangService.SetPageCulture(currentLanguage);
+            var currentLanguage = _langService.GetCurrentLanguage();
+            _langService.SetPageCulture(currentLanguage);
             base.Initialize(controllerContext);
         }
     }
