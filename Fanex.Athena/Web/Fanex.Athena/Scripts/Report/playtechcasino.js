@@ -3,8 +3,22 @@
 
 var PlaytechCasino = (function ($) {
     return {
+        resizeGrid: function () {
+            var $grid = $("#data-content");
+            if ($grid.length === 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+            var gridHeight = window.innerHeight - gridTop - $("#ContentMainFooter").height()
+                            - (Site.getScrollBarState().hScrollbar ? 25 : 12);
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("height", "auto");
+            $("#ContentMainContent").css("max-height", gridHeight);
+        },
         initialize: function () {
             PlaytechCasino.initEvent();
+            PlaytechCasino.resizeGrid();
         },
 
         initEvent: function () {

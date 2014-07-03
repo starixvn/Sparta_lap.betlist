@@ -364,7 +364,7 @@ namespace Fanex.Athena.Api.BetList
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
             var sumWinLossText = NumberFormat.DecFormat(metaModel.SumWinlost, 2, false);
-            var sumLicenseeWlText = NumberFormat.DecFormat(metaModel.SumLicenseeWl, 2, false);
+            var sumLicenseeWlText = NumberFormat.DecFormat(metaModel.SumLicenseeWl + metaModel.SumComm, 2, false);
             sumLicenseeWlText = metaModel.SumLicenseeWl < 0
                 ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
