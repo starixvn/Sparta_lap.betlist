@@ -65,22 +65,15 @@ var PlaytechCasino = (function ($) {
 
             $('#PlaytechCasinoForm').submit();
         },
-        goBack: function (context) {
-            var currentLevel = parseInt($(".current-level").attr("data-level"), 10);
-            var licenseeId = parseInt($("#LicenseeId").val(), 10);
-            var goBackLevel = parseInt($(context).attr("data-level"), 10);
+        goBack: function () {
+            // var currentLevel = parseInt($(".current-level").attr("data-level"), 10);
+            // var licenseeId = parseInt($("#LicenseeId").val(), 10);
+            // var goBackLevel = parseInt($(context).attr("data-level"), 10);
 
-            if (goBackLevel === 1) { // go back agent level
-                history.go(-1);
-            }
-            else { // go back licensee level
-                if (currentLevel === 1 || licenseeId !== 1) { // agent level or member level of non 12bet licensee
-                    history.go(-1);
-                }
-                else { // member level
-                    history.go(-2);
-                }
-            }
+            // + LB365 Levels:  0 - licensee, 1 - member
+            // + Others (not implemented yet): 0 - licensee, 1 - agent, 2 - member
+            // go back licensee level
+            PlaytechCasino.submit();
         }
     };
 })(jQuery);

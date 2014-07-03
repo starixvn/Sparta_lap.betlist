@@ -69,7 +69,7 @@ var BetList = (function ($) {
             // Resize
             jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
             // Remove unnecessary item
-            $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("Total")).removeAttr("title");
+            $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
             $("table.ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
             $(".content-filter").attr("style", "width: " + $("#gbox_BetListGrid").css("width"));
 

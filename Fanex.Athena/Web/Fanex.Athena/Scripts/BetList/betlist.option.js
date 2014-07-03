@@ -62,7 +62,7 @@ var BetListOption = (function () {
     {
         name: 'Stake',
         index: 'Stake',
-        width: 60,
+        width: 70,
         align: 'right',
         sortable: true,
         resizable: false
