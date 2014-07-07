@@ -69,6 +69,8 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal Turnover { get; set; }
 
+        public decimal TotalTransaction { get; set; }
+
         public decimal CustomerWl { get; set; }
 
         public decimal CustomerComm { get; set; }

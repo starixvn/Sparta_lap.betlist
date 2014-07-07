@@ -33,23 +33,24 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class MatchWinLossExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 9;
-        private const int ColumnAmtDueToRacing = 10;
-        private const int ColumnBaCommission = 7;
+        private const int ColumnCustomerWl = 3;
         private const int ColumnCustomerComm = 4;
         private const int ColumnCustomerTotal = 5;
-        private const int ColumnCustomerWl = 3;
+        private const int ColumnBaCommission = 7;
         private const int ColumnRacingRevenue = 8;
+        private const int ColumnAmtDueToBa = 9;
+        private const int ColumnAmtDueToRacing = 10;
         private const int ColumnTemplateCount = 10;
-        private const int RowBetTypeContentTemplate = 5;
-        private const int RowContentTemplate = 4;
-        private const int RowGrandTotalTemplate = 8;
-        private const int RowMatchTemplate = 3;
-        private const int RowNoInfoTemplate = 9;
-        private const int RowSpecialBetTypeTemplate = 7;
-        private const int RowTableHeaderTemplate = 1;
-        private const int RowTotalTemplate = 6;
 
+        private const int RowTableHeaderTemplate = 1;
+        private const int RowMatchTemplate = 3;
+        private const int RowContentTemplate = 4;
+        private const int RowBetTypeContentTemplate = 5;
+        private const int RowTotalTemplate = 6;
+        private const int RowSpecialBetTypeTemplate = 7;
+        private const int RowGrandTotalTemplate = 8;
+        private const int RowNoInfoTemplate = 9;
+        
         private readonly MatchWinLossMetaModel _model;
         private readonly DataTable _totalData;
 
@@ -73,6 +74,7 @@ namespace Fanex.Athena.Excel.Report
                 "#",
                 ViewResources.Match,
                 ViewResources.Turnover,
+                ViewResources.TotalTransaction,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
@@ -233,6 +235,7 @@ namespace Fanex.Athena.Excel.Report
             return new List<string>
             {
                 "turnover",
+                "betcount",
                 "memberwinlost",
                 "playercomm",
                 "totalwl",
@@ -410,7 +413,7 @@ namespace Fanex.Athena.Excel.Report
         {
             IList<string> currencyColumnList = GetCommonColumnNameList();
 
-            return currencyColumnList.Select(s => s == "rbrevenue" ? "rbrevenue" : GetCurrencyColumn(s))
+            return currencyColumnList.Select(name => (name == "rbrevenue" || name == "betcount") ? name : GetCurrencyColumn(name))
                    .ToList();
         }
 
@@ -429,7 +432,7 @@ namespace Fanex.Athena.Excel.Report
                 currencyColumnList[i] = "sum" + currencyColumnList[i];
             }
 
-            return currencyColumnList.Select(GetCurrencyColumn).ToList();
+            return currencyColumnList.Select(item => item == "sumbetcount" ? item : GetCurrencyColumn(item)).ToList();
         }
 
         /// <summary>

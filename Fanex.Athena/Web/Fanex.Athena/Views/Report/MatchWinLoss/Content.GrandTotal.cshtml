@@ -14,6 +14,8 @@
         </td>
         <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.Turnover, 2, false)
         </td>
+        <td style="width: 85px">@dataGrandTotal.TotalTransaction
+        </td>
         @if (Model.IsAllowedCustomerCommission)
         {
             <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl, 2, false)

@@ -56,11 +56,17 @@ namespace Fanex.Athena.Extension.Utility
         /// <param name="productCode">The product code.</param>
         /// <param name="bettype">The bet type.</param>
         /// <returns>True or false.</returns>
+        [SuppressMessage(
+        "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        "SP2101:MethodMustNotContainMoreLinesThan",
+        Justification = "Reviewed. Suppression is OK here.")]
         public static bool ValidateBettpe(string productCode, int bettype)
         {
             const int SBMinBetType = 30;
             const int SBMaxBetType = 999;
             const int SBMinOfMaxBettype = 120;
+            const int SBMinSportingSolutionBetType = 1301;
+            const int SBMaxSportingSolutionBetType = 1334;
             const int NGMinBetType = 81;
             const int NGMaxBetType = 119;
             const int RBMinBetType = 31;
@@ -85,7 +91,8 @@ namespace Fanex.Athena.Extension.Utility
             switch (code)
             {
                 case "SB":
-                    return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType);
+                    return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType) ||
+                        (bettype >= SBMinSportingSolutionBetType && bettype <= SBMaxSportingSolutionBetType);
                 case "BA":
                     return bettype <= SBMinBetType || (bettype >= SBMinOfMaxBettype && bettype <= SBMaxBetType);
                 case "RB":
@@ -113,9 +120,9 @@ namespace Fanex.Athena.Extension.Utility
         /// <param name="password">The password.</param>
         /// <returns>The valid password or invalid password.</returns>
         [SuppressMessage(
-"StyleCop.CSharp.Nexcel.NexcelCustomRules",
-"SP2101:MethodMustNotContainMoreLinesThan",
-Justification = "Reviewed. Suppression is OK here.")]
+        "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        "SP2101:MethodMustNotContainMoreLinesThan",
+        Justification = "Reviewed. Suppression is OK here.")]
         public static bool CheckValidPassword(string password)
         {
             password = password.ToLower();

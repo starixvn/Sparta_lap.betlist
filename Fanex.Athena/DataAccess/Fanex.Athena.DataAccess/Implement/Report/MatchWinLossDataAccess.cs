@@ -75,6 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 matchWinLoss.HomeId = reader.ToInt("homeid");
                 matchWinLoss.AwayId = reader.ToInt("awayid");
                 matchWinLoss.Turnover = reader.ToDecimal(turnoverColumn);
+                matchWinLoss.TotalTransaction = reader.ToDecimal("betcount");
                 matchWinLoss.CustomerWl = reader.ToDecimal(winlossColumn);
                 matchWinLoss.CustomerComm = custCommExisted ? reader.ToDecimal(custCommColumn) : 0;
                 matchWinLoss.LicenseeWl = reader.ToDecimal(licenseeWlColumn);

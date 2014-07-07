@@ -84,6 +84,9 @@
                 <td style="width: 85px">
                     @NumberFormat.DecFormat(matchWinLoss.Turnover, 2, false)
                 </td>
+                <td style="width: 85px">
+                    @matchWinLoss.TotalTransaction
+                </td>
                 @if (Model.IsAllowedCustomerCommission)
                 {
                     <td style="width: 85px">

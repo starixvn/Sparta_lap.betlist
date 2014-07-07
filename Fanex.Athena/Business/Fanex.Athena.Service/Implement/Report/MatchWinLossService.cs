@@ -187,6 +187,7 @@ namespace Fanex.Athena.Service.Implement.Report
                                          BetType = g.Select(r => r.BetType).FirstOrDefault(),
                                          IsNeutral = g.Select(r => r.IsNeutral).FirstOrDefault(),
                                          Turnover = g.Sum(r => r.Turnover),
+                                         TotalTransaction = g.Sum(r => r.TotalTransaction),
                                          CustomerWl = g.Sum(r => r.CustomerWl),
                                          CustomerComm = g.Sum(r => r.CustomerComm),
                                          LicenseeWl = g.Sum(r => r.LicenseeWl),

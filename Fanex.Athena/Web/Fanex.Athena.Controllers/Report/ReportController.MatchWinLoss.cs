@@ -242,6 +242,7 @@ namespace Fanex.Athena.Controllers.Report
             var totalMatchWinLoss = new MatchWinLoss
             {
                 Turnover = dataList.Sum(item => item.Turnover),
+                TotalTransaction = dataList.Sum(item => item.TotalTransaction),
                 CustomerWl = dataList.Sum(item => item.CustomerWl),
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
                 LicenseeWl = dataList.Sum(item => item.LicenseeWl),
@@ -266,6 +267,8 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Turnover =
                     dataListOutright.Sum(item => item.Turnover) + total.Turnover,
+                TotalTransaction =
+                    dataListOutright.Sum(item => item.TotalTransaction) + total.TotalTransaction,
                 CustomerWl =
                     dataListOutright.Sum(item => item.CustomerWl) +
                     total.CustomerWl,
@@ -406,7 +409,7 @@ namespace Fanex.Athena.Controllers.Report
         private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
         {
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
-            var columnCount = 5;
+            var columnCount = 6;
             if (productAccess.IsAllowBa)
             {
                 columnCount += 2;
