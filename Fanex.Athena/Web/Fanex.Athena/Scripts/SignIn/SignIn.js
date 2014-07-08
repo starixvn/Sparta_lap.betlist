@@ -60,7 +60,7 @@ function DoEnter(evt, action) {
 
 function InitLogin() {
     // Do not allow wrapping sign-in page
-    if (window.parent !== window) {
+    if (window.parent != window) { //ignore jslint
         window.parent.location = location.href;
     }
 

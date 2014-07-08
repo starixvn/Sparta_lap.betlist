@@ -52,10 +52,10 @@
                 Risk & ForeCast
                 @Fanex.Athena.Models.ViewModel.ViewResources.Notification
             </div>
-            <div class="note-message">
-                @string.Format(Fanex.Athena.Models.ViewModel.ViewResources.LayoutNoteMsg, "<span id=\"browser\"></span>")
+            <div class="note-message" style="float: none">
+                @MvcHtmlString.Create(string.Format(Fanex.Athena.Models.ViewModel.ViewResources.LayoutNoteMsg, "<span id=\"browser\"></span>"))
             </div>
-            <div class="browsers">
+            <div class="browsers" style="padding-top: 10px;">
                 <ul>
                     <li class="download-chrome"><a target="_blank" href="http://www.google.de/chrome/eula.html?hl=en">
                         @Fanex.Athena.Models.ViewModel.ViewResources.Download
