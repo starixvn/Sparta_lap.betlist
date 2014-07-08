@@ -11,7 +11,6 @@ var WinLossByLeague = (function ($) {
     var _leaguename = null;
     var _fromDate = null;
     var _toDate = null;
-    var _minOdds = -1;
     var _postdata = null;
     var _currencyName = null;
     var _productCount = 0;
@@ -58,15 +57,19 @@ var WinLossByLeague = (function ($) {
         });
     }
 
+    function getFromDateString() {
+        return $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy");
+    }
+
+    function getToDateString() {
+        return $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy");
+    }
+
     function loadLeagues() {
         if (ajaxLeagues != null) {
             ajaxLeagues.abort();
         }
-        var fromDate = $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy");
-        var toDate = $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy");
-        if (!fromDate || !toDate) {
-            return;
-        }
+
         Site.blockUI();
         $("#SubmitButton").prop("disabled", true);
         $("#League").html("");
@@ -77,8 +80,8 @@ var WinLossByLeague = (function ($) {
             data: {
                 currencyId: $("#CurrencyId").val(),
                 sportid: $("#Sport").val(),
-                fromDate: fromDate,
-                toDate: toDate
+                fromDate: getFromDateString(),
+                toDate: getToDateString()
             },
             success: function (data) {
                 var str = "";
@@ -114,8 +117,8 @@ var WinLossByLeague = (function ($) {
             url: Site.resolveClientUrl("report/GetMatchesByLeague"),
             data: {
                 leagueid: leagueid,
-                fromDate: $("#DateControl").monPickr("getFromDate").toString("dd MMM yyyy"),
-                toDate: $("#DateControl").monPickr("getToDate").toString("dd MMM yyyy")
+                fromDate: getFromDateString(),
+                toDate: getToDateString()
             },
             success: function (data) {
                 var str = "";
@@ -129,6 +132,14 @@ var WinLossByLeague = (function ($) {
                 Site.unBlockUI();
             }
         });
+    }
+
+    function buildProductsParams(paramObject) {
+        for (var i = 0; i < _productCount; i++) {
+            paramObject["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
+            paramObject["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
+            paramObject["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
+        }
     }
 
     var me = {
@@ -320,21 +331,19 @@ var WinLossByLeague = (function ($) {
             Site.blockUI();
             _level = 0;
 
-            var mainForm = $("#searchForm");
-            var postdata = mainForm.serializeObject();
-            _fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            _toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
+            _postdata = $("#searchForm").serializeObject();
+            _fromDate = new Date(_postdata.Year, _postdata.Month - 1, _postdata.FromDay);
+            _toDate = new Date(_postdata.Year, _postdata.Month - 1, _postdata.ToDay);
             _currencyName = $("#CurrencyName").val().toUpperCase();
-            postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
-            _minOdds = postdata.Odds;
-            postdata.FromDate = _fromDate.toDateString();
-            postdata.ToDate = _toDate.toDateString();
-            _postdata = postdata;
+            _postdata.BaseCurrency = _postdata.BaseCurrency.toUpperCase();
+            _postdata.FromDate = _fromDate.toDateString();
+            _postdata.ToDate = _toDate.toDateString();
+
             _leaguename = $("#League option:selected").text();
             var option =
             {
                 type: "POST",
-                data: postdata,
+                data: _postdata,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
@@ -383,11 +392,7 @@ var WinLossByLeague = (function ($) {
                 ShowDraw: _postdata.ShowDraw
             };
 
-            for (var i = 0; i < _productCount; i++) {
-                param["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
-                param["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
-                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
-            }
+            buildProductsParams(param);
 
             var url = Site.resolveClientUrl("BetList/WinlossByLeague?") + $.param(param);
             window.open(url, "", "modal=no");
@@ -416,11 +421,7 @@ var WinLossByLeague = (function ($) {
                 pagesize: _pagingOption.pagesize
             };
 
-            for (var i = 0; i < _productCount; i++) {
-                param["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
-                param["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
-                param["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
-            }
+            buildProductsParams(param);
 
             var option =
             {
@@ -432,7 +433,7 @@ var WinLossByLeague = (function ($) {
                 success: function (response) {
                     WinLossByLeague.ajaxComplete(_level, response);
                     if (response != null && response.Data.length > 0) {
-                        WinLossByLeague.setReportTitle(1, _minOdds, _fromDate, _toDate);
+                        WinLossByLeague.setReportTitle(1, _postdata.Odds, _fromDate, _toDate);
                         _pagingOption.totalrow = parseInt(response.TotalRows);
                         if (_pagingOption.totalrow > 0) {
                             $("#paging").show();

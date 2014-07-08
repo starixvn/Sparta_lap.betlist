@@ -25,8 +25,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int SportId { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }      
+        public DateTime? ToDate { get; set; }      
     }
 }
