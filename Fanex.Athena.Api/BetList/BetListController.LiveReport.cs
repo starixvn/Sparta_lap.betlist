@@ -14,12 +14,11 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Http;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.MetaModel.Product;
-    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 

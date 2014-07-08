@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -25,7 +26,6 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 

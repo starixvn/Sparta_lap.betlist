@@ -14,7 +14,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     public class LeagueMetaModel
     {
         public LeagueMetaModel()
-        {                           
+        {
         }
 
         public int CurrencyId { get; set; }
@@ -27,6 +27,6 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public DateTime? FromDate { get; set; }
 
-        public DateTime? ToDate { get; set; }      
+        public DateTime? ToDate { get; set; }
     }
 }

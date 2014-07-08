@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
@@ -27,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Logging;
-    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 

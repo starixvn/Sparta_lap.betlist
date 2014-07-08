@@ -7,9 +7,6 @@
 namespace Fanex.Athena.Extension.Utility
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Security.Cryptography;
 
     /// <summary>
@@ -20,8 +17,8 @@ namespace Fanex.Athena.Extension.Utility
         /// <summary>
         /// Generate a seed to use when creating new "Random" objects. Will produce better random results.
         /// </summary>
-        /// <returns>Int32</returns>
-        public static Int32 GenerateRandomSeed()
+        /// <returns>Random number.</returns>
+        public static int GenerateRandomSeed()
         {
             // Use a 4-byte array to fill it with random bytes and convert it then
             // to an integer value.
@@ -40,37 +37,34 @@ namespace Fanex.Athena.Extension.Utility
             return seed;
         }
 
-
         /// <summary>
-        /// Returns a non-negative random Int32. 
+        /// Returns a non-negative random integer. 
         /// </summary>
-        /// <returns>Int32</returns>
-        public static Int32 GenerateRandomInt32()
+        /// <returns>Random number.</returns>
+        public static int GenerateRandomInt32()
         {
             Random randomClass = new Random(GenerateRandomSeed());
             return randomClass.Next();
         }
 
-
         /// <summary>
-        /// Returns a no-nnegative random Int32 less than the specified maximum. 
+        /// Returns a no-negative random integer less than the specified maximum. 
         /// </summary>
-        /// <param name="maxValue">Maximum value</param>
-        /// <returns>Int32</returns>
-        public static Int32 GenerateRandomInt32(Int32 maxValue)
+        /// <param name="maxValue">Maximum value.</param>
+        /// <returns>Random number.</returns>
+        public static int GenerateRandomInt32(int maxValue)
         {
             Random randomClass = new Random(GenerateRandomSeed());
             return randomClass.Next(maxValue);
         }
 
-
         /// <summary>
-        /// Returns a random Int32 within a specified range. 
+        /// Returns a random integer within a specified range. 
         /// </summary>
-        /// <param name="minValue">Minimum value</param>
-        /// <param name="maxValue">Maximum value</param>
-        /// <returns>Int32</returns>
-        public static Int32 GenerateRandomInt32(Int32 minValue, Int32 maxValue)
+        /// <param name="minValue">Minimum value.</param>
+        /// <param name="maxValue">Maximum value.</param>
+        /// <returns>Random number.</returns>
+        public static int GenerateRandomInt32(int minValue, int maxValue)
         {
             Random randomClass = new Random(GenerateRandomSeed());
             return randomClass.Next(minValue, maxValue);
