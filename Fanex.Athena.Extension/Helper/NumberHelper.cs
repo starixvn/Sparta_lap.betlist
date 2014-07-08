@@ -5,13 +5,15 @@
 
 namespace Fanex.Athena.Extension.Helper
 {
-    using DNAide.Utils;
+    using System.Globalization;
 
     /// <summary>
     /// Number helper class.
     /// </summary>
     public static class NumberHelper
     {
+        private static CultureInfo _culture = new CultureInfo("en-US");
+
         /// <summary>
         /// Formatting numbers for decimals and two significant digits.
         /// </summary>
@@ -32,7 +34,8 @@ namespace Fanex.Athena.Extension.Helper
         {
             if (obj is decimal)
             {
-                return NumberFormat.DecFormat(obj, digit);
+                var format = "F" + digit.ToString();
+                return ((decimal)obj).ToString(format, _culture.NumberFormat);
             }
 
             if (obj is int)
@@ -41,6 +44,12 @@ namespace Fanex.Athena.Extension.Helper
             }
 
             return obj.ToString();
+        }
+
+        public static string DecFormat(decimal obj, byte digit)
+        {
+            var format = "F" + digit.ToString();
+            return ((decimal)obj).ToString(format, _culture.NumberFormat);
         }
     }
 }

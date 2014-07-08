@@ -16,10 +16,10 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using DNAide.Utils;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.MetaModel.Product;
+    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 
@@ -363,8 +363,8 @@ namespace Fanex.Athena.Api.BetList
                 : (metaModel.TotalRows / metaModel.PageSize) + 1;
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
-            var sumWinLossText = NumberFormat.DecFormat(metaModel.SumWinlost, 2, false);
-            var sumLicenseeWlText = NumberFormat.DecFormat(metaModel.SumLicenseeWl + metaModel.SumComm, 2, false);
+            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost, 2);
+            var sumLicenseeWlText = NumberHelper.DecFormat(metaModel.SumLicenseeWl + metaModel.SumComm, 2);
             sumLicenseeWlText = metaModel.SumLicenseeWl < 0
                 ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;

@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using DNAide.Utils;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
@@ -28,6 +27,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Logging;
+    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 
@@ -482,11 +482,11 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     result.ExtendedData = new
                         {
-                            SBComm = NumberFormat.DecFormat(newGroup.SBComm * 100, 2, false),
-                            RCComm = NumberFormat.DecFormat(newGroup.RCComm * 100, 2, false),
-                            NGComm = NumberFormat.DecFormat(newGroup.NGComm * 100, 2, false),
-                            LCComm = NumberFormat.DecFormat(newGroup.LCComm * 100, 2, false),
-                            RNGComm = NumberFormat.DecFormat(newGroup.CSComm * 100, 2, false),
+                            SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
+                            RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
+                            NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
+                            LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
+                            RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
                             newGroup.GroupName,
                             newGroup.GroupColor,
                         };
@@ -543,11 +543,11 @@ namespace Fanex.Athena.Controllers.Customer
             result.ErrorCode = temp.Code;
             result.ExtendedData = new
             {
-                SBComm = NumberFormat.DecFormat(metaModel.SBComm * 100, 2, false),
-                RCComm = NumberFormat.DecFormat(metaModel.RCComm * 100, 2, false),
-                NGComm = NumberFormat.DecFormat(metaModel.NGComm * 100, 2, false),
-                LCComm = NumberFormat.DecFormat(metaModel.LCComm * 100, 2, false),
-                RNGComm = NumberFormat.DecFormat(metaModel.CSComm * 100, 2, false),
+                SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
+                RCComm = NumberHelper.DecFormat(metaModel.RCComm * 100, 2),
+                NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
+                LCComm = NumberHelper.DecFormat(metaModel.LCComm * 100, 2),
+                RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

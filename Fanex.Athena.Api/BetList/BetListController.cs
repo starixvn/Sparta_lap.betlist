@@ -15,7 +15,6 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using DNAide.Utils;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -26,6 +25,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
+    using Fanex.Athena.Extension.Helper;
 
     #endregion Using
 
@@ -188,8 +188,8 @@ namespace Fanex.Athena.Api.BetList
 
             var sumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
             var sumLicenseeWl = ticketResult.SumLicenseeWl + ticketResult.SumComm;
-            var sumWinLossText = NumberFormat.DecFormat(sumWinLoss, 2, false);
-            var sumLicenseeWlText = NumberFormat.DecFormat(sumLicenseeWl, 2, false);
+            var sumWinLossText = NumberHelper.DecFormat(sumWinLoss, 2);
+            var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
             sumLicenseeWlText = sumLicenseeWl < 0
                 ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;

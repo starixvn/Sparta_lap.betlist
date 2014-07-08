@@ -11,12 +11,12 @@ namespace Fanex.Athena.Controllers
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
+    using System.Text;
     using System.Web;
     using System.Web.Caching;
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
-    using DNAide.Utils;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers
                  */
                 if (!isAllowAutomationCaptchaCode)
                 {
-                    SessionService.CaptchaCode = Encryption.RandomNumberString(4).ToUpperInvariant();
+                    SessionService.CaptchaCode = RandomCaptchaCode();
                     SinglePageData(101, ViewResources.InvalidCaptchaMsg);
                 }
 
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers
             Response.Cache.SetCacheability(HttpCacheability.Public);
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
-            string code = Encryption.RandomNumberString(4).ToUpperInvariant();
+            string code = RandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;
@@ -242,6 +242,17 @@ namespace Fanex.Athena.Controllers
         {
             ViewBag.errCode = errorCode;
             ViewBag.errMsg = errorMsg;
+        }
+
+        private string RandomCaptchaCode()
+        {
+            var randomNumber = new StringBuilder();
+            for (var i = 0; i < 4; i++)
+            {
+                randomNumber.Append(RandomNumber.GenerateRandomInt32(0, 9));
+            }
+
+            return randomNumber.ToString();
         }
     }
 }

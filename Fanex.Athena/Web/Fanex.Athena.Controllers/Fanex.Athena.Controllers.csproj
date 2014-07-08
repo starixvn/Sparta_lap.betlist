@@ -44,10 +44,6 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="DNAide, Version=2.1.404.20, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\DNAide.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.BetList.Core">
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
