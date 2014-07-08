@@ -360,15 +360,15 @@ namespace Fanex.Athena.Excel.Base
 
             switch (currencyId)
             {
-                case 0:
+                case BaseCurrencyType.All:
                     title = ViewResources.AllCurrencies;
                     break;
 
-                case -1:
+                case BaseCurrencyType.Eur:
                     title = string.Format(ViewResources.Viewin, FormatKey.Eur);
                     break;
 
-                case -2:
+                case BaseCurrencyType.Usd:
                     title = string.Format(ViewResources.Viewin, FormatKey.Usd);
                     break;
 

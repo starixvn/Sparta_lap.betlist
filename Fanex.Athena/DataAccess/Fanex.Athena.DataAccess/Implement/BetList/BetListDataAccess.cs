@@ -857,6 +857,15 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListPagingParameters(db, metaModel);
         }
 
+        private static void CreateRunningBetListByMultipleBettypePaprameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("bettype", DbType.String, metaModel.MultipleBettype);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
+            CreateBetListPagingParameters(db, metaModel);
+        }
+        
         #region CommonParam
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -1169,9 +1178,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 case "Lrf_BetList_SelRunningByBettype":
                     CreateRunningBetListByBettypePaprameters(db, metaModel);
-
                     break;
-
+                case "Lrf_BetList_SelRunningByBettypeList":
+                    CreateRunningBetListByMultipleBettypePaprameters(db, metaModel);
+                    break;
                 case "Lrf_BetList_LiveReport_SelWinlossByMatch":
                     CreateLiveReportBetListByMatchParameters(db, metaModel);
 

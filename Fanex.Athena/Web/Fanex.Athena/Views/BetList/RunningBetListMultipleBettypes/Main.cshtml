@@ -1,0 +1,57 @@
+﻿@{
+    var bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
+    var title = string.Empty;
+    switch(bettype)
+    {
+        case 9:
+            title = ViewResources.MixParlay;
+            break;
+        case 24:
+            title = ViewResources.DoubleChance;
+            break;
+        case 26:
+            title = ViewResources.BONTeamToScore;
+            break;
+        case 29:
+            title = ViewResources.SystemParlay;
+            break;
+        default:
+        break;
+    }
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets,  title);
+    Layout = "~/Views/Shared/_BetListLayout.cshtml";
+}
+@using Fanex.Athena.Models.ViewModel
+@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@section pagecss {
+}
+@section pagejs {    
+    <script src="@Url.ContentLink("/Scripts/BetList/runningbetlist.multiplebettypes.js")" type="text/javascript"></script>
+}
+@section ContentTitle
+{
+    @{
+        if(bettype == 9 || bettype == 29)
+        {
+
+            <span id="mixparlay_9" class="inactive-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(9)">@ViewResources.MixParlay</span>
+            <span>|</span>
+            <span id="mixparlay_29" class="active-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(29)">@ViewResources.SystemParlay</span>            
+        }
+        else
+        {
+            @title
+        }
+    }
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/BetList/RunningBetListMultipleBettypes/Filter.cshtml");
+    }
+}
+@{
+    <div id="popupSystemParlay"></div>
+    <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+}

@@ -1,0 +1,42 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.MetaModel.Product
+@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@{
+
+    //-----------------------------Type of licensee---------------------------//
+    if (Model.LicenseeTypeList.Count > 0)
+    {
+    <div class="grid_2 filter-label">
+        <label>@ViewResources.Type</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "", Model.Param.LicenseeType, true)
+    </div>
+    }
+
+    //-----------------------------Currency-----------------------------------//
+    <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Currency</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, true, false)
+    </div>
+    <div class="grid_2 filter-label">
+        <label for="BaseCurrency">@ViewResources.Based</label>
+    </div>
+    <div class="grid_2 filter-input">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_2 note-group">
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_2  filter-input">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.Param.LicenseeId"/>
+}

@@ -13,6 +13,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -432,7 +433,7 @@ namespace Fanex.Athena.Excel.Report
                 currencyColumnList[i] = "sum" + currencyColumnList[i];
             }
 
-            return currencyColumnList.Select(item => item == "sumbetcount" ? item : GetCurrencyColumn(item)).ToList();
+            return currencyColumnList.Select(item => item.Equals("sumbetcount", StringComparison.OrdinalIgnoreCase) ? item : GetCurrencyColumn(item)).ToList();
         }
 
         /// <summary>

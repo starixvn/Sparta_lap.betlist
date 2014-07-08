@@ -3,27 +3,15 @@
     var title = string.Empty;
     switch(bettype)
     {
-        case 9:
-            title = ViewResources.MixParlay;
-        break;
         case 13: 
             title = ViewResources.CleanSheet;
             break;
-        case 24:
-            title = ViewResources.DoubleChance;
-            break;
-        case 26:
-            title = ViewResources.BONTeamToScore;
-            break;            
         case 27:
             title = ViewResources.ToWinToNil;
             break;            
         case 28:
             title = ViewResources.lbl3WayHandicap;
             break;
-        case 29:
-            title = ViewResources.SystemParlay;
-            break;            
         default:
         break;
     }
@@ -40,19 +28,7 @@
 }
 @section ContentTitle
 {
-    @{
-        if(bettype == 9 || bettype == 29)
-        {
-
-            <span id="mixparlay_9" class="inactive-switch-link" onclick="RunningBetList.switchMixParlayTotalBet(9)">@ViewResources.MixParlay</span>
-            <span>|</span>
-            <span id="mixparlay_29" class="active-switch-link" onclick="RunningBetList.switchMixParlayTotalBet(29)">@ViewResources.SystemParlay</span>            
-        }
-        else
-        {
-            @title
-        }
-    }
+    @title
 }
 @section ContentFilter
 {

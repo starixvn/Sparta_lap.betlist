@@ -502,6 +502,7 @@
     <Content Include="Form\LiveGenHistoryImg.aspx">
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
+    <Content Include="Scripts\BetList\runningbetlist.multiplebettypes.js" />
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\Customer\customers.js" />
     <Content Include="Scripts\Customer\customers.option.js" />
@@ -1308,6 +1309,8 @@
     <Content Include="Views\Utility\SelectLicensee.cshtml" />
     <Content Include="Views\Utility\ChangePass.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
+    <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
