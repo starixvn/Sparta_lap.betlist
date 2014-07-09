@@ -35,7 +35,7 @@
             @NumberFormat.DecFormat(matchWinloss.Turnover, 2, false)
         </td>
         <td>
-            @matchWinloss.TotalTransaction
+            @NumberFormat.DecFormat(matchWinloss.TotalTransaction, 0 , false)
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {

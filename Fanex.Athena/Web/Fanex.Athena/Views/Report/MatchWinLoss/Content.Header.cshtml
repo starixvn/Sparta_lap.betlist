@@ -13,7 +13,7 @@
             </td>
             <td style="width: 85px" rowspan="@rowSpan">@ViewResources.Turnover
             </td>
-            <td style="width: 85px" rowspan="@rowSpan">@ViewResources.TotalTransaction
+            <td style="width: 70px" rowspan="@rowSpan">@ViewResources.TotalTransaction
             </td>
             <td style="width: @(Model.IsAllowedCustomerCommission ? "230px" : "85px")" colspan="@(Model.IsAllowedCustomerCommission ? 3 : 1)">@ViewResources.CustomerW_L
             </td>
@@ -34,7 +34,7 @@
             }
             @if (Model.ProductAccess.IsAllowBa)
             {
-                <td style="width: 80px" rowspan="@rowSpan">@ViewResources.AmtDueToBA
+                <td style="width: 70px" rowspan="@rowSpan">@ViewResources.AmtDueToBA
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRb)

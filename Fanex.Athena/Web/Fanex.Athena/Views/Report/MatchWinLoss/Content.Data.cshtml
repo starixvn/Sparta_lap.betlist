@@ -84,8 +84,8 @@
                 <td style="width: 85px">
                     @NumberFormat.DecFormat(matchWinLoss.Turnover, 2, false)
                 </td>
-                <td style="width: 85px">
-                    @matchWinLoss.TotalTransaction
+                <td style="width: 70px">
+                    @NumberFormat.DecFormat(matchWinLoss.TotalTransaction, 0 , false)
                 </td>
                 @if (Model.IsAllowedCustomerCommission)
                 {
@@ -125,7 +125,7 @@
                 }
                 @if (Model.ProductAccess.IsAllowBa)
                 {
-                    <td style="width: 80px">
+                    <td style="width: 70px">
                         @NumberFormat.DecFormat(matchWinLoss.AmtDueToBa, 2, false)
                     </td>
                 }

@@ -12,7 +12,7 @@
         </td>
         <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.Turnover, 2, false)
         </td>
-        <td style="width: 85px">@dataTotal.TotalTransaction
+        <td style="width: 70px">@NumberFormat.DecFormat(@dataTotal.TotalTransaction, 0 , false)
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
@@ -47,7 +47,7 @@
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td style="width: 80px">@NumberFormat.DecFormat(@dataTotal.AmtDueToBa, 2, false)
+            <td style="width: 70px">@NumberFormat.DecFormat(@dataTotal.AmtDueToBa, 2, false)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
@@ -67,6 +67,8 @@
             <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)">@CacheRef.GetBettype(@itemOutRight.BetType)</span>
         </td>
         <td>@NumberFormat.DecFormat(itemOutRight.Turnover, 2, false)
+        </td>
+        <td>@NumberFormat.DecFormat(itemOutRight.TotalTransaction, 0, false)
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
