@@ -12,7 +12,7 @@
         </td>
         <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.Turnover, 2, false)
         </td>
-        <td style="width: 70px">@NumberFormat.DecFormat(@dataTotal.TotalTransaction, 0 , false)
+        <td style="width: 70px">@dataTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
@@ -40,7 +40,7 @@
         }
         }
         @if (Model.ProductAccess.IsAllowRb)
-        {            
+        {
             <td class="highlight" style="width: 70px">
                 @RazorHelper.HighlightNegativeNumber(dataTotal.RacingRevenue)
             </td>
@@ -68,7 +68,7 @@
         </td>
         <td>@NumberFormat.DecFormat(itemOutRight.Turnover, 2, false)
         </td>
-        <td>@NumberFormat.DecFormat(itemOutRight.TotalTransaction, 0, false)
+        <td>@itemOutRight.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {

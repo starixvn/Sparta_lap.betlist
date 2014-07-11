@@ -327,6 +327,7 @@ div.content-main
     font-weight: bold;
     text-decoration: none;
     color: #5672AB;
+    text-align: left;
 }
 
 .downline-link:hover

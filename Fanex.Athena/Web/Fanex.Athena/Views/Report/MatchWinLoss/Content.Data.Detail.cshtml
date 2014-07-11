@@ -35,7 +35,7 @@
             @NumberFormat.DecFormat(matchWinloss.Turnover, 2, false)
         </td>
         <td>
-            @NumberFormat.DecFormat(matchWinloss.TotalTransaction, 0 , false)
+            @matchWinloss.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {

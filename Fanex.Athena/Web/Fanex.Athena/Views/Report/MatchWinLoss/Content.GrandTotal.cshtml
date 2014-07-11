@@ -14,7 +14,7 @@
         </td>
         <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.Turnover, 2, false)
         </td>
-        <td style="width: 70px">@NumberFormat.DecFormat(dataGrandTotal.TotalTransaction, 0 , false)
+        <td style="width: 70px">@dataGrandTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {

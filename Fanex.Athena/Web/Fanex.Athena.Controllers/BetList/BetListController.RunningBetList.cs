@@ -91,15 +91,8 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-            var leagueName = string.Empty;
-            var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
-            {
-                leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
-            }
-
-            var title = (string.IsNullOrEmpty(leagueName) ? string.Empty : leagueName + " - ")
-               + string.Format(
+            
+            var title = string.Format(
                "{0} - {1}",
                CacheRef.GetBettype(metaModel.BetType),
                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
