@@ -1,5 +1,4 @@
-﻿@using DNAide.Utils
-@using Fanex.Athena.Extension.Helper
+﻿@using Fanex.Athena.Extension.Helper
 @using Fanex.Athena.Extension.Utility
 @using Fanex.Athena.Models.DTO.Common
 @model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel
@@ -32,7 +31,7 @@
             </span>
         </td>
         <td>
-            @NumberFormat.DecFormat(matchWinloss.Turnover, 2, false)
+            @NumberHelper.DecFormat(matchWinloss.Turnover, 2)
         </td>
         <td>
             @matchWinloss.TotalTransaction.ToString("#,###")
@@ -40,19 +39,19 @@
         @if (Model.IsAllowedCustomerCommission)
         {
             <td>
-                @NumberFormat.DecFormat(matchWinloss.CustomerWl, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWl, 2)
             </td>
             <td>
-                @NumberFormat.DecFormat(matchWinloss.CustomerComm, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.CustomerComm, 2)
             </td>
             <td>
-                @NumberFormat.DecFormat(matchWinloss.CustomerWl + matchWinloss.CustomerComm, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWl + matchWinloss.CustomerComm, 2)
             </td>
         }
         else
         {
             <td>
-                @NumberFormat.DecFormat(matchWinloss.CustomerWl, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWl, 2)
             </td>
         }
         <td class="highlight">
@@ -73,13 +72,13 @@
         @if (Model.ProductAccess.IsAllowBa)
         {
             <td>
-                @NumberFormat.DecFormat(matchWinloss.AmtDueToBa, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.AmtDueToBa, 2)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
             <td>
-                @NumberFormat.DecFormat(matchWinloss.AmtDueToRacing, 2, false)
+                @NumberHelper.DecFormat(matchWinloss.AmtDueToRacing, 2)
             </td>
         }
     </tr>

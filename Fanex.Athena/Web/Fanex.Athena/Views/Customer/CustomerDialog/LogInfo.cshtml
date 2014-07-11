@@ -1,5 +1,4 @@
 ﻿@using Fanex.Athena.Controllers
-@using DNAide.Utils;
 @{
     Layout = null;
 }
@@ -16,7 +15,7 @@
             @ViewResources.CreatedDate
         </td>
         <td class="bold">
-            @DateFormat.FullDateFormat(logInfo.CreateDate)
+            @RazorHelper.FullDateFormat(logInfo.CreateDate)
         </td>
     </tr>
     <tr>
@@ -24,7 +23,7 @@
             @ViewResources.LastLogin
         </td>
         <td class="bold">
-            @DateFormat.FullDateFormat(logInfo.LastLogged)
+            @RazorHelper.FullDateFormat(logInfo.LastLogged)
         </td>
     </tr>
     <tr>
@@ -32,7 +31,7 @@
             @ViewResources.LastTxn
         </td>
         <td class="bold">
-            @DateFormat.FullDateFormat(logInfo.LastTransferDate)
+            @RazorHelper.FullDateFormat(logInfo.LastTransferDate)
         </td>
     </tr>
     @if (Model.ProductAccess.IsAllowBa)
@@ -50,7 +49,7 @@
                 @ViewResources.LastUpdatedBA
             </td>
             <td class="bold">
-                @DateFormat.FullDateFormat(logInfo.LastUpdateBA)
+                @RazorHelper.FullDateFormat(logInfo.LastUpdateBA)
             </td>
         </tr>
     }
@@ -67,7 +66,7 @@
             @ViewResources.LastUpdatedMsg
         </td>
         <td class="bold">
-            @DateFormat.FullDateFormat(logInfo.SpecialLevelUpdateDate)
+            @RazorHelper.FullDateFormat(logInfo.SpecialLevelUpdateDate)
         </td>
     </tr>
 </table>

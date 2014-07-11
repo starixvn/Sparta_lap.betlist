@@ -1,5 +1,4 @@
-﻿@using DNAide.Utils
-@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.Cache
 @model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel
 @{
@@ -10,22 +9,22 @@
     <tr class="total-rows total-first-row total-in-eur">
         <td colspan="2">@ViewResources.Total
         </td>
-        <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.Turnover, 2, false)
+        <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.Turnover, 2)
         </td>
         <td style="width: 70px">@dataTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.CustomerWl, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl, 2)
             </td>
-            <td style="width: 60px">@NumberFormat.DecFormat(@dataTotal.CustomerComm, 2, false)
+            <td style="width: 60px">@NumberHelper.DecFormat(@dataTotal.CustomerComm, 2)
             </td>
-            <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.CustomerWl + @dataTotal.CustomerComm, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl + @dataTotal.CustomerComm, 2)
             </td>
         }
         else
         {
-            <td style="width: 85px">@NumberFormat.DecFormat(@dataTotal.CustomerWl, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl, 2)
             </td>
         }
         <td class="highlight" style="width: 85px">
@@ -47,12 +46,12 @@
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td style="width: 70px">@NumberFormat.DecFormat(@dataTotal.AmtDueToBa, 2, false)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataTotal.AmtDueToBa, 2)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
-            <td style="width: 70px">@NumberFormat.DecFormat(@dataTotal.AmtDueToRacing, 2, false)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataTotal.AmtDueToRacing, 2)
             </td>
         }
     </tr>
@@ -66,22 +65,22 @@
         <td colspan="2" class="title-text">
             <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)">@CacheRef.GetBettype(@itemOutRight.BetType)</span>
         </td>
-        <td>@NumberFormat.DecFormat(itemOutRight.Turnover, 2, false)
+        <td>@NumberHelper.DecFormat(itemOutRight.Turnover, 2)
         </td>
         <td>@itemOutRight.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td>@NumberFormat.DecFormat(itemOutRight.CustomerWl, 2, false)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl, 2)
             </td>
-            <td>@NumberFormat.DecFormat(itemOutRight.CustomerComm, 2, false)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerComm, 2)
             </td>
-            <td>@NumberFormat.DecFormat(itemOutRight.CustomerWl + itemOutRight.CustomerComm, 2, false)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl + itemOutRight.CustomerComm, 2)
             </td>
         }
         else
         {
-            <td>@NumberFormat.DecFormat(itemOutRight.CustomerWl, 2, false)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl, 2)
             </td>
         }
         <td class="highlight">
@@ -101,12 +100,12 @@
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td>@NumberFormat.DecFormat(@itemOutRight.AmtDueToBa, 2, false)
+            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToBa, 2)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
-            <td>@NumberFormat.DecFormat(@itemOutRight.AmtDueToRacing, 2, false)
+            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToRacing, 2)
             </td>
         }
     </tr>

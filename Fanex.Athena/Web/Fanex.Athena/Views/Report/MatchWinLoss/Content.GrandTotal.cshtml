@@ -1,5 +1,4 @@
-﻿@using DNAide.Utils
-@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.Cache
 @model Fanex.Athena.Models.ViewModel.Report.MatchWinLossViewModel        
 @{
@@ -12,22 +11,22 @@
     <tr class="total-first-row total-in-eur">
         <td colspan="2">@ViewResources.GrandTotal
         </td>
-        <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.Turnover, 2, false)
+        <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.Turnover, 2)
         </td>
         <td style="width: 70px">@dataGrandTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl, 2)
             </td>
-            <td style="width: 60px">@NumberFormat.DecFormat(dataGrandTotal.CustomerComm, 2, false)
+            <td style="width: 60px">@NumberHelper.DecFormat(dataGrandTotal.CustomerComm, 2)
             </td>
-            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm, 2)
             </td>
         }
         else
         {
-            <td style="width: 85px">@NumberFormat.DecFormat(dataGrandTotal.CustomerWl, 2, false)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl, 2)
             </td>
         }
         <td class="hightlight" style="width: 85px">
@@ -47,12 +46,12 @@
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td style="width: 70px">@NumberFormat.DecFormat(@dataGrandTotal.AmtDueToBa, 2, false)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToBa, 2)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
-            <td style="width: 70px">@NumberFormat.DecFormat(@dataGrandTotal.AmtDueToRacing, 2, false)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToRacing, 2)
             </td>
         }
     </tr>

@@ -1,5 +1,4 @@
 ﻿@using Fanex.Athena.Models.ViewModel
-@using DNAide.Utils
 @model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
 <table class="create-new-group-table" style="width: 280px !important">
     <tr>
@@ -15,11 +14,11 @@
             </select>
             @foreach (var group in Model.GroupCommDataList)
             {
-                @Html.Hidden("SBComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.SBComm * 100), 2, false))
-                @Html.Hidden("RBComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.RCComm * 100), 2, false))
-                @Html.Hidden("NGComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.NGComm * 100), 2, false))
-                @Html.Hidden("LCComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.LCComm * 100), 2, false))
-                @Html.Hidden("CSComm" + @group.GroupCommId, DNAide.Utils.NumberFormat.DecFormat((group.CSComm * 100), 2, false))
+                @Html.Hidden("SBComm" + @group.GroupCommId, RazorHelper.DecFormat((group.SBComm * 100), true))
+                @Html.Hidden("RBComm" + @group.GroupCommId, RazorHelper.DecFormat((group.RCComm * 100), true))
+                @Html.Hidden("NGComm" + @group.GroupCommId, RazorHelper.DecFormat((group.NGComm * 100), true))
+                @Html.Hidden("LCComm" + @group.GroupCommId, RazorHelper.DecFormat((group.LCComm * 100), true))
+                @Html.Hidden("CSComm" + @group.GroupCommId, RazorHelper.DecFormat((group.CSComm * 100), true))
             }
         </td>
     </tr>
@@ -28,7 +27,7 @@
             @ViewResources.SBComm (%)
         </td>
         <td>
-            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2, false) : string.Empty)"/>
+            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)"/>
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowRb ? "hide" : "")">
@@ -36,7 +35,7 @@
             @ViewResources.RBComm (%)
         </td>
         <td>
-            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2, false) : string.Empty)"/>
+            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)"/>
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowNg ? "hide" : "")">
@@ -44,7 +43,7 @@
             @ViewResources.NGComm (%)
         </td>
         <td>
-            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2, false) : string.Empty)"/>
+            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)"/>
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowLc ? "hide" : "")">
@@ -52,7 +51,7 @@
             @ViewResources.LCComm (%)
         </td>
         <td>
-            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2, false) : string.Empty)"/>
+            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)"/>
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowCs ? "hide" : "")">
@@ -60,7 +59,7 @@
             @ViewResources.CSComm (%)
         </td>
         <td>
-            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberFormat.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2, false) : string.Empty)"/>
+            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)"/>
         </td>
     </tr>
 </table>

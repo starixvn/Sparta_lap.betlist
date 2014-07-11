@@ -439,14 +439,19 @@ bool addBasedOption = false)
     
 }
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)
-    {
-    
+{
     @(fromDate.ToString("MM/dd/yyyy"))
-        if (toDate != null)
-        {
-    @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
-        }
-        
+    if (toDate != null)
+    {
+        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+    }
+}
+@helper FullDateFormat(DateTime? date)
+{
+    if (date!= null)
+    {
+        @(date.Value.ToString("MM/dd/yyyy HH:mm:ss tt"))
+    }
 }
 @helper PositiveFormatExt(object objValue, bool isFormatZero)
     {
