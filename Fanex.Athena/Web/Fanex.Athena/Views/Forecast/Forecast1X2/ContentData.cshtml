@@ -44,9 +44,9 @@
                     <td style="width: 6%">
                         <a class="button-add" data-match-id="@match.MatchId" data-bettype="1" href="javascript:;"></a>
                     </td>
-                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HomeWinLoss, true)</td>
-                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.DrawWinLoss, true)</td>
-                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.AwayWinLoss, true)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HomeWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.DrawWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.AwayWinLoss, true, false)</td>
                 </tr>
                 <tr>
                     <td style="width: 24%" class="middle-text">
@@ -55,9 +55,9 @@
                     <td style="width: 6%">
                         <a class="button-add" data-match-id="@match.MatchId" data-bettype="7" href="javascript:;"></a>
                     </td>
-                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTimeHomeWinLoss, true)</td>
-                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTImeDrawWinLoss, true)</td>
-                    <td class="forecast-number" style="width: 20%" >@RazorHelper.PositiveFormat(match.HalfTimeAwayWinLoss, true)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%" >@RazorHelper.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
                 </tr> 
             }
         </tbody>

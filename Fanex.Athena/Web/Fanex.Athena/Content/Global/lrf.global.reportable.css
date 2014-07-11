@@ -293,7 +293,7 @@ tr.report-header td, tr.report-header02 td, tr.report-header th
     background-color: #f8ff8d !important;
 }
 
-td.negative-number
+td.negative-number, td span.negative-number
 {
     color: #ff0000 !important;
 }

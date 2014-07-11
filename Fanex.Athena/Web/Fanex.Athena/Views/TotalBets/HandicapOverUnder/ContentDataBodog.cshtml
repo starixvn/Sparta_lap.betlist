@@ -87,7 +87,7 @@
                         @if (match.BetCountHandicap != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="1" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.FullTimeHandicap, true)
+                                @RazorHelper.NegativeFormat(match.FullTimeHandicap, true, false)
                             </a>
                         }
                     </td>
@@ -95,7 +95,7 @@
                         @if (match.BetCountOverUnder != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.FullTimeOverUnder, true)
+                                @RazorHelper.NegativeFormat(match.FullTimeOverUnder, true, false)
                             </a>    
                         }
                     </td>
@@ -104,7 +104,7 @@
                         @if (match.BetCountHandicap1StHalf != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.FirstTimeHandicap, true)
+                                @RazorHelper.NegativeFormat(match.FirstTimeHandicap, true, false)
                             </a>    
                         }
                     </td>
@@ -112,7 +112,7 @@
                         @if (match.BetCountOverUnder1StHalf != 0)
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.FirstTimeOverUnder, true)
+                                @RazorHelper.NegativeFormat(match.FirstTimeOverUnder, true, false)
                             </a>    
                         }
                     </td>

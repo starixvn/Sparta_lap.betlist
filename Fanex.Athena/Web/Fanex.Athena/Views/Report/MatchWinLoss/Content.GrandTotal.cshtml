@@ -11,47 +11,47 @@
     <tr class="total-first-row total-in-eur">
         <td colspan="2">@ViewResources.GrandTotal
         </td>
-        <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.Turnover, 2)
+        <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.Turnover)
         </td>
         <td style="width: 70px">@dataGrandTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl, 2)
+            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl)
             </td>
-            <td style="width: 60px">@NumberHelper.DecFormat(dataGrandTotal.CustomerComm, 2)
+            <td style="width: 60px">@RazorHelper.DecFormat(dataGrandTotal.CustomerComm)
             </td>
-            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm, 2)
+            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm)
             </td>
         }
         else
         {
-            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl, 2)
+            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl)
             </td>
         }
         <td class="hightlight" style="width: 85px">
-            @FormatHelper.NegativeFormat(dataGrandTotal.LicenseeWl)
+            @RazorHelper.NegativeFormat(dataGrandTotal.LicenseeWl)
         </td>
         @if (Model.ProductAccess.IsAllowBa)
         {
             <td class="hightlight" style="width: 60px">
-                @FormatHelper.NegativeFormat(dataGrandTotal.BaCommission)
+                @RazorHelper.NegativeFormat(dataGrandTotal.BaCommission)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
             <td class="hightlight" style="width: 70px">
-                @FormatHelper.NegativeFormat(dataGrandTotal.RacingRevenue)
+                @RazorHelper.NegativeFormat(dataGrandTotal.RacingRevenue)
             </td>
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToBa, 2)
+            <td style="width: 70px">@RazorHelper.DecFormat(@dataGrandTotal.AmtDueToBa)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
-            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToRacing, 2)
+            <td style="width: 70px">@RazorHelper.DecFormat(@dataGrandTotal.AmtDueToRacing)
             </td>
         }
     </tr>

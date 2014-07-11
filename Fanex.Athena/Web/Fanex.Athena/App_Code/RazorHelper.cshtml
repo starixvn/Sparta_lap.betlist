@@ -17,7 +17,7 @@
             }
         }
         prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
-    
+
     @prdText
 }
 @helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
@@ -57,54 +57,27 @@
             </option>
             }
             else
-            { 
+            {
             <option value="@i"  class="@("level-" + i)">@(i == 0 ? ViewResources.None : i.ToString())
             </option>
             }
 
         }
-    </select> 
+    </select>
 }
 @helper  SpecialLevelListSearch(int level)
     {
     <select id="special-level-list-search" class="@("level-" + level)"
-    >
+>
         <option value="-1" class="level-0" @(level == -1 ? "selected=selected" : "")>@ViewResources.All</option>
         @for (var i = 0; i <= 10; i++)
         {
             <option value="@i" class="@("level-" + i)" @(level == i ? "selected=selected" : "")>@(i == 0 ? ViewResources.None : i.ToString())
             </option>
         }
-    </select> 
+    </select>
 }
-@helper  HighlightNegativeNumber(object amount)
-    {
-        
-        decimal value = 0;
-        if (amount is double)
-        {
-            value = (decimal)((double)amount);
-        }
-        else if (amount is decimal)
-        {
-            value = (decimal)amount;
-        }
-        if (value < 0)
-        {
-    <span style="color: #ff0000">@DecFormat(value, true)
-    </span>
-        }
-        else if (value == 0)
-        {
-    @("0.00")
-        }
-        else
-        {
-            @DecFormat(value, true)
-        }   
-                       
-              
-}
+
 <!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
 @helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
     {
@@ -149,9 +122,9 @@
             @ViewResources.All</label>
         @foreach (var product in productOptions)
         {
-            <input data-product-code="@product.Code" type="checkbox" 
-            class="childCheckbox" value="true" 
-            @(product.Status ? "checked=checked" : "") 
+            <input data-product-code="@product.Code" type="checkbox"
+            class="childCheckbox" value="true"
+            @(product.Status ? "checked=checked" : "")
             data-original="@product.Status.ToString()"  name="ProductOptions[@i].Status" id="ProductOptions@(i)" />
             <label data-product-code="@product.Code" for="ProductOptions@(i)">
                 @product.Name
@@ -195,7 +168,7 @@
         <option @(selectedMonth == 10 ? "selected = selected" : string.Empty) value="9">@ViewResources.October</option>
         <option @(selectedMonth == 11 ? "selected = selected" : string.Empty) value="10">@ViewResources.November</option>
         <option @(selectedMonth == 12 ? "selected = selected" : string.Empty) value="11">@ViewResources.December</option>
-    </select>        
+    </select>
 }
 @helper YearDropDownList(int selectedYear, int itemCount)
     {
@@ -293,7 +266,7 @@ bool addBasedOption = false)
     {
         selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
         selectedBasedCurrency = selectedBasedCurrency.ToLower();
-  
+
     <select class="based-currency" name="BaseCurrency" id="BaseCurrency"  data-original="@selectedBasedCurrency">
         <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>
             EUR</option>
@@ -314,7 +287,7 @@ bool addBasedOption = false)
 <!--Timer countdown control-->
 @helper TimerCountDown(string name, int start)
     {
-    <input type="hidden" id="count-down-of" name="@name" data-default-value="@start"/>
+    <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
     <div class="timer-countdown">
         <div id="count" class="button-refresh">
         </div>
@@ -328,75 +301,70 @@ bool addBasedOption = false)
                 @start sec</div>
             start += 15;
         }
-    </div>    
+    </div>
 }
 <!-- Format total bets number -->
-@helper PositiveFormat(decimal value, bool isFormatZero)
+@helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
     {
-        if (value > 0)
+        if (value != 0)
         {
+    <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+        }
+        else
+        {
+    <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+        }
+}
+@helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+    {
+        if (value != 0)
+        {
+    <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+        }
+        else
+        {
+    <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+        }
+}
+@helper PositiveFormatExt(object objValue, bool isFormatZero)
+    {
+        if (!(objValue is DBNull))
+        {
+            var value = Convert.ToDecimal(objValue);
+            if (value != null)
+            {
+                if (value > 0)
+                {
     <span class="positive-number">@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
+                }
+                else
+                {
     <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
+                }
+            }
         }
 }
-@helper NegativeFormat(decimal value, bool isFormatZero)
-    {
-        if (value < 0)
-        {
-    <span class="negative-number">@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
-    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
-        }
-}
-@helper PositiveFormatNumber(decimal value)
-    {
-        if (value > 0)
-        {
-    <span class="positive-number">@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
-    <span>@value.ToString("#,##0.00")</span>
-        }
-}
-@helper NegativeFormatNumber(decimal value)
-    {
-        if (value < 0)
-        {
-    <span class="negative-number">@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
-    <span>@value.ToString("#,##0.00")</span>
-        }
-}
-@helper DecFormat(decimal value, bool isDisplayZero)
+@helper DecFormat(decimal value, bool isDisplayZero = true)
     {
         if (isDisplayZero)
         {
-    <span>@value.ToString("#,##0.00")</span>              
+    <span>@value.ToString("#,##0.00")</span>
         }
         else
         {
     <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
         }
-    
 }
 <!-- /Format total bets number -->
 <!--/Total bets-->
 @helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
     {
-    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin,currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
-    
+    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
+
 }
 @helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
     {
-    @(string.Format(ViewResources.Viewin,converter ? BaseCurrency.ToUpper() : CurrencyName))
+    @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 @helper ViewLiveStatus(int liveStatus)
     {
@@ -414,7 +382,7 @@ bool addBasedOption = false)
                 break;
         }
 
-        @(title + ViewResources.Data)
+    @(title + ViewResources.Data)
 }
 @helper ViewInCurrency(int currenceId, string currencyName)
     {
@@ -436,38 +404,20 @@ bool addBasedOption = false)
                 break;
         }
     @(title)
-    
+
 }
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)
-{
-    @(fromDate.ToString("MM/dd/yyyy"))
-    if (toDate != null)
     {
-        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
-    }
+    @(fromDate.ToString("MM/dd/yyyy"))
+        if (toDate != null)
+        {
+    @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+        }
 }
 @helper FullDateFormat(DateTime? date)
-{
-    if (date!= null)
     {
-        @(date.Value.ToString("MM/dd/yyyy HH:mm:ss tt"))
-    }
-}
-@helper PositiveFormatExt(object objValue, bool isFormatZero)
-    {
-        if (!(objValue is DBNull))
+        if (date != null)
         {
-            var value = Convert.ToDecimal(objValue);
-            if (value != null)
-            {
-                if (value > 0)
-                {
-    <span class="positive-number">@value.ToString("#,##0.00")</span>
-                }
-                else
-                {
-    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
-                }
-            }
+    @(date.Value.ToString("MM/dd/yyyy hh:mm:ss tt"))
         }
 }

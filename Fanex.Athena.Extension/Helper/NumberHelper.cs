@@ -49,7 +49,7 @@ namespace Fanex.Athena.Extension.Helper
         public static string DecFormat(decimal obj, byte digit)
         {
             var format = "F" + digit.ToString();
-            return ((decimal)obj).ToString(format, _culture.NumberFormat);
+            return obj.ToString(format, _culture.NumberFormat);
         }
     }
 }

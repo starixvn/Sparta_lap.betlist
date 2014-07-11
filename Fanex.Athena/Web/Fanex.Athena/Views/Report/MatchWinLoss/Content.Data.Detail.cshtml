@@ -55,18 +55,18 @@
             </td>
         }
         <td class="highlight">
-            @RazorHelper.HighlightNegativeNumber(matchWinloss.LicenseeWl)
+            @RazorHelper.NegativeFormat(matchWinloss.LicenseeWl)
         </td>
         @if (Model.ProductAccess.IsAllowBa)
         {
             <td class="highlight">
-                @RazorHelper.HighlightNegativeNumber(matchWinloss.BaCommission)
+                @RazorHelper.NegativeFormat(matchWinloss.BaCommission)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
             <td class="highlight">
-                @RazorHelper.HighlightNegativeNumber(matchWinloss.RacingRevenue)
+                @RazorHelper.NegativeFormat(matchWinloss.RacingRevenue)
             </td>
         }
         @if (Model.ProductAccess.IsAllowBa)

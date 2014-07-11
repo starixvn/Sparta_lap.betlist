@@ -35,13 +35,13 @@
                         <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.HomeTeamName</a>
                     </td>
                     <td style="width: 10%" class="score-value">
-                        @RazorHelper.PositiveFormat(team.HomeFirstGoal, true)
+                        @RazorHelper.PositiveFormat(team.HomeFirstGoal, true, false)
                     </td>
                     <td style="width: 10%" class="score-value">
-                        @RazorHelper.PositiveFormat(team.HomeLastGoal, true)
+                        @RazorHelper.PositiveFormat(team.HomeLastGoal, true, false)
                     </td>
                     <td style="width: 10%" class="score-value" rowspan="2">
-                        @RazorHelper.PositiveFormat(team.NoGoal, true)
+                        @RazorHelper.PositiveFormat(team.NoGoal, true, false)
                     </td>
                     <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormatExt(team.HomeFirstHalfFirstGoal, true)
@@ -58,10 +58,10 @@
                         <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.AwayTeamName</a>
                     </td>
                     <td style="width: 10%" class="score-value">
-                        @RazorHelper.PositiveFormat(team.AwayFirstGoal, true)
+                        @RazorHelper.PositiveFormat(team.AwayFirstGoal, true, false)
                     </td>
                     <td style="width: 10%" class="score-value">
-                        @RazorHelper.PositiveFormat(team.AwayLastGoal, true)
+                        @RazorHelper.PositiveFormat(team.AwayLastGoal, true, false)
                     </td>
                     <td style="width: 10%" class="score-value">
                         @RazorHelper.PositiveFormatExt(team.AwayFirstHalfFirstGoal, true)

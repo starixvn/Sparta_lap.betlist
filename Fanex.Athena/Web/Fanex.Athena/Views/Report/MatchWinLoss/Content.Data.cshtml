@@ -81,7 +81,7 @@
                     </span>
                 </td>
                 <td style="width: 85px">
-                    @NumberFormat.DecFormat(matchWinLoss.Turnover, 2, false)
+                    @RazorHelper.DecFormat(matchWinLoss.Turnover)
                 </td>
                 <td style="width: 70px">
                     @matchWinLoss.TotalTransaction.ToString("#,###")
@@ -89,49 +89,49 @@
                 @if (Model.IsAllowedCustomerCommission)
                 {
                     <td style="width: 85px">
-                        @NumberFormat.DecFormat(matchWinLoss.CustomerWl, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl)
                     </td>
                     <td style="width: 60px">
-                        @NumberFormat.DecFormat(matchWinLoss.CustomerComm, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.CustomerComm)
                     </td>
                     <td style="width: 85px">
-                        @NumberFormat.DecFormat(matchWinLoss.CustomerWl + matchWinLoss.CustomerComm, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl + matchWinLoss.CustomerComm)
                     </td>
                 }
                 else
                 {
                     <td style="width: 85px">
-                        @NumberFormat.DecFormat(matchWinLoss.CustomerWl, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl)
                     </td>  
                 }
                 <td class="highlight" style="width: 85px">
-                    @RazorHelper.HighlightNegativeNumber(matchWinLoss.LicenseeWl)
+                    @RazorHelper.NegativeFormat(matchWinLoss.LicenseeWl)
                 </td>
                 @{
                 if (Model.ProductAccess.IsAllowBa)
                 {
                     <td class="highlight" style="width: 60px">
-                        @RazorHelper.HighlightNegativeNumber(matchWinLoss.BaCommission)
+                        @RazorHelper.NegativeFormat(matchWinLoss.BaCommission)
                     </td>
                 }
                 }
                 @if (Model.ProductAccess.IsAllowRb)
                 {
                     <td class="highlight" style="width: 70px">
-                        @RazorHelper.HighlightNegativeNumber(matchWinLoss.RacingRevenue)
+                        @RazorHelper.NegativeFormat(matchWinLoss.RacingRevenue)
                         @string.Empty
                     </td>
                 }
                 @if (Model.ProductAccess.IsAllowBa)
                 {
                     <td style="width: 70px">
-                        @NumberFormat.DecFormat(matchWinLoss.AmtDueToBa, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.AmtDueToBa)
                     </td>
                 }
                 @if (Model.ProductAccess.IsAllowRb)
                 {
                     <td style="width: 70px">
-                        @NumberFormat.DecFormat(matchWinLoss.AmtDueToRacing, 2, false)
+                        @RazorHelper.DecFormat(matchWinLoss.AmtDueToRacing)
                     </td>
                 }
             </tr>

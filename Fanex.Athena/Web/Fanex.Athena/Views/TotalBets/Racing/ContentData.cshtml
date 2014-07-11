@@ -70,7 +70,7 @@
                         @if (match.TotalWin != 0)
                         {
                             <a class="forecast-number-none" data-match-id="@match.MatchId" data-bet-type="31" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.TotalWin, true)
+                                @RazorHelper.NegativeFormat(match.TotalWin, true, false)
                             </a>
                         }
                         else
@@ -81,7 +81,7 @@
                     <!--/Win Total-->
                     <!--Win Revenue-->
                     <td style="width: 8%" class="score-value">
-                        @RazorHelper.NegativeFormat(match.RevenueWin, true)
+                        @RazorHelper.NegativeFormat(match.RevenueWin, true, false)
                     </td>
                     <!--/Win Revenue-->
                     <!--Place Total-->
@@ -89,7 +89,7 @@
                         @if (match.TotalPlace != 0)
                         {
                             <a class="forecast-number-none" data-match-id="@match.MatchId" data-bet-type="32" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.TotalPlace, true)
+                                @RazorHelper.NegativeFormat(match.TotalPlace, true, false)
                             </a>
                         }
                         else
@@ -100,7 +100,7 @@
                     <!--/Place Total-->
                     <!--Place Revenue-->
                     <td style="width: 8%" class="score-value">
-                        @RazorHelper.NegativeFormat(match.RevenuePlace, true)
+                        @RazorHelper.NegativeFormat(match.RevenuePlace, true, false)
                     </td>
                     <!--/Place Revenue-->
                     <!--Win Place Total-->
@@ -108,7 +108,7 @@
                         @if (match.TotalWinPlace != 0)
                         {
                             <a class="forecast-number-none" data-match-id="@match.MatchId" data-bet-type="33" href="javascript:;">
-                                @RazorHelper.NegativeFormat(match.TotalWinPlace, true)
+                                @RazorHelper.NegativeFormat(match.TotalWinPlace, true, false)
                             </a>
                         }
                         else
@@ -119,7 +119,7 @@
                     <!--/Place Total-->
                     <!--Win Place Revenue-->
                     <td style="width: 8%" class="score-value">
-                        @RazorHelper.NegativeFormat(match.RevenueWinPlace, true)
+                        @RazorHelper.NegativeFormat(match.RevenueWinPlace, true, false)
                     </td>
                     <!--/Place Revenue-->
                 </tr>
