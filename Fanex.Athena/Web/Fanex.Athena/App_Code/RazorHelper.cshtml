@@ -91,7 +91,7 @@
         }
         if (value < 0)
         {
-    <span style="color: #ff0000">@DNAide.Utils.NumberFormat.DecFormat(value, 2, false)
+    <span style="color: #ff0000">@DecFormat(value, true)
     </span>
         }
         else if (value == 0)
@@ -100,7 +100,7 @@
         }
         else
         {
-    @DNAide.Utils.NumberFormat.DecFormat(value, 2, false)
+            @DecFormat(value, true)
         }   
                        
               
