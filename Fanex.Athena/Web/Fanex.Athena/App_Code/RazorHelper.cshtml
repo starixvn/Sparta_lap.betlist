@@ -77,7 +77,6 @@
         }
     </select>
 }
-
 <!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
 @helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
     {
@@ -326,22 +325,11 @@ bool addBasedOption = false)
     <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
         }
 }
-@helper PositiveFormatExt(object objValue, bool isFormatZero)
+@helper PositiveFormatExt(object objValue)
     {
         if (!(objValue is DBNull))
         {
-            var value = Convert.ToDecimal(objValue);
-            if (value != null)
-            {
-                if (value > 0)
-                {
-    <span class="positive-number">@value.ToString("#,##0.00")</span>
-                }
-                else
-                {
-    <span>@(value == 0 ? (isFormatZero ? "0" : string.Empty) : value.ToString("#,##0.00"))</span>
-                }
-            }
+            @PositiveFormat(Convert.ToDecimal(objValue), true, false);
         }
 }
 @helper DecFormat(decimal value, bool isDisplayZero = true)

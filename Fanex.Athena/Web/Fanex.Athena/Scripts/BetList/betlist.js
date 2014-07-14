@@ -22,7 +22,7 @@ var BetList = (function ($) {
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
             if ($child.height() > Math.min($container.height(), gridHeight)) {
-                $container.css("height", Math.min($child.height(), gridHeight));
+                $container.css("height", Math.min($child.height() + 1, gridHeight));
             }
         },
         getSortParams: function () {
@@ -86,12 +86,6 @@ var BetList = (function ($) {
                     $(".ui-jqgrid-htable tbody .no-info-row").remove();
                 }
                 $("#pager2").show();
-            }
-
-            // Hide vertical scrollbar in IE when the grid has only one row.
-
-            if (rowCount < 2) {
-                $(".ui-jqgrid .ui-jqgrid-bdiv").css("overflow-y", "hidden");
             }
 
             // fix cursor on non-sortable columns

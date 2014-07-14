@@ -9,13 +9,20 @@
 @section pagejs {}
 @section ContentTitle
 {
-    <span class="league-name-title"></span>@CacheRef.GetBettype(Model.BetType) <span
+    @{
+        var bettype = Model.BetType.ToString();
+        if(bettype == "0" && string.IsNullOrWhiteSpace(Model.MultipleBettype) == false)
+        {
+            bettype = Model.MultipleBettype.Split(',')[0];
+        }
+    }
+    <span class="league-name-title"></span>@CacheRef.GetBettype(bettype) <span
         class="base-currency"> - @RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {
     <div onclick="history.back()" class="history-link"></div>
-}
+} 
 @{
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
     <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />

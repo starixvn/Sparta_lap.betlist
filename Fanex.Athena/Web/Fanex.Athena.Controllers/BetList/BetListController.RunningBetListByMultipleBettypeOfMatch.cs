@@ -74,9 +74,15 @@ namespace Fanex.Athena.Controllers.BetList
                 leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
             }
 
+            var bettype = metaModel.BetType.ToString();
+            if (bettype == "0" && string.IsNullOrWhiteSpace(metaModel.MultipleBettype) == false)
+            {
+                bettype = metaModel.MultipleBettype.Split(',')[0];
+            }
+
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
-                CacheRef.GetBettype(metaModel.BetType),
+                CacheRef.GetBettype(bettype),
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { 7, 8 });
