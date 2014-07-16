@@ -48,9 +48,9 @@ namespace Fanex.Athena.Web.RouterConfig
             }
 
             this._originalContent = content;
-            this._encodingType = encodingType.ToLowerInvariant();
+            this._encodingType = encodingType.ToUpperInvariant();
 
-            if (this._encodingType != "gzip" && this._encodingType != "deflate")
+            if (this._encodingType != "GZIP" && this._encodingType != "DEFLATE")
             {
                 throw new InvalidOperationException(string.Format("Encoding '{0}' is not supported. Only supports gzip or deflate encoding.", this._encodingType));
             }
@@ -90,11 +90,11 @@ namespace Fanex.Athena.Web.RouterConfig
         {
             Stream compressedStream = null;
 
-            if (this._encodingType == "gzip")
+            if (this._encodingType == "GZIP")
             {
                 compressedStream = new GZipStream(stream, CompressionMode.Compress, leaveOpen: true);
             }
-            else if (this._encodingType == "deflate")
+            else if (this._encodingType == "DEFLATE")
             {
                 compressedStream = new DeflateStream(stream, CompressionMode.Compress, leaveOpen: true);
             }

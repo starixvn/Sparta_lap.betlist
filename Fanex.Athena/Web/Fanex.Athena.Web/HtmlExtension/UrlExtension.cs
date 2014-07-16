@@ -20,6 +20,7 @@ namespace Fanex.Athena.Web.HtmlExtension
         /// <param name="helper">The url helper.</param>
         /// <param name="contentPath">The content path.</param>
         /// <returns>The full url.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Extension method")]
         public static string ContentLink(this UrlHelper helper, string contentPath)
         {
             var appPath = HttpContext.Current.Request.ApplicationPath;
