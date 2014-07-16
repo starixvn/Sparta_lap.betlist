@@ -11,14 +11,16 @@ var BetList = (function ($) {
             if ($(".no-info-row").length > 0) {
                 return;
             }
-
-            var gridTop = $("#BetListGrid").offset().top;
+            var $container = $(".ui-jqgrid-bdiv");
+            if ($container.length === 0) {
+                return;
+            }
+            var gridTop = $container.offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                         - (Site.getScrollBarState().hScrollbar ? 22 : 10)
+                         - (Site.getScrollBarState().hScrollbar ? 30 : 15)
                          - $(".ui-jqgrid-pager:visible").height();
             gridHeight = Math.max(130, gridHeight);
 
-            var $container = $(".ui-jqgrid-bdiv");
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
             if ($child.height() > Math.min($container.height(), gridHeight)) {

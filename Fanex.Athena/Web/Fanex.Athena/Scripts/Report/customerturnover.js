@@ -74,7 +74,7 @@ var CustTurnover = (function ($) {
         },
         resizeGrid: function () {
             setTimeout(function () {
-                var gridTop = $("#ReportGrid").offset().top;
+                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var pagingHeight = $("#paging:visible").height();
                 if (pagingHeight > 0) {
                     pagingHeight += 15;
