@@ -32,6 +32,12 @@ var WinLossByProductOption = (function () {
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
+    var _decimalFormatOptions =
+            {
+                decimalSeparator: ".",
+                thousandsSeparator: ",",
+                decimalPlaces: 2
+            };
     //#region Columns
 
     var indexColumn =
@@ -101,12 +107,7 @@ var WinLossByProductOption = (function () {
             resizable: false,
             formatter: 'currency',
             hidden: false,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: _decimalFormatOptions
         };
     var totalTransColumn =
         {
@@ -131,13 +132,7 @@ var WinLossByProductOption = (function () {
             align: 'right',
             sortable: false,
             resizable: false,
-            formatter: jqGridAdditional.formatDecimal,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatter: jqGridAdditional.formatDecimal
         };
     var playerCommColumn =
         {
@@ -147,13 +142,7 @@ var WinLossByProductOption = (function () {
             align: 'right',
             sortable: false,
             resizable: false,
-            formatter: jqGridAdditional.formatDecimal,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatter: jqGridAdditional.formatDecimal
         };
     var customerWlTotalColumn =
         {
@@ -163,13 +152,7 @@ var WinLossByProductOption = (function () {
             align: 'right',
             sortable: false,
             resizable: false,
-            formatter: jqGridAdditional.formatDecimal,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatter: jqGridAdditional.formatDecimal
         };
     var licenseeWlColumn =
         {
@@ -194,12 +177,7 @@ var WinLossByProductOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions:
-            {
-                decimalSeparator: ",",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: _decimalFormatOptions
         };
 
     var amtDueToColumn =
@@ -211,12 +189,7 @@ var WinLossByProductOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: _decimalFormatOptions
         };
 
     var currencyIdColumn =
@@ -369,9 +342,7 @@ var WinLossByProductOption = (function () {
         }
 
         var groupingClass = "date-grouping";
-
         var numofRow = $('tbody tr', grid).length;
-
         var colIdx = 1;
 
         var that;
@@ -404,7 +375,6 @@ var WinLossByProductOption = (function () {
         };
         var lastItem;
         while (i < numofRow) {
-            grid = $("#" + gridId);
             var me = $('tbody tr:eq(' + i + ') td:eq(' + colIdx + ')', grid);
             if (that != null && $(me).html() === $(that).html()) {
                 rowMerged++;
