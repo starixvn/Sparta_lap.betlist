@@ -21,18 +21,18 @@
                                                      ViewBag.CustomerCommWidth,
                                                      ViewBag.CustomerWLTotalWidth)
             <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
-                @FormatHelper.NegativeFormat(item.LicenseeWL)
+                @RazorHelper.HighlightNegativeFormat(item.LicenseeWL)
             </div>
             @if (Model.ProductAccess.IsAllowBa)
             { 
                 <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-                    @FormatHelper.NegativeFormat(item.BACommission)
+                    @RazorHelper.HighlightNegativeFormat(item.BACommission)
                 </div>
             }
             @if (Model.ProductAccess.IsAllowRb)
             { 
                 <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-                    @FormatHelper.NegativeFormat(item.RacingWinLoss)
+                    @RazorHelper.HighlightNegativeFormat(item.RacingWinLoss)
                 </div>
             }
             @if (Model.ProductAccess.IsAllowBa)

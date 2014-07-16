@@ -10,20 +10,20 @@
         var columnCount = productOptions.Count();
         var totalWidth = columnCount > 1 ? (columnCount + 1) * columnWidth : columnCount * columnWidth;
     <div class="row @(masterClass)-collapse" style="width: @columnWidth@("px");">
-        @FormatHelper.NegativeFormat(data.Sum(i => i.Value), isHiglight)
+        @RazorHelper.HighlightNegativeFormat(data.Sum(i => i.Value), isHiglight)
     </div>
 
         foreach (var product in productOptions)
         {
     <div class="row hide @(masterClass)-expand" style="width: @columnWidth@("px")">
-        @FormatHelper.NegativeFormat(data[product.Code], isHiglight)
+        @RazorHelper.HighlightNegativeFormat(data[product.Code], isHiglight)
     </div>
         }
 
         if (columnCount > 1)
         {
     <div class="row hide @(masterClass)-expand" style="width: @columnWidth@("px");">
-        @FormatHelper.NegativeFormat(data.Sum(i => i.Value), isHiglight)
+        @RazorHelper.HighlightNegativeFormat(data.Sum(i => i.Value), isHiglight)
     </div>
         }
 }

@@ -62,18 +62,18 @@ else
                     </div>
                 }
                 <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
-                    @FormatHelper.NegativeFormat(item.LicenseeWl)
+                    @RazorHelper.HighlightNegativeFormat(item.LicenseeWl)
                 </div>
                 @if (Model.ProductAccess.IsAllowBa)
                 {
                     <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
-                        @FormatHelper.NegativeFormat(item.BaComm)
+                        @RazorHelper.HighlightNegativeFormat(item.BaComm)
                     </div>                
                 }
                 @if (Model.ProductAccess.IsAllowRb)
                 {
                     <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
-                        @FormatHelper.NegativeFormat(item.RacingRevenue)
+                        @RazorHelper.HighlightNegativeFormat(item.RacingRevenue)
                     </div>                
                 }
                 @if (Model.ProductAccess.IsAllowBa)

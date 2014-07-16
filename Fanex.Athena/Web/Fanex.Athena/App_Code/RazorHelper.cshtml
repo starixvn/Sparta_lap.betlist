@@ -5,6 +5,7 @@
 @using Fanex.Athena.Models.DTO.Common
 @using Fanex.Athena.Models.MetaModel.Product;
 @using Fanex.Athena.Web.HtmlExtension;
+
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
     {
         var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
@@ -301,6 +302,10 @@ bool addBasedOption = false)
             start += 15;
         }
     </div>
+}
+@helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
+{
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>@value.ToStringExt()</span>
 }
 <!-- Format total bets number -->
 @helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)

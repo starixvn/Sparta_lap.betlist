@@ -34,7 +34,7 @@ namespace Fanex.Athena.Extension.Helper
         {
             if (obj is decimal)
             {
-                var format = "F" + digit.ToString();
+                var format = "N" + digit.ToString();
                 return ((decimal)obj).ToString(format, _culture.NumberFormat);
             }
 
@@ -46,10 +46,10 @@ namespace Fanex.Athena.Extension.Helper
             return obj.ToString();
         }
 
-        public static string DecFormat(decimal obj, byte digit)
+        public static string DecFormat(decimal value, byte digit)
         {
-            var format = "F" + digit.ToString();
-            return obj.ToString(format, _culture.NumberFormat);
+            var format = "N" + digit.ToString();
+            return value.ToString(format, _culture.NumberFormat);
         }
     }
 }

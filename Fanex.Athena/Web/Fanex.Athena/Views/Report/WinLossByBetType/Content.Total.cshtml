@@ -15,19 +15,19 @@
                                              ViewBag.CustomerCommWidth,
                                              ViewBag.CustomerWLTotalWidth)
     <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
-        @FormatHelper.NegativeFormat(Model.Total.LicenseeWL)
+        @RazorHelper.HighlightNegativeFormat(Model.Total.LicenseeWL)
     </div>
     @*Check BA, RB Commission*@
     @if (Model.ProductAccess.IsAllowBa)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-            @FormatHelper.NegativeFormat(Model.Total.BACommission)
+            @RazorHelper.HighlightNegativeFormat(Model.Total.BACommission)
         </div>
     }
     @if (Model.ProductAccess.IsAllowRb)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
-            @FormatHelper.NegativeFormat(Model.Total.RacingWinLoss)
+            @RazorHelper.HighlightNegativeFormat(Model.Total.RacingWinLoss)
         </div>
     }
     @if (Model.ProductAccess.IsAllowBa)

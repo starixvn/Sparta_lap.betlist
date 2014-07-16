@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px">
-                @FormatHelper.NegativeFormat(item.LicenseeWinloss)
+                @RazorHelper.HighlightNegativeFormat(item.LicenseeWinloss)
             </div>
         </div>
 
@@ -85,6 +85,6 @@
         </div>
     </div>
     <div class="row highlight" style="width: @(ViewBag.LicenseeWLWidth)px">
-        @FormatHelper.NegativeFormat(licenseeWinlossTotal)
+        @RazorHelper.HighlightNegativeFormat(licenseeWinlossTotal)
     </div>
 </div>

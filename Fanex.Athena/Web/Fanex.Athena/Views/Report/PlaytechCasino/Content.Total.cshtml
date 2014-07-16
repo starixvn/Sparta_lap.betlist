@@ -34,7 +34,7 @@
                         <div>@item.CustomerWinLoss.ToStringExt()</div>
                     </td>
                     <td class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
-                        @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+                        @RazorHelper.HighlightNegativeFormat(item.LicenseeWinLoss)
                     </td>
                     <td class="row" style="width:@ViewBag.ProgressiveShareWidth@("px")">
                         <div>@item.ProgressiveShare.ToStringExt()</div>
@@ -61,7 +61,7 @@
                     <div>@Model.TotalInUsd.CustomerWinLoss.ToStringExt()</div>
                 </td>
                 <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
-                    @FormatHelper.NegativeFormat(Model.TotalInUsd.LicenseeWinLoss)
+                    @RazorHelper.HighlightNegativeFormat(Model.TotalInUsd.LicenseeWinLoss)
                 </td>
                 <td class="row" style="width:@ViewBag.ProgressiveShareWidth@("px")">
                     <div>@Model.TotalInUsd.ProgressiveShare.ToStringExt()</div>
@@ -87,7 +87,7 @@
                     <div>@Model.TotalInEur.CustomerWinLoss.ToStringExt()</div>
                 </td>
                 <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
-                    @FormatHelper.NegativeFormat(Model.TotalInEur.LicenseeWinLoss)
+                    @RazorHelper.HighlightNegativeFormat(Model.TotalInEur.LicenseeWinLoss)
                 </td>
                 <td class="row" style="width:@ViewBag.ProgressiveShareWidth@("px")">
                     <div>@Model.TotalInEur.ProgressiveShare.ToStringExt()</div>

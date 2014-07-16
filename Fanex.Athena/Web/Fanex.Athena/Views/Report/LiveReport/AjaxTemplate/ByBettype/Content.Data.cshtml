@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)px">
-                @FormatHelper.NegativeFormat(item.LicenseeWinLoss)
+                @RazorHelper.HighlightNegativeFormat(item.LicenseeWinLoss)
             </div>
             @if (Model.ProductAccess.IsAllowRb || Model.ProductAccess.IsAllowBa)
             {

@@ -110,7 +110,7 @@
                                     </span>
                                 </td>
                                 <td style="width: 15%;">
-                                    @FormatHelper.NegativeFormat(detail.HomeWinLoss)
+                                    @RazorHelper.HighlightNegativeFormat(detail.HomeWinLoss)
                                 </td>
                                 <td style="width: 35%;" class="text-field">
                                     <span class="away">
@@ -120,7 +120,7 @@
                                     </span>
                                 </td>
                                 <td style="width: 15%;">
-                                    @FormatHelper.NegativeFormat(detail.AwayWinLoss)
+                                    @RazorHelper.HighlightNegativeFormat(detail.AwayWinLoss)
                                 </td>
                             </tr>
                         }
@@ -149,14 +149,14 @@
                                     <span class="choice">@detail.Hdp.ToStringExt()</span>
                                 </td>
                                 <td style="width: 15%;">
-                                    @FormatHelper.NegativeFormat(detail.HomeWinLoss)
+                                    @RazorHelper.HighlightNegativeFormat(detail.HomeWinLoss)
                                 </td>
                                 <td style="width: 35%;" class="text-field">
                                     <span class="under">@ViewResources.Under </span>
                                     <span class="choice">@detail.Hdp.ToStringExt()</span>
                                 </td>
                                 <td style="width: 15%;">
-                                    @FormatHelper.NegativeFormat(detail.AwayWinLoss)
+                                    @RazorHelper.HighlightNegativeFormat(detail.AwayWinLoss)
                                 </td>
                             </tr>
                         }

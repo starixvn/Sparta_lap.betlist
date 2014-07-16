@@ -21,36 +21,36 @@
                 </div>
             </div>
             <div class="row" style="width:@(ViewBag.ColumnWidth)px">
-                @FormatHelper.NegativeFormat(balanceDetails.LicWinLoss)
+                @RazorHelper.HighlightNegativeFormat(balanceDetails.LicWinLoss)
             </div>
             @if (Model.ProductAccess.IsAllowBa)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
-                    <div>@FormatHelper.NegativeFormat(@balanceDetails.BACommission)</div>
+                    <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.BACommission)</div>
                 </div>
             }
             @if (Model.ProductAccess.IsAllowRb)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
-                    <div>@FormatHelper.NegativeFormat(@balanceDetails.RacingWinLoss)</div>
+                    <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.RacingWinLoss)</div>
                 </div>
             }
             @if (Model.ProductAccess.IsAllowBa)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
-                    <div>@FormatHelper.NegativeFormat(@balanceDetails.AmtDueToBA)</div>
+                    <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.AmtDueToBA)</div>
                 </div>
             }
             @if (Model.ProductAccess.IsAllowRb)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
-                    <div>@FormatHelper.NegativeFormat(@balanceDetails.AmtDueToRacing)</div>
+                    <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.AmtDueToRacing)</div>
                 </div>
             }
             @if (Model.IsAllowedCustomerCommission)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
-                    <div>@FormatHelper.NegativeFormat(@balanceDetails.CustomerCommission)</div>
+                    <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.CustomerCommission)</div>
                 </div>
             }
         </div>

@@ -899,7 +899,6 @@
     <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <Content Include="App_Code\DatePickerHelper.cshtml" />
     <Content Include="App_Code\SplitingProductHelper.cshtml" />
-    <Content Include="App_Code\FormatHelper.cshtml" />
     <Content Include="WhoAmI.aspx" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
