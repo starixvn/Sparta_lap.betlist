@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Controllers.RngCasino
+namespace Fanex.Athena.Controllers.RNGCasino
 {
     using System;
     using System.Collections.Generic;

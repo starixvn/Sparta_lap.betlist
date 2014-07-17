@@ -155,11 +155,11 @@ namespace Fanex.Athena.Controllers
         public ActionResult ReCheckin()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();
-            int currentLoginId = 0;
-            int.TryParse(Request["onid"], out currentLoginId);
             var userSession = SessionService.UserSession;
-            //// Invalid re-check-in
-            if (currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
+            int currentLoginId = 0;
+
+            // Invalid re-check-in
+            if (int.TryParse(Request["onid"], out currentLoginId) == false || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
             }

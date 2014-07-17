@@ -5,7 +5,6 @@
 // ---------------------------------------------------------------------------
 namespace Fanex.Athena.Models.Cache
 {
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
@@ -15,8 +14,12 @@ namespace Fanex.Athena.Models.Cache
     /// <summary>
     /// CacheRef class.
     /// </summary>
-    public class CacheRef
-    {       
+    public sealed class CacheRef
+    {
+        private CacheRef()
+        {
+        }
+
         public static string GetBettype(object bettypeId)
         {
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentLanguage(), string.Empty);

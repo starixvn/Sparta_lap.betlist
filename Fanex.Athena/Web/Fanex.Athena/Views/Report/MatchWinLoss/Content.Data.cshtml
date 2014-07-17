@@ -81,7 +81,7 @@
                     </span>
                 </td>
                 <td style="width: 85px">
-                    @RazorHelper.DecFormat(matchWinLoss.Turnover)
+                    @NumberHelper.DecFormat(matchWinLoss.Turnover)
                 </td>
                 <td style="width: 70px">
                     @matchWinLoss.TotalTransaction.ToString("#,###")
@@ -89,19 +89,19 @@
                 @if (Model.IsAllowedCustomerCommission)
                 {
                     <td style="width: 85px">
-                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl)
                     </td>
                     <td style="width: 60px">
-                        @RazorHelper.DecFormat(matchWinLoss.CustomerComm)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerComm)
                     </td>
                     <td style="width: 85px">
-                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl + matchWinLoss.CustomerComm)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl + matchWinLoss.CustomerComm)
                     </td>
                 }
                 else
                 {
                     <td style="width: 85px">
-                        @RazorHelper.DecFormat(matchWinLoss.CustomerWl)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl)
                     </td>  
                 }
                 <td class="highlight" style="width: 85px">
@@ -125,13 +125,13 @@
                 @if (Model.ProductAccess.IsAllowBa)
                 {
                     <td style="width: 70px">
-                        @RazorHelper.DecFormat(matchWinLoss.AmtDueToBa)
+                        @NumberHelper.DecFormat(matchWinLoss.AmtDueToBa)
                     </td>
                 }
                 @if (Model.ProductAccess.IsAllowRb)
                 {
                     <td style="width: 70px">
-                        @RazorHelper.DecFormat(matchWinLoss.AmtDueToRacing)
+                        @NumberHelper.DecFormat(matchWinLoss.AmtDueToRacing)
                     </td>
                 }
             </tr>

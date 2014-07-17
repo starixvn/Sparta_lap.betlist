@@ -47,6 +47,7 @@ namespace Fanex.Athena.Api
         /// <param name="workbook">Excel workbook.</param>
         /// <param name="fileName">Excel file name.</param>
         /// <returns>Http Response Message.</returns>
+        [System.CLSCompliant(false)]
         [NonAction]
         public static HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {

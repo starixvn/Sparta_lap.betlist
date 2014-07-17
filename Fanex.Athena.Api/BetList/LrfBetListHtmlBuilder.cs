@@ -37,6 +37,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="ticketData">List of ticket data.</param>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>Ticket status text.</returns>
+        [System.CLSCompliant(false)]
         public static string BuildLrfStatus(
             this BetListHTMLBuilder builder,
             LrfTicket ticket,
@@ -79,6 +80,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="builder">Bet list builder.</param>
         /// <param name="ticket">LRF ticket object.</param>
         /// <returns>Licensee win loss text.</returns>
+        [System.CLSCompliant(false)]
         public static string BuildLicenseeWl(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
@@ -110,6 +112,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="ticket">LRF Ticket object.</param>
         /// <param name="showPlayerComm">Show player commission or not.</param>
         /// <returns>Customer win loss text.</returns>
+        [System.CLSCompliant(false)]
         public static string BuildCustomerWl(this BetListHTMLBuilder builder, LrfTicket ticket, bool showPlayerComm)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;

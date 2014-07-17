@@ -12,6 +12,7 @@ namespace Fanex.Athena.Web.ResultExtension
     /// <summary>
     /// Excel Result.
     /// </summary>
+    [System.CLSCompliant(false)]
     public class ExcelResult : ActionResult
     {
         private readonly string _fileName;

@@ -3,7 +3,6 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-[assembly: System.CLSCompliant(true)]
 
 namespace Fanex.Athena.Web.RouterConfig
 {

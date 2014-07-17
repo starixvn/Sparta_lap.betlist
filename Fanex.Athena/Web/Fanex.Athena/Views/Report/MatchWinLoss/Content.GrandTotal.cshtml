@@ -11,22 +11,22 @@
     <tr class="total-first-row total-in-eur">
         <td colspan="2">@ViewResources.GrandTotal
         </td>
-        <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.Turnover)
+        <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.Turnover)
         </td>
         <td style="width: 70px">@dataGrandTotal.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl)
             </td>
-            <td style="width: 60px">@RazorHelper.DecFormat(dataGrandTotal.CustomerComm)
+            <td style="width: 60px">@NumberHelper.DecFormat(dataGrandTotal.CustomerComm)
             </td>
-            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl + dataGrandTotal.CustomerComm)
             </td>
         }
         else
         {
-            <td style="width: 85px">@RazorHelper.DecFormat(dataGrandTotal.CustomerWl)
+            <td style="width: 85px">@NumberHelper.DecFormat(dataGrandTotal.CustomerWl)
             </td>
         }
         <td class="hightlight" style="width: 85px">
@@ -46,12 +46,12 @@
         }
         @if (Model.ProductAccess.IsAllowBa)
         {
-            <td style="width: 70px">@RazorHelper.DecFormat(@dataGrandTotal.AmtDueToBa)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToBa)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRb)
         {
-            <td style="width: 70px">@RazorHelper.DecFormat(@dataGrandTotal.AmtDueToRacing)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataGrandTotal.AmtDueToRacing)
             </td>
         }
     </tr>

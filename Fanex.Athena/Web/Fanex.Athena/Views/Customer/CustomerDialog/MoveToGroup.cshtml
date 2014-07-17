@@ -14,11 +14,11 @@
             </select>
             @foreach (var group in Model.GroupCommDataList)
             {
-                @Html.Hidden("SBComm" + @group.GroupCommId, RazorHelper.DecFormat((group.SBComm * 100), true))
-                @Html.Hidden("RBComm" + @group.GroupCommId, RazorHelper.DecFormat((group.RCComm * 100), true))
-                @Html.Hidden("NGComm" + @group.GroupCommId, RazorHelper.DecFormat((group.NGComm * 100), true))
-                @Html.Hidden("LCComm" + @group.GroupCommId, RazorHelper.DecFormat((group.LCComm * 100), true))
-                @Html.Hidden("CSComm" + @group.GroupCommId, RazorHelper.DecFormat((group.CSComm * 100), true))
+                @Html.Hidden("SBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.SBComm * 100)))
+                @Html.Hidden("RBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.RCComm * 100)))
+                @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
+                @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
+                @Html.Hidden("CSComm" + @group.GroupCommId, NumberHelper.DecFormat((group.CSComm * 100)))
             }
         </td>
     </tr>
