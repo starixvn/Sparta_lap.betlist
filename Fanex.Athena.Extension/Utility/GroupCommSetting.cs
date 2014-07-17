@@ -10,7 +10,7 @@ namespace Fanex.Athena.Extension.Utility
     /// <summary>
     /// Group commission setting class.
     /// </summary>
-    public class GroupCommSetting
+    public static class GroupCommSetting
     {
         public static readonly decimal MinKey = 0;
         public static readonly decimal MaxKey = 15;
@@ -20,30 +20,45 @@ namespace Fanex.Athena.Extension.Utility
         private static double _rangValueKey = 0.0005;
         private static double _rangeKey = 0.05;
 
-        public static Dictionary<decimal, decimal> GetValues()
-        {
-            var items = new Dictionary<decimal, decimal>();
-            for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
-            {
-                items.Add(i, value);
-            }
+        private static Dictionary<decimal, decimal> commissions;
+        private static Dictionary<decimal, decimal> validCommissions;
 
-            return items;
+        public static Dictionary<decimal, decimal> Commissions
+        {
+            get
+            {
+                if (commissions == null)
+                {
+                    commissions = new Dictionary<decimal, decimal>();
+                    for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
+                    {
+                        commissions.Add(i, value);
+                    }
+                }
+
+                return commissions;
+            }
         }
 
         /// <summary>
-        ///  Get valid commission values.
+        ///  Gets valid commission values.
         /// </summary>
-        /// <returns>The commission list.</returns>
-        public static Dictionary<decimal, decimal> GetValidComm()
+        /// <value>The commission list.</value>
+        public static Dictionary<decimal, decimal> ValidCommissions
         {
-            var validComms = new Dictionary<decimal, decimal>();
-            for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
+            get
             {
-                validComms.Add(i, value);
-            }
+                if (validCommissions == null)
+                {
+                    validCommissions = new Dictionary<decimal, decimal>();
+                    for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
+                    {
+                        validCommissions.Add(i, value);
+                    }
+                }
 
-            return validComms;
+                return validCommissions;
+            }
         }
         
         /// <summary>

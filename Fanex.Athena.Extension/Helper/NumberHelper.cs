@@ -17,33 +17,33 @@ namespace Fanex.Athena.Extension.Helper
         /// <summary>
         /// Formatting numbers for decimals and two significant digits.
         /// </summary>
-        /// <param name="obj">The object value.</param>
+        /// <param name="value">The object value.</param>
         /// <returns>The formatted string.</returns>
-        public static string ToStringExt(this object obj)
+        public static string ToStringExt(this object value)
         {
-            return ToStringExt(obj, 2);
+            return ToStringExt(value, 2);
         }
 
         /// <summary>
         ///  Formatting numbers for decimals and  significant digits.
         /// </summary>
-        /// <param name="obj">The object value.</param>
+        /// <param name="value">The object value.</param>
         /// <param name="digit">The number of digits.</param>
         /// <returns>The formatted string.</returns>
-        public static string ToStringExt(this object obj, byte digit = 2)
+        public static string ToStringExt(this object value, byte digit = 2)
         {
-            if (obj is decimal)
+            if (value is decimal)
             {
                 var format = "N" + digit.ToString();
-                return ((decimal)obj).ToString(format, _culture.NumberFormat);
+                return ((decimal)value).ToString(format, _culture.NumberFormat);
             }
 
-            if (obj is int)
+            if (value is int)
             {
-                return ((int)obj).ToString("#,###");
+                return ((int)value).ToString("#,###");
             }
 
-            return obj.ToString();
+            return value.ToString();
         }
 
         public static string DecFormat(decimal value, byte digit = 2)

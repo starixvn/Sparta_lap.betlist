@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.DataDomain
     /// <summary>
     /// RNGCasinoSetting class.
     /// </summary>
+    [System.CLSCompliant(false)]
     public static class RNGCasinoSetting
     {
         public static readonly string[] _SPECIALGAME = { "S0001", "S0004", "S0003", "S0007", "S0005" };

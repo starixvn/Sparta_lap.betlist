@@ -11,6 +11,7 @@ namespace Fanex.Athena.Models.DTO.BetList
     /// <summary>
     /// LRFTicket class.
     /// </summary>
+    [System.CLSCompliant(false)]
     public class LrfTicket : Ticket
     {
         public string ExternalId { get; set; }

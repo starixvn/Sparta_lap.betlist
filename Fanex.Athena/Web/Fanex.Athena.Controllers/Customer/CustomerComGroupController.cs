@@ -133,7 +133,7 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", metaModel);
                 }
 
-                var validComms = GroupCommSetting.GetValidComm();
+                var validComms = GroupCommSetting.ValidCommissions;
                 var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
                             validComms.Any(i => i.Value == metaModel.RCComm) &&
                             validComms.Any(i => i.Value == metaModel.NGComm) &&
@@ -237,7 +237,7 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
                 }
 
-                var validComms = GroupCommSetting.GetValidComm();
+                var validComms = GroupCommSetting.ValidCommissions;
                 var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
                             validComms.Any(i => i.Value == metaModel.RCComm) &&
                             validComms.Any(i => i.Value == metaModel.NGComm) &&

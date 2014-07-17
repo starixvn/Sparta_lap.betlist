@@ -74,6 +74,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
+        [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";

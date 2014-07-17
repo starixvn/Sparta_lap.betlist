@@ -14,7 +14,7 @@ namespace Fanex.Athena.Extension.Utility
     /// <summary>
     /// Setting class.
     /// </summary>
-    public class AppSettings
+    public static class AppSettings
     {
         #region Definitions
 

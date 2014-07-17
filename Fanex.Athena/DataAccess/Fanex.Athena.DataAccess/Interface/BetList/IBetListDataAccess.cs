@@ -19,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Interface.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [System.CLSCompliant(false)]
     public interface IBetListDataAccess
     {
         TicketResult GetMixParlayDetailTicket(long transId);

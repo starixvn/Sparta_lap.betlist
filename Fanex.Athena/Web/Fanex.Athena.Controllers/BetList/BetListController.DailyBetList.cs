@@ -78,7 +78,6 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult DailyBetListExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
-            const int MaxPageSizeDailyBetlist = int.MaxValue;
 
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSizeDailyBetlist;

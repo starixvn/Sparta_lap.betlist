@@ -12,7 +12,7 @@ namespace Fanex.Athena.Extension.Utility
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class RandomNumber
+    public static class RandomNumber
     {
         /// <summary>
         /// Generate a seed to use when creating new "Random" objects. Will produce better random results.

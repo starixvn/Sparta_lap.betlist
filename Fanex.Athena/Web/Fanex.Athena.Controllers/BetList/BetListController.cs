@@ -34,6 +34,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// Max row count for excel file.
         /// </summary>
         public const int PageSizeExcel = 63000;
+        public const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
 
         #endregion Constant
 

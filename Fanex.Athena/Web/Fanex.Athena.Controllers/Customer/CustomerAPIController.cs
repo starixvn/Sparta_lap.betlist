@@ -279,7 +279,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
             if (metaModel.Customers != null && metaModel.Customers.Count > 0)
             {
-                var commList = GroupCommSetting.GetValues();
+                var commList = GroupCommSetting.Commissions;
                 var isvalid = commList.Any(i => i.Value == metaModel.SBComm) &&
                               commList.Any(i => i.Value == metaModel.RCComm) &&
                               commList.Any(i => i.Value == metaModel.NGComm) &&
@@ -358,7 +358,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
 
             /*Check valid data submited.*/
-            var commList = GroupCommSetting.GetValues();
+            var commList = GroupCommSetting.Commissions;
             var isvalid = commList.Any(i => i.Value == sbcomm) && commList.Any(i => i.Value == rcomm) &&
                           commList.Any(i => i.Value == ngcomm) && commList.Any(i => i.Value == lccomm) &&
                           commList.Any(i => i.Value == rngcomm);

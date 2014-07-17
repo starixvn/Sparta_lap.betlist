@@ -19,6 +19,7 @@ namespace Fanex.Athena.Service.Interface.BetList
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
+    [System.CLSCompliant(false)]
     public interface IBetListService
     {
         SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);

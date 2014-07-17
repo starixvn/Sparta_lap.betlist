@@ -77,6 +77,7 @@ namespace Fanex.Athena.Service.Implement.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The system parlay.</returns>
+        [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
@@ -107,12 +108,12 @@ namespace Fanex.Athena.Service.Implement.BetList
         /// Get Daily Statement Data of Customer.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
-        /// <param name="allowCustComm">The allowed customer commission.</param>
+        /// <param name="isAllowCustComm">The allowed customer commission.</param>
         /// <returns>The daily-statement list.</returns>
-        public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm)
+        public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool isAllowCustComm)
         {
             return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetDailyStatementData(metaModel, allowCustComm)
+                        ? _betlistDataAccess.GetDailyStatementData(metaModel, isAllowCustComm)
                          : new List<DailyStatement>();
         }
 

@@ -146,22 +146,22 @@ Justification = "Reviewed. Suppression is OK here.")]
                                 switch (resultInfo.Code)
                                 {
                                     case 101:
-                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotFoundUser, resultInfo.Message));
+                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotFoundUser, resultInfo.Message));
 
                                         break;
 
                                     case 102:
-                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotActive, resultInfo.Message));
+                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotActive, resultInfo.Message));
 
                                         break;
 
                                     case 103:
-                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, TooManyLicensee, resultInfo.Message));
+                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, TooManyLicensee, resultInfo.Message));
 
                                         break;
 
                                     case 104:
-                                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, NotFoundLicensee, resultInfo));
+                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotFoundLicensee, resultInfo));
 
                                         break;
                                 }
@@ -169,22 +169,22 @@ Justification = "Reviewed. Suppression is OK here.")]
                         }
                         else
                         {
-                            _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, InValidParam, string.Empty));
+                            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, InValidParam, string.Empty));
                         }
                     }
                     else
                     {
-                        _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, DisableSso, string.Empty));
+                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, DisableSso, string.Empty));
                     }
                 }
                 else
                 {
-                    _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, DisableSso, string.Empty));
+                    _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, DisableSso, string.Empty));
                 }
             }
             else
             {
-                _context.Response.Redirect(Util.GetRootPath() + string.Format(_deniedPath, InValidParam, string.Empty));
+                _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, InValidParam, string.Empty));
             }
         }
 

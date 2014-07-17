@@ -78,7 +78,7 @@ namespace Fanex.Athena.Extension.Utility
         {
             int result;
 
-            if (x == null && y == null)
+            if (y == null)
             {
                 result = 0;
             }
@@ -86,21 +86,21 @@ namespace Fanex.Athena.Extension.Utility
             {
                 result = -1;
             }
-            else if (y == null)
-            {
-                result = 0;
-            }
-            else if (x is IComparable)
-            {
-                result = ((IComparable)x).CompareTo(y);
-            }
-            else if (x.Equals(y))
-            {
-                result = 0;
-            }
             else
             {
-                result = x.ToString().CompareTo(y.ToString());
+                var value = x as IComparable;
+                if (value != null)
+                {
+                    result = value.CompareTo(y);
+                }
+                else if (x.Equals(y))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    result = string.Compare(x.ToString(), y.ToString(), StringComparison.OrdinalIgnoreCase);
+                }
             }
 
             return result;

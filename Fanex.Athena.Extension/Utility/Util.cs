@@ -15,19 +15,41 @@ namespace Fanex.Athena.Extension.Utility
     /// </summary>
     public static class Util
     {
+        private static Dictionary<string, string> supportedLanguages;
+
         /// <summary>
-        /// Get languages.
+        /// Gets languages.
         /// </summary>
-        /// <returns>The languages.</returns>
-        public static Dictionary<string, string> GetSupportedLanguage()
+        /// <value>A dictionary contains language codes and language names.</value>
+        public static Dictionary<string, string> SupportedLanguages
         {
-            return new Dictionary<string, string>
+            get
             {
-                { "en-US", "English" },
-                { "zh-TW", "繁體中文" },
-                { "zh-CN", "简体中文" },
-                { "ko-KR", "한국의" }
-            };
+                if (supportedLanguages == null)
+                {
+                    supportedLanguages = new Dictionary<string, string>
+                    {
+                        { "en-US", "English" },
+                        { "zh-TW", "繁體中文" },
+                        { "zh-CN", "简体中文" },
+                        { "ko-KR", "한국의" }
+                    };
+                }
+
+                return supportedLanguages;
+            }
+        }
+
+        /// <summary>
+        /// Gets root path of site.
+        /// </summary>
+        /// <value>The root path url.</value>
+        public static string RootPath
+        {
+            get
+            {
+                return System.Web.VirtualPathUtility.ToAbsolute("~/");
+            }
         }
 
         /// <summary>
@@ -37,17 +59,8 @@ namespace Fanex.Athena.Extension.Utility
         /// <returns>True or false.</returns>
         public static bool IsValidLanguage(string languageCode)
         {
-            var langsKey = GetSupportedLanguage().Keys;
+            var langsKey = SupportedLanguages.Keys;
             return langsKey.Contains(languageCode);
-        }
-
-        /// <summary>
-        /// Get root path of site.
-        /// </summary>
-        /// <returns>The root path url.</returns>
-        public static string GetRootPath()
-        {
-            return System.Web.VirtualPathUtility.ToAbsolute("~/");
         }
 
         /// <summary>
@@ -135,8 +148,8 @@ namespace Fanex.Athena.Extension.Utility
             var j3 = -1;
             for (var i = 0; i < 10; i++)
             {
-                var j1 = password.IndexOf(i.ToString());
-                var j2 = password.LastIndexOf(i.ToString());
+                var j1 = password.IndexOf(i.ToString(), System.StringComparison.OrdinalIgnoreCase);
+                var j2 = password.LastIndexOf(i.ToString(), System.StringComparison.OrdinalIgnoreCase);
                 if (j1 != j2)
                 {
                     isValid = true;
