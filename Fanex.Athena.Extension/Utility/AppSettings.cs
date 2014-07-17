@@ -32,6 +32,9 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1056:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public static string RemoteRefUrl
         {
             get { return GetValue("RemoteRefURL"); }
@@ -52,7 +55,10 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("IsTesting")) != 0; }
         }
 
-        public static string LbUrl
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1056:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public static string LBUrl
         {
             get { return GetValue("LBUrl"); }
         }

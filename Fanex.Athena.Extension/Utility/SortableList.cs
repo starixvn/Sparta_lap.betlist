@@ -24,9 +24,7 @@ namespace Fanex.Athena.Extension.Utility
         /// <param name="key">Key of item in dictionary.</param>
         /// <param name="propertyName">Property name to sort.</param>
         /// <param name="ascending">Sort ascending or descending.</param>
-        /// <typeparam name="TKey">Key type of dictionary.</typeparam>
-        /// <typeparam name="TValue">Value type of dictionary.</typeparam>
-        public void SortByDictionary<TKey, TValue>(TKey key, string propertyName, bool ascending)
+        public void SortByDictionary(object key, string propertyName, bool ascending)
         {
             // Flip the properties if the parameters are the same.
             if (_propertyName == propertyName && _ascending == ascending)
@@ -41,7 +39,7 @@ namespace Fanex.Athena.Extension.Utility
             }
 
             // Apply and set the sort, if items to sort
-            var comparer = new DictionaryPropertyComparer<T, TKey, TValue>(key, _propertyName, ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
+            var comparer = new DictionaryPropertyComparer<T>(key, _propertyName, ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
             this.Sort(comparer);
         }
 

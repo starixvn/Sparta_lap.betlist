@@ -107,7 +107,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
         {
             var maintenanceInfo = new MaintenanceInfo { IsDownTime = false };
 
-            if (string.IsNullOrEmpty(AppSettings.LbUrl))
+            if (string.IsNullOrEmpty(AppSettings.LBUrl))
             {
                 return maintenanceInfo;
             }
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
                 var dateTo = maintenanceInfo.UmTimeTo;
                 maintenanceInfo.IsDownTime = _umservice.isUnderMaintainence(
                     Sites.LRF,
-                    AppSettings.LbUrl,
+                    AppSettings.LBUrl,
                     ref dateFrom,
                     ref dateTo);
 
