@@ -108,8 +108,8 @@ namespace Fanex.Athena.Api.BetList
                     Choice = builder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
-                    LicenseeWl = builder.BuildLicenseeWl(ticket),
-                    WinLoss = builder.BuildCustomerWl(ticket, showPlayerComm),
+                    LicenseeWl = builder.BuildLicenseeWL(ticket),
+                    WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm),
                 };
 
                 ticketTextList.Add(ticketText);

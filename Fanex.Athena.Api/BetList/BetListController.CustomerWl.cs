@@ -27,7 +27,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic CustomerWl(BetListMetaModel metaModel)
+        public dynamic CustomerWL(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

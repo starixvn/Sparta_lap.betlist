@@ -8,6 +8,7 @@ namespace Fanex.Athena.Models.DTO.Common
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
 
@@ -19,10 +20,10 @@ namespace Fanex.Athena.Models.DTO.Common
     {
         public ProductAccess(IList<Product> productList)
         {
-            ProductList = productList;
+            ProductList = new ReadOnlyCollection<Product>(productList);
         }
 
-        public IList<Product> ProductList { get; private set; }
+        public ReadOnlyCollection<Product> ProductList { get; private set; }
 
         public bool IsAllowSB
         {

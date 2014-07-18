@@ -13,6 +13,7 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -81,7 +82,9 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="ticket">LRF ticket object.</param>
         /// <returns>Licensee win loss text.</returns>
         [System.CLSCompliant(false)]
-        public static string BuildLicenseeWl(this BetListHTMLBuilder builder, LrfTicket ticket)
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
@@ -113,7 +116,9 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="showPlayerComm">Show player commission or not.</param>
         /// <returns>Customer win loss text.</returns>
         [System.CLSCompliant(false)]
-        public static string BuildCustomerWl(this BetListHTMLBuilder builder, LrfTicket ticket, bool showPlayerComm)
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public static string BuildCustomerWL(this BetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var winloss = running

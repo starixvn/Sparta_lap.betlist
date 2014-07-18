@@ -9,6 +9,8 @@
 
 namespace Fanex.Athena.Api
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Net;
     using System.Net.Http;
@@ -28,17 +30,42 @@ namespace Fanex.Athena.Api
     [CustomApiAuthorize]
     public class BaseApiController : ApiController
     {
-        public readonly string[] IgnoreCasinoAndBingoAndKeno = new string[] { Product.Cs, Product.Bg, Product.Kn };
-
-        protected readonly IProductService ProductService;
-        protected readonly ISessionService SessionService;
         private readonly ILanguageService _langService;
+        private readonly IProductService _productService;
+        private readonly ISessionService _sessionService;
+
+        private ReadOnlyCollection<string> _ignoreCasinoAndBingoAndKeno = 
+            new ReadOnlyCollection<string>(new List<string>() { Product.Cs, Product.Bg, Product.Kn });
 
         protected BaseApiController()
         {
-            SessionService = new SessionService();
-            ProductService = new ProductService();
+            _sessionService = new SessionService();
+            _productService = new ProductService();
             _langService = new LanguageService();
+        }
+
+        public ReadOnlyCollection<string> IgnoreCasinoAndBingoAndKeno
+        {
+            get
+            {
+                return _ignoreCasinoAndBingoAndKeno;
+            }
+        }
+
+        protected IProductService ProductService
+        {
+            get
+            {
+                return _productService;
+            }
+        }
+
+        protected ISessionService SessionService
+        {
+            get
+            {
+                return _sessionService;
+            }
         }
 
         /// <summary>

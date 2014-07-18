@@ -42,7 +42,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="custId">Customer Id.</param>
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
-        public dynamic LicenseeWl(
+        public dynamic LicenseeWL(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">The level 0 filter.</param>
         /// <returns>Process Request.</returns>
         [HttpPost]
-        public dynamic LicenseeWl([FromBody] LicenseeWinLossMetaModel metaModel)
+        public dynamic LicenseeWL([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Api.Report
                 // Sort for grouping columns, get the real column name
                 if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
                 {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single"));
+                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
                 }
 
                 var property = typeof(LicenseeWinLoss).GetProperty(sortBy);

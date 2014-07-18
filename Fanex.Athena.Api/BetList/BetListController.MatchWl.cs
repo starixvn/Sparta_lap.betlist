@@ -30,7 +30,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss bet type.</returns>
         [HttpPost]
-        public dynamic MatchWlMatchBetType(BetListMetaModel metaModel)
+        public dynamic MatchWLMatchBetType(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss outright.</returns>
         [HttpPost]
-        public dynamic MatchWlOutright(BetListMetaModel metaModel)
+        public dynamic MatchWLOutright(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -84,13 +84,13 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="betType">Bet type value.</param>
         /// <param name="fromDate">From date value.</param>
         /// <param name="toDate">To date value.</param>
-        /// <param name="showSb">Show sports book or not.</param>
-        /// <param name="showBa">Show Ba or not.</param>
+        /// <param name="showSB">Show sports book or not.</param>
+        /// <param name="showBA">Show Ba or not.</param>
         /// <param name="sortBy">Sort by column.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpGet]
-        public dynamic MatchWlMixParlay(
+        public dynamic MatchWLMixParlay(
             int page,
             int rows,
             string licenseeType,
@@ -99,8 +99,8 @@ namespace Fanex.Athena.Api.BetList
             int betType,
             DateTime fromDate,
             DateTime toDate,
-            bool showSb,
-            bool showBa,
+            bool showSB,
+            bool showBA,
             string sortBy = null,
             string sortOrder = null)
         {
@@ -115,12 +115,12 @@ namespace Fanex.Athena.Api.BetList
                     new ProductOption
                     {
                         Code = "SB",
-                        Status = showSb
+                        Status = showSB
                     },
                     new ProductOption
                     {
                         Code = "BA",
-                        Status = showBa
+                        Status = showBA
                     }
                 };
 

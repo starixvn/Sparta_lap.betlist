@@ -27,7 +27,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
-        public dynamic DailyRacingWl(BetListMetaModel metaModel)
+        public dynamic DailyRacingWL(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

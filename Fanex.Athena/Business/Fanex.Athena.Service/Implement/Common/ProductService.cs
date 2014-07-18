@@ -91,7 +91,7 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <param name="languageCode">The language code.</param>
         /// <param name="ignoreProducts">Ignored products.</param>
         /// <returns>The accessed product.</returns>
-        public ProductAccess GetProductAccess(int licenseeId, string languageCode, string[] ignoreProducts = null)
+        public ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> ignoreProducts = null)
         {
             var originalProducts = this.GetProductList(licenseeId, languageCode);
             var productList = ignoreProducts != null ? originalProducts.Where(i => !ignoreProducts.Contains(i.ProductCode)).ToList()

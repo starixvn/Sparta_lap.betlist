@@ -89,7 +89,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="fromDate">From date value.</param>
         /// <param name="toDate">To date value.</param>
         /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWl">Sum Licensee Win Loss value.</param>
+        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
         /// <param name="sumPlayerComm">Sum player commission value.</param>
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Api.BetList
             DateTime fromDate,
             DateTime toDate,
             decimal sumComm,
-            decimal sumLicenseeWl,
+            decimal sumLicenseeWL,
             decimal sumPlayerComm,
             decimal sumWinLost,
             int totalRows,
@@ -127,7 +127,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWl,
+                    SumLicenseeWl = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
@@ -154,10 +154,10 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="betType">Bet type value.</param>
         /// <param name="fromDate">From date value.</param>
         /// <param name="toDate">To date value.</param>
-        /// <param name="showSb">Show sports book or not.</param>
-        /// <param name="showBa">Show Ba or not.</param>
+        /// <param name="showSB">Show sports book or not.</param>
+        /// <param name="showBA">Show Ba or not.</param>
         /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWl">Sum Licensee Win Loss value.</param>
+        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
         /// <param name="sumPlayerComm">Sum player commission value.</param>
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
@@ -174,10 +174,10 @@ namespace Fanex.Athena.Api.BetList
             int betType,
             DateTime fromDate,
             DateTime toDate,
-            bool showSb,
-            bool showBa,
+            bool showSB,
+            bool showBA,
             decimal sumComm,
-            decimal sumLicenseeWl,
+            decimal sumLicenseeWL,
             decimal sumPlayerComm,
             decimal sumWinLost,
             int totalRows,
@@ -197,12 +197,12 @@ namespace Fanex.Athena.Api.BetList
                 new ProductOption
                 {
                     Code = "SB",
-                    Status = showSb
+                    Status = showSB
                 },
                 new ProductOption
                 {
                     Code = "BA",
-                    Status = showBa
+                    Status = showBA
                 }
             };
 
@@ -212,7 +212,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWl,
+                    SumLicenseeWl = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
@@ -243,7 +243,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="fromDate">From date value.</param>
         /// <param name="toDate">To date value.</param>
         /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWl">Sum Licensee Win Loss value.</param>
+        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
         /// <param name="sumPlayerComm">Sum player commission value.</param>
         /// <param name="sumWinLost">Sum Win Loss value.</param>
         /// <param name="totalRows">Total row count.</param>
@@ -260,7 +260,7 @@ namespace Fanex.Athena.Api.BetList
             DateTime fromDate,
             DateTime toDate,
             decimal sumComm,
-            decimal sumLicenseeWl,
+            decimal sumLicenseeWL,
             decimal sumPlayerComm,
             decimal sumWinLost,
             int totalRows,
@@ -282,7 +282,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWl,
+                    SumLicenseeWl = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
