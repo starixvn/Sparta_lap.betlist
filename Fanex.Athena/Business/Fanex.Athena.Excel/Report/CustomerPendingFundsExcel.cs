@@ -64,15 +64,13 @@ namespace Fanex.Athena.Excel.Report
 
             ISheet sheet;
 
-            ColumnTemplateIndexList = GetColumnTemplateIndex();
-
             if (numOfDataRow == 0)
             {
                 sheet = Workbook.CloneSheet("Template", "Data");
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
-                ProcessUi(sheet);
+                ProcessUI(sheet);
             }
             else
             {
@@ -83,7 +81,7 @@ namespace Fanex.Athena.Excel.Report
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     AssignSheetData(sheet, i);
-                    ProcessUi(sheet);
+                    ProcessUI(sheet);
                 }
             }
         }
@@ -108,7 +106,7 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>

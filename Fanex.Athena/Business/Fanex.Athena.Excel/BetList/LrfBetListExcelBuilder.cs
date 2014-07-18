@@ -35,7 +35,7 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="showPlayerComm">If it equals "True" , Showing player commission.</param>
         /// <param name="font">The font style.</param>
         /// <returns>Return the current builder.</returns>
-        public static BetListExcelBuilder AddCustomerWl(this BetListExcelBuilder builder, LrfTicket ticket, bool showPlayerComm, IFont font)
+        public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, Ticket ticket, bool showPlayerComm, IFont font)
         {
             var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             string winloss = isRunning
@@ -72,15 +72,15 @@ namespace Fanex.Athena.Excel.BetList
         /// Add footer row.
         /// </summary>
         /// <param name="builder">The current builder.</param>
-        /// <param name="sumCustomerWl">The total customer win-loss.</param>
-        /// <param name="sumLicenseeWlComm">The total licensee win-loss.</param>
+        /// <param name="sumCustomerWL">The total customer win-loss.</param>
+        /// <param name="sumLicenseeWLComm">The total licensee win-loss.</param>
         /// <param name="redFont">The red font.</param>
         /// <param name="blackFont">The black font.</param>
         /// <returns>Return the currency builder.</returns>
         public static BetListExcelBuilder AddFooter(
             this BetListExcelBuilder builder,
-            decimal sumCustomerWl,
-            decimal sumLicenseeWlComm,
+            decimal sumCustomerWL,
+            decimal sumLicenseeWLComm,
             IFont redFont,
             IFont blackFont)
         {
@@ -101,12 +101,12 @@ namespace Fanex.Athena.Excel.BetList
             }
 
             // Sum Customer Wl
-            var rtfSumCustomerWl = new HSSFRichTextString(string.Format(NumberFormat, sumCustomerWl));
+            var rtfSumCustomerWl = new HSSFRichTextString(string.Format(NumberFormat, sumCustomerWL));
             builder.AddCell(rtfSumCustomerWl, footerStyle);
 
             // Sum Licensee Wl
-            var rtfSumLicenseeWl = new HSSFRichTextString(string.Format(NumberFormat, sumLicenseeWlComm));
-            rtfSumLicenseeWl.ApplyFont(sumLicenseeWlComm >= 0 ? blackFont : redFont);
+            var rtfSumLicenseeWl = new HSSFRichTextString(string.Format(NumberFormat, sumLicenseeWLComm));
+            rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm >= 0 ? blackFont : redFont);
             builder.AddCell(rtfSumLicenseeWl, footerStyle);
 
             // Last footer cell
@@ -124,9 +124,9 @@ namespace Fanex.Athena.Excel.BetList
         /// Add header row.
         /// </summary>
         /// <param name="builder">The current builder.</param>
-        /// <param name="custWlHeader">The customer win-loss header.</param>
+        /// <param name="custWLHeader">The customer win-loss header.</param>
         /// <returns>Return the current builder.</returns>
-        public static BetListExcelBuilder AddHeader(this BetListExcelBuilder builder, string custWlHeader)
+        public static BetListExcelBuilder AddHeader(this BetListExcelBuilder builder, string custWLHeader)
         {
             var headerStyle = builder.CreateCellStyle();
             headerStyle.CloneStyleFrom(builder.EvenCellStyle);
@@ -164,7 +164,7 @@ namespace Fanex.Athena.Excel.BetList
             builder.SetColumnWidth(stakeCell.ColumnIndex, 4200);
 
             // Customer Wl
-            var customerWlCell = builder.AddCell(new HSSFRichTextString(custWlHeader), headerStyle);
+            var customerWlCell = builder.AddCell(new HSSFRichTextString(custWLHeader), headerStyle);
             builder.SetColumnWidth(customerWlCell.ColumnIndex, 4200);
 
             // Licensee Wl

@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignSheetData(sheet);
             }
 
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -268,7 +268,7 @@ namespace Fanex.Athena.Excel.Report
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
-            ProcessUiTurnover(sheet);
+            ProcessUITurnover(sheet);
 
             ProcessUiLicenseeWinLoss(sheet);
 
@@ -469,7 +469,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUiTurnover(ISheet sheet)
+        protected void ProcessUITurnover(ISheet sheet)
         {
             int countStatus = _productOption.Count(a => a.Status);
             int nextColumns = 0;

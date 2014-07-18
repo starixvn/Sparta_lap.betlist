@@ -78,41 +78,5 @@ namespace Fanex.Athena.Excel.Extension
                 return;
             }
         }
-
-        /// <summary>
-        /// Assign integer value to cell.
-        /// </summary>
-        /// <param name="cell">Target cell.</param>
-        /// <param name="value">The value to be set.</param>
-        public static void SetCellValue(this ICell cell, long value)
-        {
-            cell.SetCellValue(Convert.ToDouble(value));
-        }
-
-        /// <summary>
-        /// Set cell with default style.
-        /// Assign cell with default value.
-        /// </summary>
-        /// <param name="cell">Main cell object.</param>
-        /// <param name="value">Default value.</param>
-        /// <param name="defaultStyle">Default style.</param>
-        public static void SetEmptyCell(this ICell cell, object value, ICellStyle defaultStyle)
-        {
-            switch (value.GetType().Name)
-            {
-                case "String":
-                    cell.SetCellValue((string)value);
-                    break;
-
-                case "Decimal":
-                    cell.SetCellValue((decimal)value);
-                    break;
-
-                default:
-                    break;
-            }
-
-            cell.CellStyle = defaultStyle;
-        }
     }
 }

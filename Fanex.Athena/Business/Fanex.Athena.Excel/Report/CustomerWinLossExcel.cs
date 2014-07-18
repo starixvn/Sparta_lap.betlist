@@ -90,7 +90,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
-                ProcessUi(sheet);
+                ProcessUI(sheet);
             }
             else
             {
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Excel.Report
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     AssignSheetData(sheet, i);
-                    ProcessUi(sheet);
+                    ProcessUI(sheet);
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Fanex.Athena.Excel.Report
 
             AssignSumData(sheet, rowIndex);
 
-            ProcessUi(sheet);
+            ProcessUI(sheet);
             return rowIndex;
         }
 
@@ -187,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.CustomerWinLossTitle,
                                         _viewModel.Param.FromDate.ToString(FormatDate),
                                         _viewModel.Param.ToDate.ToString(FormatDate),
-                                        GetTitleCurrencyName()) + GetLicenseeWlProduct();
+                                        GetTitleCurrencyName()) + GetLicenseeWLProduct();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -202,7 +202,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

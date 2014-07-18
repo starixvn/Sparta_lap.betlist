@@ -104,11 +104,11 @@ namespace Fanex.Athena.Excel.Base
         /// </summary>
         /// <param name="row">Row in sheet export excel.</param>
         /// <param name="cellIndex">Position cell will insert.</param>
-        /// <param name="stringValues">Array string values.</param>
+        /// <param name="values">Array string values.</param>
         /// <returns>Cell position after insert.</returns>
-        protected virtual int AssignStringData(IRow row, int cellIndex, params string[] stringValues)
+        protected virtual int AssignStringData(IRow row, int cellIndex, params string[] values)
         {
-            foreach (string t in stringValues)
+            foreach (string t in values)
             {
                 row.Cells[cellIndex].SetCellValue(t);
                 cellIndex++;
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Excel.Base
         {
             var arrRowTeam = new int[2];
 
-            if (finalAwayScore == string.Empty || finalAwayScore == string.Empty)
+            if (string.IsNullOrEmpty(finalAwayScore))
             {
                 arrRowTeam[0] = 4;
                 arrRowTeam[1] = 4;

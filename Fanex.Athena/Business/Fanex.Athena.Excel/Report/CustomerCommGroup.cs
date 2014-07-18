@@ -135,7 +135,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.RbVisible)
             {

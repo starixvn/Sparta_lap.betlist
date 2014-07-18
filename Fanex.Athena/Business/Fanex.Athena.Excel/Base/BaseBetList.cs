@@ -122,7 +122,7 @@ namespace Fanex.Athena.Excel.Base
                     .AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList)
                     .AddOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName)
                     .AddStake(ticket)
-                    .AddCustomerWl(ticket, ShowingOption.CustomerCommVisible, _winLossFont)
+                    .AddCustomerWL(ticket, ShowingOption.CustomerCommVisible, _winLossFont)
                     .AddLicenseeWl(ticket, _is12Bet, _negativeWinLossFont, _winLossFont)
                     .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
 

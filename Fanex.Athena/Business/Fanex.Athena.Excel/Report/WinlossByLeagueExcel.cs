@@ -24,13 +24,13 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnBetCount = 4;
         private const int ColumnBaComm = 8;
-        private const int ColumnAmtDueTo = 9;              
+        private const int ColumnAmtDueTo = 9;
         private const int ColumnCustomerWinLoss = 6;
         private const int ColumnLicenseeWl = 7;
-        private const int ColumnMatch = 1;        
-        private const int ColumnExternalId = 2;        
+        private const int ColumnMatch = 1;
+        private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
-        private const int ColumnTemplateCount = 13;        
+        private const int ColumnTemplateCount = 13;
         private const int ColumnTurnover = 5;
         private const int RowContentTemplate = 4;
         private const int RowContentTitleTemplate = 3;
@@ -39,14 +39,14 @@ namespace Fanex.Athena.Excel.Report
         private const int NumOfRowLevel0 = 10;
         private const int NumOfRowLevel1 = 8;
 
-        private readonly WinLossByLeagueMetaModel _metaModel;        
+        private readonly WinLossByLeagueMetaModel _metaModel;
         private readonly IList<WinLossByLeague> _winlossByLeagueList;
         private readonly WinLossByLeague _totalData;
 
         public WinlossByLeagueExcel(
                                      string templatePath,
                                      string exportingFileName,
-                                     ConvertingOption convertingOption,                 
+                                     ConvertingOption convertingOption,
                                      WinLossByLeagueMetaModel metaModel,
                                      WinLossByLeagueViewModel viewModel,
                                      WinLossByLeague totalData)
@@ -60,10 +60,10 @@ namespace Fanex.Athena.Excel.Report
                 "#",
                 ViewResources.Match,
                 ViewResources.ExternalId,
-                ViewResources.SystemId,                
+                ViewResources.SystemId,
                 ViewResources.BetCount,
                 ViewResources.Turnover,
-                ViewResources.CustomerW_L,                
+                ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
                 ViewResources.AmountDue,
@@ -91,15 +91,13 @@ namespace Fanex.Athena.Excel.Report
 
             ISheet sheet;
 
-            ColumnTemplateIndexList = GetColumnTemplateIndex();
-
             if (numOfDataRow == 0)
             {
                 sheet = Workbook.CloneSheet("Template", "Data");
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
-                ProcessUi(sheet);
+                ProcessUI(sheet);
             }
             else
             {
@@ -110,7 +108,7 @@ namespace Fanex.Athena.Excel.Report
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     AssignSheetData(sheet, i);
-                    ProcessUi(sheet);
+                    ProcessUI(sheet);
                 }
             }
         }
@@ -130,7 +128,7 @@ namespace Fanex.Athena.Excel.Report
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);                        
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -158,8 +156,8 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[0].SetCellValue(_metaModel.LeagueName);
 
             for (int index = startIndex * PageSize; index < rowCount; index++)
-            {                
-                WinLossByLeague winlossByLeague = _winlossByLeagueList[index];                
+            {
+                WinLossByLeague winlossByLeague = _winlossByLeagueList[index];
 
                 IRow rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
@@ -168,7 +166,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     rowContent.Cells[ColumnMatch].SetCellValue(winlossByLeague.HomeName + Environment.NewLine + winlossByLeague.AwayName);
                     rowContent.Cells[ColumnAmtDueTo].SetCellValue(winlossByLeague.AmountDue);
-                    rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);                    
+                    rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);
                 }
                 else
                 {
@@ -180,7 +178,7 @@ namespace Fanex.Athena.Excel.Report
 
                 currentRow++;
             }
-                        
+
             AssignTotalData(sheet, currentRow);
             return currentRow;
         }
@@ -190,7 +188,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
-        {           
+        {
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
 
             // Freeze 2 rows title and header
@@ -204,16 +202,16 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
-        {          
+        public override void ProcessUI(ISheet sheet)
+        {
             switch (Level)
             {
                 case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);                    
+                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
                     break;
 
                 case 1:
-                    HideColumn(sheet, ColumnMatch, ColumnAmtDueTo);                    
+                    HideColumn(sheet, ColumnMatch, ColumnAmtDueTo);
                     break;
             }
         }
@@ -222,9 +220,9 @@ namespace Fanex.Athena.Excel.Report
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByLeague.TurnOver);
             row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByLeague.CustomerWinLoss);            
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByLeague.CustomerWinLoss);
             row.Cells[ColumnLicenseeWl].SetCellValue(winlossByLeague.LicenseeWL);
-            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);     
+            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);
         }
 
         /// <summary>
@@ -237,11 +235,11 @@ namespace Fanex.Athena.Excel.Report
         {
             int rowTemplate = RowTotalSolidBorder;
             sheet.MergeCells(currentRow, 0, currentRow, 1);
-            IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);                        
+            IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
             row.Cells[ColumnBaComm].SetCellValue(_totalData.BaCommission);
-            return currentRow;          
+            return currentRow;
         }
     }
 }

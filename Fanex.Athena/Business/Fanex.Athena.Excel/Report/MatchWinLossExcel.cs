@@ -193,7 +193,7 @@ namespace Fanex.Athena.Excel.Report
             ReportTitle = string.Format(
                 ViewResources.MatchWinLossTitle,
                 _model.Date.ToString(FormatDate),
-                GetTitleCurrencyName()) + GetLicenseeWlProduct();
+                GetTitleCurrencyName()) + GetLicenseeWLProduct();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -208,7 +208,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

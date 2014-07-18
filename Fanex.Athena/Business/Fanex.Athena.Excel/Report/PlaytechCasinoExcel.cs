@@ -196,7 +196,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI.
         /// </summary>
         /// <param name="sheet">Sheet value.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             switch (_viewModel.Param.Level)
             {

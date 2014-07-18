@@ -89,8 +89,6 @@ namespace Fanex.Athena.Excel.Report
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
-            ColumnTemplateIndexList = GetColumnTemplateIndex();
-
             AssignTitle(sheet);
             AssignHeader(sheet);
 
@@ -103,7 +101,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignSheetData(sheet);
             }
 
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -165,7 +163,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             AssignTotalData(sheet, currentRow);
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -193,7 +191,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

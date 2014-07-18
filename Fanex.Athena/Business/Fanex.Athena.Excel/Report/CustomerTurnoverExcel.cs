@@ -87,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignTitle(sheet);
                 AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
-                ProcessUi(sheet);
+                ProcessUI(sheet);
             }
             else
             {
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Excel.Report
                     AssignTitle(sheet);
                     AssignHeader(sheet);
                     AssignSheetData(sheet, i);
-                    ProcessUi(sheet);
+                    ProcessUI(sheet);
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {

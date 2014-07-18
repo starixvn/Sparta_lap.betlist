@@ -79,7 +79,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignSheetData(sheet);
             }
 
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName()) + GetLicenseeWlProduct();
+            ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName()) + GetLicenseeWLProduct();
 
             // Set for Balance, report title
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.BaVisible)
             {

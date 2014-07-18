@@ -62,12 +62,6 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        public IList<int> ColumnTemplateIndexList
-        {
-            get;
-            set;
-        }
-
         public ConvertingOption ConvertingOption
         {
             get;
@@ -152,8 +146,6 @@ namespace Fanex.Athena.Excel.Base
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
-            ColumnTemplateIndexList = GetColumnTemplateIndex();
-
             AssignHeader(sheet);
 
             AssignTitle(sheet);
@@ -168,7 +160,7 @@ namespace Fanex.Athena.Excel.Base
             }
 
             // Hide unnecessary column
-            ProcessUi(sheet);
+            ProcessUI(sheet);
         }
 
         public virtual void AssignHeader(ISheet sheet)
@@ -241,7 +233,7 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        public virtual void ProcessUi(ISheet sheet)
+        public virtual void ProcessUI(ISheet sheet)
         {
         }
 
@@ -335,15 +327,6 @@ namespace Fanex.Athena.Excel.Base
             return columnStart;
         }
 
-        /// <summary>
-        /// Get column index.
-        /// </summary>
-        /// <returns>The integer array.</returns>
-        protected virtual IList<int> GetColumnTemplateIndex()
-        {
-            return new List<int>();
-        }
-
         protected string GetCurrencyColumn(string columnName)
         {
             return DataHelper.GetCurrencyColumnName(columnName, this.ConvertingOption);
@@ -384,7 +367,7 @@ namespace Fanex.Athena.Excel.Base
         /// Get licensee win-loss or Win-loss by product.
         /// </summary>
         /// <returns>A string value.</returns>
-        protected virtual string GetLicenseeWlProduct()
+        protected virtual string GetLicenseeWLProduct()
         {
             var prdOptionTitleList =
                 ProductOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);

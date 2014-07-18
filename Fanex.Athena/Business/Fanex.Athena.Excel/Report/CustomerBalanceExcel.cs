@@ -104,7 +104,7 @@ namespace Fanex.Athena.Excel.Report
                 AssignNoInfoRow(sheet);
 
                 // Hide unnecessary column
-                ProcessUi(sheet);
+                ProcessUI(sheet);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
                         AssignTotalData(sheet, rowIndex + RowContentTemplate);
                     }
 
-                    ProcessUi(sheet);
+                    ProcessUI(sheet);
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUi(ISheet sheet)
+        public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
