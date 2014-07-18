@@ -70,6 +70,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         /// <summary>
         /// Export excel for daily bet list.
+        /// Export all data .
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
@@ -82,6 +83,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSizeDailyBetlist;
+            metaModel.PageIndex = 1;
             var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
 
             // Sum value by page
@@ -100,9 +102,8 @@ namespace Fanex.Athena.Controllers.BetList
             var title = ViewResources.DailyBetList + " " + ViewResources.On
                 + string.Format(" {0} - {1}", metaModel.Date.ToString("MM/dd/yyyy"), currencyTitle);
 
-            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             var dailyBetListExcel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, null);
-            var workbook = dailyBetListExcel.Export(ticketResult, title, startIndex);
+            var workbook = dailyBetListExcel.Export(ticketResult, title);
 
             return new ExcelResult(workbook, "DailyBetList");
         }

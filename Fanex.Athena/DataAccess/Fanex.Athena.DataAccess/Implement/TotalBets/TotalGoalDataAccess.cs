@@ -88,7 +88,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     Total7Over = reader.ToDecimal(total07OverColumn),
                     TotalFirstHalf01 = reader[totalFirst01Column],
                     TotalFirstHalf23 = reader[totalFirst23Column],
-                    Total4Over = reader[total04OverColumn],
+                    Total4Over = reader[total04OverColumn]
                 };
 
                 dataList.Add(item);

@@ -93,7 +93,10 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     TotalHomeFirstHalf = reader.ToDecimal(totalHomeScore1StHalfColumnName),
                     TotalAwayFirstHalf = reader.ToDecimal(totalAwayScore1StHalfColumnName),
                     ForecastHomeFirstHalf = reader.ToDecimal(homeScore1StHalfColumnName),
-                    ForecastAwayFirstHalf = reader.ToDecimal(awayScore1StHalfColumnName)
+                    ForecastAwayFirstHalf = reader.ToDecimal(awayScore1StHalfColumnName),
+                    LiveHomeScore = reader.ToString("livehomescore"),
+                    LiveAwayScore = reader.ToString("liveawayscore"),
+                    LiveIndicator = reader.ToInt("liveindicator"),
                 };
 
                 dataList.Add(item);
