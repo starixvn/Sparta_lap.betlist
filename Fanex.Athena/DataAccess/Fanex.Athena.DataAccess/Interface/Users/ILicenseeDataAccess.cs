@@ -20,6 +20,8 @@ namespace Fanex.Athena.DataAccess.Interface.Users
     {
         #region Public Methods and Operators
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IResultInfo IsAllowUpdateMemberBaStatus(Request request, int licenseeId, out bool isAllow);
 
         int GetBelongingStatus(int licenseeId, int custId);
@@ -32,6 +34,8 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         IList<int> GetByResellerId(int userId, int resellerId);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();
 
         #endregion Public Methods and Operators

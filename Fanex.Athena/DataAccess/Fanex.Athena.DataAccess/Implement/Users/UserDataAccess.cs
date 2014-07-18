@@ -236,12 +236,12 @@ namespace Fanex.Athena.DataAccess.Implement.Users
         /// <summary>
         ///     The logout.
         /// </summary>
-        /// <param name="logonUserId"> The on user id. </param>
-        public void Logout(int logonUserId)
+        /// <param name="userId"> The on user id. </param>
+        public void Logout(int userId)
         {
             // return;
             const string UspName = "Lrf_UserLogout";
-            var uspParams = new { On_Userid = logonUserId };
+            var uspParams = new { On_Userid = userId };
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -259,9 +259,9 @@ namespace Fanex.Athena.DataAccess.Implement.Users
         /// <summary>
         ///     The re check in.
         /// </summary>
-        /// <param name="logonUserId"> The on user id. </param>
+        /// <param name="userId"> The on user id. </param>
         /// <returns> Boolean result. </returns>
-        public bool ReCheckin(int logonUserId)
+        public bool RecheckIn(int userId)
         {
             const string UspName = "Lrf_ReCheckIn";
             try
@@ -269,7 +269,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                 bool isKickedOut;
                 using (var db = new ObjectDb(UspName, 30))
                 {
-                    db.AddInParameter("On_Userid", DbType.Int32, logonUserId);
+                    db.AddInParameter("On_Userid", DbType.Int32, userId);
                     db.AddOutParameter("IsKickedOut", DbType.Boolean, 0);
                     db.ExecuteNonQuery();
 

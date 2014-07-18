@@ -33,10 +33,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     {
         #region Const
 
-        protected readonly int LiveCasinoActionId = 2037;
-        protected readonly string WriteLogSpName = "WriteLog_UserLog_RunSP";
-        protected readonly int RngCasinoSportId = 251;
-        protected readonly int LiveCasinoSportId = 162;
+        protected const int LiveCasinoActionId = 2037;
+        protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
+        protected const int RngCasinoSportId = 251;
+        protected const int LiveCasinoSportId = 162;
 
         #endregion Const
 
@@ -327,42 +327,42 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #region Update racing types
 
-        public void UpdateRacing15131(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15131(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        public void UpdateRacing15141(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15141(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        public void UpdateRacing15151(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15151(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        public void UpdateRacing15241(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15241(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        public void UpdateRacing15251(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15251(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        public void UpdateRacing15351(RacingBetSetting racingBetSetting)
+        public void UpdateRacing15351(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
 
@@ -374,7 +374,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="uspName">USP name value.</param>
         /// <param name="racingBetSetting">Racing bet setting.</param>
-        public void RacingUpdatingProcess(string uspName, RacingBetSetting racingBetSetting)
+        public void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
         {
             try
             {
@@ -560,12 +560,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
-            return UpdateCasinoStatus(userId, custId, this.LiveCasinoSportId, status, ip, language);
+            return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, ip, language);
         }
 
         public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
-            return UpdateCasinoStatus(userId, custId, this.RngCasinoSportId, status, ip, language);
+            return UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
         }
 
         #region Get Sport Name
@@ -783,7 +783,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <param name="trackingValue2">Tracking value 2 value.</param>
         private void WriteLogUpdatingAction(int userId, int custId, string storeProcedureName, string trackingValue1, string trackingValue2)
         {
-            var uspName = WriteLogSpName;
+            var uspName = WriteLogSPName;
 
             using (var db = new ObjectDb(uspName))
             {

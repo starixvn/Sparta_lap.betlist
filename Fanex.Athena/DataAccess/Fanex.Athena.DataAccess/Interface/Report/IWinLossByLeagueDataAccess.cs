@@ -15,7 +15,11 @@ namespace Fanex.Athena.DataAccess.Interface.Report
         IList<WinLossByLeague> GetWinlossByLeagues(
             WinLossByLeagueMetaModel metaModel);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<WinLossByLeague> GetWinlossByLeagueCustomers(
-            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows);        
+            WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows);
     }
 }

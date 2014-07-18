@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
                 db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);

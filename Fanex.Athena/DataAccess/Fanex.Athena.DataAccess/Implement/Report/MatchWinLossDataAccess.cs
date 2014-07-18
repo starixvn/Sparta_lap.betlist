@@ -118,7 +118,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                     foreach (var item in metaModel.ProductOptions)
                     {
-                        db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                        db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                     }
 
                     using (var reader = db.ExecuteReader())
@@ -158,7 +158,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     foreach (var item in metaModel.ProductOptions)
                     {
-                        db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                        db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                     }
 
                     return db.ExecuteDataSet();
@@ -195,7 +195,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     foreach (var item in metaModel.ProductOptions)
                     {
-                        db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                        db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                     }
 
                     using (var reader = db.ExecuteReader())

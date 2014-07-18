@@ -107,7 +107,7 @@ namespace Fanex.Athena.Service.Interface.Users
         /// </param>
         void Logout(int onuserId);
 
-        bool ReCheckin(int onuserId);
+        bool RecheckIn(int onuserId);
 
         /// <summary>
         ///     The reset password.

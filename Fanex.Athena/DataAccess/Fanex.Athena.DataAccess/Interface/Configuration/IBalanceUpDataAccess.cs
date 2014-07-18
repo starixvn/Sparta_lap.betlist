@@ -14,6 +14,8 @@ namespace Fanex.Athena.DataAccess.Interface.Configuration
 
     public interface IBalanceUpDataAccess
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         BalanceUp GetBalanceUpDay();
     }
 }

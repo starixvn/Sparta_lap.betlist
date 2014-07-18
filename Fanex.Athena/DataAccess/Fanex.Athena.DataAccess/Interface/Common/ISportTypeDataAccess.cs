@@ -20,8 +20,12 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     /// </summary>
     public interface ISportTypeDataAccess
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         IDictionary<string, int> GetAllSports();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<Sport> GetAllWHSports();
 
         DataTable GetSportsAndProducts(int licenseeId, string languageCode);

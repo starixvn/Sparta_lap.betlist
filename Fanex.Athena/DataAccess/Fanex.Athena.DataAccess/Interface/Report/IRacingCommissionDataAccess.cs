@@ -22,8 +22,12 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     {
         #region Public Methods and Operators
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<RacingCommission> SetToList(IDataReader reader, string baseCurrency, ref RacingCommission total);
 
         #endregion Public Methods and Operators

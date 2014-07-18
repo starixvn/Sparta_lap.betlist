@@ -228,11 +228,11 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <returns>
         ///     True if re-check is successful.
         /// </returns>
-        public bool ReCheckin(int onuserId)
+        public bool RecheckIn(int onuserId)
         {
             try
             {
-                return this._userDataAccess.ReCheckin(onuserId);
+                return this._userDataAccess.RecheckIn(onuserId);
             }
             catch (System.Exception ex)
             {

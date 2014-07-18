@@ -25,6 +25,8 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         DataTable QuickSearch(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows);
 
         CustomerInfo GetCustomerInfo(int custId);
@@ -39,9 +41,9 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         #region Group Commission
 
-        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel item);
+        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel);
 
-        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel item);
+        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel);
 
         #endregion Group Commission
 
@@ -53,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IResultInfo UpdateCustomerBaStatus(int licenseeId, int custId, int modifiedBy, bool allowBa, Request request);
 
-        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel item);
+        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel);
 
         IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language);
 

@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Base
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -367,6 +368,8 @@ namespace Fanex.Athena.Excel.Base
         /// Get licensee win-loss or Win-loss by product.
         /// </summary>
         /// <returns>A string value.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetLicenseeWLProduct()
         {
             var prdOptionTitleList =
@@ -383,6 +386,8 @@ namespace Fanex.Athena.Excel.Base
         /// Get title by currency.
         /// </summary>
         /// <returns>The title.</returns>
+         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetTitleCurrencyName()
         {
             return ConvertingOption.IsConvert

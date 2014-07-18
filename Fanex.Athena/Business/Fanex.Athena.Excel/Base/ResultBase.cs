@@ -157,9 +157,9 @@ namespace Fanex.Athena.Excel.Base
         /// <param name="exportRow">The export row.</param>
         /// <param name="homeSet">The home set.</param>
         /// <param name="awaySet">The away set.</param>
-        /// <param name="homeOt">The home OT.</param>
-        /// <param name="awayOt">The away OT.</param>
-        protected virtual void GetMatchRound(DataRow exportRow, ref string[] homeSet, ref string[] awaySet, ref int homeOt, ref int awayOt)
+        /// <param name="homeOT">The home OT.</param>
+        /// <param name="awayOT">The away OT.</param>
+        protected virtual void GetMatchRound(DataRow exportRow, ref string[] homeSet, ref string[] awaySet, ref int homeOT, ref int awayOT)
         {
             // Bet status
             string eventStatus = exportRow["eventstatus"].ToString().Trim();
@@ -182,8 +182,8 @@ namespace Fanex.Athena.Excel.Base
                             continue;
                         }
 
-                        homeOt += Convert.ToInt32(homeSet[j]);
-                        awayOt += Convert.ToInt32(awaySet[j]);
+                        homeOT += Convert.ToInt32(homeSet[j]);
+                        awayOT += Convert.ToInt32(awaySet[j]);
                     }
                 }
             }

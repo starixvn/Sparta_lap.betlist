@@ -18,6 +18,8 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     /// </summary>
     public interface IFunctionDataAccess
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<Function> GetFunctionList();
 
         IList<Function> GetLicenseeFunctionList(int licenseeId);

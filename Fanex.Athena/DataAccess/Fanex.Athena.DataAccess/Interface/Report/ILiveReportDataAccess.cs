@@ -23,6 +23,8 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     {
         IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel metaModel, DateTime moveBetsDate);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         void GetLiveReportSummaryDetail(
             LiveReportMetalModel metaModel,
             DateTime moveBetsDate,

@@ -35,16 +35,22 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         void Logout(int userId);
 
-        bool ReCheckin(int userId);
+        bool RecheckIn(int userId);
 
         IResultInfo ResetPassword(User user, string salt, int resetPwdBy);
 
         IResultInfo UpdateInfo(User user, int updatedBy);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         User ValidateInternalUser(User requestUser, long timeStamp, string licenseeName, out IResultInfo resultInfo);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         User ValidateUser(User requestUser, out IResultInfo resultInfo);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
 
         #endregion Public Methods and Operators

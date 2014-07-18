@@ -17,6 +17,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     using Extension;
     using Fanex.Athena.Models.DTO.Forecast.ForecastHDOU;
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
+    using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Models.ViewModel.Forecast;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -37,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">The parameter.</param>
         /// <param name="reader">Data reader.</param>
         /// <returns>A list of forecast one x two.</returns>
-        public static IList<ForecastOneXTwo> SetToFcOneXTwoList(ForecastOneXTwoMetaModel metaModel, IDataReader reader)
+        public static IList<ForecastOneXTwo> SetToFCOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
             var forecastList = new List<ForecastOneXTwo>();
 
@@ -197,7 +198,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return SetToFcOneXTwoList(metaModel, reader);
+                    return SetToFCOneXTwoList(metaModel, reader);
                 }
             }
         }
@@ -223,7 +224,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return SetToFcOneXTwoList(metaModel, reader);
+                    return SetToFCOneXTwoList(metaModel, reader);
                 }
             }
         }

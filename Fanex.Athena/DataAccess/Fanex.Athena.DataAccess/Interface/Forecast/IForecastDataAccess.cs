@@ -52,7 +52,7 @@ namespace Fanex.Athena.DataAccess.Interface.Forecast
 
         #region New Forecast
 
-        NewForecastHdpOuData GetNewForecastData(NewForecastHdpOuMetaModel metaModel, NewForecastHdpOuMatchInfo headerInfo);
+        NewForecastHdpOuData GetNewForecastData(NewForecastHdpOuMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo);
 
         #endregion New Forecast
     }

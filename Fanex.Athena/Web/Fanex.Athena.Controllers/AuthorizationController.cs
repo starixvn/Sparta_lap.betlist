@@ -177,7 +177,7 @@ namespace Fanex.Athena.Controllers
             }
 
             IUserService userService = new UserService();
-            bool isSuccess = !userService.ReCheckin(userSession.OnUserId);
+            bool isSuccess = !userService.RecheckIn(userSession.OnUserId);
 
             var errCode = isSuccess ? ErrorType.Success : ErrorType.KickedOut;
             var errMsg = isSuccess ? SessionService.LicenseeSession.LicenseeId.ToString() : ViewResources.SessionLoggedMsg;

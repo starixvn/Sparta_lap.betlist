@@ -16,14 +16,20 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 
     public interface IWinLossByProductDataAccess
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<WinLossByProduct> GetWinlossByProductAgents(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<WinLossByProduct> GetWinlossByProductCustomers(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal);

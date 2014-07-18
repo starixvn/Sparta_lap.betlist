@@ -462,7 +462,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             CreateBetListPagingParameters(db, metaModel);
@@ -479,7 +479,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             CreateBetListPagingParameters(db, metaModel);
@@ -574,7 +574,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSortingParameters(db, metaModel);
 
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -584,7 +584,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 
@@ -597,7 +597,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
@@ -606,7 +606,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 
@@ -619,7 +619,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
@@ -631,7 +631,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 
@@ -644,7 +644,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
             db.AddInParameter("RaceNo", DbType.String, metaModel.RaceNo);
@@ -696,7 +696,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
 
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
@@ -737,7 +737,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 
@@ -758,7 +758,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code.ToLowerInvariant(), DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
 
@@ -808,7 +808,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("leagueid", DbType.Int32, metaModel.LeagueId);
             db.AddInParameter("raceNo", DbType.String, metaModel.RaceNo);
             CreateBetListPagingParameters(db, metaModel);
@@ -828,7 +828,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             CreateBetListPagingParameters(db, metaModel);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
         }
 
         private static void CreateCustomerWlBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -920,7 +920,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             foreach (var productOption in metaModel.ProductOptions)
             {
-                db.AddInParameter("show" + productOption.Code.ToLowerInvariant(), DbType.Boolean, productOption.Status);
+                db.AddInParameter("show" + productOption.Code, DbType.Boolean, productOption.Status);
             }
         }
 
@@ -1266,7 +1266,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType == string.Empty ? null : metaModel.LicenseeType);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.String, !string.IsNullOrEmpty(metaModel.MultipleBettype) ? metaModel.MultipleBettype : string.Empty);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             CreateBetListPagingParameters(db, metaModel);

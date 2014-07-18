@@ -49,7 +49,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
                 foreach (var item in metaModel.ProductOptions)
                 {
-                    db.AddInParameter("show" + item.Code.ToLower(), DbType.Boolean, item.Status);
+                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
                 using (var reader = db.ExecuteReader())

@@ -44,14 +44,14 @@ namespace Fanex.Athena.DataAccess.Extension
         /// <param name="reader">Reader value.</param>
         /// <param name="fieldName">Field name value.</param>
         /// <returns>The result value.</returns>
-        public static int TryGetOrdinal(this IDataReader reader, string fieldName)
+        public static int TryGetOrdinal(this IDataRecord reader, string fieldName)
         {
             var fieldCount = reader.FieldCount;
 
             for (var i = 0; i < fieldCount; i++)
             {
                 var name = reader.GetName(i);
-                if (name.Equals(fieldName, StringComparison.InvariantCultureIgnoreCase))
+                if (name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
                 {
                     return i;
                 }
