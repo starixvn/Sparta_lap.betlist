@@ -5,7 +5,7 @@ var GroupCommLog = (function ($) {
     return {
         resizeGrid: function () {
             var gridTop = $("#GroupCommLogGrid").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-pager").height() - 10;
+            var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-pager").height() - 30;
             gridHeight = Math.max(150, gridHeight);
             $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
         },

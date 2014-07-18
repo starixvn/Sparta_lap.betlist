@@ -148,9 +148,8 @@ var WinLossByLeague = (function ($) {
             _resizeTimer = setTimeout(function () {
                 var gridTop = $("#ReportGrid").offset().top;
                 var pagerHeight = $(".pagingContainer:visible").height() || 0;
-                var scroll = Site.getScrollBarState();
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
-                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - (scroll.hScrollbar || scroll.vScrollbar ? 30 : 20);
+                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - 30;
                 gridHeight = Math.max(130, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);
@@ -528,7 +527,7 @@ var WinLossByLeague = (function ($) {
             }
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
-             WinLossByLeague.resizeGrid();
+            WinLossByLeague.resizeGrid();
         }
 
         //#endregion

@@ -15,8 +15,7 @@ var CustomerWinLoss = (function ($) {
                 pagerHeight += 10;
             }
             var gridHeight = window.innerHeight - gridTop - $("#report-total").height()
-                             - pagerHeight
-                            - (Site.getScrollBarState().hScrollbar ? 35 : 25);
+                             - pagerHeight - 35;
             gridHeight = Math.max(120, gridHeight);
 
             $grid.css("height", "auto").css("max-height", gridHeight);

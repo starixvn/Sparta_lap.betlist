@@ -17,8 +17,7 @@ var BetList = (function ($) {
             }
             var gridTop = $container.offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                         - (Site.getScrollBarState().hScrollbar ? 30 : 15)
-                         - $(".ui-jqgrid-pager:visible").height();
+                         - $(".ui-jqgrid-pager:visible").height() - 30;
             gridHeight = Math.max(130, gridHeight);
 
             var $child = $container.find(">div");

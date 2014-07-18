@@ -80,7 +80,7 @@ var CustTurnover = (function ($) {
                     pagingHeight += 15;
                 }
 
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight - 20;
                 gridHeight = Math.max(120, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);

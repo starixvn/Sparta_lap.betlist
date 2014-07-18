@@ -11,7 +11,7 @@ var ForecastOneXTwo = (function ($) {
 
             var gridTop = $grid.offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - 10;
+            var gridHeight = window.innerHeight - gridTop - 30;
             gridHeight = Math.max(150, gridHeight);
             gridHeight = Math.min($grid.height(), gridHeight);
             $grid.css("height", gridHeight);

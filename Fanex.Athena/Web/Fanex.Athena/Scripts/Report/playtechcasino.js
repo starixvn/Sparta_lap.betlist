@@ -10,8 +10,7 @@ var PlaytechCasino = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $("#ContentMainFooter").height()
-                            - (Site.getScrollBarState().hScrollbar ? 25 : 12);
+            var gridHeight = window.innerHeight - gridTop - $("#ContentMainFooter").height() - 30;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("height", "auto");
             $("#ContentMainContent").css("max-height", gridHeight);

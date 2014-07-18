@@ -10,7 +10,7 @@ var DailyRacingWinLoss = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".total-content").height() - 10;
+            var gridHeight = window.innerHeight - gridTop - $(".total-content").height() - 30;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("max-height", gridHeight);
         },

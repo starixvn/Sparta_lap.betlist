@@ -10,7 +10,7 @@ var WinLossByBetType = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".total-content").height() - 25;
+            var gridHeight = window.innerHeight - gridTop - $(".total-content").height() - 35;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("max-height", gridHeight);
         },

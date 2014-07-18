@@ -93,16 +93,7 @@ var Site = (function ($) {
 
             return text;
         },
-        getScrollBarState: function () {
-            var result = { vScrollbar: true, hScrollbar: true };
-            try {
-                var root = document.compatMode === 'BackCompat' ? document.body : document.documentElement;
-                result.vScrollbar = root.scrollHeight > root.clientHeight;
-                result.hScrollbar = root.scrollWidth > root.clientWidth;
-            } catch (e) { }
-            return (result);
-        },
-
+        
         gotoErrorPage: function (status) {
             if (status === undefined || status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");

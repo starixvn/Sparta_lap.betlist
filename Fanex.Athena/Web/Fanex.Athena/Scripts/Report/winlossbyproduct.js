@@ -11,8 +11,7 @@ var WinLossByProduct = (function ($) {
         resizeGrid: function () {
             setTimeout(function () {
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height()
-                                - (Site.getScrollBarState().hScrollbar ? 30 : 25);
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(130, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);

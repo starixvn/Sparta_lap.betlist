@@ -10,7 +10,7 @@ var CustPendingFunds = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - (Site.getScrollBarState().hScrollbar ? 22 : 10);
+            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - 30;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("max-height", gridHeight);
         },

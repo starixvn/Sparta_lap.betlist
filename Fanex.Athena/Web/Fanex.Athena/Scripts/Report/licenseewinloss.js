@@ -32,9 +32,8 @@ var LicenseeWinLoss = (function ($) {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var scroll = Site.getScrollBarState();
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - (scroll.hScrollbar ? 25 : (scroll.vScrollbar ? 25 : 10));
+                            - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
 
                 var gridContainer = $("#gview_ReportGrid");

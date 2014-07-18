@@ -14,10 +14,8 @@ var Turnover = (function ($) {
 
             setTimeout(function () {
                 var height = $("#ReportGrid").height() + 20;
-                var scroll = Site.getScrollBarState();
-                var offset = scroll.hScrollbar || scroll.vScrollbar ? 25 : 15;
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - offset;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
                 $(".ui-jqgrid-bdiv").height(height).css("max-height", gridHeight);
             }, 200);
