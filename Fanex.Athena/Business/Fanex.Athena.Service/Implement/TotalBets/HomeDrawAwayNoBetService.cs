@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly HomeDrawAwayNoBetDataAccess HomeDrawAwayNoBetDataAccess;
+        private readonly HomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public HomeDrawAwayNoBetService()
         {
-            HomeDrawAwayNoBetDataAccess = new HomeDrawAwayNoBetDataAccess();
+            _homeDrawAwayNoBetDataAccess = new HomeDrawAwayNoBetDataAccess();
         }
 
         #endregion Constructor
 
         public IList<HomeDrawAwayNoBet> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
         {
-            return HomeDrawAwayNoBetDataAccess.GetHomeDrawAwayNoBetDataList(metaModel);
+            return _homeDrawAwayNoBetDataAccess.GetHomeDrawAwayNoBetDataList(metaModel);
         }
     }
 }

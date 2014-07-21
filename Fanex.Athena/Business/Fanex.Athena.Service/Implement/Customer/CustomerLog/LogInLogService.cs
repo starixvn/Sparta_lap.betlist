@@ -18,7 +18,7 @@ namespace Fanex.Athena.Service.Implement.Customer.CustomerLog
     {
         #region Field
 
-        protected readonly LogInLogDataAccess LogInLogDataAccess;
+        private readonly LogInLogDataAccess _logInLogDataAccess;
 
         #endregion Field
 
@@ -26,14 +26,14 @@ namespace Fanex.Athena.Service.Implement.Customer.CustomerLog
 
         public LogInLogService()
         {
-            LogInLogDataAccess = new LogInLogDataAccess();
+            _logInLogDataAccess = new LogInLogDataAccess();
         }
 
         #endregion Constructor
 
         public IList<LogInLog> GetDataList(int licenseeId, string username)
         {
-            return this.LogInLogDataAccess.GetDataList(licenseeId, username);
+            return this._logInLogDataAccess.GetDataList(licenseeId, username);
         }
     }
 }

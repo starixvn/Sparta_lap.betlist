@@ -23,6 +23,8 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="total">The summary data.</param>
         /// <returns>The racing commission data list.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total);
 
         #endregion Public Methods and Operators

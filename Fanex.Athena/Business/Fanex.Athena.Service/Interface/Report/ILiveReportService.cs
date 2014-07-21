@@ -15,6 +15,8 @@ namespace Fanex.Athena.Service.Interface.Report
     {
         IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel model);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         void GetLiveReportSumaryDetail(
             LiveReportMetalModel model,
             string productCode,

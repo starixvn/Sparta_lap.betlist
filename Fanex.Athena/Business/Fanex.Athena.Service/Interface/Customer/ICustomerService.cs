@@ -40,6 +40,8 @@ namespace Fanex.Athena.Service.Interface.Customer
         /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type.</param>
         /// <param name="totalRows">The total rows.</param>
         /// <returns>The data list.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows);
 
         /// <summary>
@@ -70,17 +72,17 @@ namespace Fanex.Athena.Service.Interface.Customer
         ///     1: Remove all customers commission in group.
         ///     2: Update new customers commission in this group.
         /// </summary>
-        /// <param name="item">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <returns>The result.</returns>
-        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel item);
+        IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel);
 
         /// <summary>
         /// Remove customer from commission group.
         /// </summary>
-        /// <param name="item">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <param name="isAllowedRNGCasino">Allow RNG casino or not.</param>
         /// <returns>The result.</returns>
-        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel item, bool isAllowedRNGCasino);
+        IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino);
 
         #endregion Group Commission
 
@@ -116,10 +118,10 @@ namespace Fanex.Athena.Service.Interface.Customer
         /// <summary>
         ///  Update customer commission setting.
         /// </summary>
-        /// <param name="item">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <param name="isSyncCSComm">Sync RNG commission or not.</param>
         /// <returns>The result.</returns>
-        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel item, bool isSyncCSComm = false);
+        IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
 
         /// <summary>
         /// Update customer special level.

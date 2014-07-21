@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly HalfTimeFullTimeDataAccess HalfTimeFullTimeDataAccess;
+        private readonly HalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public HalfTimeFullTimeService()
         {
-            HalfTimeFullTimeDataAccess = new HalfTimeFullTimeDataAccess();
+            _halfTimeFullTimeDataAccess = new HalfTimeFullTimeDataAccess();
         }
 
         #endregion Constructor
 
         public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
         {
-            return HalfTimeFullTimeDataAccess.GetHalfTimeFullTimeDataList(metaModel);
+            return _halfTimeFullTimeDataAccess.GetHalfTimeFullTimeDataList(metaModel);
         }
     }
 }

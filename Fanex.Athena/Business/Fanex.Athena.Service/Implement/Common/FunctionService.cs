@@ -26,6 +26,8 @@ namespace Fanex.Athena.Service.Implement.Common
 
         #region Constructor
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline",
+            Justification = "Reviewed. Suppression is OK here.")]
         static FunctionService()
         {
             var functionDataAccess = new FunctionDataAccess();

@@ -70,13 +70,13 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <param name="newPassword">
         ///     The new password.
         /// </param>
-        /// <param name="requestIp">
+        /// <param name="ip">
         ///     The request IP.
         /// </param>
         /// <returns>
         /// The result information.
         /// </returns>
-        public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string requestIp)
+        public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string ip)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 newPassword = Cryptography.CreateHash(newPassword, salt);
                 oldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
 
-                var user = new User { Request = new Request { Ip = requestIp }, Username = userName };
+                var user = new User { Request = new Request { Ip = ip }, Username = userName };
 
                 var result = this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
 
@@ -188,17 +188,17 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <param name="serverId">
         ///     The server id.
         /// </param>
-        /// <param name="requestIp">
+        /// <param name="ip">
         ///     The request IP.
         /// </param>
         /// <returns>
         ///     The integer value.
         /// </returns>
-        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string requestIp)
+        public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
         {
             try
             {
-                requestUser.Request = new Request { Ip = requestIp };
+                requestUser.Request = new Request { Ip = ip };
                 return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
             }
             catch (System.Exception ex)

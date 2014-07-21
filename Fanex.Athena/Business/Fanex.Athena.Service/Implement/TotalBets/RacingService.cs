@@ -18,7 +18,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Field
 
-        protected readonly RacingDataAccess RacingDataAccess;
+        private readonly RacingDataAccess _racingDataAccess;
 
         #endregion Field
 
@@ -26,14 +26,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public RacingService()
         {
-            RacingDataAccess = new RacingDataAccess();
+            _racingDataAccess = new RacingDataAccess();
         }
 
         #endregion Constructor
 
         public Racing GetRacingDataList(RacingMetaModel metaModel)
         {
-            return RacingDataAccess.GetRacingDataList(metaModel);
+            return _racingDataAccess.GetRacingDataList(metaModel);
         }
     }
 }

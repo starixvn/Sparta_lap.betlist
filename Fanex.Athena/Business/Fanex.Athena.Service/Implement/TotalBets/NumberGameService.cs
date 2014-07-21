@@ -20,7 +20,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Field
 
-        protected readonly INumberGameDataAccess NumberGameDataAccess;
+        private readonly INumberGameDataAccess _numberGameDataAccess;
 
         #endregion Field
 
@@ -28,14 +28,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public NumberGameService()
         {
-            NumberGameDataAccess = new NumberGameDataAccess();
+            _numberGameDataAccess = new NumberGameDataAccess();
         }
 
         #endregion Constructor
 
         public IList<NumberGame> GetNumberGameDataList(NumberGameMetaModel metaModel)
         {
-            return NumberGameDataAccess.GetNumBerGameDataList(metaModel);
+            return _numberGameDataAccess.GetNumBerGameDataList(metaModel);
         }
     }
 }

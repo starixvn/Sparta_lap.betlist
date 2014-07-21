@@ -14,6 +14,8 @@ namespace Fanex.Athena.Service.Interface.Common
     /// </summary>
     public interface ILanguageService
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         string GetCurrentLanguage();
 
         /// <summary>

@@ -27,6 +27,8 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="summaryTotal">The summary data.</param>
         /// <returns>The data list.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal);
 
         /// <summary>
@@ -35,6 +37,8 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="summaryTotal">The summary data.</param>
         /// <returns>The data list.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal);
 
         /// <summary>
@@ -43,6 +47,8 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="summaryTotal">The summary total.</param>
         /// <returns>The data list.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal);
 
         /// <summary>

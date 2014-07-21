@@ -56,7 +56,8 @@ namespace Fanex.Athena.Service.Implement.Configuration
         #endregion Constructor
 
         #region Property
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public MaintenanceInfo MaintenanceInfo
         {
             get
@@ -103,6 +104,8 @@ namespace Fanex.Athena.Service.Implement.Configuration
         /// <returns>
         ///     Return true if current time is in maintenance duration.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public MaintenanceInfo GetMaintenanceInfo()
         {
             var maintenanceInfo = new MaintenanceInfo { IsDownTime = false };

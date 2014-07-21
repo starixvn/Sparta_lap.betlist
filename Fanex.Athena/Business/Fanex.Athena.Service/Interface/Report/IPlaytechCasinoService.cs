@@ -15,10 +15,16 @@ namespace Fanex.Athena.Service.Interface.Report
     /// </summary>
     public interface IPlaytechCasinoService
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<PlaytechCasino> GetMainWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<PlaytechCasino> GetAgentWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<PlaytechCasino> GetMemberWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd);
     }
 }

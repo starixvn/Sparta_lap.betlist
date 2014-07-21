@@ -19,6 +19,8 @@ namespace Fanex.Athena.Service.Interface.Keno
 
         KenoExtendedToken ExtendToken(KenoResultMetalModel setting, string userId);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         string CreateKenoResultUrl(KenoResultMetalModel setting, string userId, DateTime resultDate);
     }
 }

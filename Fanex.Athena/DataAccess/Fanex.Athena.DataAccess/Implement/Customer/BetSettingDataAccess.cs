@@ -230,20 +230,20 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Update sport book bet setting.
         /// </summary>
-        /// <param name="common">The common setting.</param>
+        /// <param name="data">The common setting.</param>
         /// <param name="setting">The customer setting.</param>
         /// <returns>The result value.</returns>
-        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting common, IDictionary<string, object> setting)
+        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting)
         {
             var uspName = "Lrf_CustomerUpdMember_All";
 
             using (var db = new ObjectDb(uspName))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, common.LicenseeId);
-                db.AddInParameter("ip", DbType.String, common.Ip);
-                db.AddInParameter("language", DbType.String, common.Language);
-                db.AddInParameter("userid", DbType.Int32, common.UserId);
-                db.AddInParameter("custid", DbType.Int32, common.CustId);
+                db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
+                db.AddInParameter("ip", DbType.String, data.Ip);
+                db.AddInParameter("language", DbType.String, data.Language);
+                db.AddInParameter("userid", DbType.Int32, data.UserId);
+                db.AddInParameter("custid", DbType.Int32, data.CustId);
                 foreach (var item in setting)
                 {
                     if (item.Key.Contains("UpdateMinMaxBet"))

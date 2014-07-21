@@ -19,6 +19,8 @@ namespace Fanex.Athena.Service.Interface.Common
 
         IList<Function> GetMasterFunctions(IList<Function> functionList);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "Reviewed. Suppression is OK here.")]
         IDictionary<int, IList<Function>> GetSubFunctions(IList<Function> functionList);
 
         IResultInfo AssignUserFunctions(int licenseeId, int custId, IList<int> functionIdList, int userId, string ip, string langKey);

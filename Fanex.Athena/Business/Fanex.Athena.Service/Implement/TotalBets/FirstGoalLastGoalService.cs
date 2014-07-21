@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly FirstGoalLastGoalDataAccess FirstGoalLastGoalDataAccess;
+        private readonly FirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public FirstGoalLastGoalService()
         {
-            FirstGoalLastGoalDataAccess = new FirstGoalLastGoalDataAccess();
+            _firstGoalLastGoalDataAccess = new FirstGoalLastGoalDataAccess();
         }
 
         #endregion Constructor
 
         public IList<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel)
         {
-            return FirstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel);
+            return _firstGoalLastGoalDataAccess.GetFirstGoalLastGoalDataList(metaModel);
         }
     }
 }

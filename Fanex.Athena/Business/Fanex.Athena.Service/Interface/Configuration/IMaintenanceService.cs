@@ -32,6 +32,8 @@ namespace Fanex.Athena.Service.Interface.Configuration
         /// <returns>
         ///     Return true if current time is in maintenance duration.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         MaintenanceInfo GetMaintenanceInfo();
 
         #endregion Method

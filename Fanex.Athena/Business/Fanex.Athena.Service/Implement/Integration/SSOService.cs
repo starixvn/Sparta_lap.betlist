@@ -87,9 +87,11 @@ namespace Fanex.Athena.Service.Implement.Integration
         /// Single sign on from internal site.
         /// </summary>
         [SuppressMessage(
-"StyleCop.CSharp.Nexcel.NexcelCustomRules",
-"SP2101:MethodMustNotContainMoreLinesThan",
-Justification = "Reviewed. Suppression is OK here.")]
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
+            Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
             string parameter = HttpContext.Current.Request["key"] ?? string.Empty;

@@ -54,6 +54,8 @@ namespace Fanex.Athena.Service.Implement.Configuration
         ///     Gets GetBalanceUp.
         /// </summary>
         /// <value>The balance up day.</value>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public BalanceUp BalanceUpInfo
         {
             get

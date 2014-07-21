@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly OddEvenDrawNoDrawDataAccess OddEvenDrawNoDrawDataAccess;
+        private readonly OddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public OddEvenDrawNoDrawService()
         {
-            OddEvenDrawNoDrawDataAccess = new OddEvenDrawNoDrawDataAccess();
+            _oddEvenDrawNoDrawDataAccess = new OddEvenDrawNoDrawDataAccess();
         }
 
         #endregion Constructor
 
         public IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
         {
-            return OddEvenDrawNoDrawDataAccess.GetOddEventDrawNoDrawDataList(metaModel);
+            return _oddEvenDrawNoDrawDataAccess.GetOddEventDrawNoDrawDataList(metaModel);
         }
     }
 }

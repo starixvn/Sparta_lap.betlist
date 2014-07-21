@@ -23,6 +23,8 @@ namespace Fanex.Athena.Service.Interface.Warehouse
 
         DataTable GetDataForExcel(TopCustomerMetaModel model);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<TopCustomer> GetTopCustomerList(
             TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues);
 

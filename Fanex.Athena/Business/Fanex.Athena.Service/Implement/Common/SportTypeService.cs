@@ -41,14 +41,14 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <summary>
         /// Get products and sports.
         /// </summary>
-        /// <param name="licenseeid">The licensee id.</param>
+        /// <param name="licenseeId">The licensee id.</param>
         /// <param name="languageCode">The language code.</param>
         /// <param name="productId">Product ID.</param>
         /// <returns>The products and sports.</returns>
-        public IList<SportProductItem> GetSportsAndProducts(int licenseeid, string languageCode, int? productId = null)
+        public IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
             var result = new List<SportProductItem>();
-            var tableData = _sportTypeDataAcess.GetSportsAndProducts(licenseeid, languageCode);
+            var tableData = _sportTypeDataAcess.GetSportsAndProducts(licenseeId, languageCode);
             if (tableData != null && tableData.Rows.Count > 0)
             {
                 if (productId.HasValue)

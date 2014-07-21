@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly HandicapOverUnderDataAccess HandicapOverUnderDataAccess;
+        private readonly HandicapOverUnderDataAccess _handicapOverUnderDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public HandicapOverUnderService()
         {
-            HandicapOverUnderDataAccess = new HandicapOverUnderDataAccess();
+            _handicapOverUnderDataAccess = new HandicapOverUnderDataAccess();
         }
 
         #endregion Constructor
 
         public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel)
         {
-            var dataList = HandicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel);
+            var dataList = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel);
             return dataList;
         }
     }

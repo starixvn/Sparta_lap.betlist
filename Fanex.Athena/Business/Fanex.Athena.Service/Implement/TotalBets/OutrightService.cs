@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly OutrightDataAccess OutrightDataAccess;
+        private readonly OutrightDataAccess _outrightDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public OutrightService()
         {
-            OutrightDataAccess = new OutrightDataAccess();
+            _outrightDataAccess = new OutrightDataAccess();
         }
 
         #endregion Constructor
 
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
         {
-            return OutrightDataAccess.GetOutrightDataList(metaModel);
+            return _outrightDataAccess.GetOutrightDataList(metaModel);
         }
     }
 }

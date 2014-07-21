@@ -84,6 +84,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The detail result.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public CasinoHandHistoryDetailViewModel GetRNGCasinoResultDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
             var resultModel = new CasinoHandHistoryDetailViewModel();
@@ -118,6 +120,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metaModel">Meta model data.</param>
         /// <returns>Success or fail.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateMemberCommission(RNGCasinoUpdateMemberComMetaModel metaModel)
         {
             const string API_ERROR_MSG = "Found errors when calling casino API to update customer commission.\n customers=";
@@ -197,6 +201,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <param name="exchangeRate">The exchange rate.</param>
         /// <param name="currency">The base currency.</param>
         /// <returns>The converted value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         private static decimal GetBaseCurrencyValue(string originValue, ExChangeRate exchangeRate, string currency)
         {
             var rate = GetExchangeRate(exchangeRate, currency);

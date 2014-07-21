@@ -26,10 +26,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <summary>
         ///  Get sports.
         /// </summary>
-        /// <param name="date">The date time.</param>
+        /// <param name="dateValue">The date time.</param>
         /// <param name="licenseeId">The licensee Id.</param>
         /// <returns>The sport list.</returns>
-        IList<Sport> GetSports(DateTime date, int licenseeId);
+        IList<Sport> GetSports(DateTime dateValue, int licenseeId);
 
         /// <summary>
         /// Get leagues.

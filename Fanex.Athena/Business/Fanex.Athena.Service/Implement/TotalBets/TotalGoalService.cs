@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly TotalGoalDataAccess TotalGoalDataAccess;
+        private readonly TotalGoalDataAccess _totalGoalDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public TotalGoalService()
         {
-            TotalGoalDataAccess = new TotalGoalDataAccess();
+            _totalGoalDataAccess = new TotalGoalDataAccess();
         }
 
         #endregion Constructor
 
         public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
         {
-            return TotalGoalDataAccess.GetTotalGoalDataList(metaModel);
+            return _totalGoalDataAccess.GetTotalGoalDataList(metaModel);
         }
     }
 }

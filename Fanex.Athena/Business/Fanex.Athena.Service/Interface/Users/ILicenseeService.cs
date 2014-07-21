@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Service.Interface.Users
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
 
@@ -20,6 +21,8 @@ namespace Fanex.Athena.Service.Interface.Users
     {
         #region Public Methods and Operators
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IResultInfo IsAllowUpdateMemberBaStatus(Request request, int licenseeId, out bool isAllow);
 
         bool IsLicenseeBelongToUser(int licenseeId, int userId);
@@ -32,6 +35,8 @@ namespace Fanex.Athena.Service.Interface.Users
 
         IList<int> GetByResellerId(int userId, int resellerId);
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();
 
         #endregion Public Methods and Operators

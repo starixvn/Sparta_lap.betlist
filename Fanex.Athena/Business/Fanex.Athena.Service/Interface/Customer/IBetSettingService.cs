@@ -32,11 +32,11 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings);
 
-        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting param, IDictionary<string, object> hashParam);
+        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam);
 
-        IResultInfo UpdateNumberGameBetSetting(CommonBetSetting param, Hashtable hashParam);
+        IResultInfo UpdateNumberGameBetSetting(CommonBetSetting setting, Hashtable data);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
 
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Service.Interface.Customer
         IResultInfo UpdateLiveCasinoBetSetting(
             int userId,
             int custId,
-            List<LiveCasinoBetSetting> param,
+            List<LiveCasinoBetSetting> metaModel,
             string ip,
            string language);
 

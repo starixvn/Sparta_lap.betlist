@@ -21,6 +21,8 @@ namespace Fanex.Athena.Service.Interface.Warehouse
     {
         #region Public Methods and Operators
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues);
 
         Dictionary<string, decimal> GetWinlossTotalInfo(IList<WinLoss> dataList);

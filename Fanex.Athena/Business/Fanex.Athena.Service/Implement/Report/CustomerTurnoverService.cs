@@ -37,14 +37,14 @@ namespace Fanex.Athena.Service.Implement.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="languageCode">The language code.</param>
         /// <param name="total">The total data.</param>
-        /// <param name="totalRow">The total rows.</param>
+        /// <param name="totalRows">The total rows.</param>
         /// <returns>The customer turnover list.</returns>
-        public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRow)
+        public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
         {
             total = new CustTurnover();
-            totalRow = 0;
+            totalRows = 0;
             var datalist = metaModel.IsValid
-                       ? _custTurnoverDataAccess.GetDataList(metaModel, languageCode, out total, out totalRow)
+                       ? _custTurnoverDataAccess.GetDataList(metaModel, languageCode, out total, out totalRows)
                        : new List<CustTurnover>();
             if (datalist != null && datalist.Count > 1)
             {

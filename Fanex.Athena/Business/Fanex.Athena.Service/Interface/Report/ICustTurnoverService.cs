@@ -12,6 +12,8 @@ namespace Fanex.Athena.Service.Interface.Report
 
     public interface ICustTurnoverService
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows);
     }
 }

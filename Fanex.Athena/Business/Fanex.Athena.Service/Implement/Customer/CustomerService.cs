@@ -168,19 +168,19 @@ namespace Fanex.Athena.Service.Implement.Customer
         ///     1: Remove all customers commission in group.
         ///     2: Update new customers commission in this group.
         /// </summary>
-        /// <param name="metalModel">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <returns>The result information.</returns>
-        public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metalModel)
+        public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
         {
             var groupService = new GroupComService();
             IResultInfo result = null;
-            var groupInfo = groupService.GetById(metalModel.GroupComId);
+            var groupInfo = groupService.GetById(metaModel.GroupComId);
             var callApiSuccess = true;
             if (groupInfo != null)
             {
-                result = _customerDataAccess.MoveCustomersToGroup(metalModel);
+                result = _customerDataAccess.MoveCustomersToGroup(metaModel);
 
-                if (result.IsSuccessful && metalModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
+                if (result.IsSuccessful && metaModel.IsAllowedRNG && !string.IsNullOrWhiteSpace(result.ExtendedData))
                 {
                     var customerIds = result.ExtendedData.Split(',');
                     if (customerIds.Length > 0)
@@ -190,7 +190,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                         {
                             Comm = groupInfo.CSComm,
                             CustomerId = customerIds,
-                            FromIp = metalModel.Ip,
+                            FromIp = metaModel.Ip,
                             ModifyBy = user.UserId,
                             ModifyUserName = user.UserName
                         });
@@ -215,14 +215,14 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <summary>
         /// Remove customer from commission group.
         /// </summary>
-        /// <param name="metalmodel">The metal model.</param>
+        /// <param name="metamodel">The metal model.</param>
         /// <param name="isAllowedRNGCasino">Allow RNG Casino or not.</param>
         /// <returns>The result information.</returns>
-        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metalmodel, bool isAllowedRNGCasino)
+        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metamodel, bool isAllowedRNGCasino)
         {          
-            var result = _customerDataAccess.RemoveCustomersFromGroup(metalmodel);
+            var result = _customerDataAccess.RemoveCustomersFromGroup(metamodel);
             var callApiSuccess = true;
-            if (result.IsSuccessful && metalmodel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
+            if (result.IsSuccessful && metamodel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
                 var customerIds = result.ExtendedData.Split(',');
                 if (customerIds.Length > 0)
@@ -232,7 +232,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                   {
                       Comm = 0,
                       CustomerId = customerIds,
-                      FromIp = metalmodel.Ip,
+                      FromIp = metamodel.Ip,
                       ModifyBy = user.UserId,
                       ModifyUserName = user.UserName
                   });

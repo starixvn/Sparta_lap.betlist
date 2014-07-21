@@ -19,8 +19,12 @@ namespace Fanex.Athena.Service.Interface.Common
     /// </summary>
     public interface ISportTypeService
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         IDictionary<string, int> GetAllSports();
-                
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         IList<Sport> GetAllWHSports();
 
         IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null);

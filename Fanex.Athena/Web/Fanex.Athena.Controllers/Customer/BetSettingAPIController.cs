@@ -382,11 +382,11 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="raceType">The racing type.</param>
         /// <param name="custId">The customer id.</param>
-        /// <param name="commonParam">The common bet setting parameters.</param>
+        /// <param name="data">The common bet setting parameters.</param>
         /// <returns>The racing bet setting.</returns>
-        private RacingBetSetting GetRacingParam(string raceType, int custId, CommonBetSetting commonParam)
+        private RacingBetSetting GetRacingParam(string raceType, int custId, CommonBetSetting data)
         {
-            var racingBetSetting = new RacingBetSetting(custId, commonParam)
+            var racingBetSetting = new RacingBetSetting(custId, data)
             {
                 IsDataChange = !string.IsNullOrEmpty(HttpContext.Request["minbet" + raceType])
                 && !string.IsNullOrEmpty(HttpContext.Request["maxbet" + raceType]) && !string.IsNullOrEmpty(HttpContext.Request["maxpermatch" + raceType])

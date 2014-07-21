@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.TotalBets
     {
         #region Fields
 
-        protected readonly MoneyLineDataAccess MoneyLineDataAccess;
+        private readonly MoneyLineDataAccess _moneyLineDataAccess;
 
         #endregion Fields
 
@@ -27,14 +27,14 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         public MoneyLineService()
         {
-            MoneyLineDataAccess = new MoneyLineDataAccess();
+            _moneyLineDataAccess = new MoneyLineDataAccess();
         }
 
         #endregion Constructor
 
         public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel)
         {
-            return MoneyLineDataAccess.GetMoneyLineDataList(metaModel);
+            return _moneyLineDataAccess.GetMoneyLineDataList(metaModel);
         }
     }
 }

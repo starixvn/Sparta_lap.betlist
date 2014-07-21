@@ -220,22 +220,22 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <summary>
         ///  Update SportsBook bet setting.
         /// </summary>
-        /// <param name="sportsBook">The sport-book setting.</param>
-        /// <param name="setting">The metal model.</param>
+        /// <param name="setting">The sport-book setting.</param>
+        /// <param name="hashParam">The metal model.</param>
         /// <returns>The information of result.</returns>
-        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting sportsBook, IDictionary<string, object> setting)
+        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
         {
-            if (sportsBook == null)
+            if (setting == null)
             {
                 return ErrorResult("Invalid parameter. sportsBook is null");
             }
 
-            if (!_authorizationService.HasPermissionOnData(sportsBook.CustId, 0))
+            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateSportsBookBetSetting(sportsBook, setting);
+            return _betSettingDataAccess.UpdateSportsBookBetSetting(setting, hashParam);
         }
 
         /// <summary>
@@ -262,22 +262,22 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <summary>
         /// Update NumberGame bet setting.
         /// </summary>
-        /// <param name="metaModel">The metal model.</param>
+        /// <param name="setting">The metal model.</param>
         /// <param name="data">The parameter.</param>
         /// <returns>The information of result.</returns>
-        public IResultInfo UpdateNumberGameBetSetting(CommonBetSetting metaModel, Hashtable data)
+        public IResultInfo UpdateNumberGameBetSetting(CommonBetSetting setting, Hashtable data)
         {
-            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
             _numberGameBetSetting = new NumberGameBetSetting
                                         {
-                                            CustId = metaModel.CustId,
-                                            UserId = metaModel.UserId,
-                                            Language = metaModel.Language,
-                                            Ip = metaModel.Ip,
+                                            CustId = setting.CustId,
+                                            UserId = setting.UserId,
+                                            Language = setting.Language,
+                                            Ip = setting.Ip,
                                             MinBet = (decimal)data["minbet161"],
                                             MaxBet = (decimal)data["maxbet161"],
                                             MaxPerMatch = (decimal)data["maxpermatch161"],

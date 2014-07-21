@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
-        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting common, IDictionary<string, object> setting);
+        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
 

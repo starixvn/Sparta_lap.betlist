@@ -11,12 +11,12 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting
     /// </summary>
     public class RacingBetSetting : CommonBetSetting
     {
-        public RacingBetSetting(int custId, CommonBetSetting commonParam)
+        public RacingBetSetting(int custId, CommonBetSetting setting)
         {
             CustId = custId;
-            UserId = commonParam.UserId;
-            Ip = commonParam.Ip;
-            Language = commonParam.Language;
+            UserId = setting.UserId;
+            Ip = setting.Ip;
+            Language = setting.Language;
         }
 
         public RacingBetSetting(

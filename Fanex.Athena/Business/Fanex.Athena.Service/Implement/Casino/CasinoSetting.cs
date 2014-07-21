@@ -93,6 +93,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <param name="licenseeName">The licensee name.</param>
         /// <param name="language">Language of licensee.</param>
         /// <returns>RNG casino setting.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public RngCasinoBetSetting GetRngCasinoSetting(int custId, string licenseeName, string language)
         {
             var gameKindList = new List<GameKind>();
