@@ -12,6 +12,11 @@ namespace Fanex.Athena.Models.DTO.Warehouse
     public enum WarehouseReportBy
     {
         /// <summary>
+        /// None, value = 0.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Report by day.
         /// </summary>
         Day = 1,

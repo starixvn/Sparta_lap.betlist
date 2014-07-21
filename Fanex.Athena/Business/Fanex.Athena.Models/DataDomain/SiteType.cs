@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.DataDomain
     /// <summary>
     /// Site type constants.
     /// </summary>
-    public class SiteType
+    public sealed class SiteType
     {
         /// <summary>
         /// All site types, value = 0.
@@ -29,5 +29,9 @@ namespace Fanex.Athena.Models.DataDomain
         /// Other site types, value = 3.
         /// </summary>
         public const int Others = 3;
+
+        private SiteType()
+        {
+        }
     }
 }

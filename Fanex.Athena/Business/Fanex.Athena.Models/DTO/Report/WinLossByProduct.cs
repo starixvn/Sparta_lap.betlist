@@ -103,11 +103,6 @@ namespace Fanex.Athena.Models.DTO.Report
 
                 return _productName;
             }
-
-            private set
-            {
-                _productName = value;
-            }
         }
 
         public decimal TurnOver { get; set; }

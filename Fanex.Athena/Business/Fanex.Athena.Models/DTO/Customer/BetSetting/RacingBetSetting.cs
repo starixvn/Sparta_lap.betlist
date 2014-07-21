@@ -33,7 +33,7 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting
             CustId = custId;
             UserId = userId;
             MinBet = minBet;
-            MaxBet = MaxBet;
+            MaxBet = maxBet;
             MaxPerMatch = maxPerMatch;
             IsUpdateMultiple = isUpdateMultiple;
             IsDataChange = isDataChange;

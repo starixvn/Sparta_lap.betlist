@@ -9,6 +9,11 @@ namespace Fanex.Athena.Models.DataDomain
     public enum SportType : int
     {
         /// <summary>
+        /// None, value = 0.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Soccer sport, value = 1.
         /// </summary>
         Soccer = 1,

@@ -15,8 +15,6 @@ namespace Fanex.Athena.Extension.Utility
     /// </summary>
     public static class Util
     {
-        private static Dictionary<string, string> supportedLanguages;
-
         /// <summary>
         /// Gets languages.
         /// </summary>
@@ -25,18 +23,13 @@ namespace Fanex.Athena.Extension.Utility
         {
             get
             {
-                if (supportedLanguages == null)
-                {
-                    supportedLanguages = new Dictionary<string, string>
+                return new Dictionary<string, string>
                     {
                         { "en-US", "English" },
                         { "zh-TW", "繁體中文" },
                         { "zh-CN", "简体中文" },
                         { "ko-KR", "한국의" }
                     };
-                }
-
-                return supportedLanguages;
             }
         }
 

@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.DataDomain
     /// <summary>
     /// Draw filter type constants.
     /// </summary>
-    public class DrawFilterType
+    public sealed class DrawFilterType
     {
         /// <summary>
         /// Normal, value = 1.
@@ -24,5 +24,9 @@ namespace Fanex.Athena.Models.DataDomain
         /// No Draws For Turnover Only, value = 3.
         /// </summary>
         public const int NoDrawsForTurnoverOnly = 3;
+
+        private DrawFilterType() 
+        { 
+        }
     }
 }

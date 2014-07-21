@@ -9,6 +9,11 @@ namespace Fanex.Athena.Models.DataDomain
     public enum ProductType
     {
         /// <summary>
+        /// None, value = 0.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// SportsBook product.
         /// </summary>
         Sportsbook = 1,

@@ -6,11 +6,14 @@
 
 namespace Fanex.Athena.Models.MetaModel.Keno
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class KenoResultMetalModel
     {
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ResultUrl { get; set; }
 
         public string SiteID { get; set; }
@@ -19,12 +22,16 @@ namespace Fanex.Athena.Models.MetaModel.Keno
 
         public string VenderKey { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string AuthorizedUrl { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ExpireTokenUrl { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string ExtendTokenUrl { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed. Suppression is OK here.")]
         public string KickOutUrl { get; set; }
 
         public string Language { get; set; }

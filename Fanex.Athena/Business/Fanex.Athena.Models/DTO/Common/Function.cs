@@ -22,6 +22,8 @@ namespace Fanex.Athena.Models.DTO.Common
 
         public int ParentId { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
         public string Url { get; set; }
 
         public bool IsMenu { get; set; }

@@ -9,6 +9,11 @@ namespace Fanex.Athena.Models.DataDomain
     public enum BetType
     {
         /// <summary>
+        /// None, value = 0.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Handicap bet type, value = 1.
         /// </summary>
         Handicap = 1,

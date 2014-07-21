@@ -15,6 +15,8 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         /* dictionary key = league + currency name*/
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "Reviewed. Suppression is OK here.")]
         public IDictionary<string, List<DailyRacingWinLoss>> ContentData { get; set; }
 
         public IDictionary<string, DailyRacingWinLoss> ContentTotalData { get; set; }

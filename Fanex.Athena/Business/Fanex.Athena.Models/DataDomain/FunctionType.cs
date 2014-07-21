@@ -9,6 +9,11 @@ namespace Fanex.Athena.Models.DataDomain
     public enum FunctionType
     {
         /// <summary>
+        /// None, value = 0.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Total bets function, value = 1.
         /// </summary>
         TotalBets = 1,
