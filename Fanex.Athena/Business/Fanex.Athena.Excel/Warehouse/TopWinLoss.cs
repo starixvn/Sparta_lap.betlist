@@ -190,7 +190,9 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnLicenseeWl].SetCellValue(_totalValues["licenseewinloss"]);
             sheet.MergeCells(currentRow, 0, currentRow, 5);
         }
-                        
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected int GetGroupNameIndex()
         {
             return GroupNameIndexMap[GroupingId];

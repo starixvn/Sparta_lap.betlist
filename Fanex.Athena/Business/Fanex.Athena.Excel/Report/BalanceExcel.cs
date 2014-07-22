@@ -208,6 +208,8 @@ namespace Fanex.Athena.Excel.Report
         /// Get last column index.
         /// </summary>
         /// <returns>The integer value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected int GetLastIndex()
         {
             var listColumn = new List<int>

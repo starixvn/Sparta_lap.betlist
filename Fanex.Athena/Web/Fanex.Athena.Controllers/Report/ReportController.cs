@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DTO.Common;
@@ -15,10 +16,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
@@ -71,6 +70,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpGet]
         [AjaxRequest]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public ActionResult GetSportsAndProducts()
         {
             return Json(
@@ -78,6 +78,7 @@ namespace Fanex.Athena.Controllers.Report
                 JsonRequestBehavior.AllowGet);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         [AjaxRequest]
         public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)
         {

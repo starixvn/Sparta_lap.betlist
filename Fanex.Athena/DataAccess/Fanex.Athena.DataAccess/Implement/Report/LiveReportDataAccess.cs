@@ -59,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         {
                             items.Add(new LiveReport
                             {
-                                Type = 1,
+                                ReportType = 1,
                                 ProductName = reader.ToString("ProductName"),
                                 ProductCode = reader.ToString("ProductCode"),
                                 TurnOver = reader.ToDecimal("Turnover" + currency),
@@ -129,7 +129,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                              {
                                  result[0].Add(new LiveReport
                                  {
-                                     Type = 0,
+                                     ReportType = 0,
                                      ProductName = Convert.ToString(reader["currency"]),
                                      ProductCode = Convert.ToString(reader["currency"]),
                                      TurnOver = Convert.ToDecimal(reader["Turnover" + currency]),
@@ -148,7 +148,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                  {
                                      result[1].Add(new LiveReport
                                      {
-                                         Type = 3,
+                                         ReportType = 3,
                                          ProductName = Convert.ToString(reader["bettype"]),
                                          ProductCode = Convert.ToString(reader["bettype"]),
                                          TurnOver = Convert.ToDecimal(reader["Turnover" + currency]),
@@ -189,7 +189,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     var item =
                                         new LiveReport
                                             {
-                                                Type = 2,
+                                                ReportType = 2,
                                                 ProductName = reader.ToString("SportType"),
                                                 ProductCode = reader.ToString("SportType"),
                                                 TurnOver = reader.ToDecimal("Turnover" + currency),

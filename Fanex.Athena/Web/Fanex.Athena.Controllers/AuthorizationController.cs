@@ -152,7 +152,7 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
-        public ActionResult ReCheckin()
+        public ActionResult RecheckIn()
         {
             IMaintenanceService maintenanceService = new MaintenanceService();
             var userSession = SessionService.UserSession;

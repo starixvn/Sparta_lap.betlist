@@ -167,6 +167,8 @@ namespace Fanex.Athena.Excel.Warehouse
         /// Get column name in data table.
         /// </summary>
         /// <returns>The list of column name in data table.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected static IList<string> GetColumnNameList()
         {
             return new List<string>
@@ -187,6 +189,8 @@ namespace Fanex.Athena.Excel.Warehouse
         /// Get column name in data table to get total data.
         /// </summary>
         /// <returns>The list of column name in data table.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected static IList<string> GetTotalColumnNameList()
         {
             return new List<string>
@@ -226,6 +230,8 @@ namespace Fanex.Athena.Excel.Warehouse
         ///     Check data has error or hasn't error.
         /// </summary>
         /// <returns>Error message.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected string GetErrorMessage()
         {
             if (ExportData.Rows.Count == 0)

@@ -471,6 +471,8 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="date">Win loss date.</param>
         /// <param name="currentRow">Excel row index.</param>
         /// <returns>The row index after assign data.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected int SetDateWinLoss(
             ISheet sheet,
             WinLossByProduct winlossByProduct,

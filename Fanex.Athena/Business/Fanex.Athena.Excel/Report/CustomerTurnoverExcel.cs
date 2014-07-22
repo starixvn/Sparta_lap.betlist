@@ -138,17 +138,17 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        /// <param name="startIndex">Start index.</param>
+        /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        public override int AssignSheetData(ISheet sheet, int startIndex)
+        public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowIndex = 0;
-            int minGroup = checked((startIndex - 1) * PageSize);
-            int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(startIndex * PageSize));
+            int minGroup = checked((pageIndex - 1) * PageSize);
+            int maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked(pageIndex * PageSize));
             var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
             for (int index = 0; index < dataInRange.Count(); index++)

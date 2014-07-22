@@ -114,14 +114,14 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        /// <param name="startIndex">Start index.</param>
+        /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        public override int AssignSheetData(ISheet sheet, int startIndex)
+        public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            int rowCount = Math.Min(_racingCommissionList.Count, checked((startIndex + 1) * PageSize));
+            int rowCount = Math.Min(_racingCommissionList.Count, checked((pageIndex + 1) * PageSize));
             int rowIndex = 0;
 
-            for (int index = startIndex * PageSize; index < rowCount; index++)
+            for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 RacingCommission racingCommission = _racingCommissionList[index];

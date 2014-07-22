@@ -159,6 +159,8 @@ namespace Fanex.Athena.Excel.Base
         /// <param name="awaySet">The away set.</param>
         /// <param name="homeOT">The home OT.</param>
         /// <param name="awayOT">The away OT.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual void GetMatchRound(DataRow exportRow, ref string[] homeSet, ref string[] awaySet, ref int homeOT, ref int awayOT)
         {
             // Bet status
@@ -246,6 +248,8 @@ namespace Fanex.Athena.Excel.Base
         /// <param name="colLeagueName">The column league name.</param>
         /// <param name="currentLeagueId">The currency league id.</param>
         /// <param name="currentRow">The current row.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual void SetLeague(ISheet sheet, DataRow exportRow, string colLeagueName, ref int currentLeagueId, ref int currentRow)
         {
             int leagueId = Convert.ToInt32(exportRow[colLeagueName]);

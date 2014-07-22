@@ -60,10 +60,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <summary>
         /// Get sports.
         /// </summary>
-        /// <param name="date">Date value.</param>
+        /// <param name="dateValue">Date value.</param>
         /// <param name="licenseeId">The licensee Id.</param>
         /// <returns>The result value.</returns>
-        public IList<Sport> GetSports(DateTime date, int licenseeId)
+        public IList<Sport> GetSports(DateTime dateValue, int licenseeId)
         {
             const string UspName = "Lrf_Result_SportSelByDate";
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("eventdate", DbType.DateTime, date);
+                    db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     using (var reader = db.ExecuteReader())
                     {
@@ -95,15 +95,15 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <summary>
         /// Get leagues.
         /// </summary>
-        /// <param name="date">Date value.</param>
+        /// <param name="dateValue">Date value.</param>
         /// <param name="sportId">Sport ID value.</param>
         /// <returns>The result value.</returns>
-        public IList<League> GetLeagues(DateTime date, int sportId)
+        public IList<League> GetLeagues(DateTime dateValue, int sportId)
         {
             const string UspName = "Lrf_Result_LeagueSelByDate";
             var uspParams = new
             {
-                eventdate = date,
+                eventdate = dateValue,
                 sporttype = sportId,
                 isshowall = true
             };

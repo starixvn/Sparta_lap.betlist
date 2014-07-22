@@ -219,9 +219,8 @@ namespace Fanex.Athena.Controllers.Account
         {
             var userSession = SessionService.UserSession;
             int userId;
-            int.TryParse(this.Request.Params["UserId"], out userId);
 
-            if (userId > 0 && userId != userSession.UserId)
+            if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && userId != userSession.UserId)
             {
                 var userService = new UserService();
                 var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
@@ -400,22 +399,17 @@ namespace Fanex.Athena.Controllers.Account
         public ActionResult PermissionPage()
         {
             int userId; // user is being editted
-            int.TryParse(Request.Params["UserId"], out userId);
-            bool isValid = ValidatePermissionRestriction(userId);
-
-            if (!isValid)
+            if (int.TryParse(Request.Params["UserId"], out userId) && ValidatePermissionRestriction(userId))
             {
-                return Redirect("~/Utility/AccessDenied");
-            }
+                var userService = new UserService();
+                var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
-            var userService = new UserService();
-            var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
+                if (user != null)
+                {
+                    ViewBag.EnableAssignCurrency = AppSettings.EnableAssignCurrency;
 
-            if (user != null)
-            {
-                ViewBag.EnableAssignCurrency = AppSettings.EnableAssignCurrency;
-
-                return View("~/Views/Account/PermissionPage.cshtml", user);
+                    return View("~/Views/Account/PermissionPage.cshtml", user);
+                }
             }
 
             return this.Redirect("~/Utility/AccessDenied");
@@ -430,18 +424,9 @@ namespace Fanex.Athena.Controllers.Account
         public ActionResult EditPermission()
         {
             int userId; // user is being editted
-            int.TryParse(Request.Params["UserId"], out userId);
-            bool isValid = ValidatePermissionRestriction(userId);
-
-            if (!isValid)
+            if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && ValidatePermissionRestriction(userId))
             {
-                return Redirect("~/Utility/AccessDenied");
-            }
-
-            var licenseeSession = SessionService.LicenseeSession;
-
-            if (userId > 0)
-            {
+                var licenseeSession = SessionService.LicenseeSession;
                 var userService = new UserService();
                 var user = userService.GetUserInfo(licenseeSession.LicenseeId, userId);
 
@@ -461,8 +446,6 @@ namespace Fanex.Athena.Controllers.Account
 
                     return View("~/Views/Account/EditPermission.cshtml", model);
                 }
-
-                return this.Redirect("~/Utility/AccessDenied");
             }
 
             return this.Redirect("~/Utility/AccessDenied");

@@ -106,7 +106,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
         /// </returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public MaintenanceInfo GetMaintenanceInfo()
+        private MaintenanceInfo GetMaintenanceInfo()
         {
             var maintenanceInfo = new MaintenanceInfo { IsDownTime = false };
 

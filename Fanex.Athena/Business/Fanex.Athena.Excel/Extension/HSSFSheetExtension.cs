@@ -75,6 +75,7 @@ namespace Fanex.Athena.Excel.Extension
         /// <param name="destRowIndex">Index of destination row in main sheet, base by zero.</param>
         /// <param name="cellIndexList">Cell index list.</param>
         /// <returns>Return the copied row.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Reviewed.")]
         public static IRow CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int destRowIndex, IList<int> cellIndexList)
         {
             if (sheet.LastRowNum < destRowIndex)
@@ -124,6 +125,7 @@ namespace Fanex.Athena.Excel.Extension
         /// <param name="cellIndexList">Cell index list.</param>
         /// <param name="defaultStyle">Default style.</param>
         /// <returns>Return the copied row.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Reviewed.")]
         public static IRow CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowIndex, int destRowIndex, IList<int> cellIndexList, ICellStyle defaultStyle)
         {
             if (sheet.LastRowNum < destRowIndex)
@@ -175,6 +177,7 @@ namespace Fanex.Athena.Excel.Extension
         /// <param name="rowNum">Inserting row index, base by zero.</param>
         /// <param name="sourceRowNum">Index of source row, base by zero.</param>
         /// <returns>Return the copied row.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Reviewed.")]
         public static IRow InsertCopy(this ISheet sheet, int rowNum, int sourceRowNum)
         {
             sheet.ShiftRows(rowNum, sheet.LastRowNum, 1);
@@ -203,6 +206,7 @@ namespace Fanex.Athena.Excel.Extension
         /// <param name="sourceCell">Source cell.</param>
         /// <param name="destCell">Destination cell.</param>
         /// <returns>Returns copied cell.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Reviewed.")]
         public static ICell CopyCell(this ISheet sheet, ICell sourceCell, ICell destCell)
         {
             if (sourceCell == null)

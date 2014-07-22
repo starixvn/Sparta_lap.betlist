@@ -34,10 +34,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <summary>
         /// Get leagues.
         /// </summary>
-        /// <param name="date">The date time.</param>
+        /// <param name="dateValue">The date time.</param>
         /// <param name="sportId">The sport id.</param>
         /// <returns>The leagues.</returns>
-        IList<League> GetLeagues(DateTime date, int sportId);
+        IList<League> GetLeagues(DateTime dateValue, int sportId);
 
         #endregion Filter
 

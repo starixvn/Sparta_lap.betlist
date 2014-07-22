@@ -32,6 +32,7 @@ namespace Fanex.Athena.Controllers
         /// <returns>The amount online users.</returns>
         [HttpGet]
         [AllowAnonymous]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public string NumOfOnlineUser()
         {
             var result = string.Empty;

@@ -224,7 +224,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="title">The report title.</param>
         /// <returns>The action result.</returns>
         [NonAction]
-        public ActionResult LiveReportBetListExcel(LiveReportBetListMetaModel metaModel, string uspKey, string title)
+        public ActionResult LiveReportBetListExcel(BetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
@@ -252,6 +252,8 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
+            Justification = "Reviewed.")]
         public LiveReportBetListMetaModel CreateLiveReportDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
         {
             metaModel = metaModel ?? new LiveReportBetListMetaModel();

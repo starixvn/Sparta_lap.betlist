@@ -27,17 +27,60 @@ namespace Fanex.Athena.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+        private readonly ILanguageService _langService = new LanguageService();
+        private readonly ISessionService _sessionService = new SessionService();
+        private readonly ICurrencyService _currencyService = new CurrencyService();
+
         #region Members
 
-        public readonly string[] IgnoreCasinoAngBingo = { Product.Cs, Product.Bg };
-        public readonly string[] IgnoreKeno = { Product.Kn };
-        public readonly string[] IgnoreBingo = { Product.Bg };
-        public readonly string[] IgnoreCasinoAndBingoAndKeno = { Product.Cs, Product.Bg, Product.Kn };
-        public readonly ILanguageService LangService = new LanguageService();
-        public readonly ISessionService SessionService = new SessionService();
-        public readonly ICurrencyService CurrencyService = new CurrencyService();
+        public string[] IgnoreCasinoAngBingo
+        {
+            get
+            {
+                return new string[] { Product.Cs, Product.Bg };
+            }
+        }
+
+        public string[] IgnoreKeno
+        {
+            get
+            {
+                return new string[] { Product.Kn };
+            }
+        }
+
+        public string[] IgnoreBingo
+        {
+            get
+            {
+                return new string[] { Product.Bg };
+            }
+        }
+
+        public string[] IgnoreCasinoAndBingoAndKeno
+        {
+            get
+            {
+                return new string[] { Product.Cs, Product.Bg, Product.Kn };
+            }
+        }
 
         #endregion Members
+
+        public ILanguageService LangService
+        {
+            get { return _langService; }
+        }
+
+        public ISessionService SessionService
+        {
+            get { return _sessionService; }
+        }
+
+        public ICurrencyService CurrencyService
+        {
+            get { return _currencyService; }
+        }
 
         public bool IsDebuggingEnabled
         {
@@ -61,6 +104,7 @@ namespace Fanex.Athena.Controllers
         }
 
         [NonAction]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         protected static IList<string> GetAllowLicenseesForStatusFunction()
         {
             var items = AppSettings.GetValue("LicenseeOfferStatusFunction");

@@ -57,14 +57,14 @@ namespace Fanex.Athena.Service.Implement.Report
             return new List<OutRight>();
         }
 
-        public IList<Models.DTO.Common.Sport> GetSports(DateTime date, int licenseeId)
+        public IList<Models.DTO.Common.Sport> GetSports(DateTime dateValue, int licenseeId)
         {
-            return this._dataAccess.GetSports(date, licenseeId);
+            return this._dataAccess.GetSports(dateValue, licenseeId);
         }
 
-        public IList<Models.DTO.Common.League> GetLeagues(DateTime date, int sportId)
+        public IList<Models.DTO.Common.League> GetLeagues(DateTime dateValue, int sportId)
         {
-            return this._dataAccess.GetLeagues(date, sportId);
+            return this._dataAccess.GetLeagues(dateValue, sportId);
         }
 
         #region Report

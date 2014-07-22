@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.Integration
         /// <returns>The JSON result.</returns>
         [AjaxRequest]
         [AjaxFunctionAuthorization]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult LicenseeAgent()
         {
             var errorMsg = "Found Error when calling [LicenseeAgent.API] to generate  bridged link between LRF and LAS system\n";

@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Extension
         /// <param name="sheetName">The sheet name.</param>
         public static void RemoveSheet(this IWorkbook workbook, string sheetName)
         {
-            var sheet = workbook.GetSheet("Template");
+            var sheet = workbook.GetSheet(sheetName);
 
             if (sheet != null)
             {

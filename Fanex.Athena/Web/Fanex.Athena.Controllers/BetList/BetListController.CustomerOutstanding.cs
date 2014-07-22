@@ -26,6 +26,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
         public ActionResult CustomerOutstanding(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

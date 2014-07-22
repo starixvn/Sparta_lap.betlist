@@ -16,7 +16,6 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
     /// </summary>
     public class LiveReport : ICustomerWinLoss
     {
-        private byte _type;
         private string _productName;
         private string _productCode;
 
@@ -25,17 +24,17 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
         /// 0:current,1:product,2:sport,3 bet type.
         /// </summary>
         /// <value>The type value.</value>
-        public byte Type
+        public byte ReportType
         {
-            get { return _type; }
-            set { _type = value; }
+            private get;
+            set;
         }
 
         public string ProductName
         {
             get
             {
-                switch (_type)
+                switch (ReportType)
                 {
                     case 0:
                         return _productName;
@@ -46,7 +45,6 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
                                 return ViewResources.BA;
 
                             case "LC":
-
                                 return ViewResources.LiveCasino;
 
                             case "NG":

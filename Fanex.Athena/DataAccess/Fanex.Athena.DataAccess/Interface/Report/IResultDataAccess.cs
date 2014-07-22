@@ -23,9 +23,9 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 
         #region Filter
 
-        IList<Sport> GetSports(DateTime date, int licenseeId);
+        IList<Sport> GetSports(DateTime dateValue, int licenseeId);
 
-        IList<League> GetLeagues(DateTime date, int sportId);
+        IList<League> GetLeagues(DateTime dateValue, int sportId);
 
         #endregion Filter
 

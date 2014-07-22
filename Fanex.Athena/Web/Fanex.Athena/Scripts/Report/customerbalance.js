@@ -10,7 +10,12 @@ var CustBalance = (function ($) {
             }
 
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - 30;
+            var pagerHeight = $(".pagingContainer").height();
+            if (pagerHeight > 0) {
+                pagerHeight += 15;
+            }
+
+            var gridHeight = window.innerHeight - gridTop - $("#total-content").height() - pagerHeight - 30;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("max-height", gridHeight);
         },

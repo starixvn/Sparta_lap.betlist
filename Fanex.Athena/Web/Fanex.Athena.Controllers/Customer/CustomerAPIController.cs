@@ -71,6 +71,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
             IResultInfo result = new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default };
@@ -127,6 +128,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
             var userSession = SessionService.UserSession;

@@ -335,6 +335,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// Get default group commission.
         /// </summary>
         /// <returns>The JSON result.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public JsonResult GetDefaultGroup()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;

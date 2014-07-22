@@ -69,6 +69,7 @@ namespace Fanex.Athena
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event ARGS.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
@@ -98,7 +99,7 @@ namespace Fanex.Athena
                     message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
                 }
             }
-            catch (Exception)
+            catch
             {
             }
 

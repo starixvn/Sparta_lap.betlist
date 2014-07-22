@@ -231,10 +231,9 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         /// <param name="txtOldPwd">The old password.</param>
         /// <param name="txtNewPwd">The new password.</param>
-        /// <param name="txtConfirmPwd">The confirmed new password.</param>
         /// <returns>The result of changing password.</returns>
         [HttpPost]
-        public ActionResult ChangePass(string txtOldPwd, string txtNewPwd, string txtConfirmPwd)
+        public ActionResult ChangePass(string txtOldPwd, string txtNewPwd)
         {
             var userSession = SessionService.UserSession;
             if (!Util.CheckValidPassword(txtNewPwd) || string.IsNullOrEmpty(txtOldPwd))

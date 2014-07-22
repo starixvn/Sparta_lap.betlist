@@ -127,6 +127,7 @@ namespace Fanex.Athena.Controllers.Forecast
                   "StyleCop.CSharp.Nexcel.NexcelCustomRules",
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private NewForecastHdpOuViewModel GetForecastHdpOuViewModel(NewForecastHdpOuMetaModel metaModel)
         {
             IList<Match> matchList = null;

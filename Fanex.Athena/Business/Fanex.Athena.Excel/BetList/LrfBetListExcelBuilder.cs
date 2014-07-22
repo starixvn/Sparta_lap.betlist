@@ -197,7 +197,7 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="redFont">The font for negative licensee win lost.</param>
         /// <param name="blackFont">The font for positive licensee win lost.</param>
         /// <returns>Bet list excel builder.</returns>
-        public static BetListExcelBuilder AddLicenseeWl(
+        public static BetListExcelBuilder AddLicenseeWL(
             this BetListExcelBuilder builder,
             LrfTicket ticket,
             bool is12Bet,

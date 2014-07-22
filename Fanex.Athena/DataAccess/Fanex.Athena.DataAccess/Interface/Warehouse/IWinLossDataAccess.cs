@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Interface.Warehouse
     {
         #region Public Methods and Operators
 
-        IList<WinLoss> GetDataList(WinLossMetaModel model);
+        IList<WinLoss> GetDataList(WinLossMetaModel metaModel);
 
         #endregion Public Methods and Operators
     }
