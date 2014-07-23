@@ -157,7 +157,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     BetCountHighLow = reader.ToInt("betcount_highlow"),
                     BetCountNextCombo = reader.ToInt("betcount_NextCombo"),
                     BetCountNumberWheelLive = reader.ToInt("betcount_NumberGroup_live"),
-                    BetCountNumberWheelPre = reader.ToInt("betcount_NumberGroup_pre")
+                    BetCountNumberWheelPre = reader.ToInt("betcount_NumberGroup_pre"),
                 };
 
                 dataList.Add(item);

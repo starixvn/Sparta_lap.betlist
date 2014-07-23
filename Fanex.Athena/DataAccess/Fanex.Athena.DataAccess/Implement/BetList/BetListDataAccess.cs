@@ -152,22 +152,22 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             var outPutParams = new Hashtable
             {
-                    { "totalrows", 0 },
-                    { "sumwinlost", 0 },
-                    { "sumwinlostusd", 0 },
-                    { "sumwinlosteur", 0 },
-                    { "sumlicenseewl", 0 },
-                    { "sumlicenseewlusd", 0 },
-                    { "sumlicenseewleur", 0 },
-                    { "sumcomm", 0 },
-                    { "sumcommusd", 0 },
-                    { "sumcommeur", 0 },
-                    { "sumplayercomm", 0 },
-                    { "sumplayercommusd", 0 },
-                    { "sumplayercommeur", 0 },
-                    { "sumstake", 0 },
-                    { "sumstakeusd", 0 },
-                    { "sumstakeeur", 0 }
+                    { "totalrows", DBNull.Value },
+                    { "sumwinlost", DBNull.Value },
+                    { "sumwinlostusd", DBNull.Value },
+                    { "sumwinlosteur", DBNull.Value },
+                    { "sumlicenseewl", DBNull.Value },
+                    { "sumlicenseewlusd", DBNull.Value },
+                    { "sumlicenseewleur", DBNull.Value },
+                    { "sumcomm", DBNull.Value },
+                    { "sumcommusd", DBNull.Value },
+                    { "sumcommeur", DBNull.Value },
+                    { "sumplayercomm", DBNull.Value },
+                    { "sumplayercommusd", DBNull.Value },
+                    { "sumplayercommeur", DBNull.Value },
+                    { "sumstake", DBNull.Value },
+                    { "sumstakeusd", DBNull.Value },
+                    { "sumstakeeur", DBNull.Value }
             };
             var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();
@@ -205,19 +205,20 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     }
 
                     ticketResult.TotalRows = Converter.ToInt(outPutParams["totalrows"]);
-                    ticketResult.SumWinLoss = Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency]) == 0
-                        ? ticketResult.MainTicketList.Sum(x => x.Winlost)
-                        : Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency]);
-                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency]) == 0
-                        ? ticketResult.MainTicketList.Sum(x => x.LicenseeWL)
-                        : Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency]);
-                    ticketResult.SumComm = Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency]) == 0
-                        ? ticketResult.MainTicketList.Sum(x => x.Comm)
-                        : Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency]);
-                    ticketResult.SumPlayerComm = Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) == 0
-                        ? ticketResult.MainTicketList.Sum(x => x.PlayerComm)
-                        : Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]);
-                    ticketResult.SumStake = Converter.ToDecimal(outPutParams["sumstake" + baseCurrency]);
+                    ticketResult.SumWinLoss = Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency
+                    ticketResult.SumWinLoss =
+                        outPutParams["sumwinlost" + baseCurrency] != DBNull.Value ?
+                        Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
+                    : ticketResult.MainTicketList.Sum(x => x.Winlost);
+                    ticketResult.SumLicenseeWl = outPutParams["sumlicenseewl" + baseCurrency] != DBNull.Value
+                        ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
+                        : ticketResult.MainTicketList.Sum(x => x.LicenseeWl);
+                    ticketResult.SumComm = outPutParams["sumcomm" + baseCurrency] != DBNull.Value
+                        ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
+                        : ticketResult.MainTicketList.Sum(x => x.Comm);
+                    ticketResult.SumPlayerComm = outPutParams["sumplayercomm" + baseCurrency] != DBNull.Value
+                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) 
+                        : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
                     return ticketResult;
                 }

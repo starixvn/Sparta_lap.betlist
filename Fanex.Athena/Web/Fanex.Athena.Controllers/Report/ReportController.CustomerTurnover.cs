@@ -111,10 +111,6 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.IsExportExcel = true;
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");
             var formatDateTime = metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-            if (!System.IO.File.Exists(templatePath))
-            {
-                throw new FileNotFoundException(templatePath);
-            }
 
             var showingOption = new ShowingOption
             {

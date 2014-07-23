@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     DrawAway = reader.ToDecimal(totalDa),
                     AwayHome = reader.ToDecimal(totalAh),
                     AwayDraw = reader.ToDecimal(totalAd),
-                    AwayAway = reader.ToDecimal(totalAa)
+                    AwayAway = reader.ToDecimal(totalAa),
                 };
 
                 dataList.Add(item);

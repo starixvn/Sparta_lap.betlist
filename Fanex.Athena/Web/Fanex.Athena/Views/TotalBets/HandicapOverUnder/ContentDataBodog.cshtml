@@ -2,39 +2,7 @@
 @using Fanex.Athena.Models.DTO.TotalBets
 @model Fanex.Athena.Models.ViewModel.TotalBets.HandicapOverUnderViewModel
 @{  
-    // Map Data Only For Boping
-    var matchIdList = Model.MainData.Select(x => x.MatchId).Distinct();
-    var contentData = new List<HandicapOverUnder>();
-    foreach (var matchId in matchIdList)
-    {
-        var matchListById = Model.MainData.Where(m => m.MatchId == matchId)
-            .OrderByDescending(m => m.LiveIndicator)
-            .ThenBy(m => m.HomeTeamName)
-            .ThenByDescending(m => m.LiveHomeScore)
-            .ThenByDescending(m => m.LiveAwayScore);
-        var mainMatch = matchListById.FirstOrDefault();
-        contentData.Add(new HandicapOverUnder
-        {
-            ShowTime = mainMatch.ShowTime,
-            LeagueId = mainMatch.LeagueId,
-            MatchId = mainMatch.MatchId,
-            HomeId = mainMatch.HomeId,
-            AwayId = mainMatch.AwayId,
-            LiveHomeScore = mainMatch.LiveHomeScore,
-            LiveAwayScore = mainMatch.LiveAwayScore,
-            LiveIndicator = mainMatch.LiveIndicator,
-            BetCountHandicap = matchListById.Sum(m => m.BetCountHandicap),
-            BetCountOverUnder = matchListById.Sum(m => m.BetCountOverUnder),
-            BetCountHandicap1StHalf = matchListById.Sum(m => m.BetCountHandicap1StHalf),
-            BetCountOverUnder1StHalf = matchListById.Sum(m => m.BetCountOverUnder1StHalf),
-            FullTimeHandicap = matchListById.Sum(m => m.FullTimeHandicap),
-            FullTimeOverUnder = matchListById.Sum(m => m.FullTimeOverUnder),
-            FirstTimeHandicap = matchListById.Sum(m => m.FirstTimeHandicap),
-            FirstTimeOverUnder = matchListById.Sum(m => m.FirstTimeOverUnder),
-        });
-    }
-    
-    var leagueList = contentData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
                             .Select(x => x.Key)
                             .OrderBy(x => x.LeagueName)
                             .OrderByDescending(x => x.LiveIndicator)
@@ -51,7 +19,7 @@
                     <td class="league" data-league-id="@league.LeagueId" colspan="11">@league.LeagueName
                     </td>
                 </tr>
-                var matchOfLeague = contentData
+                var matchOfLeague = Model.MainData
                             .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
                             .OrderBy(x => x.HomeTeamName)
                             .ToList();
