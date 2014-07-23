@@ -207,19 +207,16 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     ticketResult.SumWinLoss =
                         outPutParams["sumwinlost" + baseCurrency] != DBNull.Value ?
                         Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
-                    : ticketResult.MainTicketList.Sum(x => x.Winlost)
-                         ;
+                    : ticketResult.MainTicketList.Sum(x => x.Winlost);
                     ticketResult.SumLicenseeWl = outPutParams["sumlicenseewl" + baseCurrency] != DBNull.Value
                         ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
-                        : ticketResult.MainTicketList.Sum(x => x.LicenseeWl)
-                        ;
+                        : ticketResult.MainTicketList.Sum(x => x.LicenseeWl);
                     ticketResult.SumComm = outPutParams["sumcomm" + baseCurrency] != DBNull.Value
                         ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
-                        : ticketResult.MainTicketList.Sum(x => x.Comm)
-                         ;
+                        : ticketResult.MainTicketList.Sum(x => x.Comm);
                     ticketResult.SumPlayerComm = outPutParams["sumplayercomm" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) : ticketResult.MainTicketList.Sum(x => x.PlayerComm)
-                        ;
+                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) 
+                        : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
                     return ticketResult;
                 }
