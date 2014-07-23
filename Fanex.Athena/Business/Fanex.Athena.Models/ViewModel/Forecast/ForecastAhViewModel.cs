@@ -15,11 +15,11 @@ namespace Fanex.Athena.Models.ViewModel.Forecast
     /// <summary>
     /// ForecastAhViewModel class.
     /// </summary>
-    public class ForecastAhViewModel
+    public class ForecastAHViewModel
     {
-        public ForecastAhMetaModel Param { get; set; }
+        public ForecastAHMetaModel Param { get; set; }
 
-        public ForecastAh ForecastHeaderParam { get; set; }
+        public ForecastAH ForecastHeaderParam { get; set; }
 
         public ForecastValue ForecastValue { get; set; }
     }

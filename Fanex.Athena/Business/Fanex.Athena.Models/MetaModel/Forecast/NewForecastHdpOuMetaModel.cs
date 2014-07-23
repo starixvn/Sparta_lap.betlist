@@ -17,8 +17,8 @@ namespace Fanex.Athena.Models.MetaModel.Forecast
             CurrencyId = 0;
             LeagueId = 0;
             MatchId = 0;
-            IsShowFh = true;
-            IsShowFt = true;
+            IsShowFH = true;
+            IsShowFT = true;
         }
 
         public int MatchId { get; set; }
@@ -33,9 +33,9 @@ namespace Fanex.Athena.Models.MetaModel.Forecast
 
         public string AwayTeamName { get; set; }
 
-        public bool IsShowFh { get; set; }
+        public bool IsShowFH { get; set; }
 
-        public bool IsShowFt { get; set; }
+        public bool IsShowFT { get; set; }
 
         public bool IsValid
         {

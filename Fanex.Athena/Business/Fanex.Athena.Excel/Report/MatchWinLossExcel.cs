@@ -216,12 +216,12 @@ namespace Fanex.Athena.Excel.Report
                 HideRow(sheet, RowTableHeaderTemplate + 1);
             }
 
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
@@ -449,13 +449,13 @@ namespace Fanex.Athena.Excel.Report
             // Match name
             switch (exportRow["productname"].ToString())
             {
-                case Product.Rb:
+                case Product.RB:
                     formatMatchName = matchName.Replace("Race", "Race ");
                     break;
 
-                case Product.Ng:
-                case Product.Lc:
-                case Product.Vs:
+                case Product.NG:
+                case Product.LC:
+                case Product.VS:
                     formatMatchName = matchName;
                     break;
 

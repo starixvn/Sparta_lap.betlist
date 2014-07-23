@@ -8,7 +8,7 @@
 
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
     {
-        var prdOptionTitleList = productOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
+        var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
         var prdText = string.Empty;
         foreach (var prd in prdOptionTitleList)
         {

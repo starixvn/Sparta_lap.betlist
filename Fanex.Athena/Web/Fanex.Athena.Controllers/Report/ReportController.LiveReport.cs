@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                     ShowEmptyContent = true,
                     Param = metaModel,
                     CurrencyList = userSession.CurrencyList,
-                    IsAllowedNumberGame = productAccess.IsAllowNg,
+                    IsAllowedNumberGame = productAccess.IsAllowNG,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     Param = metaModel,
                     CurrencyList = userSession.CurrencyList,
-                    IsAllowedNumberGame = productAccess.IsAllowNg,
+                    IsAllowedNumberGame = productAccess.IsAllowNG,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     ProductAccess = productAccess,
@@ -145,8 +145,8 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                    BaVisible = productAccess.CanUseBa,
-                    RbVisible = productAccess.IsAllowRb
+                    BAVisible = productAccess.CanUseBA,
+                    RBVisible = productAccess.IsAllowRB
                 };
             var convertingOption = new ConvertingOption
                 {

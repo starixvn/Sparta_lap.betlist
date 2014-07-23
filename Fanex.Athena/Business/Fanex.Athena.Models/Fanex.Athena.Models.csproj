@@ -134,9 +134,9 @@
     <Compile Include="DTO\Common\Currency.cs" />
     <Compile Include="DTO\Forecast\Forecast1X2\ForecastOneXTwo.cs" />
     <Compile Include="DTO\Forecast\ForecastAH\ForecastValue.cs" />
-    <Compile Include="DTO\Forecast\ForecastAH\ForecastAh.cs" />
+    <Compile Include="DTO\Forecast\ForecastAH\ForecastAH.cs" />
     <Compile Include="DTO\Forecast\ForecastBase.cs" />
-    <Compile Include="DTO\Forecast\ForecastHDOU\ForecastHandicapOverUnder.cs" />
+    <Compile Include="DTO\Forecast\ForecastHdou\ForecastHandicapOverUnder.cs" />
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuDetailItem.cs" />
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuMatchInfo.cs" />
     <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuTotalItem.cs" />
@@ -224,7 +224,7 @@
     <Compile Include="MetaModel\Customer\RemoveFromGroupComMetaModel.cs" />
     <Compile Include="MetaModel\Customer\UpdatedCustomerComMetaModel.cs" />
     <Compile Include="MetaModel\Customer\DeleteGroupMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastAhMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastAHMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastBaseMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastHdpOuMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
@@ -275,7 +275,7 @@
     <Compile Include="ViewModel\BetList\SystemParlayDetailViewModel.cs" />
     <Compile Include="ViewModel\BetList\CustomerOutstandingViewModel.cs" />
     <Compile Include="ViewModel\BetList\DailyStatementViewModel.cs" />
-    <Compile Include="MetaModel\Casino\RGNCasinoResultMetalModel.cs" />
+    <Compile Include="MetaModel\Casino\RNGCasinoResultMetalModel.cs" />
     <Compile Include="ViewModel\Casino\RNGCasinoResultViewModel.cs" />
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
@@ -285,7 +285,7 @@
     <Compile Include="ViewModel\Customer\CustomerLog\LogInLogViewModel.cs" />
     <Compile Include="ViewModel\Customer\LogInfoViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerListViewModel.cs" />
-    <Compile Include="ViewModel\Forecast\ForecastAhViewModel.cs" />
+    <Compile Include="ViewModel\Forecast\ForecastAHViewModel.cs" />
     <Compile Include="ViewModel\Forecast\ForecastBaseViewModel.cs" />
     <Compile Include="ViewModel\Forecast\ForecastHdpOuViewModel.cs" />
     <Compile Include="ViewModel\Forecast\ForecastOneXTwoViewModel.cs" />

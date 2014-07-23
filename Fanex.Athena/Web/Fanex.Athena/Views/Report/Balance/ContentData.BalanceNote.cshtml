@@ -4,7 +4,7 @@
 <br />
 @{
     var productList = Model.ProductAccess.ProductList
-                    .Where(p => p.ProductCode != Product.Rb && p.ProductCode != Product.Ba)
+                    .Where(p => p.ProductCode != Product.RB && p.ProductCode != Product.BA)
                     .ToList();
 
     var productCodeText = string.Join(", ", productList.Select(p => p.ProductCode));

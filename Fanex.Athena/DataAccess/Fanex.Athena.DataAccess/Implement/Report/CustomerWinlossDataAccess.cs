@@ -73,14 +73,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                             TotalTransaction = reader.ToInt("betcount"),
-                            MemberWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            MemberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                            MemberTotalWl = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                            LicenseeWl = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                            BaComm = reader.ToDecimal("commba" + metaModel.BaseCurrency),
+                            MemberTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                            LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
+                            BAComm = reader.ToDecimal("commba" + metaModel.BaseCurrency),
                             RacingRevenue = reader.ToDecimal("winlossrb" + metaModel.BaseCurrency)
                                 + reader.ToDecimal("commrb" + metaModel.BaseCurrency),
-                            AmtDueToBa = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
+                            AmtDueToBA = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
                             AmtDueToRacing = reader.ToDecimal("amtduetorb" + metaModel.BaseCurrency)
                         });
                     }
@@ -94,13 +94,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             {
                                 Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency),
                                 TotalTransaction = reader.ToInt("sumbetcount"),
-                                MemberWl = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
+                                MemberWL = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
                                 PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency),
-                                LicenseeWl = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),
-                                BaComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency),
+                                LicenseeWL = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),
+                                BAComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency),
                                 RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
                                     + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency),
-                                AmtDueToBa = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
+                                AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
                                 AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency)
                             };
                             totalRows = reader.ToInt("TotalRows");

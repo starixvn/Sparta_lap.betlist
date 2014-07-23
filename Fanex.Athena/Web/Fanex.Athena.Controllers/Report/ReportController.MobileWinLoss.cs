@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
                                              {
                                                  Code = i.ProductCode,
                                                  Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.Sb
+                                                 Status = i.ProductCode == Product.SB
                                              }).ToList();
 
             SetConvetedUSDCurrencyId(metaModel);

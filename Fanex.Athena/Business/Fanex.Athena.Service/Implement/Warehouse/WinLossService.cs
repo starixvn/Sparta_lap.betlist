@@ -102,7 +102,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
                     totalValues["memberwinloss"] += entity.MemberWinLoss;
                     totalValues["memberwinlosscomm"] += entity.MemberWinLossCom;
                     totalValues["licenseewinloss"] += entity.LicenseeWinloss;
-                    totalValues["bacomm"] += entity.BaComm;
+                    totalValues["bacomm"] += entity.BAComm;
                 }
 
                 totalValues["totalrows"] = dataList.Count;

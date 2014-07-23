@@ -23,7 +23,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer
             Username = string.Empty;
             PageSize = 1000;
             PageIndex = 1;
-            BaFilter = 0;
+            BAFilter = 0;
             CustStatus = string.Empty;
             SpecialLevel = -1;
             GroupCommId = 0;
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer
 
         public int PageIndex { get; set; }
 
-        public int BaFilter { get; set; }
+        public int BAFilter { get; set; }
 
         public string CustStatus { get; set; }
 

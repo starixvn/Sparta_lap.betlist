@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                                              {
                                                  Code = i.ProductCode,
                                                  Name = i.ProductName,
-                                                 Status = i.ProductCode == Product.Sb
+                                                 Status = i.ProductCode == Product.SB
                                              }).ToList();
             metaModel.ProductOptions = productOption;
 
@@ -109,7 +109,7 @@ namespace Fanex.Athena.Controllers.Report
             var reportData = matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            if (metaModel.ProductOptions.Count(i => (i.Code == Product.Ba || i.Code == Product.Sb) && i.Status) > 0)
+            if (metaModel.ProductOptions.Count(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status) > 0)
             {
                 reportDataOutrightParlay = matchWinLossService.GetOutrightParlayList(metaModel).ToList();
             }
@@ -192,13 +192,13 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno);
             var showingOption = new ShowingOption
             {
-                BaVisible = productAccess.IsAllowBa,
-                RbVisible = productAccess.IsAllowRb,
-                NgVisible = productAccess.IsAllowNg,
-                LcVisible = productAccess.IsAllowLc,
-                SbVisible = productAccess.IsAllowSB,
-                VsVisible = productAccess.IsAllowVs,
-                KnVisible = productAccess.IsAllowKN,
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                NGVisible = productAccess.IsAllowNG,
+                LCVisible = productAccess.IsAllowLC,
+                SBVisible = productAccess.IsAllowSB,
+                VSVisible = productAccess.IsAllowVS,
+                KNVisible = productAccess.IsAllowKN,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
             var convertingOption = new ConvertingOption
@@ -243,11 +243,11 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Turnover = dataList.Sum(item => item.Turnover),
                 TotalTransaction = dataList.Sum(item => item.TotalTransaction),
-                CustomerWl = dataList.Sum(item => item.CustomerWl),
+                CustomerWL = dataList.Sum(item => item.CustomerWL),
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
-                LicenseeWl = dataList.Sum(item => item.LicenseeWl),
-                BaCommission = dataList.Sum(item => item.BaCommission),
-                AmtDueToBa = dataList.Sum(item => item.AmtDueToBa),
+                LicenseeWL = dataList.Sum(item => item.LicenseeWL),
+                BACommission = dataList.Sum(item => item.BACommission),
+                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
                 RacingRevenue = dataList.Sum(item => item.RacingRevenue),
                 AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing)
             };
@@ -269,19 +269,19 @@ namespace Fanex.Athena.Controllers.Report
                     dataListOutright.Sum(item => item.Turnover) + total.Turnover,
                 TotalTransaction =
                     dataListOutright.Sum(item => item.TotalTransaction) + total.TotalTransaction,
-                CustomerWl =
-                    dataListOutright.Sum(item => item.CustomerWl) +
-                    total.CustomerWl,
+                CustomerWL =
+                    dataListOutright.Sum(item => item.CustomerWL) +
+                    total.CustomerWL,
                 CustomerComm =
                     dataListOutright.Sum(item => item.CustomerComm) +
                     total.CustomerComm,
-                LicenseeWl =
-                    dataListOutright.Sum(item => item.LicenseeWl) +
-                    total.LicenseeWl,
-                BaCommission = dataListOutright.Sum(item => item.BaCommission) +
-                               total.BaCommission,
-                AmtDueToBa = dataListOutright.Sum(item => item.AmtDueToBa) +
-                             total.AmtDueToBa,
+                LicenseeWL =
+                    dataListOutright.Sum(item => item.LicenseeWL) +
+                    total.LicenseeWL,
+                BACommission = dataListOutright.Sum(item => item.BACommission) +
+                               total.BACommission,
+                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) +
+                             total.AmtDueToBA,
                 RacingRevenue = dataListOutright.Sum(item => item.RacingRevenue) +
                                 total.RacingRevenue,
                 AmtDueToRacing = dataListOutright.Sum(item => item.AmtDueToRacing) +
@@ -318,42 +318,42 @@ namespace Fanex.Athena.Controllers.Report
                 var betType = Converter.ToInt(row["bettype"]);
                 if (betType >= 81 && betType < 120)
                 {
-                    row["productname"] = Product.Ng;
+                    row["productname"] = Product.NG;
                     row["newproductid"] = 3;
                 }
                 else if (betType >= 31 && betType <= 33)
                 {
-                    row["productname"] = Product.Rb;
+                    row["productname"] = Product.RB;
                     row["newproductid"] = 2;
                 }
                 else if (betType >= 1101 && betType <= 1199)
                 {
-                    row["productname"] = Product.Lc;
+                    row["productname"] = Product.LC;
                     row["newproductid"] = 4;
                 }
                 else if (betType >= 1021 && betType <= 1299)
                 {
-                    row["productname"] = Product.Vs;
+                    row["productname"] = Product.VS;
                     row["newproductid"] = 5;
                 }
                 else
                 {
-                    row["productname"] = Product.Sb;
+                    row["productname"] = Product.SB;
                     row["newproductid"] = 1;
                 }
 
                 /* by Match name*/
                 switch (row["productname"].ToString())
                 {
-                    case Product.Rb:
+                    case Product.RB:
                         row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
                         break;
 
-                    case Product.Ng:
+                    case Product.NG:
                         row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
                         break;
 
-                    case Product.Lc:
+                    case Product.LC:
 
                         row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(162), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
                         break;
@@ -382,11 +382,11 @@ namespace Fanex.Athena.Controllers.Report
 
                 switch (row["productname"].ToString())
                 {
-                    case Product.Rb:
+                    case Product.RB:
                         row["leaguename"] = ViewResources.Racing + " - " + CacheRef.GetLeagueName(row["leagueid"]);
                         break;
 
-                    case Product.Ng:
+                    case Product.NG:
                         row["leaguename"] = ViewResources.NumberGame;
                         break;
 
@@ -410,12 +410,12 @@ namespace Fanex.Athena.Controllers.Report
         {
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKeno);
             var columnCount = 6;
-            if (productAccess.IsAllowBa)
+            if (productAccess.IsAllowBA)
             {
                 columnCount += 2;
             }
 
-            if (productAccess.IsAllowRb)
+            if (productAccess.IsAllowRB)
             {
                 columnCount += 2;
             }

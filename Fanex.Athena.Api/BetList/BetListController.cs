@@ -108,7 +108,7 @@ namespace Fanex.Athena.Api.BetList
                     Choice = builder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
                     Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
-                    LicenseeWl = builder.BuildLicenseeWL(ticket),
+                    LicenseeWL = builder.BuildLicenseeWL(ticket),
                     WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm),
                 };
 
@@ -151,7 +151,7 @@ namespace Fanex.Athena.Api.BetList
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWl + ticketResult.SumComm
+                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
                 },
                 LeagueName = leagueName,
             };
@@ -187,7 +187,7 @@ namespace Fanex.Athena.Api.BetList
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
             var sumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
-            var sumLicenseeWl = ticketResult.SumLicenseeWl + ticketResult.SumComm;
+            var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
             var sumWinLossText = NumberHelper.DecFormat(sumWinLoss, 2);
             var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
             sumLicenseeWlText = sumLicenseeWl < 0

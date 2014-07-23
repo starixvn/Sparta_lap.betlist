@@ -154,13 +154,13 @@ namespace Fanex.Athena.Api.Report
 
             var showingOption = new ShowingOption
             {
-                BaVisible = productAccess.IsAllowBa,
-                RbVisible = productAccess.IsAllowRb,
-                NgVisible = productAccess.IsAllowNg,
-                LcVisible = productAccess.IsAllowLc,
-                SbVisible = productAccess.IsAllowSB,
-                VsVisible = productAccess.IsAllowVs,
-                KnVisible = productAccess.IsAllowKN,
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                NGVisible = productAccess.IsAllowNG,
+                LCVisible = productAccess.IsAllowLC,
+                SBVisible = productAccess.IsAllowSB,
+                VSVisible = productAccess.IsAllowVS,
+                KNVisible = productAccess.IsAllowKN,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 

@@ -144,24 +144,24 @@ namespace Fanex.Athena.Api.Report
                 CustomerId = item.CustomerId,
                 Date = item.Date,
                 ExternalId = item.ExternalId,
-                LicenseeWLBA = item.LicenseeWL.Keys.Contains(Product.Ba) ? item.LicenseeWL[Product.Ba] : 0,
-                LicenseeWLSB = item.LicenseeWL.Keys.Contains(Product.Sb) ? item.LicenseeWL[Product.Sb] : 0,
-                LicenseeWLRB = item.LicenseeWL.Keys.Contains(Product.Rb) ? item.LicenseeWL[Product.Rb] : 0,
-                LicenseeWLNG = item.LicenseeWL.Keys.Contains(Product.Ng) ? item.LicenseeWL[Product.Ng] : 0,
-                LicenseeWLLC = item.LicenseeWL.Keys.Contains(Product.Lc) ? item.LicenseeWL[Product.Lc] : 0,
-                LicenseeWLVS = item.LicenseeWL.Keys.Contains(Product.Vs) ? item.LicenseeWL[Product.Vs] : 0,
-                LicenseeWLBG = item.LicenseeWL.Keys.Contains(Product.Bg) ? item.LicenseeWL[Product.Bg] : 0,
-                LicenseeWLCS = item.LicenseeWL.Keys.Contains(Product.Cs) ? item.LicenseeWL[Product.Cs] : 0,
-                LicenseeWLKN = item.LicenseeWL.Keys.Contains(Product.Kn) ? item.LicenseeWL[Product.Kn] : 0,
-                TurnOverBA = item.TurnOver.Keys.Contains(Product.Ba) ? item.TurnOver[Product.Ba] : 0,
-                TurnOverSB = item.TurnOver.Keys.Contains(Product.Sb) ? item.TurnOver[Product.Sb] : 0,
-                TurnOverRB = item.TurnOver.Keys.Contains(Product.Rb) ? item.TurnOver[Product.Rb] : 0,
-                TurnOverNG = item.TurnOver.Keys.Contains(Product.Ng) ? item.TurnOver[Product.Ng] : 0,
-                TurnOverLC = item.TurnOver.Keys.Contains(Product.Lc) ? item.TurnOver[Product.Lc] : 0,
-                TurnOverVS = item.TurnOver.Keys.Contains(Product.Vs) ? item.TurnOver[Product.Vs] : 0,
-                TurnOverCS = item.TurnOver.Keys.Contains(Product.Cs) ? item.TurnOver[Product.Cs] : 0,
-                TurnOverBG = item.TurnOver.Keys.Contains(Product.Bg) ? item.TurnOver[Product.Bg] : 0,
-                TurnOverKN = item.TurnOver.Keys.Contains(Product.Kn) ? item.TurnOver[Product.Kn] : 0,
+                LicenseeWlba = item.LicenseeWL.Keys.Contains(Product.BA) ? item.LicenseeWL[Product.BA] : 0,
+                LicenseeWlsb = item.LicenseeWL.Keys.Contains(Product.SB) ? item.LicenseeWL[Product.SB] : 0,
+                LicenseeWlrb = item.LicenseeWL.Keys.Contains(Product.RB) ? item.LicenseeWL[Product.RB] : 0,
+                LicenseeWlng = item.LicenseeWL.Keys.Contains(Product.NG) ? item.LicenseeWL[Product.NG] : 0,
+                LicenseeWllc = item.LicenseeWL.Keys.Contains(Product.LC) ? item.LicenseeWL[Product.LC] : 0,
+                LicenseeWlvs = item.LicenseeWL.Keys.Contains(Product.VS) ? item.LicenseeWL[Product.VS] : 0,
+                LicenseeWlbg = item.LicenseeWL.Keys.Contains(Product.BG) ? item.LicenseeWL[Product.BG] : 0,
+                LicenseeWlcs = item.LicenseeWL.Keys.Contains(Product.CS) ? item.LicenseeWL[Product.CS] : 0,
+                LicenseeWlkn = item.LicenseeWL.Keys.Contains(Product.KN) ? item.LicenseeWL[Product.KN] : 0,
+                TurnOverBA = item.TurnOver.Keys.Contains(Product.BA) ? item.TurnOver[Product.BA] : 0,
+                TurnOverSB = item.TurnOver.Keys.Contains(Product.SB) ? item.TurnOver[Product.SB] : 0,
+                TurnOverRB = item.TurnOver.Keys.Contains(Product.RB) ? item.TurnOver[Product.RB] : 0,
+                TurnOverNG = item.TurnOver.Keys.Contains(Product.NG) ? item.TurnOver[Product.NG] : 0,
+                TurnOverLC = item.TurnOver.Keys.Contains(Product.LC) ? item.TurnOver[Product.LC] : 0,
+                TurnOverVS = item.TurnOver.Keys.Contains(Product.VS) ? item.TurnOver[Product.VS] : 0,
+                TurnOverCS = item.TurnOver.Keys.Contains(Product.CS) ? item.TurnOver[Product.CS] : 0,
+                TurnOverBG = item.TurnOver.Keys.Contains(Product.BG) ? item.TurnOver[Product.BG] : 0,
+                TurnOverKN = item.TurnOver.Keys.Contains(Product.KN) ? item.TurnOver[Product.KN] : 0,
             };
         }
 
@@ -183,8 +183,8 @@ namespace Fanex.Athena.Api.Report
             var currencyList = userSession.CurrencyList;
             var showingOption = new ShowingOption
             {
-                BaVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.Ba) && productAccess.IsAllowBa,
-                RbVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.Rb) && productAccess.IsAllowRb,
+                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllowBA,
+                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllowRB,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 

@@ -17,29 +17,29 @@ namespace Fanex.Athena.Excel.Entities
         public ShowingOption()
         {
             LicenseeTypeVisible = false;
-            RbVisible = false;
-            NgVisible = false;
-            BaVisible = false;
+            RBVisible = false;
+            NGVisible = false;
+            BAVisible = false;
             CustomerComm = false;
-            LcVisible = false;
-            CsVisible = false;
-            BgVisible = false;
-            KnVisible = false;
+            LCVisible = false;
+            CSVisible = false;
+            BGVisible = false;
+            KNVisible = false;
         }
 
-        public bool BaVisible
+        public bool BAVisible
         {
             get;
             set;
         }
 
-        public bool BgVisible
+        public bool BGVisible
         {
             get;
             set;
         }
 
-        public bool CsVisible
+        public bool CSVisible
         {
             get;
             set;
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Entities
             set;
         }
 
-        public bool LcVisible
+        public bool LCVisible
         {
             get;
             set;
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Entities
         {
             get
             {
-                return BaVisible || RbVisible;
+                return BAVisible || RBVisible;
             }
         }
 
@@ -77,31 +77,31 @@ namespace Fanex.Athena.Excel.Entities
             set;
         }
 
-        public bool NgVisible
+        public bool NGVisible
         {
             get;
             set;
         }
 
-        public bool RbVisible
+        public bool RBVisible
         {
             get;
             set;
         }
 
-        public bool SbVisible
+        public bool SBVisible
         {
             get;
             set;
         }
 
-        public bool VsVisible
+        public bool VSVisible
         {
             get;
             set;
         }
 
-        public bool KnVisible
+        public bool KNVisible
         {
             get;
             set;

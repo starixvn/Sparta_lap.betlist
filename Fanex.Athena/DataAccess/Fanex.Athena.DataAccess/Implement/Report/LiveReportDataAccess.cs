@@ -216,7 +216,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     resultByBettype = new List<LiveReportByBetType>();
                     foreach (var product in products)
                     {
-                        if (product.ProductCode == Product.Ba || resultByBettype.Any(p => p.ProductName == product.ProductName))
+                        if (product.ProductCode == Product.BA || resultByBettype.Any(p => p.ProductName == product.ProductName))
                         {
                             continue;
                         }

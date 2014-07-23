@@ -100,10 +100,10 @@ namespace Fanex.Athena.Service.Implement.Report
                     TotalTransactions = g.Sum(p => p.TotalTransactions),
                     CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
                     CustomerComm = g.Sum(p => p.CustomerComm),
-                    LicenseeWl = g.Sum(p => p.LicenseeWl),
-                    BaCommission = g.Sum(p => p.BaCommission),
+                    LicenseeWL = g.Sum(p => p.LicenseeWL),
+                    BACommission = g.Sum(p => p.BACommission),
                     RacingRevenue = g.Sum(p => p.RacingRevenue),
-                    AmtDueToBa = g.Sum(p => p.AmtDueToBa),
+                    AmtDueToBA = g.Sum(p => p.AmtDueToBA),
                     AmtDueToRacing = g.Sum(p => p.AmtDueToRacing)
                 })
                            .ToList();

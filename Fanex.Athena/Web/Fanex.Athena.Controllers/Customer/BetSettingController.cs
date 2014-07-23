@@ -149,12 +149,12 @@ namespace Fanex.Athena.Controllers.Customer
                                  metaModel.LicenessId == LicenseeSpondemo;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
-            metaModel.IsAllowRacing = productAccess.IsAllowRb;
-            metaModel.IsAllowVirtualSport = productAccess.IsAllowVs;
-            metaModel.IsAllowNumberGame = productAccess.IsAllowNg;
+            metaModel.IsAllowRacing = productAccess.IsAllowRB;
+            metaModel.IsAllowVirtualSport = productAccess.IsAllowVS;
+            metaModel.IsAllowNumberGame = productAccess.IsAllowNG;
             var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
-            metaModel.IsAllowRngCasino = productAccess.IsAllowCs && customerInfo.SyncCasino;
-            metaModel.IsAllowLiveCasino = productAccess.IsAllowLc && customerInfo.SyncLiveCasino;
+            metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
+            metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
 
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;

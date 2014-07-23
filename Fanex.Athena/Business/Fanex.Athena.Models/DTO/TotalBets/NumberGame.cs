@@ -18,9 +18,9 @@ namespace Fanex.Athena.Models.DTO.TotalBets
             get { return "Number Game No " + MatchCode; }
         }
 
-        public decimal Warrior2Nd { get; set; }
+        public decimal Warrior2ND { get; set; }
 
-        public decimal Warrior3Rd { get; set; }
+        public decimal Warrior3RD { get; set; }
 
         public decimal OverUnderFirstBall { get; set; }
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Models.DTO.TotalBets
 
         public decimal NextComboOe { get; set; }
 
-        public decimal NextComboUe { get; set; }
+        public decimal NextComboUE { get; set; }
 
         public decimal OddEvenFullTime { get; set; }
 

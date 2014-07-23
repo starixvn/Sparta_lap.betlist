@@ -31,7 +31,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 
         public string Currency { get; set; }
 
-        public decimal BaComm { get; set; }
+        public decimal BAComm { get; set; }
 
         public decimal LicenseeWinLoss
         {

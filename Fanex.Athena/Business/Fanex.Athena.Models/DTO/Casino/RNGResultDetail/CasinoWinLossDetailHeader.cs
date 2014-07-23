@@ -61,6 +61,7 @@ namespace Fanex.Athena.Models.DTO.Casino.RNGResultDetail
 
         public string FreeSpinResult { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods", Justification = "Reviewed.")]
         public string Type { get; set; }
 
         public string Multiplier { get; set; }

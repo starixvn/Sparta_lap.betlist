@@ -70,11 +70,11 @@ namespace Fanex.Athena.Controllers.WareHouse
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
                 {
-                    BaVisible = productAccess.IsAllowBa,
-                    RbVisible = productAccess.IsAllowRb,
+                    BAVisible = productAccess.IsAllowBA,
+                    RBVisible = productAccess.IsAllowRB,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    NgVisible = productAccess.IsAllowNg,
-                    SbVisible = productAccess.IsAllowSB
+                    NGVisible = productAccess.IsAllowNG,
+                    SBVisible = productAccess.IsAllowSB
                 };
             var viewByCurrency = string.Format(
                 FormatCurrency,

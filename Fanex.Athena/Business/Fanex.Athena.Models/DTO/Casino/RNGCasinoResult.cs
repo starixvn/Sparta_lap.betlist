@@ -97,7 +97,7 @@ namespace Fanex.Athena.Models.DTO.Casino
         {
             get
             {
-                return RNGCasinoSetting.SPECIALGAMES.Contains(GameTypeNo);
+                return RNGCasinoSetting.SpecialGames.Contains(GameTypeNo);
             }
         }
     }

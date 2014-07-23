@@ -97,7 +97,7 @@ namespace Fanex.Athena.Api.Report
                 TurnOver = dataList.Sum(x => x.TurnOver),
                 CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
                 LicenseeWL = dataList.Sum(x => x.LicenseeWL),
-                BaCommission = dataList.Sum(x => x.BaCommission),
+                BACommission = dataList.Sum(x => x.BACommission),
                 AmountDue = dataList.Sum(x => x.AmountDue)
             };
         }

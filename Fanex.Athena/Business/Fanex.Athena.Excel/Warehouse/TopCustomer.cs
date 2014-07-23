@@ -141,7 +141,7 @@ namespace Fanex.Athena.Excel.Warehouse
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Only show LicenseeWL if licensee doesn't have NG
-            if (!ShowingOption.NgVisible)
+            if (!ShowingOption.NGVisible)
             {
                 sheet.GetCell(RowTableHeaderTemplate, ColumnLicenseeWl).SetCellValue(ViewResources.LicenseeWL);
             }

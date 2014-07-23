@@ -11,15 +11,15 @@ namespace Fanex.Athena.Models.MetaModel.Product
     /// </summary>
     public class ProductOptionMetaModel
     {
-        public bool ShowSb { get; set; }
+        public bool ShowSB { get; set; }
 
-        public bool ShowRb { get; set; }
+        public bool ShowRB { get; set; }
 
-        public bool ShowNg { get; set; }
+        public bool ShowNG { get; set; }
 
-        public bool ShowBa { get; set; }
+        public bool ShowBA { get; set; }
 
-        public bool ShowLc { get; set; }
+        public bool ShowLC { get; set; }
 
         public int LabelSpan { get; set; }
 

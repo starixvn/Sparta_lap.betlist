@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RGNCasinoResultMetalModel.cs" company="Microsoft">
+// <copyright file="RNGCasinoResultMetalModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Fanex.Athena.Models.MetaModel.Casino
     /// RGNCasinoResultMetalModel class.
     /// </summary>
     [Serializable]
-    public class RGNCasinoResultMetalModel
+    public class RNGCasinoResultMetalModel
     {
         public long RefNo { get; set; }
 

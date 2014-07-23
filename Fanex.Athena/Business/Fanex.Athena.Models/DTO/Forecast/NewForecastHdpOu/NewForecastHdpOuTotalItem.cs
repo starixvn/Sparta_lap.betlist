@@ -11,6 +11,7 @@ namespace Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu
     /// </summary>
     public class NewForecastHdpOuTotalItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods", Justification = "Reviewed.")]
         public int Type { get; set; }
 
         public int TicketNo { get; set; }

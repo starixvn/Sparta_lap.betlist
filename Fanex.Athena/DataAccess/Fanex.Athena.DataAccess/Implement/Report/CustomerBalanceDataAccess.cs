@@ -75,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             PendingFunds = reader.ToDecimal("outstanding"),
                             WinLoss = reader.ToDecimal("winloss"),
                             PlayerComm = reader.ToDecimal("playercomm"),
-                            TotalWl = reader.ToDecimal("winloss") + reader.ToDecimal("playercomm"),
+                            TotalWL = reader.ToDecimal("winloss") + reader.ToDecimal("playercomm"),
                             AffiliateTransfer = reader.ToDecimal("affiliatetransfer"),
                             ClosingBalance = reader.ToDecimal("closingbalance"),
                             TurnoverBA = reader.ToDecimal("TurnOverBA"),
@@ -106,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 CommBA = reader.ToDecimal("sumcommba"),
                                 AmountDueToBA = reader.ToDecimal("sumamountduetoba"),
                                 PlayerComm = reader.ToDecimal("sumplayercomm"),
-                                TotalWl = reader.ToDecimal("sumwinloss") +
+                                TotalWL = reader.ToDecimal("sumwinloss") +
                                             reader.ToDecimal("sumplayercomm")
                             };
 

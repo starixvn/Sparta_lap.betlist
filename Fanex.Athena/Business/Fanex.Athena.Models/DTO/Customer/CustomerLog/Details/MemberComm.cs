@@ -15,16 +15,16 @@ namespace Fanex.Athena.Models.DTO.Customer.CustomerLog.Details
 
         public int GroupIdOld { get; set; }
 
-        public decimal SbComm { get; set; }
+        public decimal SBComm { get; set; }
 
-        public decimal RbComm { get; set; }
+        public decimal RBComm { get; set; }
 
-        public decimal NgComm { get; set; }
+        public decimal NGComm { get; set; }
 
-        public decimal SbCommOld { get; set; }
+        public decimal SBCommOld { get; set; }
 
-        public decimal RbCommOld { get; set; }
+        public decimal RBCommOld { get; set; }
 
-        public decimal NgCommOld { get; set; }
+        public decimal NGCommOld { get; set; }
     }
 }

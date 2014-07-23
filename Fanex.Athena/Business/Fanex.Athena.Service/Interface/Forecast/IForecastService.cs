@@ -14,7 +14,7 @@ namespace Fanex.Athena.Service.Interface.Forecast
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
     using Models.DTO.Forecast.Forecast1X2;
     using Models.DTO.Forecast.ForecastAH;
-    using Models.DTO.Forecast.ForecastHDOU;
+    using Models.DTO.Forecast.ForecastHdou;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;
 
@@ -25,11 +25,11 @@ namespace Fanex.Athena.Service.Interface.Forecast
     {
         #region Forecast AH
 
-        ForecastAh GetFcTopOddsByMatch(int matchId, int betType);
+        ForecastAH GetFcTopOddsByMatch(int matchId, int betType);
 
-        ForecastValue GetForecastHandicap(ForecastAhMetaModel metaModel, int userId);
+        ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
 
-        ForecastValue GetForacastOverUnder(ForecastAhMetaModel metaModel, int userId);
+        ForecastValue GetForacastOverUnder(ForecastAHMetaModel metaModel, int userId);
 
         #endregion Forecast AH
 

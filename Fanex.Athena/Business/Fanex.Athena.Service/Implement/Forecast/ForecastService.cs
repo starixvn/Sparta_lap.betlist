@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Implement.Forecast
     using Interface.Forecast;
     using Models.DTO.Forecast.Forecast1X2;
     using Models.DTO.Forecast.ForecastAH;
-    using Models.DTO.Forecast.ForecastHDOU;
+    using Models.DTO.Forecast.ForecastHdou;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;
 
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Service.Implement.Forecast
         /// <param name="matchId">The match id.</param>
         /// <param name="betType">The bet type.</param>
         /// <returns>The Forecast data.</returns>
-        public ForecastAh GetFcTopOddsByMatch(int matchId, int betType)
+        public ForecastAH GetFcTopOddsByMatch(int matchId, int betType)
         {
             return _forecastDataAccess.GetFcTopOddsByMatch(matchId, betType);
         }
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Service.Implement.Forecast
         /// <param name="metaModel">The metal model.</param>
         /// <param name="userId">The user id.</param>
         /// <returns>The forecast handicap data.</returns>
-        public ForecastValue GetForecastHandicap(ForecastAhMetaModel metaModel, int userId)
+        public ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             var dtfcHandicap = _forecastDataAccess.GetForecastHandicap(metaModel, userId);
             var fcresult = new ForecastValue();
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Service.Implement.Forecast
         /// <param name="metaModel">The metal model.</param>
         /// <param name="userId">The user id.</param>
         /// <returns>The forecast over under data.</returns>
-        public ForecastValue GetForacastOverUnder(ForecastAhMetaModel metaModel, int userId)
+        public ForecastValue GetForacastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             var dtoverUnder = _forecastDataAccess.GetForecastOverUnder(metaModel, userId);
             var ouresult = new ForecastValue();

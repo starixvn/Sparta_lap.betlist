@@ -228,12 +228,12 @@ namespace Fanex.Athena.Excel.Report
                 sheet.GetCell(RowTableHeaderTemplate, ColumnCustomerWinLoss).SetCellValue(ViewResources.WinLoss);
             }
 
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnTurnoverBa, ColumnCommBa, ColumnAmountDueToBa);
             }
 
-            if (!ShowingOption.CustomerCommVisible && !ShowingOption.BaVisible)
+            if (!ShowingOption.CustomerCommVisible && !ShowingOption.BAVisible)
             {
                 HideRow(sheet, RowTableHeaderTemplate + 1);
             }

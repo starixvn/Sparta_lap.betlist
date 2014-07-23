@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                                                  {
                                                      Code = i.ProductCode,
                                                      Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.Sb
+                                                     Status = i.ProductCode == Product.SB
                                                  }).ToList();
 
             metaModel.ProductOptions = productOption;            
@@ -95,7 +95,7 @@ namespace Fanex.Athena.Controllers.Report
                                                  {
                                                      Code = i.ProductCode,
                                                      Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.Sb
+                                                     Status = i.ProductCode == Product.SB
                                                  }).ToList();
 
             historyParam.ProductOptions = productOption;
@@ -228,14 +228,14 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    BaVisible = productAccess.IsAllowBa,
-                    RbVisible = productAccess.IsAllowRb,
-                    NgVisible = productAccess.IsAllowNg,
-                    LcVisible = productAccess.IsAllowLc,
-                    SbVisible = productAccess.IsAllowSB,
-                    VsVisible = productAccess.IsAllowVs,
-                    CsVisible = productAccess.IsAllowCs,
-                    BgVisible = productAccess.IsAllowBg,
+                    BAVisible = productAccess.IsAllowBA,
+                    RBVisible = productAccess.IsAllowRB,
+                    NGVisible = productAccess.IsAllowNG,
+                    LCVisible = productAccess.IsAllowLC,
+                    SBVisible = productAccess.IsAllowSB,
+                    VSVisible = productAccess.IsAllowVS,
+                    CSVisible = productAccess.IsAllowCS,
+                    BGVisible = productAccess.IsAllowBG,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 
@@ -274,12 +274,12 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    BaVisible = productAccess.IsAllowBa,
-                    RbVisible = productAccess.IsAllowRb,
-                    NgVisible = productAccess.IsAllowNg,
-                    LcVisible = productAccess.IsAllowLc,
-                    SbVisible = productAccess.IsAllowSB,
-                    VsVisible = productAccess.IsAllowVs,
+                    BAVisible = productAccess.IsAllowBA,
+                    RBVisible = productAccess.IsAllowRB,
+                    NGVisible = productAccess.IsAllowNG,
+                    LCVisible = productAccess.IsAllowLC,
+                    SBVisible = productAccess.IsAllowSB,
+                    VSVisible = productAccess.IsAllowVS,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 

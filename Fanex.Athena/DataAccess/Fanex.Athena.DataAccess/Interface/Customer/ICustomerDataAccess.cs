@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel);
 
-        IResultInfo UpdateCustomerBaStatus(int licenseeId, int custId, int modifiedBy, bool allowBa, Request request);
+        IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
 
         IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel);
 

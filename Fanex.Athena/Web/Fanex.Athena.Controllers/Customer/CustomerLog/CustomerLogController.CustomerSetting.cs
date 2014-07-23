@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
                 MainData = new List<CustomerLog>()
             };
 
-            model.Param.IsAllowBA = productOption.IsAllowBa;
+            model.Param.IsAllowBA = productOption.IsAllowBA;
             model.Param.IsAllowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return View("~/Views/Customer/CustomerLog/CustomerSettingLog/Main.cshtml", model);

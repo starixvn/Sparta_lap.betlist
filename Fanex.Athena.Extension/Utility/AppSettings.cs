@@ -90,7 +90,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHrUk
+        public static bool EnableRacingHRUk
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHrSa
+        public static bool EnableRacingHRSa
         {
             get
             {
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHrAust
+        public static bool EnableRacingHRAust
         {
             get
             {

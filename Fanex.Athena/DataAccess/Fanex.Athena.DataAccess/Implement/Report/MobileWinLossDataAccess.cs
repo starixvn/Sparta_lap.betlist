@@ -112,10 +112,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
-                    LicenseeWl = reader.ToDecimal(licenseeWlColumn),
-                    BaCommission = reader.ToDecimal(commBaColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                    BACommission = reader.ToDecimal(commBaColumn),
                     RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
-                    AmtDueToBa = reader.ToDecimal(amtDueToBaComumn),
+                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
                     AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency")
                 };
@@ -135,10 +135,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     summaryTotal[c].Turnover += reader.ToDecimal("Turnover" + c);
                     summaryTotal[c].CustomerWinLoss += reader.ToDecimal("Winlost" + c);
                     summaryTotal[c].CustomerComm += reader.ToDecimal("PlayerComm" + c);
-                    summaryTotal[c].LicenseeWl += reader.ToDecimal("LicenseeWL" + c);
-                    summaryTotal[c].BaCommission += reader.ToDecimal("CommBA" + c);
+                    summaryTotal[c].LicenseeWL += reader.ToDecimal("LicenseeWL" + c);
+                    summaryTotal[c].BACommission += reader.ToDecimal("CommBA" + c);
                     summaryTotal[c].RacingRevenue += reader.ToDecimal("WinlossRB" + c) + reader.ToDecimal("CommRB" + c);
-                    summaryTotal[c].AmtDueToBa += reader.ToDecimal("AmtDueToBA" + c);
+                    summaryTotal[c].AmtDueToBA += reader.ToDecimal("AmtDueToBA" + c);
                     summaryTotal[c].AmtDueToRacing += reader.ToDecimal("AmtDueToRB" + c);
                 }
             }

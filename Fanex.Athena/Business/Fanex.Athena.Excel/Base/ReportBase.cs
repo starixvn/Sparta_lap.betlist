@@ -373,7 +373,7 @@ namespace Fanex.Athena.Excel.Base
         protected virtual string GetLicenseeWLProduct()
         {
             var prdOptionTitleList =
-                ProductOptions.Where(p => p.Code != Product.Ba && p.Code != Product.Rb);
+                ProductOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
             var prdText = prdOptionTitleList.Where(prd => prd.Status)
                             .Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd.Code : ", " + prd.Code));
 

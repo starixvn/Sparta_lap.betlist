@@ -57,7 +57,7 @@ namespace Fanex.Athena.Models.DTO.Users
         {
             get
             {
-                return FunctionIdList != null && FunctionIdList.Contains((int)FunctionType.SpecialBa);
+                return FunctionIdList != null && FunctionIdList.Contains((int)FunctionType.SpecialBA);
             }
         }
 

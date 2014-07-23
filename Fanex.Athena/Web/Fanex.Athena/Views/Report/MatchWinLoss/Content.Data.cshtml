@@ -115,20 +115,20 @@
                     </td>
                 }
                 }
-                @if (Model.ProductAccess.IsAllowRb)
+                @if (Model.ProductAccess.IsAllowRB)
                 {
                     <td class="highlight" style="width: 70px">
                         @RazorHelper.NegativeFormat(matchWinLoss.RacingRevenue)
                         @string.Empty
                     </td>
                 }
-                @if (Model.ProductAccess.IsAllowBa)
+                @if (Model.ProductAccess.IsAllowBA)
                 {
                     <td style="width: 70px">
                         @NumberHelper.DecFormat(matchWinLoss.AmtDueToBa)
                     </td>
                 }
-                @if (Model.ProductAccess.IsAllowRb)
+                @if (Model.ProductAccess.IsAllowRB)
                 {
                     <td style="width: 70px">
                         @NumberHelper.DecFormat(matchWinLoss.AmtDueToRacing)

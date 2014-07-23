@@ -16,23 +16,23 @@ namespace Fanex.Athena.Models.DTO.Common
     {
         #region Field
 
-        public const string Sb = "SB";
+        public const string SB = "SB";
 
-        public const string Rb = "RB";
+        public const string RB = "RB";
 
-        public const string Ng = "NG";
+        public const string NG = "NG";
 
-        public const string Ba = "BA";
+        public const string BA = "BA";
 
-        public const string Lc = "LC";
+        public const string LC = "LC";
 
-        public const string Vs = "VS";
+        public const string VS = "VS";
 
-        public const string Cs = "CS";
+        public const string CS = "CS";
 
-        public const string Bg = "BG";
+        public const string BG = "BG";
       
-        public const string Kn = "KN";
+        public const string KN = "KN";
       
         #endregion Field
 
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Models.DTO.Common
 
         public Product()
         {
-            ProductCode = Sb;
+            ProductCode = SB;
             ProductName = "SB";
             AllowCommission = true;
             AllowWinloss = true;

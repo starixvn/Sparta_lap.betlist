@@ -24,32 +24,32 @@
         }
         else
         {
-            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWL)
             </td>
         }
         <td class="highlight" style="width: 85px">
-            @RazorHelper.NegativeFormat(dataTotal.LicenseeWl)
+            @RazorHelper.NegativeFormat(dataTotal.LicenseeWL)
         </td>
         @{
-        if (Model.ProductAccess.IsAllowBa)
+        if (Model.ProductAccess.IsAllowBA)
         {
             <td class="highlight" style="width: 60px">
-                @RazorHelper.NegativeFormat(dataTotal.BaCommission)
+                @RazorHelper.NegativeFormat(dataTotal.BACommission)
             </td>
         }
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td class="highlight" style="width: 70px">
                 @RazorHelper.NegativeFormat(dataTotal.RacingRevenue)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
-            <td style="width: 70px">@NumberHelper.DecFormat(@dataTotal.AmtDueToBa, 2)
+            <td style="width: 70px">@NumberHelper.DecFormat(@dataTotal.AmtDueToBA, 2)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td style="width: 70px">@NumberHelper.DecFormat(@dataTotal.AmtDueToRacing, 2)
             </td>
@@ -71,39 +71,39 @@
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL)
             </td>
             <td>@NumberHelper.DecFormat(itemOutRight.CustomerComm)
             </td>
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl + itemOutRight.CustomerComm)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL + itemOutRight.CustomerComm)
             </td>
         }
         else
         {
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWl)
+            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL)
             </td>
         }
         <td class="highlight">
-            @RazorHelper.NegativeFormat(@itemOutRight.LicenseeWl)
+            @RazorHelper.NegativeFormat(@itemOutRight.LicenseeWL)
         </td>
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <td class="highlight">
-                @RazorHelper.NegativeFormat(itemOutRight.BaCommission)
+                @RazorHelper.NegativeFormat(itemOutRight.BACommission)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td class="highlight">
                 @RazorHelper.NegativeFormat(itemOutRight.RacingRevenue)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
-            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToBa)
+            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToBA)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToRacing)
             </td>

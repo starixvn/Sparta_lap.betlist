@@ -110,10 +110,10 @@ namespace Fanex.Athena.Service.Interface.Customer
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="custId">The customer id.</param>
         /// <param name="modifiedBy">The user who updated customer.</param>
-        /// <param name="allowBa">Allowable BA.</param>
+        /// <param name="allowBA">Allowable BA.</param>
         /// <param name="request">The request info.</param>
         /// <returns>The result.</returns>
-        IResultInfo UpdateCustomerBaStatus(int licenseeId, int custId, int modifiedBy, bool allowBa, Request request);
+        IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
 
         /// <summary>
         ///  Update customer commission setting.

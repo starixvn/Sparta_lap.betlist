@@ -21,19 +21,19 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public int TotalTransaction { get; set; }
 
-        public decimal MemberWl { get; set; }
+        public decimal MemberWL { get; set; }
 
         public decimal PlayerComm { get; set; }
 
-        public decimal MemberTotalWl { get; set; }
+        public decimal MemberTotalWL { get; set; }
 
-        public decimal LicenseeWl { get; set; }
+        public decimal LicenseeWL { get; set; }
 
-        public decimal BaComm { get; set; }
+        public decimal BAComm { get; set; }
 
         public decimal RacingRevenue { get; set; }
 
-        public decimal AmtDueToBa { get; set; }
+        public decimal AmtDueToBA { get; set; }
 
         public decimal AmtDueToRacing { get; set; }
     }

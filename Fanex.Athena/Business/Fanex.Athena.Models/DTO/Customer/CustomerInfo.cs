@@ -17,7 +17,7 @@ namespace Fanex.Athena.Models.DTO.Customer
 
         public bool AutoSuspend { get; set; }
 
-        public bool DisableAutoMPT { get; set; }
+        public bool DisableAutoMpt { get; set; }
 
         public bool DisableHorseracing { get; set; }
 

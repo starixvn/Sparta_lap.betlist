@@ -51,11 +51,11 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal RacingRevenue { get; set; }
 
-        public decimal RbComm { get; set; }
+        public decimal RBComm { get; set; }
 
         public decimal RacingWinLoss
         {
-            get { return RacingRevenue + RbComm; }
+            get { return RacingRevenue + RBComm; }
         }
 
         public decimal AmtDueToBA { get; set; }

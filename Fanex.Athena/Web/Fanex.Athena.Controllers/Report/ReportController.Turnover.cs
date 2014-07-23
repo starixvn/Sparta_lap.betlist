@@ -46,12 +46,12 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyId(metaModel);
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
-            var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.Ba) == false)
+            var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
                                              .Select(i => new ProductOption
                                                  {
                                                      Code = i.ProductCode,
                                                      Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.Sb
+                                                     Status = i.ProductCode == Product.SB
                                                  }).ToList();
 
             metaModel.ProductOptions = productOption;
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    BaVisible = productAccess.CanUseBa
+                    BAVisible = productAccess.CanUseBA
                 };
 
             viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?

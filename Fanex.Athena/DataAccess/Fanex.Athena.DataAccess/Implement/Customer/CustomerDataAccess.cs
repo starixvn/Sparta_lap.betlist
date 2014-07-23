@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("username", DbType.String, metaModel.Username);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                     db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                    db.AddInParameter("BAFilter", DbType.Int32, metaModel.BaFilter);
+                    db.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
                     db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
                     db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
@@ -116,7 +116,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                             ExternalId = dr["nickname"].ToString(),
                             IsClosed = Converter.ToBool(dr["closed"]),
                             IsSuspended = Converter.ToBool(dr["suspended"]),
-                            BaStatus = Converter.ToBool(dr["BAStatus"]),
+                            BAStatus = Converter.ToBool(dr["BAStatus"]),
                             SpecialLevel = Converter.ToInt(dr["SpecialLevel"]),
                             IsPowerBAUserTurnoff = Converter.ToBool(dr["IsPowerBAUserTurnoff"]),
                             AvailableFunds = Converter.ToDecimal(dr[availableFundsCol]),
@@ -124,11 +124,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                             GroupCommId = Converter.ToInt(dr["GroupCommId"]),
                             GroupColor = dr["GroupColor"].ToString(),
                             Group = dr["GroupName"].ToString(),
-                            SbComm = Convert.ToDecimal(dr["SBComm"]) * 100,
-                            RbComm = Convert.ToDecimal(dr["RacingComm"]) * 100,
-                            NgComm = Convert.ToDecimal(dr["NGComm"]) * 100,
-                            LcComm = Convert.ToDecimal(dr["LCComm"]) * 100,
-                            CsComm = Convert.ToDecimal(dr["RNGComm"]) * 100
+                            SBComm = Convert.ToDecimal(dr["SBComm"]) * 100,
+                            RBComm = Convert.ToDecimal(dr["RacingComm"]) * 100,
+                            NGComm = Convert.ToDecimal(dr["NGComm"]) * 100,
+                            LCComm = Convert.ToDecimal(dr["LCComm"]) * 100,
+                            CSComm = Convert.ToDecimal(dr["RNGComm"]) * 100
                         };
 
                         cust.Status = cust.IsClosed ? ViewResources.Closed : cust.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
@@ -354,10 +354,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <param name="licenseeId">Licensee ID value.</param>
         /// <param name="custId">Customer ID value.</param>
         /// <param name="modifiedBy">Modify by value.</param>
-        /// <param name="allowBa">Allow BA value.</param>
+        /// <param name="allowBA">Allow BA value.</param>
         /// <param name="request">Request value.</param>
         /// <returns>The result value.</returns>
-        public IResultInfo UpdateCustomerBaStatus(int licenseeId, int custId, int modifiedBy, bool allowBa, Request request)
+        public IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request)
         {
             const string UspName = "Lrf_CustomerUpdMemberBAStatus";
             try
@@ -367,7 +367,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     db.AddInParameter("CustID", DbType.String, custId);
                     db.AddInParameter("ModifyBy", DbType.String, modifiedBy);
-                    db.AddInParameter("IsBA", DbType.Boolean, allowBa);
+                    db.AddInParameter("IsBA", DbType.Boolean, allowBA);
                     db.AddInParameter("langkey", DbType.String, request.Language);
                     db.AddInParameter("IP", DbType.String, request.Ip);
                     AddResultParam(db);

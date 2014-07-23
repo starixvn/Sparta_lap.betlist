@@ -82,7 +82,7 @@
     </form>
     @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
-    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBa)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.CanUseRacing)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
     <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />

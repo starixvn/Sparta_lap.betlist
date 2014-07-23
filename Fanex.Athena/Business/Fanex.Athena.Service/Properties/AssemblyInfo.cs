@@ -9,11 +9,38 @@
 
 #region
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 #endregion
 
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace", 
+    Target = "Fanex.Athena.Service.Interface.BetList", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Casino", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Common", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Configuration", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Customer", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Customer.CustomerLog", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Forecast", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Integration", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Keno", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Report", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.TotalBets", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Users", MessageId = "Interface", Justification = "Reviewed.")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
+    Target = "Fanex.Athena.Service.Interface.Warehouse", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: System.CLSCompliant(true)]
 
 /* General Information about an assembly is controlled through the following

@@ -37,47 +37,47 @@ namespace Fanex.Athena.Models.MetaModel.Customer
         [Required]
         public decimal SBComm { get; set; }
 
-        public int SbComm1 { get; set; }
+        public int SBComm1 { get; set; }
 
-        public int SbComm2 { get; set; }
+        public int SBComm2 { get; set; }
 
-        public int SbComm3 { get; set; }
+        public int SBComm3 { get; set; }
 
         [Required]
         public decimal RCComm { get; set; }
 
-        public int RcComm1 { get; set; }
+        public int RCComm1 { get; set; }
 
-        public int RcComm2 { get; set; }
+        public int RCComm2 { get; set; }
 
-        public int RcComm3 { get; set; }
+        public int RCComm3 { get; set; }
 
         [Required]
         public decimal NGComm { get; set; }
 
-        public int NgComm1 { get; set; }
+        public int NGComm1 { get; set; }
 
-        public int NgComm2 { get; set; }
+        public int NGComm2 { get; set; }
 
-        public int NgComm3 { get; set; }
+        public int NGComm3 { get; set; }
 
         [Required]
         public decimal LCComm { get; set; }
 
-        public int LcComm1 { get; set; }
+        public int LCComm1 { get; set; }
 
-        public int LcComm2 { get; set; }
+        public int LCComm2 { get; set; }
 
-        public int LcComm3 { get; set; }
+        public int LCComm3 { get; set; }
 
         [Required]
         public decimal CSComm { get; set; }
 
-        public int CsComm1 { get; set; }
+        public int CSComm1 { get; set; }
 
-        public int CsComm2 { get; set; }
+        public int CSComm2 { get; set; }
 
-        public int CsComm3 { get; set; }
+        public int CSComm3 { get; set; }
 
         [Required]
         public string GroupColor { get; set; }

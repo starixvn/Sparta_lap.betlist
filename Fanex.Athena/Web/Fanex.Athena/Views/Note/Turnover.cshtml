@@ -7,11 +7,11 @@
 @model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
 
 @section content{
-    @if (Model.ProductList.Any(p => p.ProductCode == Product.Ba))
+    @if (Model.ProductList.Any(p => p.ProductCode == Product.BA))
     {
         <li>@ViewResources.BaTurnoverReferenceNote</li>
     } 
-    @if (Model.ProductList.Any(p => p.ProductCode == Product.Cs || p.ProductCode == Product.Bg))
+    @if (Model.ProductList.Any(p => p.ProductCode == Product.CS || p.ProductCode == Product.BG))
     {
         <li>@ViewResources.RngCasinoAndBingoExcludedNote </li>
     }

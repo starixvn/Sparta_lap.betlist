@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IResultInfo IsAllowUpdateMemberBaStatus(Request request, int licenseeId, out bool isAllow);
+        IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow);
 
         int GetBelongingStatus(int licenseeId, int custId);
 

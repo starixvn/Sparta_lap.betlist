@@ -20,12 +20,12 @@
     ViewBag.CommWidth = 90;
 
     ViewBag.ColumnCount = 6;
-    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? 1 : 0;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBA || Model.ProductAccess.IsAllowRB ? 1 : 0;
     ViewBag.ContainerWidth = ViewBag.ProductWidth +
                 (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth) +
                 ViewBag.TurnoverWidth + ViewBag.BetCountWidth +
                 ViewBag.LicenseeWLWidth +
-                (Model.ProductAccess.IsAllowBa || Model.ProductAccess.IsAllowRb ? ViewBag.CommWidth : 0) +
+                (Model.ProductAccess.IsAllowBA || Model.ProductAccess.IsAllowRB ? ViewBag.CommWidth : 0) +
                 ViewBag.AmountDueWidth;
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;

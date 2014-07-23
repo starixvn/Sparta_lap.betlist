@@ -37,7 +37,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlayerComm { get; set; }
 
-        public decimal TotalWl { get; set; }
+        public decimal TotalWL { get; set; }
 
         public decimal ClosingBalance { get; set; }
 

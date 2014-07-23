@@ -111,23 +111,23 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         {
             switch (produtCode)
             {
-                case Product.Sb:
+                case Product.SB:
                     return ViewResources.Sportsbook;
-                case Product.Ba:
+                case Product.BA:
                     return ViewResources.BA;
-                case Product.Rb:
+                case Product.RB:
                   return ViewResources.Racing;
-                case Product.Ng:
+                case Product.NG:
                   return ViewResources.NumberGame;
-                case Product.Vs:
+                case Product.VS:
                   return ViewResources.VirtualSports;
-                case Product.Lc:
+                case Product.LC:
                   return ViewResources.LiveCasino;
-                case Product.Bg:
+                case Product.BG:
                   return ViewResources.Bingo;
-                case Product.Cs:
+                case Product.CS:
                   return ViewResources.RNGCasino;
-                case Product.Kn:
+                case Product.KN:
                   return ViewResources.Keno;
             }
 

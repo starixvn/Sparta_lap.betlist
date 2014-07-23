@@ -15,7 +15,7 @@ namespace Fanex.Athena.Models.DTO.Forecast.ForecastAH
     /// <summary>
     /// ForecastAh class.
     /// </summary>
-    public class ForecastAh
+    public class ForecastAH
     {
         private string _homeTeamName;
 

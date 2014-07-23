@@ -94,7 +94,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
                 totalValues["memberwinloss"] = dataList.Sum(x => x.MemberWinLoss);
                 totalValues["memberwinlosscomm"] = dataList.Sum(x => x.MemberWinLossCom);
                 totalValues["licenseewinloss"] = dataList.Sum(x => x.LicenseeWinLoss);
-                totalValues["bacomm"] = dataList.Sum(x => x.BaComm);
+                totalValues["bacomm"] = dataList.Sum(x => x.BAComm);
 
                 totalValues["totalrows"] = dataList.Count;
             }

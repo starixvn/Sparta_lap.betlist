@@ -36,7 +36,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The RNG Casino result list.</returns>
-        public List<RNGCasinoResult> GetRNGCasinoResult(RGNCasinoResultMetalModel metaModel)
+        public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetalModel metaModel)
         {
             List<RNGCasinoResult> casinos;
             DataTable dataTable;
@@ -176,20 +176,20 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <param name="casinos">The casino result.</param>
         /// <param name="dataTable">The data table.</param>
         private static void GetResultFromAPI(
-            RGNCasinoResultMetalModel metalModel,
+            RNGCasinoResultMetalModel metalModel,
             out List<RNGCasinoResult> casinos,
             out DataTable dataTable)
         {
             casinos = new List<RNGCasinoResult>();
             var casinoLib = new CasinoLibrary.SBAgent.Report();
-            dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting._CASINO_GROUP1, metalModel.IsShowPic);
+            dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
             if (dataTable == null)
             {
                 dataTable = casinoLib.RealTimeWinLossHandHistory(
                 metalModel.FromDate,
                 metalModel.ToDate,
                 metalModel.CustId,
-                RNGCasinoSetting._CASINO_GROUP1,
+                RNGCasinoSetting.CasinoGroup1,
                 metalModel.IsShowPic);
             }
         }

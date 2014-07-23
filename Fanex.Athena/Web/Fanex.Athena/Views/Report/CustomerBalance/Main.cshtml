@@ -16,7 +16,7 @@
 }
 @{  // Set width
     ViewBag.ColumnCount = 15;
-    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 1 : 0;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBA ? 1 : 0;
 
     ViewBag.NumberWidth = 40;
     ViewBag.ExternalIdWidth = 120;
@@ -48,7 +48,7 @@
     + ViewBag.NetTurnoverWidth + ViewBag.PendingFundsWidth
     + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth)
     + ViewBag.ClosingBalanceWidth + ViewBag.AffiliateTransferWidth
-    + (Model.ProductAccess.IsAllowBa ? ViewBag.BaMergeWidth : 0);
+    + (Model.ProductAccess.IsAllowBA ? ViewBag.BaMergeWidth : 0);
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount - 1;
     ViewBag.FilterWidth = ViewBag.ContainerWidth > 1075 ? 1075 : ViewBag.ContainerWidth;

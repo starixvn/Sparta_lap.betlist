@@ -25,7 +25,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer
 
         public IList<GroupCommMetaModel> GroupCommDataList { get; set; }
 
-        public string BaTimeCheck { get; set; }
+        public string BATimeCheck { get; set; }
 
         public bool CanUpdateBA { get; set; }
 

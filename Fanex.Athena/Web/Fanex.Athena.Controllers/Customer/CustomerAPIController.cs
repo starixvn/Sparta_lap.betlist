@@ -174,7 +174,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// Update customer BA status.
         /// </summary>
         /// <param name="custId">The customer id.</param>
-        /// <param name="isAllowBa">Allowed BA if ISALLOWBA equals true.</param>
+        /// <param name="isAllowBA">Allowed BA if ISALLOWBA equals true.</param>
         /// <returns>The action result.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -182,21 +182,21 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
-        public ActionResult UpdateBaStatus(int custId, bool isAllowBa)
+        public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            if (!productAccess.IsAllowBa)
+            if (!productAccess.IsAllowBA)
             {
                 return Json(new
                     {
                         IsSuccessful = false,
                         Message = ViewResources.NotAllowBA,
-                        IsBA = isAllowBa,
-                        BAStatus = isAllowBa ? "On" : "Off",
-                        ConfirmMessage = isAllowBa ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBa ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                        IsBA = isAllowBA,
+                        BAStatus = isAllowBA ? "On" : "Off",
+                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
                     });
             }
 
@@ -211,27 +211,27 @@ namespace Fanex.Athena.Controllers.Customer
             if (!specialBaPermission)
             {
                 bool isAllowUpdateBa;
-                var isAllowUpdateBaResult = _licenseeService.IsAllowUpdateMemberBaStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
+                var isAllowUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
                 if (!isAllowUpdateBa)
                 {
                     return Json(new
                         {
                             IsSuccessful = false,
                             isAllowUpdateBaResult.Message,
-                            IsBA = isAllowBa,
-                            BAStatus = isAllowBa ? "On" : "Off",
-                            ConfirmMessage = isAllowBa ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                            Tooltip = isAllowBa ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                            IsBA = isAllowBA,
+                            BAStatus = isAllowBA ? "On" : "Off",
+                            ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                            Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
                         });
                 }
             }
 
             // update
-            var updateResult = _customerService.UpdateCustomerBaStatus(
+            var updateResult = _customerService.UpdateCustomerBAStatus(
                 licenseeSession.LicenseeId,
                 custId,
                 userSession.UserId,
-                isAllowBa,
+                isAllowBA,
                 request);
             if (updateResult.IsSuccessful)
             {
@@ -239,10 +239,10 @@ namespace Fanex.Athena.Controllers.Customer
                     {
                         IsSuccessful = true,
                         updateResult.Message,
-                        IsBA = !isAllowBa,
-                        BAStatus = isAllowBa ? "On" : "Off",
-                        ConfirmMessage = isAllowBa ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBa ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                        IsBA = !isAllowBA,
+                        BAStatus = isAllowBA ? "On" : "Off",
+                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
                     });
             }
 
@@ -250,10 +250,10 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     IsSuccessful = false,
                     updateResult.Message,
-                    IsBA = isAllowBa,
-                    BAStatus = isAllowBa ? "On" : "Off",
-                    ConfirmMessage = isAllowBa ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                    Tooltip = isAllowBa ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                    IsBA = isAllowBA,
+                    BAStatus = isAllowBA ? "On" : "Off",
+                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
                 });
         }
 
@@ -297,10 +297,10 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
                     metaModel.UserId = userSession.UserId;
                     metaModel.Ip = this.Request.UserHostAddress;
-                    metaModel.IsAllowedNG = productAccess.IsAllowNg;
-                    metaModel.IsAllowedRC = productAccess.IsAllowRb;
-                    metaModel.IsAllowedLC = productAccess.IsAllowLc;
-                    metaModel.IsAllowedCS = productAccess.IsAllowCs;
+                    metaModel.IsAllowedNG = productAccess.IsAllowNG;
+                    metaModel.IsAllowedRC = productAccess.IsAllowRB;
+                    metaModel.IsAllowedLC = productAccess.IsAllowLC;
+                    metaModel.IsAllowedCS = productAccess.IsAllowCS;
                     metaModel.Language = userSession.Language;
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
@@ -376,10 +376,10 @@ namespace Fanex.Athena.Controllers.Customer
                     currentGroup.NGComm = ngcomm;
                     currentGroup.LCComm = lccomm;
                     currentGroup.CSComm = rngcomm;
-                    currentGroup.IsUpdateNG = productAccess.IsAllowNg;
-                    currentGroup.IsUpdateRacing = productAccess.IsAllowRb;
-                    currentGroup.IsUpdateLC = productAccess.IsAllowLc;
-                    currentGroup.IsUpdateCS = productAccess.IsAllowCs;
+                    currentGroup.IsUpdateNG = productAccess.IsAllowNG;
+                    currentGroup.IsUpdateRacing = productAccess.IsAllowRB;
+                    currentGroup.IsUpdateLC = productAccess.IsAllowLC;
+                    currentGroup.IsUpdateCS = productAccess.IsAllowCS;
 
                     _groupComService.UpdateGroup(currentGroup, request, userSession, out result);
 
@@ -419,7 +419,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
-            var temp = _customerService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCs);
+            var temp = _customerService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
             result.Success = temp.IsSuccessful;
             result.Message = ViewResources.MessageSuccess;
             result.ErrorMessage = temp.Message;
@@ -464,10 +464,10 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKeno);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            metaModel.IsAllowedNG = productAccess.IsAllowNg;
-            metaModel.IsAllowedRC = productAccess.IsAllowRb;
-            metaModel.IsAllowedLC = productAccess.IsAllowLc;
-            metaModel.IsAllowedRNG = productAccess.IsAllowCs;
+            metaModel.IsAllowedNG = productAccess.IsAllowNG;
+            metaModel.IsAllowedRC = productAccess.IsAllowRB;
+            metaModel.IsAllowedLC = productAccess.IsAllowLC;
+            metaModel.IsAllowedRNG = productAccess.IsAllowCS;
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
             var temp = _customerService.MoveCustomersToGroup(metaModel);

@@ -7,7 +7,7 @@
 //   <change who="Shadow.Nguyen" date="2012.12.26">Created</change>
 // </history>
 
-namespace Fanex.Athena.Models.DTO.Forecast.ForecastHDOU
+namespace Fanex.Athena.Models.DTO.Forecast.ForecastHdou
 {
     /// <summary>
     /// ForecastHandicapOverUnder class.

@@ -91,7 +91,7 @@
     @Html.Hidden("drillDownExcludeTest", Model.Param.IsExcludeTest)
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
     @Html.Hidden("drillDownCurrencyId", Model.Param.CurrencyId)
-    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBa)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.CanUseBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.CanUseRacing)
      <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
      <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />

@@ -76,12 +76,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 matchWinLoss.AwayId = reader.ToInt("awayid");
                 matchWinLoss.Turnover = reader.ToDecimal(turnoverColumn);
                 matchWinLoss.TotalTransaction = reader.ToInt("betcount");
-                matchWinLoss.CustomerWl = reader.ToDecimal(winlossColumn);
+                matchWinLoss.CustomerWL = reader.ToDecimal(winlossColumn);
                 matchWinLoss.CustomerComm = custCommExisted ? reader.ToDecimal(custCommColumn) : 0;
-                matchWinLoss.LicenseeWl = reader.ToDecimal(licenseeWlColumn);
-                matchWinLoss.BaCommission = reader.ToDecimal(commBaColumn);
+                matchWinLoss.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
+                matchWinLoss.BACommission = reader.ToDecimal(commBaColumn);
                 matchWinLoss.RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn);
-                matchWinLoss.AmtDueToBa = reader.ToDecimal(amtDueToBaComumn);
+                matchWinLoss.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
                 matchWinLoss.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
                 matchWinLoss.RaceNo = reader.ToString("race");
                 matchWinLoss.BetType = betTypeExisted ? reader.ToInt("bettype") : 0;
@@ -222,8 +222,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             try
             {
-                var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
-                var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+                var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
+                var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
                 using (var db = new ObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);

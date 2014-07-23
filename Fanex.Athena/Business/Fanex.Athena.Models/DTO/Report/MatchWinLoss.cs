@@ -71,17 +71,17 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal TotalTransaction { get; set; }
 
-        public decimal CustomerWl { get; set; }
+        public decimal CustomerWL { get; set; }
 
         public decimal CustomerComm { get; set; }
 
-        public decimal LicenseeWl { get; set; }
+        public decimal LicenseeWL { get; set; }
 
-        public decimal BaCommission { get; set; }
+        public decimal BACommission { get; set; }
 
         public decimal RacingRevenue { get; set; }
 
-        public decimal AmtDueToBa { get; set; }
+        public decimal AmtDueToBA { get; set; }
 
         public decimal AmtDueToRacing { get; set; }
     }

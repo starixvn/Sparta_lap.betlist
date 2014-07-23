@@ -906,7 +906,7 @@ var CustomerList = (function ($) {
             url = QueryString.setParam(url, "betlistname", "betlistrunning");
             url = Site.setLicenseeOptionOriginalParam(url);
 
-            var popH = 700, popW = 900;
+            var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
 
             var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetListRunning') + '"><iframe frameborder="0" width="' +
                          popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
@@ -914,7 +914,7 @@ var CustomerList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: popW + 30,
-                height: popH + 50
+                height: popH + 70
             });
         }
     };

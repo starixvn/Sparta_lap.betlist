@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.Sb || x.ProductCode == Product.Ba);
+            var productList = productAccess.ProductList.Where(x => x.ProductCode == Product.SB || x.ProductCode == Product.BA);
             var metaModel = new WinLossByLeagueMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,

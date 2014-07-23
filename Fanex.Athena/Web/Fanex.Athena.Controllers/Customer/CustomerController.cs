@@ -257,11 +257,11 @@ namespace Fanex.Athena.Controllers.Customer
             var canUpdateBaMessage = string.Empty;
             if (!specialBaPermission)
             {
-                var canUpdateBaResult = _licenseeService.IsAllowUpdateMemberBaStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
+                var canUpdateBaResult = _licenseeService.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out canUpdateBa);
                 canUpdateBaMessage = canUpdateBaResult.Message;
             }
 
-            model.BaTimeCheck = (!canUpdateBa && productAccess.IsAllowBa)
+            model.BATimeCheck = (!canUpdateBa && productAccess.IsAllowBA)
                                     ? canUpdateBaMessage
                                     : string.Empty;
             model.CanUpdateBA = canUpdateBa;
@@ -286,7 +286,7 @@ namespace Fanex.Athena.Controllers.Customer
                 });
             }
 
-            if (productAccess.IsAllowBa)
+            if (productAccess.IsAllowBA)
             {
                 items.Add(new CheckedItem
                 {

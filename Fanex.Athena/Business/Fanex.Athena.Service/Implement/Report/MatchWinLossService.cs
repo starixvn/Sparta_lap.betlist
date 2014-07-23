@@ -128,9 +128,9 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             switch (matchWinLoss.ProductName)
             {
-                case Product.Rb:
+                case Product.RB:
                     return string.Empty;
-                case Product.Ng:
+                case Product.NG:
                     return string.Empty;
                 default:
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
@@ -148,9 +148,9 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             switch (matchWinLoss.ProductName)
             {
-                case Product.Rb:
+                case Product.RB:
                     return string.Empty;
-                case Product.Ng:
+                case Product.NG:
                     return string.Empty;
                 default:
                     var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
@@ -166,7 +166,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// <returns>The ordered data list.</returns>
         private static IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
         {
-            var result = dataList.Where(p => p.ProductName == Product.Sb || p.ProductName == Product.Ba)
+            var result = dataList.Where(p => p.ProductName == Product.SB || p.ProductName == Product.BA)
                                  .GroupBy(p => p.MatchId)
                                  .Select(g => new MatchWinLoss
                                      {
@@ -179,7 +179,7 @@ namespace Fanex.Athena.Service.Implement.Report
                                          MatchCode = g.Select(r => r.MatchCode).FirstOrDefault(),
                                          HomeName = g.Select(r => r.HomeName).FirstOrDefault(),
                                          AwayName = g.Select(r => r.AwayName).FirstOrDefault(),
-                                         ProductName = Product.Sb,
+                                         ProductName = Product.SB,
                                          RaceNo = g.Select(r => r.RaceNo).FirstOrDefault(),
                                          IsLive = g.Select(r => r.IsLive).FirstOrDefault(),
                                          HomeId = g.Select(r => r.HomeId).FirstOrDefault(),
@@ -188,24 +188,24 @@ namespace Fanex.Athena.Service.Implement.Report
                                          IsNeutral = g.Select(r => r.IsNeutral).FirstOrDefault(),
                                          Turnover = g.Sum(r => r.Turnover),
                                          TotalTransaction = g.Sum(r => r.TotalTransaction),
-                                         CustomerWl = g.Sum(r => r.CustomerWl),
+                                         CustomerWL = g.Sum(r => r.CustomerWL),
                                          CustomerComm = g.Sum(r => r.CustomerComm),
-                                         LicenseeWl = g.Sum(r => r.LicenseeWl),
-                                         BaCommission = g.Sum(r => r.BaCommission),
+                                         LicenseeWL = g.Sum(r => r.LicenseeWL),
+                                         BACommission = g.Sum(r => r.BACommission),
                                          RacingRevenue = g.Sum(r => r.RacingRevenue),
-                                         AmtDueToBa = g.Sum(r => r.AmtDueToBa),
+                                         AmtDueToBA = g.Sum(r => r.AmtDueToBA),
                                          AmtDueToRacing = g.Sum(r => r.AmtDueToRacing),
                                      })
                                  .OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName).ToList();
 
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.Rb).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+                dataList.Where(p => p.ProductName == Product.RB).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.Ng).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+                dataList.Where(p => p.ProductName == Product.NG).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.Lc).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+                dataList.Where(p => p.ProductName == Product.LC).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.Vs).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
+                dataList.Where(p => p.ProductName == Product.VS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
 
             return result;
         }
@@ -219,7 +219,7 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             switch (matchWinLoss.ProductName)
             {
-                case Product.Rb:
+                case Product.RB:
                     return ViewResources.Racing + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
                 default:
                     return CacheRef.GetLeagueName(matchWinLoss.LeagueId);
@@ -235,11 +235,11 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             switch (matchWinLoss.ProductName)
             {
-                case Product.Rb:
+                case Product.RB:
                     return ViewResources.Race + " " + matchWinLoss.RaceNo;
-                case Product.Ng:
+                case Product.NG:
                     return ViewResources.NumberGameNo + " " + matchWinLoss.MatchCode;
-                case Product.Lc:
+                case Product.LC:
                     return string.Format(
                         "{0} {1} {2} ",
                         CacheRef.GetSportName(matchWinLoss.SportType),

@@ -209,34 +209,34 @@ namespace Fanex.Athena.Excel.Customer
                 {
                     if (_exportData.ProductAccess.IsAllowSB)
                     {
-                        row.Cells[SBCommColumn].SetCellValue(item.SbComm.ToStringExt(2));
+                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
                     }
 
-                    if (_exportData.ProductAccess.IsAllowNg)
+                    if (_exportData.ProductAccess.IsAllowNG)
                     {
-                        row.Cells[NGCommColumn].SetCellValue(item.NgComm.ToStringExt(2));
+                        row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
                     }
 
-                    if (_exportData.ProductAccess.IsAllowRb)
+                    if (_exportData.ProductAccess.IsAllowRB)
                     {
-                        row.Cells[RCCommColumn].SetCellValue(item.RbComm.ToStringExt(2));
+                        row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
                     }
 
-                    if (_exportData.ProductAccess.IsAllowLc)
+                    if (_exportData.ProductAccess.IsAllowLC)
                     {
-                        row.Cells[LCCommColumn].SetCellValue(item.LcComm.ToStringExt(2));
+                        row.Cells[LCCommColumn].SetCellValue(item.LCComm.ToStringExt(2));
                     }
 
-                    if (_exportData.ProductAccess.IsAllowCs)
+                    if (_exportData.ProductAccess.IsAllowCS)
                     {
-                        row.Cells[CSCommColumn].SetCellValue(item.CsComm.ToStringExt(2));
+                        row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
                     }
                 }
 
                 /*BA column*/
-                if (_exportData.ProductAccess.IsAllowBa && _showedGridColumns.Contains(BASTATUS))
+                if (_exportData.ProductAccess.IsAllowBA && _showedGridColumns.Contains(BASTATUS))
                 {
-                    row.Cells[BAStatusColumn].SetCellValue(item.BaStatus ? ViewResources.On : ViewResources.Off);
+                    row.Cells[BAStatusColumn].SetCellValue(item.BAStatus ? ViewResources.On : ViewResources.Off);
                 }
 
                 /* common column */
@@ -318,22 +318,22 @@ namespace Fanex.Athena.Excel.Customer
                     hidedColumns.Add(SBCommColumn);
                 }
 
-                if (!_exportData.ProductAccess.IsAllowNg)
+                if (!_exportData.ProductAccess.IsAllowNG)
                 {
                     hidedColumns.Add(NGCommColumn);
                 }
 
-                if (!_exportData.ProductAccess.IsAllowRb)
+                if (!_exportData.ProductAccess.IsAllowRB)
                 {
                     hidedColumns.Add(RCCommColumn);
                 }
 
-                if (!_exportData.ProductAccess.IsAllowLc)
+                if (!_exportData.ProductAccess.IsAllowLC)
                 {
                     hidedColumns.Add(LCCommColumn);
                 }
 
-                if (!_exportData.ProductAccess.IsAllowCs)
+                if (!_exportData.ProductAccess.IsAllowCS)
                 {
                     hidedColumns.Add(CSCommColumn);
                 }
@@ -345,7 +345,7 @@ namespace Fanex.Athena.Excel.Customer
             }
 
             /*BA column*/
-            if (!_exportData.ProductAccess.IsAllowBa || !_showedGridColumns.Contains(BASTATUS))
+            if (!_exportData.ProductAccess.IsAllowBA || !_showedGridColumns.Contains(BASTATUS))
             {
                 hidedColumns.Add(BAStatusColumn);
             }

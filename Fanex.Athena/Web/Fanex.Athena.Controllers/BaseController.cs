@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers
         {
             get
             {
-                return new string[] { Product.Cs, Product.Bg };
+                return new string[] { Product.CS, Product.BG };
             }
         }
 
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers
         {
             get
             {
-                return new string[] { Product.Kn };
+                return new string[] { Product.KN };
             }
         }
 
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers
         {
             get
             {
-                return new string[] { Product.Bg };
+                return new string[] { Product.BG };
             }
         }
 
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers
         {
             get
             {
-                return new string[] { Product.Cs, Product.Bg, Product.Kn };
+                return new string[] { Product.CS, Product.BG, Product.KN };
             }
         }
 

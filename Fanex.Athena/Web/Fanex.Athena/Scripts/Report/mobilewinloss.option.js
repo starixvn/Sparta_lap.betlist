@@ -139,9 +139,9 @@ var MobileWinLossOption = (function () {
         }
     };
     var licenseeWlColumn = {
-        name: 'LicenseeWl',
+        name: 'LicenseeWL',
         classes: 'highlight',
-        index: 'LicenseeWl',
+        index: 'LicenseeWL',
         width: 85,
         align: 'right',
         sortable: true,
@@ -151,9 +151,9 @@ var MobileWinLossOption = (function () {
         formatter: jqGridAdditional.formatLicenseeWl
     };
     var baCommissionColumn = {
-        name: 'BaCommission',
+        name: 'BACommission',
         classes: 'highlight',
-        index: 'BaCommission',
+        index: 'BACommission',
         width: 70,
         align: 'right',
         sortable: true,
@@ -183,8 +183,8 @@ var MobileWinLossOption = (function () {
         }
     };
     var amtDueToBaColumn = {
-        name: 'AmtDueToBa',
-        index: 'AmtDueToBa',
+        name: 'AmtDueToBA',
+        index: 'AmtDueToBA',
         width: 60,
         align: 'right',
         sortable: true,

@@ -79,7 +79,7 @@
             @RazorHelper.SpecialLevelListSearch(Model.Param.SpecialLevel)
         </div>
 
-                  if (Model.ProductAccess.IsAllowBa)
+                  if (Model.ProductAccess.IsAllowBA)
                   {
         <div class="grid_2 filter-label">
             <label>@ViewResources.BA</label>
@@ -88,11 +88,11 @@
             @Html.DropDownList("BAFilterOption", new SelectList(new Dictionary<string, string>
                        {
                            {"0", ViewResources.All},
-                           {"1",Fanex.Athena.Models.DTO.Common.Product.Ba},
+                           {"1",Fanex.Athena.Models.DTO.Common.Product.BA},
                            {"2",ViewResources.Normal},
                        },
                        "Key", "Value",
-               Model.Param.BaFilter),
+               Model.Param.BAFilter),
                new { @style = "position: relative" })
         </div>
                   }
@@ -142,7 +142,7 @@
         
         <div id="hiddenfield">
             @Html.Hidden("CurrencyId", Model.Param.CurrencyId)
-            @Html.Hidden("BaFilter", Model.Param.BaFilter)
+            @Html.Hidden("BaFilter", Model.Param.BAFilter)
             @Html.Hidden("CustStatus", Model.Param.CustStatus)
             @Html.Hidden("SpecialLevel", Model.Param.SpecialLevel)
             @Html.Hidden("GroupCommId", Model.Param.GroupCommId)

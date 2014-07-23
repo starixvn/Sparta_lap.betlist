@@ -27,7 +27,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
             MemberWinLossCom = 0;
             BetCount = 0;
             Turnover = 0;
-            BaComm = 0;
+            BAComm = 0;
         }
 
         public bool Liveindicator
@@ -52,11 +52,11 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 
         public decimal LicenseeWinloss { get; set; }
 
-        public decimal BaComm { get; set; }
+        public decimal BAComm { get; set; }
 
         public decimal TotalGrossProfit
         {
-            get { return LicenseeWinloss + BaComm; }
+            get { return LicenseeWinloss + BAComm; }
         }
 
         public decimal Margin

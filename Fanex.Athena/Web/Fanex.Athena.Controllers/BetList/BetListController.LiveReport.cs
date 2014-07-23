@@ -230,7 +230,7 @@ namespace Fanex.Athena.Controllers.BetList
             var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
 
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
-            ticketResult.SumLicenseeWl = ticketResult.MainTicketList.Sum(x => x.LicenseeWl);
+            ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
             ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
             ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 

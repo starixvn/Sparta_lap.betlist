@@ -106,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         LicWinLoss = reader.ToDecimal(selectedMonthLicColumn),
                         BACommission = reader.ToDecimal(selectedMonthBaCommColumn),
-                        RbCommission = reader.ToDecimal(selectedMonthRbCommColumn),
+                        RBCommission = reader.ToDecimal(selectedMonthRbCommColumn),
                         RacingRevenue = reader.ToDecimal(selectedMonthRacingRevenueColumn),
                         AmtDueToBA = reader.ToDecimal(selectedMonthAmtDueToBaColumn),
                         AmtDueToRacing = reader.ToDecimal(selectedMonthAmtDueToRacingColumn),
@@ -120,7 +120,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
                         BACommission = reader.ToDecimal(yesterdayBaCommColumn),
-                        RbCommission = reader.ToDecimal(yesterdayRbCommColumn),
+                        RBCommission = reader.ToDecimal(yesterdayRbCommColumn),
                         RacingRevenue = reader.ToDecimal(yesterdayRacingRevenueColumn),
                         AmtDueToBA = reader.ToDecimal(yesterdayAmtDueToBaColumn),
                         AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
@@ -135,7 +135,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         LicWinLoss = reader.ToDecimal(todayLicColumn),
                         BACommission = reader.ToDecimal(todayBaCommColumn),
-                        RbCommission = reader.ToDecimal(todayRbCommColumn),
+                        RBCommission = reader.ToDecimal(todayRbCommColumn),
                         RacingRevenue = reader.ToDecimal(todayRacingRevenueColumn),
                         AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
                         AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),

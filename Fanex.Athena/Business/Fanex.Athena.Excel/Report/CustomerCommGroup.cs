@@ -137,17 +137,17 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRbCommission);
             }
 
-            if (!ShowingOption.NgVisible)
+            if (!ShowingOption.NGVisible)
             {
                 HideColumn(sheet, ColumnNgCommission);
             }
 
-            if (!ShowingOption.CsVisible)
+            if (!ShowingOption.CSVisible)
             {
                HideColumn(sheet, ColumnCsCommission);
             }

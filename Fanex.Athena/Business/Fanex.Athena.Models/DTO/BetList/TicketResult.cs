@@ -41,7 +41,7 @@ namespace Fanex.Athena.Models.DTO.BetList
 
         public decimal SumWinLoss { get; set; }
 
-        public decimal SumLicenseeWl { get; set; }
+        public decimal SumLicenseeWL { get; set; }
 
         public decimal SumComm { get; set; }
 

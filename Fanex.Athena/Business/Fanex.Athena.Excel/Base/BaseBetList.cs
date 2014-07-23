@@ -133,7 +133,7 @@ namespace Fanex.Athena.Excel.Base
                 if (_hiddenColumnIndexList == null || !_hiddenColumnIndexList.Contains(7))
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
-                    var sumLicenseeWl = ticketResult.SumLicenseeWl + ticketResult.SumComm;
+                    var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
                     builder.AddFooter(sumWl, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
                 }
             }

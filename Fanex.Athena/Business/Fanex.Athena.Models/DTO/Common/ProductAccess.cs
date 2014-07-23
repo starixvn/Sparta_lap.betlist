@@ -29,63 +29,63 @@ namespace Fanex.Athena.Models.DTO.Common
         {
             get
             {
-                return ProductList.Any(i => i.ProductCode == Product.Sb);
+                return ProductList.Any(i => i.ProductCode == Product.SB);
             }
         }
 
-        public bool IsAllowBa
+        public bool IsAllowBA
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Ba);
+                return ProductList.Any(p => p.ProductCode == Product.BA);
             }
         }
 
-        public bool IsAllowNg
+        public bool IsAllowNG
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Ng);
+                return ProductList.Any(p => p.ProductCode == Product.NG);
             }
         }
 
-        public bool IsAllowRb
+        public bool IsAllowRB
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Rb);
+                return ProductList.Any(p => p.ProductCode == Product.RB);
             }
         }
 
-        public bool IsAllowLc
+        public bool IsAllowLC
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Lc);
+                return ProductList.Any(p => p.ProductCode == Product.LC);
             }
         }
 
-        public bool IsAllowVs
+        public bool IsAllowVS
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Vs);
+                return ProductList.Any(p => p.ProductCode == Product.VS);
             }
         }
 
-        public bool IsAllowCs
+        public bool IsAllowCS
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Cs);
+                return ProductList.Any(p => p.ProductCode == Product.CS);
             }
         }
 
-        public bool IsAllowBg
+        public bool IsAllowBG
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Bg);
+                return ProductList.Any(p => p.ProductCode == Product.BG);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Models.DTO.Common
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.Kn);
+                return ProductList.Any(p => p.ProductCode == Product.KN);
             }
         }
 
@@ -102,23 +102,23 @@ namespace Fanex.Athena.Models.DTO.Common
             get
             {
                 return AppSettings.EnableRacing
-                       && ProductList.Any(p => p.ProductCode == Product.Rb);
+                       && ProductList.Any(p => p.ProductCode == Product.RB);
             }
         }
 
         public bool CanUseHorseRacingUk
         {
-            get { return CanUseRacing && AppSettings.EnableRacingHrUk; }
+            get { return CanUseRacing && AppSettings.EnableRacingHRUk; }
         }
 
         public bool CanUseHorseRacingSa
         {
-            get { return CanUseRacing && AppSettings.EnableRacingHrSa; }
+            get { return CanUseRacing && AppSettings.EnableRacingHRSa; }
         }
 
         public bool CanUseHorseRacingAust
         {
-            get { return CanUseRacing && AppSettings.EnableRacingHrAust; }
+            get { return CanUseRacing && AppSettings.EnableRacingHRAust; }
         }
 
         public bool CanUseGreyhoundUk
@@ -136,27 +136,27 @@ namespace Fanex.Athena.Models.DTO.Common
             get { return CanUseRacing && AppSettings.EnableRacingHarnessAust; }
         }
 
-        public bool CanUseNg
+        public bool CanUseNG
         {
             get
             {
-                return CanUseProduct(Product.Ng);
+                return CanUseProduct(Product.NG);
             }
         }
 
-        public bool CanUseBa
+        public bool CanUseBA
         {
             get
             {
-                return CanUseProduct(Product.Ba);
+                return CanUseProduct(Product.BA);
             }
         }
 
-        public bool CanUseLc
+        public bool CanUseLC
         {
             get
             {
-                return CanUseProduct(Product.Lc);
+                return CanUseProduct(Product.LC);
             }
         }
 

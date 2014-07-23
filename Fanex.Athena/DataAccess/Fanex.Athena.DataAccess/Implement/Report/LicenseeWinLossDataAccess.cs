@@ -180,7 +180,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     if (reader.FieldExists(licenseeWlColumnName))
                     {
-                        if (!product.Code.Equals(Product.Ba) && !product.Code.Equals(Product.Rb))
+                        if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
                         {
                             licenseeWl.Add(product.Code, reader.ToDecimal(licenseeWlColumnName));
                         }
@@ -235,7 +235,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                         if (reader.FieldExists(licenseeWlColumnName))
                         {
-                            if (!product.Code.Equals(Product.Ba) && !product.Code.Equals(Product.Rb))
+                            if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
                             {
                                 summaryTotal[c].LicenseeWL.TryGetValue(product.Code, out temp);
                                 temp += reader.ToDecimal(licenseeWlColumnName);

@@ -24,7 +24,7 @@ namespace Fanex.Athena.Models.ViewModel.Casino
 
         public IList<RNGCasinoResult> Data { get; set; }
 
-        public RGNCasinoResultMetalModel Param { get; set; }
+        public RNGCasinoResultMetalModel Param { get; set; }
 
         public string ColumnName { get; set; }
     }

@@ -12,6 +12,7 @@ namespace Fanex.Athena.Models.DTO.Common
     /// Function class.
     /// </summary>
     [Serializable]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Justification = "Reviewed.")]
     public class Function
     {
         public int FunctionId { get; set; }

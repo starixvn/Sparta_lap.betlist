@@ -211,7 +211,7 @@ namespace Fanex.Athena.Excel.BetList
             {
                 string licenseeWl = isRunning
                                     ? "-"
-                                    : string.Format(NumberFormat, ticket.LicenseeWl);
+                                    : string.Format(NumberFormat, ticket.LicenseeWL);
                 string comm = isRunning
                               ? "-"
                               : string.Format(NumberFormat, ticket.Comm);
@@ -219,7 +219,7 @@ namespace Fanex.Athena.Excel.BetList
                 string licenseeWlText = string.Format("{0}\n{1}", licenseeWl, comm);
 
                 var rtfLicenseeWl = new HSSFRichTextString(licenseeWlText);
-                rtfLicenseeWl.ApplyFont(0, licenseeWl.Length, ticket.LicenseeWl >= 0 ? blackFont : redFont);
+                rtfLicenseeWl.ApplyFont(0, licenseeWl.Length, ticket.LicenseeWL >= 0 ? blackFont : redFont);
                 rtfLicenseeWl.ApplyFont(licenseeWl.Length, licenseeWlText.Length, blackFont);
 
                 builder.AddCell(rtfLicenseeWl);
@@ -228,9 +228,9 @@ namespace Fanex.Athena.Excel.BetList
             {
                 string licenseeWl = isRunning
                                     ? "-"
-                                    : string.Format(NumberFormat, ticket.LicenseeWl + ticket.Comm);
+                                    : string.Format(NumberFormat, ticket.LicenseeWL + ticket.Comm);
                 var rtfLicenseeWl = new HSSFRichTextString(licenseeWl);
-                rtfLicenseeWl.ApplyFont(ticket.LicenseeWl + ticket.Comm >= 0 ? blackFont : redFont);
+                rtfLicenseeWl.ApplyFont(ticket.LicenseeWL + ticket.Comm >= 0 ? blackFont : redFont);
                 builder.AddCell(rtfLicenseeWl);
             }
 

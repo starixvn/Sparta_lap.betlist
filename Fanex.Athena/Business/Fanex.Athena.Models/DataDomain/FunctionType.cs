@@ -56,7 +56,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// OddEven, One X Two, Draw no draw function, value = 9.
         /// </summary>
-        OddEven1x2Dnd = 9,
+        OddEven1X2Dnd = 9,
 
         /// <summary>
         /// CorrectScore function, value = 10.
@@ -281,7 +281,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// SpecialBa function, value = 54.
         /// </summary>
-        SpecialBa = 54,
+        SpecialBA = 54,
 
         /// <summary>
         /// CommissionGroupList function, value = 55.

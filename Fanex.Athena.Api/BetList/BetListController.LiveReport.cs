@@ -127,7 +127,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWL,
+                    SumLicenseeWL = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
@@ -212,7 +212,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWL,
+                    SumLicenseeWL = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
@@ -282,7 +282,7 @@ namespace Fanex.Athena.Api.BetList
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SumComm = sumComm,
-                    SumLicenseeWl = sumLicenseeWL,
+                    SumLicenseeWL = sumLicenseeWL,
                     SumPlayerComm = sumPlayerComm,
                     SumWinlost = sumWinLost,
                     TotalRows = totalRows,
@@ -330,7 +330,7 @@ namespace Fanex.Athena.Api.BetList
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWl + ticketResult.SumComm
+                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
                 }
             };
         }
@@ -363,8 +363,8 @@ namespace Fanex.Athena.Api.BetList
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
             var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost, 2);
-            var sumLicenseeWlText = NumberHelper.DecFormat(metaModel.SumLicenseeWl + metaModel.SumComm, 2);
-            sumLicenseeWlText = metaModel.SumLicenseeWl < 0
+            var sumLicenseeWlText = NumberHelper.DecFormat(metaModel.SumLicenseeWL + metaModel.SumComm, 2);
+            sumLicenseeWlText = metaModel.SumLicenseeWL < 0
                 ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 

@@ -67,10 +67,10 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var model = _customerComService.GetAll(licenseeId);
 
-            ViewBag.IsAllowNG = productAccess.IsAllowNg;
-            ViewBag.IsAllowRC = productAccess.IsAllowRb;
-            ViewBag.IsAllowLC = productAccess.IsAllowLc;
-            ViewBag.IsAllowCS = productAccess.IsAllowCs;
+            ViewBag.IsAllowNG = productAccess.IsAllowNG;
+            ViewBag.IsAllowRC = productAccess.IsAllowRB;
+            ViewBag.IsAllowLC = productAccess.IsAllowLC;
+            ViewBag.IsAllowCS = productAccess.IsAllowCS;
 
             return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
         }
@@ -102,10 +102,10 @@ namespace Fanex.Athena.Controllers.Customer
             var model = new GroupCommMetaModel
                 {
                     LicenseeId = licenseeSession.LicenseeId,
-                    IsUpdateNG = productAccess.IsAllowNg,
-                    IsUpdateRacing = productAccess.IsAllowRb,
-                    IsUpdateLC = productAccess.IsAllowLc,
-                    IsUpdateCS = productAccess.IsAllowCs,
+                    IsUpdateNG = productAccess.IsAllowNG,
+                    IsUpdateRacing = productAccess.IsAllowRB,
+                    IsUpdateLC = productAccess.IsAllowLC,
+                    IsUpdateCS = productAccess.IsAllowCS,
                     DefaultGroupId = defaultGroupId
                 };
 
@@ -197,10 +197,10 @@ namespace Fanex.Athena.Controllers.Customer
             if (model != null)
             {
                 model.LicenseeId = licenseeSession.LicenseeId;
-                model.IsUpdateNG = productAccess.IsAllowNg;
-                model.IsUpdateRacing = productAccess.IsAllowRb;
-                model.IsUpdateLC = productAccess.IsAllowLc;
-                model.IsUpdateCS = productAccess.IsAllowCs;
+                model.IsUpdateNG = productAccess.IsAllowNG;
+                model.IsUpdateRacing = productAccess.IsAllowRB;
+                model.IsUpdateLC = productAccess.IsAllowLC;
+                model.IsUpdateCS = productAccess.IsAllowCS;
                 model.DefaultGroupId = defaultGroupId;
             }
 
@@ -311,7 +311,7 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress,
                         Language = userSession.Language,
                         IsRemoveCommSetting = isRemovePlayerComm,
-                        IsAllowedCSComm = productAccess.IsAllowCs,
+                        IsAllowedCSComm = productAccess.IsAllowCS,
                         IsResetDefault = isResetDefault
                     },
                     out result);     
@@ -368,9 +368,9 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
                 {
-                    RbVisible = productAccess.IsAllowRb,
-                    NgVisible = productAccess.IsAllowNg,
-                    CsVisible = productAccess.IsAllowCs
+                    RBVisible = productAccess.IsAllowRB,
+                    NGVisible = productAccess.IsAllowNG,
+                    CSVisible = productAccess.IsAllowCS
                 };
 
             var mainTable = _customerComService.GetDataForExcel(licenseeSession.LicenseeId);
@@ -478,25 +478,25 @@ namespace Fanex.Athena.Controllers.Customer
             var decNgComm = model.NGComm;
             var decLcComm = model.LCComm;
             var decCsComm = model.CSComm;
-            model.SbComm1 = SetComm(decSbComm, 1);
-            model.SbComm2 = SetComm(decSbComm, 2);
-            model.SbComm3 = SetComm(decSbComm, 3);
+            model.SBComm1 = SetComm(decSbComm, 1);
+            model.SBComm2 = SetComm(decSbComm, 2);
+            model.SBComm3 = SetComm(decSbComm, 3);
 
-            model.RcComm1 = SetComm(decRcComm, 1);
-            model.RcComm2 = SetComm(decRcComm, 2);
-            model.RcComm3 = SetComm(decRcComm, 3);
+            model.RCComm1 = SetComm(decRcComm, 1);
+            model.RCComm2 = SetComm(decRcComm, 2);
+            model.RCComm3 = SetComm(decRcComm, 3);
 
-            model.NgComm1 = SetComm(decNgComm, 1);
-            model.NgComm2 = SetComm(decNgComm, 2);
-            model.NgComm3 = SetComm(decNgComm, 3);
+            model.NGComm1 = SetComm(decNgComm, 1);
+            model.NGComm2 = SetComm(decNgComm, 2);
+            model.NGComm3 = SetComm(decNgComm, 3);
 
-            model.LcComm1 = SetComm(decLcComm, 1);
-            model.LcComm2 = SetComm(decLcComm, 2);
-            model.LcComm3 = SetComm(decLcComm, 3);
+            model.LCComm1 = SetComm(decLcComm, 1);
+            model.LCComm2 = SetComm(decLcComm, 2);
+            model.LCComm3 = SetComm(decLcComm, 3);
 
-            model.CsComm1 = SetComm(decCsComm, 1);
-            model.CsComm2 = SetComm(decCsComm, 2);
-            model.CsComm3 = SetComm(decCsComm, 3);            
+            model.CSComm1 = SetComm(decCsComm, 1);
+            model.CSComm2 = SetComm(decCsComm, 2);
+            model.CSComm3 = SetComm(decCsComm, 3);            
         }
 
         #endregion Utility

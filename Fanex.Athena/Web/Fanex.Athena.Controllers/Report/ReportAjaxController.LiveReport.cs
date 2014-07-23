@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                     BySports = dataBySport,
                     ByCurrencies = dataByCurrency,
                     ByBetType = dataByBetType,
-                    IsShowedDetailLink = metaModel.FromDate >= balanceUpDay && !productCode.Equals(Product.Kn, System.StringComparison.OrdinalIgnoreCase),
+                    IsShowedDetailLink = metaModel.FromDate >= balanceUpDay && !productCode.Equals(Product.KN, System.StringComparison.OrdinalIgnoreCase),
                     Param = metaModel,
                     ProductAccess = productAccess
                 });

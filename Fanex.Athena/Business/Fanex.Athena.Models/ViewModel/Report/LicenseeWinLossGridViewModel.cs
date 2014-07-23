@@ -57,27 +57,27 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         #region ILicenseeWL Members
 
-        public decimal LicenseeWLSB { get; set; }
+        public decimal LicenseeWlsb { get; set; }
 
-        public decimal LicenseeWLRB { get; set; }
+        public decimal LicenseeWlrb { get; set; }
 
-        public decimal LicenseeWLNG { get; set; }
+        public decimal LicenseeWlng { get; set; }
 
-        public decimal LicenseeWLBA { get; set; }
+        public decimal LicenseeWlba { get; set; }
 
-        public decimal LicenseeWLLC { get; set; }
+        public decimal LicenseeWllc { get; set; }
 
-        public decimal LicenseeWLVS { get; set; }
+        public decimal LicenseeWlvs { get; set; }
 
-        public decimal LicenseeWLBG { get; set; }
+        public decimal LicenseeWlbg { get; set; }
 
-        public decimal LicenseeWLCS { get; set; }
+        public decimal LicenseeWlcs { get; set; }
 
-        public decimal LicenseeWLKN { get; set; }
+        public decimal LicenseeWlkn { get; set; }
 
         public decimal TotalLicenseeWL
         {
-            get { return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + LicenseeWLKN; }
+            get { return LicenseeWlba + LicenseeWllc + LicenseeWlng + LicenseeWlrb + LicenseeWlsb + LicenseeWlvs + LicenseeWlbg + LicenseeWlcs + LicenseeWlkn; }
         }
 
         public decimal TotalLicenseeWLSingle

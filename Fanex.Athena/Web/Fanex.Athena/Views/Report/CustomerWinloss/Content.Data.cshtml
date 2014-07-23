@@ -58,31 +58,31 @@ else
                 else
                 {
                     <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
-                        <div>@item.MemberWl.ToStringExt()</div>
+                        <div>@item.MemberWL.ToStringExt()</div>
                     </div>
                 }
                 <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
-                    @RazorHelper.HighlightNegativeFormat(item.LicenseeWl)
+                    @RazorHelper.HighlightNegativeFormat(item.LicenseeWL)
                 </div>
-                @if (Model.ProductAccess.IsAllowBa)
+                @if (Model.ProductAccess.IsAllowBA)
                 {
                     <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
-                        @RazorHelper.HighlightNegativeFormat(item.BaComm)
+                        @RazorHelper.HighlightNegativeFormat(item.BAComm)
                     </div>                
                 }
-                @if (Model.ProductAccess.IsAllowRb)
+                @if (Model.ProductAccess.IsAllowRB)
                 {
                     <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
                         @RazorHelper.HighlightNegativeFormat(item.RacingRevenue)
                     </div>                
                 }
-                @if (Model.ProductAccess.IsAllowBa)
+                @if (Model.ProductAccess.IsAllowBA)
                 {
                     <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
-                        <div>@item.AmtDueToBa.ToStringExt()</div>
+                        <div>@item.AmtDueToBA.ToStringExt()</div>
                     </div>                
                 }
-                @if (Model.ProductAccess.IsAllowRb)
+                @if (Model.ProductAccess.IsAllowRB)
                 {
                     <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
                         <div>@item.AmtDueToRacing.ToStringExt()</div>

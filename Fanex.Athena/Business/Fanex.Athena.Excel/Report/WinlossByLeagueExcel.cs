@@ -166,7 +166,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     rowContent.Cells[ColumnMatch].SetCellValue(winlossByLeague.HomeName + Environment.NewLine + winlossByLeague.AwayName);
                     rowContent.Cells[ColumnAmtDueTo].SetCellValue(winlossByLeague.AmountDue);
-                    rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);
+                    rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BACommission);
                 }
                 else
                 {
@@ -222,7 +222,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);
             row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByLeague.CustomerWinLoss);
             row.Cells[ColumnLicenseeWl].SetCellValue(winlossByLeague.LicenseeWL);
-            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BaCommission);
+            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BACommission);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Fanex.Athena.Excel.Report
             IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
-            row.Cells[ColumnBaComm].SetCellValue(_totalData.BaCommission);
+            row.Cells[ColumnBaComm].SetCellValue(_totalData.BACommission);
             return currentRow;
         }
     }

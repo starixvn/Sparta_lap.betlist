@@ -146,12 +146,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
@@ -223,13 +223,13 @@ namespace Fanex.Athena.Excel.Report
                 ColumnCustomerCommission
             };
 
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 listColumn.Remove(ColumnBaCommission);
                 listColumn.Remove(ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 listColumn.Remove(ColumnRacingRevenue);
                 listColumn.Remove(ColumnAmtDueToRacing);

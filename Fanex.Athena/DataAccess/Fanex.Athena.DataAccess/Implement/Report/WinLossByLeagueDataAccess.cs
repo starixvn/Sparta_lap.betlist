@@ -52,8 +52,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {                
                 using (var db = new ObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
 
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -99,8 +99,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
 
                     IList<WinLossByLeague> dataList = null;
 
@@ -168,7 +168,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                         CustomerWinLoss = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),                                                
                         LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                        BaCommission = reader.ToDecimal("CommBA" + metaModel.BaseCurrency),
+                        BACommission = reader.ToDecimal("CommBA" + metaModel.BaseCurrency),
                         BetCount = reader.ToInt("betcount"),
                         AmountDue = reader.ToDecimal("amtduetoBa" + metaModel.BaseCurrency),
                         HomeId = homeid,
@@ -209,7 +209,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
                 grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
                 grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
-                grandTotal.BaCommission = Converter.ToDecimal(row[bacommCol]);
+                grandTotal.BACommission = Converter.ToDecimal(row[bacommCol]);
                 grandTotal.BetCount = Converter.ToInt(row["betcount"]);                
             }
             
@@ -229,7 +229,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     TurnOver = reader.ToDecimal(turnoverCol),
                     CustomerWinLoss = reader.ToDecimal(memberWlCol),
                     LicenseeWL = reader.ToDecimal(licenseeWlCol),    
-                    BaCommission = reader.ToDecimal(bacommCol),
+                    BACommission = reader.ToDecimal(bacommCol),
                     BetCount = reader.ToInt("betcount")                                      
                 };
                 result.Add(item);

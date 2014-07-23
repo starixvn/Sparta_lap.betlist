@@ -258,19 +258,19 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
 
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
             ProcessUITurnover(sheet);
 
-            ProcessUiLicenseeWinLoss(sheet);
+            ProcessUILicenseeWinLoss(sheet);
 
             switch (Level)
             {
@@ -297,15 +297,15 @@ namespace Fanex.Athena.Excel.Report
         {
             var newProducts = new List<ProductOption>
             {
-                new ProductOption { Code = Product.Sb, Status = false },
-                new ProductOption { Code = Product.Rb, Status = false },
-                new ProductOption { Code = Product.Ng, Status = false },
-                new ProductOption { Code = Product.Ba, Status = false },
-                new ProductOption { Code = Product.Lc, Status = false },
-                new ProductOption { Code = Product.Vs, Status = false },
-                new ProductOption { Code = Product.Cs, Status = false },
-                new ProductOption { Code = Product.Bg, Status = false },
-                new ProductOption { Code = Product.Kn, Status = false }
+                new ProductOption { Code = Product.SB, Status = false },
+                new ProductOption { Code = Product.RB, Status = false },
+                new ProductOption { Code = Product.NG, Status = false },
+                new ProductOption { Code = Product.BA, Status = false },
+                new ProductOption { Code = Product.LC, Status = false },
+                new ProductOption { Code = Product.VS, Status = false },
+                new ProductOption { Code = Product.CS, Status = false },
+                new ProductOption { Code = Product.BG, Status = false },
+                new ProductOption { Code = Product.KN, Status = false }
             };
 
             foreach (var t in products)
@@ -349,7 +349,7 @@ namespace Fanex.Athena.Excel.Report
             // Set data for customerwinloss
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status && _productOption[i].Code != Product.Rb && _productOption[i].Code != Product.Ba)
+                if (_productOption[i].Status && _productOption[i].Code != Product.RB && _productOption[i].Code != Product.BA)
                 {
                     row.Cells[ColumnLicenseeWlSportsBook + i].SetCellValue(data.LicenseeWL[_productOption[i].Code]);
                 }
@@ -430,14 +430,14 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUiLicenseeWinLoss(ISheet sheet)
+        protected void ProcessUILicenseeWinLoss(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.Rb && a.Code != Product.Ba);
+            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.RB && a.Code != Product.BA);
             int nextColumns = 0;
 
             foreach (ProductOption product in _productOption)
             {
-                if (product.Status == false || product.Code == Product.Rb || product.Code == Product.Ba)
+                if (product.Status == false || product.Code == Product.RB || product.Code == Product.BA)
                 {
                     HideColumn(sheet, ColumnLicenseeWlSportsBook + nextColumns, ColumnLicenseeWlSportsBook + nextColumns);
                 }
@@ -453,7 +453,7 @@ namespace Fanex.Athena.Excel.Report
 
             if (countStatus <= 1)
             {
-                if (_productOption.Any(a => a.Status && a.Code != Product.Rb && a.Code != Product.Ba))
+                if (_productOption.Any(a => a.Status && a.Code != Product.RB && a.Code != Product.BA))
                 {
                     HideColumn(sheet, ColumnLicenseeWlTotal, ColumnLicenseeWlTotal);
                 }

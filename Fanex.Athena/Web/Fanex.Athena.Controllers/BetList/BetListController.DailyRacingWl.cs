@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult DailyRacingWl(BetListMetaModel metaModel)
+        public ActionResult DailyRacingWL(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return DailyRacingWlPost(metaModel);
+                    return DailyRacingWLPost(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [NonAction]
-        public ActionResult DailyRacingWlPost(BetListMetaModel metaModel)
+        public ActionResult DailyRacingWLPost(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
             var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);

@@ -8,6 +8,8 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+[module: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1701:ResourceStringCompoundWordsShouldBeCasedCorrectly", Scope = "resource",
+    Target = "Fanex.Athena.Models.ViewModel.ViewResources.resources", MessageId = "Username", Justification = "Reviewed.")]
 [assembly: CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following

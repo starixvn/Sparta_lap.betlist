@@ -35,7 +35,7 @@ namespace Fanex.Athena.Api
         private readonly ISessionService _sessionService;
 
         private ReadOnlyCollection<string> _ignoreCasinoAndBingoAndKeno = 
-            new ReadOnlyCollection<string>(new List<string>() { Product.Cs, Product.Bg, Product.Kn });
+            new ReadOnlyCollection<string>(new List<string>() { Product.CS, Product.BG, Product.KN });
 
         protected BaseApiController()
         {

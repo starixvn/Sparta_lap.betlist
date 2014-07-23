@@ -26,7 +26,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
         /// <value>The type value.</value>
         public byte ReportType
         {
-            private get;
+            get;
             set;
         }
 

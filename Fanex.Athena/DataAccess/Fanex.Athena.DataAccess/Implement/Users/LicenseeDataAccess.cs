@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
         /// <param name="licenseeId"> The licensee id. </param>
         /// <param name="isAllow"> The is allow. </param>
         /// <returns> Result information. </returns>
-        public IResultInfo IsAllowUpdateMemberBaStatus(Request request, int licenseeId, out bool isAllow)
+        public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
         {
             const string UspName = "Lrf_BATimeCheck";
             try

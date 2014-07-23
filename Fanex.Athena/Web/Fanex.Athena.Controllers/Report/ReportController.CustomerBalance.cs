@@ -47,12 +47,12 @@ namespace Fanex.Athena.Controllers.Report
                 };
 
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
-            var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.Ba)
+            var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
                                                      Code = i.ProductCode,
                                                      Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.Sb
+                                                     Status = i.ProductCode == Product.SB
                                                  }).ToList();
 
             metaModel.ProductOptions = productOption;            
@@ -160,13 +160,13 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    BaVisible = productAccess.IsAllowBa,
-                    RbVisible = productAccess.IsAllowRb,
-                    NgVisible = productAccess.IsAllowNg,
-                    LcVisible = productAccess.IsAllowLc,
-                    SbVisible = productAccess.IsAllowSB,
-                    CsVisible = productAccess.IsAllowCs,
-                    KnVisible = productAccess.IsAllowKN,
+                    BAVisible = productAccess.IsAllowBA,
+                    RBVisible = productAccess.IsAllowRB,
+                    NGVisible = productAccess.IsAllowNG,
+                    LCVisible = productAccess.IsAllowLC,
+                    SBVisible = productAccess.IsAllowSB,
+                    CSVisible = productAccess.IsAllowCS,
+                    KNVisible = productAccess.IsAllowKN,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 

@@ -59,7 +59,7 @@ namespace Fanex.Athena.Controllers.Report
                 }
             };
             var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
-            ViewBag.IsAllowedRNG = productAccess.IsAllowBg || productAccess.IsAllowCs;
+            ViewBag.IsAllowedRNG = productAccess.IsAllowBG || productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             return View("~/Views/Report/Result/Main.cshtml", model);
         }
@@ -366,8 +366,8 @@ namespace Fanex.Athena.Controllers.Report
                 IEnumerable<Sport> limitedSports;
                 var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
                 var limitedProduct =
-                    productAccess.IsAllowRb && productAccess.IsAllowLc && productAccess.IsAllowNg
-                    && productAccess.IsAllowVs;
+                    productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
+                    && productAccess.IsAllowVS;
                 if (!limitedProduct)
                 {
                     var lcsport = (int)SportType.LiveCasino;
@@ -380,24 +380,24 @@ namespace Fanex.Athena.Controllers.Report
                       && !i.SportId.Equals(ngsport.ToString()) && !i.SportId.Equals(vssoccer.ToString()) && !i.SportId.Equals(hrsport.ToString())
                       && !i.SportId.Equals(grsport.ToString()) && !i.SportId.Equals(hnsport.ToString())).ToList();
 
-                    if (productAccess.IsAllowNg)
+                    if (productAccess.IsAllowNG)
                     {
                         limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(ngsport.ToString())));
                     }
 
-                    if (productAccess.IsAllowLc)
+                    if (productAccess.IsAllowLC)
                     {
                         limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(lcsport.ToString())));
                     }
 
-                    if (productAccess.IsAllowRb)
+                    if (productAccess.IsAllowRB)
                     {
                         limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(hrsport.ToString())
                         || i.SportId.Equals(grsport.ToString())
                         || i.SportId.Equals(hnsport.ToString())));
                     }
 
-                    if (productAccess.IsAllowVs)
+                    if (productAccess.IsAllowVS)
                     {
                         limitedSports = limitedSports.Union(sports.Where(i => i.SportId.Equals(vssoccer.ToString())));
                     }

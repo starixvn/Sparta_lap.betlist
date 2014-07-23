@@ -31,7 +31,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlaceTO { get; set; }
 
-        public decimal WPTO { get; set; }
+        public decimal Wpto { get; set; }
 
         public decimal TotalTO { get; set; }
 
@@ -47,13 +47,13 @@ namespace Fanex.Athena.Models.DTO.Report
 
         #region not depend on base currency
 
-        public decimal WinTOMYR { get; set; }
+        public decimal WinToMYR { get; set; }
 
-        public decimal PlaceTOMYR { get; set; }
+        public decimal PlaceToMYR { get; set; }
 
-        public decimal WPTOMYR { get; set; }
+        public decimal WptoMYR { get; set; }
 
-        public decimal TotalTOMYR { get; set; }
+        public decimal TotalToMYR { get; set; }
 
         public decimal DividendWonMYR { get; set; }
 
@@ -63,13 +63,13 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmountDueToRacingMYR { get; set; }
 
-        public decimal WinTOEUR { get; set; }
+        public decimal WinToEur { get; set; }
 
-        public decimal PlaceTOEUR { get; set; }
+        public decimal PlaceToEur { get; set; }
 
-        public decimal WPTOEUR { get; set; }
+        public decimal WptoEUR { get; set; }
 
-        public decimal TotalTOEUR { get; set; }
+        public decimal TotalToEur { get; set; }
 
         public decimal DividendWonEUR { get; set; }
 
@@ -79,13 +79,13 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmountDueToRacingEUR { get; set; }
 
-        public decimal WinTOUSD { get; set; }
+        public decimal WinToUSD { get; set; }
 
-        public decimal PlaceTOUSD { get; set; }
+        public decimal PlaceToUSD { get; set; }
 
-        public decimal WPTOUSD { get; set; }
+        public decimal WptoUSD { get; set; }
 
-        public decimal TotalTOUSD { get; set; }
+        public decimal TotalToUSD { get; set; }
 
         public decimal DividendWonUSD { get; set; }
 
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlaceTO12Bet { get; set; }
 
-        public decimal WPTO12Bet { get; set; }
+        public decimal Wpto12Bet { get; set; }
 
         public decimal TotalTO12Bet { get; set; }
 
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlaceTO12BetMYR { get; set; }
 
-        public decimal WPTO12BetMYR { get; set; }
+        public decimal Wpto12BetMYR { get; set; }
 
         public decimal TotalTO12BetMYR { get; set; }
 
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlaceTO12BetEUR { get; set; }
 
-        public decimal WPTO12BetEUR { get; set; }
+        public decimal Wpto12BetEUR { get; set; }
 
         public decimal TotalTO12BetEUR { get; set; }
 
@@ -135,7 +135,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal PlaceTO12BetUSD { get; set; }
 
-        public decimal WPTO12BetUSD { get; set; }
+        public decimal Wpto12BetUSD { get; set; }
 
         public decimal TotalTO12BetUSD { get; set; }
 

@@ -23,25 +23,25 @@
             <div class="row" style="width:@(ViewBag.ColumnWidth)px">
                 @RazorHelper.HighlightNegativeFormat(balanceDetails.LicWinLoss)
             </div>
-            @if (Model.ProductAccess.IsAllowBa)
+            @if (Model.ProductAccess.IsAllowBA)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
                     <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.BACommission)</div>
                 </div>
             }
-            @if (Model.ProductAccess.IsAllowRb)
+            @if (Model.ProductAccess.IsAllowRB)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
                     <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.RacingWinLoss)</div>
                 </div>
             }
-            @if (Model.ProductAccess.IsAllowBa)
+            @if (Model.ProductAccess.IsAllowBA)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
                     <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.AmtDueToBA)</div>
                 </div>
             }
-            @if (Model.ProductAccess.IsAllowRb)
+            @if (Model.ProductAccess.IsAllowRB)
             { 
                 <div class="row" style="width: @(ViewBag.ColumnWidth)px">
                     <div>@RazorHelper.HighlightNegativeFormat(@balanceDetails.AmtDueToRacing)</div>

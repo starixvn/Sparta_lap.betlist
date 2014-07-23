@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// </summary>
         /// <param name="metaModel">The meta Model.</param>
         /// <returns>Action Result.</returns>
-        public ActionResult ForeCastAh(ForecastAhMetaModel metaModel)
+        public ActionResult ForeCastAH(ForecastAHMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// </summary>
         /// <param name="metaModel">Meta Model.</param>
         /// <returns>ForecastAh View Model.</returns>
-        private ForecastAhViewModel GetForecastViewModel(ForecastAhMetaModel metaModel)
+        private ForecastAHViewModel GetForecastViewModel(ForecastAHMetaModel metaModel)
         {
             var forecastHeaderParam = _forecastService.GetFcTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
@@ -130,7 +130,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 forecastValue.ForecastHeader = RenderForecastHeader(metaModel.BetType, metaModel.CurrentScore);
             }
 
-            return new ForecastAhViewModel
+            return new ForecastAHViewModel
             {
                 Param = metaModel,
                 ForecastHeaderParam = forecastHeaderParam,

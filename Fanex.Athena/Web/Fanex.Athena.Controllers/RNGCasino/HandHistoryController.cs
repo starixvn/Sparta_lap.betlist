@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
         /// <returns>The data string.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RNGCasinoData(RGNCasinoResultMetalModel metaModel)
+        public ActionResult RNGCasinoData(RNGCasinoResultMetalModel metaModel)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RNGCasino(RGNCasinoResultMetalModel metalModel)
+        public ActionResult RNGCasino(RNGCasinoResultMetalModel metalModel)
         {
             var model = new RNGCasinoResultViewModel
             {
@@ -155,12 +155,12 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 case (int)CasinoGameType.PaiGow:
                 case (int)CasinoGameType.FaceUp21:
                 case (int)CasinoGameType.ThreeCardsRummy:
-                case (int)CasinoGameType.SicBo:
+                case (int)CasinoGameType.SicBO:
                 case (int)CasinoGameType.RoulettePro:
-                case (int)CasinoGameType.RoulettePro_Fast:
+                case (int)CasinoGameType.RouletteProFast:
                 case (int)CasinoGameType.MiniJacksorBetter:
                 case (int)CasinoGameType.MiniBaccarat:
-                case (int)CasinoGameType.MiniSicBo:
+                case (int)CasinoGameType.MiniSicBO:
                 case (int)CasinoGameType.MiniBlackjack:
                 case (int)CasinoGameType.MiniCasinoHoldEm:
                     return "1";
@@ -194,14 +194,14 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 case (int)CasinoGameType.JungleWild:
                 case (int)CasinoGameType.GodofProsperity:
                     return "7-1";
-                case (int)CasinoGameType.No4_LineJacksorBetter:
-                case (int)CasinoGameType.No25_LineJacksorBetter:
-                case (int)CasinoGameType.No50_LineJacksorBetter:
+                case (int)CasinoGameType.No4LineJacksorBetter:
+                case (int)CasinoGameType.No25LineJacksorBetter:
+                case (int)CasinoGameType.No50LineJacksorBetter:
                     return "7-2";
-                case (int)CasinoGameType.No_10sOrBetter:
+                case (int)CasinoGameType.No10SOrBetter:
                     return "7-3";
-                case (int)CasinoGameType.MonkeyHiLo:
-                case (int)CasinoGameType.MahjongHiLo:
+                case (int)CasinoGameType.MonkeyHilo:
+                case (int)CasinoGameType.MahjongHilo:
                     return "7-4";
                 case (int)CasinoGameType.KenoChinese:
                 case (int)CasinoGameType.KenoCamera:
@@ -220,7 +220,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 case (int)CasinoGameType.FruitScratch:
                 case (int)CasinoGameType.FlamesofOlympics:
                     return "8";
-                case (int)CasinoGameType.PenaltyHat_Trick:
+                case (int)CasinoGameType.PenaltyHatTrick:
                 case (int)CasinoGameType.FancyScratch:
                 case (int)CasinoGameType.LoveStory:
                     return "9";

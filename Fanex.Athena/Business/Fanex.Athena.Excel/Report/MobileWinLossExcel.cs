@@ -194,12 +194,12 @@ namespace Fanex.Athena.Excel.Report
                 HideRow(sheet, RowHeaderTemplate + 1);
             }
 
-            if (!ShowingOption.BaVisible)
+            if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!ShowingOption.RbVisible)
+            if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
@@ -219,10 +219,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(mobileWinLoss.CustomerWinLoss);
             row.Cells[ColumnCustomerCommission].SetCellValue(mobileWinLoss.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(mobileWinLoss.CustomerTotal);
-            row.Cells[ColumnLicenseeWl].SetCellValue(mobileWinLoss.LicenseeWl);
-            row.Cells[ColumnBaCommission].SetCellValue(mobileWinLoss.BaCommission);
+            row.Cells[ColumnLicenseeWl].SetCellValue(mobileWinLoss.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue(mobileWinLoss.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(mobileWinLoss.RacingRevenue);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(mobileWinLoss.AmtDueToBa);
+            row.Cells[ColumnAmtDueToBa].SetCellValue(mobileWinLoss.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(mobileWinLoss.AmtDueToRacing);
         }
 

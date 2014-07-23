@@ -36,7 +36,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Ft_1X2 bet type, value = 5.
         /// </summary>
-        Ft_1X2 = 5,
+        Ft1X2 = 5,
 
         /// <summary>
         /// TotalGoal bet type, value = 6.
@@ -101,7 +101,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// FirstHalf_1X2 bet type, value = 15.
         /// </summary>
-        FirstHalf_1X2 = 15,
+        FirstHalf1X2 = 15,
 
         /// <summary>
         /// Half time full time bet type, value = 16.
@@ -191,7 +191,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// NG1stBallOU bet type, value = 81.
         /// </summary>
-        NG1stBallOU = 81,
+        NG1StBallOU = 81,
 
         /// <summary>
         /// NgLastBall over under bet type, value = 82.

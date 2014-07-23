@@ -13,7 +13,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
     {
         public decimal SumWinlost { get; set; }
 
-        public decimal SumLicenseeWl { get; set; }
+        public decimal SumLicenseeWL { get; set; }
 
         public decimal SumComm { get; set; }
 

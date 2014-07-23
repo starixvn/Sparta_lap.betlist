@@ -15,13 +15,13 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal BACommission { get; set; }
 
-        public decimal RbCommission { get; set; }
+        public decimal RBCommission { get; set; }
 
         public decimal RacingRevenue { get; set; }
 
         public decimal RacingWinLoss
         {
-            get { return RbCommission + RacingRevenue; }
+            get { return RBCommission + RacingRevenue; }
         }
 
         public decimal AmtDueToBA { get; set; }

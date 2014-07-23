@@ -29,7 +29,7 @@ namespace Fanex.Athena.Models.DTO.Customer
 
         public bool IsSuspended { get; set; }
 
-        public bool BaStatus { get; set; }
+        public bool BAStatus { get; set; }
 
         public int SpecialLevel { get; set; }
 
@@ -39,15 +39,15 @@ namespace Fanex.Athena.Models.DTO.Customer
 
         public string GroupColor { get; set; }
 
-        public decimal SbComm { get; set; }
+        public decimal SBComm { get; set; }
 
-        public decimal RbComm { get; set; }
+        public decimal RBComm { get; set; }
 
-        public decimal NgComm { get; set; }
+        public decimal NGComm { get; set; }
 
-        public decimal LcComm { get; set; }
+        public decimal LCComm { get; set; }
 
-        public decimal CsComm { get; set; }
+        public decimal CSComm { get; set; }
 
         public bool IsPowerBAUserTurnoff { get; set; }
     }

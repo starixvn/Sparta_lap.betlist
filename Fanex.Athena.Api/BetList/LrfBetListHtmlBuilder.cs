@@ -95,12 +95,12 @@ namespace Fanex.Athena.Api.BetList
                     ? "-"
                     : string.Format(
                         "<div class='lic-win-loss'>{0}</div>",
-                        FormatLicenseeWl(ticket.LicenseeWl + ticket.Comm));
+                        FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm));
             }
 
             var licenseeWl = running
                 ? "-"
-                : FormatLicenseeWl(ticket.LicenseeWl);
+                : FormatLicenseeWl(ticket.LicenseeWL);
             var comm = running
                 ? "-"
                 : string.Format("{0:#,##0.00}", ticket.Comm);

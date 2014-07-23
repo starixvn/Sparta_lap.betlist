@@ -57,32 +57,32 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             if (sportType == (int)SportType.HorseRacing)
             {
-                return productAccess.IsAllowRb;
+                return productAccess.IsAllowRB;
             }
 
             if (sportType == (int)SportType.NumberGame)
             {
-                return productAccess.CanUseProduct(Product.Ng);
+                return productAccess.CanUseProduct(Product.NG);
             }
 
             if (sportType == (int)SportType.Greyhound)
             {
-                return productAccess.IsAllowRb;
+                return productAccess.IsAllowRB;
             }
 
             if (sportType == (int)SportType.Harness)
             {
-                return productAccess.IsAllowRb;
+                return productAccess.IsAllowRB;
             }
 
             if (sportType == (int)SportType.LiveCasino)
             {
-                return productAccess.IsAllowLc;
+                return productAccess.IsAllowLC;
             }
 
             if (sportType == (int)SportType.VirtualSport)
             {
-                return productAccess.IsAllowVs;
+                return productAccess.IsAllowVS;
             }
 
             return true;

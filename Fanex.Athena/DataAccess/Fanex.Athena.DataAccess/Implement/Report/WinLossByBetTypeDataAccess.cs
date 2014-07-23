@@ -66,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 winLossByBetType.CustomerComm = reader.ToDecimal(custCommColumn);
                 winLossByBetType.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
                 winLossByBetType.BACommission = reader.ToDecimal(commBaColumn);
-                winLossByBetType.RbComm = reader.ToDecimal(commRbColumn);
+                winLossByBetType.RBComm = reader.ToDecimal(commRbColumn);
                 winLossByBetType.RacingRevenue = reader.ToDecimal(racebookRevenue);
                 winLossByBetType.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
                 winLossByBetType.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);

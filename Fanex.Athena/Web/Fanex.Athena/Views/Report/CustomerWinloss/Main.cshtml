@@ -29,14 +29,14 @@
     ViewBag.RbBaWidth = 75;
 
     ViewBag.ColumnWidth = 7;
-    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowBa ? 2 : 0;
-    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowRb ? 2 : 0;
+    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowBA ? 2 : 0;
+    ViewBag.ColumnWidth += Model.ProductAccess.IsAllowRB ? 2 : 0;
 
     ViewBag.ContainerWidth = ViewBag.NumberWidth + 2 * ViewBag.TextWidth + ViewBag.TurnoverWidth + ViewBag.TotalTransWidth;
     ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth;
     ViewBag.ContainerWidth += ViewBag.LicenseeWLWidth;
-    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBa ? 2 * ViewBag.RbBaWidth : 0;
-    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRb ? 2 * ViewBag.RbBaWidth : 0;
+    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBA ? 2 * ViewBag.RbBaWidth : 0;
+    ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRB ? 2 * ViewBag.RbBaWidth : 0;
 
     ViewBag.ContainerWidth += ViewBag.ColumnWidth;
     ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;

@@ -208,8 +208,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     ticketResult.SumWinLoss = Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency]) == 0
                         ? ticketResult.MainTicketList.Sum(x => x.Winlost)
                         : Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency]);
-                    ticketResult.SumLicenseeWl = Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency]) == 0
-                        ? ticketResult.MainTicketList.Sum(x => x.LicenseeWl)
+                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency]) == 0
+                        ? ticketResult.MainTicketList.Sum(x => x.LicenseeWL)
                         : Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency]);
                     ticketResult.SumComm = Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency]) == 0
                         ? ticketResult.MainTicketList.Sum(x => x.Comm)
@@ -409,8 +409,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
-            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.Sb && i.Status == true);
-            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.Ba && i.Status == true);
+            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
+            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
 
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
             db.AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
@@ -580,7 +580,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var suportProducts = new string[5] { Product.Sb, Product.Ng, Product.Ba, Product.Lc, Product.Vs };
+            var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -602,7 +602,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var suportProducts = new string[2] { Product.Sb, Product.Ba };
+            var suportProducts = new string[2] { Product.SB, Product.BA };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -627,7 +627,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
 
-            var suportProducts = new string[5] { Product.Sb, Product.Ng, Product.Ba, Product.Lc, Product.Vs };
+            var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -691,7 +691,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            var suportProducts = new string[2] { Product.Sb, Product.Ba };
+            var suportProducts = new string[2] { Product.SB, Product.BA };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
 
             foreach (var product in products)
@@ -733,7 +733,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var suportProducts = new string[4] { Product.Sb, Product.Ba, Product.Lc, Product.Vs };
+            var suportProducts = new string[4] { Product.SB, Product.BA, Product.LC, Product.VS };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -754,7 +754,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            var suportProducts = new string[2] { Product.Sb, Product.Ba };
+            var suportProducts = new string[2] { Product.SB, Product.BA };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -1087,7 +1087,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 // Money
                 ticket.PlayerComm = ordinalPlayerComm >= 0 ? reader.ToDecimal(playerCommCol) : 0;
                 ticket.Comm = ordinalComm >= 0 ? reader.ToDecimal(commCol) : 0;
-                ticket.LicenseeWl = ordinalLicenseeWl >= 0 ? reader.ToDecimal(licenseeWlCol) : 0;
+                ticket.LicenseeWL = ordinalLicenseeWl >= 0 ? reader.ToDecimal(licenseeWlCol) : 0;
                 ticket.Winlost = ordinalWinlost >= 0 ? reader.ToDecimal(winlostCol) : 0;
                 ticket.Stake = ordinalStake >= 0 ? reader.ToDecimal(stakeCol) : 0;
                 ticket.ActualStake = ordinalActualStake >= 0 ? reader.ToDecimal(actualStakeCol) : 0;

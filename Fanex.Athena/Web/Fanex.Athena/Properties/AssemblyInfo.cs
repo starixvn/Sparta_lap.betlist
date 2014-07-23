@@ -7,8 +7,42 @@
 //   <change who="Dave.Bui" date="2012.4.11">Created</change>
 // </history>
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
+
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "GenImage_GenHistoryImg", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "GenIamge_LiveGenHistoryImg", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "GenImage_HistoryImage_ePoker", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_BJ", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_Champions", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_ePoker", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_Holdem", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_MiniRoulette", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_PokerWheel", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_Scratch", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_Taizen", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "type",
+    Target = "HistoryImage_TattooArt", Justification = "Reviewed.")]
+
+[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "type",
+    Target = "GenImage_HistoryImage_ePoker", MessageId = "e", Justification = "Reviewed.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "type",
+    Target = "HistoryImage_ePoker", MessageId = "e", Justification = "Reviewed.")]
+
+[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "type",
+    Target = "sso", MessageId = "sso", Justification = "Reviewed.")]
 
 [assembly: System.CLSCompliant(true)]
 

@@ -122,12 +122,12 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    RbVisible = productAccess.IsAllowRb,
-                    BaVisible = productAccess.IsAllowBa,
-                    NgVisible = productAccess.IsAllowNg,
-                    SbVisible = productAccess.IsAllowSB,
-                    LcVisible = productAccess.IsAllowLc,
-                    VsVisible = productAccess.IsAllowVs,
+                    RBVisible = productAccess.IsAllowRB,
+                    BAVisible = productAccess.IsAllowBA,
+                    NGVisible = productAccess.IsAllowNG,
+                    SBVisible = productAccess.IsAllowSB,
+                    LCVisible = productAccess.IsAllowLC,
+                    VSVisible = productAccess.IsAllowVS,
                     CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
 
@@ -157,7 +157,7 @@ namespace Fanex.Athena.Controllers.Report
                 BACommission = dataList.Sum(item => item.BACommission),
                 AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
                 RacingRevenue = dataList.Sum(item => item.RacingRevenue),
-                RbComm = dataList.Sum(item => item.RbComm),
+                RBComm = dataList.Sum(item => item.RBComm),
                 AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing),
                 LicenseeWL = dataList.Sum(i => i.LicenseeWL),
             };

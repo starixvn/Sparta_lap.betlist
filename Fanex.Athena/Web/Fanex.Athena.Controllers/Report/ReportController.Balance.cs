@@ -65,8 +65,8 @@ namespace Fanex.Athena.Controllers.Report
                 return BalanceExcel(viewData);
             }
 
-            ViewBag.BANotes = productAccess.CanUseProduct(Product.Ba);
-            ViewBag.RacingNotes = productAccess.IsAllowRb;
+            ViewBag.BANotes = productAccess.CanUseProduct(Product.BA);
+            ViewBag.RacingNotes = productAccess.IsAllowRB;
 
             return View("~/Views/Report/Balance/Main.cshtml", viewData);
         }
@@ -94,15 +94,15 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
                 {
-                    RbVisible = productAccess.IsAllowRb,
-                    BaVisible = productAccess.IsAllowBa,
-                    NgVisible = productAccess.IsAllowNg,
-                    SbVisible = productAccess.IsAllowSB,
-                    LcVisible = productAccess.IsAllowLc,
-                    VsVisible = productAccess.IsAllowVs,
-                    CsVisible = productAccess.IsAllowCs,
-                    BgVisible = productAccess.IsAllowBg,
-                    KnVisible = productAccess.IsAllowKN,
+                    RBVisible = productAccess.IsAllowRB,
+                    BAVisible = productAccess.IsAllowBA,
+                    NGVisible = productAccess.IsAllowNG,
+                    SBVisible = productAccess.IsAllowSB,
+                    LCVisible = productAccess.IsAllowLC,
+                    VSVisible = productAccess.IsAllowVS,
+                    CSVisible = productAccess.IsAllowCS,
+                    BGVisible = productAccess.IsAllowBG,
+                    KNVisible = productAccess.IsAllowKN,
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
 

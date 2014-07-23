@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     using System.Linq;
     using Data;
     using Extension;
-    using Fanex.Athena.Models.DTO.Forecast.ForecastHDOU;
+    using Fanex.Athena.Models.DTO.Forecast.ForecastHdou;
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Models.ViewModel.Forecast;
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="matchId">The match's id..</param>
         /// <param name="betType">The bet type..</param>
         /// <returns>Forecast AH data..</returns>
-        public ForecastAh GetFcTopOddsByMatch(int matchId, int betType)
+        public ForecastAH GetFcTopOddsByMatch(int matchId, int betType)
         {
             var uspName = "Lrf_Forecast_OddsSelTopByMatch";
 
@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 db.AddInParameter("betType", DbType.Int32, betType);
-                return db.Query<ForecastAh>().FirstOrDefault();
+                return db.Query<ForecastAH>().FirstOrDefault();
             }
         }
 
@@ -102,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">The parameter.</param>
         /// <param name="userId">User ID value.</param>
         /// <returns>A table of forecast handicap.</returns>
-        public DataTable GetForecastHandicap(ForecastAhMetaModel metaModel, int userId)
+        public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             var uspName = "Lrf_Forecast_SelHDP";
             using (var db = new ObjectDb(uspName))
@@ -124,7 +124,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">The parameter.</param>
         /// <param name="userId">User ID value.</param>
         /// <returns>A table of forecast over under.</returns>
-        public DataTable GetForecastOverUnder(ForecastAhMetaModel metaModel, int userId)
+        public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             var uspName = "Lrf_Forecast_SelOU";
 

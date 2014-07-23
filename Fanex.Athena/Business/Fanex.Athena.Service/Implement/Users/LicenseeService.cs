@@ -84,11 +84,11 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <exception cref="ServiceException">
         /// The service exception.
         /// </exception>
-        public IResultInfo IsAllowUpdateMemberBaStatus(Request request, int licenseeId, out bool isAllow)
+        public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
         {
             try
             {
-                return this._licenseeDataAccess.IsAllowUpdateMemberBaStatus(request, licenseeId, out isAllow);
+                return this._licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
             }
             catch (System.Exception ex)
             {

@@ -215,14 +215,14 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <summary>
         /// Remove customer from commission group.
         /// </summary>
-        /// <param name="metamodel">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <param name="isAllowedRNGCasino">Allow RNG Casino or not.</param>
         /// <returns>The result information.</returns>
-        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metamodel, bool isAllowedRNGCasino)
+        public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino)
         {          
-            var result = _customerDataAccess.RemoveCustomersFromGroup(metamodel);
+            var result = _customerDataAccess.RemoveCustomersFromGroup(metaModel);
             var callApiSuccess = true;
-            if (result.IsSuccessful && metamodel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
+            if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
                 var customerIds = result.ExtendedData.Split(',');
                 if (customerIds.Length > 0)
@@ -232,7 +232,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                   {
                       Comm = 0,
                       CustomerId = customerIds,
-                      FromIp = metamodel.Ip,
+                      FromIp = metaModel.Ip,
                       ModifyBy = user.UserId,
                       ModifyUserName = user.UserName
                   });
@@ -277,7 +277,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var closeCasinoResult = true;
             var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
-            var casinoSupported = productAccess.IsAllowCs;
+            var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)
             {
@@ -325,7 +325,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
             var suspendCasinoResult = true;
             var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, languageCode);
-            var casinoSupported = productAccess.IsAllowCs;
+            var casinoSupported = productAccess.IsAllowCS;
 
             if (customerInfo.SyncCasino && casinoSupported)
             {
@@ -360,14 +360,14 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="custId">The customer id.</param>
         /// <param name="modifiedBy">The modifier.</param>
-        /// <param name="allowBa">Is allowed BA.</param>
+        /// <param name="allowBA">Is allowed BA.</param>
         /// <param name="request">The request information.</param>
         /// <returns>The result information.</returns>
-        public IResultInfo UpdateCustomerBaStatus(
+        public IResultInfo UpdateCustomerBAStatus(
             int licenseeId,
             int custId,
             int modifiedBy,
-            bool allowBa,
+            bool allowBA,
             Request request)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
@@ -379,11 +379,11 @@ namespace Fanex.Athena.Service.Implement.Customer
                 };
             }
 
-            return this._customerDataAccess.UpdateCustomerBaStatus(
+            return this._customerDataAccess.UpdateCustomerBAStatus(
                 licenseeId,
                    custId,
                    modifiedBy,
-                   allowBa,
+                   allowBA,
                    request);
         }
 

@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult CustomerWl(BetListMetaModel metaModel)
+        public ActionResult CustomerWL(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return CustomerWlExcel(metaModel);
+                    return CustomerWLExcel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [NonAction]
-        public ActionResult CustomerWlExcel(BetListMetaModel metaModel)
+        public ActionResult CustomerWLExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
 

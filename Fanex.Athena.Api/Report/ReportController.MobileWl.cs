@@ -75,14 +75,14 @@ namespace Fanex.Athena.Api.Report
 
             var showingOption = new ShowingOption
                 {
-                    BaVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Ba && p.Status),
-                    RbVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Rb && p.Status),
-                    NgVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Ng && p.Status),
-                    LcVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Lc && p.Status),
-                    SbVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Sb && p.Status),
-                    VsVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Vs && p.Status),
-                    CsVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Cs && p.Status),
-                    KnVisible = metaModel.ProductOptions.Any(p => p.Code == Product.Kn && p.Status),
+                    BAVisible = metaModel.ProductOptions.Any(p => p.Code == Product.BA && p.Status),
+                    RBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.RB && p.Status),
+                    NGVisible = metaModel.ProductOptions.Any(p => p.Code == Product.NG && p.Status),
+                    LCVisible = metaModel.ProductOptions.Any(p => p.Code == Product.LC && p.Status),
+                    SBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.SB && p.Status),
+                    VSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.VS && p.Status),
+                    CSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.CS && p.Status),
+                    KNVisible = metaModel.ProductOptions.Any(p => p.Code == Product.KN && p.Status),
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
             var convertingOption = new ConvertingOption
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Api.Report
                     Param = metaModel,
                     CurrencyList = userSession.CurrencyList,
                     ProductAccess = productAccess,
-                    Colspan = 7 + (productAccess.IsAllowBa ? 2 : 0) + (productAccess.IsAllowRb ? 2 : 0),
+                    Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0) + (productAccess.IsAllowRB ? 2 : 0),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
                 };
 
