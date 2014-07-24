@@ -15,11 +15,11 @@
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWL)
             </td>
             <td style="width: 60px">@NumberHelper.DecFormat(@dataTotal.CustomerComm)
             </td>
-            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWl + @dataTotal.CustomerComm)
+            <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.CustomerWL + @dataTotal.CustomerComm)
             </td>
         }
         else

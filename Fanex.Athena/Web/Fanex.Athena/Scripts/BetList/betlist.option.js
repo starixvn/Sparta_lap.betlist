@@ -79,8 +79,8 @@ var BetListOption = (function () {
     };
     var licenseeWl =
     {
-        name: 'LicenseeWl',
-        index: 'LicenseeWl',
+        name: 'LicenseeWL',
+        index: 'LicenseeWL',
         width: 100,
         align: 'right',
         sortable: true,

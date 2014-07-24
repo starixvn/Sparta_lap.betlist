@@ -203,7 +203,7 @@ namespace Fanex.Athena.Api.BetList
                 userdata = new
                 {
                     WinLoss = sumWinLossText,
-                    LicenseeWl = sumLicenseeWlText
+                    LicenseeWL = sumLicenseeWlText
                 }
             };
         }

@@ -479,6 +479,7 @@ var LicenseeWinLossOption = (function () {
         var customerWLTotalIndex = me.customerWlTotalIndex;
         $.each(productOptions, function (index, value) {
             //insert turn over column
+            
             if (value.Status === true) {
                 var turnOver = Site.clone(productColumn);
                 turnOver.name = "TurnOver" + value.Code;
@@ -495,7 +496,7 @@ var LicenseeWinLossOption = (function () {
                     licenseeWL.index = "LicenseeWL" + value.Code;
                     licenseeWL.classes = 'highlight';
                     licenseeWL.sortable = true;
-
+                    
                     temp.insertAfter(licenseeWL, customerWLTotalIndex);
                     licenseeIndex++;
                 }

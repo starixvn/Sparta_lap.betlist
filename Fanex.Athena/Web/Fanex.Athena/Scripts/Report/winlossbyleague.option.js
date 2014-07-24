@@ -125,9 +125,9 @@ var WinLossByLeagueOption = (function () {
 
     var baCommColumn =
         {
-            name: 'BaCommission',
+            name: 'BACommission',
             // classes: 'highlight',
-            index: 'BaCommission',
+            index: 'BACommission',
             width: 80,
             align: 'right',
             sortable: false,

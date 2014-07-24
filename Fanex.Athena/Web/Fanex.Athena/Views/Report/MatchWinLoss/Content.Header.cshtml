@@ -21,23 +21,23 @@
                 @ViewResources.LicenseeW_L
             </td>
             @{
-                if (Model.ProductAccess.IsAllowBa)
+                if (Model.ProductAccess.IsAllowBA)
                 {
                 <td style="width: 60px" rowspan="@rowSpan">@ViewResources.BACommission
                 </td>
                 }
             }
-            @if (Model.ProductAccess.IsAllowRb)
+            @if (Model.ProductAccess.IsAllowRB)
             {
                 <td style="width: 70px" rowspan="@rowSpan">@ViewResources.RacingRevenue
                 </td>
             }
-            @if (Model.ProductAccess.IsAllowBa)
+            @if (Model.ProductAccess.IsAllowBA)
             {
                 <td style="width: 70px" rowspan="@rowSpan">@ViewResources.AmtDueToBA
                 </td>
             }
-            @if (Model.ProductAccess.IsAllowRb)
+            @if (Model.ProductAccess.IsAllowRB)
             {
                 <td style="width: 70px" rowspan="@rowSpan">@ViewResources.AmtDueToRacing
                 </td>

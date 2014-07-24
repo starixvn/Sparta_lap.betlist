@@ -39,43 +39,43 @@
         @if (Model.IsAllowedCustomerCommission)
         {
             <td>
-                @NumberHelper.DecFormat(matchWinloss.CustomerWl, 2)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWL, 2)
             </td>
             <td>
                 @NumberHelper.DecFormat(matchWinloss.CustomerComm, 2)
             </td>
             <td>
-                @NumberHelper.DecFormat(matchWinloss.CustomerWl + matchWinloss.CustomerComm, 2)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWL + matchWinloss.CustomerComm, 2)
             </td>
         }
         else
         {
             <td>
-                @NumberHelper.DecFormat(matchWinloss.CustomerWl, 2)
+                @NumberHelper.DecFormat(matchWinloss.CustomerWL, 2)
             </td>
         }
         <td class="highlight">
-            @RazorHelper.NegativeFormat(matchWinloss.LicenseeWl)
+            @RazorHelper.NegativeFormat(matchWinloss.LicenseeWL)
         </td>
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <td class="highlight">
-                @RazorHelper.NegativeFormat(matchWinloss.BaCommission)
+                @RazorHelper.NegativeFormat(matchWinloss.BACommission)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td class="highlight">
                 @RazorHelper.NegativeFormat(matchWinloss.RacingRevenue)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <td>
-                @NumberHelper.DecFormat(matchWinloss.AmtDueToBa, 2)
+                @NumberHelper.DecFormat(matchWinloss.AmtDueToBA, 2)
             </td>
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <td>
                 @NumberHelper.DecFormat(matchWinloss.AmtDueToRacing, 2)

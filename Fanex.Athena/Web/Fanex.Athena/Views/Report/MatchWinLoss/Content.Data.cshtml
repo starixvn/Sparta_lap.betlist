@@ -26,7 +26,7 @@
                 var matchNameHtmlString = new HtmlString(string.Empty);
                 var maxLength = 36;
                 var racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };                
-                if (productName.Equals(Product.Rb) || productName.Equals(Product.Ng) || productName.Equals(Product.Lc))
+                if (productName.Equals(Product.RB) || productName.Equals(Product.NG) || productName.Equals(Product.LC))
                 {
                     if (matchName.Length > maxLength)
                     {
@@ -89,29 +89,29 @@
                 @if (Model.IsAllowedCustomerCommission)
                 {
                     <td style="width: 85px">
-                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
                     </td>
                     <td style="width: 60px">
                         @NumberHelper.DecFormat(matchWinLoss.CustomerComm)
                     </td>
                     <td style="width: 85px">
-                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl + matchWinLoss.CustomerComm)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWL + matchWinLoss.CustomerComm)
                     </td>
                 }
                 else
                 {
                     <td style="width: 85px">
-                        @NumberHelper.DecFormat(matchWinLoss.CustomerWl)
+                        @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
                     </td>  
                 }
                 <td class="highlight" style="width: 85px">
-                    @RazorHelper.NegativeFormat(matchWinLoss.LicenseeWl)
+                    @RazorHelper.NegativeFormat(matchWinLoss.LicenseeWL)
                 </td>
                 @{
-                if (Model.ProductAccess.IsAllowBa)
+                if (Model.ProductAccess.IsAllowBA)
                 {
                     <td class="highlight" style="width: 60px">
-                        @RazorHelper.NegativeFormat(matchWinLoss.BaCommission)
+                        @RazorHelper.NegativeFormat(matchWinLoss.BACommission)
                     </td>
                 }
                 }
@@ -125,7 +125,7 @@
                 @if (Model.ProductAccess.IsAllowBA)
                 {
                     <td style="width: 70px">
-                        @NumberHelper.DecFormat(matchWinLoss.AmtDueToBa)
+                        @NumberHelper.DecFormat(matchWinLoss.AmtDueToBA)
                     </td>
                 }
                 @if (Model.ProductAccess.IsAllowRB)

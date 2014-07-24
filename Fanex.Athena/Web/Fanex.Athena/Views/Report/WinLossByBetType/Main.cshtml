@@ -31,12 +31,12 @@
     ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.BetTypeNameWidth + ViewBag.TurnOverWidth
         + (Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth)
         + ViewBag.LicenseeWLWidth
-        + (Model.ProductAccess.IsAllowBa ? ViewBag.RbBaWidth * 2 : 0)
-        + (Model.ProductAccess.IsAllowRb ? ViewBag.RbBaWidth + ViewBag.AmtRacingWidth : 0);
+        + (Model.ProductAccess.IsAllowBA ? ViewBag.RbBaWidth * 2 : 0)
+        + (Model.ProductAccess.IsAllowRB ? ViewBag.RbBaWidth + ViewBag.AmtRacingWidth : 0);
 
     ViewBag.ColumnCount = 5;
-    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowBa ? 2 : 0);
-    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowRb ? 2 : 0);
+    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowBA ? 2 : 0);
+    ViewBag.ColumnCount += (Model.ProductAccess.IsAllowRB ? 2 : 0);
 
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
     ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;

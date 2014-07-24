@@ -159,7 +159,7 @@ namespace Fanex.Athena.Controllers
             int currentLoginId = 0;
 
             // Invalid re-check-in
-            if (int.TryParse(Request["onid"], out currentLoginId) == false || !Request.IsAuthenticated || userSession == null)
+            if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
             }

@@ -22,25 +22,25 @@
         </div>
     </div>
     @*Check BA, RB commission*@
-    @if (Model.ProductAccess.IsAllowBa)
+    @if (Model.ProductAccess.IsAllowBA)
     { 
         <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="BACommission">
             @ViewResources.BACommission
         </div>
     }
-    @if (Model.ProductAccess.IsAllowRb)
+    @if (Model.ProductAccess.IsAllowRB)
     { 
         <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="RacingWinLoss">
             @ViewResources.RacingRevenue
         </div>
     }
-    @if (Model.ProductAccess.IsAllowBa)
+    @if (Model.ProductAccess.IsAllowBA)
     { 
         <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="AmtDueToBA">
             @ViewResources.AmtDueToBA
         </div>
     }
-    @if (Model.ProductAccess.IsAllowRb)
+    @if (Model.ProductAccess.IsAllowRB)
     { 
         <div class="row sort-heading"  style="width:@(ViewBag.AmtRacingWidth)@("px")" data-column-name="AmtDueToRacing">
             <div class="grid-header-two-line">@ViewResources.AmtDueToRacing</div>

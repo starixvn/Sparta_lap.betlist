@@ -211,10 +211,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
 
-            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinToEur);
-            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceToEur);
-            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WptoEUR);
-            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalToEur);
+            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinTOEUR);
+            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceTOEUR);
+            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WPTOEUR);
+            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalTOEUR);
             row.Cells[ColumnDividenWon].SetCellValue(dailyRacingWinLoss.DividendWonEUR);
             row.Cells[ColumnCustomerComm].SetCellValue(dailyRacingWinLoss.CustomerCommissionEUR);
             row.Cells[ColumnCommIncome].SetCellValue(dailyRacingWinLoss.CommIncomeEUR);
@@ -233,10 +233,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
 
-            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinToMYR);
-            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceToMYR);
-            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WptoMYR);
-            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalToMYR);
+            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinTOMYR);
+            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceTOMYR);
+            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WPTOMYR);
+            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalTOMYR);
             row.Cells[ColumnDividenWon].SetCellValue(dailyRacingWinLoss.DividendWonMYR);
             row.Cells[ColumnCustomerComm].SetCellValue(dailyRacingWinLoss.CustomerCommissionMYR);
             row.Cells[ColumnCommIncome].SetCellValue(dailyRacingWinLoss.CommIncomeMYR);
@@ -257,7 +257,7 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinTO);
             row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceTO);
-            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.Wpto);
+            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WPTO);
             row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalTO);
             row.Cells[ColumnDividenWon].SetCellValue(dailyRacingWinLoss.DividendWon);
             row.Cells[ColumnCustomerComm].SetCellValue(dailyRacingWinLoss.CustomerCommission);
@@ -277,10 +277,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
 
-            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinToUSD);
-            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceToUSD);
-            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WptoUSD);
-            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalToUSD);
+            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinTOUSD);
+            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceTOUSD);
+            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WPTOUSD);
+            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalTOUSD);
             row.Cells[ColumnDividenWon].SetCellValue(dailyRacingWinLoss.DividendWonUSD);
             row.Cells[ColumnCustomerComm].SetCellValue(dailyRacingWinLoss.CustomerCommissionUSD);
             row.Cells[ColumnCommIncome].SetCellValue(dailyRacingWinLoss.CommIncomeUSD);

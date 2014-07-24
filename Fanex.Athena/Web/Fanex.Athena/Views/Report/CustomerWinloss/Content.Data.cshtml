@@ -46,13 +46,13 @@ else
                 @if (Model.IsAllowedCustomerCommission)
                 {
                     <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
-                        <div>@item.MemberWl.ToStringExt()</div>
+                        <div>@item.MemberWL.ToStringExt()</div>
                     </div>
                     <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
                         <div>@item.PlayerComm.ToStringExt()</div>
                     </div>
                     <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
-                        <div>@((item.PlayerComm + item.MemberWl).ToStringExt())</div>
+                        <div>@((item.PlayerComm + item.MemberWL).ToStringExt())</div>
                     </div>
                 }
                 else

@@ -20,7 +20,7 @@ namespace Fanex.Athena.Excel.Report
     /// <summary>
     /// The balance excel report.
     /// </summary>
-    [System.CLSCompliant(false)]
+    // [System.CLSCompliant(false)]
     public class BalanceExcel : ReportBase
     {
         private const int ColumnAmtDueToBa = 4;

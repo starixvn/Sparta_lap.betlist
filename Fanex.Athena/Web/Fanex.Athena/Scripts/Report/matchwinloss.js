@@ -72,6 +72,7 @@ var MatchWinLoss = (function ($) {
             var reportTable = $("#data-content");
             data = Site.setLicenseeOptionOriginalParam(data);
             data.Date = $("#Date").attr('data-original');
+            
             data.ProductOptions = MatchWinLoss.getProductOption(data.ProductCode);
 
             // Expand & collapse

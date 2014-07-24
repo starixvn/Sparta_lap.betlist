@@ -20,43 +20,43 @@
         @if (Model.IsAllowedCustomerCommission)
         {
             <div class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
-                <div>@total.MemberWl.ToStringExt()</div>
+                <div>@total.MemberWL.ToStringExt()</div>
             </div>
             <div class="row line-height" style="width:@ViewBag.CustomerCommWidth@("px")">
                 <div>@total.PlayerComm.ToStringExt()</div>
             </div>
             <div class="row line-height" style="width:@ViewBag.CustomerWLTotalWidth@("px")">
-                <div>@((total.PlayerComm + total.MemberWl).ToStringExt())</div>
+                <div>@((total.PlayerComm + total.MemberWL).ToStringExt())</div>
             </div>
         }
         else
         {
             <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
-                <div>@total.MemberWl.ToStringExt()</div>
+                <div>@total.MemberWL.ToStringExt()</div>
             </div>
         }
         <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
-            @RazorHelper.HighlightNegativeFormat(total.LicenseeWl)
+            @RazorHelper.HighlightNegativeFormat(total.LicenseeWL)
         </div>
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
-                @RazorHelper.HighlightNegativeFormat(total.BaComm)
+                @RazorHelper.HighlightNegativeFormat(total.BAComm)
             </div>                
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <div class="row highlight" style="width:@ViewBag.RbBaWidth@("px")">
                 @RazorHelper.HighlightNegativeFormat(total.RacingRevenue)
             </div>                
         }
-        @if (Model.ProductAccess.IsAllowBa)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
-                <div>@total.AmtDueToBa.ToStringExt()</div>
+                <div>@total.AmtDueToBA.ToStringExt()</div>
             </div>                
         }
-        @if (Model.ProductAccess.IsAllowRb)
+        @if (Model.ProductAccess.IsAllowRB)
         {
             <div class="row" style="width:@ViewBag.RbBaWidth@("px")">
                 <div>@total.AmtDueToRacing.ToStringExt()</div>

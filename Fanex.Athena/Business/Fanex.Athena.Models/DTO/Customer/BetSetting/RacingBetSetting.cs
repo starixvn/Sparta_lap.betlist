@@ -19,28 +19,6 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting
             Language = setting.Language;
         }
 
-        public RacingBetSetting(
-            int custId,
-            int userId,
-            decimal minBet,
-            decimal maxBet,
-            decimal maxPerMatch,
-            bool isUpdateMultiple,
-            bool isDataChange,
-            string ip,
-            string language)
-        {
-            CustId = custId;
-            UserId = userId;
-            MinBet = minBet;
-            MaxBet = maxBet;
-            MaxPerMatch = maxPerMatch;
-            IsUpdateMultiple = isUpdateMultiple;
-            IsDataChange = isDataChange;
-            Ip = ip;
-            Language = language;
-        }
-
         public bool IsDataChange { get; set; }
 
         public bool IsUpdateMultiple { get; set; }

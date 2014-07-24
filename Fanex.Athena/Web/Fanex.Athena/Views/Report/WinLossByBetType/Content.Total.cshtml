@@ -18,25 +18,25 @@
         @RazorHelper.HighlightNegativeFormat(Model.Total.LicenseeWL)
     </div>
     @*Check BA, RB Commission*@
-    @if (Model.ProductAccess.IsAllowBa)
+    @if (Model.ProductAccess.IsAllowBA)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
             @RazorHelper.HighlightNegativeFormat(Model.Total.BACommission)
         </div>
     }
-    @if (Model.ProductAccess.IsAllowRb)
+    @if (Model.ProductAccess.IsAllowRB)
     { 
         <div class="row highlight" style="width:@(ViewBag.RbBaWidth)@("px")">
             @RazorHelper.HighlightNegativeFormat(Model.Total.RacingWinLoss)
         </div>
     }
-    @if (Model.ProductAccess.IsAllowBa)
+    @if (Model.ProductAccess.IsAllowBA)
     { 
         <div class="row" style="width:@(ViewBag.RbBaWidth)@("px")">
             <div>@Model.Total.AmtDueToBA.ToStringExt()</div>
         </div>
     }
-    @if (Model.ProductAccess.IsAllowRb)
+    @if (Model.ProductAccess.IsAllowRB)
     { 
         <div class="row" style="width:@(ViewBag.AmtRacingWidth)@("px")">
             <div>@Model.Total.AmtDueToRacing.ToStringExt()</div>

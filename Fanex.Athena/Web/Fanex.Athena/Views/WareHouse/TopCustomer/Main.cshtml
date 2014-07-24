@@ -9,7 +9,7 @@
     ViewBag.ShowActiveDate = !Model.ShowEmptyContent && !(Model.MainResult.Count != 0 && Model.MainResult[0].LastLoginDate == null);
 
     ViewBag.ColumnCount = 8;
-    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBa ? 2 : 0;
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBA ? 2 : 0;
     ViewBag.ColumnCount += ViewBag.ShowActiveDate ? 1 : 0;
 
     ViewBag.NumberWidth = 40;
