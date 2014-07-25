@@ -18,11 +18,11 @@ var BetList = (function ($) {
             var gridTop = $container.offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                          - $(".ui-jqgrid-pager:visible").height() - 30;
-            gridHeight = Math.max(130, gridHeight);
+            gridHeight = Math.max(150, gridHeight);
 
             var $child = $container.find(">div");
             $container.css("max-height", gridHeight);
-            if ($child.height() > Math.min($container.height(), gridHeight)) {
+            if ($child.height() < 150 || $child.height() > Math.min($container.height(), gridHeight)) {
                 $container.css("height", Math.min($child.height() + 1, gridHeight));
             }
         },
@@ -234,7 +234,6 @@ var BetList = (function ($) {
                 var summary = response.Total;
                 var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
                 var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
-
                 var gridOption = BetList.getGridOption();
 
                 var rowNum = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
@@ -244,7 +243,7 @@ var BetList = (function ($) {
                 // Show the grid
                 gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
-                gridOption.userData = { WinLoss: sumWinLoss, LicenseeWl: sumLicenseeWl };
+                gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl };
 
                 if (response.IsShowTotal === undefined || response.IsShowTotal) {
                     gridOption.userDataOnFooter = true;

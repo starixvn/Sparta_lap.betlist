@@ -314,11 +314,11 @@ var CustomerList = (function ($) {
                     item.GroupCommId = groupid;
                     item.Group = groupName;
                     item.GroupColor = groupColor;
-                    item.SbComm = sbCom;
-                    item.NgComm = ngCom;
-                    item.RbComm = rbCom;
-                    item.LcComm = lcCom;
-                    item.CsComm = csCom;
+                    item.SBComm = sbCom;
+                    item.NGComm = ngCom;
+                    item.RBComm = rbCom;
+                    item.LCComm = lcCom;
+                    item.CSComm = csCom;
                     count++;
                 }
             });

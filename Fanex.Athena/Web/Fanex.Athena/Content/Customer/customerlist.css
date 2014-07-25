@@ -277,6 +277,7 @@ a.underline
     font-size: 10px;
     padding-top: 1px;
     height: 17px;
+    white-space: normal;
 }
 
 .ba-on

@@ -34,7 +34,7 @@ namespace Fanex.Athena.Controllers.Customer
     public class CustomerController : BaseController
     {
         private const string GROUP = "Group";
-        private const string BASTATUS = "BaStatus";
+        private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
 

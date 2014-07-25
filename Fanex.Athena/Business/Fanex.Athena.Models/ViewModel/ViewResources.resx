@@ -2469,4 +2469,8 @@
   <data name="HarnessAustTote" xml:space="preserve">
     <value>Harness Aust Tote</value>
   </data>
+  <data name="DailyBetListNoteParlayOutright" xml:space="preserve">
+    <value>Daily Bet List report does not include Parlay and Outright tickets.</value>
+    <comment>#19622</comment>
+  </data>
 </root>

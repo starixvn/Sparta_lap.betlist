@@ -138,7 +138,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKeno),
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     IsHistory = false
@@ -180,7 +180,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKeno),
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     CurrencyList = userSession.CurrencyList,
                     HistoryParam = metaModel,
                     TotalRows = totalRows,
@@ -217,7 +217,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
                 {
@@ -263,7 +263,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language, IgnoreKeno);
+            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
                 {

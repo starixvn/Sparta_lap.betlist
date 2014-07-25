@@ -1,7 +1,7 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
 <div id="ajaxLoaDingUpdateBA" class="hide">
-    <img alt="update BA.." style="border: none;" src="@Url.ContentLink("/Content/Customer/images/ajax-loader_arrow.gif")" />
+    <img alt="update BA.." style="border: none; float: left" src="@Url.ContentLink("/Content/Customer/images/ajax-loader_arrow.gif")" />
 </div>
 <input id="CanUpdateBAMessage" type="hidden" value="@Model.CanUpdateBAMessage" />
 <input id="CanUpdateBA" type="hidden" value="@(Model.CanUpdateBA ? 1 : 0)" />

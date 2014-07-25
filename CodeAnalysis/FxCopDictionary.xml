@@ -5,7 +5,8 @@
     <Unrecognized />
     <Deprecated />
     <Compound />
-    <DiscreteExceptions />
+    <DiscreteExceptions>
+    </DiscreteExceptions>
   </Words>
   <Acronyms>
     <CasingExceptions>
@@ -13,6 +14,7 @@
       <Acronym>2nd</Acronym>
       <Acronym>3rd</Acronym>
       <Acronym>ABT</Acronym>
+      <Acronym>ADSI</Acronym>
       <Acronym>Aff</Acronym>
       <Acronym>Ag</Acronym>
       <Acronym>ALOG</Acronym>
@@ -31,6 +33,7 @@
       <Acronym>BON</Acronym>
       <Acronym>Cc</Acronym>
       <Acronym>Ch</Acronym>
+      <Acronym>CI</Acronym>
       <Acronym>Cn</Acronym>
       <Acronym>Comm</Acronym>
       <Acronym>CRM</Acronym>
@@ -61,6 +64,7 @@
       <Acronym>IBCPT</Acronym>
       <Acronym>ID</Acronym>
       <Acronym>IDs</Acronym>
+      <Acronym>IIS</Acronym>
       <Acronym>Ip</Acronym>
       <Acronym>IPVN</Acronym>
       <Acronym>Ja</Acronym>
@@ -77,8 +81,10 @@
       <Acronym>LRF</Acronym>
       <Acronym>MDI</Acronym>
       <Acronym>MHC</Acronym>
+      <Acronym>MS</Acronym>
       <Acronym>MSN</Acronym>
       <Acronym>MU</Acronym>
+      <Acronym>MWA</Acronym>
       <Acronym>MYR</Acronym>
       <Acronym>NAP</Acronym>
       <Acronym>Ng</Acronym>
@@ -110,6 +116,7 @@
       <Acronym>SMAWL</Acronym>
       <Acronym>Sp</Acronym>
       <Acronym>SPName</Acronym>
+      <Acronym>SQL</Acronym>
       <Acronym>SSO</Acronym>
       <Acronym>St</Acronym>
       <Acronym>SubAccId</Acronym>
@@ -117,7 +124,7 @@
       <Acronym>To</Acronym>
       <Acronym>TOIBC</Acronym>
       <Acronym>TOMYR</Acronym>
-      <Acronym>TOUER</Acronym>
+      <Acronym>TOEUR</Acronym>
       <Acronym>TOUSD</Acronym>
       <Acronym>Uk</Acronym>
       <Acronym>Um</Acronym>
@@ -131,16 +138,30 @@
       <Acronym>VN</Acronym>
       <Acronym>VNIP</Acronym>
       <Acronym>VS</Acronym>
+      <Acronym>WinTOEUR</Acronym>
       <Acronym>WL</Acronym>
       <Acronym>WLBA</Acronym>
       <Acronym>WLBG</Acronym>
+      <Acronym>WLCS</Acronym>
       <Acronym>WLEUR</Acronym>
+      <Acronym>WLKN</Acronym>
+      <Acronym>WLLC</Acronym>
+      <Acronym>WLNG</Acronym>
+      <Acronym>WLRB</Acronym>
+      <Acronym>WLSB</Acronym>
       <Acronym>WLUSD</Acronym>
+      <Acronym>WLVS</Acronym>
+      <Acronym>WPTO</Acronym>
+      <Acronym>WPTO12Bet</Acronym>
+      <Acronym>WPTO12BetEUR</Acronym>
+      <Acronym>WPTO12BetMYR</Acronym>
+      <Acronym>WPTO12BetUSD</Acronym>
+      <Acronym>WPTOEUR</Acronym>
+      <Acronym>WPTOMYR</Acronym>
+      <Acronym>WPTOUSD</Acronym>
       <Acronym>Xi</Acronym>
       <Acronym>XML</Acronym>
       <Acronym>Zh</Acronym>
-      <Acronym>SQL</Acronym>
-      <Acronym>FPS</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

@@ -14,7 +14,6 @@ var LicenseeWinLoss = (function ($) {
     var _datetime = null;
     var _removeSorting = false;
     var _reportBy = null;
-    var _pageSize = 0;
     var _resizeTimer = null;
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
@@ -51,7 +50,6 @@ var LicenseeWinLoss = (function ($) {
             return totalRowCount;
         },
         initialize: function () {
-            _pageSize = LicenseeWinLossOption.pageSize;
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
@@ -380,7 +378,7 @@ var LicenseeWinLoss = (function ($) {
             gridOption.rownumbers = true;
             gridOption.data = response.Data;
             gridOption.userData = {};
-            gridOption.rowNum = level === 2 ? _pageSize : LicenseeWinLossOption.nonePagingSize;
+            gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
             gridOption.rowList = LicenseeWinLossOption.rowList;
             gridOption.rowTotal = numOfRow;
             gridOption.pager = '#ppdata';
@@ -399,7 +397,6 @@ var LicenseeWinLoss = (function ($) {
                 level = Number(level);
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
-                    _pageSize = $("#ReportGrid").getGridParam("rowNum");
                     $("#pg_ppdata").show();
                 }
                 else {
@@ -419,6 +416,7 @@ var LicenseeWinLoss = (function ($) {
                     }
 
                     onPaging = false;
+                    LicenseeWinLoss.resizeGrid();
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
@@ -460,7 +458,7 @@ var LicenseeWinLoss = (function ($) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
 
-            LicenseeWinLoss.resizeGrid();
+            
         },
 
         //#end

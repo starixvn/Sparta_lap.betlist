@@ -11,11 +11,10 @@ var Totalbets = (function ($) {
 
             var gridTop = $grid.offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - 30;
+            var gridHeight = window.innerHeight - gridTop - 35;
             gridHeight = Math.max(150, gridHeight);
-            gridHeight = Math.min($grid.height(), gridHeight);
-            $grid.css("height", gridHeight);
-            $grid.height(gridHeight);
+            gridHeight = Math.min($(".data-content .report-table").height(), gridHeight);
+            $grid.attr("style", "height: " + gridHeight + "px !important; max-height: 100% !important;");
         },
         initEvent: function () {
             // Init refresh countdown

@@ -104,8 +104,8 @@ var CustomersOption = (function () {
     };
     var baStatusColumn =
     {
-        name: 'BaStatus',
-        index: 'BaStatus',
+        name: 'BAStatus',
+        index: 'BAStatus',
         resizable: false,
         width: 80,
         align: 'left',
@@ -113,7 +113,7 @@ var CustomersOption = (function () {
         formatter: function (cellValue, options, rowObject) {
             var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
             return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-                    "' class='ba-" + (cellValue ? "on" : "off") + "'>" +
+                    "' style='white-space: normal' class='ba-" + (cellValue ? "on" : "off") + "'>" +
                     (cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off")).toUpperCase() + "</div>";
         }
     };
@@ -198,7 +198,7 @@ var CustomersOption = (function () {
         }
     };
 
-    var products = ["Rb", "Ng", "Lc", "Cs"];
+    var products = ["RB", "NG", "LC", "CS"];
     var numOfProductColumns = 0;
 
     var getColName = function (productAccess, isAllowedCustomerCommission) {
@@ -232,7 +232,7 @@ var CustomersOption = (function () {
             temp.insertAfter(col, 0);
 
             col = Site.clone(commissionColumn);
-            col.name = "SbComm";
+            col.name = "SBComm";
             col.index = col.name;
             col.cellattr = getCellAttrFunction(col.name);
             temp.push(col);
@@ -256,7 +256,7 @@ var CustomersOption = (function () {
         {
             useColSpanStyle: true,
             groupHeaders: [{
-                startColumnName: "SbComm",
+                startColumnName: "SBComm",
                 numberOfColumns: numOfProductColumns,
                 titleText: Site.getSingleResource('Commission') + " (%)"
             }]

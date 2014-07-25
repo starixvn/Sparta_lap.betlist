@@ -7,7 +7,7 @@
     if (Model.MainResult.Count > 0)
     {
     <tr class="total-rows total-first-row total-in-eur">
-        <td colspan="2">@ViewResources.Total
+        <td colspan="2">@ViewResources.Total 
         </td>
         <td style="width: 85px">@NumberHelper.DecFormat(@dataTotal.Turnover)
         </td>
@@ -63,49 +63,49 @@
     {
     <tr>
         <td colspan="2" class="title-text">
-            <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)">@CacheRef.GetBettype(@itemOutRight.BetType)</span>
+            <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)"> @CacheRef.GetBettype(@itemOutRight.BetType)</span>
         </td>
-        <td>@NumberHelper.DecFormat(itemOutRight.Turnover)
+        <td style="width: 85px">@NumberHelper.DecFormat(itemOutRight.Turnover)
         </td>
-        <td>@itemOutRight.TotalTransaction.ToString("#,###")
+        <td style="width: 70px">@itemOutRight.TotalTransaction.ToString("#,###")
         </td>
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL)
+            <td style="width: 85px">@NumberHelper.DecFormat(itemOutRight.CustomerWL)
             </td>
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerComm)
+            <td style="width: 60px">@NumberHelper.DecFormat(itemOutRight.CustomerComm)
             </td>
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL + itemOutRight.CustomerComm)
+            <td style="width: 85px">@NumberHelper.DecFormat(itemOutRight.CustomerWL + itemOutRight.CustomerComm)
             </td>
         }
         else
         {
-            <td>@NumberHelper.DecFormat(itemOutRight.CustomerWL)
+            <td style="width: 85px" >@NumberHelper.DecFormat(itemOutRight.CustomerWL)
             </td>
         }
-        <td class="highlight">
+        <td style="width: 85px" class="highlight">
             @RazorHelper.NegativeFormat(@itemOutRight.LicenseeWL)
         </td>
         @if (Model.ProductAccess.IsAllowBA)
         {
-            <td class="highlight">
+            <td style="width: 60px" class="highlight">
                 @RazorHelper.NegativeFormat(itemOutRight.BACommission)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRB)
         {
-            <td class="highlight">
+            <td style="width: 70px" class="highlight">
                 @RazorHelper.NegativeFormat(itemOutRight.RacingRevenue)
             </td>
         }
         @if (Model.ProductAccess.IsAllowBA)
         {
-            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToBA)
+            <td style="width: 70px">@NumberHelper.DecFormat(@itemOutRight.AmtDueToBA)
             </td>
         }
         @if (Model.ProductAccess.IsAllowRB)
         {
-            <td>@NumberHelper.DecFormat(@itemOutRight.AmtDueToRacing)
+            <td style="width: 70px">@NumberHelper.DecFormat(@itemOutRight.AmtDueToRacing)
             </td>
         }
     </tr>

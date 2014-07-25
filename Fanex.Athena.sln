@@ -32,7 +32,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{3E648ADD-986B-4630-BE56-F72B4A7E875E}"
 	ProjectSection(SolutionItems) = preProject
 		CodeAnalysis\customrule.ruleset = CodeAnalysis\customrule.ruleset
-		C:\Users\joseph.pham\Desktop\FxCopDictionary.xml = C:\Users\joseph.pham\Desktop\FxCopDictionary.xml
 		CodeAnalysis\FxCopDictionary.xml = CodeAnalysis\FxCopDictionary.xml
 	EndProjectSection
 EndProject

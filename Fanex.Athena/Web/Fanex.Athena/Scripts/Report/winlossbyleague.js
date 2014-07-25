@@ -146,10 +146,11 @@ var WinLossByLeague = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var gridTop = $("#ReportGrid").offset().top;
+                var gridTop = $(".ui-jqgrid-hdiv").offset().top;
+                
                 var pagerHeight = $(".pagingContainer:visible").height() || 0;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
-                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - 30;
+                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - 50;
                 gridHeight = Math.max(130, gridHeight);
                 $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);

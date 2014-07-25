@@ -1384,6 +1384,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily Bet List report does not include Parlay and Outright tickets..
+        /// </summary>
+        public static string DailyBetListNoteParlayOutright {
+            get {
+                return ResourceManager.GetString("DailyBetListNoteParlayOutright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 12Bet Daily Racing Win Loss on {0} - {1}.
         /// </summary>
         public static string DailyRacing12BetTitle {
