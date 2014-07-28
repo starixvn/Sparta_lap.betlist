@@ -68,7 +68,6 @@ var Turnover = (function ($) {
             });
 
             $("#SubmitButton").click(function () {
-                Site.blockUI();
                 $('#IsExportExcel').val(false);
                 Turnover.submit();
             });

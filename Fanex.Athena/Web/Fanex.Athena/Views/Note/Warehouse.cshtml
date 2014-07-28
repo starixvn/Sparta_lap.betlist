@@ -5,7 +5,7 @@
 @model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
 @{
                
-    var allowNg = Model.ProductList.Any(p => p.ProductCode == Product.Ng);
+    var allowNg = Model.ProductList.Any(p => p.ProductCode == Product.NG);
     // The data warehouse is available after 9AM
     // Data warehouse an support viewing all historical up to yesterday
     var availableDate = DateTime.Now.AddHours(-9).AddDays(-1);

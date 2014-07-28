@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+﻿﻿// -----------------------------------------------------------------------
 // <copyright file="DictionaryPropertyComparer.cs" company="Unknown">
 // TODO: Update copyright text.
 // </copyright>
@@ -6,8 +6,9 @@
 
 namespace Fanex.Athena.Extension.Utility
 {
-    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Compare 2 property properties for sorting.
@@ -17,11 +18,14 @@ namespace Fanex.Athena.Extension.Utility
     /// MSDN article.
     /// </remarks>
     /// <typeparam name="T">Type parameter.</typeparam>
-    public class DictionaryPropertyComparer<T> : PropertyComparer<T>
+    /// <typeparam name="TKey">Key type of dictionary.</typeparam>
+    /// <typeparam name="TValue">Value type of dictionary.</typeparam>
+    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Reviewed.")]
+    public class DictionaryPropertyComparer<T, TKey, TValue> : PropertyComparer<T>
     {
-        private object _key;
+        private TKey _key;
 
-        public DictionaryPropertyComparer(object key, string property, ListSortDirection direction)
+        public DictionaryPropertyComparer(TKey key, string property, ListSortDirection direction)
             : base(property, direction)
         {
             _key = key;
@@ -38,8 +42,8 @@ namespace Fanex.Athena.Extension.Utility
         public override int Compare(T x, T y)
         {
             // Get property values
-            var firstValue = (GetPropertyValue(x, PropertyName) as IDictionary)[_key];
-            var secondValue = (GetPropertyValue(y, PropertyName) as IDictionary)[_key];
+            var firstValue = (GetPropertyValue(x, PropertyName) as Dictionary<TKey, TValue>)[_key];
+            var secondValue = (GetPropertyValue(y, PropertyName) as Dictionary<TKey, TValue>)[_key];
 
             // Determine sort order
             if (Direction == ListSortDirection.Ascending)
@@ -49,7 +53,7 @@ namespace Fanex.Athena.Extension.Utility
             else
             {
                 return CompareDescending(firstValue, secondValue);
-            }        
+            }
         }
         #endregion
     }

@@ -21,18 +21,18 @@
     @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
     (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
     (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth, true)
-    <div class="row sort-heading" style="width:@ViewBag.LicenseeWLWidth@("px")" data-column-name="LicenseeWl">
+    <div class="row sort-heading" style="width:@ViewBag.LicenseeWLWidth@("px")" data-column-name="LicenseeWL">
         <div class="" style="width:@ViewBag.LicenseeWLWidth@("px")">
             @ViewResources.LicenseeW_L
         </div>
     </div>
     @if (Model.ProductAccess.IsAllowBA)
     {
-        <div class="row sort-heading" style="width:@ViewBag.RbBaWidth@("px")" data-column-name="BaComm">
+        <div class="row sort-heading" style="width:@ViewBag.RbBaWidth@("px")" data-column-name="BAComm">
             <div class="grid-header-two-line">
                 @ViewResources.BACommission
             </div>
-        </div>                
+        </div>
     }
     @if (Model.ProductAccess.IsAllowRB)
     {
@@ -44,7 +44,7 @@
     }
     @if (Model.ProductAccess.IsAllowBA)
     {
-        <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="AmtDueToBa">
+        <div class="row sort-heading" style="width:@(ViewBag.RbBaWidth)@("px")" data-column-name="AmtDueToBA">
             <div class="grid-header-two-line">
                 @ViewResources.AmtDueToBA
             </div>

@@ -105,7 +105,7 @@ namespace Fanex.Athena.Api.Report
                     var propertyName = sortBy.Substring(0, indexProductCode);
                     var productCode = sortBy.Substring(indexProductCode);
 
-                    dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
