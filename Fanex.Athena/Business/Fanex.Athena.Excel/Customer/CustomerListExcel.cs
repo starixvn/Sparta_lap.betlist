@@ -44,7 +44,7 @@ namespace Fanex.Athena.Excel.Customer
         private const int LCCommColumn = 12;
         private const int CSCommColumn = 13;
         private const string GROUP = "Group";
-        private const string BASTATUS = "BaStatus";
+        private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
 
         private readonly Dictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>

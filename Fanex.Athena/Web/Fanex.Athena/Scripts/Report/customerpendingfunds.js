@@ -8,9 +8,10 @@ var CustPendingFunds = (function ($) {
             if ($grid.length === 0) {
                 return;
             }
-
+            var $pager = $(".pagingContainer");
+            var pagerHeight = $pager.length > 0 ? $pager.height() * $pager.length : 0;
             var gridTop = $grid.offset().top;
-            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - 30;
+            var gridHeight = window.innerHeight - gridTop - $("#report-total").height() - pagerHeight - 30;
             gridHeight = Math.max(120, gridHeight);
             $grid.css("max-height", gridHeight);
         },

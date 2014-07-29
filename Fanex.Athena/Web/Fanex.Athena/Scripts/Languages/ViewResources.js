@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/1/2014 11:20:42 AM
+// Lasted generated date: 7/28/2014 4:59:50 PM
 // </history>
 
 var _language_en_US={
@@ -305,6 +305,8 @@ var _language_en_US={
                      Daily:"Daily",
 				 	
                      DailyBetList:"Daily Bet List",
+				 	
+                     DailyBetListNoteParlayOutright:"Daily Bet List report does not include Parlay and Outright tickets.",
 				 	
                      DailyRacing12BetTitle:"12Bet Daily Racing Win Loss on {0} - {1}",
 				 	

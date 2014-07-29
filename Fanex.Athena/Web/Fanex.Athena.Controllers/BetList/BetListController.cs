@@ -9,6 +9,8 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -39,6 +41,11 @@ namespace Fanex.Athena.Controllers.BetList
         #endregion Constant
 
         #region Fields
+
+        /// <summary>
+        /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
+        /// </summary>
+        private static readonly ReadOnlyCollection<int> HiddenColumnIndexes = new ReadOnlyCollection<int>(new List<int>() { 7, 8 });
 
         /// <summary>
         /// The list contains all bet type of racing.

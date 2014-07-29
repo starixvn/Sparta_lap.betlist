@@ -196,8 +196,9 @@ var MobileWinLoss = (function ($) {
             var numOfTotalRow = response.Total.length;
             gridOption.data = response.Data;
             gridOption.userData = response.TotalEur;
-            gridOption.rowNum = _pageSize; // MobileWinLossOption.pageSize;
             gridOption.rowList = MobileWinLossOption.rowList;
+            gridOption.rowNum = _pageSize;
+            
             gridOption.rowTotal = numOfRow;
             gridOption.pager = '#ppdata';
 
@@ -216,7 +217,7 @@ var MobileWinLoss = (function ($) {
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 if (numOfRow > MobileWinLossOption.pageSize) {
-                    _pageSize = $("#ReportGrid").getGridParam("rowNum");
+                    _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                     $("#pg_ppdata").show();
                 }
                 else {
@@ -237,6 +238,8 @@ var MobileWinLoss = (function ($) {
 
                     onPaging = false;
                 }
+                
+                MobileWinLoss.resizeGrid();
                 Site.unBlockUI();
             };
             // Show the grid
@@ -269,7 +272,7 @@ var MobileWinLoss = (function ($) {
                 });
             }
 
-            MobileWinLoss.resizeGrid();
+           
         },
 
         //#endregion

@@ -208,7 +208,7 @@ var BetList = (function ($) {
             BetList.submiting = true;
 
             var gridOption = BetList.getGridOption();
-            var rows = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
+            var rows = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
             gridOption.url = url;
             gridOption.rowNum = rows;
             gridOption.height = 0;
@@ -236,7 +236,7 @@ var BetList = (function ($) {
                 var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
                 var gridOption = BetList.getGridOption();
 
-                var rowNum = $("#BetListGrid").getGridParam("rowNum") || gridOption.rowNum;
+                var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
                 if (rowNum < gridOption.rowList[0]) {
                     rowNum = gridOption.rowList[0];
                 }

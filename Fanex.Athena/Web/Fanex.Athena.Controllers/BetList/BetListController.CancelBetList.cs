@@ -137,10 +137,8 @@ namespace Fanex.Athena.Controllers.BetList
                 var title = ViewResources.CancelledBets
                     + string.Format(" - {0}", currencyTitle);
 
-                var hiddenColumnIdx = new List<int> { 7, 8 }; // 7: winloss, 8: licenseewl
-
                 var excel = new Excel.BetList.BetListExcel(
-                    showingOption, metaModel.LicenseeId == 1, hiddenColumnIdx);
+                    showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes);
 
                 var workbook = excel.Export(ticketResult, title);
 
