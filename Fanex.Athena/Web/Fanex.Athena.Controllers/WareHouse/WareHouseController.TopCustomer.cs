@@ -70,7 +70,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         {
             var userSession = SessionService.UserSession;
             const string FileName = "TopCustomer";
-            const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
             metaModel.UserId = userSession.UserId;
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
@@ -89,9 +88,8 @@ namespace Fanex.Athena.Controllers.WareHouse
                     BaseCurrency = metaModel.BaseCurrency,
                     CurrencyName = metaModel.CurrencyName
                 };
-            var viewByCurrency = string.Format(
-                FormatCurrency, 
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+            var viewByCurrency =
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var titleText = string.Format(
                 FormatTitle,
                 ViewResources.Top,

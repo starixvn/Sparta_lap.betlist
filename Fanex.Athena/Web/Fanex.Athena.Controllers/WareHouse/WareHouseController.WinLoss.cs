@@ -62,7 +62,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         public ActionResult ExportExcel(WinLossMetaModel metaModel)
         {
             const string FileName = "WinLoss";
-            const string FormatCurrency = "{0} {1}";
             const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -76,9 +75,8 @@ namespace Fanex.Athena.Controllers.WareHouse
                     NGVisible = productAccess.IsAllowNG,
                     SBVisible = productAccess.IsAllowSB
                 };
-            var viewByCurrency = string.Format(
-                FormatCurrency,
-                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+            var viewByCurrency = 
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var groupingList = GroupingMetaModel.GetCollection();
             var titleText = string.Format(
                 FormatTitle,
