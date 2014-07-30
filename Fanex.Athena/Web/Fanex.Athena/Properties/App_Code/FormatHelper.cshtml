@@ -1,8 +1,0 @@
-﻿@using System.Web.Mvc;
-@using System.Web.WebPages;
-@using Fanex.Athena.Models.ViewModel;
-@using Fanex.Athena.Extension.Helper;
-@helper NegativeFormat(decimal value, bool isHiglight = true)
-    {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>@value.ToStringExt()</span>
-}
