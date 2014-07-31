@@ -70,12 +70,7 @@ var WinLossByLeagueOption = (function () {
             resizable: false,
             formatter: 'currency',
             hidden: false,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
     var betcountColumn =
         {
@@ -101,12 +96,7 @@ var WinLossByLeagueOption = (function () {
             sortable: false,
             resizable: false,
             formatter: jqGridAdditional.formatDecimal,
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
     var licenseeWlColumn =
@@ -133,12 +123,7 @@ var WinLossByLeagueOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
     var amtDueToColumn =
         {
@@ -149,12 +134,7 @@ var WinLossByLeagueOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions:
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            }
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
     //#endregion

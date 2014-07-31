@@ -110,12 +110,7 @@ var LicenseeWinLossOption = (function () {
         resizable: false,
         formatter: 'currency',
         hidden: false,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var totalTransColumn =
@@ -143,12 +138,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var playerCommColumn =
@@ -160,12 +150,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var customerWlTotalColumn =
@@ -177,12 +162,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var licenseeWlColumn =
@@ -209,12 +189,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ",",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var racingRevenueColumn =
@@ -227,12 +202,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var amtDueToBaColumn =
@@ -244,12 +214,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var amtDueToRacingColumn =
@@ -261,12 +226,7 @@ var LicenseeWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
     var currencyIdColumn =

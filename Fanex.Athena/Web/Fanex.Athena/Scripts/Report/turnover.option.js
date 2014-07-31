@@ -1,4 +1,4 @@
-﻿/*global Site*/
+﻿/*global Site, jqGridAdditional*/
 /*exported MobileWinLossOption*/
 /// <reference path="/@JSense.js" />
 //##
@@ -54,12 +54,7 @@ var TurnoverOption = (function () {
         sortable: false,
         formatter: 'currency',
         frozen: true,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var bonusColumn = {
         name: 'Bonus',

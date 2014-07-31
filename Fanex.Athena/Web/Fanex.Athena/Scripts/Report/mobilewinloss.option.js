@@ -69,12 +69,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         formatter: 'currency',
         frozen: true,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var totalTransColumn = {
         name: 'TotalTransactions',
@@ -99,12 +94,7 @@ var MobileWinLossOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var playerCommColumn = {
         name: 'CustomerComm',
@@ -115,12 +105,7 @@ var MobileWinLossOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var customerWlTotalColumn = {
         name: 'CustomerTotal',
@@ -131,12 +116,7 @@ var MobileWinLossOption = (function () {
         resizable: false,
         frozen: true,
         formatter: jqGridAdditional.formatDecimal,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var licenseeWlColumn = {
         name: 'LicenseeWL',
@@ -159,12 +139,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var racingRevenueColumn = {
         name: 'RacingRevenue',
@@ -175,12 +150,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var amtDueToBaColumn = {
         name: 'AmtDueToBA',
@@ -190,12 +160,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var amtDueToRacingColumn = {
         name: 'AmtDueToRacing',
@@ -205,12 +170,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var currencyIdColumn = {
         name: 'CurrencyId',

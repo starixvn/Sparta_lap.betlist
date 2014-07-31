@@ -34,14 +34,14 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class MatchWinLossExcel : ReportBase
     {
-        private const int ColumnCustomerWl = 3;
-        private const int ColumnCustomerComm = 4;
-        private const int ColumnCustomerTotal = 5;
-        private const int ColumnBaCommission = 7;
-        private const int ColumnRacingRevenue = 8;
-        private const int ColumnAmtDueToBa = 9;
-        private const int ColumnAmtDueToRacing = 10;
-        private const int ColumnTemplateCount = 10;
+        private const int ColumnCustomerWl = 4;
+        private const int ColumnCustomerComm = 5;
+        private const int ColumnCustomerTotal = 6;
+        private const int ColumnBaCommission = 8;
+        private const int ColumnRacingRevenue = 9;
+        private const int ColumnAmtDueToBa = 10;
+        private const int ColumnAmtDueToRacing = 11;
+        private const int ColumnTemplateCount = 11;
 
         private const int RowTableHeaderTemplate = 1;
         private const int RowMatchTemplate = 3;

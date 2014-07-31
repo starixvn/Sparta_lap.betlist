@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString*/
+﻿/*global Site, QueryString, jqGridAdditional*/
 /*exported RNGCasinoOption*/
 /// <reference path="/@JSense.js" />
 //##
@@ -107,12 +107,7 @@ var RNGCasinoOption = (function () {
         resizable: false,
         frozen: true,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        }
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
     var endBlanceColumn = {
         name: 'EndBlance',
@@ -123,12 +118,7 @@ var RNGCasinoOption = (function () {
         resizable: false,
         frozen: true,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        },
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
         summaryType: 'count',
         summaryTpl: '<b>' + Site.getSingleResource('Total') + '</b>'
     };
@@ -141,12 +131,7 @@ var RNGCasinoOption = (function () {
         resizable: false,
         frozen: true,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        },
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
         summaryType: 'sum'
     };
     var betColumn = {
@@ -158,12 +143,7 @@ var RNGCasinoOption = (function () {
         resizable: false,
         formatter: 'currency',
         frozen: true,
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        },
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
         summaryType: 'sum'
     };
     var winLossColumn = {
@@ -176,12 +156,7 @@ var RNGCasinoOption = (function () {
         frozen: true,
         title: true,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        },
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
         summaryType: 'sum'
     };
     var rollingCommColumn = {
@@ -194,12 +169,7 @@ var RNGCasinoOption = (function () {
         frozen: true,
         title: true,
         formatter: 'currency',
-        formatoptions:
-        {
-            decimalSeparator: ".",
-            thousandsSeparator: ",",
-            decimalPlaces: 2
-        },
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
         summaryType: 'sum'
     };
     var resultColumn = {

@@ -32,12 +32,6 @@ var WinLossByProductOption = (function () {
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
-    var _decimalFormatOptions =
-            {
-                decimalSeparator: ".",
-                thousandsSeparator: ",",
-                decimalPlaces: 2
-            };
     //#region Columns
 
     var indexColumn =
@@ -107,7 +101,7 @@ var WinLossByProductOption = (function () {
             resizable: false,
             formatter: 'currency',
             hidden: false,
-            formatoptions: _decimalFormatOptions
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
     var totalTransColumn =
         {
@@ -177,7 +171,7 @@ var WinLossByProductOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions: _decimalFormatOptions
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
     var amtDueToColumn =
@@ -189,7 +183,7 @@ var WinLossByProductOption = (function () {
             sortable: false,
             resizable: false,
             formatter: 'currency',
-            formatoptions: _decimalFormatOptions
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
     var currencyIdColumn =

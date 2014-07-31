@@ -4,6 +4,11 @@
 "use strict";
 var jqGridAdditional = (function () {
     return {
+        DECIMAL_FORMAT_OPTIONS: {
+            decimalSeparator: ".",
+            thousandsSeparator: ",",
+            decimalPlaces: 2
+        },
         resetLayout: function (grid, maxWidth) {
             /// <summary>
             ///

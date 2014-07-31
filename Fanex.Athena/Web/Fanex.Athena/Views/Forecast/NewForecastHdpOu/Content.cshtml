@@ -37,7 +37,7 @@
         ViewBag.DetailOuList = firstHalfOuDetail.ToList();
         ViewBag.HeaderText = ViewResources.lbl1st + " " + ViewResources.Half.ToUpper();
         ViewBag.IsFullTime = false;
-        ViewBag.IsExpand = Model.Param.IsShowFh;
+        ViewBag.IsExpand = Model.Param.IsShowFH;
 
         Html.RenderPartial("~/Views/Forecast/NewForecastHdpOu/Content.ForecastItem.cshtml");
     }
@@ -50,7 +50,7 @@
         ViewBag.DetailOuList = fullTimeOuDetail.ToList();
         ViewBag.HeaderText = ViewResources.Full.ToUpper() + " " + ViewResources.Time.ToUpper();
         ViewBag.IsFullTime = true;
-        ViewBag.IsExpand = Model.Param.IsShowFt;
+        ViewBag.IsExpand = Model.Param.IsShowFT;
 
         Html.RenderPartial("~/Views/Forecast/NewForecastHdpOu/Content.ForecastItem.cshtml");
     }

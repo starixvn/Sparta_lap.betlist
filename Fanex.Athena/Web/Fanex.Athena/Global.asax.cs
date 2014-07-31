@@ -108,7 +108,7 @@ namespace Fanex.Athena
 
         protected void Application_BeginRequest()
         {
-            if (Request.IsLocal && Environment.MachineName != "CP0076-JOSEPH")
+            if (Request.IsLocal)
             {
                 MiniProfiler.Start();
             }
