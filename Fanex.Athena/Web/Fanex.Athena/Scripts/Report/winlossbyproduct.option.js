@@ -277,7 +277,7 @@ var WinLossByProductOption = (function () {
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
-        LicenseeWlCommColumn.hidden = me.IsAllowBA && me.IsAllowRB;
+        LicenseeWlCommColumn.hidden = !me.IsAllowBA && !me.IsAllowRB;
         // Column hidden by level
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;

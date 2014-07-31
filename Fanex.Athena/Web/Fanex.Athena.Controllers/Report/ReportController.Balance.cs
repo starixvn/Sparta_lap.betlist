@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
                 return BalanceExcel(viewData);
             }
 
-            ViewBag.BANotes = productAccess.CanUseProduct(Product.BA);
+            ViewBag.BANotes = productAccess.IsAllowBA;
             ViewBag.RacingNotes = productAccess.IsAllowRB;
 
             return View("~/Views/Report/Balance/Main.cshtml", viewData);

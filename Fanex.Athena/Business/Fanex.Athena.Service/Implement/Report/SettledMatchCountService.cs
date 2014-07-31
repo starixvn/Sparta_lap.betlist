@@ -62,7 +62,7 @@ namespace Fanex.Athena.Service.Implement.Report
 
             if (sportType == (int)SportType.NumberGame)
             {
-                return productAccess.CanUseProduct(Product.NG);
+                return productAccess.IsAllowNG;
             }
 
             if (sportType == (int)SportType.Greyhound)
