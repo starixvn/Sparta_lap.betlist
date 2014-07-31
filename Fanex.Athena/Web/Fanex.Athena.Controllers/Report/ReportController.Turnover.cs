@@ -144,7 +144,7 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    BAVisible = productAccess.CanUseBA
+                    BAVisible = productAccess.IsAllowBA
                 };
 
             viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?

@@ -145,7 +145,7 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                    BAVisible = productAccess.CanUseBA,
+                    BAVisible = productAccess.IsAllowBA,
                     RBVisible = productAccess.IsAllowRB
                 };
             var convertingOption = new ConvertingOption

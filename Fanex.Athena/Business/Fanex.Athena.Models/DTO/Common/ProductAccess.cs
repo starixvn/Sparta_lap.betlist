@@ -10,7 +10,6 @@ namespace Fanex.Athena.Models.DTO.Common
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Fanex.Athena.Extension.Utility;
 
     /// <summary>
     /// ProductAccess class.
@@ -95,74 +94,6 @@ namespace Fanex.Athena.Models.DTO.Common
             {
                 return ProductList.Any(p => p.ProductCode == Product.KN);
             }
-        }
-
-        public bool CanUseRacing
-        {
-            get
-            {
-                return AppSettings.EnableRacing
-                       && ProductList.Any(p => p.ProductCode == Product.RB);
-            }
-        }
-
-        public bool CanUseHorseRacingUk
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingHRUk; }
-        }
-
-        public bool CanUseHorseRacingSa
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingHRSa; }
-        }
-
-        public bool CanUseHorseRacingAust
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingHRAust; }
-        }
-
-        public bool CanUseGreyhoundUk
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingGreyhoundUk; }
-        }
-
-        public bool CanUseGreyhoundAust
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingGreyhoundAust; }
-        }
-
-        public bool CanUseHarnessAust
-        {
-            get { return CanUseRacing && AppSettings.EnableRacingHarnessAust; }
-        }
-
-        public bool CanUseNG
-        {
-            get
-            {
-                return CanUseProduct(Product.NG);
-            }
-        }
-
-        public bool CanUseBA
-        {
-            get
-            {
-                return CanUseProduct(Product.BA);
-            }
-        }
-
-        public bool CanUseLC
-        {
-            get
-            {
-                return CanUseProduct(Product.LC);
-            }
-        }
-
-        public bool CanUseProduct(string productCode)
-        {
-            return ProductList.Any(p => p.ProductCode == productCode);
         }
     }
 }

@@ -26,6 +26,8 @@ var WinLossByProduct = (function ($) {
 
         initSetting: function () {
             WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+            WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
+            WinLossByProductOption.IsAllowRB = Site.asBool($("#IsAllowedRacing").val());
             WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
         },
 
