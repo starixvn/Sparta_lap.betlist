@@ -1021,9 +1021,9 @@
     <Content Include="Views\Report\RacingCommission\Content.Data.cshtml" />
     <Content Include="Views\Report\RacingCommission\Content.Total.cshtml" />
     <Content Include="Views\Report\RacingCommission\Content.Header.cshtml" />
-    <Content Include="Views\Report\Turnover\Content.Data.cshtml" />
-    <Content Include="Views\Report\Turnover\Content.Total.cshtml" />
-    <Content Include="Views\Report\Turnover\Content.Header.cshtml" />
+    <Content Include="Views\Report\Turnover\1Content.Data.cshtml" />
+    <Content Include="Views\Report\Turnover\1Content.Total.cshtml" />
+    <Content Include="Views\Report\Turnover\1Content.Header.cshtml" />
     <Content Include="Views\Report\WinLossByBetType\Content.Data.cshtml" />
     <Content Include="Views\Report\WinLossByBetType\Content.Total.cshtml" />
     <Content Include="Views\Report\WinLossByBetType\Content.Header.cshtml" />
@@ -1070,7 +1070,7 @@
     <Content Include="Views\WareHouse\WinLoss\Filter.cshtml" />
     <Content Include="Views\WareHouse\WinLoss\Main.cshtml" />
     <Content Include="Views\Note\Warehouse.cshtml" />
-    <Content Include="Views\Report\Turnover\Content.Data.Empty.cshtml" />
+    <Content Include="Views\Report\Turnover\1Content.Data.Empty.cshtml" />
     <Content Include="Views\Account\ChangeLicensee.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />

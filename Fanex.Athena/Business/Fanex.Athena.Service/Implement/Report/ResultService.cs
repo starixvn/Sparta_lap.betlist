@@ -84,13 +84,13 @@ namespace Fanex.Athena.Service.Implement.Report
         public IList<Racing> GetRacingMatch(Models.MetaModel.Report.ResultMetalModel metalModel)
         {
             var dataRc = this._dataAccess.GetRacingMatch(metalModel);
-            return BidingRacing(dataRc);
+            return BindingRacing(dataRc);
         }
 
         public IList<LiveCasino> GetLiveCasinoMatchs(Models.MetaModel.Report.ResultMetalModel metalModel)
         {
             var dataLc = this._dataAccess.GetMatchs(metalModel);
-            return BidingLiveCasinos(dataLc);
+            return BindingLiveCasinos(dataLc);
         }
 
         #endregion Report
@@ -197,7 +197,7 @@ namespace Fanex.Athena.Service.Implement.Report
         public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId)
         {
             var dataLc = this._dataAccess.GetPopUpMatch(matchId, -1, licenseeId, userId);
-            return BidingLiveCasinos(dataLc);
+            return BindingLiveCasinos(dataLc);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Fanex.Athena.Service.Implement.Report
         public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId)
         {
             var dataRc = this._dataAccess.GetPopUpMatch(matchId, raceNo, licenseeId, userId);
-            return BidingRacing(dataRc);
+            return BindingRacing(dataRc);
         }
 
         #endregion Popup
@@ -323,7 +323,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// <param name="dataLc">The data table.</param>
         /// <returns>The live casino data list.</returns>
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1125:UseShorthandForNullableTypes", Justification = "Reviewed.")]
-        private static IList<LiveCasino> BidingLiveCasinos(DataTable dataLc)
+        private static IList<LiveCasino> BindingLiveCasinos(DataTable dataLc)
         {
             if (dataLc != null && dataLc.Rows.Count > 0)
             {
@@ -359,7 +359,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="dataRc">The data table.</param>
         /// <returns>The racing data list.</returns>
-        private static IList<Racing> BidingRacing(DataTable dataRc)
+        private static IList<Racing> BindingRacing(DataTable dataRc)
         {
             if (dataRc != null && dataRc.Rows.Count > 0)
             {

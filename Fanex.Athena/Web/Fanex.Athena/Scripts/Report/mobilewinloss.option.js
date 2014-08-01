@@ -93,8 +93,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
     var playerCommColumn = {
         name: 'CustomerComm',
@@ -104,8 +103,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
     var customerWlTotalColumn = {
         name: 'CustomerTotal',
@@ -115,8 +113,7 @@ var MobileWinLossOption = (function () {
         sortable: true,
         resizable: false,
         frozen: true,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
     var licenseeWlColumn = {
         name: 'LicenseeWL',

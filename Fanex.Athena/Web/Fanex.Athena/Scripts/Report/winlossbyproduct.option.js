@@ -1,4 +1,4 @@
-﻿/*global Site, MobileWinLoss, JSLINQ, jqGridAdditional*/
+﻿/*global Site, JSLINQ, jqGridAdditional*/
 /// <reference path="/@JSense.js" />
 //#regions licenseeWL options
 /*
@@ -76,10 +76,7 @@ var WinLossByProductOption = (function () {
             width: 120,
             align: 'left',
             sortable: false,
-            resizable: false,
-            formatter: function (cellvalue, options, rowObject) {
-                return MobileWinLoss.setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-            }
+            resizable: false
         };
     var currencyColumn =
         {
@@ -234,7 +231,7 @@ var WinLossByProductOption = (function () {
             customerWlTotalIndex: 10,
             hasCustomerComm: true,
             IsAllowBA: true,
-            IsAllowRB:true,
+            IsAllowRB: true,
             pageSize: 50,
             nonePagingSize: 5000,
             rowNum: 50,

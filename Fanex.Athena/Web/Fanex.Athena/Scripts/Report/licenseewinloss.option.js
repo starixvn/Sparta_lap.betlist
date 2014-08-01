@@ -137,8 +137,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
 
     var playerCommColumn =
@@ -149,8 +148,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
 
     var customerWlTotalColumn =
@@ -161,8 +159,7 @@ var LicenseeWinLossOption = (function () {
         align: 'right',
         sortable: true,
         resizable: false,
-        formatter: jqGridAdditional.formatDecimal,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: jqGridAdditional.formatDecimal
     };
 
     var licenseeWlColumn =

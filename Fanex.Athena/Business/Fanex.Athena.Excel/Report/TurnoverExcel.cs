@@ -225,7 +225,7 @@ namespace Fanex.Athena.Excel.Report
 
                 // If row isn't hide (in case BA visible), then merge cell and set value for header
                 sheet.MergeCells(RowTableHeaderTemplate, ColumnCustomerWinLoss, RowTableHeaderTemplate + 1, ColumnCustomerWinLoss);
-                sheet.GetCell(RowTableHeaderTemplate, ColumnCustomerWinLoss).SetCellValue(ViewResources.WinLoss);
+                sheet.GetCell(RowTableHeaderTemplate, ColumnCustomerWinLoss).SetCellValue(ViewResources.CustomerW_L);
             }
 
             if (!ShowingOption.BAVisible)

@@ -3,7 +3,6 @@
 "use strict";
 var Turnover = (function ($) {
     var ajaxRequest = null;
-    var _postdata;
     var _fromDate, _toDate, _currencyName, _currencyId;
     return {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
@@ -163,10 +162,8 @@ var Turnover = (function ($) {
             _currencyId = $("#CurrencyId").val();
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
-
             postdata.FromDate = _fromDate.toDateString();
             postdata.ToDate = _toDate.toDateString();
-            _postdata = postdata;
             var option =
             {
                 type: "POST",
@@ -198,49 +195,18 @@ var Turnover = (function ($) {
         bindData: function (response) {
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
-            $("#paging").hide();
             var numOfRow = response.Data.length;
-            // var numOfTotalRow = response.Total.length;
-            var onPaging = false;
             var gridOption = TurnoverOption.getGridOption();
-
-            gridOption.footerrow = true;
-            gridOption.userDataOnFooter = true;
-
             gridOption.data = response.Data;
-            gridOption.userData = {};
-            gridOption.rowNum = TurnoverOption.pageSize;
-            gridOption.rowList = TurnoverOption.rowList;
-            gridOption.rowTotal = numOfRow;
-            gridOption.pager = '';
-            gridOption.onPaging = function (pgButton) {
-                if (numOfRow > TurnoverOption.pageSize) {
-                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
-                        Site.blockUI();
-                    }
-                    onPaging = true;
-                }
-                else {
-                    return 'stop';
-                }
-            };
             gridOption.gridComplete = function () {
                 // jqGridAdditional.gridComplete(this, gridOption, 1);
-
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                     $("tr.no-info-row td:first").css("text-align", "left").css("padding-left", window.innerWidth / 2 - 50);
                 }
                 else {
-                    if (onPaging) {
-                        $(".ui-jqgrid-ftable").html($("#footer").html());
-                    }
-                    else {
-                        Turnover.bindTotal(response.TotalData);
-                        $("#footer").html($(".ui-jqgrid-ftable").html());
-                    }
-
-                    onPaging = false;
+                    Turnover.bindTotal(response.TotalData);
+                    $("#footer").html($(".ui-jqgrid-ftable").html());
                 }
 
                 var groupHeaders = [{

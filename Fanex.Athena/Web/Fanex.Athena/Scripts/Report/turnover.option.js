@@ -212,10 +212,6 @@ var TurnoverOption = (function () {
     var me = {
         licenseeId: 0,
         hasCustomerComm: true,
-        pageSize: 50,
-        nonePagingSize: 5000,
-        rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
         sites:
         {
             "1": Site.getSingleResource("Wap"),
@@ -226,6 +222,7 @@ var TurnoverOption = (function () {
         urlData: 'report/Turnover',
         urlExcelData: 'report/Turnover',
         gridOption: {
+            rowNum: 1000,
             datatype: 'local',
             colNames: [],
             colModel: [],
@@ -243,14 +240,7 @@ var TurnoverOption = (function () {
             footerrow: true,
             userDataOnFooter: true,
             cmTemplate: { title: true }, //enable tooltip
-            userData: [],
-
-            beforeSelectRow: function () {
-                return false;
-            },
-            onRightClickRow: function () {
-                return false;
-            }
+            userData: []
         }
     };
 
@@ -262,27 +252,15 @@ var TurnoverOption = (function () {
 
     me.getColModel = function () {
         // Column hidden by customer comm
-        //     adjustmentColumn.hidden = !me.hasCustomerComm;
-        //     turnoverColumn.hidden = !me.hasCustomerComm;
+        playerCommColumn.hidden = !me.hasCustomerComm;
+        winlossCommColumn.hidden = !me.hasCustomerComm;
 
         // Column hidden by product
-
         transfer3rdColumn.hidden = !TurnoverOption.hasCasinoTransfer;
         turnoverBAColumn.hidden = !TurnoverOption.isAllowBa;
         commBAColumn.hidden = !TurnoverOption.isAllowBa;
         amountDueToBAColumn.hidden = !TurnoverOption.isAllowBa;
 
-        /*     var allowedBa = $("#ProductList input[data-product-code=BA]:checked").length > 0;
-        var allowedRacing = $("#ProductList input[data-product-code=RB]:checked").length > 0;
-
-        pendingFundsColumn.hidden = !allowedBa;
-        playerCommColumn.hidden = !allowedBa;
-        winLossColumn.hidden = !allowedRacing;
-        winlossCommColumn.hidden = !allowedRacing;
-
-        // Row span setting
-        indexColumn.cellattr = jqGridAdditional.rowSpanSetting;
-        */
         return colModelList;
     };
 

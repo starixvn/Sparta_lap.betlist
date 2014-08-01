@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     /*Get firstSport*/
                     var sports = resultService.GetSports(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId);
-                    if (sports == null)
+                    if (sports == null || sports.Count == 0)
                     {
                         return null;
                     }
@@ -114,7 +114,11 @@ namespace Fanex.Athena.Controllers.Report
                 var response = ControllerContext.HttpContext.Response;
                 response.ContentType = "application/vnd.ms-excel";
                 response.AddHeader("Content-disposition", "attachment; filename=" + FileName);
-                _excelStream.WriteTo(response.OutputStream);
+                if (_excelStream != null)
+                {
+                    _excelStream.WriteTo(response.OutputStream);
+                }
+
                 response.Flush();
             }
 
@@ -544,6 +548,7 @@ namespace Fanex.Athena.Controllers.Report
 
                 case SportType.LiveCasino:
                     var dataLc = resultService.GetLiveCasinoMatchs(metalModel);
+
                     if (dataLc != null)
                     {
                         if (metalModel.IsExportExcel)

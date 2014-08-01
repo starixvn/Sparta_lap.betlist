@@ -95,8 +95,7 @@ var WinLossByLeagueOption = (function () {
             align: 'right',
             sortable: false,
             resizable: false,
-            formatter: jqGridAdditional.formatDecimal,
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+            formatter: jqGridAdditional.formatDecimal
         };
 
     var licenseeWlColumn =
