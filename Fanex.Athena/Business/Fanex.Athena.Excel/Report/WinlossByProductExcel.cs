@@ -178,8 +178,6 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTitleTemplate, currentRow);
-
                 WinLossByProduct winlossByProduct = _winlossByProductList[index];
 
                 indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
