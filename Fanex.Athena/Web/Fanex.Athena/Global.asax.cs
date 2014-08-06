@@ -90,17 +90,12 @@ namespace Fanex.Athena
                              "\r\nBrowser:" + Request.Browser.Type.ToString() +
                              "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
                              "\r\nAgent:" + Request.UserAgent.ToString();
-            try
+
+            ISessionService sessionService = new SessionService();
+            var licenseeSession = sessionService.LicenseeSession;
+            if (licenseeSession != null)
             {
-                ISessionService sessionService = new SessionService();
-                var licenseeSession = sessionService.LicenseeSession;
-                if (licenseeSession != null)
-                {
-                    message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
-                }
-            }
-            catch
-            {
+                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
             }
 
             Logging.LogService.Error(message, ex);
