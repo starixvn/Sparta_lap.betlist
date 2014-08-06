@@ -1,4 +1,11 @@
-﻿table.fanex-result, table.fanex-result-tenis-setdetail
+﻿/*Html & css strucure
+/* table.fanex-result
+**     table.fanex-result tr.row-header
+***      table.fanex-result tr.row-header th
+**     table.fanex-result tr.row-data
+***      table.fanex-result tr.row-data td.*
+*/
+table.fanex-result, table.fanex-result-tenis-setdetail
 {
     clear: both;
     width: 100%;
@@ -195,6 +202,7 @@ table.fanex-result .red
 {
     color: #dc143c !important;
 }
+
 
 table.fanex-result .ball
 {
