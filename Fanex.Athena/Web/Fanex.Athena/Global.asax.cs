@@ -76,7 +76,11 @@ namespace Fanex.Athena
             Exception ex = Server.GetLastError().GetBaseException();
             if (ex is HttpException)
             {
-                return;
+                var code = (ex as HttpException).GetHttpCode();
+                if (code == 404)
+                {
+                    return;
+                }
             }
 
             string message = ex.Message +
