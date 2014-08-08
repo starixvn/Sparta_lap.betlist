@@ -1,25 +1,29 @@
 ﻿@{
-    var bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
     var title = string.Empty;
-    switch(bettype)
+    int bettype = 0;
+    if(Request.QueryString["multiplebettype"] != null)
     {
-        case 9:
-            title = ViewResources.MixParlay;
+        bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
+        switch(bettype)
+        {
+            case 9:
+                title = ViewResources.MixParlay;
+                break;
+            case 24:
+                title = ViewResources.DoubleChance;
+                break;
+            case 26:
+                title = ViewResources.BONTeamToScore;
+                break;
+            case 29:
+                title = ViewResources.SystemParlay;
+                break;
+            default:
             break;
-        case 24:
-            title = ViewResources.DoubleChance;
-            break;
-        case 26:
-            title = ViewResources.BONTeamToScore;
-            break;
-        case 29:
-            title = ViewResources.SystemParlay;
-            break;
-        default:
-        break;
+        }
+        var formatTitle = "{0} {1} {2} - {3}";
+        ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets,  title);
     }
-    var formatTitle = "{0} {1} {2} - {3}";
-    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets,  title);
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel

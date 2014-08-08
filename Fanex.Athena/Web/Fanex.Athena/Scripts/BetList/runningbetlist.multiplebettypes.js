@@ -2,27 +2,41 @@
 /// <reference path="/@JSense.js" />
 var RunningBetListMultipleBettype = (function ($) {
     "use strict";
+
+    function getBettypesParam() {
+        var bettypes = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",");
+        var bettypesString = bettypes[0];
+        if (bettypes.length > 1) {
+            // Only allow at most two bettypes
+            bettypesString += "," + bettypes[1];
+
+            // Or three bettypes if this is  B/O/N Team to score
+            if (bettypes[0] === "26" && bettypes.length > 2) // B/O/N Team to score
+            {
+                bettypesString += "," + bettypes[2];
+            }
+        }
+
+        return bettypesString;
+    }
+
     return {
         initialize: function () {
             RunningBetListMultipleBettype.initEvent();
             RunningBetListMultipleBettype.switchItemSelectedMixParlay();
-            var bettype = RunningBetListMultipleBettype.getUrlParams("multiplebettype");
-            RunningBetListMultipleBettype.submit(bettype);
+            RunningBetListMultipleBettype.submit();
         },
 
         initEvent: function () {
             //Submit button
-            $('#SubmitButton').click(function () {
-                var bettype = RunningBetListMultipleBettype.getUrlParams("multiplebettype");
-                RunningBetListMultipleBettype.submit(bettype);
-            });
+            $('#SubmitButton').click(RunningBetListMultipleBettype.submit);
         },
 
-        submit: function (bettype) {
+        submit: function () {
             // Site.blockUI();
             BetList.initialize();
             // Load Data
-            var params = { multiplebettype: bettype };
+            var params = { multiplebettype: getBettypesParam() };
             params = Site.setLicenseeOptionParam(params);
             var url = Site.resolveClientUrl('api/betlist/RunningBetListMultipleBettypes');
 
@@ -56,7 +70,7 @@ var RunningBetListMultipleBettype = (function ($) {
         },
 
         switchItemSelectedMixParlay: function () {
-            var betType = RunningBetListMultipleBettype.getUrlParams("multiplebettype").split(",")[0];
+            var betType = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",")[0];
             var mixParlay = $("#mixparlay_9");
             var systemParlay = $("#mixparlay_29");
             if (Number(betType) === 9) {
