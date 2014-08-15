@@ -46,6 +46,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Keno product.
         /// </summary>
-        Keno = 7
+        Keno = 7,
+
+        /// <summary>
+        /// AGCasino product.
+        /// </summary>
+        AgCasino = 8
     }
 }

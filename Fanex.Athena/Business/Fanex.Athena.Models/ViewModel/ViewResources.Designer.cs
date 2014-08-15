@@ -133,6 +133,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino.
+        /// </summary>
+        public static string AGCasino {
+            get {
+                return ResourceManager.GetString("AGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AH.
         /// </summary>
         public static string AH {

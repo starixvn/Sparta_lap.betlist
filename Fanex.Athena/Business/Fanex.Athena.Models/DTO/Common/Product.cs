@@ -33,6 +33,8 @@ namespace Fanex.Athena.Models.DTO.Common
         public const string BG = "BG";
       
         public const string KN = "KN";
+
+        public const string AG = "AG";
       
         #endregion Field
 

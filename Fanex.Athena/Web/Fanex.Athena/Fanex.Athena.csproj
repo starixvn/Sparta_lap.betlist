@@ -1302,6 +1302,7 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
+    <Content Include="Views\Customer\BetSetting\AgCasino.cshtml" />
     <Content Include="Views\BetList\RacingCommission\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>

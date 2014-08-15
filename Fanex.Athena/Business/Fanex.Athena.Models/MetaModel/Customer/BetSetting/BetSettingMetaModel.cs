@@ -50,5 +50,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
         public bool IsAllowRngCasino { get; set; }
 
         public bool IsAllowKeno { get; set; }
+
+        public bool IsAllowAgCasino { get; set; }
     }
 }

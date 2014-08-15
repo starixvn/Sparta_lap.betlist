@@ -80,6 +80,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
                 case ProductType.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
+                case ProductType.AgCasino:
+                    return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -156,6 +158,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
+            metaModel.IsAllowAgCasino = true; // productAccess.IsAllowAG;
 
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);

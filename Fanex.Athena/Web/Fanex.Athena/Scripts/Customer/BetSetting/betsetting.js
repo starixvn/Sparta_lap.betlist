@@ -10,6 +10,7 @@ var BetSetting = (function ($) {
     var TAB_LIVECASINO = 5;
     var TAB_RNGCASINO = 6;
     var TAB_KENO = 7;
+    var TAB_AGCASINO = 8;
 
     var _sportIds = null;
     return {
@@ -75,6 +76,9 @@ var BetSetting = (function ($) {
                 case TAB_KENO:
                     $('#keno').addClass('activeTab');
                     break;
+                case TAB_AGCASINO:
+                    $('#agcasino').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
@@ -85,7 +89,19 @@ var BetSetting = (function ($) {
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $(this).data("status");
             var custId = $(this).data("cust-id");
-            var url = tabid === TAB_LIVECASINO ? "BetSettingAPI/UpdateLiveCasinoStatus" : "BetSettingAPI/UpdateRngCasinoStatus";
+            var url = null;
+
+            switch (tabid) {
+                case TAB_LIVECASINO:
+                    url = "BetSettingAPI/UpdateLiveCasinoStatus";
+                    break;
+                case TAB_RNGCASINO:
+                    url = "BetSettingAPI/UpdateRngCasinoStatus";
+                    break;
+                case TAB_AGCASINO:
+                    url = "BetSettingAPI/UpdateAgCasinoStatus";
+                    break;
+            }
 
             $.ajax({
                 type: 'POST',
