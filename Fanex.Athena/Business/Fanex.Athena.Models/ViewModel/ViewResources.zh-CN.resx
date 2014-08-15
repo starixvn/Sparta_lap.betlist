@@ -2441,4 +2441,7 @@
   <data name="GreyhoundAustTote" xml:space="preserve">
     <value>澳洲赛马车指南</value>
   </data>
+  <data name="EffectiveBettingValue" xml:space="preserve">
+    <value>Effective Betting Value</value>
+  </data>
 </root>

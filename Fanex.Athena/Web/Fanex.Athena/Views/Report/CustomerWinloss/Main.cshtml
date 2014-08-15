@@ -34,6 +34,7 @@
 
     ViewBag.ContainerWidth = ViewBag.NumberWidth + 2 * ViewBag.TextWidth + ViewBag.TurnoverWidth + ViewBag.TotalTransWidth;
     ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth;
+    ViewBag.ContainerWidth += Model.HasBetEffectiveColumn ? ViewBag.CustomerWLLargeWidth + 1 : 0;
     ViewBag.ContainerWidth += ViewBag.LicenseeWLWidth;
     ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBA ? 2 * ViewBag.RbBaWidth : 0;
     ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRB ? 2 * ViewBag.RbBaWidth : 0;

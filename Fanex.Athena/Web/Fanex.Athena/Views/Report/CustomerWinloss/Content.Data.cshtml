@@ -61,6 +61,12 @@ else
                         <div>@item.MemberWL.ToStringExt()</div>
                     </div>
                 }
+                @if (Model.HasBetEffectiveColumn)
+                {
+                    <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
+                        <div>@Math.Abs(item.MemberWL).ToStringExt()</div>
+                    </div>
+                }
                 <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
                     @RazorHelper.HighlightNegativeFormat(item.LicenseeWL)
                 </div>

@@ -21,6 +21,12 @@
     @SplitingProductHelper.CustomerWLHeader(Model.IsAllowedCustomerCommission,
     (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
     (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth, true)
+    @if (Model.HasBetEffectiveColumn)
+    {
+        <div class="row sort-heading" style="width:@ViewBag.CustomerWLLargeWidth@("px")" data-column-name="EffectiveBettingValue">
+            @ViewResources.EffectiveBettingValue
+        </div>
+    }
     <div class="row sort-heading" style="width:@ViewBag.LicenseeWLWidth@("px")" data-column-name="LicenseeWL">
         <div class="" style="width:@ViewBag.LicenseeWLWidth@("px")">
             @ViewResources.LicenseeW_L
@@ -48,7 +54,7 @@
             <div class="grid-header-two-line">
                 @ViewResources.AmtDueToBA
             </div>
-        </div>                
+        </div>
     }
     @if (Model.ProductAccess.IsAllowRB)
     {
