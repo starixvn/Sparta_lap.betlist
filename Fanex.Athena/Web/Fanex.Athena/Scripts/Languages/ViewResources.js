@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/28/2014 4:59:50 PM
+// Lasted generated date: 8/18/2014 10:51:31 AM
 // </history>
 
 var _language_en_US={
@@ -395,6 +395,8 @@ var _language_en_US={
                      Editedby:"Edited by",
 				 	
                      EditGroup:"Edit Group",
+				 	
+                     EffectiveBettingValue:"Effective Betting Value",
 				 	
                      Enable:"Enable",
 				 	

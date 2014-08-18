@@ -136,13 +136,6 @@ namespace Fanex.Athena.Controllers.Report
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             
-            var licenseeIds = AppSettings.GetValue("LicenseesHasBetEffectiveColumn");
-            var hasBetEffectiveColumn = false;
-            if (licenseeIds != null)
-            {
-                hasBetEffectiveColumn = licenseeIds.Split(',').Contains(licenseeSession.LicenseeId.ToString());
-            }
-
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -247,7 +240,8 @@ namespace Fanex.Athena.Controllers.Report
                     VSVisible = productAccess.IsAllowVS,
                     CSVisible = productAccess.IsAllowCS,
                     BGVisible = productAccess.IsAllowBG,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(
@@ -291,7 +285,8 @@ namespace Fanex.Athena.Controllers.Report
                     LCVisible = productAccess.IsAllowLC,
                     SBVisible = productAccess.IsAllowSB,
                     VSVisible = productAccess.IsAllowVS,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(
@@ -308,17 +303,5 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion Export excel
-
-        private bool GetHasBetEffectiveColumn(int licenseeId)
-        {
-            var licenseeIds = AppSettings.GetValue("LicenseesHasBetEffectiveColumn");
-            var result = false;
-            if (licenseeIds != null)
-            {
-                result = licenseeIds.Split(',').Contains(licenseeId.ToString());
-            }
-
-            return result;
-        }
     }
 }

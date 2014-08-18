@@ -23,7 +23,7 @@
     (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth, true)
     @if (Model.HasBetEffectiveColumn)
     {
-        <div class="row sort-heading" style="width:@ViewBag.CustomerWLLargeWidth@("px")" data-column-name="EffectiveBettingValue">
+        <div class="row sort-heading" style="width:@ViewBag.CustomerBetEffecitveWidth@("px")" data-column-name="BetEffective">
             @ViewResources.EffectiveBettingValue
         </div>
     }

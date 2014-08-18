@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// Action Get for licensee win lost.
         /// </summary>
         /// <param name="metaModel">The meta model.</param>
-        /// <returns>Action result.</returns>        
+        /// <returns>Action result.</returns>
         public ActionResult WinlossByLeague(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult WinlossByLeagueExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);           
+            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
 
             // determine currency viewed in
             string viewinCurrency;
@@ -82,17 +82,17 @@ namespace Fanex.Athena.Controllers.BetList
                     viewinCurrency = string.Format(ViewResources.Viewin, metaModel.CurrencyName);
                     break;
             }
-            
+
             var title = string.Format(
                 "{0} - {1} → {2} - {3}({4}) - {5}",
                 ViewResources.CustomerBetList,
                 metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
-                metaModel.ToDate.ToString(FormatKey.ShortFormatDate),   
+                metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ExternalId,
-                metaModel.SystemId,                             
+                metaModel.SystemId,
                 viewinCurrency);
 
-            var colList = new List<int> { 1, 2 };
+            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
             var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == 1, colList);
 

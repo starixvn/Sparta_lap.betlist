@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.BetList
 {
+    using System;
     using Fanex.BetList.Core.Entities;
 
     /// <summary>
@@ -17,6 +18,14 @@ namespace Fanex.Athena.Models.DTO.BetList
         public string ExternalId { get; set; }
 
         public decimal LicenseeWL { get; set; }
+
+        public decimal BetEffective
+        {
+            get
+            {
+                return Math.Abs(Winlost);
+            }
+        }
 
         public int CurrencyId { get; set; }
 

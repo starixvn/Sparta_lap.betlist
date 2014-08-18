@@ -9,9 +9,10 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System.Collections.Generic;
+    using System;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
@@ -65,6 +66,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     while (reader.Read())
                     {
+                        var memberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency);
                         result.Add(new CustomerWinLoss
                         {
                             // Add data to CustBalance Item List
@@ -73,7 +75,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                             TotalTransaction = reader.ToInt("betcount"),
-                            MemberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            MemberWL = memberWL,
+                            BetEffective = Math.Abs(memberWL),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             MemberTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
@@ -105,6 +108,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             };
                             totalRows = reader.ToInt("TotalRows");
                         }
+
+                        totalData.BetEffective = result.Sum(x => x.BetEffective);
                     }
                 }
             }

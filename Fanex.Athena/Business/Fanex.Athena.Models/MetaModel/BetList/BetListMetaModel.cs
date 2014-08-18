@@ -62,6 +62,8 @@ namespace Fanex.Athena.Models.MetaModel.BetList
 
         public int PageIndex { get; set; }
 
+        public bool HasBetEffectiveColumn { get; set; }
+
         public DateTime FromDate { get; set; }
 
         public string FromDateString

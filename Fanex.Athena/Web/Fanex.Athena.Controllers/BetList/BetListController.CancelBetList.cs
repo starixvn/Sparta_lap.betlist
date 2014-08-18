@@ -8,10 +8,10 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
+    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -137,7 +137,7 @@ namespace Fanex.Athena.Controllers.BetList
                 var title = ViewResources.CancelledBets
                     + string.Format(" - {0}", currencyTitle);
 
-                var excel = new Excel.BetList.BetListExcel(
+                var excel = new BetListExcel(
                     showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes);
 
                 var workbook = excel.Export(ticketResult, title);

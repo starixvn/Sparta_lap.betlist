@@ -137,6 +137,13 @@ namespace Fanex.Athena.Api.BetList
             return winloss;
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public static string BuildBetEffective(this BetListHTMLBuilder builder, Ticket ticket)
+        {
+            return string.Format("<div class='underdog'>{0:#,##0.00}</div>", Math.Abs(ticket.Winlost));
+        }
+
         #region Private Utility
 
         /// <summary>

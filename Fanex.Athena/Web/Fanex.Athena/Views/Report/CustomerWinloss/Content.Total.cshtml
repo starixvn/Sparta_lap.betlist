@@ -37,8 +37,8 @@
         }
         @if (Model.HasBetEffectiveColumn)
         {
-            <div class="row line-height" style="width:@ViewBag.CustomerWLLargeWidth@("px")">
-                <div>@Math.Abs(total.MemberWL).ToStringExt()</div>
+            <div class="row line-height" style="width:@ViewBag.CustomerBetEffecitveWidth@("px")">
+                <div>@total.BetEffective.ToStringExt()</div>
             </div>
         }
         <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">

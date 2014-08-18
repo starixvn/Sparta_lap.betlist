@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     #region Using
 
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
@@ -114,6 +115,19 @@ namespace Fanex.Athena.Controllers
             }
 
             return new List<string>();
+        }
+
+        [NonAction]
+        protected bool GetHasBetEffectiveColumn(int licenseeId)
+        {
+            var licenseeIds = AppSettings.GetValue("LicenseesHasBetEffectiveColumn");
+            var result = false;
+            if (licenseeIds != null)
+            {
+                result = licenseeIds.Split(',').Contains(licenseeId.ToString());
+            }
+
+            return result;
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

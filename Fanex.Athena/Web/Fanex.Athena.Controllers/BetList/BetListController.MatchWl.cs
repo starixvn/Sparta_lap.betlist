@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
@@ -144,7 +145,7 @@ namespace Fanex.Athena.Controllers.BetList
                 currencyTitle);
 
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, null);
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title, startIndex);
 

@@ -144,6 +144,9 @@ var BetList = (function ($) {
             $.each(hiddenColumnTokens, function (index, value) {
                 jqGridAdditional.setColumnVisible(BetListOption.columnModel, value, true);
             });
+            if ($("#HasBetEffectiveColumn").val() !== "1") {
+                jqGridAdditional.setColumnVisible(BetListOption.columnModel, "BetEffective", true);
+            }
             gridOption.colNames = BetListOption.columnNames;
             gridOption.colModel = BetListOption.columnModel;
             gridOption.footerrow = showSummary;
@@ -234,6 +237,7 @@ var BetList = (function ($) {
                 var summary = response.Total;
                 var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
                 var sumLicenseeWl = jqGridAdditional.formatLicenseeWl(summary.SumLicenseeWl);
+                var sumBetEffective = jqGridAdditional.formatDecimal(summary.SumBetEffective);
                 var gridOption = BetList.getGridOption();
 
                 var rowNum = Number($("#BetListGrid").getGridParam("rowNum")) || gridOption.rowNum;
@@ -243,7 +247,7 @@ var BetList = (function ($) {
                 // Show the grid
                 gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
-                gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl };
+                gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl, BetEffective: sumBetEffective };
 
                 if (response.IsShowTotal === undefined || response.IsShowTotal) {
                     gridOption.userDataOnFooter = true;

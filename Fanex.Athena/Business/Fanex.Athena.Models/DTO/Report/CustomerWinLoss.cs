@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
+    using System;
+
     /// <summary>
     /// CustomerWinLoss class.
     /// </summary>
@@ -26,6 +28,8 @@ namespace Fanex.Athena.Models.DTO.Report
         public decimal PlayerComm { get; set; }
 
         public decimal MemberTotalWL { get; set; }
+
+        public decimal BetEffective { get; set; }
 
         public decimal LicenseeWL { get; set; }
 
