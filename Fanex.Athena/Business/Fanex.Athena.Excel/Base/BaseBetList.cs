@@ -141,8 +141,8 @@ namespace Fanex.Athena.Excel.Base
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
-                    var sumBetEffective = ticketResult.MainTicketList.Sum(x => Math.Abs(x.Winlost));
-                    builder.AddFooter(sumWl, sumLicenseeWl, sumBetEffective, _negativeWinLossFont, _winLossFont);
+                    var sumBetEffective = ticketResult.SumBetEffective;
+                    builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
                 }
             }
             else

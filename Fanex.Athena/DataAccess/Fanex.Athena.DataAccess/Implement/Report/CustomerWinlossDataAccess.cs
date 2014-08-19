@@ -104,12 +104,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
                                     + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency),
                                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
-                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency)
+                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency),
+                                BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency),
                             };
                             totalRows = reader.ToInt("TotalRows");
                         }
-
-                        totalData.BetEffective = result.Sum(x => x.BetEffective);
                     }
                 }
             }

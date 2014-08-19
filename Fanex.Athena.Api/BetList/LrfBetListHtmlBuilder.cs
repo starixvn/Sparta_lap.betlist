@@ -137,6 +137,7 @@ namespace Fanex.Athena.Api.BetList
             return winloss;
         }
 
+        [System.CLSCompliant(false)]
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         public static string BuildBetEffective(this BetListHTMLBuilder builder, Ticket ticket)
