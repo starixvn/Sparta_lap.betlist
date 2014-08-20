@@ -292,7 +292,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
     <Content Include="Content\BetList\betlist.core.css" />
@@ -1355,6 +1354,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CodeAnalysis\" />
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
