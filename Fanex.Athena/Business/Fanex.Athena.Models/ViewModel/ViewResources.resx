@@ -2477,6 +2477,10 @@
     <value>AG Casino</value>
     <comment>#19458</comment>
   </data>
+  <data name="BetSettingGroups" xml:space="preserve">
+    <value>Bet Setting Groups</value>
+    <comment>#19476 - AG Casino</comment>
+  </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
     <comment>#20518</comment>

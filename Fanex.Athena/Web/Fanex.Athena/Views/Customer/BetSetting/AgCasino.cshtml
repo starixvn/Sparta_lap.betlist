@@ -17,15 +17,10 @@
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-@if (hasData)
-{
-    <!--Check box-->
-    <div class="copy-setting" id="copy-settting" style="width: 855px">
-        @Html.CheckBox("chkCopyAll")
-        <label for="chkCopyAll">@(string.Format(ViewResources.CopyBetSettingFrom, Model.MainData.First().BetSettingType))</label>
-    </div>
-    <!--Check box-->
-}
+<div>
+@ViewResources.BetSettingGroups: 
+<span>A</span>
+</div>
 @Html.Hidden("editable", Model.Param.Editable)
 @Html.Hidden("dataCount", (Model.MainData == null ? 0 : Model.MainData.Count))
 <!--Header-->

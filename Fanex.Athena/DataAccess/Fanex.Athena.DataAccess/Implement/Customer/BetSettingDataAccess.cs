@@ -50,6 +50,33 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Get bet setting data
 
         /// <summary>
+        /// Get Ag Casino setting.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <returns>Ag casino setting.</returns>
+        public AgCasinoBetSetting GetAgCasinoSetting(int custId)
+        {
+            var uspName = "Lrf_AGC_SelCustSetting";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddOutParameter("Currency", DbType.Int32, int.MaxValue);
+                db.AddOutParameter("AGGroup", DbType.String, 20);
+                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+
+                db.ExecuteNonQuery();
+
+                return new AgCasinoBetSetting()
+                {
+                    Currency = Converter.ToInt(db.GetParameterValue("Currency")),
+                    AgGroup = Converter.ToString2(db.GetParameterValue("AGGroup")),
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled"))
+                };
+            }
+        }
+
+        /// <summary>
         /// Get sport book bet setting.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>

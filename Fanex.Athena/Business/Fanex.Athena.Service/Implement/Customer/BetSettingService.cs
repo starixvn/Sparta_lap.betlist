@@ -114,6 +114,13 @@ namespace Fanex.Athena.Service.Implement.Customer
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
         }
 
+        public AgCasinoBetSetting GetAgCasinoSetting(int custId)
+        {
+            return _authorizationService.HasPermissionOnData(custId, 0)
+                        ? _betSettingDataAccess.GetAgCasinoSetting(custId)
+                        : null;
+        }
+
         /// <summary>
         /// Get SportsBook bet setting.
         /// </summary>

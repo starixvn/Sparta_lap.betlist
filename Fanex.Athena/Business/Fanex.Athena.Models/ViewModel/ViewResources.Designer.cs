@@ -628,6 +628,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Setting Groups.
+        /// </summary>
+        public static string BetSettingGroups {
+            get {
+                return ResourceManager.GetString("BetSettingGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Settings.
         /// </summary>
         public static string BetSettings {

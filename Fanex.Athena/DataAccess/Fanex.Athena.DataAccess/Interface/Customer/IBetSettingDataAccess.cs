@@ -19,6 +19,8 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     /// </summary>
     public interface IBetSettingDataAccess
     {
+        AgCasinoBetSetting GetAgCasinoSetting(int custId);
+
         IList<BetSetting> GetSportBookBetSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
