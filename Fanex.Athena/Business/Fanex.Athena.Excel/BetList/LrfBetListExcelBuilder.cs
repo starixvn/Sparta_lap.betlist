@@ -56,9 +56,9 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        public static BetListExcelBuilder AddBetEffective(this BetListExcelBuilder builder, Ticket ticket, IFont font)
+        public static BetListExcelBuilder AddBetEffective(this BetListExcelBuilder builder, LrfTicket ticket, IFont font)
         {
-            string betEffective = string.Format("{0:#,##0.00}\n", Math.Abs(ticket.Winlost));
+            string betEffective = string.Format("{0:#,##0.00}\n", ticket.BetEffective);
 
             var rtfBetEffective = new HSSFRichTextString(betEffective);
             rtfBetEffective.ApplyFont(font);
