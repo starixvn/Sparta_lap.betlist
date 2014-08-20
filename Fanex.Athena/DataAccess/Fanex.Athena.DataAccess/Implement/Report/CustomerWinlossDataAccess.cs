@@ -66,7 +66,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     while (reader.Read())
                     {
-                        var memberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency);
                         result.Add(new CustomerWinLoss
                         {
                             // Add data to CustBalance Item List
@@ -75,8 +74,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             SystemId = reader.ToString("username"),
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                             TotalTransaction = reader.ToInt("betcount"),
-                            MemberWL = memberWL,
-                            BetEffective = Math.Abs(memberWL),
+                            MemberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            BetEffective = reader.ToDecimal("beteffective" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             MemberTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
