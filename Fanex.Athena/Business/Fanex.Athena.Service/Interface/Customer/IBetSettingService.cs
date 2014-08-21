@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Xml.Linq;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.MetaModel.Casino;
@@ -18,6 +19,8 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
+        XDocument GetAgGroupBettingLimit(string siteName, int currency);
+
         IList<BetSetting> GetKenoBetSetting(int custId);
 
         IList<BetSetting> GetSportBookBetSetting(int custId);

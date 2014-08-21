@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
@@ -45,6 +46,31 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Constructor
 
         #region Bet setting API
+
+        /// <summary>
+        /// Get Ag Casino Group Betting Limit.
+        /// </summary>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="currency">Currency id.</param>
+        /// <returns>Ag Casino Group Betting Limit.</returns>
+        public JsonResult GetAgGroupBettingLimit(string siteName, int currency)
+        {
+            var xml = _betSettingService.GetAgGroupBettingLimit(siteName, currency);
+
+            var dic = xml.Descendants("Game").ToDictionary(
+                c => c.Attribute("GameType").Value, 
+                c => new
+                {
+                    Groups = c.Descendants("Group").ToDictionary(
+                                x => x.Attribute("GroupType").Value, 
+                                x => new 
+                                {
+                                    Min = x.Element("Min").Value,
+                                    Max = x.Element("Max").Value
+                                })
+                });
+            return Json(dic, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Update Live Casino status.

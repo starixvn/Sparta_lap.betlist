@@ -10,8 +10,11 @@ namespace Fanex.Athena.Service.Implement.Customer
 
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Text;
+    using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
     using Fanex.Athena.DataAccess.Implement.Customer;
     using Fanex.Athena.Extension.Utility;
@@ -57,6 +60,32 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         #endregion
+
+        /// <summary>
+        /// Get Ag Casino Group Betting Limit.
+        /// </summary>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="currency">Currency id.</param>
+        /// <returns>Ag Casino Group Betting Limit.</returns>
+        public XDocument GetAgGroupBettingLimit(string siteName, int currency)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppSettings.GetValue("AGCasinoApiUrl"));
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
+            request.ContentLength = parameters.Length;
+
+            var writeStream1 = request.GetRequestStream();
+            byte[] bytes1 = Encoding.ASCII.GetBytes(parameters);
+            writeStream1.Write(bytes1, 0, bytes1.Length);
+            writeStream1.Close();
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            var responseStream = response.GetResponseStream();
+            var readStream = new StreamReader(responseStream, Encoding.UTF8);
+            return XDocument.Parse(readStream.ReadToEnd());
+        }
+
         /// <summary>
         /// Enable or disable live casino.
         /// </summary>
