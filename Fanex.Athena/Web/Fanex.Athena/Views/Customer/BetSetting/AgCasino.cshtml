@@ -7,32 +7,42 @@
 @section pagecss
 {
 }
-@section pagejs
-{
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Customer/BetSetting/agcasino.js")" type="text/javascript"></script>
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
-    var hasData = Model.MainData.Count > 0;
+    var hasData = Model.AgCasinoViewModel.Games.Count > 0;
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-<div>
-@ViewResources.BetSettingGroups: 
-<span>A</span>
+<div style="padding-bottom: 5px">
+    @ViewResources.BetSettingGroups:
+    @if (Model.AgCasinoViewModel.BetSetting.IsEnabled)
+    {
+        <select id="betSettingGroup">
+            @foreach (var item in Model.AgCasinoViewModel.BetSetting.CheckedGroups)
+            {
+                <option value="@item" @(item == Model.AgCasinoViewModel.BetSetting.AgGroup ? "selected" : null) >@item</option>
+            }
+        </select>
+    }
+    else
+    {
+        <span>@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
+    }
 </div>
 @Html.Hidden("editable", Model.Param.Editable)
-@Html.Hidden("dataCount", (Model.MainData == null ? 0 : Model.MainData.Count))
+@Html.Hidden("dataCount", Model.AgCasinoViewModel.BetSetting.IsEnabled ? 1: 0)
+@Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AgCasinoViewModel.Games))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
-    <div class="row" style="width: 190px;">@ViewResources.GameType</div>
-    <div class="row" style="width: 230px;">
-        @ViewResources.Group
-    </div>
-    <div class="row" style="width: 230px;">
+    <div class="row" style="width: 295px;">@ViewResources.GameType</div>
+    <div class="row" style="width: 293px;">
         @ViewResources.MinBet
     </div>
-    <div class="row" style="width: 230px;">
+    <div class="row" style="width: 293px;">
         @ViewResources.MaxBet
     </div>
 </div>
@@ -49,32 +59,18 @@
     }
     else
     {
-        foreach (var item in Model.MainData)
+        foreach (var game in Model.AgCasinoViewModel.Games)
         {
-        <div class="content-row">
-            <div class="row text-data first-column" style="width: 190px">
-                <div>@item.BetSettingType</div>
+            var group = game.Groups.Where(x => x.GroupType == Model.AgCasinoViewModel.BetSetting.AgGroup).FirstOrDefault();
+         <div class="content-row">
+            <div class="row text-data first-column" style="width: 295px">
+                <div>@game.Name</div>
             </div>
-            <div class="row text-data" style="width: 230px">
-                <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
-                @if (item.BetValueMin > 0)
-                {
-                    <span>&gt;=@item.BetValueMin.ToString("#,###,##0.##")</span>
-                }
+            <div id="min-@(game.GameType)" class="row text-data" style="width: 293px">
+                @(group != null ? group.Min.ToString("#,###,##0.##") : "")
             </div>
-            <div class="row text-data" style="width: 230px">
-                <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-max-value="@item.BetValueMax.ToString("#,###,##0.##")" data-original="@item.MaxBet.ToString("#,###,##0.##")"/>
-                @if (item.BetValueMax > 0)
-                {
-                    <span>&lt;=@item.BetValueMax.ToString("#,###,##0.##")</span>
-                }
-            </div>
-            <div class="row text-data" style="width: 230px">
-                <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-min-value="@item.MaxPerMatchMin.ToString("#,###,##0.##")" data-max-value="@item.MaxPerMatchMax.ToString("#,###,##0.##")" data-original="@item.MaxPerMatch.ToString("#,###,##0.##")"/>
-                @if (item.MaxPerMatchMax > 0)
-                {
-                    <span>&lt;=@item.MaxPerMatchMax.ToString("#,###,##0.##")</span>
-                }
+            <div id="max-@(game.GameType)" class="row text-data" style="width: 293px">
+                @(group != null ? group.Max.ToString("#,###,##0.##") : "")
             </div>
         </div>
         }
@@ -82,7 +78,7 @@
 </div>
 <!--/Content-->
 <!-- Hidden-->
- @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
+@Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 <!--/Hidden-->
 <!--SubmitButton-->
 @if (Model.Param.Editable && hasData)
@@ -92,9 +88,9 @@
         id="btnSubmitBetSetting"/>
         <input type="button" class="button" value="@ViewResources.Reset"
         id="btnReset" />
-        <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 1 : 0)" 
+        <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
         data-cust-id="@Model.Param.CustId" 
-        data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.Value ? ViewResources.DisableLiveCasino : ViewResources.EnableLiveCasino)"
+        data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableAgCasino : ViewResources.EnableAgCasino)"
         id="btnUpdateStatus" />
     </div>
 }

@@ -213,6 +213,12 @@ namespace Fanex.Athena.Controllers.Customer
                 case ProductType.Keno:
                     model.MainData.AddRange(_betSettingService.GetKenoBetSetting(metaModel.CustId));
                     break;
+                case ProductType.AgCasino:
+                    model.AgCasinoViewModel.BetSetting = _betSettingService.GetAgCasinoSetting(metaModel.CustId);
+                    model.AgCasinoViewModel.Games = _betSettingService.GetAgCasinoGroupBettingLimit(metaModel.CustId, 
+                        SessionService.LicenseeSession.LicenseeName, model.AgCasinoViewModel.BetSetting.CurrencyId);
+                    model.IsEnabled = model.AgCasinoViewModel.BetSetting.IsEnabled;
+                    break;
             }
 
             return model;

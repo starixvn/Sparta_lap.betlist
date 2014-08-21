@@ -20,6 +20,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -28,6 +29,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Common;
 
     #endregion
 
@@ -61,14 +63,27 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
+        public AgCasinoBetSetting GetAgCasinoSetting(int custId)
+        {
+            return _authorizationService.HasPermissionOnData(custId, 0)
+                        ? _betSettingDataAccess.GetAgCasinoSetting(custId)
+                        : null;
+        }
+
         /// <summary>
         /// Get Ag Casino Group Betting Limit.
         /// </summary>
+        /// <param name="custId">Customer id.</param>
         /// <param name="siteName">Site name.</param>
         /// <param name="currency">Currency id.</param>
         /// <returns>Ag Casino Group Betting Limit.</returns>
-        public XDocument GetAgGroupBettingLimit(string siteName, int currency)
+        public IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency)
         {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return new List<AgCasinoGame>();
+            }
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppSettings.GetValue("AGCasinoApiUrl"));
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
@@ -83,7 +98,42 @@ namespace Fanex.Athena.Service.Implement.Customer
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             var responseStream = response.GetResponseStream();
             var readStream = new StreamReader(responseStream, Encoding.UTF8);
-            return XDocument.Parse(readStream.ReadToEnd());
+
+            var xml = XDocument.Parse(readStream.ReadToEnd());
+            var games = new List<AgCasinoGame>();
+            foreach (var xmlGame in xml.Descendants("Game"))
+            {
+                var game = new AgCasinoGame()
+                {
+                    GameType = xmlGame.Attribute("GameType").Value,
+                    Name = xmlGame.Attribute("Name").Value,
+                    Groups = new List<AgCasinoGroup>()
+                };
+
+                foreach (var xmlGroup in xmlGame.Descendants("Group"))
+                {
+                    game.Groups.Add(new AgCasinoGroup()
+                    {
+                        GroupType = xmlGroup.Attribute("GroupType").Value,
+                        Min = Converter.ToInt(xmlGroup.Element("Min").Value),
+                        Max = Converter.ToInt(xmlGroup.Element("Max").Value)
+                    });
+                }
+
+                games.Add(game);
+            }
+
+            return games;
+        }
+
+        public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
         }
 
         /// <summary>
@@ -141,13 +191,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
-        }
-
-        public AgCasinoBetSetting GetAgCasinoSetting(int custId)
-        {
-            return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetAgCasinoSetting(custId)
-                        : null;
         }
 
         /// <summary>

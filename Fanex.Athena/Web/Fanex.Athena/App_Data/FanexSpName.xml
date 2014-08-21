@@ -131,8 +131,8 @@
 
   <Function Name="AG Casino">
     <Setting Key="Lrf_AGC_SelCustSetting" SpName="Lrf_AGC_SelCustSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_AGC_UpdateCustSetting" SpName="Lrf_AGC_UpdateCustSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_AGC_UpdateCustStatus" SpName="Lrf_AGC_UpdateCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_AGC_UpdCustSetting" SpName="Lrf_AGC_UpdCustSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_AGC_UpdCustStatus" SpName="Lrf_AGC_UpdCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="TotalBets">

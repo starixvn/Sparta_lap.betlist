@@ -23,6 +23,8 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
 
         public ProductType TabId { get; set; }
 
+        public string SiteName { get; set; }
+
         public int CustId { get; set; }
 
         public int LicenessId { get; set; }

@@ -50,26 +50,15 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get Ag Casino Group Betting Limit.
         /// </summary>
+        /// <param name="custId">Customer id.</param>
         /// <param name="siteName">Site name.</param>
         /// <param name="currency">Currency id.</param>
         /// <returns>Ag Casino Group Betting Limit.</returns>
-        public JsonResult GetAgGroupBettingLimit(string siteName, int currency)
+        public JsonResult GetAgGroupBettingLimit(int custId, string siteName, int currency)
         {
-            var xml = _betSettingService.GetAgGroupBettingLimit(siteName, currency);
+            var data = _betSettingService.GetAgCasinoGroupBettingLimit(custId, siteName, currency);
 
-            var dic = xml.Descendants("Game").ToDictionary(
-                c => c.Attribute("GameType").Value, 
-                c => new
-                {
-                    Groups = c.Descendants("Group").ToDictionary(
-                                x => x.Attribute("GroupType").Value, 
-                                x => new 
-                                {
-                                    Min = x.Element("Min").Value,
-                                    Max = x.Element("Max").Value
-                                })
-                });
-            return Json(dic, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -119,7 +108,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
-        /// Update Live Casino status.
+        /// Update Ag Casino status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <param name="nickName">Nick name.</param>
@@ -128,7 +117,7 @@ namespace Fanex.Athena.Controllers.Customer
         public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language, Request.UserHostAddress);
+            var result = _betSettingService.UpdateAgCasinoStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
 
             if (result.Code == 0)
             {

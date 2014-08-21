@@ -1,20 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AgCasinoGroupBettingLimit.cs" company="Nexcel">
+// <copyright file="AgCasinoBetSetting.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Customer.BetSetting
+namespace Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino
 {
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class AgCasinoGroupBettingLimit
+    public class AgCasinoBetSetting
     {
-        public int Currency { get; set; }
+        public int CurrencyId { get; set; }
 
         public string AgGroup { get; set; }
 
         public bool IsEnabled { get; set; }
+
+        public string[] CheckedGroups { get; set; }
     }
 }

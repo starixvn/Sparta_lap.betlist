@@ -8,9 +8,9 @@ namespace Fanex.Athena.Service.Interface.Customer
 {
     using System.Collections;
     using System.Collections.Generic;
-    using System.Xml.Linq;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
 
@@ -19,7 +19,9 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        XDocument GetAgGroupBettingLimit(string siteName, int currency);
+        AgCasinoBetSetting GetAgCasinoSetting(int custId);
+
+        IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency);
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
@@ -51,6 +53,8 @@ namespace Fanex.Athena.Service.Interface.Customer
             List<LiveCasinoBetSetting> metaModel,
             string ip,
            string language);
+
+        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 

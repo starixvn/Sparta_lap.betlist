@@ -2447,6 +2447,12 @@
   <data name="BetSettingGroups" xml:space="preserve">
     <value>Bet Setting Groups</value>
   </data>
+  <data name="DisableAgCasino" xml:space="preserve">
+    <value>Disable AG Casino</value>
+  </data>
+  <data name="EnableAgCasino" xml:space="preserve">
+    <value>Enable AG Casino</value>
+  </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>有 效投注额</value>
   </data>

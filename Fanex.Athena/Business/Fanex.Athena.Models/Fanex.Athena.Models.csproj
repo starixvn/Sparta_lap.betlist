@@ -105,10 +105,11 @@
     <Compile Include="DTO\Common\Match.cs" />
     <Compile Include="DTO\Common\ResultInfo.cs" />
     <Compile Include="DTO\Common\SportProductItem.cs" />
+    <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
-    <Compile Include="DTO\Customer\BetSetting\AgCasinoBetSetting.cs" />
-    <Compile Include="DTO\Customer\BetSetting\AgCasinoGroupBettingLimit.cs" />
+    <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGame.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="ViewModel\Casino\RNGCasinoResultViewModel.cs" />
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\AgCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\LiveCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\ActionViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\CustomerLogViewModel.cs" />

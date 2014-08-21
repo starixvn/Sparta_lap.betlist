@@ -20,6 +20,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -64,14 +65,16 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddOutParameter("Currency", DbType.Int32, int.MaxValue);
                 db.AddOutParameter("AGGroup", DbType.String, 20);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("CheckedGroups", DbType.String, 500);
 
                 db.ExecuteNonQuery();
 
                 return new AgCasinoBetSetting()
                 {
-                    Currency = Converter.ToInt(db.GetParameterValue("Currency")),
+                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency")),
                     AgGroup = Converter.ToString2(db.GetParameterValue("AGGroup")),
-                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled"))
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    CheckedGroups = Converter.ToString2(db.GetParameterValue("CheckedGroups")).Split(',')
                 };
             }
         }
@@ -251,6 +254,53 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #endregion Get bet setting data
 
         #region Update bet setting
+
+        #region AG Casino
+
+        public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group)
+        {
+            var uspName = "Lrf_AGC_UpdCustSetting";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("aggroup", DbType.String, group);
+                db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
+                db.AddInParameter("ip", DbType.String, data.Ip);
+                db.AddInParameter("language", DbType.String, data.Language);
+                db.AddInParameter("userid", DbType.Int32, data.UserId);
+                db.AddInParameter("custid", DbType.Int32, data.CustId);
+               
+                db.AddOutParameter("ErrCode", DbType.String, 600);
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
+            }
+        }
+
+        public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            var uspName = "Lrf_AGC_UpdCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
+                db.AddInParameter("ip", DbType.String, ip);
+                db.AddInParameter("language", DbType.String, language);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("custid", DbType.Int32, custId);
+
+                db.AddOutParameter("ErrCode", DbType.String, 600);
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
+            }
+        }
+
+        #endregion AG Casino
 
         #region Sportsbook
 

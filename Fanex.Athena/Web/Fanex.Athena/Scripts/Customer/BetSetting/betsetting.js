@@ -40,7 +40,7 @@ var BetSetting = (function ($) {
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
-
+            
             // Formating number in text box.
             BetSetting.formatInputText();
         },
@@ -84,6 +84,7 @@ var BetSetting = (function ($) {
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
+
             var tabid = parseInt($("#TabId").val());
             var nickName = $(this).data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
@@ -102,7 +103,7 @@ var BetSetting = (function ($) {
                     url = "BetSettingAPI/UpdateAgCasinoStatus";
                     break;
             }
-
+            
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -114,7 +115,7 @@ var BetSetting = (function ($) {
                 },
                 dataType: "json",
                 success: function (result) {
-                    if (result.Code.toString() === "0") {
+                    if (result.IsSuccessful) {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
                     }
                     else {

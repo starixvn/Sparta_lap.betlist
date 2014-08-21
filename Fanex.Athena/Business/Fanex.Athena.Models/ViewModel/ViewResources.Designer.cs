@@ -1663,6 +1663,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable AG Casino.
+        /// </summary>
+        public static string DisableAgCasino {
+            get {
+                return ResourceManager.GetString("DisableAgCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Live Casino .
         /// </summary>
         public static string DisableLiveCasino {
@@ -1830,6 +1839,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable AG Casino.
+        /// </summary>
+        public static string EnableAgCasino {
+            get {
+                return ResourceManager.GetString("EnableAgCasino", resourceCulture);
             }
         }
         
