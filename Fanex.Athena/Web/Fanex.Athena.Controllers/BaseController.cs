@@ -34,6 +34,14 @@ namespace Fanex.Athena.Controllers
 
         #region Members
 
+        public string[] IgnoreAgCasino
+        {
+            get
+            {
+                return new string[] { Product.AGC };
+            }
+        }
+
         public string[] IgnoreCasinoAngBingo
         {
             get

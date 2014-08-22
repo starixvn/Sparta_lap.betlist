@@ -17,6 +17,8 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino
 
         public bool IsEnabled { get; set; }
 
+        public bool IsLineEnabled { get; set; }
+
         public string[] CheckedGroups { get; set; }
     }
 }

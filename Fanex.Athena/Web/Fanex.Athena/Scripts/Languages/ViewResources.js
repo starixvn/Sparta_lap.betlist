@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/18/2014 10:51:31 AM
+// Lasted generated date: 8/22/2014 2:59:00 PM
 // </history>
 
 var _language_en_US={
@@ -27,6 +27,12 @@ var _language_en_US={
                      Adjustment:"Adjustment",
 				 	
                      AffiliateTransfer:"Affiliate Transfer",
+				 	
+                     AGCasino:"AG Casino",
+				 	
+                     AGCasinoNoGroupChosenErrMsg:"There is no group chosen. Please choose a group and try again!",
+				 	
+                     AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
                      AH:"AH",
 				 	
@@ -135,6 +141,8 @@ var _language_en_US={
                      BetPerLine:"Bet Per Line",
 				 	
                      BetSetting:"Bet Setting",
+				 	
+                     BetSettingGroups:"Bet Setting Groups",
 				 	
                      BetSettings:"Bet Settings",
 				 	
@@ -364,6 +372,8 @@ var _language_en_US={
 				 	
                      Disable:"Disable",
 				 	
+                     DisableAgCasino:"Disable AG Casino",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
@@ -396,9 +406,9 @@ var _language_en_US={
 				 	
                      EditGroup:"Edit Group",
 				 	
-                     EffectiveBettingValue:"Effective Betting Value",
-				 	
                      Enable:"Enable",
+				 	
+                     EnableAgCasino:"Enable AG Casino",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
@@ -1445,6 +1455,10 @@ var _language_en_US={
                      Update:"Update",
 				 	
                      UpdateAccountSuccessMsg:"Update account successfully!",
+				 	
+                     UpdateAgCasinoBetSettings:"Are you sure you want to update all AG Casino bet settings?",
+				 	
+                     UpdateAgCasinoBetSettingSuccessMsg:"The Ag Casino bet setting of {0} was updated successfully",
 				 	
                      UpdateCommission:"Update Commission",
 				 	

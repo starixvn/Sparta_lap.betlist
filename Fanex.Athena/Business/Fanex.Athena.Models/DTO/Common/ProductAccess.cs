@@ -100,7 +100,7 @@ namespace Fanex.Athena.Models.DTO.Common
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.AG);
+                return ProductList.Any(p => p.ProductCode == Product.AGC);
             }
         }
     }

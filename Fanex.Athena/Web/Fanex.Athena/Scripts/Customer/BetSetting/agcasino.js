@@ -6,10 +6,15 @@ var AgCasino = (function ($) {
     return {
         initialize: function () {
             AgCasino.initEvent();
-            _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+            if ($("#BettingLimit").length > 0) {
+                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
+            }
+
+            if ($('#betSettingGroup').data("default") === "") {
+                $('#betSettingGroup').prop("selectedIndex", -1);
+            }
         },
         initEvent: function () {
-
             // dropdown group
             $('#betSettingGroup').on('change', function () {
                 var groupFilter = function (index, item) {
@@ -20,13 +25,23 @@ var AgCasino = (function ($) {
                 for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
                     var game = _bettingGroupLimitCache[i];
                     var group = $(game.Groups).filter(groupFilter)[0];
-
-                    $("#min-" + game.GameType).html($.formatNumber(group.Min, { format: "#,###" }));
-                    $("#max-" + game.GameType).html($.formatNumber(group.Max, { format: "#,###" }));
+                    if (group) {
+                        $("#min-" + game.GameType).html($.formatNumber(group.Min, { format: "#,###" }));
+                        $("#max-" + game.GameType).html($.formatNumber(group.Max, { format: "#,###" }));
+                    } else {
+                        $("#min-" + game.GameType).html("");
+                        $("#max-" + game.GameType).html("");
+                    }
                 }
             });
 
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
+        },
+        checkApiContainGroup: function (groupType) {
+            var groupFilter = function (index, item) {
+                return item.GroupType === groupType;
+            };
+            return $(_bettingGroupLimitCache[0].Groups).filter(groupFilter).length > 0;
         }
     };
 })(jQuery);

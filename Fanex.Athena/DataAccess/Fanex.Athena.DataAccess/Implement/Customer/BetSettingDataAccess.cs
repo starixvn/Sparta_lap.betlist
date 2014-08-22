@@ -65,6 +65,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddOutParameter("Currency", DbType.Int32, int.MaxValue);
                 db.AddOutParameter("AGGroup", DbType.String, 20);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("CheckedGroups", DbType.String, 500);
 
                 db.ExecuteNonQuery();
@@ -74,6 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     CurrencyId = Converter.ToInt(db.GetParameterValue("Currency")),
                     AgGroup = Converter.ToString2(db.GetParameterValue("AGGroup")),
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled")),
                     CheckedGroups = Converter.ToString2(db.GetParameterValue("CheckedGroups")).Split(',')
                 };
             }
@@ -257,6 +259,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #region AG Casino
 
+        /// <summary>
+        /// Update Ag Casino Bet Setting.
+        /// </summary>
+        /// <param name="data">Setting data.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The result value.</returns>
         public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group)
         {
             var uspName = "Lrf_AGC_UpdCustSetting";
@@ -264,7 +272,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("aggroup", DbType.String, group);
-                db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
                 db.AddInParameter("ip", DbType.String, data.Ip);
                 db.AddInParameter("language", DbType.String, data.Language);
                 db.AddInParameter("userid", DbType.Int32, data.UserId);
@@ -279,6 +286,15 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Update Ag Casino status.
+        /// </summary>
+        /// <param name="userId">User identification.</param>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="language">Language code.</param>
+        /// <param name="ip">IP address string.</param>
+        /// <param name="isEnabled">Status value.</param>
+        /// <returns>The result value.</returns>
         public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_AGC_UpdCustStatus";

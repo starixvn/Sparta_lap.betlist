@@ -13,85 +13,100 @@
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
     var hasData = Model.AgCasinoViewModel.Games.Count > 0;
+    var isLineEnabled = Model.AgCasinoViewModel.BetSetting.IsLineEnabled;
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-<div style="padding-bottom: 5px">
-    @ViewResources.BetSettingGroups:
-    @if (Model.AgCasinoViewModel.BetSetting.IsEnabled)
-    {
-        <select id="betSettingGroup">
-            @foreach (var item in Model.AgCasinoViewModel.BetSetting.CheckedGroups)
-            {
-                <option value="@item" @(item == Model.AgCasinoViewModel.BetSetting.AgGroup ? "selected" : null) >@item</option>
-            }
-        </select>
-    }
-    else
-    {
-        <span>@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
-    }
-</div>
-@Html.Hidden("editable", Model.Param.Editable)
-@Html.Hidden("dataCount", Model.AgCasinoViewModel.BetSetting.IsEnabled ? 1: 0)
-@Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AgCasinoViewModel.Games))
-<!--Header-->
-<div class="header-content" style="width: 884px;">
-    <div class="row" style="width: 295px;">@ViewResources.GameType</div>
-    <div class="row" style="width: 293px;">
-        @ViewResources.MinBet
-    </div>
-    <div class="row" style="width: 293px;">
-        @ViewResources.MaxBet
-    </div>
-</div>
-<!--/Header-->
-<!--Content-->
-<div class="data-content">
-    @if (!hasData)
-    {
-        <div class="content-row" style="width: 885px!important">
-            <div class="no-info">
-                <div>@ViewResources.NoInfo</div>
-            </div>
-        </div>
-    }
-    else
-    {
-        foreach (var game in Model.AgCasinoViewModel.Games)
+@if (isLineEnabled)
+{
+    <div style="padding-bottom: 5px">
+        @ViewResources.BetSettingGroups:
+        @if (Model.AgCasinoViewModel.BetSetting.IsEnabled)
         {
-            var group = game.Groups.Where(x => x.GroupType == Model.AgCasinoViewModel.BetSetting.AgGroup).FirstOrDefault();
-         <div class="content-row">
-            <div class="row text-data first-column" style="width: 295px">
-                <div>@game.Name</div>
-            </div>
-            <div id="min-@(game.GameType)" class="row text-data" style="width: 293px">
-                @(group != null ? group.Min.ToString("#,###,##0.##") : "")
-            </div>
-            <div id="max-@(game.GameType)" class="row text-data" style="width: 293px">
-                @(group != null ? group.Max.ToString("#,###,##0.##") : "")
-            </div>
-        </div>
+            <select id="betSettingGroup" data-default="@Model.AgCasinoViewModel.BetSetting.AgGroup">
+                @foreach (var item in Model.AgCasinoViewModel.BetSetting.CheckedGroups)
+                {
+                    <option value="@item" @(item == Model.AgCasinoViewModel.BetSetting.AgGroup ? "selected" : null) >@item</option>
+                }
+            </select>
         }
-    }
-</div>
+        else
+        {
+            <span>@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
+        }
+    </div>
+    
+    @Html.Hidden("editable", Model.Param.Editable)
+    @Html.Hidden("dataCount", Model.AgCasinoViewModel.BetSetting.IsEnabled ? 1 : 0)
+    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AgCasinoViewModel.Games))
+}
+@if (!hasData)
+{
+    <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+        <div>@ViewResources.AGCasinoProblemDisplayBetSetting</div>
+    </div>
+}
+else
+{
+    <!--Header-->
+    <div class="header-content" style="width: 884px;">
+        <div class="row" style="width: 295px;">@ViewResources.GameType</div>
+        <div class="row" style="width: 293px;">
+            @ViewResources.MinBet
+        </div>
+        <div class="row" style="width: 293px;">
+            @ViewResources.MaxBet
+        </div>
+    </div>
+    <!--/Header-->
+    <!--Content-->
+    <div class="data-content">
+        @if (isLineEnabled == false)
+        {
+            <div class="content-row" style="width: 885px!important">
+                <div class="no-info">
+                    <div>@ViewResources.AGCasinoNotOfferCurrency</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            foreach (var game in Model.AgCasinoViewModel.Games)
+            {
+                var group = game.Groups.Where(x => x.GroupType == Model.AgCasinoViewModel.BetSetting.AgGroup).FirstOrDefault();
+            <div class="content-row">
+                <div class="row text-data first-column" style="width: 295px">
+                    <div>@game.Name</div>
+                </div>
+                <div id="min-@(game.GameType)" class="row text-data" style="width: 293px">
+                    @(group != null ? group.Min.ToString("#,###,##0.##") : "")
+                </div>
+                <div id="max-@(game.GameType)" class="row text-data" style="width: 293px">
+                    @(group != null ? group.Max.ToString("#,###,##0.##") : "")
+                </div>
+            </div>
+            }
+        }
+    </div>
+}
 <!--/Content-->
-<!-- Hidden-->
-@Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
-<!--/Hidden-->
 <!--SubmitButton-->
-@if (Model.Param.Editable && hasData)
+@if (Model.Param.Editable)
 {
     <div style="width: 855px">
-        <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
+        <input type="button" @(isLineEnabled ? null : "disabled") class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" 
+        data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
         id="btnSubmitBetSetting"/>
-        <input type="button" class="button" value="@ViewResources.Reset"
+        <input type="button" @(isLineEnabled ? null : "disabled") class="button" value="@ViewResources.Reset"
         id="btnReset" />
-        <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
-        data-cust-id="@Model.Param.CustId" 
-        data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableAgCasino : ViewResources.EnableAgCasino)"
-        id="btnUpdateStatus" />
+        @if (isLineEnabled)
+        {
+            <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
+            data-cust-id="@Model.Param.CustId" 
+            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableAgCasino : ViewResources.EnableAgCasino)"
+            id="btnUpdateStatus" />
+        }
     </div>
 }
 <!--/SubmitButton-->

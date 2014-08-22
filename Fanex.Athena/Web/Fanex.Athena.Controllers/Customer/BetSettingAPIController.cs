@@ -128,6 +128,25 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update Ag-Casino settings.
+        /// </summary>
+        /// <param name="nickName">The user name.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The JSON result.</returns>
+        public JsonResult UpdateAgCasinoBetSetting(string nickName, string group)
+        {
+            var setting = GetBetSettingCommonParam();
+            var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateAgCasinoBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update sport-book settings.
         /// </summary>
         /// <param name="nickName">The user name.</param>

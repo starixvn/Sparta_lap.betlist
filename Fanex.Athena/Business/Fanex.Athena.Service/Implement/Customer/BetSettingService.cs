@@ -300,6 +300,27 @@ namespace Fanex.Athena.Service.Implement.Customer
         ///  Update SportsBook bet setting.
         /// </summary>
         /// <param name="setting">The sport-book setting.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The information of result.</returns>
+        public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
+        {
+            if (setting == null)
+            {
+                return ErrorResult("Invalid parameter. AG Casino is null");
+            }
+
+            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateAgCasinoBetSetting(setting, group);
+        }
+
+        /// <summary>
+        ///  Update SportsBook bet setting.
+        /// </summary>
+        /// <param name="setting">The sport-book setting.</param>
         /// <param name="hashParam">The metal model.</param>
         /// <returns>The information of result.</returns>
         public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
