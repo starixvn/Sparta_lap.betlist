@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Integration
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Logging;
-    using LASAPI = LicenseeAgent.API;
 
     /// <summary>
     /// TODO: Update summary.
@@ -32,7 +31,8 @@ namespace Fanex.Athena.Controllers.Integration
             var licenseeSesstion = SessionService.LicenseeSession;
             try
             {
-                bridgedLink = LASAPI.LRF.Integration.GenerateLink(useSesstion.UserId, useSesstion.OnUserId, licenseeSesstion.LicenseeId, useSesstion.Language);
+                var integration = new LicenseeAgent.API.LRF.Integration();
+                bridgedLink = integration.GenerateLink(useSesstion.UserId, useSesstion.OnUserId, licenseeSesstion.LicenseeId, useSesstion.IsInternal, useSesstion.Language);
             }
             catch (Exception exception)
             {
