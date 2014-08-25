@@ -30,5 +30,7 @@ namespace Fanex.Athena.Models.ViewModel.Note
         public IList<Product> ProductList { get; set; }
 
         public bool IsHistory { get; set; }
+
+        public bool HasEffectiveBettingValueColumn { get; set; }
     }
 }

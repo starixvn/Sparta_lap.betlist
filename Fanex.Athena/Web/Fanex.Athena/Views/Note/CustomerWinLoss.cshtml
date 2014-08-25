@@ -2,10 +2,16 @@
     Layout = "~/Views/Shared/_NoteLayout.cshtml";
 }
 @using Fanex.Athena.Extension.Utility;
+@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
 @section content{
     @if (Model.IsHistory)
     {
         <li>@string.Format(ViewResources.DateRangeNote, new DateTime(2011, 3, 1))</li>
     }
     <li>@ViewResources.OANDANote</li>
+    @if (Model.HasEffectiveBettingValueColumn)
+    {
+        
+        <li>@ViewResources.EffectiveBettingValueNote</li>
+    }
 }

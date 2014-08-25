@@ -2477,4 +2477,7 @@
     <value>Effective Betting Value</value>
     <comment>#20518</comment>
   </data>
+  <data name="EffectiveBettingValueNote" xml:space="preserve">
+    <value>Effective Betting Value supports data from 09/01/2014</value>
+  </data>
 </root>
