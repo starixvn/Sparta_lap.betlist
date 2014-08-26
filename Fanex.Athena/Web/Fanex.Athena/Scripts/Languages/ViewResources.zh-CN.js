@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/22/2014 2:59:04 PM
+// Lasted generated date: 8/26/2014 12:58:09 PM
 // </history>
 
 var _language_zh_CN={
@@ -30,9 +30,9 @@ var _language_zh_CN={
 				 	
                      AGCasino:"AG Casino",
 				 	
-                     AGCasinoNoGroupChosenErrMsg:"There is no group chosen. Please choose a group and try again!",
-				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
+				 	
+                     AGCasinoProblemDisplayBetSetting:"There is technical problem to display bet setting group&apos;s detail. You can still update member&apos;s group.",
 				 	
                      AH:"客主",
 				 	

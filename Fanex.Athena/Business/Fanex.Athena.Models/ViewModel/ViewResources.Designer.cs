@@ -142,15 +142,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no group chosen. Please choose a group and try again!.
-        /// </summary>
-        public static string AGCasinoNoGroupChosenErrMsg {
-            get {
-                return ResourceManager.GetString("AGCasinoNoGroupChosenErrMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AG Casino is not offered for this currency..
         /// </summary>
         public static string AGCasinoNotOfferCurrency {
@@ -160,7 +151,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is technical problem to display bet setting group&apos;s detail. You can still update member&apos;s group..
+        ///   Looks up a localized string similar to There is problem to display bet setting group&apos;s detail..
         /// </summary>
         public static string AGCasinoProblemDisplayBetSetting {
             get {

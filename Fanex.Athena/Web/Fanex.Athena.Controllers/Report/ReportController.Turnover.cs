@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasino);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
                                              .Select(i => new ProductOption
                                                  {

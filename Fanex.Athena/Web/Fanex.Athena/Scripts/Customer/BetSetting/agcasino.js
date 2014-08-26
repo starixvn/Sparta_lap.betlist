@@ -3,6 +3,14 @@
 "use strict";
 var AgCasino = (function ($) {
     var _bettingGroupLimitCache;
+    function disableSubmitButtons(value) {
+        var $button = $("#btnSubmitBetSetting, #btnReset").prop('disabled', value);
+        if (value) {
+            $button.addClass("button-disabled");
+        } else {
+            $button.removeClass("button-disabled");
+        }
+    }
     return {
         initialize: function () {
             AgCasino.initEvent();
@@ -12,6 +20,12 @@ var AgCasino = (function ($) {
 
             if ($('#betSettingGroup').data("default") === "") {
                 $('#betSettingGroup').prop("selectedIndex", -1);
+                disableSubmitButtons(true);
+            }
+
+            if($("#btnSubmitBetSetting").prop("disabled") === true)
+            {
+                disableSubmitButtons(true);
             }
         },
         initEvent: function () {
@@ -20,7 +34,7 @@ var AgCasino = (function ($) {
                 var groupFilter = function (index, item) {
                     return item.GroupType === selectedGroupType;
                 };
-
+                var disableSubmit = false;
                 var selectedGroupType = this.value;
                 for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
                     var game = _bettingGroupLimitCache[i];
@@ -31,8 +45,11 @@ var AgCasino = (function ($) {
                     } else {
                         $("#min-" + game.GameType).html("");
                         $("#max-" + game.GameType).html("");
+                        disableSubmit = true;
                     }
                 }
+
+                disableSubmitButtons(disableSubmit);
             });
 
             $("#btnUpdateStatus").click(BetSetting.updateStatus);

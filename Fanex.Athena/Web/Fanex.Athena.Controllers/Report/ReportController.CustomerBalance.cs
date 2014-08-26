@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyId = 0
                 };
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasino);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo),
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasino),
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel
                 };
@@ -156,7 +156,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreBingoAndAgCasino);
 
             var showingOption = new ShowingOption
                 {

@@ -22,7 +22,7 @@
 {
     <div style="padding-bottom: 5px">
         @ViewResources.BetSettingGroups:
-        @if (Model.AgCasinoViewModel.BetSetting.IsEnabled)
+        @if (Model.AgCasinoViewModel.BetSetting.IsEnabled && hasData)
         {
             <select id="betSettingGroup" data-default="@Model.AgCasinoViewModel.BetSetting.AgGroup">
                 @foreach (var item in Model.AgCasinoViewModel.BetSetting.CheckedGroups)
@@ -95,10 +95,10 @@ else
 @if (Model.Param.Editable)
 {
     <div style="width: 855px">
-        <input type="button" @(isLineEnabled ? null : "disabled") class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" 
+        <input type="button" @(isLineEnabled && hasData ? null : "disabled") class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" 
         data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
         id="btnSubmitBetSetting"/>
-        <input type="button" @(isLineEnabled ? null : "disabled") class="button" value="@ViewResources.Reset"
+        <input type="button" @(isLineEnabled && hasData ? null : "disabled") class="button" value="@ViewResources.Reset"
         id="btnReset" />
         @if (isLineEnabled)
         {

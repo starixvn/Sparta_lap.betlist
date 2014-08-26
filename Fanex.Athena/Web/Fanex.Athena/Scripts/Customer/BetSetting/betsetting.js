@@ -202,12 +202,11 @@ var BetSetting = (function ($) {
                 case TAB_AGCASINO:
                     var group = $("#betSettingGroup").val();
                     if (group === null || group === "") {
-                        alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
                         return;
                     }
 
                     if (AgCasino.checkApiContainGroup(group) === false) {
-                        alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg11"));
+                        alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
                         return;
                     }
 

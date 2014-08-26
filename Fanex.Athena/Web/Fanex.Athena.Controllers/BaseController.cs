@@ -50,6 +50,14 @@ namespace Fanex.Athena.Controllers
             }
         }
 
+        public string[] IgnoreCasinoAngBingoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.CS, Product.BG, Product.AGC };
+            }
+        }
+
         public string[] IgnoreKeno
         {
             get
@@ -66,11 +74,27 @@ namespace Fanex.Athena.Controllers
             }
         }
 
+        public string[] IgnoreBingoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.BG, Product.AGC };
+            }
+        }
+
         public string[] IgnoreCasinoAndBingoAndKeno
         {
             get
             {
                 return new string[] { Product.CS, Product.BG, Product.KN };
+            }
+        }
+
+        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC };
             }
         }
 
