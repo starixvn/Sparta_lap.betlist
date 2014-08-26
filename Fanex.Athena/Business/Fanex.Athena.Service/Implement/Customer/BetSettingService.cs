@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Implement.Customer
 {
     #region
 
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
@@ -84,7 +85,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return new List<AgCasinoGame>();
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AppSettings.GetValue("AGCasinoApiUrl"));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(AppSettings.GetValue("AGCasinoApiUrl")));
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Customer
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
@@ -222,6 +223,13 @@ namespace Fanex.Athena.Controllers.Customer
                         metaModel.CustId, 
                         SessionService.LicenseeSession.LicenseeName, 
                         model.AgCasinoViewModel.BetSetting.CurrencyId);
+                    if (model.AgCasinoViewModel.BetSetting.CheckedGroups.Contains(model.AgCasinoViewModel.BetSetting.AgGroup) == false)
+                    {
+                        model.AgCasinoViewModel.BetSetting.CheckedGroups = 
+                            model.AgCasinoViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.AgCasinoViewModel.BetSetting.AgGroup })
+                            .OrderBy(x => x).ToArray();
+                    }
+
                     model.IsEnabled = model.AgCasinoViewModel.BetSetting.IsEnabled;
                     break;
             }
