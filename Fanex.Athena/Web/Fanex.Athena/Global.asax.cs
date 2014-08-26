@@ -74,13 +74,10 @@ namespace Fanex.Athena
         {
             // Code that runs when an unhandled error occurs
             Exception ex = Server.GetLastError().GetBaseException();
-            if (ex is HttpException)
+            var httpException = ex as HttpException;
+            if (httpException != null && httpException.GetHttpCode() == 404)
             {
-                var code = (ex as HttpException).GetHttpCode();
-                if (code == 404)
-                {
-                    return;
-                }
+                return;
             }
 
             string message = ex.Message +

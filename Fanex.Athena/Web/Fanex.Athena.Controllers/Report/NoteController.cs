@@ -50,7 +50,8 @@ namespace Fanex.Athena.Controllers.Report
                     BalanceUpDate = balanceUpInfo.BalanceUpDay,
                     MoveBetsDate = balanceUpInfo.MoveBetsDay,
                     ProductList = productList,
-                    IsHistory = isHistory
+                    IsHistory = isHistory,
+                    HasEffectiveBettingValueColumn = GetHasBetEffectiveColumn(licenseeId)
                 };
 
             var viewPath = string.Format("~/Views/Note/{0}.cshtml", viewName);

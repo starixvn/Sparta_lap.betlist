@@ -29,7 +29,8 @@ namespace Fanex.Athena.Controllers.BetList
         /// <summary>
         /// Hidden column list (externalId,systemId,win-loss,licensee win-loss).
         /// </summary>
-        private static readonly List<int> HiddenColList = new List<int> { 1, 2, 7, 8 };
+        private static readonly List<int> HiddenColList = 
+            new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         /// <summary>
         /// Action Get for pending funds bet list.

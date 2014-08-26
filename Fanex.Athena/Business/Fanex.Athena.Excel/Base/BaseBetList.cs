@@ -9,7 +9,9 @@
 
 namespace Fanex.Athena.Excel.Base
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using BetList;
     using Entities;
@@ -73,7 +75,7 @@ namespace Fanex.Athena.Excel.Base
             titleStyle.SetFont(font);
 
             builder.AddCell(new HSSFRichTextString(title), titleStyle);
-            builder.MergeCell(new CellRangeAddress(0, 0, 0, 9));
+            builder.MergeCell(new CellRangeAddress(0, 0, 0, 10));
         }
 
         public IWorkbook Export(TicketResult ticketResult, string title, int startIndex = 1)
@@ -93,6 +95,10 @@ namespace Fanex.Athena.Excel.Base
         /// <param name="title">The title.</param>
         /// <param name="startIndex">The start index.</param>
         /// <returns>The bet list builder.</returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         protected BetListExcelBuilder Build(TicketResult ticketResult, string title, int startIndex = 1)
         {
             var builder = new BetListExcelBuilder();
@@ -101,7 +107,7 @@ namespace Fanex.Athena.Excel.Base
             InitializeFonts(builder);
             InitializeCellStyles(builder);
 
-            builder.BuildWorksheet(ViewResources.BetList, 10);
+            builder.BuildWorksheet(ViewResources.BetList, 11);
             AddTitle(builder, title);
 
             string custWlheader = ViewResources.WinLoss
@@ -123,6 +129,7 @@ namespace Fanex.Athena.Excel.Base
                     .AddOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName)
                     .AddStake(ticket)
                     .AddCustomerWL(ticket, ShowingOption.CustomerCommVisible, _winLossFont)
+                    .AddBetEffective(ticket, _winLossFont)
                     .AddLicenseeWL(ticket, _is12Bet, _negativeWinLossFont, _winLossFont)
                     .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
 
@@ -134,7 +141,8 @@ namespace Fanex.Athena.Excel.Base
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
-                    builder.AddFooter(sumWl, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
+                    var sumBetEffective = ticketResult.SumBetEffective;
+                    builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
                 }
             }
             else

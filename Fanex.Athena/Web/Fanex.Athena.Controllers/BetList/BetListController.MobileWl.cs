@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.BetList
                 ViewResources.Site + ": " + siteText,
                 viewinCurrency);
 
-            var colList = new List<int> { 1, 2 };
+            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, colList);
 

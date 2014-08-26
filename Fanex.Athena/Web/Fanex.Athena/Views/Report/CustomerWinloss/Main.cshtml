@@ -24,6 +24,7 @@
     ViewBag.CustomerWLLargeWidth = 130;
     ViewBag.CustomerWLMergeWidth = 242;
     ViewBag.CustomerWLWidth = 90;
+    ViewBag.CustomerBetEffecitveWidth = 140;
     ViewBag.CustomerCommWidth = 60;
     ViewBag.CustomerWLTotalWidth = 90;
     ViewBag.RbBaWidth = 75;
@@ -34,6 +35,7 @@
 
     ViewBag.ContainerWidth = ViewBag.NumberWidth + 2 * ViewBag.TextWidth + ViewBag.TurnoverWidth + ViewBag.TotalTransWidth;
     ViewBag.ContainerWidth += Model.IsAllowedCustomerCommission ? ViewBag.CustomerWLMergeWidth : ViewBag.CustomerWLLargeWidth;
+    ViewBag.ContainerWidth += Model.HasBetEffectiveColumn ? ViewBag.CustomerBetEffecitveWidth + 1 : 0;
     ViewBag.ContainerWidth += ViewBag.LicenseeWLWidth;
     ViewBag.ContainerWidth += Model.ProductAccess.IsAllowBA ? 2 * ViewBag.RbBaWidth : 0;
     ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRB ? 2 * ViewBag.RbBaWidth : 0;

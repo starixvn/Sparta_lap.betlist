@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
@@ -55,8 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                                                      Status = i.ProductCode == Product.SB
                                                  }).ToList();
 
-            metaModel.ProductOptions = productOption;            
-
+            metaModel.ProductOptions = productOption;
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
@@ -65,7 +65,8 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = productAccess,
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
-                    IsHistory = false
+                    IsHistory = false,
+                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
@@ -99,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
                                                  }).ToList();
 
             historyParam.ProductOptions = productOption;
-            
+
             var model = new CustomerWinLossViewModel
                 {
                     ShowEmptyContent = true,
@@ -108,7 +109,8 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = productAccess,
                     CurrencyList = userSession.CurrencyList,
                     HistoryParam = historyParam,
-                    IsHistory = true
+                    IsHistory = true,
+                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
@@ -126,14 +128,14 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
 
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;            
+            metaModel.UserId = userSession.UserId;
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
             var custWinlossService = new CustomerWinlossService();
             var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-
+            
             var model = new CustomerWinLossViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -141,7 +143,8 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
-                    IsHistory = false
+                    IsHistory = false,
+                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             model.TotalRows = totalRows;
@@ -168,7 +171,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-            
+
             var totalData = new CustomerWinLoss();
             var totalRows = 0;
             var custWinlossService = new CustomerWinlossService();
@@ -186,7 +189,8 @@ namespace Fanex.Athena.Controllers.Report
                     TotalRows = totalRows,
                     IsHistory = true,
                     DataList = dataList,
-                    TotalData = totalData
+                    TotalData = totalData,
+                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             if (metaModel.IsExportExcel)
@@ -236,7 +240,8 @@ namespace Fanex.Athena.Controllers.Report
                     VSVisible = productAccess.IsAllowVS,
                     CSVisible = productAccess.IsAllowCS,
                     BGVisible = productAccess.IsAllowBG,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(
@@ -280,7 +285,8 @@ namespace Fanex.Athena.Controllers.Report
                     LCVisible = productAccess.IsAllowLC,
                     SBVisible = productAccess.IsAllowSB,
                     VSVisible = productAccess.IsAllowVS,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(

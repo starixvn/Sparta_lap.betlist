@@ -38,6 +38,12 @@ namespace Fanex.Athena.Controllers.BetList
         public const int PageSizeExcel = 63000;
         public const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
 
+        private const int ExternalIdColumn = 1;
+        private const int SystemIdColumn = 2;
+        private const int WinLostColumn = 7;
+        private const int BetEffectiveColumn = 8;
+        private const int LicenseeWLColumn = 9;
+
         #endregion Constant
 
         #region Fields
@@ -45,7 +51,8 @@ namespace Fanex.Athena.Controllers.BetList
         /// <summary>
         /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
         /// </summary>
-        private static readonly ReadOnlyCollection<int> HiddenColumnIndexes = new ReadOnlyCollection<int>(new List<int>() { 7, 8 });
+        private static readonly ReadOnlyCollection<int> HiddenColumnIndexes = 
+            new ReadOnlyCollection<int>(new List<int>() { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         /// <summary>
         /// The list contains all bet type of racing.
@@ -106,6 +113,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
             metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
             metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
+            metaModel.HasBetEffectiveColumn = GetHasBetEffectiveColumn(metaModel.LicenseeId);
 
             return metaModel;
         }

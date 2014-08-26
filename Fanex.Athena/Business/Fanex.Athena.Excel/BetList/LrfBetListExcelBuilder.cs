@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Excel.BetList
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
@@ -55,6 +56,17 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
+        public static BetListExcelBuilder AddBetEffective(this BetListExcelBuilder builder, LrfTicket ticket, IFont font)
+        {
+            string betEffective = string.Format("{0:#,##0.00}\n", ticket.BetEffective);
+
+            var rtfBetEffective = new HSSFRichTextString(betEffective);
+            rtfBetEffective.ApplyFont(font);
+            builder.AddCell(rtfBetEffective);
+
+            return builder;
+        }
+
         public static BetListExcelBuilder AddExternalId(
                 this BetListExcelBuilder builder,
                 ITicketHelper ticketHelper,
@@ -73,6 +85,7 @@ namespace Fanex.Athena.Excel.BetList
         /// </summary>
         /// <param name="builder">The current builder.</param>
         /// <param name="sumCustomerWL">The total customer win-loss.</param>
+        /// <param name="sumBetEffective">The total bet effective.</param>
         /// <param name="sumLicenseeWLComm">The total licensee win-loss.</param>
         /// <param name="redFont">The red font.</param>
         /// <param name="blackFont">The black font.</param>
@@ -80,6 +93,7 @@ namespace Fanex.Athena.Excel.BetList
         public static BetListExcelBuilder AddFooter(
             this BetListExcelBuilder builder,
             decimal sumCustomerWL,
+            decimal sumBetEffective,
             decimal sumLicenseeWLComm,
             IFont redFont,
             IFont blackFont)
@@ -104,6 +118,10 @@ namespace Fanex.Athena.Excel.BetList
             var rtfSumCustomerWl = new HSSFRichTextString(string.Format(NumberFormat, sumCustomerWL));
             builder.AddCell(rtfSumCustomerWl, footerStyle);
 
+            // Sum Bet Effective
+            var rtfSumBetEffective = new HSSFRichTextString(string.Format(NumberFormat, sumBetEffective));
+            builder.AddCell(rtfSumBetEffective, footerStyle);
+
             // Sum Licensee Wl
             var rtfSumLicenseeWl = new HSSFRichTextString(string.Format(NumberFormat, sumLicenseeWLComm));
             rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm >= 0 ? blackFont : redFont);
@@ -126,6 +144,10 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="builder">The current builder.</param>
         /// <param name="custWLHeader">The customer win-loss header.</param>
         /// <returns>Return the current builder.</returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public static BetListExcelBuilder AddHeader(this BetListExcelBuilder builder, string custWLHeader)
         {
             var headerStyle = builder.CreateCellStyle();
@@ -152,7 +174,7 @@ namespace Fanex.Athena.Excel.BetList
             builder.SetColumnWidth(transTimeCell.ColumnIndex, 5400);
 
             // Choice
-            CellAddress choiceCell = builder.AddCell(new HSSFRichTextString(ViewResources.Choice), headerStyle);
+            var choiceCell = builder.AddCell(new HSSFRichTextString(ViewResources.Choice), headerStyle);
             builder.SetColumnWidth(choiceCell.ColumnIndex, 15500);
 
             // Odds
@@ -166,6 +188,10 @@ namespace Fanex.Athena.Excel.BetList
             // Customer Wl
             var customerWlCell = builder.AddCell(new HSSFRichTextString(custWLHeader), headerStyle);
             builder.SetColumnWidth(customerWlCell.ColumnIndex, 4200);
+
+            // Effective Betting Value
+            var betEffectiveCell = builder.AddCell(new HSSFRichTextString(ViewResources.EffectiveBettingValue), headerStyle);
+            builder.SetColumnWidth(betEffectiveCell.ColumnIndex, 5400);
 
             // Licensee Wl
             var licenseeWlCell = builder.AddCell(new HSSFRichTextString(ViewResources.LicenseeWL + "/" + ViewResources.Comm), headerStyle);

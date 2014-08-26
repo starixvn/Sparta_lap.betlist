@@ -110,6 +110,7 @@ namespace Fanex.Athena.Api.BetList
                     Stake = builder.BuildStake(ticket),
                     LicenseeWL = builder.BuildLicenseeWL(ticket),
                     WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm),
+                    BetEffective = builder.BuildBetEffective(ticket)
                 };
 
                 ticketTextList.Add(ticketText);
@@ -151,7 +152,8 @@ namespace Fanex.Athena.Api.BetList
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm
+                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
+                    SumBetEffective = ticketResult.SumBetEffective
                 },
                 LeagueName = leagueName,
             };

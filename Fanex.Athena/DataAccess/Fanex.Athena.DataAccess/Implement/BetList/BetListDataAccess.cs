@@ -156,6 +156,9 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     { "sumwinlost", DBNull.Value },
                     { "sumwinlostusd", DBNull.Value },
                     { "sumwinlosteur", DBNull.Value },
+                    { "sumbeteffective", DBNull.Value },
+                    { "sumbeteffectiveusd", DBNull.Value },
+                    { "sumbeteffectiveeur", DBNull.Value },
                     { "sumlicenseewl", DBNull.Value },
                     { "sumlicenseewlusd", DBNull.Value },
                     { "sumlicenseewleur", DBNull.Value },
@@ -209,6 +212,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                         outPutParams["sumwinlost" + baseCurrency] != DBNull.Value ?
                         Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
                     : ticketResult.MainTicketList.Sum(x => x.Winlost);
+                    ticketResult.SumBetEffective =
+                        outPutParams["sumbeteffective" + baseCurrency] != DBNull.Value ?
+                        Converter.ToDecimal(outPutParams["sumbeteffective" + baseCurrency])
+                    : ticketResult.MainTicketList.Sum(x => x.BetEffective);
                     ticketResult.SumLicenseeWL = outPutParams["sumlicenseewl" + baseCurrency] != DBNull.Value
                         ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
                         : ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
@@ -986,6 +993,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var commCol = "comm" + baseCurrency;
             var licenseeWlCol = "licenseewl" + baseCurrency;
             var winlostCol = "winlost" + baseCurrency;
+            var beteffectiveCol = "beteffective" + baseCurrency;
             var stakeCol = "stake" + baseCurrency;
             var actualStakeCol = "actual_stake" + baseCurrency;
 
@@ -1033,6 +1041,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var ordinalComm = reader.TryGetOrdinal(commCol);
             var ordinalLicenseeWl = reader.TryGetOrdinal(licenseeWlCol);
             var ordinalWinlost = reader.TryGetOrdinal(winlostCol);
+            var ordinalBetEffective = reader.TryGetOrdinal(beteffectiveCol);
             var ordinalStake = reader.TryGetOrdinal(stakeCol);
             var ordinalActualStake = reader.TryGetOrdinal(actualStakeCol);
             var ordinalOdds = reader.TryGetOrdinal("odds");
@@ -1089,6 +1098,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.Comm = ordinalComm >= 0 ? reader.ToDecimal(commCol) : 0;
                 ticket.LicenseeWL = ordinalLicenseeWl >= 0 ? reader.ToDecimal(licenseeWlCol) : 0;
                 ticket.Winlost = ordinalWinlost >= 0 ? reader.ToDecimal(winlostCol) : 0;
+                ticket.BetEffective = ordinalBetEffective >= 0 ? reader.ToDecimal(beteffectiveCol) : 0;
                 ticket.Stake = ordinalStake >= 0 ? reader.ToDecimal(stakeCol) : 0;
                 ticket.ActualStake = ordinalActualStake >= 0 ? reader.ToDecimal(actualStakeCol) : 0;
                 ticket.Odds = ordinalOdds >= 0 ? reader.ToDecimal("odds") : 0;

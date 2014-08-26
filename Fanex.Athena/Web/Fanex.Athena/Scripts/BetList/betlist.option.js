@@ -3,7 +3,8 @@
 /*exported BetListOption*/
 var BetListOption = (function () {
     "use strict";
-    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 'WinLoss', '@[LicenseeWL]/@[Comm]', 'Status'];
+    var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake', 
+                    'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
     var indexColumn =
     {
         name: 'Index',
@@ -77,6 +78,16 @@ var BetListOption = (function () {
         resizable: false,
         title: false
     };
+    var betEffective =
+    {
+        name: 'BetEffective',
+        index: 'BetEffective',
+        width: 115,
+        align: 'right',
+        sortable: true,
+        resizable: false,
+        title: false
+    };
     var licenseeWl =
     {
         name: 'LicenseeWL',
@@ -98,7 +109,7 @@ var BetListOption = (function () {
         title: false
     };
 
-    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, licenseeWl, status];
+    var columnModel = [indexColumn, externalId, systemId, transTime, choice, odds, stake, winloss, betEffective, licenseeWl, status];
 
     return {
         gridOption:

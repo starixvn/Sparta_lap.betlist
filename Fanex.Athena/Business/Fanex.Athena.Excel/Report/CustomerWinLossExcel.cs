@@ -24,19 +24,22 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class CustomerWinLossExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 11;
-        private const int ColumnAmtDueToRacing = 12;
-        private const int ColumnBaCommission = 9;
-        private const int ColumnCustomerComm = 6;
-        private const int ColumnCustomerTotal = 7;
-        private const int ColumnCustomerWl = 5;
         private const int ColumnExternalId = 1;
-        private const int ColumnLicenseeWl = 8;
-        private const int ColumnRacingRevenue = 10;
         private const int ColumnSystemId = 2;
-        private const int ColumnTemplateCount = 13;
         private const int ColumnTurnover = 3;
         private const int ColumnTotalTransaction = 4;
+        private const int ColumnCustomerWl = 5;
+        private const int ColumnCustomerComm = 6;
+        private const int ColumnCustomerTotal = 7;
+        private const int ColumnBetEffective = 8;
+        private const int ColumnLicenseeWl = 9;
+        private const int ColumnBaCommission = 10;
+        private const int ColumnRacingRevenue = 11;
+        private const int ColumnAmtDueToBa = 12;
+        private const int ColumnAmtDueToRacing = 13;
+        
+        private const int ColumnTemplateCount = 14;
+        
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -67,6 +70,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
+                ViewResources.EffectiveBettingValue,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
                 ViewResources.RacingRevenue,
@@ -162,6 +166,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnCustomerWl].SetCellValue(customerWinloss.MemberWL);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerWinloss.PlayerComm);
                 row.Cells[ColumnCustomerTotal].SetCellValue(customerWinloss.MemberWL + customerWinloss.PlayerComm);
+                row.Cells[ColumnBetEffective].SetCellValue(customerWinloss.BetEffective);
                 row.Cells[ColumnLicenseeWl].SetCellValue(customerWinloss.LicenseeWL);
                 row.Cells[ColumnBaCommission].SetCellValue(customerWinloss.BAComm);
                 row.Cells[ColumnRacingRevenue].SetCellValue(customerWinloss.RacingRevenue);
@@ -219,6 +224,11 @@ namespace Fanex.Athena.Excel.Report
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
+
+            if (!ShowingOption.BetEffectiveVisible)
+            {
+                HideColumn(sheet, ColumnBetEffective);
+            }
         }
 
         /// <summary>
@@ -249,6 +259,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(_total.MemberWL);
             row.Cells[ColumnCustomerComm].SetCellValue(_total.PlayerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(_total.MemberWL + _total.PlayerComm);
+            row.Cells[ColumnBetEffective].SetCellValue(_total.BetEffective);
             row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(_total.BAComm);
             row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingRevenue);

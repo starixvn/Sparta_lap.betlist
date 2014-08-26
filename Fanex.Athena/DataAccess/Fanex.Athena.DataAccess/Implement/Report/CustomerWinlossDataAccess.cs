@@ -9,9 +9,10 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System.Collections.Generic;
+    using System;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
@@ -74,6 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             Turnover = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                             TotalTransaction = reader.ToInt("betcount"),
                             MemberWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),
+                            BetEffective = reader.ToDecimal("beteffective" + metaModel.BaseCurrency),
                             PlayerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             MemberTotalWL = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency) + reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                             LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
@@ -101,7 +103,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
                                     + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency),
                                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
-                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency)
+                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency),
+                                BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency),
                             };
                             totalRows = reader.ToInt("TotalRows");
                         }

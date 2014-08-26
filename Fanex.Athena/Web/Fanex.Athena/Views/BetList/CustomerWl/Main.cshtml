@@ -21,4 +21,5 @@
 @{
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
     <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
+    <input type="hidden" id="HasBetEffectiveColumn" value="@(Model.HasBetEffectiveColumn ? 1 : 0)" />
 }
