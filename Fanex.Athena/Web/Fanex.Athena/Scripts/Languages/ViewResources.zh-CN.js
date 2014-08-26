@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 12:58:09 PM
+// Lasted generated date: 8/26/2014 5:23:42 PM
 // </history>
 
 var _language_zh_CN={
@@ -399,6 +399,10 @@ var _language_zh_CN={
                      Editedby:"编辑者",
 				 	
                      EditGroup:"编辑组别",
+				 	
+                     EffectiveBettingValue:"有 效投注额",
+				 	
+                     EffectiveBettingValueNote:"有效投注额支援09/01/2014之后数据",
 				 	
                      Enable:"Enable",
 				 	

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 12:58:05 PM
+// Lasted generated date: 8/26/2014 5:23:38 PM
 // </history>
 
 var _language_ko_KR={
@@ -397,6 +397,8 @@ var _language_ko_KR={
                      Editedby:"에 의해 수정됨",
 				 	
                      EditGroup:"그룹 수정하기",
+				 	
+                     EffectiveBettingValue:"Effective Betting Value",
 				 	
                      Enable:"활성화시킴",
 				 	

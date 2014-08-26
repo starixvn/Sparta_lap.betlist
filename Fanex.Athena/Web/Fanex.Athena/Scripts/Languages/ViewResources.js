@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 12:58:01 PM
+// Lasted generated date: 8/26/2014 5:23:19 PM
 // </history>
 
 var _language_en_US={
@@ -405,6 +405,10 @@ var _language_en_US={
                      Editedby:"Edited by",
 				 	
                      EditGroup:"Edit Group",
+				 	
+                     EffectiveBettingValue:"Effective Betting Value",
+				 	
+                     EffectiveBettingValueNote:"Effective Betting Value supports data from 09/01/2014",
 				 	
                      Enable:"Enable",
 				 	
