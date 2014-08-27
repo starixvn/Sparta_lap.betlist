@@ -2464,4 +2464,7 @@
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
   </data>
+  <data name="BingoExcludedNote" xml:space="preserve">
+    <value>Bingo is not included in the report</value>
+  </data>
 </root>

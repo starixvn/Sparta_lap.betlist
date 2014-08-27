@@ -52,7 +52,8 @@ var AgCasino = (function ($) {
                 disableSubmitButtons(disableSubmit);
             });
 
-            $("#btnUpdateStatus").click(BetSetting.updateStatus);
+           
+            $("#btnUpdateStatus").off("click").click(BetSetting.updateStatus);
         },
         checkApiContainGroup: function (groupType) {
             var groupFilter = function (index, item) {

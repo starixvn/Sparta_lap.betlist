@@ -2474,4 +2474,7 @@
   <data name="EffectiveBettingValueNote" xml:space="preserve">
     <value>有效投注额支援09/01/2014之后数据</value>
   </data>
+  <data name="BingoExcludedNote" xml:space="preserve">
+    <value>Bingo is not included in the report</value>
+  </data>
 </root>

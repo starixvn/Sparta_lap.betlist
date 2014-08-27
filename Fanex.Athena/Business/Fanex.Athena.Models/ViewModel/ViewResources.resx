@@ -2509,4 +2509,8 @@
   <data name="EffectiveBettingValueNote" xml:space="preserve">
     <value>Effective Betting Value supports data from 09/01/2014</value>
   </data>
+  <data name="BingoExcludedNote" xml:space="preserve">
+    <value>Bingo is not included in the report</value>
+    <comment>bug #20330</comment>
+  </data>
 </root>

@@ -51,6 +51,7 @@
                     </td>
                     <td style="width: 500px">
                         <div class="grid_4">@Html.TextBoxFor(model => model.GroupName, new { style = "width: 125px" })</div>
+                        <input type="hidden" id="OriginalGroupName" value="@(Model.GroupName)" />
                         <input type="button" id="Validate" value="@ViewResources.Checkavailability" class="button" />
                         <img id="ValidateOK" class="validate" src="@Url.ContentLink("/Content/Customer/images/validated.png")" />
                         <img id="ValidateFail" class="validate" src="@Url.ContentLink("/Content/Customer/images/validatefail.png")" />
@@ -199,7 +200,7 @@
                 </tr>
             </table>
         </div>
-    </div>    
+    </div>
     @Html.HiddenFor(model => model.LicenseeId)
     @Html.ValidationMessageFor(model => model.LicenseeId)
     @Html.HiddenFor(model => model.GroupCommId)

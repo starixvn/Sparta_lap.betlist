@@ -71,11 +71,9 @@ namespace Fanex.Athena.Controllers.Report
             ViewBag.TopCountList = GenerateTopCountList(metaModel.TopCount);
             ViewBag.OrderItemList = orderItemList;
             var firstItem = orderItemList.FirstOrDefault(i => i.Value == metaModel.OrderItem.ToString(CultureInfo.InvariantCulture));
-            if (firstItem
-                != null)
+            if (firstItem != null)
             {
-                this.ViewBag.SortByText =
-                    firstItem.Text;
+                this.ViewBag.SortByText = firstItem.Text;
             }
 
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);

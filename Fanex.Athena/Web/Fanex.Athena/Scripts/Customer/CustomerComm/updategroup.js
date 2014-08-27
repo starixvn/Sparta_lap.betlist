@@ -2,12 +2,22 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 var UpdateGroup = (function ($) {
+    var _originalGroupName;
+
+    function showValidStatus() {
+        $('.response-area').hide();
+        $('#ValidateOK').css('display', 'inline');
+        $('#ValidateFail').css('display', 'none');
+        $('#Save').attr("disabled", false);
+    }
+
     return {
         initialize: function () {
             UpdateGroup.initEvent();
 
             // Check commission first load
             UpdateGroup.checkCommFirstLoad();
+            _originalGroupName = $("#OriginalGroupName").val();
         },
         checkCommFirstLoad: function () {
             GroupComm.commissionOnChange($('#DdlSBComm1').val(), '#DdlSBComm');
@@ -48,7 +58,10 @@ var UpdateGroup = (function ($) {
 
             $('#Validate').click(function () {
                 var groupName = $('#GroupName').val();
-
+                if (groupName === _originalGroupName) {
+                    showValidStatus();
+                    return;
+                }
                 //Check empty group name
                 if (groupName.length < 1) {
                     UpdateGroup.displayError(Site.getSingleResource('GroupNameNotEmptyMsg'));
@@ -149,11 +162,7 @@ var UpdateGroup = (function ($) {
                 },
                 success: function (result) {
                     if (result === 'OK') {
-                        $('.response-area').hide();
-
-                        $('#ValidateOK').css('display', 'inline');
-                        $('#ValidateFail').css('display', 'none');
-                        $('#Save').attr("disabled", false);
+                        showValidStatus();
                     }
                     else {
                         UpdateGroup.displayError(Site.getSingleResource('GroupNameExistedMsg'));

@@ -700,6 +700,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bingo is not included in the report.
+        /// </summary>
+        public static string BingoExcludedNote {
+            get {
+                return ResourceManager.GetString("BingoExcludedNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Both/One/Neither Team To Score.
         /// </summary>
         public static string BONTeamToScore {
