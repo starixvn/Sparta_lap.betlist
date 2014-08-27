@@ -247,6 +247,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
+                cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting?'),
                 data: params,
                 dataType: "json",
@@ -265,6 +266,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
+                cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
                 data: params,
                 dataType: "json",
@@ -283,6 +285,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
+                cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
                 data: params,
                 dataType: "json",
@@ -302,6 +305,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'GET',
                 url: 'BetSettingAPI/updateRacingBetSetting?',
+                cache: false,
                 data: params,
                 dataType: "json",
                 success: function (result) {

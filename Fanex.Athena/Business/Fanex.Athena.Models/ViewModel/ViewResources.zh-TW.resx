@@ -2472,10 +2472,10 @@
     <value>There is technical problem to display bet setting group's detail. You can still update member's group.</value>
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
-    <value>有 效投注額</value>
+    <value>有效投注額</value>
   </data>
   <data name="EffectiveBettingValueNote" xml:space="preserve">
-    <value>有 效投注額支援09/01/2014之 後數據</value>
+    <value>有效投注額支援09/01/2014之後數據</value>
   </data>
   <data name="BingoExcludedNote" xml:space="preserve">
     <value>Bingo is not included in the report</value>

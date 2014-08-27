@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 5:23:42 PM
+// Lasted generated date: 8/27/2014 4:54:14 PM
 // </history>
 
 var _language_zh_CN={
@@ -153,6 +153,8 @@ var _language_zh_CN={
                      BG:"BG",
 				 	
                      Bingo:"宾果",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"双方/一方/两者皆不得分",
 				 	
@@ -400,7 +402,7 @@ var _language_zh_CN={
 				 	
                      EditGroup:"编辑组别",
 				 	
-                     EffectiveBettingValue:"有 效投注额",
+                     EffectiveBettingValue:"有效投注额",
 				 	
                      EffectiveBettingValueNote:"有效投注额支援09/01/2014之后数据",
 				 	

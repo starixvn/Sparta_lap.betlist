@@ -2469,7 +2469,7 @@
     <value>There is technical problem to display bet setting group's detail. You can still update member's group.</value>
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
-    <value>有 效投注额</value>
+    <value>有效投注额</value>
   </data>
   <data name="EffectiveBettingValueNote" xml:space="preserve">
     <value>有效投注额支援09/01/2014之后数据</value>
