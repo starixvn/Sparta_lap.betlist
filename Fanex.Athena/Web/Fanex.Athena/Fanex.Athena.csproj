@@ -2549,9 +2549,7 @@
     <Content Include="App_Data\Template\Customers\CustomerList.xls" />
     <Content Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
     <Content Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
-    <Content Include="App_Data\Template\Reports\Balance.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\Template\Reports\Balance.xls" />
     <Content Include="App_Data\Template\Reports\PlaytechCasino.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <Content Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />

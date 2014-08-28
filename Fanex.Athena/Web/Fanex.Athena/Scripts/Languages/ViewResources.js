@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 5:23:19 PM
+// Lasted generated date: 8/28/2014 12:40:34 PM
 // </history>
 
 var _language_en_US={
@@ -153,6 +153,8 @@ var _language_en_US={
                      BG:"BG",
 				 	
                      Bingo:"Bingo",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"Both/One/Neither Team To Score",
 				 	

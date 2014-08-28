@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/28/2014 10:36:12 AM
+// Lasted generated date: 8/28/2014 12:40:27 PM
 // </history>
 
 var _language_zh_CN={

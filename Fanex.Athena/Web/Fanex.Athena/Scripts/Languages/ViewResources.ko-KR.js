@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 5:23:38 PM
+// Lasted generated date: 8/28/2014 12:40:37 PM
 // </history>
 
 var _language_ko_KR={
@@ -153,6 +153,8 @@ var _language_ko_KR={
                      BG:"BG",
 				 	
                      Bingo:"빙고",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
 				 	
