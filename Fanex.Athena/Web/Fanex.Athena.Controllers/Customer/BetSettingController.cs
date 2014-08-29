@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting;
 
     /// <summary>
     ///     Bet setting controller.
@@ -180,10 +181,12 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = new BetSettingViewModel { Param = metaModel };
             var language = SessionService.UserSession.Language;
+            EsportSetting esportSetting = new EsportSetting();
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId));
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, esportSetting));
+                    model.EsportSetting = esportSetting;
                     break;
                 case ProductType.Racing:
                     var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(metaModel.CustId);

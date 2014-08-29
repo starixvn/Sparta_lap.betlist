@@ -69,9 +69,14 @@
     {
         foreach (var item in Model.MainData)
         {
+            var esportText = string.Empty;
+            if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting.IsLicenseeOfferEsports)
+            {
+                esportText = "& E-Sports";
+            }
             <div class="content-row">
                 <div class="row text-data first-column" style="width: 190px">
-                    <div>@item.BetSettingType</div>
+                    <div>@item.BetSettingType @esportText</div>
                 </div>
                 <div class="row text-data" style="width: 230px">
                     <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
@@ -107,6 +112,11 @@
         id="btnSubmitBetSetting"/>
         <input type="button" class="button" value="@ViewResources.Reset"
         id="btnReset" />
+        @if(Model.EsportSetting.IsLicenseeOfferEsports)            
+        {
+            var buttonText = Model.EsportSetting.IsMemberEnableEsports ? ViewResources.Disable : ViewResources.Enable;   
+            <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@Model.EsportSetting.IsMemberEnableEsports" value="@buttonText" id="btnEnableEsports" />   
+        }
     </div>
 }
 <!--/SubmitButton-->

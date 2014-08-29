@@ -203,10 +203,10 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The  bet setting list.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting)
         {
             return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetSportBookBetSetting(custId)
+                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, esportSetting)
                         : new List<BetSetting>();
         }
 
@@ -341,6 +341,16 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             return _betSettingDataAccess.UpdateSportsBookBetSetting(setting, hashParam);
+        }
+
+        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable)
+        {
+            if (setting == null)
+            {
+                return ErrorResult("Invalid parameter. sportsBook is null");
+            }
+
+            return _betSettingDataAccess.UpdateEsportStatus(setting, isEnable);
         }
 
         /// <summary>

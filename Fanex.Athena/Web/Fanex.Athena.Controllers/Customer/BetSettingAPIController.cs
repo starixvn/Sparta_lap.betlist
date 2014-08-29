@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.Customer
         public JsonResult UpdateLiveCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language,  Request.UserHostAddress);
+            var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language, Request.UserHostAddress);
 
             if (result.Code == 0)
             {
@@ -92,11 +92,11 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateRngCasinoStatus(
-                userSession.UserId, 
-                custId, 
-                status, 
+                userSession.UserId,
+                custId,
+                status,
                 userSession.Language,
-                Request.UserHostAddress, 
+                Request.UserHostAddress,
                 userSession.UserName);
 
             if (result.Code == 0)
@@ -166,6 +166,25 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update sport-book settings.
+        /// </summary>
+        /// <param name="nickName">The user name.</param>
+        /// <returns>The JSON result.</returns>
+        public JsonResult UpdateEsportStatus(bool isEnable)
+        {
+            var sportsBook = GetBetSettingCommonParam();
+            var result = _betSettingService.UpdateEsportStatus(sportsBook, isEnable);
+
+            if (result.Code == 0)
+            {
+                var enableText = isEnable ? "enabled" : "disabled";
+                result.Message = string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update racing settings.
         /// </summary>
         /// <param name="nickName">The user name.</param>
@@ -219,7 +238,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The JSON result.</returns>
         [HttpGet]
         public JsonResult UpdateKenoBetSetting(string nickName)
-        {            
+        {
             var ids = Convert.ToString(Request["ids"]).Split(',');
             var commonParam = GetBetSettingCommonParam();
             var dataParams = GetKenoParam(ids);

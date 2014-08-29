@@ -49,5 +49,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
         public RngCasinoBetSetting RngCasinoData { get; set; }
 
         public bool? IsEnabled { get; set; }
+
+        public EsportSetting EsportSetting { get; set; }
     }
 }

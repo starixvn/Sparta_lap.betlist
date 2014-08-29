@@ -40,6 +40,7 @@ var BetSetting = (function ($) {
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
+            $("#btnEnableEsports").on("click", BetSetting.updateEsportStatus);
 
             // Formating number in text box.
             BetSetting.formatInputText();
@@ -117,6 +118,36 @@ var BetSetting = (function ($) {
                 success: function (result) {
                     if (result.IsSuccessful) {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
+                    }
+                    else {
+                        BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
+                    }
+                },
+                error: function (request, status, err) {
+                    BetSetting.showDialogMesage(Site.getSingleResource("Error"), err, false);
+                }
+            });
+        },
+        updateEsportStatus: function () {
+            var currentStatus = $(this).data("current-status");
+            var status = currentStatus === "True" ? false : true;
+            var custId = $(this).data("cust-id");
+            var url = "BetSettingAPI/UpdateEsportStatus";
+            $.ajax({
+                type: 'GET',
+                url: Site.resolveClientUrl(url),
+                cache: false,
+                data: {
+                    isEnable: status,
+                    custid: custId
+                },
+                dataType: "json",
+                success: function (result) {
+                    if (result.Code.toString() === "0") {                        
+                        $("#btnEnableEsports").attr("data-current-status", status ? "True" : "False");
+                        $("#btnEnableEsports").val(Site.getSingleResource(status ? 'Disable' : 'Enable'));
+
+                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
@@ -294,6 +325,7 @@ var BetSetting = (function ($) {
                 }
             });
         },
+
         // Update Racing
         updateRacingBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);

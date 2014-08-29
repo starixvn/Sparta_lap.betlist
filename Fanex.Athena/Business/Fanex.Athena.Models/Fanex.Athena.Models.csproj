@@ -108,6 +108,7 @@
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
+    <Compile Include="DTO\Customer\BetSetting\EsportSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGame.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />

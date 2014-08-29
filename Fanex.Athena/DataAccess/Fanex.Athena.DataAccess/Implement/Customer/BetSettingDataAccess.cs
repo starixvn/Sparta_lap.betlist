@@ -85,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <returns>List result.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
 
@@ -95,7 +95,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 var sportBookDataSet = db.ExecuteDataSet();
                 if (sportBookDataSet != null)
                 {
-                    return RenderSportBookBetSetting(sportBookDataSet.Tables[0]);
+                    return RenderSportBookBetSetting(sportBookDataSet.Tables[0], esportSetting);
                 }
 
                 return new List<BetSetting>();
@@ -348,6 +348,26 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     }
                 }
 
+                db.AddOutParameter("ErrCode", DbType.String, 600);
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                return GetResult(db);
+            }
+        }
+
+        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable)
+        {
+            var uspName = "Lrf_CustomerUpdEsportStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("ip", DbType.String, setting.Ip);
+                db.AddInParameter("Langkey", DbType.String, setting.Language);
+                db.AddInParameter("userid", DbType.Int32, setting.UserId);
+                db.AddInParameter("custid", DbType.Int32, setting.CustId);
+                db.AddInParameter("DisableEsports", DbType.Boolean, isEnable);
                 db.AddOutParameter("ErrCode", DbType.String, 600);
                 db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
@@ -942,7 +962,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="sportBookTable">Sport book table value.</param>
         /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderSportBookBetSetting(DataTable sportBookTable)
+        private IList<BetSetting> RenderSportBookBetSetting(DataTable sportBookTable, EsportSetting esportSetting)
         {
             if (sportBookTable.Rows.Count == 0)
             {
@@ -967,6 +987,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
 
             RenderSport(row, "154", sportList); // Horse Racing Fixed Odds
+
+            if (sportBookTable.Columns.Contains("DisableEsports"))
+            {
+                var disableEsports = Converter.ToInt(row["DisableEsports"]);
+                esportSetting.IsLicenseeOfferEsports = disableEsports != -1;
+                esportSetting.IsMemberEnableEsports = disableEsports == 1;
+            }
 
             return sportList;
         }

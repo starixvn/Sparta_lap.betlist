@@ -25,7 +25,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
-        IList<BetSetting> GetSportBookBetSetting(int custId);
+        IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
@@ -40,6 +40,8 @@ namespace Fanex.Athena.Service.Interface.Customer
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
+
+        IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam);
 
