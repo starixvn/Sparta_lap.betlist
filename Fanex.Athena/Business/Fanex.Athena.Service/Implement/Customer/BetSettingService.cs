@@ -11,7 +11,6 @@ namespace Fanex.Athena.Service.Implement.Customer
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Text;
@@ -31,6 +30,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Common;
+    using Fanex.Logging;
 
     #endregion
 
@@ -78,6 +78,8 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="siteName">Site name.</param>
         /// <param name="currency">Currency id.</param>
         /// <returns>Ag Casino Group Betting Limit.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
@@ -85,43 +87,45 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return new List<AgCasinoGame>();
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(AppSettings.GetValue("AGCasinoApiUrl")));
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
+            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
-            request.ContentLength = parameters.Length;
-
-            var writeStream1 = request.GetRequestStream();
-            byte[] bytes1 = Encoding.ASCII.GetBytes(parameters);
-            writeStream1.Write(bytes1, 0, bytes1.Length);
-            writeStream1.Close();
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            var responseStream = response.GetResponseStream();
-            var readStream = new StreamReader(responseStream, Encoding.UTF8);
-
-            var xml = XDocument.Parse(readStream.ReadToEnd());
+            var apiResult = string.Empty;
             var games = new List<AgCasinoGame>();
-            foreach (var xmlGame in xml.Descendants("Game"))
+            try
             {
-                var game = new AgCasinoGame()
+                using (WebClient webClient = new WebClient())
                 {
-                    GameType = xmlGame.Attribute("GameType").Value,
-                    Name = xmlGame.Attribute("Name").Value,
-                    Groups = new List<AgCasinoGroup>()
-                };
-
-                foreach (var xmlGroup in xmlGame.Descendants("Group"))
-                {
-                    game.Groups.Add(new AgCasinoGroup()
-                    {
-                        GroupType = xmlGroup.Attribute("GroupType").Value,
-                        Min = Converter.ToInt(xmlGroup.Element("Min").Value),
-                        Max = Converter.ToInt(xmlGroup.Element("Max").Value)
-                    });
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    apiResult = webClient.UploadString(uri, parameters);
                 }
 
-                games.Add(game);
+                var xml = XDocument.Parse(apiResult);
+
+                foreach (var xmlGame in xml.Descendants("Game"))
+                {
+                    var game = new AgCasinoGame()
+                    {
+                        GameType = xmlGame.Attribute("GameType").Value,
+                        Name = xmlGame.Attribute("Name").Value,
+                        Groups = new List<AgCasinoGroup>()
+                    };
+
+                    foreach (var xmlGroup in xmlGame.Descendants("Group"))
+                    {
+                        game.Groups.Add(new AgCasinoGroup()
+                        {
+                            GroupType = xmlGroup.Attribute("GroupType").Value,
+                            Min = Converter.ToInt(xmlGroup.Element("Min").Value),
+                            Max = Converter.ToInt(xmlGroup.Element("Max").Value)
+                        });
+                    }
+
+                    games.Add(game);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
             }
 
             return games;
