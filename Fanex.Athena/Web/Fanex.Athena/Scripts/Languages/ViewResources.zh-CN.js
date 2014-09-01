@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/28/2014 12:40:27 PM
+// Lasted generated date: 9/1/2014 3:31:44 PM
 // </history>
 
 var _language_zh_CN={
@@ -32,7 +32,7 @@ var _language_zh_CN={
 				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
-                     AGCasinoProblemDisplayBetSetting:"There is technical problem to display bet setting group&apos;s detail. You can still update member&apos;s group.",
+                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AH:"客主",
 				 	

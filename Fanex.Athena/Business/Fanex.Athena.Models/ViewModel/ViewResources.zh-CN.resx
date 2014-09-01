@@ -2466,7 +2466,7 @@
     <comment>#19458</comment>
   </data>
   <data name="AGCasinoProblemDisplayBetSetting" xml:space="preserve">
-    <value>There is technical problem to display bet setting group's detail. You can still update member's group.</value>
+    <value>There is problem to display bet setting group's detail.</value>
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>有效投注额</value>

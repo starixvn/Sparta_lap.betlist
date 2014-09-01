@@ -41,7 +41,7 @@
     @Html.Hidden("dataCount", Model.AgCasinoViewModel.BetSetting.IsEnabled ? 1 : 0)
     @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AgCasinoViewModel.Games))
 }
-@if (!hasData)
+@if (isLineEnabled && !hasData)
 {
     <div style="width: 885px!important; padding: 20px 0px 20px 0px">
         <div>@ViewResources.AGCasinoProblemDisplayBetSetting</div>
