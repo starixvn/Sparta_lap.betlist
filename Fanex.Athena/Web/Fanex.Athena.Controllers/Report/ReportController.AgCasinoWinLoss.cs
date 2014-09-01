@@ -28,9 +28,10 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
+
             var metaModel = new AgCasinoWinLossMetaModel
                 {
-                    FromDate = new DateTime(date.Year, date.Month, 1),
+                    FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
                     ToDate = date.AddDays(-1),
                     LicenseeId = licenseeSession.LicenseeId,
                     IsExcludedTestData = true
