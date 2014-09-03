@@ -14,6 +14,7 @@
 @{    
     var hasData = Model.AgCasinoViewModel.Games.Count > 0;
     var isLineEnabled = Model.AgCasinoViewModel.BetSetting.IsLineEnabled;
+    var tableTextClass = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "" : "disabled-text";
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
@@ -33,7 +34,7 @@
         }
         else
         {
-            <span>@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
+            <span class="@tableTextClass">@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
         }
     </div>
     
@@ -79,10 +80,10 @@ else
                 <div class="row text-data first-column" style="width: 295px">
                     <div>@game.Name</div>
                 </div>
-                <div id="min-@(game.GameType)" class="row text-data" style="width: 293px">
+                <div id="min-@(game.GameType)" class="row text-data @tableTextClass" style="width: 293px">
                     @(group != null ? group.Min.ToString("#,###,##0.##") : "")
                 </div>
-                <div id="max-@(game.GameType)" class="row text-data" style="width: 293px">
+                <div id="max-@(game.GameType)" class="row text-data @tableTextClass" style="width: 293px">
                     @(group != null ? group.Max.ToString("#,###,##0.##") : "")
                 </div>
             </div>

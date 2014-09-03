@@ -70,6 +70,10 @@
 }
 
 /* Content data */
+.disabled-text
+{
+    color: Gray !important;
+}
 .no-info
 {
     border-left: 1px solid #A3D1E1;
