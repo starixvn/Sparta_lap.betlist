@@ -114,7 +114,7 @@
         id="btnReset" />
         @if(Model.EsportSetting != null && Model.EsportSetting.IsLicenseeOfferEsports)            
         {
-            var buttonText = Model.EsportSetting.IsMemberEnableEsports ? ViewResources.Disable : ViewResources.Enable;   
+            var buttonText = (Model.EsportSetting.IsMemberEnableEsports ? ViewResources.Disable : ViewResources.Enable) + " E-Sports";   
             <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@Model.EsportSetting.IsMemberEnableEsports" value="@buttonText" id="btnEnableEsports" />   
         }
     </div>

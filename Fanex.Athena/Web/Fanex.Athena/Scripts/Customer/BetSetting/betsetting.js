@@ -146,7 +146,7 @@ var BetSetting = (function ($) {
                     if (result.Code.toString() === "0") {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
                         $("#btnEnableEsports").attr("data-current-status", status ? "True" : "False");
-                        $("#btnEnableEsports").val(Site.getSingleResource(status ? 'Disable' : 'Enable'));
+                        $("#btnEnableEsports").val(Site.getSingleResource(status ? 'Disable' : 'Enable') + " E-Sports");
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
