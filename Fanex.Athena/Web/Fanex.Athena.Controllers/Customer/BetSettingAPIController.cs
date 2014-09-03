@@ -162,7 +162,7 @@ namespace Fanex.Athena.Controllers.Customer
                 result.Message = string.Format(ViewResources.UpdateSportsbookBetSettingSuccessMsg, nickName);
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet); 
         }
 
         /// <summary>

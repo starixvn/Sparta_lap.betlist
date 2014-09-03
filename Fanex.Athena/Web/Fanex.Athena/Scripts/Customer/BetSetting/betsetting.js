@@ -17,7 +17,7 @@ var BetSetting = (function ($) {
         initialize: function () {
             var $idList = $("#IDList");
             if ($idList.length > 0) {
-                _sportIds = $idList.val().split(",");
+                _sportIds = $idList.val().split(","); 
             }
 
             BetSetting.initMenu();

@@ -349,7 +349,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 }
 
                 db.AddOutParameter("ErrCode", DbType.String, 600);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+                db.AddOutParameter("ErrMsg", DbType.String, 8000); 
 
                 db.ExecuteNonQuery();
 
