@@ -14,15 +14,15 @@
 <#@ import namespace="System.Xml.Linq" #>
 <#@ import namespace="System.Windows.Forms" #>
 <#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
-<#@ include file="SiteConfiguration.ttinclude" #>
 <#
-    var manager = TemplateFileManager.Create(this);	
+    var manager = TemplateFileManager.Create(this);
+	List<string> sites = new List<string>() {"LOCAL","UAT","PRO","SANDBOX"};
     foreach(var site in sites)
-    {        
-		var x = site.SiteEnvironment.ToString();
-        var fileName = string.Format("Web.{0}.config", site.SiteEnvironment);
+    {
+        var x = site.ToString();
+        var fileName = string.Format("Web.{0}.config", site);
         manager.StartNewFile(fileName);
-		#>
+#>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <configSections>
@@ -38,7 +38,7 @@
       </layout>
     </appender>
     <appender name="GeneralLog" type="log4net.Appender.RollingFileAppender">
-      <file value="<#=site.LogFileValue#>" />
+      <file value="E:/Licensee/OlympusRoot/ALLWebSite/LRF/Site3/log4net.txt" />
       <appendToFile value="true" />
       <maximumFileSize value="100MB" />
       <rollingStyle value="Date" />
@@ -56,7 +56,7 @@
   </log4net>
   <couchbase>
     <servers bucket="Olympus" bucketPassword="">
-      <add uri="<#=site.BucketServerUri#>" />
+      <add uri="http://10.18.200.209:8091/pools/default" />
     </servers>
   </couchbase>
   <Fanex.Data.DbSettingProvider default="XmlDbSettingProvider">
@@ -64,11 +64,11 @@
       <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\FanexSpName.xml" enableWatching="1" />
     </providers>
   </Fanex.Data.DbSettingProvider>
-  <Fanex.Logging msmqPath="FormatName:DIRECT=tcp:<#=site.LoggingServer#>\private$\entlib" defaultCategory="LRF-<#=site.SiteEnvironment.ToString()#>" />
+  <Fanex.Logging msmqPath="FormatName:DIRECT=tcp:10.18.200.209\private$\entlib" defaultCategory="LRF-Local" />
   <appSettings configSource="Web.AppSettings.config" />
   <connectionStrings configSource="Web.ConnectionStrings.config" />
   <system.web>
-    <compilation debug="<#=site.DebugMode#>" targetFramework="4.0">
+    <compilation debug="true" targetFramework="4.0">
       <assemblies>
         <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
         <add assembly="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
@@ -86,13 +86,15 @@
     <authentication mode="Forms">
       <forms cookieless="UseCookies" loginUrl="~/Utility/LocationRestriction" path="/" defaultUrl="~/Home/Index" name=".LRFFORMSAUTH" protection="All" />
     </authentication>
-    <#=site.CustomErrors#>
-    <#=site.HttpRuntime#>
-    <#=site.SessionState#>
-	<#=site.MachineKey#>
-    <#=site.Globalization#>
+    <customErrors mode="Off">
+      <error statusCode="403" redirect="~/Utility/Error?err=403" />
+      <error statusCode="404" redirect="~/Utility/Error?err=404" />
+    </customErrors>
+    <httpRuntime requestValidationMode="2.0" />
+    <sessionState mode="StateServer" />
+    <globalization uiCulture="en" culture="en-US" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
     <trace enabled="false" localOnly="true" traceMode="SortByTime" />
-   <#=site.Pages#>
+    <pages enableViewStateMac="false" enableEventValidation="false" viewStateEncryptionMode="Never">
       <namespaces>
         <add namespace="System.Web.Helpers" />
         <add namespace="System.Web.Mvc" />
@@ -108,7 +110,6 @@
     </pages>
     <httpHandlers>
       <remove verb="*" path="*.asmx" />
-	  <#=site.HttpHandlersItem#>
       <add verb="*" path="*.asmx" validate="false" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
     </httpHandlers>
     <httpModules>
@@ -117,7 +118,7 @@
   </system.web>
   <location path="sso.aspx">
     <system.web>
-      <#=site.GlobalizationSSO#>
+      <globalization fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
       <authorization>
         <allow users="*" />
       </authorization>
@@ -166,7 +167,7 @@
     </assemblyBinding>
   </runtime>
 </configuration>
-		<#
+<#
     }
     manager.Process();
 #>

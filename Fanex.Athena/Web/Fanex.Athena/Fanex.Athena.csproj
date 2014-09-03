@@ -2529,6 +2529,11 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <Content Include="Web.ConnectionStrings.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2981,22 +2986,22 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
     </None>
-    <Content Include="Web.AppSettings.LOCAL.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.PRO.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.SANDBOX.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.UAT.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
     <None Include="Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
+    <Content Include="Web.LOCAL.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.PRO.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.SANDBOX.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.UAT.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <None Include="Web.ConnectionStrings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>
