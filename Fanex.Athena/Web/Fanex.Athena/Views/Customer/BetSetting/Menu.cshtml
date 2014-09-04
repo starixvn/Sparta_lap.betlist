@@ -109,6 +109,21 @@
                 </a></li>
             }
             <!--/Keno Tab-->
+            <!--AG Casino-->
+            @if (Model.IsAllowAgCasino)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 8,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.AGCasino
+                        })" id="agcasino">
+                    @ViewResources.AGCasino
+                </a></li>
+            }
+            <!--/AG Casino-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

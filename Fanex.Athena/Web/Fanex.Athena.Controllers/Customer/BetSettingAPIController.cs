@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
@@ -45,6 +46,20 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Constructor
 
         #region Bet setting API
+
+        /// <summary>
+        /// Get Ag Casino Group Betting Limit.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="currency">Currency id.</param>
+        /// <returns>Ag Casino Group Betting Limit.</returns>
+        public JsonResult GetAgGroupBettingLimit(int custId, string siteName, int currency)
+        {
+            var data = _betSettingService.GetAgCasinoGroupBettingLimit(custId, siteName, currency);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Update Live Casino status.
@@ -87,6 +102,45 @@ namespace Fanex.Athena.Controllers.Customer
             if (result.Code == 0)
             {
                 result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Update Ag Casino status.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="nickName">Nick name.</param>
+        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
+        /// <returns>Result value.</returns>
+        public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateAgCasinoStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Update Ag-Casino settings.
+        /// </summary>
+        /// <param name="nickName">The user name.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The JSON result.</returns>
+        public JsonResult UpdateAgCasinoBetSetting(string nickName, string group)
+        {
+            var setting = GetBetSettingCommonParam();
+            var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateAgCasinoBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

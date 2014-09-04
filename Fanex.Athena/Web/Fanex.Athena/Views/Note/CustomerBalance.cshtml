@@ -8,9 +8,9 @@
     {
         <li>@ViewResources.BaTurnoverReferenceNote</li>
     }
-    @if (Model.ProductList.Any(p => p.ProductCode == Product.CS || p.ProductCode == Product.BG))
+    @if (Model.ProductList.Any(p => p.ProductCode == Product.BG))
     {
-        <li>@ViewResources.RngCasinoAndBingoExcludedNote </li>
+        <li>@ViewResources.BingoExcludedNote </li>
     }
     <li>@string.Format(ViewResources.DateRangeNote, DateTime.Today.AddMonths(-18).AddDays(1 - DateTime.Now.Day)).
     </li>

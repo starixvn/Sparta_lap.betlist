@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/26/2014 1:32:10 PM
+// Lasted generated date: 9/1/2014 3:31:44 PM
 // </history>
 
 var _language_zh_CN={
@@ -27,6 +27,12 @@ var _language_zh_CN={
                      Adjustment:"调整",
 				 	
                      AffiliateTransfer:"合作伙伴转账",
+				 	
+                     AGCasino:"AG Casino",
+				 	
+                     AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
+				 	
+                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AH:"客主",
 				 	
@@ -136,6 +142,8 @@ var _language_zh_CN={
 				 	
                      BetSetting:"投注设定",
 				 	
+                     BetSettingGroups:"Bet Setting Groups",
+				 	
                      BetSettings:"投注设定",
 				 	
                      BettingLimit:"投注限额",
@@ -145,6 +153,8 @@ var _language_zh_CN={
                      BG:"BG",
 				 	
                      Bingo:"宾果",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"双方/一方/两者皆不得分",
 				 	
@@ -358,6 +368,8 @@ var _language_zh_CN={
 				 	
                      Disable:"Disable",
 				 	
+                     DisableAgCasino:"Disable AG Casino",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"停用娱乐城",
@@ -390,11 +402,13 @@ var _language_zh_CN={
 				 	
                      EditGroup:"编辑组别",
 				 	
-                     EffectiveBettingValue:"有 效投注额",
+                     EffectiveBettingValue:"有效投注额",
 				 	
                      EffectiveBettingValueNote:"有效投注额支援09/01/2014之后数据",
 				 	
                      Enable:"Enable",
+				 	
+                     EnableAgCasino:"Enable AG Casino",
 				 	
                      EnableLiveCasino:"启用娱乐厅",
 				 	
@@ -1433,6 +1447,10 @@ var _language_zh_CN={
                      Update:"更新",
 				 	
                      UpdateAccountSuccessMsg:"更新账号成功!",
+				 	
+                     UpdateAgCasinoBetSettings:"Are you sure you want to update all AG Casino bet settings?",
+				 	
+                     UpdateAgCasinoBetSettingSuccessMsg:"The Ag Casino bet setting of {0} was updated successfully",
 				 	
                      UpdateCommission:"更新佣金",
 				 	

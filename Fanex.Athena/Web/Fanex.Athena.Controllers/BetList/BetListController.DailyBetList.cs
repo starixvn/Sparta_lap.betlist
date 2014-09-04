@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreAgCasino),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

@@ -34,11 +34,27 @@ namespace Fanex.Athena.Controllers
 
         #region Members
 
+        public string[] IgnoreAgCasino
+        {
+            get
+            {
+                return new string[] { Product.AGC };
+            }
+        }
+
         public string[] IgnoreCasinoAngBingo
         {
             get
             {
                 return new string[] { Product.CS, Product.BG };
+            }
+        }
+
+        public string[] IgnoreCasinoAngBingoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.CS, Product.BG, Product.AGC };
             }
         }
 
@@ -58,11 +74,27 @@ namespace Fanex.Athena.Controllers
             }
         }
 
+        public string[] IgnoreBingoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.BG, Product.AGC };
+            }
+        }
+
         public string[] IgnoreCasinoAndBingoAndKeno
         {
             get
             {
                 return new string[] { Product.CS, Product.BG, Product.KN };
+            }
+        }
+
+        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasino
+        {
+            get
+            {
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC };
             }
         }
 

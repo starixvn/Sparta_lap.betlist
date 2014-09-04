@@ -46,7 +46,7 @@ namespace Fanex.Athena.Service.Implement.Report
             var datalist = metaModel.IsValid
                        ? _custTurnoverDataAccess.GetDataList(metaModel, languageCode, out total, out totalRows)
                        : new List<CustTurnover>();
-            if (datalist != null && datalist.Count > 1)
+            if (datalist != null && datalist.Count > 0)
             {
                 return RestructureData(datalist);
             }

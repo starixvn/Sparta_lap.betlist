@@ -2473,11 +2473,44 @@
     <value>Daily Bet List report does not include Parlay and Outright tickets.</value>
     <comment>#19622</comment>
   </data>
+  <data name="AGCasino" xml:space="preserve">
+    <value>AG Casino</value>
+    <comment>#19458</comment>
+  </data>
+  <data name="BetSettingGroups" xml:space="preserve">
+    <value>Bet Setting Groups</value>
+    <comment>#19476 - AG Casino</comment>
+  </data>
+  <data name="DisableAgCasino" xml:space="preserve">
+    <value>Disable AG Casino</value>
+  </data>
+  <data name="EnableAgCasino" xml:space="preserve">
+    <value>Enable AG Casino</value>
+  </data>
+  <data name="UpdateAgCasinoBetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all AG Casino bet settings?</value>
+    <comment>#19458</comment>
+  </data>
+  <data name="UpdateAgCasinoBetSettingSuccessMsg" xml:space="preserve">
+    <value>The Ag Casino bet setting of {0} was updated successfully</value>
+    <comment>#19458</comment>
+  </data>
+  <data name="AGCasinoNotOfferCurrency" xml:space="preserve">
+    <value>AG Casino is not offered for this currency.</value>
+    <comment>#19458</comment>
+  </data>
+  <data name="AGCasinoProblemDisplayBetSetting" xml:space="preserve">
+    <value>There is problem to display bet setting group's detail.</value>
+  </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
     <comment>#20518</comment>
   </data>
   <data name="EffectiveBettingValueNote" xml:space="preserve">
     <value>Effective Betting Value supports data from 09/01/2014</value>
+  </data>
+  <data name="BingoExcludedNote" xml:space="preserve">
+    <value>Bingo is not included in the report</value>
+    <comment>bug #20330</comment>
   </data>
 </root>

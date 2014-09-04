@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/18/2014 10:51:31 AM
+// Lasted generated date: 8/28/2014 12:40:34 PM
 // </history>
 
 var _language_en_US={
@@ -27,6 +27,12 @@ var _language_en_US={
                      Adjustment:"Adjustment",
 				 	
                      AffiliateTransfer:"Affiliate Transfer",
+				 	
+                     AGCasino:"AG Casino",
+				 	
+                     AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
+				 	
+                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AH:"AH",
 				 	
@@ -136,6 +142,8 @@ var _language_en_US={
 				 	
                      BetSetting:"Bet Setting",
 				 	
+                     BetSettingGroups:"Bet Setting Groups",
+				 	
                      BetSettings:"Bet Settings",
 				 	
                      BettingLimit:"Betting Limit",
@@ -145,6 +153,8 @@ var _language_en_US={
                      BG:"BG",
 				 	
                      Bingo:"Bingo",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"Both/One/Neither Team To Score",
 				 	
@@ -364,6 +374,8 @@ var _language_en_US={
 				 	
                      Disable:"Disable",
 				 	
+                     DisableAgCasino:"Disable AG Casino",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
@@ -398,7 +410,11 @@ var _language_en_US={
 				 	
                      EffectiveBettingValue:"Effective Betting Value",
 				 	
+                     EffectiveBettingValueNote:"Effective Betting Value supports data from 09/01/2014",
+				 	
                      Enable:"Enable",
+				 	
+                     EnableAgCasino:"Enable AG Casino",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
@@ -1445,6 +1461,10 @@ var _language_en_US={
                      Update:"Update",
 				 	
                      UpdateAccountSuccessMsg:"Update account successfully!",
+				 	
+                     UpdateAgCasinoBetSettings:"Are you sure you want to update all AG Casino bet settings?",
+				 	
+                     UpdateAgCasinoBetSettingSuccessMsg:"The Ag Casino bet setting of {0} was updated successfully",
 				 	
                      UpdateCommission:"Update Commission",
 				 	

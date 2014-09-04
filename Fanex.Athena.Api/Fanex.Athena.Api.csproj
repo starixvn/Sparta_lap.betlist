@@ -175,10 +175,6 @@
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj">
-      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
-      <Name>Fanex.Athena.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Web\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>

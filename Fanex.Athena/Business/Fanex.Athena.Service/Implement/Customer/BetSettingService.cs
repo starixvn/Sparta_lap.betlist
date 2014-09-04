@@ -8,15 +8,19 @@ namespace Fanex.Athena.Service.Implement.Customer
 {
     #region
 
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Text;
+    using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
     using Fanex.Athena.DataAccess.Implement.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -25,6 +29,8 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Common;
+    using Fanex.Logging;
 
     #endregion
 
@@ -57,6 +63,84 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         #endregion
+
+        public AgCasinoBetSetting GetAgCasinoSetting(int custId)
+        {
+            return _authorizationService.HasPermissionOnData(custId, 0)
+                        ? _betSettingDataAccess.GetAgCasinoSetting(custId)
+                        : null;
+        }
+
+        /// <summary>
+        /// Get Ag Casino Group Betting Limit.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="currency">Currency id.</param>
+        /// <returns>Ag Casino Group Betting Limit.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return new List<AgCasinoGame>();
+            }
+
+            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
+            var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
+            var apiResult = string.Empty;
+            var games = new List<AgCasinoGame>();
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    apiResult = webClient.UploadString(uri, parameters);
+                }
+
+                var xml = XDocument.Parse(apiResult);
+
+                foreach (var xmlGame in xml.Descendants("Game"))
+                {
+                    var game = new AgCasinoGame()
+                    {
+                        GameType = xmlGame.Attribute("GameType").Value,
+                        Name = xmlGame.Attribute("Name").Value,
+                        Groups = new List<AgCasinoGroup>()
+                    };
+
+                    foreach (var xmlGroup in xmlGame.Descendants("Group"))
+                    {
+                        game.Groups.Add(new AgCasinoGroup()
+                        {
+                            GroupType = xmlGroup.Attribute("GroupType").Value,
+                            Min = Converter.ToInt(xmlGroup.Element("Min").Value),
+                            Max = Converter.ToInt(xmlGroup.Element("Max").Value)
+                        });
+                    }
+
+                    games.Add(game);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return games;
+        }
+
+        public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
+        }
+
         /// <summary>
         /// Enable or disable live casino.
         /// </summary>
@@ -215,6 +299,27 @@ namespace Fanex.Athena.Service.Implement.Customer
             return _authorizationService.HasPermissionOnData(custId, 0)
                         ? _betSettingDataAccess.GetKenoBetSetting(custId)
                         : new List<BetSetting>();
+        }
+
+        /// <summary>
+        ///  Update SportsBook bet setting.
+        /// </summary>
+        /// <param name="setting">The sport-book setting.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The information of result.</returns>
+        public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
+        {
+            if (setting == null)
+            {
+                return ErrorResult("Invalid parameter. AG Casino is null");
+            }
+
+            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateAgCasinoBetSetting(setting, group);
         }
 
         /// <summary>

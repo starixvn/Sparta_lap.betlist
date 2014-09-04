@@ -133,6 +133,33 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino.
+        /// </summary>
+        public static string AGCasino {
+            get {
+                return ResourceManager.GetString("AGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AG Casino is not offered for this currency..
+        /// </summary>
+        public static string AGCasinoNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("AGCasinoNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is problem to display bet setting group&apos;s detail..
+        /// </summary>
+        public static string AGCasinoProblemDisplayBetSetting {
+            get {
+                return ResourceManager.GetString("AGCasinoProblemDisplayBetSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AH.
         /// </summary>
         public static string AH {
@@ -619,6 +646,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Setting Groups.
+        /// </summary>
+        public static string BetSettingGroups {
+            get {
+                return ResourceManager.GetString("BetSettingGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Settings.
         /// </summary>
         public static string BetSettings {
@@ -660,6 +696,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Bingo {
             get {
                 return ResourceManager.GetString("Bingo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bingo is not included in the report.
+        /// </summary>
+        public static string BingoExcludedNote {
+            get {
+                return ResourceManager.GetString("BingoExcludedNote", resourceCulture);
             }
         }
         
@@ -1645,6 +1690,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable AG Casino.
+        /// </summary>
+        public static string DisableAgCasino {
+            get {
+                return ResourceManager.GetString("DisableAgCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Live Casino .
         /// </summary>
         public static string DisableLiveCasino {
@@ -1812,6 +1866,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable AG Casino.
+        /// </summary>
+        public static string EnableAgCasino {
+            get {
+                return ResourceManager.GetString("EnableAgCasino", resourceCulture);
             }
         }
         
@@ -6519,6 +6582,24 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string UpdateAccountSuccessMsg {
             get {
                 return ResourceManager.GetString("UpdateAccountSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to update all AG Casino bet settings?.
+        /// </summary>
+        public static string UpdateAgCasinoBetSettings {
+            get {
+                return ResourceManager.GetString("UpdateAgCasinoBetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Ag Casino bet setting of {0} was updated successfully.
+        /// </summary>
+        public static string UpdateAgCasinoBetSettingSuccessMsg {
+            get {
+                return ResourceManager.GetString("UpdateAgCasinoBetSettingSuccessMsg", resourceCulture);
             }
         }
         

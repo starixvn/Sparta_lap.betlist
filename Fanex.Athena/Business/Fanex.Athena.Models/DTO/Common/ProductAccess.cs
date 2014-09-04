@@ -95,5 +95,13 @@ namespace Fanex.Athena.Models.DTO.Common
                 return ProductList.Any(p => p.ProductCode == Product.KN);
             }
         }
+
+        public bool IsAllowAG
+        {
+            get
+            {
+                return ProductList.Any(p => p.ProductCode == Product.AGC);
+            }
+        }
     }
 }

@@ -65,7 +65,12 @@ var Turnover = (function ($) {
             $('#Username').blur(function () {
                 Turnover.setDefaultUsername();
             });
-
+            $("#TurnoverForm input").keypress(function (e) {
+                if (e.keyCode === 13) {
+                    $('#IsExportExcel').val(false);
+                    Turnover.submit();
+                }
+            });
             $("#SubmitButton").click(function () {
                 $('#IsExportExcel').val(false);
                 Turnover.submit();

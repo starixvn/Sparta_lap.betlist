@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/18/2014 10:51:57 AM
+// Lasted generated date: 9/1/2014 3:31:31 PM
 // </history>
 
 var _language_ko_KR={
@@ -27,6 +27,12 @@ var _language_ko_KR={
                      Adjustment:"조정",
 				 	
                      AffiliateTransfer:"가맹자 이동",
+				 	
+                     AGCasino:"AG Casino",
+				 	
+                     AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
+				 	
+                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AH:"AH",
 				 	
@@ -136,6 +142,8 @@ var _language_ko_KR={
 				 	
                      BetSetting:"배팅 설정",
 				 	
+                     BetSettingGroups:"Bet Setting Groups",
+				 	
                      BetSettings:"배팅 설정들",
 				 	
                      BettingLimit:"배팅 한계",
@@ -145,6 +153,8 @@ var _language_ko_KR={
                      BG:"BG",
 				 	
                      Bingo:"빙고",
+				 	
+                     BingoExcludedNote:"Bingo is not included in the report",
 				 	
                      BONTeamToScore:"양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
 				 	
@@ -356,6 +366,8 @@ var _language_ko_KR={
 				 	
                      Disable:"불능시킴",
 				 	
+                     DisableAgCasino:"Disable AG Casino",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
@@ -391,6 +403,8 @@ var _language_ko_KR={
                      EffectiveBettingValue:"Effective Betting Value",
 				 	
                      Enable:"활성화시킴",
+				 	
+                     EnableAgCasino:"Enable AG Casino",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
@@ -1431,6 +1445,10 @@ var _language_ko_KR={
                      Update:"업데이트",
 				 	
                      UpdateAccountSuccessMsg:"계정 업데이트가 완료되었습니다!",
+				 	
+                     UpdateAgCasinoBetSettings:"Are you sure you want to update all AG Casino bet settings?",
+				 	
+                     UpdateAgCasinoBetSettingSuccessMsg:"The Ag Casino bet setting of {0} was updated successfully",
 				 	
                      UpdateCommission:"수수료 업데이트하기",
 				 	

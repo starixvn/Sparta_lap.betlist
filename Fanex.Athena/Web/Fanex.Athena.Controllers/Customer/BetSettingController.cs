@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Controllers.Customer
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
@@ -80,6 +82,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
                 case ProductType.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
+                case ProductType.AgCasino:
+                    return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -156,6 +160,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
+            metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
 
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
@@ -167,12 +172,14 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="metaModel">Meta model.</param>
         /// <param name="customerInfo">Customer info.</param>
         /// <returns>Bet setting view model.</returns>
+        [SuppressMessage(
+           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "SP2101:MethodMustNotContainMoreLinesThan",
+           Justification = "Reviewed. Suppression is OK here.")]
         private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel, CustomerInfo customerInfo)
         {
             var model = new BetSettingViewModel { Param = metaModel };
-
             var language = SessionService.UserSession.Language;
-
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
@@ -209,6 +216,21 @@ namespace Fanex.Athena.Controllers.Customer
                     break;
                 case ProductType.Keno:
                     model.MainData.AddRange(_betSettingService.GetKenoBetSetting(metaModel.CustId));
+                    break;
+                case ProductType.AgCasino:
+                    model.AgCasinoViewModel.BetSetting = _betSettingService.GetAgCasinoSetting(metaModel.CustId);
+                    model.AgCasinoViewModel.Games = _betSettingService.GetAgCasinoGroupBettingLimit(
+                        metaModel.CustId, 
+                        SessionService.LicenseeSession.LicenseeName, 
+                        model.AgCasinoViewModel.BetSetting.CurrencyId);
+                    if (model.AgCasinoViewModel.BetSetting.CheckedGroups.Contains(model.AgCasinoViewModel.BetSetting.AgGroup) == false)
+                    {
+                        model.AgCasinoViewModel.BetSetting.CheckedGroups = 
+                            model.AgCasinoViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.AgCasinoViewModel.BetSetting.AgGroup })
+                            .OrderBy(x => x).ToArray();
+                    }
+
+                    model.IsEnabled = model.AgCasinoViewModel.BetSetting.IsEnabled;
                     break;
             }
 

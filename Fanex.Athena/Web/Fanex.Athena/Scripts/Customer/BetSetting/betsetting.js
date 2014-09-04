@@ -1,4 +1,4 @@
-﻿/*global Site*/
+﻿/*global Site, AgCasino */
 /// <reference path="/@JSense.js" />
 "use strict";
 
@@ -10,6 +10,7 @@ var BetSetting = (function ($) {
     var TAB_LIVECASINO = 5;
     var TAB_RNGCASINO = 6;
     var TAB_KENO = 7;
+    var TAB_AGCASINO = 8;
 
     var _sportIds = null;
     return {
@@ -75,17 +76,33 @@ var BetSetting = (function ($) {
                 case TAB_KENO:
                     $('#keno').addClass('activeTab');
                     break;
+                case TAB_AGCASINO:
+                    $('#agcasino').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
+
             var tabid = parseInt($("#TabId").val());
             var nickName = $(this).data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $(this).data("status");
             var custId = $(this).data("cust-id");
-            var url = tabid === TAB_LIVECASINO ? "BetSettingAPI/UpdateLiveCasinoStatus" : "BetSettingAPI/UpdateRngCasinoStatus";
+            var url = null;
+
+            switch (tabid) {
+                case TAB_LIVECASINO:
+                    url = "BetSettingAPI/UpdateLiveCasinoStatus";
+                    break;
+                case TAB_RNGCASINO:
+                    url = "BetSettingAPI/UpdateRngCasinoStatus";
+                    break;
+                case TAB_AGCASINO:
+                    url = "BetSettingAPI/UpdateAgCasinoStatus";
+                    break;
+            }
 
             $.ajax({
                 type: 'POST',
@@ -98,7 +115,7 @@ var BetSetting = (function ($) {
                 },
                 dataType: "json",
                 success: function (result) {
-                    if (result.Code.toString() === "0") {
+                    if (result.IsSuccessful) {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
                     }
                     else {
@@ -182,6 +199,19 @@ var BetSetting = (function ($) {
                 case TAB_KENO:
                     showComfirm('UpdateKenoBetSettings', BetSetting.updateKenoBetSetting);
                     break;
+                case TAB_AGCASINO:
+                    var group = $("#betSettingGroup").val();
+                    if (group === null || group === "") {
+                        return;
+                    }
+
+                    if (AgCasino.checkApiContainGroup(group) === false) {
+                        alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
+                        return;
+                    }
+
+                    showComfirm('UpdateAgCasinoBetSettings', BetSetting.updateAgCasinoBetSetting);
+                    break;
             }
         },
         checkValidation: function () {
@@ -209,6 +239,23 @@ var BetSetting = (function ($) {
 
             return true;
         },
+        updateAgCasinoBetSetting: function (custId, userName, nickName) {
+            var params = "custid=" + custId;
+            params += "&userName=" + userName;
+            params += "&nickName=" + nickName;
+            params += "&group=" + $("#betSettingGroup").val();
+
+            $.ajax({
+                type: 'GET',
+                cache: false,
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting?'),
+                data: params,
+                dataType: "json",
+                success: function (result) {
+                    BetSetting.showUpdateSettingResult(result);
+                }
+            });
+        },
         updateKenoBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
             params += "&custid=" + custId;
@@ -219,6 +266,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
+                cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
                 data: params,
                 dataType: "json",
@@ -237,6 +285,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'GET',
+                cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
                 data: params,
                 dataType: "json",
@@ -256,6 +305,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'GET',
                 url: 'BetSettingAPI/updateRacingBetSetting?',
+                cache: false,
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -392,6 +442,9 @@ var BetSetting = (function ($) {
             if (tabid === TAB_LIVECASINO) {
                 BetSetting.resetLiveCasinoBetSetting();
             }
+            if (tabid === TAB_AGCASINO) {
+                BetSetting.resetAgCasinoSetting();
+            }
             else {
                 BetSetting.resetValues();
             }
@@ -402,6 +455,14 @@ var BetSetting = (function ($) {
             $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
                 $(this).val($(this).attr('data-original')).prop('disabled', false);
             });
+        },
+        resetAgCasinoSetting: function () {
+            var $dropdown = $("#betSettingGroup");
+            if ($dropdown.data("default") === "") {
+                $dropdown.prop("selectedIndex", -1).change();
+            } else {
+                $dropdown.val($dropdown.data("default")).change();
+            }
         },
         resetLiveCasinoBetSetting: function () {
             var gameTypeCount = $("#gameTypeCount").val();
