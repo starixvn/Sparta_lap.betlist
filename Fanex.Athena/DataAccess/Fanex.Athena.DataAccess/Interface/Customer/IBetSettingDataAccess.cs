@@ -27,8 +27,6 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
-        IList<BetSetting> GetSportBookBetSetting(int custId);
-
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
