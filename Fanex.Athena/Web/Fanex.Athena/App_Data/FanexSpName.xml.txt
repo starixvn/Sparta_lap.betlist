@@ -1,0 +1,7 @@
+﻿
+// Generated helper templates
+// Generated items
+// Fanex.Athena\Web\Fanex.Athena\App_Data\FanexSpName.SANDBOX.xml
+// Fanex.Athena\Web\Fanex.Athena\App_Data\FanexSpName.PRO.xml
+// Fanex.Athena\Web\Fanex.Athena\App_Data\FanexSpName.UAT.xml
+// Fanex.Athena\Web\Fanex.Athena\App_Data\FanexSpName.LOCAL.xml
