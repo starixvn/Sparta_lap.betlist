@@ -9,7 +9,6 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Interface.Customer
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
@@ -20,7 +19,8 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     /// </summary>
     public interface IBetSettingDataAccess
     {
-        IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting); 
+        IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting);
+
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);

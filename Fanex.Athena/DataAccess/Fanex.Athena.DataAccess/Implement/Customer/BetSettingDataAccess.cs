@@ -84,6 +84,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Get sport book bet setting.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
+        /// <param name="esportSetting">E-sport Setting.</param>
         /// <returns>List result.</returns>
         public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting)
         {
@@ -357,6 +358,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Update E-sport Status.
+        /// </summary>
+        /// <param name="setting">Setting value.</param>
+        /// <param name="isEnable">Is enable.</param>
+        /// <returns>Result information.</returns>
         public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable)
         {
             var uspName = "Lrf_CustomerUpdEsportStatus";
@@ -961,6 +968,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Render Sport book bet setting.
         /// </summary>
         /// <param name="sportBookTable">Sport book table value.</param>
+        /// <param name="esportSetting">E-sport setting.</param>
         /// <returns>The result value.</returns>
         private IList<BetSetting> RenderSportBookBetSetting(DataTable sportBookTable, EsportSetting esportSetting)
         {

@@ -202,6 +202,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// Get SportsBook bet setting.
         /// </summary>
         /// <param name="custId">The customer id.</param>
+        /// <param name="esportSetting">ESport Setting.</param>
         /// <returns>The  bet setting list.</returns>
         public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting)
         {

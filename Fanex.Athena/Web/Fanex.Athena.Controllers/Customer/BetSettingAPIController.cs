@@ -168,7 +168,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Update sport-book settings.
         /// </summary>
-        /// <param name="nickName">The user name.</param>
+        /// <param name="isEnable">Is Enable.</param>
         /// <returns>The JSON result.</returns>
         public JsonResult UpdateEsportStatus(bool isEnable)
         {
