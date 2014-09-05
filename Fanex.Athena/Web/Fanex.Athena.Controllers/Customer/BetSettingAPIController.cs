@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
@@ -162,13 +161,13 @@ namespace Fanex.Athena.Controllers.Customer
                 result.Message = string.Format(ViewResources.UpdateSportsbookBetSettingSuccessMsg, nickName);
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet); 
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
         /// Update sport-book settings.
         /// </summary>
-        /// <param name="isDisable">Is disabled.</param>
+        /// <param name="isDisabled">Is disabled.</param>
         /// <returns>The JSON result.</returns>
         public JsonResult UpdateEsportStatus(bool isDisabled)
         {
