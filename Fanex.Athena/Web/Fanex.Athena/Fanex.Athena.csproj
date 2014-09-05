@@ -197,6 +197,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Form\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
@@ -285,6 +286,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
