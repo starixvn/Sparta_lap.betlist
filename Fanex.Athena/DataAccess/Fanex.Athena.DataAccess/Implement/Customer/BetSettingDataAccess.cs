@@ -126,9 +126,14 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())
                 {
-                    return RenderNumberGameBetSetting(reader);
+                    if (reader.Read())
+                    {
+                        return RenderNumberGameBetSetting(reader);
+                    }
                 }
             }
+
+            return new List<BetSetting>();
         }
 
         /// <summary>
@@ -146,9 +151,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())
                 {
-                    return RenderRacingBetSetting(reader, isAllowSaToreCurrency);
+                    if (reader.Read())
+                    {
+                        return RenderRacingBetSetting(reader, isAllowSaToreCurrency);
+                    }
                 }
             }
+            return new List<BetSetting>();
         }
 
         /// <summary>
@@ -241,13 +250,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                var dataSet = db.ExecuteDataSet();
-                if (dataSet != null)
+                using (var reader = db.ExecuteReader())
                 {
-                    return RenderKenoBetSetting(dataSet.Tables[0]);
+                    return RenderKenoBetSetting(reader);
                 }
-
-                return new List<BetSetting>();
             }
         }
 
@@ -803,23 +809,23 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Render Keno bet setting.
         /// </summary>
-        /// <param name="table">Data table value.</param>
+        /// <param name="reader">Data table value.</param>
         /// <returns>The result value.</returns>
-        private static IList<BetSetting> RenderKenoBetSetting(DataTable table)
+        private static IList<BetSetting> RenderKenoBetSetting(IDataReader reader)
         {
             var betSettings = new List<BetSetting>();
-            foreach (DataRow row in table.Rows)
+            while (reader.Read())
             {
-                var gameTypeId = Converter.ToString2(row["GameTypeID"]);
+                var gameTypeId = Converter.ToString2(reader["GameTypeID"]);
                 var sport = new BetSetting
                 {
-                    MaxBet = Converter.ToDecimal(row["MaxBet"]),
-                    MinBet = Converter.ToDecimal(row["MinBet"]),
-                    MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch_Max"]),
-                    MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch"]),
-                    BetValueMax = Converter.ToDecimal(row["MaxBet_Min"]),
-                    BetValueMin = Converter.ToDecimal(row["MinBet_Max"]),
-                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(row["IBCBetTypeID"])),
+                    MaxBet = Converter.ToDecimal(reader["MaxBet"]),
+                    MinBet = Converter.ToDecimal(reader["MinBet"]),
+                    MaxPerMatchMax = Converter.ToDecimal(reader["MaxPerMatch_Max"]),
+                    MaxPerMatch = Converter.ToDecimal(reader["MaxPerMatch"]),
+                    BetValueMax = Converter.ToDecimal(reader["MaxBet_Min"]),
+                    BetValueMin = Converter.ToDecimal(reader["MinBet_Max"]),
+                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(reader["IBCBetTypeID"])),
                     SportId = gameTypeId
                 };
 
@@ -972,6 +978,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         private IList<BetSetting> RenderSportBookBetSetting(IDataReader reader)
         {
+            if (reader.FieldCount == 0)
+            {
+                return null;
+            }
+
             var sportList = new List<BetSetting>();
 
             RenderSport(reader, "1", sportList); // Soccer
@@ -1039,6 +1050,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
         {
+            if (reader.FieldCount == 0)
+            {
+                return null;
+            }
             var numberGameList = new List<BetSetting>();
 
             RenderSport(reader, "161", numberGameList); // Soccer
@@ -1058,6 +1073,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         private IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
         {
+            if (reader.FieldCount == 0)
+            {
+                return null;
+            }
+
             var racingList = new List<BetSetting>();
 
             RenderSport(reader, "151_41", racingList); // Horse racing UK
