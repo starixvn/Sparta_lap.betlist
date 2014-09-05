@@ -14,10 +14,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
+    using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
@@ -26,7 +28,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     ///     Bet setting data access.
@@ -87,21 +88,25 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <param name="custId">Customer ID value.</param>
         /// <param name="esportSetting">E-sport Setting.</param>
         /// <returns>List result.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId, out EsportSettingType esportSetting)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
-            esportSetting = EsportSettingType.NoneOffering;
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                var sportBookDataSet = db.ExecuteDataSet();
-                if (sportBookDataSet != null)
+                using (var reader = db.ExecuteReader())
                 {
-                    return RenderSportBookBetSetting(sportBookDataSet.Tables[0], out esportSetting);
+                    if (reader.Read())
+                    {
+                        esportSetting = reader.TryGetOrdinal("DisableEsports") >= 0 ?
+                            (EsportSettingType)Converter.ToInt(reader["DisableEsports"])
+                            : EsportSettingType.NoneOffering;
+                        return RenderSportBookBetSetting(reader);
+                    }
                 }
-
-                return new List<BetSetting>();
             }
+
+            return new List<BetSetting>();
         }
 
         /// <summary>
@@ -119,14 +124,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-
-                var numberGameDataSet = db.ExecuteDataSet();
-                if (numberGameDataSet != null)
+                using (var reader = db.ExecuteReader())
                 {
-                    return RenderNumberGameBetSetting(numberGameDataSet.Tables[0]);
+                    return RenderNumberGameBetSetting(reader);
                 }
-
-                return new List<BetSetting>();
             }
         }
 
@@ -143,14 +144,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-
-                var racingDataSet = db.ExecuteDataSet();
-                if (racingDataSet != null)
+                using (var reader = db.ExecuteReader())
                 {
-                    return RenderRacingBetSetting(racingDataSet.Tables[0], isAllowSaToreCurrency);
+                    return RenderRacingBetSetting(reader, isAllowSaToreCurrency);
                 }
-
-                return new List<BetSetting>();
             }
         }
 
@@ -277,7 +274,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddInParameter("language", DbType.String, data.Language);
                 db.AddInParameter("userid", DbType.Int32, data.UserId);
                 db.AddInParameter("custid", DbType.Int32, data.CustId);
-               
+
                 db.AddOutParameter("ErrCode", DbType.String, 600);
                 db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
@@ -351,7 +348,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 }
 
                 db.AddOutParameter("ErrCode", DbType.String, 600);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000); 
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
                 db.ExecuteNonQuery();
 
@@ -748,9 +745,11 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 case "zh-TW":
                     gameTypeName = "GameTypeName_Ct";
                     break;
+
                 case "zh-CN":
                     gameTypeName = "GameTypeName_Cs";
                     break;
+
                 case "ko-KR":
                     gameTypeName = "GameTypeName_Ko";
                     break;
@@ -759,7 +758,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             return gameTypeName;
         }
 
-        #endregion
+        #endregion Live Casino Utility
 
         #region Write Log
 
@@ -968,44 +967,65 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Render Sport book bet setting.
         /// </summary>
-        /// <param name="sportBookTable">Sport book table value.</param>
+        /// <param name="reader">Data reader.</param>
         /// <param name="esportSetting">E-sport setting.</param>
         /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderSportBookBetSetting(DataTable sportBookTable, out EsportSettingType esportSetting)
+        private IList<BetSetting> RenderSportBookBetSetting(IDataReader reader)
         {
-            esportSetting = EsportSettingType.NoneOffering;
-            if (sportBookTable.Rows.Count == 0)
-            {
-                return null;
-            }
-
             var sportList = new List<BetSetting>();
-            var row = sportBookTable.Rows[0];
 
-            RenderSport(row, "1", sportList); // Soccer
-            RenderSport(row, "2", sportList); // Basket ball
-            RenderSport(row, "3", sportList); // Football
-            RenderSport(row, "5", sportList); // Tennis
-            RenderSport(row, "8", sportList); // Baseball
-            RenderSport(row, "10", sportList); // Golf
-            RenderSport(row, "11", sportList); // Moto
-            RenderSport(row, "99", sportList); // Other sports
+            RenderSport(reader, "1", sportList); // Soccer
+            RenderSport(reader, "2", sportList); // Basket ball
+            RenderSport(reader, "3", sportList); // Football
+            RenderSport(reader, "5", sportList); // Tennis
+            RenderSport(reader, "8", sportList); // Baseball
+            RenderSport(reader, "10", sportList); // Golf
+            RenderSport(reader, "11", sportList); // Moto
+            RenderSport(reader, "99", sportList); // Other sports
 
             if (AppSettings.IsShowMixedSport)
             {
-                RenderSport(row, "99MP", sportList);
+                RenderSport(reader, "99MP", sportList);
             }
 
-            RenderSport(row, "154", sportList); // Horse Racing Fixed Odds
-
-            if (sportBookTable.Columns.Contains("DisableEsports"))
-            {
-                var disableEsports = Converter.ToInt(row["DisableEsports"]);
-                esportSetting = (EsportSettingType)disableEsports;
-
-            }
+            RenderSport(reader, "154", sportList); // Horse Racing Fixed Odds
 
             return sportList;
+        }
+
+        /// <summary>
+        /// Render sport.
+        /// </summary>
+        /// <param name="reader">The row value.</param>
+        /// <param name="sportId">Sport ID value.</param>
+        /// <param name="resultList">Result list value.</param>
+        private void RenderSport(IDataReader reader, string sportId, List<BetSetting> resultList)
+        {
+            var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
+            var sportName = CacheRef.GetSportName(sportId);
+
+            sportName = string.IsNullOrEmpty(sportName) ? GetSportName(sportId) : sportName;
+
+            var sport = new BetSetting
+            {
+                MaxBet = Converter.ToDecimal(reader["maxbet" + sportSuffix]),
+                MinBet = Converter.ToDecimal(reader["minbet" + sportSuffix]),
+                MaxPerMatch = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix]),
+                MaxPerMatchMax = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix + "_Max"]),
+                MaxPerMatchMin = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix + "_Min"]),
+                BetValueMax = Converter.ToDecimal(reader["MaxBet" + sportSuffix + "_Min"]),
+                BetValueMin = Converter.ToDecimal(reader["MinBet" + sportSuffix + "_Max"]),
+                BetSettingType = sportName,
+                SportId = sportId
+            };
+
+            if (_isNumberGame)
+            {
+                sport.MaxPerBall = Converter.ToDecimal(reader["maxperball" + sportSuffix]);
+                sport.MaxPerBallMax = Converter.ToDecimal(reader["maxperball" + sportSuffix + "_Max"]);
+            }
+
+            resultList.Add(sport);
         }
 
         #endregion Sport Book
@@ -1015,19 +1035,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Render number game bet setting.
         /// </summary>
-        /// <param name="numberGameTable">Number game table value.</param>
+        /// <param name="reader">Number game table value.</param>
         /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderNumberGameBetSetting(DataTable numberGameTable)
+        private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
         {
-            if (numberGameTable.Rows.Count == 0)
-            {
-                return null;
-            }
-
             var numberGameList = new List<BetSetting>();
-            var row = numberGameTable.Rows[0];
 
-            RenderSport(row, "161", numberGameList); // Soccer
+            RenderSport(reader, "161", numberGameList); // Soccer
 
             return numberGameList;
         }
@@ -1039,74 +1053,29 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Render racing bet setting.
         /// </summary>
-        /// <param name="racingTable">Racing table value.</param>
+        /// <param name="reader">Racing table value.</param>
         /// <param name="isAllowSaToteCurrency">Allow Tote currency value.</param>
         /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderRacingBetSetting(DataTable racingTable, bool isAllowSaToteCurrency)
+        private IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
         {
-            if (racingTable.Rows.Count == 0)
-            {
-                return null;
-            }
-
             var racingList = new List<BetSetting>();
-            var row = racingTable.Rows[0];
 
-            RenderSport(row, "151_41", racingList); // Horse racing UK
+            RenderSport(reader, "151_41", racingList); // Horse racing UK
 
             if (isAllowSaToteCurrency)
             {
-                RenderSport(row, "151_31", racingList); // Horse racing SA
+                RenderSport(reader, "151_31", racingList); // Horse racing SA
             }
 
-            RenderSport(row, "151_51", racingList); // Horse racing Aust
-            RenderSport(row, "152_41", racingList); // Greyhound UK
-            RenderSport(row, "152_51", racingList); // Greyhound Aust
-            RenderSport(row, "153_51", racingList); // Harness Aust
+            RenderSport(reader, "151_51", racingList); // Horse racing Aust
+            RenderSport(reader, "152_41", racingList); // Greyhound UK
+            RenderSport(reader, "152_51", racingList); // Greyhound Aust
+            RenderSport(reader, "153_51", racingList); // Harness Aust
 
             return racingList;
         }
 
         #endregion Racing
-
-        #region Get Bet Setting Details
-
-        /// <summary>
-        /// Render sport.
-        /// </summary>
-        /// <param name="row">The row value.</param>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <param name="resultList">Result list value.</param>
-        private void RenderSport(DataRow row, string sportId, List<BetSetting> resultList)
-        {
-            var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
-            var sportName = CacheRef.GetSportName(sportId);
-
-            sportName = string.IsNullOrEmpty(sportName) ? GetSportName(sportId) : sportName;
-
-            var sport = new BetSetting
-            {
-                MaxBet = Converter.ToDecimal(row["maxbet" + sportSuffix]),
-                MinBet = Converter.ToDecimal(row["minbet" + sportSuffix]),
-                MaxPerMatch = Converter.ToDecimal(row["MaxPerMatch" + sportSuffix]),
-                MaxPerMatchMax = Converter.ToDecimal(row["MaxPerMatch" + sportSuffix + "_Max"]),
-                MaxPerMatchMin = Converter.ToDecimal(row["MaxPerMatch" + sportSuffix + "_Min"]),
-                BetValueMax = Converter.ToDecimal(row["MaxBet" + sportSuffix + "_Min"]),
-                BetValueMin = Converter.ToDecimal(row["MinBet" + sportSuffix + "_Max"]),
-                BetSettingType = sportName,
-                SportId = sportId
-            };
-
-            if (_isNumberGame)
-            {
-                sport.MaxPerBall = Converter.ToDecimal(row["maxperball" + sportSuffix]);
-                sport.MaxPerBallMax = Converter.ToDecimal(row["maxperball" + sportSuffix + "_Max"]);
-            }
-
-            resultList.Add(sport);
-        }
-
-        #endregion Get Bet Setting Details
 
         #endregion Utility
     }

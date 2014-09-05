@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -185,7 +184,7 @@ namespace Fanex.Athena.Controllers.Customer
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, out  esportSetting));
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, esportSetting));
                     model.EsportSetting = esportSetting;
                     break;
 

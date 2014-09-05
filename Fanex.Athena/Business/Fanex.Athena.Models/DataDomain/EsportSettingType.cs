@@ -11,8 +11,19 @@ namespace Fanex.Athena.Models.DataDomain
     /// </summary>
     public enum EsportSettingType : int
     {
+        /// <summary>
+        /// Licensee's not offered.
+        /// </summary>
         NoneOffering = -1,
+
+        /// <summary>
+        /// Licensee's offered.
+        /// </summary>
         LicenseeOffering = 0,
+
+        /// <summary>
+        ///  Licensee's offered but not offered for member.
+        /// </summary>
         MemberOffering = 1
     }
 }
