@@ -37,7 +37,6 @@
     </div>
     <!--Check box-->
 }
-
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("editable", Model.Param.Editable)
 @Html.Hidden("dataCount", (Model.MainData.Count))
@@ -70,36 +69,36 @@
         foreach (var item in Model.MainData)
         {
             var esportText = string.Empty;
-            if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting.IsLicenseeOfferEsports)
+            if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
             {
                 esportText = "& E-Sports";
             }
-            <div class="content-row">
-                <div class="row text-data first-column" style="width: 190px">
-                    <div>@item.BetSettingType @esportText</div>
-                </div>
-                <div class="row text-data" style="width: 230px">
-                    <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
-                    @if (item.BetValueMin > 0)
-                    {
-                        <span>&gt;=@item.BetValueMin.ToString("#,###,##0.##")</span>
-                    }
-                </div>
-                <div class="row text-data" style="width: 230px">
-                    <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-max-value="@item.BetValueMax.ToString("#,###,##0.##")" data-original="@item.MaxBet.ToString("#,###,##0.##")"/>
-                    @if (item.BetValueMax > 0)
-                    {
-                        <span>&lt;=@item.BetValueMax.ToString("#,###,##0.##")</span>
-                    }
-                </div>
-                <div class="row text-data" style="width: 230px">
-                    <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-min-value="@item.MaxPerMatchMin.ToString("#,###,##0.##")" data-max-value="@item.MaxPerMatchMax.ToString("#,###,##0.##")" data-original="@item.MaxPerMatch.ToString("#,###,##0.##")"/>
-                    @if (item.MaxPerMatchMax > 0)
-                    {
-                        <span>&lt;=@item.MaxPerMatchMax.ToString("#,###,##0.##")</span>
-                    }
-                </div>
+        <div class="content-row">
+            <div class="row text-data first-column" style="width: 190px">
+                <div>@item.BetSettingType @esportText</div>
             </div>
+            <div class="row text-data" style="width: 230px">
+                <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
+                @if (item.BetValueMin > 0)
+                {
+                    <span>&gt;=@item.BetValueMin.ToString("#,###,##0.##")</span>
+                }
+            </div>
+            <div class="row text-data" style="width: 230px">
+                <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-max-value="@item.BetValueMax.ToString("#,###,##0.##")" data-original="@item.MaxBet.ToString("#,###,##0.##")" />
+                @if (item.BetValueMax > 0)
+                {
+                    <span>&lt;=@item.BetValueMax.ToString("#,###,##0.##")</span>
+                }
+            </div>
+            <div class="row text-data" style="width: 230px">
+                <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString("#,###,##0.##")" style="width:115px" maxlength="14" data-min-value="@item.MaxPerMatchMin.ToString("#,###,##0.##")" data-max-value="@item.MaxPerMatchMax.ToString("#,###,##0.##")" data-original="@item.MaxPerMatch.ToString("#,###,##0.##")" />
+                @if (item.MaxPerMatchMax > 0)
+                {
+                    <span>&lt;=@item.MaxPerMatchMax.ToString("#,###,##0.##")</span>
+                }
+            </div>
+        </div>
         }
     }
 </div>
@@ -109,13 +108,13 @@
 {
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
-        id="btnSubmitBetSetting"/>
+        id="btnSubmitBetSetting" />
         <input type="button" class="button" value="@ViewResources.Reset"
         id="btnReset" />
-        @if(Model.EsportSetting != null && Model.EsportSetting.IsLicenseeOfferEsports)            
+        @if (Model.EsportSetting != EsportSettingType.NoneOffering)
         {
-            var buttonText = (Model.EsportSetting.IsMemberEnableEsports ? ViewResources.Disable : ViewResources.Enable) + " E-Sports";   
-            <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@Model.EsportSetting.IsMemberEnableEsports" value="@buttonText" id="btnEnableEsports" />   
+            var buttonText = (Model.EsportSetting==EsportSettingType.MemberOffering ? ViewResources.Enable : ViewResources.Disable) + " E-Sports";
+            <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@Model.EsportSetting==EsportSettingType.MemberOffering" value="@buttonText" id="btnEnableEsports" />
         }
     </div>
 }

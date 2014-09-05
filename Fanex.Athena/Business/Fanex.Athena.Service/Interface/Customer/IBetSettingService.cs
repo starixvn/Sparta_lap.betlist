@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     ///     IBet setting service.
@@ -25,7 +26,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
-        IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting);
+        IList<BetSetting> GetSportBookBetSetting(int custId, out EsportSettingType esportSetting);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 

@@ -130,7 +130,7 @@ var BetSetting = (function ($) {
         },
         updateEsportStatus: function () {
             var currentStatus = $(this).attr("data-current-status");
-            var status = currentStatus === "True" ? false : true;
+            var status = Site.asBool(currentStatus);
             var custId = $(this).data("cust-id");
             var url = "BetSettingAPI/UpdateEsportStatus";
             $.ajax({

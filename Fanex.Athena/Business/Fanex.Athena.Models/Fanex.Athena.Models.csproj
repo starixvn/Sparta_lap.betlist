@@ -79,6 +79,7 @@
     <Compile Include="Cache\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
+    <Compile Include="DataDomain\EsportSettingType.cs" />
     <Compile Include="DataDomain\ProductType.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
     <Compile Include="DataDomain\ReportByType.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
-    <Compile Include="DTO\Customer\BetSetting\EsportSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGame.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />

@@ -31,6 +31,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Common;
     using Fanex.Logging;
+    using Fanex.Athena.Models.DataDomain;
 
     #endregion
 
@@ -204,10 +205,11 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="custId">The customer id.</param>
         /// <param name="esportSetting">ESport Setting.</param>
         /// <returns>The  bet setting list.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, out EsportSettingType esportSetting)
         {
+            esportSetting = EsportSettingType.NoneOffering;
             return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, esportSetting)
+                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, out esportSetting)
                         : new List<BetSetting>();
         }
 

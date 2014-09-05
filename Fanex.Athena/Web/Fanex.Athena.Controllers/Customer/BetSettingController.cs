@@ -181,11 +181,11 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = new BetSettingViewModel { Param = metaModel };
             var language = SessionService.UserSession.Language;
-            EsportSetting esportSetting = new EsportSetting();
+            EsportSettingType esportSetting = EsportSettingType.NoneOffering;
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, esportSetting));
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, out  esportSetting));
                     model.EsportSetting = esportSetting;
                     break;
 

@@ -13,13 +13,14 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     ///     Bet setting interface.
     /// </summary>
     public interface IBetSettingDataAccess
     {
-        IList<BetSetting> GetSportBookBetSetting(int custId, EsportSetting esportSetting);
+        IList<BetSetting> GetSportBookBetSetting(int custId, out EsportSettingType esportSetting);
 
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
