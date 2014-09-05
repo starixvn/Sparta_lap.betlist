@@ -40,7 +40,7 @@ var BetSetting = (function ($) {
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
-            $("#btnEnableEsports").on("click", BetSetting.updateEsportStatus);
+            $("#btnDisableEsports").on("click", BetSetting.updateEsportStatus);
 
             // Formating number in text box.
             BetSetting.formatInputText();
@@ -129,8 +129,7 @@ var BetSetting = (function ($) {
             });
         },
         updateEsportStatus: function () {
-            var currentStatus = $(this).attr("data-current-status");
-            var status = Site.asBool(currentStatus);
+            var currentStatus = Site.asBool($(this).attr("data-current-status"));
             var custId = $(this).data("cust-id");
             var url = "BetSettingAPI/UpdateEsportStatus";
             $.ajax({
@@ -138,15 +137,15 @@ var BetSetting = (function ($) {
                 url: Site.resolveClientUrl(url),
                 cache: false,
                 data: {
-                    isEnable: status,
+                    isDisabled: !currentStatus,
                     custid: custId
                 },
                 dataType: "json",
                 success: function (result) {
                     if (result.Code.toString() === "0") {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
-                        $("#btnEnableEsports").attr("data-current-status", status ? "True" : "False");
-                        $("#btnEnableEsports").val(Site.getSingleResource(status ? 'Disable' : 'Enable') + " E-Sports");
+                        $("#btnDisableEsports").attr("data-current-status", !currentStatus);
+                        $("#btnDisableEsports").val(Site.getSingleResource(!currentStatus ? 'Enable' : 'Disable') + " E-Sports");
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);

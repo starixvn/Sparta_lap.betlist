@@ -168,16 +168,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Update sport-book settings.
         /// </summary>
-        /// <param name="isEnable">Is Enable.</param>
+        /// <param name="isDisable">Is disabled.</param>
         /// <returns>The JSON result.</returns>
-        public JsonResult UpdateEsportStatus(bool isEnable)
+        public JsonResult UpdateEsportStatus(bool isDisabled)
         {
             var sportsBook = GetBetSettingCommonParam();
-            var result = _betSettingService.UpdateEsportStatus(sportsBook, isEnable);
+            var result = _betSettingService.UpdateEsportStatus(sportsBook, isDisabled);
 
             if (result.Code == 0)
             {
-                var enableText = isEnable ? "enabled" : "disabled";
+                var enableText = isDisabled ? "disabled" : "enable";
                 result.Message = string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText);
             }
 
