@@ -184,7 +184,7 @@ namespace Fanex.Athena.Controllers.Customer
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, esportSetting));
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, ref esportSetting));
                     model.EsportSetting = esportSetting;
                     break;
 

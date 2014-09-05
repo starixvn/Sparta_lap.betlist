@@ -88,7 +88,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <param name="custId">Customer ID value.</param>
         /// <param name="esportSetting">E-sport Setting.</param>
         /// <returns>List result.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSettingType esportSetting)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
             using (var db = new ObjectDb(uspName))
@@ -157,6 +157,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     }
                 }
             }
+
             return new List<BetSetting>();
         }
 
@@ -366,9 +367,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Update E-sport Status.
         /// </summary>
         /// <param name="setting">Setting value.</param>
-        /// <param name="isEnable">Is enable.</param>
+        /// <param name="isDisabled">Is disable.</param>
         /// <returns>Result information.</returns>
-        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable)
+        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)
         {
             var uspName = "Lrf_CustomerUpdEsportStatus";
 
@@ -378,7 +379,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddInParameter("Langkey", DbType.String, setting.Language);
                 db.AddInParameter("userid", DbType.Int32, setting.UserId);
                 db.AddInParameter("custid", DbType.Int32, setting.CustId);
-                db.AddInParameter("DisableEsports", DbType.Boolean, isEnable);
+                db.AddInParameter("DisableEsports", DbType.Boolean, isDisabled);
                 db.AddOutParameter("ErrCode", DbType.String, 600);
                 db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
@@ -974,7 +975,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Render Sport book bet setting.
         /// </summary>
         /// <param name="reader">Data reader.</param>
-        /// <param name="esportSetting">E-sport setting.</param>
         /// <returns>The result value.</returns>
         private IList<BetSetting> RenderSportBookBetSetting(IDataReader reader)
         {
@@ -1054,6 +1054,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 return null;
             }
+
             var numberGameList = new List<BetSetting>();
 
             RenderSport(reader, "161", numberGameList); // Soccer

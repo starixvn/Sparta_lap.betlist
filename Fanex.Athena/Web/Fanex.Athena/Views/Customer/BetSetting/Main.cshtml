@@ -113,8 +113,9 @@
         id="btnReset" />
         @if (Model.EsportSetting != EsportSettingType.NoneOffering)
         {
-            var buttonText = (Model.EsportSetting==EsportSettingType.MemberOffering ? ViewResources.Enable : ViewResources.Disable) + " E-Sports";
-            <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@Model.EsportSetting==EsportSettingType.MemberOffering" value="@buttonText" id="btnEnableEsports" />
+            var buttonText = (Model.EsportSetting==EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " E-Sports";
+            var esportStatus=Model.EsportSetting==EsportSettingType.NoneMemberOffering;
+            <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus" value="@buttonText" id="btnEnableEsports" />
         }
     </div>
 }

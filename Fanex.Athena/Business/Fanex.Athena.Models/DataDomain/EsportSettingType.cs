@@ -24,6 +24,6 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         ///  Licensee's offered but not offered for member.
         /// </summary>
-        MemberOffering = 1
+        NoneMemberOffering = 1
     }
 }

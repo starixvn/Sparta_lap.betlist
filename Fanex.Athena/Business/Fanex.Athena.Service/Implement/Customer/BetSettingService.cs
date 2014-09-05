@@ -187,13 +187,13 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             var customerInfo = _customerService.GetCustomerInfo(custId);
             if (customerInfo.SyncCasino && !AppSettings.IsDisableRngCasino)
-            {                
+            {
                 if (!_customer.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }
 
-                return _betSettingDataAccess.UpdateRngCasinoStatus(userId, custId, status, language, ip);                
+                return _betSettingDataAccess.UpdateRngCasinoStatus(userId, custId, status, language, ip);
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
@@ -205,11 +205,11 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="custId">The customer id.</param>
         /// <param name="esportSetting">ESport Setting.</param>
         /// <returns>The  bet setting list.</returns>
-        public IList<BetSetting> GetSportBookBetSetting(int custId, EsportSettingType esportSetting)
+        public IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             esportSetting = EsportSettingType.NoneOffering;
             return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, esportSetting)
+                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, ref esportSetting)
                         : new List<BetSetting>();
         }
 
@@ -346,14 +346,14 @@ namespace Fanex.Athena.Service.Implement.Customer
             return _betSettingDataAccess.UpdateSportsBookBetSetting(setting, hashParam);
         }
 
-        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isEnable)
+        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)
         {
             if (setting == null)
             {
                 return ErrorResult("Invalid parameter. sportsBook is null");
             }
 
-            return _betSettingDataAccess.UpdateEsportStatus(setting, isEnable);
+            return _betSettingDataAccess.UpdateEsportStatus(setting, isDisabled);
         }
 
         /// <summary>
