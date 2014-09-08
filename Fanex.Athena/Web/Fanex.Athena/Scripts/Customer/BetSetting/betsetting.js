@@ -130,6 +130,7 @@ var BetSetting = (function ($) {
         },
         updateEsportStatus: function () {
             var currentStatus = Site.asBool($(this).attr("data-current-status"));
+            var eSportText = $("#esport-text-from-remotingref").val();
             var custId = $(this).data("cust-id");
             var url = "BetSettingAPI/UpdateEsportStatus";
             $.ajax({
@@ -145,7 +146,7 @@ var BetSetting = (function ($) {
                     if (result.Code.toString() === "0") {
                         BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
                         $("#btnDisableEsports").attr("data-current-status", !currentStatus);
-                        $("#btnDisableEsports").val(Site.getSingleResource(!currentStatus ? 'Enable' : 'Disable') + " E-Sports");
+                        $("#btnDisableEsports").val(Site.getSingleResource(!currentStatus ? 'Enable' : 'Disable') + " " + eSportText);
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);

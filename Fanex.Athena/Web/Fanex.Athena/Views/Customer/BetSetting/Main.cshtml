@@ -71,7 +71,7 @@
             var esportText = string.Empty;
             if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
             {
-                esportText = "& E-Sports";
+                esportText = "& " + Fanex.Athena.Models.Cache.CacheRef.GetSportName(43);
             }
         <div class="content-row">
             <div class="row text-data first-column" style="width: 190px">
@@ -113,8 +113,9 @@
         id="btnReset" />
         @if (Model.EsportSetting != EsportSettingType.NoneOffering)
         {
-            var buttonText = (Model.EsportSetting==EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " E-Sports";
+            var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Models.Cache.CacheRef.GetSportName(43);
             var esportStatus=Model.EsportSetting==EsportSettingType.NoneMemberOffering;
+            <input type="hidden" id="esport-text-from-remotingref" value="@Fanex.Athena.Models.Cache.CacheRef.GetSportName(43)" />
             <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus" value="@buttonText" id="btnDisableEsports" />
         }
     </div>
