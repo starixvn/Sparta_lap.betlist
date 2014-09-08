@@ -68,6 +68,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var viewModel = GetViewModels(metaModel);
