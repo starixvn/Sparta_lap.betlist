@@ -292,6 +292,23 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
+    <Content Include="Web.config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.Local.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.Prod.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.SandBox.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.Uat.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\FanexSpName.LOCAL.xml">
@@ -2522,11 +2539,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.config.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
     <Content Include="Web.ConnectionStrings.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3018,18 +3030,6 @@
     </Content>
     <Content Include="Web.ConnectionStrings.UAT.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.LOCAL.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.PRO.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.SANDBOX.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Web.UAT.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

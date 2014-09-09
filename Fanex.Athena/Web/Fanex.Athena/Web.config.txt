@@ -1,7 +1,8 @@
 ﻿
+
 // Generated helper templates
 // Generated items
-// Fanex.Athena\Web\Fanex.Athena\Web.SANDBOX.config
-// Fanex.Athena\Web\Fanex.Athena\Web.PRO.config
-// Fanex.Athena\Web\Fanex.Athena\Web.UAT.config
-// Fanex.Athena\Web\Fanex.Athena\Web.LOCAL.config
+// Fanex.Athena\Web\Fanex.Athena\Web.SandBox.config
+// Fanex.Athena\Web\Fanex.Athena\Web.Prod.config
+// Fanex.Athena\Web\Fanex.Athena\Web.Uat.config
+// Fanex.Athena\Web\Fanex.Athena\Web.Local.config

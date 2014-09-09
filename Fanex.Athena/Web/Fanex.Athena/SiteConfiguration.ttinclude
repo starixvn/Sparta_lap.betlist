@@ -3,19 +3,19 @@
     var sites = new SiteInfo[]{        
         new SiteInfo
         {
-            Environment = SiteEnvironment.Local
+            SiteEnvironment = SiteEnvironment.Local
         },
         new SiteInfo
         {
-            Environment = SiteEnvironment.Uat
+            SiteEnvironment = SiteEnvironment.Uat
         },
         new SiteInfo
         {
-            Environment = SiteEnvironment.Prod
+            SiteEnvironment = SiteEnvironment.Prod
         },
         new SiteInfo
         {
-            Environment = SiteEnvironment.SandBox
+            SiteEnvironment = SiteEnvironment.SandBox
         }
     };
 #>
@@ -28,7 +28,7 @@
         SandBox
     }
 
-	public class SiteInfo
+	class SiteInfo
     {
         //Web config value.
         public SiteEnvironment SiteEnvironment { get; set; }
@@ -186,7 +186,7 @@
                     case SiteEnvironment.Prod:
                         return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\"/>";
                     case SiteEnvironment.SandBox:
-                        return "";
+                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     default:
                         return string.Empty;
                 }
@@ -212,7 +212,7 @@
                 }
             }
         }
-
+        
         public string Pages
         {
             get
@@ -221,12 +221,52 @@
                 {
                     case SiteEnvironment.Local:
                         return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
-                    case SiteEnv<pages>ironment.Uat:
+                    case SiteEnvironment.Uat:
                         return "<pages>";
                     case SiteEnvironment.Prod:
                         return "<pages>";
                     case SiteEnvironment.SandBox:
                         return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string HttpHandlersItem
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "";
+                    case SiteEnvironment.Uat:
+                        return "<add path=\"*\" verb=\"OPTIONS\" type=\"System.Web.DefaultHttpHandler\" validate=\"false\"/>";
+                    case SiteEnvironment.Prod:
+                        return "<add path=\"*\" verb=\"OPTIONS\" type=\"System.Web.DefaultHttpHandler\" validate=\"false\"/>";
+                    case SiteEnvironment.SandBox:
+                        return "";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string GlobalizationSSO
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
+                    case SiteEnvironment.Uat:
+                        return "";
+                    case SiteEnvironment.Prod:
+                        return "";
+                    case SiteEnvironment.SandBox:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     default:
                         return string.Empty;
                 }
