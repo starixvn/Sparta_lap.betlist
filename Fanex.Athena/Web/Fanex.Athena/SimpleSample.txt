@@ -1,5 +1,0 @@
-﻿
-
-// <summary file="$filename$" company="...">
-// some text...
-// </summary>
