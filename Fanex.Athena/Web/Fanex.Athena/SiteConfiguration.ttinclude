@@ -1,0 +1,276 @@
+﻿<#@ import namespace="System" #>
+<#
+    var sites = new SiteInfo[]{        
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.Local
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.Uat
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.Prod
+        },
+        new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.SandBox
+        }
+    };
+#>
+<#+
+	enum SiteEnvironment
+    {
+        Local,
+        Uat,
+        Prod,
+        SandBox
+    }
+
+	class SiteInfo
+    {
+        //Web config value.
+        public SiteEnvironment SiteEnvironment { get; set; }
+
+        public string LogFileValue
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "E:/Licensee/OlympusRoot/ALLWebSite/LRF/Site3/log4net.txt";
+                    case SiteEnvironment.Uat:
+                        return "E:/3.Logs/lrf/log4net.txt";
+                    case SiteEnvironment.Prod:
+                        return "E:/3.Logs/lrf/log4net.txt";
+                    case SiteEnvironment.SandBox:
+                        return "E:/Licensee/OlympusRoot/ALLWebSite/LRF/Site3/log4net.txt";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string BucketServerUri
+        {
+             get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "http://10.18.200.209:8091/pools/default";
+                    case SiteEnvironment.Uat:
+                        return "http://10.40.40.128:8091/pools/default";
+                    case SiteEnvironment.Prod:
+                        return "http://10.40.40.128:8091/pools/default";
+                    case SiteEnvironment.SandBox:
+                        return "http://10.18.200.209:8091/pools/default";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string LoggingServer
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "10.18.200.209";
+                    case SiteEnvironment.Uat:
+                        return "10.40.40.73";
+                    case SiteEnvironment.Prod:
+                        return "10.40.40.127";
+                    case SiteEnvironment.SandBox:
+                        return "10.18.200.209";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string DebugMode
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "true";
+                    case SiteEnvironment.Uat:
+                        return "false";
+                    case SiteEnvironment.Prod:
+                        return "false";
+                    case SiteEnvironment.SandBox:
+                        return "true";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string CustomErrors
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<customErrors mode=\"Off\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                    case SiteEnvironment.Uat:
+                        return "<customErrors mode=\"Off\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                    case SiteEnvironment.SandBox:
+                        return "<customErrors mode=\"Off\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                    case SiteEnvironment.Prod:
+                        return "<customErrors mode=\"RemoteOnly\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string HttpRuntime
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<httpRuntime requestValidationMode=\"2.0\" />";
+                    case SiteEnvironment.Uat:
+                        return "<httpRuntime executionTimeout=\"600\" />";
+                    case SiteEnvironment.Prod:
+                        return "<httpRuntime executionTimeout=\"600\" />";
+                    case SiteEnvironment.SandBox:
+                        return "<httpRuntime requestValidationMode=\"2.0\" />";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string SessionState
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<sessionState mode=\"StateServer\" />";
+                    case SiteEnvironment.SandBox:
+                        return "<sessionState mode=\"StateServer\" />";
+                    case SiteEnvironment.Uat:
+                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
+                    case SiteEnvironment.Prod:
+                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string Globalization
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
+                    case SiteEnvironment.Uat:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\"/>";
+                    case SiteEnvironment.Prod:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\"/>";
+                    case SiteEnvironment.SandBox:
+                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string MachineKey
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "";
+                    case SiteEnvironment.Uat:
+                        return "<machineKey validationKey=\"5276329D600F4F7F3BF6EE6014BA1BC33AA9D9AD294CDCFF3F01C8018CF1875ED9555C0C0FBB87464BD6EE4F9F2FB0F6AE9E5B1C188860DDEE68609FB9A724A5\" decryptionKey=\"93B3E01D870883ECD43F1330C9DB80D0575465372BB302990CCB4E028FEEE414\" validation=\"SHA1\" decryption=\"AES\" />";
+                    case SiteEnvironment.Prod:
+                        return "<machineKey validationKey=\"5276329D600F4F7F3BF6EE6014BA1BC33AA9D9AD294CDCFF3F01C8018CF1875ED9555C0C0FBB87464BD6EE4F9F2FB0F6AE9E5B1C188860DDEE68609FB9A724A5\" decryptionKey=\"93B3E01D870883ECD43F1330C9DB80D0575465372BB302990CCB4E028FEEE414\" validation=\"SHA1\" decryption=\"AES\" />";		
+                    case SiteEnvironment.SandBox:
+                        return "";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+        
+        public string Pages
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
+                    case SiteEnvironment.Uat:
+                        return "<pages>";
+                    case SiteEnvironment.Prod:
+                        return "<pages>";
+                    case SiteEnvironment.SandBox:
+                        return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string HttpHandlersItem
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "";
+                    case SiteEnvironment.Uat:
+                        return "<add path=\"*\" verb=\"OPTIONS\" type=\"System.Web.DefaultHttpHandler\" validate=\"false\"/>";
+                    case SiteEnvironment.Prod:
+                        return "<add path=\"*\" verb=\"OPTIONS\" type=\"System.Web.DefaultHttpHandler\" validate=\"false\"/>";
+                    case SiteEnvironment.SandBox:
+                        return "";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+        public string GlobalizationSSO
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.Local:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
+                    case SiteEnvironment.Uat:
+                        return "";
+                    case SiteEnvironment.Prod:
+                        return "";
+                    case SiteEnvironment.SandBox:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+    }
+#>
