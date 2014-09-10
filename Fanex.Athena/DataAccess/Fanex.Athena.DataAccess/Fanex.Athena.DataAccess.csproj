@@ -113,10 +113,12 @@
     <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
+    <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
+    <Compile Include="Interface\Report\IAgCasinoWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlaytechCasinoDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interface\Report\IResultDataAccess.cs" />

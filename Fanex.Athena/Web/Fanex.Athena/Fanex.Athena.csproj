@@ -294,6 +294,8 @@
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
     <Content Include="SiteConfig\Web.config.txt">
+    <Content Include="Scripts\Report\agcasinowinloss.js" />
+    <Content Include="Scripts\Report\agcasinowinloss.option.js" />
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.config.tt</DependentUpon>
@@ -2957,6 +2959,9 @@
     <Content Include="Views\Customer\BetSetting\AgCasino.cshtml" />
     <Content Include="Views\BetList\RacingCommission\Main.cshtml" />
     <None Include="SiteConfig\Web.AppSettings.config.tt">
+    <Content Include="Views\Report\AgCasinoWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\AgCasinoWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\AgCasinoWinLoss\Main.cshtml" />
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
     </None>

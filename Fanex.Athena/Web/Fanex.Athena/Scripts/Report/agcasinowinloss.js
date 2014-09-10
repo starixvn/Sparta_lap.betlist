@@ -202,8 +202,6 @@ var AgCasinoWinLoss = (function ($) {
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
-                    //update productOption
-                    $("#ProductOptionJson").val(response.ProductOptions);
                     //update drildownValue
                     $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());
                     $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
@@ -224,13 +222,18 @@ var AgCasinoWinLoss = (function ($) {
         submit: function () {
             Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
-
             var mainForm = $("#AgCasinoWinLossForm");
+            var postdata = mainForm.serializeObject();
+            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
+            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
+
+            postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
+            postdata.FromDate = fromDate.toDateString();
+            postdata.ToDate = toDate.toDateString();
+
             var option = {
                 type: "POST",
-                data: mainForm.serialize() +
-                    (_sortColumnName ?
-                        "&sortby=" + encodeURI(_sortColumnName) + "&sortOrder=" + _sortOrder : ""),
+                data: postdata,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
@@ -441,8 +444,6 @@ var AgCasinoWinLoss = (function ($) {
                     onPaging = false;
                     AgCasinoWinLoss.resizeGrid();
                 }
-                /*group header*/
-                AgCasinoWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
 
                 Site.unBlockUI();
             };
@@ -468,20 +469,15 @@ var AgCasinoWinLoss = (function ($) {
             }
 
             reportGrid.jqGrid('showCol', 'rn');
-            AgCasinoWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
 
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
             jqGridAdditional.resetLayout(reportGrid);
 
-            AgCasinoWinLossOption.restoreExpanse();
-
             $gridBody = $(".ui-jqgrid-bdiv");
             if ($gridBody.length > 0) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
-
-
         },
 
         //#end
