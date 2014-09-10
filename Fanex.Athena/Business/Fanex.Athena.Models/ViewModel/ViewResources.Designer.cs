@@ -160,6 +160,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino Win Loss.
+        /// </summary>
+        public static string AGCasinoWinLoss {
+            get {
+                return ResourceManager.GetString("AGCasinoWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AH.
         /// </summary>
         public static string AH {
@@ -6091,6 +6100,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Table Type.
+        /// </summary>
+        public static string TableType {
+            get {
+                return ResourceManager.GetString("TableType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Team.
         /// </summary>
         public static string Team {
@@ -6879,6 +6897,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Viewin {
             get {
                 return ResourceManager.GetString("Viewin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIP.
+        /// </summary>
+        public static string VIP {
+            get {
+                return ResourceManager.GetString("VIP", resourceCulture);
             }
         }
         

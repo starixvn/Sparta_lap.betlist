@@ -2516,4 +2516,16 @@
     <value>Bingo is not included in the report</value>
     <comment>bug #20330</comment>
   </data>
+  <data name="AGCasinoWinLoss" xml:space="preserve">
+    <value>AG Casino Win Loss</value>
+    <comment>#20896</comment>
+  </data>
+  <data name="TableType" xml:space="preserve">
+    <value>Table Type</value>
+    <comment>#20896</comment>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+    <comment>#20896</comment>
+  </data>
 </root>
