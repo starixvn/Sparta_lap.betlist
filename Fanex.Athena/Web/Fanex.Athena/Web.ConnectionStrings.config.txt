@@ -1,7 +1,0 @@
-﻿
-// Generated helper templates
-// Generated items
-// Fanex.Athena\Web\Fanex.Athena\Web.ConnectionStrings.SANDBOX.config
-// Fanex.Athena\Web\Fanex.Athena\Web.ConnectionStrings.PRO.config
-// Fanex.Athena\Web\Fanex.Athena\Web.ConnectionStrings.UAT.config
-// Fanex.Athena\Web\Fanex.Athena\Web.ConnectionStrings.LOCAL.config
