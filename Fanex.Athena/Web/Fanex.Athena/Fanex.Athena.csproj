@@ -2504,8 +2504,18 @@
     </Content>
     <Content Include="TestFolder\ReadMe.txt" />
     <Content Include="under-maintenance.gif" />
+    <Content Include="Web.AppSettings.config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.ConnectionStrings.config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2946,6 +2956,42 @@
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\AgCasino.cshtml" />
     <Content Include="Views\BetList\RacingCommission\Main.cshtml" />
+    <None Include="Web.AppSettings.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
+    </None>
+    <Content Include="Web.AppSettings.LOCAL.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.PRO.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.SANDBOX.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.UAT.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
+    <None Include="Web.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.config.txt</LastGenOutput>
+    </None>
+    <None Include="Web.ConnectionStrings.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>
+    </None>
+    <Content Include="Web.ConnectionStrings.LOCAL.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.PRO.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.SANDBOX.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.UAT.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
