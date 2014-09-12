@@ -43,7 +43,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #region Field
 
-        private static Dictionary<string, string> _sportNameMap;
         private bool _isNumberGame;
 
         #endregion Field
@@ -670,26 +669,37 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         private static string GetSportName(string sportId)
         {
-            if (_sportNameMap == null)
+            var sportName = string.Empty;
+
+            switch (sportId)
             {
-                _sportNameMap = new Dictionary<string, string>
-                    {
-                        { "99MP", ViewResources.MixSportsParlay },
-                        { "151_31", ViewResources.HorseRacingSATote },
-                        { "151_41", ViewResources.HorseRacingUK_IrishTote },
-                        { "151_51", ViewResources.HorseRacingAustTote },
-                        { "152_41", ViewResources.GreyhoundUK_IrishTote },
-                        { "152_51", ViewResources.GreyhoundAustTote },
-                        { "153_51", ViewResources.HarnessAustTote },
-                    };
+                case "99MP":
+                    sportName = ViewResources.MixSportsParlay;
+                    break;
+                case "151_31":
+                    sportName = ViewResources.HorseRacingSATote;
+                    break;
+                case "151_41":
+                    sportName = ViewResources.HorseRacingUK_IrishTote;
+                    break;
+                case "151_51":
+                    sportName = ViewResources.HorseRacingAustTote;
+                    break;
+                case "152_41":
+                    sportName = ViewResources.GreyhoundUK_IrishTote;
+                    break;
+                case "152_51":
+                    sportName = ViewResources.GreyhoundAustTote;
+                    break;
+                case "153_51":
+                    sportName = ViewResources.HarnessAustTote;
+                    break;
+                default:
+                    sportName = ViewResources.OtherSport;
+                    break;
             }
 
-            if (_sportNameMap.ContainsKey(sportId))
-            {
-                return _sportNameMap[sportId];
-            }
-
-            return ViewResources.OtherSport;
+            return sportName;
         }
 
         #endregion Get Sport Name
