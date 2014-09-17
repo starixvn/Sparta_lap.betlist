@@ -291,6 +291,9 @@
   <data name="Menu_61" xml:space="preserve">
     <value>Playtech Casino Win Loss</value>
   </data>
+  <data name="Menu_62" xml:space="preserve">
+    <value>AG Casino Win Loss</value>
+  </data>
   <data name="Menu_7" xml:space="preserve">
     <value>Handicap/Over Under/Live</value>
   </data>
@@ -300,5 +303,4 @@
   <data name="Menu_9" xml:space="preserve">
     <value>Odd/Even + 1x2 + DND</value>
   </data>
- 
 </root>

@@ -124,7 +124,7 @@ var AgCasinoWinLoss = (function ($) {
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#AgCasinoWinLoss");
+                var mainForm = $("#AgCasinoWinLossForm");
                 var url = Site.resolveClientUrl(AgCasinoWinLossOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
@@ -141,12 +141,13 @@ var AgCasinoWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/report/LicenseeWL';
+            var temp = 'api/report/AgCasinoWL';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
                  + "&tdate=" + tdate.toString("MM/dd/yyyy");
             }
+
             AgCasinoWinLossOption.urlExcelData = temp;
         },
 
@@ -230,6 +231,14 @@ var AgCasinoWinLoss = (function ($) {
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
             postdata.FromDate = fromDate.toDateString();
             postdata.ToDate = toDate.toDateString();
+            postdata.TableType = Number(postdata.TableTypeVIP || 0) + Number(postdata.TableTypeNormal || 0);
+
+            if (postdata.TableType === 3) {
+                postdata.TableType = 0;
+            }
+
+            delete postdata.TableTypeVIP;
+            delete postdata.TableTypeNormal;
 
             var option = {
                 type: "POST",

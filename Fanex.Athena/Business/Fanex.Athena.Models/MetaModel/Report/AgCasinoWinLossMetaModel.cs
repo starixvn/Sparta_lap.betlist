@@ -13,6 +13,12 @@ namespace Fanex.Athena.Models.MetaModel.Report
     /// </summary>
     public class AgCasinoWinLossMetaModel : BaseReportMetaModel
     {
+        private DateTime? _fromDate;
+
+        private DateTime? _toDate;
+
+        public int TableType { get; set; }
+
         public bool IsExcludedTestData { get; set; }
 
         public int DrillDownCurrencyId { get; set; }
@@ -25,8 +31,36 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int DrillDownCustomerId { get; set; }
 
+        public int Year { get; set; }
+
+        public int Month { get; set; }
+
+        public int FromDay { get; set; }
+
+        public int ToDay { get; set; }
+
+        public new DateTime FromDate
+        {
+            get { return _fromDate ?? new DateTime(Year, Month, FromDay); }
+            set { _fromDate = value; }
+        }
+
+        public new DateTime ToDate
+        {
+            get { return _toDate ?? new DateTime(Year, Month, ToDay); }
+            set { _toDate = value; }
+        }
+
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }
+
+        public override bool IsValid
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

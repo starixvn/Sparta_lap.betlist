@@ -45,7 +45,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinloss";
+            var uspName = "Lrf_Rpt_AGCasinoWinloss";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -105,7 +105,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinlossDetail_Ag";
+            var uspName = "LRF_Rpt_AGCasinoWinloss_Ag";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -146,6 +146,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var summaryCurrencyList = new List<string> { "EUR", "USD" };
 
             summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
+            foreach (var c in summaryCurrencyList)
+            {
+                summaryTotal.Add(c, new AgCasinoWinLoss());
+            }
+
+            var winlostColumn = "winlost" + metaModel.BaseCurrency;
+            var licenseewlColumn = "licenseewl" + metaModel.BaseCurrency;
+            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
 
             var systemIdOrdinal = reader.TryGetOrdinal("username");
             var externalIdOrdinal = reader.TryGetOrdinal("nickname");
@@ -155,16 +163,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             {
                 var item = new AgCasinoWinLoss
                 {
+                    Index = index++,
                     SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
                     ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
                     CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
-                    CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
-                    LicenseeWL = -10,
-                    TurnOver = -10,
-                    TotalTransaction = reader.ToInt("betcount"),
-                    Date = ConvertHelper.ToDateTime(reader.ToString("reporttype"), false)
+                    CustomerWinLoss = reader.ToDecimal(winlostColumn),
+                    LicenseeWL = reader.ToDecimal(licenseewlColumn),
+                    TurnOver = reader.ToDecimal(turnoverColumn),
+                    TotalTransaction = reader.ToInt("totaltrans"),
+                    Date = ConvertHelper.ToDateTime(reader.ToString("winlostdate"), false)
                 };
 
                 result.Add(item);
@@ -173,12 +182,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 foreach (var c in summaryCurrencyList)
                 {
                     summaryTotal[c].CustomerWinLoss += reader.ToDecimal("winlost" + c);
-                    summaryTotal[c].TotalTransaction += reader.ToInt("betcount");
-                    summaryTotal[c].LicenseeWL += -100000;
-                    summaryTotal[c].TurnOver += -100000;
+                    summaryTotal[c].TotalTransaction += reader.ToInt("totaltrans");
+                    summaryTotal[c].LicenseeWL += reader.ToDecimal("licenseewl" + c);
+                    summaryTotal[c].TurnOver += reader.ToDecimal("turnover" + c);
                 }
-
-                index++;
             }
 
             return result;
@@ -196,13 +203,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             currencyId = currencyId < 0 ? 0 : currencyId;
 
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, currencyId);
+            db.AddInParameter("currency", DbType.Int32, currencyId);
+            db.AddInParameter("tabletype", DbType.Int32, metaModel.TableType);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
-            db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
         }
 
         #endregion Private

@@ -142,9 +142,9 @@ var AgCasinoWinLossOption = (function () {
 
     var licenseeWlColumn =
     {
-        name: 'TotalLicenseeWLSingle',
+        name: 'LicenseeWL',
         classes: 'highlight',
-        index: 'TotalLicenseeWLSingle',
+        index: 'LicenseeWL',
         width: 100,
         align: 'right',
         sortable: true,
@@ -237,7 +237,7 @@ var AgCasinoWinLossOption = (function () {
 
     me.getColModel = function (level) {
         // Column hidden by customer comm
-        customerWlColumn.hidden = !me.hasCustomerComm;
+       // customerWlColumn.hidden = !me.hasCustomerComm;
         level = Number(level);
         //set width of licenseeWL column
         if (!me.hasCustomerComm) { licenseeWlColumn.width = 90; }

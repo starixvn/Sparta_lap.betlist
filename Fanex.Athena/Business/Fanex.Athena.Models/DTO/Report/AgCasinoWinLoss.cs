@@ -13,9 +13,10 @@ namespace Fanex.Athena.Models.DTO.Report
     /// <summary>
     /// AgCasinoWinLoss class.
     /// </summary>
-    [Serializable]
     public class AgCasinoWinLoss
     {
+        public int Index { get; set; }
+
         public DateTime Date { get; set; }
 
         public string ExternalId { get; set; }

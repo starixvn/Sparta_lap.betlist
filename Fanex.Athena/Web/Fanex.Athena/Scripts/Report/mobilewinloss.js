@@ -198,7 +198,7 @@ var MobileWinLoss = (function ($) {
             gridOption.userData = response.TotalEur;
             gridOption.rowList = MobileWinLossOption.rowList;
             gridOption.rowNum = _pageSize;
-            
+
             gridOption.rowTotal = numOfRow;
             gridOption.pager = '#ppdata';
 
@@ -238,7 +238,7 @@ var MobileWinLoss = (function ($) {
 
                     onPaging = false;
                 }
-                
+
                 MobileWinLoss.resizeGrid();
                 Site.unBlockUI();
             };
@@ -272,7 +272,7 @@ var MobileWinLoss = (function ($) {
                 });
             }
 
-           
+
         },
 
         //#endregion

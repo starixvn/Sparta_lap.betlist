@@ -244,8 +244,7 @@ namespace Fanex.Athena.Api.Report
                     {
                         Data = dataList,
                         Total = _agcasinoWinLossService.TotalCalc(dataList),
-                        SummaryTotal = summaryTotal,
-                        ProductOptions = metaModel.ProductOptions.ToJson()
+                        SummaryTotal = summaryTotal
                     };
                 }
             }
