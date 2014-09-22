@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
@@ -14,10 +15,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -75,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_LicWinlossDetail";
+            var uspName = "LRF_Rpt_AGCasinoWinloss_Mem";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -152,12 +150,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
 
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
-            var licenseewlColumn = "licenseewl" + metaModel.BaseCurrency;
+            var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
 
             var systemIdOrdinal = reader.TryGetOrdinal("username");
             var externalIdOrdinal = reader.TryGetOrdinal("nickname");
             var customerIdOrdinal = reader.TryGetOrdinal("custid");
+            var winlostDateOrdinal = reader.TryGetOrdinal("winlostdate");
             var index = 1;
             while (reader.Read())
             {
@@ -173,7 +172,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = ConvertHelper.ToDateTime(reader.ToString("winlostdate"), false)
+                    Date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);
@@ -183,7 +182,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     summaryTotal[c].CustomerWinLoss += reader.ToDecimal("winlost" + c);
                     summaryTotal[c].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[c].LicenseeWL += reader.ToDecimal("licenseewl" + c);
+                    summaryTotal[c].LicenseeWL += reader.ToDecimal("licenseewinlost" + c);
                     summaryTotal[c].TurnOver += reader.ToDecimal("turnover" + c);
                 }
             }
@@ -204,7 +203,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("currency", DbType.Int32, currencyId);
-            db.AddInParameter("tabletype", DbType.Int32, metaModel.TableType);
+            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);

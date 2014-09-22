@@ -17,7 +17,7 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         public int Index { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string ExternalId { get; set; }
 

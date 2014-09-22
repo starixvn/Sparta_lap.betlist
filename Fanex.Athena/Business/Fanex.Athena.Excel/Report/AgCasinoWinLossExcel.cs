@@ -11,10 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
     using Models.DTO.Report;
-    using Models.MetaModel.Product;
     using Models.MetaModel.Report;
     using Models.ViewModel;
     using Models.ViewModel.Report;
@@ -36,15 +33,12 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCustomerWl = 7;
         private const int ColumnLicenseeWl = 8;
 
-        private const int RowContentTemplate = 3;
-        private const int RowGrantTotal = 6;
-        private const int RowNoInfoTemplate = 7;
-        private const int RowTotalNoSolidBorder = 5;
-        private const int RowTotalSolidBorder = 4;
-
-        private const int TotalLicenseeWlProductColumn = 9;
-        private const int TotalTurnoverProductColumn = 9;
-
+        private const int RowContentTemplate = 2;
+        private const int RowTotalNoSolidBorder = 4;
+        private const int RowTotalSolidBorder = 3;
+        private const int RowGrantTotal = 5;
+        private const int RowNoInfoTemplate = 6;
+        
         // This is drill down of report
         private readonly IList<AgCasinoWinLoss> _winLossList;
 
@@ -101,7 +95,6 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignHeader(ISheet sheet)
         {
-            // row 1
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
@@ -112,10 +105,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
-
-            // row 2
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            row2.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -130,9 +119,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
-            var rowspan = 1;
             var rowIndex = 1;
-            var indexDetail = 1;
             int index;
             var rowCount = _winLossList.Count;
 
@@ -144,37 +131,19 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = licenseeWinLoss.Date.ToString("MM/yyyy");
-
-                // Merge first two columns
-                var needMerge = index >= rowCount - 1 ||
-                                 licenseeWinLoss.Date.ToShortDateString() != _winLossList[index + 1].Date.ToShortDateString();
-
-                // Merge cell
-                if (needMerge && rowspan > 1)
-                {
-                    if (Level == 0)
-                    {
-                        sheet.MergeCells(index + RowContentTemplate - rowspan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
-                    }
-
-                    sheet.MergeCells(index + RowContentTemplate - rowspan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
-                }
-
-                rowspan = needMerge ? 1 : rowspan + 1;
-
-                var indexid = Level == 0 ? rowIndex : indexDetail++;
-                row.Cells[ColumnIndex].SetCellValue(indexid);
-                rowIndex = needMerge ? rowIndex + 1 : rowIndex;
+                var reportDateString = licenseeWinLoss.Date.Value.ToString("MM/yyyy");
+                
+                row.Cells[ColumnIndex].SetCellValue(rowIndex);
 
                 row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnCurrency].SetCellValue(licenseeWinLoss.CurrencyName);
                 AssignCommonData(row, licenseeWinLoss);
+                rowIndex++;
             }
 
-            rowIndex = AssignTotalData(sheet, index + 3);
+            rowIndex = AssignTotalData(sheet, index + 2);
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
@@ -194,7 +163,7 @@ namespace Fanex.Athena.Excel.Report
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 3);
+            sheet.CreateFreezePane(0, 2);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -206,12 +175,6 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
-            {
-                HideColumn(sheet, ColumnCustomerWl);
-                sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
-            }
-
             switch (Level)
             {
                 case 0:

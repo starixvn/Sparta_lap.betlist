@@ -17,8 +17,6 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         private DateTime? _toDate;
 
-        public int TableType { get; set; }
-
         public bool IsExcludedTestData { get; set; }
 
         public int DrillDownCurrencyId { get; set; }

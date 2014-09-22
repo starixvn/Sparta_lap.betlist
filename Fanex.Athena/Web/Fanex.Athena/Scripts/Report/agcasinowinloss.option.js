@@ -1,40 +1,21 @@
-﻿/*global Site, jqGridAdditional*/
+﻿/*global Site, jqGridAdditional, JSLINQ*/
+/*exported AgCasinoWinLossOption*/
 /// <reference path="/@JSense.js" />
-/*
-* Note:in this report, parameter level have 3 value
-*  "0" for master,"1" for agent and "2" for member
-*/
 
 var AgCasinoWinLossOption = (function () {
     "use strict";
-    // store state of toggle() function
-    var _expanseTypes = {};
 
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
         return '<a class="drilldown" href="javascript:;" onclick="return AgCasinoWinLoss.drillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
-    var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = Number(AgCasinoWinLossOption.licenseeId) === 1 ? 1 : 2;
-        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+    var currencyFormatter = function (cellvalue, options, rowObject) {        
+        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
     var systemIdFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-    };
-
-    var betlistLink = function (cellvalue, options, rowObject) {
-        var param =
-        {
-            DrillDownFromDate: rowObject.Date,
-            DrillDownToDate: rowObject.Date,
-            DrillDownCurrencyId: rowObject.CurrencyId,
-            CustomerId: rowObject.CustomerId,
-            ExternalId: rowObject.ExternalId,
-            SystemId: rowObject.SystemId
-        };
-        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
     //#region Columns
@@ -58,7 +39,7 @@ var AgCasinoWinLossOption = (function () {
         width: 55,
         align: 'center',
         valign: 'middle',
-        sortable: true,
+        sortable: false,
         formatter: 'date',
         formatoptions:
         {
@@ -73,7 +54,7 @@ var AgCasinoWinLossOption = (function () {
         resizable: false,
         width: 120,
         align: 'left',
-        sortable: true
+        sortable: false
     };
 
     var systemIdColumn =
@@ -83,7 +64,7 @@ var AgCasinoWinLossOption = (function () {
         resizable: false,
         width: 120,
         align: 'left',
-        sortable: true,
+        sortable: false,
         formatter: function (cellvalue, options, rowObject) {
             return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
         }
@@ -95,7 +76,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'CurrencyName',
         width: 60,
         align: 'center',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: currencyFormatter
     };
@@ -106,7 +87,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'TotalTurnOverSingle',
         width: 75,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -119,7 +100,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'TotalTransaction',
         width: 75,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'integer',
         frozen: true,
@@ -135,7 +116,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'CustomerWinLoss',
         width: 90,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: jqGridAdditional.formatDecimal
     };
@@ -147,7 +128,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'LicenseeWL',
         width: 100,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         hidden: false,
         title: true,
@@ -160,7 +141,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'CurrencyId',
         width: 2,
         align: 'center',
-        sortable: true,
+        sortable: false,
         resizable: false,
         hidden: true
     };
@@ -171,7 +152,7 @@ var AgCasinoWinLossOption = (function () {
         index: 'CustomerId',
         width: 2,
         align: 'center',
-        sortable: true,
+        sortable: false,
         resizable: false,
         hidden: true
     };
@@ -179,34 +160,24 @@ var AgCasinoWinLossOption = (function () {
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-      'Turnover', 'TotalTransaction', 'Customer_WL', 'LicenseeW_L', 'CurrencyId', 'CustomerId'];
+      'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn, currencyIdColumn, customerIdColumn];
 
     var me =
     {
-        licenseeId: 0,
-        currencyIndex: 4,
-        turnoverIndex: 5,
-        licenseeWlIndex: 10,
-        customerWlTotalIndex: 9,
-        hasCustomerComm: true,
-        pageSize: 50,
-        nonePagingSize: 5000,
-        rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
         totalColspan: [2, 2, 3],
-        //level 0,1,2
         urlData: 'api/report/AgCasinoWl',
         urlExcelData: 'api/report/AgCasinoWl',
-        urlResources: 'Report/AgCasinoWLResource',
         gridOption:
         {
             datatype: 'local',
             colNames: [],
             colModel: [],
             data: [],
+            userDataOnFooter: true,
+            userData: [],
             height: '100%',
             autowidth: true,
             forceFit: false,
@@ -215,19 +186,12 @@ var AgCasinoWinLossOption = (function () {
             loadui: 'disable',
             loadonce: true,
             footerrow: true,
-            userDataOnFooter: true,
-            userData: [],
+            rowNum: 50000,
             grouping: true,
             viewrecords: true,
             gridview: true,
+            pager: '#ppdata',
             rownumbers: true
-        },
-        restoreExpanse: function () {
-            for (var property in _expanseTypes) {
-                if (_expanseTypes.hasOwnProperty(property)) {
-                    me.toggle(_expanseTypes[property], property);
-                }
-            }
         }
     };
 
@@ -236,26 +200,14 @@ var AgCasinoWinLossOption = (function () {
     };
 
     me.getColModel = function (level) {
-        // Column hidden by customer comm
-       // customerWlColumn.hidden = !me.hasCustomerComm;
         level = Number(level);
-        //set width of licenseeWL column
-        if (!me.hasCustomerComm) { licenseeWlColumn.width = 90; }
-        // Column hidden by level
+
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0;
-
-        // Row span setting
-        // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-        // dateColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-        if (level === 2) {
-            externalIdColumn.formatter = betlistLink;
-            systemIdColumn.formatter = betlistLink;
-        }
 
         var temp = Site.clone(colModelList);
         return temp;
@@ -269,7 +221,14 @@ var AgCasinoWinLossOption = (function () {
 
     me.getTotalColModel = function (level) {
         var colModel = me.getColModel(level);
+        // Not show drill down link on total link
+        var curCol = JSLINQ(colModel).First(function (item) {
+            return item.name === "CurrencyName";
+        });
+
+        curCol.formatter = null;
         return colModel;
     };
+
     return me;
 })();

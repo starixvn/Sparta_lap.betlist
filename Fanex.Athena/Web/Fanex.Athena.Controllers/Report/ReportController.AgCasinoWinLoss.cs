@@ -27,10 +27,11 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+            var date = DateTime.Now;
             var metaModel = new AgCasinoWinLossMetaModel
                 {
-                    FromDate = DateTime.Now,
-                    ToDate = DateTime.Now,
+                    FromDate = new DateTime(date.Year, date.Month, 1),
+                    ToDate = date,
                     LicenseeId = licenseeSession.LicenseeId,
                     IsExcludedTestData = true
                 };
@@ -41,8 +42,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    CurrencyList = userSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+                    CurrencyList = userSession.CurrencyList
                 };
 
             return View("~/Views/Report/AgCasinoWinLoss/Main.cshtml", model);

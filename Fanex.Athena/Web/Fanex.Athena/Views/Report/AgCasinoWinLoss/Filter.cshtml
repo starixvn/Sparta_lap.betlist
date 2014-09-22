@@ -26,14 +26,6 @@
         }
         <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
     </div>
-    <div class="grid_3 filter-label">
-        <label>
-            @ViewResources.ExcludeTestData
-        </label>
-    </div>
-    <div class="grid_5 filter-input option-list">
-        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
-    </div>
     <div class="grid_3 filter-label new-line">
         <label>
             @ViewResources.Currency
@@ -41,6 +33,14 @@
     </div>
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+    </div>
+    <div class="grid_4 filter-label">
+        <label>
+            @ViewResources.ExcludeTestData
+        </label>
+    </div>
+    <div class="grid_5 filter-input option-list">
+        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
     </div>
     <div class="grid_2 note-group">
         <div>
@@ -53,30 +53,13 @@
         </div>
     </div>
     <div class="grid_3 filter-label new-line">
-        <label>
-            @ViewResources.TableType
-        </label>
-    </div>
-    <div class="grid_5 filter-input option-list">
-        <input type="checkbox" value="1" checked name="TableTypeNormal" id="TableTypeNormal" />
-        <label for="TableTypeNormal">
-            @ViewResources.Normal
-        </label>
-        <input type="checkbox" value="2" name="TableTypeVIP" id="TableTypeVIP" />
-        <label for="TableTypeVIP">
-            @ViewResources.VIP
-        </label>
-    </div>
-    <div class="grid_3 filter-label new-line">
         &nbsp;</div>
     <div class="grid_2 filter-input" id="control-container">
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
     </div>
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
-    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
-    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
-    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)    
     <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />

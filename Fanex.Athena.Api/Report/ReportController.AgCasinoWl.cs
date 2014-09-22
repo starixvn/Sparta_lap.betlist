@@ -17,7 +17,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
@@ -195,7 +194,7 @@ namespace Fanex.Athena.Api.Report
             }
             else
             {
-                dataList = metaModel.LicenseeId > 1 || metaModel.DrillDownLevel == 2
+                dataList = metaModel.DrillDownLevel == 2
                                ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
                                : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
             }
