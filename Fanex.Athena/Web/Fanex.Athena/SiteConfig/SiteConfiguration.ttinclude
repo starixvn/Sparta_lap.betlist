@@ -53,6 +53,26 @@
             }
         }
 
+		public string LoggingMachine
+        {
+            get
+            {
+                switch (SiteEnvironment)
+                {
+                    case SiteEnvironment.LOCAL:
+                        return "Licensee-Local";
+                    case SiteEnvironment.UAT:
+                        return "Licensee-UAT";
+                    case SiteEnvironment.PRO:
+                        return "Licensee-Live";
+                    case SiteEnvironment.SANDBOX:
+                        return "Licensee-SandBox";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
         public string BucketServerUri
         {
              get
