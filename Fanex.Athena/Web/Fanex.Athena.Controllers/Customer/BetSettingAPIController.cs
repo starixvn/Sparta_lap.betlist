@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.MetaModel.Casino;
@@ -171,6 +172,12 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The JSON result.</returns>
         public JsonResult UpdateEsportStatus(bool isDisabled)
         {
+            if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
+            {
+                var resultInfo = new ResultInfo() { Code = -1, Message = "Function is under maintenance." };
+                return Json(resultInfo, JsonRequestBehavior.AllowGet);
+            }
+
             var sportsBook = GetBetSettingCommonParam();
             var result = _betSettingService.UpdateEsportStatus(sportsBook, isDisabled);
 
