@@ -21,8 +21,7 @@
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
         @{
-            var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            var minDate = beginOfMonth.AddMonths(-18);
+            var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
         }
         <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
     </div>

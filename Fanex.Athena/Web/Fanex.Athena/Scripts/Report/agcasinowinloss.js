@@ -15,6 +15,7 @@ var AgCasinoWinLoss = (function ($) {
 
         $('#DateControl').monPickr({
             minDate: $('#MinDate').val(),
+            maxDate: $('#ToDate').val(),
             showDateRange: true,
             fromDayId: 'MonthPickerFromDay',
             toDayId: 'MonthPickerToDay',
@@ -23,9 +24,6 @@ var AgCasinoWinLoss = (function ($) {
             toDay: toDay,
             afterChangeMonth: function () {
                 var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
                 $('#Year').val(fromDate.getFullYear());
                 $('#Month').val(fromDate.getMonth() + 1);
             },

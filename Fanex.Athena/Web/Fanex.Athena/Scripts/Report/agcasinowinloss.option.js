@@ -83,8 +83,8 @@ var AgCasinoWinLossOption = (function () {
 
     var turnoverColumn =
     {
-        name: 'TotalTurnOverSingle',
-        index: 'TotalTurnOverSingle',
+        name: 'TurnOver',
+        index: 'TurnOver',
         width: 75,
         align: 'right',
         sortable: false,

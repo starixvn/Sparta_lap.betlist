@@ -131,7 +131,7 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = licenseeWinLoss.Date.Value.ToString("MM/yyyy");
+                var reportDateString = licenseeWinLoss.Date.Value.ToString("MM/dd/yyyy");
                 
                 row.Cells[ColumnIndex].SetCellValue(rowIndex);
 
@@ -198,6 +198,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="data">Licensee win loss data.</param>
         protected void AssignCommonData(IRow row, AgCasinoWinLoss data)
         {
+            row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
