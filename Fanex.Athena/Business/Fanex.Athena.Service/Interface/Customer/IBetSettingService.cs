@@ -8,6 +8,8 @@ namespace Fanex.Athena.Service.Interface.Customer
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
@@ -25,7 +27,8 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
-        IList<BetSetting> GetSportBookBetSetting(int custId);
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
+        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
@@ -40,6 +43,9 @@ namespace Fanex.Athena.Service.Interface.Customer
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
+
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
+        IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam);
 

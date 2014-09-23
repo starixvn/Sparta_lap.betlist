@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
 {
     using System.Collections.Generic;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
@@ -16,9 +17,17 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     /// </summary>
     public class BetSettingViewModel
     {
-        private List<BetSetting> _mainData = new List<BetSetting>();
-        private List<LiveCasinoBetSettingViewModel> _liveCasinoData = new List<LiveCasinoBetSettingViewModel>();
-        private AgCasinoBetSettingViewModel _agcasinoViewModel = new AgCasinoBetSettingViewModel();
+        private List<BetSetting> _mainData;
+        private List<LiveCasinoBetSettingViewModel> _liveCasinoData;
+        private AgCasinoBetSettingViewModel _agcasinoViewModel;
+
+        public BetSettingViewModel()
+        {
+            EsportSetting = EsportSettingType.NoneOffering;
+            _mainData = new List<BetSetting>();
+            _liveCasinoData = new List<LiveCasinoBetSettingViewModel>();
+            _agcasinoViewModel = new AgCasinoBetSettingViewModel();
+        }
 
         public BetSettingMetaModel Param { get; set; }
 
@@ -49,5 +58,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
         public RngCasinoBetSetting RngCasinoData { get; set; }
 
         public bool? IsEnabled { get; set; }
+
+        public EsportSettingType EsportSetting { get; set; }
     }
 }

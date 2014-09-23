@@ -68,6 +68,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var viewModel = GetViewModels(metaModel);
@@ -180,25 +181,32 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = new BetSettingViewModel { Param = metaModel };
             var language = SessionService.UserSession.Language;
+            EsportSettingType esportSetting = EsportSettingType.NoneOffering;
             switch (metaModel.TabId)
             {
                 case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId));
+                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, ref esportSetting));
+                    model.EsportSetting = esportSetting;
                     break;
+
                 case ProductType.Racing:
                     var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(metaModel.CustId);
                     model.MainData.AddRange(_betSettingService.GetRacingBetSetting(metaModel.CustId, isAllowSaToteCurrency));
                     break;
+
                 case ProductType.NumberGame:
                     model.MainData.AddRange(_betSettingService.GetNumberGameBetSetting(metaModel.CustId));
                     break;
+
                 case ProductType.VirtualSports:
                     model.MainData.AddRange(_betSettingService.GetVirtualSportsBetSetting(metaModel.CustId));
                     break;
+
                 case ProductType.LiveCasino:
                     model.LiveCasinoData.AddRange(_betSettingService.GetLiveCasinoBetSetting(metaModel.CustId, language));
                     model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
+
                 case ProductType.RngCasino:
                     if (customerInfo.SyncCasino)
                     {
@@ -214,18 +222,20 @@ namespace Fanex.Athena.Controllers.Customer
 
                     model.IsEnabled = IsRngCasinoEnabled(customerInfo);
                     break;
+
                 case ProductType.Keno:
                     model.MainData.AddRange(_betSettingService.GetKenoBetSetting(metaModel.CustId));
                     break;
+
                 case ProductType.AgCasino:
                     model.AgCasinoViewModel.BetSetting = _betSettingService.GetAgCasinoSetting(metaModel.CustId);
                     model.AgCasinoViewModel.Games = _betSettingService.GetAgCasinoGroupBettingLimit(
-                        metaModel.CustId, 
-                        SessionService.LicenseeSession.LicenseeName, 
+                        metaModel.CustId,
+                        SessionService.LicenseeSession.LicenseeName,
                         model.AgCasinoViewModel.BetSetting.CurrencyId);
                     if (model.AgCasinoViewModel.BetSetting.CheckedGroups.Contains(model.AgCasinoViewModel.BetSetting.AgGroup) == false)
                     {
-                        model.AgCasinoViewModel.BetSetting.CheckedGroups = 
+                        model.AgCasinoViewModel.BetSetting.CheckedGroups =
                             model.AgCasinoViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.AgCasinoViewModel.BetSetting.AgGroup })
                             .OrderBy(x => x).ToArray();
                     }

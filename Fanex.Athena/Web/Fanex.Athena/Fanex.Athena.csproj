@@ -285,49 +285,33 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="SiteConfiguration.ttinclude" />
+    <Content Include="Deployment.ignore" />
+    <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
-    <Content Include="Web.config.txt">
+    <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Local.config">
+    <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Prod.config">
+    <Content Include="SiteConfig\Web.PRO.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.SandBox.config">
+    <Content Include="SiteConfig\Web.SANDBOX.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Uat.config">
+    <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\FanexSpName.LOCAL.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\FanexSpName.PRO.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\FanexSpName.SANDBOX.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\FanexSpName.UAT.xml">
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
-    <Content Include="App_Data\FanexSpName.xml.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
     <Content Include="Content\BetList\betlist.core.css" />
@@ -2519,9 +2503,8 @@
     <Content Include="sso.aspx">
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
-    <Content Include="TestFolder\ReadMe.txt" />
     <Content Include="under-maintenance.gif" />
-    <Content Include="Web.AppSettings.config.txt">
+    <Content Include="SiteConfig\Web.AppSettings.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
@@ -2529,7 +2512,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.ConnectionStrings.config.txt">
+    <Content Include="SiteConfig\Web.ConnectionStrings.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
@@ -2572,46 +2555,42 @@
     </Content>
     <Content Include="App_Browsers\ie.browser" />
     <Content Include="App_Browsers\firefox.browser" />
-    <None Include="App_Data\Fanex.Result\Badminton.xls" />
-    <None Include="App_Data\Fanex.Result\BaseBall.xls" />
-    <None Include="App_Data\Fanex.Result\Basketball.xls" />
-    <None Include="App_Data\Fanex.Result\Billiard.xls" />
-    <None Include="App_Data\Fanex.Result\Hockey.xls" />
-    <None Include="App_Data\Fanex.Result\HorseRacing.xls" />
-    <None Include="App_Data\Fanex.Result\LiveCasino.xls" />
-    <None Include="App_Data\Fanex.Result\NumberGame.xls" />
-    <None Include="App_Data\Fanex.Result\OtherSport.xls" />
-    <None Include="App_Data\Fanex.Result\Outright.xls" />
-    <None Include="App_Data\Fanex.Result\Soccer.xls" />
-    <None Include="App_Data\Fanex.Result\Tennis.xls" />
-    <None Include="App_Data\Fanex.Result\VSHRacing.xls" />
-    <None Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
-    <None Include="App_Data\Fanex.Result\VSTennis.xls" />
-    <None Include="App_Data\FanexSpName.xml.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FanexSpName.xml.txt</LastGenOutput>
-    </None>
-    <None Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
-    <None Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
-    <None Include="App_Data\Template\CustomerReports\CustomerPendingFunds.xls" />
-    <None Include="App_Data\Template\CustomerReports\CustomerTurnover.xls" />
-    <None Include="App_Data\Template\CustomerReports\CustomerWinLoss.xls" />
-    <None Include="App_Data\Template\Customers\CustomerList.xls" />
-    <None Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
-    <None Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
-    <None Include="App_Data\Template\Reports\Balance.xls" />
-    <None Include="App_Data\Template\Reports\PlaytechCasino.xls" />
-    <None Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
-    <None Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
-    <None Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />
-    <None Include="App_Data\Template\Reports\LicenseeWinLoss.xls" />
-    <None Include="App_Data\Template\Reports\LiveReport.xls" />
-    <None Include="App_Data\Template\Reports\MatchWinLoss.xls" />
-    <None Include="App_Data\Template\Reports\MobileWinLoss.xls" />
-    <None Include="App_Data\Template\Reports\RacingCommission.xls" />
-    <None Include="App_Data\Template\Reports\Turnover.xls" />
-    <None Include="App_Data\Template\Reports\WinLossByBetType.xls" />
-    <None Include="App_Data\Template\Reports\WinLossByProducts.xls" />
+    <Content Include="App_Data\Fanex.Result\Badminton.xls" />
+    <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
+    <Content Include="App_Data\Fanex.Result\Basketball.xls" />
+    <Content Include="App_Data\Fanex.Result\Billiard.xls" />
+    <Content Include="App_Data\Fanex.Result\Hockey.xls" />
+    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
+    <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
+    <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
+    <Content Include="App_Data\Fanex.Result\Outright.xls" />
+    <Content Include="App_Data\Fanex.Result\Soccer.xls" />
+    <Content Include="App_Data\Fanex.Result\Tennis.xls" />
+    <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
+    <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
+    <Content Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
+    <Content Include="App_Data\Template\CustomerReports\CustomerPendingFunds.xls" />
+    <Content Include="App_Data\Template\CustomerReports\CustomerTurnover.xls" />
+    <Content Include="App_Data\Template\CustomerReports\CustomerWinLoss.xls" />
+    <Content Include="App_Data\Template\Customers\CustomerList.xls" />
+    <Content Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
+    <Content Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\Balance.xls" />
+    <Content Include="App_Data\Template\Reports\PlaytechCasino.xls" />
+    <Content Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
+    <Content Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />
+    <Content Include="App_Data\Template\Reports\LicenseeWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\LiveReport.xls" />
+    <Content Include="App_Data\Template\Reports\MatchWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\MobileWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\RacingCommission.xls" />
+    <Content Include="App_Data\Template\Reports\Turnover.xls" />
+    <Content Include="App_Data\Template\Reports\WinLossByBetType.xls" />
+    <Content Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
     <None Include="DBConnectionData\GlobalSetting.ini" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
@@ -2977,40 +2956,40 @@
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\AgCasino.cshtml" />
     <Content Include="Views\BetList\RacingCommission\Main.cshtml" />
-    <None Include="Web.AppSettings.config.tt">
+    <None Include="SiteConfig\Web.AppSettings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
     </None>
-    <Content Include="Web.AppSettings.LOCAL.config">
+    <Content Include="SiteConfig\Web.AppSettings.LOCAL.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.PRO.config">
+    <Content Include="SiteConfig\Web.AppSettings.PRO.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.SANDBOX.config">
+    <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.UAT.config">
+    <Content Include="SiteConfig\Web.AppSettings.UAT.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
-    <None Include="Web.config.tt">
+    <None Include="SiteConfig\Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
-    <None Include="Web.ConnectionStrings.config.tt">
+    <None Include="SiteConfig\Web.ConnectionStrings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>
     </None>
-    <Content Include="Web.ConnectionStrings.LOCAL.config">
+    <Content Include="SiteConfig\Web.ConnectionStrings.LOCAL.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.ConnectionStrings.PRO.config">
+    <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.ConnectionStrings.SANDBOX.config">
+    <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.ConnectionStrings.UAT.config">
+    <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
   </ItemGroup>

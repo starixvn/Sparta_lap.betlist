@@ -9,8 +9,9 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Interface.Customer
 {
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
@@ -20,13 +21,14 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     /// </summary>
     public interface IBetSettingDataAccess
     {
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
+        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
-
-        IList<BetSetting> GetSportBookBetSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
@@ -39,6 +41,8 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
         IList<BetSetting> GetKenoBetSetting(int custId);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+
+        IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
 
