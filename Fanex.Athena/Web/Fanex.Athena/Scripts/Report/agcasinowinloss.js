@@ -7,33 +7,35 @@ var AgCasinoWinLoss = (function ($) {
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _level = 0;
-    var _currencyId = null;
-    var _customerId = null;
-    var _datetime = null;
-    var _resizeTimer = null;
-   
     function initMonthPicker() {
         var year = $("#Year").val();
         var month = $("#Month").val();
         var fromDay = $("#FromDay").val();
         var toDay = $("#ToDay").val();
-        var fromDate = new Date(year, month - 1, fromDay);
 
         $('#DateControl').monPickr({
             minDate: $('#MinDate').val(),
             showDateRange: true,
             fromDayId: 'MonthPickerFromDay',
             toDayId: 'MonthPickerToDay',
-            month: fromDate,
+            month: new Date(year, month - 1, fromDay),
             fromDay: fromDay,
             toDay: toDay,
             afterChangeMonth: function () {
-                $('#Year').val(new Date($("#DateControl").monPickr("getFromDate")).getFullYear());
-                $('#Month').val(new Date($("#DateControl").monPickr("getFromDate")).getMonth() + 1);
+                var fromDate = $("#DateControl").monPickr("getFromDate");
+                var toDate = $("#DateControl").monPickr("getToDate");
+                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
+                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
+                $('#Year').val(fromDate.getFullYear());
+                $('#Month').val(fromDate.getMonth() + 1);
             },
             afterChangeDay: function () {
-                $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate")).getDate());
-                $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate")).getDate());
+                var fromDate = $("#DateControl").monPickr("getFromDate");
+                var toDate = $("#DateControl").monPickr("getToDate");
+                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
+                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
+                $('#FromDay').val(fromDate.getDate());
+                $('#ToDay').val(toDate.getDate());
             },
             log: function (/*msg*/) {
                 //console.warn(msg);
@@ -43,10 +45,9 @@ var AgCasinoWinLoss = (function ($) {
 
     return {
         resizeGrid: function () {
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
+            setTimeout(function () {
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height() 
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                                 - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
 
@@ -66,21 +67,9 @@ var AgCasinoWinLoss = (function ($) {
         },
         initialize: function () {
             AgCasinoWinLoss.initEvent();
-            AgCasinoWinLoss.initSetting();
             initMonthPicker();
         },
-
-        initSetting: function () {            
-            AgCasinoWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-        },
-
         initEvent: function () {
-            /* open betlist popup*/
-            $("body").on("click", ".bet-list-link", function () {
-                var dataDrillDown = $(this).attr("data-drill-down");
-                AgCasinoWinLoss.openBetlistPopUp(dataDrillDown);
-            });
-
             $('#SubmitButton').click(function () {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
@@ -135,7 +124,6 @@ var AgCasinoWinLoss = (function ($) {
                 $(".level0").show();
 
                 $(".level2").showHide(level === 2);
-                $(".level1").showHide(Number(AgCasinoWinLossOption.licenseeId) === 1);
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
@@ -225,9 +213,6 @@ var AgCasinoWinLoss = (function ($) {
 
             if (_level !== level) {
                 _level = level;
-                _currencyId = currencyId;
-                _customerId = customerId;
-                _datetime = datetime;
             }
 
             var param =
@@ -321,8 +306,8 @@ var AgCasinoWinLoss = (function ($) {
             var numOfTotalRow = response.Total.length;
             totalRowCount = numOfTotalRow;
 
-            var gridOption = AgCasinoWinLossOption.getGridOption(level);            
-            gridOption.data = response.Data;            
+            var gridOption = AgCasinoWinLossOption.getGridOption(level);
+            gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
 
             gridOption.gridComplete = function () {
