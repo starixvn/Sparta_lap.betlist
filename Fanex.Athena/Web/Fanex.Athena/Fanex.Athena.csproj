@@ -286,7 +286,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Deployment.ignore" />
-    <None Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
