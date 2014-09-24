@@ -58,7 +58,7 @@ var AgCasinoWinLoss = (function ($) {
                 var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
                 $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
                                     .css("max-height", gridHeight);
-            }, 200);
+            }, 100);
         },
         getTotalRowCount: function () {
             return totalRowCount;

@@ -110,6 +110,7 @@ namespace Fanex.Athena.Service.Implement.Common
                 }
             }
 
+            functionList.Sort((x1, x2) => x1.DisplayOrder.CompareTo(x2.DisplayOrder));
             return functionList;
         }
 
