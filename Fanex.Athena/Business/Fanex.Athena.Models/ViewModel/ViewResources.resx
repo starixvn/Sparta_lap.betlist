@@ -2528,4 +2528,8 @@
     <value>VIP</value>
     <comment>#20896</comment>
   </data>
+  <data name="MaxBetPerDraw" xml:space="preserve">
+    <value>Max Bet Per Draw</value>
+    <comment>#23194</comment>
+  </data>
 </root>
