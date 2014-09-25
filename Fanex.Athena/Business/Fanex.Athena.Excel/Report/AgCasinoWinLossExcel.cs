@@ -49,10 +49,9 @@ namespace Fanex.Athena.Excel.Report
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,
-                ShowingOption showingOption,
                 AgCasinoWinLossMetaModel metaModel,
                 AgCasinoWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, exportingFileName, null, convertingOption)
         {
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;

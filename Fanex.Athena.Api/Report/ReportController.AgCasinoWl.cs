@@ -75,51 +75,10 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region ProcessRequest
-
-        /// <summary>
-        /// Sort data list by property (column name).
-        /// </summary>
-        /// <param name="dataList">Data list to be sorted.</param>
-        /// <param name="sortBy">Sort column name.</param>
-        /// <param name="sortOrder">ASC or DESC.</param>
-        /// <returns>Data list after being sorted.</returns>
-        private static SortableList<AgCasinoWinLoss> SortData(SortableList<AgCasinoWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
-        {
-            if (sortBy != null)
-            {
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
-                {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-                }
-
-                var property = typeof(AgCasinoWinLoss).GetProperty(sortBy);
-
-                if (property == null)
-                {
-                    // The two last characters is product code.
-                    var indexProductCode = sortBy.Length - 2;
-                    var propertyName = sortBy.Substring(0, indexProductCode);
-                    var productCode = sortBy.Substring(indexProductCode);
-
-                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-                else
-                {
-                    dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
-                }
-            }
-
-            return dataList;
-        }
-
-        #endregion ProcessRequest
-
         #region Private Utility
 
         /// <summary>
-        /// Licensee win loss - Export excel.
+        /// AGCasino win loss - Export excel.
         /// </summary>
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Data list.</param>
@@ -127,19 +86,11 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(AgCasinoWinLossMetaModel metaModel, IList<AgCasinoWinLoss> dataList, IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             const string FileName = "AgCasinoWinLoss.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var currencyList = userSession.CurrencyList;
-            var showingOption = new ShowingOption
-            {
-                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllowBA,
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllowRB,
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
 
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var convertingOption = new ConvertingOption
@@ -167,14 +118,14 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var licenseeWinLoss = new AgCasinoWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel)
+            var excel = new AgCasinoWinLossExcel(templatePath, FileName, convertingOption, metaModel, exccelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
 
-            licenseeWinLoss.Export();
+            excel.Export();
 
-            return ExcelStream(licenseeWinLoss.Workbook, FileName);
+            return ExcelStream(excel.Workbook, FileName);
         }
 
         /// <summary>

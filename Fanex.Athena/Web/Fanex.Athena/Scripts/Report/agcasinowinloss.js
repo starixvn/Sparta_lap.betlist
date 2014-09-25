@@ -169,8 +169,6 @@ var AgCasinoWinLoss = (function ($) {
         },
 
         submit: function () {
-            Report.setOriginalProduct();
-            Site.updateOriginalLicenseeOption();
             var mainForm = $("#AgCasinoWinLossForm");
             var postdata = mainForm.serializeObject();
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
