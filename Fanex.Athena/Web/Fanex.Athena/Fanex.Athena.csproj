@@ -285,6 +285,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Deployment.ignore" />
     <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
