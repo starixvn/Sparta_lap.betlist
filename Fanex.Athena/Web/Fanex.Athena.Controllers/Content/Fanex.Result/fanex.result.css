@@ -75,6 +75,18 @@ table.fanex-result tr.row-header th.column-lastball
 table.fanex-result tr.row-header th.column-warrior
 {
 }
+table.fanex-result tr.row-title 
+{
+}
+table.fanex-result tr.row-title th.column-title
+{
+}
+table.fanex-result tr.row-title th.column-title span.sport
+{
+}
+table.fanex-result tr.row-title th.column-title span.leagueName
+{
+}
 /*end-header-column*/
 /*endregion*/
 /*#region row-data*/
