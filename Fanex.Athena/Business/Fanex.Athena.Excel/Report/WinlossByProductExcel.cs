@@ -42,7 +42,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowContentTemplate = 4;
         private const int RowContentTitleTemplate = 3;
         private const int RowGrandTotal = 10;
-        private const int RowNoInfoTemplate = 11;
+        private const int RowNoInfoTemplate = 12;
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalNoSolidBorder = 9;
         private const int RowTotalSolidBorder = 8;
@@ -367,15 +367,19 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count() - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
-                    int cellIndex = ColumnCurrency;
-                    int rowTemplate = RowTotalNoSolidBorder;
+                     int cellIndex = ColumnCurrency;                    
+                    IRow row;
                     if (isFirstRowTotal)
                     {
-                        rowTemplate = RowTotalSolidBorder;
+                        row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, currentRow);
+                        row.Cells[0].SetCellValue(ViewResources.Total);    
                         isFirstRowTotal = false;
                     }
-
-                    IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
+                    else
+                    {
+                        row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, currentRow);
+                    }
+                                        
                     row.Cells[cellIndex++].SetCellValue(item.CurrencyName);
                     row.Cells[cellIndex].SetCellValue(item.ProductName);
                     AssignCommonData(row, item);

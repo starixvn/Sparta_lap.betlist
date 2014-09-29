@@ -272,7 +272,7 @@ namespace Fanex.Athena.Excel.Report
         protected void AssignTotalCellData(ISheet sheet, int currentRow)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
-
+            row.Cells[0].SetCellValue(ViewResources.Total);
             row.Cells[ColumnOpeningBalance].SetCellValue("-");
             row.Cells[ColumnClosingBalance].SetCellValue("-");
 

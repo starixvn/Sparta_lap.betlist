@@ -379,7 +379,7 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 AssignCommonData(row, _summaryTotal[currency]);
-                row.Cells[ColumnIndex].SetCellValue("Total in " + currency.ToUpper());
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
@@ -406,11 +406,16 @@ namespace Fanex.Athena.Excel.Report
             foreach (LicenseeWinLoss totalCurrency in totalCurrencyList)
             {
                 // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                IRow row;
 
                 if (rowIndex == beginTotalRow)
                 {
                     row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, rowIndex);
+                    row.Cells[0].SetCellValue(ViewResources.Total);
+                }
+                else
+                {
+                    row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
                 }
 
                 row.Cells[ColumnCurrency].SetCellValue(totalCurrency.CurrencyName);

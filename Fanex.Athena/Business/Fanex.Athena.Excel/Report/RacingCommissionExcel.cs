@@ -187,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
             int totalRow = rowIndex + RowContentTemplate;
 
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
-
+            row.Cells[0].SetCellValue(ViewResources.Totalin + " " + ConvertingOption.BaseCurrency.ToUpperInvariant());
             sheet.MergeCells(totalRow, ColumnIndex, totalRow, 1);
 
             row.Cells[ColumnToteWin].SetCellValue(_total.ToteWin);

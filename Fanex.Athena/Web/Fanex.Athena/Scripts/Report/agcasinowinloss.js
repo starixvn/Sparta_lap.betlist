@@ -159,7 +159,7 @@ var AgCasinoWinLoss = (function ($) {
                     $("#OriginalFromDate").val($("#FromDate").val());
                     $("#OriginalToDate").val($("#ToDate").val());
                     $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-
+                    $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
                     AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                 }
 
@@ -174,7 +174,6 @@ var AgCasinoWinLoss = (function ($) {
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
             var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
 
-            postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
             postdata.FromDate = fromDate.toDateString();
             postdata.ToDate = toDate.toDateString();
 
