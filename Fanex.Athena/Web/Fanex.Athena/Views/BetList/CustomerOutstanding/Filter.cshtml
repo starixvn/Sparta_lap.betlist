@@ -4,7 +4,7 @@
 @using (Html.BeginForm("DailyBetList", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
 {
     // Only restrict from date for Bet List
-    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : DateTime.Today.AddYears(-50);
+    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
     <div class="grid_3 filter-input" style="padding: 5px">
         @{
     var viewOptionTextList = new Dictionary<string, string>{
