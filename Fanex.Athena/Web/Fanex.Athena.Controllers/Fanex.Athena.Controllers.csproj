@@ -178,6 +178,7 @@
     <Compile Include="Integration\IntegrationController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
+    <Compile Include="Report\ReportController.AgCasinoWinLoss.cs" />
     <Compile Include="Report\ReportController.PlaytechCasino.cs" />
     <Compile Include="MenuController.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />

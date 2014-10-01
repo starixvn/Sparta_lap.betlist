@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 8/28/2014 12:40:34 PM
+// Lasted generated date: 9/25/2014 10:02:48 AM
 // </history>
 
 var _language_en_US={
@@ -33,6 +33,8 @@ var _language_en_US={
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
                      AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
+				 	
+                     AGCasinoWinLoss:"AG Casino Win Loss",
 				 	
                      AH:"AH",
 				 	
@@ -866,6 +868,8 @@ var _language_en_US={
 				 	
                      MaxBetMatchMoreThanOrEqual:"Max Bet Match must be more than or equal to",
 				 	
+                     MaxBetPerDraw:"Max Bet Per Draw",
+				 	
                      MaxPerBall:"Max Per Ball",
 				 	
                      MaxPerBallLessThanOrEqual:"Max Per Ball must be less than or equal to",
@@ -1352,6 +1356,8 @@ var _language_en_US={
 				 	
                      SystemParlay:"System Parlay",
 				 	
+                     TableType:"Table Type",
+				 	
                      Team:"Team",
 				 	
                      TermDefinition:"Term Definition",
@@ -1484,6 +1490,8 @@ var _language_en_US={
 				 	
                      UpdateLiveCasinoBetSettingSuccessMsg:"The Live Casino bet setting of {0} was updated successfully",
 				 	
+                     UpdateMemberEsportsSuccessMsg:"The E-Sports is {0} successfully.",
+				 	
                      UpdateNumberGameBetSettings:"Are you sure you want to update all Number Game bet settings?",
 				 	
                      UpdateNumberGameBetSettingSuccessMsg:"The Number Game bet setting of {0} was updated successfully",
@@ -1525,6 +1533,8 @@ var _language_en_US={
                      ViewDataInMonth:"View data in month",
 				 	
                      Viewin:"View in {0}",
+				 	
+                     VIP:"VIP",
 				 	
                      VirtualCycling:"Virtual Cycling",
 				 	

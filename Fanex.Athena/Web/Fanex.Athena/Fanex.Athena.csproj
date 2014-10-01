@@ -285,7 +285,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Deployment.ignore" />
+    <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
@@ -293,6 +295,8 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
+    <Content Include="Scripts\Report\agcasinowinloss.js" />
+    <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2956,6 +2960,9 @@
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\AgCasino.cshtml" />
     <Content Include="Views\BetList\RacingCommission\Main.cshtml" />
+    <Content Include="Views\Report\AgCasinoWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\AgCasinoWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\AgCasinoWinLoss\Main.cshtml" />
     <None Include="SiteConfig\Web.AppSettings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
@@ -2976,6 +2983,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
+    <Content Include="SiteConfig\Web.LOCAL.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\Web.SANDBOX.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\Web.UAT.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\Web.PRO.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <None Include="SiteConfig\Web.ConnectionStrings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>

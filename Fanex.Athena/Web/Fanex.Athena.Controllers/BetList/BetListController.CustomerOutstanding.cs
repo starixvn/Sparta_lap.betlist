@@ -34,7 +34,7 @@ namespace Fanex.Athena.Controllers.BetList
             var minDate = DateTime.Today.AddYears(-1);
 
             minDate = new DateTime(minDate.Year, 1, 1);
-            metaModel.FromDate = metaModel.BetListName == "betlistrunning" ? minDate : metaModel.MoveBetsDay;
+            metaModel.FromDate = metaModel.BetListName == "betlistrunning" ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
             var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreAgCasino);
 

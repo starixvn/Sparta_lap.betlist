@@ -2477,4 +2477,7 @@
   <data name="BingoExcludedNote" xml:space="preserve">
     <value>Bingo is not included in the report</value>
   </data>
+  <data name="MaxBetPerDraw" xml:space="preserve">
+    <value>单场最大限额</value>
+  </data>
 </root>

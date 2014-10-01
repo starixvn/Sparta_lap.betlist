@@ -152,6 +152,7 @@
     <Compile Include="BetList\BetListController.Outstanding.RunningBetList.cs" />
     <Compile Include="BetList\BetListController.RunningBetList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ReportController.AgCasinoWl.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\ReportController.LicenseeWl.cs" />

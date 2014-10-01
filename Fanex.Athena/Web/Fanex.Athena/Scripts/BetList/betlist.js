@@ -307,7 +307,7 @@ var BetList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: width + 25,
-                height: height + 50
+                height: height + 70
             });
         },
 

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 9/1/2014 3:31:48 PM
+// Lasted generated date: 9/25/2014 10:43:52 AM
 // </history>
 
 var _language_zh_TW={
@@ -853,6 +853,8 @@ var _language_zh_TW={
                      MaxBetMatchLessThanOrEqual:"最大單場最大投注必須小於或等於",
 				 	
                      MaxBetMatchMoreThanOrEqual:"最大單場最大投注必須大於或等於",
+				 	
+                     MaxBetPerDraw:"單場最大限額",
 				 	
                      MaxPerBall:"单粒球最高投注",
 				 	
