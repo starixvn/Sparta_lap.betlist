@@ -294,9 +294,9 @@
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Content Include="Scripts\Report\agcasinowinloss.js" />
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
