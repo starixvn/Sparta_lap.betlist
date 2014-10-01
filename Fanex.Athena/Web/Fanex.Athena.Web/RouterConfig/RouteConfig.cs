@@ -34,6 +34,7 @@ namespace Fanex.Athena.Web.RouterConfig
                 "Default",
                 "{controller}/{action}",
                 new { controller = "Home", action = "Index" });
+            routes.MapPageRoute("sso", "sso.aspx", "~/sso.aspx");
         }
     }
 }
