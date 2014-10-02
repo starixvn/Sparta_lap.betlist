@@ -1,0 +1,268 @@
+﻿/*Html & css strucure
+/* table.fanex-result
+**     table.fanex-result tr.row-header
+***      table.fanex-result tr.row-header th
+**     table.fanex-result tr.row-data
+***      table.fanex-result tr.row-data td.*
+*/
+table.fanex-result, table.fanex-result-tenis-setdetail
+{
+    clear: both;
+    width: 100%;
+    border-right: 1px solid #A3D1E1;
+    border-top: 1px solid #A3D1E1;
+    border-collapse: collapse;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    cursor: default;
+}
+/*#region header row*/
+table.fanex-result tr.row-header
+{
+}
+table.fanex-result tr.row-header th:first-child, table.fanex-result-tenis-setdetail tr.row-header td:first-child
+{
+    border-left: 1px solid #A3D1E1;
+}
+table.fanex-result tr.row-header th, table.fanex-result-tenis-setdetail tr.row-header td
+{
+    background-color: #C7E9F5;
+    border-left: 1px solid #FFFFFF;
+    color: #024584;
+    background-image: url("images/tab_topbg.gif");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    height: 28px;
+    padding: 2px;
+    border-bottom: 1px solid #A3D1E1;
+}
+/*header-column*/
+table.fanex-result tr.row-header th.column-kickofftime
+{
+}
+table.fanex-result tr.row-header th.column-time
+{
+    width: 65px;
+}
+table.fanex-result tr.row-header th.column-match
+{
+}
+table.fanex-result tr.row-header th.column-firsthaftscore
+{
+}
+table.fanex-result tr.row-header th.column-finalscore
+{
+}
+table.fanex-result tr.row-header th.column-status
+{
+}
+table.fanex-result tr.row-header th.column-result
+{
+}
+table.fanex-result tr.row-header th.column-lblOEFT
+{
+}
+table.fanex-result tr.row-header th.column-lbl1stball
+{
+}
+table.fanex-result tr.row-header th.column-lastball
+{
+}
+table.fanex-result tr.row-header th.column-warrior
+{
+}
+table.fanex-result tr.row-title 
+{
+}
+table.fanex-result tr.row-title th.column-title
+{
+}
+table.fanex-result tr.row-title th.column-title span.sport
+{
+}
+table.fanex-result tr.row-title th.column-title span.leagueName
+{
+}
+/*end-header-column*/
+/*endregion*/
+/*#region row-data*/
+table.fanex-result tr.row-data
+{
+}
+table.fanex-result tr.row-data:hover
+{
+    background: #fcf911;
+}
+table.fanex-result tr.row-data td, table.fanex-result-tenis-setdetail tr.row-data-setScore td, table.fanex-result-tenis-setdetail tr.row-data-SetScore td
+{
+    border-left: 1px solid #A3D1E1;
+    border-bottom: 1px solid #A3D1E1;
+    font-size: 11px;
+    height: 22px;
+    padding: 2px;
+    vertical-align: middle;
+    text-align: center;
+    color: rgb(69, 69, 69);
+}
+table.fanex-result tr.row-data td:hover
+{
+    color: #009;
+}
+/*row-column*/
+table.fanex-result tr.format-even
+{
+    background: #fcfde9;
+}
+table.fanex-result tr.format-odd
+{
+}
+table.fanex-result tr.row-data td.column-league
+{
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #F8F1E9;
+    background-color: #DAE6ED;
+    font-weight: bold;
+    text-align: left !important;
+    text-transform: uppercase;
+}
+
+table.fanex-result tr.row-data td.column-kickofftime
+{
+    font-size: 10px !important;
+    font-weight: normal;
+    white-space: nowrap;
+}
+table.fanex-result tr.row-data td.column-match, tr.row-data td.column-team, table.fanex-result tr.row-data td.column-result
+{
+    text-align: left !important;
+}
+
+table.fanex-result tr.row-data td.column-match div.first-goal
+{
+    background: url(images/first-goal.gif) no-repeat center center;
+    height: 10px;
+    width: 14px;
+    display: inline;
+    padding: 0 4px;
+}
+table.fanex-result tr.row-data td.column-match div.last-goal
+{
+    background: url(images/last-goal.gif) no-repeat center center;
+    height: 10px;
+    width: 14px;
+    display: inline;
+    padding: 0 4px;
+}
+table.fanex-result tr.row-data td.column-match div.first-half-first-goal
+{
+    background: url(images/1F.gif) no-repeat center center;
+    height: 10px;
+    width: 14px;
+    display: inline;
+    padding: 0 4px;
+}
+table.fanex-result tr.row-data td.column-match div.first-half-last-goal
+{
+    background: url(images/1L.gif) no-repeat center center;
+    height: 10px;
+    width: 14px;
+    display: inline;
+    padding: 0 4px;
+}
+
+table.fanex-result tr.row-data td.column-lblOEFT
+{
+}
+table.fanex-result tr.row-data td.column-lbl1stball
+{
+}
+table.fanex-result tr.row-data td.column-lastball
+{
+}
+table.fanex-result tr.row-data td.column-warrior
+{
+}
+table.fanex-result tr.row-data td.bold
+{
+    font-weight: bold !important;
+}
+table.fanex-result tr.row-data td.left
+{
+    text-align: left !important;
+}
+table.fanex-result tr.row-data td.center
+{
+    text-align: center !important;
+}
+/*end-row-data*/
+
+/*no-info*/
+table.fanex-result tr.row-noinfo
+{
+    border-bottom: 1px solid #A3D1E1;
+}
+table.fanex-result .row-noinfo td
+{
+    text-align: center;
+    border-left: 1px solid #A3D1E1;
+}
+/*end*/
+table.fanex-result .red
+{
+    color: #dc143c !important;
+}
+
+
+table.fanex-result .ball
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #141214;
+    padding: 5px 5px;
+    background: -moz-linear-gradient(top,#f2f2f2 0%, #ffffff 25%,#ffffff 50%, #ffffff 75%, #d1cdcd);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2),color-stop(0.25, #ffffff), color-stop(0.50, #ffffff), color-stop(0.75, #ffffff),to(#d1cdcd));
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    border: 1px solid #5c5757;
+    text-shadow: 1px 0px 0px rgba(000,000,000,0.4), 1px 1px 0px rgba(255,255,255,0.4);
+    width: 15px !important;
+    display: inline-block;
+    text-align: center;
+}
+/*#endregion*/
+/*popup*/
+table.fanex-result-popup
+{
+    width: 100%;
+}
+table.fanex-result-popup td.sporttype
+{
+}
+table.fanex-result-popup td.sporttype
+{
+}
+table.fanex-result-popup .bl-sport-type
+{
+    font-weight: bold;
+}
+table.fanex-result-popup .bl-league-name
+{
+    font-weight: normal;
+}
+table.fanex-result-tenis-setdetail
+{
+    width: 300px;
+    margin-top: 2px;
+}
+table.fanex-result-tenis-setdetail .row-header
+{
+}
+table.fanex-result-tenis-setdetail tr.row-header td.column-set-name
+{
+    background-image: none !important;
+}
+/*end-popup*/

@@ -1,13 +1,13 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="1996200004">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <project key="334447485">
     <configuration>TRACE;DEBUG;CODE_ANALYSIS</configuration>
   </project>
   <project key="-164696552">
     <configuration>TRACE;DEBUG;CODE_ANALYSIS</configuration>
+  </project>
+  <project key="1996200004">
+    <configuration>TRACE</configuration>
   </project>
   <sourcecode name="Global.asax.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
