@@ -288,9 +288,36 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SpNameConfig\FanexSpName.SANDBOX.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SpNameConfig\FanexSpName.UAT.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
+    <None Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </None>
+    <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml" />
+    <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml" />
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Deployment.ignore" />
     <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
+    <None Include="App_Data\SpNameConfig\FanexSpName.xml.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
+    </None>
+    <None Include="App_Data\SpNameConfig\SpNameConfiguration.ttinclude" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
@@ -2424,9 +2451,6 @@
     <Content Include="Scripts\Library\modernizr-1.7.js" />
     <Content Include="Scripts\Library\modernizr-1.7.min.js" />
     <Content Include="Scripts\Library\jquery.cookie.js" />
-    <Content Include="App_Data\FanexSpName.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Scripts\Plugin\Calendar\jscal2.js" />
     <Content Include="Scripts\Plugin\Calendar\lang\ca.js" />
     <Content Include="Scripts\Plugin\Calendar\lang\cn.js" />

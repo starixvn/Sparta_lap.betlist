@@ -61,10 +61,10 @@
   </couchbase>
   <Fanex.Data.DbSettingProvider default="XmlDbSettingProvider">
     <providers>
-      <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\FanexSpName.xml" enableWatching="1" />
+      <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\SpNameConfig\FanexSpName.xml" enableWatching="1" />
     </providers>
   </Fanex.Data.DbSettingProvider>
-  <Fanex.Logging msmqPath="FormatName:DIRECT=tcp:<#=site.LoggingServer#>\private$\entlib" defaultCategory="<#=site.LoggingMachine#>" />
+  <#=site.LoggingServer#>
   <appSettings configSource="Web.AppSettings.config" />
   <connectionStrings configSource="Web.ConnectionStrings.config" />
   <system.web>
