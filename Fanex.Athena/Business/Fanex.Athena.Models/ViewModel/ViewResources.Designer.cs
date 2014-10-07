@@ -6856,6 +6856,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Guide.
+        /// </summary>
+        public static string UserGuide {
+            get {
+                return ResourceManager.GetString("UserGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Information.
         /// </summary>
         public static string UserInformation {

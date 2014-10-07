@@ -7,7 +7,7 @@ var monitor = null;
 var monitorUi = null;
 var MonitorBetList = function () {
     var $this = this;
-
+   
     // Param
     $this.serviceUrl = Site.resolveClientUrl('api/betlist/LastMonitorBetListNew');
     $this.betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
@@ -54,6 +54,7 @@ var MonitorBetList = function () {
         { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];
     $this.initialize = function () {
+        Site.addUserGuide("LastBetsMonitoring");
         $this.updateParams();
         $this.currentParam = Site.clone($this.params);
     };
@@ -447,7 +448,7 @@ var MonitorBetListUI = function (monitorObj) {
 
         $("#special-level").multiSelect(
         {
-            minWidth: 100,
+            minWidth: 130,
             maxHeight: 400,
             shadow: true,
             showHeader: true,

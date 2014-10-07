@@ -51,6 +51,22 @@ var Site = (function ($) {
                 }
             });
         },
+        addUserGuide: function (resourceName, buttonSelector) {            
+            $("body").prepend('<div id="UserGuidePopup" data-resourcename="' + resourceName + '" style="display: none" ></div>');
+            $(buttonSelector || "#UserGuide").click(function () {
+                var $userGuidePopup = $("#UserGuidePopup");
+                if ($userGuidePopup.is(":visible")) {
+                    return;
+                }
+
+                $userGuidePopup.empty().removeClass('cute-popup').attr('style', '');
+
+                $userGuidePopup.load(Site.resolveClientUrl('UserGuide/Index?resourcename=' + $userGuidePopup.data("resourcename")),
+                     function () {
+                         setTimeout($userGuidePopup.cutePopup().show, 100);
+                     });
+            });
+        },
         overrideInnerSize: function () {
             if (Site.needOverrideInnerSize) {
                 parent.innerHeight = parent.document.documentElement.clientHeight;
@@ -93,7 +109,7 @@ var Site = (function ($) {
 
             return text;
         },
-        
+
         gotoErrorPage: function (status) {
             if (status === undefined || status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");

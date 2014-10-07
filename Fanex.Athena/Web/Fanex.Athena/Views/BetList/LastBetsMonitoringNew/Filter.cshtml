@@ -33,12 +33,15 @@
             <option value="0">@ViewResources.All</option>
         </select>
     </div>
-    <div class="grid_3 filter-label">
+    <div class="grid_2 filter-label">
         <label>@ViewResources.Show/@ViewResources.hide</label>
     </div> 
     <div class="grid_3 filter-input">
         <select id="se-column">
         </select>
+    </div>
+    <div class="grid_1 cmd-button">       
+        <input type="button" id="UserGuide" value="@ViewResources.UserGuide" data-status="1"  />
     </div>
     <div class="note-group">
         @{Html.RenderAction("Index", "Note", new { viewName = "LastBetsMonitoring" });}
@@ -83,11 +86,11 @@
         <label>@ViewResources.SpecialLevel</label>
     </div>
     
-    <div class="grid_3 filter-input">
+    <div class="grid_4 filter-input">
         <select id="special-level">
         </select>
     </div>
-    <div class="grid_1 filter-label" style="text-align: right; width: 60px;">
+    <div class="grid_1 filter-label" style="text-align: right; width: 65px;">
         <label>@ViewResources.TimeZone</label>
     </div>
     
@@ -97,8 +100,7 @@
             <option value="-4">GMT -4</option>
         </select>
     </div>
-    <div class="grid_1 cmd-button">
-       
+    <div class="grid_1 cmd-button">       
         <input type="button" id="freeze-button" value="@ViewResources.Freeze" data-status="1"  />
     </div>
     <div class="grid_1">
@@ -133,15 +135,15 @@
     </div>
     
     <div class="grid_2 filter-input" style="width: 50px">
-        <input type="text" id="stake-from" style="width: 60px;" />
+        <input type="text" id="stake-from" style="width: 65px;" />
     </div>
     
     <div class="grid_1 filter-label" style="width: 40px">
         <label>@ViewResources.To</label>
     </div>
     
-    <div class="grid_1 filter-input">
-        <input type="text" id="stake-to" style="width: 60px;" />
+    <div class="grid_2 filter-input">
+        <input type="text" id="stake-to" style="width: 65px;" />
     </div>
     <div class="grid_2 filter-label">
         <label>
@@ -166,7 +168,7 @@
             </option>
         </select>
     </div>
-    <div id="pagesize" class="grid_4 cmd-button" style="width: 160px; padding-right:0px">
+    <div id="pagesize" class="grid_3 cmd-button" style="width: 153px; padding-right:0px">
         <span style="padding-top: 5px;">@ViewResources.Last</span>
         <input type="button" value="10" class="limit-row" disabled="disabled" />
         <input type="button" value="20" class="limit-row" />
@@ -180,7 +182,7 @@
         id="div-loading">
     </div>
 
-    //----------------------------Special Level--------------------------------//
+            //----------------------------Special Level--------------------------------//
 
     <input type="hidden" id="HiddenFieldBettypeHandicap" value="Handicap,1st Handicap" />
     <input type="hidden" id="HiddenFieldOverUnder" value="Over/Under,1st Over/Under" />

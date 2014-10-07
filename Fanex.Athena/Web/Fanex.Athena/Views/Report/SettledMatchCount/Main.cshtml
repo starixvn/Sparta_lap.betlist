@@ -5,9 +5,19 @@
 @using Fanex.Athena.Models.ViewModel
 @model IList<Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel>
 @section pagecss {
+    <link href="@Url.ContentLink("/Content/CutePopup/jquery.custom-scrollbar.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/CutePopup/popup.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Report/SettledMatchCount.css")" rel="stylesheet" type="text/css" />
 }
-@section pagejs {}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Plugin/CutePopup/jquery.custom-scrollbar.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/CutePopup/popup.js")" type="text/javascript"></script>
+    <script>
+        $(function () {
+            Site.addUserGuide("SettledMatchCount");
+        });
+    </script>
+}
 @{
     //Set width for column
     ViewBag.DateWidth = 200;
@@ -19,8 +29,14 @@
     @ViewResources.SettledMatchCount
 }
 @section ContentFilter{}
+@section UserGuide{
+
+     <input type="button" id="UserGuide" value="@ViewResources.UserGuide" />
+}
 @section Note{
-    @{Html.RenderAction("Index", "Note", new { viewName = "SettledMatchCount" });}}
+
+    @{Html.RenderAction("Index", "Note", new { viewName = "SettledMatchCount" });}
+}
 @{
     <div class="container_26">
         <div class="grid_20">
