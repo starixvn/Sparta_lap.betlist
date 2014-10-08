@@ -51,20 +51,35 @@ var Site = (function ($) {
                 }
             });
         },
-        addUserGuide: function (resourceName, buttonSelector) {            
-            $("body").prepend('<div id="UserGuidePopup" data-resourcename="' + resourceName + '" style="display: none" ></div>');
-            $(buttonSelector || "#UserGuide").click(function () {
+        addUserGuide: function (options) {
+            var defaultOptions = {
+                buttonSelector: "#UserGuide"
+            };
+            options = $.extend(options || {}, defaultOptions);
+            $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
+            var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName);
+            var popup;
+            $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $("#UserGuidePopup");
                 if ($userGuidePopup.is(":visible")) {
                     return;
                 }
 
-                $userGuidePopup.empty().removeClass('cute-popup').attr('style', '');
-
-                $userGuidePopup.load(Site.resolveClientUrl('UserGuide/Index?resourcename=' + $userGuidePopup.data("resourcename")),
-                     function () {
-                         setTimeout($userGuidePopup.cutePopup().show, 100);
-                     });
+                if (!popup) {
+                    $userGuidePopup.empty().attr('style', '').hide()
+                        .load(url, function (response, status) {
+                            if (status === "success") {
+                                setTimeout(function () {
+                                    popup = $userGuidePopup.cutePopup(options);
+                                    popup.show();
+                                }, 50);
+                            } else {
+                                $userGuidePopup.hide();
+                            }
+                        });
+                } else {
+                    popup.show();
+                }
             });
         },
         overrideInnerSize: function () {

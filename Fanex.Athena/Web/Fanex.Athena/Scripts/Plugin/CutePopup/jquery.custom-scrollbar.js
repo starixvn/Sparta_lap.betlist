@@ -31,6 +31,14 @@
             this.bindEvents();
         }
 
+        function pauseEvent(e) {
+            if (e.stopPropagation) e.stopPropagation();
+            if (e.preventDefault) e.preventDefault();
+            e.cancelBubble = true;
+            e.returnValue = false;
+            return false;
+        }
+
         Scrollable.prototype = {
 
             addScrollableClass: function () {
@@ -260,10 +268,11 @@
             initMouseMoveScrolling: function () {
                 var _this = this;
                 this.$thumb.mousedown(function (event) {
+                    pauseEvent(event);
                     if (_this.enabled)
                         _this.startMouseMoveScrolling(event);
                 });
-                this.documentMouseup = function (event) {
+                this.documentMouseup = function (event) {                    
                     _this.stopMouseMoveScrolling(event);
                 };
                 $(document).mouseup(this.documentMouseup);
@@ -297,6 +306,7 @@
             },
 
             initTouchScrolling: function () {
+                
                 if (document.addEventListener) {
                     var _this = this;
                     this.elementTouchstart = function (event) {

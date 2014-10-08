@@ -299,6 +299,7 @@
     <Content Include="App_Data\UserGuide\LastBetsMonitoring.htm" />
     <Content Include="App_Data\UserGuide\LicenseeWL.htm" />
     <Content Include="Content\CutePopup\close_pop.png" />
+    <Content Include="Content\CutePopup\jquery.custom-scrollbar.css" />
     <Content Include="Content\CutePopup\popup.css" />
  	<Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>

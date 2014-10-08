@@ -72,7 +72,7 @@ var LicenseeWinLoss = (function ($) {
                 return 'stop';
             };
 
-            Site.addUserGuide("LicenseeWL");
+            Site.addUserGuide({ resourceName: "LicenseeWL" });
             Site.addFilterCollapseExpand();
         },
 

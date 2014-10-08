@@ -14,7 +14,10 @@
     <script src="@Url.ContentLink("/Scripts/Plugin/CutePopup/popup.js")" type="text/javascript"></script>
     <script>
         $(function () {
-            Site.addUserGuide("SettledMatchCount");
+            Site.addUserGuide({
+                resourceName: "SettledMatchCount",
+                height: 200
+            });
         });
     </script>
 }
