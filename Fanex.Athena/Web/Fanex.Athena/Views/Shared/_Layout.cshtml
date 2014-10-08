@@ -53,6 +53,5 @@
         var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
     }
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
-    @MiniProfiler.RenderIncludes()
 </body>
 </html>
