@@ -54,7 +54,10 @@ var MonitorBetList = function () {
         { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];
     $this.initialize = function () {
-        Site.addUserGuide({ resourceName: "LastBetsMonitoring" });
+        Site.addUserGuide({ 
+            resourceName: "LastBetsMonitoring",
+            title: Site.getSingleResource("LastBetsMonitoring") + " " + Site.getSingleResource("UserGuide")
+        });
         $this.updateParams();
         $this.currentParam = Site.clone($this.params);
     };

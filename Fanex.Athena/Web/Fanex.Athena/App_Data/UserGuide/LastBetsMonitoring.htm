@@ -1,36 +1,73 @@
-﻿<b>General Info</b>
-<ul>
-<li>	The report only supports for Sportsbook.</li>
-<li>	<b>Sport</b>: All offered sports of the selected licensee will be displayed in the dropdown list.</li>
-<li class="none">The data displayed in the dropdown list for League and Bettype selection must match with the user's choices for "Sport type”.</li>
-
-<li class="newline">	<b>Show/hide</b>: selects the columns to show / hide in the report.</li>
-<li>	<b>Live Status</b>: the ticket status that will be listed out. Note that Mix Live & Non-Live status is used for Parlay Sport </li>
-
-<li class="newline">	<b>Odds type</b>: the format which odds value will be displayed.</li>
-	<li class="child">	<b>All</b>: keeps the original Odds of all tickets.</li>
-	<li class="child">	<b>Based DEC/MY</b>: only convert odds come with bettypes Handicap, Odd/Even, Over/Under and Money Line to Decimal / MY. Odds come with other bettypes are shown as original odds (the odds don't have name).</li>
-
-<li class="newline">	<b>Special Level</b>: the level of the Customer (player) that will be monitor (1 is lowest and 10 is highest).</li>
-<li>	<b>Currency</b>: selects the currency of the bet tickets that will be listed out in the report.</li>
-<li>	<b>Based</b>: specifies the based currency which data will be displayed. The based currency list contains EUR, USD and a dynamic option. The dynamic option will vary when a specific currency is selected in Currency field (except EUR and USD currency).</li>
-
-<li class="newline">	<b>Stake range</b>: filter tickets that have stakes placed in selected range.</li>
-	<li class="child">	<b>From is empty</b>, it means that From = 0 (show all tickets which have Stake =< To)</li>
-	<li class="child">	<b>To is empty</b>, it means that To = unlimited (show all tickets which have Stake >= From)</li>
-<li class="none">Note that</b>: Max length of number is 9 digits by default. If both From and To are empty, it means “no limit stake”</li>
-
-<li class="newline">	<b>Time Zone</b>: selects the Time Zone to which transaction time of all tickets will be converted </li>
-<li>	<b>Platform</b>: the platform that members used to place bets, select a specific platform that you want to monitor</li>
- 
-<li class="none newline"><b>Term definition </b></li>
-<li class="none">The purpose of this report is to enable Licensee to monitor the last 10, 20 or 30 running tickets of their customers. The report refreshes automatically every 3 seconds. To stop automatic refresh, click Freeze button.</li>
-<li>	<b>Platform</b>: the platform that Customers used to place bets.</li>
-<li>	<b>External ID</b>: the username registered by ticket owner.</li>
-<li>	<b>System ID</b>: the Numeric sequential ID generated from system for each account.</li>
-<li>	<b>Trans. Time</b>: a unique reference number given to each bet in the system, each attached with a timestamp of the time and date the bet is accepted.</li>
-<li>	<b>Choice</b>: shows detail information of Bet ticket such as bet type, selected team, match name, and league of the match.</li>
-<li>	<b>Odds</b>: displays the fixed odds value of each ticket.</li>
-<li>	<b>Stake</b>: the amount of money that Customer has bet on each ticket.</li>
-<li>	<b>Status</b>: shows the status of bet ticket.</li>
-</ul>
+﻿<div class="rule">
+    <h4>
+        General Info</h4>
+    <ul>
+        <li>The report only supports for Sportsbook.</li>
+        <li>The purpose of this report is to enable Licensee to monitor the last 10, 20 or 30
+            running tickets of their customers.</li>
+        <li>The report refreshes automatically every 3 seconds. To stop automatic refresh, click
+            Freeze button.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Search Filters</h4>
+    <ul>
+        <li><b>Sport:</b> All offered sports of the selected licensee will be displayed in the
+            dropdown list.<br>
+            The data displayed in the dropdown list for League and Bettype selection must match
+            with the user's choices for "Sport type”.</li>
+        <li><b>Show/hide:</b> selects the columns to show / hide in the report.</li>
+        <li><b>Live Status:</b> the ticket status that will be listed out. Note that Mix Live
+            &amp; Non-Live status is used for Parlay Sport.</li>
+        <li><b>Odds type:</b> the format which odds value will be displayed.
+            <ul>
+                <li><b>All:</b> keeps the original Odds of all tickets.</li>
+                <li><b>Based DEC/MY:</b> only convert odds come with bettypes Handicap, Odd/Even, Over/Under
+                    and Money Line to Decimal / MY. Odds come with other bettypes are shown as original
+                    odds (the odds don't have name).</li>
+            </ul>
+        </li>
+        <li><b>Special Level:</b> the level of the Customer (player) that will be monitor (1
+            is lowest and 10 is highest).</li>
+        <li><b>Currency:</b> selects the currency of the bet tickets that will be listed out
+            in the report.</li>
+        <li><b>Based:</b> specifies the based currency which data will be displayed. The based
+            currency list contains EUR, USD and a dynamic option. The dynamic option will vary
+            when a specific currency is selected in Currency field (except EUR and USD currency).</li>
+        <li><b>Stake range:</b> filter tickets that have stakes placed in selected range.
+            <ul>
+                <li><b>From</b> is empty, it means that From = 0 (show all tickets which have Stake
+                    =&lt; To)</li>
+                <li><b>To</b> is empty, it means that To = unlimited (show all tickets which have Stake
+                    &gt;= From).</li>
+                <li>Note that: the platform that members used to place bets, select a specific platform
+                    that you want to monitor</li>
+            </ul>
+        </li>
+        <li><b>Time Zone:</b> selects the Time Zone to which transaction time of all tickets
+            will be converted.</li>
+        <li><b>Platform:</b> selects the Time Zone to which transaction time of all tickets
+            will be converted.</li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        Term definition</h4>
+    <ul>
+        <li><b>Platform:</b> the platform that Customers used to place bets.</li>
+        <li><b>External ID:</b> the username registered by ticket owner.</li>
+        <li><b>System ID:</b> the Numeric sequential ID generated from system for each account.</li>
+        <li><b>Trans. Time:</b> a unique reference number given to each bet in the system, each
+            attached with a timestamp of the time and date the bet is accepted.</li>
+        <li><b>Choice:</b> shows detail information of Bet ticket such as bet type, selected
+            team, match name, and league of the match.</li>
+        <li><b>Odds:</b> displays the fixed odds value of each ticket.</li>
+        <li><b>Stake:</b> the amount of money that Customer has bet on each ticket.</li>
+        <li><b>Status:</b> shows the status of bet ticket.</li>
+    </ul>
+</div>

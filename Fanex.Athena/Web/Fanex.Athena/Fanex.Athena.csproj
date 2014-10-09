@@ -289,7 +289,6 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
     </Compile>
-    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
@@ -298,9 +297,9 @@
 	<Content Include="App_Data\UserGuide\SettledMatchCount.htm" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring.htm" />
     <Content Include="App_Data\UserGuide\LicenseeWL.htm" />
-    <Content Include="Content\CutePopup\close_pop.png" />
-    <Content Include="Content\CutePopup\jquery.custom-scrollbar.css" />
-    <Content Include="Content\CutePopup\popup.css" />
+    <Content Include="Content\FlatPopup\close_pop.png" />
+    <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
+    <Content Include="Content\FlatPopup\jquery.flatpopup.css" />
  	<Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -338,8 +337,8 @@
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Content Include="Scripts\Plugin\CutePopup\jquery.custom-scrollbar.js" />
-    <Content Include="Scripts\Plugin\CutePopup\popup.js" />
+    <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
+    <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinowinloss.js" />
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">

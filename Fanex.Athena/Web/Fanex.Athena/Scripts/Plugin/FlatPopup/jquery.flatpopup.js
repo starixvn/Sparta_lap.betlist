@@ -2,30 +2,31 @@
 (function ($) {
     var MIN_WIDTH = 640;
     var MAX_HEIGHT = 480;
-    $.fn.cutePopup = function (options) {
+    $.fn.flatPopup = function (options) {
 
         var $self = this;
         var defaultOptions = {
             width: MIN_WIDTH,
-            height: MAX_HEIGHT
+            height: MAX_HEIGHT,
+            title: "&nbsp;"
         };
         
         options = $.extend(defaultOptions, options || {});
 
         options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
         options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
-        $self.addClass("cute-popup");
+        $self.addClass("flat-popup");
 
         // add popup content to a wrapper
         $self.children().wrapAll("<div class='wrapContent'></div>");
-        $self.find(".wrapContent").width(options.width - 10).height(options.height - 10);
+        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
 
         $self.show().find(".wrapContent").customScrollbar({
             skin: 'default-skin'
         });
 
         $self.hide()
-             .prepend("<a href='#' class='popup-close'></a>")
+             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"></a></div>')
              .width(options.width)
              .height(options.height);
 
@@ -33,6 +34,8 @@
             $self.fadeOut(300);
             return false;
         });
+
+        $self.draggable({ handle: ".title-bar" });
 
         return {
             show: function () {

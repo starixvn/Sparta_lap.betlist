@@ -55,7 +55,7 @@ var Site = (function ($) {
             var defaultOptions = {
                 buttonSelector: "#UserGuide"
             };
-            options = $.extend(options || {}, defaultOptions);
+            options = $.extend(defaultOptions, options);
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName);
             var popup;
@@ -70,7 +70,7 @@ var Site = (function ($) {
                         .load(url, function (response, status) {
                             if (status === "success") {
                                 setTimeout(function () {
-                                    popup = $userGuidePopup.cutePopup(options);
+                                    popup = $userGuidePopup.flatPopup(options);
                                     popup.show();
                                 }, 50);
                             } else {
