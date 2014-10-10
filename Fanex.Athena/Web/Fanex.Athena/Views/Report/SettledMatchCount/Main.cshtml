@@ -34,12 +34,9 @@
 }
 @section ContentFilter{}
 @section UserGuide{
-
-     <input type="button" id="UserGuide" value="@ViewResources.UserGuide" />
-}
-@section Note{
-
-    @{Html.RenderAction("Index", "Note", new { viewName = "SettledMatchCount" });}
+   <div class="userguide-group">
+       <div class="userguide-icon" id="UserGuide"></div>
+    </div>
 }
 @{
     <div class="container_26">

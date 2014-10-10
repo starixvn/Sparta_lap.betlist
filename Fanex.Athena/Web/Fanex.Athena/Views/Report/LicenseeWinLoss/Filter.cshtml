@@ -14,13 +14,10 @@
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
     </div>
-    <div class="grid_5 note-group">
+    <div class="grid_5 userguide-group">
         <div>
-            @{Html.RenderAction("Index", "Note", new { viewName = "LicenseeWinLoss" });}
-        </div>
-        <div>
-        <input type="button" value="@ViewResources.UserGuide" id="UserGuide"/>
-        </div>
+            <div class="userguide-icon" id="UserGuide"></div>
+        </div>        
         <div>            
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"
