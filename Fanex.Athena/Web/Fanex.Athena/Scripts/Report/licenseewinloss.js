@@ -74,7 +74,7 @@ var LicenseeWinLoss = (function ($) {
 
             Site.addUserGuide({
                 resourceName: "LicenseeWL",
-                title: Site.getSingleResource("LicenseeWinLoss") + " " + Site.getSingleResource("UserGuide")
+                title: Site.getSingleResource("LicenseeWinLoss")
              });
             Site.addFilterCollapseExpand();
         },

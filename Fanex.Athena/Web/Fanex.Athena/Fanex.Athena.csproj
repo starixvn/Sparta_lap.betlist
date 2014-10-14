@@ -297,6 +297,7 @@
 	<Content Include="App_Data\UserGuide\SettledMatchCount.htm" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring.htm" />
     <Content Include="App_Data\UserGuide\LicenseeWL.htm" />
+    <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
     <Content Include="Content\FlatPopup\jquery.flatpopup.css" />

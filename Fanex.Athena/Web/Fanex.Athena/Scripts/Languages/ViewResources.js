@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/9/2014 4:10:36 PM
+// Lasted generated date: 10/14/2014 11:22:54 AM
 // </history>
 
 var _language_en_US={
@@ -627,6 +627,8 @@ var _language_en_US={
                      IncorrectMinBet:"Incorrect Min Bet",
 				 	
                      InitialHand:"Initial Hand",
+				 	
+                     Instruction:"Instruction",
 				 	
                      Internal:"Internal",
 				 	

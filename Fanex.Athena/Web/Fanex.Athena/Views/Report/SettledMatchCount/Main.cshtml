@@ -16,8 +16,8 @@
         $(function () {
             Site.addUserGuide({
                 resourceName: "SettledMatchCount",
-                title: Site.getSingleResource("SettledMatchCount") + " " + Site.getSingleResource("UserGuide"),
-                height: 260
+                title: Site.getSingleResource("SettledMatchCount"),
+                height: 220
             });
         });
     </script>
@@ -35,7 +35,7 @@
 @section ContentFilter{}
 @section UserGuide{
    <div class="userguide-group">
-       <div class="userguide-icon" id="UserGuide"></div>
+       <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
     </div>
 }
 @{

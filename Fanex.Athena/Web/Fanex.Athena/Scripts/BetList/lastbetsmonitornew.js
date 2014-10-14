@@ -56,7 +56,7 @@ var MonitorBetList = function () {
     $this.initialize = function () {
         Site.addUserGuide({ 
             resourceName: "LastBetsMonitoring",
-            title: Site.getSingleResource("LastBetsMonitoring") + " " + Site.getSingleResource("UserGuide")
+            title: Site.getSingleResource("LastBetsMonitoring")
         });
         $this.updateParams();
         $this.currentParam = Site.clone($this.params);

@@ -2535,4 +2535,8 @@
   <data name="UserGuide" xml:space="preserve">
     <value>User Guide</value>
   </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Instruction</value>
+    <comment>#23174</comment>
+  </data>
 </root>
