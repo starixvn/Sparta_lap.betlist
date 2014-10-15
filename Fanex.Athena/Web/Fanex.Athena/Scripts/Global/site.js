@@ -58,7 +58,7 @@ var Site = (function ($) {
             options = $.extend(defaultOptions, options);
             options.title = (options.title || "") + " " + Site.getSingleResource("Instruction");
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
-            var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName);
+            var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
             $(options.buttonSelector).click(function () {                
                 var $userGuidePopup = $("#UserGuidePopup");
