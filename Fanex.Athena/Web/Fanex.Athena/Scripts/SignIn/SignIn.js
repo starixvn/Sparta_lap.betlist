@@ -48,19 +48,19 @@ function GetValidateImage() {
 function DoEnter(evt, action) {
     if (window.IE) {
         if (window.event.keyCode === 13) {
-            eval(action); //ignore jslint
+            eval(action); // jshint ignore:line
         }
     }
     else {
         if (evt.keyCode === 13) {
-            eval(action); //ignore jslint
+            eval(action); // jshint ignore:line
         }
     }
 }
 
 function InitLogin() {
     // Do not allow wrapping sign-in page
-    if (window.parent != window) { //ignore jslint
+    if (window.parent != window) { // jshint ignore:line
         window.parent.location = location.href;
     }
 
