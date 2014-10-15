@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="HistoryImage_PokerWheel.aspx.cs" Inherits="HistoryImage_PokerWheel" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HistoryImage_PokerWheel.aspx.cs" Inherits="HistoryImage_PokerWheel" %>
