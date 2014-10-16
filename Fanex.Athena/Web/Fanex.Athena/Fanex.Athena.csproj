@@ -294,14 +294,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-	<Content Include="App_Data\UserGuide\SettledMatchCount.htm" />
+    <Content Include="App_Data\UserGuide\SettledMatchCount.htm" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring.htm" />
     <Content Include="App_Data\UserGuide\LicenseeWL.htm" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
     <Content Include="Content\FlatPopup\jquery.flatpopup.css" />
- 	<Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
+    <Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
@@ -331,6 +331,9 @@
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
     </None>
     <None Include="App_Data\SpNameConfig\SpNameConfiguration.ttinclude" />
+    <Content Include="GameData\GlobalSetting.ini" />
+    <Content Include="GameData\VideoPoker\RV009\Settings.ini" />
+    <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
@@ -2642,7 +2645,7 @@
     <None Include="DBConnectionData\GlobalSetting.ini" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
-    <None Include="Integrate\RSAPrivateKey\12bet.snk" />
+    <Content Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Customer\Filter.cshtml" />
