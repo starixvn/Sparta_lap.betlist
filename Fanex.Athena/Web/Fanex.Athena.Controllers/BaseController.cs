@@ -28,12 +28,14 @@ namespace Fanex.Athena.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+        protected const string DefaultLanguage = "en-US";
+
         private readonly ILanguageService _langService = new LanguageService();
         private readonly ISessionService _sessionService = new SessionService();
         private readonly ICurrencyService _currencyService = new CurrencyService();
 
         #region Members
-
+        
         public string[] IgnoreAgCasino
         {
             get

@@ -54,6 +54,10 @@ var MonitorBetList = function () {
         { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
         ];
     $this.initialize = function () {
+        Site.addUserGuide({ 
+            resourceName: "LastBetsMonitoring",
+            title: Site.getSingleResource("LastBetsMonitoring")
+        });
         $this.updateParams();
         $this.currentParam = Site.clone($this.params);
     };
@@ -447,7 +451,7 @@ var MonitorBetListUI = function (monitorObj) {
 
         $("#special-level").multiSelect(
         {
-            minWidth: 100,
+            minWidth: 130,
             maxHeight: 400,
             shadow: true,
             showHeader: true,

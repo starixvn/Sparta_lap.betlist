@@ -2833,6 +2833,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instruction.
+        /// </summary>
+        public static string Instruction {
+            get {
+                return ResourceManager.GetString("Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Internal.
         /// </summary>
         public static string Internal {
@@ -6852,6 +6861,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string USD {
             get {
                 return ResourceManager.GetString("USD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Guide.
+        /// </summary>
+        public static string UserGuide {
+            get {
+                return ResourceManager.GetString("UserGuide", resourceCulture);
             }
         }
         

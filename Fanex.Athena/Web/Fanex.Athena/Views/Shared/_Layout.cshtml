@@ -1,5 +1,4 @@
-﻿@using StackExchange.Profiling
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -7,7 +6,7 @@
     @RenderSection("css", required: false)
     <link href="@Url.ContentLink("/Content/Plugin/Note/note.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/jquery-ui.min.js")" type="text/javascript"></script>    
     <script src="@Url.ContentLink("/Scripts/Library/BigDecimal-all-last.min.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.cookie.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
@@ -53,6 +52,5 @@
         var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
     }
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
-    @MiniProfiler.RenderIncludes()
 </body>
 </html>

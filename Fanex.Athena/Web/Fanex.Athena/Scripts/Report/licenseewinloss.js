@@ -72,6 +72,10 @@ var LicenseeWinLoss = (function ($) {
                 return 'stop';
             };
 
+            Site.addUserGuide({
+                resourceName: "LicenseeWL",
+                title: Site.getSingleResource("LicenseeWinLoss")
+             });
             Site.addFilterCollapseExpand();
         },
 
@@ -458,7 +462,7 @@ var LicenseeWinLoss = (function ($) {
                 $gridBody[0].scrollLeft = scrollLeft;
             }
 
-            
+
         },
 
         //#end

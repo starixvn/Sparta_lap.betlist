@@ -51,6 +51,38 @@ var Site = (function ($) {
                 }
             });
         },
+        addUserGuide: function (options) {            
+            var defaultOptions = {
+                buttonSelector: "#UserGuide"
+            };
+            options = $.extend(defaultOptions, options);
+            options.title = (options.title || "") + " " + Site.getSingleResource("Instruction");
+            $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
+            var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
+            var popup;
+            $(options.buttonSelector).click(function () {                
+                var $userGuidePopup = $("#UserGuidePopup");
+                if ($userGuidePopup.is(":visible")) {
+                    return;
+                }
+
+                if (!popup) {
+                    $userGuidePopup.empty().attr('style', '').hide()
+                        .load(url, function (response, status) {
+                            if (status === "success") {
+                                setTimeout(function () {
+                                    popup = $userGuidePopup.flatPopup(options);
+                                    popup.show();
+                                }, 50);
+                            } else {
+                                $userGuidePopup.hide();
+                            }
+                        });
+                } else {
+                    popup.show();
+                }
+            });
+        },
         overrideInnerSize: function () {
             if (Site.needOverrideInnerSize) {
                 parent.innerHeight = parent.document.documentElement.clientHeight;
@@ -93,7 +125,7 @@ var Site = (function ($) {
 
             return text;
         },
-        
+
         gotoErrorPage: function (status) {
             if (status === undefined || status !== 0) {
                 window.location.href = Site.resolveClientUrl("Utility/Error");

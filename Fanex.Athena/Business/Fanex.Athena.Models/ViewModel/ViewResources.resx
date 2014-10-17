@@ -2532,4 +2532,11 @@
     <value>Max Bet Per Draw</value>
     <comment>#23194</comment>
   </data>
+  <data name="UserGuide" xml:space="preserve">
+    <value>User Guide</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value>Instruction</value>
+    <comment>#23174</comment>
+  </data>
 </root>

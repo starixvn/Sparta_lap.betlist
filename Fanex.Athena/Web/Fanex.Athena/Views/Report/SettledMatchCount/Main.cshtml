@@ -5,9 +5,23 @@
 @using Fanex.Athena.Models.ViewModel
 @model IList<Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel>
 @section pagecss {
+    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.custom-scrollbar.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.flatpopup.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Report/SettledMatchCount.css")" rel="stylesheet" type="text/css" />
 }
-@section pagejs {}
+@section pagejs {
+    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")" type="text/javascript"></script>
+    <script>
+        $(function () {
+            Site.addUserGuide({
+                resourceName: "SettledMatchCount",
+                title: Site.getSingleResource("SettledMatchCount"),
+                height: 220
+            });
+        });
+    </script>
+}
 @{
     //Set width for column
     ViewBag.DateWidth = 200;
@@ -19,8 +33,11 @@
     @ViewResources.SettledMatchCount
 }
 @section ContentFilter{}
-@section Note{
-    @{Html.RenderAction("Index", "Note", new { viewName = "SettledMatchCount" });}}
+@section UserGuide{
+   <div class="userguide-group">
+       <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
+    </div>
+}
 @{
     <div class="container_26">
         <div class="grid_20">

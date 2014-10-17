@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 9/25/2014 10:02:48 AM
+// Lasted generated date: 10/14/2014 11:22:54 AM
 // </history>
 
 var _language_en_US={
@@ -627,6 +627,8 @@ var _language_en_US={
                      IncorrectMinBet:"Incorrect Min Bet",
 				 	
                      InitialHand:"Initial Hand",
+				 	
+                     Instruction:"Instruction",
 				 	
                      Internal:"Internal",
 				 	
@@ -1521,6 +1523,8 @@ var _language_en_US={
                      UpdateVirtualSportsBetSettingSuccessMsg:"The Virtual Sports bet setting of {0} was updated successfully",
 				 	
                      USD:"USD",
+				 	
+                     UserGuide:"User Guide",
 				 	
                      UserInformation:"User Information",
 				 	

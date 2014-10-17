@@ -177,6 +177,7 @@
     <Compile Include="Integration\IntegrationController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
+    <Compile Include="Report\UserGuideController.cs" />
     <Compile Include="Report\ReportController.AgCasinoWinLoss.cs" />
     <Compile Include="Report\ReportController.PlaytechCasino.cs" />
     <Compile Include="MenuController.cs" />
@@ -271,20 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Data\Fanex.Result\Badminton.xls" />
-    <None Include="App_Data\Fanex.Result\BaseBall.xls" />
-    <None Include="App_Data\Fanex.Result\Basketball.xls" />
-    <None Include="App_Data\Fanex.Result\Billiard.xls" />
-    <None Include="App_Data\Fanex.Result\Hockey.xls" />
-    <None Include="App_Data\Fanex.Result\HorseRacing.xls" />
-    <None Include="App_Data\Fanex.Result\LiveCasino.xls" />
-    <None Include="App_Data\Fanex.Result\NumberGame.xls" />
-    <None Include="App_Data\Fanex.Result\OtherSport.xls" />
-    <None Include="App_Data\Fanex.Result\Outright.xls" />
-    <None Include="App_Data\Fanex.Result\Soccer.xls" />
-    <None Include="App_Data\Fanex.Result\Tennis.xls" />
-    <None Include="App_Data\Fanex.Result\VSHRacing.xls" />
-    <None Include="App_Data\Fanex.Result\VSTennis.xls" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

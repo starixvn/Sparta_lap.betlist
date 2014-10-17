@@ -18,7 +18,6 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using StackExchange.Profiling;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -104,10 +103,6 @@ namespace Fanex.Athena
 
         protected void Application_BeginRequest()
         {
-            if (Request.IsLocal)
-            {
-                MiniProfiler.Start();
-            }
         }
 
         /// <summary>
@@ -116,7 +111,6 @@ namespace Fanex.Athena
         protected void Application_EndRequest()
         {
             /*stop as early as you can, even earlier with MvcMiniProfiler.MiniProfiler.Stop(discardResults: true);*/
-            MiniProfiler.Stop();
         }
     }
 }
