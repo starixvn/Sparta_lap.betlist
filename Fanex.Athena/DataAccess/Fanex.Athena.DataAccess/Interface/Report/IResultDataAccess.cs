@@ -13,13 +13,13 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Result.Core.DTO;
 
     public interface IResultDataAccess
     {
-        DataTable GetOutRight(ResultMetalModel metal);
+        IList<OutRight> GetOutRight(ResultMetalModel metal);
 
         #region Filter
 
@@ -31,21 +31,21 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 
         #region Report
 
-        DataTable GetMatchs(ResultMetalModel metalModel);
+        IList<T> GetMatches<T>(ResultMetalModel metalModel);
 
-        DataTable GetNumberGameMatchs(ResultMetalModel metalModel);
+        IList<Racing> GetRacingMatches(ResultMetalModel metalModel);
 
-        DataTable GetRacingMatch(ResultMetalModel metalModel);
+        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
         #endregion Report
 
         #region Popup
 
-        DataTable GetPopUpMatch(int matchId, int raceNo, int licenseeId, int userId);
+        IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int licenseeId, int userId);
 
-        DataTable GetPopUpParalayMatch(long refNo);
+        IList<Parlay> GetPopUpParalayMatch(long refNo);
 
-        DataTable GetPopUpNumberGameMatch(int matchId);
+        IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
 
         #endregion Popup
     }

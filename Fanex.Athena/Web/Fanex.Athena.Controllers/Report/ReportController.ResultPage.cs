@@ -531,7 +531,7 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = resultService.GetRacingMatch(metalModel);
+                    var dataRc = resultService.GetRacingMatches(metalModel);
                     if (dataRc != null)
                     {
                         if (metalModel.IsExportExcel)
@@ -547,7 +547,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.LiveCasino:
-                    var dataLc = resultService.GetLiveCasinoMatchs(metalModel);
+                    var dataLc = resultService.GetLiveCasinoMatches(metalModel);
 
                     if (dataLc != null)
                     {
@@ -564,7 +564,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = resultService.GetNumberGameMatchs(
+                    var dataNg = resultService.GetNumberGameMatches(
                         metalModel);
                     if (dataNg != null)
                     {
@@ -581,7 +581,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetMatchs(metalModel);
+                    var data = resultService.GetMatches(metalModel);
                     if (data != null)
                     {
                         if (metalModel.IsExportExcel)

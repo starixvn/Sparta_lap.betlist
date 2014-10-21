@@ -48,28 +48,28 @@ namespace Fanex.Athena.Service.Interface.Report
         /// </summary>
         /// <param name="metalModel"> The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetMatchs(ResultMetalModel metalModel);
+        IList<Sportbook> GetMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get live casino match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<LiveCasino> GetLiveCasinoMatchs(ResultMetalModel metalModel);
+        IList<LiveCasino> GetLiveCasinoMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get number game match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<NumberGame> GetNumberGameMatchs(ResultMetalModel metalModel);
+        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get racing match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<Racing> GetRacingMatch(ResultMetalModel metalModel);
+        IList<Racing> GetRacingMatches(ResultMetalModel metalModel);
 
         #endregion Report
 
