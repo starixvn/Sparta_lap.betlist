@@ -517,7 +517,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 }
             }
 
-            return dataList.OrderBy(x => x.LeagueId).OrderBy(x => x.MatchId).OrderBy(x => x.Seg).ToList();
+            return dataList.OrderBy(x => x.LeagueId).OrderBy(x => x.MatchId).ToList();
         }
 
         /// <summary>
