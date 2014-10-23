@@ -82,8 +82,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="matchId">The match id.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId);
+        IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Get live casino match for pop up page.
@@ -91,8 +93,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="matchId">The match id.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId);
+        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Get the racing match for pop up page.
@@ -101,8 +105,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="raceNo">The race no.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId);
+        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.

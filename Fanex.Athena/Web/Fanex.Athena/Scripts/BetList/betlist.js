@@ -276,13 +276,14 @@ var BetList = (function ($) {
             return url;
         },
 
-        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright) {
+        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
             var url = Site.resolveClientUrl('Report/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "raceno", raceNo);
             url = QueryString.setParam(url, "sporttype", sporttype);
             url = QueryString.setParam(url, "isoutright", isOutright);
+            url = QueryString.setParam(url, "betid", betid);
 
             return url;
         },
@@ -292,11 +293,11 @@ var BetList = (function ($) {
             $(".league-name-title").html(leagueNameText + " - ");
         },
 
-        showResult: function (matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright) {
+        showResult: function (matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid) {
             bettype = Number(bettype);
             var url = bettype === 9 || bettype === 29
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright);
+                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid);
 
             var height = bettype === 9 || bettype === 29 ? 450 : 150;
             var width = 750;

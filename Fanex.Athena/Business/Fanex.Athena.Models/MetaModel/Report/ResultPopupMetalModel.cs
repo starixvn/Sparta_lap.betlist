@@ -35,5 +35,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         public long? RefNo { get; set; }
 
         public DateTime? WinLossDate { get; set; }
+
+        public long? BetId { get; set; }
     }
 }

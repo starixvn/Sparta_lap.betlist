@@ -74,34 +74,21 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Popup
 
-        public IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId)
+        public IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<Sportbook>(matchId, -1, licenseeId, userId);
+            return this._dataAccess.GetPopUpMatches<Sportbook>(matchId, -1, licenseeId, userId, bettypeId, betId);
         }
 
-        public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId)
+        public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<LiveCasino>(matchId, -1, licenseeId, userId);
+            return this._dataAccess.GetPopUpMatches<LiveCasino>(matchId, -1, licenseeId, userId, bettypeId, betId);
         }
 
-        /// <summary>
-        /// Get racing data for popup page.
-        /// </summary>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="raceNo">The reference number.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The racing data list.</returns>
-        public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId)
+        public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId);
+            return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId);
         }
-
-        /// <summary>
-        /// Get parlay match for pop up page.
-        /// </summary>
-        /// <param name="refNo">The reference no.</param>
-        /// <returns>The parlay data list.</returns>        
+     
         public IList<Parlay> GetPopUpParlayMatch(long refNo)
         {
            return this._dataAccess.GetPopUpParalayMatch(refNo);            

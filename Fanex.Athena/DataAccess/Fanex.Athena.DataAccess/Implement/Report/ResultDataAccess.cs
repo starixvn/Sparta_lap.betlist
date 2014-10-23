@@ -224,8 +224,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="raceNo">Race Number value.</param>
         /// <param name="licenseeId">Licensee ID value.</param>
         /// <param name="userId">User ID value.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The result value.</returns>
-        public IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int licenseeId, int userId)
+        public IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId)
         {
             const string UspName = "Lrf_BetList_SelMatchResult";
             var uspParams = new
@@ -233,7 +235,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 matchid = matchId,
                 raceno = raceNo > -1 ? raceNo.ToString(CultureInfo.InvariantCulture) : null,
                 licenseeid = licenseeId,
-                userid = userId
+                userid = userId,
+                bettype = bettypeId,
+                betid = betId
             };
 
             try

@@ -302,7 +302,9 @@ namespace Fanex.Athena.Controllers.Report
                             metalModel.MatchId,
                             metalModel.RaceNo.Value,
                             licenseeId,
-                            userId);
+                            userId,
+                            metalModel.Bettype,
+                            metalModel.BetId);
                         if (dataRc != null)
                         {
                             this._htmlResult = ResultEngine.HtmlParser(dataRc, setting);
@@ -316,7 +318,9 @@ namespace Fanex.Athena.Controllers.Report
                     var dataLc = resultService.GetPopUpLiveCasinoMatch(
                         metalModel.MatchId,
                         licenseeId,
-                        userId);
+                        userId,
+                        metalModel.Bettype,
+                        metalModel.BetId);
                     if (dataLc != null)
                     {
                         this._htmlResult = ResultEngine.HtmlParser(dataLc, setting);
@@ -334,7 +338,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId);
+                    var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
                     {
                         _htmlResult = ResultEngine.HtmlParser(data, setting);
