@@ -8,6 +8,7 @@ namespace Fanex.Athena.Models.Cache
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.ViewModel;
     using RemotingRef;
 
@@ -77,22 +78,24 @@ namespace Fanex.Athena.Models.Cache
                     Justification = "Reviewed. Suppression is OK here.")]
         public static string GetBettype(int betType, bool liveIndicator)
         {
-            var betTypeName = RefData.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentLanguage(), string.Empty);
+            const int SBMinOfMaxBettype = 120;
 
-            if (betType == 90)
+            var betTypeName = RefData.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentLanguage(), string.Empty);
+            
+            if (betType == (int)BetType.NgNumberGroup)
             {
                 betTypeName += liveIndicator ? " (" + ViewResources.LiveGame + ")" : " (" + ViewResources.PreGame + ")";
                 return betTypeName;
             }
 
-            if (betType >= 81 && betType < 120)
+            if (betType >= (int)BetType.NG1StBallOU && betType < SBMinOfMaxBettype)
             {
-                if ((betType == 85 || betType == 86) && liveIndicator)
+                if ((betType == (int)BetType.NgOuFt || betType == (int)BetType.NgOeFt) && liveIndicator)
                 {
                     betTypeName = ViewResources.Next + " " + betTypeName;
                 }
 
-                if (betType == 86 && !liveIndicator)
+                if (betType == (int)BetType.NgOeFt && !liveIndicator)
                 {
                     betTypeName = ViewResources.FT + " " + betTypeName;
                 }

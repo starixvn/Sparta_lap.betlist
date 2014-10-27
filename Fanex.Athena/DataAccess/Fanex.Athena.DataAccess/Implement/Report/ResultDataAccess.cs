@@ -315,27 +315,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                                       {
                                                           AwayId = reader.ToInt("awayID"),
                                                           HomeId = reader.ToInt("homeID"),
-                                                          BetStatus =
-                                                              reader["betstatus"] != DBNull.Value
-                                                                  ? reader.ToString("betstatus") : string.Empty,
+                                                          BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
                                                           LeagueId = leagueId,
                                                           MatchId = reader.ToInt("matchid"),
                                                           EventStatus = reader.ToString("eventstatus"),
-                                                          FinalAwayScore =
-                                                              reader["finalawayscore"] != DBNull.Value
-                                                                  ? reader.ToInt("finalawayscore") : (int?)null,
-                                                          HtAwayScore =
-                                                              reader["htawayscore"] != DBNull.Value
-                                                                  ? reader.ToInt("htawayscore") : (int?)null,
-                                                          Color = reader.TryGetOrdinal("lcolor") >= 0 &&
-                                                              reader["lcolor"] != DBNull.Value
-                                                                  ? reader.ToString("lcolor") : string.Empty,
-                                                          FinalHomeScore =
-                                                              reader["finalhomescore"] != DBNull.Value
-                                                                  ? reader.ToInt("finalhomescore") : (int?)null,
-                                                          HtHomeScore =
-                                                              reader["finalhomescore"] != DBNull.Value
-                                                                  ? reader.ToInt("hthomescore") : (int?)null,
+                                                          FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                                                          HtAwayScore = reader.ToNullableInt("htawayscore"),
+                                                          Color = reader.FieldExists("lcolor") &&
+                                                              reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                                                          FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                                                          HtHomeScore = reader.ToNullableInt("finalhomescore"),
                                                           EventDate = DateTime.Parse(reader.ToString("eventdate")),
                                                           IsNeutral = reader.ToBool("IsNeutral"),
                                                           IsPending = reader.ToBool("IsPending"),
@@ -452,23 +441,15 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 {
                                     AwayId = reader.ToInt("awayID"),
                                     HomeId = reader.ToInt("homeID"),
-                                    BetStatus =
-                                        reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                                    BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
                                     LeagueId = reader.ToInt("leagueid"),
                                     MatchId = reader.ToInt("matchid"),
                                     EventStatus = reader.ToString("eventstatus"),
-                                    FinalAwayScore =
-                                        reader["finalawayscore"] != DBNull.Value
-                                            ? reader.ToInt("finalawayscore") : (int?)null,
-                                    HtAwayScore =
-                                        reader["htawayscore"] != DBNull.Value ? reader.ToInt("htawayscore") : (int?)null,
-                                    Color = reader.TryGetOrdinal("lcolor") >= 0 && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
-                                    FinalHomeScore =
-                                        reader["finalhomescore"] != DBNull.Value
-                                            ? reader.ToInt("finalhomescore") : (int?)null,
-                                    HtHomeScore =
-                                        reader["hthomescore"] != DBNull.Value
-                                            ? reader.ToInt("hthomescore") : (int?)null,
+                                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                                    HtAwayScore = reader.ToNullableInt("htawayscore"),
+                                    Color = reader.FieldExists("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                                    HtHomeScore = reader.ToNullableInt("hthomescore"),
                                     EventDate = DateTime.Parse(reader.ToString("eventdate")),
                                     IsNeutral = reader.ToBool("IsNeutral"),
                                     IsPending = reader.ToBool("IsPending"),
@@ -512,7 +493,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             MatchId = reader.ToInt("matchid"),
                             EventStatus = reader.ToString("eventstatus"),
                             EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                            IsPending = reader.TryGetOrdinal("isrefund") >= 0 && reader.ToString("isrefund") != "0",
+                            IsPending = reader.FieldExists("isrefund") && reader.ToString("isrefund") != "0",
                             KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                             MatchCode = reader.ToString("matchcode"),
                             Seg = new List<int> { reader.ToInt("seq") },
@@ -540,10 +521,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     ShowTime = reader.ToString("showtime"),
                                     LeagueId = reader.ToInt("leagueid"),
                                     EventStatus = reader.ToString("eventstatus"),
-                                    FinalAwayScore =
-                                        reader["finalawayscore"] != DBNull.Value ? reader.ToInt("finalawayscore") : (int?)null,
-                                    FinalHomeScore =
-                                        reader["finalhomescore"] != DBNull.Value ? reader.ToInt("finalhomescore") : (int?)null,
+                                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
                                     EventDate = DateTime.Parse(reader.ToString("eventdate")),
                                     IsPending = reader.ToBool("IsPending"),
                                     KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
@@ -574,12 +553,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     LeagueId = reader.ToInt("meetingid"),
                                     EngineId = reader.ToString("HorseId"),
                                     EngineNo = reader.ToString("HorseNo"),
-                                    IsFavor = reader["IsFavor"] != DBNull.Value && reader.ToString("IsFavor").Equals("1") ? true : false,
-                                    IsSCR = reader["IsSCR"] != DBNull.Value && reader.ToString("IsSCR").Equals("1") ? true : false,
+                                    IsFavor = reader["IsFavor"] != DBNull.Value && reader.ToString("IsFavor").Equals("1"),
+                                    IsSCR = reader["IsSCR"] != DBNull.Value && reader.ToString("IsSCR").Equals("1"),
                                     Place = reader.ToInt("place"),
                                     PlaceOdds = reader.ToDecimal("placeodds"),
                                     WinOdds = reader.ToDecimal("odds"),
-                                    RaceName = reader["racename"] != DBNull.Value ? reader.ToInt("racename") : 0,
+                                    RaceName = (int)reader.ToNullableInt("racename", 0),
                                     KickOffTime = reader["kickofftime"] != DBNull.Value ? DateTime.Parse(reader.ToString("kickofftime")) : DateTime.MinValue,
                                     Favourite = reader["IsFavor"] != DBNull.Value ? reader.ToString("IsFavor") : string.Empty,
                                     RowCount = reader.ToInt("rowcount"),

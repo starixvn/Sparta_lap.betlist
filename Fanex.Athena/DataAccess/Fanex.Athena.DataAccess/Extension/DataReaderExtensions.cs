@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.Extension
 {
     using System;
     using System.Data;
+    using Fanex.Common.Extensions;
 
     /// <summary>
     ///     The data reader extensions.
@@ -58,6 +59,11 @@ namespace Fanex.Athena.DataAccess.Extension
             }
 
             return -1;
+        }
+
+        public static int? ToNullableInt(this IDataReader reader, string fieldName, int? defaultValue = null)
+        {
+            return reader[fieldName] != DBNull.Value ? reader.ToInt(fieldName) : defaultValue;
         }
 
         #endregion Public Methods and Operators

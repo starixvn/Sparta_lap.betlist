@@ -4,6 +4,8 @@
 
 var BetList = (function ($) {
     "use strict";
+    var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+
     var _sortColumnName, _sortOrder;
     var _params, _url;
     return {
@@ -295,11 +297,12 @@ var BetList = (function ($) {
 
         showResult: function (matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid) {
             bettype = Number(bettype);
-            var url = bettype === 9 || bettype === 29
+            var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
+            var url = isParlay
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid);
 
-            var height = bettype === 9 || bettype === 29 ? 450 : 150;
+            var height = isParlay ? 450 : 150;
             var width = 750;
             var title = Site.getSingleResource("Result");
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
