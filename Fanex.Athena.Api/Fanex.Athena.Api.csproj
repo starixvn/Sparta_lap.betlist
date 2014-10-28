@@ -45,8 +45,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Fanex.BetList.Core.2.0.5.10\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
-    <Reference Include="IBCFile">
-      <HintPath>..\packages\IBCFile.1.0.0\lib\net40\IBCFile.dll</HintPath>
+    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -65,10 +65,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RazorEngine-release-3.2\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
-    <Reference Include="RemotingRef">
+    <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RemotingRef.1.0.0.1\lib\net40\RemotingRef.dll</HintPath>
     </Reference>
-    <Reference Include="SPSRemoting">
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Core.Common">
