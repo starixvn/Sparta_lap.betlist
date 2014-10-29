@@ -23,6 +23,8 @@ namespace Fanex.Athena.Models.DTO.Users
 
         public string Password { get; set; }
 
+        public string UserSalt { get; set; }
+
         public string Email { get; set; }
 
         public string FirstName { get; set; }

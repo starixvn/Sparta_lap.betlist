@@ -9,14 +9,18 @@
 
 namespace Fanex.Athena.Service.Implement.Users
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Users;
     using Fanex.Athena.DataAccess.Interface.Users;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Exception;
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Common;
+    using Fanex.Data;
     using Fanex.Logging;
 
     /// <summary>
@@ -25,6 +29,9 @@ namespace Fanex.Athena.Service.Implement.Users
     public class UserService : IUserService
     {
         #region Constants and Fields
+
+        private const int UserNotExistError = 100;
+        private const int WrongUserNameOrPasswordError = 104;
 
         /// <summary>
         ///     The _user data access.
@@ -124,6 +131,31 @@ namespace Fanex.Athena.Service.Implement.Users
             {
                 LogService.Error(ex.Message, ex);
                 throw new ServiceException(ex.Message, "GetByLicensee");
+            }
+        }
+
+        /// <summary>
+        /// Get by username.
+        /// </summary>
+        /// <param name="userName">Username value.</param>
+        /// <returns>User value.</returns>
+        public User GetByUsername(string userName)
+        {
+            var param = new
+            {
+                Username = userName,
+            };
+            try
+            {
+                using (var objectDb = new ObjectDb("Lrf_UserInfoSelByUserName"))
+                {
+                    return objectDb.Query<User>(param).FirstOrDefault();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+                throw new ServiceException(ex.Message, "GetByUsername");                
             }
         }
 
@@ -366,7 +398,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 else
                 {
                     // user doest not exist
-                    resultInfo = new ResultInfo { Code = 100, Message = "User does not exist" };
+                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = "User does not exist" };
                 }
 
                 return user;
@@ -384,32 +416,37 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <param name="requestUser">
         ///     The request user.
         /// </param>
+        /// <param name="loginToken">
+        ///     The login token.
+        /// </param>
         /// <param name="resultInfo">
         ///     The result information.
         /// </param>
         /// <returns>
         /// The system user.
         /// </returns>
-        public User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo)
+        public User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo)
         {
             try
             {
-                User user = null;
-
-                // get salt of user to hash password
-                var salt = this._userDataAccess.GetUserSalt(requestUser.Username);
-
-                if (!ReferenceEquals(null, salt))
+                var user = GetByUsername(requestUser.Username);                
+                
+                if (user != null) 
                 {
-                    // create hashpassword
-                    var hahPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
-                    requestUser.Password = hahPassword;
-                    user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                    var hashPassword = Cryptography.CreateHash(user.Password, loginToken);
+                    if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
+                    {
+                        user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                    }
+                    else
+                    {
+                        resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
+                    }
                 }
                 else
                 {
-                    // user doest not exist
-                    resultInfo = new ResultInfo { Code = 100, Message = "User does not exist" };
+                    // user does not exist
+                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = "User does not exist" };
                 }
 
                 return user;

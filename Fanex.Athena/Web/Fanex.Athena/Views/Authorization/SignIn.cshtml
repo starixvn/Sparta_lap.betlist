@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var loginToken = ViewBag.LogInToken as string;
 }
 <!DOCTYPE html>
 <html>
@@ -8,13 +9,17 @@
     <title>@ViewResources.InternalSystem</title>
     <link href="@Url.ContentLink("/Content/SignIn/SignIn.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/Scripts/Library/CryptoJS.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/SignIn/SignIn.js")" type="text/javascript"></script>
     <script type="text/javascript">
      var _page=
      {
-      errCode:@ViewBag.errCode,
-      errMsg:'@ViewBag.errMsg'
+      errCode: @(ViewBag.errCode),
+      errMsg: '@(ViewBag.errMsg)'
      }; 
+     var resolveClientUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+     };
     </script>
 </head>
 <body>
@@ -70,7 +75,9 @@
             </div>
         </div>
     </div>
+    @Html.Hidden("LogInToken")
     </form>
     <input type="hidden" id="captchaUrl" value="@Url.Content("~/Authorization/Captcha")" />
+@Html.Hidden("LogInTokenTemp", loginToken)
 </body>
 </html>

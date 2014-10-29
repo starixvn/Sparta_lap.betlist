@@ -322,7 +322,9 @@
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </None>
     <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml" />
-    <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml" />
+    <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Deployment.ignore" />
     <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
@@ -341,6 +343,7 @@
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinowinloss.js" />

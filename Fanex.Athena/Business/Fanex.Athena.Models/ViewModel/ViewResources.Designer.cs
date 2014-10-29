@@ -7198,6 +7198,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong username or password.
+        /// </summary>
+        public static string WrongUserNamePassword {
+            get {
+                return ResourceManager.GetString("WrongUserNamePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Year.
         /// </summary>
         public static string Year {

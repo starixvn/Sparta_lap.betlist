@@ -1,4 +1,4 @@
-﻿/*global _page*/
+﻿/*global _page, CryptoJS, resolveClientUrl */
 /*exported InitLogin, GetValidateImage,DoLogin, DoEnter*/
 /*
 * Created 20100113@Lee - Sign-in javascript functions
@@ -13,6 +13,33 @@ var LanguageMessages = {
     errUserName: "Please input username and password",
     errValidCode: "You must input validation code."
 };
+
+function getUserSalt() {
+    var salt;
+    var userName = $("#userName").val();
+    if (userName) {
+        var url = resolveClientUrl("Authorization/GetUserSalt?userName=" + userName);
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function () {
+            },
+            success: function (result) {
+                salt = result;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+
+    return salt;
+}
+
 function DoLogin() {
     var errObj = LanguageMessages;
     if ($('#userName').val() === "") {
@@ -33,9 +60,29 @@ function DoLogin() {
 
     $('#btnLogin').attr('disabled', 'disabled');
 
-    document.fLogin.submit();
 
-    return true;
+    var $username = $("#userName");
+    var $password = $("#passWord");
+
+    $username.val($username.val().trim());
+    var isUserNameValid = $username.val() !== "";
+    var isPasswordValid = $password.val() !== "";
+    var $loginToken = $('#LogInToken');
+    var $loginTokenTemp = $('#LogInTokenTemp');
+
+    var userSalt = getUserSalt();
+
+    $loginToken.val($loginTokenTemp.val());
+    var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+    var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val()).toString(CryptoJS.enc.Hex).toUpperCase();
+    $password.val(encryptedPass);
+
+    if (isUserNameValid && isPasswordValid) {
+        document.fLogin.submit();
+        return true;
+    }
+
+    return false;
 }
 
 function GetValidateImage() {
@@ -69,7 +116,7 @@ function InitLogin() {
     if (typeof _page.errCode !== 'undefined' && _page.errCode !== 0) {
         $("#errmsg").html(_page.errMsg);
         if (_page.errCode === 101) {
-            $('#txtCaptcha').focus();
+            $('#txtCaptcha').focus().select();
         }
     }
 }

@@ -181,6 +181,9 @@ namespace Fanex.Athena.Service.Interface.Users
         /// <param name="requestUser">
         ///     The request user.
         /// </param>
+        /// <param name="loginToken">
+        ///     The login token.
+        /// </param>
         /// <param name="resultInfo">
         ///     The result.
         /// </param>
@@ -189,7 +192,7 @@ namespace Fanex.Athena.Service.Interface.Users
         /// </returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
+        User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo);
 
         #endregion Public Methods and Operators
     }

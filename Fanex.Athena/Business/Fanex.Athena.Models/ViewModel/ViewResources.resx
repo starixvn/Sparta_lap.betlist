@@ -2539,4 +2539,8 @@
     <value>Instruction</value>
     <comment>#23174</comment>
   </data>
+  <data name="WrongUserNamePassword" xml:space="preserve">
+    <value>Wrong username or password</value>
+    <comment>#22443</comment>
+  </data>
 </root>

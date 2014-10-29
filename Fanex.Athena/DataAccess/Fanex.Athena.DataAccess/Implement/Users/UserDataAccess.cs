@@ -480,8 +480,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                 var user = new User();
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                    db.AddInParameter("UserPwd", DbType.String, requestUser.Password);
+                    db.AddInParameter("UserName", DbType.String, requestUser.Username);                    
                     db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
                     db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
                     db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
