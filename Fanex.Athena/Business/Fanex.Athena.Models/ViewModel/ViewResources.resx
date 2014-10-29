@@ -2543,4 +2543,7 @@
     <value>Wrong username or password</value>
     <comment>#22443</comment>
   </data>
+  <data name="UserNotExist" xml:space="preserve">
+    <value>User does not exist.</value>
+  </data>
 </root>

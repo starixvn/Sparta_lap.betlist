@@ -96,14 +96,12 @@ namespace Fanex.Athena.Service.Implement.Users
 
                 var user = new User { Request = new Request { Ip = ip }, Username = userName };
 
-                var result = this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
-
-                return result;
+                return this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ChangePassword");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ChangePassword");
             }
         }
 
@@ -123,14 +121,12 @@ namespace Fanex.Athena.Service.Implement.Users
         {
             try
             {
-                var entityList = this._userDataAccess.GetByLicensee(licenseeId, isInternal);
-
-                return entityList;
+                return this._userDataAccess.GetByLicensee(licenseeId, isInternal);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "GetByLicensee");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "GetByLicensee");
             }
         }
 
@@ -152,10 +148,10 @@ namespace Fanex.Athena.Service.Implement.Users
                     return objectDb.Query<User>(param).FirstOrDefault();
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "GetByUsername");                
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "GetByUsername");                
             }
         }
 
@@ -177,10 +173,10 @@ namespace Fanex.Athena.Service.Implement.Users
             {
                 return this._userDataAccess.GetUserInfo(licenseeId, userId);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "GetUserInfo");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "GetUserInfo");
             }
         }
 
@@ -197,14 +193,12 @@ namespace Fanex.Athena.Service.Implement.Users
         {
             try
             {
-                var isUsernameExisted = this._userDataAccess.IsUsernameExited(userName);
-
-                return isUsernameExisted;
+                return this._userDataAccess.IsUsernameExited(userName);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "IsUserNameExisted");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "IsUserNameExisted");
             }
         }
 
@@ -233,10 +227,10 @@ namespace Fanex.Athena.Service.Implement.Users
                 requestUser.Request = new Request { Ip = ip };
                 return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "LoginOnUser");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "LoginOnUser");
             }
         }
 
@@ -266,10 +260,10 @@ namespace Fanex.Athena.Service.Implement.Users
             {
                 return this._userDataAccess.RecheckIn(onuserId);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ReCheckin");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ReCheckin");
             }
         }
 
@@ -296,14 +290,12 @@ namespace Fanex.Athena.Service.Implement.Users
                 }
 
                 user.Password = Cryptography.CreateHash(user.Password, salt);
-                var result = this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
-
-                return result;
+                return this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ResetPassword");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ResetPassword");
             }
         }
 
@@ -323,13 +315,12 @@ namespace Fanex.Athena.Service.Implement.Users
         {
             try
             {
-                var result = this._userDataAccess.UpdateInfo(user, updatedBy);
-                return result;
+                return this._userDataAccess.UpdateInfo(user, updatedBy);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "UpdateInfo");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "UpdateInfo");
             }
         }
 
@@ -360,10 +351,10 @@ namespace Fanex.Athena.Service.Implement.Users
             {
                 return this._userDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ValidateInternalUser");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ValidateInternalUser");
             }
         }
 
@@ -391,8 +382,8 @@ namespace Fanex.Athena.Service.Implement.Users
                 if (!ReferenceEquals(null, salt))
                 {
                     // create hashpassword
-                    var hahPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
-                    requestUser.Password = hahPassword;
+                    var hashPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
+                    requestUser.Password = hashPassword;
                     user = this._userDataAccess.ValidateUser(requestUser, out resultInfo);
                 }
                 else
@@ -403,10 +394,10 @@ namespace Fanex.Athena.Service.Implement.Users
 
                 return user;
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ValidateUser");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ValidateUser");
             }
         }
 
@@ -445,16 +436,15 @@ namespace Fanex.Athena.Service.Implement.Users
                 }
                 else
                 {
-                    // user does not exist
-                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = "User does not exist" };
+                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
                 }
 
                 return user;
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ValidateUserForLrfSystem");
+                LogService.Error(exception.Message, exception);
+                throw new ServiceException(exception.Message, "ValidateUserForLrfSystem");
             }
         }
 

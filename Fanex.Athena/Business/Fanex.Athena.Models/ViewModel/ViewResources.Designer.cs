@@ -6892,6 +6892,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User does not exist..
+        /// </summary>
+        public static string UserNotExist {
+            get {
+                return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         public static string View {
