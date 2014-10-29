@@ -54,8 +54,9 @@
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.5.5.0\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.6.0.0-beta\lib\net40\Fanex.Result.Core.dll</HintPath>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -238,20 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Data\Fanex.Result\Badminton.xls" />
-    <None Include="App_Data\Fanex.Result\BaseBall.xls" />
-    <None Include="App_Data\Fanex.Result\Basketball.xls" />
-    <None Include="App_Data\Fanex.Result\Billiard.xls" />
-    <None Include="App_Data\Fanex.Result\Hockey.xls" />
-    <None Include="App_Data\Fanex.Result\HorseRacing.xls" />
-    <None Include="App_Data\Fanex.Result\LiveCasino.xls" />
-    <None Include="App_Data\Fanex.Result\NumberGame.xls" />
-    <None Include="App_Data\Fanex.Result\OtherSport.xls" />
-    <None Include="App_Data\Fanex.Result\Outright.xls" />
-    <None Include="App_Data\Fanex.Result\Soccer.xls" />
-    <None Include="App_Data\Fanex.Result\Tennis.xls" />
-    <None Include="App_Data\Fanex.Result\VSHRacing.xls" />
-    <None Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <None Include="Content\Fanex.Result\fanex.result.less" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +251,7 @@
     <Content Include="Content\Fanex.Result\images\1L.gif" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
     <Content Include="Content\Fanex.Result\images\first-goal.gif" />
+    <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\Fanex.Result\images\last-goal.gif" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
   </ItemGroup>

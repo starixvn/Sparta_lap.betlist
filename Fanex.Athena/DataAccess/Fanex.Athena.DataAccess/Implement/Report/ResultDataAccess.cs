@@ -248,7 +248,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         var type = typeof(T);
 
-                        if (type == typeof(Sportbook))
+                        if (type == typeof(Sportsbook))
                         {
                             return (IList<T>)ReadSportbookMatches(reader);
                         }
@@ -311,7 +311,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                    };
                             }
 
-                            parlay.Sportbook.Add(new Sportbook
+                            parlay.Sportbook.Add(new Sportsbook
                                                       {
                                                           AwayId = reader.ToInt("awayID"),
                                                           HomeId = reader.ToInt("homeID"),
@@ -331,7 +331,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                                           KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                                                           MatchCode = reader.ToString("matchcode"),
                                                           GoalRecord = reader.ToString("goalrecord"),
-                                                          ResultValue = string.Empty,
                                                           IsHTCal = reader.ToBool("IsHTCal"),
                                                           Calculate = reader.ToBool("Calculate"),
                                                           RefNo = refNo.ToString(CultureInfo.InvariantCulture),
@@ -403,7 +402,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         var type = typeof(T);
 
-                        if (type == typeof(Sportbook))
+                        if (type == typeof(Sportsbook))
                         {
                             return (IList<T>)ReadSportbookMatches(reader);
                         }
@@ -432,12 +431,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="reader">The data reader.</param>
         /// <returns>The sport-book data list.</returns>        
-        private static IList<Sportbook> ReadSportbookMatches(IDataReader reader)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader)
         {
-            var dataList = new List<Sportbook>();
+            var dataList = new List<Sportsbook>();
             while (reader.Read())
             {
-                dataList.Add(new Sportbook
+                dataList.Add(new Sportsbook
                                 {
                                     AwayId = reader.ToInt("awayID"),
                                     HomeId = reader.ToInt("homeID"),
@@ -456,7 +455,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                                     MatchCode = reader.ToString("matchcode"),
                                     GoalRecord = reader.ToString("goalrecord"),
-                                    ResultValue = string.Empty,
                                     IsHTCal = reader.ToBool("IsHTCal"),
                                     Calculate = reader.ToBool("Calculate"),
                                     RefNo = string.Empty

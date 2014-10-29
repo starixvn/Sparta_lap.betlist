@@ -50,9 +50,9 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Report
 
-        public IList<Sportbook> GetMatches(ResultMetalModel metalModel)
+        public IList<Sportsbook> GetMatches(ResultMetalModel metalModel)
         {
-            return this._dataAccess.GetMatches<Sportbook>(metalModel);
+            return this._dataAccess.GetMatches<Sportsbook>(metalModel);
         }
 
         public IList<LiveCasino> GetLiveCasinoMatches(ResultMetalModel metalModel)
@@ -74,9 +74,9 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Popup
 
-        public IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
+        public IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<Sportbook>(matchId, -1, licenseeId, userId, bettypeId, betId);
+            return this._dataAccess.GetPopUpMatches<Sportsbook>(matchId, -1, licenseeId, userId, bettypeId, betId);
         }
 
         public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)

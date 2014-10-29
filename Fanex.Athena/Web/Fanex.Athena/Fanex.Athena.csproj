@@ -298,6 +298,11 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
+    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
@@ -339,6 +344,8 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
+    <Content Include="Content\Fanex.Result\fanex.result.css" />
+    <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
@@ -379,6 +386,7 @@
     <Content Include="GameData\GlobalSetting.ini" />
     <Content Include="GameData\VideoPoker\RV009\Settings.ini" />
     <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
+    <None Include="Content\Fanex.Result\fanex.result.less" />
     <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
@@ -455,13 +463,13 @@
     <Content Include="Content\Customer\images\validated.png" />
     <Content Include="Content\Customer\images\validatefail.png" />
     <Content Include="Content\Customer\images\viewcustomerlist.png" />
-    <Content Include="Content\Fanex.Result\fanex.result.css" />
-    <Content Include="Content\Fanex.Result\images\1F.gif" />
-    <Content Include="Content\Fanex.Result\images\1L.gif" />
-    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
-    <Content Include="Content\Fanex.Result\images\first-goal.gif" />
-    <Content Include="Content\Fanex.Result\images\last-goal.gif" />
-    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
+    <Content Include="Content\Fanex.Results\fanex.result.css" />
+    <Content Include="Content\Fanex.Results\images\1F.gif" />
+    <Content Include="Content\Fanex.Results\images\1L.gif" />
+    <Content Include="Content\Fanex.Results\images\bg_header03.jpg" />
+    <Content Include="Content\Fanex.Results\images\first-goal.gif" />
+    <Content Include="Content\Fanex.Results\images\last-goal.gif" />
+    <Content Include="Content\Fanex.Results\images\tab_topbg.gif" />
     <Content Include="Content\Footer\Footer.css" />
     <Content Include="Content\Footer\images\bg_footer.jpg" />
     <Content Include="Content\Forecast\forecast.newforecast.css" />
@@ -2651,21 +2659,6 @@
     </Content>
     <Content Include="App_Browsers\ie.browser" />
     <Content Include="App_Browsers\firefox.browser" />
-    <Content Include="App_Data\Fanex.Result\Badminton.xls" />
-    <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
-    <Content Include="App_Data\Fanex.Result\Basketball.xls" />
-    <Content Include="App_Data\Fanex.Result\Billiard.xls" />
-    <Content Include="App_Data\Fanex.Result\Hockey.xls" />
-    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
-    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
-    <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
-    <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
-    <Content Include="App_Data\Fanex.Result\Outright.xls" />
-    <Content Include="App_Data\Fanex.Result\Soccer.xls" />
-    <Content Include="App_Data\Fanex.Result\Tennis.xls" />
-    <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
-    <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
-    <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
     <Content Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerPendingFunds.xls" />

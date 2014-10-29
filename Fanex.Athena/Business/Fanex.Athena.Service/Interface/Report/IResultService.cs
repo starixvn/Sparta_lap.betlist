@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.Interface.Report
         /// </summary>
         /// <param name="metalModel"> The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetMatches(ResultMetalModel metalModel);
+        IList<Sportsbook> GetMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get live casino match.
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="bettypeId">Bet type id.</param>
         /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
+        IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Get live casino match for pop up page.
