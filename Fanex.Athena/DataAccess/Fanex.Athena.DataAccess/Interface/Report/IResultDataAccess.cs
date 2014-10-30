@@ -47,6 +47,8 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 
         IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
 
+        Sportsbook GetSportsbookGameDetail(int matchId);
+
         #endregion Popup
     }
 }

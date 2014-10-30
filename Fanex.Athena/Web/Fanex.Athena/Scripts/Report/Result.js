@@ -204,6 +204,22 @@ var result = (function () {
             var isShowedRight = self.location.hash.substr(1) === "outright";
             showOutRight(isShowedRight);
             showKeno();
+            $("#result-page").on("click", ".tennis-detail-link", function () {
+                var url = Site.resolveClientUrl("Report/ResultTennisDetail")
+                 + "?matchid=" + $(this).attr("data-match-id");
+
+                var height = 450;
+                var width = 750;
+                var title = Site.getSingleResource("Result");
+                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: width + 25,
+                    height: height + 70
+                });
+            });
             $("#submit-outright").click(function () {
                 clearExcelExport();
                 clearResult();
@@ -287,6 +303,7 @@ var result = (function () {
             });
             param.FromDate = $("#hiddenToDate").val();
             param.ToDate = $("#hiddenToDate").val();
+
         }
     };
 } ());

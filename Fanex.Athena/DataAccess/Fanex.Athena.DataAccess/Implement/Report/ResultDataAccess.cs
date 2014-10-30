@@ -215,7 +215,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
-        
+
         /// <summary>
         /// Get Popup Match.
         /// </summary>
@@ -296,12 +296,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
-                        var dataParlay = new List<Parlay>();
+                        var results = new List<Parlay>();
 
                         while (reader.Read())
                         {
                             var leagueId = reader.ToInt("LeagueID");
-                            var parlay = dataParlay.SingleOrDefault(x => x.LeagueId == leagueId);
+                            var parlay = results.SingleOrDefault(x => x.LeagueId == leagueId);
                             if (parlay == null)
                             {
                                 parlay = new Parlay()
@@ -337,7 +337,20 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                                       });
                         }
 
-                        return dataParlay;
+                        var gameDetails = GetGameDetails(reader);
+
+                        if (gameDetails.Count > 0)
+                        {
+                            foreach (var result in results)
+                            {
+                                foreach (var item in result.Sportbook)
+                                {
+                                    item.GameDetails.AddRange(gameDetails.Where(i => i.MatchId == item.MatchId));
+                                }
+                            }
+                        }
+
+                        return results;
                     }
                 }
             }
@@ -424,19 +437,69 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
+        /// <summary>
+        /// Get game detail.
+        /// </summary>
+        /// <param name="matchId">The match ID.</param>
+        /// <returns>The SPORTSBOOK data.</returns>
+        public Sportsbook GetSportsbookGameDetail(int matchId)
+        {
+            using (var db = new ObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
+            {
+                db.AddInParameter("matchid", DbType.Int32, matchId);
+                using (var reader = db.ExecuteReader())
+                {
+                    var result = new Sportsbook();
+                    while (reader.Read())
+                    {
+                        result = BindSportsbook(reader);
+                    }
+
+                    result.GameDetails = GetGameDetails(reader).ToList();
+
+                    return result;
+                }
+            }
+        }
+
         #region Binding
 
         /// <summary>
-        /// Mapping data to Sport-book DTO.
+        /// Bind game detail value.
         /// </summary>
         /// <param name="reader">The data reader.</param>
-        /// <returns>The sport-book data list.</returns>        
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader)
+        /// <returns>The game detail value.</returns>
+        private static IList<GameDetail> GetGameDetails(IDataReader reader)
         {
-            var dataList = new List<Sportsbook>();
-            while (reader.Read())
+            var gameDetails = new List<GameDetail>();
+
+            if (reader.NextResult())
             {
-                dataList.Add(new Sportsbook
+                while (reader.Read())
+                {
+                    gameDetails.Add(new GameDetail
+                    {
+                        MatchId = int.Parse(reader["matchid"].ToString()),
+                        ResourceId = reader["ResourceId"].ToString(),
+                        HomeValue = reader["HomeValue"].ToString(),
+                        AwayValue = reader["AwayValue"].ToString(),
+                        ResultStatusID = int.Parse(reader["ResultStatusID"].ToString()),
+                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString())
+                    });
+                }
+            }
+
+            return gameDetails;
+        }
+
+        /// <summary>
+        /// Bind sports book.
+        /// </summary>
+        /// <param name="reader">The data reader.</param>
+        /// <returns>A sports book DTO.</returns>
+        private static Sportsbook BindSportsbook(IDataReader reader)
+        {
+            return new Sportsbook
                                 {
                                     AwayId = reader.ToInt("awayID"),
                                     HomeId = reader.ToInt("homeID"),
@@ -458,10 +521,31 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     IsHTCal = reader.ToBool("IsHTCal"),
                                     Calculate = reader.ToBool("Calculate"),
                                     RefNo = string.Empty
-                                });
+                                };
+        }
+
+        /// <summary>
+        /// Mapping data to Sport-book DTO.
+        /// </summary>
+        /// <param name="reader">The data reader.</param>
+        /// <returns>The sport-book data list.</returns>        
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader)
+        {
+            var results = new List<Sportsbook>();
+
+            while (reader.Read())
+            {
+                results.Add(BindSportsbook(reader));
             }
 
-            return dataList;
+            var gameDetails = GetGameDetails(reader);
+
+            foreach (var result in results)
+            {
+                result.GameDetails = gameDetails.Where(i => i.MatchId == result.MatchId).ToList();
+            }
+
+            return results;
         }
 
         /// <summary>

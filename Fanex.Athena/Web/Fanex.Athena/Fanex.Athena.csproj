@@ -345,6 +345,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
+    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
     <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
@@ -463,13 +464,7 @@
     <Content Include="Content\Customer\images\validated.png" />
     <Content Include="Content\Customer\images\validatefail.png" />
     <Content Include="Content\Customer\images\viewcustomerlist.png" />
-    <Content Include="Content\Fanex.Results\fanex.result.css" />
-    <Content Include="Content\Fanex.Results\images\1F.gif" />
-    <Content Include="Content\Fanex.Results\images\1L.gif" />
-    <Content Include="Content\Fanex.Results\images\bg_header03.jpg" />
-    <Content Include="Content\Fanex.Results\images\first-goal.gif" />
-    <Content Include="Content\Fanex.Results\images\last-goal.gif" />
-    <Content Include="Content\Fanex.Results\images\tab_topbg.gif" />
+    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Footer\Footer.css" />
     <Content Include="Content\Footer\images\bg_footer.jpg" />
     <Content Include="Content\Forecast\forecast.newforecast.css" />

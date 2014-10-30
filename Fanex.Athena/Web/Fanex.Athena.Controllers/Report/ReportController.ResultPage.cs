@@ -180,6 +180,32 @@ namespace Fanex.Athena.Controllers.Report
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
+        /// <summary>
+        /// Generate tennis detailed result.
+        /// </summary>
+        /// <param name="matchId">The match ID.</param>       
+        /// <returns>The html result.</returns>
+        [HttpGet]
+        public ActionResult ResultTennisDetail(int matchId)
+        {
+            var resultService = new ResultService();
+            var detailedData = resultService.GetSportsbookGameDetail(matchId);
+            if (detailedData != null && detailedData.MatchId > 0)
+            {
+                ViewBag.Data = ResultEngine.HtmlGameDetailParser(
+                detailedData,
+                new ResultSetting
+                {
+                    SportType = SportType.Tennis,
+                    LanguageCode = SessionService.UserSession.Language
+                });
+               
+                return View("~/Views/Report/Result/Popup/Main.cshtml");                                
+            }
+
+            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+        }
+
         #endregion PopUpPage
 
         #region KenoPage
@@ -523,7 +549,9 @@ namespace Fanex.Athena.Controllers.Report
                 SportType = (SportType)metalModel.SportId,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = SessionService.UserSession.Language,
+                VisibleDetailedLink = metalModel.SportId == (int)SportType.Tennis,
+                VisibleFreeHeader = true
             };
             switch (sportType)
             {

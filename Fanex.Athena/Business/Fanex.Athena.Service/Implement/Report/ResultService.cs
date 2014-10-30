@@ -74,6 +74,11 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Popup
 
+        public Sportsbook GetSportsbookGameDetail(int matchId)
+        {
+            return this._dataAccess.GetSportsbookGameDetail(matchId);
+        }
+
         public IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
         {
             return this._dataAccess.GetPopUpMatches<Sportsbook>(matchId, -1, licenseeId, userId, bettypeId, betId);

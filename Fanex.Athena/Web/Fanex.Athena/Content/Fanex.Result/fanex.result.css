@@ -15,9 +15,11 @@ div.fn-rs-content-scroll
 }
 table
 {
-    font-family: Tahoma,Arial,Helvetica,sans-serif;
+    font-family: Arial,Helvetica,sans-serif;
     font-size: 11px;
+    color: rgb(69, 69, 69);
 }
+
 table.popup
 {
     min-width: 650px !important;
@@ -40,7 +42,6 @@ table.fn-rs thead th
 }
 table.fn-rs thead th.cl-title
 {
-    color: #1d3968;
     background: #ccc;
 }
 table.fn-rs .header, table.fn-rs .sub-header
@@ -51,9 +52,13 @@ table.fn-rs .header, table.fn-rs .sub-header
     background-position: center bottom;
     background-repeat: repeat-x;
 }
+table.fn-rs tbody tr:hover
+{
+    background: none repeat scroll 0 0 #fcf911 !important;
+}
 table.fn-rs tbody tr.even
 {
-    background-color: #e5ebf2;
+    background: none repeat scroll 0 0 #fcfde9;
 }
 table.fn-rs tbody td
 {
@@ -63,8 +68,7 @@ table.fn-rs tbody td
 }
 table.fn-rs tbody .cl-league
 {
-    color: #1d3968;
-    background: #ccc;
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
     vertical-align: middle;
     border: 0;
     font-weight: bold;
@@ -75,17 +79,16 @@ table.fn-rs tbody .cl-league
 table.fn-rs tbody .cl-match
 {
     text-align: left;
-    font-weight: bold;
-    font-size: 12px;
+    font-size: 11px;
     padding-left: 3px;
 }
 table.fn-rs tbody .cl-match.home
 {
-    color: #6678e0;
+    color: rgb(69, 69, 69);
 }
 table.fn-rs tbody .cl-match.away
 {
-    color: #008d95;
+    color: rgb(69, 69, 69);
 }
 table.fn-rs tbody .cl-match div
 {
@@ -149,12 +152,12 @@ table.fn-rs .cl-s, table.fn-rs .cl-ot, table.fn-rs .cl-ei
 }
 table.fn-rs .cl-totalgames, table.fn-rs .cl-totalpoint
 {
-    width: 42px;
+    width: 72px;
     color: #6877b4;
 }
 table.fn-rs .cl-totalset
 {
-    width: 38px;
+    width: 68px;
     color: #fd537d;
 }
 table.fn-rs .cl-ht-score, table.fn-rs .cl-f-score
