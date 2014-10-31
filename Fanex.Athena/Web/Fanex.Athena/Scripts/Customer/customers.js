@@ -195,8 +195,8 @@ var CustomerList = (function ($) {
 
         var gridWidth = reportGrid.width();
 
-        if (gridWidth < 500) {
-            gridWidth = 500;
+        if (gridWidth < 650) {
+            gridWidth = 650;
         } else {
             gridWidth += 20;
         }

@@ -5,6 +5,7 @@ div.fn-rs-content-header
 }
 div.fn-rs-content-scroll
 {
+    border: 1px solid #cbc9ca;
     max-height: 740px;
     overflow-y: scroll;
     -ms-overflow-y: scroll;
@@ -126,10 +127,6 @@ table.fn-rs tbody .cl-match div.home, table.fn-rs tbody .cl-match div.away
     display: inline-block;
     margin-top: 10px;
 }
-table.fn-rs tbody .cl-f-score
-{
-    color: #fd537d;
-}
 table.fn-rs .cl-m-code
 {
     width: 112px;
@@ -153,16 +150,22 @@ table.fn-rs .cl-s, table.fn-rs .cl-ot, table.fn-rs .cl-ei
 table.fn-rs .cl-totalgames, table.fn-rs .cl-totalpoint
 {
     width: 72px;
-    color: #6877b4;
+    color: #0054ff;
 }
 table.fn-rs .cl-totalset
 {
     width: 68px;
-    color: #fd537d;
+    color: #ff0000;
 }
-table.fn-rs .cl-ht-score, table.fn-rs .cl-f-score
+table.fn-rs .cl-ht-score
 {
     width: 100px;
+    color: #0054ff;
+}
+table.fn-rs .cl-f-score
+{
+    width: 100px;
+    color: #ff0000;
 }
 table.fn-rs .cl-status
 {

@@ -104,12 +104,14 @@ var result = (function () {
                     $("#sport").append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
                 });
             }
+
             if (data.Leagues != null && data.Leagues.length > 0) {
                 $.each(data.Leagues, function (index, value) {
                     $("#league").append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                 });
                 $("#league").val(param.LeagueId);
             }
+
             $("#filter-by-sport-league").show();
             $("#no-info").hide();
         } else {
@@ -185,6 +187,8 @@ var result = (function () {
                 } else {
                     $("#no-info").show();
                 }
+
+                result.resizeGrid();
             },
             beforeSend: function () {
                 Site.blockUI();
@@ -200,6 +204,20 @@ var result = (function () {
     };
 
     return {
+        resizeGrid: function () {
+            var $grid = $("#result-page .fn-rs-content-scroll");
+
+            if ($grid.length === 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 30;
+
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         init: function () {
             var isShowedRight = self.location.hash.substr(1) === "outright";
             showOutRight(isShowedRight);
@@ -208,16 +226,14 @@ var result = (function () {
                 var url = Site.resolveClientUrl("Report/ResultTennisDetail")
                  + "?matchid=" + $(this).attr("data-match-id");
 
-                var height = 450;
-                var width = 750;
                 var title = Site.getSingleResource("Result");
-                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
-                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="100%" height="100%" src="'
+                                 + url + '" ></iframe></div>';
 
                 $(dialogForm).dialog({
                     modal: true,
-                    width: width + 25,
-                    height: height + 70
+                    width: 775,
+                    height: 520
                 });
             });
             $("#submit-outright").click(function () {
@@ -309,5 +325,6 @@ var result = (function () {
 } ());
 $(document).ready(function () {
     "use strict";
+    
     result.init();
 });
