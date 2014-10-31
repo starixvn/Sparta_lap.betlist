@@ -112,9 +112,9 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         [HttpPost]
         [SuppressMessage(
-  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-  "SP2101:MethodMustNotContainMoreLinesThan",
-  Justification = "Reviewed. Suppression is OK here.")]
+          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)
         {
             var isValid = true;

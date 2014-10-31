@@ -359,49 +359,6 @@ namespace Fanex.Athena.Service.Implement.Users
         }
 
         /// <summary>
-        ///     The validate user.
-        /// </summary>
-        /// <param name="requestUser">
-        ///     The request user.
-        /// </param>
-        /// <param name="resultInfo">
-        ///     The result information.
-        /// </param>
-        /// <returns>
-        /// The system user.
-        /// </returns>
-        public User ValidateUser(User requestUser, out IResultInfo resultInfo)
-        {
-            try
-            {
-                User user = null;
-
-                // get salt of user to hash password
-                var salt = this._userDataAccess.GetUserSalt(requestUser.Username);
-
-                if (!ReferenceEquals(null, salt))
-                {
-                    // create hashpassword
-                    var hashPassword = Cryptography.CreateHash(requestUser.Password, salt.ToString());
-                    requestUser.Password = hashPassword;
-                    user = this._userDataAccess.ValidateUser(requestUser, out resultInfo);
-                }
-                else
-                {
-                    // user doest not exist
-                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = "User does not exist" };
-                }
-
-                return user;
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ValidateUser");
-            }
-        }
-
-        /// <summary>
         ///     The validate user for  system.
         /// </summary>
         /// <param name="requestUser">

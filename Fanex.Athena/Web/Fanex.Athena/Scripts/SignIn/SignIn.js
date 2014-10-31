@@ -31,58 +31,12 @@ function getUserSalt() {
                 salt = result;
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                alert(xhr.status + ": " + thrownError);
             }
         });
     }
 
     return salt;
-}
-
-function DoLogin() {
-    var errObj = LanguageMessages;
-    if ($('#userName').val() === "") {
-        $("#errmsg").html(errObj.errUserName);
-        $('#userName').focus();
-        return false;
-    }
-    if ($('#passWord').val() === "") {
-        $("#errmsg").html(errObj.errUserName);
-        $('#passWord').focus();
-        return false;
-    }
-    if ($('#captcha').val() === "") {
-        $("#errmsg").html(errObj.errValidCode);
-        $('#captcha').focus();
-        return false;
-    }
-
-    $('#btnLogin').attr('disabled', 'disabled');
-
-
-    var $username = $("#userName");
-    var $password = $("#passWord");
-
-    $username.val($username.val().trim());
-    var isUserNameValid = $username.val() !== "";
-    var isPasswordValid = $password.val() !== "";
-    var $loginToken = $('#LogInToken');
-    var $loginTokenTemp = $('#LogInTokenTemp');
-
-    var userSalt = getUserSalt();
-
-    $loginToken.val($loginTokenTemp.val());
-    var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
-    var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val()).toString(CryptoJS.enc.Hex).toUpperCase();
-    $password.val(encryptedPass);
-
-    if (isUserNameValid && isPasswordValid) {
-        document.fLogin.submit();
-        return true;
-    }
-
-    return false;
 }
 
 function GetValidateImage() {
@@ -91,18 +45,6 @@ function GetValidateImage() {
     $("#imgCode").attr("src", url);
 
     setTimeout(GetValidateImage, 120000);
-}
-function DoEnter(evt, action) {
-    if (window.IE) {
-        if (window.event.keyCode === 13) {
-            eval(action); // jshint ignore:line
-        }
-    }
-    else {
-        if (evt.keyCode === 13) {
-            eval(action); // jshint ignore:line
-        }
-    }
 }
 
 function InitLogin() {
@@ -119,6 +61,44 @@ function InitLogin() {
             $('#txtCaptcha').focus().select();
         }
     }
+
+    document.fLogin.onsubmit = function () {
+        var errObj = LanguageMessages;
+        var $username = $("#userName");
+        var $password = $("#passWord");
+
+        $username.val($username.val().trim());
+        if ($username.val() === "") {
+            $("#errmsg").html(errObj.errUserName);
+            $username.focus();
+            return false;
+        }
+        if ($password.val() === "") {
+            $("#errmsg").html(errObj.errUserName);
+            $password.focus();
+            return false;
+        }
+
+        if ($('#captcha').val() === "") {
+            $("#errmsg").html(errObj.errValidCode);
+            $('#captcha').focus();
+            return false;
+        }
+
+        $('#btnLogin').prop('disabled', true);
+
+        var $loginToken = $('#LogInToken');
+        var $loginTokenTemp = $('#LogInTokenTemp');
+
+        var userSalt = getUserSalt();
+
+        $loginToken.val($loginTokenTemp.val());
+        var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
+        var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val()).toString(CryptoJS.enc.Hex).toUpperCase();
+        $password.val(encryptedPass);
+        
+        return true;
+    };
 }
 
 $(window).load(function () {
