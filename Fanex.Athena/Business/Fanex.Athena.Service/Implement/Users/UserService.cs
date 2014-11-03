@@ -381,7 +381,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 
                 if (user != null) 
                 {
-                    var hashPassword = Cryptography.CreateHash(user.Password, loginToken);
+                    var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
                     if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
                     {
                         user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);

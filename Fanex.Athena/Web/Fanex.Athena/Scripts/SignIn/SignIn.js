@@ -91,10 +91,10 @@ function InitLogin() {
         var $loginTokenTemp = $('#LogInTokenTemp');
 
         var userSalt = getUserSalt();
-
+        
         $loginToken.val($loginTokenTemp.val());
         var hashPassword = CryptoJS.SHA1($password.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
-        var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val()).toString(CryptoJS.enc.Hex).toUpperCase();
+        var encryptedPass = CryptoJS.SHA1(hashPassword + $loginToken.val() + userSalt).toString(CryptoJS.enc.Hex).toUpperCase();
         $password.val(encryptedPass);
         
         return true;

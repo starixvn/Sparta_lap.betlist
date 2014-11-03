@@ -40,8 +40,6 @@ namespace Fanex.Athena.Controllers
         private const int InvalidUserNameError = 102;
         private const int InvalidPasswordError = 103;
 
-        private const string FormTokenName = "SecureFormToken";
-
         #endregion Constant
 
         private UserService _userService;
@@ -50,28 +48,6 @@ namespace Fanex.Athena.Controllers
         {
             _userService = new UserService();
         }
-
-        #region Properties
-
-        public string FormToken
-        {
-            get
-            {
-                if (Session[FormTokenName] == null)
-                {
-                    return string.Empty;
-                }
-
-                return Session[FormTokenName].ToString();
-            }
-
-            set
-            {
-                Session[FormTokenName] = value;
-            }
-        }
-
-        #endregion Properties
 
         /// <summary>
         /// The sign-in page.
@@ -111,6 +87,7 @@ namespace Fanex.Athena.Controllers
         /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SuppressMessage(
           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -131,11 +108,6 @@ namespace Fanex.Athena.Controllers
                     SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
                 }
 
-                isValid = false;
-            }
-
-            if (isValid && !CheckValidToken(model.LogInToken))
-            {
                 isValid = false;
             }
 
@@ -303,42 +275,9 @@ namespace Fanex.Athena.Controllers
             };
         }
 
-        /// <summary>
-        /// Add Token To Cookie.
-        /// </summary>
-        /// <param name="loginToken">Login Token.</param>
-        private void AddTokenToCookie(string loginToken)
-        {
-            var responseCookie = new HttpCookie(FormTokenName)
-            {
-                HttpOnly = true,
-                Value = loginToken
-            };
-
-            if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
-            {
-                responseCookie.Secure = true;
-            }
-
-            Response.Cookies.Set(responseCookie);
-        }
-
         private string CreateToken()
-        {
-            var loginToken = Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
-
-            FormToken = loginToken;
-            AddTokenToCookie(loginToken);
-
-            return loginToken;
-        }
-
-        private bool CheckValidToken(string loginToken)
-        {
-            return !string.IsNullOrWhiteSpace(loginToken)
-                && FormToken.Equals(loginToken)
-                && Request.Cookies[FormTokenName] != null
-                && Request.Cookies[FormTokenName].Value.Equals(loginToken);
+        {            
+            return Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
         }
 
         private void SetErrorForView(int errorCode, string errorMsg)

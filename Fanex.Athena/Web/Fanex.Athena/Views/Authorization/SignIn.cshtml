@@ -24,6 +24,7 @@
 </head>
 <body>
     <form action="@Url.Content("~/Authorization/SignIn")" method="post" name="fLogin">
+    @Html.AntiForgeryToken()
     <div id="main_login">
         <div class="main_login">
             <div class="top">
