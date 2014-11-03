@@ -2,4 +2,5 @@
 <Root>
   <SpNameConfig Environment="DEV" SpName="Lrf_UserLogin" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_UserLogin" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_UserLogin" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
