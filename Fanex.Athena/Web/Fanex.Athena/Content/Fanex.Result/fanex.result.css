@@ -182,6 +182,16 @@ table.fn-rs .cl-status .detail-link:hover
 {
     color: #D2592D;
 }
+table.fn-rs .cl-status .penalty-result
+{
+    color: inherit;
+    cursor: inherit;
+    text-decoration: none;
+}
+table.fn-rs .cl-status .penalty-result:hover
+{
+    color: inherit;
+}
 table.number-game
 {
 }

@@ -17,6 +17,7 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Result.Core.DTO;
 
+    [System.CLSCompliant(false)]
     public interface IResultDataAccess
     {
         IList<OutRight> GetOutRight(ResultMetalModel metal);
@@ -46,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Interface.Report
         IList<Parlay> GetPopUpParalayMatch(long refNo);
 
         IList<NumberGame> GetPopUpNumberGameMatch(int matchId);
-
+        
         Sportsbook GetSportsbookGameDetail(int matchId);
 
         #endregion Popup

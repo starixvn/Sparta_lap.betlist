@@ -250,7 +250,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                         if (type == typeof(Sportsbook))
                         {
-                            return (IList<T>)ReadSportbookMatches(reader);
+                            return (IList<T>)ReadSportbookMatches(reader, bettypeId, betId.HasValue ? betId.Value : 0);
                         }
                         else if (type == typeof(LiveCasino))
                         {
@@ -442,6 +442,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="matchId">The match ID.</param>
         /// <returns>The SPORTSBOOK data.</returns>
+        [System.CLSCompliant(false)]
         public Sportsbook GetSportsbookGameDetail(int matchId)
         {
             using (var db = new ObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
@@ -500,7 +501,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         private static Sportsbook BindSportsbook(IDataReader reader)
         {
             return new Sportsbook
-                                {
+                                {                                    
                                     AwayId = reader.ToInt("awayID"),
                                     HomeId = reader.ToInt("homeID"),
                                     BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
@@ -528,21 +529,29 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// Mapping data to Sport-book DTO.
         /// </summary>
         /// <param name="reader">The data reader.</param>
+        /// <param name="bettype">The Bet type ID.</param>
+        /// <param name="betid">The Bet ID.</param>
         /// <returns>The sport-book data list.</returns>        
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, int bettype = 0, long betid = 0)
         {
             var results = new List<Sportsbook>();
 
             while (reader.Read())
             {
-                results.Add(BindSportsbook(reader));
+                var result = BindSportsbook(reader);
+                result.BetID = betid.ToString();
+                result.Bettype = bettype;
+
+                results.Add(result);
             }
 
             var gameDetails = GetGameDetails(reader);
-
-            foreach (var result in results)
+            if (gameDetails.Count > 0)
             {
-                result.GameDetails = gameDetails.Where(i => i.MatchId == result.MatchId).ToList();
+                foreach (var result in results)
+                {
+                    result.GameDetails = gameDetails.Where(i => i.MatchId == result.MatchId).ToList();
+                }
             }
 
             return results;

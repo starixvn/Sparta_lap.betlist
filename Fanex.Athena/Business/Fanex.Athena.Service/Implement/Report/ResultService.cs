@@ -74,6 +74,7 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region Popup
 
+        [System.CLSCompliant(false)]
         public Sportsbook GetSportsbookGameDetail(int matchId)
         {
             return this._dataAccess.GetSportsbookGameDetail(matchId);
