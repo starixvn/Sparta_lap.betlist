@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Drawing.Imaging;
+    using System.Globalization;
     using System.IO;
     using System.Text;
     using System.Web;
@@ -33,6 +34,21 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class AuthorizationController : BaseController
     {
+        #region Constant
+
+        private const int InvalidCaptchaError = 101;
+        private const int InvalidUserNameError = 102;
+        private const int InvalidPasswordError = 103;
+
+        #endregion Constant
+
+        private UserService _userService;
+
+        public AuthorizationController()
+        {
+            _userService = new UserService();
+        }
+
         /// <summary>
         /// The sign-in page.
         /// </summary>
@@ -41,7 +57,7 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         public ActionResult SignIn()
         {
-            IMaintenanceService maintenanceService = new MaintenanceService();
+            var maintenanceService = new MaintenanceService();
             var acceptIp = AppSettings.GetValue("AcceptIp");
             var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
 
@@ -59,7 +75,8 @@ namespace Fanex.Athena.Controllers
                 return RedirectToAction("LocationRestriction", "Utility");
             }
 
-            SinglePageData(0, string.Empty);
+            SetErrorForView(0, string.Empty);
+            ViewBag.LogInToken = CreateToken();
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
@@ -70,10 +87,11 @@ namespace Fanex.Athena.Controllers
         /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [SuppressMessage(
-  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-  "SP2101:MethodMustNotContainMoreLinesThan",
-  Justification = "Reviewed. Suppression is OK here.")]
+          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)
         {
             var isValid = true;
@@ -87,21 +105,21 @@ namespace Fanex.Athena.Controllers
                 if (!isAllowAutomationCaptchaCode)
                 {
                     SessionService.CaptchaCode = RandomCaptchaCode();
-                    SinglePageData(101, ViewResources.InvalidCaptchaMsg);
+                    SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
                 }
 
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(model.UserName))
+            if (isValid && string.IsNullOrEmpty(model.UserName))
             {
-                SinglePageData(102, ViewResources.AlertUserNameMsg);
+                SetErrorForView(InvalidUserNameError, ViewResources.AlertUserNameMsg);
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(model.PassWord))
+            if (isValid && string.IsNullOrEmpty(model.PassWord))
             {
-                SinglePageData(103, ViewResources.AlertPasswordEmptyMsg);
+                SetErrorForView(InvalidPasswordError, ViewResources.AlertPasswordEmptyMsg);
                 isValid = false;
             }
 
@@ -116,7 +134,7 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                User user = userService.ValidateUserForLrfSystem(requestUser, out resultInfo);
+                var user = userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
                     SessionService.CreateNewSession(
@@ -138,10 +156,11 @@ namespace Fanex.Athena.Controllers
                 }
                 else
                 {
-                    SinglePageData(resultInfo.Code, resultInfo.Message);
+                    SetErrorForView(resultInfo.Code, resultInfo.Message);
                 }
             }
 
+            ViewBag.LogInToken = CreateToken();
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
@@ -229,16 +248,39 @@ namespace Fanex.Athena.Controllers
             return File(img.FileContents, img.ContentType);
         }
 
+        /// <summary>
+        /// Get User Salt.
+        /// </summary>
+        /// <param name="userName">User name value.</param>
+        /// <returns>String value.</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public string GetUserSalt(string userName)
+        {
+            var user = _userService.GetByUsername(userName);
+            if (user != null)
+            {
+                return user.UserSalt;
+            }
+
+            return string.Empty;
+        }
+
         private static dynamic RecheckInResult(ErrorType type, string msg)
         {
             return new
-             {
-                 ErrCode = (int)type,
-                 ErrMsg = msg
-             };
+            {
+                ErrCode = (int)type,
+                ErrMsg = msg
+            };
         }
 
-        private void SinglePageData(int errorCode, string errorMsg)
+        private string CreateToken()
+        {            
+            return Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
+        }
+
+        private void SetErrorForView(int errorCode, string errorMsg)
         {
             ViewBag.errCode = errorCode;
             ViewBag.errMsg = errorMsg;

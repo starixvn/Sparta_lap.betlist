@@ -6892,6 +6892,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User does not exist..
+        /// </summary>
+        public static string UserNotExist {
+            get {
+                return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         public static string View {
@@ -7194,6 +7203,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string WPTO {
             get {
                 return ResourceManager.GetString("WPTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong username or password.
+        /// </summary>
+        public static string WrongUserNamePassword {
+            get {
+                return ResourceManager.GetString("WrongUserNamePassword", resourceCulture);
             }
         }
         

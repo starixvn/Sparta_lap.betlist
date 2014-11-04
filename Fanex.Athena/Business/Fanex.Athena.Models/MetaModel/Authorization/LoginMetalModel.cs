@@ -20,5 +20,9 @@ namespace Fanex.Athena.Models.MetaModel.Authorization
         }
 
         public string Captcha { get; set; }
+
+        public string LogInToken { get; set; }
+
+        public string LoginSalt { get; set; }
     }
 }

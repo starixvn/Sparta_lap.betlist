@@ -160,27 +160,14 @@ namespace Fanex.Athena.Service.Interface.Users
         User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo);
 
         /// <summary>
-        ///     The validate user.
-        /// </summary>
-        /// <param name="requestUser">
-        ///     The request user.
-        /// </param>
-        /// <param name="resultInfo">
-        ///     The result.
-        /// </param>
-        /// <returns>
-        /// The user info.
-        /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateUser(User requestUser, out IResultInfo resultInfo);
-
-        /// <summary>
         ///     The validate user for LRF system.
         /// </summary>
         /// <param name="requestUser">
         ///     The request user.
         /// </param>
+        /// <param name="loginToken">
+        ///     The login token.
+        /// </param>
         /// <param name="resultInfo">
         ///     The result.
         /// </param>
@@ -189,7 +176,7 @@ namespace Fanex.Athena.Service.Interface.Users
         /// </returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
+        User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo);
 
         #endregion Public Methods and Operators
     }
