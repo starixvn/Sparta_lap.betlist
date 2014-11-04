@@ -551,7 +551,7 @@ namespace Fanex.Athena.Controllers.Report
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
                 VisibleDetailedLink = metalModel.SportId == (int)SportType.Tennis,
-                VisibleFreeHeader = true
+                VisibleFreeHeader = false
             };
             switch (sportType)
             {
@@ -618,7 +618,7 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         if (metalModel.IsExportExcel)
                         {
-                            _excelStream = ResultEngine.ExcelParser(data, setting);
+                            _excelStream = ResultEngine.ExcelParser<Sportsbook>(data, setting);
                         }
                         else
                         {

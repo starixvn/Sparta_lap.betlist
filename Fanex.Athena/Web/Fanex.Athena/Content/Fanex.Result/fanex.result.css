@@ -30,9 +30,9 @@ table.fn-rs
     border-collapse: collapse;
     width: 100%;
     min-width: 1000px;
-    line-height: 25px;
     text-align: center;
     border-top: 1px solid #a3d1e1;
+    line-height: 20px;
 }
 table.fn-rs thead th
 {
@@ -40,6 +40,7 @@ table.fn-rs thead th
     font-weight: normal;
     vertical-align: middle;
     text-align: center;
+    line-height: 25px;
 }
 table.fn-rs thead th.cl-title
 {
@@ -53,7 +54,7 @@ table.fn-rs .header, table.fn-rs .sub-header
     background-position: center bottom;
     background-repeat: repeat-x;
 }
-table.fn-rs tbody tr:hover
+table.fn-rs tbody tr.data:hover
 {
     background: none repeat scroll 0 0 #fcf911 !important;
 }
@@ -61,7 +62,7 @@ table.fn-rs tbody tr.even
 {
     background: none repeat scroll 0 0 #fcfde9;
 }
-table.fn-rs tbody td
+table.fn-rs tbody tr.data td
 {
     border: solid 1px #cbc9ca;
     padding: 1px;
@@ -112,14 +113,6 @@ table.fn-rs tbody .cl-match div.first-half-first-goal
 table.fn-rs tbody .cl-match div.first-half-last-goal
 {
     background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
-}
-table.fn-rs tbody .cl-match div.home
-{
-    color: #6678e0;
-}
-table.fn-rs tbody .cl-match div.away
-{
-    color: #008d95;
 }
 table.fn-rs tbody .cl-match div.home, table.fn-rs tbody .cl-match div.away
 {
@@ -264,7 +257,6 @@ table.racing .cl-engine-no
 }
 table .row-noinfo
 {
-    border: 1px solid #cbc9ca;
     border-top: 0;
     text-align: center;
     padding: 4px;

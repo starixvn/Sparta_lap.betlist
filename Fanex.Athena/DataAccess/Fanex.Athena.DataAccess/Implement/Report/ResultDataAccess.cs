@@ -309,6 +309,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                        LeagueId = leagueId,
                                        SportId = reader.ToInt("sporttype")
                                    };
+
+                                results.Add(parlay);
                             }
 
                             parlay.Sportbook.Add(new Sportsbook
