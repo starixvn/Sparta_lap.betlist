@@ -303,7 +303,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
+    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\en-US.htm" />
@@ -370,6 +370,23 @@
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\Fanex.Result\Badminton.xls" />
+    <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
+    <Content Include="App_Data\Fanex.Result\Basketball.xls" />
+    <Content Include="App_Data\Fanex.Result\Billiard.xls" />
+    <Content Include="App_Data\Fanex.Result\Hockey.xls" />
+    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
+    <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
+    <Content Include="App_Data\Fanex.Result\Other.xls" />
+    <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
+    <Content Include="App_Data\Fanex.Result\Outright.xls" />
+    <Content Include="App_Data\Fanex.Result\Racing.xls" />
+    <Content Include="App_Data\Fanex.Result\Soccer.xls" />
+    <Content Include="App_Data\Fanex.Result\Tennis.xls" />
+    <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
+    <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
     <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
       <SubType>Designer</SubType>
     </None>
