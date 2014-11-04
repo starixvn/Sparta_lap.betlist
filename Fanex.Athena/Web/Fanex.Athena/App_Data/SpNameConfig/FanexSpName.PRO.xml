@@ -20,7 +20,7 @@
 
   <Function Name="Authorization">
     <Setting Key="Licensee_UserSaltSel" SpName="Licensee_UserSaltSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_UserLogin" SpName="Lrf_UserLogin" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserLogin" SpName="Lrf_UserLogin_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckIn" SpName="Lrf_CheckIn" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserLogout" SpName="Lrf_UserLogout" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_ReCheckIn" SpName="Lrf_ReCheckIn" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
