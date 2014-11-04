@@ -618,7 +618,7 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         if (metalModel.IsExportExcel)
                         {
-                            _excelStream = ResultEngine.ExcelParser<Sportsbook>(data, setting);
+                            _excelStream = ResultEngine.ExcelParser(data, setting);
                         }
                         else
                         {
