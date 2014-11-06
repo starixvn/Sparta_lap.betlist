@@ -16,6 +16,8 @@
 @row-even-background: #e5ebf2;
 @home-color:#6678e0;
 @away-color:#008d95;
+@bg_pending: Yellow;
+@bg_postponed: #FDFD87;
 div.fn-rs-content-header
 {
     border: 1px solid @border-color;
@@ -205,6 +207,15 @@ table
 					color: #D2592D;
 				}
 			}
+        }
+		.cl-bg-pending
+        {
+			background:@bg_pending;
+        }
+		.cl-bg-postponed
+        {
+        			background:@bg_postponed;
+
         }
     }
 	&.number-game
