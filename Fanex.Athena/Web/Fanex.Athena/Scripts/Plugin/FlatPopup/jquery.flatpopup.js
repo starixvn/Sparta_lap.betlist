@@ -36,10 +36,15 @@
         });
 
         $self.draggable({ handle: ".title-bar" });
+        $self.resizable({ 
+            alsoResize: ".wrapContent, .viewport",
+            resize: function( event, ui ) {
+                $self.find(".wrapContent").customScrollbar("resize");
+            }
+        });
 
         return {
             show: function () {
-                //Fade in the Popup
                 $self.fadeIn(300);
 
                 //Set the center alignment padding + border see css style                
@@ -56,3 +61,24 @@
     };
 
 } (jQuery));
+
+function keydown(e) {
+    for (var i = keys.length; i--;) {
+        if (e.keyCode === keys[i]) {
+            preventDefault(e);
+            return;
+        }
+    }
+}
+
+function wheel(e) {
+  preventDefault(e);
+}
+
+function disable_scroll() {
+  if (window.addEventListener) {
+      window.addEventListener('DOMMouseScroll', wheel, false);
+  }
+  window.onmousewheel = document.onmousewheel = wheel;
+  document.onkeydown = keydown;
+}

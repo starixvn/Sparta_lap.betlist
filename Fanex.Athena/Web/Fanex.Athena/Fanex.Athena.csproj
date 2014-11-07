@@ -294,9 +294,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Data\UserGuide\SettledMatchCount.en-US.htm" />
-    <Content Include="App_Data\UserGuide\LastBetsMonitoring.en-US.htm" />
-    <Content Include="App_Data\UserGuide\LicenseeWL.en-US.htm" />
+    <Content Include="App_Data\UserGuide\LastBetsMonitoring\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\LastBetsMonitoring\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\SettledMatchCount\en-US.htm" />
+    <Content Include="App_Data\UserGuide\LastBetsMonitoring\en-US.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWL\en-US.htm" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
@@ -315,13 +317,16 @@
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </None>
-    <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml" />
+    <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>

@@ -51,7 +51,7 @@ var Site = (function ($) {
                 }
             });
         },
-        addUserGuide: function (options) {            
+        addUserGuide: function (options) {
             var defaultOptions = {
                 buttonSelector: "#UserGuide"
             };
@@ -60,7 +60,7 @@ var Site = (function ($) {
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
-            $(options.buttonSelector).click(function () {                
+            $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $("#UserGuidePopup");
                 if ($userGuidePopup.is(":visible")) {
                     return;
@@ -72,7 +72,7 @@ var Site = (function ($) {
                             if (status === "success") {
                                 setTimeout(function () {
                                     popup = $userGuidePopup.flatPopup(options);
-                                    popup.show();
+                                    popup.show();                                    
                                 }, 50);
                             } else {
                                 $userGuidePopup.hide();
