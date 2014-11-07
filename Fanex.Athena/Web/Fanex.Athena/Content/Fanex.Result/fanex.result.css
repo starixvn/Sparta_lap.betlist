@@ -62,7 +62,7 @@ table.fn-rs tbody tr.even
 {
     background: none repeat scroll 0 0 #fcfde9;
 }
-table.fn-rs tbody tr.data td
+table.fn-rs tbody tr td
 {
     border: solid 1px #cbc9ca;
     padding: 1px;

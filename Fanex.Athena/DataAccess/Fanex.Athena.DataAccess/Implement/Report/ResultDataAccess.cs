@@ -315,6 +315,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                             parlay.Sportbook.Add(new Sportsbook
                                                       {
+                                                          Bettype = reader.FieldExists("bettype") ? reader.ToInt("bettype") : 0,
+                                                          BetID = reader.FieldExists("betcheck") ? reader.ToString("betcheck") : string.Empty,
                                                           AwayId = reader.ToInt("awayID"),
                                                           HomeId = reader.ToInt("homeID"),
                                                           BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,

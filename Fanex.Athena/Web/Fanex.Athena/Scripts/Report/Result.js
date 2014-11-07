@@ -182,7 +182,6 @@ var result = (function () {
             success: function (response) {
                 if (response != null && response.length > 0) {
                     $("#no-info").hide();
-                    $("#result-page").html("");
                     $("#result-page").html(response);
                 } else {
                     $("#no-info").show();
