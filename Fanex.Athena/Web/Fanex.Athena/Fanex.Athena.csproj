@@ -296,6 +296,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\LicenseeWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\SettledMatchCount\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\SettledMatchCount\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\SettledMatchCount\en-US.htm" />
     <Content Include="App_Data\UserGuide\LastBetsMonitoring\en-US.htm" />
     <Content Include="App_Data\UserGuide\LicenseeWL\en-US.htm" />

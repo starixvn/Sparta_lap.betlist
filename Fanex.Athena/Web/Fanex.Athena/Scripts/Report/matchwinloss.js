@@ -25,6 +25,10 @@ var MatchWinLoss = (function ($) {
             MatchWinLoss.initEvent();
             MatchWinLoss.resizeGrid();
             Site.addFilterCollapseExpand();
+            Site.addUserGuide({
+                resourceName: "MatchWL",
+                title: Site.getSingleResource("MatchWinLoss")
+            });
         },
 
         initEvent: function () {

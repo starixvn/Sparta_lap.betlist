@@ -38,7 +38,10 @@
         $self.draggable({ handle: ".title-bar" });
         $self.resizable({ 
             alsoResize: ".wrapContent, .viewport",
-            resize: function( event, ui ) {
+            minHeight: 200,
+            minWidth: 300,
+            handles: "s, n",
+            resize: function( event, ui ) {                
                 $self.find(".wrapContent").customScrollbar("resize");
             }
         });
