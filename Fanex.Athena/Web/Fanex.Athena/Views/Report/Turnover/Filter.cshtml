@@ -31,8 +31,8 @@
         </div>
         <div class="grid_2 note-group">
             <div>
-                @{Html.RenderAction("Index", "Note", new { viewName = "Turnover" });}
-            </div>
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
+        </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"

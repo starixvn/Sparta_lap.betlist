@@ -33,6 +33,10 @@ var Turnover = (function ($) {
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
             TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
+            Site.addUserGuide({
+                resourceName: "Turnover",
+                title: Site.getSingleResource("Turnover")
+            });
         },
         initMonthPicker: function () {
             $('#DateControl').monPickr({

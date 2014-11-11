@@ -22,6 +22,10 @@ var WinLossByProduct = (function ($) {
             WinLossByProduct.initSetting();
 
             Site.addFilterCollapseExpand();
+            Site.addUserGuide({
+                resourceName: "WinLossByProduct",
+                title: Site.getSingleResource("WinLossByProduct")
+            });
         },
 
         initSetting: function () {

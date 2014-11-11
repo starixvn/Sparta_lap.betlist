@@ -6,6 +6,10 @@ var LiveReport = (function ($) {
         initialize: function () {
             LiveReport.initEvent();
             LiveReport.initMonthPicker();
+            Site.addUserGuide({
+                resourceName: "LiveReport",
+                title: Site.getSingleResource("LiveReport")
+            });
         },
         initEvent: function () {
             $("#switchreport").click(function () {

@@ -22,7 +22,10 @@ var CustBalance = (function ($) {
         initialize: function () {
             CustBalance.initEvent();
             CustBalance.resizeGrid();
-
+            Site.addUserGuide({
+                resourceName: "CustomerBalance",
+                title: Site.getSingleResource("CustomerBalance")
+            });
             setTimeout(function () {
                 Site.addFilterCollapseExpand();
             }, 500);

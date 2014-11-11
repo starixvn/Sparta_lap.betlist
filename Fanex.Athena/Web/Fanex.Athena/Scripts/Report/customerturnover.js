@@ -68,6 +68,10 @@ var CustTurnover = (function ($) {
             CustTurnover.initEvent();
             CustTurnover.setDefaultUsername();
             CustTurnover.initAutoComplete();
+            Site.addUserGuide({
+                resourceName: "CustomerTurnover",
+                title: Site.getSingleResource("CustomerTurnover")
+            });
             setTimeout(function () {
                 Site.addFilterCollapseExpand();
             }, 500);

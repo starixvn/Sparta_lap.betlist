@@ -19,6 +19,10 @@ var RacingCommission = (function ($) {
         initialize: function () {
             RacingCommission.initEvent();
             Site.createSortingIcon(RacingCommission.sortReport);
+            Site.addUserGuide({
+                resourceName: "RacingCommission",
+                title: Site.getSingleResource("RacingCommission")
+            });
         },
         initEvent: function () {
             $('#ExportToExcel').click(function () {

@@ -7,6 +7,10 @@ var CancelledBetsBetList = (function ($) {
         initialize: function () {
             CancelledBetsBetList.initEvent();
             CancelledBetsBetList.submit();
+            Site.addUserGuide({
+                resourceName: "CancelledBets",
+                title: Site.getSingleResource("CancelledBets")
+            });
         },
 
         initEvent: function () {

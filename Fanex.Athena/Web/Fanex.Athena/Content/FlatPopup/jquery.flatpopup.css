@@ -76,7 +76,7 @@ a.popup-close
     font-size: 12px;
     margin: 0 0 5px;
 }
-.flat-popup .rule ul
+.flat-popup .rule ul, .flat-popup .rule div
 {
     color: #515151;
     font-size: 12px;
