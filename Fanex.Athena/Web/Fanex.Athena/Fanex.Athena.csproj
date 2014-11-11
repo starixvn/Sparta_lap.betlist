@@ -295,6 +295,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
+    <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\CustomerBalance\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
