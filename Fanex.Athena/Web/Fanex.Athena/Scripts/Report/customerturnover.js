@@ -75,11 +75,6 @@ var CustTurnover = (function ($) {
             setTimeout(function () {
                 Site.addFilterCollapseExpand();
             }, 500);
-
-            Site.addUserGuide({
-                resourceName: "CustomerTurnover",
-                title: Site.getSingleResource("CustomerTurnover")
-            });
         },
         resizeGrid: function () {
             setTimeout(function () {

@@ -294,13 +294,23 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
+    <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\en-US.htm" />
+    <Content Include="App_Data\UserGuide\CustomerWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\CustomerWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
+    <Content Include="App_Data\UserGuide\DailyRacingWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\DailyRacingWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\MatchWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\MatchWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\RacingCommission\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\RacingCommission\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\Turnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\en-US.htm" />
     <Content Include="App_Data\UserGuide\DailyBetList\en-US.htm" />
