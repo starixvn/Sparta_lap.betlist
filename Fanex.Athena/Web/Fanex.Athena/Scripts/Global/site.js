@@ -56,7 +56,7 @@ var Site = (function ($) {
                 buttonSelector: "#UserGuide"
             };
             options = $.extend(defaultOptions, options);
-            options.title = (options.title || "") + " " + Site.getSingleResource("Instruction");
+            options.title = options.title || "";
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
@@ -72,7 +72,7 @@ var Site = (function ($) {
                             if (status === "success") {
                                 setTimeout(function () {
                                     popup = $userGuidePopup.flatPopup(options);
-                                    popup.show();                                    
+                                    popup.show();
                                 }, 50);
                             } else {
                                 $userGuidePopup.hide();
