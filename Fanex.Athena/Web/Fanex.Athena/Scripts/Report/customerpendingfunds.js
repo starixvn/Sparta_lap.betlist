@@ -21,7 +21,7 @@ var CustPendingFunds = (function ($) {
             CustPendingFunds.resizeGrid();
             Site.addUserGuide({
                 resourceName: "CustomerPendingFunds",
-                title: Site.getSingleResource("CustomerPendingFunds"),
+                title: Site.getSingleResource("CustomerPedingFunds"),
                 height: 400
             });
         },
