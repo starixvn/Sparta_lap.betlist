@@ -22,7 +22,7 @@ var CustPendingFunds = (function ($) {
             Site.addUserGuide({
                 resourceName: "CustomerPendingFunds",
                 title: Site.getSingleResource("CustomerPendingFunds"),
-                height: 370
+                height: 400
             });
         },
         initEvent: function () {

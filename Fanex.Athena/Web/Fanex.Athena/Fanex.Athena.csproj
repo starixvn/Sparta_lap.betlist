@@ -309,6 +309,8 @@
     <Content Include="App_Data\UserGuide\CustomerWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
+    <Content Include="App_Data\UserGuide\DailyBetList\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\DailyBetList\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\DailyRacingWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\DailyRacingWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-CN.htm" />

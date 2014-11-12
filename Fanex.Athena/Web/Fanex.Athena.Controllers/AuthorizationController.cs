@@ -211,9 +211,10 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
-            Response.Cache.SetCacheability(HttpCacheability.Public);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
+            
             string code = RandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
