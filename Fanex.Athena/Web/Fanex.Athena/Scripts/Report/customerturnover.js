@@ -78,6 +78,9 @@ var CustTurnover = (function ($) {
         },
         resizeGrid: function () {
             setTimeout(function () {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
+                    return;
+                }
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var pagingHeight = $("#paging:visible").height();
                 if (pagingHeight > 0) {
