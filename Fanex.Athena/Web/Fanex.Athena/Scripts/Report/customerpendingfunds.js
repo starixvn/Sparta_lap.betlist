@@ -19,6 +19,11 @@ var CustPendingFunds = (function ($) {
             CustPendingFunds.initEvent();
             Site.createSortingIcon(CustPendingFunds.sortReport);
             CustPendingFunds.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "CustomerPendingFunds",
+                title: Site.getSingleResource("CustomerPedingFunds"),
+                height: 400
+            });
         },
         initEvent: function () {
             $("#data-content").on("click", ".bet-list-link", function () {

@@ -55,6 +55,11 @@
         /// </summary>
         /// <returns type=""></returns>
         var dom = this.get(0);
+        if(!dom)
+        {
+            return;
+        }
+
         var style;
         var returns = {};
 

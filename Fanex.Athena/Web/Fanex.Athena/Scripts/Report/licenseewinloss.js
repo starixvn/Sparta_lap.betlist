@@ -27,10 +27,15 @@ var LicenseeWinLoss = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
+        resizeGrid: function () {            
+            if ($(".ui-jqgrid-bdiv").length === 0) {
+                return;
+            }
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
+                var $bdiv = $(".ui-jqgrid-bdiv");
+                
+                var gridTop = $bdiv.offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
@@ -40,9 +45,9 @@ var LicenseeWinLoss = (function ($) {
                 var actualHeight = $("#ReportGrid").height();
                 var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
                 var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $(".ui-jqgrid-bdiv").width();
+                var contentWidth = $bdiv.width();
                 var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
+                $bdiv.height(Math.min(newHeight, gridHeight))
                                     .css("max-height", gridHeight);
             }, 200);
         },
@@ -75,7 +80,7 @@ var LicenseeWinLoss = (function ($) {
             Site.addUserGuide({
                 resourceName: "LicenseeWL",
                 title: Site.getSingleResource("LicenseeWinLoss")
-             });
+            });
             Site.addFilterCollapseExpand();
         },
 

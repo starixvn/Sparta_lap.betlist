@@ -16,6 +16,10 @@ var jqGridAdditional = (function () {
             /// <param name="grid"></param>
             /// <param name="maxWidth"></param>
             /// <param name="specialWidth">add more width in case actual width < screen width</param>
+            if ($("div.ui-jqgrid-hbox").length === 0) {
+                return;
+            }
+
             grid.setGridParam({
                 shrinkToFit: false
             });
@@ -31,15 +35,7 @@ var jqGridAdditional = (function () {
                 maxScreenWidth = maxWidth;
             }
 
-            var actualWidth = $("div.ui-jqgrid-hbox").innerWidth();
-
-            if (actualWidth == null) {
-                var temp = $("div.ui-jqgrid-hbox").getStyleObject();
-                actualWidth = temp.width;
-                if (actualWidth == null) {
-                    actualWidth = maxWidth;
-                }
-            }
+            var actualWidth = $("div.ui-jqgrid-hbox").innerWidth() || maxWidth;
 
             if (actualWidth > maxScreenWidth) {
                 actualWidth = maxScreenWidth;

@@ -68,12 +68,19 @@ var CustTurnover = (function ($) {
             CustTurnover.initEvent();
             CustTurnover.setDefaultUsername();
             CustTurnover.initAutoComplete();
+            Site.addUserGuide({
+                resourceName: "CustomerTurnover",
+                title: Site.getSingleResource("CustomerTurnover")
+            });
             setTimeout(function () {
                 Site.addFilterCollapseExpand();
             }, 500);
         },
         resizeGrid: function () {
             setTimeout(function () {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
+                    return;
+                }
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var pagingHeight = $("#paging:visible").height();
                 if (pagingHeight > 0) {

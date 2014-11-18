@@ -18,6 +18,10 @@ var WinLossByBetType = (function ($) {
             WinLossByBetType.initEvent();
             Site.createSortingIcon(WinLossByBetType.sortReport);
             WinLossByBetType.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "WinLossByBetType",
+                title: Site.getSingleResource("WinLossByBetType")
+            });
         },
 
         initEvent: function () {

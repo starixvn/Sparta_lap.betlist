@@ -51,16 +51,16 @@ var Site = (function ($) {
                 }
             });
         },
-        addUserGuide: function (options) {            
+        addUserGuide: function (options) {
             var defaultOptions = {
                 buttonSelector: "#UserGuide"
             };
             options = $.extend(defaultOptions, options);
-            options.title = (options.title || "") + " " + Site.getSingleResource("Instruction");
+            options.title = options.title || "";
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
-            $(options.buttonSelector).click(function () {                
+            $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $("#UserGuidePopup");
                 if ($userGuidePopup.is(":visible")) {
                     return;

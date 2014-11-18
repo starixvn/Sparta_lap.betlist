@@ -20,6 +20,10 @@ var DailyBetList = (function ($) {
 
             DailyBetList.initEvent();
             showOrHideExcelIcon();
+            Site.addUserGuide({
+                resourceName: "DailyBetList",
+                title: Site.getSingleResource("DailyBetList")
+            });
         },
 
         initEvent: function () {

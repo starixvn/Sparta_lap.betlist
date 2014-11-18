@@ -10,6 +10,9 @@ var WinLossByProduct = (function ($) {
     return {
         resizeGrid: function () {
             setTimeout(function () {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
+                    return;
+                }
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(130, gridHeight);
@@ -22,6 +25,10 @@ var WinLossByProduct = (function ($) {
             WinLossByProduct.initSetting();
 
             Site.addFilterCollapseExpand();
+            Site.addUserGuide({
+                resourceName: "WinLossByProduct",
+                title: Site.getSingleResource("WinLossByProduct")
+            });
         },
 
         initSetting: function () {

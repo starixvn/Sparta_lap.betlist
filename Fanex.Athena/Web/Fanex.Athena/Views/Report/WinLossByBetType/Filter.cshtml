@@ -34,14 +34,16 @@
             @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
         </div>
         <div class="grid_2 filter-label">
-            <label for="BaseCurrency">@ViewResources.Based </label>
+            <label for="BaseCurrency">@ViewResources.Based
+            </label>
         </div>
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         </div>
         <div class="grid_2 note-group">
             <div>
-                @{Html.RenderAction("Index", "Note", new { viewName = "WinLossByBetType" });}
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
             </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"

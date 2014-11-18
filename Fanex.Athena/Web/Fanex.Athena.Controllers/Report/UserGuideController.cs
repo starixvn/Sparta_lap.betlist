@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var language = SessionService.UserSession.Language;
             
-            var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}.{1}.htm", resourceName, language));
+            var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/{1}.htm", resourceName, language));
             if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
             {
                 filePath = filePath.Replace(language, DefaultLanguage);

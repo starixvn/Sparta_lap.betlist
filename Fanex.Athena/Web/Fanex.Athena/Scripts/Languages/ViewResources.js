@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/14/2014 11:22:54 AM
+// Lasted generated date: 11/12/2014 2:12:14 PM
 // </history>
 
 var _language_en_US={
@@ -627,8 +627,6 @@ var _language_en_US={
                      IncorrectMinBet:"Incorrect Min Bet",
 				 	
                      InitialHand:"Initial Hand",
-				 	
-                     Instruction:"Instruction",
 				 	
                      Internal:"Internal",
 				 	
@@ -1530,6 +1528,8 @@ var _language_en_US={
 				 	
                      Username:"Username",
 				 	
+                     UserNotExist:"User does not exist.",
+				 	
                      View:"View",
 				 	
                      ViewBy:"View by",
@@ -1597,6 +1597,8 @@ var _language_en_US={
                      WorstWinLoss:"Worst Win Loss",
 				 	
                      WPTO:"W/P TO",
+				 	
+                     WrongUserNamePassword:"Wrong username or password",
 				 	
                      Year:"Year",
 				 	

@@ -17,6 +17,10 @@ var DailyRacingWinLoss = (function ($) {
         initialize: function () {
             DailyRacingWinLoss.initEvent();
             DailyRacingWinLoss.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "DailyRacingWL",
+                title: Site.getSingleResource("DailyRacingWinLoss")
+            });
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {

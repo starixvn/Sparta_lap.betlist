@@ -26,6 +26,10 @@ var CustomerWinLoss = (function ($) {
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);
             Site.addFilterCollapseExpand();
+            Site.addUserGuide({
+                resourceName: "CustomerWL",
+                title: Site.getSingleResource("CustomerWinLoss")
+            });
         },
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() === "True") {

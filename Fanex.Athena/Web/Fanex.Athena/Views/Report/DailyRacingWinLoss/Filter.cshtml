@@ -36,9 +36,9 @@
     <div class="grid_1 filter-input">
         @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
     </div>
-    <div class="grid_2 note-group">
+    <div class="grid_2 userguide-group">
         <div>
-            @{Html.RenderAction("Index", "Note", new { viewName = "DailyRacingWinLoss" });}
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
         </div>
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"

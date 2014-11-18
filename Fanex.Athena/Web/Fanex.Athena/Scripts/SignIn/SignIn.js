@@ -39,9 +39,8 @@ function getUserSalt() {
     return salt;
 }
 
-function GetValidateImage() {
-    var objDate = new Date();
-    var url = $("#captchaUrl").val() + "?code=" + objDate.getMilliseconds();
+function GetValidateImage() {    
+    var url = $("#captchaUrl").val();
     $("#imgCode").attr("src", url);
 
     setTimeout(GetValidateImage, 120000);
@@ -67,7 +66,7 @@ function InitLogin() {
         var $username = $("#userName");
         var $password = $("#passWord");
 
-        $username.val($username.val().trim());
+        $username.val($.trim($username.val()));
         if ($username.val() === "") {
             $("#errmsg").html(errObj.errUserName);
             $username.focus();

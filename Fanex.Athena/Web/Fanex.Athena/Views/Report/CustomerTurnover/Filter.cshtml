@@ -6,9 +6,9 @@
 @{var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);}
 <div class="grid_26 content-filter new-line">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "from-date", "to-date", 3, 4, 2, 7)
-    <div class="grid_2 note-group">
+    <div class="grid_2 userguide-group">
         <div>
-            @{Html.RenderAction("Index", "Note", new { viewName = "CustomerTurnover" });}
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
         </div>
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
