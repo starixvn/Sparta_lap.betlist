@@ -99,6 +99,9 @@ div.match + div.league
 {
     color: #0066CC;
 }
+.void, .reject, .refund {
+    text-decoration: line-through;
+}
 .lic-win-loss
 {
     background-color: #F5E3E3;
