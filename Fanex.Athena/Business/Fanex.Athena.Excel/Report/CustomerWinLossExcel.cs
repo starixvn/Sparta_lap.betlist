@@ -223,12 +223,7 @@ namespace Fanex.Athena.Excel.Report
             if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
-
-            if (!ShowingOption.BetEffectiveVisible)
-            {
-                HideColumn(sheet, ColumnBetEffective);
-            }
+            }            
         }
 
         /// <summary>

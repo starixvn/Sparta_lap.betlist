@@ -34,7 +34,7 @@ var CustomerWinLoss = (function ($) {
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() === "True") {
                 $('#DateControl').monPickr({
-                    minDate: '2010/01/01',
+                    minDate: '2012/01/01',
                     showDateRange: true,
                     fromDayId: 'MonthPickerFromDay',
                     toDayId: 'MonthPickerToDay',

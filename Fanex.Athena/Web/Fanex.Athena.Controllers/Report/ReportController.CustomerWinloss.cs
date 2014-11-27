@@ -66,7 +66,6 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     IsHistory = false,
-                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
@@ -110,7 +109,6 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyList = userSession.CurrencyList,
                     HistoryParam = historyParam,
                     IsHistory = true,
-                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
@@ -144,7 +142,6 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     IsHistory = false,
-                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             model.TotalRows = totalRows;
@@ -190,7 +187,6 @@ namespace Fanex.Athena.Controllers.Report
                     IsHistory = true,
                     DataList = dataList,
                     TotalData = totalData,
-                    HasBetEffectiveColumn = GetHasBetEffectiveColumn(licenseeSession.LicenseeId)
                 };
 
             if (metaModel.IsExportExcel)
@@ -241,7 +237,6 @@ namespace Fanex.Athena.Controllers.Report
                     CSVisible = productAccess.IsAllowCS,
                     BGVisible = productAccess.IsAllowBG,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(
@@ -286,7 +281,6 @@ namespace Fanex.Athena.Controllers.Report
                     SBVisible = productAccess.IsAllowSB,
                     VSVisible = productAccess.IsAllowVS,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    BetEffectiveVisible = viewModel.HasBetEffectiveColumn
                 };
 
             var custWinlossExcel = new CustomerWinLossExcel(
