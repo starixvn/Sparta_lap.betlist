@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 9/25/2014 10:43:52 AM
+// Lasted generated date: 11/27/2014 3:26:50 PM
 // </history>
 
 var _language_zh_TW={
@@ -258,7 +258,7 @@ var _language_zh_TW={
 				 	
                      CurrentGroup:"當前組",
 				 	
-                     Currentmonth:"上週",
+                     Currentmonth:"本月",
 				 	
                      CurrentReport:"當前報告",
 				 	
@@ -636,13 +636,13 @@ var _language_zh_TW={
 				 	
                      January:"一月",
 				 	
-                     Jul:"7月",
+                     Jul:"七月",
 				 	
-                     July:"7月",
+                     July:"七月",
 				 	
-                     Jun:"6月",
+                     Jun:"六月",
 				 	
-                     June:"6月",
+                     June:"六月",
 				 	
                      KeepCurrentComm:"保持當前的佣金",
 				 	

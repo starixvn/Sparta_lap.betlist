@@ -427,7 +427,7 @@
     <value>當前組</value>
   </data>
   <data name="Currentmonth" xml:space="preserve">
-    <value>上週</value>
+    <value>本月</value>
   </data>
   <data name="CurrentReport" xml:space="preserve">
     <value>當前報告</value>
@@ -877,16 +877,16 @@
     <value>一月</value>
   </data>
   <data name="Jul" xml:space="preserve">
-    <value>7月</value>
+    <value>七月</value>
   </data>
   <data name="July" xml:space="preserve">
-    <value>7月</value>
+    <value>七月</value>
   </data>
   <data name="Jun" xml:space="preserve">
-    <value>6月</value>
+    <value>六月</value>
   </data>
   <data name="June" xml:space="preserve">
-    <value>6月</value>
+    <value>六月</value>
   </data>
   <data name="KeepCurrentComm" xml:space="preserve">
     <value>保持當前的佣金</value>
