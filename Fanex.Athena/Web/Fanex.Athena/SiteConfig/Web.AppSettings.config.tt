@@ -43,7 +43,7 @@
 	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2010" />
+	<add key="HistoryDate" value="1/1/2012" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
@@ -106,7 +106,7 @@
 	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2010"/>
+	<add key="HistoryDate" value="1/1/2012"/>
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
@@ -166,7 +166,7 @@
 	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2010"/>
+	<add key="HistoryDate" value="1/1/2012"/>
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
@@ -225,7 +225,7 @@
 	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2010" />
+	<add key="HistoryDate" value="1/1/2012" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
