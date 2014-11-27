@@ -41,9 +41,10 @@
     ViewBag.ContainerWidth += Model.ProductAccess.IsAllowRB ? 2 * ViewBag.RbBaWidth : 0;
 
     ViewBag.ContainerWidth += ViewBag.ColumnWidth;
-    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
-    ViewBag.TitleWidth = ViewBag.WrapperWidth - 24;
-    ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
+    ViewBag.FilterWidth = ViewBag.ContainerWidth > 1075 ? 1075 : ViewBag.ContainerWidth;
+    ViewBag.WrapperWidth = ViewBag.FilterWidth;
+    ViewBag.TitleWidth = ViewBag.FilterWidth - 24;
+    ViewBag.TotalWrapperWidth = ViewBag.FilterWidth - 18;
 }
 @section ContentFilter
 {

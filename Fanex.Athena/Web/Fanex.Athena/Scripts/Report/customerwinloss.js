@@ -23,6 +23,7 @@ var CustomerWinLoss = (function ($) {
         },
         initialize: function () {
             CustomerWinLoss.initEvent();
+            CustomerWinLoss.resizeGrid();
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);
             Site.addFilterCollapseExpand();
@@ -107,6 +108,11 @@ var CustomerWinLoss = (function ($) {
                 var systemId = target.attr("data-system-id");
                 var externalId = target.attr("data-external-id");
                 CustomerWinLoss.viewWinlossBetList(custId, systemId, externalId);
+            });
+
+            $("#data-content").scroll(function () {
+                $('#total-content').scrollLeft($('#data-content').scrollLeft());
+                $('#header-content').scrollLeft($('#data-content').scrollLeft());
             });
         },
 
