@@ -8,7 +8,7 @@
     var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
     var modelParam = Model.Param;
 }
-<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.WrapperWidth)px;">
     @using (Html.BeginForm("CustomerWinLoss", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
     {
         <div>
@@ -37,7 +37,7 @@
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         </div>
-        <div class="grid_2 note-group">
+        <div class="grid_4 note-group" style="right: auto">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
                 </div>

@@ -22,7 +22,9 @@
     (int)ViewBag.CustomerWLLargeWidth, (int)ViewBag.CustomerWLMergeWidth,
     (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth, (int)ViewBag.CustomerWLTotalWidth, true)
     <div class="row sort-heading" style="width:@ViewBag.CustomerBetEffecitveWidth@("px")" data-column-name="BetEffective">
-        @ViewResources.EffectiveBettingValue
+        <div class="grid-header-two-line">
+            @ViewResources.EffectiveBettingValue
+        </div>
     </div>
     <div class="row sort-heading" style="width:@ViewBag.LicenseeWLWidth@("px")" data-column-name="LicenseeWL">
         <div class="" style="width:@ViewBag.LicenseeWLWidth@("px")">

@@ -4,9 +4,9 @@
 @{
     var param = Model.IsHistory ? Model.HistoryParam : Model.Param;
 }
-<div class="container_26" style="max-height: 705px!important">
+<div class="container_26 new-line" style="width:@(ViewBag.FilterWidth + 12)@("px");max-height: 705px!important">
     <div class="grid_26">
-        <div style="width:@(ViewBag.WrapperWidth + 2)px;">
+        <div style="width:@(ViewBag.FilterWidth + 2)px;">
             @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
         </div>
         <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
