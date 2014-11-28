@@ -23,7 +23,6 @@ var CustomerWinLoss = (function ($) {
         },
         initialize: function () {
             CustomerWinLoss.initEvent();
-            CustomerWinLoss.resizeGrid();
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);
             Site.addFilterCollapseExpand();
