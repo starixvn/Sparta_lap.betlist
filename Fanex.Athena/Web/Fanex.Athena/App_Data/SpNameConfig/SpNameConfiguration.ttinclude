@@ -1,4 +1,8 @@
-﻿<#@ import namespace="System" #>
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#
+    SiteInfo.Host = Host;
+#>
+<#@ import namespace="System" #>
 <#
     var sites = new SiteInfo[]{        
         new SiteInfo
@@ -35,6 +39,8 @@
 
 	class SiteInfo
     {
+		public static ITextTemplatingEngineHost Host { get; set; }
+
         //Web config value.
         public SiteEnvironment SiteEnvironment { get; set; }
 
@@ -43,7 +49,9 @@
 		public System.Collections.Generic.List<SpNameConfig> ListOfConfig
 		{
 			get
-			{				
+			{			
+				string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
+				Directory.SetCurrentDirectory(path);				
 				var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameConfig.xml");
 				var elements = document.Root.Elements("SpNameConfig");
 				var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
