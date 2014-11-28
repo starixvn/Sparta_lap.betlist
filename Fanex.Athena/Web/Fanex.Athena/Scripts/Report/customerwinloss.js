@@ -3,24 +3,6 @@
 var CustomerWinLoss = (function ($) {
     "use strict";
     return {
-        resizeGrid: function () {
-            var $grid = $("#data-content");
-            if ($grid.length === 0) {
-                return;
-            }
-
-            var gridTop = $grid.offset().top;
-            var pagerHeight = $(".pagingContainer").height() || 0;
-            if (pagerHeight > 0) {
-                pagerHeight += 10;
-            }
-            var gridHeight = window.innerHeight - gridTop - $("#total-content").height()
-                             - pagerHeight - 35;
-            gridHeight = Math.max(120, gridHeight);
-
-            $grid.css("height", "auto").css("max-height", gridHeight);
-            $(".report-content").css("max-height", "");
-        },
         initialize: function () {
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initMonthPicker();
@@ -151,14 +133,4 @@ var CustomerWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     CustomerWinLoss.initialize();
-    CustomerWinLoss.resizeGrid();
-});
-$(window).resize(function () {
-    "use strict";
-    CustomerWinLoss.resizeGrid();
-});
-
-$(window).unload(function () {
-    "use strict";
-    $(window).unbind("resize");
 });
