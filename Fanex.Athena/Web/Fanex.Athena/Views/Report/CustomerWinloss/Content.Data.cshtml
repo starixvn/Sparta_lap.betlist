@@ -20,7 +20,7 @@
 else
 {
     var rowNumber = 1;
-    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:@(maxHeight)px; overflow-x: auto; overflow-y: scroll;">
+    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;min-height:0%;max-height:@(maxHeight)px; overflow-x: auto; overflow-y: scroll;">
         @foreach (var item in Model.DataList)
         {
             <div class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
