@@ -17,4 +17,5 @@
     <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
