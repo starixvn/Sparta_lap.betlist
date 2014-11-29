@@ -502,6 +502,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistProductOptionParameters(db, metaModel);
@@ -561,6 +562,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetlistProductOptionParameters(db, metaModel);
@@ -778,6 +780,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetlistProductOptionParameters(db, metaModel);
@@ -842,6 +845,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
@@ -853,6 +857,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             CreateBetListPagingParameters(db, metaModel);
         }
 
