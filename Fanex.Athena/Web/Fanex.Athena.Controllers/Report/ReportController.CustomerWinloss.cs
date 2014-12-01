@@ -132,7 +132,7 @@ namespace Fanex.Athena.Controllers.Report
             var custWinlossService = new CustomerWinlossService();
             var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
-            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            ////dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             
             var model = new CustomerWinLossViewModel
                 {
@@ -174,7 +174,7 @@ namespace Fanex.Athena.Controllers.Report
             var custWinlossService = new CustomerWinlossService();
             var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
 
-            dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
+            ////dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new CustomerWinLossViewModel
                 {
