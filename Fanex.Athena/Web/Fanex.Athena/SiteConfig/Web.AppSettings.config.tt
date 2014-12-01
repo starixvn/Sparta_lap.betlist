@@ -66,7 +66,6 @@
 	<add key="LoggingServiceUrl" value="tcp://10.40.40.79:9099/LoggingService" />
 	<add key="SubDomainPath" value="" />
 	<add key="EnableAssignCurrency" value="true" />
-	<add key="LicenseesHasBetEffectiveColumn" value="1,91,74,82,114" />
 	<add key="LicenseeOfferNewForecast" value="14" />
 	<add key="BaseUsdLicensees" value="14"/>
 	<add key="LicenseeOfferStatusFunction" value="12" />
@@ -130,7 +129,6 @@
 	<add key="BaseUsdLicensees" value="14"/>
 	<add key="LicenseeOfferNewForecast" value="14"/>
 	<add key="LicenseeOfferStatusFunction" value="12,5"/>
-	<add key="LicenseesHasBetEffectiveColumn" value="91,74" />
 	<add key="LegendEnvironment" value="UAT" />
 	<add key="LegendAdminSite" value="http://qa-las-admin.starific.net" />
 	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
@@ -190,7 +188,6 @@
 	<add key="BaseUsdLicensees" value="14"/>
 	<add key="LicenseeOfferNewForecast" value="14"/>
 	<add key="LicenseeOfferStatusFunction" value="12,5"/>
-	<add key="LicenseesHasBetEffectiveColumn" value="91,74" />
 	<add key="LegendEnvironment" value="PRO" />
 	<add key="LegendAdminSite" value="http://ag.006660.net" />
 	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />

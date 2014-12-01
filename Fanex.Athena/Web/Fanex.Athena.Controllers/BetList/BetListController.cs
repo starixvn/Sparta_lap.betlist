@@ -113,7 +113,6 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
             metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
             metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
-            metaModel.HasBetEffectiveColumn = GetHasBetEffectiveColumn(metaModel.LicenseeId);
 
             return metaModel;
         }

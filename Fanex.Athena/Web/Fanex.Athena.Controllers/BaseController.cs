@@ -150,26 +150,7 @@ namespace Fanex.Athena.Controllers
 
             return new List<string>();
         }
-
-        /// <summary>
-        /// Check if licensee has column Bet Effective in CustomerWL report or not.
-        /// </summary>
-        /// <param name="licenseeId">Licensee Id.</param>
-        /// <returns>True if has Bet Effective column.</returns>
-        [NonAction]
-        protected bool GetHasBetEffectiveColumn(int licenseeId)
-        {
-            var licenseeIds = AppSettings.GetValue("LicenseesHasBetEffectiveColumn");
-            var result = false;
-            if (licenseeIds != null)
-            {
-                licenseeIds = licenseeIds.Trim();
-                result = licenseeIds == "*" ? true : licenseeIds.Split(',').Contains(licenseeId.ToString());
-            }
-
-            return result;
-        }
-
+                
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();
