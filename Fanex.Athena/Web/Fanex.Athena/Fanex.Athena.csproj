@@ -286,11 +286,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
     <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
@@ -303,7 +298,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml" />
+    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\en-US.htm" />
@@ -387,9 +384,6 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
-    <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
