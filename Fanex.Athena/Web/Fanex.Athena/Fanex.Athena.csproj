@@ -286,6 +286,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />
@@ -293,11 +298,6 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
-    </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
       <SubType>Designer</SubType>
     </Content>
