@@ -1111,7 +1111,7 @@
     <value>Racing</value>
   </data>
   <data name="RacingComm" xml:space="preserve">
-    <value>Racing Comm.</value>
+    <value>Racing Comm</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
     <value>Racing Commission</value>
@@ -1210,7 +1210,7 @@
     <value>SB</value>
   </data>
   <data name="SBComm" xml:space="preserve">
-    <value>SB Comm.</value>
+    <value>SB Comm</value>
   </data>
   <data name="SBCommission" xml:space="preserve">
     <value>SB Comission</value>

@@ -20,7 +20,7 @@
 else
 {
     var rowNumber = 1;
-    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;max-height:@(maxHeight)px">
+    <div id="data-content" class="data-content" style="width:@(ViewBag.WrapperWidth)px;min-height:0%;max-height:@(maxHeight)px; overflow-x: auto; overflow-y: scroll;">
         @foreach (var item in Model.DataList)
         {
             <div class="content-row" style="width:@ViewBag.ContainerWidth@("px");">
@@ -61,12 +61,9 @@ else
                         <div>@item.MemberWL.ToStringExt()</div>
                     </div>
                 }
-                @if (Model.HasBetEffectiveColumn)
-                {
-                    <div class="row line-height" style="width:@ViewBag.CustomerBetEffecitveWidth@("px")">
-                        <div>@item.BetEffective.ToStringExt()</div>
-                    </div>
-                }
+                <div class="row line-height" style="width:@ViewBag.CustomerBetEffecitveWidth@("px")">
+                    <div>@item.BetEffective.ToStringExt()</div>
+                </div>
                 <div class="row highlight" style="width:@ViewBag.LicenseeWLWidth@("px")">
                     @RazorHelper.HighlightNegativeFormat(item.LicenseeWL)
                 </div>

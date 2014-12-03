@@ -14,7 +14,7 @@ var CustomerWinLoss = (function ($) {
             if (pagerHeight > 0) {
                 pagerHeight += 10;
             }
-            var gridHeight = window.innerHeight - gridTop - $("#report-total").height()
+            var gridHeight = window.innerHeight - gridTop - $("#total-content").height()
                              - pagerHeight - 35;
             gridHeight = Math.max(120, gridHeight);
 
@@ -34,7 +34,7 @@ var CustomerWinLoss = (function ($) {
         initMonthPicker: function () {
             if ($("#IsHistoryReport").val() === "True") {
                 $('#DateControl').monPickr({
-                    minDate: '2010/01/01',
+                    minDate: '2012/01/01',
                     showDateRange: true,
                     fromDayId: 'MonthPickerFromDay',
                     toDayId: 'MonthPickerToDay',
@@ -107,6 +107,11 @@ var CustomerWinLoss = (function ($) {
                 var systemId = target.attr("data-system-id");
                 var externalId = target.attr("data-external-id");
                 CustomerWinLoss.viewWinlossBetList(custId, systemId, externalId);
+            });
+
+            $("#data-content").scroll(function () {
+                $('#total-content').scrollLeft($('#data-content').scrollLeft());
+                $('#header-content').scrollLeft($('#data-content').scrollLeft());
             });
         },
 

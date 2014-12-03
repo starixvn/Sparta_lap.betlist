@@ -65,7 +65,6 @@ namespace Fanex.Athena.Controllers.BetList
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                BetEffectiveVisible = GetHasBetEffectiveColumn(SessionService.LicenseeSession.LicenseeId)
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
@@ -80,12 +79,7 @@ namespace Fanex.Athena.Controllers.BetList
                 currencyTitle);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn };
-
-            if (metaModel.HasBetEffectiveColumn == false)
-            {
-                hiddenColumns.Add(BetEffectiveColumn);
-            }
-
+                        
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, hiddenColumns);
 
             var workbook = excel.Export(ticketResult, title);

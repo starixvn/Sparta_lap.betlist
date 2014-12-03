@@ -10,7 +10,7 @@
 }
 @section ContentTitle
 {
-    Customer Bet List @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
+    @(ViewResources.Customer + " " + ViewResources.BetList) @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
         → </span>@Model.ToDate.ToShortDateString() - @(Model.ExternalId)(@(Model.SystemId))
     - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>    
 }
@@ -21,5 +21,5 @@
 @{
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
     <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
-    <input type="hidden" id="HasBetEffectiveColumn" value="@(Model.HasBetEffectiveColumn ? 1 : 0)" />
+    <input type="hidden" id="HasBetEffectiveColumn" value="1" />
 }

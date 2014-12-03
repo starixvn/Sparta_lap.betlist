@@ -26,7 +26,5 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public int TotalRows { get; set; }
 
         public bool IsHistory { get; set; }
-
-        public bool HasBetEffectiveColumn { get; set; }
     }
 }
