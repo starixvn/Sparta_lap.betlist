@@ -176,6 +176,11 @@
     <select id="Year">
         @for (int i = currentYear; i > currentYear - itemCount; i--)
         {
+            if(i < 2012)
+            {
+                break;
+            }
+            
             <option @(selectedYear == i ? "selected = selected" : string.Empty)  value="@i.ToString()">@i.ToString()</option>
         }
     </select>
