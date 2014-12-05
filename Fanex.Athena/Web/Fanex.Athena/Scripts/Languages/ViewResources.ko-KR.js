@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 9/1/2014 3:31:31 PM
+// Lasted generated date: 12/5/2014 9:25:08 AM
 // </history>
 
 var _language_ko_KR={
@@ -118,7 +118,7 @@ var _language_ko_KR={
 				 	
                      Based:"통화단위",
 				 	
-                     BaStatus:"BA 현황",
+                     BAStatus:"BA 현황",
 				 	
                      BaTurnoverReferenceNote:"BA 매출의 금액은 참조일 뿐이며 총 매출에 아직 포함되어있습니다.",
 				 	

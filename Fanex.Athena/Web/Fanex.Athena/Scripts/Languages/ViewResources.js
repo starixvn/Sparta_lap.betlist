@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 11/12/2014 2:12:14 PM
+// Lasted generated date: 12/5/2014 9:24:58 AM
 // </history>
 
 var _language_en_US={
@@ -120,7 +120,7 @@ var _language_en_US={
 				 	
                      Based:"Based",
 				 	
-                     BaStatus:"BA Status",
+                     BAStatus:"BA Status",
 				 	
                      BaTurnoverReferenceNote:"BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover",
 				 	
@@ -1156,7 +1156,7 @@ var _language_en_US={
 				 	
                      Racing:"Racing",
 				 	
-                     RacingComm:"Racing Comm.",
+                     RacingComm:"Racing Comm",
 				 	
                      RacingCommission:"Racing Commission",
 				 	
@@ -1252,7 +1252,7 @@ var _language_en_US={
 				 	
                      SB:"SB",
 				 	
-                     SBComm:"SB Comm.",
+                     SBComm:"SB Comm",
 				 	
                      SBCommission:"SB Comission",
 				 	

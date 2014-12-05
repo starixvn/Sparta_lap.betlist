@@ -162,7 +162,7 @@ var CustomersOption = (function () {
     };
     //#endregion
     var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
-     'Status', 'BaStatus', 'SpecialLevel', 'CustomerOption'];
+     'Status', 'BAStatus', 'SpecialLevel', 'CustomerOption'];
 
     var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
                     pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];

@@ -80,7 +80,7 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.AvailableFunds,
                 ViewResources.PendingFunds,
                 ViewResources.Status,
-                ViewResources.BaStatus,
+                ViewResources.BAStatus,
                 ViewResources.SpecialLevel,
                 ViewResources.Commission + " (%)",
             };
