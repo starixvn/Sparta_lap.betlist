@@ -549,9 +549,9 @@ namespace Fanex.Athena.Models.ViewModel {
         /// <summary>
         ///   Looks up a localized string similar to BA Status.
         /// </summary>
-        public static string BaStatus {
+        public static string BAStatus {
             get {
-                return ResourceManager.GetString("BaStatus", resourceCulture);
+                return ResourceManager.GetString("BAStatus", resourceCulture);
             }
         }
         

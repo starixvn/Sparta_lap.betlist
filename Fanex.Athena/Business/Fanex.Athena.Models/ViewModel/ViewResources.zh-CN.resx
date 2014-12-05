@@ -258,7 +258,7 @@
   <data name="Based" xml:space="preserve">
     <value>基于</value>
   </data>
-  <data name="BaStatus" xml:space="preserve">
+  <data name="BAStatus" xml:space="preserve">
     <value>BA 状态</value>
   </data>
   <data name="BaTurnoverReferenceNote" xml:space="preserve">

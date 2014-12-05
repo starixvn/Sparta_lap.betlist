@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 11/27/2014 3:27:18 PM
+// Lasted generated date: 12/5/2014 9:25:13 AM
 // </history>
 
 var _language_zh_CN={
@@ -118,7 +118,7 @@ var _language_zh_CN={
 				 	
                      Based:"基于",
 				 	
-                     BaStatus:"BA 状态",
+                     BAStatus:"BA 状态",
 				 	
                      BaTurnoverReferenceNote:"投注总计的数额仅供参考用途及仍然包含整体的投注额",
 				 	
