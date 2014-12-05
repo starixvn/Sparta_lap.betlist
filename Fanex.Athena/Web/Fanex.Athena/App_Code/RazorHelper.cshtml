@@ -5,7 +5,6 @@
 @using Fanex.Athena.Models.DTO.Common
 @using Fanex.Athena.Models.MetaModel.Product;
 @using Fanex.Athena.Web.HtmlExtension;
-
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
     {
         var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
@@ -174,13 +173,8 @@
     {
         var currentYear = DateTime.Now.Year;
     <select id="Year">
-        @for (int i = currentYear; i > currentYear - itemCount; i--)
+        @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
         {
-            if(i < 2012)
-            {
-                break;
-            }
-            
             <option @(selectedYear == i ? "selected = selected" : string.Empty)  value="@i.ToString()">@i.ToString()</option>
         }
     </select>
@@ -309,7 +303,7 @@ bool addBasedOption = false)
     </div>
 }
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
-{
+    {
     <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>@value.ToStringExt()</span>
 }
 <!-- Format total bets number -->
@@ -339,7 +333,7 @@ bool addBasedOption = false)
     {
         if (!(objValue is DBNull))
         {
-            @PositiveFormat(Convert.ToDecimal(objValue), true, false);
+    @PositiveFormat(Convert.ToDecimal(objValue), true, false);
         }
 }
 @helper DecFormat(decimal value, bool isDisplayZero = true)
