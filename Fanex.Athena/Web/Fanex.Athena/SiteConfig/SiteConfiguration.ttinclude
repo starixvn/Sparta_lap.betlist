@@ -140,13 +140,13 @@
                 switch (SiteEnvironment)
                 {
                     case SiteEnvironment.LOCAL:
-                        return "<customErrors mode=\"RemoteOnly\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                        return "<customErrors mode=\"RemoteOnly\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     case SiteEnvironment.UAT:
-                        return "<customErrors mode=\"RemoteOnly\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                        return "<customErrors mode=\"RemoteOnly\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     case SiteEnvironment.SANDBOX:
-                        return "<customErrors mode=\"RemoteOnly\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                        return "<customErrors mode=\"RemoteOnly\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     case SiteEnvironment.PRO:
-                        return "<customErrors mode=\"RemoteOnly\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
+                        return "<customErrors mode=\"RemoteOnly\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     default:
                         return string.Empty;
                 }
