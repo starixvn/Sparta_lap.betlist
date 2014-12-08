@@ -98,7 +98,7 @@ namespace Fanex.Athena
                 message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
             }
 
-           // Logging.LogService.Error(message, ex);
+            Logging.LogService.Error(message, ex);
         }
 
         protected void Application_BeginRequest()
