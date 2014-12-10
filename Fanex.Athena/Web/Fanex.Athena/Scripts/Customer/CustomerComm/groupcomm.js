@@ -70,7 +70,6 @@ var GroupComm = (function ($) {
             window.location.href = Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupId);
         },
         commissionOnChange: function (value, id) {
-            console.log(value, id);
             if (Number(value) === 15) {
                 $(id + 2 + ', ' + id + 3).val(0);
                 $(id + 2 + ', ' + id + 3).prop('disabled', true);
