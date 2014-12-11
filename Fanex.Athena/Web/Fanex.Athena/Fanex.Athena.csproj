@@ -46,9 +46,9 @@
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CasinoLibrary, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\CasinoLibrary.1.0.2.2\lib\net40\CasinoLibrary.dll</HintPath>
+      <HintPath>..\..\..\packages\CasinoLibrary.1.0.2.8\lib\net40\CasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\CasinoSetting.1.0.0.0\lib\net40\CasinoSetting.dll</HintPath>
@@ -72,18 +72,16 @@
       <HintPath>..\..\..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="GotDotNet.ApplicationBlocks.Data, Version=3.1.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.5.29.957\lib\net40\HandHistoryLibrary.dll</HintPath>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\HandHistoryLibrary.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\IBCCrypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
     </Reference>
     <Reference Include="IBCDBLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\IBCDBLibrary.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.DBLibrary.1.0.0.0\lib\net40\IBCDBLibrary.dll</HintPath>
     </Reference>
     <Reference Include="ILogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ILogger.1.0.0.0\lib\net40\ILogger.dll</HintPath>
@@ -96,8 +94,7 @@
       <HintPath>..\..\..\packages\log4net.1.2.9.0\lib\net11\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=3.1.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -126,18 +123,13 @@
       <HintPath>..\..\..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="NetUtility, Version=1.0.4199.22106, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\NetUtility.dll</HintPath>
+      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\NetUtility.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Trove.Nini.1.1.0.0\lib\net20\Nini.dll</HintPath>
-    </Reference>
     <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\Sunplus.Libraries.AOP.dll</HintPath>
+      <HintPath>..\..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -356,6 +348,7 @@
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.SANDBOX.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>

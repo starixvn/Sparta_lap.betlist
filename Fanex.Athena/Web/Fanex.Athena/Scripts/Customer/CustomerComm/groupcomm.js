@@ -271,25 +271,25 @@ var GroupComm = (function ($) {
             $('#CSComm').val(csComm);
 
             // Set any commission in drop down list
-            $('#SbComm1').val(sbComm1);
-            $('#SbComm2').val(sbComm2);
-            $('#SbComm3').val(sbComm3);
+            $('#SBComm1').val(sbComm1);
+            $('#SBComm2').val(sbComm2);
+            $('#SBComm3').val(sbComm3);
 
-            $('#RcComm1').val(rcComm1);
-            $('#RcComm2').val(rcComm2);
-            $('#RcComm3').val(rcComm3);
+            $('#RCComm1').val(rcComm1);
+            $('#RCComm2').val(rcComm2);
+            $('#RCComm3').val(rcComm3);
 
-            $('#NgComm1').val(ngComm1);
-            $('#NgComm2').val(ngComm2);
-            $('#NgComm3').val(ngComm3);
+            $('#NGComm1').val(ngComm1);
+            $('#NGComm2').val(ngComm2);
+            $('#NGComm3').val(ngComm3);
 
-            $('#LcComm1').val(lcComm1);
-            $('#LcComm2').val(lcComm2);
-            $('#LcComm3').val(lcComm3);
+            $('#LCComm1').val(lcComm1);
+            $('#LCComm2').val(lcComm2);
+            $('#LCComm3').val(lcComm3);
 
-            $('#CsComm1').val(csComm1);
-            $('#CsComm2').val(csComm2);
-            $('#CsComm3').val(csComm3);
+            $('#CSComm1').val(csComm1);
+            $('#CSComm2').val(csComm2);
+            $('#CSComm3').val(csComm3);
         }
     };
 })(jQuery);
