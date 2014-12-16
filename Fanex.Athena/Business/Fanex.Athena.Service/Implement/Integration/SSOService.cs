@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.Implement.Integration
 {
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
@@ -21,26 +20,38 @@ namespace Fanex.Athena.Service.Implement.Integration
     using Fanex.Athena.Service.Interface.Integration;
     using Fanex.Athena.Service.Interface.Users;
     using RSACryptoPad;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class SSOService : ISSOService
     {
-        private const string InternalLoginErrorMessage = "Internal login failed.";
-
         private const int DecryptKeySize = 1024;
-        
-        private const int InValidParamErrorCode = 1;
-        private const int DisableSsoErrorCode = 2;
 
-        private const string PrivateKey = "12bet.snk";        
+        private const int DisableSso = -3;
+        private const int InValidParam = -1;
+
+        private const int NotActive = -6;
+        private const int NotFoundLicensee = -7;
+        private const int NotFoundUser = -5;
+
+        private const string PrivateKey = "12bet.snk";
+        private const int TooManyLicensee = -8;
         private const string DefaultLanguage = "en-US";
 
         private readonly HttpContext _context;
         private readonly string _keyPath = string.Empty;
         private readonly string _deniedPath = string.Empty;
         private readonly ISessionService _sessionService = new SessionService();
+
+        private readonly Dictionary<int, int> ResultErrorMap = new Dictionary<int, int>()
+            {
+                { 101, NotFoundUser },
+                { 102, NotActive },
+                { 103, TooManyLicensee },
+                { 104, NotFoundLicensee }
+            };
 
         public SSOService()
         {
@@ -94,11 +105,6 @@ namespace Fanex.Athena.Service.Implement.Integration
             Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
-            if (string.IsNullOrEmpty(_keyPath))
-            {
-                RedirectToErrorPage(DisableSsoErrorCode);
-            }
-
             var queryParams = GetQueryParams();
             var licname = queryParams["licname"] ?? string.Empty;
             var userName = queryParams["username"] ?? string.Empty;
@@ -125,7 +131,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passWord))
             {
-                RedirectToErrorPage(InValidParamErrorCode);
+                RedirectToErrorPage(InValidParam);
             }
 
             long timeSpan;
@@ -139,7 +145,7 @@ namespace Fanex.Athena.Service.Implement.Integration
             }
             else
             {
-                string message = InternalLoginErrorMessage +
+                string message = "Internal login failed." +
                     "\r\nCode: " + resultInfo.Code +
                     "\r\nMessage: " + resultInfo.Message +
                     "\r\nExtendedData: " + resultInfo.ExtendedData +
@@ -152,14 +158,30 @@ namespace Fanex.Athena.Service.Implement.Integration
 
                 Logging.LogService.Error(message);
 
-                RedirectToErrorPage(resultInfo.Code); 
+                var errorCode = ResultErrorMap[resultInfo.Code];
+                RedirectToErrorPage(errorCode, resultInfo.Message); 
             }
         }
 
         private NameValueCollection GetQueryParams()
         {
-            string parameter = GetRequestKey();
-            var privateKeyPath = GetPrivateKeyPath();
+            string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
+
+            if (string.IsNullOrEmpty(parameter))
+            {
+                RedirectToErrorPage(InValidParam);
+            }
+
+            if (string.IsNullOrEmpty(_keyPath))
+            {
+                RedirectToErrorPage(DisableSso);
+            }
+
+            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
+            if (!File.Exists(privateKeyPath))
+            {
+                RedirectToErrorPage(DisableSso);
+            }
 
             parameter = parameter.Replace(" ", "+");
             var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
@@ -167,32 +189,9 @@ namespace Fanex.Athena.Service.Implement.Integration
             return HttpUtility.ParseQueryString(descryptParam);            
         }
 
-        private string GetPrivateKeyPath()
+        private void RedirectToErrorPage(int code, string message = "")
         {
-            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
-            if (!File.Exists(privateKeyPath))
-            {
-                RedirectToErrorPage(DisableSsoErrorCode);
-            }
-
-            return privateKeyPath;
-        }
-
-        private string GetRequestKey()
-        {
-            string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
-
-            if (string.IsNullOrEmpty(parameter))
-            {
-                RedirectToErrorPage(InValidParamErrorCode);
-            }
-
-            return parameter;
-        }
-
-        private void RedirectToErrorPage(int code)
-        {
-            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code));
+            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code, message));
         }
 
         /// <summary>
