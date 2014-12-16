@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.Implement.Integration
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
@@ -20,13 +21,14 @@ namespace Fanex.Athena.Service.Implement.Integration
     using Fanex.Athena.Service.Interface.Integration;
     using Fanex.Athena.Service.Interface.Users;
     using RSACryptoPad;
-    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class SSOService : ISSOService
     {
+        private const string InternalLoginErrorMessage = "Internal login failed.";
+
         private const int DecryptKeySize = 1024;
 
         private const int DisableSso = -3;
@@ -45,7 +47,7 @@ namespace Fanex.Athena.Service.Implement.Integration
         private readonly string _deniedPath = string.Empty;
         private readonly ISessionService _sessionService = new SessionService();
 
-        private readonly Dictionary<int, int> ResultErrorMap = new Dictionary<int, int>()
+        private readonly Dictionary<int, int> _resultErrorMap = new Dictionary<int, int>()
             {
                 { 101, NotFoundUser },
                 { 102, NotActive },
@@ -105,6 +107,11 @@ namespace Fanex.Athena.Service.Implement.Integration
             Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
+            if (string.IsNullOrEmpty(_keyPath))
+            {
+                RedirectToErrorPage(DisableSso);
+            }
+
             var queryParams = GetQueryParams();
             var licname = queryParams["licname"] ?? string.Empty;
             var userName = queryParams["username"] ?? string.Empty;
@@ -145,7 +152,7 @@ namespace Fanex.Athena.Service.Implement.Integration
             }
             else
             {
-                string message = "Internal login failed." +
+                string message = InternalLoginErrorMessage +
                     "\r\nCode: " + resultInfo.Code +
                     "\r\nMessage: " + resultInfo.Message +
                     "\r\nExtendedData: " + resultInfo.ExtendedData +
@@ -158,12 +165,34 @@ namespace Fanex.Athena.Service.Implement.Integration
 
                 Logging.LogService.Error(message);
 
-                var errorCode = ResultErrorMap[resultInfo.Code];
+                var errorCode = _resultErrorMap[resultInfo.Code];
                 RedirectToErrorPage(errorCode, resultInfo.Message); 
             }
         }
 
         private NameValueCollection GetQueryParams()
+        {
+            string parameter = GetRequestKey();
+            var privateKeyPath = GetPrivateKeyPath();
+
+            parameter = parameter.Replace(" ", "+");
+            var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
+
+            return HttpUtility.ParseQueryString(descryptParam);            
+        }
+
+        private string GetPrivateKeyPath()
+        {
+            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
+            if (!File.Exists(privateKeyPath))
+            {
+                RedirectToErrorPage(DisableSso);
+            }
+
+            return privateKeyPath;
+        }
+
+        private string GetRequestKey()
         {
             string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
 
@@ -172,21 +201,7 @@ namespace Fanex.Athena.Service.Implement.Integration
                 RedirectToErrorPage(InValidParam);
             }
 
-            if (string.IsNullOrEmpty(_keyPath))
-            {
-                RedirectToErrorPage(DisableSso);
-            }
-
-            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
-            if (!File.Exists(privateKeyPath))
-            {
-                RedirectToErrorPage(DisableSso);
-            }
-
-            parameter = parameter.Replace(" ", "+");
-            var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
-
-            return HttpUtility.ParseQueryString(descryptParam);            
+            return parameter;
         }
 
         private void RedirectToErrorPage(int code, string message = "")
