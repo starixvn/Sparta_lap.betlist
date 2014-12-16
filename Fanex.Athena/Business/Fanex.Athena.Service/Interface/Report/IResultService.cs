@@ -48,28 +48,28 @@ namespace Fanex.Athena.Service.Interface.Report
         /// </summary>
         /// <param name="metalModel"> The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetMatchs(ResultMetalModel metalModel);
+        IList<Sportsbook> GetMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get live casino match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<LiveCasino> GetLiveCasinoMatchs(ResultMetalModel metalModel);
+        IList<LiveCasino> GetLiveCasinoMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get number game match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<NumberGame> GetNumberGameMatchs(ResultMetalModel metalModel);
+        IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
         /// <summary>
         /// Get racing match.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The match info.</returns>
-        IList<Racing> GetRacingMatch(ResultMetalModel metalModel);
+        IList<Racing> GetRacingMatches(ResultMetalModel metalModel);
 
         #endregion Report
 
@@ -82,8 +82,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="matchId">The match id.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<Sportbook> GetPopUpMatch(int matchId, int licenseeId, int userId);
+        IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Get live casino match for pop up page.
@@ -91,8 +93,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="matchId">The match id.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId);
+        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Get the racing match for pop up page.
@@ -101,8 +105,10 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="raceNo">The race no.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
+        /// <param name="bettypeId">Bet type id.</param>
+        /// <param name="betId">The bet id.</param>
         /// <returns>The match info.</returns>
-        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId);
+        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.

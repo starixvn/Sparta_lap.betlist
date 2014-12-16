@@ -298,7 +298,9 @@
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
+    <Content Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\UserGuide\CustomerTurnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\en-US.htm" />
@@ -339,12 +341,16 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
+    <Content Include="Content\Fanex.Result\fanex.result.css" />
+    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
+    <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
     <Content Include="Content\FlatPopup\jquery.flatpopup.css" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.LOCAL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.PRO.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
@@ -361,9 +367,23 @@
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="App_Data\SpNameConfig\FanexSpNameConfig.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <Content Include="App_Data\Fanex.Result\Badminton.xls" />
+    <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
+    <Content Include="App_Data\Fanex.Result\Basketball.xls" />
+    <Content Include="App_Data\Fanex.Result\Billiard.xls" />
+    <Content Include="App_Data\Fanex.Result\Hockey.xls" />
+    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
+    <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
+    <Content Include="App_Data\Fanex.Result\Other.xls" />
+    <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
+    <Content Include="App_Data\Fanex.Result\Outright.xls" />
+    <Content Include="App_Data\Fanex.Result\Racing.xls" />
+    <Content Include="App_Data\Fanex.Result\Soccer.xls" />
+    <Content Include="App_Data\Fanex.Result\Tennis.xls" />
+    <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
+    <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
+    <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
@@ -454,12 +474,6 @@
     <Content Include="Content\Customer\images\validated.png" />
     <Content Include="Content\Customer\images\validatefail.png" />
     <Content Include="Content\Customer\images\viewcustomerlist.png" />
-    <Content Include="Content\Fanex.Result\fanex.result.css" />
-    <Content Include="Content\Fanex.Result\images\1F.gif" />
-    <Content Include="Content\Fanex.Result\images\1L.gif" />
-    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
-    <Content Include="Content\Fanex.Result\images\first-goal.gif" />
-    <Content Include="Content\Fanex.Result\images\last-goal.gif" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Footer\Footer.css" />
     <Content Include="Content\Footer\images\bg_footer.jpg" />
@@ -2650,21 +2664,6 @@
     </Content>
     <Content Include="App_Browsers\ie.browser" />
     <Content Include="App_Browsers\firefox.browser" />
-    <Content Include="App_Data\Fanex.Result\Badminton.xls" />
-    <Content Include="App_Data\Fanex.Result\BaseBall.xls" />
-    <Content Include="App_Data\Fanex.Result\Basketball.xls" />
-    <Content Include="App_Data\Fanex.Result\Billiard.xls" />
-    <Content Include="App_Data\Fanex.Result\Hockey.xls" />
-    <Content Include="App_Data\Fanex.Result\HorseRacing.xls" />
-    <Content Include="App_Data\Fanex.Result\LiveCasino.xls" />
-    <Content Include="App_Data\Fanex.Result\NumberGame.xls" />
-    <Content Include="App_Data\Fanex.Result\OtherSport.xls" />
-    <Content Include="App_Data\Fanex.Result\Outright.xls" />
-    <Content Include="App_Data\Fanex.Result\Soccer.xls" />
-    <Content Include="App_Data\Fanex.Result\Tennis.xls" />
-    <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
-    <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
-    <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
     <Content Include="App_Data\Template\CustomerGroup\CustomerCommGroup.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerBalance.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerPendingFunds.xls" />

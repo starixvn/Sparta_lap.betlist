@@ -180,6 +180,32 @@ namespace Fanex.Athena.Controllers.Report
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
+        /// <summary>
+        /// Generate tennis detailed result.
+        /// </summary>
+        /// <param name="matchId">The match ID.</param>       
+        /// <returns>The html result.</returns>
+        [HttpGet]
+        public ActionResult ResultTennisDetail(int matchId)
+        {
+            var resultService = new ResultService();
+            var detailedData = resultService.GetSportsbookGameDetail(matchId);
+            if (detailedData != null && detailedData.MatchId > 0)
+            {
+                ViewBag.Data = ResultEngine.HtmlGameDetailParser(
+                detailedData,
+                new ResultSetting
+                {
+                    SportType = SportType.Tennis,
+                    LanguageCode = SessionService.UserSession.Language
+                });
+               
+                return View("~/Views/Report/Result/Popup/Main.cshtml");                                
+            }
+
+            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+        }
+
         #endregion PopUpPage
 
         #region KenoPage
@@ -302,7 +328,9 @@ namespace Fanex.Athena.Controllers.Report
                             metalModel.MatchId,
                             metalModel.RaceNo.Value,
                             licenseeId,
-                            userId);
+                            userId,
+                            metalModel.Bettype,
+                            metalModel.BetId);
                         if (dataRc != null)
                         {
                             this._htmlResult = ResultEngine.HtmlParser(dataRc, setting);
@@ -316,7 +344,9 @@ namespace Fanex.Athena.Controllers.Report
                     var dataLc = resultService.GetPopUpLiveCasinoMatch(
                         metalModel.MatchId,
                         licenseeId,
-                        userId);
+                        userId,
+                        metalModel.Bettype,
+                        metalModel.BetId);
                     if (dataLc != null)
                     {
                         this._htmlResult = ResultEngine.HtmlParser(dataLc, setting);
@@ -334,7 +364,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId);
+                    var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
                     {
                         _htmlResult = ResultEngine.HtmlParser(data, setting);
@@ -519,7 +549,9 @@ namespace Fanex.Athena.Controllers.Report
                 SportType = (SportType)metalModel.SportId,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = SessionService.UserSession.Language,
+                VisibleDetailedLink = metalModel.SportId == (int)SportType.Tennis,
+                VisibleFreeHeader = true
             };
             switch (sportType)
             {
@@ -531,7 +563,7 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = resultService.GetRacingMatch(metalModel);
+                    var dataRc = resultService.GetRacingMatches(metalModel);
                     if (dataRc != null)
                     {
                         if (metalModel.IsExportExcel)
@@ -547,7 +579,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.LiveCasino:
-                    var dataLc = resultService.GetLiveCasinoMatchs(metalModel);
+                    var dataLc = resultService.GetLiveCasinoMatches(metalModel);
 
                     if (dataLc != null)
                     {
@@ -564,7 +596,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = resultService.GetNumberGameMatchs(
+                    var dataNg = resultService.GetNumberGameMatches(
                         metalModel);
                     if (dataNg != null)
                     {
@@ -581,7 +613,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetMatchs(metalModel);
+                    var data = resultService.GetMatches(metalModel);
                     if (data != null)
                     {
                         if (metalModel.IsExportExcel)

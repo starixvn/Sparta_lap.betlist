@@ -124,7 +124,9 @@ var RnGCasino = (function ($) {
                     $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
                 }
             };
-            $('<div id="bet-setting-confirm" title="">' + message + '</div>').dialog(options);
+
+            var title = Site.getSingleResource("Confirmation");
+            $('<div id="bet-setting-confirm" title="' + title + '" >' + message + '</div>').dialog(options);
         },
         showDialogMesage: function (title, message, closePopup) {
             var options = {

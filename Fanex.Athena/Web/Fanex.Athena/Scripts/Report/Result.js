@@ -104,12 +104,14 @@ var result = (function () {
                     $("#sport").append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
                 });
             }
+
             if (data.Leagues != null && data.Leagues.length > 0) {
                 $.each(data.Leagues, function (index, value) {
                     $("#league").append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
                 });
                 $("#league").val(param.LeagueId);
             }
+
             $("#filter-by-sport-league").show();
             $("#no-info").hide();
         } else {
@@ -180,11 +182,12 @@ var result = (function () {
             success: function (response) {
                 if (response != null && response.length > 0) {
                     $("#no-info").hide();
-                    $("#result-page").html("");
                     $("#result-page").html(response);
                 } else {
                     $("#no-info").show();
                 }
+
+                result.resizeGrid();
             },
             beforeSend: function () {
                 Site.blockUI();
@@ -200,10 +203,38 @@ var result = (function () {
     };
 
     return {
+        resizeGrid: function () {
+            var $grid = $("#result-page .fn-rs-content-scroll");
+
+            if ($grid.length === 0) {
+                return;
+            }
+
+            var gridTop = $grid.offset().top;
+
+            var gridHeight = window.innerHeight - gridTop - 30;
+
+            gridHeight = Math.max(120, gridHeight);
+            $grid.css("max-height", gridHeight);
+        },
         init: function () {
             var isShowedRight = self.location.hash.substr(1) === "outright";
             showOutRight(isShowedRight);
             showKeno();
+            $("#result-page").on("click", ".tennis-detail-link", function () {
+                var url = Site.resolveClientUrl("Report/ResultTennisDetail")
+                 + "?matchid=" + $(this).attr("data-match-id");
+
+                var title = Site.getSingleResource("Result");
+                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="100%" height="100%" src="'
+                                 + url + '" ></iframe></div>';
+
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: 775,
+                    height: 520
+                });
+            });
             $("#submit-outright").click(function () {
                 clearExcelExport();
                 clearResult();
@@ -287,10 +318,12 @@ var result = (function () {
             });
             param.FromDate = $("#hiddenToDate").val();
             param.ToDate = $("#hiddenToDate").val();
+
         }
     };
 } ());
 $(document).ready(function () {
     "use strict";
+    
     result.init();
 });

@@ -1,256 +1,267 @@
-﻿/*Html & css strucure
-/* table.fanex-result
-**     table.fanex-result tr.row-header
-***      table.fanex-result tr.row-header th
-**     table.fanex-result tr.row-data
-***      table.fanex-result tr.row-data td.*
-*/
-table.fanex-result, table.fanex-result-tenis-setdetail
+div.fn-rs-content-header
 {
-    clear: both;
+    border: 1px solid #cbc9ca;
+    padding-right: 15px;
+}
+div.fn-rs-content-scroll
+{
+    border: 1px solid #cbc9ca;
+    max-height: 740px;
+    overflow-y: scroll;
+    -ms-overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
     width: 100%;
-    border-right: 1px solid #A3D1E1;
-    border-top: 1px solid #A3D1E1;
-    border-collapse: collapse;
+    max-height: 780px;
+}
+table
+{
     font-family: Arial,Helvetica,sans-serif;
     font-size: 11px;
-    cursor: default;
+    color: rgb(69, 69, 69);
 }
-/*#region header row*/
-table.fanex-result tr.row-header
+
+table.popup
 {
+    min-width: 650px !important;
 }
-table.fanex-result tr.row-header th:first-child, table.fanex-result-tenis-setdetail tr.row-header td:first-child
+table.fn-rs
 {
-    border-left: 1px solid #A3D1E1;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1000px;
+    text-align: center;
+    border-top: 1px solid #a3d1e1;
+    line-height: 20px;
 }
-table.fanex-result tr.row-header th, table.fanex-result-tenis-setdetail tr.row-header td
+table.fn-rs.number-game
 {
-    background-color: #C7E9F5;
-    border-left: 1px solid #FFFFFF;
+    line-height: 15px;
+}
+table.fn-rs thead th
+{
+    border-right: 1px solid #cbc9ca;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 25px;
+}
+table.fn-rs thead th.cl-title
+{
+    background: #ccc;
+}
+table.fn-rs .header, table.fn-rs .sub-header
+{
     color: #024584;
+    background-color: #c7e9f5;
     background-image: url("images/tab_topbg.gif");
     background-position: center bottom;
     background-repeat: repeat-x;
-    font-size: 11px;
-    font-weight: normal;
-    text-align: center;
+}
+table.fn-rs tbody tr.data:hover
+{
+    background: none repeat scroll 0 0 #fcf911 !important;
+}
+table.fn-rs tbody tr.even
+{
+    background: none repeat scroll 0 0 #fcfde9;
+}
+table.fn-rs tbody tr td
+{
+    border: solid 1px #cbc9ca;
+    padding: 1px;
     vertical-align: middle;
-    height: 28px;
-    padding: 2px;
-    border-bottom: 1px solid #A3D1E1;
 }
-/*header-column*/
-table.fanex-result tr.row-header th.column-kickofftime
+table.fn-rs tbody .cl-league
 {
-}
-table.fanex-result tr.row-header th.column-time
-{
-    width: 65px;
-}
-table.fanex-result tr.row-header th.column-match
-{
-}
-table.fanex-result tr.row-header th.column-firsthaftscore
-{
-}
-table.fanex-result tr.row-header th.column-finalscore
-{
-}
-table.fanex-result tr.row-header th.column-status
-{
-}
-table.fanex-result tr.row-header th.column-result
-{
-}
-table.fanex-result tr.row-header th.column-lblOEFT
-{
-}
-table.fanex-result tr.row-header th.column-lbl1stball
-{
-}
-table.fanex-result tr.row-header th.column-lastball
-{
-}
-table.fanex-result tr.row-header th.column-warrior
-{
-}
-/*end-header-column*/
-/*endregion*/
-/*#region row-data*/
-table.fanex-result tr.row-data
-{
-}
-table.fanex-result tr.row-data:hover
-{
-    background: #fcf911;
-}
-table.fanex-result tr.row-data td, table.fanex-result-tenis-setdetail tr.row-data-setScore td, table.fanex-result-tenis-setdetail tr.row-data-SetScore td
-{
-    border-left: 1px solid #A3D1E1;
-    border-bottom: 1px solid #A3D1E1;
-    font-size: 11px;
-    height: 22px;
-    padding: 2px;
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
     vertical-align: middle;
-    text-align: center;
+    border: 0;
+    font-weight: bold;
+    text-align: left;
+    line-height: 7px;
+    height: 21px;
+}
+table.fn-rs tbody .cl-match
+{
+    text-align: left;
+    font-size: 11px;
+    padding-left: 3px;
+}
+table.fn-rs tbody .cl-match.home
+{
     color: rgb(69, 69, 69);
 }
-table.fanex-result tr.row-data td:hover
+table.fn-rs tbody .cl-match.away
 {
-    color: #009;
+    color: rgb(69, 69, 69);
 }
-/*row-column*/
-table.fanex-result tr.format-even
+table.fn-rs tbody .cl-match div
 {
-    background: #fcfde9;
-}
-table.fanex-result tr.format-odd
-{
-}
-table.fanex-result tr.row-data td.column-league
-{
-    background: url("images/bg_header03.jpg") repeat-x scroll center top #F8F1E9;
-    background-color: #DAE6ED;
-    font-weight: bold;
-    text-align: left !important;
-    text-transform: uppercase;
-}
-
-table.fanex-result tr.row-data td.column-kickofftime
-{
-    font-size: 10px !important;
-    font-weight: normal;
-    white-space: nowrap;
-}
-table.fanex-result tr.row-data td.column-match, tr.row-data td.column-team, table.fanex-result tr.row-data td.column-result
-{
-    text-align: left !important;
-}
-
-table.fanex-result tr.row-data td.column-match div.first-goal
-{
-    background: url(images/first-goal.gif) no-repeat center center;
-    height: 10px;
     width: 14px;
-    display: inline;
-    padding: 0 4px;
+    height: 14px;
+    display: inline-block;
 }
-table.fanex-result tr.row-data td.column-match div.last-goal
+table.fn-rs tbody .cl-match div.first-goal
 {
-    background: url(images/last-goal.gif) no-repeat center center;
-    height: 10px;
-    width: 14px;
-    display: inline;
-    padding: 0 4px;
+    background: url("images/goal-icon.png") no-repeat -9px -32px;
 }
-table.fanex-result tr.row-data td.column-match div.first-half-first-goal
+table.fn-rs tbody .cl-match div.last-goal
 {
-    background: url(images/1F.gif) no-repeat center center;
-    height: 10px;
-    width: 14px;
-    display: inline;
-    padding: 0 4px;
+    background: url("images/goal-icon.png") no-repeat -9px -16px;
 }
-table.fanex-result tr.row-data td.column-match div.first-half-last-goal
+table.fn-rs tbody .cl-match div.first-half-first-goal
 {
-    background: url(images/1L.gif) no-repeat center center;
-    height: 10px;
-    width: 14px;
-    display: inline;
-    padding: 0 4px;
+    background: url("images/goal-icon.png") no-repeat -9px -65px;
 }
-
-table.fanex-result tr.row-data td.column-lblOEFT
+table.fn-rs tbody .cl-match div.first-half-last-goal
+{
+    background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
+}
+table.fn-rs tbody .cl-match div.home, table.fn-rs tbody .cl-match div.away
+{
+    width: 100%;
+    display: inline-block;
+    margin-top: 10px;
+}
+table.fn-rs .cl-m-code
+{
+    width: 112px;
+}
+table.fn-rs .cl-m-code .m-code
+{
+    color: #599ced;
+}
+table.fn-rs .cl-ko-time
+{
+    width: 90px;
+}
+table.fn-rs .cl-match
+{
+    min-width: 82px;
+}
+table.fn-rs .cl-s, table.fn-rs .cl-ot, table.fn-rs .cl-ei
+{
+    width: 40px;
+}
+table.fn-rs .cl-totalgames, table.fn-rs .cl-totalpoint
+{
+    width: 72px;
+    color: #0054ff;
+}
+table.fn-rs .cl-totalset
+{
+    width: 68px;
+    color: #ff0000;
+}
+table.fn-rs .cl-ht-score
+{
+    width: 100px;
+    color: #0054ff;
+}
+table.fn-rs .cl-f-score
+{
+    width: 100px;
+    color: #ff0000;
+}
+table.fn-rs .cl-status
+{
+    text-transform: capitalize;
+    width: 94px;
+}
+table.fn-rs .cl-status .detail-link
+{
+    color: #0273FF;
+    cursor: pointer;
+    text-decoration: none;
+}
+table.fn-rs .cl-status .detail-link:hover
+{
+    color: #D2592D;
+}
+table.fn-rs .cl-status .penalty-result
+{
+    color: inherit;
+    cursor: inherit;
+    text-decoration: none;
+}
+table.fn-rs .cl-status .penalty-result:hover
+{
+    color: inherit;
+}
+table.number-game
 {
 }
-table.fanex-result tr.row-data td.column-lbl1stball
+table.number-game .cl-result
 {
+    width: 150px;
 }
-table.fanex-result tr.row-data td.column-lastball
+table.number-game .cl-warrior, table.number-game .cl-lblOEFT, table.number-game .cl-lbl1stball, table.number-game .cl-lastball
 {
+    width: 70px;
 }
-table.fanex-result tr.row-data td.column-warrior
+table.number-game span.ball
 {
-}
-table.fanex-result tr.row-data td.bold
-{
-    font-weight: bold !important;
-}
-table.fanex-result tr.row-data td.left
-{
-    text-align: left !important;
-}
-table.fanex-result tr.row-data td.center
-{
-    text-align: center !important;
-}
-/*end-row-data*/
-
-/*no-info*/
-table.fanex-result tr.row-noinfo
-{
-    border-bottom: 1px solid #A3D1E1;
-}
-table.fanex-result .row-noinfo td
-{
-    text-align: center;
-    border-left: 1px solid #A3D1E1;
-}
-/*end*/
-table.fanex-result .red
-{
-    color: #dc143c !important;
-}
-
-
-table.fanex-result .ball
-{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    color: #141214;
     padding: 5px 5px;
-    background: -moz-linear-gradient(top,#f2f2f2 0%, #ffffff 25%,#ffffff 50%, #ffffff 75%, #d1cdcd);
-    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2),color-stop(0.25, #ffffff), color-stop(0.50, #ffffff), color-stop(0.75, #ffffff),to(#d1cdcd));
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #fff 25%, #fff 50%, #fff 75%, #d1cdcd);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), color-stop(0.25, #fff), color-stop(0.5, #fff), color-stop(0.75, #fff), to(#d1cdcd));
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
     border-radius: 0px;
     border: 1px solid #5c5757;
-    text-shadow: 1px 0px 0px rgba(000,000,000,0.4), 1px 1px 0px rgba(255,255,255,0.4);
+    text-shadow: 1px 0px 0px rgba(0, 0, 0, 0.4),1px 1px 0px rgba(255, 255, 255, 0.4);
     width: 15px !important;
     display: inline-block;
     text-align: center;
+    margin-left: 2px;
 }
-/*#endregion*/
-/*popup*/
-table.fanex-result-popup
-{
-    width: 100%;
-}
-table.fanex-result-popup td.sporttype
+table.casino
 {
 }
-table.fanex-result-popup td.sporttype
+table.casino .cl-result
+{
+    width: 334px;
+}
+table.racing
 {
 }
-table.fanex-result-popup .bl-sport-type
+table.racing .cl-race
+{
+    width: 180px;
+}
+table.racing .cl-result
 {
     font-weight: bold;
+    text-align: left;
 }
-table.fanex-result-popup .bl-league-name
+table.racing .cl-win, table.racing .cl-place
 {
-    font-weight: normal;
+    width: 100px;
 }
-table.fanex-result-tenis-setdetail
+table.racing .cl-status
 {
-    width: 300px;
-    margin-top: 2px;
+    width: 150px;
 }
-table.fanex-result-tenis-setdetail .row-header
+table.racing .cl-status .official
 {
+    color: red;
+    font-weight: bold;
 }
-table.fanex-result-tenis-setdetail tr.row-header td.column-set-name
+table.racing .cl-race-name
 {
-    background-image: none !important;
+    width: 83px;
 }
-/*end-popup*/
+table.racing .cl-placing
+{
+    width: 50px;
+}
+table.racing .cl-engine-no
+{
+    width: 48px;
+}
+table .row-noinfo
+{
+    border-top: 0;
+    text-align: center;
+    padding: 4px;
+}

@@ -195,16 +195,16 @@ var CustomerList = (function ($) {
 
         var gridWidth = reportGrid.width();
 
-        if (gridWidth < 500) {
-            gridWidth = 500;
+        if (gridWidth < 650) {
+            gridWidth = 650;
         } else {
             gridWidth += 20;
         }
-        gridWidth = Math.min(1030, gridWidth);
+        gridWidth = Math.min(1040, gridWidth);
         reportGrid.jqGrid("setGridWidth", gridWidth);
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
-        $(".content-filter").width(Math.max(1030, gridWidth));
+        $(".content-filter").width(Math.max(1040, gridWidth));
 
         var gridTop = reportGrid.offset().top;
         var gridHeight = $(window).height() - gridTop - 50;

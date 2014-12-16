@@ -2,6 +2,9 @@
 {
     text-decoration: none;
 }
+.mx-parlay .void, .mx-parlay .reject, .mx-parlay .refund {
+    text-decoration: line-through;
+}
 .line
 {
     border-bottom: 1px solid #A0A0A0;

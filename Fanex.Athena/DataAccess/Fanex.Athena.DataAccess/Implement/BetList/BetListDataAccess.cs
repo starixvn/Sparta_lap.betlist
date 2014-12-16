@@ -1184,12 +1184,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 case "Lrf_BetList_SelWinlostRacing":
                     CreateDailyRacingWLBetlistParameters(db, metaModel);
-
                     break;
 
                 case "Lrf_BetList_SelWinloss_Mem":
                     CreateLicenseeWLBetlistParameters(db, metaModel);
-
                     break;
 
                 case "Lrf_BetList_SelRunningByBettype":
@@ -1198,9 +1196,9 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 case "Lrf_BetList_SelRunningByBettypeList":
                     CreateRunningBetListByMultipleBettypePaprameters(db, metaModel);
                     break;
+
                 case "Lrf_BetList_LiveReport_SelWinlossByMatch":
                     CreateLiveReportBetListByMatchParameters(db, metaModel);
-
                     break;
 
                 case "Lrf_BetList_LiveReport_SelWinlossOutright":
@@ -1272,7 +1270,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 case "Lrf_BetList_Forecast_SelByMatch":
                     CreateRunningBetListByForeCastMatchParameters(db, metaModel);
-
                     break;
             }
         }
