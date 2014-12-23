@@ -154,10 +154,12 @@
     <value>對不起，密碼不能空置!!!</value>
   </data>
   <data name="AlertRemoveSpecialLevelForCustomerMsg" xml:space="preserve">
-    <value>即將刪除此客戶的特殊級別。您，確定嗎?</value>
+    <value>即將刪除此會員的特殊級別。您，確定嗎?</value>
+    <comment>#27974</comment>
   </data>
   <data name="AlertSetSpecialLevelForCustomerMsg" xml:space="preserve">
-    <value>您確定要設置此客戶的特殊級別為</value>
+    <value>您確定要設置此會員的特殊級別為</value>
+    <comment>#27974</comment>
   </data>
   <data name="AlertTurnOffBAMsg" xml:space="preserve">
     <value>您確定要關閉BA？</value>
@@ -331,7 +333,8 @@
     <value>更改{0}的狀態</value>
   </data>
   <data name="ChangeStatusOfThisCustomerMsg" xml:space="preserve">
-    <value>您確定您要更換此客戶的狀態嗎?</value>
+    <value>您確定您要更換此會員的狀態嗎?</value>
+    <comment>#27974</comment>
   </data>
   <data name="Checkavailability" xml:space="preserve">
     <value>檢查可用性</value>
@@ -349,7 +352,8 @@
     <value>零失球</value>
   </data>
   <data name="ClearCurrentComm" xml:space="preserve">
-    <value>清除客戶的佣金</value>
+    <value>清除會員的佣金</value>
+    <comment>#27974</comment>
   </data>
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
@@ -364,7 +368,8 @@
     <value>佣金</value>
   </data>
   <data name="CommIsClear" xml:space="preserve">
-    <value>客戶的佣金已清空</value>
+    <value>會員的佣金已清空</value>
+    <comment>#27974</comment>
   </data>
   <data name="Commission" xml:space="preserve">
     <value>佣金</value>
@@ -373,7 +378,8 @@
     <value>佣金組別列表</value>
   </data>
   <data name="CommIsUnChange" xml:space="preserve">
-    <value>客戶的佣金是不變的</value>
+    <value>會員的佣金是不變的</value>
+    <comment>#27974</comment>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>已完場</value>
@@ -385,7 +391,8 @@
     <value>確認</value>
   </data>
   <data name="ConfirmCommission" xml:space="preserve">
-    <value>確認客戶的佣金</value>
+    <value>確認會員的佣金</value>
+    <comment>#27974</comment>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>確認密碼</value>
@@ -436,7 +443,8 @@
     <value>本週</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>客戶</value>
+    <value>會員</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerBalance" xml:space="preserve">
     <value>會員餘額</value>
@@ -448,46 +456,56 @@
     <value>會員佣金</value>
   </data>
   <data name="CustomerInfo" xml:space="preserve">
-    <value>客戶資料</value>
+    <value>會員資料</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerList" xml:space="preserve">
     <value>會員列表</value>
   </data>
   <data name="CustomerNotBelongAnyGroupMsg" xml:space="preserve">
-    <value>選擇的客戶不屬於任何一組</value>
+    <value>選擇的會員不屬於任何一組</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerOption" xml:space="preserve">
-    <value>客戶選項</value>
+    <value>會員選項</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerOverall" xml:space="preserve">
-    <value>客戶 (整體)</value>
+    <value>會員 (整體)</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>會員待定資金</value>
   </data>
   <data name="CustomerPedingFundsTitle" xml:space="preserve">
-    <value>客戶待定資金 - {0}</value>
+    <value>會員待定資金 - {0}</value>
+    <comment>#27974</comment>
   </data>
   <data name="Customers" xml:space="preserve">
-    <value>客戶</value>
+    <value>會員</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomersBelongGroupsBeRemovedMsg" xml:space="preserve">
-    <value>只有屬於組的客戶將從他們所屬的組中移除。</value>
+    <value>只有屬於組的會員將從他們所屬的組中移除。</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerSetting" xml:space="preserve">
-    <value>客戶設定</value>
+    <value>會員設定</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerSettinglog" xml:space="preserve">
     <value>會員設定日誌</value>
   </data>
   <data name="CustomersExistedinGroupMsg" xml:space="preserve">
-    <value>選擇的客戶已經出現在此組</value>
+    <value>選擇的會員已經出現在此組</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerWinLoss" xml:space="preserve">
     <value>會員輸贏</value>
   </data>
   <data name="CustomerWinLossTitle" xml:space="preserve">
-    <value>客戶輸贏，{0} --&gt; {1} - {2}</value>
+    <value>會員輸贏，{0} --&gt; {1} - {2}</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerW_L" xml:space="preserve">
     <value>會員輸贏</value>
@@ -727,7 +745,8 @@
     <value>獲取全部</value>
   </data>
   <data name="GotoCustomerList" xml:space="preserve">
-    <value>轉至客戶名單</value>
+    <value>轉至會員名單</value>
+    <comment>#27974</comment>
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>累計</value>
@@ -748,7 +767,8 @@
     <value>佣金組別日誌</value>
   </data>
   <data name="GroupCommNote" xml:space="preserve">
-    <value>若默認組已被選擇，所有新註冊之客戶將被自動分配至此傭金組。這將不會對現有的客戶進行任何更改。</value>
+    <value>若默認組已被選擇，所有新註冊之會員將被自動分配至此傭金組。這將不會對現有的會員進行任何更改。</value>
+    <comment>#27974</comment>
   </data>
   <data name="GroupId" xml:space="preserve">
     <value>組別ID</value>
@@ -1144,7 +1164,8 @@
     <value>賬號管理</value>
   </data>
   <data name="ManageCustomer" xml:space="preserve">
-    <value>客戶管理</value>
+    <value>會員管理</value>
+    <comment>#27974</comment>
   </data>
   <data name="Mar" xml:space="preserve">
     <value>三月</value>
@@ -1480,7 +1501,8 @@
     <value>密碼必須至少為6個字符，包含至少2個英文字母及至少2個數字 (例如：pass22)。</value>
   </data>
   <data name="PayAttentionMsg" xml:space="preserve">
-    <value>請注意：由於不同的佣金值，客戶將從組別中刪除。</value>
+    <value>請注意：由於不同的佣金值，會員將從組別中刪除。</value>
+    <comment>#27974</comment>
   </data>
   <data name="Pending" xml:space="preserve">
     <value>等待中</value>
@@ -1579,13 +1601,16 @@
     <value>從組中刪除</value>
   </data>
   <data name="RemoveGroupMsg" xml:space="preserve">
-    <value>您確定要從組中移除此（這些）客戶?</value>
+    <value>您確定要從組中移除此（這些）會員?</value>
+    <comment>#27974</comment>
   </data>
   <data name="RemoveTheseCustomersFromGroupMsg" xml:space="preserve">
-    <value>您確定要從組中移除這些客戶?</value>
+    <value>您確定要從組中移除這些會員?</value>
+    <comment>#27974</comment>
   </data>
   <data name="RemoveThisCustomerFromGroupMsg" xml:space="preserve">
-    <value>您確定要從組中移除該客戶?</value>
+    <value>您確定要從組中移除該會員?</value>
+    <comment>#27974</comment>
   </data>
   <data name="Report" xml:space="preserve">
     <value>報告</value>
@@ -1945,7 +1970,8 @@
     <value>成功更新佣金</value>
   </data>
   <data name="UpdateCustomerCommission" xml:space="preserve">
-    <value>更新客戶的佣金</value>
+    <value>更新會員的佣金</value>
+    <comment>#27974</comment>
   </data>
   <data name="UpdateLiveCasinoBetSettings" xml:space="preserve">
     <value>您確定您要更新真人娛樂場投注設置嗎？</value>
@@ -1966,7 +1992,8 @@
     <value>賽馬賽事的投注設定{0}已更新成功</value>
   </data>
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
-    <value>無效的參數。無效的客戶識別</value>
+    <value>無效的參數。無效的會員識別</value>
+    <comment>#27974</comment>
   </data>
   <data name="UpdateSportsbookBetSettings" xml:space="preserve">
     <value>您確定您要更新所有的體育博彩投注設置嗎？</value>
@@ -2074,7 +2101,8 @@
     <value>昨日</value>
   </data>
   <data name="YouNotChooseAnyCustomerMsg" xml:space="preserve">
-    <value>您還沒有選擇任何客戶</value>
+    <value>您還沒有選擇任何會員</value>
+    <comment>#27974</comment>
   </data>
   <data name="CustomerBetList" xml:space="preserve">
     <value>會員注單</value>

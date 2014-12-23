@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/24/2014 2:18:18 PM
+// Lasted generated date: 12/23/2014 10:55:19 AM
 // </history>
 
 var _language_zh_CN={
@@ -46,9 +46,9 @@ var _language_zh_CN={
 				 	
                      AlertPasswordEmptyMsg:"对不起, 密码不能空置!!!",
 				 	
-                     AlertRemoveSpecialLevelForCustomerMsg:"即将删除此客户的特殊级别。您确定吗?",
+                     AlertRemoveSpecialLevelForCustomerMsg:"即将删除此会员的特殊级别。您确定吗?",
 				 	
-                     AlertSetSpecialLevelForCustomerMsg:"您确定要设置此客户的特殊级别为",
+                     AlertSetSpecialLevelForCustomerMsg:"您确定要设置此会员的特殊级别为",
 				 	
                      AlertTurnOffBAMsg:"您确定要关闭BA？",
 				 	
@@ -180,7 +180,7 @@ var _language_zh_CN={
 				 	
                      ChangeStatus:"更改 {0}&apos;s 状态",
 				 	
-                     ChangeStatusOfThisCustomerMsg:"您确定您要更换此客户的状态吗?",
+                     ChangeStatusOfThisCustomerMsg:"您确定您要更换此会员的状态吗?",
 				 	
                      Characters:"文字",
 				 	
@@ -196,7 +196,7 @@ var _language_zh_CN={
 				 	
                      CleanSheet:"零失球",
 				 	
-                     ClearCurrentComm:"清除客户的佣金",
+                     ClearCurrentComm:"清除会员的佣金",
 				 	
                      Close:"关闭",
 				 	
@@ -212,13 +212,13 @@ var _language_zh_CN={
 				 	
                      Comm:"佣金",
 				 	
-                     CommIsClear:"客户的佣金已清空",
+                     CommIsClear:"会员的佣金已清空",
 				 	
                      Commission:"佣金",
 				 	
                      CommissionGroupList:"佣金组别列表",
 				 	
-                     CommIsUnChange:"客户的佣金是不变的",
+                     CommIsUnChange:"会员的佣金是不变的",
 				 	
                      Completed:"已完场",
 				 	
@@ -226,7 +226,7 @@ var _language_zh_CN={
 				 	
                      Confirmation:"确认",
 				 	
-                     ConfirmCommission:"确认客户的佣金",
+                     ConfirmCommission:"确认会员的佣金",
 				 	
                      ConfirmPassword:"确认密码",
 				 	
@@ -264,7 +264,7 @@ var _language_zh_CN={
 				 	
                      Currentweek:"本周",
 				 	
-                     Customer:"客户",
+                     Customer:"会员",
 				 	
                      CustomerBalance:"会员余额",
 				 	
@@ -276,29 +276,29 @@ var _language_zh_CN={
 				 	
                      CustomerHasNeverPlayed:"This customer has never played {0}.",
 				 	
-                     CustomerInfo:"客户资料",
+                     CustomerInfo:"会员资料",
 				 	
                      CustomerList:"会员列表",
 				 	
-                     CustomerNotBelongAnyGroupMsg:"选择的客户不属于任何一组",
+                     CustomerNotBelongAnyGroupMsg:"选择的会员不属于任何一组",
 				 	
-                     CustomerOption:"客户选项",
+                     CustomerOption:"会员选项",
 				 	
-                     CustomerOverall:"客户 (整体)",
+                     CustomerOverall:"会员 (整体)",
 				 	
                      CustomerPedingFunds:"会员待定资金",
 				 	
-                     CustomerPedingFundsTitle:"客户待定资金 - {0}",
+                     CustomerPedingFundsTitle:"会员待定资金 - {0}",
 				 	
-                     Customers:"客户",
+                     Customers:"会员",
 				 	
-                     CustomersBelongGroupsBeRemovedMsg:"只有属于组的客户将从他们所属的组中移除。",
+                     CustomersBelongGroupsBeRemovedMsg:"只有属于组的会员将从他们所属的组中移除。",
 				 	
-                     CustomerSetting:"客户设定",
+                     CustomerSetting:"会员设定",
 				 	
                      CustomerSettinglog:"会员设定日志",
 				 	
-                     CustomersExistedinGroupMsg:"选择的客户已经出现在此组",
+                     CustomersExistedinGroupMsg:"选择的会员已经出现在此组",
 				 	
                      CustomerTurnover:"会员交易额",
 				 	
@@ -308,7 +308,7 @@ var _language_zh_CN={
 				 	
                      CustomerWinLoss:"会员輸贏",
 				 	
-                     CustomerWinLossTitle:"客户输赢, {0} --&gt; {1} - {2}",
+                     CustomerWinLossTitle:"会员输赢, {0} --&gt; {1} - {2}",
 				 	
                      DA:"和客",
 				 	
@@ -510,7 +510,7 @@ var _language_zh_CN={
 				 	
                      Go:"开始",
 				 	
-                     GotoCustomerList:"转至客户名单",
+                     GotoCustomerList:"转至会员名单",
 				 	
                      GrandTotal:"累计",
 				 	
@@ -528,7 +528,7 @@ var _language_zh_CN={
 				 	
                      GroupCommissionlog:"佣金组别日志",
 				 	
-                     GroupCommNote:"若默认组已被选择, 所有新注册之客户将被自动分配至此佣金组。这将不会对现有的客户进行任何更改。",
+                     GroupCommNote:"若默认组已被选择, 所有新注册之会员将被自动分配至此佣金组。这将不会对现有的会员进行任何更改。",
 				 	
                      GroupId:"组别ID",
 				 	
@@ -828,7 +828,7 @@ var _language_zh_CN={
 				 	
                      ManageAccount:"账号管理",
 				 	
-                     ManageCustomer:"客户管理",
+                     ManageCustomer:"会员管理",
 				 	
                      Mar:"三月",
 				 	
@@ -1084,7 +1084,7 @@ var _language_zh_CN={
 				 	
                      PasswordNoteMsg:"密码必须至少为6个字符, 包含至少2个英文字母及至少2个数字 (例如: pass22)。",
 				 	
-                     PayAttentionMsg:"请注意: 由于不同的佣金值, 客户将从组别中删除。",
+                     PayAttentionMsg:"请注意: 由于不同的佣金值, 会员将从组别中删除。",
 				 	
                      Pending:"等待中",
 				 	
@@ -1168,11 +1168,11 @@ var _language_zh_CN={
 				 	
                      RemoveFromGroup:"从组中删除",
 				 	
-                     RemoveGroupMsg:"您确定要从组中移除此(这些)客户?",
+                     RemoveGroupMsg:"您确定要从组中移除此(这些)会员?",
 				 	
-                     RemoveTheseCustomersFromGroupMsg:"您确定要从组中移除这些客户?",
+                     RemoveTheseCustomersFromGroupMsg:"您确定要从组中移除这些会员?",
 				 	
-                     RemoveThisCustomerFromGroupMsg:"您确定要从组中移除该客户?",
+                     RemoveThisCustomerFromGroupMsg:"您确定要从组中移除该会员?",
 				 	
                      Report:"报告",
 				 	
@@ -1366,7 +1366,7 @@ var _language_zh_CN={
 				 	
                      Top:"顶部",
 				 	
-                     TopCustomer:"最大客户",
+                     TopCustomer:"最大会员",
 				 	
                      TopCustomerNote1:"此报告可支持查看历史数据至昨日",
 				 	
@@ -1458,7 +1458,7 @@ var _language_zh_CN={
 				 	
                      UpdateCurrencySuccessfulMsg:"更新货币成功",
 				 	
-                     UpdateCustomerCommission:"更新客户的佣金",
+                     UpdateCustomerCommission:"更新会员的佣金",
 				 	
                      UpdateFunctionSuccessfulMsg:"更新成功",
 				 	
@@ -1484,7 +1484,7 @@ var _language_zh_CN={
 				 	
                      UpdateRNGCasinoBetSettingSuccessMsg:"The RNG Casino bet setting of {0} was updated successfully",
 				 	
-                     UpdateSpecialLevelMsg:"无效的参数.无效的客户识别",
+                     UpdateSpecialLevelMsg:"无效的参数.无效的会员识别",
 				 	
                      UpdateSportsbookBetSettings:"您确定您要更新所有的体育博彩投注设置吗？",
 				 	
@@ -1572,7 +1572,7 @@ var _language_zh_CN={
 				 	
                      Yesterday:"昨日",
 				 	
-                     YouNotChooseAnyCustomerMsg:"您还没有选择任何客户"
+                     YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 				 	
              
 	 
