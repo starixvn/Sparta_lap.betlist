@@ -34,12 +34,12 @@ namespace Fanex.Athena.Service.Implement.Integration
         private const int DisableSso = -3;
         private const int InValidParam = -1;
 
+        private const int NotFoundUser = -5;
         private const int NotActive = -6;
         private const int NotFoundLicensee = -7;
-        private const int NotFoundUser = -5;
-
-        private const string PrivateKey = "12bet.snk";
         private const int TooManyLicensee = -8;
+
+        private const string PrivateKey = "12bet.snk";        
         private const string DefaultLanguage = "en-US";
 
         private readonly HttpContext _context;
@@ -165,7 +165,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 
                 Logging.LogService.Error(message);
 
-                var errorCode = _resultErrorMap[resultInfo.Code];
+                var errorCode = _resultErrorMap.ContainsKey(resultInfo.Code) ? _resultErrorMap[resultInfo.Code] : 0;
                 RedirectToErrorPage(errorCode, resultInfo.Message); 
             }
         }
