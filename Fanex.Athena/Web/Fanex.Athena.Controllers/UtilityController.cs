@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers
             switch (code)
             {                
                 case 1:
-                    message = ViewResources.SSOLinkIncorrectMsg;
+                    message = ViewResources.InValidParamMsg;
                     break;
 
                 case 2:
@@ -54,8 +54,6 @@ namespace Fanex.Athena.Controllers
                     break;
 
                 case 100:
-                    message = ViewResources.NetworkTimeoutMsg;
-                    message = ViewResources.SSOLinkExpiredMsg;
                     break;
 
                 case 101:

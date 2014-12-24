@@ -30,14 +30,9 @@ namespace Fanex.Athena.Service.Implement.Integration
         private const string InternalLoginErrorMessage = "Internal login failed.";
 
         private const int DecryptKeySize = 1024;
-
-        private const int DisableSso = -3;
-        private const int InValidParam = -1;
-
-        private const int NotFoundUser = -5;
-        private const int NotActive = -6;
-        private const int NotFoundLicensee = -7;
-        private const int TooManyLicensee = -8;
+        
+        private const int InValidParamErrorCode = 1;
+        private const int DisableSsoErrorCode = 2;
 
         private const string PrivateKey = "12bet.snk";        
         private const string DefaultLanguage = "en-US";
@@ -46,14 +41,6 @@ namespace Fanex.Athena.Service.Implement.Integration
         private readonly string _keyPath = string.Empty;
         private readonly string _deniedPath = string.Empty;
         private readonly ISessionService _sessionService = new SessionService();
-
-        private readonly Dictionary<int, int> _resultErrorMap = new Dictionary<int, int>()
-            {
-                { 101, NotFoundUser },
-                { 102, NotActive },
-                { 103, TooManyLicensee },
-                { 104, NotFoundLicensee }
-            };
 
         public SSOService()
         {
@@ -109,7 +96,7 @@ namespace Fanex.Athena.Service.Implement.Integration
         {
             if (string.IsNullOrEmpty(_keyPath))
             {
-                RedirectToErrorPage(DisableSso);
+                RedirectToErrorPage(DisableSsoErrorCode);
             }
 
             var queryParams = GetQueryParams();
@@ -138,7 +125,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passWord))
             {
-                RedirectToErrorPage(InValidParam);
+                RedirectToErrorPage(InValidParamErrorCode);
             }
 
             long timeSpan;
@@ -165,8 +152,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 
                 Logging.LogService.Error(message);
 
-                var errorCode = _resultErrorMap.ContainsKey(resultInfo.Code) ? _resultErrorMap[resultInfo.Code] : 0;
-                RedirectToErrorPage(errorCode, resultInfo.Message); 
+                RedirectToErrorPage(resultInfo.Code); 
             }
         }
 
@@ -186,7 +172,7 @@ namespace Fanex.Athena.Service.Implement.Integration
             var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
             if (!File.Exists(privateKeyPath))
             {
-                RedirectToErrorPage(DisableSso);
+                RedirectToErrorPage(DisableSsoErrorCode);
             }
 
             return privateKeyPath;
@@ -198,15 +184,15 @@ namespace Fanex.Athena.Service.Implement.Integration
 
             if (string.IsNullOrEmpty(parameter))
             {
-                RedirectToErrorPage(InValidParam);
+                RedirectToErrorPage(InValidParamErrorCode);
             }
 
             return parameter;
         }
 
-        private void RedirectToErrorPage(int code, string message = "")
+        private void RedirectToErrorPage(int code)
         {
-            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code, message));
+            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
         /// <summary>
