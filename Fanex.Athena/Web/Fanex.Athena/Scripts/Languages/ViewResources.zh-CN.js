@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/5/2014 9:25:13 AM
+// Lasted generated date: 12/24/2014 2:18:18 PM
 // </history>
 
 var _language_zh_CN={
@@ -621,8 +621,6 @@ var _language_zh_CN={
                      InternalSystem:"内部系统",
 				 	
                      InvalidCaptchaMsg:"您输入了无效的编码",
-				 	
-                     InValidParamMsg:"网址参数是有效的",
 				 	
                      InvalidParams:"Invalid parameters",
 				 	

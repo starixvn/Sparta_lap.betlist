@@ -1134,9 +1134,6 @@
   <data name="InvalidCaptchaMsg" xml:space="preserve">
     <value>유효하지 않은 코드를 입력했습니다.</value>
   </data>
-  <data name="InValidParamMsg" xml:space="preserve">
-    <value>URL의 param이 유효하지 않습니다.</value>
-  </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>요청은 유효하지 않습니다</value>
   </data>
