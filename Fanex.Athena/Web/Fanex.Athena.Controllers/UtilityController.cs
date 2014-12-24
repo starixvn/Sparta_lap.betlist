@@ -54,6 +54,8 @@ namespace Fanex.Athena.Controllers
                     break;
 
                 case 100:
+
+                    message = ViewResources.SSOLinkExpiredMsg;
                     break;
 
                 case 101:

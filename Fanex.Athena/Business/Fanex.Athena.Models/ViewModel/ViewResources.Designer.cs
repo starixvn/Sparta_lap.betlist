@@ -4255,15 +4255,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network time out. Please try again..
-        /// </summary>
-        public static string NetworkTimeoutMsg {
-            get {
-                return ResourceManager.GetString("NetworkTimeoutMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New Group.
         /// </summary>
         public static string NewGroup {
@@ -5961,6 +5952,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Sportsbook {
             get {
                 return ResourceManager.GetString("Sportsbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single Sign On link is expired. Please log in again..
+        /// </summary>
+        public static string SSOLinkExpiredMsg {
+            get {
+                return ResourceManager.GetString("SSOLinkExpiredMsg", resourceCulture);
             }
         }
         
