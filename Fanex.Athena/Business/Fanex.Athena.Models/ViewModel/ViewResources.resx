@@ -2547,7 +2547,7 @@
     <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
-    <value>This account is not assigned to any licensee.</value>
+    <value>This account is not assigned to a specific licensee.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNotActive" xml:space="preserve">

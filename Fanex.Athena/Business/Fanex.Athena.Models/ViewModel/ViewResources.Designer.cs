@@ -6892,7 +6892,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This account is not assigned to any licensee..
+        ///   Looks up a localized string similar to This account is not assigned to a specific licensee..
         /// </summary>
         public static string UserNoLicensee {
             get {
