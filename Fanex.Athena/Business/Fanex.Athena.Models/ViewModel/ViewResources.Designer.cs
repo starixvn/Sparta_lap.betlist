@@ -4246,6 +4246,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Network time out. Please try again..
+        /// </summary>
+        public static string NetworkTimeoutMsg {
+            get {
+                return ResourceManager.GetString("NetworkTimeoutMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Group.
         /// </summary>
         public static string NewGroup {
@@ -5947,6 +5956,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Single Sign On link is expired. Please log in again..
         /// </summary>
         public static string SSOLinkExpiredMsg {
@@ -5956,6 +5966,8 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+=======
+>>>>>>> 698eab6... #27258 - Update new error messages.
         ///   Looks up a localized string similar to Single Sign On link is not correct. Please try again..
         /// </summary>
         public static string SSOLinkIncorrectMsg {
@@ -6892,7 +6904,11 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to This account is not assigned to a specific licensee..
+=======
+        ///   Looks up a localized string similar to This account is not assigned to any licensee..
+>>>>>>> 698eab6... #27258 - Update new error messages.
         /// </summary>
         public static string UserNoLicensee {
             get {
