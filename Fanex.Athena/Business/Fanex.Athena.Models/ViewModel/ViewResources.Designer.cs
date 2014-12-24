@@ -1735,7 +1735,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSO Function was disabled..
+        ///   Looks up a localized string similar to Single Sign On to LRF is disabled..
         /// </summary>
         public static string DisableSSOMsg {
             get {
@@ -2869,15 +2869,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The param of URL is in valid..
-        /// </summary>
-        public static string InValidParamMsg {
-            get {
-                return ResourceManager.GetString("InValidParamMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid parameters.
         /// </summary>
         public static string InvalidParams {
@@ -3594,15 +3585,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string LineNo {
             get {
                 return ResourceManager.GetString("LineNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The link has been expired!.
-        /// </summary>
-        public static string LinkExpired {
-            get {
-                return ResourceManager.GetString("LinkExpired", resourceCulture);
             }
         }
         
@@ -5983,6 +5965,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Single Sign On link is not correct. Please try again..
+        /// </summary>
+        public static string SSOLinkIncorrectMsg {
+            get {
+                return ResourceManager.GetString("SSOLinkIncorrectMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stake.
         /// </summary>
         public static string Stake {
@@ -6919,7 +6910,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This user is not active..
+        ///   Looks up a localized string similar to This account is deactived for LRF..
         /// </summary>
         public static string UserNotActive {
             get {
@@ -6937,7 +6928,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This user has too many licensees..
+        ///   Looks up a localized string similar to This account is assigned to more than 1 licensee..
         /// </summary>
         public static string UserTooManyLicensees {
             get {

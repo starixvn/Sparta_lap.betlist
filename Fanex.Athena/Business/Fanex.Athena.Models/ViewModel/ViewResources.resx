@@ -427,7 +427,7 @@
     <value>Deposit</value>
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
-    <value>SSO Function was disabled.</value>
+    <value>Single Sign On to LRF is disabled.</value>
   </data>
   <data name="DividendWon" xml:space="preserve">
     <value>Dividend Won</value>
@@ -636,8 +636,8 @@
   <data name="InvalidCaptchaMsg" xml:space="preserve">
     <value>You inputed an invalid code.</value>
   </data>
-  <data name="InValidParamMsg" xml:space="preserve">
-    <value>The param of URL is in valid.</value>
+  <data name="SSOLinkIncorrectMsg" xml:space="preserve">
+    <value>Single Sign On link is not correct. Please try again.</value>
   </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Request is not valid</value>
@@ -2542,12 +2542,12 @@
   <data name="UserNotExist" xml:space="preserve">
     <value>User does not exist.</value>
   </data>
-  <data name="LinkExpired" xml:space="preserve">
-    <value>The link has been expired!</value>
+  <data name="NetworkTimeoutMsg" xml:space="preserve">
+    <value>Network time out. Please try again.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
-    <value>This user has no licensee.</value>
+    <value>This account is not assigned to any licensee.</value>
   </data>
   <data name="NetworkTimeoutMsg" xml:space="preserve">
     <value>Network time out. Please try again.</value>
@@ -2558,11 +2558,11 @@
     <comment>#27258</comment>
   </data>
   <data name="UserNotActive" xml:space="preserve">
-    <value>This user is not active.</value>
+    <value>This account is deactived for LRF.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserTooManyLicensees" xml:space="preserve">
-    <value>This user has too many licensees.</value>
+    <value>This account is assigned to more than 1 licensee.</value>
     <comment>#27258</comment>
   </data>
   <data name="CustomerLog" xml:space="preserve">
