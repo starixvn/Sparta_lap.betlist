@@ -427,7 +427,7 @@
     <value>Deposit</value>
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
-    <value>SSO Function was disabled</value>
+    <value>SSO Function was disabled.</value>
   </data>
   <data name="DividendWon" xml:space="preserve">
     <value>Dividend Won</value>
@@ -637,7 +637,7 @@
     <value>You inputed an invalid code.</value>
   </data>
   <data name="InValidParamMsg" xml:space="preserve">
-    <value>The param of URL is in valid</value>
+    <value>The param of URL is in valid.</value>
   </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Request is not valid</value>
@@ -2536,10 +2536,26 @@
     <value>User Guide</value>
   </data>
   <data name="WrongUserNamePassword" xml:space="preserve">
-    <value>Wrong username or password</value>
+    <value>Wrong username or password.</value>
     <comment>#22443</comment>
   </data>
   <data name="UserNotExist" xml:space="preserve">
     <value>User does not exist.</value>
+  </data>
+  <data name="LinkExpired" xml:space="preserve">
+    <value>The link has been expired!</value>
+    <comment>#27258</comment>
+  </data>
+  <data name="UserNoLicensee" xml:space="preserve">
+    <value>This user has no licensee.</value>
+    <comment>#27258</comment>
+  </data>
+  <data name="UserNotActive" xml:space="preserve">
+    <value>This user is not active.</value>
+    <comment>#27258</comment>
+  </data>
+  <data name="UserTooManyLicensees" xml:space="preserve">
+    <value>This user has too many licensees.</value>
+    <comment>#27258</comment>
   </data>
 </root>
