@@ -515,6 +515,7 @@
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
+    <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

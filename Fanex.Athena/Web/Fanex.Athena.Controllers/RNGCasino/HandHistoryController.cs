@@ -90,14 +90,29 @@ namespace Fanex.Athena.Controllers.RNGCasino
         [FunctionAuthorization]
         public ActionResult RNGCasino(RNGCasinoResultMetalModel metalModel)
         {
+            var model = new RNGCasinoService().GetRNGCasinoResultDataTable(metalModel);
+
+            return this.View("~/Views/RNGCasino/Main.cshtml", model);
+        }
+
+        /// <summary>
+        /// Load RNGCasino result page.
+        /// </summary>
+        /// <param name="metalModel">The metal model.</param>
+        /// <returns>The action result.</returns>
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetalModel metalModel)
+        {
             var model = new RNGCasinoResultViewModel
             {
                 Param = metalModel,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            return this.View("~/Views/RNGCasino/Main.cshtml", model);
+            return this.View("~/Views/RNGCasino/DataTableFromAPI.cshtml", model);
         }
+
 
         /// <summary>
         /// RNG Casino detail.
