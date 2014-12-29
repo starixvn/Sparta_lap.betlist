@@ -7,6 +7,35 @@ var WinLossByProduct = (function ($) {
     var cacheDataLevel1 = {};
     var cacheDataLevel2 = {};
     var ajaxRequest = null;
+
+    function setDefaultUsername() {
+        var username = $('#txtUsername').val();
+        if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
+            $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
+            $('#txtUsername').attr('class', 'default-username');
+        }
+        else {
+            $('#txtUsername').attr('class', '');
+        }
+    }
+
+    function setUsernameOnFocus() {
+        var username = $('#txtUsername').val();
+        if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
+            $('#txtUsername').val('');
+            $('#txtUsername').removeAttr('class');
+        }
+    }
+
+    function initAutoComplete() {
+        var txtUserName = $('#txtUsername');
+        var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+        if (txtUserName.length > 0) {
+            txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
+            setDefaultUsername();
+        }
+    }
+
     return {
         resizeGrid: function () {
             setTimeout(function () {
@@ -23,7 +52,8 @@ var WinLossByProduct = (function ($) {
         initialize: function () {
             WinLossByProduct.initEvent();
             WinLossByProduct.initSetting();
-
+            initAutoComplete();
+            $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
                 resourceName: "WinLossByProduct",
@@ -66,6 +96,9 @@ var WinLossByProduct = (function ($) {
                 var level = $(this).attr("data-level");
                 return WinLossByProduct.goBack(level);
             });
+
+            $("#txtUsername").click(setUsernameOnFocus)
+                             .blur(setDefaultUsername);
         },
 
         //#endregion

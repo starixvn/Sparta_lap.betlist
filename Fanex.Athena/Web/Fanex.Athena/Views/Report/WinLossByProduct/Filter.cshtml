@@ -10,9 +10,15 @@
             @ViewResources.Currency
         </label>
     </div>
-    <div class="grid_4 filter-input">
+    <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
     </div>
+    <div class="grid_2 filter-label ">
+            <label>@ViewResources.Username</label>
+        </div>
+        <div class="grid_3 filter-input">
+            <input type="text" id="txtUsername" class="text_f1" style="width: 120px" />
+        </div>
     <div class="grid_2 userguide-group">
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>

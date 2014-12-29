@@ -41,6 +41,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public DateTime DrillDownToDate { get; set; }
 
+        public string Username { get; set; }
+
         #endregion Members
     }
 }

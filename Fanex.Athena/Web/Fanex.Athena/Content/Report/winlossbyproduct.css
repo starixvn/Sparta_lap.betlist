@@ -1,4 +1,8 @@
-﻿/*override*/
+﻿.default-username {
+    color: rgb(241,157,73);
+    font-style: italic;
+}
+/*override*/
 a
 {
     text-decoration: none !important;
