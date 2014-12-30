@@ -305,6 +305,7 @@
     <Content Include="App_Data\UserGuide\CustomerTurnover\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\en-US.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\en-US.htm" />
+    <Content Include="App_Data\UserGuide\CustomerTurnover\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
