@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/5/2014 9:25:08 AM
+// Lasted generated date: 12/24/2014 2:18:13 PM
 // </history>
 
 var _language_ko_KR={
@@ -617,8 +617,6 @@ var _language_ko_KR={
                      InternalSystem:"내부 시스템",
 				 	
                      InvalidCaptchaMsg:"유효하지 않은 코드를 입력했습니다.",
-				 	
-                     InValidParamMsg:"URL의 param이 유효하지 않습니다.",
 				 	
                      InvalidParams:"Invalid parameters",
 				 	

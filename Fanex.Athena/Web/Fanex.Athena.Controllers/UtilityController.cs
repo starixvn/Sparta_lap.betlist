@@ -35,31 +35,47 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult SSODenyAccess()
         {
-            var code = Request.QueryString["Code"] != null ? Request.QueryString["Code"] : "0";
-            var message = Request.QueryString["Mess"] != null ? Request.QueryString["Mess"] : string.Empty;
-            if (string.IsNullOrEmpty(message))
+            int code;
+            var message = string.Empty;
+
+            if (!int.TryParse(Request.QueryString["Code"] != null ? Request.QueryString["Code"] : "0", out code))
             {
-                switch (code)
-                {
-                    case "-1":
-                        message = ViewResources.InValidParamMsg;
-                        break;
+                code = -1;
+            }            
 
-                    case "-2":
-                        message = ViewResources.ExpiredTimeParamMsg;
+            switch (code)
+            {                
+                case 1:
+                    message = ViewResources.SSOLinkIncorrectMsg;
+                    break;
 
-                        break;
+                case 2:
+                    message = ViewResources.DisableSSOMsg;
+                    break;
 
-                    case "-3":
-                        message = ViewResources.DisableSSOMsg;
+                case 100:
+                    message = ViewResources.SSOLinkExpiredMsg;
+                    break;
 
-                        break;
+                case 101:
+                    message = ViewResources.WrongUserNamePassword;
+                    break;
 
-                    case "-4":
-                        message = ViewResources.UnAccessLoginMsg;
+                case 102:
+                    message = ViewResources.UserNotActive;
+                    break;
 
-                        break;
-                }
+                case 103:
+                    message = ViewResources.UserTooManyLicensees;
+                    break;
+
+                case 104:
+                    message = ViewResources.UserNoLicensee;
+                    break;
+
+                default:
+                    message = ViewResources.InvalidRequestMsg;
+                    break;
             }
 
             ViewBag.Message = message;

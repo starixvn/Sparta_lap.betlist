@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/5/2014 9:24:58 AM
+// Lasted generated date: 12/24/2014 2:17:57 PM
 // </history>
 
 var _language_en_US={
@@ -382,7 +382,7 @@ var _language_en_US={
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
 				 	
-                     DisableSSOMsg:"SSO Function was disabled",
+                     DisableSSOMsg:"Single Sign On to LRF is disabled.",
 				 	
                      DividendWon:"Dividend Won",
 				 	
@@ -633,8 +633,6 @@ var _language_en_US={
                      InternalSystem:"Internal System",
 				 	
                      InvalidCaptchaMsg:"You inputed an invalid code.",
-				 	
-                     InValidParamMsg:"The param of URL is in valid",
 				 	
                      InvalidParams:"Invalid parameters",
 				 	
@@ -943,6 +941,8 @@ var _language_en_US={
                      NetGaming:"Net Gaming",
 				 	
                      NetTurnover:"Net Turnover",
+				 	
+                     NetworkTimeoutMsg:"Network time out. Please try again.",
 				 	
                      NewGroup:"New Group",
 				 	
@@ -1322,6 +1322,8 @@ var _language_en_US={
 				 	
                      Sportsbook:"Sportsbook",
 				 	
+                     SSOLinkIncorrectMsg:"Single Sign On link is not correct. Please try again.",
+				 	
                      Stake:"Stake",
 				 	
                      StakeFrom:"Stake From",
@@ -1528,7 +1530,13 @@ var _language_en_US={
 				 	
                      Username:"Username",
 				 	
+                     UserNoLicensee:"This account is not assigned to any licensee.",
+				 	
+                     UserNotActive:"This account is deactived for LRF.",
+				 	
                      UserNotExist:"User does not exist.",
+				 	
+                     UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
 				 	
                      View:"View",
 				 	
@@ -1598,7 +1606,7 @@ var _language_en_US={
 				 	
                      WPTO:"W/P TO",
 				 	
-                     WrongUserNamePassword:"Wrong username or password",
+                     WrongUserNamePassword:"Wrong username or password.",
 				 	
                      Year:"Year",
 				 	

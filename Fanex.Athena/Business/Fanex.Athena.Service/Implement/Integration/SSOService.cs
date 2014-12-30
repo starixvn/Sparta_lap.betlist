@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.Implement.Integration
 {
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
@@ -26,15 +27,14 @@ namespace Fanex.Athena.Service.Implement.Integration
     /// </summary>
     public class SSOService : ISSOService
     {
-        private const int DisableSso = -3;
-        private const int InValidParam = -1;
+        private const string InternalLoginErrorMessage = "Internal login failed.";
 
-        private const int NotActive = -6;
-        private const int NotFoundLicensee = -7;
-        private const int NotFoundUser = -5;
+        private const int DecryptKeySize = 1024;
+        
+        private const int InValidParamErrorCode = 1;
+        private const int DisableSsoErrorCode = 2;
 
-        private const string PrivateKey = "12bet.snk";
-        private const int TooManyLicensee = -8;
+        private const string PrivateKey = "12bet.snk";        
         private const string DefaultLanguage = "en-US";
 
         private readonly HttpContext _context;
@@ -94,100 +94,105 @@ namespace Fanex.Athena.Service.Implement.Integration
             Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
-            string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
-            if (!string.IsNullOrEmpty(parameter))
+            if (string.IsNullOrEmpty(_keyPath))
             {
-                if (!string.IsNullOrEmpty(_keyPath))
+                RedirectToErrorPage(DisableSsoErrorCode);
+            }
+
+            var queryParams = GetQueryParams();
+            var licname = queryParams["licname"] ?? string.Empty;
+            var userName = queryParams["username"] ?? string.Empty;
+            var passWord = queryParams["pwd"] ?? string.Empty;
+            var siteOutUrl = queryParams["loginurl"] ?? string.Empty;
+            var languageCode = queryParams["lang"] ?? DefaultLanguage;
+            if (!Util.IsValidLanguage(languageCode))
+            {
+                languageCode = DefaultLanguage;
+            }
+
+            if (IsUserAuthenticated)
+            {
+                if (userName == CurrentUserName)
                 {
-                    string privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
-                    if (File.Exists(privateKeyPath))
-                    {
-                        var decryption = new EncryptionThread();
-
-                        string parameterTrash = parameter.Replace(" ", "+");
-                        string descryptParam = decryption.DecryptString(parameterTrash, 1024, privateKeyPath);
-
-                        NameValueCollection queryParams = HttpUtility.ParseQueryString(descryptParam);
-                        string licname = queryParams["licname"] ?? string.Empty;
-                        string userName = queryParams["username"] ?? string.Empty;
-                        string passWord = queryParams["pwd"] ?? string.Empty;
-                        string siteOutUrl = queryParams["loginurl"] ?? string.Empty;
-                        string languageCode = queryParams["lang"] ?? DefaultLanguage;
-                        if (!Util.IsValidLanguage(languageCode))
-                        {
-                            languageCode = DefaultLanguage;
-                        }
-
-                        if (IsUserAuthenticated)
-                        {
-                            if (userName == CurrentUserName)
-                            {
-                                //// update language code
-                                var langService = new LanguageService();
-                                langService.ChangeLanguage(languageCode);
-                                FormsAuthentication.SetAuthCookie(userName, false);
-                                _context.Response.Redirect("~/Home/Index");
-                                return;
-                            }
-                        }
-
-                        long timeSpan;
-                        long.TryParse(queryParams["timestamp"], out timeSpan);
-                        IResultInfo resultInfo;
-                        if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(passWord))
-                        {
-                            InternalLogin(licname, userName, passWord, timeSpan, siteOutUrl, languageCode, out resultInfo);
-                            if (resultInfo.IsSuccessful)
-                            {
-                                FormsAuthentication.SetAuthCookie(userName, false);
-                                _context.Response.Redirect("~/Home/Index");
-                            }
-                            else
-                            {
-                                //// check error code
-                                switch (resultInfo.Code)
-                                {
-                                    case 101:
-                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotFoundUser, resultInfo.Message));
-
-                                        break;
-
-                                    case 102:
-                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotActive, resultInfo.Message));
-
-                                        break;
-
-                                    case 103:
-                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, TooManyLicensee, resultInfo.Message));
-
-                                        break;
-
-                                    case 104:
-                                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, NotFoundLicensee, resultInfo));
-
-                                        break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, InValidParam, string.Empty));
-                        }
-                    }
-                    else
-                    {
-                        _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, DisableSso, string.Empty));
-                    }
+                    // update language code
+                    var langService = new LanguageService();
+                    langService.ChangeLanguage(languageCode);
+                    FormsAuthentication.SetAuthCookie(userName, false);
+                    _context.Response.Redirect("~/Home/Index");
+                    return;
                 }
-                else
-                {
-                    _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, DisableSso, string.Empty));
-                }
+            }
+
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passWord))
+            {
+                RedirectToErrorPage(InValidParamErrorCode);
+            }
+
+            long timeSpan;
+            long.TryParse(queryParams["timestamp"], out timeSpan);
+            IResultInfo resultInfo;
+            InternalLogin(licname, userName, passWord, timeSpan, siteOutUrl, languageCode, out resultInfo);
+            if (resultInfo.IsSuccessful)
+            {
+                FormsAuthentication.SetAuthCookie(userName, false);
+                _context.Response.Redirect("~/Home/Index");
             }
             else
             {
-                _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, InValidParam, string.Empty));
+                string message = InternalLoginErrorMessage +
+                    "\r\nCode: " + resultInfo.Code +
+                    "\r\nMessage: " + resultInfo.Message +
+                    "\r\nExtendedData: " + resultInfo.ExtendedData +
+                    "\r\nLicensee: " + licname +
+                     "\r\nUserName: " + userName +
+                     "\r\nPassword: " + passWord +
+                     "\r\nTimeSpan: " + timeSpan +
+                     "\r\nSiteOutUrl: " + siteOutUrl +
+                     "\r\nLanguageCode: " + languageCode;
+
+                Logging.LogService.Error(message);
+
+                RedirectToErrorPage(resultInfo.Code); 
             }
+        }
+
+        private NameValueCollection GetQueryParams()
+        {
+            string parameter = GetRequestKey();
+            var privateKeyPath = GetPrivateKeyPath();
+
+            parameter = parameter.Replace(" ", "+");
+            var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
+
+            return HttpUtility.ParseQueryString(descryptParam);            
+        }
+
+        private string GetPrivateKeyPath()
+        {
+            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
+            if (!File.Exists(privateKeyPath))
+            {
+                RedirectToErrorPage(DisableSsoErrorCode);
+            }
+
+            return privateKeyPath;
+        }
+
+        private string GetRequestKey()
+        {
+            string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
+
+            if (string.IsNullOrEmpty(parameter))
+            {
+                RedirectToErrorPage(InValidParamErrorCode);
+            }
+
+            return parameter;
+        }
+
+        private void RedirectToErrorPage(int code)
+        {
+            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
         /// <summary>

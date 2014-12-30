@@ -47,10 +47,6 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateUser(User requestUser, out IResultInfo resultInfo);
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
         User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
 
         #endregion Public Methods and Operators

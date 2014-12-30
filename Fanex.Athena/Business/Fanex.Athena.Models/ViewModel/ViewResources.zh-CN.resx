@@ -861,9 +861,6 @@
   <data name="InvalidCaptchaMsg" xml:space="preserve">
     <value>您输入了无效的编码</value>
   </data>
-  <data name="InValidParamMsg" xml:space="preserve">
-    <value>网址参数是有效的</value>
-  </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>请求无效</value>
   </data>
