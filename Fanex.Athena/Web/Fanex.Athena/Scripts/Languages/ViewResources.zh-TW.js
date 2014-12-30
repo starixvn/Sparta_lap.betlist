@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/23/2014 10:55:34 AM
+// Lasted generated date: 12/30/2014 1:38:25 PM
 // </history>
 
 var _language_zh_TW={
@@ -48,7 +48,7 @@ var _language_zh_TW={
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"即將刪除此會員的特殊級別。您，確定嗎?",
 				 	
-                     AlertSetSpecialLevelForCustomerMsg:"您確定要設置此會員的特殊級別為",
+                     AlertSetSpecialLevelForCustomerMsg:"您確定要設置此會員的特殊級別為 ?",
 				 	
                      AlertTurnOffBAMsg:"您確定要關閉BA？",
 				 	
@@ -226,7 +226,7 @@ var _language_zh_TW={
 				 	
                      Confirmation:"確認",
 				 	
-                     ConfirmCommission:"確認會員的佣金",
+                     ConfirmCommission:"確認會員的佣金:",
 				 	
                      ConfirmPassword:"確認密碼",
 				 	

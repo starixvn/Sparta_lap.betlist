@@ -158,7 +158,7 @@
     <comment>#27974</comment>
   </data>
   <data name="AlertSetSpecialLevelForCustomerMsg" xml:space="preserve">
-    <value>您確定要設置此會員的特殊級別為</value>
+    <value>您確定要設置此會員的特殊級別為 ?</value>
     <comment>#27974</comment>
   </data>
   <data name="AlertTurnOffBAMsg" xml:space="preserve">
@@ -391,7 +391,7 @@
     <value>確認</value>
   </data>
   <data name="ConfirmCommission" xml:space="preserve">
-    <value>確認會員的佣金</value>
+    <value>確認會員的佣金:</value>
     <comment>#27974</comment>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
