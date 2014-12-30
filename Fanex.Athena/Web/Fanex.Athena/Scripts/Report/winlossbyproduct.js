@@ -9,29 +9,29 @@ var WinLossByProduct = (function ($) {
     var ajaxRequest = null;
 
     function setDefaultUsername() {
-        var username = $('#txtUsername').val();
+        var username = $('#Username').val();
         if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
-            $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
-            $('#txtUsername').attr('class', 'default-username');
+            $('#Username').val(Site.getSingleResource('ExternalIdOrSystemId'));
+            $('#Username').attr('class', 'default-username');
         }
         else {
-            $('#txtUsername').attr('class', '');
+            $('#Username').attr('class', '');
         }
     }
 
     function setUsernameOnFocus() {
-        var username = $('#txtUsername').val();
+        var username = $('#Username').val();
         if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
-            $('#txtUsername').val('');
-            $('#txtUsername').removeAttr('class');
+            $('#Username').val('');
+            $('#Username').removeAttr('class');
         }
     }
 
     function initAutoComplete() {
-        var txtUserName = $('#txtUsername');
+        var Username = $('#Username');
         var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
-        if (txtUserName.length > 0) {
-            txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
+        if (Username.length > 0) {
+            Username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
             setDefaultUsername();
         }
     }
@@ -53,7 +53,7 @@ var WinLossByProduct = (function ($) {
             WinLossByProduct.initEvent();
             WinLossByProduct.initSetting();
             initAutoComplete();
-            $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
+            $('#Username').val(Site.getSingleResource('ExternalIdOrSystemId'));
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
                 resourceName: "WinLossByProduct",
@@ -97,7 +97,7 @@ var WinLossByProduct = (function ($) {
                 return WinLossByProduct.goBack(level);
             });
 
-            $("#txtUsername").click(setUsernameOnFocus)
+            $("#Username").click(setUsernameOnFocus)
                              .blur(setDefaultUsername);
         },
 
@@ -211,10 +211,15 @@ var WinLossByProduct = (function ($) {
 
             Site.updateOriginalLicenseeOption();
             var mainForm = $("#winlossbyproduct");
+            var data = mainForm.serializeObject();
+            
+            if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
+                data.Username = null;
+            }
             var option =
             {
                 type: "POST",
-                data: mainForm.serialize(),
+                data: data,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,

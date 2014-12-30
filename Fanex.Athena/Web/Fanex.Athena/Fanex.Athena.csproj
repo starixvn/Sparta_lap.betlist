@@ -4022,6 +4022,7 @@
     </Content>
     <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

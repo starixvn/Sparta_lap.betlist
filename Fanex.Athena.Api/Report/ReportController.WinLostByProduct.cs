@@ -260,7 +260,7 @@ namespace Fanex.Athena.Api.Report
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.Username = metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
+            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username) && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
                                 ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;

@@ -56,8 +56,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
+                    db.AddInParameter("username", DbType.String, metaModel.Username);
                     UpdateUspParams(db, metaModel, false);
-
+                    AddResultParam(db);
                     using (var reader = db.ExecuteReader())
                     {
                         return GetData(reader, metaModel, false, out summaryTotal);
