@@ -387,7 +387,6 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
                     using (var reader = db.ExecuteReader())
                     {
-                        resultInfo = GetResult(db);
                         if (reader.Read())
                         {
                             user = new User
@@ -397,64 +396,16 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                                     FirstName = reader.ToString("firstname"),
                                     LastName = reader.ToString("lastname"),
                                     Email = reader.ToString("email"),
-                                    Role = reader.ToString("userrole"),
-                                    ServerId = 201,
+                                    Role = reader.ToString("userrole"),                                    
                                     IsInternal = Converter.ToBool(reader["isinternal"])
                                 };
-
                             var licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
                             user.Licensee = licensee;
                         }
                     }
-                }
 
-                return user;
-            }
-            catch (SqlException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName);
-            }
-        }
-
-        /// <summary>
-        ///     The validate user.
-        /// </summary>
-        /// <param name="requestUser"> Request user. </param>
-        /// <param name="resultInfo">User information. </param>
-        /// <returns>User result. </returns>
-        public User ValidateUser(User requestUser, out IResultInfo resultInfo)
-        {
-            const string UspName = "Lbs_UserLogin";
-            try
-            {
-                User user = null;
-                using (var db = new ObjectDb(UspName))
-                {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
-                    db.AddInParameter("UserPwd", DbType.String, requestUser.Password);
-                    db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                    db.AddOutParameter("ServerID", DbType.Int32, 4);
-                    AddResultParam(db);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        resultInfo = GetResult(db);
-                        if (reader.Read())
-                        {
-                            user = new User
-                                {
-                                    Id = reader.ToInt("UserID"),
-                                    Username = reader.ToString("username"),
-                                    FirstName = reader.ToString("firstname"),
-                                    LastName = reader.ToString("lastname"),
-                                    Email = reader.ToString("email"),
-                                    Role = reader.ToString("userrole"),
-                                    ServerId = 201,
-                                    IsInternal = Converter.ToBool(reader["isinternal"])
-                                };
-                        }
-                    }
+                    user.ServerId = Converter.ToInt(db.GetParameterValue("ServerId"));
+                    resultInfo = GetResult(db);
                 }
 
                 return user;
@@ -491,9 +442,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
 
                     using (var reader = db.ExecuteReader())
-                    {
-                        resultInfo = GetResult(db);
-
+                    {                        
                         if (reader.Read())
                         {
                             user = new User
@@ -504,7 +453,6 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                                     LastName = reader.ToString("lastname"),
                                     Email = reader.ToString("email"),
                                     Role = reader.ToString("userrole"),
-                                    ServerId = 201,
                                     IsInternal = Converter.ToBool(reader["isinternal"])
                                 };
 
@@ -512,6 +460,9 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                             user.Licensee = licensee;
                         }
                     }
+
+                    user.ServerId = Converter.ToInt(db.GetParameterValue("ServerId"));
+                    resultInfo = GetResult(db);
                 }
 
                 return user;
