@@ -20,8 +20,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Models.ViewModel.Report;
 
     /// <summary>
     /// WinLossByProductController class.
@@ -260,7 +260,8 @@ namespace Fanex.Athena.Api.Report
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username) && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
+            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username) 
+                                && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
                                 ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;
