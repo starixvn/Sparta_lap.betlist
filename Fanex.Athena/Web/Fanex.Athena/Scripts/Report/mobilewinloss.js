@@ -62,6 +62,10 @@ var MobileWinLoss = (function ($) {
                 }, 100);
                 return 'stop';
             };
+            Site.addUserGuide({
+                resourceName: "MobileWL",
+                title: Site.getSingleResource("MobileWinLoss")
+            });
         },
         initSetting: function () {
             _pageSize = MobileWinLossOption.pageSize;

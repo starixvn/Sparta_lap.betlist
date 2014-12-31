@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/24/2014 2:18:13 PM
+// Lasted generated date: 12/31/2014 2:20:11 PM
 // </history>
 
 var _language_ko_KR={

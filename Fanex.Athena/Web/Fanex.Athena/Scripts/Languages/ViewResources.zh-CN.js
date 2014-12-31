@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/23/2014 10:55:19 AM
+// Lasted generated date: 12/31/2014 2:19:51 PM
 // </history>
 
 var _language_zh_CN={
@@ -279,6 +279,8 @@ var _language_zh_CN={
                      CustomerInfo:"会员资料",
 				 	
                      CustomerList:"会员列表",
+				 	
+                     CustomerLog:"会员日志",
 				 	
                      CustomerNotBelongAnyGroupMsg:"选择的会员不属于任何一组",
 				 	

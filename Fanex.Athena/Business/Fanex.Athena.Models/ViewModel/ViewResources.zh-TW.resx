@@ -2508,4 +2508,8 @@
   <data name="MaxBetPerDraw" xml:space="preserve">
     <value>單場最大限額</value>
   </data>
+  <data name="CustomerLog" xml:space="preserve">
+    <value>會員日誌</value>
+    <comment>26174</comment>
+  </data>
 </root>

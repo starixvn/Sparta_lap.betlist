@@ -345,6 +345,10 @@ var CustomerList = (function ($) {
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
             addGridCheckBoxesEvent();
+            Site.addUserGuide({
+                resourceName: "CustomerList",
+                title: Site.getSingleResource("CustomerList")
+            });
         },
         initEvent: function () {
             CustomerList.loadPostbackParam();

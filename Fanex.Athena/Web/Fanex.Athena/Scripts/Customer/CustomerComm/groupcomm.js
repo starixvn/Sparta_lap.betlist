@@ -43,6 +43,10 @@ var GroupComm = (function ($) {
         },
         initialize: function () {
             GroupComm.initEvent();
+            Site.addUserGuide({
+                resourceName: "CommissionGroupList",
+                title: Site.getSingleResource("GroupCommission")
+            });
         },
         initEvent: function () {
             $('#ExportToExcel').click(function () {

@@ -31,6 +31,10 @@
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
             type="image" id="ExportToExcel" name="exporttoexcel"
             title="@ViewResources.ExportToExcel" class="hand" />
+            <div style="float: right; margin-left: 5px;">
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
         </div>
     </div>
     <div class="content-main new-line">
@@ -98,84 +102,84 @@
                         </td>
                     </tr>
                 </thead>
-            <tbody id="data-content" class="report-table">
-                @{int number = 1; var maxLength = 35;}
-                @if (Model.Count > 0)
+                <tbody id="data-content" class="report-table">
+                    @{int number = 1; var maxLength = 35;}
+                    @if (Model.Count > 0)
                 {
                     foreach (var groupComm in Model)
                     {
-                    <tr>
-                        <td style="width: 4%" class="title-text">
-                            @(number++)
-                        </td>
-                        <td class="middle-text" style="width: 8%">@groupComm.GroupCommId
-                        </td>
-                        <td style="width: 20%;" class="left-text">
-                            <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
-                                @if (groupComm.GroupName.Length > maxLength)
+                        <tr>
+                            <td style="width: 4%" class="title-text">
+                                @(number++)
+                            </td>
+                            <td class="middle-text" style="width: 8%">@groupComm.GroupCommId
+                            </td>
+                            <td style="width: 20%;" class="left-text">
+                                <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                                    @if (groupComm.GroupName.Length > maxLength)
                                 {
-                                    @Html.Raw(String.Format("<span title='{0}'>{1}...</span>", groupComm.GroupName.Replace("'", "&#39;"),
+                                        @Html.Raw(String.Format("<span title='{0}'>{1}...</span>", groupComm.GroupName.Replace("'", "&#39;"),
                                                             HttpUtility.HtmlEncode(groupComm.GroupName.Substring(0, maxLength - 3))));
                                 }
                                 else
                                 {
-                                    @groupComm.GroupName
+                                        @groupComm.GroupName
                                 }
-                            </a>
-                        </td>
-                        <td style="width:8%;" class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)">
-                        </td>
-                        <td style="width: 10%;" class="middle-text">
-                            <div class="no-customer-border" onclick="javascript:GroupComm.navigateNoOfCustomer(@groupComm.GroupCommId)">
-                                <span class="no-cus-font">@groupComm.NumberOfCustomer</span>
-                            </div>
-                        </td>
-                        <td style="width: 8%;" class="middle-text">
-                            @((groupComm.SBComm * 100).ToString("0.##"))
-                            %
-                        </td>
-                        @if (isAllowRc)
-                        {
+                                </a>
+                            </td>
+                            <td style="width:8%;" class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)">
+                            </td>
+                            <td style="width: 10%;" class="middle-text">
+                                <div class="no-customer-border" onclick="javascript:GroupComm.navigateNoOfCustomer(@groupComm.GroupCommId)">
+                                    <span class="no-cus-font">@groupComm.NumberOfCustomer</span>
+                                </div>
+                            </td>
                             <td style="width: 8%;" class="middle-text">
-                                @((groupComm.RCComm * 100).ToString("0.##"))
+                                @((groupComm.SBComm * 100).ToString("0.##"))
                                 %
                             </td>
-                        }
-                        @if (isAllowNg)
+                            @if (isAllowRc)
                         {
-                            <td style="width: 8%; text-align: center">
-                                @((groupComm.NGComm * 100).ToString("0.##"))
-                                %
-                            </td>
+                                <td style="width: 8%;" class="middle-text">
+                                    @((groupComm.RCComm * 100).ToString("0.##"))
+                                    %
+                                </td>
                         }
-                        @if (isAllowLc)
+                            @if (isAllowNg)
                         {
-                            <td style="width: 8%; text-align: center">
-                                @((groupComm.LCComm * 100).ToString("0.##"))
-                                %
-                            </td>
+                                <td style="width: 8%; text-align: center">
+                                    @((groupComm.NGComm * 100).ToString("0.##"))
+                                    %
+                                </td>
                         }
-                        @if (isAllowCs)
+                            @if (isAllowLc)
                         {
-                            <td style="width: 8%; text-align: center">
-                                @((groupComm.CSComm * 100).ToString("0.##"))
-                                %
-                            </td>
+                                <td style="width: 8%; text-align: center">
+                                    @((groupComm.LCComm * 100).ToString("0.##"))
+                                    %
+                                </td>
                         }
-                        <td style="width: 10%; text-align: center;">
-                            <div class="group-color-box" style="background-color:@groupComm.GroupColor;">
-                            </div>
-                        </td>
-                        <td style="width: 10%; text-align: center">
-                            <a class="underline" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
-                                <img src="@Url.ContentLink("/Content/Customer/images/edit.png")"
+                            @if (isAllowCs)
+                        {
+                                <td style="width: 8%; text-align: center">
+                                    @((groupComm.CSComm * 100).ToString("0.##"))
+                                    %
+                                </td>
+                        }
+                            <td style="width: 10%; text-align: center;">
+                                <div class="group-color-box" style="background-color:@groupComm.GroupColor;">
+                                </div>
+                            </td>
+                            <td style="width: 10%; text-align: center">
+                                <a class="underline" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                                    <img src="@Url.ContentLink("/Content/Customer/images/edit.png")"
                                 style="width:16px; height: 16px;" />
-                            </a>&nbsp; <a class="underline" href="javascript:GroupComm.initDeleteGroup('@groupComm.GroupCommId')" title="@ViewResources.DeleteGroup">
-                                <img src="@Url.ContentLink("/Content/Customer/images/validatefail.png")"
+                                </a>&nbsp; <a class="underline" href="javascript:GroupComm.initDeleteGroup('@groupComm.GroupCommId')" title="@ViewResources.DeleteGroup">
+                                    <img src="@Url.ContentLink("/Content/Customer/images/validatefail.png")"
                                 style="width:16px; height: 16px;" />
-                            </a>
-                        </td>
-                    </tr>
+                                </a>
+                            </td>
+                        </tr>
                     }
                 }
                 else
@@ -189,10 +193,10 @@
                     {
                         col--;
                     }
-                    <tr class="no-info">
-                        <td class="middle-text" colspan="@col">@ViewResources.NoInfo
-                        </td>
-                    </tr>
+                        <tr class="no-info">
+                            <td class="middle-text" colspan="@col">@ViewResources.NoInfo
+                            </td>
+                        </tr>
                 }
                 </tbody>
             </table>

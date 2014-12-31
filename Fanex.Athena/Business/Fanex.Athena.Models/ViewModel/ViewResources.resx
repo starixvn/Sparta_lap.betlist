@@ -2567,4 +2567,8 @@
     <value>This account is assigned to more than 1 licensee.</value>
     <comment>#27258</comment>
   </data>
+  <data name="CustomerLog" xml:space="preserve">
+    <value>Customer Log</value>
+    <comment>26174</comment>
+  </data>
 </root>

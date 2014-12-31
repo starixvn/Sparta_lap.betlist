@@ -18,6 +18,10 @@ var PlaytechCasino = (function ($) {
         initialize: function () {
             PlaytechCasino.initEvent();
             PlaytechCasino.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "PlaytechCasinoWL",
+                title: Site.getSingleResource("PlaytechCasino")
+            });
         },
 
         initEvent: function () {
