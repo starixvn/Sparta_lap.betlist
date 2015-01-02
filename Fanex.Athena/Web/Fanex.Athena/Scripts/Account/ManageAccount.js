@@ -55,3 +55,10 @@ var ManageAccount = (function ($) {
         }
     };
 } (jQuery));
+
+$(window).load(function () {
+    Site.addUserGuide({
+        resourceName: "ManageAccount",
+        title: Site.getSingleResource("ManageAccount")
+    });
+});
