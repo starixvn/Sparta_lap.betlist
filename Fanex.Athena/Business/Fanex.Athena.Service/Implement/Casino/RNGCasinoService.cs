@@ -180,11 +180,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// Get result from API.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        /// <param name="casinos">The casino result.</param>
         /// <param name="dataTable">The data table.</param>
-        private static void GetResultFromAPI(
-            RNGCasinoResultMetalModel metalModel,
-            out DataTable dataTable)
+        private static void GetResultFromAPI(RNGCasinoResultMetalModel metalModel, out DataTable dataTable)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();
             dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
