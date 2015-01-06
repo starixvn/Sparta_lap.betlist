@@ -2542,21 +2542,19 @@
   <data name="UserNotExist" xml:space="preserve">
     <value>User does not exist.</value>
   </data>
-<<<<<<< HEAD
   <data name="SSOLinkExpiredMsg" xml:space="preserve">
     <value>Single Sign On link is expired. Please log in again.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
     <value>This account is not assigned to a specific licensee.</value>
-=======
+  </data>
   <data name="NetworkTimeoutMsg" xml:space="preserve">
     <value>Network time out. Please try again.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
     <value>This account is not assigned to any licensee.</value>
->>>>>>> 698eab6... #27258 - Update new error messages.
     <comment>#27258</comment>
   </data>
   <data name="UserNotActive" xml:space="preserve">
