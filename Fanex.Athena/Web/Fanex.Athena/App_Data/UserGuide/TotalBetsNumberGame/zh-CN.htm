@@ -1,46 +1,82 @@
 ﻿<div class="rule">
     <h4>
         一般信息
-</h4>
+    </h4>
     <ul>
-        <li>This total bets report shows users a forecast for their potential win/loss amount
-            in a match based on different results. </li>
+        <li>本报表提供百练赛注单之详细信息。 </li>
     </ul>
 </div>
 <div class="line">
 </div>
 <div class="rule">
     <h4>
-        Search Filters</h4>
+        搜索过滤器
+    </h4>
     <ul>
-        <li><b>Currency:</b> filters tickets placed in selected currency.
+        <li><b>货币：</b>以货币来进行筛选。
             <ul>
-                <li><b>All:</b> tickets of all supported currencies will be listed out. </li>
+                <li><b>全部：</b>列出所有支持的货币。 </li>
             </ul>
         </li>
-        <li><b>Based EUR/USD:</b> All figures will be converted to EUR/USD for reference only.
-            The based currency list contains EUR, USD and a dynamic option. The dynamic option
-            will vary when a specific currency is selected in Currency field (except EUR and
-            USD currency). </li>
+        <li><b>基于欧元/美元：</b>所有数据将转换为欧元/美元，仅供参考之用。基于货币列表包括欧元、美元和一个动态货币选项。动态货币选项会因货币栏内选择的特定货币而不同（除了欧元和美元以外）。
+        </li>
     </ul>
 </div>
 <div class="line">
 </div>
 <div class="rule">
     <h4>
-        Report Guidelines</h4>
+        报告指南
+    </h4>
     <ul>
-        <li><b>Handicap:</b> forecast of handicap tickets
+        <li><b>斗士:</b>会员可在开始抽取第一颗球之前进行投注。
             <ul>
-                <li><b>A positive number</b> (e.g. 10) indicates Licensee will lose more than win.
-                </li>
-                <li><b>A negative number</b> (e.g. –10) indicates Licensee will win more than lose.
-                </li>
+                <li><b>第二颗球赢:</b>比较抽出的第二颗和第一颗球，号码最高者即赢。
+                    <br />
+                    总投注=投注第二颗球赢的金额。 </li>
+                <li><b>第三颗球赢:</b>比较抽出的第三颗和第一颗球，号码最高者即赢。
+                    <br />
+                    总投注=投注第三颗球赢的金额。 </li>
             </ul>
         </li>
-        <li><b>Over/Under:</b> forecast of over/under tickets </li>
-        <li><span>
-            <img style="width: 16px; height: 16px;" src="/Content/Forecast/images/icon_add.jpg" /></span>:
-            view forecast and bet list of selected match. </li>
+        <li><b>第一球/最后一球:</b>会员可在开始抽取第一颗球之前进行投注。
+            <ul>
+                <li><b>大/小:</b>预测第一颗球/最后一颗球会是大于或是小于指定的数字。黑色正数定义为"大"总投注额大于"小"总投注额，红色负数定义为"小"盘总投注额大于"大"总投注额。
+                    <br />
+                    总投注="大"的总投注额-"小"的总投注额。 </li>
+                <li><b>单/双:</b>预测第一球/最后一球会是单或双。黑色正数定义为"单"总投注额大于"双"总投注额，红色负数正数定义为"双"总投注额大于"单"总投注额。
+                    <br />
+                    总投注="单"的总投注额-"双"的总投注额。 </li>
+            </ul>
+        </li>
+        <li><b>下一球:</b>在每颗球被抽出之后，下一颗球之赔率即将释出。 会员可在游戏开始后的任何时间下注。
+            <ul>
+                <li><b>大/小:</b>预测下一球会是"大"于或是"小"于指定的数字。黑色正数定义为"大"总投注额大于"小"总投注额，红色负数定义为"小"总投注额大于"大"总投注额。
+                    <br />
+                    总投注="下一球大"的总投注额-"下一球小"的总投注额。 </li>
+                <li><b>单/双:</b>预测下一球会是会是"单"或"双"。黑色正数定义为"单"总投注额大于"双"总投注额，红色负数定义为"双"总投注额大于"单"总投注额。
+                    <br />
+                    总投注="下一球单"的总投注额-"下一球双"的总投注额。 </li>
+                <li><b>高/低:</b>预测下一颗球会是"高"或是"低"。黑色正数定义为"高"总投注额大于"低"总投注额，红色负数定义为"低"总投注额大于"高"总投注额。
+                    <br />
+                    总投注="高"的总投注额-"低"的总投注额。 </li>
+            </ul>
+        </li>
+        <li><b>下一球组合:</b>在每颗球被抽出之后，下一颗球之”大单”“小单”“大双”或”小双”，赔率即将释出。 会员可在游戏开始后的任何时间下注。
+            <br />
+            总投注=投注在该投注类型的总投注额。 </li>
+        <li><b>全场单/双盘: </b>预测3颗球的总和会是"单"或"双"。黑色正数定义为"单"总投注额大于"双"总投注额，红色负数定义为"双"总投注额大于"单"总投注额。
+            <br />
+            总投注="全场单"的总投注额-"全场双"的总投注额。 </li>
+        <li><b>数盘:</b>对一组号码投注。
+            <ul>
+                <li><b>游戏开始前:</b>会员可在游戏开始前下注，一旦游戏开始就不允许再下注。
+                    <br />
+                    总投注 = "游戏开始前"的总投注额。 </li>
+                <li><b>滚球游戏:</b>会员可以在游戏开始后下注，每颗球的赔率皆不尽相同。
+                    <br />
+                    总投注 = 投注"滚球游戏"的总投注额。 </li>
+            </ul>
+        </li>
     </ul>
 </div>

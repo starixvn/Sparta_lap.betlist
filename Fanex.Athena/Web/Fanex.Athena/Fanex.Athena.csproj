@@ -467,6 +467,11 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
+    <Content Include="Content\UserGuide\Images\icon_add.jpg" />
+    <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
+    <Content Include="Content\UserGuide\Images\team-to-score-guide2.png" />
+    <Content Include="Content\UserGuide\Images\team-to-score-guide3.png" />
+    <Content Include="Content\UserGuide\user-guide.css" />
     <Content Include="Deployment.ignore" />
     <Content Include="App_Data\Template\Reports\AgCasinoWinLoss.xls" />
     <None Include="App_Data\SpNameConfig\FanexSpName.xml.tt">
