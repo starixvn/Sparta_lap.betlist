@@ -25,20 +25,20 @@
                 foreach (var team in matchOfLeague)
                 {
                 <tr>
-                    <td style="width: 3%" class="order-number">@(index++)
+                    <td style="width: 40px" class="order-number">@(index++)
                     </td>
                     <!--Team-->
-                    <td style="width: 40%" class="match-name">
+                    <td style="width: auto" class="match-name">
                         <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.TeamName</a>
                     </td>
                     <!--/Team-->
                     <!--Balance-->
-                    <td style="width: 20%">
+                    <td style="width: 150px">
                         @RazorHelper.DecFormat(team.Balance, true)
                     </td>
                     <!--/Balance-->
                     <!--Forecast-->
-                    <td style="width: 20%" class="score-value">
+                    <td style="width: 150px" class="score-value">
                         @RazorHelper.PositiveFormat(team.Forecast, true, false)
                     </td>
                     <!--/Forecast-->
