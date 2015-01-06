@@ -4,7 +4,7 @@
 {
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
-        @RazorHelper.TimerCountDown("outright", 60)        
+        @RazorHelper.TimerCountDown("outright", 60)
     </div>
 
     //----------------------------Type of licensee---------------------------// 
@@ -27,11 +27,17 @@
         @RazorHelper.CurrencyList(Model.CurrencyList, "currencylist", Model.Param.CurrencyId)
     </div>
     <div class="grid_3 filter-input">
-        <label for="BaseCurrency">@ViewResources.Based </label>
+        <label for="BaseCurrency">@ViewResources.Based
+        </label>
         @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
     </div>
     <div class="grid_3 filter-input">
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    
+    <div class="grid_2 note-group">
+        <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+        </div>
     </div>
     <div class="clear">
     </div>

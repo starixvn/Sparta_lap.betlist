@@ -6,6 +6,10 @@ var OddEvenDND = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             OddEvenDND.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsOddEven",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("OddEvenDND")
+            });
         },
         initEvent: function () {
             // Submit event.

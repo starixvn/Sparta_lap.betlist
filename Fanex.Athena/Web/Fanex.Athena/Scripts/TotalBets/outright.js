@@ -6,6 +6,10 @@ var Outright = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             Outright.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsOutright",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("Outright")
+            });
         },
         initEvent: function () {
             // Submit event.

@@ -8,8 +8,11 @@ var NewForecastHdpOu = (function ($) {
             // Init timer count down
 
             RefreshCountDown.initialize();
-
             NewForecastHdpOu.initEvent();
+            Site.addUserGuide({
+                resourceName: "ForecastNewHdpOu",
+                title: Site.getSingleResource("Forecast") + " " + Site.getSingleResource("HandicapOverUnderLive")
+            });
         },
         initEvent: function () {
             // League change

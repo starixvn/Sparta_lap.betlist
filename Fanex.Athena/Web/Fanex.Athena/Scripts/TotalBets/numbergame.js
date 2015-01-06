@@ -6,6 +6,10 @@ var NumberGame = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             NumberGame.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsNumberGame",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("NumberGame")
+            });
         },
         initEvent: function () {
             // Submit event.

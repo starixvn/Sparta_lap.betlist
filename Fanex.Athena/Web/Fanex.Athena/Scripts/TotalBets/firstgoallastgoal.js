@@ -7,6 +7,10 @@ var FirstGoalLastGoal = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             FirstGoalLastGoal.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsFGLG",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("FGLG")
+            });
         },
         initEvent: function () {
             var firstGoalLastGoal = 14, firstHalfFirsGoalLastGoal = 127;

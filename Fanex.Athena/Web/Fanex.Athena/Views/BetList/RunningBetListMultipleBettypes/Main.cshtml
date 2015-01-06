@@ -1,6 +1,8 @@
 ﻿@{
     var title = string.Empty;
+    var userGuideName = string.Empty;
     int bettype = 0;
+
     if(Request.QueryString["multiplebettype"] != null)
     {
         bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
@@ -8,15 +10,19 @@
         {
             case 9:
                 title = ViewResources.MixParlay;
+                userGuideName = "TotalBetsMixParlay";
                 break;
             case 24:
                 title = ViewResources.DoubleChance;
+                userGuideName = "TotalBetsDoubleChance";
                 break;
             case 26:
                 title = ViewResources.BONTeamToScore;
+                userGuideName = "TotalBetsBON";
                 break;
             case 29:
                 title = ViewResources.SystemParlay;
+                userGuideName = "TotalBetsMixParlay";
                 break;
             default:
             break;
@@ -59,3 +65,7 @@
     <div id="popupSystemParlay"></div>
     <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
 }
+<script type="text/javascript">
+    var popupTitle = "@title";
+    var userGuideName = "@userGuideName";
+</script>

@@ -6,6 +6,10 @@ var HomeDrawAwayNoBet = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             HomeDrawAwayNoBet.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsHomeDrawAwayNoBet",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HomeDrawAwayNoBet")
+            });
         },
         initEvent: function () {
             // Submit event.

@@ -6,6 +6,10 @@ var Racing = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             Racing.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsRacing",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("Racing")
+            });
         },
         initEvent: function () {
             // Submit event.

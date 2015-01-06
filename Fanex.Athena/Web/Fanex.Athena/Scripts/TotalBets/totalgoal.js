@@ -6,6 +6,10 @@ var TotalGoal = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             TotalGoal.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsTotalGoal",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("TotalGoal")
+            });
         },
         initEvent: function () {
             var totalGoalBettype = 6, firstHalfTotalGoal = 126;

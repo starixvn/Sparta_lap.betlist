@@ -22,6 +22,10 @@ var ForecastHDPOU = (function ($) {
             RefreshCountDown.initialize();
             ForecastHDPOU.initEvent();
             ForecastHDPOU.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "ForecastHdpOu",
+                title: Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("HandicapOverUnderLive")
+            });
         },
         initEvent: function () {
             // League change

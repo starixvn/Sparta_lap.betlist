@@ -6,6 +6,10 @@ var CorrectScoreBetList = (function ($) {
         initialize: function () {
             CorrectScoreBetList.initEvent();
             CorrectScoreBetList.submit();
+            Site.addUserGuide({
+                resourceName: "TotalBetsCorrectScore",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("CorrectScore")
+            });
         },
 
         initEvent: function () {

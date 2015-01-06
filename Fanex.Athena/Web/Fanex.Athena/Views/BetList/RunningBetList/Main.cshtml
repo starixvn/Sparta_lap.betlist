@@ -1,16 +1,20 @@
 ﻿@{
     var bettype = Convert.ToInt32(Request.QueryString["bettype"]);
     var title = string.Empty;
+    var userGuideName = string.Empty;
     switch(bettype)
     {
         case 13: 
             title = ViewResources.CleanSheet;
+            userGuideName = "TotalBetsCleanSheet";
             break;
         case 27:
             title = ViewResources.ToWinToNil;
+            userGuideName = "TotalBetsToWinToNil";
             break;            
         case 28:
             title = ViewResources.lbl3WayHandicap;
+            userGuideName = "TotalBets3WayHandicap";
             break;
         default:
         break;
@@ -40,3 +44,7 @@
     <div id="popupSystemParlay"></div>
     <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
 }
+<script type="text/javascript">
+    var popupTitle = "@title";
+    var userGuideName = "@userGuideName";
+</script>

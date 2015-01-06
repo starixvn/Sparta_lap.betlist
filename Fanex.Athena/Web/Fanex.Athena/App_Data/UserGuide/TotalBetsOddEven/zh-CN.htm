@@ -1,0 +1,162 @@
+﻿<style type="text/css">
+    .rule ul li table
+    {
+        border-left: 2px solid #000;
+        border-top: 2px solid #000;
+        border-right: 2px solid #000;
+    }
+    .rule ul li table td
+    {
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        width: 50px;
+    }
+    .rule ul li table td.header
+    {
+        font-weight: bold;
+        background-color: #ddd;
+    }
+</style>
+<div class="rule">
+    <h4>
+        一般信息
+    </h4>
+    <ul>
+        <li>本功能提供赛事单双盘, 1X2, 和局/不是和局(DND)的投注预测。 </li>
+        <li><b>Odd/Even</b> means betting that is determined by whether the total number of
+            points (goals, games etc) in the final result of an event is Odd or Even. </li>
+        <li><b>1st Half Odd/Even</b> means betting that is determined by whether the total number
+            of points at the end of the first half of an event is Odd or Even. </li>
+        <li><b>1X2</b> means betting in any one of three possible winning outcomes for an Event.
+            1 refers to the team that is named first (usually the home team); X refers to the
+            game resulting in a draw or tie; 2 refers to the team that is named second (usually
+            the away team). </li>
+        <li><b>和局/不是和局:</b> 会员有和局/不是和局两种下注选择 (无关主队或客队赢)。
+            <br />
+            <!--<table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="2" rowspan="2" align="center" class="header">
+                        Draw/No Draw
+                    </td>
+                    <td colspan="3" align="center" class="header">
+                        Result
+                    </td>
+                </tr>
+                <tr style="border-bottom: 2px solid #000;">
+                    <td align="center" class="header">
+                        Home
+                    </td>
+                    <td align="center" class="header">
+                        Draw
+                    </td>
+                    <td align="center" class="header">
+                        Away
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2" align="center" class="header">
+                        Betting
+                        <br />
+                        Option
+                    </td>
+                    <td align="center" class="header">
+                        Draw
+                    </td>
+                    <td align="center">
+                        Lose
+                    </td>
+                    <td align="center">
+                        Win
+                    </td>
+                    <td align="center">
+                        Lose
+                    </td>
+                </tr>
+                <tr style="border-bottom: 2px solid #000;">
+                    <td align="center" class="header">
+                        No Draw
+                    </td>
+                    <td align="center">
+                        Win
+                    </td>
+                    <td align="center">
+                        Lose
+                    </td>
+                    <td align="center">
+                        Win
+                    </td>
+                </tr>
+            </table>-->
+            <br />
+            和局/不是和局
+            <br />
+            投注选项
+            <br />
+            和局
+            <br />
+            不是和局
+            <br />
+            结果
+            <br />
+            主队
+            <br />
+            和局
+            <br />
+            客队
+            <br />
+            赢
+            <br />
+            输 </li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        搜索过滤器
+    </h4>
+    <ul>
+        <li><b>货币：</b>以货币来进行筛选。
+            <ul>
+                <li><b>全部：</b>列出所有支持的货币。 </li>
+            </ul>
+        </li>
+        <li><b>基于欧元/美元：</b>所有数据将转换为欧元/美元，仅供参考之用。基于货币列表包括欧元、美元和一个动态货币选项。动态货币选项会因货币栏内选择的特定货币而不同（除了欧元和美元以外）。
+        </li>
+    </ul>
+</div>
+<div class="line">
+</div>
+<div class="rule">
+    <h4>
+        报告指南
+    </h4>
+    <ul>
+        <li><b>单双盘:</b> 表示有更多的投注在"单"或"双"。
+            <br />
+            单双盘总投注 = 总单盤 - 总双盤。
+            <ul>
+                <li><b>正数 </b>表示更多”单”的交易额。 </li>
+                <li><b>负数 </b>表示更多”双”的交易额。 </li>
+            </ul>
+        </li>
+        <li><b>1X2:</b> 下注在一场赛事三种可能结果中的任何一种(输、赢、和局)。
+            <br />
+            总投注 1X2 = 每张票赌注的加总。
+            <ul>
+                <li><b>1</b> 代表首先被提及的队伍（通常是主队）。
+                    <br />
+                    主队预测 =（主队投注额 * 主队赔率）–（和局投注额 + 客队投注额）。 </li>
+                <li><b>X</b> 代表赛事结果平手。
+                    <br />
+                    和局预测 =（和局投注额 * 和局赔率）– （主队投注额 + 客队投注额）。 </li>
+                <li><b>2</b> 代表第二个被提及的队伍（通常是客队）。
+                    <br />
+                    客队预测 =（客队投注额 * 客队赔率）–（和局投注额 + 主队投注额）。 </li>
+            </ul>
+        </li>
+        <li><span>
+            <img style="width: 16px; height: 16px;" src="/Content/Forecast/images/icon_add.jpg" /></span>:
+            显示选定比赛的所有投注。 </li>
+    </ul>
+</div>
