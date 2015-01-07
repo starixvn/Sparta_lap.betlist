@@ -401,6 +401,9 @@
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\TotalBetsToWinToNil\en-US.htm" />
+    <Content Include="App_Data\UserGuide\TotalBetsToWinToNil\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\TotalBetsToWinToNil\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\Turnover\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\Turnover\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\Turnover\en-US.htm" />
