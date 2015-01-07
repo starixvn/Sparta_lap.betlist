@@ -3,18 +3,19 @@
 ///
 var LicenseeWinLoss = (function ($) {
     "use strict";
+    var REPORT_BY_MONTHLY = 2;
+
     var cacheData = {};
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _sortColumnName = null;
     var _sortOrder = "desc";
     var _level = 0;
-    var _currencyId = null;
-    var _customerId = null;
-    var _datetime = null;
     var _removeSorting = false;
     var _reportBy = null;
     var _resizeTimer = null;
+    var _submitData; // cache submit data of level 0.
+
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
              JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
@@ -27,14 +28,14 @@ var LicenseeWinLoss = (function ($) {
     }
 
     return {
-        resizeGrid: function () {            
+        resizeGrid: function () {
             if ($(".ui-jqgrid-bdiv").length === 0) {
                 return;
             }
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
                 var $bdiv = $(".ui-jqgrid-bdiv");
-                
+
                 var gridTop = $bdiv.offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").height() - 30;
@@ -183,17 +184,6 @@ var LicenseeWinLoss = (function ($) {
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
-                    //update productOption
-                    $("#ProductOptionJson").val(response.ProductOptions);
-                    //update drildownValue
-                    $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());
-                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData0").is(":checked"));
-                    $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalReportBy").val(reportBy);
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
-                    $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-
                     LicenseeWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                 }
 
@@ -212,6 +202,7 @@ var LicenseeWinLoss = (function ($) {
             }
 
             var mainForm = $("#licenseewinloss");
+            var data = mainForm.serializeObject();
             var option = {
                 type: "POST",
                 data: mainForm.serialize() +
@@ -222,6 +213,17 @@ var LicenseeWinLoss = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
                 success: function (response) {
+                    _submitData = {
+                        ProductOptions: response.ProductOptions,
+                        DrawFilter: data.DrawFilter,
+                        CurrencyId: data.CurrencyId,
+                        ReportBy: Number(data.ReportBy),
+                        FromDate: data.FromDate,
+                        ToDate: data.ToDate,
+                        CurrencyName: data.CurrencyName,
+                        IsExcludedTestData: data.IsExcludedTestData
+                    };
+
                     LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);
                 },
@@ -252,22 +254,19 @@ var LicenseeWinLoss = (function ($) {
 
             if (_level !== level) {
                 _level = level;
-                _currencyId = currencyId;
-                _customerId = customerId;
-                _datetime = datetime;
             }
-            var productOptions = $.parseJSON($("#ProductOptionJson").val());
             var param =
             {
-                ProductOptions: productOptions,
-                DrawFilter: $("#OriginalDrawFilter").val(),
-                IsExcludedTestData: $("#OriginalIsExcludedTestData").val(),
-                CurrencyId: $("#OriginalCurrencyId").val(),
-                ReportBy: $("#OriginalReportBy").val(),
-                FromDate: $("#OriginalFromDate").val(),
-                ToDate: $("#OriginalToDate").val(),
+                ProductOptions: $.parseJSON(_submitData.ProductOptions),
+                DrawFilter: _submitData.DrawFilter,
+                IsExcludedTestData: _submitData.IsExcludedTestData,
+                CurrencyId: _submitData.CurrencyId,
+                ReportBy: _submitData.ReportBy,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
+
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
             if (Number(param.ReportBy) === 2) {
@@ -332,18 +331,14 @@ var LicenseeWinLoss = (function ($) {
         },
 
         goBack: function (level) {
-            var reportBy = $("#OriginalReportBy").val();
+            var reportBy = _submitData.ReportBy;
 
             if (level === 0) {
                 LicenseeWinLoss.renderBreadCrumb(level);
                 LicenseeWinLoss.bindData(0, reportBy, cacheData[level]);
                 //reset excel Link
                 LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
-                //re-set title
-                var fromdate = new Date($("#OriginalFromDate").val());
-                var todate = new Date($("#OriginalToDate").val());
-                var currencyId = $("#OriginalCurrencyId").val();
-                LicenseeWinLoss.setReportTitle(currencyId, fromdate, todate);
+                LicenseeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
             }
             else if (level === 1) {
                 LicenseeWinLoss.bindData(1, reportBy, cacheData[level]);
@@ -355,7 +350,7 @@ var LicenseeWinLoss = (function ($) {
         //#BindReport
 
         bindTotal: function (level, totalData, summaryTotal) {
-            var productOptions = $.parseJSON($("#ProductOptionJson").val());
+            var productOptions = $.parseJSON(_submitData.ProductOptions);
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
             var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
             var colspan = LicenseeWinLossOption.totalColspan[level];
@@ -375,7 +370,7 @@ var LicenseeWinLoss = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-            var productOptions = $.parseJSON($("#ProductOptionJson").val());
+            var productOptions = $.parseJSON(_submitData.ProductOptions);
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
@@ -474,10 +469,10 @@ var LicenseeWinLoss = (function ($) {
 
         openBetlistPopUp: function (dataDrillDown) {
             dataDrillDown = $.parseJSON(dataDrillDown);
-            dataDrillDown.DrawFilter = $("#OriginalDrawFilter").val();
-            dataDrillDown.IsExcludedTestData = $("#OriginalIsExcludedTestData").val() === 'True';
-            dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();
-            dataDrillDown.CurrencyName = $("#OriginalCurrencyName").val();
+            dataDrillDown.DrawFilter = _submitData.DrawFilter;
+            dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
+            dataDrillDown.CurrencyId = _submitData.CurrencyId;
+            dataDrillDown.CurrencyName = _submitData.CurrencyName;
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
             if (typeof dataDrillDown.DrillDownFromDate === 'string') {
@@ -485,14 +480,13 @@ var LicenseeWinLoss = (function ($) {
                 dataDrillDown.DrillDownToDate = new Date(Date.parse(dataDrillDown.DrillDownToDate));
             }
 
-            var reportBy = Number($("#OriginalReportBy").val());
-            if (reportBy === 2) {
+            if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
                 var fday = 1;
                 var month = dataDrillDown.DrillDownFromDate.getMonth();
                 var year = dataDrillDown.DrillDownFromDate.getFullYear();
 
-                var orignalFDate = new Date($("#OriginalFromDate").val());
-                var originalTDate = new Date($("#OriginalToDate").val());
+                var orignalFDate = _submitData.FromDate;
+                var originalTDate = _submitData.ToDate;
 
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
