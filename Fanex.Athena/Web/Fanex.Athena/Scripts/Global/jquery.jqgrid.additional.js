@@ -131,9 +131,9 @@ var jqGridAdditional = (function () {
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
         },
 
-        getLicenseeWLNote: function (productOptionJson) {
+        getLicenseeWLNote: function (productOptionJson, caption) {
             var productOptions = $.parseJSON(productOptionJson);
-            var temp = Site.getSingleResource("LicenseeW_L");
+            var temp = caption || Site.getSingleResource("LicenseeW_L");
             var productTemp = "";
             var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN"];
             for (var i = 0; i < productOptions.length; i++) {
@@ -298,12 +298,11 @@ var jqGridAdditional = (function () {
             //#endregion
         },
 
-        setNoInfo: function (columnModel) {
+        setNoInfo: function (columnModel, message) {
             var mainFooter = $(".ui-jqgrid-ftable");
-
             var colspan = 0;
             var numOfHideColumns = 0;
-            var info = Site.getSingleResource("NoInfo");
+            var info = message || Site.getSingleResource("NoInfo");
             $(columnModel).each(function (index, item) {
                 if (item.hidden === true) {
                     numOfHideColumns++;

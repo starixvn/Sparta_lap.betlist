@@ -137,7 +137,7 @@ var WinLossByProduct = (function ($) {
             }
         },
 
-        setReportTitle: function (currencyId, fromdate, todate) {
+        setReportTitle: function (currencyId, fromdate, todate, systemId) {
             var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
             var viewinKey = Site.getSingleResource("Viewin");
 
@@ -153,9 +153,11 @@ var WinLossByProduct = (function ($) {
                 ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
 
-            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote($("#ProductOptionJson").val());
+            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote($("#ProductOptionJson").val(), systemId);
+
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"),
            currencyStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
+
             $("div.report-title").html(title);
         },
 
@@ -178,13 +180,13 @@ var WinLossByProduct = (function ($) {
                         $("#ProductOptionJson").val(response.ProductOptions);
                         //update drildownValue
                         $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());
-                        $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
+                        $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData0").is(":checked"));
                         $("#OriginalCurrencyId").val($("#CurrencyId").val());
                         $("#OriginalReportBy").val(reportBy);
                         $("#OriginalFromDate").val($("#FromDate").val());
                         $("#OriginalToDate").val($("#ToDate").val());
                         $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-                        WinLossByProduct.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+                        WinLossByProduct.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val(), response.ResultInfo.ExtendedData);
                         break;
                     case 1:
                         cacheDataLevel1 = response;
@@ -212,7 +214,7 @@ var WinLossByProduct = (function ($) {
             Site.updateOriginalLicenseeOption();
             var mainForm = $("#winlossbyproduct");
             var data = mainForm.serializeObject();
-            
+
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
@@ -460,7 +462,8 @@ var WinLossByProduct = (function ($) {
                 }
 
                 if (response == null || numOfRow === 0) {
-                    jqGridAdditional.setNoInfo(gridOption.colModel);
+                    var resultInfo = response.ResultInfo;
+                    jqGridAdditional.setNoInfo(gridOption.colModel, resultInfo.IsSuccessful ? undefined : resultInfo.Message);
                 }
                 else {
                     if (onPaging && level === 2) {

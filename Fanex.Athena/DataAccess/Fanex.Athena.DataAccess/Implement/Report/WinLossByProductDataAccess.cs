@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -45,25 +46,34 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="metaModel"> Meta model value.</param>
         /// <param name="summaryTotal"> Summary total value.</param>
+        /// <param name="resultInfo">Result information.</param>
         /// <returns>The result value.</returns>
         public IList<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
+            out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
+            out IResultInfo resultInfo)
         {
             const string UspName = "Lrf_Rpt_WinlossByProduct";
             try
             {
+                IList<WinLossByProduct> data;
                 using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
+                    db.AddOutParameter("SystemName", DbType.String, 100);
                     UpdateUspParams(db, metaModel, false);
                     AddResultParam(db);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, false, out summaryTotal);
+                        data = GetData(reader, metaModel, false, out summaryTotal);
                     }
+
+                    resultInfo = GetResult(db);
+                    resultInfo.ExtendedData = db.GetParameterValue("SystemName").ToString();
                 }
+
+                return data;
             }
             catch (SqlException sqlException)
             {

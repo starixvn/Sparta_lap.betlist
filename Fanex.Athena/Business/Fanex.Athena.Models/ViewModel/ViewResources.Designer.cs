@@ -4201,6 +4201,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More than 1 customer found. Please search for 1 customer only..
+        /// </summary>
+        public static string MoreThanOneCustomerFoundMsg {
+            get {
+                return ResourceManager.GetString("MoreThanOneCustomerFoundMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successully moved..
         /// </summary>
         public static string MoveSuccessulMsg {
@@ -4350,6 +4359,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string NoBettypeFound {
             get {
                 return ResourceManager.GetString("NoBettypeFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No customer found..
+        /// </summary>
+        public static string NoCustomerFoundMsg {
+            get {
+                return ResourceManager.GetString("NoCustomerFoundMsg", resourceCulture);
             }
         }
         

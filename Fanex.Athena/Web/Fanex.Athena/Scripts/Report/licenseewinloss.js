@@ -187,7 +187,7 @@ var LicenseeWinLoss = (function ($) {
                     $("#ProductOptionJson").val(response.ProductOptions);
                     //update drildownValue
                     $("#OriginalDrawFilter").val($("input[name='drawfilter']:checked").val());
-                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
+                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData0").is(":checked"));
                     $("#OriginalCurrencyId").val($("#CurrencyId").val());
                     $("#OriginalReportBy").val(reportBy);
                     $("#OriginalFromDate").val($("#FromDate").val());
