@@ -62,6 +62,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
                     db.AddOutParameter("SystemName", DbType.String, 100);
+                    db.AddOutParameter("CustID", DbType.Int32, 10);
                     UpdateUspParams(db, metaModel, false);
                     AddResultParam(db);
                     using (var reader = db.ExecuteReader())
@@ -70,7 +71,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
 
                     resultInfo = GetResult(db);
-                    resultInfo.ExtendedData = db.GetParameterValue("SystemName").ToString();
+                    resultInfo.ExtendedData = db.GetParameterValue("CustID") + ";" + db.GetParameterValue("SystemName");
                 }
 
                 return data;
@@ -98,7 +99,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 using (var db = new ObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
-
+                    db.AddInParameter("CustID", DbType.Int32, metaModel.MemberId);
                     using (var reader = db.ExecuteReader())
                     {
                         return GetData(reader, metaModel, true, out summaryTotal);
@@ -128,6 +129,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.CustomerId);
+                    db.AddInParameter("MemberID", DbType.Int32, metaModel.MemberId);
                     UpdateUspParams(db, metaModel, true);
 
                     using (var reader = db.ExecuteReader())

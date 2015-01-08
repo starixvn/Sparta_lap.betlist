@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
     using System.Web;
@@ -23,7 +24,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// WinLossByProductController class.
@@ -85,14 +85,24 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Private Utility
 
-        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, IResultInfo resultInfo)
+        /// <summary>
+        /// Get empty result for action.
+        /// </summary>
+        /// <param name="metaModel">Meta model data.</param>
+        /// <param name="customerId">Customer id.</param>
+        /// <param name="systemId">System id.</param>
+        /// <param name="errorMessage">Error message.</param>
+        /// <returns>Return dynamic result data.</returns>
+        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int customerId, string systemId, string errorMessage)
         {
             return new
             {
                 Data = new List<WinLossByProduct>(),
                 Total = new List<WinLossByProduct>(),
                 ProductOptions = metaModel.ProductOptions.ToJson(),
-                ResultInfo = JObject.FromObject(resultInfo)
+                MemberId = customerId,
+                SystemId = systemId,
+                ErrorMessage = errorMessage
             };
         }
 
@@ -270,6 +280,10 @@ namespace Fanex.Athena.Api.Report
         /// <param name="currencyId">Currency Id.</param>
         /// <param name="custId">Customer Id.</param>
         /// <returns>Dynamic type.</returns>
+        [SuppressMessage(
+           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "SP2101:MethodMustNotContainMoreLinesThan",
+           Justification = "Reviewed. Suppression is OK here.")]
         private dynamic ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -315,6 +329,16 @@ namespace Fanex.Athena.Api.Report
                 return ExportExcel(metaModel, dataList, summaryTotal, resultInfo);
             }
 
+            var memberId = 0;
+            string systemId = null;
+
+            if (string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
+            {
+                var extendedItems = resultInfo.ExtendedData.Split(';');
+                memberId = Convert.ToInt32(extendedItems[0]);
+                systemId = extendedItems[1];
+            }
+
             return dataList.Count > 0
                 ? (dynamic)new
                 {
@@ -322,9 +346,11 @@ namespace Fanex.Athena.Api.Report
                     Total = _winlossByProductService.TotalCalc(dataList),
                     SummaryTotal = summaryTotal,
                     ProductOptions = metaModel.ProductOptions.ToJson(),
-                    ResultInfo = JObject.FromObject(resultInfo)
+                    MemberId = memberId,
+                    SystemId = systemId,
+                    ErrorMessage = resultInfo.Message                    
                 }
-                : GetEmptyResult(metaModel, resultInfo);
+                : GetEmptyResult(metaModel, memberId, systemId, resultInfo.Message);            
         }
 
         #endregion ProcessRequest

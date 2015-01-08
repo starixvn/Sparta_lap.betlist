@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>  
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

@@ -7,7 +7,7 @@ var WinLossByProduct = (function ($) {
     var REPORT_BY_MONTHLY = 2;
     var _cacheData = [];
     var ajaxRequest = null;
-    var _systemId; // used to show systemId in report title.
+    var _memberId, _systemId; // store data when submit level 0
     var _submitData; // cache submit data of level 0.
 
     function setDefaultUsername() {
@@ -216,8 +216,8 @@ var WinLossByProduct = (function ($) {
                         IsExcludedTestData: data.IsExcludedTestData
                     };
 
-                    _systemId = response.ResultInfo.ExtendedData;
-
+                    _systemId = response.SystemId;
+                    _memberId = response.MemberId;
                     WinLossByProduct.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                     WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
                     WinLossByProduct.ajaxComplete(0, response);
@@ -244,6 +244,7 @@ var WinLossByProduct = (function ($) {
         drillDown: function (level, currencyId, customerId, datetime) {
             var param =
             {
+                MemberId: _memberId,
                 ProductOptions: $.parseJSON(_submitData.ProductOptions),
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludedTestData: _submitData.IsExcludedTestData,
@@ -450,9 +451,8 @@ var WinLossByProduct = (function ($) {
                     $("#pg_ppdata").hide();
                 }
 
-                if (response == null || numOfRow === 0) {
-                    var resultInfo = response.ResultInfo;
-                    jqGridAdditional.setNoInfo(gridOption.colModel, resultInfo.IsSuccessful ? undefined : resultInfo.Message);
+                if (response == null || numOfRow === 0) {                    
+                    jqGridAdditional.setNoInfo(gridOption.colModel, response.ErrorMessage);
                 }
                 else {
                     if (onPaging && level === 2) {

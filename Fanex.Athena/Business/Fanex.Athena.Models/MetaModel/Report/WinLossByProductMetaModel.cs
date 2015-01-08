@@ -37,6 +37,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
         /// <value>The identity of customer.</value>
         public int CustomerId { get; set; }
 
+        public int MemberId { get; set; }
+
         public DateTime DrillDownFromDate { get; set; }
 
         public DateTime DrillDownToDate { get; set; }
