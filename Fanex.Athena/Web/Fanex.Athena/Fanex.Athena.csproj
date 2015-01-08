@@ -3051,6 +3051,9 @@
     <Content Include="Views\Report\AgCasinoWinLoss\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\AgCasinoWinLoss\Main.cshtml" />
+    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </Content>
     <None Include="SiteConfig\Web.AppSettings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
@@ -3067,6 +3070,9 @@
     <Content Include="SiteConfig\Web.AppSettings.UAT.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
+    <Content Include="SiteConfig\Web.BACKUPMNL.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <None Include="SiteConfig\Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
@@ -3082,6 +3088,9 @@
     </Content>
     <Content Include="SiteConfig\Web.PRO.config">
       <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
     <None Include="SiteConfig\Web.ConnectionStrings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
