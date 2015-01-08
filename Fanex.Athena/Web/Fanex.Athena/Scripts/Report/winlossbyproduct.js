@@ -112,7 +112,8 @@ var WinLossByProduct = (function ($) {
             var temp = 'api/report/WinLostByProduct';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
-                fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy");
+                fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy") +
+                "&memberid=" + _memberId + "&systemid=" + _systemId;
             }
             WinLossByProductOption.urlExcelData = temp;
         },
@@ -451,7 +452,7 @@ var WinLossByProduct = (function ($) {
                     $("#pg_ppdata").hide();
                 }
 
-                if (response == null || numOfRow === 0) {                    
+                if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel, response.ErrorMessage);
                 }
                 else {

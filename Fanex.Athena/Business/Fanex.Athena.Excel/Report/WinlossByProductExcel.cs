@@ -51,7 +51,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly WinLossByProductMetaModel _metaModel;
         private readonly IDictionary<string, IList<WinLossByProduct>> _summaryTotal;
         private readonly IList<WinLossByProduct> _winlossByProductList;
-        private readonly IResultInfo _resultInfo;
+        private readonly string _systemId;
+        private readonly string _errorMessage;
 
         public WinlossByProductExcel(
                                      string templatePath,
@@ -60,13 +61,16 @@ namespace Fanex.Athena.Excel.Report
                                      ShowingOption showingOption,
                                      WinLossByProductMetaModel metaModel,
                                      WinLossByProductViewModel viewModel,
-                                     IResultInfo resultInfo)
+                                     string systemId,
+                                     string errorMessage)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
         {
             _metaModel = metaModel;
             _winlossByProductList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            _resultInfo = resultInfo;
+            _systemId = systemId;
+            _errorMessage = errorMessage;
+
             HeaderTextList = new List<string>
             {
                 "#",
@@ -161,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
 
         public override void AssignNoInfoRow(ISheet sheet)
         {
-            var message = _resultInfo.IsSuccessful ? ViewResources.NoInfo : _resultInfo.Message;
+            var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
         }
 
@@ -237,7 +241,7 @@ namespace Fanex.Athena.Excel.Report
                                     ViewResources.WinLossByProductTitle,
                                     fromdate,
                                     todate,
-                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) + GetLicenseeWLProduct(_resultInfo.ExtendedData);
+                                    GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)) + GetLicenseeWLProduct(_systemId);
             }
             else
             {
@@ -245,7 +249,7 @@ namespace Fanex.Athena.Excel.Report
                                         ViewResources.WinLossByProductTitle,
                                         fromdate,
                                         todate,
-                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) + GetLicenseeWLProduct(_resultInfo.ExtendedData);
+                                        GetExactTitleCurrencyName(_metaModel.CurrencyId)) + GetLicenseeWLProduct(_systemId);
             }
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

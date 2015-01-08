@@ -47,11 +47,21 @@ namespace Fanex.Athena.Api.Report
         /// <param name="level">The Level value.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <param name="custId">Customer Id.</param>
+        /// <param name="memberId">Member Id.</param>
+        /// <param name="systemId">System Id.</param>
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
-        public dynamic WinLostByProduct(WinLossByProductMetaModel metaModel, DateTime? fdate, DateTime? tdate, int level = 0, int currencyId = 0, int custId = 0)
+        public dynamic WinLostByProduct(
+            WinLossByProductMetaModel metaModel, 
+            DateTime? fdate, 
+            DateTime? tdate, 
+            int level = 0, 
+            int currencyId = 0, 
+            int custId = 0, 
+            int memberId = 0,
+            string systemId = null)
         {
-            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId);
         }
 
         /// <summary>
@@ -89,18 +99,18 @@ namespace Fanex.Athena.Api.Report
         /// Get empty result for action.
         /// </summary>
         /// <param name="metaModel">Meta model data.</param>
-        /// <param name="customerId">Customer id.</param>
+        /// <param name="memberId">Customer id.</param>
         /// <param name="systemId">System id.</param>
         /// <param name="errorMessage">Error message.</param>
         /// <returns>Return dynamic result data.</returns>
-        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int customerId, string systemId, string errorMessage)
+        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int memberId, string systemId, string errorMessage)
         {
             return new
             {
                 Data = new List<WinLossByProduct>(),
                 Total = new List<WinLossByProduct>(),
                 ProductOptions = metaModel.ProductOptions.ToJson(),
-                MemberId = customerId,
+                MemberId = memberId,
                 SystemId = systemId,
                 ErrorMessage = errorMessage
             };
@@ -165,13 +175,15 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Output parameter - report data list.</param>
         /// <param name="summaryTotal">Output parameter - summary data.</param>
-        /// <param name="resultInfo">Result information.</param>
+        /// <param name="systemId">System Id.</param>
+        /// <param name="errorMessage">Error Message.</param>
         /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(
             WinLossByProductMetaModel metaModel,
             IList<WinLossByProduct> dataList,
             IDictionary<string, IList<WinLossByProduct>> summaryTotal,
-            IResultInfo resultInfo)
+            string systemId, 
+            string errorMessage)
         {
             const string FileName = "WinLossByProduct.xls";
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
@@ -210,7 +222,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal
             };
 
-            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel, resultInfo)
+            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
             {
                 Level = metaModel.Level,
                 EnableReportByMonth = metaModel.ReportBy,
@@ -279,6 +291,8 @@ namespace Fanex.Athena.Api.Report
         /// <param name="level">The Level value.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <param name="custId">Customer Id.</param>
+        /// <param name="memberId">Member Id.</param>
+        /// <param name="systemId">System Id.</param>
         /// <returns>Dynamic type.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -290,7 +304,9 @@ namespace Fanex.Athena.Api.Report
             DateTime? tdate,
             int level = 0,
             int currencyId = 0,
-            int custId = 0)
+            int custId = 0,
+            int memberId = 0,
+            string systemId = null)
         {            
             if (!IsValidRequest(metaModel, currencyId))
             {
@@ -306,6 +322,11 @@ namespace Fanex.Athena.Api.Report
             metaModel.DrillDownCurrencyId = currencyId;
             metaModel.Level = level;
             metaModel.CustomerId = custId;
+            if (metaModel.MemberId == 0)
+            {
+                metaModel.MemberId = memberId;
+            }
+
             if (fdate.HasValue)
             {
                 metaModel.DrillDownFromDate = fdate.Value;
@@ -324,19 +345,17 @@ namespace Fanex.Athena.Api.Report
 
             AssignErrorMessage(resultInfo);
 
-            if (metaModel.IsExportExcel)
-            {
-                return ExportExcel(metaModel, dataList, summaryTotal, resultInfo);
-            }
-
-            var memberId = 0;
-            string systemId = null;
-
-            if (string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
+            if (memberId == 0 && string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
             {
                 var extendedItems = resultInfo.ExtendedData.Split(';');
-                memberId = Convert.ToInt32(extendedItems[0]);
+                memberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);
                 systemId = extendedItems[1];
+                metaModel.MemberId = memberId;
+            }
+
+            if (metaModel.IsExportExcel)
+            {
+                return ExportExcel(metaModel, dataList, summaryTotal, systemId, resultInfo.Message);
             }
 
             return dataList.Count > 0
