@@ -1,6 +1,7 @@
 ﻿
 // Generated helper templates
 // Generated items
+// Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.ConnectionStrings.BACKUPMNL.config
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.ConnectionStrings.SANDBOX.config
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.ConnectionStrings.PRO.config
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.ConnectionStrings.UAT.config
