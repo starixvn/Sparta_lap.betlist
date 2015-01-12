@@ -23,6 +23,10 @@
         },
         new SiteInfo
         {
+            SiteEnvironment = SiteEnvironment.BACKUPMNL
+        },
+        new SiteInfo
+        {
             SiteEnvironment = SiteEnvironment.SANDBOX
         }
     };
@@ -34,6 +38,7 @@
         LOCAL,
         UAT,
         PRO,
+        BACKUPMNL,
         SANDBOX
     }
 
