@@ -106,9 +106,12 @@ namespace Fanex.Athena.Controllers
                 {
                     SessionService.CaptchaCode = RandomCaptchaCode();
                     SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
+                    isValid = false;
                 }
-
-                isValid = false;
+                else
+                {
+                    isValid = true;
+                }
             }
 
             if (isValid && string.IsNullOrEmpty(model.UserName))
