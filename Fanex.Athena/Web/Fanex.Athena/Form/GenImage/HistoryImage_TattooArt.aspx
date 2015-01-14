@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="HistoryImage_TattooArt.aspx.cs" Inherits="HistoryImage_TattooArt" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HistoryImage_TattooArt.aspx.cs" Inherits="HistoryImage_TattooArt" %>

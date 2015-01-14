@@ -13,7 +13,7 @@ using JSoft.Utility;
 using HandHistoryLibrary.DataHandler.GenImage;
 
 
-public partial class HistoryImage_ePoker : System.Web.UI.Page
+public partial class __HistoryImage_ePoker : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

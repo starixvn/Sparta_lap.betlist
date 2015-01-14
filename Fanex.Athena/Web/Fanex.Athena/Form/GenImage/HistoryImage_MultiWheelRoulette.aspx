@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="HistoryImage_MultiWheelRoulette.aspx.cs" Inherits="HistoryImage_MultiWheelRoulette" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HistoryImage_MultiWheelRoulette.aspx.cs" Inherits="HistoryImage_MultiWheelRoulette" %>
