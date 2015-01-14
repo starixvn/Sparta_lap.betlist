@@ -44,7 +44,7 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="CasinoLibrary, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CasinoLibrary, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
     </Reference>
@@ -150,7 +150,8 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Nini">
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">

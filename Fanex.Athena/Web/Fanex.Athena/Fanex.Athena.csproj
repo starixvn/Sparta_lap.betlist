@@ -46,7 +46,7 @@
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CasinoLibrary, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
     </Reference>
@@ -131,7 +131,8 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Nini">
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
@@ -210,6 +211,7 @@
     </Compile>
     <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Form\GenImage\HistoryImage_BJ.aspx.cs">
       <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
