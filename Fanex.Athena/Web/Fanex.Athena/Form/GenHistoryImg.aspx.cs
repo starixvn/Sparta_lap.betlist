@@ -13,7 +13,7 @@ using JSoft.Utility;
 using HandHistoryLibrary.DataHandler;
 
 
-public partial class __GenHistoryImg : System.Web.UI.Page
+public partial class FormGenHistoryImg : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

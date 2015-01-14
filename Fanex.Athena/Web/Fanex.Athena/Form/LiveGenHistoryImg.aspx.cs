@@ -12,7 +12,7 @@ using System.Web.UI.HtmlControls;
 using JSoft.Utility;
 using LiveCasinoLibrary.SBAgent;
 
-public partial class __LiveGenHistoryImg : System.Web.UI.Page
+public partial class FormLiveGenHistoryImg : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
