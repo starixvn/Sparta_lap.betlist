@@ -19,6 +19,10 @@ var GroupCommLog = (function ($) {
 
             // Set username test default
             $('#Username').val(Site.getSingleResource("ExternalIdOrSystemId"));
+            Site.addUserGuide({
+                resourceName: "CustomerLog",
+                title: Site.getSingleResource("CustomerLog")
+            });
         },
         initMonthPicker: function () {
             $('#DateControl').monPickr({

@@ -10,6 +10,10 @@ var LogInLog = (function ($) {
             $('#loginlog').addClass('activeTab');
             // Set username test default
             $('#Username').val(Site.getSingleResource("ExternalIdOrSystemId"));
+            Site.addUserGuide({
+                resourceName: "CustomerLog",
+                title: Site.getSingleResource("CustomerLog")
+            });
         },
         initEvent: function () {
             // username click

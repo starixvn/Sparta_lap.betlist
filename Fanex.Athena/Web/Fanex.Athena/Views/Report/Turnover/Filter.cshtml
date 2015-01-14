@@ -5,12 +5,12 @@
 @model Fanex.Athena.Models.ViewModel.Report.TurnoverViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Turnover", "Report", FormMethod.Post, new { @id = "TurnoverForm" }))
-    {      
+    {
         //-----------------------------Hidden Field-------------------------------//
     
-    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
-    @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
-    @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)
+        @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+        @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
+        @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)
 @*Row 1*@
         <div class="grid_3 filter-label">
             <label>@ViewResources.ViewDataInMonth</label>
@@ -31,8 +31,9 @@
         </div>
         <div class="grid_2 note-group">
             <div>
-            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
-        </div>
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"
@@ -41,15 +42,15 @@
         </div>   
         <div class="new-line">
         </div>
-                  if (Model.LicenseeTypeList.Count > 0)
-                  {
+        if (Model.LicenseeTypeList.Count > 0)
+        {
         <div class="grid_3 filter-label">
             <label>@ViewResources.LicenseeType</label>
         </div>
         <div class="grid_4 filter-input">
             @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licensee-type", Model.Param.LicenseeType)
         </div>
-                  }
+        }
         <div class="grid_@(Model.LicenseeTypeList.Count > 0 ? 2 : 3) filter-label">
             <label>@ViewResources.Currency</label>
         </div>
@@ -83,8 +84,8 @@
             <input type="hidden" id="Year" name="Year" value="@Model.Param.Year" />
             <input type="hidden" id="IsExportExcel" name="IsExportExcel" value="@Model.Param.IsExportExcel" />
             @{
-                  var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                  var minDate = beginOfMonth.AddMonths(-18);
+        var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+        var minDate = beginOfMonth.AddMonths(-18);
             }
             <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
         </div>

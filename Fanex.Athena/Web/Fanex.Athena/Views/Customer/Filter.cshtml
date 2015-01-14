@@ -3,7 +3,6 @@
 @using Fanex.Athena.Models.MetaModel.Customer;
 @using Fanex.Athena.Models.DTO.Common
 @model CustomerListViewModel
-
 <div class="grid_26 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
@@ -40,13 +39,14 @@
         <div class="grid_2 push_@(Model.LicenseeTypeList.Count > 0 ? 5 : 10) filter-input">
             <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
         </div>
-        <div class="gird_1 note-group">
+        <div class="grid_2 note-group">
             <div>
-                @{Html.RenderAction("Index", "Note", new { viewName = "CustomerList" });}
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
             </div>
         </div>
-                  if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
-                  {
+        if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
+        {
         <div class="grid_2 filter-label new-line">
             <label>@ViewResources.Status
             </label>
@@ -66,21 +66,21 @@
         <div class="grid_2 filter-label">
             <label>@ViewResources.SpecialLevel</label>
         </div>
-                  }
-                  else
-                  {
+        }
+        else
+        {
 
         <div class="grid_2 filter-label new-line">
             <label>@ViewResources.SpecialLevel</label>
         </div>
-                  }
+        }
         
         <div class="grid_2 filter-input">
             @RazorHelper.SpecialLevelListSearch(Model.Param.SpecialLevel)
         </div>
 
-                  if (Model.ProductAccess.IsAllowBA)
-                  {
+        if (Model.ProductAccess.IsAllowBA)
+        {
         <div class="grid_2 filter-label">
             <label>@ViewResources.BA</label>
         </div>
@@ -95,20 +95,20 @@
                Model.Param.BAFilter),
                new { @style = "position: relative" })
         </div>
-                  }
+        }
 
-                  var oldGroup = new GroupCommMetaModel();
-                  if (Model.IsAllowedCustomerCommission)
-                  {
+        var oldGroup = new GroupCommMetaModel();
+        if (Model.IsAllowedCustomerCommission)
+        {
         <div class="grid_2 filter-label">
             <label>@ViewResources.Group</label>
         </div>
         <div class="grid_3 filter-input">
             <select id="DdlGroupCommId" style="width: 122px">
                 @{
-                      var groupList = Model.GroupCommDataList;
-                      groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
-                      groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
+            var groupList = Model.GroupCommDataList;
+            groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
+            groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
                 }
                 @foreach (GroupCommMetaModel group in groupList)
                 {
@@ -122,7 +122,7 @@
                 }
             </select>
         </div>
-                  }
+        }
         <div class="grid_2 filter-label">
             <label>@ViewResources.Show/@ViewResources.hide</label>
         </div>

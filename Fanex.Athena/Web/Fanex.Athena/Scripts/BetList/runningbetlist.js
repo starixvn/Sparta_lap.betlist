@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, BetList*/
+﻿/*global Site, QueryString, BetList, popupTitle, userGuideName*/
 /// <reference path="/@JSense.js" />
 var RunningBetList = (function ($) {
     "use strict";
@@ -7,6 +7,10 @@ var RunningBetList = (function ($) {
             RunningBetList.initEvent();
             var bettype = RunningBetList.getUrlParams("bettype");
             RunningBetList.submit(bettype);
+            Site.addUserGuide({
+                resourceName: userGuideName,
+                title: Site.getSingleResource("TotalBets") + " - " + popupTitle
+            });
         },
 
         initEvent: function () {

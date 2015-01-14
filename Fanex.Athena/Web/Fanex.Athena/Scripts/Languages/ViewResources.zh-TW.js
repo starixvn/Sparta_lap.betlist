@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/24/2014 2:18:22 PM
+// Lasted generated date: 12/31/2014 2:19:58 PM
 // </history>
 
 var _language_zh_TW={
@@ -46,9 +46,9 @@ var _language_zh_TW={
 				 	
                      AlertPasswordEmptyMsg:"對不起，密碼不能空置!!!",
 				 	
-                     AlertRemoveSpecialLevelForCustomerMsg:"即將刪除此客戶的特殊級別。您，確定嗎?",
+                     AlertRemoveSpecialLevelForCustomerMsg:"即將刪除此會員的特殊級別。您，確定嗎?",
 				 	
-                     AlertSetSpecialLevelForCustomerMsg:"您確定要設置此客戶的特殊級別為",
+                     AlertSetSpecialLevelForCustomerMsg:"您確定要設置此會員的特殊級別為 ?",
 				 	
                      AlertTurnOffBAMsg:"您確定要關閉BA？",
 				 	
@@ -180,7 +180,7 @@ var _language_zh_TW={
 				 	
                      ChangeStatus:"更改{0}的狀態",
 				 	
-                     ChangeStatusOfThisCustomerMsg:"您確定您要更換此客戶的狀態嗎?",
+                     ChangeStatusOfThisCustomerMsg:"您確定您要更換此會員的狀態嗎?",
 				 	
                      Characters:"文字",
 				 	
@@ -196,7 +196,7 @@ var _language_zh_TW={
 				 	
                      CleanSheet:"零失球",
 				 	
-                     ClearCurrentComm:"清除客戶的佣金",
+                     ClearCurrentComm:"清除會員的佣金",
 				 	
                      Close:"關閉",
 				 	
@@ -212,13 +212,13 @@ var _language_zh_TW={
 				 	
                      Comm:"佣金",
 				 	
-                     CommIsClear:"客戶的佣金已清空",
+                     CommIsClear:"會員的佣金已清空",
 				 	
                      Commission:"佣金",
 				 	
                      CommissionGroupList:"佣金組別列表",
 				 	
-                     CommIsUnChange:"客戶的佣金是不變的",
+                     CommIsUnChange:"會員的佣金是不變的",
 				 	
                      Completed:"已完場",
 				 	
@@ -226,7 +226,7 @@ var _language_zh_TW={
 				 	
                      Confirmation:"確認",
 				 	
-                     ConfirmCommission:"確認客戶的佣金",
+                     ConfirmCommission:"確認會員的佣金:",
 				 	
                      ConfirmPassword:"確認密碼",
 				 	
@@ -264,7 +264,7 @@ var _language_zh_TW={
 				 	
                      Currentweek:"本週",
 				 	
-                     Customer:"客戶",
+                     Customer:"會員",
 				 	
                      CustomerBalance:"會員餘額",
 				 	
@@ -276,29 +276,31 @@ var _language_zh_TW={
 				 	
                      CustomerHasNeverPlayed:"This customer has never played {0}.",
 				 	
-                     CustomerInfo:"客戶資料",
+                     CustomerInfo:"會員資料",
 				 	
                      CustomerList:"會員列表",
 				 	
-                     CustomerNotBelongAnyGroupMsg:"選擇的客戶不屬於任何一組",
+                     CustomerLog:"會員日誌",
 				 	
-                     CustomerOption:"客戶選項",
+                     CustomerNotBelongAnyGroupMsg:"選擇的會員不屬於任何一組",
 				 	
-                     CustomerOverall:"客戶 (整體)",
+                     CustomerOption:"會員選項",
+				 	
+                     CustomerOverall:"會員 (整體)",
 				 	
                      CustomerPedingFunds:"會員待定資金",
 				 	
-                     CustomerPedingFundsTitle:"客戶待定資金 - {0}",
+                     CustomerPedingFundsTitle:"會員待定資金 - {0}",
 				 	
-                     Customers:"客戶",
+                     Customers:"會員",
 				 	
-                     CustomersBelongGroupsBeRemovedMsg:"只有屬於組的客戶將從他們所屬的組中移除。",
+                     CustomersBelongGroupsBeRemovedMsg:"只有屬於組的會員將從他們所屬的組中移除。",
 				 	
-                     CustomerSetting:"客戶設定",
+                     CustomerSetting:"會員設定",
 				 	
                      CustomerSettinglog:"會員設定日誌",
 				 	
-                     CustomersExistedinGroupMsg:"選擇的客戶已經出現在此組",
+                     CustomersExistedinGroupMsg:"選擇的會員已經出現在此組",
 				 	
                      CustomerTurnover:"會員交易額",
 				 	
@@ -308,7 +310,7 @@ var _language_zh_TW={
 				 	
                      CustomerWinLoss:"會員輸贏",
 				 	
-                     CustomerWinLossTitle:"客戶輸贏，{0} --&gt; {1} - {2}",
+                     CustomerWinLossTitle:"會員輸贏，{0} --&gt; {1} - {2}",
 				 	
                      DA:"和客",
 				 	
@@ -510,7 +512,7 @@ var _language_zh_TW={
 				 	
                      Go:"開始",
 				 	
-                     GotoCustomerList:"轉至客戶名單",
+                     GotoCustomerList:"轉至會員名單",
 				 	
                      GrandTotal:"累計",
 				 	
@@ -528,7 +530,7 @@ var _language_zh_TW={
 				 	
                      GroupCommissionlog:"佣金組別日誌",
 				 	
-                     GroupCommNote:"若默認組已被選擇，所有新註冊之客戶將被自動分配至此傭金組。這將不會對現有的客戶進行任何更改。",
+                     GroupCommNote:"若默認組已被選擇，所有新註冊之會員將被自動分配至此傭金組。這將不會對現有的會員進行任何更改。",
 				 	
                      GroupId:"組別ID",
 				 	
@@ -828,7 +830,7 @@ var _language_zh_TW={
 				 	
                      ManageAccount:"賬號管理",
 				 	
-                     ManageCustomer:"客戶管理",
+                     ManageCustomer:"會員管理",
 				 	
                      Mar:"三月",
 				 	
@@ -1084,7 +1086,7 @@ var _language_zh_TW={
 				 	
                      PasswordNoteMsg:"密碼必須至少為6個字符，包含至少2個英文字母及至少2個數字 (例如：pass22)。",
 				 	
-                     PayAttentionMsg:"請注意：由於不同的佣金值，客戶將從組別中刪除。",
+                     PayAttentionMsg:"請注意：由於不同的佣金值，會員將從組別中刪除。",
 				 	
                      Pending:"等待中",
 				 	
@@ -1168,11 +1170,11 @@ var _language_zh_TW={
 				 	
                      RemoveFromGroup:"從組中刪除",
 				 	
-                     RemoveGroupMsg:"您確定要從組中移除此（這些）客戶?",
+                     RemoveGroupMsg:"您確定要從組中移除此（這些）會員?",
 				 	
-                     RemoveTheseCustomersFromGroupMsg:"您確定要從組中移除這些客戶?",
+                     RemoveTheseCustomersFromGroupMsg:"您確定要從組中移除這些會員?",
 				 	
-                     RemoveThisCustomerFromGroupMsg:"您確定要從組中移除該客戶?",
+                     RemoveThisCustomerFromGroupMsg:"您確定要從組中移除該會員?",
 				 	
                      Report:"報告",
 				 	
@@ -1460,7 +1462,7 @@ var _language_zh_TW={
 				 	
                      UpdateCurrencySuccessfulMsg:"更新貨幣成功",
 				 	
-                     UpdateCustomerCommission:"更新客戶的佣金",
+                     UpdateCustomerCommission:"更新會員的佣金",
 				 	
                      UpdateFunctionSuccessfulMsg:"更新成功",
 				 	
@@ -1486,7 +1488,7 @@ var _language_zh_TW={
 				 	
                      UpdateRNGCasinoBetSettingSuccessMsg:"The RNG Casino bet setting of {0} was updated successfully",
 				 	
-                     UpdateSpecialLevelMsg:"無效的參數。無效的客戶識別",
+                     UpdateSpecialLevelMsg:"無效的參數。無效的會員識別",
 				 	
                      UpdateSportsbookBetSettings:"您確定您要更新所有的體育博彩投注設置嗎？",
 				 	
@@ -1574,7 +1576,7 @@ var _language_zh_TW={
 				 	
                      Yesterday:"昨日",
 				 	
-                     YouNotChooseAnyCustomerMsg:"您還沒有選擇任何客戶"
+                     YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 				 	
              
 	 

@@ -2548,6 +2548,13 @@
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
     <value>This account is not assigned to a specific licensee.</value>
+  </data>
+  <data name="NetworkTimeoutMsg" xml:space="preserve">
+    <value>Network time out. Please try again.</value>
+    <comment>#27258</comment>
+  </data>
+  <data name="UserNoLicensee" xml:space="preserve">
+    <value>This account is not assigned to any licensee.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNotActive" xml:space="preserve">
@@ -2557,5 +2564,9 @@
   <data name="UserTooManyLicensees" xml:space="preserve">
     <value>This account is assigned to more than 1 licensee.</value>
     <comment>#27258</comment>
+  </data>
+  <data name="CustomerLog" xml:space="preserve">
+    <value>Customer Log</value>
+    <comment>26174</comment>
   </data>
 </root>

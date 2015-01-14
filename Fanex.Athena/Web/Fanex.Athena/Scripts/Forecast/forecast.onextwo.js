@@ -23,6 +23,10 @@ var ForecastOneXTwo = (function ($) {
 
             ForecastOneXTwo.initEvent();
             ForecastOneXTwo.resizeGrid();
+            Site.addUserGuide({
+                resourceName: "Forecast1x2",
+                title: Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo")
+            });
         },
         initEvent: function () {
             // Check popup

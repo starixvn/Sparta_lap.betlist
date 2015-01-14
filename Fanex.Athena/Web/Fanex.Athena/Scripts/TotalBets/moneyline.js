@@ -6,6 +6,10 @@ var MoneyLine = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             MoneyLine.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsMoneyLine",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("MoneyLine")
+            });
         },
         initEvent: function () {
             // Submit event.

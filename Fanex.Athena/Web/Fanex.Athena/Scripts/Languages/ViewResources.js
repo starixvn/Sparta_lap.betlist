@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/24/2014 2:17:57 PM
+// Lasted generated date: 12/31/2014 2:20:05 PM
 // </history>
 
 var _language_en_US={
@@ -281,6 +281,8 @@ var _language_en_US={
                      CustomerInfo:"Customer Information",
 				 	
                      CustomerList:"Customer List",
+				 	
+                     CustomerLog:"Customer Log",
 				 	
                      CustomerNotBelongAnyGroupMsg:"Selected customer(s) do not belong to any group.",
 				 	
@@ -942,8 +944,6 @@ var _language_en_US={
 				 	
                      NetTurnover:"Net Turnover",
 				 	
-                     NetworkTimeoutMsg:"Network time out. Please try again.",
-				 	
                      NewGroup:"New Group",
 				 	
                      Next:"Next",
@@ -1322,6 +1322,8 @@ var _language_en_US={
 				 	
                      Sportsbook:"Sportsbook",
 				 	
+                     SSOLinkExpiredMsg:"Single Sign On link is expired. Please log in again.",
+				 	
                      SSOLinkIncorrectMsg:"Single Sign On link is not correct. Please try again.",
 				 	
                      Stake:"Stake",
@@ -1530,7 +1532,7 @@ var _language_en_US={
 				 	
                      Username:"Username",
 				 	
-                     UserNoLicensee:"This account is not assigned to any licensee.",
+                     UserNoLicensee:"This account is not assigned to a specific licensee.",
 				 	
                      UserNotActive:"This account is deactived for LRF.",
 				 	

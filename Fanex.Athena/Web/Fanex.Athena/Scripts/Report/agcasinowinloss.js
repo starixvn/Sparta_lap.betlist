@@ -66,6 +66,10 @@ var AgCasinoWinLoss = (function ($) {
         initialize: function () {
             AgCasinoWinLoss.initEvent();
             initMonthPicker();
+            Site.addUserGuide({
+                resourceName: "AGCasinoWL",
+                title: Site.getSingleResource("AGCasinoWinLoss")
+            });
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {

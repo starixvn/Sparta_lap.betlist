@@ -10,9 +10,8 @@
             @RazorHelper.Paging("CustomerWinlossForm", Model.TotalRows, param.PageIndex, param.PageSize)
         </div>
         <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
-            @ViewResources.Customer @ViewResources.WinLoss,
-           @RazorHelper.TitleDateTime(param.FromDate, param.ToDate)
-            - @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName)
+            @string.Format(ViewResources.CustomerWinLossTitle, param.FromDate.ToString("MM/dd/yyyy"), param.ToDate.ToString("MM/dd/yyyy"), string.Empty)
+            @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, param.CurrencyName)
             @RazorHelper.TitleLicenseeWLPrefix(param.ProductOptions)
         </div>
         <div class="report-content " style="width:@(ViewBag.FilterWidth)px; max-height: 580px!important">

@@ -6,6 +6,10 @@ var HalfTimeFullTime = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             HalfTimeFullTime.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsHTFT",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT")
+            });
         },
         initEvent: function () {
             // Submit event.

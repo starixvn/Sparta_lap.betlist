@@ -1,0 +1,32 @@
+﻿.rule ul div.team-to-score-guide1
+{
+    background-image: url("images/team-to-score-guide1.png");
+    height: 100px;
+    width: 400px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.rule ul div.team-to-score-guide2
+{
+    background-image: url("images/team-to-score-guide2.png");
+    height: 100px;
+    width: 400px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.rule ul div.team-to-score-guide3
+{
+    background-image: url("images/team-to-score-guide3.png");
+    height: 100px;
+    width: 400px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.rule ul div.icon-view-betlist
+{
+    background-image: url("images/icon_add.jpg");
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}

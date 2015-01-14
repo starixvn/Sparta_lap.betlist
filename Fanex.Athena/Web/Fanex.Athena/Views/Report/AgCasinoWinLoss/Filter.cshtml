@@ -43,7 +43,8 @@
     </div>
     <div class="grid_2 note-group">
         <div>
-            @{Html.RenderAction("Index", "Note", new { viewName = "LicenseeWinLoss" });}
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+            </div>
         </div>
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
@@ -58,7 +59,7 @@
     </div>
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
-    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)    
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
     <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />

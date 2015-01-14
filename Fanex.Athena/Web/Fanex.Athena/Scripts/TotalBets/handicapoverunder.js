@@ -6,6 +6,10 @@ var HandicapOU = (function ($) {
         initialize: function () {
             Totalbets.initialize();
             HandicapOU.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsHdpOu",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HandicapOverUnderLive")
+            });
         },
         initEvent: function () {
             // Submit event.

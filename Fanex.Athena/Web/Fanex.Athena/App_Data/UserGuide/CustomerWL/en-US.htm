@@ -3,7 +3,8 @@
         General Info</h4>
     <ul>
         <li>Data are available from last 3 months up to the current date. For more historical
-            data available since January 2012, you can click View history report. </li>
+            data available since January 2012, you can click View history report.</li>
+        <li>Effective Betting Value supports data from 09/01/2014.</li>
         <li>This report contains only won/lose/draw tickets.</li>
         <li>Data can be filtered by Currency and Product.</li>
     </ul>
@@ -20,7 +21,7 @@
                 <li><b>Based EUR/USD:</b> All data will be converted to EUR/USD for reference only.
                     The based currency list contains EUR, USD and a dynamic option. The dynamic option
                     will vary when a specific currency is selected in Currency field (except EUR and
-                    USD currency).</li>                
+                    USD currency).</li>
             </ul>
         </li>
         <li><b>Product:</b> selects the Product type which data will be retrieved. </li>
@@ -36,9 +37,19 @@
         <li><b>System ID:</b> the Numeric sequential ID generated from system for each account.
             To view win loss detail, click on External ID.</li>
         <li><b>Turnover:</b> total Customer turnover within a selected date range.</li>
-        <li><b>Customer W/L:</b> customer net win loss within a selected date range.</li>
+        <li><b>Customer W/L:</b>
+            <ul>
+                <li><b>Win Loss:</b> the amount customer won or lost based on their bets.</li>
+                <li><b>Comm:</b> total commission counted on bet tickets.</li>
+                <li><b>Total:</b> Total win/loss amount including commission.
+                    <br />
+                    Total = Win/Loss + Commission </li>
+            </ul>
+        </li>
+        <li><b>Effective Betting Value: </b>absolute value of customer win loss on each bet ticket (0 for draw and voided tickets).</li>
         <li><b>Licensee W/L:</b> the win loss amount Licensee has settled with Customer.
-            <center>Licensee Win/Loss = – (Customer Win/Loss)</center>
+            <center>
+                Licensee Win/Loss = – (Customer Win/Loss)</center>
         </li>
         <li><b>BA Commission:</b> Licensee commission income for BA tickets (including win,
             lose and draw tickets)</li>
@@ -46,7 +57,7 @@
         <li><b>Amount Due To BA:</b> the settlement amounts between Licensee and BA service.
             <br />
             Note that for Amount Due to BA, the black negative number indicates the receiving
-            amount from BA and black positive number indicates the paying amount to BA </li>
+            amount from BA and black positive number indicates the paying amount to BA. </li>
         <li><b>Amount Due to Racing:</b> the settlement amount between Licensee and Racing partner.
             <br />
             Note that for Amount Due to Racing, the black negative number indicates the receiving

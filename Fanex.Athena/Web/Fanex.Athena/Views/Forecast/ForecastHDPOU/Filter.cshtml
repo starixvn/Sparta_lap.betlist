@@ -43,21 +43,25 @@
     <div class="grid_2 filter-input">
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
     </div>
+    <div class="grid_2 note-group">
+        <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+        </div>
+    </div>
     <div class="clear">
     </div>
 
 @*Render league list*@
     if (Model.Param.LeagueId != 0)
     {
-        var leagueSelectedListItem = Model.LeagueList.Select(l=>new SelectListItem
-                                            { 
-                                                Text = l.LeagueName,
-                                                Value = l.LeagueId.ToString(),
-                                                Selected = l.LeagueId==Model.Param.LeagueId
-                                            });
+        var leagueSelectedListItem = Model.LeagueList.Select(l => new SelectListItem
+        {
+            Text = l.LeagueName,
+            Value = l.LeagueId.ToString(),
+            Selected = l.LeagueId == Model.Param.LeagueId
+        });
     <div class="grid_2 filter-label left-text" style="width: 45px">@ViewResources.League</div>
     <div class="grid_4 filter-input">
-        @Html.DropDownList("LeagueId", leagueSelectedListItem, new { @class = "league-list",@data_original= Model.Param.LeagueId})
+        @Html.DropDownList("LeagueId", leagueSelectedListItem, new { @class = "league-list", @data_original = Model.Param.LeagueId })
     </div>
     }
 }

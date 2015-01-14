@@ -166,3 +166,18 @@ div .data-content-min
 {
     clear: none !important;
 }
+
+.rule ul div.icon-edit
+{
+    background-image: url("images/edit.png");
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.rule ul div.icon-delete
+{
+    background-image: url("images/validatefail.png");
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
