@@ -44,15 +44,17 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="CasinoLibrary, Version=1.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CasinoLibrary, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\CasinoLibrary.1.0.2.8\lib\net40\CasinoLibrary.dll</HintPath>
+      <HintPath>..\..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="CasinoSetting">
-      <HintPath>..\..\..\packages\CasinoSetting.1.0.0.0\lib\net40\CasinoSetting.dll</HintPath>
+    <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
     </Reference>
-    <Reference Include="CasinoUtility">
-      <HintPath>..\..\..\packages\CasinoUtility.1.2.9.0\lib\net40\CasinoUtility.dll</HintPath>
+    <Reference Include="CasinoUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
     </Reference>
     <Reference Include="Couchbase">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Couchbase.dll</HintPath>
@@ -90,7 +92,8 @@
       <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\HandHistoryLibrary.2014.11.11.1541\lib\net40\HandHistoryLibrary.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\HandHistoryLibrary.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
@@ -146,6 +149,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>

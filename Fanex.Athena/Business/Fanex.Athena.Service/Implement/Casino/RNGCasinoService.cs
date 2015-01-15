@@ -31,6 +31,13 @@ namespace Fanex.Athena.Service.Implement.Casino
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
         private readonly string _subDomainPath = Extension.Utility.AppSettings.GetValue("SubDomainPath");
 
+        public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetalModel metaModel)
+        {
+            DataTable dataTable;
+            GetResultFromAPIRealTime(metaModel, out dataTable);
+            return dataTable;
+        }
+
         /// <summary>
         /// Get RNG Casino Result.
         /// </summary>
@@ -38,9 +45,9 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <returns>The RNG Casino result list.</returns>
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetalModel metaModel)
         {
-            List<RNGCasinoResult> casinos;
+            List<RNGCasinoResult> casinos = new List<RNGCasinoResult>();
             DataTable dataTable;
-            GetResultFromAPI(metaModel, out casinos, out dataTable);
+            GetResultFromAPI(metaModel, out dataTable);
 
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
@@ -173,14 +180,9 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// Get result from API.
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
-        /// <param name="casinos">The casino result.</param>
         /// <param name="dataTable">The data table.</param>
-        private static void GetResultFromAPI(
-            RNGCasinoResultMetalModel metalModel,
-            out List<RNGCasinoResult> casinos,
-            out DataTable dataTable)
+        private static void GetResultFromAPI(RNGCasinoResultMetalModel metalModel, out DataTable dataTable)
         {
-            casinos = new List<RNGCasinoResult>();
             var casinoLib = new CasinoLibrary.SBAgent.Report();
             dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
             if (dataTable == null)
@@ -192,6 +194,17 @@ namespace Fanex.Athena.Service.Implement.Casino
                 RNGCasinoSetting.CasinoGroup1,
                 metalModel.IsShowPic);
             }
+        }
+
+        private static void GetResultFromAPIRealTime(RNGCasinoResultMetalModel metalModel, out DataTable dataTable)
+        {
+            var casinoLib = new CasinoLibrary.SBAgent.Report();
+            dataTable = casinoLib.RealTimeWinLossHandHistory(
+            metalModel.FromDate,
+            metalModel.ToDate,
+            metalModel.CustId,
+            RNGCasinoSetting.CasinoGroup1,
+            metalModel.IsShowPic);
         }
 
         /// <summary>

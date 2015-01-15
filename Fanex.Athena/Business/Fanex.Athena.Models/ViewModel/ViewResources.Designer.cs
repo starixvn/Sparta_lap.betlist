@@ -4255,15 +4255,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network time out. Please try again..
-        /// </summary>
-        public static string NetworkTimeoutMsg {
-            get {
-                return ResourceManager.GetString("NetworkTimeoutMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New Group.
         /// </summary>
         public static string NewGroup {
@@ -6910,7 +6901,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This account is not assigned to any licensee..
+        ///   Looks up a localized string similar to This account is not assigned to a specific licensee..
         /// </summary>
         public static string UserNoLicensee {
             get {

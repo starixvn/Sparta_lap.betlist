@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 if (metaModel != null)
                 {
                     metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
-                    var data = metaModel.Isvalid() && (metaModel.CurrencyId == BaseCurrencyType.All || 
+                    var data = metaModel.Isvalid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
                         this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
                         ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
                         : new List<RNGCasinoResult>();
@@ -97,6 +97,26 @@ namespace Fanex.Athena.Controllers.RNGCasino
             };
 
             return this.View("~/Views/RNGCasino/Main.cshtml", model);
+        }
+
+        /// <summary>
+        /// Load RNGCasino result page.
+        /// </summary>
+        /// <param name="metalModel">The metal model.</param>
+        /// <returns>The action result.</returns>
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetalModel metalModel)
+        {
+            if (this.SessionService.UserSession.UserName == "pgmbravo")
+            {
+                var model = new RNGCasinoService().GetRNGCasinoResultDataTable(metalModel);
+                return this.View("~/Views/RNGCasino/DataTableFromAPI.cshtml", model);
+            }
+            else
+            {
+                return View("~/Views/Utility/AccessDenied.cshtml");
+            }
         }
 
         /// <summary>
