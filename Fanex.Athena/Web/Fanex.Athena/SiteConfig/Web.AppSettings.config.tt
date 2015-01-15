@@ -34,7 +34,7 @@
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
-	<add key="AllowAutomationCaptchaCode" value="0" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
 	<add key="JsVersion" value="v=26469" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
@@ -96,7 +96,7 @@
 	<add key="webpages:Version" value="2.0.0.0"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
-	<add key="AllowAutomationCaptchaCode" value="0"/>
+	<add key="AllowAutomationCaptchaCode" value="1"/>
 	<add key="JsVersion" value="v=26469" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
@@ -213,7 +213,7 @@
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
-	<add key="AllowAutomationCaptchaCode" value="0" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
 	<add key="JsVersion" value="v=26469" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
@@ -272,7 +272,7 @@
 	<add key="webpages:Version" value="2.0.0.0"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
-	<add key="AllowAutomationCaptchaCode" value="0"/>
+	<add key="AllowAutomationCaptchaCode" value="1"/>
 	<add key="JsVersion" value="v=26469" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
