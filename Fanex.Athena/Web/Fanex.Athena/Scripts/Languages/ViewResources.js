@@ -50,6 +50,8 @@ var _language_en_US={
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"It will remove special level set for this customer. Are you sure?",
 				 	
+                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to set odds group for this customer?",
+				 	
                      AlertSetSpecialLevelForCustomerMsg:"Are you sure you want to set special level  for this customer?",
 				 	
                      AlertTurnOffBAMsg:"Are you sure you want to turn off BA?",
@@ -1049,6 +1051,8 @@ var _language_en_US={
                      OddEvenDND:"Odd/Even + 1 X 2 + DND",
 				 	
                      Odds:"Odds",
+				 	
+                     OddsGroup:"Odds Group",
 				 	
                      OddsType:"Odds Type",
 				 	

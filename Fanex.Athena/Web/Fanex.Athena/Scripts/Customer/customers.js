@@ -4,13 +4,14 @@ window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
     "use strict";
     var ajaxRequest = null;
-    var $specialLevelCell = null;
+    var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
     var _productAccess = null;
     var _cacheData = null;
     var _checkedAllRows = false;
     var _checkedCustomerArray = [];
     var _checkedCustomerObject = {}; // used to quickly check if a customer is checked or not
+    var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
 
     var _pagingOption =
         {
@@ -24,26 +25,23 @@ var CustomerList = (function ($) {
             alwayshow: true
         };
 
-    function setSpecialLevel(list, level) {
+    function setSpecialLevel($listItem, level) {
         level = Number(level);
-        var oldValue = Number(list.attr("data-level"));
+        var oldValue = Number($listItem.attr("data-level"));
         if (oldValue === level) {
             closeSpecialLevelList();
             return;
         }
-        var custId = list.attr("data-custid");
+        var custId = $listItem.attr("data-custid");
 
         var msg = level === 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
-        var answer = confirm(msg);
-        if (!answer) {
-            list.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
-            list.attr('class', 'level-' + oldValue);
+        if (!confirm(msg)) {
             return;
         }
 
-        list.html(level === 0 ? Site.getSingleResource("None") : level);
+        $listItem.html(level === 0 ? Site.getSingleResource("None") : level);
         var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
-        list.attr('class', 'level-' + level);
+        $listItem.attr('class', 'level-' + level);
         var param =
             {
                 custId: custId,
@@ -56,26 +54,22 @@ var CustomerList = (function ($) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
-                list.attr('class', 'level-' + level);
+                $listItem.attr('class', 'level-' + level);
             },
             success: function (data) {
                 if (data.Success) {
-                    list.attr("data-level", level);
-                    list.unbind("change");
-                    list.change(function () {
-                        CustomerList.setSpecialLevel($(this), custId, level);
-                    });
+                    $listItem.attr("data-level", level);
                 }
                 else {
-                    list.html(oldValue);
-                    list.attr('class', 'level-' + oldValue);
+                    $listItem.html(oldValue);
+                    $listItem.attr('class', 'level-' + oldValue);
                     alert(data.ErrorMessage);
                 }
                 closeSpecialLevelList();
             },
             error: function (/*jqXHR, textStatus, errorThrown*/) {
-                list.html(oldValue);
-                list.attr('class', 'level-' + oldValue);
+                $listItem.html(oldValue);
+                $listItem.attr('class', 'level-' + oldValue);
                 alert("Error");
                 closeSpecialLevelList();
             }
@@ -92,6 +86,88 @@ var CustomerList = (function ($) {
     function viewSpecialLevelList(context) {
         var custId = context.attr("data-custid");
         var popup = $("#LevelListContainer");
+        var link = $("#cust-option-link-" + custId);
+
+        if (popup.attr("custid") === custId) {
+            popup.toggle();
+        }
+        else {
+            popup.attr("custid", custId);
+            popup.attr("externalid", link.attr("externalid"));
+            popup.attr("systemid", link.attr("systemid"));
+            var position = $(context).offset();
+            popup.css({
+                top: position.top + $(context).height(),
+                left: $(context).offset().left
+            });
+
+            popup.show();
+        }
+
+        return false;
+    }
+
+    function setOddsGroup($listItem, group) {
+        var oldValue = $listItem.attr("data-group");
+        if (oldValue === group) {
+            closeOddsGroupList();
+            return;
+        }
+
+        var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+        message = message.replace("{0}", group);
+        if (!confirm(message)) {
+            return;
+        }
+
+        var custId = $listItem.attr("data-custid");
+        $listItem.html(group === 0 ? Site.getSingleResource("None") : group);
+        var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
+        $listItem.attr('class', 'group-' + group);
+        var param =
+            {
+                custId: custId,
+                group: group
+            };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(param),
+            url: requestUrl,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $listItem.attr('class', 'group-' + group);
+            },
+            success: function (data) {
+                if (data.Success) {
+                    $listItem.attr("data-group", group);
+                }
+                else {
+                    $listItem.html(oldValue);
+                    $listItem.attr('class', 'group-' + oldValue);
+                    alert(data.ErrorMessage);
+                }
+                closeOddsGroupList();
+            },
+            error: function (/*jqXHR, textStatus, errorThrown*/) {
+                $listItem.html(oldValue);
+                $listItem.attr('class', 'group-' + oldValue);
+                alert("Error");
+                closeOddsGroupList();
+            }
+        });
+    }
+
+    function closeOddsGroupList() {
+        var popup = $("#OddsGroupListContainer");
+        if (popup.is(":visible")) {
+            popup.hide();
+        }
+    }
+
+    function viewOddsGroupList(context) {
+        var custId = context.attr("data-custid");
+        var popup = $("#OddsGroupListContainer");
         var link = $("#cust-option-link-" + custId);
 
         if (popup.attr("custid") === custId) {
@@ -355,14 +431,26 @@ var CustomerList = (function ($) {
 
             $("#report-content").on("click", ".specialLevel *", function () {
                 var $this = $(this).parent().find("div");
-                $specialLevelCell = $this;
+                _$specialLevelCell = $this;
                 viewSpecialLevelList($this);
             });
 
             $("#LevelListContainer .levelLink").click(function () {
                 var $this = $(this);
                 var level = $this.attr("data-level");
-                setSpecialLevel($specialLevelCell, level);
+                setSpecialLevel(_$specialLevelCell, level);
+            });
+
+            $("#report-content").on("click", ".oddsGroup *", function () {
+                var $this = $(this).parent().find("div");
+                _$oddsGroupCell = $this;
+                viewOddsGroupList($this);
+            });
+
+            $("#OddsGroupListContainer .oddsGroupLink").click(function () {
+                var $this = $(this);
+                var group = $this.attr("data-group");
+                setOddsGroup(_$oddsGroupCell, group);
             });
 
             $('#SubmitButtonComm').click(function () {
@@ -465,9 +553,8 @@ var CustomerList = (function ($) {
             }
         },
         initPopup: function () {
-            var popupList = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer"];
             $(document).mouseup(function (e) {
-                $(popupList).each(function (index, element) {
+                $(_POPUP_LIST).each(function (index, element) {
                     var container = $(element);
                     if (container.is(":visible")) {
                         var inWrapper = container.get(0) === e.target || container.has(e.target).length > 0;
@@ -477,10 +564,11 @@ var CustomerList = (function ($) {
                     }
                 });
             });
-
+        },
+        addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $("#data-content").scroll(function () {
-                $(popupList).each(function (index, element) {
+            $(".ui-jqgrid-bdiv").on("scroll", function () {
+                $(_POPUP_LIST).each(function (index, element) {
                     var popup = $(element);
                     if (popup.is(":visible")) {
                         popup.hide();
@@ -534,6 +622,7 @@ var CustomerList = (function ($) {
                 success: function (response) {
                     _cacheData = response;
                     bindData(response);
+                    CustomerList.addGridScrollEventToHidePopups();
                 },
                 beforeSend: function () {
                     Site.blockUI();

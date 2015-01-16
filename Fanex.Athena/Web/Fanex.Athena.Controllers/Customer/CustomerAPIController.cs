@@ -166,6 +166,52 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
+        /// <summary>
+        /// Update customer group.
+        /// </summary>
+        /// <param name="custId">The customer id.</param>
+        /// <param name="group">The customer group.</param>
+        /// <returns>The action result.</returns>
+        [HttpPost]
+        [AjaxRequest]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
+        public ActionResult UpdateOddsGroup(int custId, string group)
+        {
+            var userSession = SessionService.UserSession;
+
+            var result = new ResultViewModel
+            {
+                Success = false,
+                Message = ViewResources.HttpError_Default,
+                ErrorCode = 1,
+                ErrorMessage = ViewResources.HttpError_Default
+            };
+            try
+            {
+                var dataResult = _customerService.UpdateOddsGroup(
+                    userSession.UserId,
+                    custId,
+                    group,
+                    Request.UserHostAddress,
+                    userSession.Language);
+                result = new ResultViewModel
+                {
+                    Success = dataResult.IsSuccessful,
+                    Message = dataResult.Message,
+                    ErrorCode = dataResult.Code,
+                    ErrorMessage = dataResult.Message
+                };
+
+                return Json(result);
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return Json(result);
+        }
+
         #endregion Level & Status API
 
         #region BA API

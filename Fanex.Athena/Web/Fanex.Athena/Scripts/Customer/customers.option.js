@@ -133,6 +133,22 @@ var CustomersOption = (function () {
                      "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
         }
     };
+    var oddsGroupColumn = {
+        name: 'OddsGroup',
+        index: 'OddsGroup',
+        resizable: false,
+        width: 90,
+        align: 'right',
+        sortable: false,
+        frozen: true,
+        classes: "oddsGroup",
+        formatter: function (cellValue, options, rowObject) {            
+            return "<div data-custid='" + rowObject.CustId + "'  data-group='" + cellValue + "' class='level-" + cellValue +
+                     "' style='text-align: center;color:black;width:80px;float:left'>" +
+                     (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+        }
+    };
     var customerOptionColumn = {
         name: 'CustomerOption',
         index: 'CustomerOption',
@@ -162,10 +178,10 @@ var CustomersOption = (function () {
     };
     //#endregion
     var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
-     'Status', 'BAStatus', 'SpecialLevel', 'CustomerOption'];
+     'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
 
     var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
-                    pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];
+                    pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
 
     var me = {
         urlData: 'Customer/CustomerList',

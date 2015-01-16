@@ -45,6 +45,7 @@ namespace Fanex.Athena.Controllers.Customer
                                                     "AvailableFunds",
                                                     "PendingFunds",
                                                     "SpecialLevel",
+                                                    "OddsGroup",
                                                     "CustomerOption"
                                                     };
 

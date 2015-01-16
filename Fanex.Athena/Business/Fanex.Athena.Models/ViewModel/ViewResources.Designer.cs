@@ -232,6 +232,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to set odds group {0} for this customer?.
+        /// </summary>
+        public static string AlertSetOddsGroupForCustomerMsg {
+            get {
+                return ResourceManager.GetString("AlertSetOddsGroupForCustomerMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to set special level  for this customer?.
         /// </summary>
         public static string AlertSetSpecialLevelForCustomerMsg {
@@ -4728,6 +4737,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Odds {
             get {
                 return ResourceManager.GetString("Odds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odds Group.
+        /// </summary>
+        public static string OddsGroup {
+            get {
+                return ResourceManager.GetString("OddsGroup", resourceCulture);
             }
         }
         

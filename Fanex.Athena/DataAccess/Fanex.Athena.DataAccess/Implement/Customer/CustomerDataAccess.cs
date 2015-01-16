@@ -462,6 +462,40 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="userId">User ID value.</param>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="group">Level value.</param>
+        /// <param name="ip">IP parameter value.</param>
+        /// <param name="language">Language value.</param>
+        /// <returns>The result value.</returns>
+        public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
+        {
+            const string UspName = "Lrf_CustomerUpdOddsGroup";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
+                    db.AddInParameter("userid", DbType.Int32, userId);
+                    db.AddInParameter("oddsgroup", DbType.String, group);
+                    db.AddInParameter("ip", DbType.String, ip);
+                    db.AddInParameter("langkey", DbType.String, language);
+                    AddResultParam(db);
+                    db.ExecuteNonQuery();
+
+                    return GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+
         #endregion Update
     }
 }
