@@ -10,7 +10,7 @@ var AgCasinoWinLossOption = (function () {
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
-    var currencyFormatter = function (cellvalue, options, rowObject) {        
+    var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
@@ -28,6 +28,8 @@ var AgCasinoWinLossOption = (function () {
         width: 30,
         align: 'center',
         valign: 'middle',
+        frozen: true,
+        cellattr: jqGridAdditional.rowSpanSetting,
         sortable: false
     };
 
@@ -40,6 +42,8 @@ var AgCasinoWinLossOption = (function () {
         align: 'center',
         valign: 'middle',
         sortable: false,
+        frozen: true,
+        cellattr: jqGridAdditional.rowSpanSetting,
         formatter: 'date',
         formatoptions:
         {
@@ -206,6 +210,10 @@ var AgCasinoWinLossOption = (function () {
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
+        dateColumn.formatoptions =
+        {
+            newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
+        };
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0;
 

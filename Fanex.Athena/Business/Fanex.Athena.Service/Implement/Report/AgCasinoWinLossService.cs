@@ -101,8 +101,23 @@ namespace Fanex.Athena.Service.Implement.Report
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
+            var result = this._licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            System.DateTime? date = new System.DateTime();
+            foreach (var item in result)
+            {
+                if (date != item.Date)
+                {
+                    date = item.Date;
+                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                }
+                else
+                {
+                    item.RowSpan = -1;
+                }
+            }
+
             return metaModel.IsValid
-                       ? this._licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal)
+                       ? result
                        : new SortableList<AgCasinoWinLoss>();
         }
 
