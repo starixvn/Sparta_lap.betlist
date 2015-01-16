@@ -36,7 +36,7 @@ var CustomerList = (function ($) {
         var msg = level === 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
         var answer = confirm(msg);
         if (!answer) {
-            list.html(oldValue);
+            list.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
             list.attr('class', 'level-' + oldValue);
             return;
         }

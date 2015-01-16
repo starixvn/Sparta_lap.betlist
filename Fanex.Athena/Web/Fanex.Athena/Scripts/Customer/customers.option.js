@@ -198,22 +198,29 @@ var CustomersOption = (function () {
         }
     };
 
-    var products = ["RB", "NG", "LC", "CS"];
+    var products = ["SB", "RB", "NG", "LC", "CS"];
     var numOfProductColumns = 0;
+    var firstProductCode;
 
     var getColName = function (productAccess, isAllowedCustomerCommission) {
         numOfProductColumns = 1;
         var temp = Site.clone(colNameList);
         if (isAllowedCustomerCommission) {
-            temp.insertAfter("Group", 0);
-            temp.push(Site.getSingleResource("SB"));
 
-            $.each(products, function (index, value) {
-                if (productAccess["IsAllow" + value]) {
+            temp.insertAfter("Group", 0);
+
+            firstProductCode = null;
+            for (var i = 0; i < products.length; i++) {
+                var productCode = products[i];
+                if (productAccess["IsAllow" + productCode]) {
+                    if (!firstProductCode) {
+                        firstProductCode = productCode.toUpperCase();
+                    }
+
                     numOfProductColumns++;
-                    temp.push(Site.getSingleResource(value.toUpperCase()));
+                    temp.push(Site.getSingleResource(productCode.toUpperCase()));
                 }
-            });
+            }
         }
 
         return Site.getResources(temp);
@@ -230,12 +237,6 @@ var CustomersOption = (function () {
 
             var col = Site.clone(groupColumn);
             temp.insertAfter(col, 0);
-
-            col = Site.clone(commissionColumn);
-            col.name = "SBComm";
-            col.index = col.name;
-            col.cellattr = getCellAttrFunction(col.name);
-            temp.push(col);
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
@@ -256,7 +257,7 @@ var CustomersOption = (function () {
         {
             useColSpanStyle: true,
             groupHeaders: [{
-                startColumnName: "SBComm",
+                startColumnName: firstProductCode + "Comm",
                 numberOfColumns: numOfProductColumns,
                 titleText: Site.getSingleResource('Commission') + " (%)"
             }]
@@ -266,7 +267,6 @@ var CustomersOption = (function () {
     me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
         me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
         me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
-
         return me.gridOption;
     };
 
