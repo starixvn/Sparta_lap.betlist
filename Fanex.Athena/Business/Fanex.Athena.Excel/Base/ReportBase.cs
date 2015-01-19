@@ -379,7 +379,7 @@ namespace Fanex.Athena.Excel.Base
                             .Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd.Code : ", " + prd.Code));
 
             return string.IsNullOrEmpty(prdText)
-                      ? caption ?? string.Empty
+                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
                       : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
         }
 
@@ -387,8 +387,8 @@ namespace Fanex.Athena.Excel.Base
         /// Get title by currency.
         /// </summary>
         /// <returns>The title.</returns>
-         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+           Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetTitleCurrencyName()
         {
             return ConvertingOption.IsConvert
