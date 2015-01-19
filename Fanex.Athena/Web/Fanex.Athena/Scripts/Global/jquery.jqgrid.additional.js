@@ -145,7 +145,7 @@ var jqGridAdditional = (function () {
                 temp += "(" + productTemp + ")";
             }
             else {
-                return "";
+                return caption || "";
             }
 
             return temp;

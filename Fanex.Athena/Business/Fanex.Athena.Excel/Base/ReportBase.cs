@@ -379,7 +379,7 @@ namespace Fanex.Athena.Excel.Base
                             .Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd.Code : ", " + prd.Code));
 
             return string.IsNullOrEmpty(prdText)
-                      ? string.Empty
+                      ? caption ?? string.Empty
                       : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
         }
 
