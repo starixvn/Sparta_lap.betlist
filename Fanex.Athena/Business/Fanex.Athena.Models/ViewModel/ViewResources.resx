@@ -2584,6 +2584,6 @@
     <comment>#26561</comment>
   </data>
   <data name="AlertSetOddsGroupForCustomerMsg" xml:space="preserve">
-    <value>Are you sure you want to set odds group {0} for this customer?</value>
+    <value>Are you sure you want to move this customer to odds group {0}?</value>
     <comment>#26561</comment>
   </data></root>

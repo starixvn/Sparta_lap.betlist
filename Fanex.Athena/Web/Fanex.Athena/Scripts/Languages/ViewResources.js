@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/5/2015 10:44:13 AM
+// Lasted generated date: 1/19/2015 9:53:54 AM
 // </history>
 
 var _language_en_US={
@@ -50,7 +50,7 @@ var _language_en_US={
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"It will remove special level set for this customer. Are you sure?",
 				 	
-                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to set odds group for this customer?",
+                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to move this customer to odds group {0}?",
 				 	
                      AlertSetSpecialLevelForCustomerMsg:"Are you sure you want to set special level  for this customer?",
 				 	
@@ -518,8 +518,6 @@ var _language_en_US={
 				 	
                      GameTypeName:"Game Type Name",
 				 	
-                     GBP:"GBP",
-				 	
                      General:"General",
 				 	
                      GetAll:"Get All",
@@ -868,9 +866,9 @@ var _language_en_US={
 				 	
                      MaxBetLessThanOrEqual:"Max Bet must be less than or equal to",
 				 	
-                     MaxBetMatchLessThanOrEqual:"Max Per Match must be less than or equal to",
+                     MaxBetMatchLessThanOrEqual:"Max Bet Match must be less than or equal to",
 				 	
-                     MaxBetMatchMoreThanOrEqual:"Max Per Match must be more than or equal to",
+                     MaxBetMatchMoreThanOrEqual:"Max Bet Match must be more than or equal to",
 				 	
                      MaxBetPerDraw:"Max Bet Per Draw",
 				 	
@@ -936,15 +934,11 @@ var _language_en_US={
 				 	
                      Monthly:"Monthly",
 				 	
-                     MoreThanOneCustomerFoundMsg:"More than 1 customer found. Please search for 1 customer only.",
-				 	
-                     MoveSuccessfullyMsg:"Successfully moved.",
+                     MoveSuccessulMsg:"Successully moved.",
 				 	
                      MoveToGroup:"Move to Group",
 				 	
                      Multiplier:"Multiplier",
-				 	
-                     MYR:"MYR",
 				 	
                      Name:"Name",
 				 	
@@ -975,8 +969,6 @@ var _language_en_US={
                      No:"No",
 				 	
                      NoBettypeFound:"No bet type found.",
-				 	
-                     NoCustomerFoundMsg:"No customer found.",
 				 	
                      NoDraws:"No Draws",
 				 	
@@ -1492,7 +1484,7 @@ var _language_en_US={
 				 	
                      UpdateCommission:"Update Commission",
 				 	
-                     UpdateCommSucessfulMsg:"Successfully updated commission.",
+                     UpdateCommSucessfulMsg:"Successully updated commission.",
 				 	
                      UpdateCurrencySuccessfulMsg:"Updating Currencies is successful.",
 				 	

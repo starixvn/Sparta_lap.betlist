@@ -10,6 +10,7 @@ var CustomersOption = (function () {
     "use strict";
 
     var indexColumn = {
+        key: true,
         name: 'Index',
         index: 'Index',
         width: 30,

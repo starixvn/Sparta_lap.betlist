@@ -232,7 +232,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to set odds group {0} for this customer?.
+        ///   Looks up a localized string similar to Are you sure you want to move this customer to odds group {0}?.
         /// </summary>
         public static string AlertSetOddsGroupForCustomerMsg {
             get {

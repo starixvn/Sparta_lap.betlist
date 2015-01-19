@@ -24,7 +24,7 @@ var CustomerList = (function ($) {
             ajaxfunction: "CustomerList.ajaxPaging()",
             alwayshow: true
         };
-
+    
     function setSpecialLevel($listItem, level) {
         level = Number(level);
         var oldValue = Number($listItem.attr("data-level"));
@@ -59,6 +59,8 @@ var CustomerList = (function ($) {
             success: function (data) {
                 if (data.Success) {
                     $listItem.attr("data-level", level);
+                    var rowIndex = $listItem.closest("tr").attr("id") - 1;
+                    _cacheData.Data[rowIndex].SpecialLevel = level;                    
                 }
                 else {
                     $listItem.html(oldValue);
@@ -245,8 +247,7 @@ var CustomerList = (function ($) {
         var hasData = response !== null && response.TotalRows > 0;
 
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
-        var gridOption = processGridOption(hasData, showingColumns);
-
+        var gridOption = processGridOption(hasData, showingColumns);        
         gridOption.scroll = 1;
         gridOption.data = response.Data;
         gridOption.rowNum = 40; // _pagingOption.pagesize;
