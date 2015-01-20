@@ -119,7 +119,6 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
-            var orderNumber = 1;
             int index;
             var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
             var rowCount = _winLossList.Count;
@@ -134,7 +133,7 @@ namespace Fanex.Athena.Excel.Report
                 // Report Date
                 var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
 
-                row.Cells[ColumnIndex].SetCellValue(orderNumber);
+                row.Cells[ColumnIndex].SetCellValue(licenseeWinLoss.Index);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
@@ -149,8 +148,6 @@ namespace Fanex.Athena.Excel.Report
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
                     continue;
                 }
-
-                orderNumber++;
             }
 
             rowIndex = AssignTotalData(sheet, index + 2);
