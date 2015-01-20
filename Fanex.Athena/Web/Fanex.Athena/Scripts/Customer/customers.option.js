@@ -204,6 +204,8 @@ var CustomersOption = (function () {
             gridview: true,
             footerrow: false,
             userDataOnFooter: true,
+            scroll: 1,
+            rowNum: 40,
             cmTemplate: { title: true }, //enable tooltip
             userData: [],
             beforeSelectRow: function () {

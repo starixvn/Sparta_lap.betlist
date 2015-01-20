@@ -24,7 +24,7 @@ var CustomerList = (function ($) {
             ajaxfunction: "CustomerList.ajaxPaging()",
             alwayshow: true
         };
-    
+
     function setSpecialLevel($listItem, level) {
         level = Number(level);
         var oldValue = Number($listItem.attr("data-level"));
@@ -34,8 +34,10 @@ var CustomerList = (function ($) {
         }
         var custId = $listItem.attr("data-custid");
 
-        var msg = level === 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
-        if (!confirm(msg)) {
+        var message = level === 0 ?
+                        Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') :
+                        Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
+        if (!confirm(message)) {
             return;
         }
 
@@ -59,8 +61,9 @@ var CustomerList = (function ($) {
             success: function (data) {
                 if (data.Success) {
                     $listItem.attr("data-level", level);
-                    var rowIndex = $listItem.closest("tr").attr("id") - 1;
-                    _cacheData.Data[rowIndex].SpecialLevel = level;                    
+                    var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                    _cacheData.Data[rowIndex].SpecialLevel = level;
+                    bindData(_cacheData);
                 }
                 else {
                     $listItem.html(oldValue);
@@ -88,12 +91,12 @@ var CustomerList = (function ($) {
     function viewSpecialLevelList(context) {
         var custId = context.attr("data-custid");
         var popup = $("#LevelListContainer");
-        var link = $("#cust-option-link-" + custId);
 
         if (popup.attr("custid") === custId) {
             popup.toggle();
         }
         else {
+            var link = $("#cust-option-link-" + custId);
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
@@ -143,6 +146,8 @@ var CustomerList = (function ($) {
             success: function (data) {
                 if (data.Success) {
                     $listItem.attr("data-group", group);
+                    var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                    _cacheData.Data[rowIndex].OddsGroup = group;
                 }
                 else {
                     $listItem.html(oldValue);
@@ -170,12 +175,12 @@ var CustomerList = (function ($) {
     function viewOddsGroupList(context) {
         var custId = context.attr("data-custid");
         var popup = $("#OddsGroupListContainer");
-        var link = $("#cust-option-link-" + custId);
 
         if (popup.attr("custid") === custId) {
             popup.toggle();
         }
         else {
+            var link = $("#cust-option-link-" + custId);
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
@@ -195,7 +200,6 @@ var CustomerList = (function ($) {
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
 
         // Change formatter for Index col
-
         if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
                 var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
@@ -230,6 +234,7 @@ var CustomerList = (function ($) {
     }
 
     function bindData(response) {
+        var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
         jqGridAdditional.clearGrid("ReportGrid");
 
         var $gridBody = $(".ui-jqgrid-bdiv");
@@ -247,10 +252,8 @@ var CustomerList = (function ($) {
         var hasData = response !== null && response.TotalRows > 0;
 
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
-        var gridOption = processGridOption(hasData, showingColumns);        
-        gridOption.scroll = 1;
+        var gridOption = processGridOption(hasData, showingColumns);
         gridOption.data = response.Data;
-        gridOption.rowNum = 40; // _pagingOption.pagesize;
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
@@ -296,6 +299,7 @@ var CustomerList = (function ($) {
         }
 
         CustomerList.resizeGrid();
+        $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
         Site.unBlockUI();
     }
 
@@ -383,6 +387,7 @@ var CustomerList = (function ($) {
         updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
             var count = 0;
             var length = _checkedCustomerArray.length;
+
             $.each(_cacheData.Data, function (index, item) {
                 if (count === length) {
                     return false;
@@ -431,26 +436,22 @@ var CustomerList = (function ($) {
             CustomerList.loadPostbackParam();
 
             $("#report-content").on("click", ".specialLevel *", function () {
-                var $this = $(this).parent().find("div");
-                _$specialLevelCell = $this;
-                viewSpecialLevelList($this);
+                _$specialLevelCell = $(this).parent().find("div");
+                viewSpecialLevelList(_$specialLevelCell);
             });
 
             $("#LevelListContainer .levelLink").click(function () {
-                var $this = $(this);
-                var level = $this.attr("data-level");
+                var level = $(this).attr("data-level");
                 setSpecialLevel(_$specialLevelCell, level);
             });
 
             $("#report-content").on("click", ".oddsGroup *", function () {
-                var $this = $(this).parent().find("div");
-                _$oddsGroupCell = $this;
-                viewOddsGroupList($this);
+                _$oddsGroupCell = $(this).parent().find("div");
+                viewOddsGroupList(_$oddsGroupCell);
             });
 
             $("#OddsGroupListContainer .oddsGroupLink").click(function () {
-                var $this = $(this);
-                var group = $this.attr("data-group");
+                var group = $(this).attr("data-group");
                 setOddsGroup(_$oddsGroupCell, group);
             });
 
@@ -492,6 +493,7 @@ var CustomerList = (function ($) {
 
             $(document).on('mousedown', function (e) {
                 CustomerList.mousePosition = { x: e.pageX, y: e.pageY };
+                console.log(e);
             });
         },
         initGridColumnOption: function () {
@@ -546,10 +548,10 @@ var CustomerList = (function ($) {
         });
         },
         initAutoComplete: function () {
-            var txtUserName = $('#txtUsername');
+            var $username = $('#txtUsername');
             var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
-            if (txtUserName.length > 0) {
-                txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
+            if ($username.length > 0) {
+                $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
                 CustomerList.setDefaultUsername();
             }
         },
@@ -649,21 +651,22 @@ var CustomerList = (function ($) {
         },
 
         setDefaultUsername: function () {
-            var username = $('#txtUsername').val();
+            var $username = $('#txtUsername');
+            var username = $username.val();
             if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
-                $('#txtUsername').attr('class', 'default-username');
+                $username.val(Site.getSingleResource('ExternalIdOrSystemId'))
+                         .attr('class', 'default-username');
             }
             else {
-                $('#txtUsername').attr('class', '');
+                $username.attr('class', '');
             }
         },
 
         setUsernameOnFocus: function () {
-            var username = $('#txtUsername').val();
+            var $username = $('#txtUsername');
+            var username = $username.val();
             if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                $('#txtUsername').val('');
-                $('#txtUsername').removeAttr('class');
+                $username.val('').removeAttr('class');
             }
         },
 
