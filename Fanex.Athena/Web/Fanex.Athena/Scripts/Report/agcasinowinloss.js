@@ -7,6 +7,7 @@ var AgCasinoWinLoss = (function ($) {
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _level = 0;
+    var _reportBy = null;
     function initMonthPicker() {
         var year = $("#Year").val();
         var month = $("#Month").val();
@@ -154,6 +155,8 @@ var AgCasinoWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
+                var reportBy = $("input[name='reportby']:checked").val();
+                _reportBy = reportBy;
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
@@ -164,6 +167,7 @@ var AgCasinoWinLoss = (function ($) {
                     $("#OriginalToDate").val($("#ToDate").val());
                     $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
                     $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
+                    $("#OriginalReportBy").val(reportBy);
                     AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                 }
 
@@ -207,6 +211,10 @@ var AgCasinoWinLoss = (function ($) {
             return true;
         },
 
+        lastDateOfMonth: function (year, month) {
+            return new Date(year, month + 1, 0);
+        },
+
         drillDown: function (level, currencyId, customerId, datetime) {
             level = Number(level);
 
@@ -220,11 +228,30 @@ var AgCasinoWinLoss = (function ($) {
                 CurrencyId: $("#OriginalCurrencyId").val(),
                 FromDate: $("#OriginalFromDate").val(),
                 ToDate: $("#OriginalToDate").val(),
+                ReportBy: $("#OriginalReportBy").val(),
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
+            if (Number(param.ReportBy) === 2) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(param.FromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(param.ToDate);
 
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = AgCasinoWinLoss.lastDateOfMonth(year, month);
+                }
+            }
             var postData = JSON.stringify(param);
 
             var option = {
@@ -261,7 +288,7 @@ var AgCasinoWinLoss = (function ($) {
             ajaxRequest = $.ajax(option);
         },
 
-        goBack: function (level) {
+        goBack: function (level) {            
             if (level === 0) {
                 AgCasinoWinLoss.renderBreadCrumb(level);
                 AgCasinoWinLoss.bindData(0, cacheData[level]);
