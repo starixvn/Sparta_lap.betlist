@@ -7,7 +7,6 @@ var AgCasinoWinLoss = (function ($) {
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _level = 0;
-    var _reportBy = null;
     function initMonthPicker() {
         var year = $("#Year").val();
         var month = $("#Month").val();
@@ -155,8 +154,7 @@ var AgCasinoWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();
-                _reportBy = reportBy;
+                var reportBy = $("input[name='reportby']:checked").val();                
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
