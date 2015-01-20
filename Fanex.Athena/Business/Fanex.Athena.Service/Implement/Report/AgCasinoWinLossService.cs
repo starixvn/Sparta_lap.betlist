@@ -103,12 +103,14 @@ namespace Fanex.Athena.Service.Implement.Report
             summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
             var result = this._licenseeWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
             System.DateTime? date = new System.DateTime();
+            var index = 1;
             foreach (var item in result)
             {
                 if (date != item.Date)
                 {
                     date = item.Date;
                     item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.Index = index++;
                 }
                 else
                 {
