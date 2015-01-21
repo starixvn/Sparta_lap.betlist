@@ -29,6 +29,10 @@ var MobileWinLoss = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
+                    return;
+                }
+
                 var height = $("#ReportGrid").height();
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;

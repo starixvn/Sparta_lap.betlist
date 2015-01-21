@@ -41,9 +41,8 @@ var CustomerList = (function ($) {
             return;
         }
 
-        $listItem.html(level === 0 ? Site.getSingleResource("None") : level);
-        var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
-        $listItem.attr('class', 'level-' + level);
+        $listItem.html(level === 0 ? Site.getSingleResource("None") : level)
+                 .attr('class', 'level-' + level);
         var param =
             {
                 custId: custId,
@@ -52,7 +51,7 @@ var CustomerList = (function ($) {
         $.ajax({
             type: "POST",
             data: JSON.stringify(param),
-            url: requestUrl,
+            url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
@@ -63,7 +62,7 @@ var CustomerList = (function ($) {
                     $listItem.attr("data-level", level);
                     var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
                     _cacheData.Data[rowIndex].SpecialLevel = level;
-                    bindData(_cacheData);
+                    bindData(_cacheData, true);
                 }
                 else {
                     $listItem.html(oldValue);
@@ -88,8 +87,8 @@ var CustomerList = (function ($) {
         }
     }
 
-    function viewSpecialLevelList(context) {
-        var custId = context.attr("data-custid");
+    function viewSpecialLevelList($context) {
+        var custId = $context.attr("data-custid");
         var popup = $("#LevelListContainer");
 
         if (popup.attr("custid") === custId) {
@@ -100,10 +99,10 @@ var CustomerList = (function ($) {
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
-            var position = $(context).offset();
+            var position = $context.offset();
             popup.css({
-                top: position.top + $(context).height(),
-                left: $(context).offset().left
+                top: position.top + $context.height(),
+                left: $context.offset().left
             });
 
             popup.show();
@@ -112,27 +111,27 @@ var CustomerList = (function ($) {
         return false;
     }
 
-    function setOddsGroup($listItem, group) {
+    function setOddsGroup($listItem, oddsGroup) {
         var oldValue = $listItem.attr("data-group");
-        if (oldValue === group) {
+        if (oldValue === oddsGroup) {
             closeOddsGroupList();
             return;
         }
 
         var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
-        message = message.replace("{0}", group);
+        message = message.replace("{0}", oddsGroup);
         if (!confirm(message)) {
             return;
         }
 
         var custId = $listItem.attr("data-custid");
-        $listItem.html(group === 0 ? Site.getSingleResource("None") : group);
+        $listItem.html(oddsGroup === 0 ? Site.getSingleResource("None") : oddsGroup);
         var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
-        $listItem.attr('class', 'group-' + group);
+        $listItem.attr('class', 'group-' + oddsGroup);
         var param =
             {
                 custId: custId,
-                group: group
+                oddsGroup: oddsGroup
             };
         $.ajax({
             type: "POST",
@@ -141,13 +140,14 @@ var CustomerList = (function ($) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
-                $listItem.attr('class', 'group-' + group);
+                $listItem.attr('class', 'group-' + oddsGroup);
             },
             success: function (data) {
                 if (data.Success) {
-                    $listItem.attr("data-group", group);
+                    $listItem.attr("data-group", oddsGroup);
                     var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
-                    _cacheData.Data[rowIndex].OddsGroup = group;
+                    _cacheData.Data[rowIndex].OddsGroup = oddsGroup;
+                    bindData(_cacheData, true);
                 }
                 else {
                     $listItem.html(oldValue);
@@ -172,8 +172,12 @@ var CustomerList = (function ($) {
         }
     }
 
-    function viewOddsGroupList(context) {
-        var custId = context.attr("data-custid");
+    function viewOddsGroupList($context) {
+        if ($context.next(".arrow1").length === 0) {
+            return;
+        }
+
+        var custId = $context.attr("data-custid");
         var popup = $("#OddsGroupListContainer");
 
         if (popup.attr("custid") === custId) {
@@ -184,10 +188,10 @@ var CustomerList = (function ($) {
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
-            var position = $(context).offset();
+            var position = $context.offset();
             popup.css({
-                top: position.top + $(context).height(),
-                left: $(context).offset().left
+                top: position.top + $context.height(),
+                left: $context.offset().left
             });
 
             popup.show();
@@ -233,8 +237,8 @@ var CustomerList = (function ($) {
         return gridOption;
     }
 
-    function bindData(response) {
-        var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
+    function bindData(response, keepScrollPosition) {
+        var oldScrollTop = keepScrollPosition === true ? $(".ui-jqgrid-bdiv").scrollTop() : 0;
         jqGridAdditional.clearGrid("ReportGrid");
 
         var $gridBody = $(".ui-jqgrid-bdiv");
@@ -299,7 +303,9 @@ var CustomerList = (function ($) {
         }
 
         CustomerList.resizeGrid();
-        $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+        if (keepScrollPosition === true) {
+            $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+        }
         Site.unBlockUI();
     }
 
@@ -360,6 +366,10 @@ var CustomerList = (function ($) {
 
     return {
         resizeGrid: function () {
+            if ($(".ui-jqgrid-bdiv").length === 0) {
+                return;
+            }
+
             var gridTop = $(".ui-jqgrid-bdiv").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
             gridHeight = Math.max(130, gridHeight);
@@ -493,7 +503,6 @@ var CustomerList = (function ($) {
 
             $(document).on('mousedown', function (e) {
                 CustomerList.mousePosition = { x: e.pageX, y: e.pageY };
-                console.log(e);
             });
         },
         initGridColumnOption: function () {
@@ -818,50 +827,43 @@ var CustomerList = (function ($) {
                 alert(canUpdateBAMessage);
                 return;
             }
-            var paramString = $(context).attr("data-val");
+            var $context = $(context);
+            var paramString = $context.attr("data-val");
             var params = paramString.split("#");
             var baparam = (params[2] === "True" || params[2] === "true") ? true : false;
             var confirmMsg = params[2].toLowerCase() === "true" ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
             if (params.length === 4) {
                 var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus?custId=" + params[1] + "&isAllowBA=" + baparam + "&externalId=" + params[3]);
-                var isUpdate = window.confirm(confirmMsg);
-                if (isUpdate) {
-                    var ctx = context;
-                    var currentBAStatus = $(ctx).html();
+                if (window.confirm(confirmMsg)) {
+                    var currentBAStatus = $context.html();
                     var ajaxloading = $("#ajaxLoaDingUpdateBA").html();
                     $.ajax({
                         type: "POST",
                         url: requestUrl,
-
                         beforeSend: function () {
-                            $(ctx).html(ajaxloading);
+                            $context.html(ajaxloading);
                         },
-
                         complete: function () { },
                         success: function (data) {
-                            //ConfirmMessage
                             if (data.IsSuccessful) {
-                                $(ctx).html("")
-                                      .removeClass("ba-on ba-off")
-                                      .addClass('ba-' + data.BAStatus.toLowerCase())
-                                      .text(data.BAStatus.toUpperCase());
-                                var hrefString = "#" + params[1] + "#" + data.IsBA + "#" + params[3];
-                                $(ctx).attr("data-val", hrefString);
-                                $(ctx).attr("title", data.Tooltip);
+                                var rowIndex = ($context.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                                _cacheData.Data[rowIndex].BAStatus = baparam;
+                                _cacheData.Data[rowIndex].OddsGroup = data.OddsGroup;
+                                bindData(_cacheData, true);
                             }
                             else {
-                                $(ctx).html(currentBAStatus);
+                                $context.html(currentBAStatus);
                                 alert(data.Message);
                             }
                         },
                         error: function (jqXHR, textStatus) {
-                            $(ctx).html(currentBAStatus);
+                            $context.html(currentBAStatus);
                             alert(textStatus);
                         },
                         statusCode:
                         {
                             404: function () {
-                                $(ctx).html(currentBAStatus);
+                                $context.html(currentBAStatus);
                                 alert('Error-Page not found');
                             }
                         }

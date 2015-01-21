@@ -132,13 +132,25 @@ a.underline
     background-color: #3298FD;
     color: white !important;
 }
+
 .oddsGroupLink:hover
 {
     cursor: pointer;
 }
+
 .oddsGroupLink:hover
 {
     opacity: 0.7;
+}
+
+.oddsGroup div
+{
+    cursor: pointer;	
+}
+
+.oddsGroup div.disabled
+{
+    cursor: default;	
 }
 
 /* Popup */

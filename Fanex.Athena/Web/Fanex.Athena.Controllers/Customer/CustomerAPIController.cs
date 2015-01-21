@@ -133,13 +133,6 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var userSession = SessionService.UserSession;
 
-            var result = new ResultViewModel
-            {
-                Success = false,
-                Message = ViewResources.HttpError_Default,
-                ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
-            };
             try
             {
                 var dataResult = _customerService.UpdateSpecialLevel(
@@ -148,68 +141,75 @@ namespace Fanex.Athena.Controllers.Customer
                     level,
                     Request.UserHostAddress,
                     userSession.Language);
-                result = new ResultViewModel
+
+                return Json(new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,
                     Message = dataResult.Message,
                     ErrorCode = dataResult.Code,
                     ErrorMessage = dataResult.Message
-                };
-
-                return Json(result);
+                });
             }
             catch (Exception exception)
             {
                 LogService.Error(exception.Message, exception);
             }
 
-            return Json(result);
+            return Json(new ResultViewModel
+            {
+                Success = false,
+                Message = ViewResources.HttpError_Default,
+                ErrorCode = 1,
+                ErrorMessage = ViewResources.HttpError_Default
+            });
         }
 
         /// <summary>
         /// Update customer group.
         /// </summary>
         /// <param name="custId">The customer id.</param>
-        /// <param name="group">The customer group.</param>
+        /// <param name="oddsGroup">The customer group.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        public ActionResult UpdateOddsGroup(int custId, string group)
+        public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
             var userSession = SessionService.UserSession;
 
-            var result = new ResultViewModel
-            {
-                Success = false,
-                Message = ViewResources.HttpError_Default,
-                ErrorCode = 1,
-                ErrorMessage = ViewResources.HttpError_Default
-            };
             try
             {
-                var dataResult = _customerService.UpdateOddsGroup(
-                    userSession.UserId,
-                    custId,
-                    group,
-                    Request.UserHostAddress,
-                    userSession.Language);
-                result = new ResultViewModel
+                var metaModel = new CustomerOddsGroupMetaModel()
+                {
+                    CustId = custId,
+                    Ip = Request.UserHostAddress,
+                    Language = userSession.Language,
+                    OddsGroup = oddsGroup,
+                    UserId = userSession.UserId
+                };
+                var dataResult = _customerService.UpdateOddsGroup(metaModel);
+
+                var message = dataResult.IsSuccessful ? string.Empty : ViewResources.HttpError_Default;
+                return Json(new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,
-                    Message = dataResult.Message,
+                    Message = message,
                     ErrorCode = dataResult.Code,
-                    ErrorMessage = dataResult.Message
-                };
-
-                return Json(result);
+                    ErrorMessage = message
+                });
             }
             catch (Exception exception)
             {
                 LogService.Error(exception.Message, exception);
             }
 
-            return Json(result);
+            return Json(new ResultViewModel
+            {
+                Success = false,
+                Message = ViewResources.HttpError_Default,
+                ErrorCode = 1,
+                ErrorMessage = ViewResources.HttpError_Default
+            });
         }
 
         #endregion Level & Status API
@@ -249,7 +249,6 @@ namespace Fanex.Athena.Controllers.Customer
             var request = new Request
                 {
                     Language = userSession.Language,
-
                     Ip = Request.UserHostAddress
                 };
 
@@ -288,7 +287,8 @@ namespace Fanex.Athena.Controllers.Customer
                         IsBA = !isAllowBA,
                         BAStatus = isAllowBA ? "On" : "Off",
                         ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip,
+                        OddsGroup = updateResult.ExtendedData
                     });
             }
 

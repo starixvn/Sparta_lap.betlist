@@ -258,6 +258,25 @@ namespace Fanex.Athena.Service.Implement.Customer
         #region Update
 
         /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The result information.</returns>
+        public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
+        {
+            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            {
+                return new ResultInfo
+                {
+                    Code = 1,
+                    Message = ViewResources.UpdateSpecialLevelMsg
+                };
+            }
+
+            return _customerDataAccess.UpdateOddsGroup(metaModel);
+        }
+
+        /// <summary>
         /// Update customer closed status.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>

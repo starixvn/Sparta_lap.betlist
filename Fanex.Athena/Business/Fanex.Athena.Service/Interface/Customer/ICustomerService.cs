@@ -86,7 +86,14 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         #endregion Group Commission
 
-        #region Update
+        #region Update        
+        
+        /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The result information.</returns>
+        IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 
         /// <summary>
         /// Update customer closed status.
@@ -133,17 +140,6 @@ namespace Fanex.Athena.Service.Interface.Customer
         /// <param name="language">The language code.</param>
         /// <returns>The result.</returns>
         IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language);
-
-        /// <summary>
-        /// Update customer odds group.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="group">The level of customer.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="language">The language code.</param>
-        /// <returns>The result.</returns>
-        IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language);
 
         #endregion Update
     }

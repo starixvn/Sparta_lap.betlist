@@ -112,12 +112,15 @@ namespace Fanex.Athena.Controllers.Customer
 
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
-
-            return Json(new
+            return new JsonResult()
             {
-                Data = dataList,
-                TotalRows = totalRows
-            });
+                Data = new
+                {
+                    Data = dataList,
+                    TotalRows = totalRows
+                },
+                MaxJsonLength = int.MaxValue
+            };            
         }
 
         /// <summary>
@@ -154,7 +157,7 @@ namespace Fanex.Athena.Controllers.Customer
                             throw new FileNotFoundException(templatePath);
                         }
 
-                        var reportTitle = ViewResources.CustomerList + " - " 
+                        var reportTitle = ViewResources.CustomerList + " - "
                             + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
                         var excel = new CustomerListExcel(templatePath, reportTitle, model);

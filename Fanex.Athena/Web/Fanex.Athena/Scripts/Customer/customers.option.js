@@ -128,10 +128,10 @@ var CustomersOption = (function () {
         frozen: true,
         classes: "specialLevel",
         formatter: function (cellValue, options, rowObject) {
-            return "<div data-custid='" + rowObject.CustId + "'  data-level='" + cellValue + "' class='level-" + cellValue +
+            return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
                      "' style='text-align: center;color:black;width:80px;float:left'>" +
                      (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
         }
     };
     var oddsGroupColumn = {
@@ -143,11 +143,14 @@ var CustomersOption = (function () {
         sortable: false,
         frozen: true,
         classes: "oddsGroup",
-        formatter: function (cellValue, options, rowObject) {            
-            return "<div data-custid='" + rowObject.CustId + "'  data-group='" + cellValue + "' class='level-" + cellValue +
+        formatter: function (cellValue, options, rowObject) {
+            var arrowHtml = rowObject.BAStatus ? "" :
+                             "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
+            return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue + 
+                    "' class='" + (rowObject.BAStatus ? "disabled" : "" ) + " group-" + cellValue +
                      "' style='text-align: center;color:black;width:80px;float:left'>" +
                      (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+                     "</div>" + arrowHtml;
         }
     };
     var customerOptionColumn = {
