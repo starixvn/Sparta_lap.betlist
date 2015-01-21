@@ -367,10 +367,11 @@ namespace Fanex.Athena.Excel.Base
         /// <summary>
         /// Get licensee win-loss or Win-loss by product.
         /// </summary>
+        /// <param name="caption">Caption text.</param>
         /// <returns>A string value.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected virtual string GetLicenseeWLProduct()
+        protected virtual string GetLicenseeWLProduct(string caption = null)
         {
             var prdOptionTitleList =
                 ProductOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
@@ -378,16 +379,16 @@ namespace Fanex.Athena.Excel.Base
                             .Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd.Code : ", " + prd.Code));
 
             return string.IsNullOrEmpty(prdText)
-                      ? string.Empty
-                      : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
+                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
+                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
         }
 
         /// <summary>
         /// Get title by currency.
         /// </summary>
         /// <returns>The title.</returns>
-         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
+           Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetTitleCurrencyName()
         {
             return ConvertingOption.IsConvert

@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -53,15 +54,28 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region IWinLossByProductService Members
 
+        /// <summary>
+        /// Get win loss by products.
+        /// </summary>
+        /// <param name="metaModel">Meta model data.</param>
+        /// <param name="summaryTotal">Summary total.</param>
+        /// <param name="resultInfo">Result information.</param>
+        /// <returns>List of Win loss.</returns>
         public IList<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
-            out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
-        {
-            summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
-
-            return metaModel.IsValid
-                       ? this._winLossByProductDataAccess.GetWinlossByProducts(metaModel, out summaryTotal)
-                       : new List<WinLossByProduct>();
+            out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
+            out IResultInfo resultInfo)
+        {            
+            if (metaModel.IsValid)
+            {
+                return this._winLossByProductDataAccess.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
+            }
+            else
+            {
+                resultInfo = new ResultInfo();
+                summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
+                return new List<WinLossByProduct>();
+            }
         }
 
         public IList<WinLossByProduct> GetWinlossByProductAgents(

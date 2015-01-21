@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Interface.Report
 {
     using System.Collections.Generic;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
@@ -14,7 +15,10 @@ namespace Fanex.Athena.Service.Interface.Report
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<WinLossByProduct> GetWinlossByProducts(WinLossByProductMetaModel metaModel, out IDictionary<string, IList<WinLossByProduct>> summaryTotal);
+        IList<WinLossByProduct> GetWinlossByProducts(
+            WinLossByProductMetaModel metaModel, 
+            out IDictionary<string, IList<WinLossByProduct>> summaryTotal, 
+            out IResultInfo resultInfo);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]

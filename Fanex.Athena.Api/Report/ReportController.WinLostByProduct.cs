@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
     using System.Web;
@@ -18,8 +19,10 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
 
     /// <summary>
@@ -27,6 +30,12 @@ namespace Fanex.Athena.Api.Report
     /// </summary>
     public partial class ReportController
     {
+        private static readonly Dictionary<int, string> ErrorMessages = new Dictionary<int, string>()
+        {
+            { 100, ViewResources.NoCustomerFoundMsg },
+            { 101, ViewResources.MoreThanOneCustomerFoundMsg },
+        };
+
         #region Action
 
         /// <summary>
@@ -38,11 +47,21 @@ namespace Fanex.Athena.Api.Report
         /// <param name="level">The Level value.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <param name="custId">Customer Id.</param>
+        /// <param name="memberId">Member Id.</param>
+        /// <param name="systemId">System Id.</param>
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
-        public dynamic WinLostByProduct(WinLossByProductMetaModel metaModel, DateTime? fdate, DateTime? tdate, int level = 0, int currencyId = 0, int custId = 0)
+        public dynamic WinLostByProduct(
+            WinLossByProductMetaModel metaModel, 
+            DateTime? fdate, 
+            DateTime? tdate, 
+            int level = 0, 
+            int currencyId = 0, 
+            int custId = 0, 
+            int memberId = 0,
+            string systemId = null)
         {
-            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId);
         }
 
         /// <summary>
@@ -76,13 +95,24 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Private Utility
 
-        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel)
+        /// <summary>
+        /// Get empty result for action.
+        /// </summary>
+        /// <param name="metaModel">Meta model data.</param>
+        /// <param name="memberId">Customer id.</param>
+        /// <param name="systemId">System id.</param>
+        /// <param name="errorMessage">Error message.</param>
+        /// <returns>Return dynamic result data.</returns>
+        private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int memberId, string systemId, string errorMessage)
         {
             return new
             {
                 Data = new List<WinLossByProduct>(),
                 Total = new List<WinLossByProduct>(),
-                ProductOptions = metaModel.ProductOptions.ToJson()
+                ProductOptions = metaModel.ProductOptions.ToJson(),
+                MemberId = memberId,
+                SystemId = systemId,
+                ErrorMessage = errorMessage
             };
         }
 
@@ -129,6 +159,14 @@ namespace Fanex.Athena.Api.Report
             return newDataList;
         }
 
+        private static void AssignErrorMessage(IResultInfo resultInfo)
+        {
+            if (ErrorMessages.ContainsKey(resultInfo.Code))
+            {
+                resultInfo.Message = ErrorMessages[resultInfo.Code];
+            }
+        }
+
         #region ProcessRequest
 
         /// <summary>
@@ -137,11 +175,15 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Output parameter - report data list.</param>
         /// <param name="summaryTotal">Output parameter - summary data.</param>
+        /// <param name="systemId">System Id.</param>
+        /// <param name="errorMessage">Error Message.</param>
         /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(
             WinLossByProductMetaModel metaModel,
             IList<WinLossByProduct> dataList,
-            IDictionary<string, IList<WinLossByProduct>> summaryTotal)
+            IDictionary<string, IList<WinLossByProduct>> summaryTotal,
+            string systemId, 
+            string errorMessage)
         {
             const string FileName = "WinLossByProduct.xls";
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
@@ -180,7 +222,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal
             };
 
-            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel)
+            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
             {
                 Level = metaModel.Level,
                 EnableReportByMonth = metaModel.ReportBy,
@@ -197,7 +239,12 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Output parameter - report data list.</param>
         /// <param name="summaryTotal">Output parameter - summary data.</param>
-        private void GetData(WinLossByProductMetaModel metaModel, out IList<WinLossByProduct> dataList, out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
+        /// <param name="resultInfo">Result information.</param>
+        private void GetData(
+            WinLossByProductMetaModel metaModel,
+            out IList<WinLossByProduct> dataList,
+            out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
+            out IResultInfo resultInfo)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var licenseeId = licenseeSession.LicenseeId;
@@ -205,10 +252,11 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByProductService.GetWinlossByProducts(metaModel, out summaryTotal);
+                dataList = _winlossByProductService.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
             }
             else
             {
+                resultInfo = new ResultInfo();
                 dataList = licenseeId > 1 || metaModel.Level == 2
                                ? _winlossByProductService.GetWinlossByProductCustomers(metaModel, out summaryTotal)
                                : _winlossByProductService.GetWinlossByProductAgents(metaModel, out summaryTotal);
@@ -243,15 +291,23 @@ namespace Fanex.Athena.Api.Report
         /// <param name="level">The Level value.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <param name="custId">Customer Id.</param>
+        /// <param name="memberId">Member Id.</param>
+        /// <param name="systemId">System Id.</param>
         /// <returns>Dynamic type.</returns>
+        [SuppressMessage(
+           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "SP2101:MethodMustNotContainMoreLinesThan",
+           Justification = "Reviewed. Suppression is OK here.")]
         private dynamic ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
             int currencyId = 0,
-            int custId = 0)
-        {
+            int custId = 0,
+            int memberId = 0,
+            string systemId = null)
+        {            
             if (!IsValidRequest(metaModel, currencyId))
             {
                 RedirectToErrorPage();
@@ -259,10 +315,18 @@ namespace Fanex.Athena.Api.Report
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username) 
+                                && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
+                                ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;
             metaModel.Level = level;
             metaModel.CustomerId = custId;
+            if (metaModel.MemberId == 0)
+            {
+                metaModel.MemberId = memberId;
+            }
+
             if (fdate.HasValue)
             {
                 metaModel.DrillDownFromDate = fdate.Value;
@@ -275,11 +339,23 @@ namespace Fanex.Athena.Api.Report
 
             IDictionary<string, IList<WinLossByProduct>> summaryTotal;
             IList<WinLossByProduct> dataList;
+            IResultInfo resultInfo;
 
-            GetData(metaModel, out dataList, out summaryTotal);
+            GetData(metaModel, out dataList, out summaryTotal, out resultInfo);
+
+            AssignErrorMessage(resultInfo);
+
+            if (memberId == 0 && string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
+            {
+                var extendedItems = resultInfo.ExtendedData.Split(';');
+                memberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);
+                systemId = extendedItems[1];
+                metaModel.MemberId = memberId;
+            }
+
             if (metaModel.IsExportExcel)
             {
-                return ExportExcel(metaModel, dataList, summaryTotal);
+                return ExportExcel(metaModel, dataList, summaryTotal, systemId, resultInfo.Message);
             }
 
             return dataList.Count > 0
@@ -288,9 +364,12 @@ namespace Fanex.Athena.Api.Report
                     Data = WinLossByProductRestructureData(dataList, level),
                     Total = _winlossByProductService.TotalCalc(dataList),
                     SummaryTotal = summaryTotal,
-                    ProductOptions = metaModel.ProductOptions.ToJson()
+                    ProductOptions = metaModel.ProductOptions.ToJson(),
+                    MemberId = memberId,
+                    SystemId = systemId,
+                    ErrorMessage = resultInfo.Message                    
                 }
-                : GetEmptyResult(metaModel);
+                : GetEmptyResult(metaModel, memberId, systemId, resultInfo.Message);            
         }
 
         #endregion ProcessRequest
