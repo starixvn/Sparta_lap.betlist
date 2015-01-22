@@ -66,13 +66,11 @@ var pagingHeper = (function () {
         }
         var pagingVisible = setting.totalrow > setting.pagesize;
         if (pagingVisible || setting.alwayshow) {
+            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
             var pageControl = ['<div class="pagingContainer">',
-                          '<input type="button" class="icon pagingFirst" />'];
-            var pagePre = '<input type="button" class="icon pagingPrev'
-            + (setting.pageindex === 1 ? ' pagingDisable" disabled="disabled"' : '"') + '/>';
-
-            pageControl.push(pagePre);
-            pageControl.push('<span class="pagingSeperator"></span>' + Site.getSingleResource("Page"));
+                          '<input type="button" class="icon pagingFirst' + prevPageDisabledHtml,
+                          '<input type="button" class="icon pagingPrev' + prevPageDisabledHtml,
+                          '<span class="pagingSeperator"></span>' + Site.getSingleResource("Page")];
 
             var pageIndexStr = '<input  type="text" name="PageIndex"'
             + ' class="pagingCurrent" maxlength="4" size="2" value="' + setting.pageindex + '" />'

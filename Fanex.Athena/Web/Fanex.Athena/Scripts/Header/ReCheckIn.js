@@ -29,6 +29,10 @@ function ReCheckin() {
         type: "GET",
         cache: false,
         success: function (result) {
+            if (typeof result !== "object") {
+                return;
+            }
+
             var errCode = result.ErrCode;
             if (errCode !== Success) {
                 clearInterval(handle);

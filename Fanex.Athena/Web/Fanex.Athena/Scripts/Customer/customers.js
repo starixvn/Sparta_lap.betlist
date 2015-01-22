@@ -89,6 +89,11 @@ var CustomerList = (function ($) {
     function viewSpecialLevelList($context) {
         var custId = $context.attr("data-custid");
         var popup = $("#LevelListContainer");
+        var position = $context.offset();
+        popup.css({
+            top: position.top + $context.height(),
+            left: $context.offset().left
+        });
 
         if (popup.attr("custid") === custId) {
             popup.toggle();
@@ -98,12 +103,6 @@ var CustomerList = (function ($) {
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
-            var position = $context.offset();
-            popup.css({
-                top: position.top + $context.height(),
-                left: $context.offset().left
-            });
-
             popup.show();
         }
 
@@ -177,6 +176,11 @@ var CustomerList = (function ($) {
 
         var custId = $context.attr("data-custid");
         var popup = $("#OddsGroupListContainer");
+        var position = $context.offset();
+        popup.css({
+            top: position.top + $context.height(),
+            left: $context.offset().left
+        });
 
         if (popup.attr("custid") === custId) {
             popup.toggle();
@@ -186,12 +190,6 @@ var CustomerList = (function ($) {
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
-            var position = $context.offset();
-            popup.css({
-                top: position.top + $context.height(),
-                left: $context.offset().left
-            });
-
             popup.show();
         }
 
@@ -305,6 +303,8 @@ var CustomerList = (function ($) {
             $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
         }
         Site.unBlockUI();
+
+        CustomerList.addGridScrollEventToHidePopups();
     }
 
     function convertCustomerArrayToObject(array) {
@@ -577,7 +577,7 @@ var CustomerList = (function ($) {
         },
         addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $(".ui-jqgrid-bdiv").on("scroll", function () {
+            $("#report-content").on("scroll", ".ui-jqgrid-bdiv", function () {
                 $(_POPUP_LIST).each(function (index, element) {
                     var popup = $(element);
                     if (popup.is(":visible")) {
@@ -631,8 +631,7 @@ var CustomerList = (function ($) {
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {
                     _cacheData = response;
-                    bindData(response);
-                    CustomerList.addGridScrollEventToHidePopups();
+                    bindData(response);                   
                 },
                 beforeSend: function () {
                     Site.blockUI();

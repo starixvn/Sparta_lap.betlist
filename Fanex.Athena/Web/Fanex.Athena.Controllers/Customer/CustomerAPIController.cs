@@ -189,7 +189,8 @@ namespace Fanex.Athena.Controllers.Customer
                 };
                 var dataResult = _customerService.UpdateOddsGroup(metaModel);
 
-                var message = dataResult.IsSuccessful ? string.Empty : ViewResources.HttpError_Default;
+                var message = dataResult.IsSuccessful == false && string.IsNullOrWhiteSpace(dataResult.Message) ?
+                              ViewResources.HttpError_Default : dataResult.Message;
                 return Json(new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,
