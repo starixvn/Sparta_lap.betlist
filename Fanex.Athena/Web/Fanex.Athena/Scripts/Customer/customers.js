@@ -59,7 +59,6 @@ var CustomerList = (function ($) {
             },
             success: function (data) {
                 if (data.Success) {
-                    $listItem.attr("data-level", level);
                     var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
                     _cacheData.Data[rowIndex].SpecialLevel = level;
                     bindData(_cacheData, true);
@@ -144,7 +143,6 @@ var CustomerList = (function ($) {
             },
             success: function (data) {
                 if (data.Success) {
-                    $listItem.attr("data-group", oddsGroup);
                     var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
                     _cacheData.Data[rowIndex].OddsGroup = oddsGroup;
                     bindData(_cacheData, true);
