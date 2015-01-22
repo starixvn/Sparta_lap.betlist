@@ -577,7 +577,7 @@ var CustomerList = (function ($) {
         },
         addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $("#report-content").on("scroll", ".ui-jqgrid-bdiv", function () {
+            $(".ui-jqgrid-bdiv").on("scroll", function () {
                 $(_POPUP_LIST).each(function (index, element) {
                     var popup = $(element);
                     if (popup.is(":visible")) {
