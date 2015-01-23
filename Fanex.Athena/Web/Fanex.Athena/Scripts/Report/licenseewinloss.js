@@ -179,7 +179,7 @@ var LicenseeWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();
+                var reportBy = $("input[name='ReportBy']:checked").val();                
                 _reportBy = reportBy;
                 cacheData[level] = response;
                 //reset layout
@@ -218,8 +218,8 @@ var LicenseeWinLoss = (function ($) {
                         DrawFilter: data.DrawFilter,
                         CurrencyId: data.CurrencyId,
                         ReportBy: Number(data.ReportBy),
-                        FromDate: data.FromDate,
-                        ToDate: data.ToDate,
+                        FromDate: new Date(data.FromDate),
+                        ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
                         IsExcludedTestData: data.IsExcludedTestData
                     };
@@ -267,18 +267,18 @@ var LicenseeWinLoss = (function ($) {
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
 
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
+            var fdate = new Date(datetime);
+            var tdate = new Date(datetime);
             if (Number(param.ReportBy) === 2) {
                 var fday = 1;
                 var month = fdate.getMonth();
                 var year = fdate.getFullYear();
-                var orignalFDate = new Date(param.FromDate);
+                var orignalFDate = param.FromDate;
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(param.ToDate);
+                var originalTDate = param.ToDate;
 
                 if (month === originalTDate.getMonth()) {
                     var tday = originalTDate.getDate();
@@ -476,8 +476,8 @@ var LicenseeWinLoss = (function ($) {
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
             if (typeof dataDrillDown.DrillDownFromDate === 'string') {
-                dataDrillDown.DrillDownFromDate = new Date(Date.parse(dataDrillDown.DrillDownFromDate));
-                dataDrillDown.DrillDownToDate = new Date(Date.parse(dataDrillDown.DrillDownToDate));
+                dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
+                dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
             }
 
             if (_submitData.ReportBy === REPORT_BY_MONTHLY) {

@@ -50,6 +50,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     UpdateUspParams(db, metaModel, false);
 
+                    db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
+
                     using (var reader = db.ExecuteReader())
                     {
                         return GetData(reader, metaModel, out summaryTotal);

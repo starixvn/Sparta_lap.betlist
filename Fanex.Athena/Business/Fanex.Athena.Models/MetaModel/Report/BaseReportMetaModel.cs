@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.MetaModel.Product;
 
     /// <summary>
@@ -63,8 +64,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                // Constant History Date 2/21/2010
-                return FromDate < new DateTime(2010, 1, 1);
+                return FromDate < AppSettings.HistoryDate;
             }
         }
     }

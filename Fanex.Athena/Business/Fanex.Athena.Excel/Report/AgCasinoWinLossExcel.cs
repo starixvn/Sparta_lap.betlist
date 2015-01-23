@@ -21,7 +21,7 @@ namespace Fanex.Athena.Excel.Report
     /// Ag Casino Win Loss - Export excel.
     /// </summary>
     public class AgCasinoWinLossExcel : ReportBase
-    {                
+    {
         private const int ColumnTemplateCount = 9;
 
         private const int ColumnDate = 1;
@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalSolidBorder = 3;
         private const int RowGrantTotal = 5;
         private const int RowNoInfoTemplate = 6;
-        
+
         // This is drill down of report
         private readonly IList<AgCasinoWinLoss> _winLossList;
 
@@ -120,6 +120,7 @@ namespace Fanex.Athena.Excel.Report
         {
             var rowIndex = 1;
             int index;
+            var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
             var rowCount = _winLossList.Count;
 
             for (index = 0; index < rowCount; index++)
@@ -130,16 +131,23 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = licenseeWinLoss.Date.Value.ToString("MM/dd/yyyy");
-                
-                row.Cells[ColumnIndex].SetCellValue(rowIndex);
+                var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
 
+                row.Cells[ColumnIndex].SetCellValue(licenseeWinLoss.Index);
+                row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
-                row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnCurrency].SetCellValue(licenseeWinLoss.CurrencyName);
                 AssignCommonData(row, licenseeWinLoss);
                 rowIndex++;
+
+                if (licenseeWinLoss.RowSpan > 1)
+                {                    
+                    var currentRow = index + RowContentTemplate;
+                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
+                    sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
+                    continue;
+                }
             }
 
             rowIndex = AssignTotalData(sheet, index + 2);
@@ -247,7 +255,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 // Copy template
                 IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
-                
+
                 if (rowIndex == beginTotalRow)
                 {
                     row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, rowIndex);

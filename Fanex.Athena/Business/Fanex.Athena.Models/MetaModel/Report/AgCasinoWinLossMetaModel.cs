@@ -19,6 +19,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public bool IsExcludedTestData { get; set; }
 
+        public byte ReportBy { get; set; }
+
         public int DrillDownCurrencyId { get; set; }
 
         public DateTime DrillDownFromDate { get; set; }

@@ -15,6 +15,8 @@ namespace Fanex.Athena.Models.DTO.Report
     /// </summary>
     public class AgCasinoWinLoss
     {
+        public int RowSpan { get; set; }
+
         public int Index { get; set; }
 
         public DateTime? Date { get; set; }
