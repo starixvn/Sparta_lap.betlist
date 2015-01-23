@@ -16,6 +16,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
     /// </summary>
     public abstract class BaseReportMetaModel : BaseMetaModel
     {
+        private static readonly DateTime HistoryDate = new DateTime(2012, 1, 1);
+
         private readonly string[] _baseCurrencies = { "eur", "usd", "EUR", "USD" };
 
         protected BaseReportMetaModel()
@@ -63,8 +65,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                // Constant History Date 2/21/2010
-                return FromDate < new DateTime(2010, 1, 1);
+                return FromDate < HistoryDate;
             }
         }
     }
