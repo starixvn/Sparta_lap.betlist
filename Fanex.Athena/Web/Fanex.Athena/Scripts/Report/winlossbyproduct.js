@@ -175,7 +175,7 @@ var WinLossByProduct = (function ($) {
 
         ajaxComplete: function (level, response) {
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();
+                var reportBy = $("input[name='ReportBy']:checked").val();
                 //reset layout
                 _cacheData[level] = response;
                 WinLossByProduct.renderBreadCrumb(level);
@@ -193,7 +193,7 @@ var WinLossByProduct = (function ($) {
 
             Site.updateOriginalLicenseeOption();
             var data = $("#winlossbyproduct").serializeObject();
-
+            
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
@@ -211,8 +211,8 @@ var WinLossByProduct = (function ($) {
                         DrawFilter: data.DrawFilter,
                         CurrencyId: data.CurrencyId,
                         ReportBy: Number(data.ReportBy),
-                        FromDate: data.FromDate,
-                        ToDate: data.ToDate,
+                        FromDate: new Date(data.FromDate),
+                        ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
                         IsExcludedTestData: data.IsExcludedTestData
                     };
@@ -255,18 +255,18 @@ var WinLossByProduct = (function ($) {
                 ToDate: _submitData.ToDate,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
+            var fdate = new Date(datetime);
+            var tdate = new Date(datetime);
             if (param.ReportBy === REPORT_BY_MONTHLY) {
                 var fday = 1;
                 var month = fdate.getMonth();
                 var year = fdate.getFullYear();
-                var orignalFDate = new Date(param.FromDate);
+                var orignalFDate = param.FromDate;
                 if (month === orignalFDate.getMonth()) {
                     fday = orignalFDate.getDate();
                 }
                 fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(param.ToDate);
+                var originalTDate = param.ToDate;
 
                 if (month === originalTDate.getMonth()) {
                     var tday = originalTDate.getDate();
@@ -497,8 +497,8 @@ var WinLossByProduct = (function ($) {
             dataDrillDown.CurrencyId = _submitData.CurrencyId;
             dataDrillDown.CurrencyName = _submitData.CurrencyName;
             if (typeof dataDrillDown.DrillDownFromDate === 'string') {
-                dataDrillDown.DrillDownFromDate = new Date(Date.parse(dataDrillDown.DrillDownFromDate));
-                dataDrillDown.DrillDownToDate = new Date(Date.parse(dataDrillDown.DrillDownToDate));
+                dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
+                dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
             }
 
             if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
