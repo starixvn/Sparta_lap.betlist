@@ -30,3 +30,7 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 
 */StyleCop.Cache
+/cireport
+*.StyleCop.violations.xml
+*.StyleCop.xml
+MsBuild.xml
