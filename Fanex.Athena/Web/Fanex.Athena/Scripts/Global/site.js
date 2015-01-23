@@ -76,7 +76,7 @@ var Site = (function ($) {
                     }
                 }
             });
-        },
+        },        
         setConstraintMonthRange: function (monthRange, url) {
             var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
 

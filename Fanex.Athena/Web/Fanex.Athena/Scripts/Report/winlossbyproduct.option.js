@@ -254,10 +254,13 @@ var WinLossByProductOption = (function () {
                 loadui: 'disable',
                 loadonce: true,
                 footerrow: true,
+                pager: '#ppdata',
                 userDataOnFooter: true,
                 userData: [],
                 viewrecords: true,
-                gridview: true
+                gridview: true,
+                grouping:true, 
+                groupingView: { groupField: ['Date'], groupColumnShow: [false] }
             }
         };
 
@@ -328,6 +331,7 @@ var WinLossByProductOption = (function () {
         /// <param name="level"></param>
         var gridId = "ReportGrid";
         var grid = $("#" + gridId);
+
         var colspan = colNameList.length - 5;
 
         if (!WinLossByProductOption.hasCustomerComm) {
@@ -336,12 +340,14 @@ var WinLossByProductOption = (function () {
 
         var groupingClass = "date-grouping";
         var numofRow = $('tbody tr', grid).length;
+        console.log(numofRow, grid.get(0).rows.length);
         var colIdx = 1;
 
         var that;
         var rowMerged = 0;
         var i = 1;
         var index;
+        var table = grid.get(0);
         var addGroupingRow = function (me) {
             /// <summary>
             /// internal function
@@ -349,27 +355,27 @@ var WinLossByProductOption = (function () {
             /// </summary>
             /// <param name="me">current column</param>
             var groupingCol = $(that).clone();
-
-            groupingCol.attr("colspan", colspan).removeAttr("rowspan").removeAttr("id");
-
-            groupingCol.css({
+            groupingCol.attr("colspan", colspan).removeAttr("rowspan id").css({
                 'text-align': 'left'
             });
 
-            var groupingRow = $('tbody tr:eq(' + i + ')', grid).clone();
-            groupingRow.addClass(groupingClass);
-            groupingRow.html(groupingCol);
+            var groupingRow = $(table.rows[i]).clone();
+            groupingRow.addClass(groupingClass)
+                       .html(groupingCol);
             index = i - rowMerged;
-
-            groupingRow.insertBefore($('tbody tr:eq(' + index + ')', grid));
+            groupingRow.insertBefore(table.rows[index]);
             rowMerged = 0;
             numofRow++;
             that = me;
         };
         var lastItem;
+
+        //  Site.updateDomWithElementRemoved(grid, function () {
+        table = document.getElementById("ReportGrid");
+        that = table.rows[1].cells[colIdx];
         while (i < numofRow) {
-            var me = $('tbody tr:eq(' + i + ') td:eq(' + colIdx + ')', grid);
-            if (that != null && $(me).html() === $(that).html()) {
+            var me = table.rows[i].cells[colIdx];
+            if ($(me).html() === $(that).html()) {
                 rowMerged++;
             }
             else {
@@ -378,13 +384,18 @@ var WinLossByProductOption = (function () {
             i++;
             lastItem = me;
         }
+      
         ///processing  for last group rows
         i--;
         rowMerged--;
         addGroupingRow(lastItem);
         ///hide columns
-        grid.jqGrid("hideCol", "Date");
+        console.time('tableRowSpan');
+       // grid.jqGrid("hideCol", "Date");
+        
         $("#" + gridId).tableRowSpan([0, 4]);
+        console.timeEnd('tableRowSpan');
+        // });
     };
 
     return me;

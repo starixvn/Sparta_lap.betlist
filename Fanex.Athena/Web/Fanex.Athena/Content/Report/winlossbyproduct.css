@@ -1,4 +1,9 @@
-﻿.default-username {
+﻿    
+.jqgroup td 
+{
+    background-color: #DCFFFA;
+}
+.default-username {
     color: rgb(241,157,73);
     font-style: italic;
 }

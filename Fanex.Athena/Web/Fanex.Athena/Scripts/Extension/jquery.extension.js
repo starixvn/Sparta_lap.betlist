@@ -110,20 +110,22 @@
             }
         }
 
-        function process(element, colIdx) {
+        function process(table, colIdx) {
             var that;
             var ethat;
             var ethis;
             var rowspan = 1;
-            var len = $('tbody tr', element).length - 1;
-            $('tbody tr', element).each(function (index) {
-                var currentRow = this;
-                $('td:eq(' + colIdx + ')', this).each(function () {
-                    ethis = $('td:eq(' + effectToIndex + ')', currentRow);
-                    var found = that != null && $(this).html() === $(that).html();
+            var len = table.rows.length - 1;
+            for(var index = 0; index <= len; index++)
+            {
+                var currentRow = table.rows[index];                
+                var td = currentRow.cells[colIdx];
+                if(td) {
+                    ethis = currentRow.cells[effectToIndex];
+                    var found = that != null && $(td).html() === $(that).html();
                     if (found && index < len) {
-                        rowspan += 1;
-                        $(this).hide();
+                        rowspan++;
+                        $(td).hide();
                         if (effectToIndex !== undefined) {
                             $(ethis).hide();
                         }
@@ -131,10 +133,10 @@
                     }
                     else if (found && index === len) {
                         //do your action for lasted row
-                        $(this).hide();
-                        rowspan += 1;
+                        $(td).hide();
+                        rowspan++;
                         $(that).attr("rowSpan", rowspan);
-                        that = this;
+                        that = td;
                         if (effectToIndex !== undefined) {
                             $(ethis).hide();
                             $(ethat).attr("rowSpan", rowspan);
@@ -150,16 +152,16 @@
                         }
                         $(that).attr("rowSpan", rowspan);
                         // do your action for the colSpan cell here
-                        that = this;
+                        that = td;
                         rowspan = 1;
                     }
-                    that = (that == null) ? this : that;
+                    that = (that == null) ? td : that;
                     if (effectToIndex !== undefined) {
                         ethat = (ethat == null) ? ethis : ethat;
                     }
                     // set the that if not already set
-                });
-            });
+                }
+            }
         }
 
         return this.each(function () {
