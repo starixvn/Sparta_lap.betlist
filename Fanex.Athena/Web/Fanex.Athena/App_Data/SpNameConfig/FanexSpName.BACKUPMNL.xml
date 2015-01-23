@@ -80,10 +80,9 @@
     <Setting Key="Lrf_Rpt_AGCasinoWinloss" SpName="Lrf_Rpt_AGCasinoWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_ActiveMember" SpName="Lrf_Rpt_ActiveMember" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_ThirdPartyWinloss" SpName="Lrf_Rpt_ThirdPartyWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_ThirdPartyWinloss_Ag" SpName="LRF_Rpt_ThirdPartyWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_ThirdPartyWinloss_Mem" SpName="LRF_Rpt_ThirdPartyWinloss_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">

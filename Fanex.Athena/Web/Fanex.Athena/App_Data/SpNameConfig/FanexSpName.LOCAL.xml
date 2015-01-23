@@ -80,16 +80,15 @@
     <Setting Key="Lrf_Rpt_AGCasinoWinloss" SpName="Lrf_Rpt_AGCasinoWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_ActiveMember" SpName="Lrf_Rpt_ActiveMember" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_ThirdPartyWinloss" SpName="Lrf_Rpt_ThirdPartyWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_ThirdPartyWinloss_Ag" SpName="LRF_Rpt_ThirdPartyWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_ThirdPartyWinloss_Mem" SpName="LRF_Rpt_ThirdPartyWinloss_Mem" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
     <Setting Key="Lrf_BATimeCheck" SpName="Lrf_BATimeCheck" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus" DbName="DBTXN.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus_xtest" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdClosed" SpName="Lrf_CustomerUpdClosed" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSuspended" SpName="Lrf_CustomerUpdSuspended" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSpecialLevel" SpName="Lrf_CustomerUpdSpecialLevel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -99,7 +98,7 @@
     <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelStatus" SpName="Lrf_CustomerSelStatus" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup_xtest" DbName="DBTXN.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="DataWareHouse">

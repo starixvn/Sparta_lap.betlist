@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         public SortableList<AgCasinoBalance> GetSummaryWinloss(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_AGCasinoWinloss";
+            var uspName = "Lrf_Rpt_AGCasinoBalance";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             AgCasinoBalanceMetaModel metaModel,
             out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Mem";
+            var uspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -103,7 +103,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             AgCasinoBalanceMetaModel metaModel,
             out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Ag";
+            var uspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
             {
                 using (var db = new ObjectDb(uspName))
@@ -152,19 +152,18 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
             var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
-            var openingBalanceColumn = "turnover" + metaModel.BaseCurrency;
-            var transferInColumn = "turnover" + metaModel.BaseCurrency;
-            var transferOutColumn = "turnover" + metaModel.BaseCurrency;
-            var closingBalanceColumn = "turnover" + metaModel.BaseCurrency;
+            var openingBalanceColumn = "OpeningBalance" + metaModel.BaseCurrency;
+            var transferInColumn = "TransferIn" + metaModel.BaseCurrency;
+            var transferOutColumn = "TransferOut" + metaModel.BaseCurrency;
+            var closingBalanceColumn = "ClosingBalance" + metaModel.BaseCurrency;
 
             var systemIdOrdinal = reader.TryGetOrdinal("username");
             var externalIdOrdinal = reader.TryGetOrdinal("nickname");
             var customerIdOrdinal = reader.TryGetOrdinal("custid");
-            var winlostDateOrdinal = reader.TryGetOrdinal("winlostdate");
+            var winlostDateOrdinal = reader.TryGetOrdinal("date");
             var index = 1;
             while (reader.Read())
             {
-                var date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate;
                 var item = new AgCasinoBalance
                 {
                     Index = index++,
@@ -177,7 +176,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate,
+                    Date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("date") : metaModel.DrillDownFromDate,
                     OpeningBalance = reader.ToDecimal(openingBalanceColumn),
                     TransferIn = reader.ToDecimal(transferInColumn),
                     TransferOut = reader.ToDecimal(transferOutColumn),
@@ -193,10 +192,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     summaryTotal[currencySuffix].TotalTransaction += reader.ToInt("totaltrans");
                     summaryTotal[currencySuffix].LicenseeWL += reader.ToDecimal("licenseewinlost" + currencySuffix);
                     summaryTotal[currencySuffix].TurnOver += reader.ToDecimal("turnover" + currencySuffix);
-                    summaryTotal[currencySuffix].OpeningBalance += reader.ToDecimal("turnover" + currencySuffix);
-                    summaryTotal[currencySuffix].TransferIn += reader.ToDecimal("turnover" + currencySuffix);
-                    summaryTotal[currencySuffix].TransferOut += reader.ToDecimal("turnover" + currencySuffix);
-                    summaryTotal[currencySuffix].ClosingBalance += reader.ToDecimal("turnover" + currencySuffix);
+                    summaryTotal[currencySuffix].OpeningBalance += reader.ToDecimal("OpeningBalance" + currencySuffix);
+                    summaryTotal[currencySuffix].TransferIn += reader.ToDecimal("TransferIn" + currencySuffix);
+                    summaryTotal[currencySuffix].TransferOut += reader.ToDecimal("TransferOut" + currencySuffix);
+                    summaryTotal[currencySuffix].ClosingBalance += reader.ToDecimal("ClosingBalance" + currencySuffix);
                 }
             }
 

@@ -62,14 +62,10 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </param>
         /// <param name="summaryTotal">The summary total.</param>
         /// <returns>The licensee win loss list.</returns>
-        public SortableList<AgCasinoBalance> GetAgentBalanceDetail(
-            AgCasinoBalanceMetaModel metaModel,
-            out IDictionary<string, AgCasinoBalance> summaryTotal)
+        public SortableList<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            return metaModel.IsValid
-                       ? this._licenseeBalanceDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<AgCasinoBalance>();
+            return this._licenseeBalanceDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal);
         }
 
         /// <summary>
@@ -80,14 +76,10 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </param>
         /// <param name="summaryTotal">The summary total.</param>
         /// <returns>The licensee win loss list.</returns>
-        public SortableList<AgCasinoBalance> GetCustomerBalanceDetail(
-            AgCasinoBalanceMetaModel metaModel,
-            out IDictionary<string, AgCasinoBalance> summaryTotal)
+        public SortableList<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            return metaModel.IsValid
-                       ? this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<AgCasinoBalance>();
+            return this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal);
         }
 
         /// <summary>
@@ -101,9 +93,7 @@ namespace Fanex.Athena.Service.Implement.Report
         public SortableList<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            return metaModel.IsValid
-                       ? this._licenseeBalanceDataAccess.GetSummaryWinloss(metaModel, out summaryTotal)
-                       : new SortableList<AgCasinoBalance>();
+            return this._licenseeBalanceDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
         }
 
         #endregion Public Methods and Operators
