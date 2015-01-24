@@ -509,7 +509,7 @@ var MonitorBetListUI = function (monitorObj) {
                 var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
                 var baseCurrencyObj = $("#based-currency");
                 var noConvertOption = $("option[value='']", baseCurrencyObj);
-                console.log("selectedCurrencyText", selectedCurrencyText);
+                
                 if (selectedCurrencyText.length > 1) {
                     noConvertOption.remove();
                     baseCurrencyObj.val("eur");
