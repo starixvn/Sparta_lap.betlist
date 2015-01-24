@@ -20,7 +20,7 @@ namespace Fanex.Athena.Models.MetaModel
     {
         #region Private
 
-        private string _baseCurrency;
+        private string _baseCurrency = string.Empty;
 
         #endregion Private
 
