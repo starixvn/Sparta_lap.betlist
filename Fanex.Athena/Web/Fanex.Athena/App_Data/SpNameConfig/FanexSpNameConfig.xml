@@ -17,5 +17,6 @@
     <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel10" EnvironmentText="_xpre"></SpNameConfig>
     <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel16" EnvironmentText="_xpre"></SpNameConfig>
     <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel14" EnvironmentText="_xpre"></SpNameConfig>
-
+    <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel121" EnvironmentText="_xpre"></SpNameConfig>
+    <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_SelHR" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
