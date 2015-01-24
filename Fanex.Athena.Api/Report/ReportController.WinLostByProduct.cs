@@ -365,6 +365,10 @@ namespace Fanex.Athena.Api.Report
                 return ExportExcel(metaModel, dataList, summaryTotal, systemId, resultInfo.Message);
             }
 
+            dataList = dataList.Concat(dataList).ToList();
+            dataList = dataList.Concat(dataList).ToList();
+            dataList = dataList.Concat(dataList).ToList();
+           // dataList = dataList.Take(5000).ToList();
             return dataList.Count > 0
                 ? (dynamic)new
                 {

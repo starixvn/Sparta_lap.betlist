@@ -13,8 +13,9 @@ var WinLossByProductOption = (function () {
          ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
-        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        return null;
+        // var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
+        //return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
     var systemIdFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
@@ -259,7 +260,7 @@ var WinLossByProductOption = (function () {
                 userData: [],
                 viewrecords: true,
                 gridview: true,
-                grouping:true, 
+                grouping: true,
                 groupingView: { groupField: ['Date'], groupColumnShow: [false] }
             }
         };
@@ -384,15 +385,15 @@ var WinLossByProductOption = (function () {
             i++;
             lastItem = me;
         }
-      
+
         ///processing  for last group rows
         i--;
         rowMerged--;
         addGroupingRow(lastItem);
         ///hide columns
         console.time('tableRowSpan');
-       // grid.jqGrid("hideCol", "Date");
-        
+        // grid.jqGrid("hideCol", "Date");
+
         $("#" + gridId).tableRowSpan([0, 4]);
         console.timeEnd('tableRowSpan');
         // });

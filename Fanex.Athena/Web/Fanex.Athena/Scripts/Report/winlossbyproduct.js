@@ -196,7 +196,7 @@ var WinLossByProduct = (function ($) {
 
             Site.updateOriginalLicenseeOption();
             var data = $("#winlossbyproduct").serializeObject();
-            
+
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
@@ -406,11 +406,11 @@ var WinLossByProduct = (function ($) {
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount, true);
         },
 
-        bindData: function (level, reportBy, response) {
+        bindData: function (level, reportBy, response) {            
             console.time("clear");
-            $("#ReportGrid").hide();
+
             jqGridAdditional.clearGrid("ReportGrid");
-            $("#ReportGrid").show();
+
             console.timeEnd("clear");
             level = Number(level);
             var reportGrid = $("#ReportGrid");
@@ -478,34 +478,33 @@ var WinLossByProduct = (function ($) {
 
                 Site.unBlockUI();
             };
-            Site.blockUI();
-            setTimeout(function () {
-                Site.blockUI();
-                // Show the grid
-                console.time("jqGrid");
-                reportGrid.hide();
-                //Site.updateDomWithElementRemoved(reportGrid.get(0), function () {
-                reportGrid.jqGrid(gridOption);
-                //});
-                reportGrid.show();
-                console.timeEnd("jqGrid");
 
-                if (WinLossByProductOption.hasCustomerComm) {
-                    console.time("setGroupCustomerWLColumns");
-                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
-                    console.timeEnd("setGroupCustomerWLColumns");
-                }
+             setTimeout(function () {
 
-                //set rowspan for footer row
-                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
-                if (level === 2) {
-                    jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-                }
-                ///reset layout
-                jqGridAdditional.resetLayout(reportGrid);
-                WinLossByProduct.resizeGrid();
+            // Show the grid
+            console.time("jqGrid");
+            // reportGrid.hide();
+            //Site.updateDomWithElementRemoved(reportGrid.get(0), function () {
+            reportGrid.jqGrid(gridOption);
+            //});
+            //  reportGrid.show();
+            console.timeEnd("jqGrid");
 
-            }, 25);
+            if (WinLossByProductOption.hasCustomerComm) {
+                console.time("setGroupCustomerWLColumns");
+                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                console.timeEnd("setGroupCustomerWLColumns");
+            }
+
+            //set rowspan for footer row
+            $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+            if (level === 2) {
+                jqGridAdditional.showRecommendedBrowser(gridOption.pager);
+            }
+            ///reset layout
+            jqGridAdditional.resetLayout(reportGrid);
+            WinLossByProduct.resizeGrid();            
+               }, 100);
         },
 
         //#endregion
