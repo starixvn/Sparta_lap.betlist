@@ -101,7 +101,6 @@
     <Compile Include="DTO\BetList\BetListMatch.cs" />
     <Compile Include="DTO\BetList\TicketText.cs" />
     <Compile Include="DTO\BetList\TicketResult.cs" />
-    <Compile Include="DTO\Casino\ExchangeRateByDate.cs" />
     <Compile Include="DTO\Casino\RNGCasinoResult.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoGameType.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetail.cs" />

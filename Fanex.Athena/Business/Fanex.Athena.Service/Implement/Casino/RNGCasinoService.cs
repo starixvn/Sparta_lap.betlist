@@ -314,7 +314,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             else
             {
-                exchangeRate = new ExChangeRate { EUR = 1, USD = 1 };
+                exchangeRate = new ExChangeRate { EUR = 1, USD = 1, GBP = 1 };
             }
 
             foreach (DataRow row in headTable.Rows)
