@@ -156,21 +156,27 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     { "sumwinlost", DBNull.Value },
                     { "sumwinlostusd", DBNull.Value },
                     { "sumwinlosteur", DBNull.Value },
+                    { "sumwinlostgbp", DBNull.Value },
                     { "sumbeteffective", DBNull.Value },
                     { "sumbeteffectiveusd", DBNull.Value },
                     { "sumbeteffectiveeur", DBNull.Value },
+                    { "sumbeteffectivegbp", DBNull.Value },
                     { "sumlicenseewl", DBNull.Value },
                     { "sumlicenseewlusd", DBNull.Value },
                     { "sumlicenseewleur", DBNull.Value },
+                    { "sumlicenseewlgbp", DBNull.Value },
                     { "sumcomm", DBNull.Value },
                     { "sumcommusd", DBNull.Value },
                     { "sumcommeur", DBNull.Value },
+                    { "sumcommgbp", DBNull.Value },
                     { "sumplayercomm", DBNull.Value },
                     { "sumplayercommusd", DBNull.Value },
                     { "sumplayercommeur", DBNull.Value },
+                    { "sumplayercommgbp", DBNull.Value },
                     { "sumstake", DBNull.Value },
                     { "sumstakeusd", DBNull.Value },
-                    { "sumstakeeur", DBNull.Value }
+                    { "sumstakeeur", DBNull.Value },
+                    { "sumstakegbp", DBNull.Value }
             };
             var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();
@@ -223,7 +229,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                         ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
                         : ticketResult.MainTicketList.Sum(x => x.Comm);
                     ticketResult.SumPlayerComm = outPutParams["sumplayercomm" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) 
+                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency])
                         : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
                     return ticketResult;
@@ -878,7 +884,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             CreateBetListPagingParameters(db, metaModel);
         }
-        
+
         #region CommonParam
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -926,6 +932,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
             db.AddOutParameter("SumCommEUR", DbType.Currency, 8);
             db.AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
+            db.AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumCommGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
 
         private static void CreateBetlistProductOptionParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -1193,6 +1203,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 case "Lrf_BetList_SelRunningByBettype":
                     CreateRunningBetListByBettypePaprameters(db, metaModel);
                     break;
+
                 case "Lrf_BetList_SelRunningByBettypeList":
                     CreateRunningBetListByMultipleBettypePaprameters(db, metaModel);
                     break;
