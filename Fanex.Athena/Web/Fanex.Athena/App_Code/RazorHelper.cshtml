@@ -224,6 +224,13 @@ bool addBasedOption = false)
         {
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
+                Text = ViewResources.Based + " GBP",
+                Value = "-3",
+                Selected = "-3" == selected.ToString()
+            });
+            
+            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+            {
                 Text = ViewResources.Based + " USD",
                 Value = "-2",
                 Selected = "-2" == selected.ToString()
@@ -271,6 +278,8 @@ bool addBasedOption = false)
             EUR</option>
         <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>
             USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>
+            GBP</option>
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
