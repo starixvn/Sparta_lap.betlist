@@ -130,8 +130,8 @@ namespace Fanex.Athena.Controllers.Forecast
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private NewForecastHdpOuViewModel GetForecastHdpOuViewModel(NewForecastHdpOuMetaModel metaModel)
         {
-            IList<Match> matchList = null;
-            IList<League> leagueList = null;
+            IList<Match> matchList = new List<Match>();
+            IList<League> leagueList = new List<League>();
             var headerInfo = new Models.DTO.Forecast.NewForecastHdpOu.NewForecastHdpOuMatchInfo();
             var model = new NewForecastHdpOuViewModel
             {
