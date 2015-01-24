@@ -169,12 +169,28 @@ namespace Fanex.Athena.Service.Implement.Casino
 
         #region Ultilities
 
+        /// <summary>
+        /// Get exchange rate.
+        /// </summary>
+        /// <param name="exchangeRate">Exchange rate data.</param>
+        /// <param name="currency">Currency name.</param>
+        /// <returns>Exchange rate value.</returns>
         private static decimal GetExchangeRate(ExChangeRate exchangeRate, string currency)
         {
-            return currency.Equals("eur", StringComparison.OrdinalIgnoreCase) ? exchangeRate.EUR
-                   : currency.Equals("usd", StringComparison.OrdinalIgnoreCase) ? exchangeRate.USD
-                   : currency.Equals("gbp", StringComparison.OrdinalIgnoreCase) ? exchangeRate.GBP
-                   : 1;
+            switch (currency.ToUpperInvariant())
+            {
+                case "EUR":
+                    return exchangeRate.EUR;
+
+                case "USD":
+                    return exchangeRate.USD;
+
+                case "GBP":
+                    return exchangeRate.GBP;
+
+                default:
+                    return 1;
+            }            
         }
 
         /// <summary>

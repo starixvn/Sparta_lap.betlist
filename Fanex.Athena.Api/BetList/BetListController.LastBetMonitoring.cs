@@ -269,7 +269,7 @@ namespace Fanex.Athena.Api.BetList
             if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
             {
                 var baseCurrency = metaModel == null ? string.Empty : metaModel.BasedCurrency;
-                if (!baseCurrency.ToLower().Equals("eur") && !baseCurrency.ToLower().Equals("usd"))
+                if (!SystemConstants.BaseCurrencyList.Contains(baseCurrency.ToUpperInvariant()))
                 {
                     baseCurrency = string.Empty;
                 }

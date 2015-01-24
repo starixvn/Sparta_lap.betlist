@@ -50,13 +50,6 @@ namespace Fanex.Athena.Controllers.BetList
 
         #region Fields
 
-        private static readonly Dictionary<string, int> CurrencyMap = new Dictionary<string, int>()
-        {
-            { "EUR", BaseCurrencyType.Eur },
-            { "USD", BaseCurrencyType.Usd },
-            { "GBP", BaseCurrencyType.Gbp }
-        };
-
         /// <summary>
         /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
         /// </summary>
@@ -161,12 +154,6 @@ namespace Fanex.Athena.Controllers.BetList
         private static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
-        }
-
-        private static int GetBaseCurrencyId(string currencyName, int defaultValue = 0)
-        {
-            currencyName = currencyName.ToUpperInvariant();
-            return CurrencyMap.ContainsKey(currencyName) ? CurrencyMap[currencyName] : defaultValue;
         }
 
         /// <summary>

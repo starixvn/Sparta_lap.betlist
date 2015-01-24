@@ -45,6 +45,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     {
                         item.USD = reader.ToDecimal("USD");
                         item.EUR = reader.ToDecimal("EUR");
+                        item.GBP = reader.ToDecimal("GBP");
                     }
 
                     return item;

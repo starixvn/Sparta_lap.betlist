@@ -10,6 +10,7 @@ namespace Fanex.Athena.Models.MetaModel
     using System.Collections.Generic;
     using System.ComponentModel;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
 
     /// <summary>
     /// BaseMetaModel class.
@@ -68,6 +69,28 @@ namespace Fanex.Athena.Models.MetaModel
                 _baseCurrency = value == null
                     ? string.Empty
                     : value.ToLower();
+            }
+        }
+
+        public int BaseCurrencyId
+        {
+            get
+            {
+                var baseCurrencyName = BaseCurrency.ToUpperInvariant();
+                switch (baseCurrencyName)
+                {
+                    case "EUR":
+                        return BaseCurrencyType.Eur;
+
+                    case "USD":
+                        return BaseCurrencyType.Usd;
+
+                    case "GBP":
+                        return BaseCurrencyType.Gbp;
+
+                    default:
+                        return BaseCurrencyType.All;
+                }
             }
         }
 

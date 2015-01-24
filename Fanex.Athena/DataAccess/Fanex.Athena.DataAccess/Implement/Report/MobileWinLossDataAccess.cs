@@ -18,6 +18,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -83,11 +84,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             out Dictionary<string, MobileWinLoss> summaryTotal)
         {
             var dataList = new List<MobileWinLoss>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
             summaryTotal = new Dictionary<string, MobileWinLoss>();
-            foreach (var c in summaryCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal.Add(c, new MobileWinLoss());
+                summaryTotal.Add(currency, new MobileWinLoss());
             }
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
@@ -129,17 +129,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 index++;
 
                 // Read Summary
-                foreach (var c in summaryCurrencyList)
+                foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[c].TotalTransactions += reader.ToInt("Betcount");
-                    summaryTotal[c].Turnover += reader.ToDecimal("Turnover" + c);
-                    summaryTotal[c].CustomerWinLoss += reader.ToDecimal("Winlost" + c);
-                    summaryTotal[c].CustomerComm += reader.ToDecimal("PlayerComm" + c);
-                    summaryTotal[c].LicenseeWL += reader.ToDecimal("LicenseeWL" + c);
-                    summaryTotal[c].BACommission += reader.ToDecimal("CommBA" + c);
-                    summaryTotal[c].RacingRevenue += reader.ToDecimal("WinlossRB" + c) + reader.ToDecimal("CommRB" + c);
-                    summaryTotal[c].AmtDueToBA += reader.ToDecimal("AmtDueToBA" + c);
-                    summaryTotal[c].AmtDueToRacing += reader.ToDecimal("AmtDueToRB" + c);
+                    summaryTotal[currency].TotalTransactions += reader.ToInt("Betcount");
+                    summaryTotal[currency].Turnover += reader.ToDecimal("Turnover" + currency);
+                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("Winlost" + currency);
+                    summaryTotal[currency].CustomerComm += reader.ToDecimal("PlayerComm" + currency);
+                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("LicenseeWL" + currency);
+                    summaryTotal[currency].BACommission += reader.ToDecimal("CommBA" + currency);
+                    summaryTotal[currency].RacingRevenue += reader.ToDecimal("WinlossRB" + currency) + reader.ToDecimal("CommRB" + currency);
+                    summaryTotal[currency].AmtDueToBA += reader.ToDecimal("AmtDueToBA" + currency);
+                    summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("AmtDueToRB" + currency);
                 }
             }
 

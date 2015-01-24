@@ -67,8 +67,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             // determine currency viewed in            
-            var curencyId = metaModel.IsConvert ?
-                GetBaseCurrencyId(metaModel.BaseCurrency, metaModel.CurrencyId) : metaModel.CurrencyId;
+            var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList

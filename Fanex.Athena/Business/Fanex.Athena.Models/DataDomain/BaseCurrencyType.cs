@@ -3,8 +3,11 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
+
 namespace Fanex.Athena.Models.DataDomain
 {
+    using Fanex.Common.Extensions;
+
     /// <summary>
     /// Base currency type constants.
     /// </summary>

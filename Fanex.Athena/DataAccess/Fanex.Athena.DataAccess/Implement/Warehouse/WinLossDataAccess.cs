@@ -45,7 +45,6 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         {
             const string UspName = "Lrf_rpt_DWWinloss";
             var dataList = new List<WinLoss>();
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
             var uspParams = new
                 {
                     FromDate = metaModel.FromDate,
@@ -54,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     groupingid = metaModel.ReportBy,
                     drawfilter = metaModel.DrawFilter,
                     UserId = metaModel.UserId,
-                    basedcurrency = baseCurrency,
+                    basedcurrency = metaModel.BaseCurrencyId
                 };
             try
             {

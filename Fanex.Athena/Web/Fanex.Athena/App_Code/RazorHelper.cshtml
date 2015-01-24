@@ -212,7 +212,7 @@ bool addMoreAllOption = true,
 bool addBasedOption = false)
     {
         var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
-        var selectedBaseCurrency = selected == -2 ? "usd" : (selected == -1 ? "eur" : string.Empty);
+        var selectedBaseCurrency = selected == -3 ? "gbp" : (selected == -2 ? "usd" : (selected == -1 ? "eur" : string.Empty));
         var items = currencyList
          .Select(c => new System.Web.WebPages.Html.SelectListItem
          {
@@ -398,6 +398,9 @@ bool addBasedOption = false)
                 break;
             case -2:
                 title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Usd);
+                break;
+            case -3:
+                title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Gbp);
                 break;
             default:
                 title = string.Format(ViewResources.Viewin, currencyName);
