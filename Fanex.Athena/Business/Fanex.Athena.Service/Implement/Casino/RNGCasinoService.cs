@@ -173,6 +173,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         {
             return currency.Equals("eur", StringComparison.OrdinalIgnoreCase) ? exchangeRate.EUR
                    : currency.Equals("usd", StringComparison.OrdinalIgnoreCase) ? exchangeRate.USD
+                   : currency.Equals("gbp", StringComparison.OrdinalIgnoreCase) ? exchangeRate.GBP
                    : 1;
         }
 

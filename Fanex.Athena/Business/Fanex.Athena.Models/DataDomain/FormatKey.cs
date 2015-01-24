@@ -16,6 +16,8 @@ namespace Fanex.Athena.Models.DataDomain
 
         public const string Usd = "USD";
 
+        public const string Gbp = "GBP";
+
         private FormatKey()
         {
         }

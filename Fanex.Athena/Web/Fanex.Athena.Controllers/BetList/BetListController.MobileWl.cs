@@ -65,28 +65,9 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            string viewinCurrency;
             var curencyId = metaModel.IsConvert 
-                ? (metaModel.BaseCurrency.ToLower() == "eur" ? BaseCurrencyType.Eur : BaseCurrencyType.Usd) : metaModel.CurrencyId;
-            switch (curencyId)
-            {
-                case BaseCurrencyType.All:
-                    viewinCurrency = ViewResources.AllCurrencies;
-                    break;
-
-                case BaseCurrencyType.Eur:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Eur);
-                    break;
-
-                case BaseCurrencyType.Usd:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Usd);
-                    break;
-
-                default:
-                    viewinCurrency = string.Format(ViewResources.Viewin, metaModel.CurrencyName);
-                    break;
-            }
-
+                ? GetBaseCurrencyId(metaModel.BaseCurrency, metaModel.CurrencyId) : metaModel.CurrencyId;
+            var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var siteList = new List<string> { string.Empty, ViewResources.Wap, ViewResources.SmartPhone, ViewResources.Others };
             var siteText = siteList[metaModel.SiteType];
             var title = ViewResources.Customer + " " + ViewResources.BetList

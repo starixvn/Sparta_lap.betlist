@@ -17,7 +17,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     /// </summary>
     public abstract class BaseReportMetaModel : BaseMetaModel
     {
-        private readonly string[] _baseCurrencies = { "eur", "usd", "EUR", "USD" };
+        private readonly string[] _baseCurrencies = { "EUR", "USD", "GBP" };
 
         protected BaseReportMetaModel()
             : base()
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                return _baseCurrencies.Any(t => t.Equals(BaseCurrency));
+                return _baseCurrencies.Any(t => t.Equals(BaseCurrency, StringComparison.OrdinalIgnoreCase));
             }
         }
 
