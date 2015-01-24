@@ -93,6 +93,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     db.AddOutParameter("outstanding", DbType.Currency, 8);
                     db.AddOutParameter("outstandingeur", DbType.Currency, 8);
                     db.AddOutParameter("outstandingusd", DbType.Currency, 8);
+                    db.AddOutParameter("outstandinggbp", DbType.Currency, 8);
                     var dataSet = db.ExecuteDataSet();
                     var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
                     var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
@@ -690,6 +691,9 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
             db.AddOutParameter("SUMWLEUR", DbType.Currency, 8);
             db.AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
+            db.AddOutParameter("SUMWLGBP", DbType.Currency, 8);
+            db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
+
         }
 
         /// <summary>
@@ -837,6 +841,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SumStake", DbType.Currency, 8);
             db.AddOutParameter("SumStakeUSD", DbType.Currency, 8);
             db.AddOutParameter("SumStakeEUR", DbType.Currency, 8);
+            db.AddOutParameter("SumStakeGBP", DbType.Currency, 8);
         }
 
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
