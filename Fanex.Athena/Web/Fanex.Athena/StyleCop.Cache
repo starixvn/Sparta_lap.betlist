@@ -1,8 +1,5 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="-164696552">
-    <configuration>TRACE;DEBUG;CODE_ANALYSIS</configuration>
-  </project>
   <project key="1996200004">
     <configuration>TRACE</configuration>
   </project>
@@ -15,11 +12,14 @@
   <project key="711936157">
     <configuration>TRACE;DEBUG;CODE_ANALYSIS</configuration>
   </project>
+  <project key="-164696552">
+    <configuration>TRACE</configuration>
+  </project>
   <sourcecode name="Global.asax.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2014/11/21 15:44:28.663</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2014/12/08 11:28:17.201</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -43,8 +43,8 @@
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.208</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.764</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -68,8 +68,8 @@
   <sourcecode name="GenHistoryImg.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.139</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.754</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -93,8 +93,8 @@
   <sourcecode name="HistoryImage_BJ.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.140</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.754</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -118,8 +118,8 @@
   <sourcecode name="HistoryImage_Champions.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.141</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.755</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -143,8 +143,8 @@
   <sourcecode name="HistoryImage_Holdem.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.142</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.755</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -168,8 +168,8 @@
   <sourcecode name="HistoryImage_MiniRoulette.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.143</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.756</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -193,8 +193,8 @@
   <sourcecode name="HistoryImage_MultiWheelRoulette.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.200</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.756</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -218,8 +218,8 @@
   <sourcecode name="HistoryImage_PokerWheel.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.200</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.757</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -243,8 +243,8 @@
   <sourcecode name="HistoryImage_Scratch.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.201</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.757</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -268,8 +268,8 @@
   <sourcecode name="HistoryImage_Taizen.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.202</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.758</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -293,8 +293,8 @@
   <sourcecode name="HistoryImage_TattooArt.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.202</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.758</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -318,8 +318,8 @@
   <sourcecode name="HistoryImage_ePoker.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.206</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.762</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
@@ -343,8 +343,8 @@
   <sourcecode name="LiveGenHistoryImg.aspx.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/12/15 15:29:26.000</styleCop>
-      <settingsFile>2014/11/18 17:50:00.938</settingsFile>
-      <sourceFile>2015/01/15 11:07:44.207</sourceFile>
+      <settingsFile>2014/06/17 08:41:10.887</settingsFile>
+      <sourceFile>2015/01/15 10:54:51.763</sourceFile>
       <parser>2013/12/15 15:29:26.000</parser>
       <StyleCop.CSharp.ReadabilityRules>2013/12/15 15:29:26.000</StyleCop.CSharp.ReadabilityRules>
       <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
