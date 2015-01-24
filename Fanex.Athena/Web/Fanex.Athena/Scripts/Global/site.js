@@ -53,7 +53,7 @@ var Site = (function ($) {
             });
         },
         isBaseCurrency: function (currencyName) {
-            return BASE_CURRENT_LIST.IndexOf(currencyName.toUpperCase()) >= 0;
+            return BASE_CURRENT_LIST.indexOf(currencyName.toUpperCase()) >= 0;
         },
         addUserGuide: function (options) {
             var defaultOptions = {
@@ -289,9 +289,9 @@ var Site = (function ($) {
             var noConvertOption = $("option[value='']", baseCurrencyObj);
             if (currency === 0 || Site.isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
-                if (userChange) {
+                if (userChange) {                    
                     $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
-                    baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
+                    baseCurrencyObj.val(currencyName.toLowerCase());
                 }
             }
             else {
