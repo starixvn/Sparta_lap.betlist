@@ -128,6 +128,7 @@ var Turnover = (function ($) {
             var username = $('#Username').val().trim();
             var currencyTextList =
                 {
+                    "-3": "gbp",
                     "-2": "usd",
                     "-1": "eur",
                     "0": Site.getSingleResource('AllCurrencies')

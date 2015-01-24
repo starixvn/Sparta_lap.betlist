@@ -5,6 +5,7 @@
 "use strict";
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
+    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType === undefined ? "" : licenseeType;
         currencyName = $.trim(currencyName);
@@ -50,6 +51,9 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        isBaseCurrency: function (currencyName) {
+            return BASE_CURRENT_LIST.IndexOf(currencyName.toUpperCase()) >= 0;
         },
         addUserGuide: function (options) {
             var defaultOptions = {
@@ -283,7 +287,7 @@ var Site = (function ($) {
             // Handle outside based currency list in some reports (customer wl, balance)
             var baseCurrencyObj = $("#BaseCurrency");
             var noConvertOption = $("option[value='']", baseCurrencyObj);
-            if (currency === 0 || currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
+            if (currency === 0 || Site.isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
                 if (userChange) {
                     $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
@@ -304,7 +308,7 @@ var Site = (function ($) {
 
             // Handle inside based currency list in some reports(licensee wl, wl by product)
             if ($("option[value=-1]", "#CurrencyId").length > 0) {
-                var basedCurrencyMap = { "-1": "eur", "-2": "usd" };
+                var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
                 var basedCurrency = basedCurrencyMap[currency.toString()];
                 basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
                 $("#BaseCurrency").val(basedCurrency);

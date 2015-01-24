@@ -148,6 +148,7 @@ var WinLossByProduct = (function ($) {
             //get currencyName
             var currencyTextList =
             {
+                "-3": viewinKey.replace("{0}", "GBP"),
                 "-2": viewinKey.replace("{0}", "USD"),
                 "-1": viewinKey.replace("{0}", "EUR"),
                 "0": Site.getSingleResource('AllCurrencies')

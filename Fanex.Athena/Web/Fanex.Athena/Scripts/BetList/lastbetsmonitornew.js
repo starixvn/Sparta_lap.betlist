@@ -516,7 +516,8 @@ var MonitorBetListUI = function (monitorObj) {
                 }
                 else if (selectedCurrencyText.length === 1) {
                     var currencyName = selectedCurrencyText[0];
-                    if (currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
+                    if (Site.isBaseCurrency(currencyName))
+                    {
                         noConvertOption.remove();
                         baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
                     }
