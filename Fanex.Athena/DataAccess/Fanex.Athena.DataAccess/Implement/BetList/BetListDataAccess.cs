@@ -693,7 +693,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
             db.AddOutParameter("SUMWLGBP", DbType.Currency, 8);
             db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
-
         }
 
         /// <summary>
