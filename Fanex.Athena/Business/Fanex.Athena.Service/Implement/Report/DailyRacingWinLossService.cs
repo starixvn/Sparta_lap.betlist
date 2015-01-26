@@ -149,7 +149,22 @@ namespace Fanex.Athena.Service.Implement.Report
                     TotalTO12BetUSD = rawData.Sum(a => a.TotalTO12BetUSD),
                     WinLoss12BetUSD = rawData.Sum(a => a.WinLoss12BetUSD),
                     CommIncomeUSD = rawData.Sum(a => a.CommIncomeUSD),
-                    AmountDueToRacingUSD = rawData.Sum(a => a.AmountDueToRacingUSD)
+                    AmountDueToRacingUSD = rawData.Sum(a => a.AmountDueToRacingUSD),
+
+                    // GBP
+                    WinTOGBP = rawData.Sum(a => a.WinTOGBP),
+                    PlaceTOGBP = rawData.Sum(a => a.PlaceTOGBP),
+                    WPTOGBP = rawData.Sum(a => a.WPTOGBP),
+                    TotalTOGBP = rawData.Sum(a => a.TotalTOGBP),
+                    DividendWonGBP = rawData.Sum(a => a.DividendWonGBP),
+                    CustomerCommissionGBP = rawData.Sum(a => a.CustomerCommissionGBP),
+                    WinTO12BetGBP = rawData.Sum(a => a.WinTO12BetGBP),
+                    PlaceTO12BetGBP = rawData.Sum(a => a.PlaceTO12BetGBP),
+                    WPTO12BetGBP = rawData.Sum(a => a.WPTO12BetGBP),
+                    TotalTO12BetGBP = rawData.Sum(a => a.TotalTO12BetGBP),
+                    WinLoss12BetGBP = rawData.Sum(a => a.WinLoss12BetGBP),
+                    CommIncomeGBP = rawData.Sum(a => a.CommIncomeGBP),
+                    AmountDueToRacingGBP = rawData.Sum(a => a.AmountDueToRacingGBP)
                 };
         }
 

@@ -86,6 +86,7 @@ namespace Fanex.Athena.Controllers.Report
             IList<PlaytechCasino> dataList = new List<PlaytechCasino>();
             var totalInEur = new PlaytechCasino();
             var totalInUsd = new PlaytechCasino();
+            var totalInGbp = new PlaytechCasino();
             if (metaModel.ReportBy == ReportByType.Monthly && metaModel.Level > 0)
             {
                 metaModel.DrillDownToDate = !metaModel.IsExportExcel ? metaModel.DrillDownToDate.AddMonths(1).AddDays(-1) : metaModel.DrillDownToDate;
@@ -96,13 +97,13 @@ namespace Fanex.Athena.Controllers.Report
             switch (metaModel.Level)
             {
                 case 0:
-                    dataList = playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
                 case 1:
-                    dataList = playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
                 default:
-                    dataList = playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
             }
 
@@ -113,6 +114,7 @@ namespace Fanex.Athena.Controllers.Report
                 TotalData = GetTotalDataList(dataList),
                 TotalInEur = totalInEur,
                 TotalInUsd = totalInUsd,
+                TotalInGbp = totalInGbp,
                 ShowEmptyContent = false,
                 CurrencyList = currencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

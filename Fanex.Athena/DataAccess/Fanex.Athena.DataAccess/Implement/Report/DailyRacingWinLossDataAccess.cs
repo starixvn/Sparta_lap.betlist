@@ -144,6 +144,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 dailyRacingWinLoss.CommIncomeUSD = reader.ToDecimal("CommIncomeLicenseeUSD");
                 dailyRacingWinLoss.AmountDueToRacingUSD = reader.ToDecimal("AmountDueToRBUSD");
 
+                // Base GBP
+                dailyRacingWinLoss.WinTOGBP = reader.ToDecimal("WinTOMemGBP");
+                dailyRacingWinLoss.PlaceTOGBP = reader.ToDecimal("PlaceTOMemGBP");
+                dailyRacingWinLoss.WPTOGBP = reader.ToDecimal("WinPlaceTOMemGBP");
+                dailyRacingWinLoss.TotalTOGBP = reader.ToDecimal("TotalTOMemGBP");
+                dailyRacingWinLoss.DividendWonGBP = reader.ToDecimal("DividendWonMemGBP");
+                dailyRacingWinLoss.CustomerCommissionGBP = reader.ToDecimal("PlayerCommInComeLicenseeGBP");
+                dailyRacingWinLoss.CommIncomeGBP = reader.ToDecimal("CommIncomeLicenseeGBP");
+                dailyRacingWinLoss.AmountDueToRacingGBP = reader.ToDecimal("AmountDueToRBGBP");
+
                 // Licensee Info
                 dailyRacingWinLoss.WinTO12Bet = reader.ToDecimal(winTo12BetColumn);
                 dailyRacingWinLoss.PlaceTO12Bet = reader.ToDecimal(placeTo12BetColumn);
@@ -171,6 +181,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 dailyRacingWinLoss.WPTO12BetUSD = reader.ToDecimal("WinPlaceTOLicenseeUSD");
                 dailyRacingWinLoss.TotalTO12BetUSD = reader.ToDecimal("TotalTOLicenseeUSD");
                 dailyRacingWinLoss.WinLoss12BetUSD = reader.ToDecimal("PTWLLicenseeUSD");
+
+                // Base GBP
+                dailyRacingWinLoss.WinTO12BetGBP = reader.ToDecimal("WinTOLicenseeGBP");
+                dailyRacingWinLoss.PlaceTO12BetGBP = reader.ToDecimal("PlaceTOLicenseeGBP");
+                dailyRacingWinLoss.WPTO12BetGBP = reader.ToDecimal("WinPlaceTOLicenseeGBP");
+                dailyRacingWinLoss.TotalTO12BetGBP = reader.ToDecimal("TotalTOLicenseeGBP");
+                dailyRacingWinLoss.WinLoss12BetGBP = reader.ToDecimal("PTWLLicenseeGBP");
 
                 dataList.Add(dailyRacingWinLoss);
             }

@@ -30,8 +30,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="totalInEur">Total in EUR.</param>
         /// <param name="totalInUsd">Total in USD.</param>
+        /// <param name="totalInGbp">Total in GBP.</param>
         /// <returns>List of PLAYTECH Casino.</returns>
-        public IList<PlaytechCasino> GetMainWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetMainWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd,
+            ref PlaytechCasino totalInGbp)
         {
             var uspName = "Lrf_Rpt_PlaytechWinloss";
             var result = new List<PlaytechCasino>();
@@ -60,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     CurrencyId = reader.ToInt("Currency"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, totalInGbp, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -82,8 +87,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="totalInEur">Total in EUR.</param>
         /// <param name="totalInUsd">Total in USD.</param>
+        /// <param name="totalInGbp">Total in GBP.</param>
         /// <returns>List of PLAYTECH Casino.</returns>
-        public IList<PlaytechCasino> GetAgentWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetAgentWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd,
+            ref PlaytechCasino totalInGbp)
         {
             var uspName = "Lrf_Rpt_PlaytechWinlossDetail_Ag";
             var result = new List<PlaytechCasino>();
@@ -111,7 +121,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     CurrencyId = reader.ToInt("Currency"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, totalInGbp, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -133,8 +143,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="totalInEur">Total in EUR.</param>
         /// <param name="totalInUsd">Total in USD.</param>
+        /// <param name="totalInGbp">Total in GBP.</param>
         /// <returns>List of PLAYTECH Casino.</returns>
-        public IList<PlaytechCasino> GetMemberWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetMemberWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd,
+            ref PlaytechCasino totalInGbp)
         {
             var uspName = "Lrf_Rpt_PlaytechWinlossDetail";
             var result = new List<PlaytechCasino>();
@@ -162,7 +177,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     ExternalId = reader.ToString("nickname"),
                                     CurrencyName = reader.ToString("CurrencyName"),
                                 };
-                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, metaModel.BaseCurrency);
+                                GetWinLossData(reader, playTechCasinoItem, totalInEur, totalInUsd, totalInGbp, metaModel.BaseCurrency);
                                 result.Add(playTechCasinoItem);
                             }
                         }
@@ -185,12 +200,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="playTechCasinoItem">PLAYTECH Casino item.</param>
         /// <param name="totalInEur">Total in EUR.</param>
         /// <param name="totalInUsd">Total in USD.</param>
+        /// <param name="totalInGbp">Total in GBP.</param>
         /// <param name="baseCurrency">Base currency.</param>
         private static void GetWinLossData(
             IDataReader reader, 
             PlaytechCasino playTechCasinoItem, 
             PlaytechCasino totalInEur, 
-            PlaytechCasino totalInUsd, 
+            PlaytechCasino totalInUsd,
+            PlaytechCasino totalInGbp, 
             string baseCurrency)
         {
             playTechCasinoItem.Turnover = reader.ToDecimal("Turnover" + baseCurrency);
@@ -216,6 +233,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             totalInUsd.ProgressiveShare += reader.ToDecimal("PShareUSD");
             totalInUsd.ProgressiveWin += reader.ToDecimal("PWinUSD");
             totalInUsd.NetGaming += reader.ToDecimal("NetGamingUSD");
+
+            totalInGbp.Turnover += reader.ToDecimal("TurnoverGBP");
+            totalInGbp.TotalTrans += reader.ToInt("BetCount");
+            totalInGbp.CustomerWinLoss += reader.ToDecimal("WinlostGBP");
+            totalInGbp.LicenseeWinLoss += reader.ToDecimal("LicenseeWLGBP");
+            totalInGbp.ProgressiveShare += reader.ToDecimal("PShareGBP");
+            totalInGbp.ProgressiveWin += reader.ToDecimal("PWinGBP");
+            totalInGbp.NetGaming += reader.ToDecimal("NetGamingGBP");
         }
     }
 }

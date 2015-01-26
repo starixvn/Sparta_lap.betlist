@@ -24,5 +24,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public PlaytechCasino TotalInEur { get; set; }
 
         public PlaytechCasino TotalInUsd { get; set; }
+
+        public PlaytechCasino TotalInGbp { get; set; }
     }
 }
