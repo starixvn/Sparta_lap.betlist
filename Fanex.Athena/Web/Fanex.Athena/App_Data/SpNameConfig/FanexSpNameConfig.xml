@@ -31,7 +31,13 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" EnvironmentText="_xpre"></SpNameConfig>
-
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossByBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossHR" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossHRFull" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossLiveCasino" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossNumberGame" EnvironmentText="_xpre"></SpNameConfig>
+  
   <SpNameConfig Environment="LOCAL" SpName="Lrf_GetExchangeRateByDate" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel1378" EnvironmentText="_xpre"></SpNameConfig>
@@ -63,4 +69,10 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossByBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossHR" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossHRFull" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossLiveCasino" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossNumberGame" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

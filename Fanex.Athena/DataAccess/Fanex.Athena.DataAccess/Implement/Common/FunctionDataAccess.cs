@@ -150,7 +150,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -188,7 +188,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);

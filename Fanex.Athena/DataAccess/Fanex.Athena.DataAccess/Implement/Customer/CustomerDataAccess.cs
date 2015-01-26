@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return result.Tables.Count > 0 ? result.Tables[0] : new DataTable();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerSelUserSearch");
@@ -139,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return dataList;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -165,7 +165,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return resultList.Count > 0 ? resultList[0] : new CustomerInfo();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -195,7 +195,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return db.Query<LogInfo>().FirstOrDefault();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -241,7 +241,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return result;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -277,7 +277,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return result;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -311,7 +311,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdClosed");
@@ -341,7 +341,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdSuspended");
@@ -376,7 +376,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -421,7 +421,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return result;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -455,7 +455,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return GetResult(db);
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);

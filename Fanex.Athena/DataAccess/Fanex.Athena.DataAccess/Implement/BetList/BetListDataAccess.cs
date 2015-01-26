@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     }
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -134,7 +134,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return systemParlayData;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -283,7 +283,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return ticketResult;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey, metaModel);
@@ -357,7 +357,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 return result;
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
@@ -383,7 +383,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return db.Query<CustomerCancelBetItem>().ToList();
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
@@ -404,7 +404,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return db.Query<BetListMatch>().ToList();
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + uspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, uspKey, "No params");

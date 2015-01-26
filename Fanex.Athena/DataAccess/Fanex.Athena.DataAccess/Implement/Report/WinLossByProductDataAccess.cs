@@ -76,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 return data;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -106,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -138,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);

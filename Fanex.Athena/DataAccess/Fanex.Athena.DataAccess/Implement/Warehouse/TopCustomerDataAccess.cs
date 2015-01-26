@@ -97,7 +97,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
@@ -138,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);

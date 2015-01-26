@@ -81,7 +81,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);

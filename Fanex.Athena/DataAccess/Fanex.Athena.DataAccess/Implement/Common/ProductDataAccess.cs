@@ -66,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     return allowedProducts;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -95,7 +95,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     return Converter.ToBool(db.GetParameterValue("allowed"));
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, new { });
