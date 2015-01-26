@@ -9,6 +9,7 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel6" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelCombinationParlayDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel10" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel16" EnvironmentText="_xpre"></SpNameConfig>
@@ -40,6 +41,7 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel6" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelCombinationParlayDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel10" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel16" EnvironmentText="_xpre"></SpNameConfig>
