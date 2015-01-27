@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -30,12 +31,6 @@ namespace Fanex.Athena.Api.Report
     /// </summary>
     public partial class ReportController
     {
-        private static readonly Dictionary<int, string> ErrorMessages = new Dictionary<int, string>()
-        {
-            { 100, ViewResources.NoCustomerFoundMsg },
-            { 101, ViewResources.MoreThanOneCustomerFoundMsg },
-        };
-
         #region Action
 
         /// <summary>
@@ -159,12 +154,24 @@ namespace Fanex.Athena.Api.Report
             return newDataList;
         }
 
-        private static void AssignErrorMessage(IResultInfo resultInfo)
+        /// <summary>
+        /// Get error message.
+        /// </summary>
+        /// <param name="code">Error code.</param>
+        /// <returns>Error message.</returns>
+        private static string GetErrorMessage(int code)
         {
-            if (ErrorMessages.ContainsKey(resultInfo.Code))
+            switch (code)
             {
-                resultInfo.Message = ErrorMessages[resultInfo.Code];
-            }
+                case 100:
+                    return ViewResources.NoCustomerFoundMsg;
+
+                case 101:
+                    return ViewResources.MoreThanOneCustomerFoundMsg;
+
+                default:
+                    return string.Empty;
+            }          
         }
 
         #region ProcessRequest
@@ -274,9 +281,9 @@ namespace Fanex.Athena.Api.Report
         private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
+            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
                              || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
+            var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
                                  || currencyList.Values.Contains(currencyId);
 
             return validModel && validCurrency;
@@ -343,7 +350,7 @@ namespace Fanex.Athena.Api.Report
 
             GetData(metaModel, out dataList, out summaryTotal, out resultInfo);
 
-            AssignErrorMessage(resultInfo);
+            resultInfo.Message = GetErrorMessage(resultInfo.Code);
 
             if (memberId == 0 && string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
             {
