@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Api.Report
 {
     using System.Web;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Report;
@@ -71,9 +72,9 @@ namespace Fanex.Athena.Api.Report
         private bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= -2)
+            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
                              || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= -2)
+            var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
                                  || currencyList.Values.Contains(currencyId);
 
             return validModel && validCurrency;
