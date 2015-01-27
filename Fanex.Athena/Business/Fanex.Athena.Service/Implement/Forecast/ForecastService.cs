@@ -122,32 +122,32 @@ namespace Fanex.Athena.Service.Implement.Forecast
         public ForecastValue GetForacastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             var dtoverUnder = _forecastDataAccess.GetForecastOverUnder(metaModel, userId);
-            var ouresult = new ForecastValue();
+            var result = new ForecastValue();
 
             if (dtoverUnder.Rows.Count > 0)
             {
                 foreach (DataRow dr in dtoverUnder.Rows)
                 {
-                    ouresult.ForeCastValue0 =
-                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 0, ouresult.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
-                    ouresult.ForeCastValue1 =
-                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 1, ouresult.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
-                    ouresult.ForeCastValue2 =
-                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 2, ouresult.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
-                    ouresult.ForeCastValue3 =
-                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 3, ouresult.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
-                    ouresult.ForeCastValue4 =
-                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 4, ouresult.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue0 =
+                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 0, result.ForeCastValue0, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue1 =
+                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 1, result.ForeCastValue1, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue2 =
+                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 2, result.ForeCastValue2, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue3 =
+                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 3, result.ForeCastValue3, metaModel.IsConvert, metaModel.BaseCurrency);
+                    result.ForeCastValue4 =
+                        GetFcOverUnderValue(dr, metaModel.CurrentScore, 4, result.ForeCastValue4, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
 
-                ouresult.HasData = true;
+                result.HasData = true;
             }
             else
             {
-                ouresult.HasData = false;
+                result.HasData = false;
             }
 
-            return ouresult;
+            return result;
         }
 
         #endregion Forecast AH
