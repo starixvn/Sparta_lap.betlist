@@ -145,5 +145,6 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_MatchTotalForecast" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Forecast1x2_SelByLeague" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_Sel1X2" EnvironmentText="_xpre"></SpNameConfig>  
+  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_Sel1X2" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelAllByDateHR" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
