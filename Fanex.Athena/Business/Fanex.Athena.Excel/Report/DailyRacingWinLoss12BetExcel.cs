@@ -414,7 +414,7 @@ namespace Fanex.Athena.Excel.Report
 
             // Grand Total
             IRow grandTotalMyrRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
-            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.RM, string.Empty);
+            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
             currentRow++;
 

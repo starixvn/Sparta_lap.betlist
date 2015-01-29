@@ -4246,6 +4246,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MYR.
+        /// </summary>
+        public static string MYR {
+            get {
+                return ResourceManager.GetString("MYR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
