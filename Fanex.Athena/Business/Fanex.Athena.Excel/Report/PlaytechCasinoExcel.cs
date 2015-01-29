@@ -167,29 +167,12 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex, ColumnIndex, rowIndex + _viewModel.TotalData.Count - 1, ColumnSystemId);
 
             rowIndex += _viewModel.TotalData.Count;
-            var grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
-            grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.USD);
-            grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInUsd.Turnover);
-            grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInUsd.TotalTrans);
-            grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInUsd.CustomerWinLoss);
-            grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInUsd.LicenseeWinLoss);
-            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInUsd.ProgressiveShare);
-            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInUsd.ProgressiveWin);
-            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInUsd.NetGaming);
-            sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
 
-            var nextIndex = checked(rowIndex + 1);
-            grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, nextIndex);
+            AssignSummaryTotalUSDRow(sheet, rowIndex);
+            
+            AssignSummaryTotalEurRow(sheet, checked(++rowIndex));
 
-            grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.EUR);
-            grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInEur.Turnover);
-            grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInEur.TotalTrans);
-            grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInEur.CustomerWinLoss);
-            grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInEur.LicenseeWinLoss);
-            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInEur.ProgressiveShare);
-            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInEur.ProgressiveWin);
-            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInEur.NetGaming);
-            sheet.MergeCells(nextIndex, ColumnIndex, nextIndex, ColumnCurrency);
+            AssignSummaryTotalGbpRow(sheet, checked(++rowIndex));
         }
 
         /// <summary>
@@ -214,6 +197,65 @@ namespace Fanex.Athena.Excel.Report
                     HideColumn(sheet, ColumnDate);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Assign data for summary total USD row.
+        /// </summary>
+        /// <param name="sheet">Excel sheet object.</param>
+        /// <param name="rowIndex">Row index value.</param>
+        private void AssignSummaryTotalUSDRow(ISheet sheet, int rowIndex)
+        {
+            var grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
+            grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.USD);
+            grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInUsd.Turnover);
+            grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInUsd.TotalTrans);
+            grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInUsd.CustomerWinLoss);
+            grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInUsd.LicenseeWinLoss);
+            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInUsd.ProgressiveShare);
+            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInUsd.ProgressiveWin);
+            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInUsd.NetGaming);
+            sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+        }
+
+        /// <summary>
+        /// Assign data for summary total EUR row.
+        /// </summary>
+        /// <param name="sheet">Excel sheet object.</param>
+        /// <param name="rowIndex">Row index value.</param>
+        private void AssignSummaryTotalEurRow(ISheet sheet, int rowIndex)
+        {
+            var grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
+
+            grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.EUR);
+            grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInEur.Turnover);
+            grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInEur.TotalTrans);
+            grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInEur.CustomerWinLoss);
+            grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInEur.LicenseeWinLoss);
+            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInEur.ProgressiveShare);
+            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInEur.ProgressiveWin);
+            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInEur.NetGaming);
+            sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+        }
+
+        /// <summary>
+        /// Assign data for summary total GBP row.
+        /// </summary>
+        /// <param name="sheet">Excel sheet object.</param>
+        /// <param name="rowIndex">Row index value.</param>
+        private void AssignSummaryTotalGbpRow(ISheet sheet, int rowIndex)
+        {
+            var grandTotalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
+
+            grandTotalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + ViewResources.GBP);
+            grandTotalRow.Cells[ColumnTurnover].SetCellValue(_viewModel.TotalInGbp.Turnover);
+            grandTotalRow.Cells[ColumnTotalTrans].SetCellValue(_viewModel.TotalInGbp.TotalTrans);
+            grandTotalRow.Cells[ColumnCustomerWL].SetCellValue(_viewModel.TotalInGbp.CustomerWinLoss);
+            grandTotalRow.Cells[ColumnLicenseeWL].SetCellValue(_viewModel.TotalInGbp.LicenseeWinLoss);
+            grandTotalRow.Cells[ColumnPShare].SetCellValue(_viewModel.TotalInGbp.ProgressiveShare);
+            grandTotalRow.Cells[ColumnPWin].SetCellValue(_viewModel.TotalInGbp.ProgressiveWin);
+            grandTotalRow.Cells[ColumnNetGaming].SetCellValue(_viewModel.TotalInGbp.NetGaming);
+            sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
         }
     }
 }

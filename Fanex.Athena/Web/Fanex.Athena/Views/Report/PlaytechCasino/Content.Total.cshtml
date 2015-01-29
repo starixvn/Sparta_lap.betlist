@@ -99,6 +99,32 @@
                     <div>@Model.TotalInEur.NetGaming.ToStringExt()</div>
                 </td>
             </tr>
+            <tr class="total-rows grant-total-row" style="width:@ViewBag.ContainerWidth@("px");">
+                <td class="row title-text" colspan="@colSpan">
+                    @ViewResources.Totalin @ViewResources.GBP
+                </td>
+                <td class="row" style="width:@ViewBag.TurnoverWidth@("px")">
+                    <div>@Model.TotalInGbp.Turnover.ToStringExt()</div>
+                </td>
+                <td class="row" style="width:@ViewBag.TotalTransWidth@("px")">
+                    <div>@Model.TotalInGbp.TotalTrans.ToString("#,##")</div>
+                </td>
+                <td class="row line-height" style="width:@ViewBag.CustomerWLWidth@("px")">
+                    <div>@Model.TotalInGbp.CustomerWinLoss.ToStringExt()</div>
+                </td>
+                <td class="row highlight" style="width:@(ViewBag.LicenseeWLWidth)@("px")">
+                    @RazorHelper.HighlightNegativeFormat(Model.TotalInGbp.LicenseeWinLoss)
+                </td>
+                <td class="row" style="width:@ViewBag.ProgressiveShareWidth@("px")">
+                    <div>@Model.TotalInGbp.ProgressiveShare.ToStringExt()</div>
+                </td>
+                <td class="row" style="width:@ViewBag.ProgressiveWinWidth@("px")">
+                    <div>@Model.TotalInGbp.ProgressiveWin.ToStringExt()</div>
+                </td>
+                <td class="row" style="width:@ViewBag.NetGamingWidth@("px")">
+                    <div>@Model.TotalInGbp.NetGaming.ToStringExt()</div>
+                </td>
+            </tr>
         </table>
     </div>
 }

@@ -55,6 +55,7 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
@@ -67,11 +68,14 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MatchWinLoss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MatchWinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MatchWinLoss_ExportExcel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MatchWinLossDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_CommByBettype_HR" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlostRacing" EnvironmentText="_xpre"></SpNameConfig>  
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_WinlossByLeagueDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xpre"></SpNameConfig>
@@ -82,9 +86,9 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MobileWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_Rpt_MobileWinlossDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_CustomerSelBalance" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_rpt_DWWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_rpt_DWTopCustomerSel" EnvironmentText="_xpre"></SpNameConfig>
-
   <SpNameConfig Environment="LOCAL" SpName="Lrf_GetExchangeRateByDate" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel1378" EnvironmentText="_xpre"></SpNameConfig>
@@ -140,6 +144,7 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
@@ -152,11 +157,14 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MatchWinLoss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MatchWinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MatchWinLoss_ExportExcel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MatchWinLossDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_CommByBettype_HR" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlostRacing" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_WinlossByLeagueDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xpre"></SpNameConfig>
@@ -167,9 +175,9 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MobileWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Rpt_MobileWinlossDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_CustomerSelBalance" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_rpt_DWWinloss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL" SpName="Lrf_rpt_DWTopCustomerSel" EnvironmentText="_xpre"></SpNameConfig>    
-
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_rpt_DWTopCustomerSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_GetExchangeRateByDate" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel1378" EnvironmentText="_xpre"></SpNameConfig>
