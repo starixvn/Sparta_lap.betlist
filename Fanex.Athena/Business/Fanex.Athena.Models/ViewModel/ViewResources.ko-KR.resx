@@ -1533,7 +1533,7 @@
   <data name="Monthly" xml:space="preserve">
     <value>월간</value>
   </data>
-  <data name="MoveSuccessulMsg" xml:space="preserve">
+  <data name="MoveSuccessfullyMsg" xml:space="preserve">
     <value>성공적으로 이동되었습니다</value>
   </data>
   <data name="MoveToGroup" xml:space="preserve">

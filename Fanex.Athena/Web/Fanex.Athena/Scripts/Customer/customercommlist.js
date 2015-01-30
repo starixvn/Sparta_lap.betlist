@@ -140,7 +140,7 @@ var CustomerComm = (function ($) {
                 },
                 success: function (result) {
                     if (result.Success) {
-                        CustomerComm.showMsg(Site.getSingleResource('MoveSuccessulMsg'), result.Success);
+                        CustomerComm.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
 
                         var groupName = result.ExtendedData.GroupName;
                         if (groupName.length > 17) {

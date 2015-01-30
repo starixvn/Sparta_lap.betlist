@@ -1746,7 +1746,7 @@
   <data name="CustomersExistedinGroupMsg" xml:space="preserve">
     <value>Selected customers already existed in this group.</value>
   </data>
-  <data name="MoveSuccessulMsg" xml:space="preserve">
+  <data name="MoveSuccessfullyMsg" xml:space="preserve">
     <value>Successfully moved.</value>
   </data>
   <data name="UpdateCommSucessfulMsg" xml:space="preserve">

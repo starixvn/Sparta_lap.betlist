@@ -4221,9 +4221,9 @@ namespace Fanex.Athena.Models.ViewModel {
         /// <summary>
         ///   Looks up a localized string similar to Successfully moved..
         /// </summary>
-        public static string MoveSuccessulMsg {
+        public static string MoveSuccessfullyMsg {
             get {
-                return ResourceManager.GetString("MoveSuccessulMsg", resourceCulture);
+                return ResourceManager.GetString("MoveSuccessfullyMsg", resourceCulture);
             }
         }
         

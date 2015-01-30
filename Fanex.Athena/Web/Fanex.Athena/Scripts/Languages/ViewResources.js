@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/30/2015 4:58:31 PM
+// Lasted generated date: 1/30/2015 5:14:39 PM
 // </history>
 
 var _language_en_US={
@@ -936,7 +936,7 @@ var _language_en_US={
 				 	
                      MoreThanOneCustomerFoundMsg:"More than 1 customer found. Please search for 1 customer only.",
 				 	
-                     MoveSuccessulMsg:"Successfully moved.",
+                     MoveSuccessfullyMsg:"Successfully moved.",
 				 	
                      MoveToGroup:"Move to Group",
 				 	

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/31/2014 2:19:51 PM
+// Lasted generated date: 1/30/2015 5:14:46 PM
 // </history>
 
 var _language_zh_CN={
@@ -918,7 +918,7 @@ var _language_zh_CN={
 				 	
                      Monthly:"每月",
 				 	
-                     MoveSuccessulMsg:"成功移动",
+                     MoveSuccessfullyMsg:"成功移动",
 				 	
                      MoveToGroup:"转移至组",
 				 	
