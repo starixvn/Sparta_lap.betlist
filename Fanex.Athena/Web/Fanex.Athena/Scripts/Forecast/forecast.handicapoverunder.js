@@ -44,6 +44,7 @@ var ForecastHDPOU = (function ($) {
             // Submit button click
             $("#SubmitButton").on("click", function () {
                 ForecastHDPOU.submit();
+                return false;
             });
         },
         openForecast: function (matchId, betType) {
@@ -75,7 +76,22 @@ var ForecastHDPOU = (function ($) {
         },
         submit: function () {
             Site.blockUI();
-            $('#ForecastHandicapOverUnderForm').submit();
+            var data = $('#ForecastHandicapOverUnderForm').serializeObject();
+            Site.updateOriginalLicenseeOption();
+                        
+            $.ajax({
+                data: data,
+                url: Site.resolveClientUrl("Forecast/ForecastHandicapOverUnder"),
+                type: "POST",                
+                beforeSend: function () {
+                    
+                },
+                success: function (data) {                    
+                    $('#Refresh-Content').html(data);
+                    Site.unBlockUI();
+                }   
+            });
+            
         }
     };
 })(jQuery);
