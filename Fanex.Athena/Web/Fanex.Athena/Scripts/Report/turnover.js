@@ -137,9 +137,10 @@ var Turnover = (function ($) {
             var currencyName = currencyTextList[_currencyId] === undefined
             ? $('#CurrencyId option[value="' + _currencyId + '"]').text().trim() : currencyTextList[_currencyId];
             var dateString = _fromDate.toString("MM/dd/yyyy") + ' → ' + _toDate.toString("MM/dd/yyyy");
+            currencyName = currencyName.toUpperCase();
             if (username === '' || username === Turnover.defaultUserName) {
                 titlePattern += ", {0} - {1}";
-                var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName.toUpperCase());
+                var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName);
                 title = $.format(titlePattern, dateString, currencyStr);
             } else {
                 titlePattern += ", {0} - {1} {2} ({3})";

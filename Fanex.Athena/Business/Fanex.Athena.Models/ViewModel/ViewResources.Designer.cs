@@ -4219,7 +4219,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successully moved..
+        ///   Looks up a localized string similar to Successfully moved..
         /// </summary>
         public static string MoveSuccessulMsg {
             get {
@@ -6703,7 +6703,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successully updated commission..
+        ///   Looks up a localized string similar to Successfully updated commission..
         /// </summary>
         public static string UpdateCommSucessfulMsg {
             get {

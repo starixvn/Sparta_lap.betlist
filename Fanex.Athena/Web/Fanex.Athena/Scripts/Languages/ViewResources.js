@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/29/2015 11:00:41 AM
+// Lasted generated date: 1/30/2015 4:58:31 PM
 // </history>
 
 var _language_en_US={
@@ -936,11 +936,13 @@ var _language_en_US={
 				 	
                      MoreThanOneCustomerFoundMsg:"More than 1 customer found. Please search for 1 customer only.",
 				 	
-                     MoveSuccessulMsg:"Successully moved.",
+                     MoveSuccessulMsg:"Successfully moved.",
 				 	
                      MoveToGroup:"Move to Group",
 				 	
                      Multiplier:"Multiplier",
+				 	
+                     MYR:"MYR",
 				 	
                      Name:"Name",
 				 	
@@ -1486,7 +1488,7 @@ var _language_en_US={
 				 	
                      UpdateCommission:"Update Commission",
 				 	
-                     UpdateCommSucessfulMsg:"Successully updated commission.",
+                     UpdateCommSucessfulMsg:"Successfully updated commission.",
 				 	
                      UpdateCurrencySuccessfulMsg:"Updating Currencies is successful.",
 				 	

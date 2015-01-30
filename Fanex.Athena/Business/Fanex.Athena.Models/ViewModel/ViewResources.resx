@@ -1747,10 +1747,10 @@
     <value>Selected customers already existed in this group.</value>
   </data>
   <data name="MoveSuccessulMsg" xml:space="preserve">
-    <value>Successully moved.</value>
+    <value>Successfully moved.</value>
   </data>
   <data name="UpdateCommSucessfulMsg" xml:space="preserve">
-    <value>Successully updated commission.</value>
+    <value>Successfully updated commission.</value>
   </data>
   <data name="YouNotChooseAnyCustomerMsg" xml:space="preserve">
     <value>You still not choose any customer.</value>
