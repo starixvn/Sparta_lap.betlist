@@ -27,9 +27,9 @@ var Balance = (function ($) {
 
                     $month.find("option").filter(function () {
                         return this.value < historyMonth;
-                    }).hide();
+                    }).hide().prop("disabled", true);
                 } else {
-                    $month.children().show();
+                    $month.children().show().prop("disabled", false);
                 }
             });
             //Submit button

@@ -59,7 +59,7 @@ var Site = (function ($) {
             return _historyDate;
         },
         isBaseCurrency: function (currencyName) {
-            return BASE_CURRENT_LIST.indexOf(currencyName.toUpperCase()) >= 0;
+            return $.inArray(currencyName.toUpperCase(), BASE_CURRENT_LIST) > -1;
         },
         addUserGuide: function (options) {
             var defaultOptions = {
