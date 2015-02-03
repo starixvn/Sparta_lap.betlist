@@ -36,6 +36,12 @@
     @RenderSection("js", required: false)
 </head>
 <body class="@ViewBag.MasterClass">
+    @{
+        var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
+        var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+    }
+    <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
+    <input type="hidden" id="HistoryDate" value="@( Fanex.Athena.Extension.Utility.AppSettings.HistoryDate )" />
     <div id="BodyContent">
         @RenderBody()
     </div>
@@ -46,11 +52,6 @@
                 $('#BodyContent').css('max-height', 500);
             };
         });        
-    </script>
-    @{
-        var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
-        var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
-    }
-    <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
+    </script>    
 </body>
 </html>

@@ -26,12 +26,15 @@ var Site = (function ($) {
         return urlOrParams;
     };
 
+    var _historyDate = null;
+
     return {
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
         needOverrideInnerSize: false,
         initialize: function () {
             Site.currencyConstraint();
             Site.initEvent();
+            _historyDate = new Date($("#HistoryDate").val());
         },
         initEvent: function () {
             $("#CurrencyId").change(function () {
@@ -51,6 +54,9 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        getHistoryDate: function () {
+            return _historyDate;
         },
         isBaseCurrency: function (currencyName) {
             return BASE_CURRENT_LIST.indexOf(currencyName.toUpperCase()) >= 0;
@@ -289,7 +295,7 @@ var Site = (function ($) {
             var noConvertOption = $("option[value='']", baseCurrencyObj);
             if (currency === 0 || Site.isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
-                if (userChange) {                    
+                if (userChange) {
                     $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
                     baseCurrencyObj.val(currencyName.toLowerCase());
                 }

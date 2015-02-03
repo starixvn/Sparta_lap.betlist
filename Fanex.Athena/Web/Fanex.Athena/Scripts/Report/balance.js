@@ -15,6 +15,23 @@ var Balance = (function ($) {
                 $('#BalanceForm').submit();
             });
 
+            $("#Year").change(function () {
+                var historyDate = Site.getHistoryDate();
+                var historyMonth = historyDate.getMonth();
+                var $month = $("#Month");
+
+                if (parseInt(this.value) === historyDate.getFullYear()) {
+                    if ($month.val() < historyMonth) {
+                        $month.val(historyMonth);
+                    }
+
+                    $month.find("option").filter(function () {
+                        return this.value < historyMonth;
+                    }).hide();
+                } else {
+                    $month.children().show();
+                }
+            });
             //Submit button
             $('#SubmitButton').click(function () {
                 Balance.submit();

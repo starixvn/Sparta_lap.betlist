@@ -74,7 +74,7 @@ var MobileWinLoss = (function ($) {
         },
         initMonthPicker: function () {
             $('#DateControl').monPickr({
-                minDate: '2012/1/1',
+                minDate: Site.getHistoryDate(),
                 showDateRange: true,
                 fromDayId: 'MonthPickerFromDay',
                 toDayId: 'MonthPickerToDay',
