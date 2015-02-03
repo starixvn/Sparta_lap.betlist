@@ -2,10 +2,30 @@
 /// <reference path="/@JSense.js" />
 var Balance = (function ($) {
     "use strict";
+
+    function setHistoryDateConstraint() {
+        var historyDate = Site.getHistoryDate();
+        var historyMonth = historyDate.getMonth();
+        var $month = $("#Month");
+
+        if (parseInt($("#Year").val()) === historyDate.getFullYear()) {
+            if ($month.val() < historyMonth) {
+                $month.val(historyMonth);
+            }
+
+            $month.find("option").filter(function () {
+                return this.value < historyMonth;
+            }).hide().prop("disabled", true);
+        } else {
+            $month.children().show().prop("disabled", false);
+        }
+    }
+
     return {
         initialize: function () {
             Balance.initializeParam();
             Balance.initEvent();
+            setHistoryDateConstraint();
         },
 
         initEvent: function () {
@@ -16,21 +36,7 @@ var Balance = (function ($) {
             });
 
             $("#Year").change(function () {
-                var historyDate = Site.getHistoryDate();
-                var historyMonth = historyDate.getMonth();
-                var $month = $("#Month");
-
-                if (parseInt(this.value) === historyDate.getFullYear()) {
-                    if ($month.val() < historyMonth) {
-                        $month.val(historyMonth);
-                    }
-
-                    $month.find("option").filter(function () {
-                        return this.value < historyMonth;
-                    }).hide().prop("disabled", true);
-                } else {
-                    $month.children().show().prop("disabled", false);
-                }
+                setHistoryDateConstraint();
             });
             //Submit button
             $('#SubmitButton').click(function () {
