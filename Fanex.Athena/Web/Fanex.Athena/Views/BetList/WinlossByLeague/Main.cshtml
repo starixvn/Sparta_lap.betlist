@@ -14,7 +14,7 @@
         → </span>@Model.ToDate.ToShortDateString()
     -  @(Model.ExternalId)(@(Model.SystemId))
      - <span class="base-currency">
-           @{var curencyId = Model.IsConvert ? (Model.BaseCurrency.ToLower() == "eur" ? -1 : -2) : Model.CurrencyId;}
+           @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
         
             @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)

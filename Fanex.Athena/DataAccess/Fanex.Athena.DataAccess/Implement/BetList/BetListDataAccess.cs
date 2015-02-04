@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     }
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
@@ -93,6 +93,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     db.AddOutParameter("outstanding", DbType.Currency, 8);
                     db.AddOutParameter("outstandingeur", DbType.Currency, 8);
                     db.AddOutParameter("outstandingusd", DbType.Currency, 8);
+                    db.AddOutParameter("outstandinggbp", DbType.Currency, 8);
                     var dataSet = db.ExecuteDataSet();
                     var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
                     var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
@@ -133,7 +134,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return systemParlayData;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -156,21 +157,27 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     { "sumwinlost", DBNull.Value },
                     { "sumwinlostusd", DBNull.Value },
                     { "sumwinlosteur", DBNull.Value },
+                    { "sumwinlostgbp", DBNull.Value },
                     { "sumbeteffective", DBNull.Value },
                     { "sumbeteffectiveusd", DBNull.Value },
                     { "sumbeteffectiveeur", DBNull.Value },
+                    { "sumbeteffectivegbp", DBNull.Value },
                     { "sumlicenseewl", DBNull.Value },
                     { "sumlicenseewlusd", DBNull.Value },
                     { "sumlicenseewleur", DBNull.Value },
+                    { "sumlicenseewlgbp", DBNull.Value },
                     { "sumcomm", DBNull.Value },
                     { "sumcommusd", DBNull.Value },
                     { "sumcommeur", DBNull.Value },
+                    { "sumcommgbp", DBNull.Value },
                     { "sumplayercomm", DBNull.Value },
                     { "sumplayercommusd", DBNull.Value },
                     { "sumplayercommeur", DBNull.Value },
+                    { "sumplayercommgbp", DBNull.Value },
                     { "sumstake", DBNull.Value },
                     { "sumstakeusd", DBNull.Value },
-                    { "sumstakeeur", DBNull.Value }
+                    { "sumstakeeur", DBNull.Value },
+                    { "sumstakegbp", DBNull.Value }
             };
             var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();
@@ -223,7 +230,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                         ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
                         : ticketResult.MainTicketList.Sum(x => x.Comm);
                     ticketResult.SumPlayerComm = outPutParams["sumplayercomm" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency]) 
+                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency])
                         : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
 
                     return ticketResult;
@@ -276,7 +283,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return ticketResult;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey, metaModel);
@@ -350,7 +357,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 return result;
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
@@ -376,7 +383,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return db.Query<CustomerCancelBetItem>().ToList();
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
@@ -397,7 +404,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     return db.Query<BetListMatch>().ToList();
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message + UspExceptionName + uspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, uspKey, "No params");
@@ -684,6 +691,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
             db.AddOutParameter("SUMWLEUR", DbType.Currency, 8);
             db.AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
+            db.AddOutParameter("SUMWLGBP", DbType.Currency, 8);
+            db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
         }
 
         /// <summary>
@@ -831,6 +840,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SumStake", DbType.Currency, 8);
             db.AddOutParameter("SumStakeUSD", DbType.Currency, 8);
             db.AddOutParameter("SumStakeEUR", DbType.Currency, 8);
+            db.AddOutParameter("SumStakeGBP", DbType.Currency, 8);
         }
 
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -878,7 +888,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             CreateBetListPagingParameters(db, metaModel);
         }
-        
+
         #region CommonParam
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -926,6 +936,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
             db.AddOutParameter("SumCommEUR", DbType.Currency, 8);
             db.AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
+            db.AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumCommGBP", DbType.Currency, 8);
+            db.AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
 
         private static void CreateBetlistProductOptionParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -1193,6 +1207,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 case "Lrf_BetList_SelRunningByBettype":
                     CreateRunningBetListByBettypePaprameters(db, metaModel);
                     break;
+
                 case "Lrf_BetList_SelRunningByBettypeList":
                     CreateRunningBetListByMultipleBettypePaprameters(db, metaModel);
                     break;

@@ -51,8 +51,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_rpt_DWTopCustomerSel";
-            var dataList = new List<TopCustomer>();
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
+            var dataList = new List<TopCustomer>();            
             var uspParams = new
                             {
                                 FromDate = metaModel.FromDate,
@@ -61,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                basedcurrency = baseCurrency,
+                                basedcurrency = metaModel.BaseCurrencyId,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,
@@ -98,7 +97,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
@@ -114,8 +113,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <returns> Data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel metaModel)
         {
-            const string UspName = "Lrf_rpt_DWTopCustomerSel";
-            var baseCurrency = metaModel.BaseCurrency == "eur" ? BaseCurrencyType.Eur : (metaModel.BaseCurrency == "usd") ? BaseCurrencyType.Usd : BaseCurrencyType.All;
+            const string UspName = "Lrf_rpt_DWTopCustomerSel";            
             var uspParams = new
                             {
                                 FromDate = metaModel.FromDate,
@@ -124,7 +122,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 sortingid = metaModel.SortingId,
                                 customer = metaModel.ExternalId,
                                 activemin = metaModel.ActiveMin,
-                                basedcurrency = baseCurrency,
+                                basedcurrency = metaModel.BaseCurrencyId,
                                 wlmtotalmin = metaModel.WinLossTotalMin,
                                 betcountmin = metaModel.BetCountMin,
                                 sportid = metaModel.SportId,
@@ -140,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);

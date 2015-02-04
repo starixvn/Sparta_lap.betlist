@@ -127,7 +127,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -164,7 +164,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     return db.ExecuteDataSet();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -204,7 +204,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -241,7 +241,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -271,7 +271,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     return db.ExecuteDataSet();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);

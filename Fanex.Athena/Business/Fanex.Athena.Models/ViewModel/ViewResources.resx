@@ -1746,11 +1746,11 @@
   <data name="CustomersExistedinGroupMsg" xml:space="preserve">
     <value>Selected customers already existed in this group.</value>
   </data>
-  <data name="MoveSuccessulMsg" xml:space="preserve">
-    <value>Successully moved.</value>
+  <data name="MoveSuccessfullyMsg" xml:space="preserve">
+    <value>Successfully moved.</value>
   </data>
   <data name="UpdateCommSucessfulMsg" xml:space="preserve">
-    <value>Successully updated commission.</value>
+    <value>Successfully updated commission.</value>
   </data>
   <data name="YouNotChooseAnyCustomerMsg" xml:space="preserve">
     <value>You still not choose any customer.</value>
@@ -2547,14 +2547,11 @@
     <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
-    <value>This account is not assigned to a specific licensee.</value>
+    <value>This account is not assigned to any licensee.</value>
+    <comment>#27258</comment>
   </data>
   <data name="NetworkTimeoutMsg" xml:space="preserve">
     <value>Network time out. Please try again.</value>
-    <comment>#27258</comment>
-  </data>
-  <data name="UserNoLicensee" xml:space="preserve">
-    <value>This account is not assigned to any licensee.</value>
     <comment>#27258</comment>
   </data>
   <data name="UserNotActive" xml:space="preserve">
@@ -2576,5 +2573,11 @@
   <data name="NoCustomerFoundMsg" xml:space="preserve">
     <value>No customer found.</value>
     <comment>#26970</comment>
+  </data>
+  <data name="GBP" xml:space="preserve">
+    <value>GBP</value>
+  </data>
+  <data name="MYR" xml:space="preserve">
+    <value>MYR</value>
   </data>
 </root>

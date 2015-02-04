@@ -13,7 +13,9 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.BetList;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -152,6 +154,41 @@ namespace Fanex.Athena.Controllers.BetList
         private static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
+        }
+
+        /// <summary>
+        /// Get view in currency.
+        /// </summary>
+        /// <param name="curencyId">Currency Id.</param>
+        /// <param name="defaultCurrencyName">Default currency name.</param>
+        /// <returns>View in currency.</returns>
+        private static string GetViewInCurrency(int curencyId, string defaultCurrencyName)
+        {
+            string viewinCurrency;
+            switch (curencyId)
+            {
+                case BaseCurrencyType.All:
+                    viewinCurrency = ViewResources.AllCurrencies;
+                    break;
+
+                case BaseCurrencyType.Eur:
+                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Eur);
+                    break;
+
+                case BaseCurrencyType.Usd:
+                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Usd);
+                    break;
+
+                case BaseCurrencyType.Gbp:
+                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+                    break;
+
+                default:
+                    viewinCurrency = string.Format(ViewResources.Viewin, defaultCurrencyName);
+                    break;
+            }
+
+            return viewinCurrency;
         }
     }
 }

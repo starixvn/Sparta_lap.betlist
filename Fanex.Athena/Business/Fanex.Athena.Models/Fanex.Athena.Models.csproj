@@ -95,12 +95,12 @@
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />
+    <Compile Include="DataDomain\SystemConstants.cs" />
     <Compile Include="DTO\BetList\DailyStatement.cs" />
     <Compile Include="DTO\BetList\LrfTicket.cs" />
     <Compile Include="DTO\BetList\BetListMatch.cs" />
     <Compile Include="DTO\BetList\TicketText.cs" />
     <Compile Include="DTO\BetList\TicketResult.cs" />
-    <Compile Include="DTO\Casino\ExchangeRateByDate.cs" />
     <Compile Include="DTO\Casino\RNGCasinoResult.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoGameType.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetail.cs" />
@@ -382,14 +382,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

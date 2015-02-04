@@ -63,6 +63,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmountDueToRacingMYR { get; set; }
 
+        // EUR.
         public decimal WinTOEUR { get; set; }
 
         public decimal PlaceTOEUR { get; set; }
@@ -79,6 +80,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmountDueToRacingEUR { get; set; }
 
+        // USD.
         public decimal WinTOUSD { get; set; }
 
         public decimal PlaceTOUSD { get; set; }
@@ -94,6 +96,23 @@ namespace Fanex.Athena.Models.DTO.Report
         public decimal CommIncomeUSD { get; set; }
 
         public decimal AmountDueToRacingUSD { get; set; }
+
+        // GBP.
+        public decimal WinTOGBP { get; set; }
+
+        public decimal PlaceTOGBP { get; set; }
+
+        public decimal WPTOGBP { get; set; }
+
+        public decimal TotalTOGBP { get; set; }
+
+        public decimal DividendWonGBP { get; set; }
+
+        public decimal CustomerCommissionGBP { get; set; }
+
+        public decimal CommIncomeGBP { get; set; }
+
+        public decimal AmountDueToRacingGBP { get; set; }
 
         #endregion not depend on base currency
 
@@ -140,6 +159,16 @@ namespace Fanex.Athena.Models.DTO.Report
         public decimal TotalTO12BetUSD { get; set; }
 
         public decimal WinLoss12BetUSD { get; set; }
+
+        public decimal WinTO12BetGBP { get; set; }
+
+        public decimal PlaceTO12BetGBP { get; set; }
+
+        public decimal WPTO12BetGBP { get; set; }
+
+        public decimal TotalTO12BetGBP { get; set; }
+
+        public decimal WinLoss12BetGBP { get; set; }
 
         #endregion 12Bet Licensee
     }

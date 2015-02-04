@@ -353,6 +353,35 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
+        /// Assign data to GBP row.
+        /// </summary>
+        /// <param name="row">The current row.</param>
+        /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
+        /// <param name="cell1">The value  for first cell.</param>
+        /// <param name="cell2">The value for second cell.</param>
+        protected static void AssignDataGbp(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string cell1, string cell2)
+        {
+            row.Cells[0].SetCellValue(cell1);
+            row.Cells[1].SetCellValue(cell2);
+
+            row.Cells[ColumnWinTo].SetCellValue(dailyRacingWinLoss.WinTOGBP);
+            row.Cells[ColumnPlaceTo].SetCellValue(dailyRacingWinLoss.PlaceTOGBP);
+            row.Cells[ColumnWpto].SetCellValue(dailyRacingWinLoss.WPTOGBP);
+            row.Cells[ColumnTotalTo].SetCellValue(dailyRacingWinLoss.TotalTOGBP);
+            row.Cells[ColumnDividenWon].SetCellValue(dailyRacingWinLoss.DividendWonGBP);
+            row.Cells[ColumnCustomerComm].SetCellValue(dailyRacingWinLoss.CustomerCommissionGBP);
+
+            row.Cells[ColumnWinTo12Bet].SetCellValue(dailyRacingWinLoss.WinTO12BetGBP);
+            row.Cells[ColumnPlaceTo12Bet].SetCellValue(dailyRacingWinLoss.PlaceTO12BetGBP);
+            row.Cells[ColumnWpto12Bet].SetCellValue(dailyRacingWinLoss.WPTO12BetGBP);
+            row.Cells[ColumnTotalTo12Bet].SetCellValue(dailyRacingWinLoss.TotalTO12BetGBP);
+            row.Cells[ColumnWinLoss12Bet].SetCellValue(dailyRacingWinLoss.WinLoss12BetGBP);
+            row.Cells[ColumnCommIncome12Bet].SetCellValue(dailyRacingWinLoss.CommIncomeGBP);
+
+            row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingGBP);
+        }
+
+        /// <summary>
         /// Get match name from remoted cache.
         /// </summary>
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
@@ -385,7 +414,7 @@ namespace Fanex.Athena.Excel.Report
 
             // Grand Total
             IRow grandTotalMyrRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
-            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.RM, string.Empty);
+            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
             currentRow++;
 
@@ -396,6 +425,11 @@ namespace Fanex.Athena.Excel.Report
 
             IRow grandTotalUsdRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
             AssignDataUsd(grandTotalUsdRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.USD, string.Empty);
+            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            currentRow++;
+
+            IRow grandTotalGbpRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
+            AssignDataGbp(grandTotalGbpRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.GBP, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
         }
     }

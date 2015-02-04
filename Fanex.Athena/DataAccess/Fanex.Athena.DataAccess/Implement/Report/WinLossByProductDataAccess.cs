@@ -76,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 return data;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -106,7 +106,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -138,7 +138,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, metaModel);
@@ -165,13 +165,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             bool drilldown,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
         {
-            var result = new List<WinLossByProduct>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
+            var result = new List<WinLossByProduct>();            
             var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
             summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
-            foreach (var c in summaryCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotalTemp.Add(c, new List<WinLossByProduct>());
+                summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
             }
 
             var systemIdOrdinal = reader.TryGetOrdinal("username");
@@ -203,27 +202,27 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 result.Add(item);
 
                 // Read Summary
-                foreach (var c in summaryCurrencyList)
+                foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
                     var summaryItem = new WinLossByProduct
                     {
                         ProductCode = reader.ToString("productcode"),
-                        TurnOver = reader.ToDecimal("turnover" + c.ToLower()),
-                        CustomerWinLoss = reader.ToDecimal("winlost" + c.ToLower()),
-                        CustomerComm = reader.ToDecimal("playercomm" + c.ToLower()),
-                        LicenseeWL = reader.ToDecimal("licenseewl" + c.ToLower()),
+                        TurnOver = reader.ToDecimal("turnover" + currency.ToLower()),
+                        CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLower()),
+                        CustomerComm = reader.ToDecimal("playercomm" + currency.ToLower()),
+                        LicenseeWL = reader.ToDecimal("licenseewl" + currency.ToLower()),
                         TotalTransaction = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal("amtdueto3rd" + c.ToLower()),
-                        LicenseeWLComm = reader.ToDecimal("comm" + c.ToLower()),
+                        AmountDue = reader.ToDecimal("amtdueto3rd" + currency.ToLower()),
+                        LicenseeWLComm = reader.ToDecimal("comm" + currency.ToLower()),
                     };
-                    summaryTotalTemp[c].Add(summaryItem);
+                    summaryTotalTemp[currency].Add(summaryItem);
                 }
             }
 
             // Calculate summary
-            foreach (var c in summaryCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal[c] = summaryTotalTemp[c].GroupBy(i => new { i.ProductCode })
+                summaryTotal[currency] = summaryTotalTemp[currency].GroupBy(i => new { i.ProductCode })
                                     .Select(i => new WinLossByProduct
                                     {
                                         ProductCode = i.Key.ProductCode,

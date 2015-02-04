@@ -509,16 +509,16 @@ var MonitorBetListUI = function (monitorObj) {
                 var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
                 var baseCurrencyObj = $("#based-currency");
                 var noConvertOption = $("option[value='']", baseCurrencyObj);
-
+                
                 if (selectedCurrencyText.length > 1) {
                     noConvertOption.remove();
                     baseCurrencyObj.val("eur");
                 }
                 else if (selectedCurrencyText.length === 1) {
                     var currencyName = selectedCurrencyText[0];
-                    if (currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
-                        noConvertOption.remove();
-                        baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
+                    if (Site.isBaseCurrency(currencyName)) {
+                        noConvertOption.remove();                        
+                        baseCurrencyObj.val(currencyName.toLowerCase());
                     }
                     else {
                         if (noConvertOption.length === 0) {

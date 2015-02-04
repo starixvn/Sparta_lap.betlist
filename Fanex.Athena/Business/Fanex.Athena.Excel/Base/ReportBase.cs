@@ -356,6 +356,10 @@ namespace Fanex.Athena.Excel.Base
                     title = string.Format(ViewResources.Viewin, FormatKey.Usd);
                     break;
 
+                case BaseCurrencyType.Gbp:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+                    break;
+
                 default:
                     title = GetTitleCurrencyName();
                     break;

@@ -67,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 return entityList;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -133,7 +133,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -183,7 +183,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 return resultInfo.Code;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -233,7 +233,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 return resultInfo.Code == 0;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -283,7 +283,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 return resultInfo.Code;
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);
@@ -309,7 +309,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     return Converter.ToInt(db.ExecuteScalar()) != 1;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName);

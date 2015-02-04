@@ -7,7 +7,7 @@
 <div class="total-content" style="width: @(ViewBag.ContainerWidth + 1)@("px")">
     <div class="content-row" style="width: @(ViewBag.ContainerWidth + 1)@("px")">
         <div class="row" style="width: @(ViewBag.RaceWidth + 1)@("px")">
-            <div class="title-text">@ViewResources.GrandTotalIn @ViewResources.RM</div>
+            <div class="title-text">@ViewResources.GrandTotalIn @ViewResources.MYR</div>
         </div>
         <div class="row" style="width: @ViewBag.CommonWidth@("px")">
             <div>@grandTotalData.WinTOMYR.ToStringExt()</div>
@@ -148,4 +148,51 @@
         </div>
     </div>
 
+    <div class="content-row" style="width: @(ViewBag.ContainerWidth + 1)@("px")">
+        <div class="row title-text" style="width: @(ViewBag.RaceWidth + 1)@("px")">
+            <div class="title-text">@ViewResources.GrandTotalIn @ViewResources.GBP</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinTOGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.PlaceTOGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WPTOGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.TotalTOGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.DividendWidth@("px")">
+            <div>@grandTotalData.DividendWonGBP.ToStringExt()</div>
+        </div>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="row" style="width: @ViewBag.CustomerCommWidth@("px")">
+                <div>@grandTotalData.CustomerCommissionGBP.ToStringExt()</div>
+            </div>
+        }
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinTO12BetGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.PlaceTO12BetGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WPTO12BetGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.TotalTO12BetGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.CommonWidth@("px")">
+            <div>@grandTotalData.WinLoss12BetGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.LicenseeCommWidth@("px")">
+            <div>@grandTotalData.CommIncomeGBP.ToStringExt()</div>
+        </div>
+        <div class="row" style="width: @ViewBag.AmountDueToWidth@("px")">
+            <div>@grandTotalData.AmountDueToRacingGBP.ToStringExt()</div>
+        </div>
+    </div>
 </div>

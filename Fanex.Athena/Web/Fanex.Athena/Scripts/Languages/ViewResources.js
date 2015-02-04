@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/31/2014 2:20:05 PM
+// Lasted generated date: 1/30/2015 5:14:39 PM
 // </history>
 
 var _language_en_US={
@@ -516,6 +516,8 @@ var _language_en_US={
 				 	
                      GameTypeName:"Game Type Name",
 				 	
+                     GBP:"GBP",
+				 	
                      General:"General",
 				 	
                      GetAll:"Get All",
@@ -932,17 +934,23 @@ var _language_en_US={
 				 	
                      Monthly:"Monthly",
 				 	
-                     MoveSuccessulMsg:"Successully moved.",
+                     MoreThanOneCustomerFoundMsg:"More than 1 customer found. Please search for 1 customer only.",
+				 	
+                     MoveSuccessfullyMsg:"Successfully moved.",
 				 	
                      MoveToGroup:"Move to Group",
 				 	
                      Multiplier:"Multiplier",
+				 	
+                     MYR:"MYR",
 				 	
                      Name:"Name",
 				 	
                      NetGaming:"Net Gaming",
 				 	
                      NetTurnover:"Net Turnover",
+				 	
+                     NetworkTimeoutMsg:"Network time out. Please try again.",
 				 	
                      NewGroup:"New Group",
 				 	
@@ -965,6 +973,8 @@ var _language_en_US={
                      No:"No",
 				 	
                      NoBettypeFound:"No bet type found.",
+				 	
+                     NoCustomerFoundMsg:"No customer found.",
 				 	
                      NoDraws:"No Draws",
 				 	
@@ -1478,7 +1488,7 @@ var _language_en_US={
 				 	
                      UpdateCommission:"Update Commission",
 				 	
-                     UpdateCommSucessfulMsg:"Successully updated commission.",
+                     UpdateCommSucessfulMsg:"Successfully updated commission.",
 				 	
                      UpdateCurrencySuccessfulMsg:"Updating Currencies is successful.",
 				 	
@@ -1532,7 +1542,7 @@ var _language_en_US={
 				 	
                      Username:"Username",
 				 	
-                     UserNoLicensee:"This account is not assigned to a specific licensee.",
+                     UserNoLicensee:"This account is not assigned to any licensee.",
 				 	
                      UserNotActive:"This account is deactived for LRF.",
 				 	

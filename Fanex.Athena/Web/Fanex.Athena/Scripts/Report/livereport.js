@@ -49,7 +49,7 @@ var LiveReport = (function ($) {
             var todate = new Date($('#ToDate').val());
 
             $('#month-picker').monPickr({
-                minDate: '2012/1/1',
+                minDate: Site.getHistoryDate(),
                 showDateRange: true,
                 fromDayId: 'fDay',
                 toDayId: 'tDay',

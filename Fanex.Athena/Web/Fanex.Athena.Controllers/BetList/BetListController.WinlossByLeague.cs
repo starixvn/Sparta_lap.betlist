@@ -61,28 +61,8 @@ namespace Fanex.Athena.Controllers.BetList
             var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
 
             // determine currency viewed in
-            string viewinCurrency;
-            var curencyId = metaModel.IsConvert
-                ? (metaModel.BaseCurrency.ToLower() == "eur" ? BaseCurrencyType.Eur : BaseCurrencyType.Usd) : metaModel.CurrencyId;
-            switch (curencyId)
-            {
-                case BaseCurrencyType.All:
-                    viewinCurrency = ViewResources.AllCurrencies;
-                    break;
-
-                case BaseCurrencyType.Eur:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Eur);
-                    break;
-
-                case BaseCurrencyType.Usd:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Usd);
-                    break;
-
-                default:
-                    viewinCurrency = string.Format(ViewResources.Viewin, metaModel.CurrencyName);
-                    break;
-            }
-
+            var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
+            var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var title = string.Format(
                 "{0} - {1} → {2} - {3}({4}) - {5}",
                 ViewResources.CustomerBetList,

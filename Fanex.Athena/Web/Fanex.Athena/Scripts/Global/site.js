@@ -5,6 +5,7 @@
 "use strict";
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
+    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
     var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType === undefined ? "" : licenseeType;
         currencyName = $.trim(currencyName);
@@ -25,12 +26,15 @@ var Site = (function ($) {
         return urlOrParams;
     };
 
+    var _historyDate = null;
+
     return {
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
         needOverrideInnerSize: false,
         initialize: function () {
             Site.currencyConstraint();
             Site.initEvent();
+            _historyDate = new Date($("#HistoryDate").val());
         },
         initEvent: function () {
             $("#CurrencyId").change(function () {
@@ -50,6 +54,12 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        getHistoryDate: function () {
+            return _historyDate;
+        },
+        isBaseCurrency: function (currencyName) {
+            return $.inArray(currencyName.toUpperCase(), BASE_CURRENT_LIST) > -1;
         },
         addUserGuide: function (options) {
             var defaultOptions = {
@@ -283,11 +293,11 @@ var Site = (function ($) {
             // Handle outside based currency list in some reports (customer wl, balance)
             var baseCurrencyObj = $("#BaseCurrency");
             var noConvertOption = $("option[value='']", baseCurrencyObj);
-            if (currency === 0 || currencyName.toLowerCase() === "eur" || currencyName.toLowerCase() === "usd") {
+            if (currency === 0 || Site.isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
                 if (userChange) {
                     $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
-                    baseCurrencyObj.val(currencyName.toLowerCase() === "usd" ? "usd" : "eur");
+                    baseCurrencyObj.val(currencyName.toLowerCase());
                 }
             }
             else {
@@ -304,7 +314,7 @@ var Site = (function ($) {
 
             // Handle inside based currency list in some reports(licensee wl, wl by product)
             if ($("option[value=-1]", "#CurrencyId").length > 0) {
-                var basedCurrencyMap = { "-1": "eur", "-2": "usd" };
+                var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
                 var basedCurrency = basedCurrencyMap[currency.toString()];
                 basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
                 $("#BaseCurrency").val(basedCurrency);

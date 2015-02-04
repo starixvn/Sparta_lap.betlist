@@ -45,12 +45,13 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     {
                         item.USD = reader.ToDecimal("USD");
                         item.EUR = reader.ToDecimal("EUR");
+                        item.GBP = reader.ToDecimal("GBP");
                     }
 
                     return item;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);

@@ -1287,7 +1287,7 @@
   <data name="Monthly" xml:space="preserve">
     <value>每月</value>
   </data>
-  <data name="MoveSuccessulMsg" xml:space="preserve">
+  <data name="MoveSuccessfullyMsg" xml:space="preserve">
     <value>成功移动</value>
   </data>
   <data name="MoveToGroup" xml:space="preserve">

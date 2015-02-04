@@ -5,6 +5,8 @@
 @using Fanex.Athena.Models.DTO.Common
 @using Fanex.Athena.Models.MetaModel.Product;
 @using Fanex.Athena.Web.HtmlExtension;
+@using Fanex.Athena.Models.DataDomain;
+
 @helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
     {
         var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
@@ -212,7 +214,9 @@ bool addMoreAllOption = true,
 bool addBasedOption = false)
     {
         var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
-        var selectedBaseCurrency = selected == -2 ? "usd" : (selected == -1 ? "eur" : string.Empty);
+        var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
+                                   (selected == BaseCurrencyType.Usd ? "usd" :
+                                   (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
         var items = currencyList
          .Select(c => new System.Web.WebPages.Html.SelectListItem
          {
@@ -224,16 +228,23 @@ bool addBasedOption = false)
         {
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
+                Text = ViewResources.Based + " GBP",
+                Value = BaseCurrencyType.Gbp.ToString(),
+                Selected = BaseCurrencyType.Gbp == selected
+            });
+            
+            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+            {
                 Text = ViewResources.Based + " USD",
-                Value = "-2",
-                Selected = "-2" == selected.ToString()
+                Value = BaseCurrencyType.Usd.ToString(),
+                Selected = BaseCurrencyType.Usd == selected
             });
 
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
                 Text = ViewResources.Based + " EUR",
-                Value = "-1",
-                Selected = "-1" == selected.ToString()
+                Value = BaseCurrencyType.Eur.ToString(),
+                Selected = BaseCurrencyType.Eur == selected
             });
 
         }
@@ -242,9 +253,8 @@ bool addBasedOption = false)
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
                 Text = ViewResources.All.ToUpper(),
-                Value = "0",
-                Selected = "0" == selected.ToString()
-
+                Value = BaseCurrencyType.All.ToString(),
+                Selected = BaseCurrencyType.All == selected
             });
         }
     <select name="CurrencyId" id="CurrencyId"  class="@className" data-original="@selected">
@@ -271,6 +281,8 @@ bool addBasedOption = false)
             EUR</option>
         <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>
             USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>
+            GBP</option>
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
@@ -376,20 +388,23 @@ bool addBasedOption = false)
 
     @(title + ViewResources.Data)
 }
-@helper ViewInCurrency(int currenceId, string currencyName)
+@helper ViewInCurrency(int currencyId, string currencyName)
     {
         string title;
 
-        switch (currenceId)
+        switch (currencyId)
         {
-            case 0:
+            case BaseCurrencyType.All:
                 title = ViewResources.AllCurrencies;
                 break;
-            case -1:
-                title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Eur);
+            case BaseCurrencyType.Eur:
+                title = string.Format(ViewResources.Viewin, FormatKey.Eur);
                 break;
-            case -2:
-                title = string.Format(ViewResources.Viewin, Fanex.Athena.Models.DataDomain.FormatKey.Usd);
+            case BaseCurrencyType.Usd:
+                title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+                break;
+            case BaseCurrencyType.Gbp:
+                title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
                 break;
             default:
                 title = string.Format(ViewResources.Viewin, currencyName);

@@ -35,7 +35,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=26970" />
+	<add key="JsVersion" value="v=29764_3" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />  
@@ -43,7 +43,7 @@
 	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2012" />
+	<add key="HistoryDate" value="6/1/2012" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
@@ -97,7 +97,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=26970" />
+	<add key="JsVersion" value="v=29764_3" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -105,7 +105,7 @@
 	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2012"/>
+	<add key="HistoryDate" value="6/1/2012"/>
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
@@ -156,7 +156,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=26970" />
+	<add key="JsVersion" value="v=29764_3" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -164,7 +164,7 @@
 	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2012"/>
+	<add key="HistoryDate" value="6/1/2012"/>
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
@@ -214,7 +214,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=26970" />
+	<add key="JsVersion" value="v=29764_3" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />
@@ -222,7 +222,7 @@
 	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2012" />
+	<add key="HistoryDate" value="6/1/2012" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
@@ -273,7 +273,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=26970" />
+	<add key="JsVersion" value="v=29764_3" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -281,7 +281,7 @@
 	<add key="LBUrl" value="tcp://10.2.96.1:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
-	<add key="HistoryDate" value="1/1/2012"/>
+	<add key="HistoryDate" value="6/1/2012"/>
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
@@ -294,7 +294,7 @@
 	<add key="ColumnWidth" value="120"/>
 	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/"/>
 	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
-	<add key="internaldomain" value="internal."/>
+	<add key="internaldomain" value="internal-lrf."/>
 	<add key="ExcludeFunctionIdList" value="47"/>
 	<add key="AcceptIp" value="*"/>	
 	<add key="IsDisableRngCasino" value="false"/>

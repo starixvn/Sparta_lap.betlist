@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -93,7 +93,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -122,7 +122,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -150,13 +150,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var result = new SortableList<LicenseeWinLoss>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
-
             summaryTotal = new Dictionary<string, LicenseeWinLoss>();
-            foreach (var c in summaryCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(
-                    c,
+                    currency,
                     new LicenseeWinLoss
                     {
                         LicenseeWL = new Dictionary<string, decimal>(),
@@ -216,28 +214,28 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 result.Add(item);
 
                 // Read Summary
-                foreach (var c in summaryCurrencyList)
+                foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[c].CustomerWinLoss += reader.ToDecimal("winlost" + c);
-                    summaryTotal[c].CustomerComm += reader.ToDecimal("playercomm" + c);
-                    summaryTotal[c].TotalTransaction += reader.ToInt("betcount");
-                    summaryTotal[c].RacingRevenue += reader.ToDecimal("licenseewlrb" + c) + reader.ToDecimal("commrb" + c);
-                    summaryTotal[c].BACommission += reader.ToDecimal("commba" + c);
-                    summaryTotal[c].AmtDueToBA += reader.ToDecimal("amtduetoba" + c);
-                    summaryTotal[c].AmtDueToRacing += reader.ToDecimal("amtduetorb" + c);
+                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                    summaryTotal[currency].CustomerComm += reader.ToDecimal("playercomm" + currency);
+                    summaryTotal[currency].TotalTransaction += reader.ToInt("betcount");
+                    summaryTotal[currency].RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
+                    summaryTotal[currency].BACommission += reader.ToDecimal("commba" + currency);
+                    summaryTotal[currency].AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
+                    summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
                     decimal temp;
                     var licenseeWlSummary = new Dictionary<string, decimal>();
                     var turnOverSummary = new Dictionary<string, decimal>();
                     foreach (var product in metaModel.ProductOptions)
                     {
-                        var licenseeWlColumnName = "LicenseeWL" + product.Code + c;
-                        var turnOverColumnName = "turnover" + product.Code + c;
+                        var licenseeWlColumnName = "LicenseeWL" + product.Code + currency;
+                        var turnOverColumnName = "turnover" + product.Code + currency;
 
                         if (reader.FieldExists(licenseeWlColumnName))
                         {
                             if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
                             {
-                                summaryTotal[c].LicenseeWL.TryGetValue(product.Code, out temp);
+                                summaryTotal[currency].LicenseeWL.TryGetValue(product.Code, out temp);
                                 temp += reader.ToDecimal(licenseeWlColumnName);
                                 licenseeWlSummary.Add(product.Code, temp);
                             }
@@ -245,14 +243,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                         if (reader.FieldExists(turnOverColumnName))
                         {
-                            summaryTotal[c].TurnOver.TryGetValue(product.Code, out temp);
+                            summaryTotal[currency].TurnOver.TryGetValue(product.Code, out temp);
                             temp += reader.ToDecimal(turnOverColumnName);
                             turnOverSummary.Add(product.Code, temp);
                         }
                     }
 
-                    summaryTotal[c].LicenseeWL = licenseeWlSummary;
-                    summaryTotal[c].TurnOver = turnOverSummary;
+                    summaryTotal[currency].LicenseeWL = licenseeWlSummary;
+                    summaryTotal[currency].TurnOver = turnOverSummary;
                 }
 
                 index++;

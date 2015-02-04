@@ -76,7 +76,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ObjectDbException ex)
             {
                 Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, uspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
@@ -240,7 +240,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 // Task2 Result
                 resultBySport = taskForResultBySport.Result;
             }
-            catch (SqlException ex)
+            catch (ObjectDbException ex)
             {
                 Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(
@@ -312,7 +312,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (ObjectDbException ex)
             {
                 Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(ex.Message, uspName, new { Model = metaModel, MoveBetDate = moveBetsDate });

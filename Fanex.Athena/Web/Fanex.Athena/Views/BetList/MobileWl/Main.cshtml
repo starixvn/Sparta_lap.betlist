@@ -17,7 +17,7 @@
   @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
         → </span>@Model.ToDate.ToShortDateString()
     - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Site: @siteText - <span class="base-currency">
-           @{var curencyId = Model.IsConvert ? (Model.BaseCurrency.ToLower() == "eur" ? -1 : -2) : Model.CurrencyId;}
+           @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
         
             @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)        

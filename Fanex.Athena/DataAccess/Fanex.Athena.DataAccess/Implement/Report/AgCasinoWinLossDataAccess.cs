@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -58,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -88,7 +89,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -117,7 +118,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
@@ -143,12 +144,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var result = new SortableList<AgCasinoWinLoss>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
-
+            
             summaryTotal = new Dictionary<string, AgCasinoWinLoss>();
-            foreach (var c in summaryCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal.Add(c, new AgCasinoWinLoss());
+                summaryTotal.Add(currency, new AgCasinoWinLoss());
             }
 
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
@@ -180,12 +180,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 result.Add(item);
 
                 // Read Summary
-                foreach (var c in summaryCurrencyList)
+                foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[c].CustomerWinLoss += reader.ToDecimal("winlost" + c);
-                    summaryTotal[c].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[c].LicenseeWL += reader.ToDecimal("licenseewinlost" + c);
-                    summaryTotal[c].TurnOver += reader.ToDecimal("turnover" + c);
+                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                    summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
+                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                    summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
                 }
             }
 

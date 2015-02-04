@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/31/2014 2:20:11 PM
+// Lasted generated date: 1/30/2015 5:14:34 PM
 // </history>
 
 var _language_ko_KR={
@@ -910,7 +910,7 @@ var _language_ko_KR={
 				 	
                      Monthly:"월간",
 				 	
-                     MoveSuccessulMsg:"성공적으로 이동되었습니다",
+                     MoveSuccessfullyMsg:"성공적으로 이동되었습니다",
 				 	
                      MoveToGroup:"그룹으로 이동하기",
 				 	

@@ -519,7 +519,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     racingBetSetting.ResultInfo = (ResultInfo)result;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, "No params");

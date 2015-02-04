@@ -14,5 +14,7 @@ namespace Fanex.Athena.Models.DTO.Common
         public decimal USD { get; set; }
 
         public decimal EUR { get; set; }
+
+        public decimal GBP { get; set; }
     }
 }

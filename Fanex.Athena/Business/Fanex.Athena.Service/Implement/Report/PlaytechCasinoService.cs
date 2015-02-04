@@ -25,24 +25,36 @@ namespace Fanex.Athena.Service.Implement.Report
             _playtechCasinoDataAccess = new PlaytechCasinoDataAccess();
         }
 
-        public IList<PlaytechCasino> GetMainWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetMainWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd, 
+            ref PlaytechCasino totalInGbp)
         {            
             return metaModel.IsValid
-                ? _playtechCasinoDataAccess.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd)
+                ? _playtechCasinoDataAccess.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp)
                 : new List<PlaytechCasino>();
         }
 
-        public IList<PlaytechCasino> GetAgentWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetAgentWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd, 
+            ref PlaytechCasino totalInGbp)
         {
             return metaModel.IsValid
-                ? _playtechCasinoDataAccess.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd)
+                ? _playtechCasinoDataAccess.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp)
                 : new List<PlaytechCasino>();
         }
 
-        public IList<PlaytechCasino> GetMemberWinLoss(PlaytechCasinoMetaModel metaModel, ref PlaytechCasino totalInEur, ref PlaytechCasino totalInUsd)
+        public IList<PlaytechCasino> GetMemberWinLoss(
+            PlaytechCasinoMetaModel metaModel, 
+            ref PlaytechCasino totalInEur, 
+            ref PlaytechCasino totalInUsd, 
+            ref PlaytechCasino totalInGbp)
         {
             return metaModel.IsValid
-                ? _playtechCasinoDataAccess.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd)
+                ? _playtechCasinoDataAccess.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp)
                 : new List<PlaytechCasino>();
         }
     }

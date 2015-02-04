@@ -24,7 +24,7 @@ namespace Fanex.Athena.Controllers.BetList
     ///     TODO: Update summary.
     /// </summary>
     public partial class BetListController
-    {
+    {        
         /// <summary>
         /// Action Get for licensee win lost.
         /// </summary>
@@ -66,29 +66,9 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            // determine currency viewed in
-            string viewinCurrency;
-            var curencyId = metaModel.IsConvert ?
-                (metaModel.BaseCurrency.ToLower() == "eur" ? BaseCurrencyType.Eur : BaseCurrencyType.Usd)
-                : metaModel.CurrencyId;
-            switch (curencyId)
-            {
-                case BaseCurrencyType.All:
-                    viewinCurrency = ViewResources.AllCurrencies;
-                    break;
-
-                case BaseCurrencyType.Eur:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Eur);
-                    break;
-
-                case BaseCurrencyType.Usd:
-                    viewinCurrency = string.Format(ViewResources.Viewin, FormatKey.Usd);
-                    break;
-
-                default:
-                    viewinCurrency = string.Format(ViewResources.Viewin, metaModel.CurrencyName);
-                    break;
-            }
+            // determine currency viewed in            
+            var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
+            var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(

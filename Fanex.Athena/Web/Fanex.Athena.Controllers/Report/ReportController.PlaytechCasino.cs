@@ -80,12 +80,13 @@ namespace Fanex.Athena.Controllers.Report
             IPlaytechCasinoService playtechCasinoService = new PlaytechCasinoService();
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BaseCurrency = metaModel.CurrencyId == BaseCurrencyType.Eur ? "EUR" : metaModel.CurrencyId == BaseCurrencyType.Usd ? "USD" : string.Empty;
+            metaModel.BaseCurrency = GetBaseCurrencyName(metaModel.CurrencyId);
             var currencyList = userSession.CurrencyList;
             metaModel.CurrencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrency)).Key;
             IList<PlaytechCasino> dataList = new List<PlaytechCasino>();
             var totalInEur = new PlaytechCasino();
             var totalInUsd = new PlaytechCasino();
+            var totalInGbp = new PlaytechCasino();
             if (metaModel.ReportBy == ReportByType.Monthly && metaModel.Level > 0)
             {
                 metaModel.DrillDownToDate = !metaModel.IsExportExcel ? metaModel.DrillDownToDate.AddMonths(1).AddDays(-1) : metaModel.DrillDownToDate;
@@ -96,13 +97,13 @@ namespace Fanex.Athena.Controllers.Report
             switch (metaModel.Level)
             {
                 case 0:
-                    dataList = playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMainWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
                 case 1:
-                    dataList = playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetAgentWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
                 default:
-                    dataList = playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd);
+                    dataList = playtechCasinoService.GetMemberWinLoss(metaModel, ref totalInEur, ref totalInUsd, ref totalInGbp);
                     break;
             }
 
@@ -113,6 +114,7 @@ namespace Fanex.Athena.Controllers.Report
                 TotalData = GetTotalDataList(dataList),
                 TotalInEur = totalInEur,
                 TotalInUsd = totalInUsd,
+                TotalInGbp = totalInGbp,
                 ShowEmptyContent = false,
                 CurrencyList = currencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -181,6 +183,29 @@ namespace Fanex.Athena.Controllers.Report
                                NetGaming = g.Sum(m => m.NetGaming),
                            })
                            .ToList();
+        }
+
+        /// <summary>
+        /// Get base currency name.
+        /// </summary>
+        /// <param name="currencyId">Currency id value.</param>
+        /// <returns>Base currency name or empty string.</returns>
+        private static string GetBaseCurrencyName(int currencyId)
+        {
+            switch (currencyId)
+            {
+                case BaseCurrencyType.Eur:
+                    return "EUR";
+
+                case BaseCurrencyType.Usd:
+                    return "USD";
+
+                case BaseCurrencyType.Gbp:
+                    return "GBP";
+
+                default:
+                    return string.Empty;
+            }            
         }
     }
 }
