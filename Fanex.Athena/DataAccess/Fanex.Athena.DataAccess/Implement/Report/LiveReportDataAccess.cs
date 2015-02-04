@@ -127,18 +127,19 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                          {
                              while (reader.Read())
                              {
+                                 var productName = reader.ToString("currency");
                                  result[0].Add(new LiveReport
                                  {
                                      ReportType = 0,
-                                     ProductName = Convert.ToString(reader["currency"]),
-                                     ProductCode = Convert.ToString(reader["currency"]),
-                                     TurnOver = Convert.ToDecimal(reader["Turnover" + currency]),
-                                     CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + currency]),
-                                     CustomerComm = Convert.ToDecimal(reader["PlayerComm" + currency]),
-                                     LicenseeComm = Convert.ToDecimal(reader["Comm" + currency]),
-                                     LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL" + currency]),
-                                     AmountDue = Convert.ToDecimal(reader["AmtDueto3rd" + currency]),
-                                     BetCount = Convert.ToInt32(reader["Betcount"])
+                                     ProductName = productName,
+                                     ProductCode = productName,
+                                     TurnOver = reader.ToDecimal("Turnover" + currency),
+                                     CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
+                                     CustomerComm = reader.ToDecimal("PlayerComm" + currency),
+                                     LicenseeComm = reader.ToDecimal("Comm" + currency),
+                                     LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
+                                     AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
+                                     BetCount = reader.ToInt("Betcount")
                                  });
                              }
 
@@ -149,15 +150,15 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                      result[1].Add(new LiveReport
                                      {
                                          ReportType = 3,
-                                         ProductName = Convert.ToString(reader["bettype"]),
-                                         ProductCode = Convert.ToString(reader["bettype"]),
-                                         TurnOver = Convert.ToDecimal(reader["Turnover" + currency]),
-                                         CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + currency]),
-                                         CustomerComm = Convert.ToDecimal(reader["PlayerComm" + currency]),
-                                         LicenseeComm = Convert.ToDecimal(reader["Comm" + currency]),
-                                         LicenseeWinLoss = Convert.ToDecimal(reader["LicenseeWL" + currency]),
-                                         AmountDue = Convert.ToDecimal(reader["AmtDueto3rd" + currency]),
-                                         BetCount = Convert.ToInt32(reader["Betcount"])
+                                         ProductName = reader.ToString("bettype"),
+                                         ProductCode = reader.ToString("bettype"),
+                                         TurnOver = reader.ToDecimal("Turnover" + currency),
+                                         CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
+                                         CustomerComm = reader.ToDecimal("PlayerComm" + currency),
+                                         LicenseeComm = reader.ToDecimal("Comm" + currency),
+                                         LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
+                                         AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
+                                         BetCount = reader.ToInt("Betcount")
                                      });
                                  }
                              }
