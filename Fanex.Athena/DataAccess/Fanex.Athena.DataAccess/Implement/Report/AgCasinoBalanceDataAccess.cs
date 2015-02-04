@@ -141,7 +141,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             var result = new SortableList<AgCasinoBalance>();
-            var summaryCurrencyList = new List<string> { "EUR", "USD" };
+            var summaryCurrencyList = new List<string> { "EUR", "USD", "GBP" };
 
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
             foreach (var c in summaryCurrencyList)

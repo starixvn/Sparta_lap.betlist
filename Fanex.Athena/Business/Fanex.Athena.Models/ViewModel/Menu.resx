@@ -297,6 +297,10 @@
   <data name="Menu_64" xml:space="preserve">
     <value>Active Customer Summary</value>
   </data>
+  <data name="Menu_63" xml:space="preserve">
+    <value>AG Casino Balance</value>
+    <comment>#26990</comment>
+  </data>
   <data name="Menu_65" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
   </data>

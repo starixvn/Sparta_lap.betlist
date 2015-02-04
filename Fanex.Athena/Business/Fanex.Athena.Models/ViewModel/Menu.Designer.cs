@@ -592,6 +592,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AG Casino Balance.
+        /// </summary>
+        public static string Menu_63 {
+            get {
+                return ResourceManager.GetString("Menu_63", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gold Deluxe Win Loss.
         /// </summary>
         public static string Menu_65 {
