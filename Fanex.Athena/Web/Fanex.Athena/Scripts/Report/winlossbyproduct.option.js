@@ -13,9 +13,8 @@ var WinLossByProductOption = (function () {
          ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        return null;
-        // var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
-        //return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
+        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
     var systemIdFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
