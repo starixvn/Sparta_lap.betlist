@@ -408,7 +408,7 @@ var WinLossByProduct = (function ($) {
 
         bindData: function (level, reportBy, response) {            
             console.time("clear");
-
+            $("#ReportGrid").hide();
             jqGridAdditional.clearGrid("ReportGrid");
 
             console.timeEnd("clear");
@@ -487,7 +487,7 @@ var WinLossByProduct = (function ($) {
             //Site.updateDomWithElementRemoved(reportGrid.get(0), function () {
             reportGrid.jqGrid(gridOption);
             //});
-            //  reportGrid.show();
+            $("#ReportGrid").show();
             console.timeEnd("jqGrid");
 
             if (WinLossByProductOption.hasCustomerComm) {

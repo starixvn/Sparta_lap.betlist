@@ -258,9 +258,7 @@ var WinLossByProductOption = (function () {
                 userDataOnFooter: true,
                 userData: [],
                 viewrecords: true,
-                gridview: true,
-                grouping: true,
-                groupingView: { groupField: ['Date'], groupColumnShow: [false] }
+                gridview: true
             }
         };
 
@@ -306,6 +304,15 @@ var WinLossByProductOption = (function () {
     me.getGridOption = function (level, reportBy) {
         me.gridOption.colNames = me.getColName();
         me.gridOption.colModel = me.getColModel(level, reportBy);
+
+        if (level === 0) {
+            me.gridOption.grouping = true;
+            me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [false] };
+        } else {
+            me.gridOption.grouping = false;
+            me.gridOption.groupingView = null;
+        }
+
         return me.gridOption;
     };
     //#end
