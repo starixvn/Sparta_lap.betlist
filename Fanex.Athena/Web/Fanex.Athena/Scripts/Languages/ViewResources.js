@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/19/2015 9:53:54 AM
+// Lasted generated date: 2/4/2015 9:58:06 AM
 // </history>
 
 var _language_en_US={
@@ -518,6 +518,8 @@ var _language_en_US={
 				 	
                      GameTypeName:"Game Type Name",
 				 	
+                     GBP:"GBP",
+				 	
                      General:"General",
 				 	
                      GetAll:"Get All",
@@ -934,11 +936,15 @@ var _language_en_US={
 				 	
                      Monthly:"Monthly",
 				 	
-                     MoveSuccessulMsg:"Successully moved.",
+                     MoreThanOneCustomerFoundMsg:"More than 1 customer found. Please search for 1 customer only.",
+				 	
+                     MoveSuccessfullyMsg:"Successfully moved.",
 				 	
                      MoveToGroup:"Move to Group",
 				 	
                      Multiplier:"Multiplier",
+				 	
+                     MYR:"MYR",
 				 	
                      Name:"Name",
 				 	
@@ -969,6 +975,8 @@ var _language_en_US={
                      No:"No",
 				 	
                      NoBettypeFound:"No bet type found.",
+				 	
+                     NoCustomerFoundMsg:"No customer found.",
 				 	
                      NoDraws:"No Draws",
 				 	
@@ -1484,7 +1492,7 @@ var _language_en_US={
 				 	
                      UpdateCommission:"Update Commission",
 				 	
-                     UpdateCommSucessfulMsg:"Successully updated commission.",
+                     UpdateCommSucessfulMsg:"Successfully updated commission.",
 				 	
                      UpdateCurrencySuccessfulMsg:"Updating Currencies is successful.",
 				 	
