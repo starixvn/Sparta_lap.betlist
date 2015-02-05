@@ -14,7 +14,12 @@ var ActiveCustomerOption = (function () {
         width: 70,
         align: 'center',
         valign: 'middle',
-        sortable: true
+        sortable: true,
+        formatter: 'date',
+        formatoptions:
+        {
+            newformat: 'm/Y'
+        }
     };
 
     var numMemberColumn =

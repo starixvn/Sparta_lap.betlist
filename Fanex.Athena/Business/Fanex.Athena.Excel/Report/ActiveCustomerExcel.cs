@@ -25,33 +25,16 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class ActiveCustomerExcel : ReportBase
     {
-        private const int ColumnTurnoverTotal = 14;
-        private const int ColumnTotalTransaction = 15;
-        private const int ColumnCustomerWl = 16;
-        private const int ColumnCustomerComm = 17;
-        private const int ColumnCustomerTotal = 18;
-        private const int ColumnLicenseeWlSportsBook = 19;
-        private const int ColumnLicenseeWlTotal = 28;
-        private const int ColumnBaCommission = 29;
-        private const int ColumnRacingRevenue = 30;
-        private const int ColumnAmtDueToBa = 31;
-        private const int ColumnAmtDueToRacing = 32;
-        private const int ColumnTemplateCount = 33;
-        private const int ColumnDate = 1;
-        private const int ColumnExternalId = 2;
-        private const int ColumnSystemId = 3;
-        private const int ColumnCurrency = 4;
-        private const int ColumnTurnoverSportBook = 5;
+        private const int ColumnDate = 0;
+        private const int ColumnTurnoverSportBook = 1;
+        private const int ColumnTotalTransaction = 10;
+        private const int ColumnTemplateCount = 11;
         private const int RowContentTemplate = 3;
-        private const int RowGrantTotal = 6;
-        private const int RowNoInfoTemplate = 7;
-        private const int RowTotalNoSolidBorder = 5;
-        private const int RowTotalSolidBorder = 4;
+        private const int RowGrantTotal = 4;
+        private const int RowNoInfoTemplate = 5;
 
-        private const int TotalLicenseeWlProductColumn = 9;
-        private const int TotalTurnoverProductColumn = 9;
+        private const int TotalTurnoverProductColumn = 8;
 
-        // This is drill down of report
         private readonly IList<ActiveCustomer> _activeCustomerList;
 
         private readonly ActiveCustomerMetaModel _metaModel;
@@ -103,29 +86,13 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignHeader(ISheet sheet)
         {
-            // row 1
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            row.Cells[ColumnIndex].SetCellValue("#");
-            row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
-            row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
-            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
-            row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
-            row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
-            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
-            row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
-            row.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.LicenseeW_L);
-            row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(ViewResources.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
-
-            // row 2
+            row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
+            row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Product);
+            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
+            
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            row2.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
-            row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
-            row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
-
+            
             var prdHeaderList = new List<string>
             {
                 ViewResources.Sportsbook,
@@ -136,17 +103,10 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.VirtualSports,
                 ViewResources.RNGCasino,
                 ViewResources.Bingo,
-                ViewResources.Keno,
-                ViewResources.Total
+                ViewResources.Keno
             };
 
             int index = ColumnTurnoverSportBook;
-            foreach (string item in prdHeaderList)
-            {
-                row2.Cells[index++].SetCellValue(item);
-            }
-
-            index = ColumnLicenseeWlSportsBook;
             foreach (string item in prdHeaderList)
             {
                 row2.Cells[index++].SetCellValue(item);
@@ -165,7 +125,6 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
-            var rowIndex = 1;
             int index;
             var rowCount = _activeCustomerList.Count;
 
@@ -173,18 +132,21 @@ namespace Fanex.Athena.Excel.Report
             {
                 var activeCustomer = _activeCustomerList[index];
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
-                var indexid = rowIndex;
-                row.Cells[ColumnIndex].SetCellValue(indexid);
-
-                row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate);                
-                AssignCommonData(row, activeCustomer);
+                row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
+                row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
+                for (int i = 0; i < _productOption.Count; i++)
+                {
+                    if (_productOption[i].Status)
+                    {
+                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCountPerProduct[_productOption[i].Code]);
+                    }
+                }
             }
              
-            var totalRow = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
-            totalRow.Cells[0].SetCellValue(ViewResources.TotalActiveCustomer + " = " + _totalCustomer); 
+            var totalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, index + RowContentTemplate);
+            totalRow.Cells[0].SetCellValue(ViewResources.TotalActiveCustomer + " = " + _totalCustomer.ToString("#,##0")); 
         }
 
         /// <summary>
@@ -213,27 +175,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void ProcessUI(ISheet sheet)
         {
-            if (!ShowingOption.CustomerCommVisible)
-            {
-                HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
-                sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
-            }
-
-            if (!ShowingOption.BAVisible)
-            {
-                HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
-            }
-
-            if (!ShowingOption.RBVisible)
-            {
-                HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
-
-            ProcessUITurnover(sheet);
-
-            ProcessUIActiveCustomer(sheet);
-
-            HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+            HideBlankProductColumns(sheet);
         }
 
         /// <summary>
@@ -272,95 +214,25 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        protected void AssignCommonData(IRow row, ActiveCustomer data)
-        {
-            //// Set data for turnover
-            for (int i = 0; i < _productOption.Count; i++)
-            {
-                if (_productOption[i].Status)
-                {
-                    row.Cells[ColumnTurnoverSportBook + i].SetCellValue(data.CustomerCountPerProduct[_productOption[i].Code]);
-                }
-            }
-
-            row.Cells[ColumnTurnoverTotal].SetCellValue(data.CustomerCountPerProduct.Sum(a => a.Value));
-        }
-
-        /// <summary>
-        /// Process UI, hide redundant row and column.
+        /// Hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUIActiveCustomer(ISheet sheet)
+        protected void HideBlankProductColumns(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.RB && a.Code != Product.BA);
             int nextColumns = 0;
 
             foreach (ProductOption product in _productOption)
             {
-                if (product.Status == false || product.Code == Product.RB || product.Code == Product.BA)
+                if (product.Status)
                 {
-                    HideColumn(sheet, ColumnLicenseeWlSportsBook + nextColumns, ColumnLicenseeWlSportsBook + nextColumns);
+                    sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + nextColumns, RowHeaderTemplate, ColumnTotalTransaction - 1);
                 }
                 else
-                {
-                    sheet.GetCell(RowHeaderTemplate, ColumnLicenseeWlSportsBook + nextColumns)
-                    .SetCellValue(ViewResources.LicenseeW_L);
-                    sheet.MergeCells(RowHeaderTemplate, ColumnLicenseeWlSportsBook + nextColumns, RowHeaderTemplate, ColumnLicenseeWlTotal);
-                }
-
-                nextColumns++;
-            }
-
-            if (countStatus <= 1)
-            {
-                if (_productOption.Any(a => a.Status && a.Code != Product.RB && a.Code != Product.BA))
-                {
-                    HideColumn(sheet, ColumnLicenseeWlTotal, ColumnLicenseeWlTotal);
-                }
-
-                for (int i = 0; i < TotalLicenseeWlProductColumn; i++)
-                {
-                    sheet.MergeCells(RowHeaderTemplate, ColumnLicenseeWlSportsBook + i, RowHeaderTemplate + 1, ColumnLicenseeWlSportsBook + i);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUITurnover(ISheet sheet)
-        {
-            int countStatus = _productOption.Count(a => a.Status);
-            int nextColumns = 0;
-
-            foreach (ProductOption product in _productOption)
-            {
-                if (product.Status == false)
                 {
                     HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
                 }
-                else
-                {
-                    sheet.GetCell(RowHeaderTemplate, ColumnTurnoverSportBook + nextColumns)
-                    .SetCellValue(ViewResources.Turnover);
-                    sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + nextColumns, RowHeaderTemplate, ColumnTurnoverTotal);
-                }
 
                 nextColumns++;
-            }
-
-            if (countStatus <= 1)
-            {
-                HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
-                for (int i = 0; i < TotalTurnoverProductColumn; i++)
-                {
-                    sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + i, RowHeaderTemplate + 1, ColumnTurnoverSportBook + i);
-                }
             }
         }
     }

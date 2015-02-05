@@ -13,7 +13,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
     /// </summary>
     public class ActiveCustomerGridViewModel
     {
-        public string TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
 
         public int TotalCustomer { get; set; }
 

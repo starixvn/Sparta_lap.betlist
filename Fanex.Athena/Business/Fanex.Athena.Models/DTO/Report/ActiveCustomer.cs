@@ -16,7 +16,7 @@ namespace Fanex.Athena.Models.DTO.Report
     [Serializable]
     public class ActiveCustomer
     {
-        public string TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
 
         public int TotalCustomer { get; set; }
 
