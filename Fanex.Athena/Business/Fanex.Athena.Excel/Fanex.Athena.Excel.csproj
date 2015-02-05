@@ -115,6 +115,7 @@
     <Compile Include="Extension\HSSFSheetExtension.cs" />
     <Compile Include="Extension\HSSFWorkbookExtension.cs" />
     <Compile Include="Report\AgCasinoWinLossExcel.cs" />
+    <Compile Include="Report\ActiveCustomerExcel.cs" />
     <Compile Include="Report\PlaytechCasinoExcel.cs" />
     <Compile Include="Report\WinlossByLeagueExcel.cs" />
     <Compile Include="Report\CustomerBalanceExcel.cs" />

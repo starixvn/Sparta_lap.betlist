@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/6/2015 1:48:49 PM
+// Lasted generated date: 2/5/2015 2:39:33 PM
 // </history>
 
 var _language_en_US={
@@ -21,6 +21,10 @@ var _language_en_US={
                      AccountManagement:"Account Management",
 				 	
                      Action:"Action",
+				 	
+                     ActiveCustomer:"Active Customer",
+				 	
+                     ActiveCustomerSummary:"Active Customer Summary",
 				 	
                      AD:"AD",
 				 	
@@ -49,8 +53,6 @@ var _language_en_US={
                      AlertPasswordEmptyMsg:"Sorry, password can not be empty!!!",
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"It will remove special level set for this customer. Are you sure?",
-				 	
-                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to move this customer to odds group {0}?",
 				 	
                      AlertSetSpecialLevelForCustomerMsg:"Are you sure you want to set special level  for this customer?",
 				 	
@@ -868,9 +870,9 @@ var _language_en_US={
 				 	
                      MaxBetLessThanOrEqual:"Max Bet must be less than or equal to",
 				 	
-                     MaxBetMatchLessThanOrEqual:"Max Per Match must be less than or equal to",
+                     MaxBetMatchLessThanOrEqual:"Max Bet Match must be less than or equal to",
 				 	
-                     MaxBetMatchMoreThanOrEqual:"Max Per Match must be more than or equal to",
+                     MaxBetMatchMoreThanOrEqual:"Max Bet Match must be more than or equal to",
 				 	
                      MaxBetPerDraw:"Max Bet Per Draw",
 				 	
@@ -1051,8 +1053,6 @@ var _language_en_US={
                      OddEvenDND:"Odd/Even + 1 X 2 + DND",
 				 	
                      Odds:"Odds",
-				 	
-                     OddsGroup:"Odds Group",
 				 	
                      OddsType:"Odds Type",
 				 	
@@ -1413,6 +1413,8 @@ var _language_en_US={
                      TopCustomerNote3:"This report can support viewing from {0} to yesterday",
 				 	
                      Total:"Total",
+				 	
+                     TotalActiveCustomer:"Total active customer",
 				 	
                      TotalAway:"Total Away",
 				 	

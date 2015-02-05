@@ -1,0 +1,48 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DataDomain
+@model Fanex.Athena.Models.ViewModel.Report.LicenseeWinLossViewModel
+<div class="grid_26 content-filter new-line" style="width: 940px;">
+    <!--grid_26-->
+    <form id="mainform" name="mainform" method="post" action="">
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+    <div class="new-line">
+    </div>
+     <div class="grid_2 filter-label">
+        <label>
+            @ViewResources.Currency</label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, true, false)
+    </div>
+    <div class="grid_2 filter-label">
+        <label for="BaseCurrency">@ViewResources.Based
+        </label>
+    </div>
+    <div class="grid_1 filter-input">
+        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+    </div>
+    <div class="grid_5 userguide-group">
+        <div>
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
+        </div>        
+        <div>            
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>   
+    @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2, Model.ProductAccess.ProductList.Count * 2 + 3)
+    <div class="grid_3 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input" id="control-container">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+</div>
