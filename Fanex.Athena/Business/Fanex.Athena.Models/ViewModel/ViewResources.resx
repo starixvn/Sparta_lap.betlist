@@ -2599,4 +2599,8 @@
     <value>Total active customer</value>
     <comment>#29219</comment>
   </data>
+  <data name="DateRangeExceedMsg" xml:space="preserve">
+    <value>Date range exceeds {0} months. Please try again!</value>
+    <comment>#29219</comment>
+  </data>
 </root>

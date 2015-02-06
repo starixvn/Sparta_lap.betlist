@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/5/2015 2:39:33 PM
+// Lasted generated date: 2/6/2015 3:16:24 PM
 // </history>
 
 var _language_en_US={
@@ -343,6 +343,8 @@ var _language_en_US={
                      Date:"Date",
 				 	
                      DateRange:"Date Range",
+				 	
+                     DateRangeExceedMsg:"Date range exceeds {0} months. Please try again!",
 				 	
                      DateRangeLimitNote:"Data is available within 3 months, from {0} to {1}.",
 				 	

@@ -140,13 +140,15 @@ namespace Fanex.Athena.Excel.Report
                 {
                     if (_productOption[i].Status)
                     {
-                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCountPerProduct[_productOption[i].Code]);
+                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCount[_productOption[i].Code]);
                     }
                 }
             }
-             
-            var totalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, index + RowContentTemplate);
-            totalRow.Cells[0].SetCellValue(ViewResources.TotalActiveCustomer + " = " + _totalCustomer.ToString("#,##0")); 
+
+            var totalRowIndex = index + RowContentTemplate;
+            var totalRow = sheet.CopyRow(TemplateSheet, RowGrantTotal, totalRowIndex);
+            totalRow.Cells[0].SetCellValue(ViewResources.TotalActiveCustomer + " = " + _totalCustomer.ToString("#,##0"));
+            sheet.MergeCells(totalRowIndex, ColumnDate, totalRowIndex, ColumnTotalTransaction);
         }
 
         /// <summary>

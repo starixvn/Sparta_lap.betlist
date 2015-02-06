@@ -79,7 +79,7 @@ namespace Fanex.Athena.Api.Report
                     var propertyName = sortBy.Substring(0, indexProductCode);
                     var productCode = sortBy.Substring(indexProductCode);
 
-                    dataList.SortByDictionary<string, decimal>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
+                    dataList.SortByDictionary<string, int>(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
@@ -105,15 +105,15 @@ namespace Fanex.Athena.Api.Report
             {
                 TotalCustomer = item.TotalCustomer,
                 TransactionDate = item.TransactionDate,
-                CustomerCountBA = item.CustomerCountPerProduct.Keys.Contains(Product.BA) ? item.CustomerCountPerProduct[Product.BA] : 0,
-                CustomerCountSB = item.CustomerCountPerProduct.Keys.Contains(Product.SB) ? item.CustomerCountPerProduct[Product.SB] : 0,
-                CustomerCountRB = item.CustomerCountPerProduct.Keys.Contains(Product.RB) ? item.CustomerCountPerProduct[Product.RB] : 0,
-                CustomerCountNG = item.CustomerCountPerProduct.Keys.Contains(Product.NG) ? item.CustomerCountPerProduct[Product.NG] : 0,
-                CustomerCountLC = item.CustomerCountPerProduct.Keys.Contains(Product.LC) ? item.CustomerCountPerProduct[Product.LC] : 0,
-                CustomerCountVS = item.CustomerCountPerProduct.Keys.Contains(Product.VS) ? item.CustomerCountPerProduct[Product.VS] : 0,
-                CustomerCountCS = item.CustomerCountPerProduct.Keys.Contains(Product.CS) ? item.CustomerCountPerProduct[Product.CS] : 0,
-                CustomerCountBG = item.CustomerCountPerProduct.Keys.Contains(Product.BG) ? item.CustomerCountPerProduct[Product.BG] : 0,
-                CustomerCountKN = item.CustomerCountPerProduct.Keys.Contains(Product.KN) ? item.CustomerCountPerProduct[Product.KN] : 0,
+                CustomerCountBA = item.CustomerCount.Keys.Contains(Product.BA) ? item.CustomerCount[Product.BA] : 0,
+                CustomerCountSB = item.CustomerCount.Keys.Contains(Product.SB) ? item.CustomerCount[Product.SB] : 0,
+                CustomerCountRB = item.CustomerCount.Keys.Contains(Product.RB) ? item.CustomerCount[Product.RB] : 0,
+                CustomerCountNG = item.CustomerCount.Keys.Contains(Product.NG) ? item.CustomerCount[Product.NG] : 0,
+                CustomerCountLC = item.CustomerCount.Keys.Contains(Product.LC) ? item.CustomerCount[Product.LC] : 0,
+                CustomerCountVS = item.CustomerCount.Keys.Contains(Product.VS) ? item.CustomerCount[Product.VS] : 0,
+                CustomerCountCS = item.CustomerCount.Keys.Contains(Product.CS) ? item.CustomerCount[Product.CS] : 0,
+                CustomerCountBG = item.CustomerCount.Keys.Contains(Product.BG) ? item.CustomerCount[Product.BG] : 0,
+                CustomerCountKN = item.CustomerCount.Keys.Contains(Product.KN) ? item.CustomerCount[Product.KN] : 0,
             };
         }
 

@@ -40,8 +40,6 @@ var ActiveCustomerOption = (function () {
 
     var productColumn =
     {
-        name: 'productName',
-        index: 'productName',
         width: 90,
         sortable: true,
         resizable: false,
@@ -58,9 +56,8 @@ var ActiveCustomerOption = (function () {
 
     var me =
     {
-        licenseeId: 0,
         dateColumnIndex: 0,
-        turnoverIndex: 1,
+        totalCustomerIndex: 1,
         pageSize: 50,
         nonePagingSize: 5000,
         rowNum: 50,
@@ -111,24 +108,22 @@ var ActiveCustomerOption = (function () {
 
     me.getColName = function (productOptions) {
         var temp = Site.clone(colNameList);
-        var turnOverIndex = me.turnoverIndex;
+        var totalCustomerIndex = me.totalCustomerIndex;
 
         $.each(productOptions, function (index, value) {
             if (value.Status === true) {
                 temp.insertAfter(value.Name, me.dateColumnIndex);
-                turnOverIndex++;
+                totalCustomerIndex++;
             }
         });
 
         return Site.getResources(temp);
     };
 
-    me.getColModel = function (reportBy, productOptions) {
-        reportBy = Number(reportBy);
-
+    me.getColModel = function (productOptions) {
         var temp = Site.clone(colModelList);
 
-        var turnOverIndex = me.turnoverIndex;
+        var totalCustomerIndex = me.totalCustomerIndex;
 
         $.each(productOptions, function (index, value) {
             //insert turn over column
@@ -138,16 +133,16 @@ var ActiveCustomerOption = (function () {
                 column.name = "CustomerCount" + value.Code;
                 column.index = column.name;
                 temp.insertAfter(column, me.dateColumnIndex);
-                turnOverIndex++;
+                totalCustomerIndex++;
             }
         });
 
         return temp;
     };
 
-    me.getGridOption = function (reportBy, productOptions) {
+    me.getGridOption = function (productOptions) {
         me.gridOption.colNames = me.getColName(productOptions);
-        me.gridOption.colModel = me.getColModel(reportBy, productOptions);
+        me.gridOption.colModel = me.getColModel(productOptions);
         return Site.clone(me.gridOption);
     };
 

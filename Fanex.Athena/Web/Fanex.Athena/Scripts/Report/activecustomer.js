@@ -3,16 +3,15 @@
 ///
 var ActiveCustomer = (function ($) {
     "use strict";
-    
+
+    var VALID_MONTH_RANGE = 3;
+
     var cacheData = {};
     var ajaxRequest = null;
-    var totalRowCount = 0;
     var _sortColumnName = null;
     var _sortOrder = "desc";
     var _removeSorting = false;
-    var _reportBy = null;
     var _resizeTimer = null;
-    var _submitData; // cache submit data
 
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
@@ -50,12 +49,10 @@ var ActiveCustomer = (function ($) {
                                     .css("max-height", gridHeight);
             }, 200);
         },
-        getTotalRowCount: function () {
-            return totalRowCount;
-        },
+
         initialize: function () {
             ActiveCustomer.initEvent();
-            ActiveCustomer.initSetting();
+
             ActiveCustomerOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
                 Site.blockUI();
                 window.setTimeout(function () {
@@ -68,7 +65,7 @@ var ActiveCustomer = (function ($) {
                     }
 
                     cacheData.Data = sortData(cacheData.Data);
-                    ActiveCustomer.bindData(_reportBy, cacheData);
+                    ActiveCustomer.bindData(cacheData);
 
                     Site.unBlockUI();
                 }, 100);
@@ -82,11 +79,6 @@ var ActiveCustomer = (function ($) {
             Site.addFilterCollapseExpand();
         },
 
-        initSetting: function () {
-            ActiveCustomerOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            ActiveCustomerOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-        },
-
         initEvent: function () {
             /* open betlist popup*/
             $("body").on("click", ".bet-list-link", function () {
@@ -94,28 +86,26 @@ var ActiveCustomer = (function ($) {
                 ActiveCustomer.openBetlistPopUp(dataDrillDown);
             });
 
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, ActiveCustomerOption.urlExcelData);
+
             $('#SubmitButton').click(function () {
-                // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 ActiveCustomer.submit();
             });
 
             $('#ExportToExcel').click(function () {
+
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#mainform");
+                var $mainForm = $("#mainform");
                 var url = Site.resolveClientUrl(ActiveCustomerOption.urlExcelData);
-                console.log(url);
-                mainForm.attr("action", url);
-                mainForm.submit();
+                $mainForm.attr("action", url);
+                $mainForm.submit();
                 $('#IsExportExcel').val(false);
                 return false;
             });
         },
 
         //#region Layout
-        setExcelUrl: function () {
-            ActiveCustomerOption.urlExcelData = 'api/report/ActiveCustomer';
-        },
 
         setReportTitle: function (currencyId, fromdate, todate) {
             var titlePattern = Site.getSingleResource('ActiveCustomer') + ', {0} → {1} - {2}';
@@ -138,21 +128,6 @@ var ActiveCustomer = (function ($) {
         },
         //#end
 
-        //#Get Data
-        ajaxComplete: function (response) {
-            if (response != null) {
-                var reportBy = $("input[name='ReportBy']:checked").val();
-                _reportBy = reportBy;
-
-                //reset layout
-
-                ActiveCustomer.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
-
-                cacheData = response;
-                ActiveCustomer.bindData(reportBy, response);
-            }
-        },
-
         submit: function () {
             Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
@@ -164,29 +139,25 @@ var ActiveCustomer = (function ($) {
 
             var mainForm = $("#mainform");
             var data = mainForm.serializeObject();
+            if (_sortColumnName) {
+                data.sortBy = _sortColumnName;
+                data.sortOrder = _sortOrder;
+            }
+
             var option = {
                 type: "POST",
-                data: mainForm.serialize() +
-                    (_sortColumnName ?
-                        "&sortby=" + encodeURI(_sortColumnName) + "&sortOrder=" + _sortOrder : ""),
+                data: data,
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(ActiveCustomerOption.urlData),
                 success: function (response) {
-                    _submitData = {
-                        ProductOptions: response.ProductOptions,
-                        DrawFilter: data.DrawFilter,
-                        CurrencyId: data.CurrencyId,
-                        ReportBy: Number(data.ReportBy),
-                        FromDate: new Date(data.FromDate),
-                        ToDate: new Date(data.ToDate),
-                        CurrencyName: data.CurrencyName,
-                        IsExcludedTestData: data.IsExcludedTestData
-                    };
+                    if (response != null) {
+                        ActiveCustomer.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
 
-                    ActiveCustomer.setExcelUrl(0, 0, 0, "", "");
-                    ActiveCustomer.ajaxComplete(response);
+                        cacheData = response;
+                        ActiveCustomer.bindData(response);
+                    }
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -198,16 +169,11 @@ var ActiveCustomer = (function ($) {
             if (ajaxRequest != null) {
                 ajaxRequest.abort();
             }
+
             ajaxRequest = $.ajax(option);
 
             return true;
         },
-
-        lastDateOfMonth: function (year, month) {
-            return new Date(year, month + 1, 0);
-        },
-
-        //#BindReport
 
         bindTotal: function (grantTotalCustomer) {
             var $footerTable = $(".ui-jqgrid-ftable");
@@ -219,19 +185,15 @@ var ActiveCustomer = (function ($) {
                 .nextAll().remove();
         },
 
-        bindData: function (reportBy, response) {
-            var $gridBody = $(".ui-jqgrid-bdiv");
-
-            var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
+        bindData: function (response) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-            var productOptions = $.parseJSON(_submitData.ProductOptions);
+            var productOptions = $.parseJSON(response.ProductOptions);
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
             var numOfRow = response.Data.length;
 
-            var gridOption = ActiveCustomerOption.getGridOption(reportBy, productOptions);
+            var gridOption = ActiveCustomerOption.getGridOption(productOptions);
             gridOption.data = response.Data;
             gridOption.rowNum = ActiveCustomerOption.nonePagingSize;
             gridOption.rowList = ActiveCustomerOption.rowList;
@@ -251,13 +213,9 @@ var ActiveCustomer = (function ($) {
 
                 var gridWidth = reportGrid.width();
 
-                if (gridWidth < 200) {
-                    gridWidth = 200;
-                } else {
-                    gridWidth += 20;
+                if (gridWidth < 600) {
+                    $(".ui-jqgrid .ui-jqgrid-hbox").css("padding-right", 0);
                 }
-                gridWidth = Math.max(200, gridWidth);
-                reportGrid.jqGrid("setGridWidth", gridWidth);
 
                 Site.unBlockUI();
             };
@@ -289,12 +247,7 @@ var ActiveCustomer = (function ($) {
 
             jqGridAdditional.resetLayout(reportGrid);
 
-            $gridBody = $(".ui-jqgrid-bdiv");
-            if ($gridBody.length > 0) {
-                $gridBody[0].scrollLeft = scrollLeft;
-            }
-
-
+            $("div.container_26 div.grid_26.content-filter").width(940);
         }
 
         //#end
@@ -304,7 +257,6 @@ var ActiveCustomer = (function ($) {
 $(window).load(function () {
     "use strict";
     ActiveCustomer.initialize();
-    //alert(Date.parse('Apr 5, 2013'));
 });
 
 $(window).resize(function () {

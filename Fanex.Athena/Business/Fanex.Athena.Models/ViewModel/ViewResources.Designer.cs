@@ -1564,6 +1564,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date range exceeds {0} months. Please try again!.
+        /// </summary>
+        public static string DateRangeExceedMsg {
+            get {
+                return ResourceManager.GetString("DateRangeExceedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data is available within 3 months, from {0} to {1}..
         /// </summary>
         public static string DateRangeLimitNote {

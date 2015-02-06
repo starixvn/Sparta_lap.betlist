@@ -33,14 +33,12 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreAgCasino);
             var productList = productAccess.ProductList;
-            var metaModel = new LicenseeWinLossMetaModel
+            var defaultDate = DateTime.Now.AddDays(-1);
+            var metaModel = new ActiveCustomerMetaModel
                 {
-                    FromDate = DateTime.Now,
-                    ToDate = DateTime.Now,
-                    LicenseeId = licenseeSession.LicenseeId,                    
-                    IsExcludedTestData = true,
-                    DrawFilter = DrawFilterType.Normal,
-                    ReportBy = ReportByType.Daily,
+                    FromDate = defaultDate,
+                    ToDate = defaultDate,
+                    LicenseeId = licenseeSession.LicenseeId,                                        
                     ProductOptions = productList.Select(i => new ProductOption
                         {
                             Code = i.ProductCode,
@@ -51,7 +49,7 @@ namespace Fanex.Athena.Controllers.Report
            
             SetConvetedUSDCurrencyId(metaModel);
            
-            var model = new LicenseeWinLossViewModel
+            var model = new ActiveCustomerViewModel
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,

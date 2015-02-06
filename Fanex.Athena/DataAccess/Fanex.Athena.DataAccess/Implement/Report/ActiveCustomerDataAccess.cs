@@ -95,7 +95,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var item = new ActiveCustomer
                 {
                     TransactionDate = reader.ToDateTime("TransDate"),
-                    CustomerCountPerProduct = customerCountPerProduct,
+                    CustomerCount = customerCountPerProduct,
                     TotalCustomer = reader.ToInt("MemCountPerMonth")
                 };
 

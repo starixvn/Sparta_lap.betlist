@@ -20,6 +20,6 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public int TotalCustomer { get; set; }
 
-        public IDictionary<string, int> CustomerCountPerProduct { get; set; }
+        public IDictionary<string, int> CustomerCount { get; set; }
     }
 }

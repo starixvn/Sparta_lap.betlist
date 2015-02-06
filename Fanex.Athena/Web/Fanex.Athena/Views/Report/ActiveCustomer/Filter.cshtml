@@ -1,26 +1,19 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.LicenseeWinLossViewModel
+@model Fanex.Athena.Models.ViewModel.Report.ActiveCustomerViewModel
 <div class="grid_26 content-filter new-line" style="width: 940px;">
     <!--grid_26-->
     <form id="mainform" name="mainform" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 2, 3, 2, 3)
+                        new DateTime(2012, 1, 1), DateTime.Today.AddDays(-1), "date-range", "date-range", 2, 3, 2, 3)
     <div class="new-line">
     </div>
      <div class="grid_2 filter-label">
         <label>
             @ViewResources.Currency</label>
     </div>
-    <div class="grid_3 filter-input">
-        @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, true, false)
-    </div>
-    <div class="grid_2 filter-label">
-        <label for="BaseCurrency">@ViewResources.Based
-        </label>
-    </div>
-    <div class="grid_1 filter-input">
-        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+     <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, false)
     </div>
     <div class="grid_5 userguide-group">
         <div>
@@ -40,9 +33,4 @@
     </div>
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
-    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
-    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
-    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
-    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
-    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
 </div>
