@@ -287,6 +287,7 @@
     <Content Include="App_Data\UserGuide\CommissionGroupList\en-US.htm" />
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\ActiveCustomerSummary\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-TW.htm" />
@@ -472,7 +473,7 @@
     <Content Include="GameData\GlobalSetting.ini" />
     <Content Include="GameData\VideoPoker\RV009\Settings.ini" />
     <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
-    <Content Include="App_Data\Template\Reports\ActiveCustomer.xls" />
+    <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -2982,8 +2983,8 @@
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinowinloss.js" />
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
-    <Content Include="Scripts\Report\activecustomer.js" />
-    <Content Include="Scripts\Report\activecustomer.option.js" />
+    <Content Include="Scripts\Report\activecustomersummary.js" />
+    <Content Include="Scripts\Report\activecustomersummary.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3004,9 +3005,9 @@
     </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
-    <Content Include="Views\Report\ActiveCustomer\Content.cshtml" />
-    <Content Include="Views\Report\ActiveCustomer\Filter.cshtml" />
-    <Content Include="Views\Report\ActiveCustomer\Main.cshtml" />
+    <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
+    <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
+    <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

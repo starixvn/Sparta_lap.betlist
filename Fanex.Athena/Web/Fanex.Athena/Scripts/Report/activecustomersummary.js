@@ -73,8 +73,8 @@ var ActiveCustomer = (function ($) {
             };
 
             Site.addUserGuide({
-                resourceName: "LicenseeWL",
-                title: Site.getSingleResource("ActiveCustomer")
+                resourceName: "ActiveCustomerSummary",
+                title: Site.getSingleResource("ActiveCustomerSummary")
             });
             Site.addFilterCollapseExpand();
         },
@@ -108,7 +108,7 @@ var ActiveCustomer = (function ($) {
         //#region Layout
 
         setReportTitle: function (currencyId, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('ActiveCustomer') + ', {0} → {1} - {2}';
+            var titlePattern = Site.getSingleResource('ActiveCustomerSummary') + ', {0} → {1} - {2}';
             var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
             var currencyTextList =
@@ -189,8 +189,7 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-            var productOptions = $.parseJSON(response.ProductOptions);
-            productOptions = productOptions.reverse(); //make orders of product columns like excel file
+            var productOptions = $.parseJSON(response.ProductOptions);            
             var numOfRow = response.Data.length;
 
             var gridOption = ActiveCustomerOption.getGridOption(productOptions);

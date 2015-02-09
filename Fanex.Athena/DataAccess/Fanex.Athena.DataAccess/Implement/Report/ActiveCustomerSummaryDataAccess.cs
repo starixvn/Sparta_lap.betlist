@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ActiveCustomerDataAccess.cs" company="Nexcel Solution">
+// <copyright file="ActiveCustomerSummaryDataAccess.cs" company="Nexcel Solution">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -24,9 +24,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     /// <summary>
     /// Licensee win loss data access.
     /// </summary>
-    public class ActiveCustomerDataAccess : IActiveCustomerDataAccess
+    public class ActiveCustomerSummaryDataAccess : IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerDataAccess()
+        public ActiveCustomerSummaryDataAccess()
         {
         }
 
@@ -112,7 +112,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         private void UpdateUspParams(ObjectDb db, ActiveCustomerMetaModel metaModel)
         {
-            var productCodes = metaModel.ProductOptions.Select(x => x.Code).ToArray();
+            var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);

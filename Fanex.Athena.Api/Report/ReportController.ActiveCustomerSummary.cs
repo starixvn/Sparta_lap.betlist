@@ -34,7 +34,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">Meta model data.</param>
         /// <returns>Process Request.</returns>
         [HttpPost]
-        public dynamic ActiveCustomer(ActiveCustomerMetaModel metaModel)
+        public dynamic ActiveCustomerSummary(ActiveCustomerMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -128,8 +128,8 @@ namespace Fanex.Athena.Api.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            const string FileName = "ActiveCustomer.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ActiveCustomer.xls");
+            const string FileName = "ActiveCustomerSummary.xls";
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ActiveCustomerSummary.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var currencyList = userSession.CurrencyList;
@@ -154,7 +154,7 @@ namespace Fanex.Athena.Api.Report
                 TotalCustomer = totalCustomer,
             };
 
-            var excel = new ActiveCustomerExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel);
+            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel);
             
             excel.Export();
 

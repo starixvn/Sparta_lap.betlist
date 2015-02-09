@@ -5,7 +5,7 @@
     <!--grid_26-->
     <form id="mainform" name="mainform" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-                        new DateTime(2012, 1, 1), DateTime.Today.AddDays(-1), "date-range", "date-range", 2, 3, 2, 3)
+                        new DateTime(2015, 1, 1), DateTime.Today.AddDays(-1), "date-range", "date-range", 2, 3, 2, 3, false)
     <div class="new-line">
     </div>
      <div class="grid_2 filter-label">
@@ -17,7 +17,7 @@
     </div>
     <div class="grid_5 userguide-group">
         <div>
-            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide" style="display: none"></div>
         </div>        
         <div>            
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"

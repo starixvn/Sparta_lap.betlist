@@ -24,7 +24,7 @@ namespace Fanex.Athena.Service.Implement.Report
     {
         #region Constants and Fields
         
-        private readonly IActiveCustomerDataAccess _activeCustomerDataAccess;
+        private readonly IActiveCustomerSummaryDataAccess _activeCustomerDataAccess;
 
         #endregion Constants and Fields
 
@@ -35,7 +35,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         public ActiveCustomerService()
         {
-            this._activeCustomerDataAccess = new ActiveCustomerDataAccess();
+            this._activeCustomerDataAccess = new ActiveCustomerSummaryDataAccess();
         }
 
         #endregion Constructors and Destructors

@@ -1,4 +1,4 @@
-﻿/*global Site, JSLINQ, jqGridAdditional*/
+﻿/*global Site*/
 /*exported ActiveCustomerOption*/
 /// <reference path="/@JSense.js" />
 
@@ -45,7 +45,11 @@ var ActiveCustomerOption = (function () {
         resizable: false,
         align: "right",
         title: true,
-        formatter: jqGridAdditional.formatLicenseeWl
+        formatter: 'integer',
+        formatoptions:
+        {
+            thousandsSeparator: ","
+        }
     };
 
     //#endregion
@@ -63,8 +67,8 @@ var ActiveCustomerOption = (function () {
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/ActiveCustomer',
-        urlExcelData: 'api/report/ActiveCustomer',
+        urlData: 'api/report/ActiveCustomerSummary',
+        urlExcelData: 'api/report/ActiveCustomerSummary',
         gridOption:
         {
             datatype: 'local',
@@ -88,61 +92,44 @@ var ActiveCustomerOption = (function () {
     };
 
     me.setGroupHeaderColumns = function (grid, productOptions) {
-        var num = JSLINQ(productOptions).Count(function (item) {
-            return item.Status === true;
-        });
-        var last = JSLINQ(productOptions).Last(function (item) {
-            return item.Status === true;
-        });
-
         grid.jqGrid('setGroupHeaders',
         {
             useColSpanStyle: true,
             groupHeaders: [{
-                startColumnName: "CustomerCount" + last.Code,
-                numberOfColumns: num,
+                startColumnName: "CustomerCount" + productOptions[0].Code,
+                numberOfColumns: productOptions.length,
                 titleText: Site.getSingleResource('Product')
             }]
         });
     };
 
-    me.getColName = function (productOptions) {
-        var temp = Site.clone(colNameList);
-        var totalCustomerIndex = me.totalCustomerIndex;
-
-        $.each(productOptions, function (index, value) {
-            if (value.Status === true) {
-                temp.insertAfter(value.Name, me.dateColumnIndex);
-                totalCustomerIndex++;
-            }
-        });
-
-        return Site.getResources(temp);
-    };
-
-    me.getColModel = function (productOptions) {
-        var temp = Site.clone(colModelList);
-
-        var totalCustomerIndex = me.totalCustomerIndex;
-
-        $.each(productOptions, function (index, value) {
-            //insert turn over column
-
-            if (value.Status === true) {
-                var column = Site.clone(productColumn);
-                column.name = "CustomerCount" + value.Code;
-                column.index = column.name;
-                temp.insertAfter(column, me.dateColumnIndex);
-                totalCustomerIndex++;
-            }
-        });
-
-        return temp;
-    };
-
     me.getGridOption = function (productOptions) {
-        me.gridOption.colNames = me.getColName(productOptions);
-        me.gridOption.colModel = me.getColModel(productOptions);
+
+        var columnModels = Site.clone(colModelList);
+        var columnNames = Site.clone(colNameList);
+        var startIndex = me.dateColumnIndex;
+
+        $.each(productOptions, function (index, value) {
+            // columnNames
+            columnNames.insertAfter(value.Name, startIndex);
+
+            // columModels
+            var column = Site.clone(productColumn);
+            column.name = "CustomerCount" + value.Code;
+            column.index = column.name;
+            if (!value.Status) {
+                column.formatter = function () {
+                    return "-";
+                };
+            }
+
+            columnModels.insertAfter(column, startIndex);
+            startIndex++;
+        });
+
+        me.gridOption.colNames = Site.getResources(columnNames);
+        me.gridOption.colModel = columnModels;
+
         return Site.clone(me.gridOption);
     };
 

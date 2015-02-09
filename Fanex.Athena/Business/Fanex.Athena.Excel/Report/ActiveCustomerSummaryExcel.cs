@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ActiveCustomerExcel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ActiveCustomerSummaryExcel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -23,7 +23,7 @@ namespace Fanex.Athena.Excel.Report
     /// <summary>
     /// Active Customer - Export excel.
     /// </summary>
-    public class ActiveCustomerExcel : ReportBase
+    public class ActiveCustomerSummaryExcel : ReportBase
     {
         private const int ColumnDate = 0;
         private const int ColumnTurnoverSportBook = 1;
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private readonly IList<ProductOption> _productOption;
         private readonly int _totalCustomer;
 
-        public ActiveCustomerExcel(
+        public ActiveCustomerSummaryExcel(
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,
@@ -137,10 +137,14 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
                 row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
                 for (int i = 0; i < _productOption.Count; i++)
-                {
+                {   
                     if (_productOption[i].Status)
                     {
                         row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCount[_productOption[i].Code]);
+                    }
+                    else
+                    {
+                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue("-");
                     }
                 }
             }
@@ -161,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
             var todate = _metaModel.ToDate.ToString(FormatDate);
             var title = GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.ActiveCustomer + ", {0} --> {1} - {2}", fromdate, todate, title);
+            ReportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1} - {2}", fromdate, todate, title);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
@@ -169,15 +173,6 @@ namespace Fanex.Athena.Excel.Report
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
-        }
-
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
-        {
-            HideBlankProductColumns(sheet);
         }
 
         /// <summary>
@@ -200,42 +195,19 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.KN, Status = false }
             };
 
-            foreach (var t in products)
+            foreach (var product in products)
             {
-                for (var j = 0; j < newProducts.Count; j++)
+                for (var i = 0; i < newProducts.Count; i++)
                 {
-                    if (t.Code == newProducts[j].Code)
+                    if (product.Code == newProducts[i].Code)
                     {
-                        newProducts[j] = t;
+                        newProducts[i] = product;
                         break;
                     }
                 }
             }
 
             return newProducts;
-        }
-
-        /// <summary>
-        /// Hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected void HideBlankProductColumns(ISheet sheet)
-        {
-            int nextColumns = 0;
-
-            foreach (ProductOption product in _productOption)
-            {
-                if (product.Status)
-                {
-                    sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + nextColumns, RowHeaderTemplate, ColumnTotalTransaction - 1);
-                }
-                else
-                {
-                    HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
-                }
-
-                nextColumns++;
-            }
         }
     }
 }

@@ -294,6 +294,9 @@
   <data name="Menu_62" xml:space="preserve">
     <value>AG Casino Win Loss</value>
   </data>
+  <data name="Menu_64" xml:space="preserve">
+    <value>Active Customer Summary</value>
+  </data>
   <data name="Menu_7" xml:space="preserve">
     <value>Handicap/Over Under/Live</value>
   </data>

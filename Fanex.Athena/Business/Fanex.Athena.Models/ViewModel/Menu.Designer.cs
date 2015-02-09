@@ -583,6 +583,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Customer Summary.
+        /// </summary>
+        public static string Menu_64 {
+            get {
+                return ResourceManager.GetString("Menu_64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handicap/Over Under/Live.
         /// </summary>
         public static string Menu_7 {

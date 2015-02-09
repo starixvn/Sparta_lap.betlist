@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult ActiveCustomer()
+        public ActionResult ActiveCustomerSummary()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = productAccess,
                 };
 
-            return View("~/Views/Report/ActiveCustomer/Main.cshtml", model);
+            return View("~/Views/Report/ActiveCustomerSummary/Main.cshtml", model);
         }
     }
 }

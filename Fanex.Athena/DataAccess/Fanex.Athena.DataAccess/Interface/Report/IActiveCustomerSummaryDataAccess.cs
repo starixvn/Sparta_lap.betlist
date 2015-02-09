@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IActiveCustomerDataAccess.cs" company="Nexcel Solution">
+// <copyright file="IActiveCustomerSummaryDataAccess.cs" company="Nexcel Solution">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     /// <summary>
     ///     The active customer data access.
     /// </summary>
-    public interface IActiveCustomerDataAccess
+    public interface IActiveCustomerSummaryDataAccess
     {
         #region Public Methods and Operators
 
