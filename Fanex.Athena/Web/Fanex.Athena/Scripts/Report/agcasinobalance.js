@@ -5,7 +5,7 @@ var AgCasinoBalance = (function ($) {
     "use strict";
     var cacheData = {};
     var ajaxRequest = null;
-    var totalRowCount = 0;
+    var _submitData = null;
     var _level = 0;
     function initMonthPicker() {
         var year = $("#Year").val();
@@ -59,9 +59,6 @@ var AgCasinoBalance = (function ($) {
                 $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
                                     .css("max-height", gridHeight);
             }, 100);
-        },
-        getTotalRowCount: function () {
-            return totalRowCount;
         },
         initialize: function () {
             AgCasinoBalance.initEvent();
@@ -133,6 +130,7 @@ var AgCasinoBalance = (function ($) {
             //get currencyName
             var currencyTextList =
             {
+                "-3": viewinKey.replace("{0}", "GBP"),
                 "-2": viewinKey.replace("{0}", "USD"),
                 "-1": viewinKey.replace("{0}", "EUR"),
                 "0": Site.getSingleResource('AllCurrencies')
@@ -152,15 +150,7 @@ var AgCasinoBalance = (function ($) {
             level = Number(level);
             if (response != null) {
                 cacheData[level] = response;
-                //reset layout
                 if (level === 0) {
-                    //update drildownValue
-                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
-                    $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
-                    $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-                    $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
                     AgCasinoBalance.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                 }
 
@@ -175,9 +165,8 @@ var AgCasinoBalance = (function ($) {
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
             var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
 
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
-
+            postdata.FromDate = fromDate; //.toDateString();
+            postdata.ToDate = toDate; //.toDateString();
             var option = {
                 type: "POST",
                 data: postdata,
@@ -187,6 +176,7 @@ var AgCasinoBalance = (function ($) {
                 url: Site.resolveClientUrl(AgCasinoBalanceOption.urlData),
                 success: function (response) {
                     AgCasinoBalance.setExcelUrl(0, 0, 0, "", "");
+                    _submitData = postdata;
                     AgCasinoBalance.ajaxComplete(0, response);
                 },
                 beforeSend: function () {
@@ -213,18 +203,18 @@ var AgCasinoBalance = (function ($) {
 
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
-            var param =
-            {
-                IsExcludedTestData: $("#OriginalIsExcludedTestData").val(),
-                CurrencyId: $("#OriginalCurrencyId").val(),
-                FromDate: $("#OriginalFromDate").val(),
-                ToDate: $("#OriginalToDate").val(),
-                BaseCurrency: $("#BaseCurrency").attr("data-original"),
+
+            var param = {
+                IsExcludedTestData: _submitData.IsExcludedTestData,
+                CurrencyId: _submitData.CurrencyId,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
+                BaseCurrency: _submitData.BaseCurrency,
                 DrillDownCurrencyId: currencyId,
-                DrillDownLevel: level,
                 DrillDownFromDate: fdate.toString("MM/dd/yyyy"),
                 DrillDownToDate: tdate.toString("MM/dd/yyyy"),
-                DrillDownCustomerId: customerId
+                DrillDownCustomerId: customerId,
+                DrillDownLevel: level
             };
 
             var postData = JSON.stringify(param);
@@ -268,9 +258,9 @@ var AgCasinoBalance = (function ($) {
                 //reset excel Link
                 AgCasinoBalance.setExcelUrl(0, 0, 0, "", "");
                 //re-set title
-                var fromdate = new Date($("#OriginalFromDate").val());
-                var todate = new Date($("#OriginalToDate").val());
-                var currencyId = $("#OriginalCurrencyId").val();
+                var fromdate = _submitData.FromDate;
+                var todate = _submitData.ToDate;
+                var currencyId = _submitData.CurrencyId;
                 AgCasinoBalance.setReportTitle(currencyId, fromdate, todate);
             }
             else if (level === 1) {
@@ -293,17 +283,12 @@ var AgCasinoBalance = (function ($) {
 
         bindData: function (level, response) {
             level = Number(level);
-            var $gridBody = $(".ui-jqgrid-bdiv");
-
-            var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
 
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
-            totalRowCount = numOfTotalRow;
 
             var gridOption = AgCasinoBalanceOption.getGridOption(level);
             gridOption.data = response.Data;
@@ -332,11 +317,6 @@ var AgCasinoBalance = (function ($) {
             reportGrid.jqGrid('showCol', 'rn');
 
             jqGridAdditional.resetLayout(reportGrid);
-
-            $gridBody = $(".ui-jqgrid-bdiv");
-            if ($gridBody.length > 0) {
-                $gridBody[0].scrollLeft = scrollLeft;
-            }
         }
         //#end
     };

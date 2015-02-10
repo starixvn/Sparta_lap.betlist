@@ -27,12 +27,12 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var date = DateTime.Now;
-
+            var toDate = DateTime.Now.AddDays(-2);
+            
             var metaModel = new AgCasinoBalanceMetaModel
                 {
-                    FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
-                    ToDate = date.AddDays(-1),
+                    FromDate = new DateTime(toDate.Year, toDate.Month, 1),
+                    ToDate = toDate,
                     LicenseeId = licenseeSession.LicenseeId,
                     IsExcludedTestData = true
                 };

@@ -225,9 +225,6 @@ var AgCasinoBalanceOption = (function () {
         gridOption:
         {
             datatype: 'local',
-            colNames: [],
-            colModel: [],
-            data: [],
             userDataOnFooter: true,
             userData: [],
             height: '100%',
@@ -252,8 +249,6 @@ var AgCasinoBalanceOption = (function () {
     };
 
     me.getColModel = function (level) {
-        level = Number(level);
-
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
@@ -261,8 +256,7 @@ var AgCasinoBalanceOption = (function () {
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0;
 
-        var temp = Site.clone(colModelList);
-        return temp;
+        return Site.clone(colModelList);
     };
 
     me.getGridOption = function (level) {

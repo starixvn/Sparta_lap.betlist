@@ -157,26 +157,26 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var transferOutColumn = "TransferOut" + metaModel.BaseCurrency;
             var closingBalanceColumn = "ClosingBalance" + metaModel.BaseCurrency;
 
-            var systemIdOrdinal = reader.TryGetOrdinal("username");
-            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-            var customerIdOrdinal = reader.TryGetOrdinal("custid");
-            var winlostDateOrdinal = reader.TryGetOrdinal("date");
+            var hasSystemIdColumn = reader.TryGetOrdinal("username") >= 0;
+            var hasExternalIdColumn = reader.TryGetOrdinal("nickname") >= 0;
+            var hasCustomerIdColumn = reader.TryGetOrdinal("custid") >= 0;
+            var hasWinlostDateColumn = reader.TryGetOrdinal("date") >= 0;
             var index = 1;
             while (reader.Read())
             {
                 var item = new AgCasinoBalance
                 {
                     Index = index++,
-                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    SystemId = hasSystemIdColumn ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalIdColumn ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerIdColumn ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("date") : metaModel.DrillDownFromDate,
+                    Date = hasWinlostDateColumn ? (DateTime?)reader.ToDateTime("date") : metaModel.DrillDownFromDate,
                     OpeningBalance = reader.ToDecimal(openingBalanceColumn),
                     TransferIn = reader.ToDecimal(transferInColumn),
                     TransferOut = reader.ToDecimal(transferOutColumn),

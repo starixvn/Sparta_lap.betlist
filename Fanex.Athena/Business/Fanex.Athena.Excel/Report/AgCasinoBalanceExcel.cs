@@ -22,7 +22,7 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class AgCasinoBalanceExcel : ReportBase
     {                
-        private const int ColumnTemplateCount = 9;
+        private const int ColumnTemplateCount = 13;
 
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
@@ -117,7 +117,6 @@ namespace Fanex.Athena.Excel.Report
         public override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -141,7 +140,6 @@ namespace Fanex.Athena.Excel.Report
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
                 
                 row.Cells[ColumnIndex].SetCellValue(rowIndex);
-
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -257,7 +255,6 @@ namespace Fanex.Athena.Excel.Report
 
             foreach (AgCasinoBalance totalCurrency in totalCurrencyList)
             {
-                // Copy template
                 IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
                 
                 if (rowIndex == beginTotalRow)
