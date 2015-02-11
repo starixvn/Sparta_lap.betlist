@@ -6,7 +6,7 @@
     string fromClass = "", string toClass = "",
     int fromGrid = 2, int fromInputGrid = 3, int toGrid = 2, int toInputGrid = 3, bool simpleMode = false)
     {
-        var today = DateTime.Today < maxDate ? DateTime.Today : maxDate;
+        var today = DateTime.Today;// < maxDate ? DateTime.Today : maxDate;
         var url = new System.Web.Mvc.UrlHelper(Context.Request.RequestContext);
     <div class="grid_@(fromGrid) filter-label">
         <label>@ViewResources.From</label>
@@ -28,6 +28,9 @@
                 var dayMin = ['@ViewResources.Su', '@ViewResources.Mo', '@ViewResources.Tu', '@ViewResources.We', '@ViewResources.Th', '@ViewResources.Fr', '@ViewResources.Sa'];
 
                 var disabledPreset = @(simpleMode ? 1 : 0) ? ['Lastweek', 'Currentmonth', 'Lastmonth', 'Sincelastmonth'] : [];
+
+                @(today.Date > maxDate.Date ? 1 : 0) && disabledPreset.push("Today");
+                
                 dateRangePicker = $('#FromDate, #ToDate').daterangepicker({
                     today: '@(today.ToString("MMM d yyyy"))',
                     buttonImage: '@url.Content("~/Content/Library/start/images/calendar.png")',
