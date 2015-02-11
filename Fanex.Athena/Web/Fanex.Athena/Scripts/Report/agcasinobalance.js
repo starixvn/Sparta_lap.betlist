@@ -165,8 +165,8 @@ var AgCasinoBalance = (function ($) {
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
             var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
 
-            postdata.FromDate = fromDate; //.toDateString();
-            postdata.ToDate = toDate; //.toDateString();
+            postdata.FromDate = fromDate;
+            postdata.ToDate = toDate;
             var option = {
                 type: "POST",
                 data: postdata,
