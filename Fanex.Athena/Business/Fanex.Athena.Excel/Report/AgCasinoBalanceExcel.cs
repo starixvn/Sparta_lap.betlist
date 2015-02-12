@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base;
@@ -44,7 +45,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 6;
         
         // This is drill down of report
-        private readonly IList<AgCasinoBalance> _winLossList;
+        private readonly IList<AgCasinoBalance> _casinoList;
 
         private readonly AgCasinoBalanceMetaModel _metaModel;
         private readonly IDictionary<string, AgCasinoBalance> _summaryTotal;
@@ -58,8 +59,9 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, exportingFileName, null, convertingOption)
         {
             _metaModel = metaModel;
-            _winLossList = viewModel.MainResult;
+            _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
+            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : metaModel.PageSizeExcel;
         }
 
         public int Level
@@ -73,23 +75,30 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         public override void AssignData()
         {
-            int numOfDataRow = _winLossList.Count;
+            int numOfDataRow = _casinoList.Count;
 
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
-
-            AssignHeader(sheet);
-            AssignTitle(sheet);
+            ISheet sheet;
 
             if (numOfDataRow == 0)
             {
+                sheet = Workbook.CloneSheet("Template", "Data");
+                AssignTitle(sheet);
+                AssignHeader(sheet);
                 AssignNoInfoRow(sheet);
+                ProcessUI(sheet);
             }
             else
             {
-                AssignSheetData(sheet);
+                var numOfSheet = GetNumberOfSheets(numOfDataRow, PageSize);
+                for (int i = 0; i < numOfSheet; i++)
+                {
+                    sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
+                    AssignTitle(sheet);
+                    AssignHeader(sheet);
+                    AssignSheetData(sheet, i);
+                    ProcessUI(sheet);
+                }
             }
-
-            ProcessUI(sheet);
         }
 
         /// <summary>
@@ -123,23 +132,23 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        /// <param name="pageIndex">Page index.</param>
+        /// <returns>The row index.</returns>
+        public override int AssignSheetData(ISheet sheet, int pageIndex)
         {
-            var rowIndex = 1;
+            int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
+            var rowIndex = 0;
             int index;
-            var rowCount = _winLossList.Count;
 
-            for (index = 0; index < rowCount; index++)
+            for (index = pageIndex * PageSize; index < rowCount; index++)
             {
-                var casinoBalance = _winLossList[index];
+                var casinoBalance = _casinoList[index];
 
-                // Copy template
-                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
-                // Report Date
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
-                
-                row.Cells[ColumnIndex].SetCellValue(rowIndex);
+
+                row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -148,8 +157,10 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
             }
 
-            rowIndex = AssignTotalData(sheet, index + 2);
+            rowIndex = AssignTotalData(sheet, rowIndex + 2);
             AssignGrandTotalInEurData(sheet, rowIndex);
+
+            return rowIndex;
         }
 
         /// <summary>
@@ -251,7 +262,7 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            List<AgCasinoBalance> totalCurrencyList = GetTotalCurrency(_winLossList);
+            List<AgCasinoBalance> totalCurrencyList = GetTotalCurrency(_casinoList);
 
             foreach (AgCasinoBalance totalCurrency in totalCurrencyList)
             {

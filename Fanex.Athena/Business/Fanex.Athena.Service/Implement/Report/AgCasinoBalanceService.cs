@@ -75,11 +75,15 @@ namespace Fanex.Athena.Service.Implement.Report
         ///     The metal model.
         /// </param>
         /// <param name="summaryTotal">The summary total.</param>
+        /// <param name="totalRows">Total rows.</param>
         /// <returns>The licensee win loss list.</returns>
-        public SortableList<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
+        public SortableList<AgCasinoBalance> GetCustomerBalanceDetail(
+            AgCasinoBalanceMetaModel metaModel, 
+            out IDictionary<string, AgCasinoBalance> summaryTotal, 
+            out int totalRows)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            return this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal);
+            return this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal, out totalRows);
         }
 
         /// <summary>

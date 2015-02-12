@@ -62,5 +62,13 @@ namespace Fanex.Athena.Models.MetaModel.Report
                 return true;
             }
         }
+
+        public int PageSizeExcel
+        {
+            get
+            {
+                return int.MaxValue - 1000;
+            }
+        }
     }
 }

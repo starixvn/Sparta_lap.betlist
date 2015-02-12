@@ -219,6 +219,8 @@ var AgCasinoBalanceOption = (function () {
 
     var me =
     {
+        nonePagingSize: 5000,
+        rowNum: 10,
         totalColspan: [2, 2, 3],
         urlData: 'api/report/AgCasinoBalance',
         urlExcelData: 'api/report/AgCasinoBalance',
@@ -235,7 +237,7 @@ var AgCasinoBalanceOption = (function () {
             loadui: 'disable',
             loadonce: true,
             footerrow: true,
-            rowNum: 50000,
+            rowNum: 5000,
             grouping: true,
             viewrecords: true,
             gridview: true,

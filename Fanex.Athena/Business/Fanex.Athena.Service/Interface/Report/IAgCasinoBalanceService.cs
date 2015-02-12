@@ -36,10 +36,14 @@ namespace Fanex.Athena.Service.Interface.Report
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <param name="summaryTotal">The summary data.</param>
+        /// <param name="totalRows">Total rows.</param>
         /// <returns>The data list.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<AgCasinoBalance> GetCustomerBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal);
+        SortableList<AgCasinoBalance> GetCustomerBalanceDetail(
+            AgCasinoBalanceMetaModel metaModel, 
+            out IDictionary<string, AgCasinoBalance> summaryTotal, 
+            out int totalRows);
 
         /// <summary>
         /// The get summary win-loss table.

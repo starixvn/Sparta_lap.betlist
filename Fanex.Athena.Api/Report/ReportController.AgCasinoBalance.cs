@@ -44,6 +44,7 @@ namespace Fanex.Athena.Api.Report
         {
             return new
             {
+                TotalRows = 0,
                 Data = new List<AgCasinoBalance>(),
                 Total = new List<AgCasinoBalance>(),
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
@@ -87,13 +88,13 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var exccelModel = new AgCasinoBalanceViewModel
+            var excelModel = new AgCasinoBalanceViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new AgCasinoBalanceExcel(templatePath, FileName, convertingOption, metaModel, exccelModel)
+            var excel = new AgCasinoBalanceExcel(templatePath, FileName, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
@@ -109,11 +110,14 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Output parameter: Data List.</param>
         /// <param name="summaryTotal">Output parameter summary data.</param>
+        /// <param name="totalRows">Total rows.</param>
         private void GetData(
                 AgCasinoBalanceMetaModel metaModel,
                 out SortableList<AgCasinoBalance> dataList,
-                out IDictionary<string, AgCasinoBalance> summaryTotal)
+                out IDictionary<string, AgCasinoBalance> summaryTotal,
+                out int totalRows)
         {
+            totalRows = 0;
             if (metaModel.DrillDownLevel == 0)
             {
                 dataList = _agcasinoBalanceService.GetSummaryBalance(metaModel, out summaryTotal);
@@ -121,7 +125,7 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 dataList = metaModel.DrillDownLevel == 2
-                               ? _agcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal)
+                               ? _agcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal, out totalRows)
                                : _agcasinoBalanceService.GetAgentBalanceDetail(metaModel, out summaryTotal);
             }
         }
@@ -136,11 +140,12 @@ namespace Fanex.Athena.Api.Report
             if (IsValidRequest(metaModel, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId; // focus here                
-
+                metaModel.UserId = SessionService.UserSession.UserId;
+                
                 IDictionary<string, AgCasinoBalance> summaryTotal;
                 SortableList<AgCasinoBalance> dataList;
-                GetData(metaModel, out dataList, out summaryTotal);
+                int totalRows;
+                GetData(metaModel, out dataList, out summaryTotal, out totalRows);
 
                 if (metaModel.IsExportExcel)
                 {
@@ -151,6 +156,7 @@ namespace Fanex.Athena.Api.Report
                 {
                     return new
                     {
+                        TotalRows = totalRows,
                         Data = dataList,
                         Total = _agcasinoBalanceService.TotalCalc(dataList),
                         SummaryTotal = summaryTotal

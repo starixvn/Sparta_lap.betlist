@@ -1,12 +1,32 @@
-﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site */
+﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, pagingHeper */
 /// <reference path="/@JSense.js" />
 ///
 var AgCasinoBalance = (function ($) {
     "use strict";
+    var MIN_PAGE_SIZE = 100;
     var cacheData = {};
     var ajaxRequest = null;
     var _submitData = null;
+    var _drillDownData = null;
     var _level = 0;
+
+    var _pagingOption =
+    {
+        pageindex: 1,
+        pagesize: MIN_PAGE_SIZE,
+        pagelist: [MIN_PAGE_SIZE, 2000, 3000, 4000, 5000],
+        totalrow: 1,
+        elementcontainer: ".paging",
+        method: "AJAX",
+        ajaxfunction: "AgCasinoBalance.ajaxPaging()",
+        alwayshow: true
+    };
+
+    function resetPagingOption() {
+        _pagingOption.pageindex = 1;
+        _pagingOption.pagesize = MIN_PAGE_SIZE;
+    }
+
     function initMonthPicker() {
         var year = $("#Year").val();
         var month = $("#Month").val();
@@ -46,7 +66,7 @@ var AgCasinoBalance = (function ($) {
             setTimeout(function () {
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - 30;
+                                - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
 
                 var gridContainer = $("#gview_ReportGrid");
@@ -100,6 +120,8 @@ var AgCasinoBalance = (function ($) {
             $("#DrillDownFromDate").val(fdate.toString("MM/dd/yyyy"));
             $("#DrillDownToDate").val(tdate.toString("MM/dd/yyyy"));
             $("#DrillDownLevel").val(level);
+            $("#PageIndex").val(_pagingOption.pageindex);
+            $("#PageSize").val(_pagingOption.pagesize);
         },
 
         renderBreadCrumb: function (level) {
@@ -160,6 +182,7 @@ var AgCasinoBalance = (function ($) {
         },
 
         submit: function () {
+            resetPagingOption();
             var mainForm = $("#AgCasinoBalanceForm");
             var postdata = mainForm.serializeObject();
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
@@ -201,21 +224,36 @@ var AgCasinoBalance = (function ($) {
                 _level = level;
             }
 
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
+            var fdate;
+            var tdate;
 
-            var param = {
-                IsExcludedTestData: _submitData.IsExcludedTestData,
-                CurrencyId: _submitData.CurrencyId,
-                FromDate: _submitData.FromDate,
-                ToDate: _submitData.ToDate,
-                BaseCurrency: _submitData.BaseCurrency,
-                DrillDownCurrencyId: currencyId,
-                DrillDownFromDate: fdate.toString("MM/dd/yyyy"),
-                DrillDownToDate: tdate.toString("MM/dd/yyyy"),
-                DrillDownCustomerId: customerId,
-                DrillDownLevel: level
-            };
+            if (currencyId) {
+
+                fdate = new Date(Date.parse(datetime));
+                tdate = new Date(Date.parse(datetime));
+                _drillDownData = {
+                    IsExcludedTestData: _submitData.IsExcludedTestData,
+                    CurrencyId: _submitData.CurrencyId,
+                    FromDate: _submitData.FromDate,
+                    ToDate: _submitData.ToDate,
+                    BaseCurrency: _submitData.BaseCurrency,
+                    DrillDownCurrencyId: currencyId,
+                    DrillDownFromDate: fdate.toString("MM/dd/yyyy"),
+                    DrillDownToDate: tdate.toString("MM/dd/yyyy"),
+                    DrillDownCustomerId: customerId,
+                    DrillDownLevel: level
+                };
+            } else {
+                fdate = new Date(Date.parse(_drillDownData.DrillDownFromDate));
+                tdate = new Date(Date.parse(_drillDownData.DrillDownToDate));
+                customerId = _drillDownData.DrillDownCustomerId;
+                currencyId = _drillDownData.DrillDownCurrencyId;
+            }
+
+            var param = _drillDownData;
+
+            param.pageIndex = _pagingOption.pageindex;
+            param.pageSize = _pagingOption.pagesize;
 
             var postData = JSON.stringify(param);
 
@@ -268,8 +306,13 @@ var AgCasinoBalance = (function ($) {
                 $("#DrillDownLevel").val(level);
                 AgCasinoBalance.renderBreadCrumb(level);
             }
-        },
 
+            resetPagingOption();
+        },
+        ajaxPaging: function () {
+            _pagingOption = pagingHeper.getSetting();
+            AgCasinoBalance.drillDown(2);
+        },
         //#BindReport
         bindTotal: function (level, totalData, summaryTotal) {
             var columnModel = AgCasinoBalanceOption.getTotalColModel(level);
@@ -290,14 +333,23 @@ var AgCasinoBalance = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
 
+            if (level === 2 && response.TotalRows > MIN_PAGE_SIZE) {
+                _pagingOption.totalrow = parseInt(response.TotalRows);
+                $(".paging").show();
+                pagingHeper.render(_pagingOption);
+
+            } else {
+                $(".paging").hide();
+            }
+
             var gridOption = AgCasinoBalanceOption.getGridOption(level);
             gridOption.data = response.Data;
-            gridOption.rowTotal = numOfRow;
+            gridOption.rowNum = level === 2 ? _pagingOption.pagesize : AgCasinoBalanceOption.nonePagingSize;
 
             gridOption.gridComplete = function () {
                 level = Number(level);
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
-                $("#pg_ppdata").hide();
+
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
