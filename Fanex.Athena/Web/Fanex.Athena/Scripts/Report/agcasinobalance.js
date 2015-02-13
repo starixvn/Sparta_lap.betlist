@@ -3,7 +3,7 @@
 ///
 var AgCasinoBalance = (function ($) {
     "use strict";
-    var MIN_PAGE_SIZE = 100;
+    var MIN_PAGE_SIZE = 1000;
     var cacheData = {};
     var ajaxRequest = null;
     var _submitData = null;
@@ -182,6 +182,7 @@ var AgCasinoBalance = (function ($) {
         },
 
         submit: function () {
+            $("#DrillDownLevel").val(0);
             resetPagingOption();
             var mainForm = $("#AgCasinoBalanceForm");
             var postdata = mainForm.serializeObject();
@@ -302,8 +303,8 @@ var AgCasinoBalance = (function ($) {
                 AgCasinoBalance.setReportTitle(currencyId, fromdate, todate);
             }
             else if (level === 1) {
-                AgCasinoBalance.bindData(1, cacheData[level]);
                 $("#DrillDownLevel").val(level);
+                AgCasinoBalance.bindData(1, cacheData[level]);
                 AgCasinoBalance.renderBreadCrumb(level);
             }
 
