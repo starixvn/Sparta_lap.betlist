@@ -97,7 +97,24 @@ namespace Fanex.Athena.Service.Implement.Report
         public SortableList<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
-            return this._licenseeBalanceDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var result = this._licenseeBalanceDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var date = new System.DateTime();
+            var index = 1;
+            foreach (var item in result)
+            {
+                if (date != item.Date)
+                {
+                    date = item.Date ?? new System.DateTime();
+                    item.RowSpan = result.Count(x => x.Date == item.Date);
+                    item.Index = index++;
+                }
+                else
+                {
+                    item.RowSpan = -1;
+                }
+            }
+
+            return result;
         }
 
         #endregion Public Methods and Operators

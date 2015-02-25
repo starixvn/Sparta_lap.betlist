@@ -1,4 +1,4 @@
-﻿/*global Site, jqGridAdditional, JSLINQ*/
+﻿/*global Site, jqGridAdditional*/
 /*exported AgCasinoBalanceOption*/
 /// <reference path="/@JSense.js" />
 
@@ -10,7 +10,7 @@ var AgCasinoBalanceOption = (function () {
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
-    var currencyFormatter = function (cellvalue, options, rowObject) {        
+    var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
@@ -28,7 +28,8 @@ var AgCasinoBalanceOption = (function () {
         width: 30,
         align: 'center',
         valign: 'middle',
-        sortable: false
+        sortable: false,
+        cellattr: jqGridAdditional.rowSpanSetting
     };
 
     var dateColumn =
@@ -41,6 +42,7 @@ var AgCasinoBalanceOption = (function () {
         valign: 'middle',
         sortable: false,
         formatter: 'date',
+        cellattr: jqGridAdditional.rowSpanSetting,
         formatoptions:
         {
             newformat: 'm/d/Y'
@@ -269,12 +271,20 @@ var AgCasinoBalanceOption = (function () {
 
     me.getTotalColModel = function (level) {
         var colModel = me.getColModel(level);
-        // Not show drill down link on total link
-        var curCol = JSLINQ(colModel).First(function (item) {
-            return item.name === "CurrencyName";
+
+        var blankFormatter = function () { return "-"; };
+
+        $.each(colModel, function (index, item) {
+
+            // Not show drill down link on total link
+            if (item.name === "CurrencyName") {
+                item.formatter = null;
+            }
+            else if (item.name === "OpeningBalance" || item.name === "ClosingBalance") {
+                item.formatter = blankFormatter;
+            }
         });
 
-        curCol.formatter = null;
         return colModel;
     };
 

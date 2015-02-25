@@ -155,10 +155,18 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnCurrency].SetCellValue(casinoBalance.CurrencyName);
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
+
+                if (casinoBalance.RowSpan > 1)
+                {
+                    var currentRow = index + RowContentTemplate;
+                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
+                    sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
+                    continue;
+                }
             }
 
             rowIndex = AssignTotalData(sheet, rowIndex + 2);
-            AssignGrandTotalInEurData(sheet, rowIndex);
+            AssignGrandTotalData(sheet, rowIndex);
 
             return rowIndex;
         }
@@ -212,16 +220,26 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="data">Licensee win loss data.</param>
-        protected void AssignCommonData(IRow row, AgCasinoBalance data)
+        /// <param name="isTotalData">Total data or not.</param>
+        protected void AssignCommonData(IRow row, AgCasinoBalance data, bool isTotalData = false)
         {
-            row.Cells[ColumnOpeningBalance].SetCellValue(data.OpeningBalance);
             row.Cells[ColumnTransferIn].SetCellValue(data.TransferIn);
             row.Cells[ColumnTransferOut].SetCellValue(data.TransferOut);
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
-            row.Cells[ColumnClosingBalance].SetCellValue(data.ClosingBalance);
+
+            if (isTotalData)
+            {
+                row.Cells[ColumnOpeningBalance].SetCellValue("-");
+                row.Cells[ColumnClosingBalance].SetCellValue("-");
+            }
+            else
+            {
+                row.Cells[ColumnOpeningBalance].SetCellValue(data.OpeningBalance);
+                row.Cells[ColumnClosingBalance].SetCellValue(data.ClosingBalance);
+            }
         }
 
         /// <summary>
@@ -230,7 +248,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        protected int AssignGrandTotalData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -239,7 +257,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
-                AssignCommonData(row, _summaryTotal[currency]);
+                AssignCommonData(row, _summaryTotal[currency], true);
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
 
                 // Merge first two column
@@ -276,7 +294,7 @@ namespace Fanex.Athena.Excel.Report
 
                 row.Cells[ColumnCurrency].SetCellValue(totalCurrency.CurrencyName);
 
-                AssignCommonData(row, totalCurrency);
+                AssignCommonData(row, totalCurrency, true);
 
                 rowIndex++;
             }
