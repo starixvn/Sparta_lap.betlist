@@ -17,15 +17,6 @@
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-@if (hasData)
-{
-    <!--Check box-->
-    <div class="copy-setting" id="copy-settting" style="width: 855px">
-        @Html.CheckBox("chkCopyAll")
-        <label for="chkCopyAll">@(string.Format(ViewResources.CopyBetSettingFrom, Model.MainData.First().BetSettingType))</label>
-    </div>
-    <!--Check box-->
-}
 @Html.Hidden("editable", Model.Param.Editable)
 @Html.Hidden("dataCount", (Model.MainData == null ? 0 : Model.MainData.Count))
 <!--Header-->
@@ -54,11 +45,11 @@
     }
     else
     {
-        foreach (var item in Model.MainData)
-        {
+        var item = Model.MainData[0];
+        
         <div class="content-row">
             <div class="row text-data first-column" style="width: 190px">
-                <div>@item.BetSettingType</div>
+                <div>@ViewResources.Keno</div>
             </div>
             <div class="row text-data" style="width: 230px">
                 <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString("#,###,##0.##")" style="width:115px"  maxlength="14" data-min-value="@item.BetValueMin.ToString("#,###,##0.##")" data-original="@item.MinBet.ToString("#,###,##0.##")" />
@@ -82,12 +73,11 @@
                 }
             </div>
         </div>
-        }
     }
 </div>
 <!--/Content-->
 <!-- Hidden-->
- @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
+@Html.Hidden("IDList", Model.MainData.First().SportId)
 <!--/Hidden-->
 <!--SubmitButton-->
 @if (Model.Param.Editable && hasData)

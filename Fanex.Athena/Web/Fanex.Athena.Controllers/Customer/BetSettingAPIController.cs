@@ -245,14 +245,15 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public JsonResult UpdateKenoBetSetting(string nickName)
         {
-            var ids = Convert.ToString(Request["ids"]).Split(',');
+            var id = Convert.ToInt32(Request["id"]);
             var commonParam = GetBetSettingCommonParam();
-            var dataParams = GetKenoParam(ids);
-            /*Validate parameter*/
-            if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
+            
+            if (id <= 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
                 return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
+
+            var betSetting = GetKenoBetSetting(id);
 
             var result = _betSettingService
                 .UpdateKenoBetSetting(
@@ -260,7 +261,7 @@ namespace Fanex.Athena.Controllers.Customer
                 commonParam.UserId,
                 commonParam.Language,
                 commonParam.Ip,
-                dataParams);
+                betSetting);
 
             if (result.Code == 0)
             {
@@ -501,24 +502,17 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get Keno requested parameters.
         /// </summary>
-        /// <param name="ids">Game type ids.</param>
-        /// <returns>The parameters.</returns>
-        private IList<KenoBetSetting> GetKenoParam(string[] ids)
+        /// <param name="id">Game type id.</param>
+        /// <returns>Keno bet setting.</returns>
+        private KenoBetSetting GetKenoBetSetting(int id)
         {
-            var settings = new List<KenoBetSetting>();
-
-            foreach (var id in ids)
+            return new KenoBetSetting
             {
-                settings.Add(new KenoBetSetting
-                {
-                    MaxBet = GetDecimalRequest("maxbet" + id, 0),
-                    MinBet = GetDecimalRequest("minbet" + id, 0),
-                    MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
-                    GameTypeID = id
-                });
-            }
-
-            return settings;
+                MaxBet = GetDecimalRequest("maxbet" + id, 0),
+                MinBet = GetDecimalRequest("minbet" + id, 0),
+                MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
+                GameTypeID = id.ToString()
+            };
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
 
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings);
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
 
