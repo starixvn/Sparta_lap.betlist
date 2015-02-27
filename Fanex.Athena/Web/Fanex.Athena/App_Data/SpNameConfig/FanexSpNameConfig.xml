@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  
+  <SpNameConfig Environment="DEV" SpName="Lrf_CustomerSelEditKN" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_CustomerSelEditKN" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
