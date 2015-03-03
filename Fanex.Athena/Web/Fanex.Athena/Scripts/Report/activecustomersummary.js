@@ -245,8 +245,6 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
             jqGridAdditional.resetLayout(reportGrid);
-
-            $("div.container_26 div.grid_26.content-filter").width(940);
         }
 
         //#end
