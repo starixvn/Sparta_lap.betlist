@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Root>
-  <SpNameConfig Environment="DEV" SpName="" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL" SpName="" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="" EnvironmentText="_xtest"></SpNameConfig>
+<Root>  
+  <SpNameConfig Environment="UAT" SpName="Lrf_FunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeFunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeUserFunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
