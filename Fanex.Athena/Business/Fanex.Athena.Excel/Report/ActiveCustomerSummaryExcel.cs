@@ -38,8 +38,9 @@ namespace Fanex.Athena.Excel.Report
         private readonly IList<ActiveCustomer> _activeCustomerList;
 
         private readonly ActiveCustomerMetaModel _metaModel;
-        private readonly IList<ProductOption> _productOption;
+        private readonly IList<ProductOption> _allProductOptions;
         private readonly int _totalCustomer;
+        private IList<int> _hiddenColumnIndexes = new List<int>();
 
         public ActiveCustomerSummaryExcel(
                 string templatePath,
@@ -53,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _activeCustomerList = viewModel.MainResult;
             _totalCustomer = viewModel.TotalCustomer;
-            _productOption = GetProductOption(metaModel.ProductOptions);
+            _allProductOptions = GetAllProductOptions(metaModel.ProductOptions);
         }
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             ProcessUI(sheet);
+            HideColumn(sheet, _hiddenColumnIndexes.ToArray());
         }
 
         /// <summary>
@@ -136,11 +138,11 @@ namespace Fanex.Athena.Excel.Report
 
                 row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
                 row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
-                for (int i = 0; i < _productOption.Count; i++)
+                for (int i = 0; i < _allProductOptions.Count; i++)
                 {   
-                    if (_productOption[i].Status)
+                    if (_allProductOptions[i].Status)
                     {
-                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCount[_productOption[i].Code]);
+                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);
                     }
                     else
                     {
@@ -180,7 +182,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="products">The product option list. This list may contain 0-8 items.</param>
         /// <returns>The full product option list.</returns>
-        protected static IList<ProductOption> GetProductOption(IList<ProductOption> products)
+        protected IList<ProductOption> GetAllProductOptions(IList<ProductOption> products)
         {
             var newProducts = new List<ProductOption>
             {
@@ -195,15 +197,16 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.KN, Status = false }
             };
 
-            foreach (var product in products)
+            for (var i = 0; i < newProducts.Count; i++)
             {
-                for (var i = 0; i < newProducts.Count; i++)
+                var product = products.Where(x => x.Code == newProducts[i].Code).FirstOrDefault();
+                if (product == null)
                 {
-                    if (product.Code == newProducts[i].Code)
-                    {
-                        newProducts[i] = product;
-                        break;
-                    }
+                    _hiddenColumnIndexes.Add(ColumnTurnoverSportBook + i);
+                }
+                else
+                {
+                    newProducts[i].Status = product.Status;
                 }
             }
 
