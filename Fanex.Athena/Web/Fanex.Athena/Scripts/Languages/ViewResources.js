@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 1/30/2015 5:14:39 PM
+// Lasted generated date: 3/5/2015 10:44:13 AM
 // </history>
 
 var _language_en_US={
@@ -866,9 +866,9 @@ var _language_en_US={
 				 	
                      MaxBetLessThanOrEqual:"Max Bet must be less than or equal to",
 				 	
-                     MaxBetMatchLessThanOrEqual:"Max Bet Match must be less than or equal to",
+                     MaxBetMatchLessThanOrEqual:"Max Per Match must be less than or equal to",
 				 	
-                     MaxBetMatchMoreThanOrEqual:"Max Bet Match must be more than or equal to",
+                     MaxBetMatchMoreThanOrEqual:"Max Per Match must be more than or equal to",
 				 	
                      MaxBetPerDraw:"Max Bet Per Draw",
 				 	
