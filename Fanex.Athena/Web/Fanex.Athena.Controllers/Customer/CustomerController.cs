@@ -37,17 +37,8 @@ namespace Fanex.Athena.Controllers.Customer
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
-
-        private readonly string[] _gridColumNames =
-        {
-                                                    "ExternalId",
-                                                    "SystemId",
-                                                    "AvailableFunds",
-                                                    "PendingFunds",
-                                                    "SpecialLevel",
-                                                    "OddsGroup",
-                                                    "CustomerOption"
-                                                    };
+       
+        private readonly string[] _gridColumNames;
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
@@ -60,6 +51,24 @@ namespace Fanex.Athena.Controllers.Customer
             _customerService = new CustomerService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
+
+            var columnNames = new List<string>()
+            {
+                "ExternalId",
+                "SystemId",
+                "AvailableFunds",
+                "PendingFunds",
+                "SpecialLevel",
+                "OddsGroup",
+                "CustomerOption"
+            };
+
+            if (!IsCurrentLicenseeOfferOddsGroup())
+            {                
+                columnNames.Remove("OddsGroup");   
+            }
+
+            _gridColumNames = columnNames.ToArray();
         }
 
         #region Action
@@ -120,7 +129,7 @@ namespace Fanex.Athena.Controllers.Customer
                     TotalRows = totalRows
                 },
                 MaxJsonLength = int.MaxValue
-            };            
+            };
         }
 
         /// <summary>
@@ -195,6 +204,12 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Action
 
         #region Ultilities
+
+        private bool IsCurrentLicenseeOfferOddsGroup()
+        {
+            var licenseeIds = GetLicenseesNoOddsGroup();
+            return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString()) == false;
+        }
 
         /// <summary>
         /// Create customer view model.
