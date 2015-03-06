@@ -36,67 +36,67 @@ namespace Fanex.Athena.Controllers
 
         #region Members
         
-        public string[] IgnoreAgCasino
+        public string[] IgnoreAgCasinoAndPlaytech
         {
             get
             {
-                return new string[] { Product.AGC };
+                return new string[] { Product.AGC, Product.PTCS };
             }
         }
 
-        public string[] IgnoreCasinoAngBingo
+        public string[] IgnoreCasinoAngBingoAndPlaytech
         {
             get
             {
-                return new string[] { Product.CS, Product.BG };
+                return new string[] { Product.CS, Product.BG, Product.PTCS };
             }
         }
 
-        public string[] IgnoreCasinoAngBingoAndAgCasino
+        public string[] IgnoreCasinoAngBingoAndAgCasinoAndPlaytech
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.AGC };
+                return new string[] { Product.CS, Product.BG, Product.AGC, Product.PTCS };
             }
         }
 
-        public string[] IgnoreKeno
+        public string[] IgnoreKenoAndPlaytech
         {
             get
             {
-                return new string[] { Product.KN };
+                return new string[] { Product.KN, Product.PTCS };
             }
         }
 
-        public string[] IgnoreBingo
+        public string[] IgnoreBingoAndPlaytech
         {
             get
             {
-                return new string[] { Product.BG };
+                return new string[] { Product.BG, Product.PTCS };
             }
         }
 
-        public string[] IgnoreBingoAndAgCasino
+        public string[] IgnoreBingoAndAgCasinoAndPlaytech
         {
             get
             {
-                return new string[] { Product.BG, Product.AGC };
+                return new string[] { Product.BG, Product.AGC, Product.PTCS };
             }
         }
 
-        public string[] IgnoreCasinoAndBingoAndKeno
+        public string[] IgnoreCasinoAndBingoAndKenoAndPlaytech
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.KN };
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.PTCS };
             }
         }
 
-        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasino
+        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC };
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC, Product.PTCS };
             }
         }
 

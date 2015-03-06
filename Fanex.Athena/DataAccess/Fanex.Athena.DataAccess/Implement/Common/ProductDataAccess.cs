@@ -129,6 +129,10 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                   return ViewResources.RNGCasino;
                 case Product.KN:
                   return ViewResources.Keno;
+                case Product.PTCS:
+                  return ViewResources.PlaytechCasino;
+                case Product.AGC:
+                  return ViewResources.AGCasino;
             }
 
             return produtCode;

@@ -26,14 +26,17 @@ namespace Fanex.Athena.Excel.Report
     public class ActiveCustomerSummaryExcel : ReportBase
     {
         private const int ColumnDate = 0;
-        private const int ColumnTurnoverSportBook = 1;
-        private const int ColumnTotalTransaction = 10;
-        private const int ColumnTemplateCount = 11;
+        private const int ColumnFirstProduct = 1;
+        private const int ColumnLastProduct = 11;
+        private const int ColumnTotalTransaction = 12;
+        private const int ColumnTemplateCount = 13;
+
+        private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 4;
         private const int RowNoInfoTemplate = 5;
 
-        private const int TotalTurnoverProductColumn = 8;
+        private const int TotalProductColumn = 10;
 
         private readonly IList<ActiveCustomer> _activeCustomerList;
 
@@ -79,6 +82,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             ProcessUI(sheet);
+            sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
             HideColumn(sheet, _hiddenColumnIndexes.ToArray());
         }
 
@@ -90,7 +94,7 @@ namespace Fanex.Athena.Excel.Report
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
-            row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Product);
+            row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
             
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -105,10 +109,12 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.VirtualSports,
                 ViewResources.RNGCasino,
                 ViewResources.Bingo,
-                ViewResources.Keno
+                ViewResources.Keno,
+                ViewResources.PlaytechCasino,
+                ViewResources.AGCasino
             };
 
-            int index = ColumnTurnoverSportBook;
+            int index = ColumnFirstProduct;
             foreach (string item in prdHeaderList)
             {
                 row2.Cells[index++].SetCellValue(item);
@@ -142,11 +148,11 @@ namespace Fanex.Athena.Excel.Report
                 {   
                     if (_allProductOptions[i].Status)
                     {
-                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);
+                        row.Cells[ColumnFirstProduct + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);
                     }
                     else
                     {
-                        row.Cells[ColumnTurnoverSportBook + i].SetCellValue("-");
+                        row.Cells[ColumnFirstProduct + i].SetCellValue("-");
                     }
                 }
             }
@@ -194,7 +200,9 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.VS, Status = false },
                 new ProductOption { Code = Product.CS, Status = false },
                 new ProductOption { Code = Product.BG, Status = false },
-                new ProductOption { Code = Product.KN, Status = false }
+                new ProductOption { Code = Product.KN, Status = false },
+                new ProductOption { Code = Product.PTCS, Status = false },
+                new ProductOption { Code = Product.AGC, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)
@@ -202,7 +210,7 @@ namespace Fanex.Athena.Excel.Report
                 var product = products.Where(x => x.Code == newProducts[i].Code).FirstOrDefault();
                 if (product == null)
                 {
-                    _hiddenColumnIndexes.Add(ColumnTurnoverSportBook + i);
+                    _hiddenColumnIndexes.Add(ColumnFirstProduct + i);
                 }
                 else
                 {

@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasino);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasinoAndPlaytech);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
                                              .Select(i => new ProductOption
                                                  {
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
                         DataList = dataList,
                         TotalData = turnoverService.SumTotalData(dataList),
                         Param = metaModel,
-                        ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingo),
+                        ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndPlaytech),
                         IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                         LicenseeTypeList = licenseeSession.LicenseeType,
                         CurrencyList = userSession.CurrencyList,
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreBingo);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, IgnoreBingoAndPlaytech);
 
             var convertingOption = new ConvertingOption
                 {
