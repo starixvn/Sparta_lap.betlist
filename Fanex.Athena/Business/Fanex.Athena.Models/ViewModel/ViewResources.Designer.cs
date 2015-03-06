@@ -3904,7 +3904,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max Bet Match must be less than or equal to.
+        ///   Looks up a localized string similar to Max Per Match must be less than or equal to.
         /// </summary>
         public static string MaxBetMatchLessThanOrEqual {
             get {
@@ -3913,7 +3913,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max Bet Match must be more than or equal to.
+        ///   Looks up a localized string similar to Max Per Match must be more than or equal to.
         /// </summary>
         public static string MaxBetMatchMoreThanOrEqual {
             get {

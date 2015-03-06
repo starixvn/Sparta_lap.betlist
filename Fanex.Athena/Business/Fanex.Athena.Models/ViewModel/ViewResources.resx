@@ -2011,10 +2011,10 @@
     <value>Max Bet must be less than or equal to</value>
   </data>
   <data name="MaxBetMatchLessThanOrEqual" xml:space="preserve">
-    <value>Max Bet Match must be less than or equal to</value>
+    <value>Max Per Match must be less than or equal to</value>
   </data>
   <data name="MaxBetMatchMoreThanOrEqual" xml:space="preserve">
-    <value>Max Bet Match must be more than or equal to</value>
+    <value>Max Per Match must be more than or equal to</value>
   </data>
   <data name="MaxPerBallLessThanOrEqual" xml:space="preserve">
     <value>Max Per Ball must be less than or equal to</value>

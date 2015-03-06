@@ -167,7 +167,7 @@ var BetSetting = (function ($) {
 
             if (tabId === TAB_NUMBERGAME) {
                 $("#max-per-ball-161").prop('disabled', !enable);
-            } else if (tabId === TAB_SPORTSBOOK || tabId === TAB_KENO) {
+            } else if (tabId === TAB_SPORTSBOOK) {
                 if (!enable) {
                     $('#copy-settting').hide();
                 }
@@ -291,7 +291,7 @@ var BetSetting = (function ($) {
             params += "&custid=" + custId;
             params += "&userName=" + userName;
             params += "&nickName=" + nickName;
-            params += "&ids=" + _sportIds.toString();
+            params += "&id=" + _sportIds.toString();
             params = params.substring(1);
 
             $.ajax({

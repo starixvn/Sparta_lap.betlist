@@ -523,9 +523,9 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="userId">The user id.</param>
         /// <param name="language">The language id.</param>
         /// <param name="ip">The IP address.</param>
-        /// <param name="betSettings">The bet setting.</param>
+        /// <param name="setting">The bet setting.</param>
         /// <returns>The result.</returns>
-        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, IList<KenoBetSetting> betSettings)
+        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting)
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
@@ -536,11 +536,8 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             var xmlElementBuilder = new StringBuilder();
 
-            foreach (var setting in betSettings)
-            {
-                xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
-            }
-
+            xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
+            
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
 
             return _betSettingDataAccess.UpdateKenoBetSetting(

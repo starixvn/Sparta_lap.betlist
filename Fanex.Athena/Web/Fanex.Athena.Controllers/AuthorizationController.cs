@@ -95,25 +95,23 @@ namespace Fanex.Athena.Controllers
         public ActionResult SignIn(LoginMetalModel model)
         {
             var isValid = true;
-            var isAllowAutomationCaptchaCode =
-           AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
-            if (model.Captcha != SessionService.CaptchaCode)
+            
+            var isAllowAutomationCaptchaCode = AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
+            if (!isAllowAutomationCaptchaCode && model.Captcha != SessionService.CaptchaCode)
             {
-                /*if IsAllowAutomationCaptchaCode = true
-                 then allow selenium testing
-                 */
-                if (!isAllowAutomationCaptchaCode)
-                {
-                    SessionService.CaptchaCode = RandomCaptchaCode();
-                    SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
-                    isValid = false;
-                }
-                else
-                {
-                    isValid = true;
-                }
+               SessionService.CaptchaCode = RandomCaptchaCode();
+               SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
+               isValid = false;
             }
 
+            var secretCaptcha = AppSettings.GetValue("SecretCaptcha");
+            var companyIP = AppSettings.GetValue("CompanyIP");
+            if (!isValid && !string.IsNullOrWhiteSpace(secretCaptcha) && model.Captcha == secretCaptcha && 
+                 Request.UserHostAddress == companyIP)
+            {
+                isValid = true;
+            }
+            
             if (isValid && string.IsNullOrEmpty(model.UserName))
             {
                 SetErrorForView(InvalidUserNameError, ViewResources.AlertUserNameMsg);
