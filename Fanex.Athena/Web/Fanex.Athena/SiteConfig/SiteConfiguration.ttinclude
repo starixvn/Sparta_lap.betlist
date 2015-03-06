@@ -204,7 +204,7 @@
                     case SiteEnvironment.PRO:
                         return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
                     case SiteEnvironment.BACKUPMNL:
-                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.98.1:42424\" cookieless=\"false\"  />";
+                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.12.10:42424\" cookieless=\"false\"  />";
                     default:
                         return string.Empty;
                 }
