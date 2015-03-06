@@ -35,7 +35,6 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=29764_3" />
 	<add key="JsVersion" value="v=26561" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
