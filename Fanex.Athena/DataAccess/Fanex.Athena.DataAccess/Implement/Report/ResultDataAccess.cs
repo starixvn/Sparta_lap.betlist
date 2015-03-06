@@ -328,7 +328,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                                           Color = reader.FieldExists("lcolor") &&
                                                               reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
                                                           FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                                          HtHomeScore = reader.ToNullableInt("finalhomescore"),
+                                                          HtHomeScore = reader.ToNullableInt("hthomescore"),
                                                           EventDate = DateTime.Parse(reader.ToString("eventdate")),
                                                           IsNeutral = reader.ToBool("IsNeutral"),
                                                           IsPending = reader.ToBool("IsPending"),
