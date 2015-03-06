@@ -153,9 +153,9 @@ namespace Fanex.Athena.Controllers
 
         [NonAction]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        protected static IList<string> GetLicenseesNoOddsGroup()
+        protected static IList<string> GetLicenseesOfferOddsGroup()
         {
-            var licenseeIds = AppSettings.GetValue("LicenseesNoOddsGroup");
+            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
             if (!string.IsNullOrEmpty(licenseeIds))
             {
                 return licenseeIds.Split(',');
