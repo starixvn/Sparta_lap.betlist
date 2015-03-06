@@ -21,6 +21,10 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
+        GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
+
+        IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int custId, string siteName, int currency);
+
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
         IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency);

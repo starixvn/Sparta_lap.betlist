@@ -2603,5 +2603,13 @@
   <data name="DateRangeExceedMsg" xml:space="preserve">
     <value>Date range exceeds {0} months. Please try again!</value>
     <comment>#29219</comment>
+  </data>  <data name="GoldDeluxeProblemDisplayBetSetting" xml:space="preserve">
+    <value>There is problem to display bet setting group's detail.</value>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+  </data>
+  <data name="GoldDeluxeNotOfferCurrency" xml:space="preserve">
+    <value>Gold Deluxe is not offered for this currency.</value>
   </data>
 </root>

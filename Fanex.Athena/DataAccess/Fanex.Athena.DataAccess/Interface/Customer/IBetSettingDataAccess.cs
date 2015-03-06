@@ -24,6 +24,12 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
         [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
+        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
+
+        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
+
+        GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
+
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);

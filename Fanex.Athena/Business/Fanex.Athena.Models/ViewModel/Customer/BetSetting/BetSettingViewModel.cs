@@ -20,6 +20,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
         private List<BetSetting> _mainData;
         private List<LiveCasinoBetSettingViewModel> _liveCasinoData;
         private AgCasinoBetSettingViewModel _agcasinoViewModel;
+        private GoldDeluxeBetSettingViewModel _goldDeluxeViewModel;
 
         public BetSettingViewModel()
         {
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             _mainData = new List<BetSetting>();
             _liveCasinoData = new List<LiveCasinoBetSettingViewModel>();
             _agcasinoViewModel = new AgCasinoBetSettingViewModel();
+            _goldDeluxeViewModel = new GoldDeluxeBetSettingViewModel();
         }
 
         public BetSettingMetaModel Param { get; set; }
@@ -52,6 +54,14 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             get
             {
                 return _agcasinoViewModel;
+            }
+        }
+
+        public GoldDeluxeBetSettingViewModel GoldDeluxeViewModel
+        {
+            get
+            {
+                return _goldDeluxeViewModel;
             }
         }
 

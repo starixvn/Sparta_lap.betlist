@@ -2401,6 +2401,33 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gold Deluxe.
+        /// </summary>
+        public static string GoldDeluxe {
+            get {
+                return ResourceManager.GetString("GoldDeluxe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gold Deluxe is not offered for this currency..
+        /// </summary>
+        public static string GoldDeluxeNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("GoldDeluxeNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is problem to display bet setting group&apos;s detail..
+        /// </summary>
+        public static string GoldDeluxeProblemDisplayBetSetting {
+            get {
+                return ResourceManager.GetString("GoldDeluxeProblemDisplayBetSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to Customer List.
         /// </summary>
         public static string GotoCustomerList {

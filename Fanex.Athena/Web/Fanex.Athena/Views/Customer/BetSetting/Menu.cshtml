@@ -124,6 +124,21 @@
                 </a></li>
             }
             <!--/AG Casino-->
+            <!--AG Casino-->
+            @if (true)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 9,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.GoldDeluxe
+                        })" id="golddeluxe">
+                    @ViewResources.GoldDeluxe
+                </a></li>
+            }
+            <!--/AG Casino-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

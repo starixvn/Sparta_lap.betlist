@@ -85,6 +85,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
                 case ProductType.AgCasino:
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
+                case ProductType.GoldDeluxe:
+                    return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -162,6 +164,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
+            metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
 
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
@@ -241,6 +244,22 @@ namespace Fanex.Athena.Controllers.Customer
                     }
 
                     model.IsEnabled = model.AgCasinoViewModel.BetSetting.IsEnabled;
+                    break;
+
+                case ProductType.GoldDeluxe:
+                    model.GoldDeluxeViewModel.BetSetting = _betSettingService.GetGoldDeluxeSetting(metaModel.CustId);
+                    model.GoldDeluxeViewModel.Games = _betSettingService.GetGoldDeluxeGroupBettingLimit(
+                        metaModel.CustId,
+                        SessionService.LicenseeSession.LicenseeName,
+                        model.GoldDeluxeViewModel.BetSetting.CurrencyId);
+                    if (model.GoldDeluxeViewModel.BetSetting.CheckedGroups.Contains(model.GoldDeluxeViewModel.BetSetting.Group) == false)
+                    {
+                        model.GoldDeluxeViewModel.BetSetting.CheckedGroups =
+                            model.GoldDeluxeViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.GoldDeluxeViewModel.BetSetting.Group })
+                            .OrderBy(x => x).ToArray();
+                    }
+
+                    model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
                     break;
             }
 
