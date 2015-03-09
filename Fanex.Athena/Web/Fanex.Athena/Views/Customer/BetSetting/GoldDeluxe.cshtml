@@ -25,7 +25,7 @@
         @ViewResources.BetSettingGroups:
         @if (Model.GoldDeluxeViewModel.BetSetting.IsEnabled && hasData)
         {
-            <select id="betSettingGroup" data-default="@Model.GoldDeluxeViewModel.BetSetting.AgGroup">
+            <select id="betSettingGroup" data-default="@Model.GoldDeluxeViewModel.BetSetting.Group">
                 @foreach (var item in Model.GoldDeluxeViewModel.BetSetting.CheckedGroups)
                 {
                     <option value="@item" @(item == Model.GoldDeluxeViewModel.BetSetting.Group ? "selected" : null) >@item</option>
@@ -105,7 +105,7 @@ else
         {
             <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
             data-cust-id="@Model.Param.CustId" 
-            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableGoldDeluxe : ViewResources.EnableGoldDeluxe)"
+            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableAgCasino : ViewResources.EnableAgCasino)"
             id="btnUpdateStatus" />
         }
     </div>

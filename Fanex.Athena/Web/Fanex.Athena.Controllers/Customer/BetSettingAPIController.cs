@@ -114,6 +114,26 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        public JsonResult UpdateGoldDeluxeStatus(int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateGoldDeluxeStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Update Ag Casino status.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="nickName">Nick name.</param>
+        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
+        /// <returns>Result value.</returns>
         public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;

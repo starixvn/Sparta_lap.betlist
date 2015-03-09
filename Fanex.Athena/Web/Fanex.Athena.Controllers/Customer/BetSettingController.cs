@@ -252,6 +252,7 @@ namespace Fanex.Athena.Controllers.Customer
                         metaModel.CustId,
                         SessionService.LicenseeSession.LicenseeName,
                         model.GoldDeluxeViewModel.BetSetting.CurrencyId);
+                    model.GoldDeluxeViewModel.BetSetting.CheckedGroups = model.GoldDeluxeViewModel.Games[0].Groups.Select(x => x.GroupType).ToArray();
                     if (model.GoldDeluxeViewModel.BetSetting.CheckedGroups.Contains(model.GoldDeluxeViewModel.BetSetting.Group) == false)
                     {
                         model.GoldDeluxeViewModel.BetSetting.CheckedGroups =

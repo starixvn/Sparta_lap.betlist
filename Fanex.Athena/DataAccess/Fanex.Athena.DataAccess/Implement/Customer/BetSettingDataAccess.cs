@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {
         #region Const
-
+        protected const int GoldDeluxeProductId = 12;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -58,26 +58,23 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>Gold Deluxe setting.</returns>
         public GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId)
         {
-            var uspName = "Lrf_AGC_SelCustSetting";
+            var uspName = "Lrf_3rdProductSelCustStatus";
 
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddOutParameter("Currency", DbType.Int32, int.MaxValue);
-                db.AddOutParameter("AGGroup", DbType.String, 20);
+                db.AddInParameter("ProductId", DbType.Int32, GoldDeluxeProductId);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("CheckedGroups", DbType.String, 500);
+                db.AddOutParameter("Currency", DbType.Int32, 1);
 
                 db.ExecuteNonQuery();
 
                 return new GoldDeluxeBetSetting()
                 {
-                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency")),
-                    Group = Converter.ToString2(db.GetParameterValue("AGGroup")),
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled")),
-                    CheckedGroups = Converter.ToString2(db.GetParameterValue("CheckedGroups")).Split(',')
+                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency"))
                 };
             }
         }
@@ -333,17 +330,17 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         public IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
-            var uspName = "Lrf_AGC_UpdCustStatus";
+            var uspName = "Lrf_3rdUpdCustStatus";
 
             using (var db = new ObjectDb(uspName))
             {
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("productid", DbType.Int32, GoldDeluxeProductId);
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("custid", DbType.Int32, custId);
-
-                db.AddOutParameter("ErrCode", DbType.String, 600);
+                
                 db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
                 db.ExecuteNonQuery();

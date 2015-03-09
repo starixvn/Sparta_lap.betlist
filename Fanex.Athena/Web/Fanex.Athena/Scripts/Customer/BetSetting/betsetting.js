@@ -1,4 +1,4 @@
-﻿/*global Site, AgCasino */
+﻿/*global Site, AgCasino, GoldDeluxe */
 /// <reference path="/@JSense.js" />
 "use strict";
 
@@ -11,6 +11,7 @@ var BetSetting = (function ($) {
     var TAB_RNGCASINO = 6;
     var TAB_KENO = 7;
     var TAB_AGCASINO = 8;
+    var TAB_GOLDDELUXE = 9;
 
     var _sportIds = null;
     return {
@@ -80,6 +81,9 @@ var BetSetting = (function ($) {
                 case TAB_AGCASINO:
                     $('#agcasino').addClass('activeTab');
                     break;
+                case TAB_GOLDDELUXE:
+                    $('#golddeluxe').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
@@ -102,6 +106,9 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_AGCASINO:
                     url = "BetSettingAPI/UpdateAgCasinoStatus";
+                    break;
+                case TAB_GOLDDELUXE:
+                    url = "BetSettingAPI/UpdateGoldDeluxeStatus";
                     break;
             }
 
@@ -242,6 +249,19 @@ var BetSetting = (function ($) {
 
                     showComfirm('UpdateAgCasinoBetSettings', BetSetting.updateAgCasinoBetSetting);
                     break;
+                case TAB_AGCASINO:
+                    group = $("#betSettingGroup").val();
+                    if (group === null || group === "") {
+                        return;
+                    }
+
+                    if (GoldDeluxe.checkApiContainGroup(group) === false) {
+                        alert(Site.getSingleResource("AGCasinoNoGroupChosenErrMsg"));
+                        return;
+                    }
+
+                    showComfirm('UpdateAgCasinoBetSettings', BetSetting.updateGoldDeluxeBetSetting);
+                    break;
             }
         },
         checkValidation: function () {
@@ -268,6 +288,23 @@ var BetSetting = (function ($) {
             }
 
             return true;
+        },
+        updateGoldDeluxeBetSetting: function (custId, userName, nickName) {
+            var params = "custid=" + custId;
+            params += "&userName=" + userName;
+            params += "&nickName=" + nickName;
+            params += "&group=" + $("#betSettingGroup").val();
+
+            $.ajax({
+                type: 'GET',
+                cache: false,
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting?'),
+                data: params,
+                dataType: "json",
+                success: function (result) {
+                    BetSetting.showUpdateSettingResult(result);
+                }
+            });
         },
         updateAgCasinoBetSetting: function (custId, userName, nickName) {
             var params = "custid=" + custId;

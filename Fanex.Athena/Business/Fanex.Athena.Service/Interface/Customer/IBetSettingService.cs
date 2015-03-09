@@ -66,6 +66,8 @@ namespace Fanex.Athena.Service.Interface.Customer
             string ip,
            string language);
 
+        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
+
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);

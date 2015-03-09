@@ -40,6 +40,12 @@ namespace Fanex.Athena.Service.Implement.Customer
     /// </summary>
     public class BetSettingService : IBetSettingService
     {
+        #region Constants
+
+        private const int GoldDeluxeThirdPartyId = 5;
+
+        #endregion Constants
+
         #region Field
 
         private readonly BetSettingDataAccess _betSettingDataAccess;
@@ -65,11 +71,21 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
+        /// <summary>
+        /// Get Gold Deluxe setting.
+        /// </summary>
+        /// <param name="custId">Customer Id.</param>
+        /// <returns>Gold Deluxe setting.</returns>
         public GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId)
         {
-            return _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetGoldDeluxeSetting(custId)
-                        : null;
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetGoldDeluxeSetting(custId);
+            setting.Group = "A";
+            return setting;
         }
 
         /// <summary>
@@ -88,8 +104,8 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return new List<GoldDeluxeGame>();
             }
 
-            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
-            var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
+            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
+            var parameters = string.Format("SiteName={0}&Currency={1}&ThirdPartyId={2}", siteName, currency, GoldDeluxeThirdPartyId);
             var apiResult = string.Empty;
             var games = new List<GoldDeluxeGame>();
             try
@@ -139,7 +155,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
+            return _betSettingDataAccess.UpdateGoldDeluxeStatus(userId, custId, language, ip, isEnabled);
         }
 
         public AgCasinoBetSetting GetAgCasinoSetting(int custId)
