@@ -77,6 +77,8 @@ var ActiveCustomer = (function ($) {
                 title: Site.getSingleResource("ActiveCustomerSummary")
             });
             Site.addFilterCollapseExpand();
+
+            $("#ProductList").css("width", "auto");
         },
 
         initEvent: function () {
@@ -189,7 +191,7 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-            var productOptions = $.parseJSON(response.ProductOptions);            
+            var productOptions = $.parseJSON(response.ProductOptions);
             var numOfRow = response.Data.length;
 
             var gridOption = ActiveCustomerOption.getGridOption(productOptions);
