@@ -85,8 +85,8 @@
 
   <Function Name="CustomerInformation">
     <Setting Key="Lrf_BATimeCheck" SpName="Lrf_BATimeCheck" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus_xtest" DbName="DBTXN.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdClosed" SpName="Lrf_CustomerUpdClosed" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSuspended" SpName="Lrf_CustomerUpdSuspended" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSpecialLevel" SpName="Lrf_CustomerUpdSpecialLevel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -96,7 +96,7 @@
     <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelStatus" SpName="Lrf_CustomerSelStatus" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup_xtest" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup" DbName="DBTXN.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="DataWareHouse">

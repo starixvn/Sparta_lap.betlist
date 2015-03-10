@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/6/2015 2:31:07 PM
+// Lasted generated date: 3/10/2015 5:09:30 PM
 // </history>
 
 var _language_en_US={
@@ -53,6 +53,8 @@ var _language_en_US={
                      AlertPasswordEmptyMsg:"Sorry, password can not be empty!!!",
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"It will remove special level set for this customer. Are you sure?",
+				 	
+                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to move this customer to odds group {0}?",
 				 	
                      AlertSetSpecialLevelForCustomerMsg:"Are you sure you want to set special level  for this customer?",
 				 	
@@ -1055,6 +1057,8 @@ var _language_en_US={
                      OddEvenDND:"Odd/Even + 1 X 2 + DND",
 				 	
                      Odds:"Odds",
+				 	
+                     OddsGroup:"Odds Group",
 				 	
                      OddsType:"Odds Type",
 				 	
