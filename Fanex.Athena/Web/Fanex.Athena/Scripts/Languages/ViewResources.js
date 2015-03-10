@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/12/2015 10:17:57 AM
+// Lasted generated date: 3/10/2015 3:46:05 PM
 // </history>
 
 var _language_en_US={
@@ -22,10 +22,6 @@ var _language_en_US={
 				 	
                      Action:"Action",
 				 	
-                     ActiveCustomer:"Active Customer",
-				 	
-                     ActiveCustomerSummary:"Active Customer Summary",
-				 	
                      AD:"AD",
 				 	
                      Adjustment:"Adjustment",
@@ -35,8 +31,6 @@ var _language_en_US={
                      AGCasino:"AG Casino",
 				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
-				 	
-                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AGCasinoWinLoss:"AG Casino Win Loss",
 				 	
@@ -53,8 +47,6 @@ var _language_en_US={
                      AlertPasswordEmptyMsg:"Sorry, password can not be empty!!!",
 				 	
                      AlertRemoveSpecialLevelForCustomerMsg:"It will remove special level set for this customer. Are you sure?",
-				 	
-                     AlertSetOddsGroupForCustomerMsg:"Are you sure you want to move this customer to odds group {0}?",
 				 	
                      AlertSetSpecialLevelForCustomerMsg:"Are you sure you want to set special level  for this customer?",
 				 	
@@ -346,8 +338,6 @@ var _language_en_US={
 				 	
                      DateRange:"Date Range",
 				 	
-                     DateRangeExceedMsg:"Date range exceeds {0} months. Please try again!",
-				 	
                      DateRangeLimitNote:"Data is available within 3 months, from {0} to {1}.",
 				 	
                      DateRangeNote:"Data is available from {0:d MMM yyyy}",
@@ -388,6 +378,8 @@ var _language_en_US={
 				 	
                      DisableAgCasino:"Disable AG Casino",
 				 	
+                     DisableGoldDeluxe:"Disable Gold Deluxe",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
@@ -427,6 +419,8 @@ var _language_en_US={
                      Enable:"Enable",
 				 	
                      EnableAgCasino:"Enable AG Casino",
+				 	
+                     EnableGoldDeluxe:"Enable Gold Deluxe",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
@@ -531,6 +525,10 @@ var _language_en_US={
                      GetAll:"Get All",
 				 	
                      Go:"Go",
+				 	
+                     GoldDeluxe:"Gold Deluxe",
+				 	
+                     GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
 				 	
                      GotoCustomerList:"Go to Customer List",
 				 	
@@ -1058,8 +1056,6 @@ var _language_en_US={
 				 	
                      Odds:"Odds",
 				 	
-                     OddsGroup:"Odds Group",
-				 	
                      OddsType:"Odds Type",
 				 	
                      OEFT:"O/E FT",
@@ -1157,6 +1153,8 @@ var _language_en_US={
                      Prev:"Prev",
 				 	
                      Previous:"Previous",
+				 	
+                     ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      Product:"Product",
 				 	
@@ -1420,8 +1418,6 @@ var _language_en_US={
 				 	
                      Total:"Total",
 				 	
-                     TotalActiveCustomer:"Total active customers",
-				 	
                      TotalAway:"Total Away",
 				 	
                      TotalBets:"Total Bets",
@@ -1507,6 +1503,8 @@ var _language_en_US={
                      UpdateCustomerCommission:"Update Customer Commission",
 				 	
                      UpdateFunctionSuccessfulMsg:"Updating Functions is successul.",
+				 	
+                     UpdateGoldDeluxeBetSettings:"Are you sure you want to update all Gold Deluxe bet settings?",
 				 	
                      UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
 				 	

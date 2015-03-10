@@ -330,7 +330,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The result value.</returns>
         public IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
-            var uspName = "Lrf_3rdUpdCustStatus";
+            var uspName = "Dep_3rdProductUpdCustStatus";
 
             using (var db = new ObjectDb(uspName))
             {
@@ -345,7 +345,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 db.ExecuteNonQuery();
 
-                return GetResult(db);
+                var errorMessage = db.GetParameterValue("ErrMsg");
+
+                return new ResultInfo
+                {
+                    Code = 0,
+                    Message = Converter.ToString2(errorMessage)
+                };
             }
         }
 

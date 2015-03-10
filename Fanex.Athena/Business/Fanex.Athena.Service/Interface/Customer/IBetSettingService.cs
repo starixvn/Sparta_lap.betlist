@@ -21,9 +21,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
-
-        IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int custId, string siteName, int currency);
+        GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
@@ -41,6 +39,8 @@ namespace Fanex.Athena.Service.Interface.Customer
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId, string language);
+
+        IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
 

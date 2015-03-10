@@ -249,7 +249,7 @@ var BetSetting = (function ($) {
 
                     showComfirm('UpdateAgCasinoBetSettings', BetSetting.updateAgCasinoBetSetting);
                     break;
-                case TAB_AGCASINO:
+                case TAB_GOLDDELUXE:
                     group = $("#betSettingGroup").val();
                     if (group === null || group === "") {
                         return;
@@ -260,7 +260,7 @@ var BetSetting = (function ($) {
                         return;
                     }
 
-                    showComfirm('UpdateAgCasinoBetSettings', BetSetting.updateGoldDeluxeBetSetting);
+                    showComfirm('UpdateGoldDeluxeBetSettings', BetSetting.updateGoldDeluxeBetSetting);
                     break;
             }
         },
@@ -507,14 +507,20 @@ var BetSetting = (function ($) {
         // Reset bet setting
         resetBetSetting: function () {
             var tabid = parseInt($("#TabId").val());
-            if (tabid === TAB_LIVECASINO) {
-                BetSetting.resetLiveCasinoBetSetting();
-            }
-            if (tabid === TAB_AGCASINO) {
-                BetSetting.resetAgCasinoSetting();
-            }
-            else {
-                BetSetting.resetValues();
+
+            switch (tabid) {
+                case TAB_LIVECASINO:
+                    BetSetting.resetLiveCasinoBetSetting();
+                    break;
+                case TAB_AGCASINO:
+                    BetSetting.resetAgCasinoSetting();
+                    break;
+                case TAB_GOLDDELUXE:
+                    BetSetting.resetGoldDeluxeSetting();
+                    break;
+                default:
+                    BetSetting.resetValues();
+                    break;
             }
         },
 
@@ -523,6 +529,14 @@ var BetSetting = (function ($) {
             $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
                 $(this).val($(this).attr('data-original')).prop('disabled', false);
             });
+        },
+        resetGoldDeluxeSetting: function () {
+            var $dropdown = $("#betSettingGroup");
+            if ($dropdown.data("default") === "") {
+                $dropdown.prop("selectedIndex", -1).change();
+            } else {
+                $dropdown.val($dropdown.data("default")).change();
+            }
         },
         resetAgCasinoSetting: function () {
             var $dropdown = $("#betSettingGroup");

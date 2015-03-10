@@ -139,7 +139,7 @@
 
   <Function Name="CustomerSettingsThridParty">
     <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_3rdUpdCustStatus" SpName="Lrf_3rdUpdCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Dep_3rdProductUpdCustStatus" SpName="Dep_3rdProductUpdCustStatus" DbName="DBTXN.CustDB.bodbLicenseeNet" />
   </Function>
   
   <Function Name="AG Casino">

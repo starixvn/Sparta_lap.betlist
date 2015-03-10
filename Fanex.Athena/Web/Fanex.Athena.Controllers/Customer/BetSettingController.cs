@@ -247,18 +247,11 @@ namespace Fanex.Athena.Controllers.Customer
                     break;
 
                 case ProductType.GoldDeluxe:
-                    model.GoldDeluxeViewModel.BetSetting = _betSettingService.GetGoldDeluxeSetting(metaModel.CustId);
-                    model.GoldDeluxeViewModel.Games = _betSettingService.GetGoldDeluxeGroupBettingLimit(
-                        metaModel.CustId,
-                        SessionService.LicenseeSession.LicenseeName,
-                        model.GoldDeluxeViewModel.BetSetting.CurrencyId);
-                    model.GoldDeluxeViewModel.BetSetting.CheckedGroups = model.GoldDeluxeViewModel.Games[0].Groups.Select(x => x.GroupType).ToArray();
-                    if (model.GoldDeluxeViewModel.BetSetting.CheckedGroups.Contains(model.GoldDeluxeViewModel.BetSetting.Group) == false)
-                    {
-                        model.GoldDeluxeViewModel.BetSetting.CheckedGroups =
-                            model.GoldDeluxeViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.GoldDeluxeViewModel.BetSetting.Group })
-                            .OrderBy(x => x).ToArray();
-                    }
+                    var viewModel = _betSettingService.GetGoldDeluxeSetting(
+                        metaModel.CustId, 
+                        SessionService.LicenseeSession.LicenseeName);
+                    model.GoldDeluxeViewModel.BetSetting = viewModel.BetSetting;
+                    model.GoldDeluxeViewModel.Games = viewModel.Games;
 
                     model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
                     break;

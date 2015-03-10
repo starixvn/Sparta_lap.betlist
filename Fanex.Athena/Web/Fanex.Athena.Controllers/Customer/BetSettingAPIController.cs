@@ -108,6 +108,25 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update Ag-Casino settings.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="nickName">The user name.</param>
+        /// <param name="group">Bet setting group.</param>
+        /// <returns>The JSON result.</returns>
+        public JsonResult UpdateGoldDeluxeBetSetting(int custId, string nickName, string group)
+        {
+            var result = _betSettingService.UpdateGoldDeluxeBetSetting(SessionService.LicenseeSession.LicenseeName, custId, group);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateAgCasinoBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update Ag Casino status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
@@ -119,7 +138,7 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateGoldDeluxeStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
 
-            if (result.Code == 0)
+            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
             {
                 result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
             }
