@@ -4,13 +4,14 @@ window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
     "use strict";
     var ajaxRequest = null;
-    var $specialLevelCell = null;
+    var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
     var _productAccess = null;
     var _cacheData = null;
     var _checkedAllRows = false;
     var _checkedCustomerArray = [];
     var _checkedCustomerObject = {}; // used to quickly check if a customer is checked or not
+    var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
 
     var _pagingOption =
         {
@@ -24,26 +25,24 @@ var CustomerList = (function ($) {
             alwayshow: true
         };
 
-    function setSpecialLevel(list, level) {
+    function setSpecialLevel($listItem, level) {
         level = Number(level);
-        var oldValue = Number(list.attr("data-level"));
+        var oldValue = Number($listItem.attr("data-level"));
         if (oldValue === level) {
             closeSpecialLevelList();
             return;
         }
-        var custId = list.attr("data-custid");
+        var custId = $listItem.attr("data-custid");
 
-        var msg = level === 0 ? Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') : Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
-        var answer = confirm(msg);
-        if (!answer) {
-            list.html(oldValue);
-            list.attr('class', 'level-' + oldValue);
+        var message = level === 0 ?
+                        Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') :
+                        Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
+        if (!confirm(message)) {
             return;
         }
 
-        list.html(level === 0 ? Site.getSingleResource("None") : level);
-        var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel");
-        list.attr('class', 'level-' + level);
+        $listItem.html(level === 0 ? Site.getSingleResource("None") : level)
+                 .attr('class', 'level-' + level);
         var param =
             {
                 custId: custId,
@@ -52,30 +51,28 @@ var CustomerList = (function ($) {
         $.ajax({
             type: "POST",
             data: JSON.stringify(param),
-            url: requestUrl,
+            url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
-                list.attr('class', 'level-' + level);
+                $listItem.attr('class', 'level-' + level);
             },
             success: function (data) {
                 if (data.Success) {
-                    list.attr("data-level", level);
-                    list.unbind("change");
-                    list.change(function () {
-                        CustomerList.setSpecialLevel($(this), custId, level);
-                    });
+                    var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                    _cacheData.Data[rowIndex].SpecialLevel = level;
+                    bindData(_cacheData, true);
                 }
                 else {
-                    list.html(oldValue);
-                    list.attr('class', 'level-' + oldValue);
+                    $listItem.html(oldValue);
+                    $listItem.attr('class', 'level-' + oldValue);
                     alert(data.ErrorMessage);
                 }
                 closeSpecialLevelList();
             },
             error: function (/*jqXHR, textStatus, errorThrown*/) {
-                list.html(oldValue);
-                list.attr('class', 'level-' + oldValue);
+                $listItem.html(oldValue);
+                $listItem.attr('class', 'level-' + oldValue);
                 alert("Error");
                 closeSpecialLevelList();
             }
@@ -89,24 +86,110 @@ var CustomerList = (function ($) {
         }
     }
 
-    function viewSpecialLevelList(context) {
-        var custId = context.attr("data-custid");
+    function viewSpecialLevelList($context) {
+        var custId = $context.attr("data-custid");
         var popup = $("#LevelListContainer");
-        var link = $("#cust-option-link-" + custId);
+        var position = $context.offset();
+        popup.css({
+            top: position.top + $context.height(),
+            left: $context.offset().left
+        });
 
         if (popup.attr("custid") === custId) {
             popup.toggle();
         }
         else {
+            var link = $("#cust-option-link-" + custId);
             popup.attr("custid", custId);
             popup.attr("externalid", link.attr("externalid"));
             popup.attr("systemid", link.attr("systemid"));
-            var position = $(context).offset();
-            popup.css({
-                top: position.top + $(context).height(),
-                left: $(context).offset().left
-            });
+            popup.show();
+        }
 
+        return false;
+    }
+
+    function setOddsGroup($listItem, oddsGroup) {
+        var oldValue = $listItem.attr("data-group");
+        if (oldValue === oddsGroup) {
+            closeOddsGroupList();
+            return;
+        }
+
+        var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+        message = message.replace("{0}", oddsGroup);
+        if (!confirm(message)) {
+            return;
+        }
+
+        var custId = $listItem.attr("data-custid");
+        $listItem.html(oddsGroup === 0 ? Site.getSingleResource("None") : oddsGroup);
+        var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
+        $listItem.attr('class', 'group-' + oddsGroup);
+        var param =
+            {
+                custId: custId,
+                oddsGroup: oddsGroup
+            };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(param),
+            url: requestUrl,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $listItem.attr('class', 'group-' + oddsGroup);
+            },
+            success: function (data) {
+                if (data.Success) {
+                    var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                    _cacheData.Data[rowIndex].OddsGroup = oddsGroup;
+                    bindData(_cacheData, true);
+                }
+                else {
+                    $listItem.html(oldValue);
+                    $listItem.attr('class', 'group-' + oldValue);
+                    alert(data.ErrorMessage);
+                }
+                closeOddsGroupList();
+            },
+            error: function (/*jqXHR, textStatus, errorThrown*/) {
+                $listItem.html(oldValue);
+                $listItem.attr('class', 'group-' + oldValue);
+                alert("Error");
+                closeOddsGroupList();
+            }
+        });
+    }
+
+    function closeOddsGroupList() {
+        var popup = $("#OddsGroupListContainer");
+        if (popup.is(":visible")) {
+            popup.hide();
+        }
+    }
+
+    function viewOddsGroupList($context) {
+        if ($context.next(".arrow1").length === 0) {
+            return;
+        }
+
+        var custId = $context.attr("data-custid");
+        var popup = $("#OddsGroupListContainer");
+        var position = $context.offset();
+        popup.css({
+            top: position.top + $context.height(),
+            left: $context.offset().left
+        });
+
+        if (popup.attr("custid") === custId) {
+            popup.toggle();
+        }
+        else {
+            var link = $("#cust-option-link-" + custId);
+            popup.attr("custid", custId);
+            popup.attr("externalid", link.attr("externalid"));
+            popup.attr("systemid", link.attr("systemid"));
             popup.show();
         }
 
@@ -117,7 +200,6 @@ var CustomerList = (function ($) {
         var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
 
         // Change formatter for Index col
-
         if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
             gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
                 var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
@@ -151,7 +233,8 @@ var CustomerList = (function ($) {
         return gridOption;
     }
 
-    function bindData(response) {
+    function bindData(response, keepScrollPosition) {
+        var oldScrollTop = keepScrollPosition === true ? $(".ui-jqgrid-bdiv").scrollTop() : 0;
         jqGridAdditional.clearGrid("ReportGrid");
 
         var $gridBody = $(".ui-jqgrid-bdiv");
@@ -170,10 +253,7 @@ var CustomerList = (function ($) {
 
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
         var gridOption = processGridOption(hasData, showingColumns);
-
-        gridOption.scroll = 1;
         gridOption.data = response.Data;
-        gridOption.rowNum = 40; // _pagingOption.pagesize;
 
         // Show the grid
         reportGrid.jqGrid(gridOption);
@@ -219,7 +299,12 @@ var CustomerList = (function ($) {
         }
 
         CustomerList.resizeGrid();
+        if (keepScrollPosition === true) {
+            $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+        }
         Site.unBlockUI();
+
+        CustomerList.addGridScrollEventToHidePopups();
     }
 
     function convertCustomerArrayToObject(array) {
@@ -279,6 +364,10 @@ var CustomerList = (function ($) {
 
     return {
         resizeGrid: function () {
+            if ($(".ui-jqgrid-bdiv").length === 0) {
+                return;
+            }
+
             var gridTop = $(".ui-jqgrid-bdiv").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
             gridHeight = Math.max(130, gridHeight);
@@ -306,6 +395,7 @@ var CustomerList = (function ($) {
         updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
             var count = 0;
             var length = _checkedCustomerArray.length;
+
             $.each(_cacheData.Data, function (index, item) {
                 if (count === length) {
                     return false;
@@ -354,15 +444,23 @@ var CustomerList = (function ($) {
             CustomerList.loadPostbackParam();
 
             $("#report-content").on("click", ".specialLevel *", function () {
-                var $this = $(this).parent().find("div");
-                $specialLevelCell = $this;
-                viewSpecialLevelList($this);
+                _$specialLevelCell = $(this).parent().find("div");
+                viewSpecialLevelList(_$specialLevelCell);
             });
 
             $("#LevelListContainer .levelLink").click(function () {
-                var $this = $(this);
-                var level = $this.attr("data-level");
-                setSpecialLevel($specialLevelCell, level);
+                var level = $(this).attr("data-level");
+                setSpecialLevel(_$specialLevelCell, level);
+            });
+
+            $("#report-content").on("click", ".oddsGroup *", function () {
+                _$oddsGroupCell = $(this).parent().find("div");
+                viewOddsGroupList(_$oddsGroupCell);
+            });
+
+            $("#OddsGroupListContainer .oddsGroupLink").click(function () {
+                var group = $(this).attr("data-group");
+                setOddsGroup(_$oddsGroupCell, group);
             });
 
             $('#SubmitButtonComm').click(function () {
@@ -457,17 +555,16 @@ var CustomerList = (function ($) {
         });
         },
         initAutoComplete: function () {
-            var txtUserName = $('#txtUsername');
+            var $username = $('#txtUsername');
             var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
-            if (txtUserName.length > 0) {
-                txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
+            if ($username.length > 0) {
+                $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
                 CustomerList.setDefaultUsername();
             }
         },
         initPopup: function () {
-            var popupList = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer"];
             $(document).mouseup(function (e) {
-                $(popupList).each(function (index, element) {
+                $(_POPUP_LIST).each(function (index, element) {
                     var container = $(element);
                     if (container.is(":visible")) {
                         var inWrapper = container.get(0) === e.target || container.has(e.target).length > 0;
@@ -477,10 +574,11 @@ var CustomerList = (function ($) {
                     }
                 });
             });
-
+        },
+        addGridScrollEventToHidePopups: function () {
             // Hide popup if scroll
-            $("#data-content").scroll(function () {
-                $(popupList).each(function (index, element) {
+            $(".ui-jqgrid-bdiv").on("scroll", function () {
+                $(_POPUP_LIST).each(function (index, element) {
                     var popup = $(element);
                     if (popup.is(":visible")) {
                         popup.hide();
@@ -533,7 +631,7 @@ var CustomerList = (function ($) {
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {
                     _cacheData = response;
-                    bindData(response);
+                    bindData(response);                   
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -559,21 +657,22 @@ var CustomerList = (function ($) {
         },
 
         setDefaultUsername: function () {
-            var username = $('#txtUsername').val();
+            var $username = $('#txtUsername');
+            var username = $username.val();
             if (username === '' || username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                $('#txtUsername').val(Site.getSingleResource('ExternalIdOrSystemId'));
-                $('#txtUsername').attr('class', 'default-username');
+                $username.val(Site.getSingleResource('ExternalIdOrSystemId'))
+                         .attr('class', 'default-username');
             }
             else {
-                $('#txtUsername').attr('class', '');
+                $username.attr('class', '');
             }
         },
 
         setUsernameOnFocus: function () {
-            var username = $('#txtUsername').val();
+            var $username = $('#txtUsername');
+            var username = $username.val();
             if (username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                $('#txtUsername').val('');
-                $('#txtUsername').removeAttr('class');
+                $username.val('').removeAttr('class');
             }
         },
 
@@ -725,50 +824,43 @@ var CustomerList = (function ($) {
                 alert(canUpdateBAMessage);
                 return;
             }
-            var paramString = $(context).attr("data-val");
+            var $context = $(context);
+            var paramString = $context.attr("data-val");
             var params = paramString.split("#");
             var baparam = (params[2] === "True" || params[2] === "true") ? true : false;
             var confirmMsg = params[2].toLowerCase() === "true" ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
             if (params.length === 4) {
                 var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus?custId=" + params[1] + "&isAllowBA=" + baparam + "&externalId=" + params[3]);
-                var isUpdate = window.confirm(confirmMsg);
-                if (isUpdate) {
-                    var ctx = context;
-                    var currentBAStatus = $(ctx).html();
+                if (window.confirm(confirmMsg)) {
+                    var currentBAStatus = $context.html();
                     var ajaxloading = $("#ajaxLoaDingUpdateBA").html();
                     $.ajax({
                         type: "POST",
                         url: requestUrl,
-
                         beforeSend: function () {
-                            $(ctx).html(ajaxloading);
+                            $context.html(ajaxloading);
                         },
-
                         complete: function () { },
                         success: function (data) {
-                            //ConfirmMessage
                             if (data.IsSuccessful) {
-                                $(ctx).html("")
-                                      .removeClass("ba-on ba-off")
-                                      .addClass('ba-' + data.BAStatus.toLowerCase())
-                                      .text(data.BAStatus.toUpperCase());
-                                var hrefString = "#" + params[1] + "#" + data.IsBA + "#" + params[3];
-                                $(ctx).attr("data-val", hrefString);
-                                $(ctx).attr("title", data.Tooltip);
+                                var rowIndex = ($context.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+                                _cacheData.Data[rowIndex].BAStatus = baparam;
+                                _cacheData.Data[rowIndex].OddsGroup = data.OddsGroup;
+                                bindData(_cacheData, true);
                             }
                             else {
-                                $(ctx).html(currentBAStatus);
+                                $context.html(currentBAStatus);
                                 alert(data.Message);
                             }
                         },
                         error: function (jqXHR, textStatus) {
-                            $(ctx).html(currentBAStatus);
+                            $context.html(currentBAStatus);
                             alert(textStatus);
                         },
                         statusCode:
                         {
                             404: function () {
-                                $(ctx).html(currentBAStatus);
+                                $context.html(currentBAStatus);
                                 alert('Error-Page not found');
                             }
                         }

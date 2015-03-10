@@ -13,7 +13,7 @@
 
 .levelLink
 {
-    width: 60px;
+    width: 80px;
     height: 15px;
     cursor: pointer;
     margin-top: 1px;
@@ -120,7 +120,51 @@ a.underline
     margin-left: 2px;
 }
 
+/* Odds Group */
+.group-A
+{
+    background-color: #007C00;
+    color: white !important;
+}
+
+.group-B
+{
+    background-color: #3298FD;
+    color: white !important;
+}
+
+.oddsGroupLink:hover
+{
+    cursor: pointer;
+}
+
+.oddsGroupLink:hover
+{
+    opacity: 0.7;
+}
+
+.oddsGroup div
+{
+    cursor: pointer;	
+}
+
+.oddsGroup div.disabled
+{
+    cursor: default;	
+}
+
 /* Popup */
+
+#OddsGroupListContainer
+{
+    display: none;
+    position: absolute;
+    text-align: left !important;
+    background-color: #FFFFFF;
+    border: 2px solid #666666;
+    width: 80px;
+    font-size: small;	
+}
 
 #LevelListContainer
 {
@@ -129,7 +173,7 @@ a.underline
     text-align: left !important;
     background-color: #FFFFFF;
     border: 2px solid #666666;
-    width: 60px;
+    width: 80px;
     height: 175px;
 }
 

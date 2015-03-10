@@ -44,6 +44,10 @@ var AgCasinoWinLoss = (function ($) {
     return {
         resizeGrid: function () {
             setTimeout(function () {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
+                    return;
+                }
+
                 var gridTop = $(".ui-jqgrid-bdiv").offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                                 - $(".ui-jqgrid-pager:visible").height() - 30;

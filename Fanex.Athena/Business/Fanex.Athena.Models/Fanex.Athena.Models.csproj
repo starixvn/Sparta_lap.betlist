@@ -228,6 +228,7 @@
     <Compile Include="MetaModel\Customer\BetSetting\BetSettingMetaModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Customer\BaseCustomerComMetaModel.cs" />
+    <Compile Include="MetaModel\Customer\CustomerOddsGroupMetaModel.cs" />
     <Compile Include="MetaModel\Customer\CustomerOutstandingMetaModel.cs" />
     <Compile Include="MetaModel\Customer\CustomerStatusMetaModel.cs" />
     <Compile Include="MetaModel\Customer\CustomerListMetaModel.cs" />

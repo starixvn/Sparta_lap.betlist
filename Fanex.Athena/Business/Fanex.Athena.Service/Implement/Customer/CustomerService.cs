@@ -258,6 +258,25 @@ namespace Fanex.Athena.Service.Implement.Customer
         #region Update
 
         /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The result information.</returns>
+        public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
+        {
+            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            {
+                return new ResultInfo
+                {
+                    Code = 1,
+                    Message = ViewResources.UpdateSpecialLevelMsg
+                };
+            }
+
+            return _customerDataAccess.UpdateOddsGroup(metaModel);
+        }
+
+        /// <summary>
         /// Update customer closed status.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
@@ -410,6 +429,28 @@ namespace Fanex.Athena.Service.Implement.Customer
             return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
         }
 
+        /// <summary>
+        /// Update customer special level.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="custId">The customer id.</param>
+        /// <param name="group">The level.</param>
+        /// <param name="ip">The address of client.</param>
+        /// <param name="language">The language.</param>
+        /// <returns>The information of result.</returns>
+        public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return new ResultInfo
+                {
+                    Code = 1,
+                    Message = ViewResources.UpdateSpecialLevelMsg
+                };
+            }
+
+            return _customerDataAccess.UpdateOddsGroup(userId, custId, group, ip, language);
+        }
         #endregion Update
     }
 }

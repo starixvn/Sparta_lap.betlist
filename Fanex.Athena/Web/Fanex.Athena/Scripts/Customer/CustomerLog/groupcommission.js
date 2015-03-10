@@ -4,6 +4,9 @@
 var GroupCommLog = (function ($) {
     return {
         resizeGrid: function () {
+            if ($("#GroupCommLogGrid").length === 0) {
+                return;
+            }
             var gridTop = $("#GroupCommLogGrid").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-pager").height() - 30;
             gridHeight = Math.max(150, gridHeight);

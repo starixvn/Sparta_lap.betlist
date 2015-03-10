@@ -150,7 +150,20 @@ namespace Fanex.Athena.Controllers
 
             return new List<string>();
         }
-                
+
+        [NonAction]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        protected static IList<string> GetLicenseesOfferOddsGroup()
+        {
+            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
+            if (!string.IsNullOrEmpty(licenseeIds))
+            {
+                return licenseeIds.Split(',');
+            }
+
+            return new List<string>();
+        }
+               
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();

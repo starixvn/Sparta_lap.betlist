@@ -37,16 +37,8 @@ namespace Fanex.Athena.Controllers.Customer
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
-
-        private readonly string[] _gridColumNames =
-        {
-                                                    "ExternalId",
-                                                    "SystemId",
-                                                    "AvailableFunds",
-                                                    "PendingFunds",
-                                                    "SpecialLevel",
-                                                    "CustomerOption"
-                                                    };
+       
+        private readonly string[] _gridColumNames;
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
@@ -59,6 +51,24 @@ namespace Fanex.Athena.Controllers.Customer
             _customerService = new CustomerService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
+
+            var columnNames = new List<string>()
+            {
+                "ExternalId",
+                "SystemId",
+                "AvailableFunds",
+                "PendingFunds",
+                "SpecialLevel",
+                "OddsGroup",
+                "CustomerOption"
+            };
+
+            if (!IsCurrentLicenseeOfferOddsGroup())
+            {                
+                columnNames.Remove("OddsGroup");   
+            }
+
+            _gridColumNames = columnNames.ToArray();
         }
 
         #region Action
@@ -111,12 +121,15 @@ namespace Fanex.Athena.Controllers.Customer
 
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
-
-            return Json(new
+            return new JsonResult()
             {
-                Data = dataList,
-                TotalRows = totalRows
-            });
+                Data = new
+                {
+                    Data = dataList,
+                    TotalRows = totalRows
+                },
+                MaxJsonLength = int.MaxValue
+            };
         }
 
         /// <summary>
@@ -153,7 +166,7 @@ namespace Fanex.Athena.Controllers.Customer
                             throw new FileNotFoundException(templatePath);
                         }
 
-                        var reportTitle = ViewResources.CustomerList + " - " 
+                        var reportTitle = ViewResources.CustomerList + " - "
                             + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
                         var excel = new CustomerListExcel(templatePath, reportTitle, model);
@@ -191,6 +204,12 @@ namespace Fanex.Athena.Controllers.Customer
         #endregion Action
 
         #region Ultilities
+
+        private bool IsCurrentLicenseeOfferOddsGroup()
+        {
+            var licenseeIds = GetLicenseesOfferOddsGroup();
+            return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
+        }
 
         /// <summary>
         /// Create customer view model.

@@ -124,6 +124,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                             GroupCommId = Converter.ToInt(dr["GroupCommId"]),
                             GroupColor = dr["GroupColor"].ToString(),
                             Group = dr["GroupName"].ToString(),
+                            OddsGroup = dr["OddsGroup"].ToString(),
                             SBComm = Convert.ToDecimal(dr["SBComm"]) * 100,
                             RBComm = Convert.ToDecimal(dr["RacingComm"]) * 100,
                             NGComm = Convert.ToDecimal(dr["NGComm"]) * 100,
@@ -289,6 +290,36 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Update
 
         /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="metaModel">Meta model value.</param>
+        /// <returns>The result value.</returns>
+        public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
+        {
+            try
+            {
+                using (var db = new ObjectDb("Lrf_CustomerUpdUgroup"))
+                {                    
+                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                    db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);                    
+                    db.AddInParameter("IP", DbType.String, metaModel.Ip);
+                    db.AddInParameter("Langkey", DbType.String, metaModel.Language);
+
+                    AddResultParam(db);
+                    db.ExecuteNonQuery();
+
+                    return GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, "Lrf_CustomerUpdUgroup");
+            }
+        }
+
+        /// <summary>
         /// Update customer closed status.
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
@@ -370,10 +401,14 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("IsBA", DbType.Boolean, allowBA);
                     db.AddInParameter("langkey", DbType.String, request.Language);
                     db.AddInParameter("IP", DbType.String, request.Ip);
+                    db.AddOutParameter("OddsGroup", DbType.String, 10);
                     AddResultParam(db);
                     db.ExecuteNonQuery();
 
-                    return GetResult(db);
+                    var resultInfo = GetResult(db);
+                    resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper();
+
+                    return resultInfo;
                 }
             }
             catch (ObjectDbException sqlException)
@@ -456,6 +491,40 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 }
             }
             catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+
+        /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="userId">User ID value.</param>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="group">Level value.</param>
+        /// <param name="ip">IP parameter value.</param>
+        /// <param name="language">Language value.</param>
+        /// <returns>The result value.</returns>
+        public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
+        {
+            const string UspName = "Lrf_CustomerUpdOddsGroup";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
+                    db.AddInParameter("userid", DbType.Int32, userId);
+                    db.AddInParameter("oddsgroup", DbType.String, group);
+                    db.AddInParameter("ip", DbType.String, ip);
+                    db.AddInParameter("langkey", DbType.String, language);
+                    AddResultParam(db);
+                    db.ExecuteNonQuery();
+
+                    return GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);

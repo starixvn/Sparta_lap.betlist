@@ -2574,10 +2574,16 @@
     <value>No customer found.</value>
     <comment>#26970</comment>
   </data>
-  <data name="GBP" xml:space="preserve">
+<data name="GBP" xml:space="preserve">
     <value>GBP</value>
   </data>
   <data name="MYR" xml:space="preserve">
     <value>MYR</value>
+  </data><data name="OddsGroup" xml:space="preserve">
+    <value>Odds Group</value>
+    <comment>#26561</comment>
   </data>
-</root>
+  <data name="AlertSetOddsGroupForCustomerMsg" xml:space="preserve">
+    <value>Are you sure you want to move this customer to odds group {0}?</value>
+    <comment>#26561</comment>
+  </data></root>

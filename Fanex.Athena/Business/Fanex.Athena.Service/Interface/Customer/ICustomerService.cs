@@ -86,7 +86,14 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         #endregion Group Commission
 
-        #region Update
+        #region Update        
+        
+        /// <summary>
+        /// Update customer odds group.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The result information.</returns>
+        IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 
         /// <summary>
         /// Update customer closed status.

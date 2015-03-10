@@ -10,6 +10,7 @@ var CustomersOption = (function () {
     "use strict";
 
     var indexColumn = {
+        key: true,
         name: 'Index',
         index: 'Index',
         width: 30,
@@ -127,10 +128,29 @@ var CustomersOption = (function () {
         frozen: true,
         classes: "specialLevel",
         formatter: function (cellValue, options, rowObject) {
-            return "<div data-custid='" + rowObject.CustId + "'  data-level='" + cellValue + "' class='level-" + cellValue +
+            return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
                      "' style='text-align: center;color:black;width:80px;float:left'>" +
                      (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+                     "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
+        }
+    };
+    var oddsGroupColumn = {
+        name: 'OddsGroup',
+        index: 'OddsGroup',
+        resizable: false,
+        width: 90,
+        align: 'right',
+        sortable: false,
+        frozen: true,
+        classes: "oddsGroup",
+        formatter: function (cellValue, options, rowObject) {
+            var arrowHtml = rowObject.BAStatus ? "" :
+                             "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
+            return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue + 
+                    "' class='" + (rowObject.BAStatus ? "disabled" : "" ) + " group-" + cellValue +
+                     "' style='text-align: center;color:black;width:80px;float:left'>" +
+                     (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+                     "</div>" + arrowHtml;
         }
     };
     var customerOptionColumn = {
@@ -162,10 +182,10 @@ var CustomersOption = (function () {
     };
     //#endregion
     var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
-     'Status', 'BAStatus', 'SpecialLevel', 'CustomerOption'];
+     'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
 
     var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
-                    pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, customerOptionColumn];
+                    pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
 
     var me = {
         urlData: 'Customer/CustomerList',
@@ -187,6 +207,8 @@ var CustomersOption = (function () {
             gridview: true,
             footerrow: false,
             userDataOnFooter: true,
+            scroll: 1,
+            rowNum: 40,
             cmTemplate: { title: true }, //enable tooltip
             userData: [],
             beforeSelectRow: function () {
@@ -198,22 +220,29 @@ var CustomersOption = (function () {
         }
     };
 
-    var products = ["RB", "NG", "LC", "CS"];
+    var products = ["SB", "RB", "NG", "LC", "CS"];
     var numOfProductColumns = 0;
+    var firstProductCode;
 
     var getColName = function (productAccess, isAllowedCustomerCommission) {
         numOfProductColumns = 1;
         var temp = Site.clone(colNameList);
         if (isAllowedCustomerCommission) {
-            temp.insertAfter("Group", 0);
-            temp.push(Site.getSingleResource("SB"));
 
-            $.each(products, function (index, value) {
-                if (productAccess["IsAllow" + value]) {
+            temp.insertAfter("Group", 0);
+
+            firstProductCode = null;
+            for (var i = 0; i < products.length; i++) {
+                var productCode = products[i];
+                if (productAccess["IsAllow" + productCode]) {
+                    if (!firstProductCode) {
+                        firstProductCode = productCode.toUpperCase();
+                    }
+
                     numOfProductColumns++;
-                    temp.push(Site.getSingleResource(value.toUpperCase()));
+                    temp.push(Site.getSingleResource(productCode.toUpperCase()));
                 }
-            });
+            }
         }
 
         return Site.getResources(temp);
@@ -230,12 +259,6 @@ var CustomersOption = (function () {
 
             var col = Site.clone(groupColumn);
             temp.insertAfter(col, 0);
-
-            col = Site.clone(commissionColumn);
-            col.name = "SBComm";
-            col.index = col.name;
-            col.cellattr = getCellAttrFunction(col.name);
-            temp.push(col);
 
             $.each(products, function (index, value) {
                 if (productAccess["IsAllow" + value]) {
@@ -256,7 +279,7 @@ var CustomersOption = (function () {
         {
             useColSpanStyle: true,
             groupHeaders: [{
-                startColumnName: "SBComm",
+                startColumnName: firstProductCode + "Comm",
                 numberOfColumns: numOfProductColumns,
                 titleText: Site.getSingleResource('Commission') + " (%)"
             }]
@@ -266,7 +289,6 @@ var CustomersOption = (function () {
     me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
         me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
         me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
-
         return me.gridOption;
     };
 

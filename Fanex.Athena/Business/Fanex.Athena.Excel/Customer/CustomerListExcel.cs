@@ -38,11 +38,12 @@ namespace Fanex.Athena.Excel.Customer
         private const int StatusColumn = 6;
         private const int BAStatusColumn = 7;
         private const int SpecialLevelColumn = 8;
-        private const int SBCommColumn = 9;
-        private const int RCCommColumn = 10;
-        private const int NGCommColumn = 11;
-        private const int LCCommColumn = 12;
-        private const int CSCommColumn = 13;
+        private const int OddsGroupColumn = 9;
+        private const int SBCommColumn = 10;
+        private const int RCCommColumn = 11;
+        private const int NGCommColumn = 12;
+        private const int LCCommColumn = 13;
+        private const int CSCommColumn = 14;
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
@@ -54,7 +55,8 @@ namespace Fanex.Athena.Excel.Customer
             { AvailableFundsColumn, "AvailableFunds" },
             { PendingFundColumn, "PendingFunds" },
             { StatusColumn, "Status" },
-            { SpecialLevelColumn, "SpecialLevel" }
+            { SpecialLevelColumn, "SpecialLevel" },
+            { OddsGroupColumn, "OddsGroup" }
         };
 
         private CustomerListViewModel _exportData;
@@ -82,6 +84,7 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.Status,
                 ViewResources.BAStatus,
                 ViewResources.SpecialLevel,
+                ViewResources.OddsGroup,
                 ViewResources.Commission + " (%)",
             };
             _showedGridColumns = new List<string>();
@@ -201,15 +204,15 @@ namespace Fanex.Athena.Excel.Customer
                 /*group columns*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
-                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
-                }
+                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);                    
+                }           
 
                 /* commission column*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
                 {
                     if (_exportData.ProductAccess.IsAllowSB)
                     {
-                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
+                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));                       
                     }
 
                     if (_exportData.ProductAccess.IsAllowNG)
