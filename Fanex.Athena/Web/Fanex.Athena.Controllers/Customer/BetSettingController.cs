@@ -31,6 +31,7 @@ namespace Fanex.Athena.Controllers.Customer
     public class BetSettingController : ReadonlyBaseController
     {
         #region Const
+        private const string CustomerListUrl = "Customer/CustomerList";
 
         private const int BopingResellerId = 7;
         private const int Licensee12Bet = 1;
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var viewModel = GetViewModels(metaModel);

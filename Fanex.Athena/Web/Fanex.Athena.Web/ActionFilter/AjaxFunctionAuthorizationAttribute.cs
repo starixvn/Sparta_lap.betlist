@@ -14,9 +14,11 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-   [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class AjaxFunctionAuthorizationAttribute : ActionFilterAttribute
     {
+        public string ParentUrl { get; set; }
+
         #region Override
 
         /// <summary>
@@ -32,7 +34,19 @@ namespace Fanex.Athena.Web.ActionFilter
             var userSession = sessionService.UserSession;
             var rawUrl = context.Request.RawUrl;
             var authorization = new AuthorizationService();
-            var authorized = userSession != null && licenseeSession != null && authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl);
+            var authorized = true;
+            if (userSession != null && licenseeSession != null)
+            {
+                if (!string.IsNullOrWhiteSpace(ParentUrl))
+                {
+                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
+                }
+
+                if (authorized)
+                {
+                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl);
+                }
+            }
 
             if (!authorized)
             {
