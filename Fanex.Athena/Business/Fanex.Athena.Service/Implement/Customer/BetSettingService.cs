@@ -85,7 +85,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             var setting = _betSettingDataAccess.GetGoldDeluxeSetting(custId);
-
+            setting.Group = GetGoldDeluxeUserGroup(siteName, custId, setting.CurrencyId);
             var games = GetGoldDeluxeGroupBettingLimit(custId, siteName, setting.CurrencyId);
 
             if (setting.IsLineEnabled && games.Count > 0)
@@ -98,8 +98,6 @@ namespace Fanex.Athena.Service.Implement.Customer
                         .OrderBy(x => x).ToArray();
                 }
             }
-
-            setting.Group = GetGoldDeluxeUserGroup(siteName, custId, setting.CurrencyId);
 
             return new GoldDeluxeBetSettingViewModel()
             {
@@ -688,7 +686,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 }
 
                 var xml = XDocument.Parse(apiResult);
-
+                
                 foreach (var xmlGame in xml.Descendants("Game"))
                 {
                     var game = new GoldDeluxeGame()
@@ -743,6 +741,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 }
 
                 var xml = XDocument.Parse(apiResult);
+                
                 var rootElement = xml.Element("GetUserGroupBettingLimit");
                 if (rootElement.Element("ReturnCode").Value.Equals("0"))
                 {

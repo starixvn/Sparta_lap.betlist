@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {
         #region Const
-        protected const int GoldDeluxeProductId = 12;
+        protected const int GoldDeluxeProductId = 11;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
