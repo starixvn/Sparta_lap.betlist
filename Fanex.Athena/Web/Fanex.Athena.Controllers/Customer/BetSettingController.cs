@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     ///     Bet setting controller.
@@ -69,6 +70,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [FunctionAuthorization]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var viewModel = GetViewModels(metaModel);

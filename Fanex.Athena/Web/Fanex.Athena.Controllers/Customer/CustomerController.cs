@@ -138,6 +138,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
+        [FunctionAuthorization]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))

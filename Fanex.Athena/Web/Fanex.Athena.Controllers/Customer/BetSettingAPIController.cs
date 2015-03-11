@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Bet setting API controller.
@@ -54,6 +55,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="siteName">Site name.</param>
         /// <param name="currency">Currency id.</param>
         /// <returns>Ag Casino Group Betting Limit.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult GetAgGroupBettingLimit(int custId, string siteName, int currency)
         {
             var data = _betSettingService.GetAgCasinoGroupBettingLimit(custId, siteName, currency);
@@ -68,6 +72,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateLiveCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
@@ -88,6 +95,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRngCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
@@ -153,6 +163,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
@@ -172,6 +185,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">The user name.</param>
         /// <param name="group">Bet setting group.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateAgCasinoBetSetting(string nickName, string group)
         {
             var setting = GetBetSettingCommonParam();
@@ -190,6 +206,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateSportBookBetSetting(string nickName)
         {
             var sportsBook = GetBetSettingCommonParam();
@@ -209,6 +228,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="isDisabled">Is disabled.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateEsportStatus(bool isDisabled)
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
@@ -234,7 +256,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRacingBetSetting(string nickName)
         {
             var racing = GetBetSettingCommonParam();
@@ -261,7 +285,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateNumberGameBetSetting(string nickName)
         {
             var numberGame = GetBetSettingCommonParam();
@@ -281,7 +307,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateKenoBetSetting(string nickName)
         {
             var id = Convert.ToInt32(Request["id"]);
@@ -315,7 +343,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateVirtualSportsBetSetting(string nickName)
         {
             var commonParam = GetBetSettingCommonParam();
@@ -347,7 +377,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateLiveCasinoBetSetting(string nickName)
         {
             var userSession = SessionService.UserSession;
@@ -393,7 +425,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="custId">The customer id.</param>
         /// <param name="gameTypeChangedList">The game types.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRngCasinoBetSetting(int custId, string gameTypeChangedList)
         {
             try
