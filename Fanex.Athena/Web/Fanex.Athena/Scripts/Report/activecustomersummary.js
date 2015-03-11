@@ -76,8 +76,7 @@ var ActiveCustomer = (function ($) {
                 resourceName: "ActiveCustomerSummary",
                 title: Site.getSingleResource("ActiveCustomerSummary")
             });
-            Site.addFilterCollapseExpand();
-
+            
             $("#ProductList").css("width", "auto");
         },
 
