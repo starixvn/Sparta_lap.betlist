@@ -23,10 +23,11 @@ var GoldDeluxe = (function ($) {
                 disableSubmitButtons(true);
             }
 
-            if($("#btnSubmitBetSetting").prop("disabled") === true)
-            {
+            if ($("#btnSubmitBetSetting").prop("disabled") === true) {
                 disableSubmitButtons(true);
             }
+
+            $('#betSettingGroup').change();
         },
         initEvent: function () {
             // dropdown group
@@ -52,7 +53,7 @@ var GoldDeluxe = (function ($) {
                 disableSubmitButtons(disableSubmit);
             });
 
-           
+
             $("#btnUpdateStatus").off("click").click(BetSetting.updateStatus);
         },
         checkApiContainGroup: function (groupType) {

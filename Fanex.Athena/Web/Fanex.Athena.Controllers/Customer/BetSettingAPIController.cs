@@ -120,7 +120,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (result.Code == 0)
             {
-                result.Message = string.Format(ViewResources.UpdateAgCasinoBetSettingSuccessMsg, nickName);
+                result.Message = string.Format(ViewResources.UpdateGoldDeluxeBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

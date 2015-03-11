@@ -2428,6 +2428,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is problem to display bet setting group&apos;s detail..
+        /// </summary>
+        public static string GoldDeluxeProblemDisplayBetSetting {
+            get {
+                return ResourceManager.GetString("GoldDeluxeProblemDisplayBetSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to Customer List.
         /// </summary>
         public static string GotoCustomerList {
@@ -6834,6 +6843,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string UpdateGoldDeluxeBetSettings {
             get {
                 return ResourceManager.GetString("UpdateGoldDeluxeBetSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Gold Deluxe bet setting of {0} was updated successfully.
+        /// </summary>
+        public static string UpdateGoldDeluxeBetSettingSuccessMsg {
+            get {
+                return ResourceManager.GetString("UpdateGoldDeluxeBetSettingSuccessMsg", resourceCulture);
             }
         }
         

@@ -2621,4 +2621,7 @@
   <data name="UpdateGoldDeluxeBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Gold Deluxe bet settings?</value>
   </data>
+  <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
+    <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/10/2015 5:34:32 PM
+// Lasted generated date: 3/11/2015 3:34:51 PM
 // </history>
 
 var _language_en_US={
@@ -1511,6 +1511,8 @@ var _language_en_US={
                      UpdateFunctionSuccessfulMsg:"Updating Functions is successul.",
 				 	
                      UpdateGoldDeluxeBetSettings:"Are you sure you want to update all Gold Deluxe bet settings?",
+				 	
+                     UpdateGoldDeluxeBetSettingSuccessMsg:"The Gold Deluxe bet setting of {0} was updated successfully",
 				 	
                      UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
 				 	
