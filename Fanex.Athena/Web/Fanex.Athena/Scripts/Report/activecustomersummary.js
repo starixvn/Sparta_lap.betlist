@@ -249,7 +249,17 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
 
             $("div.container_26 div.grid_26.content-filter").width(940);
-            $(".ui-jqgrid-hbox").width($(".ui-jqgrid-ftable").width() - 20);
+            
+            var gridWidth = reportGrid.width();
+
+            if (gridWidth < 650) {
+                gridWidth = 650;
+            } else {
+                gridWidth += 20;
+            }
+            gridWidth = Math.min(1040, gridWidth);
+            reportGrid.jqGrid("setGridWidth", gridWidth);
+            $(".report-title").width(gridWidth - 25);
         }
 
         //#end
