@@ -247,7 +247,12 @@ var ActiveCustomer = (function ($) {
             $("div.container_26 div.grid_26.content-filter").width(940);
 
             var gridWidth = reportGrid.width();
-
+            // for the vertical scrollbar not overlap the grid content
+            if (gridWidth < 500) {
+                gridWidth = 500;
+            } else {
+                gridWidth += 20;
+            }
             gridWidth = Math.min(1040, gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
             $(".report-title").width(gridWidth - 25);
@@ -265,7 +270,6 @@ $(window).load(function () {
 $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
-    jqGridAdditional.resetLayout(reportGrid);
     ActiveCustomer.resizeGrid();
 });
 
