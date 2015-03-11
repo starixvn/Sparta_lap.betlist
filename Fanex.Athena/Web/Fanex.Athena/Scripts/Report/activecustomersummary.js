@@ -249,6 +249,7 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
 
             $("div.container_26 div.grid_26.content-filter").width(940);
+            $(".ui-jqgrid-hbox").width($(".ui-jqgrid-ftable").width() - 20);
         }
 
         //#end
