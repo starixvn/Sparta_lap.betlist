@@ -269,7 +269,6 @@ $(window).load(function () {
 
 $(window).resize(function () {
     "use strict";
-    var reportGrid = $("#ReportGrid");
     ActiveCustomer.resizeGrid();
 });
 
