@@ -84,6 +84,11 @@
 	 <!-- AG Casino API -->
   <add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
   <!-- /AG Casino API  -->
+  <!-- Gold Deluxe API -->
+  <add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+  <add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+  <add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+  <!-- /Gold Deluxe API  -->
   <add key="EnableEsportSettingStatus" value="false" />
 </appSettings>
 				<#
@@ -145,6 +150,9 @@
 	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 </appSettings>
 
@@ -207,6 +215,9 @@
 	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 </appSettings>
 
@@ -269,6 +280,9 @@
 	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />   
 	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 </appSettings>
 				<#
@@ -330,6 +344,9 @@
 	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 </appSettings>
                 <#break;
