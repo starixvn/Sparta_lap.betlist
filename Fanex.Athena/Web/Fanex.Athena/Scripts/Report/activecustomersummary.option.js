@@ -77,9 +77,9 @@ var ActiveCustomerOption = (function () {
             data: [],
             height: '100%',
             autowidth: false,
-            forceFit: false,
-            shrinkToFit: false,
-            minWidth: 800,
+            forceFit: true,
+            shrinkToFit: true,
+            minWidth: 450,
             loadtext: 'loading...',
             loadui: 'disable',
             loadonce: true,
@@ -118,6 +118,7 @@ var ActiveCustomerOption = (function () {
             var column = Site.clone(productColumn);
             column.name = "CustomerCount" + value.Code;
             column.index = column.name;
+
             if (!value.Status) {
                 column.formatter = function () {
                     return "-";

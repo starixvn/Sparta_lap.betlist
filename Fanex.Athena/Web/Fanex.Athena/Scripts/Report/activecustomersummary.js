@@ -4,6 +4,7 @@
 var ActiveCustomer = (function ($) {
     "use strict";
 
+    var MIN_GRID_WIDTH = 500;
     var VALID_MONTH_RANGE = 3;
 
     var cacheData = {};
@@ -76,7 +77,7 @@ var ActiveCustomer = (function ($) {
                 resourceName: "ActiveCustomerSummary",
                 title: Site.getSingleResource("ActiveCustomerSummary")
             });
-            
+
             $("#ProductList").css("width", "auto");
         },
 
@@ -191,9 +192,11 @@ var ActiveCustomer = (function ($) {
 
             var reportGrid = $("#ReportGrid");
             var productOptions = $.parseJSON(response.ProductOptions);
+            var productCount = productOptions.length;
             var numOfRow = response.Data.length;
 
             var gridOption = ActiveCustomerOption.getGridOption(productOptions);
+            gridOption.width = productCount > 3 ? undefined : MIN_GRID_WIDTH;
             gridOption.data = response.Data;
             gridOption.rowNum = ActiveCustomerOption.nonePagingSize;
             gridOption.rowList = ActiveCustomerOption.rowList;
@@ -209,12 +212,6 @@ var ActiveCustomer = (function ($) {
 
                     ActiveCustomer.bindTotal(response.GrantTotalCustomer);
                     ActiveCustomer.resizeGrid();
-                }
-
-                var gridWidth = reportGrid.width();
-
-                if (gridWidth < 600) {
-                    $(".ui-jqgrid .ui-jqgrid-hbox").css("padding-right", 0);
                 }
 
                 Site.unBlockUI();
@@ -248,14 +245,9 @@ var ActiveCustomer = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
 
             $("div.container_26 div.grid_26.content-filter").width(940);
-            
+
             var gridWidth = reportGrid.width();
 
-            if (gridWidth < 650) {
-                gridWidth = 650;
-            } else {
-                gridWidth += 20;
-            }
             gridWidth = Math.min(1040, gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
             $(".report-title").width(gridWidth - 25);

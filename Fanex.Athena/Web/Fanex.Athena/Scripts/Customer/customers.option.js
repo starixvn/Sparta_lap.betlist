@@ -200,7 +200,6 @@ var CustomersOption = (function () {
             autowidth: false,
             forceFit: false,
             shrinkToFit: false,
-            minWidth: 800,
             loadtext: 'loading...',
             loadui: 'disable',
             loadonce: true,
