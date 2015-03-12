@@ -349,7 +349,7 @@ var BetSetting = (function ($) {
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
-            
+
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -383,18 +383,16 @@ var BetSetting = (function ($) {
         // Update Number Game
         updateNumberGameBetSetting: function (custId, userName, nickName) {
             var maxperball = BetSetting.convertToFloat($("#max-per-ball-161").val());
-            var params = "";
 
-            params += BetSetting.getBetSettingParams(161);
-            params += "&maxperball=" + maxperball;
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            var params = BetSetting.getBetSettingParams(161);
+            params.maxperball = maxperball;
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
                 type: 'POST',
-                url: 'BetSettingAPI/updateNumberGameBetSetting?',
+                url: 'BetSettingAPI/updateNumberGameBetSetting',
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -424,20 +422,20 @@ var BetSetting = (function ($) {
         // Update Live Casino
         updateLiveCasinoBetSetting: function (custId, userName, nickName) {
             var gameTypeCount = $("#gameTypeCount").val();
-            var params = "";
-            params += "custId=" + custId;
-            params += "&nickName=" + nickName;
-            params += "&gameTypeCount=" + gameTypeCount;
+            var params = {};
+            params.custId = custId;
+            params.nickName = nickName;
+            params.gameTypeCount = gameTypeCount;
             for (var i = 1; i <= gameTypeCount; i++) {
                 var gametypeId = $("#gameTypeId" + i);
                 var stakeLevelNameChecked = $("#stakeLevelName" + i);
                 var betTypeId = $("#betTypeId" + i);
                 var stakeId = $("input[name=gameTypeName" + i + "]:checked").attr("data-stake-id");
 
-                params += "&stakeId" + i + "=" + stakeId;
-                params += "&gameTypeId" + i + "=" + gametypeId.val();
-                params += "&stakeLevelName" + i + stakeLevelNameChecked.val();
-                params += "&betTypeId" + i + "=" + betTypeId.val();
+                params["stakeId" + i] = stakeId;
+                params["gameTypeId" + i] = + gametypeId.val();
+                params["stakeLevelName" + i] = stakeLevelNameChecked.val();
+                params["betTypeId" + i] = + betTypeId.val();
             }
             $.ajax({
                 type: 'POST',
