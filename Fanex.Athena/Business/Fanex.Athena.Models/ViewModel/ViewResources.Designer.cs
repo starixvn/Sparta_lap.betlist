@@ -6397,7 +6397,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total active customer.
+        ///   Looks up a localized string similar to Total active customers.
         /// </summary>
         public static string TotalActiveCustomer {
             get {

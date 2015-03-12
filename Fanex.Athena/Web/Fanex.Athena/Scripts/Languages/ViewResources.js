@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/10/2015 5:09:30 PM
+// Lasted generated date: 3/12/2015 9:36:02 AM
 // </history>
 
 var _language_en_US={
@@ -1420,7 +1420,7 @@ var _language_en_US={
 				 	
                      Total:"Total",
 				 	
-                     TotalActiveCustomer:"Total active customer",
+                     TotalActiveCustomer:"Total active customers",
 				 	
                      TotalAway:"Total Away",
 				 	
