@@ -39,7 +39,7 @@ var ResetPassword = (function ($) {
                 if (validClient) {
                     var form = $('#ResetPasswordForm');
                     var url = form.attr('action');
-                    var params = form.serialize();
+                    var params = form.serializeObject();
 
                     $.ajax({
                         type: 'POST',
@@ -48,17 +48,10 @@ var ResetPassword = (function ($) {
                         url: url,
                         data: params,
                         success: function (response) {
-                            if (response.IsSuccessful === false) {
-                                $('#resultMessage').removeClass('info');
-                                $('#resultMessage').addClass('err');
-                            }
-                            else {
-                                $('#resultMessage').removeClass('err');
-                                $('#resultMessage').addClass('info');
-                            }
-
-                            $('#resultMessage').html(response.Message).show();
-                            $('#resultMessage').animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
+                            $('#resultMessage').toggleClass('info', response.IsSuccessful)
+                                               .toggleClass('err', !response.IsSuccessful)
+                                               .html(response.Message).show()
+                                               .animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
                         }
                     });
                 }

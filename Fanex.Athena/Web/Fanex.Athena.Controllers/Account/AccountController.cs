@@ -52,114 +52,6 @@ namespace Fanex.Athena.Controllers.Account
 
         #region Actions
 
-        #region Validations
-
-        /// <summary>
-        /// Validate password.
-        /// </summary>
-        /// <param name="password">The password.</param>
-        /// <returns>True or false.</returns>
-        [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
-        public static bool ValidatePassword(string password)
-        {
-            password = password.ToLower();
-            if (password.Length < 6)
-            {
-                return false;
-            }
-
-            var bvalid = false;
-            var j3 = -1;
-            for (var i = 0; i < 10; i++)
-            {
-                var j1 = password.IndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
-                var j2 = password.LastIndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
-                if (j1 != j2)
-                {
-                    bvalid = true;
-                    break;
-                }
-
-                if (j3 == -1)
-                {
-                    j3 = j1;
-                    continue;
-                }
-
-                if (j3 == -1 || j3 == j1)
-                {
-                    continue;
-                }
-
-                bvalid = true;
-                break;
-            }
-
-            if (bvalid)
-            {
-                const string Az = "abcdefghijklmnopqrstuvwxyz";
-                var count = 0;
-                for (var i = 0; i < password.Length; i++)
-                {
-                    if (Az.Contains(password.Substring(i, 1)))
-                    {
-                        ++count;
-                    }
-
-                    if (count != 2)
-                    {
-                        continue;
-                    }
-
-                    break;
-                }
-
-                if (count < 2)
-                {
-                    bvalid = false;
-                }
-            }
-
-            return bvalid;
-        }
-
-        /// <summary>
-        /// Validate permission restriction.
-        /// </summary>
-        /// <param name="editingUserId">The user who edit permission.</param>
-        /// <returns>True of false.</returns>
-        public bool ValidatePermissionRestriction(int editingUserId)
-        {
-            var currentUser = SessionService.UserSession;
-
-            if (currentUser.UserId == editingUserId)
-            {
-                return false;
-            }
-
-            // is admin user, allow to edit all other users.
-            if (!currentUser.IsInternal)
-            {
-                return true;
-            }
-
-            // is normal user, only allow to edit normal other users
-            var userService = new UserService();
-            var editingUser = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, editingUserId);
-
-            if (editingUser == null || !editingUser.IsInternal)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion Validations
-
         /// <summary>
         /// Change licensee.
         /// </summary>
@@ -215,6 +107,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult EditAccount()
         {
             var userSession = SessionService.UserSession;
@@ -249,6 +142,8 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The account metal model.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult EditAccount(EditAccountMetaModel model)
         {
             if (!ModelState.IsValid)
@@ -304,6 +199,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult ResetPassword()
         {
             var model = new ResetPasswordMetaModel
@@ -327,6 +223,8 @@ namespace Fanex.Athena.Controllers.Account
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult ResetPassword(ResetPasswordMetaModel model)
         {
             if (!ModelState.IsValid)
@@ -396,6 +294,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [FunctionAuthorization(ParentUrl = "Account/Manage")]
         public ActionResult PermissionPage()
         {
             int userId; // user is being editted
@@ -458,6 +357,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
             bool isValid = ValidatePermissionRestriction(model.UserId);
@@ -542,6 +442,7 @@ namespace Fanex.Athena.Controllers.Account
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {
             if (!AppSettings.EnableAssignCurrency)
@@ -600,6 +501,82 @@ namespace Fanex.Athena.Controllers.Account
 
         #endregion Actions
 
+        #region Validations
+
+        /// <summary>
+        /// Validate password.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns>True or false.</returns>
+        [SuppressMessage(
+          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
+        private static bool ValidatePassword(string password)
+        {
+            password = password.ToLower();
+            if (password.Length < 6)
+            {
+                return false;
+            }
+
+            var bvalid = false;
+            var j3 = -1;
+            for (var i = 0; i < 10; i++)
+            {
+                var j1 = password.IndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
+                var j2 = password.LastIndexOf(i.ToString(CultureInfo.InvariantCulture), StringComparison.Ordinal);
+                if (j1 != j2)
+                {
+                    bvalid = true;
+                    break;
+                }
+
+                if (j3 == -1)
+                {
+                    j3 = j1;
+                    continue;
+                }
+
+                if (j3 == -1 || j3 == j1)
+                {
+                    continue;
+                }
+
+                bvalid = true;
+                break;
+            }
+
+            if (bvalid)
+            {
+                const string Az = "abcdefghijklmnopqrstuvwxyz";
+                var count = 0;
+                for (var i = 0; i < password.Length; i++)
+                {
+                    if (Az.Contains(password.Substring(i, 1)))
+                    {
+                        ++count;
+                    }
+
+                    if (count != 2)
+                    {
+                        continue;
+                    }
+
+                    break;
+                }
+
+                if (count < 2)
+                {
+                    bvalid = false;
+                }
+            }
+
+            return bvalid;
+        }
+
+        #endregion Validations
+
         #region Helpers
 
         /// <summary>
@@ -618,6 +595,38 @@ namespace Fanex.Athena.Controllers.Account
             }
 
             return idlist;
+        }
+
+        /// <summary>
+        /// Validate permission restriction.
+        /// </summary>
+        /// <param name="editingUserId">The user who edit permission.</param>
+        /// <returns>True of false.</returns>
+        private bool ValidatePermissionRestriction(int editingUserId)
+        {
+            var currentUser = SessionService.UserSession;
+
+            if (currentUser.UserId == editingUserId)
+            {
+                return false;
+            }
+
+            // is admin user, allow to edit all other users.
+            if (!currentUser.IsInternal)
+            {
+                return true;
+            }
+
+            // is normal user, only allow to edit normal other users
+            var userService = new UserService();
+            var editingUser = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, editingUserId);
+
+            if (editingUser == null || !editingUser.IsInternal)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

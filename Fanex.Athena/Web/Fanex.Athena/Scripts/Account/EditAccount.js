@@ -8,7 +8,7 @@ var EditAccount = (function ($) {
 
                     var form = $('#EditAccountForm');
                     var url = form.attr('action');
-                    var params = form.serialize();
+                    var params = form.serializeObject();
                     var status = 'Open';
                     if($('#rdoClosed').is(':checked'))
                     {
@@ -22,22 +22,20 @@ var EditAccount = (function ($) {
                         url: url,
                         data: params,
                         success: function (response) {
-                            if (response.IsSuccessful === false) {
-                                $('#resultMessage').removeClass('info');
-                                $('#resultMessage').addClass('err');
-                            }
-                            else {
-                                $('#resultMessage').removeClass('err');
-                                $('#resultMessage').addClass('info');
+                            var $resultMessage = $('#resultMessage');
 
+                            $resultMessage.toggleClass('info', response.IsSuccessful)
+                                          .toggleClass('err', !response.IsSuccessful);
+
+                            if (response.IsSuccessful) {
                                 // update old info
                                 $('#OldFirstName').val($('#FirstName').val());
                                 $('#OldLastName').val($('#LastName').val());
                                 $('#OldStatus').val(status);
                             }
 
-                            $('#resultMessage').html(response.Message).show();
-                            $('#resultMessage').animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
+                            $resultMessage.html(response.Message).show()
+                                          .animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
                         }
                     });
             });

@@ -327,11 +327,10 @@ var BetSetting = (function ($) {
         },
         updateKenoBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params += "&id=" + _sportIds.toString();
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
+            params.id = _sportIds.toString();
 
             $.ajax({
                 type: 'POST',
@@ -347,15 +346,14 @@ var BetSetting = (function ($) {
         // Update Sportsbook
         updateSportsbookBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
-
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
+            
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -367,10 +365,9 @@ var BetSetting = (function ($) {
         // Update Racing
         updateRacingBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
                 type: 'POST',
@@ -409,10 +406,9 @@ var BetSetting = (function ($) {
         // Update Virtual Sports
         updateVirtualSportsBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
                 type: 'POST',
@@ -463,9 +459,9 @@ var BetSetting = (function ($) {
             });
         },
         getBetSettingParamsForSports: function (sportsIds) {
-            var params = "";
+            var params = {};
             for (var i in sportsIds) {
-                params += BetSetting.getBetSettingParams(sportsIds[i]);
+                params = $.extend(params, BetSetting.getBetSettingParams(sportsIds[i]));
             }
 
             return params;
@@ -498,10 +494,11 @@ var BetSetting = (function ($) {
             var maxBet = BetSetting.convertToFloat(maxBetId.val());
             var maxPerMatcth = BetSetting.convertToFloat(maxPerMatchId.val());
 
-            var result = "&minbet" + sportId + "=" + minBet;
-            result += "&maxbet" + sportId + "=" + maxBet;
-            result += "&maxpermatch" + sportId + "=" + maxPerMatcth;
-            result += "&update" + sportId + "=" + isUpdate;
+            var result = {};
+            result["minbet" + sportId] = minBet;
+            result["maxbet" + sportId] = maxBet;
+            result["maxpermatch" + sportId] = maxPerMatcth;
+            result["update" + sportId] = isUpdate;
 
             return result;
         },

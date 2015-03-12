@@ -104,26 +104,20 @@ var EditPermission = (function ($) {
                 UserId: $('#UserId').val(),
                 FunctionIdList: functionIdList
             };
+
             $.ajax({
                 type: 'POST',
                 dataType: "json",
-                contentType: "application/json",
                 cache: false,
-                data: JSON.stringify(param),
+                data: param,
                 url: url,
                 success: function (response) {
-                    if (response.IsSuccessful === false) {
-                        $('#resultMessage').removeClass('field-validation-success');
-                        $('#resultMessage').addClass('field-validation-error');
-                    }
-                    else {
-                        $('#resultMessage').removeClass('field-validation-error');
-                        $('#resultMessage').addClass('field-validation-success');
-                    }
+                    $('#resultMessage').toggleClass('field-validation-success', response.IsSuccessful)
+                                       .toggleClass('field-validation-error', !response.IsSuccessful)
+                                       .text(response.Message);
 
-                    $('#resultMessage').text(response.Message);
-                    $('.response-area').show();
-                    $('.response-area').animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
+                    $('.response-area').show()
+                                       .animate({ "opacity": "hidden" }, 10000, function () { $(this).fadeOut(1000); });
                 },
                 error: function () {
                 }
@@ -235,9 +229,8 @@ var EditPermission = (function ($) {
             $.ajax({
                 type: 'POST',
                 dataType: "json",
-                contentType: "application/json",
                 cache: false,
-                data: JSON.stringify(data),
+                data: data,
                 url: url,
                 success: function (response) {
                     EditPermission.showResponseMessage(response);
@@ -250,10 +243,6 @@ var EditPermission = (function ($) {
         init: function (colurl, expurl/*, null_url*/) {
             colUrl = colurl;
             expUrl = expurl;
-
-            $.ajaxSetup({
-                cache: false
-            });
 
             $("#permission-tabs").tabs({
                 active: '0',
