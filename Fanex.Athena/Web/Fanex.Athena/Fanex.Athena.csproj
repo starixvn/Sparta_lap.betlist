@@ -278,6 +278,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\en-US.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CancelledBets\zh-TW.htm" />

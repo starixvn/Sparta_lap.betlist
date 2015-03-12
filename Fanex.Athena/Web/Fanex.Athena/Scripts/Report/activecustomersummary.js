@@ -75,7 +75,8 @@ var ActiveCustomer = (function ($) {
 
             Site.addUserGuide({
                 resourceName: "ActiveCustomerSummary",
-                title: Site.getSingleResource("ActiveCustomerSummary")
+                title: Site.getSingleResource("ActiveCustomerSummary"),
+                height: 380
             });
 
             $("#ProductList").css("width", "auto");

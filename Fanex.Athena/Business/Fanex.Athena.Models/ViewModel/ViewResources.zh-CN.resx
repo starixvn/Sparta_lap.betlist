@@ -2510,4 +2510,10 @@
     <value>会员日志</value>
     <comment>26174</comment>
   </data>
+  <data name="ActiveCustomerSummary" xml:space="preserve">
+    <value>活跃会员人数摘要</value>
+  </data>
+  <data name="TotalActiveCustomer" xml:space="preserve">
+    <value>总活跃会员人数</value>
+  </data>
 </root>

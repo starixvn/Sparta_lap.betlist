@@ -2512,4 +2512,10 @@
     <value>會員日誌</value>
     <comment>26174</comment>
   </data>
+  <data name="ActiveCustomerSummary" xml:space="preserve">
+    <value>活躍會員人數摘要</value>
+  </data>
+  <data name="TotalActiveCustomer" xml:space="preserve">
+    <value>總活躍會員人數</value>
+  </data>
 </root>
