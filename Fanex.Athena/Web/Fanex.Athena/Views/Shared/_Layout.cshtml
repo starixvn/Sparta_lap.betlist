@@ -42,6 +42,7 @@
     }
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( Fanex.Athena.Extension.Utility.AppSettings.HistoryDate )" />
+    @Html.AntiForgeryToken()
     <div id="BodyContent">
         @RenderBody()
     </div>

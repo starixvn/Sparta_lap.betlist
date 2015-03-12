@@ -6,7 +6,7 @@
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-
+	var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
 
     function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
@@ -51,6 +51,7 @@ var Site = (function ($) {
             Site.currencyConstraint();
             Site.initEvent();
             _historyDate = new Date($("#HistoryDate").val());
+            REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
         },
         initEvent: function () {
             $("#CurrencyId").change(function () {
