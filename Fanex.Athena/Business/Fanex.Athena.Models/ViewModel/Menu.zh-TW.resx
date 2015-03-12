@@ -341,6 +341,10 @@
     <value>Internal Login</value>
     <comment>#9502</comment>
   </data>
+  <data name="Menu_64" xml:space="preserve">
+    <value>活躍會員人數摘要</value>
+    <comment>Active Customer Summary</comment>
+  </data>
   <data name="Menu_7" xml:space="preserve">
     <value>讓球/大小/滾球</value>
     <comment>Handicap/Over Under/Live</comment>

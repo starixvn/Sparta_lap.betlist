@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/6/2015 1:48:49 PM
+// Lasted generated date: 3/12/2015 10:17:57 AM
 // </history>
 
 var _language_en_US={
@@ -21,6 +21,10 @@ var _language_en_US={
                      AccountManagement:"Account Management",
 				 	
                      Action:"Action",
+				 	
+                     ActiveCustomer:"Active Customer",
+				 	
+                     ActiveCustomerSummary:"Active Customer Summary",
 				 	
                      AD:"AD",
 				 	
@@ -341,6 +345,8 @@ var _language_en_US={
                      Date:"Date",
 				 	
                      DateRange:"Date Range",
+				 	
+                     DateRangeExceedMsg:"Date range exceeds {0} months. Please try again!",
 				 	
                      DateRangeLimitNote:"Data is available within 3 months, from {0} to {1}.",
 				 	
@@ -1413,6 +1419,8 @@ var _language_en_US={
                      TopCustomerNote3:"This report can support viewing from {0} to yesterday",
 				 	
                      Total:"Total",
+				 	
+                     TotalActiveCustomer:"Total active customers",
 				 	
                      TotalAway:"Total Away",
 				 	

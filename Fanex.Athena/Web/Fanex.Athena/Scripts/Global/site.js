@@ -6,7 +6,10 @@
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-    var setLicenseeOption = function (urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
+
+    var _historyDate = null;
+
+    function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType === undefined ? "" : licenseeType;
         currencyName = $.trim(currencyName);
         // Set Url
@@ -24,9 +27,22 @@ var Site = (function ($) {
         }
 
         return urlOrParams;
-    };
+    }
 
-    var _historyDate = null;
+    function getDifferenceMonth(fromDate, toDate, useDateAccuracy) {
+        var months = toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear()));
+
+        if (useDateAccuracy === true) {
+            if (fromDate.getDate() > toDate.getDate()) {
+                months--;
+            }
+            else if (fromDate.getDate() < toDate.getDate()) {
+                months++;
+            }
+        }
+
+        return months;
+    }
 
     return {
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
@@ -54,6 +70,37 @@ var Site = (function ($) {
                     }
                 }
             });
+        },
+        setConstraintMonthRange: function (monthRange, url) {
+            var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
+
+            function isValidRange() {
+                var fromDate = new Date($("#FromDate").val());
+                var toDate = new Date($("#ToDate").val());
+
+                return getDifferenceMonth(fromDate, toDate) <= monthRange;
+            }
+
+            if (url && typeof url === "string") {
+                $(document).ajaxSend(function (event, jqxhr, settings) {
+                    if (settings.url.search(new RegExp(url, "i")) > -1 && isValidRange() === false) {
+                        Site.showMessaegBox(errorMessage);
+                        jqxhr.abort();
+                    }
+                });
+            }
+
+            $("form").submit(function () {
+                if (isValidRange() === false) {
+                    Site.showMessaegBox(errorMessage);
+                    return false;
+                }
+
+                return true;
+            });
+        },
+        showMessaegBox: function (message) {
+            $('<div title="LRF-Notification">' + message + '!</div>').dialog();
         },
         getHistoryDate: function () {
             return _historyDate;

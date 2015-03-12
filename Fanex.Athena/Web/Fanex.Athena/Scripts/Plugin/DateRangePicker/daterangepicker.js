@@ -36,7 +36,7 @@ var _defaultPresetRanges = [
 
 (function ($) {
     var _defaultPresetRanges = [{
-        text: Site.getSingleResource('Today'),
+        text: 'Today',
         dateStart: function () {
             return Date.parse(ServerDate).day();
         },
@@ -45,7 +45,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Yesterday'),
+        text: 'Yesterday',
         dateStart: function () {
             return Date.parse(ServerDate).add(-1).day();
         },
@@ -54,7 +54,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Currentweek'),
+        text: 'Currentweek',
         dateStart: function () {
             return Date.parse(ServerDate).previous().sunday();
         },
@@ -63,7 +63,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Lastweek'),
+        text: 'Lastweek',
         dateStart: function () {
             return Date.parse(ServerDate).previous().sunday().add(-7).day();
         },
@@ -72,7 +72,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Currentmonth'),
+        text: 'Currentmonth',
         dateStart: function () {
             return Date.parse(ServerDate).moveToFirstDayOfMonth();
         },
@@ -81,7 +81,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Lastmonth'),
+        text: 'Lastmonth',
         dateStart: function () {
             return Date.parse(ServerDate).addMonths(-1).moveToFirstDayOfMonth();
         },
@@ -90,7 +90,7 @@ var _defaultPresetRanges = [
         }
     },
     {
-        text: Site.getSingleResource('Sincelastmonth'),
+        text: 'Sincelastmonth',
         dateStart: function () {
             return Date.parse(ServerDate).addMonths(-1).moveToFirstDayOfMonth();
         },
@@ -317,7 +317,8 @@ var _defaultPresetRanges = [
                 var enabled = $.inArray(presetName, _options.disabledPreset) < 0;
 
                 var presetRangeItem =
-                jQuery('<li class="ui-daterangepicker-' + presetName + ' ui-corner-all" presettype="' + this.text.replace(/ /g, '') + '"><a href="javascript:void();">' + this.text + '</a></li>').data('dateStart', this.dateStart).data('dateEnd', this.dateEnd).addClass(enabled ? 'enabled' : 'ui-helper-hidden').appendTo(ul);
+                jQuery('<li class="ui-daterangepicker-' + presetName + ' ui-corner-all" presettype="' + this.text.replace(/ /g, '') + '"><a href="javascript:void();">' + 
+                    Site.getSingleResource(presetName) + '</a></li>').data('dateStart', this.dateStart).data('dateEnd', this.dateEnd).addClass(enabled ? 'enabled' : 'ui-helper-hidden').appendTo(ul);
             });
             var x = 0;
             jQuery.each(_options.presets, function (key, value) {

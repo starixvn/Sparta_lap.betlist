@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/4/2015 9:58:15 AM
+// Lasted generated date: 3/12/2015 10:18:01 AM
 // </history>
 
 var _language_zh_CN={
@@ -21,6 +21,8 @@ var _language_zh_CN={
                      AccountManagement:"帐户管理",
 				 	
                      Action:"动作",
+				 	
+                     ActiveCustomerSummary:"活跃会员人数摘要",
 				 	
                      AD:"客和",
 				 	
@@ -1377,6 +1379,8 @@ var _language_zh_CN={
                      TopCustomerNote3:"此报告可支持查看日期从{0}至昨日",
 				 	
                      Total:"总和",
+				 	
+                     TotalActiveCustomer:"总活跃会员人数",
 				 	
                      TotalAway:"客队总计",
 				 	

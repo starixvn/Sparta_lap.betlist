@@ -81,9 +81,9 @@
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=1.6.2.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.Result.Core, Version=1.6.2.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.6.2.3\lib\net40\Fanex.Result.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.6.2.6\lib\net40\Fanex.Result.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\..\packages\FluentValidation.3.2.0.0\lib\Net40\FluentValidation.dll</HintPath>
@@ -205,6 +205,7 @@
     <Compile Include="Implement\Integration\SSOService.cs" />
     <Compile Include="Implement\Keno\KenoApi.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossService.cs" />
+    <Compile Include="Implement\Report\ActiveCustomerService.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
+    <Compile Include="Interface\Report\IActiveCustomerService.cs" />
     <Compile Include="Interface\Report\IAgCasinoWinLossService.cs" />
     <Compile Include="Interface\Report\IPlaytechCasinoService.cs" />
     <Compile Include="Interface\Report\IWinLossByLeagueService.cs" />

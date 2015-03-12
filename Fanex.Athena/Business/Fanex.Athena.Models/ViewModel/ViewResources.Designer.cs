@@ -106,6 +106,24 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Customer.
+        /// </summary>
+        public static string ActiveCustomer {
+            get {
+                return ResourceManager.GetString("ActiveCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active Customer Summary.
+        /// </summary>
+        public static string ActiveCustomerSummary {
+            get {
+                return ResourceManager.GetString("ActiveCustomerSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AD.
         /// </summary>
         public static string AD {
@@ -1542,6 +1560,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string DateRange {
             get {
                 return ResourceManager.GetString("DateRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date range exceeds {0} months. Please try again!.
+        /// </summary>
+        public static string DateRangeExceedMsg {
+            get {
+                return ResourceManager.GetString("DateRangeExceedMsg", resourceCulture);
             }
         }
         
@@ -6366,6 +6393,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total active customers.
+        /// </summary>
+        public static string TotalActiveCustomer {
+            get {
+                return ResourceManager.GetString("TotalActiveCustomer", resourceCulture);
             }
         }
         

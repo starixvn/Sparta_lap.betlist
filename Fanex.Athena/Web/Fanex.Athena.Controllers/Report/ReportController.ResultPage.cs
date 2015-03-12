@@ -398,7 +398,7 @@ namespace Fanex.Athena.Controllers.Report
             if (sports.Count > 0)
             {
                 IEnumerable<Sport> limitedSports;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingo);
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAngBingoAndPlaytech);
                 var limitedProduct =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;

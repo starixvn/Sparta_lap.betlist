@@ -2574,16 +2574,34 @@
     <value>No customer found.</value>
     <comment>#26970</comment>
   </data>
-<data name="GBP" xml:space="preserve">
+  <data name="GBP" xml:space="preserve">
     <value>GBP</value>
   </data>
   <data name="MYR" xml:space="preserve">
     <value>MYR</value>
-  </data><data name="OddsGroup" xml:space="preserve">
+  </data>
+  <data name="OddsGroup" xml:space="preserve">
     <value>Odds Group</value>
     <comment>#26561</comment>
   </data>
   <data name="AlertSetOddsGroupForCustomerMsg" xml:space="preserve">
     <value>Are you sure you want to move this customer to odds group {0}?</value>
     <comment>#26561</comment>
-  </data></root>
+  </data>
+  <data name="ActiveCustomerSummary" xml:space="preserve">
+    <value>Active Customer Summary</value>
+    <comment>#29219</comment>
+  </data>
+  <data name="ActiveCustomer" xml:space="preserve">
+    <value>Active Customer</value>
+    <comment>#29219</comment>
+  </data>
+  <data name="TotalActiveCustomer" xml:space="preserve">
+    <value>Total active customers</value>
+    <comment>#29219</comment>
+  </data>
+  <data name="DateRangeExceedMsg" xml:space="preserve">
+    <value>Date range exceeds {0} months. Please try again!</value>
+    <comment>#29219</comment>
+  </data>
+</root>
