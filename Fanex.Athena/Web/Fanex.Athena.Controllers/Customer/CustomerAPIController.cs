@@ -461,7 +461,7 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKenoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerAPI_RemoveFromGroupCom"));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
@@ -508,7 +508,7 @@ namespace Fanex.Athena.Controllers.Customer
             };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreKenoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerAPI_RemoveFromGroupCom"));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.IsAllowedNG = productAccess.IsAllowNG;

@@ -35,82 +35,6 @@ namespace Fanex.Athena.Controllers
         private readonly ISessionService _sessionService = new SessionService();
         private readonly ICurrencyService _currencyService = new CurrencyService();
 
-        #region Members
-
-        public string[] IgnoreGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.GD };
-            }
-        }
-
-        public string[] IgnoreAgCasinoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.AGC, Product.PTCS, Product.GD };
-            }
-        }
-
-        public string[] IgnoreCasinoAngBingoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.PTCS, Product.GD };
-            }
-        }
-
-        public string[] IgnoreCasinoAngBingoAndAgCasinoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.AGC, Product.PTCS, Product.GD, Product.GD };
-            }
-        }
-
-        public string[] IgnoreKenoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.KN, Product.PTCS, Product.GD, Product.GD };
-            }
-        }
-
-        public string[] IgnoreBingoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.BG, Product.PTCS, Product.GD };
-            }
-        }
-
-        public string[] IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.BG, Product.AGC, Product.PTCS, Product.GD };
-            }
-        }
-
-        public string[] IgnoreCasinoAndBingoAndKenoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.PTCS, Product.GD };
-            }
-        }
-
-        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytechAndGoldDeluxe
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC, Product.PTCS, Product.GD };
-            }
-        }
-
-        #endregion Members
-
         public ILanguageService LangService
         {
             get { return _langService; }
@@ -176,13 +100,14 @@ namespace Fanex.Athena.Controllers
         /// <summary>
         /// Get Ignored Products.
         /// </summary>
-        /// <param name="reportName">Report name.</param>
+        /// <param name="functionName">Function name.</param>
         /// <returns>Product code array.</returns>
-        protected static string[] GetIgnoredProducts(string reportName = "")
+        protected string[] GetIgnoredProducts(string functionName)
         {
-            var document = XDocument.Load(AppSettings.GetValue("ReportProductIgnoreFile"));
-            var config = document.Descendants("Report")
-                    .Where(x => x.Attribute("Name").Value.Equals(reportName, System.StringComparison.OrdinalIgnoreCase))
+            var filePath = Server.MapPath(AppSettings.GetValue("FunctionIgnoredProductFile"));
+            var document = XDocument.Load(filePath);
+            var config = document.Descendants("Function")
+                    .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
                     .FirstOrDefault();
 
             if (config == null)
@@ -191,7 +116,8 @@ namespace Fanex.Athena.Controllers
             }
             else
             {
-                return config.Attribute("Product").Value.Split(',');
+                return config.Attribute("Product").Value.Split(',')
+                    .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
             }
         }
 

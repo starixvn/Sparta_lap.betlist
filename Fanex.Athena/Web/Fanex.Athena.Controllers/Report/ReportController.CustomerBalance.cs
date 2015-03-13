@@ -27,6 +27,7 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string ReportName = "CustomerBalance";
         #region Web Controller
 
         /// <summary>
@@ -48,8 +49,8 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId, 
-                userSession.Language, 
-                IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe);
+                userSession.Language,
+                GetIgnoredProducts(ReportName));
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
@@ -82,6 +83,65 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
         }
 
+        /// <summary>
+        /// Customer balance report.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The action result.</returns>
+        [HttpPost]
+        [FunctionAuthorization]
+        public ActionResult CustomerBalance(CustomerBalanceMetaModel metaModel)
+        {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.UserId = userSession.UserId;
+            var totalData = new CustBalance();
+            var totalRows = 0;
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts(ReportName));
+            var model = new CustomerBalanceViewModel
+            {
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = productAccess,
+                CurrencyList = userSession.CurrencyList,
+                Param = metaModel
+            };
+            var orderItemList = GenerateOrderItemList(metaModel.OrderItem);
+            ViewBag.TopCountList = GenerateTopCountList(metaModel.TopCount);
+            ViewBag.OrderItemList = orderItemList;
+            var firstOrDefault = orderItemList.FirstOrDefault(i => i.Value == metaModel.OrderItem.ToString(CultureInfo.InvariantCulture));
+            if (firstOrDefault != null)
+            {
+                this.ViewBag.SortByText = firstOrDefault.Text;
+            }
+
+            var isExportedExcel = Request.Form["exporttoexcel.x"];
+            if (metaModel.FromDate.AddMonths(2) < metaModel.ToDate)
+            {
+                model.IsValidTimeRequest = false;
+                return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
+            }
+
+            var custBalanceService = new CustomerBalanceService();
+            if (isExportedExcel != null)
+            {
+                metaModel.PageSize = PageSizeExcel;
+                var dataListExcel = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+                model.DataList = dataListExcel;
+                model.TotalData = totalData;
+                return CustomerBalanceExcel(model);
+            }
+
+            var dataList = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+            ViewBag.TotalRows = totalRows;
+            model.DataList = dataList;
+            model.TotalData = totalData;
+            model.IsValidTimeRequest = true;
+
+            return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
+        }
+
         #endregion Web Controller
 
         #region Export excel
@@ -98,10 +158,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
-            var productAccess = _productService.GetProductAccess(
-                viewModel.Param.LicenseeId, 
-                SessionService.UserSession.Language,
-                IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, GetIgnoredProducts(ReportName));
 
             var showingOption = new ShowingOption
                 {

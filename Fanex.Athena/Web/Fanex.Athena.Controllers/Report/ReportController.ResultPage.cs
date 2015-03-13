@@ -401,7 +401,7 @@ namespace Fanex.Athena.Controllers.Report
                 var productAccess = _productService.GetProductAccess(
                     licenseeSession.LicenseeId, 
                     SessionService.UserSession.Language, 
-                    IgnoreCasinoAngBingoAndPlaytechAndGoldDeluxe);
+                    GetIgnoredProducts("ResultPage_GetNormalSports"));
                 var limitedProduct =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;
