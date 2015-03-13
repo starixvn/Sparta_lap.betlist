@@ -34,6 +34,8 @@ namespace Fanex.Athena.Controllers.Customer
     /// </summary>
     public class CustomerComGroupController : ReadonlyBaseController
     {
+        private const string CommissionGroupUrl = "CustomerComGroup/Index";
+
         #region Fields
 
         private readonly IGroupComService _customerComService;
@@ -76,6 +78,8 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(bool isExportExcel)
         {
             return isExportExcel ? this.ExportExcel() : this.Index();
@@ -90,6 +94,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         public ActionResult Create()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -118,6 +123,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(GroupCommMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -161,6 +168,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpGet]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         public string Validate(string groupName)
         {
             if (!string.IsNullOrEmpty(groupName))
@@ -182,6 +190,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="groupId">The group id.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         public ActionResult Update(int groupId)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -220,13 +229,15 @@ namespace Fanex.Athena.Controllers.Customer
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
             var result = new ResultViewModel();
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            
+
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().ToLower().Equals("none"))
@@ -250,12 +261,12 @@ namespace Fanex.Athena.Controllers.Customer
                     {
                         Language = userSession.Language,
                         Ip = Request.UserHostAddress
-                    };                    
+                    };
                     var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
                     if (currentGroup != null && !currentGroup.Equals(metaModel))
                     {
                         _customerComService.UpdateGroup(metaModel, request, userSession, out result);
-                        
+
                         if (string.IsNullOrWhiteSpace(result.ErrorMessage))
                         {
                             GetUpdateGroupErrorMessage(result);
@@ -278,7 +289,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
         }
-        
+
         #endregion Update group
 
         #region Delete group
@@ -290,7 +301,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="isRemovePlayerComm">If this value equals true, removing all commission of customers belong to this group.</param>
         /// <param name="isResetDefault">Reset default commission for customers  belong to this group.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
             var result = new ResultViewModel();
@@ -314,7 +327,7 @@ namespace Fanex.Athena.Controllers.Customer
                         IsAllowedCSComm = productAccess.IsAllowCS,
                         IsResetDefault = isResetDefault
                     },
-                    out result);     
+                    out result);
 
                 if (result.ErrorCode == 0)
                 {
@@ -335,6 +348,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// Get default group commission.
         /// </summary>
         /// <returns>The JSON result.</returns>
+        [HttpGet]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public JsonResult GetDefaultGroup()
         {
@@ -355,6 +370,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <returns>Action result.</returns>
         [HttpPost]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult ExportExcel()
         {
             const string FileName = "CustomerCommGroup";
@@ -389,7 +406,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get error message for updating.
         /// </summary>
-        /// <param name="result">Result View Model.</param>   
+        /// <param name="result">Result View Model.</param>
         private static void GetUpdateGroupErrorMessage(ResultViewModel result)
         {
             switch (result.ErrorCode)
@@ -419,7 +436,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get error message for creating.
         /// </summary>
-        /// <param name="result">Result View Model.</param>        
+        /// <param name="result">Result View Model.</param>
         private static void GetCreateErrorMessage(ResultViewModel result)
         {
             switch (result.ErrorCode)
@@ -427,12 +444,15 @@ namespace Fanex.Athena.Controllers.Customer
                 case 100:
                     result.ErrorMessage = ViewResources.MessageCommCannotGreaterThan;
                     break;
+
                 case 101:
                     result.ErrorMessage = ViewResources.MessageGroupCreationFail;
                     break;
+
                 case 102:
                     result.ErrorMessage = ViewResources.GroupNameExistedMsg;
                     break;
+
                 default:
                     result.Message = ViewResources.MessageSuccess;
                     break;
@@ -496,7 +516,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             model.CSComm1 = SetComm(decCsComm, 1);
             model.CSComm2 = SetComm(decCsComm, 2);
-            model.CSComm3 = SetComm(decCsComm, 3);            
+            model.CSComm3 = SetComm(decCsComm, 3);
         }
 
         #endregion Utility

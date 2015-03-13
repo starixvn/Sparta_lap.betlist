@@ -123,7 +123,7 @@ var CustomerComm = (function ($) {
             }
             var param =
             {
-                Customers: custList,
+                CustomerIds: custList.toString(),
                 GroupComId: groupid
             };
             $.ajax({
@@ -220,13 +220,14 @@ var CustomerComm = (function ($) {
             var param =
             {
                 GroupId: groupCommId,
-                Customers: custList,
+                CustomerIds: custList.toString(),
                 SBComm: sbcom,
                 RCComm: rbcom,
                 NGComm: ngcom,
                 LCComm: lccom,
                 CSComm: cscom
             };
+
             $.ajax({
                 type: "POST",
                 data: param,
@@ -314,7 +315,7 @@ var CustomerComm = (function ($) {
             var iskeepcom = $('#KeepComm').is(':checked');
             var param =
             {
-                Customers: custList,
+                CustomerIds: custList.toString(),
                 isRemovePlayercomm: !iskeepcom
             };
 
