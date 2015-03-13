@@ -97,11 +97,15 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                userSession.Language, 
+                IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe);
             var model = new CustomerBalanceViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe),
+                    ProductAccess = productAccess,
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel
                 };
