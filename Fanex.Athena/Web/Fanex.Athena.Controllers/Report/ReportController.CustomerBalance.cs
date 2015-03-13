@@ -46,7 +46,10 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyId = 0
                 };
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                userSession.Language, 
+                IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
