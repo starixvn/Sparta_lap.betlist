@@ -3006,7 +3006,7 @@
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="SiteConfig\FunctionIgnoredProduct.xml" />
+    <Content Include="App_Data\FunctionIgnoredProduct.xml" />
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
