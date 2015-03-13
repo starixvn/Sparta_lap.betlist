@@ -128,9 +128,8 @@ var CustomerComm = (function ($) {
             };
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(param),
+                data: param,
                 url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
-                contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 beforeSend: function () {
                     CustomerComm.ajaxStart();
@@ -228,13 +227,12 @@ var CustomerComm = (function ($) {
                 LCComm: lccom,
                 CSComm: cscom
             };
-
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(param),
+                data: param,
                 url: Site.resolveClientUrl("CustomerAPI/UpdateCustomerCom"),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                dataType: 'json',
                 beforeSend: function () {
                     CustomerComm.ajaxStart();
                 },
@@ -322,10 +320,9 @@ var CustomerComm = (function ($) {
 
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(param),
+                data: param,
                 url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
                 dataType: "json",
-                contentType: "application/json; charset=utf-8",
                 beforeSend: function () {
                     CustomerComm.ajaxStart();
                 },

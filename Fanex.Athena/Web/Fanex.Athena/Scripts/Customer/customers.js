@@ -50,9 +50,8 @@ var CustomerList = (function ($) {
             };
         $.ajax({
             type: "POST",
-            data: JSON.stringify(param),
+            data: param,
             url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
-            contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
                 $listItem.attr('class', 'level-' + level);
@@ -64,14 +63,14 @@ var CustomerList = (function ($) {
                     bindData(_cacheData, true);
                 }
                 else {
-                    $listItem.html(oldValue);
+                    $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
                     $listItem.attr('class', 'level-' + oldValue);
                     alert(data.ErrorMessage);
                 }
                 closeSpecialLevelList();
             },
             error: function (/*jqXHR, textStatus, errorThrown*/) {
-                $listItem.html(oldValue);
+                $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
                 $listItem.attr('class', 'level-' + oldValue);
                 alert("Error");
                 closeSpecialLevelList();
@@ -133,9 +132,8 @@ var CustomerList = (function ($) {
             };
         $.ajax({
             type: "POST",
-            data: JSON.stringify(param),
+            data: param,
             url: requestUrl,
-            contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
                 $listItem.attr('class', 'group-' + oddsGroup);
@@ -631,7 +629,7 @@ var CustomerList = (function ($) {
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {
                     _cacheData = response;
-                    bindData(response);                   
+                    bindData(response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -786,7 +784,6 @@ var CustomerList = (function ($) {
                     isClosed: isClosed
                 },
                 url: requestUrl,
-
                 dataType: "json",
                 beforeSend: function () {
                     Site.blockUI();
@@ -830,13 +827,19 @@ var CustomerList = (function ($) {
             var baparam = (params[2] === "True" || params[2] === "true") ? true : false;
             var confirmMsg = params[2].toLowerCase() === "true" ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
             if (params.length === 4) {
-                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus?custId=" + params[1] + "&isAllowBA=" + baparam + "&externalId=" + params[3]);
+                var data = {
+                    custId: params[1],
+                    isAllowBA: baparam,
+                    externalId: params[3]
+                };
+                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus");
                 if (window.confirm(confirmMsg)) {
                     var currentBAStatus = $context.html();
                     var ajaxloading = $("#ajaxLoaDingUpdateBA").html();
                     $.ajax({
                         type: "POST",
                         url: requestUrl,
+                        data: data,
                         beforeSend: function () {
                             $context.html(ajaxloading);
                         },
