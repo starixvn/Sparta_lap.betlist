@@ -23,11 +23,12 @@ namespace Fanex.Athena.Api
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using NPOI.SS.UserModel;
-
+    using System.Web.Http.Filters;
     /// <summary>
     /// Base API Controller.
     /// </summary>
     [CustomApiAuthorize]
+    [CustomAPIExceptionHandling]
     public class BaseApiController : ApiController
     {
         private readonly ILanguageService _langService;

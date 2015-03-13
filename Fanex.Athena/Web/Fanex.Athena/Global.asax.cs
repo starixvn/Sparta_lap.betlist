@@ -18,6 +18,7 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using System.Net.Http.Handlers;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -43,6 +44,7 @@ namespace Fanex.Athena
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            GlobalConfiguration.Configuration.Filters.Add(new CustomAPIExceptionHandlingAttribute());
             /*End Web API*/
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();
