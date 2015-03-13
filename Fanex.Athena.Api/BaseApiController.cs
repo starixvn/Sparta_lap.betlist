@@ -23,7 +23,7 @@ namespace Fanex.Athena.Api
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using NPOI.SS.UserModel;
-    using System.Web.Http.Filters;
+
     /// <summary>
     /// Base API Controller.
     /// </summary>
@@ -35,6 +35,7 @@ namespace Fanex.Athena.Api
         private readonly IProductService _productService;
         private readonly ISessionService _sessionService;
 
+            new ReadOnlyCollection<string>(new List<string>() { Product.CS, Product.BG, Product.KN });
         protected BaseApiController()
         {
             _sessionService = new SessionService();
