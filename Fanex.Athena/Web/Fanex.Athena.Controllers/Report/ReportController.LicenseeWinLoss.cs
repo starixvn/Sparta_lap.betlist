@@ -31,7 +31,8 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreAgCasinoAndPlaytechAndGoldDeluxe);
+            var ignoredProducts = GetIgnoredProducts("LicenseeWinLoss");
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, ignoredProducts);
             var productList = productAccess.ProductList;
             var metaModel = new LicenseeWinLossMetaModel
                 {

@@ -3006,12 +3006,14 @@
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
+    <Content Include="SiteConfig\ReportProductIgnore.xml" />
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
-    <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />  </ItemGroup>
+    <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
@@ -3988,6 +3990,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
     </None>
+    <Content Include="SiteConfig\Web.BACKUPMNL.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <Content Include="SiteConfig\Web.AppSettings.LOCAL.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
@@ -3999,9 +4004,6 @@
     </Content>
     <Content Include="SiteConfig\Web.AppSettings.UAT.config">
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.BACKUPMNL.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
     <None Include="SiteConfig\Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

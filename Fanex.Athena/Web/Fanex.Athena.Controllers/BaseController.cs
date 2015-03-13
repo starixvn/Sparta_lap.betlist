@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Xml.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -171,7 +172,29 @@ namespace Fanex.Athena.Controllers
 
             return new List<string>();
         }
-               
+
+        /// <summary>
+        /// Get Ignored Products.
+        /// </summary>
+        /// <param name="reportName">Report name.</param>
+        /// <returns>Product code array.</returns>
+        protected static string[] GetIgnoredProducts(string reportName = "")
+        {
+            var document = XDocument.Load(AppSettings.GetValue("ReportProductIgnoreFile"));
+            var config = document.Descendants("Report")
+                    .Where(x => x.Attribute("Name").Value.Equals(reportName, System.StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
+
+            if (config == null)
+            {
+                return new string[] { };
+            }
+            else
+            {
+                return config.Attribute("Product").Value.Split(',');
+            }
+        }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();
