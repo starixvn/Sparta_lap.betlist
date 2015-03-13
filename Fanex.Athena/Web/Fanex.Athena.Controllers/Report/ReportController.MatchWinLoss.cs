@@ -52,7 +52,10 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                userSession.Language, 
+                IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytechAndGoldDeluxe);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -408,7 +411,10 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The number of column.</returns>
         private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
         {
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKenoAndPlaytechAndGoldDeluxe);
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                SessionService.UserSession.Language, 
+                IgnoreCasinoAndBingoAndKenoAndPlaytechAndGoldDeluxe);
             var columnCount = 6;
             if (productAccess.IsAllowBA)
             {
