@@ -35,68 +35,76 @@ namespace Fanex.Athena.Controllers
         private readonly ICurrencyService _currencyService = new CurrencyService();
 
         #region Members
-        
-        public string[] IgnoreAgCasinoAndPlaytech
+
+        public string[] IgnoreGoldDeluxe
         {
             get
             {
-                return new string[] { Product.AGC, Product.PTCS };
+                return new string[] { Product.GD };
             }
         }
 
-        public string[] IgnoreCasinoAngBingoAndPlaytech
+        public string[] IgnoreAgCasinoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.PTCS };
+                return new string[] { Product.AGC, Product.PTCS, Product.GD };
             }
         }
 
-        public string[] IgnoreCasinoAngBingoAndAgCasinoAndPlaytech
+        public string[] IgnoreCasinoAngBingoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.AGC, Product.PTCS };
+                return new string[] { Product.CS, Product.BG, Product.PTCS, Product.GD };
             }
         }
 
-        public string[] IgnoreKenoAndPlaytech
+        public string[] IgnoreCasinoAngBingoAndAgCasinoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.KN, Product.PTCS };
+                return new string[] { Product.CS, Product.BG, Product.AGC, Product.PTCS, Product.GD, Product.GD };
             }
         }
 
-        public string[] IgnoreBingoAndPlaytech
+        public string[] IgnoreKenoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.BG, Product.PTCS };
+                return new string[] { Product.KN, Product.PTCS, Product.GD, Product.GD };
             }
         }
 
-        public string[] IgnoreBingoAndAgCasinoAndPlaytech
+        public string[] IgnoreBingoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.BG, Product.AGC, Product.PTCS };
+                return new string[] { Product.BG, Product.PTCS, Product.GD };
             }
         }
 
-        public string[] IgnoreCasinoAndBingoAndKenoAndPlaytech
+        public string[] IgnoreBingoAndAgCasinoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.PTCS };
+                return new string[] { Product.BG, Product.AGC, Product.PTCS, Product.GD };
             }
         }
 
-        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech
+        public string[] IgnoreCasinoAndBingoAndKenoAndPlaytechAndGoldDeluxe
         {
             get
             {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC, Product.PTCS };
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.PTCS, Product.GD };
+            }
+        }
+
+        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytechAndGoldDeluxe
+        {
+            get
+            {
+                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC, Product.PTCS, Product.GD };
             }
         }
 
