@@ -11,7 +11,6 @@ namespace Fanex.Athena.Web.RouterConfig
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
-    using Fanex.Athena.Service.Implement.Users;
 
     /// <summary>
     /// Compress Handler class.
@@ -26,7 +25,6 @@ namespace Fanex.Athena.Web.RouterConfig
         /// <returns>The response task.</returns>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-           
             return base.SendAsync(request, cancellationToken).ContinueWith(
                 responseToCompleteTask =>
                 {
