@@ -208,6 +208,11 @@ namespace Fanex.Athena.Controllers.Customer
 
         private bool IsCurrentLicenseeOfferOddsGroup()
         {
+            if (SessionService == null || SessionService.LicenseeSession == null)
+            {
+                return false;
+            }
+
             var licenseeIds = GetLicenseesOfferOddsGroup();
             return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
         }
