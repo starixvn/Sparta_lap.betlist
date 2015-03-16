@@ -9,7 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -21,6 +21,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string ActiveCustomerSummaryName = "ActiveCustomerSummary";
+
         /// <summary>
         /// Default licenseeWL action.
         /// </summary>
@@ -31,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("ActiveCustomerSummary"));
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(ActiveCustomerSummaryName));
             var productList = productAccess.ProductList;
             var defaultDate = DateTime.Now.AddDays(-1);
             var metaModel = new ActiveCustomerMetaModel

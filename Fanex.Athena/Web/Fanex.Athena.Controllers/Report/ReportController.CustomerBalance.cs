@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -27,7 +28,7 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
-        private const string ReportName = "CustomerBalance";
+        private const string CustomerBalanceName = "CustomerBalance";
         #region Web Controller
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId, 
                 userSession.Language,
-                GetIgnoredProducts(ReportName));
+                Util.GetIgnoredProducts(CustomerBalanceName));
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
@@ -98,7 +99,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts(ReportName));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(CustomerBalanceName));
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -158,7 +159,10 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, GetIgnoredProducts(ReportName));
+            var productAccess = _productService.GetProductAccess(
+                viewModel.Param.LicenseeId, 
+                SessionService.UserSession.Language, 
+                Util.GetIgnoredProducts(CustomerBalanceName));
 
             var showingOption = new ShowingOption
                 {

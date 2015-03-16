@@ -30,6 +30,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string CustomerWinLossName = "CustomerWinLoss";
+
         /// <summary>
         /// The customer win-loss.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerWinLoss"));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(CustomerWinLossName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -89,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(historyParam);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerWinLoss"));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(CustomerWinLossName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {

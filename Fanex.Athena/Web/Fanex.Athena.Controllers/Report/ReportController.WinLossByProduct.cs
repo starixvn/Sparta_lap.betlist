@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -21,6 +22,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string WinLossByProductName = "WinLossByProduct";
+
         /// <summary>
         /// Win loss by product report.
         /// </summary>
@@ -31,7 +34,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("WinLossByProduct"));
+            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(WinLossByProductName));
             var productList = productAccess.ProductList;
             var metaModel = new WinLossByProductMetaModel
                 {

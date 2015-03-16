@@ -39,6 +39,7 @@ namespace Fanex.Athena.Controllers.Customer
     /// </summary>
     public class CustomerApiController : ReadonlyBaseController
     {
+        private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
         #region Fields
 
         private readonly ICustomerService _customerService;
@@ -461,7 +462,10 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerAPI_RemoveFromGroupCom"));
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                Util.GetIgnoredProducts(CustomerAPIRemoveFromGroupComName));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
@@ -495,12 +499,6 @@ namespace Fanex.Athena.Controllers.Customer
         [AjaxRequest]
         public ActionResult MoveToGroupCom(IList<int> customers, int groupComId)
         {
-            var result = new ResultViewModel
-                {
-                    Success = false,
-                    ErrorMessage = ViewResources.Error
-                };
-
             var metaModel = new MoveToGroupComMetaModel
             {
                 Customers = customers,
@@ -508,7 +506,10 @@ namespace Fanex.Athena.Controllers.Customer
             };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, GetIgnoredProducts("CustomerAPI_RemoveFromGroupCom"));
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                Util.GetIgnoredProducts(CustomerAPIRemoveFromGroupComName));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.IsAllowedNG = productAccess.IsAllowNG;
@@ -518,10 +519,13 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.Ip = Request.UserHostAddress;
             metaModel.Language = userSession.Language;
             var temp = _customerService.MoveCustomersToGroup(metaModel);
-            result.Success = temp.IsSuccessful;
-            result.Message = ViewResources.MessageSuccess;
-            result.ErrorMessage = temp.Message;
-            result.ErrorCode = temp.Code;
+            var result = new ResultViewModel
+            {
+                Success = temp.IsSuccessful,
+                Message = ViewResources.MessageSuccess,
+                ErrorMessage = temp.Message,
+                ErrorCode = temp.Code
+            };
 
             if (result.Success)
             {

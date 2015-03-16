@@ -97,30 +97,6 @@ namespace Fanex.Athena.Controllers
             return new List<string>();
         }
 
-        /// <summary>
-        /// Get Ignored Products.
-        /// </summary>
-        /// <param name="functionName">Function name.</param>
-        /// <returns>Product code array.</returns>
-        protected string[] GetIgnoredProducts(string functionName)
-        {
-            var filePath = Server.MapPath(AppSettings.GetValue("FunctionIgnoredProductFile"));
-            var document = XDocument.Load(filePath);
-            var config = document.Descendants("Function")
-                    .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
-                    .FirstOrDefault();
-
-            if (config == null)
-            {
-                return new string[] { };
-            }
-            else
-            {
-                return config.Attribute("Product").Value.Split(',')
-                    .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            }
-        }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();

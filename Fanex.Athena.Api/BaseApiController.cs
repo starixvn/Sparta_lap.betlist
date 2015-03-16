@@ -34,22 +34,11 @@ namespace Fanex.Athena.Api
         private readonly IProductService _productService;
         private readonly ISessionService _sessionService;
 
-        private ReadOnlyCollection<string> _ignoreCasinoAndBingoAndKeno = 
-            new ReadOnlyCollection<string>(new List<string>() { Product.CS, Product.BG, Product.KN });
-
         protected BaseApiController()
         {
             _sessionService = new SessionService();
             _productService = new ProductService();
             _langService = new LanguageService();
-        }
-
-        public ReadOnlyCollection<string> IgnoreCasinoAndBingoAndKeno
-        {
-            get
-            {
-                return _ignoreCasinoAndBingoAndKeno;
-            }
         }
 
         protected IProductService ProductService

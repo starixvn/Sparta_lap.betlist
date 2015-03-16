@@ -33,6 +33,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
+
         private string _htmlResult;
         private MemoryStream _excelStream;
 
@@ -400,8 +402,8 @@ namespace Fanex.Athena.Controllers.Report
                 IEnumerable<Sport> limitedSports;
                 var productAccess = _productService.GetProductAccess(
                     licenseeSession.LicenseeId, 
-                    SessionService.UserSession.Language, 
-                    GetIgnoredProducts("ResultPage_GetNormalSports"));
+                    SessionService.UserSession.Language,
+                    Util.GetIgnoredProducts(ResultPageGetNormalSportsName));
                 var limitedProduct =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;
