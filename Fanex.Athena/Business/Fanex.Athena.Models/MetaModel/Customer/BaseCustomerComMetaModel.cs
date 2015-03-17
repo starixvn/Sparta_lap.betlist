@@ -14,27 +14,19 @@ namespace Fanex.Athena.Models.MetaModel.Customer
     /// </summary>
     public abstract class BaseCustomerComMetaModel : BaseMetaModel
     {
-        private string _customerIds;
-
         public string Ip { get; set; }
 
         public string Language { get; set; }
 
-        public IList<int> Customers { get; set; }
-
-        public string CustomerIds
+        public IList<int> Customers 
         {
             get
             {
-                return _customerIds;
-            }
-
-            set
-            {
-                _customerIds = value;
-                Customers = _customerIds.Split(',').Select(int.Parse).ToArray();
+                return string.IsNullOrWhiteSpace(CustomerIds) ? new List<int>() : CustomerIds.Split(',').Select(int.Parse).ToList();
             }
         }
+
+        public string CustomerIds { get; set; }
 
         public string CustomerToSQLParam
         {
