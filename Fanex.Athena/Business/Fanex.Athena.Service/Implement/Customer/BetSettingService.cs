@@ -44,6 +44,8 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         private const int GoldDeluxeThirdPartyId = 5;
 
+        private const string DefaultGoldDeluxeGroup = "default";
+
         #endregion Constants
 
         #region Field
@@ -91,7 +93,12 @@ namespace Fanex.Athena.Service.Implement.Customer
             if (setting.IsLineEnabled && games.Count > 0)
             {
                 setting.CheckedGroups = games.SelectMany(x => x.Groups).Select(x => x.GroupType).Distinct().ToArray();
-                if (setting.CheckedGroups.Contains(setting.Group) == false)
+                if (string.IsNullOrWhiteSpace(setting.Group) &&
+                    setting.CheckedGroups.Any(x => x.Equals(DefaultGoldDeluxeGroup, StringComparison.OrdinalIgnoreCase)))
+                {
+                    setting.Group = DefaultGoldDeluxeGroup;
+                }
+                else if (setting.CheckedGroups.Contains(setting.Group) == false)
                 {
                     setting.CheckedGroups =
                         setting.CheckedGroups.Concat(new string[] { setting.Group })
