@@ -14,12 +14,12 @@ namespace Fanex.Athena.Web.ActionFilter
     /// TODO: Update summary.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    public class CustomAPIExceptionHandlingAttribute : ExceptionFilterAttribute
+    public sealed class CustomAPIExceptionHandlingAttribute : ExceptionFilterAttribute
     {
-        public override void OnException(HttpActionExecutedContext context)
+        public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
-            LogService.Error(context.Exception.Message);
-            base.OnException(context);
+            LogService.Error(actionExecutedContext.Exception.Message);
+            base.OnException(actionExecutedContext);
         }
     }
 }

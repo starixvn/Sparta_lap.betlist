@@ -35,7 +35,6 @@ namespace Fanex.Athena.Api
         private readonly IProductService _productService;
         private readonly ISessionService _sessionService;
 
-            new ReadOnlyCollection<string>(new List<string>() { Product.CS, Product.BG, Product.KN });
         protected BaseApiController()
         {
             _sessionService = new SessionService();
