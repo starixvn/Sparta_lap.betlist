@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/12/2015 4:46:47 PM
+// Lasted generated date: 3/18/2015 10:06:21 AM
 // </history>
 
 var _language_en_US={
@@ -37,8 +37,6 @@ var _language_en_US={
                      AGCasinoBalance:"AG Casino Balance",
 				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
-				 	
-                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AGCasinoWinLoss:"AG Casino Win Loss",
 				 	
@@ -390,6 +388,8 @@ var _language_en_US={
 				 	
                      DisableAgCasino:"Disable AG Casino",
 				 	
+                     DisableGoldDeluxe:"Disable Gold Deluxe",
+				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
                      DisableRNGCasino:"Disable RNG Casino",
@@ -429,6 +429,8 @@ var _language_en_US={
                      Enable:"Enable",
 				 	
                      EnableAgCasino:"Enable AG Casino",
+				 	
+                     EnableGoldDeluxe:"Enable Gold Deluxe",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
@@ -533,6 +535,12 @@ var _language_en_US={
                      GetAll:"Get All",
 				 	
                      Go:"Go",
+				 	
+                     GoldDeluxe:"Gold Deluxe",
+				 	
+                     GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
+				 	
+                     GoldDeluxeProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      GotoCustomerList:"Go to Customer List",
 				 	
@@ -1160,6 +1168,8 @@ var _language_en_US={
 				 	
                      Previous:"Previous",
 				 	
+                     ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
+				 	
                      Product:"Product",
 				 	
                      PShare:"P.Share",
@@ -1513,6 +1523,10 @@ var _language_en_US={
                      UpdateCustomerCommission:"Update Customer Commission",
 				 	
                      UpdateFunctionSuccessfulMsg:"Updating Functions is successul.",
+				 	
+                     UpdateGoldDeluxeBetSettings:"Are you sure you want to update all Gold Deluxe bet settings?",
+				 	
+                     UpdateGoldDeluxeBetSettingSuccessMsg:"The Gold Deluxe bet setting of {0} was updated successfully",
 				 	
                      UpdateKenoBetSettings:"Are you sure you want to update all Keno bet settings?",
 				 	
