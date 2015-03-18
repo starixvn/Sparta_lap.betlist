@@ -2644,4 +2644,6 @@
   <data name="VoidbridgeNotOfferCurrency" xml:space="preserve">
     <value>Voidbridge is not offered for this currency.</value>
   </data>
-</root>
+  <data name="GoldDeluxeWinLoss" xml:space="preserve">
+    <value>Gold Deluxe Win Loss</value>
+  </data></root>
