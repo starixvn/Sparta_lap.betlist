@@ -2499,7 +2499,7 @@
     <value>AG Casino is not offered for this currency.</value>
     <comment>#19458</comment>
   </data>
-  <data name="AGCasinoProblemDisplayBetSetting" xml:space="preserve">
+  <data name="ProblemDisplayBetSetting" xml:space="preserve">
     <value>There is problem to display bet setting group's detail.</value>
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
@@ -2603,5 +2603,25 @@
   <data name="DateRangeExceedMsg" xml:space="preserve">
     <value>Date range exceeds {0} months. Please try again!</value>
     <comment>#29219</comment>
+  </data>
+  <data name="GoldDeluxeProblemDisplayBetSetting" xml:space="preserve">    <value>There is problem to display bet setting group's detail.</value>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+  </data>
+  <data name="GoldDeluxeNotOfferCurrency" xml:space="preserve">
+    <value>Gold Deluxe is not offered for this currency.</value>
+  </data>
+  <data name="DisableGoldDeluxe" xml:space="preserve">
+    <value>Disable Gold Deluxe</value>
+  </data>
+  <data name="EnableGoldDeluxe" xml:space="preserve">
+    <value>Enable Gold Deluxe</value>
+  </data>
+  <data name="UpdateGoldDeluxeBetSettings" xml:space="preserve">
+    <value>Are you sure you want to update all Gold Deluxe bet settings?</value>
+  </data>
+  <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
+    <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
 </root>

@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -34,6 +35,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string MatchWinLossName = "MatchWinLoss";
+
         /// <summary>
         /// The match win-loss report.
         /// </summary>
@@ -52,7 +55,10 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                userSession.Language,
+                Util.GetIgnoredProducts(MatchWinLossName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -137,7 +143,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
 
-                ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndPlaytech),
+                ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(MatchWinLossName)),
                 ColumnCount = GetMatchWinlossColumnCount(licenseeSession),
                 Total = total,
                 GrandTotal = grandTotal,
@@ -162,7 +168,7 @@ namespace Fanex.Athena.Controllers.Report
             var matchWinLossService = new MatchWinLossService();
             var reportData = matchWinLossService.GetDetailDataList(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(MatchWinLossName));
 
             var model = new MatchWinLossViewModel
             {
@@ -189,7 +195,7 @@ namespace Fanex.Athena.Controllers.Report
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(MatchWinLossName));
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
@@ -408,7 +414,10 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The number of column.</returns>
         private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
         {
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, IgnoreCasinoAndBingoAndKenoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(
+                licenseeSession.LicenseeId, 
+                SessionService.UserSession.Language,
+                Util.GetIgnoredProducts(MatchWinLossName));
             var columnCount = 6;
             if (productAccess.IsAllowBA)
             {

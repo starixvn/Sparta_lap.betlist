@@ -40,6 +40,14 @@ namespace Fanex.Athena.Service.Implement.Customer
     /// </summary>
     public class BetSettingService : IBetSettingService
     {
+        #region Constants
+
+        private const int GoldDeluxeThirdPartyId = 5;
+
+        private const string DefaultGoldDeluxeGroup = "default";
+
+        #endregion Constants
+
         #region Field
 
         private readonly BetSettingDataAccess _betSettingDataAccess;
@@ -64,6 +72,99 @@ namespace Fanex.Athena.Service.Implement.Customer
         }
 
         #endregion
+
+        /// <summary>
+        /// Get Gold Deluxe setting.
+        /// </summary>
+        /// <param name="custId">Customer Id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <returns>Gold Deluxe setting.</returns>
+        public GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetGoldDeluxeSetting(custId);
+            setting.Group = GetGoldDeluxeUserGroup(siteName, custId, setting.CurrencyId);
+            var games = GetGoldDeluxeGroupBettingLimit(custId, siteName, setting.CurrencyId);
+
+            if (setting.IsLineEnabled && games.Count > 0)
+            {
+                setting.CheckedGroups = games.SelectMany(x => x.Groups).Select(x => x.GroupType).Distinct().ToArray();
+                if (string.IsNullOrWhiteSpace(setting.Group) &&
+                    setting.CheckedGroups.Any(x => x.Equals(DefaultGoldDeluxeGroup, StringComparison.OrdinalIgnoreCase)))
+                {
+                    setting.Group = DefaultGoldDeluxeGroup;
+                }
+                else if (setting.CheckedGroups.Contains(setting.Group) == false)
+                {
+                    setting.CheckedGroups =
+                        setting.CheckedGroups.Concat(new string[] { setting.Group })
+                        .OrderBy(x => x).ToArray();
+                }
+            }
+
+            return new GoldDeluxeBetSettingViewModel()
+            {
+                BetSetting = setting,
+                Games = games
+            };
+        }
+
+       /// <summary>
+       /// Update Gold Deluxe setting.
+       /// </summary>
+       /// <param name="siteName">Site name.</param>
+       /// <param name="custId">Customer id.</param>
+       /// <param name="group">Group value..</param>
+       /// <returns>Result info value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+            
+            var uri = new Uri(AppSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
+            var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&GroupType={3}", siteName, custId, GoldDeluxeThirdPartyId, group);
+            var apiResult = string.Empty;
+            
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    apiResult = webClient.UploadString(uri, parameters);
+                }
+
+                var xml = XDocument.Parse(apiResult);
+                var rootElement = xml.Element("SetUserGroupBettingLimit");
+                if (rootElement.Element("ReturnCode").Value.Equals("0"))
+                {
+                    return new ResultInfo();
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+        }
+
+        public IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateGoldDeluxeStatus(userId, custId, language, ip, isEnabled);
+        }
 
         public AgCasinoBetSetting GetAgCasinoSetting(int custId)
         {
@@ -307,7 +408,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <summary>
         ///  Update SportsBook bet setting.
         /// </summary>
-        /// <param name="setting">The sport-book setting.</param>
+        /// <param name="setting">The common setting.</param>
         /// <param name="group">Bet setting group.</param>
         /// <returns>The information of result.</returns>
         public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
@@ -557,6 +658,109 @@ namespace Fanex.Athena.Service.Implement.Customer
                 Code = 1,
                 Message = message
             };
+        }
+
+        #endregion
+
+        #region Private Method
+
+        /// <summary>
+        /// Get Gold Deluxe Group Betting Limit.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="currency">Currency id.</param>
+        /// <returns>Gold Deluxe Group Betting Limit.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int custId, string siteName, int currency)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return new List<GoldDeluxeGame>();
+            }
+
+            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
+            var parameters = string.Format("SiteName={0}&Currency={1}&ThirdPartyId={2}", siteName, currency, GoldDeluxeThirdPartyId);
+            var apiResult = string.Empty;
+            var games = new List<GoldDeluxeGame>();
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    apiResult = webClient.UploadString(uri, parameters);
+                }
+
+                var xml = XDocument.Parse(apiResult);
+                
+                foreach (var xmlGame in xml.Descendants("Game"))
+                {
+                    var game = new GoldDeluxeGame()
+                    {
+                        GameType = xmlGame.Attribute("GameType").Value,
+                        Name = xmlGame.Attribute("Name").Value,
+                        Groups = new List<GoldDeluxeGroup>()
+                    };
+
+                    foreach (var xmlGroup in xmlGame.Descendants("Group"))
+                    {
+                        game.Groups.Add(new GoldDeluxeGroup()
+                        {
+                            GroupType = xmlGroup.Attribute("GroupType").Value,
+                            Min = Converter.ToInt(xmlGroup.Element("Min").Value),
+                            Max = Converter.ToInt(xmlGroup.Element("Max").Value)
+                        });
+                    }
+
+                    games.Add(game);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return games;
+        }
+
+        /// <summary>
+        /// Get gold deluxe user group.
+        /// </summary>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="currencyId">Currency id.</param>
+        /// <returns>Group name value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private string GetGoldDeluxeUserGroup(string siteName, int custId, int currencyId)
+        {
+            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGetUserGroupApiUrl"));
+            var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&Currency={3}", siteName, custId, GoldDeluxeThirdPartyId, currencyId);
+            var apiResult = string.Empty;
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    apiResult = webClient.UploadString(uri, parameters);
+                }
+
+                var xml = XDocument.Parse(apiResult);
+                
+                var rootElement = xml.Element("GetUserGroupBettingLimit");
+                if (rootElement.Element("ReturnCode").Value.Equals("0"))
+                {
+                    return rootElement.Element("ReturnMessage").Value;
+                }
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+            }
+
+            return string.Empty;
         }
 
         #endregion

@@ -27,6 +27,7 @@ var AgCasino = (function ($) {
             {
                 disableSubmitButtons(true);
             }
+            $('#betSettingGroup').change();
         },
         initEvent: function () {
             // dropdown group

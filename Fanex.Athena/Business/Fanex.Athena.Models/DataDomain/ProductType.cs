@@ -51,6 +51,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// AGCasino product.
         /// </summary>
-        AgCasino = 8
+        AgCasino = 8,
+
+        /// <summary>
+        /// Gold Deluxe product.
+        /// </summary>
+        GoldDeluxe = 9
     }
 }

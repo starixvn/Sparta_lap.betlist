@@ -119,6 +119,9 @@
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGame.cs" />
+    <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeGame.cs" />
+    <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
@@ -297,6 +300,7 @@
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\AgCasinoBetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\GoldDeluxeBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\LiveCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\ActionViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\CustomerLogViewModel.cs" />

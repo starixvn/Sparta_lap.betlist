@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <Group Name="Report">
+    <Function Name="LicenseeWinLoss" Product="AGC,PTCS,GD"></Function>
+    <Function Name="ActiveCustomerSummary" Product="GD"></Function>
+    <Function Name="CustomerBalance" Product="BG,AGC,PTCS,GD"></Function>
+    <Function Name="CustomerPendingFunds" Product="CS,BG,AGC,PTCS,GD"></Function>
+    <Function Name="CustomerWinLoss" Product="AGC,PTCS,GD"></Function>
+    <Function Name="MatchWinLoss" Product="CS,BG,KN,AGC,PTCS,GD"></Function>
+    <Function Name="MobileWinloss" Product="CS,BG,KN,AGC,PTCS,GD"></Function>
+    <Function Name="Turnover" Product="BG,AGC,PTCS,GD"></Function>
+    <Function Name="WinLossByProduct" Product="AGC,PTCS,GD"></Function>
+    <Function Name="WinLossByProduct" Product="AGC,PTCS,GD"></Function>
+    <Function Name="ResultPage_GetNormalSports" Product="CS,BG,PTCS,GD"></Function>
+  </Group>
+
+  <Group Name="BetList">
+    <Function Name="BetList_CustomerOutstanding" Product="AGC,PTCS,GD"></Function>
+    <Function Name="BetList_DailyBetList" Product="AGC,PTCS,GD"></Function>
+  </Group>
+
+  <Group Name="API">
+    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="KN,PTCS,GD"></Function>
+  </Group>
+</Root>

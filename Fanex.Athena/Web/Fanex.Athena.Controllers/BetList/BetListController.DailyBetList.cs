@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
@@ -28,6 +29,8 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public partial class BetListController
     {
+        private const string BetListDailyBetListName = "BetList_DailyBetList";
+
         /// <summary>
         /// Action Get for daily bet list.
         /// </summary>
@@ -62,7 +65,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreAgCasinoAndPlaytech),
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(BetListDailyBetListName)),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

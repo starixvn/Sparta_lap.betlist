@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.MetaModel.Product;
 
@@ -21,6 +22,8 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public partial class BetListController
     {
+        private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
+
         /// <summary>
         /// Action Get for Customer Outstanding.
         /// </summary>
@@ -36,7 +39,10 @@ namespace Fanex.Athena.Controllers.BetList
             minDate = new DateTime(minDate.Year, 1, 1);
             metaModel.FromDate = metaModel.BetListName == "betlistrunning" ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
-            var productAccess = this._productService.GetProductAccess(metaModel.LicenseeId, SessionService.UserSession.Language, IgnoreAgCasinoAndPlaytech);
+            var productAccess = this._productService.GetProductAccess(
+                metaModel.LicenseeId, 
+                SessionService.UserSession.Language,
+                Util.GetIgnoredProducts(BetListCustomerOutstandingName));
 
             metaModel.ProductOptions = new List<ProductOption>();
             for (int i = 0, j = productAccess.ProductList.Count; i < j; i++)

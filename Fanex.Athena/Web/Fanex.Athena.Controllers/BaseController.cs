@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Xml.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -33,74 +34,6 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService = new LanguageService();
         private readonly ISessionService _sessionService = new SessionService();
         private readonly ICurrencyService _currencyService = new CurrencyService();
-
-        #region Members
-        
-        public string[] IgnoreAgCasinoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.AGC, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreCasinoAngBingoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreCasinoAngBingoAndAgCasinoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.AGC, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreKenoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.KN, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreBingoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.BG, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreBingoAndAgCasinoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.BG, Product.AGC, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreCasinoAndBingoAndKenoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.PTCS };
-            }
-        }
-
-        public string[] IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech
-        {
-            get
-            {
-                return new string[] { Product.CS, Product.BG, Product.KN, Product.AGC, Product.PTCS };
-            }
-        }
-
-        #endregion Members
 
         public ILanguageService LangService
         {
@@ -163,7 +96,7 @@ namespace Fanex.Athena.Controllers
 
             return new List<string>();
         }
-               
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var currentLanguage = LangService.GetCurrentLanguage();

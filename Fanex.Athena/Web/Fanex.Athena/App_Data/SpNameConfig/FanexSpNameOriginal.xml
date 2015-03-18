@@ -137,6 +137,11 @@
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
   </Function>
 
+  <Function Name="CustomerSettingsThridParty">
+    <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Dep_3rdProductUpdCustStatus" SpName="Dep_3rdProductUpdCustStatus" DbName="DBTXN.CustDB.bodbLicenseeNet" />
+  </Function>
+  
   <Function Name="AG Casino">
     <Setting Key="Lrf_AGC_SelCustSetting" SpName="Lrf_AGC_SelCustSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_AGC_UpdCustSetting" SpName="Lrf_AGC_UpdCustSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />

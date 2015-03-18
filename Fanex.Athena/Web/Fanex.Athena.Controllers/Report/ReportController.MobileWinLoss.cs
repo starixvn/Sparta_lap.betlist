@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -19,6 +20,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string MobileWinlossName = "MobileWinloss";
+
         #region Web Controller
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new MobileWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language, Util.GetIgnoredProducts(MobileWinlossName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {

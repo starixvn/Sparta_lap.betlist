@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string CustomerPendingFundsName = "CustomerPendingFunds";
         #region Web Controller
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = userSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, IgnoreCasinoAngBingoAndAgCasinoAndPlaytech);
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, Util.GetIgnoredProducts(CustomerPendingFundsName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -96,7 +98,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKenoAndAgCasinoAndPlaytech),
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, Util.GetIgnoredProducts(CustomerPendingFundsName)),
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     TotalRows = totalRows,

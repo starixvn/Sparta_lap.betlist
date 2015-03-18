@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -29,6 +30,8 @@ namespace Fanex.Athena.Api.Report
     /// </summary>
     public partial class ReportController
     {
+        private const string MobileWinlossName = "MobileWinloss";
+
         //// POST api/<controller>
 
         #region Action
@@ -71,7 +74,7 @@ namespace Fanex.Athena.Api.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, IgnoreCasinoAndBingoAndKeno);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetIgnoredProducts(MobileWinlossName));
 
             var showingOption = new ShowingOption
                 {
