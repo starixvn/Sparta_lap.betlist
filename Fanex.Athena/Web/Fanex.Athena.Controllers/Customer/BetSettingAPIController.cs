@@ -162,6 +162,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">The user name.</param>
         /// <param name="group">Bet setting group.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateGoldDeluxeBetSetting(int custId, string nickName, string group)
         {
             var result = _betSettingService.UpdateGoldDeluxeBetSetting(SessionService.LicenseeSession.LicenseeName, custId, group);
@@ -181,6 +184,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateGoldDeluxeStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
