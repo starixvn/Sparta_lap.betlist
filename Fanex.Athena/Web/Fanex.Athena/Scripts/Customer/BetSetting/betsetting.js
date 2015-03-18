@@ -290,15 +290,17 @@ var BetSetting = (function ($) {
             return true;
         },
         updateGoldDeluxeBetSetting: function (custId, userName, nickName) {
-            var params = "custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params += "&group=" + $("#betSettingGroup").val();
+            var params = {
+                custid: custId,
+                userName: userName,
+                nickName: nickName,
+                group: $("#betSettingGroup").val()
+            };
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
