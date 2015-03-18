@@ -11,7 +11,8 @@ var GoldDeluxeWinLossOption = (function () {
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        var level = GoldDeluxeWinLossOption.licenseeId === GoldDeluxeWinLossOption.LICENSEE_12BET ? 1 : 2;
+        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
     var systemIdFormatter = function (cellvalue, options, rowObject) {
@@ -171,6 +172,8 @@ var GoldDeluxeWinLossOption = (function () {
 
     var me =
     {
+        LICENSEE_12BET: 1,
+        licenseeId: 0,
         totalColspan: [2, 2, 3],
         urlData: 'api/report/GoldDeluxeWinLoss',
         urlExcelData: 'api/report/GoldDeluxeWinLoss',

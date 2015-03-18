@@ -5,8 +5,9 @@ var GoldDeluxeWinLoss = (function ($) {
     "use strict";
     var cacheData = {};
     var ajaxRequest = null;
-    var totalRowCount = 0;
     var _level = 0;
+    var _submitData;
+
     function initMonthPicker() {
         var year = $("#Year").val();
         var month = $("#Month").val();
@@ -64,14 +65,12 @@ var GoldDeluxeWinLoss = (function ($) {
                                     .css("max-height", gridHeight);
             }, 100);
         },
-        getTotalRowCount: function () {
-            return totalRowCount;
-        },
         initialize: function () {
+            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             GoldDeluxeWinLoss.initEvent();
             initMonthPicker();
             Site.addUserGuide({
-                resourceName: "GoldDeluxeWL",
+                resourceName: "GoldDeluxeWinLoss",
                 title: Site.getSingleResource("GoldDeluxeWinLoss")
             });
         },
@@ -130,6 +129,7 @@ var GoldDeluxeWinLoss = (function ($) {
                 $(".level0").show();
 
                 $(".level2").showHide(level === 2);
+                $(".level1").showHide(GoldDeluxeWinLossOption.licenseeId === GoldDeluxeWinLossOption.LICENSEE_12BET);
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
@@ -150,7 +150,7 @@ var GoldDeluxeWinLoss = (function ($) {
                 ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
                 : currencyTextList[currencyId];
 
-            var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
+            var title = $.format(titlePattern, fromdate.toString("MM/dd/yyyy"), todate.toString("MM/dd/yyyy"), currencyStr);
             $("div.report-title").html(title);
         },
         //#end
@@ -162,14 +162,16 @@ var GoldDeluxeWinLoss = (function ($) {
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
-                    //update drildownValue
-                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
-                    $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
-                    $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-                    $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
-                    GoldDeluxeWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+                    _submitData = {
+                        IsExcludedTestData: $("#IsExcludedTestData").is(":checked"),
+                        CurrencyId: $("#CurrencyId").val(),
+                        FromDate: $("#FromDate").val(),
+                        ToDate: $("#ToDate").val(),
+                        CurrencyName: $("#CurrencyId option:selected").text(),
+                        BaseCurrency: $("#BaseCurrency").val()
+                    };
+
+                    GoldDeluxeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
 
                 GoldDeluxeWinLoss.renderBreadCrumb(level);
@@ -212,10 +214,6 @@ var GoldDeluxeWinLoss = (function ($) {
             return true;
         },
 
-        lastDateOfMonth: function (year, month) {
-            return new Date(year, month + 1, 0);
-        },
-
         drillDown: function (level, currencyId, customerId, datetime) {
             level = Number(level);
 
@@ -225,15 +223,15 @@ var GoldDeluxeWinLoss = (function ($) {
 
             var param =
             {
-                IsExcludedTestData: $("#OriginalIsExcludedTestData").val(),
-                CurrencyId: $("#OriginalCurrencyId").val(),
-                FromDate: $("#OriginalFromDate").val(),
-                ToDate: $("#OriginalToDate").val(),
-                BaseCurrency: $("#BaseCurrency").attr("data-original")
+                IsExcludedTestData: _submitData.IsExcludedTestData,
+                CurrencyId: _submitData.CurrencyId,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
+                BaseCurrency: _submitData.BaseCurrency
             };
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
-           
+
             var option = {
                 type: "POST",
                 data: JSON.stringify(param),
@@ -275,9 +273,9 @@ var GoldDeluxeWinLoss = (function ($) {
                 //reset excel Link
                 GoldDeluxeWinLoss.setExcelUrl(0, 0, 0, "", "");
                 //re-set title
-                var fromdate = new Date($("#OriginalFromDate").val());
-                var todate = new Date($("#OriginalToDate").val());
-                var currencyId = $("#OriginalCurrencyId").val();
+                var fromdate = new Date(_submitData.FromDate);
+                var todate = new Date(_submitData.ToDate);
+                var currencyId = _submitData.CurrencyId;
                 GoldDeluxeWinLoss.setReportTitle(currencyId, fromdate, todate);
             }
             else if (level === 1) {
@@ -310,7 +308,6 @@ var GoldDeluxeWinLoss = (function ($) {
 
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
-            totalRowCount = numOfTotalRow;
 
             var gridOption = GoldDeluxeWinLossOption.getGridOption(level);
             gridOption.data = response.Data;
@@ -352,7 +349,6 @@ var GoldDeluxeWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     GoldDeluxeWinLoss.initialize();
-    //alert(Date.parse('Apr 5, 2013'));
 });
 
 $(window).resize(function () {

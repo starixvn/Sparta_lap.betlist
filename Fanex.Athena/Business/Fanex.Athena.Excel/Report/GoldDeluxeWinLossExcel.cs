@@ -165,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
                 ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
                 : GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.AGCasinoWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            ReportTitle = string.Format(ViewResources.GoldDeluxeWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
