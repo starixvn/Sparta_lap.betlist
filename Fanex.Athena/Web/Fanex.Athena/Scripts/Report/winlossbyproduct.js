@@ -5,7 +5,7 @@ var WinLossByProduct = (function ($) {
     "use strict";
     var LICENSEE_12BET = 1;
     var REPORT_BY_MONTHLY = 2;
-    var VALID_MONTH_RANGE = 3;
+    var VALID_MONTH_RANGE = 300;
     var _cacheData = [];
     var ajaxRequest = null;
     var _memberId, _systemId; // store data when submit level 0
@@ -411,6 +411,7 @@ var WinLossByProduct = (function ($) {
         },
 
         bindData: function (level, reportBy, response) {
+            $("#ReportGrid").hide();
             jqGridAdditional.clearGrid("ReportGrid");
 
             level = Number(level);
@@ -477,22 +478,24 @@ var WinLossByProduct = (function ($) {
                 Site.unBlockUI();
             };
 
-            //  setTimeout(function () {
-            reportGrid.jqGrid(gridOption);
+            setTimeout(function () {
+                reportGrid.jqGrid(gridOption);
 
-            if (WinLossByProductOption.hasCustomerComm) {
-                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
-            }
+                if (WinLossByProductOption.hasCustomerComm) {
+                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                }
 
-            //set rowspan for footer row
-            $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
-            if (level === 2) {
-                jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-            }
-            ///reset layout
-            jqGridAdditional.resetLayout(reportGrid);
-            WinLossByProduct.resizeGrid();
-            // }, 100);
+                //set rowspan for footer row
+                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+                if (level === 2) {
+                    jqGridAdditional.showRecommendedBrowser(gridOption.pager);
+                }
+
+                $("#ReportGrid").show();
+                ///reset layout
+                jqGridAdditional.resetLayout(reportGrid);
+                WinLossByProduct.resizeGrid();
+            }, 50);
         },
 
         //#endregion
