@@ -5,6 +5,7 @@ var WinLossByProduct = (function ($) {
     "use strict";
     var LICENSEE_12BET = 1;
     var REPORT_BY_MONTHLY = 2;
+    var VALID_MONTH_RANGE = 3;
     var _cacheData = [];
     var ajaxRequest = null;
     var _memberId, _systemId; // store data when submit level 0
@@ -56,6 +57,7 @@ var WinLossByProduct = (function ($) {
             WinLossByProduct.initEvent();
             WinLossByProduct.initSetting();
             initAutoComplete();
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
             $('#Username').val(Site.getSingleResource('ExternalIdOrSystemId'));
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
@@ -180,9 +182,7 @@ var WinLossByProduct = (function ($) {
                 //reset layout
                 _cacheData[level] = response;
                 WinLossByProduct.renderBreadCrumb(level);
-                console.time("bindData");
                 WinLossByProduct.bindData(level, reportBy, response);
-                console.timeEnd("bindData");
             }
         },
 
@@ -316,22 +316,26 @@ var WinLossByProduct = (function ($) {
 
         goBack: function (level) {
             var reportBy = _submitData.ReportBy;
+            Site.blockUI();
+
             level = Number(level);
-            if (level === 0) {
-                WinLossByProduct.renderBreadCrumb(level);
-                WinLossByProduct.bindData(0, reportBy, _cacheData[0]);
+            setTimeout(function () {
+                if (level === 0) {
+                    WinLossByProduct.renderBreadCrumb(level);
+                    WinLossByProduct.bindData(0, reportBy, _cacheData[0]);
 
-                //reset excel Link
-                WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
+                    //reset excel Link
+                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
 
-                //re-set title                
-                WinLossByProduct.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
-            }
-            else if (level === 1) {
-                WinLossByProduct.bindData(1, reportBy, _cacheData[1]);
-                WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
-                WinLossByProduct.renderBreadCrumb(level);
-            }
+                    //re-set title                
+                    WinLossByProduct.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                }
+                else if (level === 1) {
+                    WinLossByProduct.bindData(1, reportBy, _cacheData[1]);
+                    WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
+                    WinLossByProduct.renderBreadCrumb(level);
+                }
+            }, 50);
         },
 
         //#endregion
@@ -406,18 +410,15 @@ var WinLossByProduct = (function ($) {
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount, true);
         },
 
-        bindData: function (level, reportBy, response) {            
-            console.time("clear");
-            $("#ReportGrid").hide();
+        bindData: function (level, reportBy, response) {
             jqGridAdditional.clearGrid("ReportGrid");
 
-            console.timeEnd("clear");
             level = Number(level);
             var reportGrid = $("#ReportGrid");
             var numOfRow = response.Data.length;
+            console.log(numOfRow);
             var numOfTotalRow = response.Total.length;
             var onPaging = false;
-            console.log("numOfRow", numOfRow);
 
             var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
             gridOption.data = response.Data;
@@ -439,10 +440,7 @@ var WinLossByProduct = (function ($) {
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
                 switch (level) {
                     case 0:
-                        console.time('WinLossByProductOption.setGrouping');
-                        //WinLossByProductOption.setGrouping();
                         reportGrid.tableRowSpan([0, 4]);
-                        console.timeEnd('WinLossByProductOption.setGrouping');
                         break;
                     case 1:
 
@@ -479,21 +477,11 @@ var WinLossByProduct = (function ($) {
                 Site.unBlockUI();
             };
 
-             setTimeout(function () {
-
-            // Show the grid
-            console.time("jqGrid");
-            // reportGrid.hide();
-            //Site.updateDomWithElementRemoved(reportGrid.get(0), function () {
+            //  setTimeout(function () {
             reportGrid.jqGrid(gridOption);
-            //});
-            $("#ReportGrid").show();
-            console.timeEnd("jqGrid");
 
             if (WinLossByProductOption.hasCustomerComm) {
-                console.time("setGroupCustomerWLColumns");
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
-                console.timeEnd("setGroupCustomerWLColumns");
             }
 
             //set rowspan for footer row
@@ -503,8 +491,8 @@ var WinLossByProduct = (function ($) {
             }
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
-            WinLossByProduct.resizeGrid();            
-               }, 100);
+            WinLossByProduct.resizeGrid();
+            // }, 100);
         },
 
         //#endregion
