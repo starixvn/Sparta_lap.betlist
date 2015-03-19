@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.Report
             var productList = productAccess.ProductList;
             var metaModel = new WinLossByProductMetaModel
                 {
-                    FromDate = new DateTime(2013, 1, 1),
+                    FromDate = DateTime.Now,
                     ToDate = DateTime.Now,
                     LicenseeId = licenseeSession.LicenseeId,                    
                     IsExcludedTestData = true,

@@ -5,7 +5,7 @@ var WinLossByProduct = (function ($) {
     "use strict";
     var LICENSEE_12BET = 1;
     var REPORT_BY_MONTHLY = 2;
-    var VALID_MONTH_RANGE = 300;
+    var VALID_MONTH_RANGE = 3;
     var _cacheData = [];
     var ajaxRequest = null;
     var _memberId, _systemId; // store data when submit level 0
@@ -417,7 +417,6 @@ var WinLossByProduct = (function ($) {
             level = Number(level);
             var reportGrid = $("#ReportGrid");
             var numOfRow = response.Data.length;
-            console.log(numOfRow);
             var numOfTotalRow = response.Total.length;
             var onPaging = false;
 
