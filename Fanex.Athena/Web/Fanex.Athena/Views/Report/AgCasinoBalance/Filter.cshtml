@@ -20,10 +20,7 @@
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
-        @{
-            var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
-        }
-        <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+        <input type="hidden" id="MinDate" value="@(new DateTime(2014, 10, 16).ToString("yyyy/M/d"))" />
     </div>
     <div class="grid_3 filter-label new-line">
         <label>
