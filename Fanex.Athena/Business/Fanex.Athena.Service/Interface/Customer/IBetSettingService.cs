@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
 
@@ -21,6 +22,8 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
+        VoidBridgeBetSetting GetVoidBridgeSetting(int custId, string siteName);
+
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
@@ -73,5 +76,7 @@ namespace Fanex.Athena.Service.Interface.Customer
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
+
+        IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled);
     }
 }

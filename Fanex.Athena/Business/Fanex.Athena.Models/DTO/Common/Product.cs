@@ -39,6 +39,8 @@ namespace Fanex.Athena.Models.DTO.Common
         public const string PTCS = "PTCS";
 
         public const string GD = "GD";
+
+        public const string VB = "VB";
       
         #endregion Field
 

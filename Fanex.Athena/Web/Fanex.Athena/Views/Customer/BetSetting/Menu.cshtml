@@ -124,7 +124,7 @@
                 </a></li>
             }
             <!--/AG Casino-->
-            <!--AG Casino-->
+            <!--Gold Deluxe-->
             @if (Model.IsAllowGoldDeluxe)
             { 
                 <li><a href="@Url.Action("Index", "BetSetting", new
@@ -138,7 +138,23 @@
                     @ViewResources.GoldDeluxe
                 </a></li>
             }
-            <!--/AG Casino-->
+            <!--/Gold Deluxe-->
+
+            <!--Gold Deluxe-->
+            @if (Model.IsAllowGoldDeluxe)
+            { 
+                <li><a href="@Url.Action("Index", "BetSetting", new
+                        {
+                            TabId = 10,
+                            CustId = Model.CustId,
+                            UserName = Model.UserName,
+                            NickName = Model.NickName,
+                            BetSettingName = ViewResources.VoidBridge
+                        })" id="voidbridge">
+                    @ViewResources.VoidBridge
+                </a></li>
+            }
+            <!--/Gold Deluxe-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

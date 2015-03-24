@@ -23,6 +23,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -35,7 +36,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {
         #region Const
+
         protected const int GoldDeluxeProductId = 11;
+        protected const int VoidBridgeProductId = 12;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -50,6 +53,33 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #endregion Field
 
         #region Get bet setting data
+
+        /// <summary>
+        /// Get VoidBridge setting.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <returns>VoidBridge setting.</returns>
+        public VoidBridgeBetSetting GetVoidBridgeSetting(int custId)
+        {
+            var uspName = "Lrf_3rdProductSelCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddInParameter("ProductId", DbType.Int32, VoidBridgeProductId);
+                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("Currency", DbType.Int32, 1);
+
+                db.ExecuteNonQuery();
+
+                return new VoidBridgeBetSetting()
+                {
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency"))
+                };
+            }
+        }
 
         /// <summary>
         /// Get Gold Deluxe setting.
@@ -340,7 +370,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);
-                
+
                 db.AddOutParameter("ErrMsg", DbType.String, 8000);
 
                 db.ExecuteNonQuery();
@@ -356,6 +386,46 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion Gold Deluxe
+
+        #region VoidBridge
+
+        /// <summary>
+        /// Updates the void bridge status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The Void bridge status.</param>
+        /// <returns>The Result Info.</returns>
+        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            var uspName = "Dep_3rdProductUpdCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("productid", DbType.Int32, VoidBridgeProductId);
+                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
+                db.AddInParameter("ip", DbType.String, ip);
+                db.AddInParameter("language", DbType.String, language);
+
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                var errorMessage = db.GetParameterValue("ErrMsg");
+
+                return new ResultInfo
+                {
+                    Code = 0,
+                    Message = Converter.ToString2(errorMessage)
+                };
+            }
+        }
+
+        #endregion VoidBridge
 
         #region AG Casino
 
@@ -803,24 +873,31 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 case "99MP":
                     sportName = ViewResources.MixSportsParlay;
                     break;
+
                 case "151_31":
                     sportName = ViewResources.HorseRacingSATote;
                     break;
+
                 case "151_41":
                     sportName = ViewResources.HorseRacingUK_IrishTote;
                     break;
+
                 case "151_51":
                     sportName = ViewResources.HorseRacingAustTote;
                     break;
+
                 case "152_41":
                     sportName = ViewResources.GreyhoundUK_IrishTote;
                     break;
+
                 case "152_51":
                     sportName = ViewResources.GreyhoundAustTote;
                     break;
+
                 case "153_51":
                     sportName = ViewResources.HarnessAustTote;
                     break;
+
                 default:
                     sportName = ViewResources.OtherSport;
                     break;

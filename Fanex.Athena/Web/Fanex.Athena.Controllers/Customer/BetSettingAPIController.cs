@@ -156,7 +156,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
-        /// Update Ag-Casino settings.
+        /// Update Gold Deluxe settings.
         /// </summary>
         /// <param name="custId">Customer id.</param>
         /// <param name="nickName">The user name.</param>
@@ -178,7 +178,27 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
-        /// Update Ag Casino status.
+        /// Update VoidBridge status.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="nickName">Nick name.</param>
+        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
+        /// <returns>Result value.</returns>
+        public JsonResult UpdateVoidBridgeStatus(int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateVoidBridgeStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Update Gold Deluxe status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <param name="nickName">Nick name.</param>

@@ -12,6 +12,7 @@ var BetSetting = (function ($) {
     var TAB_KENO = 7;
     var TAB_AGCASINO = 8;
     var TAB_GOLDDELUXE = 9;
+    var TAB_VOIDBRIDGE = 10;
 
     var _sportIds = null;
     return {
@@ -109,6 +110,9 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_GOLDDELUXE:
                     url = "BetSettingAPI/UpdateGoldDeluxeStatus";
+                    break;
+                case TAB_VOIDBRIDGE:
+                    url = "BetSettingAPI/UpdateVoidBridgeStatus";
                     break;
             }
 
