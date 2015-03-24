@@ -45,7 +45,7 @@ var GroupComm = (function ($) {
             GroupComm.initEvent();
             Site.addUserGuide({
                 resourceName: "CommissionGroupList",
-                title: Site.getSingleResource("GroupCommission")
+                title: Site.getSingleResource("CommissionGroupList")
             });
         },
         initEvent: function () {
