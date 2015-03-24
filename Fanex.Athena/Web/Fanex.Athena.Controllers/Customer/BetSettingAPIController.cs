@@ -19,17 +19,32 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Customer;
+    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Bet setting API controller.
     /// </summary>
     public class BetSettingApiController : ReadonlyBaseController
     {
+        #region Constants
+        
+        private const int AccessDeniedHttpCode = 403;
+
+        private const string CustomerListUrl = "Customer/CustomerList";
+
+        #endregion Constants
+
         #region Fields
 
+        private static ProductAccess _productAccess;
+
         private readonly IBetSettingService _betSettingService;
+        private readonly IProductService _productService;
+        private readonly ICustomerService _customerService;
 
         private readonly Dictionary<string, RacingBetSetting> _racingBetSettingList =
             new Dictionary<string, RacingBetSetting>();
@@ -41,6 +56,15 @@ namespace Fanex.Athena.Controllers.Customer
         public BetSettingApiController()
         {
             _betSettingService = new BetSettingService();
+            _productService = new ProductService();
+            _customerService = new CustomerService();
+
+            if (_productAccess == null)
+            {
+                _productAccess = _productService.GetProductAccess(
+                    SessionService.LicenseeSession.LicenseeId,
+                    SessionService.UserSession.Language);
+            }
         }
 
         #endregion Constructor
@@ -54,8 +78,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="siteName">Site name.</param>
         /// <param name="currency">Currency id.</param>
         /// <returns>Ag Casino Group Betting Limit.</returns>
+        [HttpGet]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult GetAgGroupBettingLimit(int custId, string siteName, int currency)
         {
+            if (_productAccess.IsAllowAG == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var data = _betSettingService.GetAgCasinoGroupBettingLimit(custId, siteName, currency);
 
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -68,8 +100,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateLiveCasinoStatus(int custId, string nickName, int status)
         {
+            if (_productAccess.IsAllowLC == false || _customerService.GetCustomerInfo(custId).SyncLiveCasino == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language, Request.UserHostAddress);
 
@@ -78,7 +118,7 @@ namespace Fanex.Athena.Controllers.Customer
                 result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         /// <summary>
@@ -88,8 +128,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRngCasinoStatus(int custId, string nickName, int status)
         {
+            if (_productAccess.IsAllowCS == false || _customerService.GetCustomerInfo(custId).SyncCasino == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateRngCasinoStatus(
                 userSession.UserId,
@@ -114,6 +162,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">The user name.</param>
         /// <param name="group">Bet setting group.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateGoldDeluxeBetSetting(int custId, string nickName, string group)
         {
             var result = _betSettingService.UpdateGoldDeluxeBetSetting(SessionService.LicenseeSession.LicenseeName, custId, group);
@@ -133,6 +184,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateGoldDeluxeStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
@@ -153,8 +207,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
         {
+            if (_productAccess.IsAllowAG == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateAgCasinoStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
 
@@ -172,8 +234,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">The user name.</param>
         /// <param name="group">Bet setting group.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateAgCasinoBetSetting(string nickName, string group)
         {
+            if (_productAccess.IsAllowAG == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var setting = GetBetSettingCommonParam();
             var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
 
@@ -190,8 +260,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateSportBookBetSetting(string nickName)
         {
+            if (_productAccess.IsAllowSB == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var sportsBook = GetBetSettingCommonParam();
             var param = GetSportsBookParam();
             var result = _betSettingService.UpdateSportsBookBetSetting(sportsBook, param);
@@ -209,6 +287,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="isDisabled">Is disabled.</param>
         /// <returns>The JSON result.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateEsportStatus(bool isDisabled)
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
@@ -234,9 +315,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRacingBetSetting(string nickName)
         {
+            if (_productAccess.IsAllowRB == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var racing = GetBetSettingCommonParam();
 
             _racingBetSettingList.Add("151_31", GetRacingParam("151_31", racing.CustId, racing));
@@ -261,9 +349,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateNumberGameBetSetting(string nickName)
         {
+            if (_productAccess.IsAllowNG == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var numberGame = GetBetSettingCommonParam();
             var hashData = GetNumberGameParam();
             var result = _betSettingService.UpdateNumberGameBetSetting(numberGame, hashData);
@@ -281,12 +376,19 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateKenoBetSetting(string nickName)
         {
+            if (_productAccess.IsAllowKN == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var id = Convert.ToInt32(Request["id"]);
             var commonParam = GetBetSettingCommonParam();
-            
+
             if (id <= 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
             {
                 return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
@@ -315,9 +417,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateVirtualSportsBetSetting(string nickName)
         {
+            if (_productAccess.IsAllowVS == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var commonParam = GetBetSettingCommonParam();
             var dataParams = GetVirtualSportsParam();
             /*Validate parameter*/
@@ -347,11 +456,19 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="nickName">The user name.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateLiveCasinoBetSetting(string nickName)
         {
-            var userSession = SessionService.UserSession;
             var custId = int.Parse(HttpContext.Request["custid"]);
+
+            if (_productAccess.IsAllowLC == false || _customerService.GetCustomerInfo(custId).SyncLiveCasino == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
+            var userSession = SessionService.UserSession;            
             var ip = Request.UserHostAddress;
 
             var gameTypeCount = int.Parse(HttpContext.Request["gameTypeCount"]);
@@ -393,9 +510,16 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="custId">The customer id.</param>
         /// <param name="gameTypeChangedList">The game types.</param>
         /// <returns>The JSON result.</returns>
-        [HttpGet]
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateRngCasinoBetSetting(int custId, string gameTypeChangedList)
         {
+            if (_productAccess.IsAllowCS == false || _customerService.GetCustomerInfo(custId).SyncCasino == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             try
             {
                 var licenseeSession = SessionService.LicenseeSession;

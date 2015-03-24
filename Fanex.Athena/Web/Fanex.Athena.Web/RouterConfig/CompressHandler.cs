@@ -11,7 +11,6 @@ namespace Fanex.Athena.Web.RouterConfig
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
-    using Fanex.Athena.Service.Implement.Users;
 
     /// <summary>
     /// Compress Handler class.

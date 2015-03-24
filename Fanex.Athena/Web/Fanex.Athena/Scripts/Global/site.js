@@ -6,7 +6,7 @@
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-
+	var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
 
     function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
@@ -48,6 +48,7 @@ var Site = (function ($) {
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
         needOverrideInnerSize: false,
         initialize: function () {
+            REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
             Site.currencyConstraint();
             Site.initEvent();
             _historyDate = new Date($("#HistoryDate").val());
@@ -56,7 +57,12 @@ var Site = (function ($) {
             $("#CurrencyId").change(function () {
                 Site.currencyConstraint(true);
             });
+
             $.ajaxSetup({
+                cache: false,
+                data: {
+                    __RequestVerificationToken: REQUEST_VERIFICATION_TOKEN
+                },
                 statusCode: {
                     0: function () {
                         Site.unBlockUI();

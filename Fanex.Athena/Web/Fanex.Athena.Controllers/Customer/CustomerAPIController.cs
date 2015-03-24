@@ -40,6 +40,8 @@ namespace Fanex.Athena.Controllers.Customer
     public class CustomerApiController : ReadonlyBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
+        private const string CustomerListUrl = "Customer/CustomerList";
+
         #region Fields
 
         private readonly ICustomerService _customerService;
@@ -72,6 +74,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization]
+        [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
@@ -129,6 +133,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization]
+        [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
@@ -173,6 +179,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization]
+        [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
@@ -230,6 +238,8 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -316,6 +326,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         [SuppressMessage(
          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
          "SP2101:MethodMustNotContainMoreLinesThan",
@@ -391,6 +403,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -441,12 +455,14 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Remove customer from group commission.
         /// </summary>
-        /// <param name="customers">Customer id list.</param>
+        /// <param name="customerIds">Customer id list.</param>
         /// <param name="isRemovePlayercomm">Remove Player commission or not.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        public ActionResult RemoveFromGroupCom(IList<int> customers, bool isRemovePlayercomm)
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
             var result = new ResultViewModel
                 {
@@ -456,7 +472,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             var metaModel = new RemoveFromGroupComMetaModel()
             {
-                Customers = customers,
+                CustomerIds = customerIds,
                 IsRemovePlayercomm = isRemovePlayercomm
             };
             var licenseeSession = SessionService.LicenseeSession;
@@ -492,16 +508,18 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Move customer in a group commission.
         /// </summary>
-        /// <param name="customers">Customer id list.</param>
+        /// <param name="customerIds">Customer id list.</param>
         /// <param name="groupComId">Group commission id.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        public ActionResult MoveToGroupCom(IList<int> customers, int groupComId)
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
             var metaModel = new MoveToGroupComMetaModel
             {
-                Customers = customers,
+                CustomerIds = customerIds,
                 GroupComId = groupComId
             };
             var licenseeSession = SessionService.LicenseeSession;

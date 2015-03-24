@@ -45,7 +45,7 @@ var GroupComm = (function ($) {
             GroupComm.initEvent();
             Site.addUserGuide({
                 resourceName: "CommissionGroupList",
-                title: Site.getSingleResource("GroupCommission")
+                title: Site.getSingleResource("CommissionGroupList")
             });
         },
         initEvent: function () {
@@ -116,7 +116,7 @@ var GroupComm = (function ($) {
                                 buttons: {
                                     "OK": function () {
                                         $("#Delete").dialog("close");
-                                        GroupComm.process(groupId, $('input[name="IsRemovePlayerComm"]:checked').val(), false);
+                                        GroupComm.processDelete(groupId, $('input[name="IsRemovePlayerComm"]:checked').val(), false);
                                     },
                                     Cancel: function () {
                                         $(this).dialog("close");
@@ -136,12 +136,19 @@ var GroupComm = (function ($) {
                 });
             }
         },
-        process: function (groupId, isRemovePlayerComm, isResetDefault) {
-            var url = "CustomerComGroup/Delete/?groupId=" + groupId + "&isRemovePlayerComm=" + isRemovePlayerComm + "&isResetDefault=" + isResetDefault;
+        processDelete: function (groupId, isRemovePlayerComm, isResetDefault) {
+            var data = {
+                groupId: groupId,
+                isRemovePlayerComm: isRemovePlayerComm,
+                isResetDefault: isResetDefault
+            };
+        
+            var url = "CustomerComGroup/Delete";
 
             $.ajax({
+                data: data,
                 url: Site.resolveClientUrl(url),
-                type: 'GET',
+                type: 'POST',
                 beforeSend: function () {
                     Site.blockUI();
                 },
@@ -185,7 +192,7 @@ var GroupComm = (function ($) {
                             buttons: {
                                 "OK": function () {
                                     $("#Delete").dialog("close");
-                                    GroupComm.process(groupId, $('input[name="IsRemovePlayerComm"]:checked').val(), isResetDefault);
+                                    GroupComm.processDelete(groupId, $('input[name="IsRemovePlayerComm"]:checked').val(), isResetDefault);
                                 },
                                 Cancel: function () {
                                     $(this).dialog("close");

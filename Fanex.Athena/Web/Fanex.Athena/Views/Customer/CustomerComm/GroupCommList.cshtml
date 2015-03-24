@@ -21,6 +21,7 @@
 </div>
 @using (Html.BeginForm("Index", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
 {
+    @Html.AntiForgeryToken()
     @Html.Hidden("IsExportExcel", false)
     <div class="container_26">
         <div class="grid_3">
@@ -105,9 +106,9 @@
                 <tbody id="data-content" class="report-table">
                     @{int number = 1; var maxLength = 35;}
                     @if (Model.Count > 0)
-                {
-                    foreach (var groupComm in Model)
                     {
+                        foreach (var groupComm in Model)
+                        {
                         <tr>
                             <td style="width: 4%" class="title-text">
                                 @(number++)
@@ -117,14 +118,14 @@
                             <td style="width: 20%;" class="left-text">
                                 <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
                                     @if (groupComm.GroupName.Length > maxLength)
-                                {
+                                    {
                                         @Html.Raw(String.Format("<span title='{0}'>{1}...</span>", groupComm.GroupName.Replace("'", "&#39;"),
                                                             HttpUtility.HtmlEncode(groupComm.GroupName.Substring(0, maxLength - 3))));
-                                }
-                                else
-                                {
+                                    }
+                                    else
+                                    {
                                         @groupComm.GroupName
-                                }
+                                    }
                                 </a>
                             </td>
                             <td style="width:8%;" class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)">
@@ -139,33 +140,33 @@
                                 %
                             </td>
                             @if (isAllowRc)
-                        {
+                            {
                                 <td style="width: 8%;" class="middle-text">
                                     @((groupComm.RCComm * 100).ToString("0.##"))
                                     %
                                 </td>
-                        }
+                            }
                             @if (isAllowNg)
-                        {
+                            {
                                 <td style="width: 8%; text-align: center">
                                     @((groupComm.NGComm * 100).ToString("0.##"))
                                     %
                                 </td>
-                        }
+                            }
                             @if (isAllowLc)
-                        {
+                            {
                                 <td style="width: 8%; text-align: center">
                                     @((groupComm.LCComm * 100).ToString("0.##"))
                                     %
                                 </td>
-                        }
+                            }
                             @if (isAllowCs)
-                        {
+                            {
                                 <td style="width: 8%; text-align: center">
                                     @((groupComm.CSComm * 100).ToString("0.##"))
                                     %
                                 </td>
-                        }
+                            }
                             <td style="width: 10%; text-align: center;">
                                 <div class="group-color-box" style="background-color:@groupComm.GroupColor;">
                                 </div>
@@ -180,24 +181,24 @@
                                 </a>
                             </td>
                         </tr>
+                        }
                     }
-                }
-                else
-                {
-                    int col = 9;
-                    if (!isAllowNg)
+                    else
                     {
-                        col--;
-                    }
-                    if (!isAllowRc)
-                    {
-                        col--;
-                    }
+                        int col = 9;
+                        if (!isAllowNg)
+                        {
+                            col--;
+                        }
+                        if (!isAllowRc)
+                        {
+                            col--;
+                        }
                         <tr class="no-info">
                             <td class="middle-text" colspan="@col">@ViewResources.NoInfo
                             </td>
                         </tr>
-                }
+                    }
                 </tbody>
             </table>
         </div>

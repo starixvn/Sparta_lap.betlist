@@ -21,6 +21,8 @@ namespace Fanex.Athena.Web.ActionFilter
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
+        public string ParentUrl { get; set; }
+
         #region Override
 
         /// <summary>
@@ -42,17 +44,28 @@ namespace Fanex.Athena.Web.ActionFilter
                 var userSession = sessionService.UserSession;
                 var rawUrl = context.Request.RawUrl;
                 var authorization = new AuthorizationService();
-                var authorized = userSession != null && licenseeSession != null
-                    && authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl);
+                var authorized = true;
+                if (userSession != null && licenseeSession != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(ParentUrl))
+                    {
+                        authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
+                    }
+
+                    if (authorized)
+                    {
+                        authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl);
+                    }
+                }
 
                 if (!authorized)
                 {
                     var routeValue = new
-                     {
-                         controller = "Utility",
-                         action = "AccessDenied",
-                         message = "AccessDenied"
-                     };
+                    {
+                        controller = "Utility",
+                        action = "AccessDenied",
+                        message = "AccessDenied"
+                    };
 
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
                 }

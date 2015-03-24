@@ -19,6 +19,7 @@
 @using Fanex.Athena.Models.ViewModel
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div id="form_result">
         @Html.ValidationSummary(true)
         @if (ViewBag.Result != null)

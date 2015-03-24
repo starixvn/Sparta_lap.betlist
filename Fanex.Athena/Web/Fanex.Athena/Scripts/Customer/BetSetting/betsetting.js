@@ -114,7 +114,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: Site.resolveClientUrl(url),
                 cache: false,
                 data: {
                     nickname: nickName,
@@ -141,7 +141,7 @@ var BetSetting = (function ($) {
             var custId = $(this).data("cust-id");
             var url = "BetSettingAPI/UpdateEsportStatus";
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: Site.resolveClientUrl(url),
                 cache: false,
                 data: {
@@ -290,15 +290,17 @@ var BetSetting = (function ($) {
             return true;
         },
         updateGoldDeluxeBetSetting: function (custId, userName, nickName) {
-            var params = "custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params += "&group=" + $("#betSettingGroup").val();
+            var params = {
+                custid: custId,
+                userName: userName,
+                nickName: nickName,
+                group: $("#betSettingGroup").val()
+            };
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -307,13 +309,15 @@ var BetSetting = (function ($) {
             });
         },
         updateAgCasinoBetSetting: function (custId, userName, nickName) {
-            var params = "custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params += "&group=" + $("#betSettingGroup").val();
+            var params = {
+                custid: custId,
+                userName: +userName,
+                nickName: +nickName,
+                group: $("#betSettingGroup").val()
+            };
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting?'),
                 data: params,
@@ -325,14 +329,13 @@ var BetSetting = (function ($) {
         },
         updateKenoBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params += "&id=" + _sportIds.toString();
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
+            params.id = _sportIds.toString();
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 cache: false,
                 url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
                 data: params,
@@ -345,15 +348,14 @@ var BetSetting = (function ($) {
         // Update Sportsbook
         updateSportsbookBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -365,13 +367,12 @@ var BetSetting = (function ($) {
         // Update Racing
         updateRacingBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: 'BetSettingAPI/updateRacingBetSetting?',
                 cache: false,
                 data: params,
@@ -384,18 +385,16 @@ var BetSetting = (function ($) {
         // Update Number Game
         updateNumberGameBetSetting: function (custId, userName, nickName) {
             var maxperball = BetSetting.convertToFloat($("#max-per-ball-161").val());
-            var params = "";
 
-            params += BetSetting.getBetSettingParams(161);
-            params += "&maxperball=" + maxperball;
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            var params = BetSetting.getBetSettingParams(161);
+            params.maxperball = maxperball;
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
-                type: 'GET',
-                url: 'BetSettingAPI/updateNumberGameBetSetting?',
+                type: 'POST',
+                url: 'BetSettingAPI/updateNumberGameBetSetting',
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -407,13 +406,12 @@ var BetSetting = (function ($) {
         // Update Virtual Sports
         updateVirtualSportsBetSetting: function (custId, userName, nickName) {
             var params = BetSetting.getBetSettingParamsForSports(_sportIds);
-            params += "&custid=" + custId;
-            params += "&userName=" + userName;
-            params += "&nickName=" + nickName;
-            params = params.substring(1);
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: 'BetSettingAPI/updateVirtualSportsBetSetting?',
                 cache: false,
                 data: params,
@@ -426,23 +424,23 @@ var BetSetting = (function ($) {
         // Update Live Casino
         updateLiveCasinoBetSetting: function (custId, userName, nickName) {
             var gameTypeCount = $("#gameTypeCount").val();
-            var params = "";
-            params += "custId=" + custId;
-            params += "&nickName=" + nickName;
-            params += "&gameTypeCount=" + gameTypeCount;
+            var params = {};
+            params.custId = custId;
+            params.nickName = nickName;
+            params.gameTypeCount = gameTypeCount;
             for (var i = 1; i <= gameTypeCount; i++) {
                 var gametypeId = $("#gameTypeId" + i);
                 var stakeLevelNameChecked = $("#stakeLevelName" + i);
                 var betTypeId = $("#betTypeId" + i);
                 var stakeId = $("input[name=gameTypeName" + i + "]:checked").attr("data-stake-id");
 
-                params += "&stakeId" + i + "=" + stakeId;
-                params += "&gameTypeId" + i + "=" + gametypeId.val();
-                params += "&stakeLevelName" + i + stakeLevelNameChecked.val();
-                params += "&betTypeId" + i + "=" + betTypeId.val();
+                params["stakeId" + i] = stakeId;
+                params["gameTypeId" + i] = + gametypeId.val();
+                params["stakeLevelName" + i] = stakeLevelNameChecked.val();
+                params["betTypeId" + i] = + betTypeId.val();
             }
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: 'BetSettingAPI/updateLiveCasinoBetSetting?',
                 cache: false,
                 data: params,
@@ -461,9 +459,9 @@ var BetSetting = (function ($) {
             });
         },
         getBetSettingParamsForSports: function (sportsIds) {
-            var params = "";
+            var params = {};
             for (var i in sportsIds) {
-                params += BetSetting.getBetSettingParams(sportsIds[i]);
+                params = $.extend(params, BetSetting.getBetSettingParams(sportsIds[i]));
             }
 
             return params;
@@ -496,10 +494,11 @@ var BetSetting = (function ($) {
             var maxBet = BetSetting.convertToFloat(maxBetId.val());
             var maxPerMatcth = BetSetting.convertToFloat(maxPerMatchId.val());
 
-            var result = "&minbet" + sportId + "=" + minBet;
-            result += "&maxbet" + sportId + "=" + maxBet;
-            result += "&maxpermatch" + sportId + "=" + maxPerMatcth;
-            result += "&update" + sportId + "=" + isUpdate;
+            var result = {};
+            result["minbet" + sportId] = minBet;
+            result["maxbet" + sportId] = maxBet;
+            result["maxpermatch" + sportId] = maxPerMatcth;
+            result["update" + sportId] = isUpdate;
 
             return result;
         },

@@ -28,6 +28,7 @@ namespace Fanex.Athena.Api
     /// Base API Controller.
     /// </summary>
     [CustomApiAuthorize]
+    [CustomAPIExceptionHandling]
     public class BaseApiController : ApiController
     {
         private readonly ILanguageService _langService;

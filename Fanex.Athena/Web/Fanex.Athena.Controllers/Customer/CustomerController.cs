@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Customer
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
-       
+
         private readonly string[] _gridColumNames;
 
         private readonly ICustomerService _customerService;
@@ -64,8 +64,8 @@ namespace Fanex.Athena.Controllers.Customer
             };
 
             if (!IsCurrentLicenseeOfferOddsGroup())
-            {                
-                columnNames.Remove("OddsGroup");   
+            {
+                columnNames.Remove("OddsGroup");
             }
 
             _gridColumNames = columnNames.ToArray();
@@ -138,6 +138,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
+        [FunctionAuthorization]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))

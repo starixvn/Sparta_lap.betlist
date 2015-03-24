@@ -43,6 +43,7 @@ namespace Fanex.Athena
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            GlobalConfiguration.Configuration.Filters.Add(new CustomAPIExceptionHandlingAttribute());
             /*End Web API*/
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();

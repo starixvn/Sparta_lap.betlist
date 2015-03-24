@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Customer
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// BaseCustomerComMetaModel class.
@@ -17,7 +18,15 @@ namespace Fanex.Athena.Models.MetaModel.Customer
 
         public string Language { get; set; }
 
-        public IList<int> Customers { get; set; }
+        public IList<int> Customers 
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(CustomerIds) ? new List<int>() : CustomerIds.Split(',').Select(int.Parse).ToList();
+            }
+        }
+
+        public string CustomerIds { get; set; }
 
         public string CustomerToSQLParam
         {
