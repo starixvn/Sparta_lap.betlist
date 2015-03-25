@@ -10,6 +10,7 @@ namespace Fanex.Athena
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using CasinoSetting;
     using Data.Configuration;
@@ -40,6 +41,7 @@ namespace Fanex.Athena
             RouteTable.Routes.IgnoreRoute("favicon.ico");
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
 
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
