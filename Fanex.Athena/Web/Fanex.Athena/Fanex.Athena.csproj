@@ -2981,6 +2981,11 @@
     <Content Include="img\Wheel\C50.jpg" />
     <Content Include="img\Wheel\RJ.jpg" />
     <Content Include="Scripts\Customer\BetSetting\golddeluxe.js" />
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
@@ -3431,11 +3436,6 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/18/2015 9:32:22 AM
+// Lasted generated date: 3/25/2015 10:25:01 AM
 // </history>
 
 var _language_en_US={
@@ -394,6 +394,8 @@ var _language_en_US={
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
 				 	
+                     DisableVoidbridge:"Disable Voidbridge",
+				 	
                      DividendWon:"Dividend Won",
 				 	
                      Dontshowagain:"Don&apos;t show again",
@@ -433,6 +435,8 @@ var _language_en_US={
                      EnableLiveCasino:"Enable Live Casino",
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
+				 	
+                     EnableVoidbridge:"Enable Voidbridge",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -1168,6 +1172,8 @@ var _language_en_US={
 				 	
                      ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
+                     ProblemUpdateBetLimit:"You cannot update member bet limit for product Voidbridge",
+				 	
                      Product:"Product",
 				 	
                      PShare:"P.Share",
@@ -1601,6 +1607,10 @@ var _language_en_US={
                      VirtualSports:"Virtual Sports",
 				 	
                      VirtualTennis:"Virtual Tennis",
+				 	
+                     Voidbridge:"Voidbridge",
+				 	
+                     VoidbridgeNotOfferCurrency:"Voidbridge is not offered for this currency.",
 				 	
                      VS:"VS",
 				 	
