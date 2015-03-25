@@ -808,6 +808,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot update member bet limit for product {0}.
+        /// </summary>
+        public static string CannotUpdateBetLimitForProduct {
+            get {
+                return ResourceManager.GetString("CannotUpdateBetLimitForProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CASINO HAND HISTORY.
         /// </summary>
         public static string CASINOHANDHISTORY {
@@ -5277,15 +5286,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string ProblemDisplayBetSetting {
             get {
                 return ResourceManager.GetString("ProblemDisplayBetSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You cannot update member bet limit for product Voidbridge.
-        /// </summary>
-        public static string ProblemUpdateBetLimit {
-            get {
-                return ResourceManager.GetString("ProblemUpdateBetLimit", resourceCulture);
             }
         }
         

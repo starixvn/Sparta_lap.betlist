@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/25/2015 10:25:01 AM
+// Lasted generated date: 3/25/2015 11:21:54 AM
 // </history>
 
 var _language_en_US={
@@ -177,6 +177,8 @@ var _language_en_US={
                      CancelledBets:"Cancelled Bets",
 				 	
                      CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
+				 	
+                     CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}",
 				 	
                      CASINOHANDHISTORY:"CASINO HAND HISTORY",
 				 	
@@ -1171,8 +1173,6 @@ var _language_en_US={
                      Previous:"Previous",
 				 	
                      ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
-				 	
-                     ProblemUpdateBetLimit:"You cannot update member bet limit for product Voidbridge",
 				 	
                      Product:"Product",
 				 	

@@ -2629,8 +2629,8 @@
     <value>Voidbridge</value>
     <comment>#32647</comment>
   </data>
-  <data name="ProblemUpdateBetLimit" xml:space="preserve">
-    <value>You cannot update member bet limit for product Voidbridge</value>
+  <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
+    <value>You cannot update member bet limit for product {0}</value>
     <comment>#32647</comment>
   </data>
   <data name="DisableVoidbridge" xml:space="preserve">

@@ -20,7 +20,7 @@
     @if (isLineEnabled)
     {
         <div style="width: 885px!important; padding: 20px 0px 20px 0px">
-            <div>@ViewResources.ProblemUpdateBetLimit</div>
+            <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.Voidbridge)</div>
         </div>
     }
     @if (isLineEnabled == false)
