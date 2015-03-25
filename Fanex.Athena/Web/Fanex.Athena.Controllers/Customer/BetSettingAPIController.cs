@@ -184,6 +184,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="nickName">Nick name.</param>
         /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
         /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public JsonResult UpdateVoidBridgeStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;

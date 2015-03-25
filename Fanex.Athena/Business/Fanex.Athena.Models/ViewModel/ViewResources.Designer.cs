@@ -1782,9 +1782,9 @@ namespace Fanex.Athena.Models.ViewModel {
         /// <summary>
         ///   Looks up a localized string similar to Disable Voidbridge.
         /// </summary>
-        public static string DisableVoidBridge {
+        public static string DisableVoidbridge {
             get {
-                return ResourceManager.GetString("DisableVoidBridge", resourceCulture);
+                return ResourceManager.GetString("DisableVoidbridge", resourceCulture);
             }
         }
         
@@ -1971,9 +1971,9 @@ namespace Fanex.Athena.Models.ViewModel {
         /// <summary>
         ///   Looks up a localized string similar to Enable Voidbridge.
         /// </summary>
-        public static string EnableVoidBridge {
+        public static string EnableVoidbridge {
             get {
-                return ResourceManager.GetString("EnableVoidBridge", resourceCulture);
+                return ResourceManager.GetString("EnableVoidbridge", resourceCulture);
             }
         }
         
@@ -7245,9 +7245,18 @@ namespace Fanex.Athena.Models.ViewModel {
         /// <summary>
         ///   Looks up a localized string similar to Voidbridge.
         /// </summary>
-        public static string VoidBridge {
+        public static string Voidbridge {
             get {
-                return ResourceManager.GetString("VoidBridge", resourceCulture);
+                return ResourceManager.GetString("Voidbridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voidbridge is not offered for this currency..
+        /// </summary>
+        public static string VoidbridgeNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("VoidbridgeNotOfferCurrency", resourceCulture);
             }
         }
         

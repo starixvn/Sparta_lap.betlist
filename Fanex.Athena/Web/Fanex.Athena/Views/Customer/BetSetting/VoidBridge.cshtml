@@ -7,28 +7,41 @@
 @section pagecss
 {
 }
-@section pagejs {
-    <script src="@Url.ContentLink("/Scripts/Customer/BetSetting/voidbridge.js")" type="text/javascript"></script>
-}
+
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
-    var tableTextClass = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "" : "disabled-text";
+    var isLineEnabled = Model.VoidBridgeViewModel.IsLineEnabled;
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-<div style="width: 885px!important; padding: 20px 0px 20px 0px">
-    <div>@ViewResources.ProblemUpdateBetLimit</div>
+<!--Content-->
+<div class="data-content">
+    @if (isLineEnabled)
+    {
+        <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+            <div>@ViewResources.ProblemUpdateBetLimit</div>
+        </div>
+    }
+    @if (isLineEnabled == false)
+    {
+        <div style="width: 885px!important;">
+            <div>@ViewResources.VoidbridgeNotOfferCurrency</div>
+        </div>
+    }
 </div>
 <!--/Content-->
 <!--SubmitButton-->
 @if (Model.Param.Editable)
 {
     <div style="width: 855px">
-        <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
+        @if (isLineEnabled)
+        {
+            <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
             data-cust-id="@Model.Param.CustId" 
-            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableVoidBridge : ViewResources.EnableVoidBridge)"
+            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableVoidbridge : ViewResources.EnableVoidbridge)"
             id="btnUpdateStatus" />
+        }
     </div>
 }
 <!--/SubmitButton-->

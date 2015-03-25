@@ -14,11 +14,9 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class VoidBridgeBetSetting
+    public class VoidbridgeBetSetting
     {
-        public int CurrencyId { get; set; }
-
-        public string Group { get; set; }
+        public bool IsLineEnabled { get; set; }
 
         public bool IsEnabled { get; set; }
     }

@@ -2981,7 +2981,6 @@
     <Content Include="img\Wheel\C50.jpg" />
     <Content Include="img\Wheel\RJ.jpg" />
     <Content Include="Scripts\Customer\BetSetting\golddeluxe.js" />
-    <Content Include="Scripts\Customer\BetSetting\voidbridge.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
@@ -3014,7 +3013,7 @@
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />
-    <Content Include="Views\Customer\BetSetting\VoidBridge.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

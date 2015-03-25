@@ -80,14 +80,14 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
         /// <returns>VoidBridge setting.</returns>
-        public VoidBridgeBetSetting GetVoidBridgeSetting(int custId, string siteName)
+        public VoidbridgeBetSetting GetVoidbridgeSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return null;
             }
 
-            var setting = _betSettingDataAccess.GetVoidBridgeSetting(custId);
+            var setting = _betSettingDataAccess.GetVoidbridgeSetting(custId);
 
             return setting;
         }

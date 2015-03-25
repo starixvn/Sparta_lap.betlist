@@ -59,7 +59,7 @@ namespace Fanex.Athena.Models.DataDomain
         GoldDeluxe = 9,
 
         /// <summary>
-        /// Gold Deluxe product.
+        /// Void_bridge product.
         /// </summary>
         VoidBridge = 10
     }

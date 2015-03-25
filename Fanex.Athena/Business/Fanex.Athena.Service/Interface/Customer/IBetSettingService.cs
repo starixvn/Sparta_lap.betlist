@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        VoidBridgeBetSetting GetVoidBridgeSetting(int custId, string siteName);
+        VoidbridgeBetSetting GetVoidbridgeSetting(int custId, string siteName);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 

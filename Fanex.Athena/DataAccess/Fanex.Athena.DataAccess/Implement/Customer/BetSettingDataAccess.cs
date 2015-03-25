@@ -59,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer id.</param>
         /// <returns>VoidBridge setting.</returns>
-        public VoidBridgeBetSetting GetVoidBridgeSetting(int custId)
+        public VoidbridgeBetSetting GetVoidbridgeSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 
@@ -73,10 +73,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 db.ExecuteNonQuery();
 
-                return new VoidBridgeBetSetting()
+                return new VoidbridgeBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency"))
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
                 };
             }
         }

@@ -85,6 +85,9 @@ var BetSetting = (function ($) {
                 case TAB_GOLDDELUXE:
                     $('#golddeluxe').addClass('activeTab');
                     break;
+                case TAB_VOIDBRIDGE:
+                    $('#voidbridge').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);

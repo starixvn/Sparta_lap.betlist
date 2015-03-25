@@ -140,8 +140,8 @@
             }
             <!--/Gold Deluxe-->
 
-            <!--Gold Deluxe-->
-            @if (Model.IsAllowGoldDeluxe)
+            <!--Voidbridge-->
+            @if (Model.IsAllowVoidbridge)
             { 
                 <li><a href="@Url.Action("Index", "BetSetting", new
                         {
@@ -149,12 +149,12 @@
                             CustId = Model.CustId,
                             UserName = Model.UserName,
                             NickName = Model.NickName,
-                            BetSettingName = ViewResources.VoidBridge
+                            BetSettingName = ViewResources.Voidbridge
                         })" id="voidbridge">
-                    @ViewResources.VoidBridge
+                    @ViewResources.Voidbridge
                 </a></li>
             }
-            <!--/Gold Deluxe-->
+            <!--/Voidbridge-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

@@ -66,7 +66,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             }
         }
 
-        public VoidBridgeBetSetting VoidBridgeViewModel { get; set; }
+        public VoidbridgeBetSetting VoidBridgeViewModel { get; set; }
 
         public RngCasinoBetSetting RngCasinoData { get; set; }
 

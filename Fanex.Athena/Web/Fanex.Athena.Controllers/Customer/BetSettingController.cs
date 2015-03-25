@@ -91,7 +91,7 @@ namespace Fanex.Athena.Controllers.Customer
                 case ProductType.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
                 case ProductType.VoidBridge:
-                    return View("~/Views/Customer/BetSetting/VoidBridge.cshtml", viewModel);
+                    return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -170,7 +170,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
-            metaModel.IsAllowVoidBridge = productAccess.IsAllowVB;
+            metaModel.IsAllowVoidbridge = productAccess.IsAllowVB;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
             return GetViewModel(metaModel, customerInfo);
         }
@@ -262,7 +262,7 @@ namespace Fanex.Athena.Controllers.Customer
                     break;
 
                 case ProductType.VoidBridge:
-                    var voidBridgeViewModel = _betSettingService.GetVoidBridgeSetting(
+                    var voidBridgeViewModel = _betSettingService.GetVoidbridgeSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
                     model.VoidBridgeViewModel = voidBridgeViewModel;

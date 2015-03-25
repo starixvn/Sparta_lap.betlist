@@ -2625,7 +2625,7 @@
   <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
     <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
-  <data name="VoidBridge" xml:space="preserve">
+  <data name="Voidbridge" xml:space="preserve">
     <value>Voidbridge</value>
     <comment>#32647</comment>
   </data>
@@ -2633,12 +2633,15 @@
     <value>You cannot update member bet limit for product Voidbridge</value>
     <comment>#32647</comment>
   </data>
-  <data name="DisableVoidBridge" xml:space="preserve">
+  <data name="DisableVoidbridge" xml:space="preserve">
     <value>Disable Voidbridge</value>
     <comment>#32647</comment>
   </data>
-  <data name="EnableVoidBridge" xml:space="preserve">
+  <data name="EnableVoidbridge" xml:space="preserve">
     <value>Enable Voidbridge</value>
     <comment>#32647</comment>
+  </data>
+  <data name="VoidbridgeNotOfferCurrency" xml:space="preserve">
+    <value>Voidbridge is not offered for this currency.</value>
   </data>
 </root>
