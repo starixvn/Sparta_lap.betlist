@@ -144,7 +144,7 @@ var WinLossByProduct = (function ($) {
         },
 
         setReportTitle: function (currencyId, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} ? {1} - {2}{3}';
+            var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
             var viewinKey = Site.getSingleResource("Viewin");
 
             //get currencyName
@@ -431,6 +431,9 @@ var WinLossByProduct = (function ($) {
                         Site.blockUI();
                     }
                     onPaging = true;
+                    setTimeout(function () {
+                        WinLossByProduct.resizeGrid();
+                    }, 1000);
                 }
                 else {
                     return 'stop';
