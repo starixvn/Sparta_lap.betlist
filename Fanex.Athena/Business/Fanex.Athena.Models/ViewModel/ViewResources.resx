@@ -2630,7 +2630,7 @@
     <comment>#32647</comment>
   </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
-    <value>You cannot update member bet limit for product {0}</value>
+    <value>You cannot update member bet limit for product {0}.</value>
     <comment>#32647</comment>
   </data>
   <data name="DisableVoidbridge" xml:space="preserve">

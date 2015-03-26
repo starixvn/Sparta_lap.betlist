@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/25/2015 11:21:54 AM
+// Lasted generated date: 3/26/2015 4:01:16 PM
 // </history>
 
 var _language_en_US={
@@ -178,7 +178,7 @@ var _language_en_US={
 				 	
                      CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
 				 	
-                     CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}",
+                     CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 				 	
                      CASINOHANDHISTORY:"CASINO HAND HISTORY",
 				 	

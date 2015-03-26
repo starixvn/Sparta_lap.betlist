@@ -808,7 +808,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot update member bet limit for product {0}.
+        ///   Looks up a localized string similar to You cannot update member bet limit for product {0}..
         /// </summary>
         public static string CannotUpdateBetLimitForProduct {
             get {
