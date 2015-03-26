@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Implement.Common
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Common;
     using Fanex.Athena.DataAccess.Interface.Common;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Service.Exception;
@@ -89,12 +90,17 @@ namespace Fanex.Athena.Service.Implement.Common
         /// </summary>
         /// <param name="licenseeId">The licensee identity.</param>
         /// <param name="languageCode">The language code.</param>
-        /// <param name="ignoreProducts">Ignored products.</param>
+        /// <param name="allowedProducts">Allowed products.</param>
         /// <returns>The accessed product.</returns>
-        public ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> ignoreProducts = null)
+        public ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> allowedProducts = null)
         {
+            if (allowedProducts == null)
+            {
+                allowedProducts = Util.GetAllowedProducts();
+            }
+
             var originalProducts = this.GetProductList(licenseeId, languageCode);
-            var productList = ignoreProducts != null ? originalProducts.Where(i => !ignoreProducts.Contains(i.ProductCode)).ToList()
+            var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
 
             return new ProductAccess(productList);

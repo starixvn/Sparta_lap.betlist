@@ -29,7 +29,7 @@ bin/
 _ReSharper*/
 [Tt]est[Rr]esult*
 
-*/StyleCop.Cache
+*StyleCop.Cache
 /cireport
 *.StyleCop.violations.xml
 *.StyleCop.xml
