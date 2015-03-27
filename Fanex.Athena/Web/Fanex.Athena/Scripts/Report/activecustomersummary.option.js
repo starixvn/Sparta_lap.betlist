@@ -65,7 +65,7 @@ var ActiveCustomerOption = (function () {
         pageSize: 50,
         nonePagingSize: 5000,
         rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [2, 2, 3],
         urlData: 'api/report/ActiveCustomerSummary',
         urlExcelData: 'api/report/ActiveCustomerSummary',

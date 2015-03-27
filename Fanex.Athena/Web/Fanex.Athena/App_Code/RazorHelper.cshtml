@@ -100,7 +100,7 @@
         <input type="button" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
         <input type="button" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
         <select class="pageSizeSelected">
-            @for (var i = 1000; i <= 5000; i += 1000)
+            @for (var i = 1000; i <= 2000; i += 1000)
             {
                 <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
                     @i

@@ -116,7 +116,7 @@ var BetListOption = (function () {
         {
             datatype: 'local',
             rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             pager: '#pager2',
             loadtext: "Loading...",
             viewrecords: true,
