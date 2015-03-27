@@ -199,7 +199,7 @@ var MobileWinLossOption = (function () {
         licenseeId: 0,
         hasCustomerComm: true,
         pageSize: 50,
-        nonePagingSize: 5000,
+        nonePagingSize: 2000,
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         sites:
