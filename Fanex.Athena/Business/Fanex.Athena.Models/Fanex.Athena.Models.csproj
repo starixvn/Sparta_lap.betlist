@@ -163,6 +163,7 @@
     <Compile Include="DTO\Report\ActiveCustomer.cs" />
     <Compile Include="DTO\Report\GoldDeluxeWinLoss.cs" />
     <Compile Include="DTO\Report\PlaytechCasino.cs" />
+    <Compile Include="DTO\Report\VoidbridgeWinLoss.cs" />
     <Compile Include="DTO\Report\WinLossByLeague.cs" />
     <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
     <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="MetaModel\Report\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\Report\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
+    <Compile Include="MetaModel\Report\VoidbridgeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\Report\CustomerWinlossHistoryMetaModel.cs" />
     <Compile Include="MetaModel\Report\LiveReportMatchListMetalModel.cs" />
@@ -330,6 +332,7 @@
     <Compile Include="ViewModel\Report\ActiveCustomerGridViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
+    <Compile Include="ViewModel\Report\VoidbridgeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\Report\ResultReportViewModel.cs" />

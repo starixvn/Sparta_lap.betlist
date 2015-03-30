@@ -2646,4 +2646,8 @@
   </data>
   <data name="GoldDeluxeWinLoss" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
-  </data></root>
+  </data></root>  <data name="VoidbridgeWinLoss" xml:space="preserve">
+    <value>Voidbridge Win Loss</value>
+    <comment>#38247</comment>
+  </data>
+</root>

@@ -3026,7 +3026,9 @@
     <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
-  </ItemGroup>
+    <Content Include="Views\Report\VoidbridgeWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\VoidbridgeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\VoidbridgeWinLoss\Main.cshtml" />  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
@@ -3443,6 +3445,11 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
