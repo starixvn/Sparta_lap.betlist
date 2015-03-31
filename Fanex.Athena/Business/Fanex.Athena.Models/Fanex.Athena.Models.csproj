@@ -163,7 +163,7 @@
     <Compile Include="DTO\Report\ActiveCustomer.cs" />
     <Compile Include="DTO\Report\GoldDeluxeWinLoss.cs" />
     <Compile Include="DTO\Report\PlaytechCasino.cs" />
-    <Compile Include="DTO\Report\VoidbridgeWinLoss.cs" />
+    <Compile Include="DTO\Report\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\Report\WinLossByLeague.cs" />
     <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
     <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
