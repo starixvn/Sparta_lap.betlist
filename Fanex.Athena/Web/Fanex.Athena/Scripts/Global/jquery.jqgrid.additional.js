@@ -228,6 +228,7 @@ var jqGridAdditional = (function () {
 
             return result;
         },
+
         rowSpanSetting2: function (rowId, val, rawObject) {
             var rowSpan = rawObject.RowSpan2, result;
             if (rowSpan > 1) {

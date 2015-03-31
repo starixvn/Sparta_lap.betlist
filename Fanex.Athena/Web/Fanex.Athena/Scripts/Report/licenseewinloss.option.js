@@ -280,9 +280,9 @@ var LicenseeWinLossOption = (function () {
         customerWlTotalIndex: 9,
         hasCustomerComm: true,
         pageSize: 50,
-        nonePagingSize: 5000,
+        nonePagingSize: 2000,
         rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [2, 2, 3],
         //level 0,1,2
         urlData: 'api/report/LicenseeWl',

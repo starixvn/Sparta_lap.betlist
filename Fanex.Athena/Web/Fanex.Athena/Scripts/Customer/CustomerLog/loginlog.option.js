@@ -57,7 +57,7 @@ var LogInLogOption = (function () {
         colNames: colNameList,
         colModel: colModelList,
         rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         viewrecords: true,
         loadtext: 'loading...',
         loadui: 'disable',

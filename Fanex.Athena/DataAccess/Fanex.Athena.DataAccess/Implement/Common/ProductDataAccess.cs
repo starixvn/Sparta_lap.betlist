@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
             var uspName = "Lrf_LicenseeProduct3rdSel";
 
             // All licensees have product Sb
-            var allowedProducts = new List<Product> { new Product { ProductCode = "SB", ProductName = ViewResources.Sportsbook } };
+            var allowedProducts = new List<Product>() { new Product { ProductCode = "SB", ProductName = ViewResources.Sportsbook } };
 
             try
             {

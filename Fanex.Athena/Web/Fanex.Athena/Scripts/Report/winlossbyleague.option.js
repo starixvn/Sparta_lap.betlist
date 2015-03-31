@@ -155,9 +155,9 @@ var WinLossByLeagueOption = (function () {
             externalIdIndex: 2,
             customerWlTotalIndex: 10,
             pageSize: 50,
-            nonePagingSize: 5000,
+            nonePagingSize: 2000,
             rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
             //level 0,1,2
             urlData: 'api/report/WinLossByLeague',
