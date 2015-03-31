@@ -259,7 +259,7 @@
     <Compile Include="MetaModel\Report\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\Report\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
-    <Compile Include="MetaModel\Report\VoidbridgeWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\ThirdPartyWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\Report\CustomerWinlossHistoryMetaModel.cs" />
     <Compile Include="MetaModel\Report\LiveReportMatchListMetalModel.cs" />
@@ -332,7 +332,7 @@
     <Compile Include="ViewModel\Report\ActiveCustomerGridViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
-    <Compile Include="ViewModel\Report\VoidbridgeWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\Report\ResultReportViewModel.cs" />

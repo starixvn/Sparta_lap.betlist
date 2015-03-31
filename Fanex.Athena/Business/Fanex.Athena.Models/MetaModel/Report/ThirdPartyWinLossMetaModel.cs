@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VoidbridgeWinLossMetaModel.cs" company="Microsoft">
+// <copyright file="ThirdPartyWinLossMetaModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
 
     /// <summary>
-    /// VoidBridgeWinLossMetaModel class.
+    /// ThirdPartyWinLossMetaModel class.
     /// </summary>
-    public class VoidbridgeWinLossMetaModel : BaseReportMetaModel
+    public class ThirdPartyWinLossMetaModel : BaseReportMetaModel
     {
         private DateTime? _fromDate;
 

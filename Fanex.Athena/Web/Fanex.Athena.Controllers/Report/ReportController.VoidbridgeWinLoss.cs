@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
 
-            var metaModel = new VoidbridgeWinLossMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
                 ToDate = date.AddDays(-1),
@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var model = new VoidbridgeWinLossViewModel
+            var model = new ThirdPartyWinLossViewModel
             {
                 ShowEmptyContent = true,
                 Param = metaModel,

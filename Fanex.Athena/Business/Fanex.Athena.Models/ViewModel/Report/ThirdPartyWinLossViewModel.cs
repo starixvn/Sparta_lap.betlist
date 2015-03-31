@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VoidbridgeWinLossViewModel.cs" company="Microsoft">
+// <copyright file="ThirdPartyWinLossViewModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,14 +11,14 @@ namespace Fanex.Athena.Models.ViewModel.Report
     using Fanex.Athena.Models.MetaModel.Report;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// ThirdPartyWinLossViewModel class.
     /// </summary>
-    public class VoidbridgeWinLossViewModel : BaseViewModel
+    public class ThirdPartyWinLossViewModel : BaseViewModel
     {
         public IList<VoidbridgeWinLoss> MainResult { get; set; }
 
         public IDictionary<string, VoidbridgeWinLoss> SummaryTotal { get; set; }
 
-        public VoidbridgeWinLossMetaModel Param { get; set; }
+        public ThirdPartyWinLossMetaModel Param { get; set; }
     }
 }
