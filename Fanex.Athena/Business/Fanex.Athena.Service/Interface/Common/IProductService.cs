@@ -24,11 +24,11 @@ namespace Fanex.Athena.Service.Interface.Common
         /// </summary>
         /// <param name="licenseeId">Licensee Id.</param>
         /// <param name="languageCode">The language code.</param>
-        /// <param name="ignoreProducts">Ignored products.</param>
+        /// <param name="allowedProducts">Allowed products.</param>
         /// <returns>
         ///     Product-Access object.
         /// </returns>
-        ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> ignoreProducts = null);
+        ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> allowedProducts = null);
 
         /// <summary>
         ///     The get product list.

@@ -403,7 +403,7 @@ namespace Fanex.Athena.Controllers.Report
                 var productAccess = _productService.GetProductAccess(
                     licenseeSession.LicenseeId, 
                     SessionService.UserSession.Language,
-                    Util.GetIgnoredProducts(ResultPageGetNormalSportsName));
+                    Util.GetAllowedProducts(ResultPageGetNormalSportsName));
                 var limitedProduct =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;

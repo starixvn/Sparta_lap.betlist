@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new MobileWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language, Util.GetIgnoredProducts(MobileWinlossName));
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language, Util.GetAllowedProducts(MobileWinlossName));
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {

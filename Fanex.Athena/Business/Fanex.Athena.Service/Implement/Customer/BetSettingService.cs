@@ -22,6 +22,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -74,6 +75,24 @@ namespace Fanex.Athena.Service.Implement.Customer
         #endregion
 
         /// <summary>
+        /// Get VoidBridge setting.
+        /// </summary>
+        /// <param name="custId">Customer Id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <returns>VoidBridge setting.</returns>
+        public VoidbridgeBetSetting GetVoidbridgeSetting(int custId, string siteName)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetVoidbridgeSetting(custId);
+
+            return setting;
+        }
+
+        /// <summary>
         /// Get Gold Deluxe setting.
         /// </summary>
         /// <param name="custId">Customer Id.</param>
@@ -113,13 +132,13 @@ namespace Fanex.Athena.Service.Implement.Customer
             };
         }
 
-       /// <summary>
-       /// Update Gold Deluxe setting.
-       /// </summary>
-       /// <param name="siteName">Site name.</param>
-       /// <param name="custId">Customer id.</param>
-       /// <param name="group">Group value..</param>
-       /// <returns>Result info value.</returns>
+        /// <summary>
+        /// Update Gold Deluxe setting.
+        /// </summary>
+        /// <param name="siteName">Site name.</param>
+        /// <param name="custId">Customer id.</param>
+        /// <param name="group">Group value..</param>
+        /// <returns>Result info value.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
         public IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group)
@@ -128,11 +147,11 @@ namespace Fanex.Athena.Service.Implement.Customer
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
-            
+
             var uri = new Uri(AppSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
             var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&GroupType={3}", siteName, custId, GoldDeluxeThirdPartyId, group);
             var apiResult = string.Empty;
-            
+
             try
             {
                 using (WebClient webClient = new WebClient())
@@ -164,6 +183,25 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             return _betSettingDataAccess.UpdateGoldDeluxeStatus(userId, custId, language, ip, isEnabled);
+        }
+
+        /// <summary>
+        /// Updates the void bridge status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The Void bridge status.</param>
+        /// <returns>The result info.</returns>
+        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateVoidBridgeStatus(userId, custId, language, ip, isEnabled);
         }
 
         public AgCasinoBetSetting GetAgCasinoSetting(int custId)
@@ -638,7 +676,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             var xmlElementBuilder = new StringBuilder();
 
             xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
-            
+
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
 
             return _betSettingDataAccess.UpdateKenoBetSetting(
@@ -693,7 +731,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 }
 
                 var xml = XDocument.Parse(apiResult);
-                
+
                 foreach (var xmlGame in xml.Descendants("Game"))
                 {
                     var game = new GoldDeluxeGame()
@@ -748,7 +786,7 @@ namespace Fanex.Athena.Service.Implement.Customer
                 }
 
                 var xml = XDocument.Parse(apiResult);
-                
+
                 var rootElement = xml.Element("GetUserGroupBettingLimit");
                 if (rootElement.Element("ReturnCode").Value.Equals("0"))
                 {
