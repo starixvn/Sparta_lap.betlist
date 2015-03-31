@@ -1,7 +1,7 @@
-﻿/*global jqGridAdditional, GoldDeluxeWinLossOption, Report, Site */
+﻿/*global jqGridAdditional, ThirdPartyWinLossOption, Report, Site */
 /// <reference path="/@JSense.js" />
 ///
-var GoldDeluxeWinLoss = (function ($) {
+var ThirdPartyWinLoss = (function ($) {
     "use strict";
     var cacheData = {};
     var ajaxRequest = null;
@@ -66,12 +66,12 @@ var GoldDeluxeWinLoss = (function ($) {
             }, 100);
         },
         initialize: function () {
-            GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-            GoldDeluxeWinLoss.initEvent();
+            ThirdPartyWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            ThirdPartyWinLoss.initEvent();
             initMonthPicker();
             Site.addUserGuide({
-                resourceName: "GoldDeluxeWinLoss",
-                title: Site.getSingleResource("GoldDeluxeWinLoss")
+                resourceName: "AGCasinoWL",
+                title: $("#ReportTitle").val()
             });
         },
         initEvent: function () {
@@ -79,13 +79,13 @@ var GoldDeluxeWinLoss = (function ($) {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 _level = 0;
-                GoldDeluxeWinLoss.submit();
+                ThirdPartyWinLoss.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#GoldDeluxeWinLossForm");
-                var url = Site.resolveClientUrl(GoldDeluxeWinLossOption.urlExcelData);
+                var mainForm = $("#ThirdPartyWinLossForm");
+                var url = Site.resolveClientUrl(ThirdPartyWinLossOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 $('#IsExportExcel').val(false);
@@ -95,20 +95,20 @@ var GoldDeluxeWinLoss = (function ($) {
             $("#level-link-container").on("click", ".level-link", function () {
                 var level = Number($(this).attr("data-level"));
                 _level = level;
-                return GoldDeluxeWinLoss.goBack(level);
+                return ThirdPartyWinLoss.goBack(level);
             });
         },
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/report/GoldDeluxeWinLoss';
+            var temp = 'api/report/ThirdPartyWinLoss';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
                  + "&tdate=" + tdate.toString("MM/dd/yyyy");
             }
 
-            GoldDeluxeWinLossOption.urlExcelData = temp;
+            ThirdPartyWinLossOption.urlExcelData = temp;
         },
 
         renderBreadCrumb: function (level) {
@@ -129,13 +129,13 @@ var GoldDeluxeWinLoss = (function ($) {
                 $(".level0").show();
 
                 $(".level2").showHide(level === 2);
-                $(".level1").showHide(GoldDeluxeWinLossOption.licenseeId === GoldDeluxeWinLossOption.LICENSEE_12BET);
+                $(".level1").showHide(ThirdPartyWinLossOption.licenseeId === ThirdPartyWinLossOption.LICENSEE_12BET);
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
 
         setReportTitle: function (currencyId, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('GoldDeluxeWinLoss') + ', {0} → {1} - {2}';
+            var titlePattern = $('#ReportTitle').val() + ', {0} → {1} - {2}';
             var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
             var currencyTextList =
@@ -159,6 +159,7 @@ var GoldDeluxeWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
+                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
@@ -168,19 +169,22 @@ var GoldDeluxeWinLoss = (function ($) {
                         FromDate: $("#FromDate").val(),
                         ToDate: $("#ToDate").val(),
                         CurrencyName: $("#CurrencyId option:selected").text(),
-                        BaseCurrency: $("#BaseCurrency").val()
+                        BaseCurrency: $("#BaseCurrency").val(),
+                        ProductId: $("#ProductId").val()
                     };
-
-                    GoldDeluxeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    $("#OriginalFromDate").val($("#FromDate").val());
+                    $("#OriginalToDate").val($("#ToDate").val());
+                    $("#OriginalReportBy").val(reportBy);
+                    ThirdPartyWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
 
-                GoldDeluxeWinLoss.renderBreadCrumb(level);
-                GoldDeluxeWinLoss.bindData(level, response);
+                ThirdPartyWinLoss.renderBreadCrumb(level);
+                ThirdPartyWinLoss.bindData(level, response);
             }
         },
 
         submit: function () {
-            var mainForm = $("#GoldDeluxeWinLossForm");
+            var mainForm = $("#ThirdPartyWinLossForm");
             var postdata = mainForm.serializeObject();
             var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
             var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
@@ -194,10 +198,10 @@ var GoldDeluxeWinLoss = (function ($) {
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
-                url: Site.resolveClientUrl(GoldDeluxeWinLossOption.urlData),
+                url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData),
                 success: function (response) {
-                    GoldDeluxeWinLoss.setExcelUrl(0, 0, 0, "", "");
-                    GoldDeluxeWinLoss.ajaxComplete(0, response);
+                    ThirdPartyWinLoss.setExcelUrl(0, 0, 0, "", "");
+                    ThirdPartyWinLoss.ajaxComplete(0, response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -225,32 +229,37 @@ var GoldDeluxeWinLoss = (function ($) {
             {
                 IsExcludedTestData: _submitData.IsExcludedTestData,
                 CurrencyId: _submitData.CurrencyId,
-                FromDate: _submitData.FromDate,
-                ToDate: _submitData.ToDate,
-                BaseCurrency: _submitData.BaseCurrency
+                FromDate: $("#OriginalFromDate").val(),
+                ToDate: $("#OriginalToDate").val(),
+                BaseCurrency: _submitData.BaseCurrency,
+                ProductId: _submitData.ProductId,
+                ReportBy: $("#OriginalReportBy").val()
             };
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
-
+            var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
+            var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
+            if (Number(param.ReportBy) === 2) {
+                fdate = _submitData.FromDate;
+                tdate = _submitData.ToDate;
+            }
             var option = {
                 type: "POST",
                 data: JSON.stringify(param),
                 dataType: "json",
                 contentType: "application/json",
                 cache: false,
-                url: Site.resolveClientUrl(GoldDeluxeWinLossOption.urlData +
-                    "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                    fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
+                url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData +
+                    "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + 
+                    "&fdate=" + fdate + "&tdate=" + tdate),
                 success: function (response) {
-                    GoldDeluxeWinLoss.ajaxComplete(level, response);
+                    ThirdPartyWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
-                            GoldDeluxeWinLoss.setReportTitle(currencyId, fdate, tdate);
+                            ThirdPartyWinLoss.setReportTitle(currencyId, fdate, tdate);
                         } else {
-                            GoldDeluxeWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
+                            ThirdPartyWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
                         }
                         //update excel ULR
-                        GoldDeluxeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                        ThirdPartyWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                     }
                 },
                 beforeSend: function () {
@@ -268,27 +277,27 @@ var GoldDeluxeWinLoss = (function ($) {
 
         goBack: function (level) {
             if (level === 0) {
-                GoldDeluxeWinLoss.renderBreadCrumb(level);
-                GoldDeluxeWinLoss.bindData(0, cacheData[level]);
+                ThirdPartyWinLoss.renderBreadCrumb(level);
+                ThirdPartyWinLoss.bindData(0, cacheData[level]);
                 //reset excel Link
-                GoldDeluxeWinLoss.setExcelUrl(0, 0, 0, "", "");
+                ThirdPartyWinLoss.setExcelUrl(0, 0, 0, "", "");
                 //re-set title
                 var fromdate = new Date(_submitData.FromDate);
                 var todate = new Date(_submitData.ToDate);
                 var currencyId = _submitData.CurrencyId;
-                GoldDeluxeWinLoss.setReportTitle(currencyId, fromdate, todate);
+                ThirdPartyWinLoss.setReportTitle(currencyId, fromdate, todate);
             }
             else if (level === 1) {
-                GoldDeluxeWinLoss.bindData(1, cacheData[level]);
-                GoldDeluxeWinLossOption.urlExcelData = GoldDeluxeWinLossOption.urlExcelData.replace("level=2", "level=1");
-                GoldDeluxeWinLoss.renderBreadCrumb(level);
+                ThirdPartyWinLoss.bindData(1, cacheData[level]);
+                ThirdPartyWinLossOption.urlExcelData = ThirdPartyWinLossOption.urlExcelData.replace("level=2", "level=1");
+                ThirdPartyWinLoss.renderBreadCrumb(level);
             }
         },
 
         //#BindReport
         bindTotal: function (level, totalData, summaryTotal) {
-            var columnModel = GoldDeluxeWinLossOption.getTotalColModel(level);
-            var colspan = GoldDeluxeWinLossOption.totalColspan[level];
+            var columnModel = ThirdPartyWinLossOption.getTotalColModel(level);
+            var colspan = ThirdPartyWinLossOption.totalColspan[level];
             var summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
@@ -309,7 +318,7 @@ var GoldDeluxeWinLoss = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
 
-            var gridOption = GoldDeluxeWinLossOption.getGridOption(level);
+            var gridOption = ThirdPartyWinLossOption.getGridOption(level);
             gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
 
@@ -321,10 +330,10 @@ var GoldDeluxeWinLoss = (function ($) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
-                    GoldDeluxeWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
+                    ThirdPartyWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                    GoldDeluxeWinLoss.resizeGrid();
+                    ThirdPartyWinLoss.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -348,14 +357,14 @@ var GoldDeluxeWinLoss = (function ($) {
 
 $(window).load(function () {
     "use strict";
-    GoldDeluxeWinLoss.initialize();
+    ThirdPartyWinLoss.initialize();
 });
 
 $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    GoldDeluxeWinLoss.resizeGrid();
+    ThirdPartyWinLoss.resizeGrid();
 });
 
 $(window).unload(function () {

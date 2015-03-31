@@ -7278,7 +7278,8 @@ namespace Fanex.Athena.Models.ViewModel {
             }
         }
         
-        /// <summary>        ///   Looks up a localized string similar to VS.
+        /// <summary>
+        ///   Looks up a localized string similar to VS.
         /// </summary>
         public static string VS {
             get {

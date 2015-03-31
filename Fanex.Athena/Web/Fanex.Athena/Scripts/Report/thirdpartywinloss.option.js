@@ -1,17 +1,17 @@
 ﻿/*global Site, jqGridAdditional, JSLINQ*/
-/*exported GoldDeluxeWinLossOption*/
+/*exported ThirdPartyWinLossOption*/
 /// <reference path="/@JSense.js" />
 
-var GoldDeluxeWinLossOption = (function () {
+var ThirdPartyWinLossOption = (function () {
     "use strict";
 
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return GoldDeluxeWinLoss.drillDown(' + level + ',' +
+        return '<a class="drilldown" href="javascript:;" onclick="return ThirdPartyWinLoss.drillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = GoldDeluxeWinLossOption.licenseeId === GoldDeluxeWinLossOption.LICENSEE_12BET ? 1 : 2;
+        var level = ThirdPartyWinLossOption.licenseeId === ThirdPartyWinLossOption.LICENSEE_12BET ? 1 : 2;
         return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
@@ -175,8 +175,8 @@ var GoldDeluxeWinLossOption = (function () {
         LICENSEE_12BET: 1,
         licenseeId: 0,
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/GoldDeluxeWinLoss',
-        urlExcelData: 'api/report/GoldDeluxeWinLoss',
+        urlData: 'api/report/ThirdPartyWinLoss',
+        urlExcelData: 'api/report/ThirdPartyWinLoss',
         gridOption:
         {
             datatype: 'local',
@@ -213,6 +213,10 @@ var GoldDeluxeWinLossOption = (function () {
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
+        dateColumn.formatoptions =
+        {
+            newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
+        };
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0;
 

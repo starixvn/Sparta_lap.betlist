@@ -62,5 +62,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
                 return true;
             }
         }
+
+        public int ProductId { get; set; }
     }
 }

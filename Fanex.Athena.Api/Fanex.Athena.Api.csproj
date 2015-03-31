@@ -156,6 +156,7 @@
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
     <Compile Include="Report\ReportController.AgCasinoWl.cs" />
+    <Compile Include="Report\ReportController.ThirdPartyWl.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\ReportController.LicenseeWl.cs" />

@@ -17,6 +17,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
+        private const int ProductId = 12;
+
         /// <summary>
         /// VoidBridges win loss main action.
         /// </summary>
@@ -32,7 +34,9 @@ namespace Fanex.Athena.Controllers.Report
                 FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
                 ToDate = date.AddDays(-1),
                 LicenseeId = licenseeSession.LicenseeId,
-                IsExcludedTestData = true
+                IsExcludedTestData = true,
+                ProductId = ProductId,
+                ReportBy = 1
             };
 
             SetConvetedUSDCurrencyId(metaModel);

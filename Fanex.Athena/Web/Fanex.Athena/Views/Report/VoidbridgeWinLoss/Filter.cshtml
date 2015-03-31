@@ -3,7 +3,7 @@
 @model Fanex.Athena.Models.ViewModel.Report.ThirdPartyWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
-    <form id="VoidbridgeWinLossForm" name="VoidbridgeWinLossForm" method="post" action="">
+    <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
     <div class="grid_3 filter-label">
         <label>@ViewResources.ViewDataInMonth</label>
     </div>
@@ -20,6 +20,8 @@
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
+        @Html.Hidden("ProductId", Model.Param.ProductId)
+        
         @{
             var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
         }
@@ -77,6 +79,11 @@
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    
     <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalFromDate" name="OriginalFromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalToDate" name="OriginalToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="OriginalReportBy" name="OriginalReportBy" value="@Model.Param.ReportBy" />
+    @Html.Hidden("ReportTitle",ViewResources.Voidbridge + " " + ViewResources.WinLoss);
 </div>
