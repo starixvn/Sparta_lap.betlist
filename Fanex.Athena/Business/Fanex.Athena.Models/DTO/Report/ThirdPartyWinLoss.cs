@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VoidbridgeWinLoss.cs" company="Microsoft">
+// <copyright file="ThirdPartyWinLoss.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Fanex.Athena.Models.DTO.Report
     using System;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// ThirdPartyWinLoss Entity Class.
     /// </summary>
-    public class VoidbridgeWinLoss
+    public class ThirdPartyWinLoss
     {
         public int RowSpan { get; set; }
 

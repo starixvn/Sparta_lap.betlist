@@ -15,9 +15,9 @@ namespace Fanex.Athena.Models.ViewModel.Report
     /// </summary>
     public class ThirdPartyWinLossViewModel : BaseViewModel
     {
-        public IList<VoidbridgeWinLoss> MainResult { get; set; }
+        public IList<ThirdPartyWinLoss> MainResult { get; set; }
 
-        public IDictionary<string, VoidbridgeWinLoss> SummaryTotal { get; set; }
+        public IDictionary<string, ThirdPartyWinLoss> SummaryTotal { get; set; }
 
         public ThirdPartyWinLossMetaModel Param { get; set; }
     }
