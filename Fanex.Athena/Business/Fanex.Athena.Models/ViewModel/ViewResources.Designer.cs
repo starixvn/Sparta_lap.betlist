@@ -2464,6 +2464,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gold Deluxe Win Loss.
+        /// </summary>
+        public static string GoldDeluxeWinLoss {
+            get {
+                return ResourceManager.GetString("GoldDeluxeWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to Customer List.
         /// </summary>
         public static string GotoCustomerList {

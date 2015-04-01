@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/31/2015 5:16:45 PM
+// Lasted generated date: 3/31/2015 6:04:42 PM
 // </history>
 
 var _language_en_US={
@@ -545,6 +545,8 @@ var _language_en_US={
                      GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
 				 	
                      GoldDeluxeProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
+				 	
+                     GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 				 	
                      GotoCustomerList:"Go to Customer List",
 				 	
