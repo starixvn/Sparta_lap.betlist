@@ -105,11 +105,11 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <summary>
         /// Get Product Name.
         /// </summary>
-        /// <param name="produtCode">Product code.</param>
+        /// <param name="productCode">Product code.</param>
         /// <returns>Product name.</returns>
-        private static string GetProductName(string produtCode)
+        private static string GetProductName(string productCode)
         {
-            switch (produtCode)
+            switch (productCode)
             {
                 case Product.SB:
                     return ViewResources.Sportsbook;
@@ -133,9 +133,11 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                   return ViewResources.PlaytechCasino;
                 case Product.AGC:
                   return ViewResources.AGCasino;
+                case Product.VB:
+                    return ViewResources.Voidbridge;
             }
 
-            return produtCode;
+            return productCode;
         }
 
         #endregion Public Methods and Operators

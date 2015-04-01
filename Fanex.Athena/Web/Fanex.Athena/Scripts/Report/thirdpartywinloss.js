@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, ThirdPartyWinLossOption, Report, Site */
+/*global jqGridAdditional, ThirdPartyWinLossOption, Report, Site */
 /// <reference path="/@JSense.js" />
 ///
 var ThirdPartyWinLoss = (function ($) {
@@ -170,11 +170,9 @@ var ThirdPartyWinLoss = (function ($) {
                         ToDate: $("#ToDate").val(),
                         CurrencyName: $("#CurrencyId option:selected").text(),
                         BaseCurrency: $("#BaseCurrency").val(),
-                        ProductId: $("#ProductId").val()
+                        ProductId: $("#ProductId").val(),
+                        ReportBy: reportBy
                     };
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
-                    $("#OriginalReportBy").val(reportBy);
                     ThirdPartyWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
 
@@ -229,11 +227,11 @@ var ThirdPartyWinLoss = (function ($) {
             {
                 IsExcludedTestData: _submitData.IsExcludedTestData,
                 CurrencyId: _submitData.CurrencyId,
-                FromDate: $("#OriginalFromDate").val(),
-                ToDate: $("#OriginalToDate").val(),
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
                 BaseCurrency: _submitData.BaseCurrency,
                 ProductId: _submitData.ProductId,
-                ReportBy: $("#OriginalReportBy").val()
+                ReportBy: _submitData.ReportBy
             };
             var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
             var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
@@ -248,7 +246,7 @@ var ThirdPartyWinLoss = (function ($) {
                 contentType: "application/json",
                 cache: false,
                 url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData +
-                    "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + 
+                    "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
                     "&fdate=" + fdate + "&tdate=" + tdate),
                 success: function (response) {
                     ThirdPartyWinLoss.ajaxComplete(level, response);

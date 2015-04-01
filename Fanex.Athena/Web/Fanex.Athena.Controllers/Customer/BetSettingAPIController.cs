@@ -31,8 +31,6 @@ namespace Fanex.Athena.Controllers.Customer
     public class BetSettingApiController : ReadonlyBaseController
     {
         #region Constants
-        
-        private const int AccessDeniedHttpCode = 403;
 
         private const string CustomerListUrl = "Customer/CustomerList";
 

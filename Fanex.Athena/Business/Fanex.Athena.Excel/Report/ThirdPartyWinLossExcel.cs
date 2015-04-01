@@ -8,6 +8,7 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
@@ -16,12 +17,11 @@ namespace Fanex.Athena.Excel.Report
     using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
-    using System.Text;
 
     /// <summary>
     ///  Third party Win Loss - Export excel.
     /// </summary>
-    public class ThirdPartyWinLossExcel: ReportBase
+    public class ThirdPartyWinLossExcel : ReportBase
     {
         private const int ColumnTemplateCount = 9;
 
@@ -142,7 +142,7 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
 
                 if (licenseeWinLoss.RowSpan > 1)
-                {                    
+                {
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
@@ -166,7 +166,7 @@ namespace Fanex.Athena.Excel.Report
                 ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
                 : GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
-            ReportTitle = GenerateProductReportTitle(fromdate,todate,title);
+            ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
@@ -174,22 +174,6 @@ namespace Fanex.Athena.Excel.Report
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
-        }
-
-        /// <summary>
-        /// Generates the product report's title.
-        /// </summary>
-        /// <param name="fromdate">The fromdate.</param>
-        /// <param name="todate">The todate.</param>
-        /// <param name="title">The title.</param>
-        /// <returns>String of Report Title.</returns>
-        private string GenerateProductReportTitle(string fromdate, string todate, string title)
-        {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.Voidbridge).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append(string.Format(", {0} --> {1} - {2}",fromdate,todate,title));
-            return reportTitle.ToString();
         }
 
         /// <summary>
@@ -295,7 +279,7 @@ namespace Fanex.Athena.Excel.Report
         /// Get total currency data.
         /// </summary>
         /// <param name="dataList">Report data.</param>
-        /// <returns>List of GoldDeluxeWinLoss entity.</returns>
+        /// <returns>List of third party WinLoss entity.</returns>
         private static List<ThirdPartyWinLoss> GetTotalCurrency(IEnumerable<ThirdPartyWinLoss> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
@@ -309,6 +293,22 @@ namespace Fanex.Athena.Excel.Report
             }).ToList();
 
             return listTotalCurrency;
+        }
+
+        /// <summary>
+        /// Generates the product report's title.
+        /// </summary>
+        /// <param name="fromDate">The fromDate.</param>
+        /// <param name="toDate">The toDate.</param>
+        /// <param name="title">The title.</param>
+        /// <returns>String of Report Title.</returns>
+        private string GenerateProductReportTitle(string fromDate, string toDate, string title)
+        {
+            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            reportTitle.Append(_metaModel.ProductName).Append(" ");
+            reportTitle.Append(ViewResources.WinLoss);
+            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
+            return reportTitle.ToString();
         }
     }
 }

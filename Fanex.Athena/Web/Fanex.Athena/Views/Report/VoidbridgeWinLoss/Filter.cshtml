@@ -21,7 +21,7 @@
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
         @Html.Hidden("ProductId", Model.Param.ProductId)
-        
+        @Html.Hidden("ProductName",Model.Param.ProductName)
         @{
             var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
         }
@@ -55,12 +55,12 @@
         </div>
     </div>
 
-    <div class="grid_3 filter-label new-line">
+    <div class="grid_3 filter-label new-line" style='display:@(ViewBag.IsAllowReportby==false ? "none" : "block")'>
         <label>
             @ViewResources.ReportBy
         </label>
     </div>
-    <div class="grid_5 filter-input option-list">
+    <div class="grid_5 filter-input option-list" style='display:@(ViewBag.IsAllowReportby==false ? "none" : "block")'>
         <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
         <label for="reportbydaily">
             @ViewResources.Daily
@@ -82,8 +82,6 @@
     
     <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
     <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-    <input type="hidden" id="OriginalFromDate" name="OriginalFromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-    <input type="hidden" id="OriginalToDate" name="OriginalToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-    <input type="hidden" id="OriginalReportBy" name="OriginalReportBy" value="@Model.Param.ReportBy" />
-    @Html.Hidden("ReportTitle",ViewResources.Voidbridge + " " + ViewResources.WinLoss);
+    @Html.Hidden("ReportTitle",ViewResources.Voidbridge + " " + ViewResources.WinLoss)
+    
 </div>

@@ -27,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ThirdPartyWinLossDataAccess: BaseDataAccess, IThirdPartyWinLossDataAccess
+    public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
         public ThirdPartyWinLossDataAccess(BalanceUp balanceUp)
             : base(balanceUp)

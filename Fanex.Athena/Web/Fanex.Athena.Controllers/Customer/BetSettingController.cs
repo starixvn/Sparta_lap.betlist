@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Customer
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -31,6 +32,7 @@ namespace Fanex.Athena.Controllers.Customer
     public class BetSettingController : ReadonlyBaseController
     {
         #region Const
+
         private const string CustomerListUrl = "Customer/CustomerList";
 
         private const int BopingResellerId = 7;
@@ -74,7 +76,16 @@ namespace Fanex.Athena.Controllers.Customer
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = GetViewModels(metaModel);
+            BetSettingViewModel viewModel = null;
+
+            try
+            {
+                viewModel = GetViewModels(metaModel);
+            }
+            catch (NullReferenceException)
+            {
+                return this.Redirect("~/Utility/AccessDenied");
+            }
 
             switch (metaModel.TabId)
             {
@@ -253,7 +264,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 case ProductType.GoldDeluxe:
                     var viewModel = _betSettingService.GetGoldDeluxeSetting(
-                        metaModel.CustId, 
+                        metaModel.CustId,
                         SessionService.LicenseeSession.LicenseeName);
                     model.GoldDeluxeViewModel.BetSetting = viewModel.BetSetting;
                     model.GoldDeluxeViewModel.Games = viewModel.Games;

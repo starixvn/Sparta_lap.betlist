@@ -11,7 +11,6 @@ namespace Fanex.Athena.Service.Interface.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
-
     /// <summary>
     /// The third party licensee win loss service.
     /// </summary>

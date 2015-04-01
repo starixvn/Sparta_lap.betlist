@@ -88,7 +88,7 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             const string FileName = "ThirdPartyWinLoss.xls"; // must move to controller to process file name
-            var templatePath = HttpContext.Current.Server.MapPath(string.Format(@"~/App_Data/Template/Reports/{0}",FileName));
+            var templatePath = HttpContext.Current.Server.MapPath(string.Format(@"~/App_Data/Template/Reports/{0}", FileName));
 
             var currencyList = userSession.CurrencyList;
 

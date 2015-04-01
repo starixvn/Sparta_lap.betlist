@@ -7,20 +7,23 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
-    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// VoidBridge report controller.
     /// </summary>
     public partial class ReportController
     {
         private const int ProductId = 12;
+        private const bool IsAllowReportby = true;
+        private const string ProductCode = Product.VB;
 
         /// <summary>
-        /// VoidBridges win loss main action.
+        /// VoidBridge win loss main action.
         /// </summary>
         /// <returns>Action result.</returns>
         public ActionResult VoidbridgeWinloss()
@@ -29,6 +32,11 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
 
+            var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
+
+            var productName = productList.Where(p => p.ProductCode == ProductCode).SingleOrDefault().ProductName;
+
+            ViewBag.IsAllowReportby = IsAllowReportby;
             var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
@@ -36,7 +44,8 @@ namespace Fanex.Athena.Controllers.Report
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
                 ProductId = ProductId,
-                ReportBy = 1
+                ReportBy = 1,
+                ProductName = productName
             };
 
             SetConvetedUSDCurrencyId(metaModel);

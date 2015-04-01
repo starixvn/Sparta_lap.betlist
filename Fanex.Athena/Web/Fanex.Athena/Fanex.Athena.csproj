@@ -478,6 +478,7 @@
     <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -3028,7 +3029,8 @@
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
     <Content Include="Views\Report\VoidbridgeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\VoidbridgeWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\VoidbridgeWinLoss\Main.cshtml" />  </ItemGroup>
+    <Content Include="Views\Report\VoidbridgeWinLoss\Main.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />

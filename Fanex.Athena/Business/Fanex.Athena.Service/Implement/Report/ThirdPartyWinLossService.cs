@@ -7,7 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace Fanex.Athena.Service.Implement.Report
 {
     using System.Collections.Generic;
@@ -43,7 +42,7 @@ namespace Fanex.Athena.Service.Implement.Report
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="GoldDeluxeWinLossService" /> class.
+        ///     Initializes a new instance of the <see cref="ThirdPartyWinLossService" /> class.
         /// </summary>
         public ThirdPartyWinLossService()
         {
