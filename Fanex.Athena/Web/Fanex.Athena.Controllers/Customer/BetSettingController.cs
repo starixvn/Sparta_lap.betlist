@@ -76,13 +76,9 @@ namespace Fanex.Athena.Controllers.Customer
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            BetSettingViewModel viewModel = null;
+            var viewModel = GetViewModels(metaModel);
 
-            try
-            {
-                viewModel = GetViewModels(metaModel);
-            }
-            catch (NullReferenceException)
+            if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
             }
@@ -183,7 +179,15 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
             metaModel.IsAllowVoidbridge = productAccess.IsAllowVB;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
-            return GetViewModel(metaModel, customerInfo);
+
+            try
+            {
+                return GetViewModel(metaModel, customerInfo);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
         }
 
         /// <summary>

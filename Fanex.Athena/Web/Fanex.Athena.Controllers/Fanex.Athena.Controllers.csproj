@@ -184,7 +184,7 @@
     <Compile Include="Report\ReportController.ResultPage.cs" />
     <Compile Include="Forecast\ForecastController.NewHandicapOverUnder.cs" />
     <Compile Include="Report\ReportController.VoidbridgeWinLoss.cs" />
-    <Compile Include="Report\RNGCasino\HandHistoryController.cs">
+    <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="UtilityController.cs">
