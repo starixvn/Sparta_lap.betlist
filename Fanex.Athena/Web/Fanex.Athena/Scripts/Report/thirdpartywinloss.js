@@ -256,9 +256,9 @@ var ThirdPartyWinLoss = (function ($) {
                         } else {
                             ThirdPartyWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
                         }
-                        //update excel ULR
-                        ThirdPartyWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                     }
+                    //update excel URL
+                    ThirdPartyWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                 },
                 beforeSend: function () {
                     Site.blockUI();
