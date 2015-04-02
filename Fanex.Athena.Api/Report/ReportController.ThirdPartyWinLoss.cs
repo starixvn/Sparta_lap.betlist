@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.ThirdPartyWl.cs" company="Microsoft">
+// <copyright file="ReportController.ThirdPartyWinLoss.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -87,11 +87,10 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            const string FileName = "ThirdPartyWinLoss.xls"; // must move to controller to process file name
-            var templatePath = HttpContext.Current.Server.MapPath(string.Format(@"~/App_Data/Template/Reports/{0}", FileName));
-
+            const string TemplateFileName = "ThirdPartyWinLoss.xls"; // must move to controller to process file name
+            var exportedFileName = metaModel.ExcelFileName + ".xls";
+            var templatePath = HttpContext.Current.Server.MapPath(string.Format(@"~/App_Data/Template/Reports/{0}", TemplateFileName));
             var currencyList = userSession.CurrencyList;
-
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var convertingOption = new ConvertingOption
             {
@@ -118,14 +117,14 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ThirdPartyWinLossExcel(templatePath, FileName, convertingOption, metaModel, exccelModel)
+            var excel = new ThirdPartyWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, exccelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
 
             excel.Export();
 
-            return ExcelStream(excel.Workbook, FileName);
+            return ExcelStream(excel.Workbook, exportedFileName);
         }
 
         /// <summary>

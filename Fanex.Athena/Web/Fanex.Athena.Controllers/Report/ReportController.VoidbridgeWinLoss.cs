@@ -18,9 +18,10 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
-        private const int ProductId = 12;
+        private const int VoidbridgeProductId = 12;
         private const bool IsAllowReportby = true;
-        private const string ProductCode = Product.VB;
+        private const string VoidbridgeProductCode = Product.VB;
+        private const string VoidbridgeExcelFileName = "VoidbridgeWinloss";
 
         /// <summary>
         /// VoidBridge win loss main action.
@@ -34,7 +35,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var productName = productList.Where(p => p.ProductCode == ProductCode).SingleOrDefault().ProductName;
+            var productName = productList.Where(p => p.ProductCode == VoidbridgeProductCode).SingleOrDefault().ProductName;
 
             ViewBag.IsAllowReportby = IsAllowReportby;
             var metaModel = new ThirdPartyWinLossMetaModel
@@ -43,9 +44,10 @@ namespace Fanex.Athena.Controllers.Report
                 ToDate = date.AddDays(-1),
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
-                ProductId = ProductId,
+                ProductId = VoidbridgeProductId,
                 ReportBy = 1,
-                ProductName = productName
+                ProductName = productName,
+                ExcelFileName = VoidbridgeExcelFileName
             };
 
             SetConvetedUSDCurrencyId(metaModel);
