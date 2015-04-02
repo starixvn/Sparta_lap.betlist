@@ -337,7 +337,8 @@
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
     <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
-    <Compile Include="ViewModel\Report\AgCasinoBalanceViewModel.cs" />    <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
+    <Compile Include="ViewModel\Report\AgCasinoBalanceViewModel.cs" />
+    <Compile Include="ViewModel\Report\LicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\Report\ResultReportViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModel\Report\CustomerBalanceViewModel.cs" />

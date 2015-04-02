@@ -3265,19 +3265,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="SiteConfig\Web.LOCAL.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.PRO.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.SANDBOX.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.UAT.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
     <Content Include="App_Data\FunctionAllowedProduct.xml" />
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
@@ -4288,18 +4275,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
-    <Content Include="SiteConfig\Web.LOCAL.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.SANDBOX.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.UAT.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.PRO.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
     <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
