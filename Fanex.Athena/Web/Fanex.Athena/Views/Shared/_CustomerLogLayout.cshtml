@@ -19,12 +19,7 @@
 }
 @section js
 {
-    <script src="@Url.ContentLink("/Scripts/Plugin/MonthPickr/monpickr.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/global/jquery.jqgrid.additional.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.en.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.min.js")" type="text/javascript"></script>    
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")" type="text/javascript"></script>
+     @System.Web.Optimization.Scripts.Render("~/bundles/jqGridScriptsCustomerLogLayout")
     <script src="@Url.ContentLink("/Scripts/Customer/CustomerLog/customerlog.js")" type="text/javascript"></script>    
     @RenderSection("pagejs", required: false)
 }

@@ -16,13 +16,7 @@
 }
 @section js
 {
-    <script src="@Url.ContentLink("/Scripts/Report/report.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/scripts/global/Paging.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/date.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/MonthPickr/monpickr.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/daterangepicker.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")" type="text/javascript"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqGridScriptsReportLayout")
     @RenderSection("pagejs", required: false)
 }
 <div class="container_26">

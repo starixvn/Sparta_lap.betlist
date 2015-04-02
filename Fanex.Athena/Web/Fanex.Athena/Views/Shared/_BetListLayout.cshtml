@@ -22,15 +22,7 @@
 }
 @section js
 {
-   @* <script src="@Url.ContentLink("/Scripts/global/jquery.jqgrid.additional.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.en.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.jqGrid.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/MonthPickr/monpickr.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Report/report.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/scripts/global/Paging.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/date.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/daterangepicker.js")" type="text/javascript"></script>*@
-     @Scripts.Render("~/bundles/jqGridScripts")
+     @Scripts.Render("~/bundles/jqGridScriptsBetListLayout")
     <script src="@Url.ContentLink("/Scripts/BetList/betlist.option.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/BetList/betlist.js")" type="text/javascript"></script>
     @RenderSection("pagejs", required: false)
