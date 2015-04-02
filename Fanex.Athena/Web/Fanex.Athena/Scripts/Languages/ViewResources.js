@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/18/2015 9:32:22 AM
+// Lasted generated date: 3/31/2015 6:04:42 PM
 // </history>
 
 var _language_en_US={
@@ -177,6 +177,8 @@ var _language_en_US={
                      CancelledBets:"Cancelled Bets",
 				 	
                      CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
+				 	
+                     CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 				 	
                      CASINOHANDHISTORY:"CASINO HAND HISTORY",
 				 	
@@ -394,6 +396,8 @@ var _language_en_US={
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
 				 	
+                     DisableVoidbridge:"Disable Voidbridge",
+				 	
                      DividendWon:"Dividend Won",
 				 	
                      Dontshowagain:"Don&apos;t show again",
@@ -433,6 +437,8 @@ var _language_en_US={
                      EnableLiveCasino:"Enable Live Casino",
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
+				 	
+                     EnableVoidbridge:"Enable Voidbridge",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -539,6 +545,8 @@ var _language_en_US={
                      GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
 				 	
                      GoldDeluxeProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
+				 	
+                     GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 				 	
                      GotoCustomerList:"Go to Customer List",
 				 	
@@ -1601,6 +1609,10 @@ var _language_en_US={
                      VirtualSports:"Virtual Sports",
 				 	
                      VirtualTennis:"Virtual Tennis",
+				 	
+                     Voidbridge:"Voidbridge",
+				 	
+                     VoidbridgeNotOfferCurrency:"Voidbridge is not offered for this currency.",
 				 	
                      VS:"VS",
 				 	

@@ -28,6 +28,8 @@ namespace Fanex.Athena.Controllers.Account
     /// </summary>
     public class AccountController : BaseController
     {
+        private const string ParentUrl = "Account/Manage";
+
         #region Fields
 
         private readonly ILicenseeService _licenseeService;
@@ -107,7 +109,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         public ActionResult EditAccount()
         {
             var userSession = SessionService.UserSession;
@@ -142,7 +144,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The account metal model.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult EditAccount(EditAccountMetaModel model)
         {
@@ -199,7 +201,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         public ActionResult ResetPassword()
         {
             var model = new ResetPasswordMetaModel
@@ -223,7 +225,7 @@ namespace Fanex.Athena.Controllers.Account
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult ResetPassword(ResetPasswordMetaModel model)
         {
@@ -294,7 +296,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = "Account/Manage")]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         public ActionResult PermissionPage()
         {
             int userId; // user is being editted
@@ -319,7 +321,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         public ActionResult EditPermission()
         {
             int userId; // user is being editted
@@ -356,7 +358,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The permission metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         [ValidateAntiForgeryToken]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
@@ -412,7 +414,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="userId">The user id.</param>
         /// <returns>Action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         public ActionResult AssignCurrency(int userId = 0)
         {
             if (!AppSettings.EnableAssignCurrency)
@@ -441,7 +443,7 @@ namespace Fanex.Athena.Controllers.Account
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = ParentUrl)]
         [ValidateAntiForgeryToken]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {

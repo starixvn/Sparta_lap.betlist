@@ -5,6 +5,7 @@ var WinLossByProduct = (function ($) {
     "use strict";
     var LICENSEE_12BET = 1;
     var REPORT_BY_MONTHLY = 2;
+    var VALID_MONTH_RANGE = 3;
     var _cacheData = [];
     var ajaxRequest = null;
     var _memberId, _systemId; // store data when submit level 0
@@ -56,6 +57,7 @@ var WinLossByProduct = (function ($) {
             WinLossByProduct.initEvent();
             WinLossByProduct.initSetting();
             initAutoComplete();
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
             $('#Username').val(Site.getSingleResource('ExternalIdOrSystemId'));
             Site.addFilterCollapseExpand();
             Site.addUserGuide({
@@ -194,7 +196,7 @@ var WinLossByProduct = (function ($) {
 
             Site.updateOriginalLicenseeOption();
             var data = $("#winlossbyproduct").serializeObject();
-            
+
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
@@ -228,7 +230,7 @@ var WinLossByProduct = (function ($) {
                     Site.blockUI();
                 },
                 complete: function (/*jqXhr, textStatus*/) {
-                    Site.unBlockUI();
+                    // Site.unBlockUI();
                 }
             };
             if (ajaxRequest != null) {
@@ -314,22 +316,26 @@ var WinLossByProduct = (function ($) {
 
         goBack: function (level) {
             var reportBy = _submitData.ReportBy;
+            Site.blockUI();
+
             level = Number(level);
-            if (level === 0) {
-                WinLossByProduct.renderBreadCrumb(level);
-                WinLossByProduct.bindData(0, reportBy, _cacheData[0]);
+            setTimeout(function () {
+                if (level === 0) {
+                    WinLossByProduct.renderBreadCrumb(level);
+                    WinLossByProduct.bindData(0, reportBy, _cacheData[0]);
 
-                //reset excel Link
-                WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
+                    //reset excel Link
+                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
 
-                //re-set title                
-                WinLossByProduct.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
-            }
-            else if (level === 1) {
-                WinLossByProduct.bindData(1, reportBy, _cacheData[1]);
-                WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
-                WinLossByProduct.renderBreadCrumb(level);
-            }
+                    //re-set title                
+                    WinLossByProduct.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                }
+                else if (level === 1) {
+                    WinLossByProduct.bindData(1, reportBy, _cacheData[1]);
+                    WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
+                    WinLossByProduct.renderBreadCrumb(level);
+                }
+            }, 50);
         },
 
         //#endregion
@@ -405,8 +411,10 @@ var WinLossByProduct = (function ($) {
         },
 
         bindData: function (level, reportBy, response) {
-            level = Number(level);
+            $("#ReportGrid").hide();
             jqGridAdditional.clearGrid("ReportGrid");
+
+            level = Number(level);
             var reportGrid = $("#ReportGrid");
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
@@ -414,17 +422,18 @@ var WinLossByProduct = (function ($) {
 
             var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
             gridOption.data = response.Data;
-            gridOption.userData = {};
             gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
             gridOption.rowList = WinLossByProductOption.rowList;
             gridOption.rowTotal = numOfRow;
-            gridOption.pager = '#ppdata';
             gridOption.onPaging = function (pgButton) {
                 if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
                     if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                         Site.blockUI();
                     }
                     onPaging = true;
+                    setTimeout(function () {
+                        WinLossByProduct.resizeGrid();
+                    }, 1000);
                 }
                 else {
                     return 'stop';
@@ -434,7 +443,7 @@ var WinLossByProduct = (function ($) {
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
                 switch (level) {
                     case 0:
-                        WinLossByProductOption.setGrouping();
+                        reportGrid.tableRowSpan([0, 4]);
                         break;
                     case 1:
 
@@ -442,7 +451,7 @@ var WinLossByProduct = (function ($) {
                         break;
                     case 2:
                         reportGrid.tableRowSpan([0, WinLossByProductOption.externalIdIndex, WinLossByProductOption.systemIdIndex],
-                                             WinLossByProductOption.currencyIndex);
+                                                     WinLossByProductOption.currencyIndex);
 
                         break;
                 }
@@ -471,20 +480,24 @@ var WinLossByProduct = (function ($) {
                 Site.unBlockUI();
             };
 
-            // Show the grid
+            setTimeout(function () {
+                reportGrid.jqGrid(gridOption);
 
-            reportGrid.jqGrid(gridOption);
-            if (WinLossByProductOption.hasCustomerComm) {
-                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
-            }
-            //set rowspan for footer row
-            $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
-            if (level === 2) {
-                jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-            }
-            ///reset layout
-            jqGridAdditional.resetLayout(reportGrid);
-            WinLossByProduct.resizeGrid();
+                if (WinLossByProductOption.hasCustomerComm) {
+                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                }
+
+                //set rowspan for footer row
+                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+                if (level === 2) {
+                    jqGridAdditional.showRecommendedBrowser(gridOption.pager);
+                }
+
+                $("#ReportGrid").show();
+                ///reset layout
+                jqGridAdditional.resetLayout(reportGrid);
+                WinLossByProduct.resizeGrid();
+            }, 50);
         },
 
         //#endregion

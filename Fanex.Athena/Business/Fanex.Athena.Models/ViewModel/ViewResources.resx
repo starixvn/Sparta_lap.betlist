@@ -2604,7 +2604,8 @@
     <value>Date range exceeds {0} months. Please try again!</value>
     <comment>#29219</comment>
   </data>
-  <data name="GoldDeluxeProblemDisplayBetSetting" xml:space="preserve">    <value>There is problem to display bet setting group's detail.</value>
+  <data name="GoldDeluxeProblemDisplayBetSetting" xml:space="preserve">
+    <value>There is problem to display bet setting group's detail.</value>
   </data>
   <data name="GoldDeluxe" xml:space="preserve">
     <value>Gold Deluxe</value>
@@ -2624,4 +2625,25 @@
   <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
     <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
-</root>
+  <data name="Voidbridge" xml:space="preserve">
+    <value>Voidbridge</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
+    <value>You cannot update member bet limit for product {0}.</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="DisableVoidbridge" xml:space="preserve">
+    <value>Disable Voidbridge</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="EnableVoidbridge" xml:space="preserve">
+    <value>Enable Voidbridge</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="VoidbridgeNotOfferCurrency" xml:space="preserve">
+    <value>Voidbridge is not offered for this currency.</value>
+  </data>
+  <data name="GoldDeluxeWinLoss" xml:space="preserve">
+    <value>Gold Deluxe Win Loss</value>
+  </data></root>

@@ -10,6 +10,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
 
     /// <summary>
@@ -64,6 +65,8 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
                 return _goldDeluxeViewModel;
             }
         }
+
+        public VoidbridgeBetSetting VoidBridgeViewModel { get; set; }
 
         public RngCasinoBetSetting RngCasinoData { get; set; }
 

@@ -199,11 +199,15 @@ namespace Fanex.Athena.Extension.Utility
         /// </summary>
         /// <param name="functionName">Function name.</param>
         /// <returns>Product code array.</returns>
-        public static string[] GetIgnoredProducts(string functionName)
+        public static string[] GetAllowedProducts(string functionName = null)
         {
-            var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionIgnoredProductFile"));
-            var document = XDocument.Load(filePath);
-            var config = document.Descendants("Function")
+            if (string.IsNullOrWhiteSpace(functionName))
+            {
+                functionName = "_Default";
+            }
+
+            var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
+            var config = XDocument.Load(filePath).Descendants("Function")
                     .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
                     .FirstOrDefault();
 

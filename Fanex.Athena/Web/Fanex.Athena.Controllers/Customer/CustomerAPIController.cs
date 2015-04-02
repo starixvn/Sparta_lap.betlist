@@ -481,7 +481,7 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                Util.GetIgnoredProducts(CustomerAPIRemoveFromGroupComName));
+                Util.GetAllowedProducts(CustomerAPIRemoveFromGroupComName));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.Ip = Request.UserHostAddress;
@@ -527,7 +527,7 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                Util.GetIgnoredProducts(CustomerAPIRemoveFromGroupComName));
+                Util.GetAllowedProducts(CustomerAPIRemoveFromGroupComName));
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.IsAllowedNG = productAccess.IsAllowNG;

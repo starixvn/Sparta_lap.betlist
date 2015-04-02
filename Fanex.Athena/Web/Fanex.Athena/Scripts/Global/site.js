@@ -29,19 +29,8 @@ var Site = (function ($) {
         return urlOrParams;
     }
 
-    function getDifferenceMonth(fromDate, toDate, useDateAccuracy) {
-        var months = toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear()));
-
-        if (useDateAccuracy === true) {
-            if (fromDate.getDate() > toDate.getDate()) {
-                months--;
-            }
-            else if (fromDate.getDate() < toDate.getDate()) {
-                months++;
-            }
-        }
-
-        return months;
+    function getDifferenceMonth(fromDate, toDate) {
+        return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
     }
 
     return {

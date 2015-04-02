@@ -35,7 +35,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=31992" />
+	<add key="JsVersion" value="v=31323" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />  
@@ -47,7 +47,7 @@
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionIgnoredProductFile" value="~/App_Data/FunctionIgnoredProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -106,7 +106,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=31992" />
+	<add key="JsVersion" value="v=31323" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -118,7 +118,7 @@
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionIgnoredProductFile" value="~/App_Data/FunctionIgnoredProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -172,7 +172,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=31992" />
+	<add key="JsVersion" value="v=31323" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -184,7 +184,7 @@
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionIgnoredProductFile" value="~/App_Data/FunctionIgnoredProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -237,7 +237,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=31992" />
+	<add key="JsVersion" value="v=31323" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />
@@ -249,7 +249,7 @@
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionIgnoredProductFile" value="~/App_Data/FunctionIgnoredProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -303,7 +303,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=31992" />
+	<add key="JsVersion" value="v=31323" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -315,7 +315,7 @@
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionIgnoredProductFile" value="~/App_Data/FunctionIgnoredProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>

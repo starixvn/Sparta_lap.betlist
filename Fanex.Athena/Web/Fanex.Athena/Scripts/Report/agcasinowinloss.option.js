@@ -190,7 +190,7 @@ var AgCasinoWinLossOption = (function () {
             loadui: 'disable',
             loadonce: true,
             footerrow: true,
-            rowNum: 50000,
+            rowNum: 2000,
             grouping: true,
             viewrecords: true,
             gridview: true,

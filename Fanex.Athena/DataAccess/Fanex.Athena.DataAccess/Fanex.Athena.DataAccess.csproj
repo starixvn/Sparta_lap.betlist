@@ -131,10 +131,12 @@
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
+    <Compile Include="Implement\Report\GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
+    <Compile Include="Interface\Report\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interface\Report\IAgCasinoWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlaytechCasinoDataAccess.cs" />

@@ -460,6 +460,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
+    <Content Include="Content\Report\golddeluxewinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide2.png" />
@@ -476,6 +477,7 @@
     <Content Include="GameData\VideoPoker\RV009\Settings.ini" />
     <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
+    <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -2981,6 +2983,11 @@
     <Content Include="img\Wheel\C50.jpg" />
     <Content Include="img\Wheel\RJ.jpg" />
     <Content Include="Scripts\Customer\BetSetting\golddeluxe.js" />
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
@@ -2988,6 +2995,8 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
+    <Content Include="Scripts\Report\golddeluxewinloss.js" />
+    <Content Include="Scripts\Report\golddeluxewinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3006,13 +3015,17 @@
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\FunctionIgnoredProduct.xml" />
+    <Content Include="App_Data\FunctionAllowedProduct.xml" />
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
+    <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
@@ -3430,11 +3443,6 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

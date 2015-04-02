@@ -233,9 +233,9 @@ var WinLossByProductOption = (function () {
             IsAllowBA: true,
             IsAllowRB: true,
             pageSize: 50,
-            nonePagingSize: 5000,
+            nonePagingSize: 2000,
             rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000],
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
             //level 0,1,2
             urlData: 'api/report/WinLostByProduct',
@@ -254,6 +254,7 @@ var WinLossByProductOption = (function () {
                 loadui: 'disable',
                 loadonce: true,
                 footerrow: true,
+                pager: '#ppdata',
                 userDataOnFooter: true,
                 userData: [],
                 viewrecords: true,
@@ -303,6 +304,15 @@ var WinLossByProductOption = (function () {
     me.getGridOption = function (level, reportBy) {
         me.gridOption.colNames = me.getColName();
         me.gridOption.colModel = me.getColModel(level, reportBy);
+
+        if (level === 0) {
+            me.gridOption.grouping = true;
+            me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [false] };
+        } else {
+            me.gridOption.grouping = false;
+            me.gridOption.groupingView = null;
+        }
+
         return me.gridOption;
     };
     //#end
@@ -316,75 +326,6 @@ var WinLossByProductOption = (function () {
 
         curCol.formatter = null;
         return colModel;
-    };
-
-    me.setGrouping = function () {
-        /// <summary>
-        /// Grouping
-        /// Set rowspan
-        /// hide columns
-
-        /// </summary>
-        /// <param name="level"></param>
-        var gridId = "ReportGrid";
-        var grid = $("#" + gridId);
-        var colspan = colNameList.length - 5;
-
-        if (!WinLossByProductOption.hasCustomerComm) {
-            colspan -= 2;
-        }
-
-        var groupingClass = "date-grouping";
-        var numofRow = $('tbody tr', grid).length;
-        var colIdx = 1;
-
-        var that;
-        var rowMerged = 0;
-        var i = 1;
-        var index;
-        var addGroupingRow = function (me) {
-            /// <summary>
-            /// internal function
-            /// add grouping row to  grid
-            /// </summary>
-            /// <param name="me">current column</param>
-            var groupingCol = $(that).clone();
-
-            groupingCol.attr("colspan", colspan).removeAttr("rowspan").removeAttr("id");
-
-            groupingCol.css({
-                'text-align': 'left'
-            });
-
-            var groupingRow = $('tbody tr:eq(' + i + ')', grid).clone();
-            groupingRow.addClass(groupingClass);
-            groupingRow.html(groupingCol);
-            index = i - rowMerged;
-
-            groupingRow.insertBefore($('tbody tr:eq(' + index + ')', grid));
-            rowMerged = 0;
-            numofRow++;
-            that = me;
-        };
-        var lastItem;
-        while (i < numofRow) {
-            var me = $('tbody tr:eq(' + i + ') td:eq(' + colIdx + ')', grid);
-            if (that != null && $(me).html() === $(that).html()) {
-                rowMerged++;
-            }
-            else {
-                addGroupingRow(me);
-            }
-            i++;
-            lastItem = me;
-        }
-        ///processing  for last group rows
-        i--;
-        rowMerged--;
-        addGroupingRow(lastItem);
-        ///hide columns
-        grid.jqGrid("hideCol", "Date");
-        $("#" + gridId).tableRowSpan([0, 4]);
     };
 
     return me;

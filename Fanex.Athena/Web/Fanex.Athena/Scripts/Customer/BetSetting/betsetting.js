@@ -12,6 +12,7 @@ var BetSetting = (function ($) {
     var TAB_KENO = 7;
     var TAB_AGCASINO = 8;
     var TAB_GOLDDELUXE = 9;
+    var TAB_VOIDBRIDGE = 10;
 
     var _sportIds = null;
     return {
@@ -84,6 +85,9 @@ var BetSetting = (function ($) {
                 case TAB_GOLDDELUXE:
                     $('#golddeluxe').addClass('activeTab');
                     break;
+                case TAB_VOIDBRIDGE:
+                    $('#voidbridge').addClass('activeTab');
+                    break;
             }
 
             BetSetting.checkEnableBetSetting(tabid, enable);
@@ -109,6 +113,9 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_GOLDDELUXE:
                     url = "BetSettingAPI/UpdateGoldDeluxeStatus";
+                    break;
+                case TAB_VOIDBRIDGE:
+                    url = "BetSettingAPI/UpdateVoidBridgeStatus";
                     break;
             }
 
