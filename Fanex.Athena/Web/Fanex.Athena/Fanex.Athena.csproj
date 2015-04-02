@@ -2996,6 +2996,8 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
+    <Content Include="Scripts\Report\golddeluxewinloss.js" />
+    <Content Include="Scripts\Report\golddeluxewinloss.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
