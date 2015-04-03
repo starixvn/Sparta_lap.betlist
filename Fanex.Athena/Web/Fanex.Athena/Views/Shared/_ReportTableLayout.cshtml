@@ -2,19 +2,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-    <link rel="stylesheet" type="text/css" href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" />
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/MonthPickr/monPickr.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.custom-scrollbar.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.flatpopup.css")" rel="stylesheet" type="text/css" />
+    @System.Web.Optimization.Styles.Render("~/bundles/ReportTableLayoutCss")
     @RenderSection("pagecss", required: false)
 }
 @section js{
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqGridScriptsReportTableLayout")
+    @System.Web.Optimization.Scripts.Render("~/bundles/ReportTableLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
 <div class="container_26">

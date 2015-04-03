@@ -3,18 +3,12 @@
 }
 @section css
 {
-    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.grid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/MonthPickr/monPickr.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
+    @System.Web.Optimization.Styles.Render("~/bundles/ReportLayoutSettledMatchCountCss")
     @RenderSection("pagecss")
 }
 @section js
 {
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqGridScriptsReportLayoutSettledMatchCount")
+    @System.Web.Optimization.Scripts.Render("~/bundles/ReportLayoutSettledMatchCountScripts")
     @RenderSection("pagejs")
 }
 <div class="container_26">

@@ -3,19 +3,12 @@
 }
 @section css
 {
-    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Customer/groupcomm.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.custom-scrollbar.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/FlatPopup/jquery.flatpopup.css")" rel="stylesheet" type="text/css" />
+    @System.Web.Optimization.Styles.Render("~/bundles/GroupCommLayoutCss")
     @RenderSection("pagecss", required: false)
 }
 @section js
 {
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")" type="text/javascript"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/GroupCommLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
 
