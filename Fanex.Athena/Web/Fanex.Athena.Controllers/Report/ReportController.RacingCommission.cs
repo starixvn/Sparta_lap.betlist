@@ -35,6 +35,7 @@ namespace Fanex.Athena.Controllers.Report
                     BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay
                 };
 
+
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
