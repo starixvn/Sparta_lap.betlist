@@ -25,7 +25,6 @@
             RegisterReportLayoutSettledMatchCount(bundles);
             RegisterReportTableLayout(bundles);
 
-
             BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "1";
         }
 
@@ -80,7 +79,7 @@
         }
 
         /// <summary>
-        /// Register script for _BetListLayout.cshtml.
+        /// Register script for [_BetListLayout].
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterBetListLayout(BundleCollection bundles)
@@ -102,7 +101,7 @@
         }
 
         /// <summary>
-        /// Register script for _BetListLayoutNoStandard.cshtml.
+        /// Register script for _BetListLayoutNoStandard.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterBetListLayoutNoStandard(BundleCollection bundles)
@@ -122,7 +121,7 @@
         }
 
         /// <summary>
-        /// Register script for _BetListSimpleLayout.cshtml.
+        /// Register script for _BetListSimpleLayout.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterBetListSimpleLayout(BundleCollection bundles)
@@ -142,7 +141,7 @@
         }
 
         /// <summary>
-        /// Register script for _CustomerLogLayout.cshtml.
+        /// Register script for _CustomerLogLayout.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterCustomerLogLayout(BundleCollection bundles)
@@ -160,7 +159,7 @@
         }
 
         /// <summary>
-        /// Register script for _ReportLayout.cshtml.
+        /// Register script for _ReportLayout.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterReportLayout(BundleCollection bundles)
@@ -179,7 +178,7 @@
         }
 
         /// <summary>
-        /// Register script for ReportLayout.SettledMatchCount.cshtml.
+        /// Register script for ReportLayout.SettledMatchCount.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterReportLayoutSettledMatchCount(BundleCollection bundles)
@@ -196,7 +195,7 @@
         }
 
         /// <summary>
-        /// Register script for _ReportTableLayout.cshtml.
+        /// Register script for _ReportTableLayout.
         /// </summary>
         /// <param name="bundles">Bundle collection.</param>
         private static void RegisterReportTableLayout(BundleCollection bundles)
