@@ -9,51 +9,87 @@
     public static class BundleConfig
     {
         /// <summary>
-        /// Register Bundles.
+        /// Registers the bundles.
         /// </summary>
-        /// <param name="bundles">Bundles value.</param>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            RegisterCoreJs(bundles);
-            RegisterAccountLayoutJs(bundles);
-            RegisterBetSettingLayoutJs(bundles);
-            RegisterForecastLayoutJs(bundles);
-            RegisterGroupCommLayoutJs(bundles);
-            RegisterTotalBetsLayoutJs(bundles);
-            RegisterJqgridLayoutJs(bundles);
-            RegisterBetListLayoutJs(bundles);
-            RegisterBetListLayoutNoStandardJs(bundles);
-            RegisterBetListSimpleLayoutJs(bundles);
-            RegisterCustomerLogLayoutJs(bundles);
-            RegisterReportLayoutJs(bundles);
-            RegisterReportLayoutSettledMatchCountJs(bundles);
-            RegisterReportTableLayoutJs(bundles);
-            RegisterWareHouseLayoutJs(bundles);
-
-            RegisterAccountLayoutCss(bundles);
-            RegisterBetListtLayoutCss(bundles);
-            RegisterBetListLayoutNoStandardCss(bundles);
-            RegisterBetListSimpleLayoutCss(bundles);
-            RegisterBetSettingLayoutCss(bundles);
-            RegisterCustomerLogLayoutCss(bundles);
-            RegisterForecastLayoutCss(bundles);
-            RegisterGroupCommLayoutCss(bundles);
-            RegisterjqGridLayoutCss(bundles);
-            RegisterReportLayoutCss(bundles);
-            RegisterReportLayoutSettledMatchCountCss(bundles);
-            RegisterReportTableLayoutCss(bundles);
-            RegisterTotalBetsLayoutCss(bundles);
-            RegisterWareHouseLayoutCss(bundles);
+            RegisterLayoutBundles(bundles);
+            RegisterViewBundles(bundles);
 
             BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "1";
         }
-        #region JavaScripts
 
         /// <summary>
-        /// Registers the core java script.
+        /// Registers the view bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterCoreJs(BundleCollection bundles)
+        private static void RegisterViewBundles(BundleCollection bundles)
+        {
+            RegisterLastBetsMonitoringViewScripts(bundles);
+            RegisterCustomerCommUpdateGroupViewScripts(bundles);
+            RegisterCustomerLogCustomersViewScripts(bundles);
+            RegisterForeCastAHViewScripts(bundles);
+            RegisterHeaderViewScripts(bundles);
+            RegisterHomeViewScripts(bundles);
+            RegisterMenuViewScripts(bundles);
+
+            RegisterEditAccountViewStyles(bundles);
+            RegisterResetPasswordViewStyles(bundles);
+            RegisterLastBetsMonitoringViewStyles(bundles);
+            RegisterCustomerCommUpdateGroupViewStyles(bundles);
+            RegisterCustomerLogCustomersViewStyles(bundles);
+            RegisterForeCastAHViewStyles(bundles);
+            RegisterHeaderViewStyles(bundles);
+            RegisterHomeViewStyles(bundles);
+            RegisterMenuViewCss(bundles);
+        }
+
+        /// <summary>
+        /// Registers the layout bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLayoutBundles(BundleCollection bundles)
+        {
+            RegisterLayoutScripts(bundles);
+            RegisterAccountLayoutScripts(bundles);
+            RegisterBetSettingLayoutScripts(bundles);
+            RegisterForecastLayoutScripts(bundles);
+            RegisterGroupCommLayoutScripts(bundles);
+            RegisterTotalBetsLayoutScripts(bundles);
+            RegisterJqgridLayoutScripts(bundles);
+            RegisterBetListLayoutScripts(bundles);
+            RegisterBetListLayoutNoStandardScripts(bundles);
+            RegisterBetListSimpleLayoutScripts(bundles);
+            RegisterCustomerLogLayoutScripts(bundles);
+            RegisterReportLayoutScripts(bundles);
+            RegisterReportLayoutSettledMatchCountScripts(bundles);
+            RegisterReportTableLayoutScripts(bundles);
+            RegisterWareHouseLayoutScripts(bundles);
+
+            RegisterAccountLayoutStyles(bundles);
+            RegisterBetListLayoutStyles(bundles);
+            RegisterBetListLayoutNoStandardStyles(bundles);
+            RegisterBetListSimpleLayoutStyles(bundles);
+            RegisterBetSettingLayoutStyles(bundles);
+            RegisterCustomerLogLayoutStyles(bundles);
+            RegisterForecastLayoutStyles(bundles);
+            RegisterGroupCommLayoutStyles(bundles);
+            RegisterjqGridLayoutStyles(bundles);
+            RegisterReportLayoutStyles(bundles);
+            RegisterReportLayoutSettledMatchCountStyles(bundles);
+            RegisterReportTableLayoutStyles(bundles);
+            RegisterTotalBetsLayoutStyles(bundles);
+            RegisterWareHouseLayoutStyles(bundles);
+        }
+
+        #region JavaScripts Shared Layout
+
+        /// <summary>
+        /// Registers the layout scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/CoreJs")
                 .Include("~/Scripts/Library/jquery.min.js")
@@ -61,6 +97,7 @@
                 .Include("~/Scripts/Library/BigDecimal-all-last.min.js")
                 .Include("~/Scripts/Library/jquery.cookie.js")
                 .Include("~/Scripts/Library/jquery.blockUI.js")
+                .Include("~/Scripts/Library/jquery.balloon.js")
                 .Include("~/Scripts/Library/jquery.autocomplete.js")
                 .Include("~/Scripts/Extension/jquery.extension.js")
                 .Include("~/Scripts/Languages/ViewResources.js")
@@ -76,10 +113,10 @@
         }
 
         /// <summary>
-        /// Registers the account layout JS.
+        /// Registers the account layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterAccountLayoutJs(BundleCollection bundles)
+        private static void RegisterAccountLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/AccountLayoutScripts")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
@@ -89,10 +126,10 @@
         }
 
         /// <summary>
-        /// Registers the bet setting layout JS.
+        /// Registers the bet setting layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetSettingLayoutJs(BundleCollection bundles)
+        private static void RegisterBetSettingLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetSettingLayoutScripts")
                 .Include("~/Scripts/Customer/BetSetting/betsetting.js")
@@ -104,10 +141,10 @@
         }
 
         /// <summary>
-        /// Registers the forecast layout JS.
+        /// Registers the forecast layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterForecastLayoutJs(BundleCollection bundles)
+        private static void RegisterForecastLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ForecastLayoutScripts")
                 .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
@@ -119,10 +156,10 @@
         }
 
         /// <summary>
-        /// Registers the group commission layout JS.
+        /// Registers the group commission layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterGroupCommLayoutJs(BundleCollection bundles)
+        private static void RegisterGroupCommLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/GroupCommLayoutScripts")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
@@ -132,10 +169,10 @@
         }
 
         /// <summary>
-        /// Registers the total bets layout JS.
+        /// Registers the total bets layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterTotalBetsLayoutJs(BundleCollection bundles)
+        private static void RegisterTotalBetsLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/TotalBetsLayoutScripts")
                 .Include("~/Scripts/TotalBets/totalbetsbase.js")
@@ -147,10 +184,10 @@
         }
 
         /// <summary>
-        /// Registers the ware house layout JS.
+        /// Registers the ware house layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterWareHouseLayoutJs(BundleCollection bundles)
+        private static void RegisterWareHouseLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/WareHouseLayoutScripts")
                 .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
@@ -160,10 +197,10 @@
         }
 
         /// <summary>
-        /// Registers the jQuery grid layout JS.
+        /// Registers the jQuery grid layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterJqgridLayoutJs(BundleCollection bundles)
+        private static void RegisterJqgridLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/jqGridLayoutScripts")
                 .Include("~/Scripts/global/jquery.jqgrid.additional.js")
@@ -183,10 +220,10 @@
         }
 
         /// <summary>
-        /// Registers the bet list layout JS.
+        /// Registers the bet list layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutJs(BundleCollection bundles)
+        private static void RegisterBetListLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListLayoutScripts")
                 .Include("~/Scripts/global/jquery.jqgrid.additional.js")
@@ -207,10 +244,10 @@
         }
 
         /// <summary>
-        /// Registers the bet list layout no standard JS.
+        /// Registers the bet list layout no standard scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutNoStandardJs(BundleCollection bundles)
+        private static void RegisterBetListLayoutNoStandardScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListLayoutNoStandardScripts")
                 .Include("~/Scripts/global/jquery.jqgrid.additional.js")
@@ -229,10 +266,10 @@
         }
 
         /// <summary>
-        /// Registers the bet list simple layout JS.
+        /// Registers the bet list simple layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListSimpleLayoutJs(BundleCollection bundles)
+        private static void RegisterBetListSimpleLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListSimpleLayoutScripts")
                 .Include("~/Scripts/global/jquery.jqgrid.additional.js")
@@ -251,10 +288,10 @@
         }
 
         /// <summary>
-        /// Registers the customer log layout JS.
+        /// Registers the customer log layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterCustomerLogLayoutJs(BundleCollection bundles)
+        private static void RegisterCustomerLogLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/CustomerLogLayoutScripts")
                 .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
@@ -270,10 +307,10 @@
         }
 
         /// <summary>
-        /// Registers the report layout JS.
+        /// Registers the report layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutJs(BundleCollection bundles)
+        private static void RegisterReportLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportLayoutScripts")
                 .Include("~/Scripts/Report/report.js")
@@ -289,10 +326,10 @@
         }
 
         /// <summary>
-        /// Registers the report layout settled match count JS.
+        /// Registers the report layout settled match count scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutSettledMatchCountJs(BundleCollection bundles)
+        private static void RegisterReportLayoutSettledMatchCountScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportLayoutSettledMatchCountScripts")
                 .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
@@ -306,10 +343,10 @@
         }
 
         /// <summary>
-        /// Registers the report table layout JS.
+        /// Registers the report table layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportTableLayoutJs(BundleCollection bundles)
+        private static void RegisterReportTableLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportTableLayoutScripts")
                 .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
@@ -323,16 +360,18 @@
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
         }
-        #endregion
 
-        #region CSS
+        #endregion JavaScripts Shared Layout
+
+        #region CSS Shared Layout
+
         /// <summary>
-        /// Registers the account layout CSS.
+        /// Registers the account layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterAccountLayoutCss(BundleCollection bundles)
+        private static void RegisterAccountLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/AccountLayoutCss")
+            var bundle = new StyleBundle("~/bundles/AccountLayoutStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
@@ -343,12 +382,12 @@
         }
 
         /// <summary>
-        /// Registers the bet list layout CSS.
+        /// Registers the bet list layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListtLayoutCss(BundleCollection bundles)
+        private static void RegisterBetListLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListLayoutCss")
+            var bundle = new StyleBundle("~/bundles/BetListLayoutStyles")
                 .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
@@ -367,12 +406,12 @@
         }
 
         /// <summary>
-        /// Registers the bet list layout no standard CSS.
+        /// Registers the bet list layout no standard styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutNoStandardCss(BundleCollection bundles)
+        private static void RegisterBetListLayoutNoStandardStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListLayoutNoStandardCss")
+            var bundle = new StyleBundle("~/bundles/BetListLayoutNoStandardStyles")
                 .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
@@ -389,12 +428,12 @@
         }
 
         /// <summary>
-        /// Registers the bet list simple layout CSS.
+        /// Registers the bet list simple layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListSimpleLayoutCss(BundleCollection bundles)
+        private static void RegisterBetListSimpleLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListSimpleLayoutCss")
+            var bundle = new StyleBundle("~/bundles/BetListSimpleLayoutStyles")
                 .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
@@ -411,12 +450,12 @@
         }
 
         /// <summary>
-        /// Registers the bet setting layout CSS.
+        /// Registers the bet setting layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetSettingLayoutCss(BundleCollection bundles)
+        private static void RegisterBetSettingLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetSettingLayoutCss")
+            var bundle = new StyleBundle("~/bundles/BetSettingLayoutStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
@@ -429,12 +468,12 @@
         }
 
         /// <summary>
-        /// Registers the customer log layout CSS.
+        /// Registers the customer log layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterCustomerLogLayoutCss(BundleCollection bundles)
+        private static void RegisterCustomerLogLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/CustomerLogLayoutCss")
+            var bundle = new StyleBundle("~/bundles/CustomerLogLayoutStyles")
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
@@ -454,12 +493,12 @@
         }
 
         /// <summary>
-        /// Registers the forecast layout CSS.
+        /// Registers the forecast layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterForecastLayoutCss(BundleCollection bundles)
+        private static void RegisterForecastLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ForecastLayoutCss")
+            var bundle = new StyleBundle("~/bundles/ForecastLayoutStyles")
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
@@ -475,12 +514,12 @@
         }
 
         /// <summary>
-        /// Registers the group commission layout CSS.
+        /// Registers the group commission layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterGroupCommLayoutCss(BundleCollection bundles)
+        private static void RegisterGroupCommLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/GroupCommLayoutCss")
+            var bundle = new StyleBundle("~/bundles/GroupCommLayoutStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
@@ -494,12 +533,12 @@
         }
 
         /// <summary>
-        /// Register jQuery grid layout CSS.
+        /// Register jQuery Grid layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterjqGridLayoutCss(BundleCollection bundles)
+        private static void RegisterjqGridLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/jqGridLayoutCss")
+            var bundle = new StyleBundle("~/bundles/jqGridLayoutStyles")
                 .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
@@ -516,12 +555,12 @@
         }
 
         /// <summary>
-        /// Registers the report layout CSS.
+        /// Registers the report layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutCss(BundleCollection bundles)
+        private static void RegisterReportLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportLayoutCss")
+            var bundle = new StyleBundle("~/bundles/ReportLayoutStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
@@ -537,12 +576,12 @@
         }
 
         /// <summary>
-        /// Registers the report layout settled match count CSS.
+        /// Registers the report layout settled match count styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutSettledMatchCountCss(BundleCollection bundles)
+        private static void RegisterReportLayoutSettledMatchCountStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportLayoutSettledMatchCountCss")
+            var bundle = new StyleBundle("~/bundles/ReportLayoutSettledMatchCountStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
@@ -556,12 +595,12 @@
         }
 
         /// <summary>
-        /// Registers the report table layout CSS.
+        /// Registers the report table layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportTableLayoutCss(BundleCollection bundles)
+        private static void RegisterReportTableLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportTableLayoutCss")
+            var bundle = new StyleBundle("~/bundles/ReportTableLayoutStyles")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
@@ -577,12 +616,12 @@
         }
 
         /// <summary>
-        /// Registers the total bets layout CSS.
+        /// Registers the total bets layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterTotalBetsLayoutCss(BundleCollection bundles)
+        private static void RegisterTotalBetsLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/TotalBetsLayoutCss")
+            var bundle = new StyleBundle("~/bundles/TotalBetsLayoutStyles")
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
@@ -598,12 +637,12 @@
         }
 
         /// <summary>
-        /// Registers the ware house layout CSS.
+        /// Registers the ware house layout styles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterWareHouseLayoutCss(BundleCollection bundles)
+        private static void RegisterWareHouseLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/WareHouseLayoutCss")
+            var bundle = new StyleBundle("~/bundles/WareHouseLayoutStyes")
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
@@ -614,6 +653,251 @@
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
         }
-        #endregion
+
+        #endregion CSS Shared Layout
+
+        #region Javascript Views
+
+        /// <summary>
+        /// Registers the last bets monitoring view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLastBetsMonitoringViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/LastBetsMonitoringScripts")
+                .Include("~/Scripts/Plugin/LinqJs/JSLINQ.js")
+                .Include("~/Scripts/Global/prototype.js")
+                .Include("~/Scripts/Plugin/MultiSelect/jquery.multiselect.js")
+                .Include("~/Scripts/BetList/lastbetsmonitornew.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the customer commission update group view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterCustomerCommUpdateGroupViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/CustomerCommUpdateGroupScripts")
+                .Include("~/Scripts/Plugin/ColorPicker/spectrum.js")
+                .Include("~/Scripts/Customer/CustomerComm/updategroup.js")
+                .Include("~/Scripts/Customer/CustomerComm/groupcomm.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the customer log customers view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterCustomerLogCustomersViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/CustomerLogCustomersScripts")
+                .Include("~/Scripts/Plugin/MultiSelect/jquery.multiselect.js")
+                .Include("~/Scripts/Global/Paging.js")
+                .Include("~/Scripts/Customer/Customers.option.js")
+                .Include("~/Scripts/Customer/Customers.js")
+                .Include("~/Scripts/Customer/CustomerCommList.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the fore cast ah view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterForeCastAHViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/ForeCastAHScripts")
+                .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
+                .Include("~/Scripts/Forecast/forecastpopup.js")
+                .Include("~/Scripts/Forecast/forecast.ah.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the header view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterHeaderViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/HeaderScripts")
+                .Include("~/Scripts/Library/jquery.min.js")
+                .Include("~/Scripts/Library/jquery.blockUI.js")
+                .Include("~/Scripts/Global/site.js")
+                .Include("~/Scripts/Header/header.js")
+                .Include("~/Scripts/Header/jquery.jclock.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the home view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterHomeViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/HomeScripts")
+                .Include("~/Scripts/Library/jquery.min.js")
+                .Include("~/Scripts/Library/jquery-ui.min.js")
+                .Include("~/Scripts/Library/jquery.cookie.js")
+                .Include("~/Scripts/Library/jquery.blockUI.js")
+                .Include("~/Scripts/Global/site.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the menu view scripts.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterMenuViewScripts(BundleCollection bundles)
+        {
+            var bundle = new ScriptBundle("~/bundles/MenuScripts")
+                .Include("~/Scripts/Library/jquery.min.js")
+                .Include("~/Scripts/Library/jquery.autocomplete.js")
+                .Include("~/Scripts/Menu/Menu.js");
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        #endregion Javascript Views
+
+        #region CSS Views
+
+        /// <summary>
+        /// Registers the edit account view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterEditAccountViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/EditAccountViewStyles")
+                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the reset password view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterResetPasswordViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/ResetPasswordViewStyles")
+                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the last bets monitoring view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLastBetsMonitoringViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/LastBetsMonitoringViewStyles")
+                .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
+                .Include("~/Content/BetList/lastbetmonitornew.css", new CssRewriteUrlTransform())
+                .Include("~/Content/BetList/lastbetmonitor.table.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the customer commission update group view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterCustomerCommUpdateGroupViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/CustomerCommUpdateGroupViewStyles")
+                .Include("~/Content/Plugin/ColorPicker/Spectrum.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the customer log customers view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterCustomerLogCustomersViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/CustomerLogCustomersViewStyles")
+                .Include("~/Content/Customer/CustomerList.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the fore cast ah view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterForeCastAHViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/ForeCastAHViewStyles")
+                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Forecast/forecast.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Forecast/forecast.ah.css", new CssRewriteUrlTransform())
+                .Include("~/Content/TotalBets/refreshcountdown.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the header view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterHeaderViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/HeaderViewStyles")
+                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the home view styles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterHomeViewStyles(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/HomeViewStyles")
+                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Layout/master.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        /// <summary>
+        /// Registers the menu view CSS.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterMenuViewCss(BundleCollection bundles)
+        {
+            var bundle = new StyleBundle("~/bundles/MenuViewCss")
+                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform());
+            bundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bundle);
+        }
+
+        #endregion CSS Views
     }
 }

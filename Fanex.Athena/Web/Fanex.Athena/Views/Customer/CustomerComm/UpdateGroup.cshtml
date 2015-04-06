@@ -3,13 +3,10 @@
     Layout = "~/Views/Shared/_GroupCommLayout.cshtml";
 }
 @section pagecss {
-    <link href="@Url.ContentLink("/Content/Plugin/ColorPicker/Spectrum.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/CustomerCommUpdateGroupScripts")
 }
 @section pagejs {
-    <script src="@Url.ContentLink("/Scripts/Plugin/ColorPicker/spectrum.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Customer/CustomerComm/updategroup.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Customer/CustomerComm/groupcomm.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/CustomerCommUpdateGroupViewStyles")
 }
 @section ContentTitle
 {

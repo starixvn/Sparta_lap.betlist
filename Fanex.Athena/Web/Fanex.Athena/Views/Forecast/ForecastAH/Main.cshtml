@@ -4,19 +4,12 @@
 }
 @section css
 {
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Forecast/forecast.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Forecast/forecast.ah.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/TotalBets/refreshcountdown.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/ForeCastAHViewStyles")
 }
 @section js
 {
-    <script src="@Url.ContentLink("/Scripts/Plugin/Refresh/refreshcountdown.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Forecast/forecastpopup.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Forecast/forecast.ah.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/ForeCastAHScripts")
+
     <script type="text/javascript">
         $(window).load(function () {
             Forecast.initialize();
