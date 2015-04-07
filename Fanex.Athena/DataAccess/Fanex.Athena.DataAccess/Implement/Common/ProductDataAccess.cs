@@ -55,6 +55,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                         {
                             allowedProducts.Add(new Product
                                              {
+                                                 ProductID = Converter.ToInt(reader["ProductID"]),
                                                  ProductName = GetProductName(Converter.ToString2(reader["productprefix"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
