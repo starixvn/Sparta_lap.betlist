@@ -108,6 +108,16 @@
                 .Include("~/Scripts/Global/query.string.js")
                 .Include("~/Scripts/Plugin/Note/note.js");
 
+            AddNewBundle(bundles, bundle);
+        }
+
+        /// <summary>
+        /// Adds the new bundle.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        /// <param name="bundle">The bundle.</param>
+        private static void AddNewBundle(BundleCollection bundles, Bundle bundle)
+        {
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
         }
@@ -121,8 +131,7 @@
             var bundle = new ScriptBundle("~/bundles/AccountLayoutScripts")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -136,8 +145,7 @@
                 .Include("~/Scripts/Library/jquery.balloon.js")
                 .Include("~/Scripts/Plugin/FormatNumber/jshashtable.js")
                 .Include("~/Scripts/Plugin/FormatNumber/jquery.numberformatter.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -151,8 +159,7 @@
                 .Include("~/Scripts/Forecast/forecastpopup.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -164,8 +171,7 @@
             var bundle = new ScriptBundle("~/bundles/GroupCommLayoutScripts")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -179,8 +185,7 @@
                 .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -192,8 +197,7 @@
             var bundle = new ScriptBundle("~/bundles/WareHouseLayoutScripts")
                 .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -214,9 +218,7 @@
                 .Include("~/Scripts/global/prototype.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -238,9 +240,7 @@
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
                 .Include("~/Scripts/BetList/betlist.option.js")
                 .Include("~/Scripts/BetList/betlist.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -260,9 +260,7 @@
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
                 .Include("~/Scripts/BetList/betlist.option.js")
                 .Include("~/Scripts/BetList/betlist.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -283,8 +281,7 @@
                 .Include("~/Scripts/BetList/betlist.option.js")
                 .Include("~/Scripts/BetList/betlist.js")
                 .Include("~/Scripts/BetList/commonbetlist.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -301,9 +298,7 @@
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")
                 .Include("~/Scripts/Customer/CustomerLog/customerlog.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -320,9 +315,7 @@
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -337,9 +330,7 @@
                 .Include("~/scripts/global/Paging.js")
                 .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -356,9 +347,7 @@
                 .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
                 .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         #endregion JavaScripts Shared Layout
@@ -376,9 +365,7 @@
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -400,9 +387,7 @@
                 .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -422,9 +407,7 @@
                 .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -444,9 +427,7 @@
                 .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -462,9 +443,7 @@
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Customer/BetSetting/BetSetting.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -487,9 +466,7 @@
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Customer/BetSetting/BetSetting.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Customer/CustomerLog/customerlog.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -508,9 +485,7 @@
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
                 .Include("~/Content/UserGuide/user-guide.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -527,9 +502,7 @@
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -549,9 +522,7 @@
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -570,9 +541,7 @@
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -589,9 +558,7 @@
                 .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -610,9 +577,7 @@
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -631,9 +596,7 @@
                 .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
                 .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
                 .Include("~/Content/UserGuide/user-guide.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -649,9 +612,7 @@
                 .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Warehouse/Warehouse.css", new CssRewriteUrlTransform());
-
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         #endregion CSS Shared Layout
@@ -669,8 +630,7 @@
                 .Include("~/Scripts/Global/prototype.js")
                 .Include("~/Scripts/Plugin/MultiSelect/jquery.multiselect.js")
                 .Include("~/Scripts/BetList/lastbetsmonitornew.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -683,8 +643,7 @@
                 .Include("~/Scripts/Plugin/ColorPicker/spectrum.js")
                 .Include("~/Scripts/Customer/CustomerComm/updategroup.js")
                 .Include("~/Scripts/Customer/CustomerComm/groupcomm.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -699,8 +658,7 @@
                 .Include("~/Scripts/Customer/Customers.option.js")
                 .Include("~/Scripts/Customer/Customers.js")
                 .Include("~/Scripts/Customer/CustomerCommList.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -713,8 +671,7 @@
                 .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
                 .Include("~/Scripts/Forecast/forecastpopup.js")
                 .Include("~/Scripts/Forecast/forecast.ah.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -729,8 +686,7 @@
                 .Include("~/Scripts/Global/site.js")
                 .Include("~/Scripts/Header/header.js")
                 .Include("~/Scripts/Header/jquery.jclock.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -745,8 +701,7 @@
                 .Include("~/Scripts/Library/jquery.cookie.js")
                 .Include("~/Scripts/Library/jquery.blockUI.js")
                 .Include("~/Scripts/Global/site.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -759,8 +714,7 @@
                 .Include("~/Scripts/Library/jquery.min.js")
                 .Include("~/Scripts/Library/jquery.autocomplete.js")
                 .Include("~/Scripts/Menu/Menu.js");
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         #endregion Javascript Views
@@ -779,8 +733,7 @@
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -795,8 +748,7 @@
                 .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -809,8 +761,7 @@
                 .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
                 .Include("~/Content/BetList/lastbetmonitornew.css", new CssRewriteUrlTransform())
                 .Include("~/Content/BetList/lastbetmonitor.table.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -822,8 +773,7 @@
             var bundle = new StyleBundle("~/bundles/CustomerCommUpdateGroupViewStyles")
                 .Include("~/Content/Plugin/ColorPicker/Spectrum.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -836,8 +786,7 @@
                 .Include("~/Content/Customer/CustomerList.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -854,8 +803,7 @@
                 .Include("~/Content/Forecast/forecast.ah.css", new CssRewriteUrlTransform())
                 .Include("~/Content/TotalBets/refreshcountdown.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -867,8 +815,7 @@
             var bundle = new StyleBundle("~/bundles/HeaderViewStyles")
                 .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -881,8 +828,7 @@
                 .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Layout/master.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -894,8 +840,7 @@
             var bundle = new StyleBundle("~/bundles/MenuViewCss")
                 .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform());
-            bundle.Orderer = new NonOrderingBundleOrderer();
-            bundles.Add(bundle);
+            AddNewBundle(bundles, bundle);
         }
 
         #endregion CSS Views
