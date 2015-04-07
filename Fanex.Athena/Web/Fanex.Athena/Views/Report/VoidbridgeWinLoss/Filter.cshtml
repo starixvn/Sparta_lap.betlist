@@ -56,12 +56,12 @@
     </div>
     @if (Model.Param.IsAllowReportby == true)
     {
-        <div class="grid_3 filter-label new-line" style='display:block'>
+        <div class="grid_3 filter-label new-line">
             <label>
                 @ViewResources.ReportBy
             </label>
         </div>    
-        <div class="grid_5 filter-input option-list" style='display: block'>
+        <div class="grid_5 filter-input option-list">
             <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
             <label for="reportbydaily">
                 @ViewResources.Daily
