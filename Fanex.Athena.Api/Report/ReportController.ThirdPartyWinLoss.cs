@@ -86,10 +86,9 @@ namespace Fanex.Athena.Api.Report
             IList<ThirdPartyWinLoss> dataList,
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
-            var userSession = SessionService.UserSession;
-            const string TemplateFileName = "ThirdPartyWinLoss.xls"; // must move to controller to process file name
-            var exportedFileName = metaModel.ExcelFileName + ".xls";
-            var templatePath = HttpContext.Current.Server.MapPath(string.Format(@"~/App_Data/Template/Reports/{0}", TemplateFileName));
+            var userSession = SessionService.UserSession;            
+            var exportedFileName = metaModel.ProductName + "WinLoss.xls";
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currencyList = userSession.CurrencyList;
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var convertingOption = new ConvertingOption

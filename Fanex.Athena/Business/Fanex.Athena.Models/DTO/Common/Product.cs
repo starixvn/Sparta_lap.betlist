@@ -58,6 +58,8 @@ namespace Fanex.Athena.Models.DTO.Common
 
         #region Property
 
+        public int ProductID { get; set; }
+
         public string ProductName { get; set; }
 
         public string ProductCode { get; set; }
