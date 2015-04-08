@@ -21,6 +21,7 @@
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
         @Html.Hidden("ProductId", Model.Param.ProductId)
+        @Html.Hidden("ProductCode", Model.Param.ProductCode)
         @Html.Hidden("ProductName", Model.Param.ProductName)
         @{
             var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;

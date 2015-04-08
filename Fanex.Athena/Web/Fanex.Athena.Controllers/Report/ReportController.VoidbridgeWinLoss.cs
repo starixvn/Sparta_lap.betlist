@@ -49,6 +49,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsExcludedTestData = true,
                 ProductId = product.ProductID,
                 ReportBy = 1,
+                ProductCode = product.ProductCode,
                 ProductName = product.ProductName
             };
 

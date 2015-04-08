@@ -87,7 +87,7 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;            
-            var exportedFileName = metaModel.ProductName + "WinLoss.xls";
+            var exportedFileName = metaModel.ProductCode + string.Format("WinLoss {0:d-MMM-yyyy}.xls", DateTime.Now);
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currencyList = userSession.CurrencyList;
             var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
@@ -98,7 +98,6 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currencyName.Key
             };
 
-            // Update metalModel Value
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
             {
                 metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
@@ -110,13 +109,13 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var exccelModel = new ThirdPartyWinLossViewModel
+            var excelModel = new ThirdPartyWinLossViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ThirdPartyWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, exccelModel)
+            var excel = new ThirdPartyWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

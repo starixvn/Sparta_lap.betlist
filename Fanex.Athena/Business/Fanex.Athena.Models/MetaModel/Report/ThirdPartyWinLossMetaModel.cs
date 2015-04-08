@@ -65,6 +65,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int ProductId { get; set; }
 
+        public string ProductCode { get; set; }
+
         public string ProductName { get; set; }
 
         public bool IsAllowReportby { get; set; }
