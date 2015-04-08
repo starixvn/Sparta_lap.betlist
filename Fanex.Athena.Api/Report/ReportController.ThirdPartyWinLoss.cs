@@ -87,15 +87,14 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;            
-            var exportedFileName = metaModel.ProductCode + string.Format("WinLoss {0:d-MMM-yyyy}.xls", DateTime.Now);
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
-            var currencyList = userSession.CurrencyList;
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var exportedFileName = metaModel.ProductCode + string.Format("WinLoss_{0:ddMMMyyyy}_{1}.xls", DateTime.Now, currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currency.Key
             };
 
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
