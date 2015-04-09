@@ -897,23 +897,14 @@
         /// <param name="virtualPaths">The virtual paths.</param>
         private static void AddStyleBundle(this BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
-            bundles.Add(new StyleBundle(bundleVirtualPath).IncludeStyleWithTransform(virtualPaths));
-        }
-
-        /// <summary>
-        /// Includes the style with transform.
-        /// </summary>
-        /// <param name="styleBundle">The style bundle.</param>
-        /// <param name="virtualPaths">The virtual paths.</param>
-        /// <returns>Style Bundle.</returns>
-        private static StyleBundle IncludeStyleWithTransform(this StyleBundle styleBundle, params string[] virtualPaths)
-        {
+            var styleBundle = new StyleBundle(bundleVirtualPath);
+            var cssRewriteUrlTransform = new CssRewriteUrlTransform();
             foreach (var virtualPath in virtualPaths)
             {
-                styleBundle.Include(virtualPath, new CssRewriteUrlTransform());
+                styleBundle.Include(virtualPath, cssRewriteUrlTransform);
             }
-
-            return styleBundle;
+            
+            bundles.Add(styleBundle);
         }
         #endregion
     }
