@@ -91,24 +91,23 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterLayoutScripts(BundleCollection bundles)
         {
-            var bundle = new ScriptBundle("~/bundles/CoreJs")
-                .Include("~/Scripts/Library/jquery.min.js")
-                .Include("~/Scripts/Library/jquery-ui.min.js")
-                .Include("~/Scripts/Library/BigDecimal-all-last.min.js")
-                .Include("~/Scripts/Library/jquery.cookie.js")
-                .Include("~/Scripts/Library/jquery.blockUI.js")
-                .Include("~/Scripts/Library/jquery.balloon.js")
-                .Include("~/Scripts/Library/jquery.autocomplete.js")
-                .Include("~/Scripts/Extension/jquery.extension.js")
-                .Include("~/Scripts/Languages/ViewResources.js")
-                .Include("~/Scripts/Languages/ViewResources.zh-CN.js")
-                .Include("~/Scripts/Languages/ViewResources.zh-TW.js")
-                .Include("~/Scripts/Languages/ViewResources.ko-KR.js")
-                .Include("~/Scripts/Global/site.js")
-                .Include("~/Scripts/Global/query.string.js")
-                .Include("~/Scripts/Plugin/Note/note.js");
-
-            AddNewBundle(bundles, bundle);
+            var bundle = new ScriptBundle("~/bundles/CoreJs").Include(
+                        "~/Scripts/Library/jquery.min.js",
+                        "~/Scripts/Library/jquery-ui.min.js",
+                        "~/Scripts/Library/BigDecimal-all-last.min.js",
+                        "~/Scripts/Library/jquery.cookie.js",
+                        "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Library/jquery.balloon.js",
+                        "~/Scripts/Library/jquery.autocomplete.js",
+                        "~/Scripts/Extension/jquery.extension.js",
+                        "~/Scripts/Languages/ViewResources.js",
+                        "~/Scripts/Languages/ViewResources.zh-CN.js",
+                        "~/Scripts/Languages/ViewResources.zh-TW.js",
+                        "~/Scripts/Languages/ViewResources.ko-KR.js",
+                        "~/Scripts/Global/site.js",
+                        "~/Scripts/Global/query.string.js",
+                        "~/Scripts/Plugin/Note/note.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -116,7 +115,7 @@
         /// </summary>
         /// <param name="bundles">The bundles.</param>
         /// <param name="bundle">The bundle.</param>
-        private static void AddNewBundle(BundleCollection bundles, Bundle bundle)
+        private static void AddNewScriptBundle(BundleCollection bundles, Bundle bundle)
         {
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
@@ -129,9 +128,10 @@
         private static void RegisterAccountLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/AccountLayoutScripts")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -141,11 +141,12 @@
         private static void RegisterBetSettingLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetSettingLayoutScripts")
-                .Include("~/Scripts/Customer/BetSetting/betsetting.js")
-                .Include("~/Scripts/Library/jquery.balloon.js")
-                .Include("~/Scripts/Plugin/FormatNumber/jshashtable.js")
-                .Include("~/Scripts/Plugin/FormatNumber/jquery.numberformatter.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Customer/BetSetting/betsetting.js",
+                        "~/Scripts/Library/jquery.balloon.js",
+                        "~/Scripts/Plugin/FormatNumber/jshashtable.js",
+                        "~/Scripts/Plugin/FormatNumber/jquery.numberformatter.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -155,11 +156,12 @@
         private static void RegisterForecastLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ForecastLayoutScripts")
-                .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
-                .Include("~/Scripts/Forecast/forecastpopup.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                "~/Scripts/Plugin/Refresh/refreshcountdown.js",
+                "~/Scripts/Forecast/forecastpopup.js",
+                "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -169,9 +171,10 @@
         private static void RegisterGroupCommLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/GroupCommLayoutScripts")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -181,11 +184,12 @@
         private static void RegisterTotalBetsLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/TotalBetsLayoutScripts")
-                .Include("~/Scripts/TotalBets/totalbetsbase.js")
-                .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/TotalBets/totalbetsbase.js",
+                        "~/Scripts/Plugin/Refresh/refreshcountdown.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -195,9 +199,10 @@
         private static void RegisterWareHouseLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/WareHouseLayoutScripts")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                    "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                    "~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -207,18 +212,19 @@
         private static void RegisterJqgridLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/jqGridLayoutScripts")
-                .Include("~/Scripts/global/jquery.jqgrid.additional.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.en.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/Plugin/LinqJs/JSLINQ.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/Scripts/global/prototype.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/global/jquery.jqgrid.additional.js",
+                        "~/Scripts/Library/jquery.jqGrid.en.js",
+                        "~/Scripts/Library/jquery.jqGrid.min.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/Plugin/LinqJs/JSLINQ.js",
+                        "~/Scripts/Report/report.js",
+                        "~/Scripts/global/prototype.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -228,19 +234,20 @@
         private static void RegisterBetListLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListLayoutScripts")
-                .Include("~/Scripts/global/jquery.jqgrid.additional.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.en.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/BetList/betlist.option.js")
-                .Include("~/Scripts/BetList/betlist.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/global/jquery.jqgrid.additional.js",
+                        "~/Scripts/Library/jquery.jqGrid.en.js",
+                        "~/Scripts/Library/jquery.jqGrid.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/BetList/betlist.option.js",
+                        "~/Scripts/BetList/betlist.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -250,17 +257,18 @@
         private static void RegisterBetListLayoutNoStandardScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListLayoutNoStandardScripts")
-                .Include("~/Scripts/global/jquery.jqgrid.additional.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.en.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/BetList/betlist.option.js")
-                .Include("~/Scripts/BetList/betlist.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/global/jquery.jqgrid.additional.js",
+                        "~/Scripts/Library/jquery.jqGrid.en.js",
+                        "~/Scripts/Library/jquery.jqGrid.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/BetList/betlist.option.js",
+                        "~/Scripts/BetList/betlist.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -270,18 +278,19 @@
         private static void RegisterBetListSimpleLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/BetListSimpleLayoutScripts")
-                .Include("~/Scripts/global/jquery.jqgrid.additional.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.en.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/BetList/betlist.option.js")
-                .Include("~/Scripts/BetList/betlist.js")
-                .Include("~/Scripts/BetList/commonbetlist.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/global/jquery.jqgrid.additional.js",
+                        "~/Scripts/Library/jquery.jqGrid.en.js",
+                        "~/Scripts/Library/jquery.jqGrid.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/BetList/betlist.option.js",
+                        "~/Scripts/BetList/betlist.js",
+                        "~/Scripts/BetList/commonbetlist.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -291,14 +300,15 @@
         private static void RegisterCustomerLogLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/CustomerLogLayoutScripts")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/global/jquery.jqgrid.additional.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.en.js")
-                .Include("~/Scripts/Library/jquery.jqGrid.min.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js")
-                .Include("~/Scripts/Customer/CustomerLog/customerlog.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/global/jquery.jqgrid.additional.js",
+                        "~/Scripts/Library/jquery.jqGrid.en.js",
+                        "~/Scripts/Library/jquery.jqGrid.min.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Customer/CustomerLog/customerlog.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -308,14 +318,15 @@
         private static void RegisterReportLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportLayoutScripts")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -325,12 +336,13 @@
         private static void RegisterReportLayoutSettledMatchCountScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportLayoutSettledMatchCountScripts")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -340,14 +352,15 @@
         private static void RegisterReportTableLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ReportTableLayoutScripts")
-                .Include("~/Scripts/Plugin/DateRangePicker/date.min.js")
-                .Include("~/Scripts/Plugin/MonthPickr/monpickr.js")
-                .Include("~/Scripts/Report/report.js")
-                .Include("~/scripts/global/Paging.js")
-                .Include("~/Scripts/Plugin/DateRangePicker/daterangepicker.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js")
-                .Include("~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
+                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
+                        "~/Scripts/Report/report.js",
+                        "~/scripts/global/Paging.js",
+                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         #endregion JavaScripts Shared Layout
@@ -360,12 +373,13 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterAccountLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/AccountLayoutStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/AccountLayoutStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -374,20 +388,21 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterBetListLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListLayoutStyles")
-                .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/ui.jqgrid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/BetListLayoutStyles",
+                "~/Content/Library/smoothness/jqgrid-custom.css",
+                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/BetList/betlist.core.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -396,18 +411,19 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterBetListLayoutNoStandardStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListLayoutNoStandardStyles")
-                .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/ui.jqgrid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/BetListLayoutNoStandardStyles",
+                "~/Content/Library/smoothness/jqgrid-custom.css",
+                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/BetList/betlist.core.css");
         }
 
         /// <summary>
@@ -416,18 +432,19 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterBetListSimpleLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetListSimpleLayoutStyles")
-                .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/ui.jqgrid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/BetList/betlist.core.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/BetListSimpleLayoutStyles",
+                "~/Content/Library/smoothness/jqgrid-custom.css",
+                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/BetList/betlist.core.css");
         }
 
         /// <summary>
@@ -436,14 +453,15 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterBetSettingLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/BetSettingLayoutStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Customer/BetSetting/BetSetting.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/BetSettingLayoutStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.grid.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Customer/BetSetting/BetSetting.css");
         }
 
         /// <summary>
@@ -452,21 +470,22 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterCustomerLogLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/CustomerLogLayoutStyles")
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/ui.jqgrid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Customer/BetSetting/BetSetting.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Customer/CustomerLog/customerlog.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/CustomerLogLayoutStyles",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Library/smoothness/jqgrid-custom.css",
+                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/Customer/BetSetting/BetSetting.css",
+                "~/Content/Customer/CustomerLog/customerlog.css");
         }
 
         /// <summary>
@@ -475,17 +494,18 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterForecastLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ForecastLayoutStyles")
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Forecast/forecast.css", new CssRewriteUrlTransform())
-                .Include("~/Content/TotalBets/refreshcountdown.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
-                .Include("~/Content/UserGuide/user-guide.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles,
+                "~/bundles/ForecastLayoutStyles",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Forecast/forecast.css",
+                "~/Content/TotalBets/refreshcountdown.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/UserGuide/user-guide.css");
         }
 
         /// <summary>
@@ -494,15 +514,16 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterGroupCommLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/GroupCommLayoutStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Customer/groupcomm.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/GroupCommLayoutStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Customer/groupcomm.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -511,18 +532,19 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterjqGridLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/jqGridLayoutStyles")
-                .Include("~/Content/Library/smoothness/jqgrid-custom.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/jqgrid.extension.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/ui.jqgrid/ui.jqgrid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/jqGridLayoutStyles",
+                "~/Content/Library/smoothness/jqgrid-custom.css",
+                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -531,17 +553,18 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterReportLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportLayoutStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/ReportLayoutStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.grid.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -550,15 +573,16 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterReportLayoutSettledMatchCountStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportLayoutSettledMatchCountStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/ReportLayoutSettledMatchCountStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.grid.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css");
         }
 
         /// <summary>
@@ -567,17 +591,18 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterReportTableLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ReportTableLayoutStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MonthPickr/monPickr.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/ReportTableLayoutStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Plugin/MonthPickr/monPickr.css",
+                "~/Content/Global/Paging.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -586,17 +611,18 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterTotalBetsLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/TotalBetsLayoutStyles")
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/TotalBets/totalbetsbase.css", new CssRewriteUrlTransform())
-                .Include("~/Content/TotalBets/refreshcountdown.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.custom-scrollbar.css", new CssRewriteUrlTransform())
-                .Include("~/Content/FlatPopup/jquery.flatpopup.css", new CssRewriteUrlTransform())
-                .Include("~/Content/UserGuide/user-guide.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/TotalBetsLayoutStyles",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/TotalBets/totalbetsbase.css",
+                "~/Content/TotalBets/refreshcountdown.css",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/UserGuide/user-guide.css");
         }
 
         /// <summary>
@@ -605,14 +631,15 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterWareHouseLayoutStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/WareHouseLayoutStyes")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.grid.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/DateRangePicker/daterangepicker.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Warehouse/Warehouse.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/WareHouseLayoutStyes",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/grid26.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.grid.css",
+                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/Warehouse/Warehouse.css");
         }
 
         #endregion CSS Shared Layout
@@ -626,11 +653,12 @@
         private static void RegisterLastBetsMonitoringViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/LastBetsMonitoringScripts")
-                .Include("~/Scripts/Plugin/LinqJs/JSLINQ.js")
-                .Include("~/Scripts/Global/prototype.js")
-                .Include("~/Scripts/Plugin/MultiSelect/jquery.multiselect.js")
-                .Include("~/Scripts/BetList/lastbetsmonitornew.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/LinqJs/JSLINQ.js",
+                        "~/Scripts/Global/prototype.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
+                        "~/Scripts/BetList/lastbetsmonitornew.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -640,10 +668,11 @@
         private static void RegisterCustomerCommUpdateGroupViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/CustomerCommUpdateGroupScripts")
-                .Include("~/Scripts/Plugin/ColorPicker/spectrum.js")
-                .Include("~/Scripts/Customer/CustomerComm/updategroup.js")
-                .Include("~/Scripts/Customer/CustomerComm/groupcomm.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/ColorPicker/spectrum.js",
+                        "~/Scripts/Customer/CustomerComm/updategroup.js",
+                        "~/Scripts/Customer/CustomerComm/groupcomm.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -653,12 +682,13 @@
         private static void RegisterCustomerLogCustomersViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/CustomerLogCustomersScripts")
-                .Include("~/Scripts/Plugin/MultiSelect/jquery.multiselect.js")
-                .Include("~/Scripts/Global/Paging.js")
-                .Include("~/Scripts/Customer/Customers.option.js")
-                .Include("~/Scripts/Customer/Customers.js")
-                .Include("~/Scripts/Customer/CustomerCommList.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
+                        "~/Scripts/Global/Paging.js",
+                        "~/Scripts/Customer/Customers.option.js",
+                        "~/Scripts/Customer/Customers.js",
+                        "~/Scripts/Customer/CustomerCommList.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -668,10 +698,11 @@
         private static void RegisterForeCastAHViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/ForeCastAHScripts")
-                .Include("~/Scripts/Plugin/Refresh/refreshcountdown.js")
-                .Include("~/Scripts/Forecast/forecastpopup.js")
-                .Include("~/Scripts/Forecast/forecast.ah.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Plugin/Refresh/refreshcountdown.js",
+                        "~/Scripts/Forecast/forecastpopup.js",
+                        "~/Scripts/Forecast/forecast.ah.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -681,12 +712,13 @@
         private static void RegisterHeaderViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/HeaderScripts")
-                .Include("~/Scripts/Library/jquery.min.js")
-                .Include("~/Scripts/Library/jquery.blockUI.js")
-                .Include("~/Scripts/Global/site.js")
-                .Include("~/Scripts/Header/header.js")
-                .Include("~/Scripts/Header/jquery.jclock.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Library/jquery.min.js",
+                        "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Global/site.js",
+                        "~/Scripts/Header/header.js",
+                        "~/Scripts/Header/jquery.jclock.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -696,12 +728,13 @@
         private static void RegisterHomeViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/HomeScripts")
-                .Include("~/Scripts/Library/jquery.min.js")
-                .Include("~/Scripts/Library/jquery-ui.min.js")
-                .Include("~/Scripts/Library/jquery.cookie.js")
-                .Include("~/Scripts/Library/jquery.blockUI.js")
-                .Include("~/Scripts/Global/site.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Library/jquery.min.js",
+                        "~/Scripts/Library/jquery-ui.min.js",
+                        "~/Scripts/Library/jquery.cookie.js",
+                        "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Global/site.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         /// <summary>
@@ -711,10 +744,11 @@
         private static void RegisterMenuViewScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/MenuScripts")
-                .Include("~/Scripts/Library/jquery.min.js")
-                .Include("~/Scripts/Library/jquery.autocomplete.js")
-                .Include("~/Scripts/Menu/Menu.js");
-            AddNewBundle(bundles, bundle);
+                .Include(
+                        "~/Scripts/Library/jquery.min.js",
+                        "~/Scripts/Library/jquery.autocomplete.js",
+                        "~/Scripts/Menu/Menu.js");
+            AddNewScriptBundle(bundles, bundle);
         }
 
         #endregion Javascript Views
@@ -727,13 +761,14 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterEditAccountViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/EditAccountViewStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/EditAccountViewStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/Global.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Account/AccountManagement.css");
         }
 
         /// <summary>
@@ -742,13 +777,14 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterResetPasswordViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ResetPasswordViewStyles")
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Account/AccountManagement.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/ResetPasswordViewStyles",
+                "~/Content/Library/start/jquery-ui.min.css",
+                "~/Content/Global/Global.css",
+                "~/Content/Global/lrf.global.content.css",
+                "~/Content/Global/lrf.global.reportable.css",
+                "~/Content/Account/AccountManagement.css");
         }
 
         /// <summary>
@@ -757,11 +793,12 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterLastBetsMonitoringViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/LastBetsMonitoringViewStyles")
-                .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
-                .Include("~/Content/BetList/lastbetmonitornew.css", new CssRewriteUrlTransform())
-                .Include("~/Content/BetList/lastbetmonitor.table.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/LastBetsMonitoringViewStyles",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
+                "~/Content/BetList/lastbetmonitornew.css",
+                "~/Content/BetList/lastbetmonitor.table.css");
         }
 
         /// <summary>
@@ -770,10 +807,11 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterCustomerCommUpdateGroupViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/CustomerCommUpdateGroupViewStyles")
-                .Include("~/Content/Plugin/ColorPicker/Spectrum.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/CustomerCommUpdateGroupViewStyles",
+                "~/Content/Plugin/ColorPicker/Spectrum.css",
+                "~/Content/Global/grid26.css");
         }
 
         /// <summary>
@@ -782,11 +820,12 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterCustomerLogCustomersViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/CustomerLogCustomersViewStyles")
-                .Include("~/Content/Customer/CustomerList.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Plugin/MultiSelect/jquery.multiselect.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Paging.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/CustomerLogCustomersViewStyles",
+                "~/Content/Customer/CustomerList.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
+                "~/Content/Global/Paging.css");
         }
 
         /// <summary>
@@ -795,15 +834,16 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterForeCastAHViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/ForeCastAHViewStyles")
-                .Include("~/Content/Global/grid26.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.content.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/lrf.global.reportable.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Forecast/forecast.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Forecast/forecast.ah.css", new CssRewriteUrlTransform())
-                .Include("~/Content/TotalBets/refreshcountdown.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Library/start/jquery-ui.min.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/ForeCastAHViewStyles",
+                "~/Content/Global/grid26.css",
+               "~/Content/Global/lrf.global.content.css",
+               "~/Content/Global/lrf.global.reportable.css",
+               "~/Content/Forecast/forecast.css",
+               "~/Content/Forecast/forecast.ah.css",
+               "~/Content/TotalBets/refreshcountdown.css",
+               "~/Content/Library/start/jquery-ui.min.css");
         }
 
         /// <summary>
@@ -812,10 +852,11 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterHeaderViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/HeaderViewStyles")
-                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/HeaderViewStyles",
+                "~/Content/Themes/12Bet/Site.css",
+                "~/Content/Global/Global.css");
         }
 
         /// <summary>
@@ -824,11 +865,12 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterHomeViewStyles(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/HomeViewStyles")
-                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Layout/master.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/HomeViewStyles",
+                "~/Content/Global/Global.css",
+                "~/Content/Themes/12Bet/Site.css",
+                "~/Content/Layout/master.css");
         }
 
         /// <summary>
@@ -837,12 +879,42 @@
         /// <param name="bundles">The bundles.</param>
         private static void RegisterMenuViewCss(BundleCollection bundles)
         {
-            var bundle = new StyleBundle("~/bundles/MenuViewCss")
-                .Include("~/Content/Global/Global.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Themes/12Bet/Site.css", new CssRewriteUrlTransform());
-            AddNewBundle(bundles, bundle);
+            AddStyleBundle(
+                bundles, 
+                "~/bundles/MenuViewCss",
+                "~/Content/Global/Global.css",
+                "~/Content/Themes/12Bet/Site.css");
         }
 
         #endregion CSS Views
+
+        #region Private Utility Functions
+        /// <summary>
+        /// Adds the style bundle.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        /// <param name="bundleVirtualPath">The bundle virtual path.</param>
+        /// <param name="virtualPaths">The virtual paths.</param>
+        private static void AddStyleBundle(this BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
+        {
+            bundles.Add(new StyleBundle(bundleVirtualPath).IncludeStyleWithTransform(virtualPaths));
+        }
+
+        /// <summary>
+        /// Includes the style with transform.
+        /// </summary>
+        /// <param name="styleBundle">The style bundle.</param>
+        /// <param name="virtualPaths">The virtual paths.</param>
+        /// <returns>Style Bundle.</returns>
+        private static StyleBundle IncludeStyleWithTransform(this StyleBundle styleBundle, params string[] virtualPaths)
+        {
+            foreach (var virtualPath in virtualPaths)
+            {
+                styleBundle.Include(virtualPath, new CssRewriteUrlTransform());
+            }
+
+            return styleBundle;
+        }
+        #endregion
     }
 }
