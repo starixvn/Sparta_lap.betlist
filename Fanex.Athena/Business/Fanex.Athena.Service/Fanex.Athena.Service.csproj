@@ -62,9 +62,9 @@
     <Reference Include="Enyim.Caching">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.BetList.Core, Version=2.1.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.1.0.2-beta2\lib\net40\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.1.0.3-beta2\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Fanex.Caching.dll</HintPath>
@@ -80,10 +80,6 @@
     </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Result.Core, Version=1.6.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.6.2.6\lib\net40\Fanex.Result.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\..\packages\FluentValidation.3.2.0.0\lib\Net40\FluentValidation.dll</HintPath>
