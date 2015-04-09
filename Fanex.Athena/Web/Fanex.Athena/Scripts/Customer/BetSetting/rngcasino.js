@@ -26,7 +26,9 @@ var RnGCasino = (function ($) {
         },
         initParams: function (custId, userName, nickName) {
             var gameTypeChangedList = '';
-            var params = 'custId=' + custId;
+            var params = {
+                custId: custId
+            };
 
             $('.casino-row').each(function () {
                 var gameTypeId = $(this).attr('data-gametypeid');
@@ -51,7 +53,7 @@ var RnGCasino = (function ($) {
                 // Compare stake
                 if (RnGCasino.compareStake(originalStakeLevelList, newStakeLevelList)) {
                     gameTypeChangedList += ',' + gameTypeId.toString();
-                    params += '&stake' + gameTypeId + '=' + newStakeLevelList;
+                    params['stake' + gameTypeId] = newStakeLevelList;
                 }
             });
 
@@ -61,19 +63,17 @@ var RnGCasino = (function ($) {
             }
 
             // Get params changed list
-            if (params.length > 0) {
-                params += '&gameTypeChangedList=' + gameTypeChangedList;
-            }
+            params.gameTypeChangedList = gameTypeChangedList;            
 
             RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName,
                         params, gameTypeChangedList, RnGCasino.updateStakeLevel);
         },
         updateStakeLevel: function (userName, params, gameTypeChangedList) {
-            var url = Site.resolveClientUrl('BetsettingAPI/UpdateRngCasinoBetSetting?');
+            var url = Site.resolveClientUrl('BetsettingAPI/UpdateRngCasinoBetSetting');
             if (gameTypeChangedList.length > 0) {
                 $.ajax({
                     url: url,
-                    type: 'GET',
+                    type: 'POST',
                     cache: false,
                     data: params,
                     dataType: 'json',
