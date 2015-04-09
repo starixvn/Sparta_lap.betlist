@@ -460,6 +460,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
+    <Content Include="Content\Report\golddeluxewinloss.css" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
