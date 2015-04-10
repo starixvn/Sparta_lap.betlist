@@ -5,7 +5,7 @@ var RnGCasino = (function ($) {
     return {
         initialize: function () {
             RnGCasino.initEvent();
-            var isEnabled = $("#editable").val() === "True" && $("#isenabled").val() === "True";
+            var isEnabled = $("#isenabled").val() === "True";
 
             if (!isEnabled) {
                 $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
