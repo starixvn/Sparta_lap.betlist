@@ -133,6 +133,7 @@
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Implement\Report\GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoDataAccess.cs" />
+    <Compile Include="Implement\Report\ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Interface\Report\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interface\Report\IAgCasinoWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlaytechCasinoDataAccess.cs" />
+    <Compile Include="Interface\Report\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interface\Report\IResultDataAccess.cs" />
     <Compile Include="Implement\TotalBets\FirstGoalLastGoalDataAccess.cs" />

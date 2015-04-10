@@ -47,6 +47,8 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IGoldDeluxeWinLossService _golddeluxeWinLossService;
 
+        private readonly IThirdPartyWinLossService _thirdPartyWinLossService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportController" /> class.
         /// </summary>
@@ -60,6 +62,7 @@ namespace Fanex.Athena.Api.Report
             _agcasinoWinLossService = new AgCasinoWinLossService();
             _activeCustomerService = new ActiveCustomerService();
             _golddeluxeWinLossService = new GoldDeluxeWinLossService();
+            _thirdPartyWinLossService = new ThirdPartyWinLossService();
         }
 
         private static void RedirectToErrorPage()

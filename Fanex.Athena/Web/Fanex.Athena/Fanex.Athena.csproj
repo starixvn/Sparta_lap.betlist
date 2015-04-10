@@ -461,6 +461,7 @@
     </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Content\Report\golddeluxewinloss.css" />
+    <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide2.png" />
@@ -478,6 +479,7 @@
     <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -2997,6 +2999,8 @@
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
     <Content Include="Scripts\Report\golddeluxewinloss.js" />
     <Content Include="Scripts\Report\golddeluxewinloss.option.js" />
+    <Content Include="Scripts\Report\thirdpartywinloss.js" />
+    <Content Include="Scripts\Report\thirdpartywinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3026,6 +3030,9 @@
     <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\VoidbridgeWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\VoidbridgeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\VoidbridgeWinLoss\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
@@ -3443,6 +3450,11 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

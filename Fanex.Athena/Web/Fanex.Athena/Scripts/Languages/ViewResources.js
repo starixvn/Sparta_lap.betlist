@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/31/2015 6:04:42 PM
+// Lasted generated date: 4/2/2015 10:12:52 AM
 // </history>
 
 var _language_en_US={
@@ -1612,7 +1612,11 @@ var _language_en_US={
 				 	
                      Voidbridge:"Voidbridge",
 				 	
+                     Voidbridge:"Voidbridge",
+				 	
                      VoidbridgeNotOfferCurrency:"Voidbridge is not offered for this currency.",
+				 	
+                     VoidbridgeWinLoss:"Voidbridge Win Loss",
 				 	
                      VS:"VS",
 				 	

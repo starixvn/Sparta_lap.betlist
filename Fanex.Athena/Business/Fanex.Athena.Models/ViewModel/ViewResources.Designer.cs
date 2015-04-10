@@ -7270,6 +7270,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voidbridge Win Loss.
+        /// </summary>
+        public static string VoidbridgeWinLoss {
+            get {
+                return ResourceManager.GetString("VoidbridgeWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VS.
         /// </summary>
         public static string VS {
