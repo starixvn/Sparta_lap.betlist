@@ -71,6 +71,8 @@
             }
         </tbody>
     </table>
+    @Html.Hidden("editable", Model.Param.Editable)
+    @Html.Hidden("isenabled", Model.IsEnabled)
 </div>
 @if (Model.RngCasinoData.Data.Count > 0)
 {
