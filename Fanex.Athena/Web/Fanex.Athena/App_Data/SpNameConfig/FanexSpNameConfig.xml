@@ -13,4 +13,6 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelMatchResultParlay" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
+  
 </Root>
