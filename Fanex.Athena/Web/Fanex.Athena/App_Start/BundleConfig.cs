@@ -9,11 +9,18 @@
     public static class BundleConfig
     {
         /// <summary>
+        /// The CSS rewrite URL transform.
+        /// </summary>
+        private static CssRewriteUrlTransform cssRewriteUrlTransform;
+
+        /// <summary>
         /// Registers the bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
+            cssRewriteUrlTransform = new CssRewriteUrlTransform();
+
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
@@ -895,10 +902,9 @@
         /// <param name="bundles">The bundles.</param>
         /// <param name="bundleVirtualPath">The bundle virtual path.</param>
         /// <param name="virtualPaths">The virtual paths.</param>
-        private static void AddStyleBundle(this BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
+        private static void AddStyleBundle(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
             var styleBundle = new StyleBundle(bundleVirtualPath);
-            var cssRewriteUrlTransform = new CssRewriteUrlTransform();
             foreach (var virtualPath in virtualPaths)
             {
                 styleBundle.Include(virtualPath, cssRewriteUrlTransform);
