@@ -1,10 +1,16 @@
 ﻿/*global Site*/
 /// <reference path="/@JSense.js" />
 "use strict";
-var RnGCasino = (function ($) {
+var RnGCasino = (function ($) {    
     return {
         initialize: function () {
             RnGCasino.initEvent();
+            var isEnabled = $("#isenabled").val() === "True";
+
+            if (!isEnabled) {
+                $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
+                $(".data-content input").prop("disabled", true);
+            }
         },
         initEvent: function () {
             // Submit click
@@ -63,7 +69,7 @@ var RnGCasino = (function ($) {
             }
 
             // Get params changed list
-            params.gameTypeChangedList = gameTypeChangedList;            
+            params.gameTypeChangedList = gameTypeChangedList;
 
             RnGCasino.showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), custId, userName, nickName,
                         params, gameTypeChangedList, RnGCasino.updateStakeLevel);

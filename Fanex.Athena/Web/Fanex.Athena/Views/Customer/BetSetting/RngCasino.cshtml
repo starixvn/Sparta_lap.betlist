@@ -71,6 +71,8 @@
             }
         </tbody>
     </table>
+
+    @Html.Hidden("isenabled", Model.IsEnabled.Value)
 </div>
 @if (Model.RngCasinoData.Data.Count > 0)
 {
