@@ -37,7 +37,9 @@ namespace Fanex.Athena
             AreaRegistration.RegisterAllAreas();
 
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteTable.Routes.IgnoreRoute("favicon.ico");
+            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
