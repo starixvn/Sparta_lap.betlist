@@ -8,7 +8,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 4/2/2015 10:02:01 AM
+// Lasted generated date: 5/7/2015 9:41:16 AM
 // </history>
 
 var _language_en_US={
@@ -265,6 +265,8 @@ var _language_en_US={
                      Currencies:"Currencies",
 				 	
                      Currency:"Currency",
+				 	
+                     CurrencyNotSupportedForGoldDeluxe:"This currency is not supported to play Gold Deluxe. Please check again later.",
 				 	
                      CurrentGroup:"Current Group",
 				 	
@@ -1619,6 +1621,8 @@ var _language_en_US={
                      Voidbridge:"Voidbridge",
 				 	
                      VoidbridgeNotOfferCurrency:"Voidbridge is not offered for this currency.",
+				 	
+                     VoidbridgeWinLoss:"Voidbridge Win Loss",
 				 	
                      VS:"VS",
 				 	
