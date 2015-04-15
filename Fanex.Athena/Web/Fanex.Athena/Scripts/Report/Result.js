@@ -221,7 +221,7 @@ var result = (function () {
             var isShowedRight = self.location.hash.substr(1) === "outright";
             showOutRight(isShowedRight);
             showKeno();
-            $("#result-page").on("click", ".tennis-detail-link", function () {
+            $("#result-page").on("click", ".detail-link", function () {
                 var url = Site.resolveClientUrl("Report/ResultTennisDetail")
                  + "?matchid=" + $(this).attr("data-match-id");
 

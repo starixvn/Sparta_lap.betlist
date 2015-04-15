@@ -555,7 +555,7 @@ namespace Fanex.Athena.Controllers.Report
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
-                VisibleDetailedLink = metalModel.SportId == (int)SportType.Tennis,
+                VisibleDetailedLink = true,
                 VisibleFreeHeader = true
             };
             switch (sportType)

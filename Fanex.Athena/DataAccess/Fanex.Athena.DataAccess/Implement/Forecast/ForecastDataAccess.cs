@@ -38,6 +38,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">The parameter.</param>
         /// <param name="reader">Data reader.</param>
         /// <returns>A list of forecast one x two.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public static IList<ForecastOneXTwo> SetToFCOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
             var forecastList = new List<ForecastOneXTwo>();
@@ -49,28 +51,53 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
             var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
             var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
 
             while (reader.Read())
             {
-                var item = new ForecastOneXTwo
+                if (reader.ToInt("isExtra") == 0)
                 {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral"),
-                    HomeWinLoss = reader.ToDecimal(homeWinLossColumn),
-                    DrawWinLoss = reader.ToDecimal(drawWinLossColumn),
-                    AwayWinLoss = reader.ToDecimal(awayWinLossColumn),
-                    HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn),
-                    HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn),
-                    HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn)
-                };
-
-                forecastList.Add(item);
+                    var item = new ForecastOneXTwo
+                    {
+                        IsExtra = false,
+                        MatchId = reader.ToInt("matchid"),
+                        HomeId = reader.ToInt("homeid"),
+                        AwayId = reader.ToInt("awayid"),
+                        LiveIndicator = reader.ToBool("liveindicator"),
+                        LiveHomeScore = reader.ToByte("livehomescore"),
+                        LiveAwayScore = reader.ToByte("liveawayscore"),
+                        ShowTime = reader.ToString("showtime"),
+                        IsNeutral = reader.ToBool("isNeutral"),
+                        HomeWinLoss = reader.ToDecimal(homeWinLossColumn),
+                        DrawWinLoss = reader.ToDecimal(drawWinLossColumn),
+                        AwayWinLoss = reader.ToDecimal(awayWinLossColumn),
+                        HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn),
+                        HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn),
+                        HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn)
+                    };
+                    forecastList.Add(item);
+                }
+                else
+                {
+                    var item = new ForecastOneXTwo
+                    {
+                        IsExtra = true,
+                        MatchId = reader.ToInt("matchid"),
+                        HomeId = reader.ToInt("homeid"),
+                        AwayId = reader.ToInt("awayid"),
+                        LiveIndicator = reader.ToBool("liveindicator"),
+                        LiveHomeScore = reader.ToByte("livehomescore"),
+                        LiveAwayScore = reader.ToByte("liveawayscore"),
+                        ShowTime = reader.ToString("showtime"),
+                        IsNeutral = reader.ToBool("isNeutral"),
+                        HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn),
+                        HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn),
+                        HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn),
+                    };
+                    forecastList.Add(item);
+                }
             }
 
             return forecastList;

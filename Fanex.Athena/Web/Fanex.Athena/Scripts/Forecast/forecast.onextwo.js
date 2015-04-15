@@ -47,7 +47,7 @@ var ForecastOneXTwo = (function ($) {
             // Forecast button click
             $('#Refresh-Content').on('click', '.button-add', function () {
                 var matchId = $(this).attr('data-match-id');
-                var betType = parseInt($(this).attr('data-bettype')) === 1 ? 5 : 15;
+                var betType = parseInt($(this).attr('data-bettype'));
                 ForecastOneXTwo.openForecast(matchId, betType, isPopup);
             });
 
