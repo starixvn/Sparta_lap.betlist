@@ -30,4 +30,6 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_LeagueSelRunning" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Result_SportSelByDate" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_Result_LeagueSelByDate" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
