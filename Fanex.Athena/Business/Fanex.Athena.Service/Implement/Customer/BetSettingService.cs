@@ -74,6 +74,8 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
+        #region Voidbridge
+
         /// <summary>
         /// Get VoidBridge setting.
         /// </summary>
@@ -91,6 +93,29 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             return setting;
         }
+
+        /// <summary>
+        /// Updates the void bridge status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The Void bridge status.</param>
+        /// <returns>The result info.</returns>
+        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateVoidBridgeStatus(userId, custId, language, ip, isEnabled);
+        }
+
+        #endregion Voidbridge
+
+        #region Gold Deluxe
 
         /// <summary>
         /// Get Gold Deluxe setting.
@@ -143,7 +168,8 @@ namespace Fanex.Athena.Service.Implement.Customer
             Justification = "Reviewed. Suppression is OK here.")]
         public IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            var setting = _betSettingDataAccess.GetGoldDeluxeSetting(custId);
+            if (!setting.IsEnabled || !_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -185,24 +211,9 @@ namespace Fanex.Athena.Service.Implement.Customer
             return _betSettingDataAccess.UpdateGoldDeluxeStatus(userId, custId, language, ip, isEnabled);
         }
 
-        /// <summary>
-        /// Updates the void bridge status.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="language">The language.</param>
-        /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The Void bridge status.</param>
-        /// <returns>The result info.</returns>
-        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
+        #endregion Gold Deluxe
 
-            return _betSettingDataAccess.UpdateVoidBridgeStatus(userId, custId, language, ip, isEnabled);
-        }
+        #region AgCasino
 
         public AgCasinoBetSetting GetAgCasinoSetting(int custId)
         {
@@ -280,6 +291,8 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
         }
+
+        #endregion AgCasino
 
         /// <summary>
         /// Enable or disable live casino.
@@ -456,7 +469,9 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return ErrorResult("Invalid parameter. AG Casino is null");
             }
 
-            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
+            var agcasinoSetting = _betSettingDataAccess.GetAgCasinoSetting(setting.CustId);
+            
+            if (!agcasinoSetting.IsEnabled || !_authorizationService.HasPermissionOnData(setting.CustId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -595,7 +610,9 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <returns>The result.</returns>
         public IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, List<LiveCasinoBetSetting> metaModel, string ip, string language)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            var customerInfo = _customerService.GetCustomerInfo(custId);
+
+            if (customerInfo.DisableLiveCasino || !_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -628,12 +645,13 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <returns>The result.</returns>
         public IResultInfo UpdateRngCasinoSetting(RngCasinoBetSettingMetaModel metaModel)
         {
-            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
+
+            if (customerInfo.DisableCasino || !_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
-
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
+            
             var result = false;
 
             if (customerInfo.SyncCasino)

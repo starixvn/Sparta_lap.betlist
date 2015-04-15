@@ -36,9 +36,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         #endregion Constants
 
-        #region Fields
-
-        private static ProductAccess _productAccess;
+        #region Fields        
 
         private readonly IBetSettingService _betSettingService;
         private readonly IProductService _productService;
@@ -46,6 +44,8 @@ namespace Fanex.Athena.Controllers.Customer
 
         private readonly Dictionary<string, RacingBetSetting> _racingBetSettingList =
             new Dictionary<string, RacingBetSetting>();
+
+        private ProductAccess _productAccess;
 
         #endregion Fields
 
@@ -57,12 +57,9 @@ namespace Fanex.Athena.Controllers.Customer
             _productService = new ProductService();
             _customerService = new CustomerService();
 
-            if (_productAccess == null)
-            {
-                _productAccess = _productService.GetProductAccess(
+            _productAccess = _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language);
-            }
+                    SessionService.UserSession.Language);            
         }
 
         #endregion Constructor
