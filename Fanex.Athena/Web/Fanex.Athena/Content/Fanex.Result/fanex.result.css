@@ -71,7 +71,7 @@ table.fn-rs tbody tr td
     border: solid 1px #cbc9ca;
     padding: 1px;
     vertical-align: middle;
-    width: 67px;
+    /*width: 67px;*/
 }
 table.fn-rs tbody .cl-league
 {
@@ -139,7 +139,7 @@ table.fn-rs .cl-ko-time
 }
 table.fn-rs .cl-match
 {
-    min-width: 123px;
+    min-width: 82px;
 }
 table.fn-rs .cl-s, table.fn-rs .cl-ot, table.fn-rs .cl-ei
 {
