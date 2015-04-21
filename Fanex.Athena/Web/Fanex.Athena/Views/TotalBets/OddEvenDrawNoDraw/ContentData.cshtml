@@ -62,7 +62,7 @@
                     <td style="width: 7%" class="score-value">
                         @if (match.BetCountOneXTwo != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="5" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                                 @RazorHelper.DecFormat(match.OneXTwoFt, true)
                             </a>
                         }
@@ -100,7 +100,7 @@
                     <td style="width: 7%" class="score-value">
                         @if (match.BetCountOneXTow1StHalf != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="15" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                                 @RazorHelper.DecFormat(match.OneXTwoFirstHalf, true)
                             </a>
                         }
@@ -108,7 +108,7 @@
                     <td style="width: 3%">
                         @if (match.BetCountOneXTow1StHalf != 0)
                         {
-                            <a class="button-add"   data-match-id="@match.MatchId" data-bet-type="15" href="javascript:;">
+                            <a class="button-add"   data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                             </a>
                         }
                     </td>

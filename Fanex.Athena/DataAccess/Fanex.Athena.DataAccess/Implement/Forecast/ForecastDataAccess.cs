@@ -42,6 +42,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             Justification = "Reviewed. Suppression is OK here.")]
         public static IList<ForecastOneXTwo> SetToFCOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
+            var extraColumnName = "isExtra";
             var forecastList = new List<ForecastOneXTwo>();
 
             // Column name
@@ -54,10 +55,10 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
-
+            var hasExtraColumn = Enumerable.Range(0, reader.FieldCount).Any(i => reader.GetName(i) == extraColumnName);
             while (reader.Read())
             {
-                if (reader.ToInt("isExtra") == 0)
+                if (hasExtraColumn == false || reader.ToInt(extraColumnName) == 0)
                 {
                     var item = new ForecastOneXTwo
                     {
