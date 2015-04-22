@@ -60,7 +60,6 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             {
                 var item = new ForecastOneXTwo
                 {
-                    IsExtra = false,
                     MatchId = reader.ToInt("matchid"),
                     HomeId = reader.ToInt("homeid"),
                     AwayId = reader.ToInt("awayid"),
@@ -73,6 +72,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
 
                 if (hasExtraColumn == false || reader.ToInt(extraColumnName) == 0)
                 {
+                    item.IsExtra = false;
                     item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);
                     item.DrawWinLoss = reader.ToDecimal(drawWinLossColumn);
                     item.AwayWinLoss = reader.ToDecimal(awayWinLossColumn);
@@ -84,6 +84,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                 }
                 else
                 {
+                    item.IsExtra = true;
                     item.HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn);
                     item.HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn);
                     item.HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn);
