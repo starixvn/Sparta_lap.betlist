@@ -42,4 +42,5 @@
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel25" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL" SpName="Lrf_Forecast_Sel1X2" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
