@@ -11,7 +11,7 @@ var RunningBetListMultipleBettype = (function ($) {
             bettypesString += "," + bettypes[1];
 
             // Or three bettypes if this is  B/O/N Team to score
-            if (bettypes[0] === "26" && bettypes.length > 2) // B/O/N Team to score
+            if ((bettypes[0] === "26" || bettypes[0] === "24") && bettypes.length > 2) // B/O/N Team to score OR double chance group
             {
                 bettypesString += "," + bettypes[2];
             }
