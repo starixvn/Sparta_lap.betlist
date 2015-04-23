@@ -79,8 +79,6 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     item.HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn);
                     item.HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn);
                     item.HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn);
-                    
-                    forecastList.Add(item);
                 }
                 else
                 {
@@ -88,8 +86,9 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     item.HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn);
                     item.HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn);
                     item.HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn);
-                    forecastList.Add(item);
                 }
+
+                forecastList.Add(item);
             }
 
             return forecastList;
@@ -186,11 +185,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                 {
                     while (reader.Read())
                     {
-                        var league = new League
-                            {
-                                LeagueId = reader.ToInt("leagueid")
-                            };
-                        leagueList.Add(league);
+                        leagueList.Add(new League { LeagueId = reader.ToInt("leagueid") });
                     }
                 }
 

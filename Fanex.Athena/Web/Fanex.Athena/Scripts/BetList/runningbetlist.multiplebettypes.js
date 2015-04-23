@@ -4,14 +4,7 @@ var RunningBetListMultipleBettype = (function ($) {
     "use strict";
 
     function getBettypesParam() {
-        var bettypes = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",");
-        var bettypesString = bettypes[0];
-        if (bettypes.length > 1) {
-            for (var i = 1; i < bettypes.length; i++) {
-                bettypesString += "," + bettypes[i];
-            }
-        }
-
+        var bettypesString = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "");
         return bettypesString;
     }
 
