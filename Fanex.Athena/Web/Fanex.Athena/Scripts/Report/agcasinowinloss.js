@@ -7,39 +7,7 @@ var AgCasinoWinLoss = (function ($) {
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _level = 0;
-    function initMonthPicker() {
-        var year = $("#Year").val();
-        var month = $("#Month").val();
-        var fromDay = $("#FromDay").val();
-        var toDay = $("#ToDay").val();
-
-        $('#DateControl').monPickr({
-            minDate: $('#MinDate').val(),
-            maxDate: $('#ToDate').val(),
-            showDateRange: true,
-            fromDayId: 'MonthPickerFromDay',
-            toDayId: 'MonthPickerToDay',
-            month: new Date(year, month - 1, fromDay),
-            fromDay: fromDay,
-            toDay: toDay,
-            afterChangeMonth: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                $('#Year').val(fromDate.getFullYear());
-                $('#Month').val(fromDate.getMonth() + 1);
-            },
-            afterChangeDay: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
-                $('#FromDay').val(fromDate.getDate());
-                $('#ToDay').val(toDate.getDate());
-            },
-            log: function (/*msg*/) {
-                //console.warn(msg);
-            }
-        });
-    }
+    var VALID_MONTH_RANGE = 3;
 
     return {
         resizeGrid: function () {
@@ -69,11 +37,11 @@ var AgCasinoWinLoss = (function ($) {
         },
         initialize: function () {
             AgCasinoWinLoss.initEvent();
-            initMonthPicker();
             Site.addUserGuide({
                 resourceName: "AGCasinoWL",
                 title: Site.getSingleResource("AGCasinoWinLoss")
             });
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, AgCasinoWinLossOption.urlExcelData);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
