@@ -7,13 +7,8 @@ var RunningBetListMultipleBettype = (function ($) {
         var bettypes = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",");
         var bettypesString = bettypes[0];
         if (bettypes.length > 1) {
-            // Only allow at most two bettypes
-            bettypesString += "," + bettypes[1];
-
-            // Or three bettypes if this is  B/O/N Team to score
-            if ((bettypes[0] === "26" || bettypes[0] === "24") && bettypes.length > 2) // B/O/N Team to score OR double chance group
-            {
-                bettypesString += "," + bettypes[2];
+            for (var i = 1; i < bettypes.length; i++) {
+                bettypesString += "," + bettypes[i];
             }
         }
 
