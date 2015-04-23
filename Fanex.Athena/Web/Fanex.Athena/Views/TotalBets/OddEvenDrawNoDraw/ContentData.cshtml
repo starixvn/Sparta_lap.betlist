@@ -52,7 +52,7 @@
                     <td style="width: 10%" class="score-value">
                         @if (match.BetCountOddEven != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="2" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.OddEvenFt, true, false)
                             </a>
                         }
@@ -70,7 +70,7 @@
                     <td style="width: 3%">
                         @if (match.BetCountOneXTwo != 0)
                         {
-                            <a class="@(match.BetCountOneXTwo != 0 ? "button-add" : string.Empty)" data-match-id="@match.MatchId" data-bet-type="5" href="javascript:;">
+                            <a class="@(match.BetCountOneXTwo != 0 ? "button-add" : string.Empty)" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                             </a>    
                         }
                     </td>
@@ -79,7 +79,7 @@
                     <td style="width: 10%" class="score-value">
                         @if (match.BetCountDrawNoDraw != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="123" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.DrawNoDraw, true, false)
                             </a>
                         }
@@ -90,7 +90,7 @@
                     <td style="width: 10%" class="score-value">
                         @if (match.BetCountOddEven1StHalf != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="12" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.OddEvenFirstHalf, true, false)
                             </a>
                         }

@@ -73,20 +73,7 @@ var ForecastOneXTwo = (function ($) {
             var url = Site.resolveClientUrl("Forecast/ForecastOneXTwo");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "LeagueId", leagueId);
-
-            $.ajax({
-                url: url,
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                success: function (data) {
-                    Site.unBlockUI();
-                    $('#Refresh-Content').html(data);
-                },
-                type: "POST",
-                async: true,
-                dataType: "html"
-            });
+            ForecastOneXTwo.submit();
         },
         submit: function () {
             Site.blockUI();
