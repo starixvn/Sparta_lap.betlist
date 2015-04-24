@@ -159,6 +159,7 @@ var GoldDeluxeWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
+                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
@@ -168,7 +169,8 @@ var GoldDeluxeWinLoss = (function ($) {
                         FromDate: $("#FromDate").val(),
                         ToDate: $("#ToDate").val(),
                         CurrencyName: $("#CurrencyId option:selected").text(),
-                        BaseCurrency: $("#BaseCurrency").val()
+                        BaseCurrency: $("#BaseCurrency").val(),
+                        ReportBy: reportBy
                     };
 
                     GoldDeluxeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
@@ -227,10 +229,15 @@ var GoldDeluxeWinLoss = (function ($) {
                 CurrencyId: _submitData.CurrencyId,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                BaseCurrency: _submitData.BaseCurrency
+                BaseCurrency: _submitData.BaseCurrency,
+                ReportBy: _submitData.ReportBy
             };
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
+            var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
+            var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
+            if (Number(param.ReportBy) === 2) {
+                fdate = _submitData.FromDate;
+                tdate = _submitData.ToDate;
+            }
 
             var option = {
                 type: "POST",

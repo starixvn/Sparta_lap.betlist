@@ -130,7 +130,8 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = licenseeWinLoss.Date.Value.ToString("MM/dd/yyyy");
+                var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
+                var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
 
                 row.Cells[ColumnIndex].SetCellValue(licenseeWinLoss.Index);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
