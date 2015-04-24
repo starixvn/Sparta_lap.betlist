@@ -8,7 +8,7 @@ var AgCasinoWinLoss = (function ($) {
     var totalRowCount = 0;
     var _level = 0;
     var VALID_MONTH_RANGE = 3;
-
+    var _submitData;
     return {
         resizeGrid: function () {
             setTimeout(function () {
@@ -127,19 +127,19 @@ var AgCasinoWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();                
+                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
                     //update drildownValue
                     $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
                     $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
+                    $("#OriginalFromDate").val(_submitData.FromDate);
+                    $("#OriginalToDate").val(_submitData.ToDate);
                     $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
                     $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
                     $("#OriginalReportBy").val(reportBy);
-                    AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+                    AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                 }
 
                 AgCasinoWinLoss.renderBreadCrumb(level);
@@ -150,12 +150,7 @@ var AgCasinoWinLoss = (function ($) {
         submit: function () {
             var mainForm = $("#AgCasinoWinLossForm");
             var postdata = mainForm.serializeObject();
-            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
-
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
-
+            _submitData = postdata;
             var option = {
                 type: "POST",
                 data: postdata,
@@ -202,26 +197,11 @@ var AgCasinoWinLoss = (function ($) {
                 ReportBy: $("#OriginalReportBy").val(),
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
-            var fdate = new Date(Date.parse(datetime));
-            var tdate = new Date(Date.parse(datetime));
+            var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
+            var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
             if (Number(param.ReportBy) === 2) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(param.FromDate);
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(param.ToDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                }
-                else {
-                    tdate = AgCasinoWinLoss.lastDateOfMonth(year, month);
-                }
+                fdate = _submitData.FromDate;
+                tdate = _submitData.ToDate;
             }
             var postData = JSON.stringify(param);
 
@@ -259,7 +239,7 @@ var AgCasinoWinLoss = (function ($) {
             ajaxRequest = $.ajax(option);
         },
 
-        goBack: function (level) {            
+        goBack: function (level) {
             if (level === 0) {
                 AgCasinoWinLoss.renderBreadCrumb(level);
                 AgCasinoWinLoss.bindData(0, cacheData[level]);

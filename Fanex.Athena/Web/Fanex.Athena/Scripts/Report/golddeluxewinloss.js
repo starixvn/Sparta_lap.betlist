@@ -7,41 +7,7 @@ var GoldDeluxeWinLoss = (function ($) {
     var ajaxRequest = null;
     var _level = 0;
     var _submitData;
-
-    function initMonthPicker() {
-        var year = $("#Year").val();
-        var month = $("#Month").val();
-        var fromDay = $("#FromDay").val();
-        var toDay = $("#ToDay").val();
-
-        $('#DateControl').monPickr({
-            minDate: $('#MinDate').val(),
-            maxDate: $('#ToDate').val(),
-            showDateRange: true,
-            fromDayId: 'MonthPickerFromDay',
-            toDayId: 'MonthPickerToDay',
-            month: new Date(year, month - 1, fromDay),
-            fromDay: fromDay,
-            toDay: toDay,
-            afterChangeMonth: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                $('#Year').val(fromDate.getFullYear());
-                $('#Month').val(fromDate.getMonth() + 1);
-            },
-            afterChangeDay: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
-                $('#FromDay').val(fromDate.getDate());
-                $('#ToDay').val(toDate.getDate());
-            },
-            log: function (/*msg*/) {
-                //console.warn(msg);
-            }
-        });
-    }
-
+    var VALID_MONTH_RANGE = 3;
     return {
         resizeGrid: function () {
             setTimeout(function () {
@@ -68,11 +34,11 @@ var GoldDeluxeWinLoss = (function ($) {
         initialize: function () {
             GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             GoldDeluxeWinLoss.initEvent();
-            initMonthPicker();
             Site.addUserGuide({
                 resourceName: "GoldDeluxeWinLoss",
                 title: Site.getSingleResource("GoldDeluxeWinLoss")
             });
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, GoldDeluxeWinLossOption.urlExcelData);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -184,11 +150,6 @@ var GoldDeluxeWinLoss = (function ($) {
         submit: function () {
             var mainForm = $("#GoldDeluxeWinLossForm");
             var postdata = mainForm.serializeObject();
-            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
-
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
 
             var option = {
                 type: "POST",
