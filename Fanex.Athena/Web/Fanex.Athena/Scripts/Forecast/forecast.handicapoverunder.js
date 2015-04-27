@@ -78,20 +78,20 @@ var ForecastHDPOU = (function ($) {
             Site.blockUI();
             var data = $('#ForecastHandicapOverUnderForm').serializeObject();
             Site.updateOriginalLicenseeOption();
-                        
+
             $.ajax({
                 data: data,
                 url: Site.resolveClientUrl("Forecast/ForecastHandicapOverUnder"),
-                type: "POST",                
+                type: "POST",
                 beforeSend: function () {
-                    
+
                 },
-                success: function (data) {                    
+                success: function (data) {
                     $('#Refresh-Content').html(data);
                     Site.unBlockUI();
-                }   
+                }
             });
-            
+
         }
     };
 })(jQuery);

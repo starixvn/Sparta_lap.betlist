@@ -24,7 +24,6 @@ var NewForecastHdpOu = (function ($) {
             // Submit button click
             $("#SubmitButton").on("click", function () {
                 NewForecastHdpOu.submit();
-                return false;
             });
         },
         collapseExpand: function (context, statusElement) {
@@ -69,30 +68,13 @@ var NewForecastHdpOu = (function ($) {
                 dataType: "html"
             });
         },
-        refreshMatchInfo: function () {
-        },
         submit: function () {
             Site.blockUI();
             $('#LeagueId').val($('#DdlLeagueId').val());
             $('#MatchId').val($('#DdlMatchId').val());
             $('#IsShowFt').val(true);
             $('#IsShowFh').val(true);
-
-            Site.updateOriginalLicenseeOption();
-
-            var data = $('#NewForecastHdpOuForm').serializeObject();
-            $.ajax({
-                url: Site.resolveClientUrl('Forecast/NewForecastHdpOu'),
-                type: "POST",
-                data: data,
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                success: function (data) {
-                    $("#Refresh-Content").html(data);
-                    Site.unBlockUI();
-                }
-            });
+            $('#NewForecastHdpOuForm').submit();
         },
         openBetlist: function (betChoice, param, betType, handicap) {
             var url = Site.resolveClientUrl("BetList/RunningBetListOfMatchChoice");
