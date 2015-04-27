@@ -16,7 +16,7 @@ namespace Fanex.Athena.Models.ViewModel.Forecast
     /// </summary>
     public class NewForecastHdpOuViewModel : ForecastBaseViewModel
     {
-        public NewForecastHdpOuMetaModel Param { get; set; }
+        public NewForecastHandicapOverUnderMetaModel Param { get; set; }
 
         public IList<League> LeagueList { get; set; }
 

@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Interface.Forecast
     {
         #region Forecast AH
 
-        ForecastAH GetFcTopOddsByMatch(int matchId, int betType);
+        ForecastAH GetForecastTopOddsByMatch(int matchId, int betType);
 
         DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
 
@@ -36,23 +36,23 @@ namespace Fanex.Athena.DataAccess.Interface.Forecast
 
         #region Forecast 1 x 2
 
-        IList<League> GetFcRunningLeague(ForecastBaseMetaModel metaModel);
+        IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
-        IList<ForecastOneXTwo> GetFcOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
 
-        IList<ForecastOneXTwo> GetFcOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
 
         #endregion Forecast 1 x 2
 
         #region Forecast HDP OU
 
-        IList<ForecastHandicapOverUnder> GetFcHandicapOverUnder(ForecastHdpOuMetaModel metaModel);
+        IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel);
 
         #endregion Forecast HDP OU
 
         #region New Forecast
 
-        NewForecastHdpOuData GetNewForecastData(NewForecastHdpOuMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo);
+        NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo);
 
         #endregion New Forecast
     }

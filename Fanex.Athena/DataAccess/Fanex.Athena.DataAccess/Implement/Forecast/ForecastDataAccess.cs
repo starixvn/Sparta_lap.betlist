@@ -31,69 +31,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     /// Forecast Data Access.
     /// </summary>
     public class ForecastDataAccess : IForecastDataAccess
-    {
-        /// <summary>
-        /// Set forecast data to list.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="reader">Data reader.</param>
-        /// <returns>A list of forecast one x two.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static IList<ForecastOneXTwo> SetToFCOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
-        {
-            var extraColumnName = "isExtra";
-            var forecastList = new List<ForecastOneXTwo>();
-
-            // Column name
-            var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
-            var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var hasExtraColumn = reader.FieldExists(extraColumnName);
-            while (reader.Read())
-            {
-                var item = new ForecastOneXTwo
-                {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral")
-                };
-
-                if (hasExtraColumn == false || reader.ToInt(extraColumnName) == 0)
-                {
-                    item.IsExtra = false;
-                    item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);
-                    item.DrawWinLoss = reader.ToDecimal(drawWinLossColumn);
-                    item.AwayWinLoss = reader.ToDecimal(awayWinLossColumn);
-                    item.HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn);
-                    item.HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn);
-                    item.HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn);
-                }
-                else
-                {
-                    item.IsExtra = true;
-                    item.HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn);
-                    item.HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn);
-                    item.HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn);
-                }
-
-                forecastList.Add(item);
-            }
-
-            return forecastList;
-        }
-
+    {        
         #region Forecast AH
 
         /// <summary>
@@ -102,11 +40,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="matchId">The match's id..</param>
         /// <param name="betType">The bet type..</param>
         /// <returns>Forecast AH data..</returns>
-        public ForecastAH GetFcTopOddsByMatch(int matchId, int betType)
+        public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
         {
-            var uspName = "Lrf_Forecast_OddsSelTopByMatch";
+            const string UspName = "Lrf_Forecast_OddsSelTopByMatch";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 db.AddInParameter("betType", DbType.Int32, betType);
@@ -122,8 +60,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <returns>A table of forecast handicap.</returns>
         public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
-            var uspName = "Lrf_Forecast_SelHDP";
-            using (var db = new ObjectDb(uspName))
+            const string UspName = "Lrf_Forecast_SelHDP";
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -131,8 +69,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
-                var ds = db.ExecuteDataSet();
-                return ds != null ? ds.Tables[0] : null;
+                var dataset = db.ExecuteDataSet();
+                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
         }
 
@@ -144,9 +82,9 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <returns>A table of forecast over under.</returns>
         public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
-            var uspName = "Lrf_Forecast_SelOU";
+            const string UspName = "Lrf_Forecast_SelOU";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -154,8 +92,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
-                var ds = db.ExecuteDataSet();
-                return ds != null ? ds.Tables[0] : null;
+                var dataset = db.ExecuteDataSet();
+                return dataset != null && dataset.Tables.Count > 0 ? dataset.Tables[0] : null;
             }
         }
 
@@ -168,12 +106,12 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// </summary>
         /// <param name="metaModel">The parameter.</param>
         /// <returns>A list of running league.</returns>
-        public IList<League> GetFcRunningLeague(ForecastBaseMetaModel metaModel)
+        public IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
-            var uspName = "Lrf_LeagueSelRunning";
-            var leagueList = new List<League>();
+            const string UspName = "Lrf_LeagueSelRunning";
+            var leagues = new List<League>();
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, 0);
@@ -185,11 +123,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                 {
                     while (reader.Read())
                     {
-                        leagueList.Add(new League { LeagueId = reader.ToInt("leagueid") });
+                        leagues.Add(new League { LeagueId = reader.ToInt("leagueid") });
                     }
                 }
 
-                return leagueList;
+                return leagues;
             }
         }
 
@@ -198,11 +136,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// </summary>
         /// <param name="metaModel">The parameter.</param>
         /// <returns>A list of forecast one x two by league.</returns>
-        public IList<ForecastOneXTwo> GetFcOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
+        public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
-            var uspName = "Lrf_Forecast1x2_SelByLeague";
+            const string UspName = "Lrf_Forecast1x2_SelByLeague";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -212,7 +150,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return SetToFCOneXTwoList(metaModel, reader);
+                    return GetForecastOneXTwoList(metaModel, reader);
                 }
             }
         }
@@ -223,11 +161,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">The parameter.</param>
         /// <param name="userId">User ID value.</param>
         /// <returns>A list of forecast one x two by match..</returns>
-        public IList<ForecastOneXTwo> GetFcOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId)
+        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId)
         {
-            var uspName = "Lrf_Forecast_Sel1X2";
+            const string UspName = "Lrf_Forecast_Sel1X2";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -238,7 +176,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return SetToFCOneXTwoList(metaModel, reader);
+                    return GetForecastOneXTwoList(metaModel, reader);
                 }
             }
         }
@@ -252,11 +190,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>List result.</returns>
-        public IList<ForecastHandicapOverUnder> GetFcHandicapOverUnder(ForecastHdpOuMetaModel metaModel)
+        public IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var uspName = "Lrf_Forecast_SelByLeague";
+            const string UspName = "Lrf_Forecast_SelByLeague";
 
-            var uspParam = new
+            var paramValues = new
                 {
                     LicenseeId = metaModel.LicenseeId,
                     UserId = metaModel.UserId,
@@ -268,11 +206,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     baseoffseththdp = 0,
                     baseoffsethtou = 0
                 };
-            using (var db = new ObjectDb(uspName))
+            using (var db = new ObjectDb(UspName))
             {
-                using (var reader = db.ExecuteReader(uspParam))
+                using (var reader = db.ExecuteReader(paramValues))
                 {
-                    return SetFcHandicapOverUnderList(reader, metaModel);
+                    return GetForecastHandicapOverUnderList(reader, metaModel);
                 }
             }
         }
@@ -289,7 +227,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <returns>New forecast result.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public NewForecastHdpOuData GetNewForecastData(NewForecastHdpOuMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
+        public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
         {
             var forecastData = new NewForecastHdpOuData();
             using (var db = new ObjectDb("Lrf_Forecast_MatchTotalForecast"))
@@ -347,14 +285,72 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         #endregion New Forecast
 
         /// <summary>
-        /// Set forecast handicap over under.
+        /// Get forecast list.
+        /// </summary>
+        /// <param name="metaModel">The parameter.</param>
+        /// <param name="reader">Data reader.</param>
+        /// <returns>A list of forecast one x two.</returns>
+        private static IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
+        {            
+            var forecasts = new List<ForecastOneXTwo>();
+            var extraColumnName = "isExtra";
+            var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var drawWinLossColumn = DataHelper.GetCurrencyColumnName("dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var awayWinLossColumn = DataHelper.GetCurrencyColumnName("al", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeHomeWinLossColumn = DataHelper.GetCurrencyColumnName("ht_hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeDrawWinLossColumn = DataHelper.GetCurrencyColumnName("ht_dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var halfTimeAwayWinLossColumn = DataHelper.GetCurrencyColumnName("ht_al", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
+            var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
+            var hasExtraColumn = reader.FieldExists(extraColumnName);
+            while (reader.Read())
+            {
+                var item = new ForecastOneXTwo
+                {
+                    MatchId = reader.ToInt("matchid"),
+                    HomeId = reader.ToInt("homeid"),
+                    AwayId = reader.ToInt("awayid"),
+                    LiveIndicator = reader.ToBool("liveindicator"),
+                    LiveHomeScore = reader.ToByte("livehomescore"),
+                    LiveAwayScore = reader.ToByte("liveawayscore"),
+                    ShowTime = reader.ToString("showtime"),
+                    IsNeutral = reader.ToBool("isNeutral")
+                };
+
+                if (hasExtraColumn == false || reader.ToInt(extraColumnName) == 0)
+                {
+                    item.IsExtra = false;
+                    item.HomeWinLoss = reader.ToDecimal(homeWinLossColumn);
+                    item.DrawWinLoss = reader.ToDecimal(drawWinLossColumn);
+                    item.AwayWinLoss = reader.ToDecimal(awayWinLossColumn);
+                    item.HalfTimeHomeWinLoss = reader.ToDecimal(halfTimeHomeWinLossColumn);
+                    item.HalfTImeDrawWinLoss = reader.ToDecimal(halfTimeDrawWinLossColumn);
+                    item.HalfTimeAwayWinLoss = reader.ToDecimal(halfTimeAwayWinLossColumn);
+                }
+                else
+                {
+                    item.IsExtra = true;
+                    item.HalfTimeHomeWinLoss = reader.ToDecimal(extraHomeWinLossColumn);
+                    item.HalfTImeDrawWinLoss = reader.ToDecimal(extraDrawWinLossColumn);
+                    item.HalfTimeAwayWinLoss = reader.ToDecimal(extraAwayWinLossColumn);
+                }
+
+                forecasts.Add(item);
+            }
+
+            return forecasts;
+        }
+
+        /// <summary>
+        /// Get forecast handicap over under list.
         /// </summary>
         /// <param name="reader">Reader value.</param>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>List result.</returns>
-        private static IList<ForecastHandicapOverUnder> SetFcHandicapOverUnderList(IDataReader reader, ForecastHdpOuMetaModel metaModel)
+        private static IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnderList(IDataReader reader, ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var forecastList = new List<ForecastHandicapOverUnder>();
+            var forecasts = new List<ForecastHandicapOverUnder>();
 
             // Full time column name
             var winLossHdpMinus1 = DataHelper.GetCurrencyColumnName("WinLost_M1_HDP", metaModel.IsConvert, metaModel.BaseCurrency);
@@ -398,30 +394,30 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     HtOverUnder = reader.ToDecimal(halfTimeWinLossOu)
                 };
                 CalculateOffsetHandicapOverUnder(ref item);
-                forecastList.Add(item);
+                forecasts.Add(item);
             }
 
-            return forecastList;
+            return forecasts;
         }
 
         /// <summary>
         /// Calculate offset.
         /// </summary>
-        /// <param name="hdpOu">Parameter value.</param>
-        private static void CalculateOffsetHandicapOverUnder(ref ForecastHandicapOverUnder hdpOu)
+        /// <param name="forecast">Parameter value.</param>
+        private static void CalculateOffsetHandicapOverUnder(ref ForecastHandicapOverUnder forecast)
         {
-            var liveHomeScore = hdpOu.LiveHomeScore;
-            var liveAwayScore = hdpOu.LiveAwayScore;
+            var liveHomeScore = forecast.LiveHomeScore;
+            var liveAwayScore = forecast.LiveAwayScore;
 
             var offsetHdp = liveHomeScore - liveAwayScore;
             var offsetOu = liveHomeScore + liveAwayScore;
 
-            hdpOu.OffsetHdpMinus1 = offsetHdp - 1;
-            hdpOu.OffsetHdp = offsetHdp;
-            hdpOu.OffsetHdpPlus1 = offsetHdp + 1;
-            hdpOu.OffsetOuPlus2 = offsetOu + 2;
-            hdpOu.OffsetOuPlus1 = offsetOu + 1;
-            hdpOu.OffsetOu = offsetOu;
+            forecast.OffsetHdpMinus1 = offsetHdp - 1;
+            forecast.OffsetHdp = offsetHdp;
+            forecast.OffsetHdpPlus1 = offsetHdp + 1;
+            forecast.OffsetOuPlus2 = offsetOu + 2;
+            forecast.OffsetOuPlus1 = offsetOu + 1;
+            forecast.OffsetOu = offsetOu;
         }
     }
 }

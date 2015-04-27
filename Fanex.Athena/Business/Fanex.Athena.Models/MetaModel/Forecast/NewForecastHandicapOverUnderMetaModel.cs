@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NewForecastHdpOuMetaModel.cs" company="Nexcel">
+// <copyright file="NewForecastHandicapOverUnderMetaModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,9 @@ namespace Fanex.Athena.Models.MetaModel.Forecast
     /// <summary>
     /// NewForecast HDP OU MetaModel class.
     /// </summary>
-    public class NewForecastHdpOuMetaModel : ForecastBaseMetaModel
+    public class NewForecastHandicapOverUnderMetaModel : ForecastBaseMetaModel
     {
-        public NewForecastHdpOuMetaModel()
+        public NewForecastHandicapOverUnderMetaModel()
         {
             BetTypeString = "1";
             CurrencyId = 0;

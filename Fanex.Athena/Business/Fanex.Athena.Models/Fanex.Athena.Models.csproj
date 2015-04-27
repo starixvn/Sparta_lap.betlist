@@ -247,9 +247,9 @@
     <Compile Include="MetaModel\Customer\DeleteGroupMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastAHMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastBaseMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastHandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\NewForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\NewForecastHandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />

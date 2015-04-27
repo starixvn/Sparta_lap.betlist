@@ -34,7 +34,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 return this.RedirectToAction("NewForecastHdpOu");
             }
 
-            var metaModel = new ForecastHdpOuMetaModel
+            var metaModel = new ForecastHandicapOverUnderMetaModel
             {
                 LicenseeId = liceseeSession.LicenseeId,
                 UserId = SessionService.UserSession.UserId
@@ -54,7 +54,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// <returns>Action Result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult ForecastHandicapOverUnder(ForecastHdpOuMetaModel metaModel)
+        public ActionResult ForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
@@ -70,14 +70,14 @@ namespace Fanex.Athena.Controllers.Forecast
         /// </summary>
         /// <param name="metaModel">Meta Model.</param>
         /// <returns>ForecastHandicapOverUnder ViewModel.</returns>
-        private ForecastHdpOuViewModel GetForecastViewModel(ForecastHdpOuMetaModel metaModel)
+        private ForecastHdpOuViewModel GetForecastViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var leagueList = _forecastService.GetFcRunningLeague(metaModel);
+            var leagueList = _forecastService.GetForecastRunningLeague(metaModel);
 
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-            var forecastHdpOuByLeague = _forecastService.GetFcHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
                 {

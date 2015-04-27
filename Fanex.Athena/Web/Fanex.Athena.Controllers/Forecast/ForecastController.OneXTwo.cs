@@ -111,19 +111,19 @@ namespace Fanex.Athena.Controllers.Forecast
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
-            var leagueList = _forecastService.GetFcRunningLeague(metaModel);
+            var leagueList = _forecastService.GetForecastRunningLeague(metaModel);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = _forecastService.GetFcOneXTwoByMatch(metaModel, userSession.UserId);
+                var forecastOneXTwoByMatch = _forecastService.GetForecastOneXTwoByMatch(metaModel, userSession.UserId);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
             {
                 metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-                var forecastcOneXTwoByLeague = _forecastService.GetFcOneXTwoByLeague(metaModel);
+                var forecastcOneXTwoByLeague = _forecastService.GetForecastOneXTwoByLeague(metaModel);
                 model.MainData = forecastcOneXTwoByLeague;
             }
 

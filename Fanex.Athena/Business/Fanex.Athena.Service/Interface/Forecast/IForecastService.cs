@@ -25,21 +25,21 @@ namespace Fanex.Athena.Service.Interface.Forecast
     {
         #region Forecast AH
 
-        ForecastAH GetFcTopOddsByMatch(int matchId, int betType);
+        ForecastAH GetForecastTopOddsByMatch(int matchId, int betType);
 
         ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId);
 
-        ForecastValue GetForacastOverUnder(ForecastAHMetaModel metaModel, int userId);
+        ForecastValue GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId);
 
         #endregion Forecast AH
 
         #region Forecast 1 x 2
 
-        IList<League> GetFcRunningLeague(ForecastBaseMetaModel metaModel);
+        IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
-        IList<ForecastOneXTwo> GetFcOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
 
-        IList<ForecastOneXTwo> GetFcOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
 
         #endregion Forecast 1 x 2
 
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Service.Interface.Forecast
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The data list.</returns>
-        IList<ForecastHandicapOverUnder> GetFcHandicapOverUnder(ForecastHdpOuMetaModel metaModel);
+        IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel);
 
         #endregion Forecast Handicap Over Under
 
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Service.Interface.Forecast
         /// <param name="metaModel">The metal model.</param>
         /// <param name="headerInfo">The data for header section.</param>
         /// <returns>The forecast data.</returns>
-        NewForecastHdpOuData GetNewForecastData(NewForecastHdpOuMetaModel metaModel, NewForecastHdpOuMatchInfo headerInfo);
+        NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo headerInfo);
 
         #endregion New Forecast
     }
