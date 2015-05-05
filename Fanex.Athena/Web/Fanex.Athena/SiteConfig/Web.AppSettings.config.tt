@@ -31,6 +31,7 @@
 	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
 	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
 	<add key="webpages:Version" value="2.0.0.0" />
+	<add key="Enviroment" value="LOCAL"/>
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
@@ -103,6 +104,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="2.0.0.0"/>
+	<add key="Enviroment" value="UAT"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
@@ -169,6 +171,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="2.0.0.0"/>
+	<add key="Enviroment" value="PRO"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
@@ -233,6 +236,7 @@
 	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
 	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
 	<add key="webpages:Version" value="2.0.0.0" />
+	<add key="Enviroment" value="SANDBOX"/>
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
@@ -300,6 +304,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="2.0.0.0"/>
+	<add key="Enviroment" value="BACKUPMNL"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
