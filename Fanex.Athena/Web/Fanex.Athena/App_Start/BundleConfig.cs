@@ -20,7 +20,6 @@
         public static void RegisterBundles(BundleCollection bundles)
         {
             cssRewriteUrlTransform = new CssRewriteUrlTransform();
-
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
