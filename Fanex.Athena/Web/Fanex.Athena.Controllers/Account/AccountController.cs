@@ -456,6 +456,15 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
+            if (model.UserId == SessionService.UserSession.UserId)
+            {
+                return Json(new ResultInfo
+                {
+                    Code = -1,
+                    Message = ViewResources.FunctionDeniedMsg
+                });
+            }
+
             if (model.UserId > 0 && !string.IsNullOrEmpty(model.CurrencyList))
             {
                 var licenseeId = SessionService.LicenseeSession.LicenseeId;

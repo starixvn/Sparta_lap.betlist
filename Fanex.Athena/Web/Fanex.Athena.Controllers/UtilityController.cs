@@ -16,6 +16,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Utility controller.
@@ -250,6 +251,8 @@ namespace Fanex.Athena.Controllers
         /// <param name="txtNewPwd">The new password.</param>
         /// <returns>The result of changing password.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryTokenOnAjax]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd)
         {
             var userSession = SessionService.UserSession;
@@ -286,7 +289,7 @@ namespace Fanex.Athena.Controllers
                 });
             }
         }
-
+        
         private ActionResult RedirectFromLoginPage(int licenseeId)
         {
             SessionService.UpdateLiceseeSession(licenseeId);
