@@ -2,7 +2,6 @@
 {
     using System.Web.Configuration;
     using System.Web.Optimization;
-    using System.Web;
 
     /// <summary>
     /// Bundle config.
@@ -381,7 +380,7 @@
         private static void RegisterAccountLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/AccountLayoutStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/lrf.global.content.css",
@@ -396,7 +395,7 @@
         private static void RegisterBetListLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/BetListLayoutStyles",
                 "~/Content/Library/smoothness/jqgrid-custom.css",
                 "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
@@ -419,7 +418,7 @@
         private static void RegisterBetListLayoutNoStandardStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/BetListLayoutNoStandardStyles",
                 "~/Content/Library/smoothness/jqgrid-custom.css",
                 "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
@@ -440,7 +439,7 @@
         private static void RegisterBetListSimpleLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/BetListSimpleLayoutStyles",
                 "~/Content/Library/smoothness/jqgrid-custom.css",
                 "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
@@ -461,7 +460,7 @@
         private static void RegisterBetSettingLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/BetSettingLayoutStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/grid26.css",
@@ -478,7 +477,7 @@
         private static void RegisterCustomerLogLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/CustomerLogLayoutStyles",
                 "~/Content/Global/grid26.css",
                 "~/Content/Global/lrf.global.content.css",
@@ -522,7 +521,7 @@
         private static void RegisterGroupCommLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/GroupCommLayoutStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/lrf.global.content.css",
@@ -540,7 +539,7 @@
         private static void RegisterjqGridLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/jqGridLayoutStyles",
                 "~/Content/Library/smoothness/jqgrid-custom.css",
                 "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
@@ -561,7 +560,7 @@
         private static void RegisterReportLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/ReportLayoutStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/grid26.css",
@@ -581,7 +580,7 @@
         private static void RegisterReportLayoutSettledMatchCountStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/ReportLayoutSettledMatchCountStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/grid26.css",
@@ -599,7 +598,7 @@
         private static void RegisterReportTableLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/ReportTableLayoutStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/grid26.css",
@@ -619,7 +618,7 @@
         private static void RegisterTotalBetsLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/TotalBetsLayoutStyles",
                 "~/Content/Global/grid26.css",
                 "~/Content/Global/lrf.global.content.css",
@@ -639,7 +638,7 @@
         private static void RegisterWareHouseLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/WareHouseLayoutStyes",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/grid26.css",
@@ -769,7 +768,7 @@
         private static void RegisterEditAccountViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/EditAccountViewStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/Global.css",
@@ -785,7 +784,7 @@
         private static void RegisterResetPasswordViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/ResetPasswordViewStyles",
                 "~/Content/Library/start/jquery-ui.min.css",
                 "~/Content/Global/Global.css",
@@ -801,7 +800,7 @@
         private static void RegisterLastBetsMonitoringViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/LastBetsMonitoringViewStyles",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
                 "~/Content/BetList/lastbetmonitornew.css",
@@ -815,7 +814,7 @@
         private static void RegisterCustomerCommUpdateGroupViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/CustomerCommUpdateGroupViewStyles",
                 "~/Content/Plugin/ColorPicker/Spectrum.css",
                 "~/Content/Global/grid26.css");
@@ -828,7 +827,7 @@
         private static void RegisterCustomerLogCustomersViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/CustomerLogCustomersViewStyles",
                 "~/Content/Customer/CustomerList.css",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
@@ -842,7 +841,7 @@
         private static void RegisterForeCastAHViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/ForeCastAHViewStyles",
                 "~/Content/Global/grid26.css",
                "~/Content/Global/lrf.global.content.css",
@@ -860,7 +859,7 @@
         private static void RegisterHeaderViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/HeaderViewStyles",
                 "~/Content/Themes/12Bet/Site.css",
                 "~/Content/Global/Global.css");
@@ -873,7 +872,7 @@
         private static void RegisterHomeViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/HomeViewStyles",
                 "~/Content/Global/Global.css",
                 "~/Content/Themes/12Bet/Site.css",
@@ -887,7 +886,7 @@
         private static void RegisterMenuViewCss(BundleCollection bundles)
         {
             AddStyleBundle(
-                bundles, 
+                bundles,
                 "~/bundles/MenuViewCss",
                 "~/Content/Global/Global.css",
                 "~/Content/Themes/12Bet/Site.css");
@@ -896,6 +895,7 @@
         #endregion CSS Views
 
         #region Private Utility Functions
+
         /// <summary>
         /// Adds the style bundle.
         /// </summary>
@@ -909,9 +909,10 @@
             {
                 styleBundle.Include(virtualPath, cssRewriteUrlTransform);
             }
-            
+
             bundles.Add(styleBundle);
         }
-        #endregion
+
+        #endregion Private Utility Functions
     }
 }
