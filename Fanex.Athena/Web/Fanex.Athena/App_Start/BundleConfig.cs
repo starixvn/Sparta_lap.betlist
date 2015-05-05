@@ -2,6 +2,7 @@
 {
     using System.Web.Configuration;
     using System.Web.Optimization;
+    using System.Web;
 
     /// <summary>
     /// Bundle config.
@@ -11,7 +12,7 @@
         /// <summary>
         /// The CSS rewrite URL transform.
         /// </summary>
-        private static CssRewriteUrlTransform cssRewriteUrlTransform;
+        private static CssRewriteUrlTransformWrapper cssRewriteUrlTransform;
 
         /// <summary>
         /// Registers the bundles.
@@ -19,7 +20,7 @@
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            cssRewriteUrlTransform = new CssRewriteUrlTransform();
+            cssRewriteUrlTransform = new CssRewriteUrlTransformWrapper();
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
