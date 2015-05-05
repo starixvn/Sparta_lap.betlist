@@ -252,7 +252,6 @@ namespace Fanex.Athena.Controllers
         /// <returns>The result of changing password.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateAntiForgeryTokenOnAjax]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd)
         {
             var userSession = SessionService.UserSession;

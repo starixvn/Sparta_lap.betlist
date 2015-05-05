@@ -107,11 +107,11 @@ function ChangePassword() {
         url: Site.resolveClientUrl("Utility/ChangePass"),
         data: ({ txtNewPwd: $('#txtNewPwd').val(),
             txtOldPwd: $('#txtOldPwd').val(),
-            txtConfirmPwd: $('#txtConfirmPwd').val()
+            txtConfirmPwd: $('#txtConfirmPwd').val(),
+            __RequestVerificationToken: token
         }),
         dataType: "json",
         type: "POST",
-        headers: { "__RequestVerificationToken": token },
         async: false,
         success: function (result) {
             Site.unBlockUI();
