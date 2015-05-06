@@ -2627,7 +2627,6 @@
   </data>
   <data name="Voidbridge" xml:space="preserve">
     <value>Voidbridge</value>
-    <comment>#32647</comment>
   </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
     <value>You cannot update member bet limit for product {0}.</value>
@@ -2650,8 +2649,8 @@
   <data name="VoidbridgeWinLoss" xml:space="preserve">
     <value>Voidbridge Win Loss</value>
     <comment>#38247</comment>
-    </data>
-  <data name="Voidbridge" xml:space="preserve">
-    <value>Voidbridge</value> 
-    </data>
+  </data>
+  <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
+    <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>
+  </data>
 </root>

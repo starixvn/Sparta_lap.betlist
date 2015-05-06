@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Cache\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
+    <Compile Include="DataDomain\CurrencyType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\EsportSettingType.cs" />
     <Compile Include="DataDomain\ProductType.cs" />
