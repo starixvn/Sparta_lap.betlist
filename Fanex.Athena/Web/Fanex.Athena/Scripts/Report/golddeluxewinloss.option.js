@@ -213,6 +213,10 @@ var GoldDeluxeWinLossOption = (function () {
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
         dateColumn.hidden = level > 0;
+        dateColumn.formatoptions =
+        {
+            newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
+        };
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0;
 

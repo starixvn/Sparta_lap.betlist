@@ -49,6 +49,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
             set { _toDate = value; }
         }
 
+        public byte ReportBy { get; set; }
+
         public string SortBy { get; set; }
 
         public string SortOrder { get; set; }

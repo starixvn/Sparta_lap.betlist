@@ -87,17 +87,20 @@ namespace Fanex.Athena.Api.Report
         private HttpResponseMessage ExportExcel(AgCasinoWinLossMetaModel metaModel, IList<AgCasinoWinLoss> dataList, IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            const string FileName = "AgCasinoWinLoss.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/AgCasinoWinLoss.xls");
 
             var currencyList = userSession.CurrencyList;
 
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var exportedFileName = string.Format(
+                "AGWinLoss_{0:ddMMMyyyy}_{1}.xls", 
+                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate, 
+                currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currency.Key
             };
 
             // Update metalModel Value
@@ -118,14 +121,14 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new AgCasinoWinLossExcel(templatePath, FileName, convertingOption, metaModel, exccelModel)
+            var excel = new AgCasinoWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, exccelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
 
             excel.Export();
 
-            return ExcelStream(excel.Workbook, FileName);
+            return ExcelStream(excel.Workbook, exportedFileName);
         }
 
         /// <summary>

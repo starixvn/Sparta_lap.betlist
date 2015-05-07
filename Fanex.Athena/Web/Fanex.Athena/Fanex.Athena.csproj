@@ -413,6 +413,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
     <Content Include="Content\Fanex.Result\images\goal-icon.png" />
@@ -4113,7 +4114,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CodeAnalysis\" />
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
   </ItemGroup>

@@ -7,40 +7,8 @@ var AgCasinoWinLoss = (function ($) {
     var ajaxRequest = null;
     var totalRowCount = 0;
     var _level = 0;
-    function initMonthPicker() {
-        var year = $("#Year").val();
-        var month = $("#Month").val();
-        var fromDay = $("#FromDay").val();
-        var toDay = $("#ToDay").val();
-
-        $('#DateControl').monPickr({
-            minDate: $('#MinDate').val(),
-            maxDate: $('#ToDate').val(),
-            showDateRange: true,
-            fromDayId: 'MonthPickerFromDay',
-            toDayId: 'MonthPickerToDay',
-            month: new Date(year, month - 1, fromDay),
-            fromDay: fromDay,
-            toDay: toDay,
-            afterChangeMonth: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                $('#Year').val(fromDate.getFullYear());
-                $('#Month').val(fromDate.getMonth() + 1);
-            },
-            afterChangeDay: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
-                $('#FromDay').val(fromDate.getDate());
-                $('#ToDay').val(toDate.getDate());
-            },
-            log: function (/*msg*/) {
-                //console.warn(msg);
-            }
-        });
-    }
-
+    var VALID_MONTH_RANGE = 3;
+    var _submitData;
     return {
         resizeGrid: function () {
             setTimeout(function () {
@@ -69,11 +37,11 @@ var AgCasinoWinLoss = (function ($) {
         },
         initialize: function () {
             AgCasinoWinLoss.initEvent();
-            initMonthPicker();
             Site.addUserGuide({
                 resourceName: "AGCasinoWL",
                 title: Site.getSingleResource("AGCasinoWinLoss")
             });
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, AgCasinoWinLossOption.urlExcelData);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -159,19 +127,19 @@ var AgCasinoWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();                
+                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
                     //update drildownValue
                     $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
                     $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalFromDate").val($("#FromDate").val());
-                    $("#OriginalToDate").val($("#ToDate").val());
+                    $("#OriginalFromDate").val(_submitData.FromDate);
+                    $("#OriginalToDate").val(_submitData.ToDate);
                     $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
                     $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
                     $("#OriginalReportBy").val(reportBy);
-                    AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+                    AgCasinoWinLoss.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                 }
 
                 AgCasinoWinLoss.renderBreadCrumb(level);
@@ -182,12 +150,7 @@ var AgCasinoWinLoss = (function ($) {
         submit: function () {
             var mainForm = $("#AgCasinoWinLossForm");
             var postdata = mainForm.serializeObject();
-            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
-
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
-
+            _submitData = postdata;
             var option = {
                 type: "POST",
                 data: postdata,
@@ -291,7 +254,7 @@ var AgCasinoWinLoss = (function ($) {
             ajaxRequest = $.ajax(option);
         },
 
-        goBack: function (level) {            
+        goBack: function (level) {
             if (level === 0) {
                 AgCasinoWinLoss.renderBreadCrumb(level);
                 AgCasinoWinLoss.bindData(0, cacheData[level]);

@@ -4,19 +4,7 @@ var RunningBetListMultipleBettype = (function ($) {
     "use strict";
 
     function getBettypesParam() {
-        var bettypes = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",");
-        var bettypesString = bettypes[0];
-        if (bettypes.length > 1) {
-            // Only allow at most two bettypes
-            bettypesString += "," + bettypes[1];
-
-            // Or three bettypes if this is  B/O/N Team to score
-            if (bettypes[0] === "26" && bettypes.length > 2) // B/O/N Team to score
-            {
-                bettypesString += "," + bettypes[2];
-            }
-        }
-
+        var bettypesString = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "");
         return bettypesString;
     }
 

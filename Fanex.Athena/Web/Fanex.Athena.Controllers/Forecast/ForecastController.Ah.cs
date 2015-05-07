@@ -94,7 +94,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// <returns>ForecastAh View Model.</returns>
         private ForecastAHViewModel GetForecastViewModel(ForecastAHMetaModel metaModel)
         {
-            var forecastHeaderParam = _forecastService.GetFcTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
+            var forecastHeaderParam = _forecastService.GetForecastTopOddsByMatch(metaModel.MatchId, metaModel.BetType);
             ForecastValue forecastValue = null;
             var userSession = SessionService.UserSession;
             if (forecastHeaderParam != null)
@@ -123,7 +123,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 {
                     /* Over/Under or 1st Over/Under*/
                     forecastHeaderParam.ForecastName = metaModel.BetType == (int)BetType.OverUnder ? ViewResources.OverUnder : ViewResources.lbl1stOver_Under;
-                    forecastValue = _forecastService.GetForacastOverUnder(metaModel, userSession.UserId);
+                    forecastValue = _forecastService.GetForecastOverUnder(metaModel, userSession.UserId);
                 }
 
                 forecastValue.ForeCastLink = RenderForecastLink(metaModel.BetType, metaModel.CurrentScore);

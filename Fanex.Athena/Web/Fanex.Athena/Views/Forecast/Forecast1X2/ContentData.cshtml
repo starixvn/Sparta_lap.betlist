@@ -2,7 +2,7 @@
 @model Fanex.Athena.Models.ViewModel.Forecast.ForecastOneXTwoViewModel
 
 @{
-    var mainData = Model.MainData.OrderBy(x=>x.HomeTeamName);    
+    var mainData = Model.MainData.OrderBy(x => x.HomeTeamName);    
 }
 
 <div class="data-content">
@@ -10,6 +10,8 @@
         <tbody>
             @foreach (var match in mainData)
             {
+                if (!match.IsExtra)
+                {
                 <tr>
                     <!--Render team-->
                     <td class="league" colspan="5">
@@ -42,7 +44,7 @@
                         @ViewResources.FullTime
                     </td>
                     <td style="width: 6%">
-                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="1" href="javascript:;"></a>
+                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="5" href="javascript:;"></a>
                     </td>
                     <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HomeWinLoss, true, false)</td>
                     <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.DrawWinLoss, true, false)</td>
@@ -53,12 +55,54 @@
                         @ViewResources.HalfTime
                     </td>
                     <td style="width: 6%">
-                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="7" href="javascript:;"></a>
+                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="15" href="javascript:;"></a>
                     </td>
                     <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
                     <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
                     <td class="forecast-number" style="width: 20%" >@RazorHelper.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
                 </tr> 
+                }
+                else
+                {
+                    <tr>
+                    <!--Render team-->
+                    <td class="league" colspan="5">
+                        @match.HomeTeamName -vs- @match.AwayTeamName
+                    </td>
+                    <!--Render team-->
+                </tr>
+                <tr>
+                    <td class="middle-text" style="width: 30%" colspan="2">
+                        @if (match.LiveIndicator)
+                        {
+                            <div class="show-time">
+                                <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                                <i class="live-notice">@ViewResources.Live!</i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="show-time">
+                                @Html.Raw(match.ShowTime)
+                            </div>
+                        }
+                    </td>
+                    <td class="middle-text forecast-number">1</td>
+                    <td class="middle-text forecast-number draw-highlight">X</td>
+                    <td class="middle-text forecast-number">2</td>
+                </tr>
+                <tr>
+                    <td style="width: 24%" class="middle-text">
+                        @ViewResources.HalfTime
+                    </td>
+                    <td style="width: 6%">
+                        <a class="button-add" data-match-id="@match.MatchId" data-bettype="167" href="javascript:;"></a>
+                    </td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%">@RazorHelper.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
+                    <td class="forecast-number" style="width: 20%" >@RazorHelper.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
+                </tr> 
+                }
             }
         </tbody>
     </table>

@@ -186,9 +186,10 @@ namespace Fanex.Athena.Controllers.Report
         /// Generate tennis detailed result.
         /// </summary>
         /// <param name="matchId">The match ID.</param>       
+        /// /// <param name="sportType">The sport type.</param>       
         /// <returns>The html result.</returns>
         [HttpGet]
-        public ActionResult ResultTennisDetail(int matchId)
+        public ActionResult ResultDetail(int matchId, int sportType)
         {
             var resultService = new ResultService();
             var detailedData = resultService.GetSportsbookGameDetail(matchId);
@@ -198,7 +199,7 @@ namespace Fanex.Athena.Controllers.Report
                 detailedData,
                 new ResultSetting
                 {
-                    SportType = SportType.Tennis,
+                    SportType = (SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
                
@@ -555,7 +556,7 @@ namespace Fanex.Athena.Controllers.Report
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
-                VisibleDetailedLink = metalModel.SportId == (int)SportType.Tennis,
+                VisibleDetailedLink = true,
                 VisibleFreeHeader = true
             };
             switch (sportType)

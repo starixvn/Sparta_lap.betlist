@@ -42,9 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.Core, Version=2.0.5.12, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fanex.BetList.Core, Version=2.1.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.0.5.12-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.1.0.6-beta2\lib\net40\Fanex.BetList.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Cache\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
+    <Compile Include="DataDomain\CurrencyType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\EsportSettingType.cs" />
     <Compile Include="DataDomain\ProductType.cs" />
@@ -247,9 +248,9 @@
     <Compile Include="MetaModel\Customer\DeleteGroupMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastAHMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastBaseMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\ForecastHandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\NewForecastHdpOuMetaModel.cs" />
+    <Compile Include="MetaModel\Forecast\NewForecastHandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />

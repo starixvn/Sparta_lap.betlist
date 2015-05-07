@@ -489,7 +489,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         HomeValue = reader["HomeValue"].ToString(),
                         AwayValue = reader["AwayValue"].ToString(),
                         ResultStatusID = int.Parse(reader["ResultStatusID"].ToString()),
-                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString())
+                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString()),
+                        OtherInfo = reader["OtherInfo"].ToString()
                     });
                 }
             }

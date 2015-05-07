@@ -25,5 +25,7 @@ namespace Fanex.Athena.Models.DTO.Forecast.Forecast1X2
         public decimal HalfTImeDrawWinLoss { get; set; }
 
         public decimal HalfTimeAwayWinLoss { get; set; }
+
+        public bool IsExtra { get; set; }
     }
 }

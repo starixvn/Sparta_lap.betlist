@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ForecastHdpOuMetaModel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ForecastHandicapOverUnderMetaModel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,9 +12,9 @@ namespace Fanex.Athena.Models.MetaModel.Forecast
     /// <summary>
     /// Forecast HDP OU MetaModel class.
     /// </summary>
-    public class ForecastHdpOuMetaModel : ForecastBaseMetaModel
+    public class ForecastHandicapOverUnderMetaModel : ForecastBaseMetaModel
     {
-        public ForecastHdpOuMetaModel()
+        public ForecastHandicapOverUnderMetaModel()
         {
             BetTypeString = "1";
             CurrencyId = 0;

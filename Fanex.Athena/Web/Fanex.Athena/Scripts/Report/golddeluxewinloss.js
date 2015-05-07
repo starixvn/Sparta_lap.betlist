@@ -7,41 +7,7 @@ var GoldDeluxeWinLoss = (function ($) {
     var ajaxRequest = null;
     var _level = 0;
     var _submitData;
-
-    function initMonthPicker() {
-        var year = $("#Year").val();
-        var month = $("#Month").val();
-        var fromDay = $("#FromDay").val();
-        var toDay = $("#ToDay").val();
-
-        $('#DateControl').monPickr({
-            minDate: $('#MinDate').val(),
-            maxDate: $('#ToDate').val(),
-            showDateRange: true,
-            fromDayId: 'MonthPickerFromDay',
-            toDayId: 'MonthPickerToDay',
-            month: new Date(year, month - 1, fromDay),
-            fromDay: fromDay,
-            toDay: toDay,
-            afterChangeMonth: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                $('#Year').val(fromDate.getFullYear());
-                $('#Month').val(fromDate.getMonth() + 1);
-            },
-            afterChangeDay: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
-                $('#FromDay').val(fromDate.getDate());
-                $('#ToDay').val(toDate.getDate());
-            },
-            log: function (/*msg*/) {
-                //console.warn(msg);
-            }
-        });
-    }
-
+    var VALID_MONTH_RANGE = 3;
     return {
         resizeGrid: function () {
             setTimeout(function () {
@@ -68,11 +34,11 @@ var GoldDeluxeWinLoss = (function ($) {
         initialize: function () {
             GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             GoldDeluxeWinLoss.initEvent();
-            initMonthPicker();
             Site.addUserGuide({
                 resourceName: "GoldDeluxeWinLoss",
                 title: Site.getSingleResource("GoldDeluxeWinLoss")
             });
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, GoldDeluxeWinLossOption.urlExcelData);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -159,6 +125,7 @@ var GoldDeluxeWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
+                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
@@ -168,7 +135,8 @@ var GoldDeluxeWinLoss = (function ($) {
                         FromDate: $("#FromDate").val(),
                         ToDate: $("#ToDate").val(),
                         CurrencyName: $("#CurrencyId option:selected").text(),
-                        BaseCurrency: $("#BaseCurrency").val()
+                        BaseCurrency: $("#BaseCurrency").val(),
+                        ReportBy: reportBy
                     };
 
                     GoldDeluxeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
@@ -182,11 +150,6 @@ var GoldDeluxeWinLoss = (function ($) {
         submit: function () {
             var mainForm = $("#GoldDeluxeWinLossForm");
             var postdata = mainForm.serializeObject();
-            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
-
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
 
             var option = {
                 type: "POST",
@@ -214,6 +177,10 @@ var GoldDeluxeWinLoss = (function ($) {
             return true;
         },
 
+        lastDateOfMonth: function (year, month) {
+            return new Date(year, month + 1, 0);
+        },
+
         drillDown: function (level, currencyId, customerId, datetime) {
             level = Number(level);
 
@@ -227,10 +194,30 @@ var GoldDeluxeWinLoss = (function ($) {
                 CurrencyId: _submitData.CurrencyId,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                BaseCurrency: _submitData.BaseCurrency
+                BaseCurrency: _submitData.BaseCurrency,
+                ReportBy: _submitData.ReportBy
             };
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
+            if (Number(param.ReportBy) === 2) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(param.FromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(param.ToDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = GoldDeluxeWinLoss.lastDateOfMonth(year, month);
+                }
+            }
 
             var option = {
                 type: "POST",

@@ -4,17 +4,8 @@
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     <form id="GoldDeluxeWinLossForm" name="GoldDeluxeWinLossForm" method="post" action="">
-    <div class="grid_3 filter-label">
-        <label>@ViewResources.ViewDataInMonth</label>
-    </div>
-    <div class="grid_8 filter-input month-picker">
-        <div id="DateControl">
-        </div>
-        <div id="MonthPickerFromDay">
-        </div>
-        <div id="MonthPickerToDay">
-        </div>
-    </div>
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div>
         <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
@@ -53,6 +44,21 @@
         </div>
     </div>
     <div class="grid_3 filter-label new-line">
+            <label>
+                @ViewResources.ReportBy
+            </label>
+        </div>    
+        <div class="grid_5 filter-input option-list">
+            <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
+            <label for="reportbydaily">
+                @ViewResources.Daily
+            </label>
+            <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
+            <label for="reportbymonthly">
+                @ViewResources.Monthly
+            </label>
+        </div>
+    <div class="grid_3 filter-label new-line">
         &nbsp;</div>
     <div class="grid_2 filter-input" id="control-container">
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
@@ -60,6 +66,4 @@
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
-    <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-    <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
 </div>

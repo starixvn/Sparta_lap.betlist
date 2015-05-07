@@ -1028,6 +1028,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var ordinalExternalId = reader.TryGetOrdinal("nickname");
             var ordinalRace = reader.TryGetOrdinal("race");
             var ordinalBetFrom = reader.TryGetOrdinal("betfrom");
+            var ordinalBetCheck = reader.TryGetOrdinal("betcheck");
 
             // Boolean
             var ordinalLiveIndicator = reader.TryGetOrdinal("liveindicator");
@@ -1085,6 +1086,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.ExternalId = ordinalExternalId >= 0 ? reader.ToString("nickname") : string.Empty;
                 ticket.Race = ordinalRace >= 0 ? reader.ToString("race") : string.Empty;
                 ticket.BetFrom = ordinalBetFrom >= 0 ? reader.ToString("betfrom") : string.Empty;
+                ticket.BetCheck = ordinalBetCheck >= 0 ? reader.ToString("betcheck") : string.Empty;
 
                 // Boolean
                 ticket.IsLive = ordinalLiveIndicator >= 0 ? ReadBoolean(reader["liveindicator"]) : false;

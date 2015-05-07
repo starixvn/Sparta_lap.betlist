@@ -30,5 +30,7 @@ namespace Fanex.Athena.Models.DTO.TotalBets
         public int BetCountOddEven1StHalf { get; set; }
 
         public int BetCountOneXTow1StHalf { get; set; }
+
+        public int Bettype { get; set; }
     }
 }

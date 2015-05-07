@@ -53,6 +53,8 @@
             };
         });        
     </script>
+    @if (AppSettings.Enviroment.Equals("PRO", StringComparison.OrdinalIgnoreCase))
+    {
     <script type="text/javascript">
         var _paq = _paq || [];
         _paq.push(['trackPageView']);
@@ -69,5 +71,6 @@
         <p>
             <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" /></p>
     </noscript>
+    }
 </body>
 </html>

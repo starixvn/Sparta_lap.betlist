@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var metaModel = new AgCasinoWinLossMetaModel
                 {
-                    FromDate = date.Day == 1 ? date.AddMonths(-1) : new DateTime(date.Year, date.Month, 1),
+                    FromDate = date.AddDays(-1),
                     ToDate = date.AddDays(-1),
                     LicenseeId = licenseeSession.LicenseeId,
                     IsExcludedTestData = true,

@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.Forecast
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (this._licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
             {
-                var metaModel = new NewForecastHdpOuMetaModel
+                var metaModel = new NewForecastHandicapOverUnderMetaModel
                 {
                     LicenseeId = licenseeId,
                     UserId = SessionService.UserSession.UserId,
@@ -79,7 +79,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// <param name="metaModel">The meta model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult NewForecastHdpOu(NewForecastHdpOuMetaModel metaModel)
+        public ActionResult NewForecastHdpOu(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.Forecast
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        private NewForecastHdpOuViewModel GetForecastHdpOuViewModel(NewForecastHdpOuMetaModel metaModel)
+        private NewForecastHdpOuViewModel GetForecastHdpOuViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             IList<Match> matchList = new List<Match>();
             IList<League> leagueList = new List<League>();
@@ -146,7 +146,7 @@ namespace Fanex.Athena.Controllers.Forecast
             {
                 if (!Request.IsAjaxRequest())
                 {
-                    model.LeagueList = _forecastService.GetFcRunningLeague(metaModel);
+                    model.LeagueList = _forecastService.GetForecastRunningLeague(metaModel);
                     if (model.LeagueList.Count > 0)
                     {
                         metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);

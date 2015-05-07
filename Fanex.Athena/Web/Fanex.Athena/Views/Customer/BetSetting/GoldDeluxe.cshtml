@@ -42,11 +42,22 @@
     @Html.Hidden("dataCount", Model.GoldDeluxeViewModel.BetSetting.IsEnabled ? 1 : 0)
     @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.GoldDeluxeViewModel.Games))
 }
+  
 @if (isLineEnabled && !hasData)
-{
-    <div style="width: 885px!important; padding: 20px 0px 20px 0px">
-        <div>@ViewResources.ProblemDisplayBetSetting</div>
-    </div>
+{              
+    var currencyId = Model.GoldDeluxeViewModel.BetSetting.CurrencyId;
+    if (currencyId == CurrencyType.Aud || currencyId == CurrencyType.Chf || currencyId == CurrencyType.Eur || currencyId == CurrencyType.Gbp)
+    {
+        <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+            <div>@ViewResources.CurrencyNotSupportedForGoldDeluxe</div>
+        </div>
+    }
+    else
+    {
+        <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+            <div>@ViewResources.ProblemDisplayBetSetting</div>
+        </div> 
+    }
 }
 else
 {
@@ -105,7 +116,7 @@ else
         {
             <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
             data-cust-id="@Model.Param.CustId" 
-            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableGoldDeluxe: ViewResources.EnableGoldDeluxe)"
+            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableGoldDeluxe : ViewResources.EnableGoldDeluxe)"
             id="btnUpdateStatus" />
         }
     </div>

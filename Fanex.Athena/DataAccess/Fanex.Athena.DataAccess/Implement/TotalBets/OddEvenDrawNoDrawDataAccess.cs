@@ -121,6 +121,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     MatchId = reader.ToInt("matchid"),
                     HomeId = reader.ToInt("homeID"),
                     AwayId = reader.ToInt("awayID"),
+                    Bettype = reader.ToInt("bettype"),
                     LiveHomeScore = reader.ToString("livehomescore"),
                     LiveAwayScore = reader.ToString("liveawayscore"),
                     LiveIndicator = reader.ToInt("liveindicator"),
