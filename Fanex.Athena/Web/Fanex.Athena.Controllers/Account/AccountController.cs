@@ -456,7 +456,9 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
-            if (model.UserId == SessionService.UserSession.UserId)
+            IUserService userService = new UserService();
+            var userInfo = userService.GetUserInfo(model.UserId, SessionService.LicenseeSession.LicenseeId);
+            if (userInfo == null)
             {
                 return Json(new ResultInfo
                 {
