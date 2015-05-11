@@ -114,11 +114,12 @@ namespace Fanex.Athena
         protected void Application_EndRequest()
         {
             /*stop as early as you can, even earlier with MvcMiniProfiler.MiniProfiler.Stop(discardResults: true);*/
-            if (!AppSettings.LocalTest)
+            if (!AppSettings.Enviroment.Equals("DEV", StringComparison.OrdinalIgnoreCase))
             {
                 Response.Headers.Remove("X-AspNet-Version");
                 Response.Headers.Remove("X-AspNetMvc-Version");
                 Response.Headers.Remove("Server");
+                Response.Headers.Remove("X-Powered-By");
             }
         }
     }
