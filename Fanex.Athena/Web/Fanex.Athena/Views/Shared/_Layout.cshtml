@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     @RenderSection("css", required: false)
     <link href="@Url.ContentLink("/Content/Plugin/Note/note.css")" rel="stylesheet" type="text/css" />
-
     @Scripts.Render("~/bundles/CoreJs")
     <script type="text/javascript">
         function resolveClientUrl(relativeUrl) {
@@ -43,16 +42,26 @@
     </script>
     @if (AppSettings.Enviroment.Equals("PRO", StringComparison.OrdinalIgnoreCase))
     {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            Site.callTrackPage();
-        });
-    </script>
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+
+            $(function () {
+                setTimeout(function () {
+                    var u = "https://pw.detecas.com/";
+                    window._paq.push(['setTrackerUrl', u + 'piwik.php']);
+                    window._paq.push(['setSiteId', 5]);
+                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                    g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
+                }, 50);
+            });
+        </script>
     
-    <noscript>
-        <p>
-            <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" /></p>
-    </noscript>
+        <noscript>
+            <p>
+                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" /></p>
+        </noscript>
     }
 </body>
 </html>
