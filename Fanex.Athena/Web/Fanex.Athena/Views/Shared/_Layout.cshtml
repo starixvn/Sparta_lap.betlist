@@ -40,7 +40,7 @@
             };
         });        
     </script>
-    @if (AppSettings.Enviroment.Equals("UAT", StringComparison.OrdinalIgnoreCase))
+    @if (AppSettings.Enviroment.Equals("PRO", StringComparison.OrdinalIgnoreCase))
     {
         <script type="text/javascript">
             var _paq = _paq || [];
@@ -54,7 +54,7 @@
                     window._paq.push(['setSiteId', 5]);
                     var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
                     g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
-                }, 50);
+                }, 500);
             });
         </script>
     
