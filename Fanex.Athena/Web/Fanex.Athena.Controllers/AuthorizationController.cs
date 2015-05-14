@@ -199,21 +199,21 @@ namespace Fanex.Athena.Controllers
             IUserService userService = new UserService();
             bool isSuccess = !userService.RecheckIn(userSession.OnUserId);
 
-            ErrorType errCode = 0;
-            var errMsg = string.Empty;
+            ErrorType errorCode = ErrorType.Unknown;
+            var errorMsg = string.Empty;
             if (!isSuccess)
             {
-                errCode = ErrorType.KickedOut;
-                errMsg = ViewResources.SessionLoggedMsg;
+                errorCode = ErrorType.KickedOut;
+                errorMsg = ViewResources.SessionLoggedMsg;
                 FormsAuthentication.SignOut();
             }
             else
             {
-                errCode = ErrorType.Success;
-                errMsg = ViewResources.SessionLoggedMsg;
+                errorCode = ErrorType.Success;
+                errorMsg = ViewResources.SessionLoggedMsg;
             }
 
-            return Json(RecheckInResult(errCode, errMsg), JsonRequestBehavior.AllowGet);
+            return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
