@@ -119,6 +119,7 @@
 
     function init() {
         // write the arrays into the hashtable
+        var localeGroup;
         for (var localeGroupIdx = 0; localeGroupIdx < nfAllLocales.length; localeGroupIdx++) {
             localeGroup = nfAllLocales[localeGroupIdx];
             for (var i = 0; i < localeGroup.length; i++) {
