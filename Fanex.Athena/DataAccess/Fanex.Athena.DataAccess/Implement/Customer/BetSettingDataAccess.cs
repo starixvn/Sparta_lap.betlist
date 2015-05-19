@@ -390,13 +390,13 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region VegasGames
 
         /// <summary>
-        /// Updates the void bridge status.
+        /// Updates the vegas games status.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
         /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The Void bridge status.</param>
+        /// <param name="isEnabled">The vegas games status.</param>
         /// <returns>The Result Info.</returns>
         public IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
