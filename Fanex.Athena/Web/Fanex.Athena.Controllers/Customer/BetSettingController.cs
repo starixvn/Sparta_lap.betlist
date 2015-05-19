@@ -177,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
-            metaModel.IsAllowVegasGames = productAccess.IsAllowVB;
+            metaModel.IsAllowVegasGames = productAccess.IsAllowVG;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
             try

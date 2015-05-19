@@ -135,7 +135,7 @@
     <Compile Include="DTO\Customer\BetSetting\RngCasino\GameType.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\RngCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\StakeLevel.cs" />
-    <Compile Include="DTO\Customer\BetSetting\VegasGames\VoidbridgeBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\VegasGames\VegasGamesBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\VSBetSetting.cs" />
     <Compile Include="DTO\Customer\CustomerDTO.cs" />
     <Compile Include="DTO\Common\Function.cs" />
