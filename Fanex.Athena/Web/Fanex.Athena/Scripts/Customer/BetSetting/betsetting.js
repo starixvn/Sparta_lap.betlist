@@ -208,13 +208,13 @@ var BetSetting = (function ($) {
         },
         updateBetSetting: function () {
             var custId, userName, nickName, tabid;
+            tabid = parseInt($("#TabId").val());
             var isValid = tabid === TAB_LIVECASINO ? true :
                          (tabid === TAB_NUMBERGAME ? BetSetting.checkValidationNumberGame() : BetSetting.checkValidation());
             if (!isValid) {
                 return;
             }
 
-            tabid = parseInt($("#TabId").val());
             custId = $(this).attr("data-cust-id");
             userName = $(this).attr("data-user-name");
             nickName = $(this).attr("data-nick-name");

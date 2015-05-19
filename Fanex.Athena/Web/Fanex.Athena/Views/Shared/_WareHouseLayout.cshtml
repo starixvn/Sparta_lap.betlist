@@ -3,18 +3,12 @@
 }
 @section css
 {
-    <link href="@Url.ContentLink("/Content/Library/start/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.grid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Warehouse/Warehouse.css")" rel="stylesheet" type="text/css" />
+    @System.Web.Optimization.Styles.Render("~/bundles/WareHouseLayoutStyes")
     @RenderSection("pagecss", required: false)
 }
 @section js
 {
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/date.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Plugin/DateRangePicker/daterangepicker.js")" type="text/javascript"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/WareHouseLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
 

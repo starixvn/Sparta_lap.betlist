@@ -41,6 +41,7 @@ var WinLossByProductOption = (function () {
             width: 30,
             align: 'center',
             valign: 'middle',
+            sorttype: 'int',
             sortable: false,
             resizable: false
         };

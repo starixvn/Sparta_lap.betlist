@@ -34,6 +34,8 @@ namespace Fanex.Athena.Controllers.Account
 
         private readonly ILicenseeService _licenseeService;
         private readonly IFunctionService _functionService;
+        private readonly IUserService _userService;
+
         private IList<Function> _allMasterFunctionList;
 
         private IDictionary<int, IList<Function>> _allFunctionMap;
@@ -48,6 +50,7 @@ namespace Fanex.Athena.Controllers.Account
         {
             this._licenseeService = new LicenseeService();
             this._functionService = new FunctionService();
+            this._userService = new UserService();
         }
 
         #endregion Constructor
@@ -91,10 +94,9 @@ namespace Fanex.Athena.Controllers.Account
         [FunctionAuthorization]
         public ActionResult Manage()
         {
-            IUserService userService = new UserService();
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
-            var model = userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
+            var model = _userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
                 .Where(i => i.Id != userSession.UserId).ToList();
             ViewBag.PageSession = userSession;
 
@@ -117,8 +119,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && userId != userSession.UserId)
             {
-                var userService = new UserService();
-                var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
+                var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
                 if (user != null && user.IsInternal == userSession.IsInternal)
                 {
@@ -159,8 +160,7 @@ namespace Fanex.Athena.Controllers.Account
 
             var userSession = SessionService.UserSession;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var userService = new UserService();
-            var user = userService.GetUserInfo(licenseeId, model.UserId);
+            var user = _userService.GetUserInfo(licenseeId, model.UserId);
 
             if (user != null && user.IsInternal == userSession.IsInternal)
             {
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Controllers.Account
                 user.Licensee = new Licensee { Id = licenseeId };
 
                 // proceed updating
-                IResultInfo resultInfo = userService.UpdateInfo(user, userSession.UserId);
+                IResultInfo resultInfo = _userService.UpdateInfo(user, userSession.UserId);
                 if (resultInfo.IsSuccessful)
                 {
                     resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
@@ -239,8 +239,7 @@ namespace Fanex.Athena.Controllers.Account
             }
 
             var userSession = SessionService.UserSession;
-            var userService = new UserService();
-            Models.DTO.Users.User user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, model.UserId);
+            var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, model.UserId);
 
             if (user != null && user.IsInternal == userSession.IsInternal)
             {
@@ -262,7 +261,7 @@ namespace Fanex.Athena.Controllers.Account
                     });
                 }
 
-                IResultInfo resultInfo = userService.ResetPassword(user, userSession.UserId);
+                var resultInfo = _userService.ResetPassword(user, userSession.UserId);
 
                 if (resultInfo.IsSuccessful)
                 {
@@ -302,8 +301,7 @@ namespace Fanex.Athena.Controllers.Account
             int userId; // user is being editted
             if (int.TryParse(Request.Params["UserId"], out userId) && ValidatePermissionRestriction(userId))
             {
-                var userService = new UserService();
-                var user = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
+                var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
 
                 if (user != null)
                 {
@@ -328,12 +326,11 @@ namespace Fanex.Athena.Controllers.Account
             if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && ValidatePermissionRestriction(userId))
             {
                 var licenseeSession = SessionService.LicenseeSession;
-                var userService = new UserService();
-                var user = userService.GetUserInfo(licenseeSession.LicenseeId, userId);
+                var user = _userService.GetUserInfo(licenseeSession.LicenseeId, userId);
 
                 if (user != null)
                 {
-                    GetDataOfFunction(userId);
+                    InitializeFunctions(userId);
                     ViewBag.AllMasterFunctions = _allMasterFunctionList;
                     ViewBag.AllFunctionMap = _allFunctionMap;
                     ViewBag.AllUserFunctions = _allUserFunctionList;
@@ -378,22 +375,17 @@ namespace Fanex.Athena.Controllers.Account
 
             if (model.UserId > 0)
             {
-                var userService = new UserService();
                 var licenseeId = licenseeSession.LicenseeId;
                 var userLoginId = userSession.UserId;
-                var user = userService.GetUserInfo(licenseeId, model.UserId);
                 var ip = Request.UserHostAddress;
                 var langKey = LangService.GetCurrentLanguage();
 
-                if (user != null)
+                if (!string.IsNullOrEmpty(model.FunctionIdList))
                 {
-                    if (!string.IsNullOrEmpty(model.FunctionIdList))
-                    {
-                        var idlist = ParseFunctionIdList(model.FunctionIdList);
-                        var result = _functionService.AssignUserFunctions(licenseeId, model.UserId, idlist, userLoginId, ip, langKey);
+                    var idlist = ParseToIntList(model.FunctionIdList);
+                    var result = _functionService.AssignUserFunctions(licenseeId, model.UserId, idlist, userLoginId, ip, langKey);
 
-                        return Json(result);
-                    }
+                    return Json(result);
                 }
             }
 
@@ -447,7 +439,16 @@ namespace Fanex.Athena.Controllers.Account
         [ValidateAntiForgeryToken]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {
-            if (!AppSettings.EnableAssignCurrency)
+            if (model.UserId <= 0 || string.IsNullOrEmpty(model.CurrencyList))
+            {
+                return Json(new ResultInfo
+                {
+                    Code = -2,
+                    Message = ViewResources.InvalidRequestMsg
+                });
+            }
+
+            if (AppSettings.EnableAssignCurrency == false || ValidatePermissionRestriction(model.UserId) == false)
             {
                 return Json(new ResultInfo
                 {
@@ -456,47 +457,38 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
-            if (model.UserId > 0 && !string.IsNullOrEmpty(model.CurrencyList))
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var userSession = SessionService.UserSession;
+            model.LicenseeId = licenseeId;
+            model.IP = Request.UserHostAddress;
+            model.LangKey = LangService.GetCurrentLanguage();
+            model.ModifyBy = userSession.UserId;
+
+            // convert currencies into xml
+            var currencyDict = CurrencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            var xmlPattern = "<currencies>{0}</currencies>";
+            var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
+            var xmlElementBuilder = new StringBuilder();
+            var selectedCurrencyList = model.CurrencyList.Split(',');
+
+            foreach (var currency in currencyDict)
             {
-                var licenseeId = SessionService.LicenseeSession.LicenseeId;
-                var userSession = SessionService.UserSession;
-                model.LicenseeId = licenseeId;
-                model.IP = Request.UserHostAddress;
-                model.LangKey = LangService.GetCurrentLanguage();
-                model.ModifyBy = userSession.UserId;
-
-                // convert currencies into xml
-                var currencyDict = CurrencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
-                var xmlPattern = "<currencies>{0}</currencies>";
-                var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
-                var xmlElementBuilder = new StringBuilder();
-                var selectedCurrencyList = model.CurrencyList.Split(',');
-
-                foreach (var currency in currencyDict)
-                {
-                    xmlElementBuilder.Append(string.Format(
-                        xmlElement,
-                        currency.CurrencyId,
-                        selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
-                }
-
-                model.CurrencyList = string.Format(xmlPattern, xmlElementBuilder);
-
-                var result = CurrencyService.AssignCurrenciesByUser(model);
-
-                if (result.IsSuccessful)
-                {
-                    result.Message = ViewResources.UpdateCurrencySuccessfulMsg;
-                }
-
-                return Json(result);
+                xmlElementBuilder.Append(string.Format(
+                    xmlElement,
+                    currency.CurrencyId,
+                    selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
             }
 
-            return Json(new ResultInfo
+            model.CurrencyList = string.Format(xmlPattern, xmlElementBuilder);
+
+            var result = CurrencyService.AssignCurrenciesByUser(model);
+
+            if (result.IsSuccessful)
             {
-                Code = -2,
-                Message = ViewResources.InvalidRequestMsg
-            });
+                result.Message = ViewResources.UpdateCurrencySuccessfulMsg;
+            }
+
+            return Json(result);
         }
 
         #endregion Restrict Currency
@@ -582,21 +574,20 @@ namespace Fanex.Athena.Controllers.Account
         #region Helpers
 
         /// <summary>
-        /// Parse function list.
+        /// Parse a comma separated string into int IList.
         /// </summary>
-        /// <param name="idliststring">The function string.</param>
+        /// <param name="values">The function string.</param>
         /// <returns>The list id of functions.</returns>
-        private static IList<int> ParseFunctionIdList(string idliststring)
+        private static IList<int> ParseToIntList(string values)
         {
-            var idlist = new List<int>();
-
-            if (!string.IsNullOrEmpty(idliststring))
+            var result = new List<int>();
+            if (!string.IsNullOrEmpty(values))
             {
-                var words = idliststring.Split(',');
-                idlist.AddRange(words.Select(word => Convert.ToInt32(word)));
+                var words = values.Split(',');
+                result.AddRange(words.Select(word => Convert.ToInt32(word)));
             }
 
-            return idlist;
+            return result;
         }
 
         /// <summary>
@@ -620,8 +611,7 @@ namespace Fanex.Athena.Controllers.Account
             }
 
             // is normal user, only allow to edit normal other users
-            var userService = new UserService();
-            var editingUser = userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, editingUserId);
+            var editingUser = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, editingUserId);
 
             if (editingUser == null || !editingUser.IsInternal)
             {
@@ -635,7 +625,7 @@ namespace Fanex.Athena.Controllers.Account
         /// Get all functions of user.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        private void GetDataOfFunction(int userId)
+        private void InitializeFunctions(int userId)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 

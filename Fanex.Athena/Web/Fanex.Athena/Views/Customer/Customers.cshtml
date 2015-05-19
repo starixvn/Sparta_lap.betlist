@@ -5,16 +5,10 @@
 @using Fanex.Athena.Models.ViewModel;
 @model Fanex.Athena.Models.ViewModel.Customer.CustomerListViewModel
 @section pagecss {
-    <link href="@Url.ContentLink("/Content/Customer/CustomerList.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/Paging.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/CustomerLogCustomersViewStyles")
 }
 @section pagejs {
-    <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Global/Paging.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Customer/Customers.option.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Customer/Customers.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Customer/CustomerCommList.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/CustomerLogCustomersScripts")
 }
 @section ContentTitle
 {

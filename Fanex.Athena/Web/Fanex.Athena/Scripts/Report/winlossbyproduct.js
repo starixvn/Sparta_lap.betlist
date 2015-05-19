@@ -422,6 +422,7 @@ var WinLossByProduct = (function ($) {
 
             var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
             gridOption.data = response.Data;
+            gridOption.sortname = "Index";
             gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
             gridOption.rowList = WinLossByProductOption.rowList;
             gridOption.rowTotal = numOfRow;

@@ -10,6 +10,7 @@ namespace Fanex.Athena
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using CasinoSetting;
     using Data.Configuration;
@@ -40,6 +41,7 @@ namespace Fanex.Athena
             RouteTable.Routes.IgnoreRoute("favicon.ico");
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
 
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
@@ -114,6 +116,13 @@ namespace Fanex.Athena
         protected void Application_EndRequest()
         {
             /*stop as early as you can, even earlier with MvcMiniProfiler.MiniProfiler.Stop(discardResults: true);*/
+            if (!AppSettings.Enviroment.Equals("DEV", StringComparison.OrdinalIgnoreCase))
+            {
+                Response.Headers.Remove("X-AspNet-Version");
+                Response.Headers.Remove("X-AspNetMvc-Version");
+                Response.Headers.Remove("Server");
+                Response.Headers.Remove("X-Powered-By");
+            }
         }
     }
 }

@@ -166,9 +166,9 @@ namespace Fanex.Athena.Controllers
         }
 
         /// <summary>
-        /// The re-check in service.
+        /// Check current user login and clear current authentication if another session using this userid to login.
         /// </summary>
-        /// <returns>The JSON data.</returns>
+        /// <returns>The JSON data with errorcode and error message.</returns>
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
@@ -199,10 +199,21 @@ namespace Fanex.Athena.Controllers
             IUserService userService = new UserService();
             bool isSuccess = !userService.RecheckIn(userSession.OnUserId);
 
-            var errCode = isSuccess ? ErrorType.Success : ErrorType.KickedOut;
-            var errMsg = isSuccess ? SessionService.LicenseeSession.LicenseeId.ToString() : ViewResources.SessionLoggedMsg;
+            ErrorType errorCode = ErrorType.Unknown;
+            var errorMsg = string.Empty;
+            if (!isSuccess)
+            {
+                errorCode = ErrorType.KickedOut;
+                errorMsg = ViewResources.SessionLoggedMsg;
+                FormsAuthentication.SignOut();
+            }
+            else
+            {
+                errorCode = ErrorType.Success;
+                errorMsg = ViewResources.SessionLoggedMsg;
+            }
 
-            return Json(RecheckInResult(errCode, errMsg), JsonRequestBehavior.AllowGet);
+            return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

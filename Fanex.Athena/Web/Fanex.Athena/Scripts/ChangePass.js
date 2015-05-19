@@ -102,12 +102,13 @@ function ChangePassword() {
         return;
     }
     Site.blockUI();
-
+    var token = $('input[name="__RequestVerificationToken"]').val();
     $.ajax({
         url: Site.resolveClientUrl("Utility/ChangePass"),
         data: ({ txtNewPwd: $('#txtNewPwd').val(),
             txtOldPwd: $('#txtOldPwd').val(),
-            txtConfirmPwd: $('#txtConfirmPwd').val()
+            txtConfirmPwd: $('#txtConfirmPwd').val(),
+            __RequestVerificationToken: token
         }),
         dataType: "json",
         type: "POST",
