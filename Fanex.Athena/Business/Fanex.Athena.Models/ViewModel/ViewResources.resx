@@ -2625,29 +2625,29 @@
   <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
     <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
-  <data name="Voidbridge" xml:space="preserve">
-    <value>Voidbridge</value>
+  <data name="VegasGames" xml:space="preserve">
+    <value>Vegas games</value>
   </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
     <value>You cannot update member bet limit for product {0}.</value>
     <comment>#32647</comment>
   </data>
-  <data name="DisableVoidbridge" xml:space="preserve">
-    <value>Disable Voidbridge</value>
+  <data name="DisableVegasGames" xml:space="preserve">
+    <value>Disable Vegas games</value>
     <comment>#32647</comment>
   </data>
-  <data name="EnableVoidbridge" xml:space="preserve">
-    <value>Enable Voidbridge</value>
+  <data name="EnableVegasGames" xml:space="preserve">
+    <value>Enable Vegas games</value>
     <comment>#32647</comment>
   </data>
-  <data name="VoidbridgeNotOfferCurrency" xml:space="preserve">
-    <value>Voidbridge is not offered for this currency.</value>
+  <data name="VegasGamesNotOfferCurrency" xml:space="preserve">
+    <value>Vegas games is not offered for this currency.</value>
   </data>
   <data name="GoldDeluxeWinLoss" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
   </data>
-  <data name="VoidbridgeWinLoss" xml:space="preserve">
-    <value>Voidbridge Win Loss</value>
+  <data name="VegasGamesWinLoss" xml:space="preserve">
+    <value>Vegas games Win Loss</value>
     <comment>#38247</comment>
   </data>
   <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">

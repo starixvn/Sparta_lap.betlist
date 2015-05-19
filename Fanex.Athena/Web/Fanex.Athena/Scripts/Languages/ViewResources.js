@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/11/2015 1:38:00 PM
+// Lasted generated date: 5/19/2015 12:55:11 PM
 // </history>
 
 var _language_en_US={
@@ -395,7 +395,7 @@ var _language_en_US={
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
 				 	
-                     DisableVoidbridge:"Disable Voidbridge",
+                     DisableVegasGames:"Disable Vegas games",
 				 	
                      DividendWon:"Dividend Won",
 				 	
@@ -437,7 +437,7 @@ var _language_en_US={
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
 				 	
-                     EnableVoidbridge:"Enable Voidbridge",
+                     EnableVegasGames:"Enable Vegas games",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -1583,6 +1583,12 @@ var _language_en_US={
 				 	
                      UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
 				 	
+                     VegasGames:"Vegas games",
+				 	
+                     VegasGamesNotOfferCurrency:"Vegas games is not offered for this currency.",
+				 	
+                     VegasGamesWinLoss:"Vegas games Win Loss",
+				 	
                      View:"View",
 				 	
                      ViewBy:"View by",
@@ -1608,12 +1614,6 @@ var _language_en_US={
                      VirtualSports:"Virtual Sports",
 				 	
                      VirtualTennis:"Virtual Tennis",
-				 	
-                     Voidbridge:"Voidbridge",
-				 	
-                     VoidbridgeNotOfferCurrency:"Voidbridge is not offered for this currency.",
-				 	
-                     VoidbridgeWinLoss:"Voidbridge Win Loss",
 				 	
                      VS:"VS",
 				 	

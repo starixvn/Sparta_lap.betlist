@@ -97,8 +97,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
                 case ProductType.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
-                case ProductType.VoidBridge:
-                    return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
+                case ProductType.VegasGames:
+                    return View("~/Views/Customer/BetSetting/VegasGames.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -177,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
-            metaModel.IsAllowVoidbridge = productAccess.IsAllowVB;
+            metaModel.IsAllowVegasGames = productAccess.IsAllowVB;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
             try
@@ -276,12 +276,12 @@ namespace Fanex.Athena.Controllers.Customer
                     model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
                     break;
 
-                case ProductType.VoidBridge:
-                    var voidBridgeViewModel = _betSettingService.GetVoidbridgeSetting(
+                case ProductType.VegasGames:
+                    var vegasGamesViewModel = _betSettingService.GetVegasGamesSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
-                    model.VoidBridgeViewModel = voidBridgeViewModel;
-                    model.IsEnabled = voidBridgeViewModel.IsEnabled;
+                    model.VegasGamesViewModel = vegasGamesViewModel;
+                    model.IsEnabled = vegasGamesViewModel.IsEnabled;
                     break;
             }
 

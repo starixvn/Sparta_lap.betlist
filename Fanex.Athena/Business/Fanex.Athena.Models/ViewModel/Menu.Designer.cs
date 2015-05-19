@@ -601,7 +601,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voidbridge Win Loss.
+        ///   Looks up a localized string similar to Vegas games Win Loss.
         /// </summary>
         public static string Menu_66 {
             get {

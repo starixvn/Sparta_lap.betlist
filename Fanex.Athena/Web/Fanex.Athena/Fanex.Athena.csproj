@@ -3040,13 +3040,13 @@
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />
-    <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
+    <Content Include="Views\Customer\BetSetting\VegasGames.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
-    <Content Include="Views\Report\VoidbridgeWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\VoidbridgeWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\VoidbridgeWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\VegasGamesWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\VegasGamesWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\VegasGamesWinLoss\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

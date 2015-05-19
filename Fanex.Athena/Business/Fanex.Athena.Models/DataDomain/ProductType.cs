@@ -61,6 +61,6 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Void_bridge product.
         /// </summary>
-        VoidBridge = 10
+        VegasGames = 10
     }
 }

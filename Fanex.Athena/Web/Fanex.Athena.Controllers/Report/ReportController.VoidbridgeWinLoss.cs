@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.VoidbridgeWinLoss.cs" company="Microsoft">
+// <copyright file="ReportController.VegasGamesWinLoss.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,17 +15,17 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
-    /// VoidBridge report controller.
+    /// VegasGames report controller.
     /// </summary>
     public partial class ReportController
     {        
         /// <summary>
-        /// VoidBridge win loss main action.
+        /// VegasGames win loss main action.
         /// </summary>
         /// <returns>Action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult VoidbridgeWinloss()
+        public ActionResult VegasGamesWinloss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var product = productList.Where(p => p.ProductCode == Product.VB).SingleOrDefault();
+            var product = productList.Where(p => p.ProductCode == Product.VG).SingleOrDefault();
 
             if (product == null)
             {
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList
             };
 
-            return View("~/Views/Report/VoidbridgeWinLoss/Main.cshtml", model);
+            return View("~/Views/Report/VegasGamesWinLoss/Main.cshtml", model);
         }
     }
 }

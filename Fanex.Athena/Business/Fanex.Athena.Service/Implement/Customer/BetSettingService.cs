@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -74,22 +74,22 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
-        #region Voidbridge
+        #region VegasGames
 
         /// <summary>
-        /// Get VoidBridge setting.
+        /// Get VegasGames setting.
         /// </summary>
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
-        /// <returns>VoidBridge setting.</returns>
-        public VoidbridgeBetSetting GetVoidbridgeSetting(int custId, string siteName)
+        /// <returns>VegasGames setting.</returns>
+        public VegasGamesBetSetting GetVegasGamesSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return null;
             }
 
-            var setting = _betSettingDataAccess.GetVoidbridgeSetting(custId);
+            var setting = _betSettingDataAccess.GetVegasGamesSetting(custId);
 
             return setting;
         }
@@ -103,17 +103,17 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="ip">The host address.</param>
         /// <param name="isEnabled">The Void bridge status.</param>
         /// <returns>The result info.</returns>
-        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateVoidBridgeStatus(userId, custId, language, ip, isEnabled);
+            return _betSettingDataAccess.UpdateVegasGamesStatus(userId, custId, language, ip, isEnabled);
         }
 
-        #endregion Voidbridge
+        #endregion VegasGames
 
         #region Gold Deluxe
 
