@@ -1798,10 +1798,9 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Vegas games.
+        ///   Looks up a localized string similar to Disable Vegas Games.
         /// </summary>
-        public static string DisableVegasGames
-        {
+        public static string DisableVegasGames {
             get {
                 return ResourceManager.GetString("DisableVegasGames", resourceCulture);
             }
@@ -1988,7 +1987,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable Vegas games.
+        ///   Looks up a localized string similar to Enable Vegas Games.
         /// </summary>
         public static string EnableVegasGames {
             get {
@@ -7145,7 +7144,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vegas games.
+        ///   Looks up a localized string similar to Vegas Games.
         /// </summary>
         public static string VegasGames {
             get {
@@ -7154,7 +7153,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vegas games is not offered for this currency..
+        ///   Looks up a localized string similar to Vegas Games is not offered for this currency..
         /// </summary>
         public static string VegasGamesNotOfferCurrency {
             get {
@@ -7163,7 +7162,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vegas games Win Loss.
+        ///   Looks up a localized string similar to Vegas Games Win Loss.
         /// </summary>
         public static string VegasGamesWinLoss {
             get {

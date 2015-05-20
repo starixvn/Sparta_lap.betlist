@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/19/2015 12:55:11 PM
+// Lasted generated date: 5/20/2015 9:51:19 AM
 // </history>
 
 var _language_en_US={
@@ -395,7 +395,7 @@ var _language_en_US={
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
 				 	
-                     DisableVegasGames:"Disable Vegas games",
+                     DisableVegasGames:"Disable Vegas Games",
 				 	
                      DividendWon:"Dividend Won",
 				 	
@@ -437,7 +437,7 @@ var _language_en_US={
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
 				 	
-                     EnableVegasGames:"Enable Vegas games",
+                     EnableVegasGames:"Enable Vegas Games",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -1583,11 +1583,11 @@ var _language_en_US={
 				 	
                      UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
 				 	
-                     VegasGames:"Vegas games",
+                     VegasGames:"Vegas Games",
 				 	
-                     VegasGamesNotOfferCurrency:"Vegas games is not offered for this currency.",
+                     VegasGamesNotOfferCurrency:"Vegas Games is not offered for this currency.",
 				 	
-                     VegasGamesWinLoss:"Vegas games Win Loss",
+                     VegasGamesWinLoss:"Vegas Games Win Loss",
 				 	
                      View:"View",
 				 	
