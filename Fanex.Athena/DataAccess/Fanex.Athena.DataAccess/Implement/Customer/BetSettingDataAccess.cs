@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Voidbridge;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Const
 
         protected const int GoldDeluxeProductId = 11;
-        protected const int VoidBridgeProductId = 12;
+        protected const int VegasGamesProductId = 12;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -55,25 +55,25 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Get bet setting data
 
         /// <summary>
-        /// Get VoidBridge setting.
+        /// Get VegasGames setting.
         /// </summary>
         /// <param name="custId">Customer id.</param>
-        /// <returns>VoidBridge setting.</returns>
-        public VoidbridgeBetSetting GetVoidbridgeSetting(int custId)
+        /// <returns>VegasGames setting.</returns>
+        public VegasGamesBetSetting GetVegasGamesSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, VoidBridgeProductId);
+                db.AddInParameter("ProductId", DbType.Int32, VegasGamesProductId);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("Currency", DbType.Int32, 1);
 
                 db.ExecuteNonQuery();
 
-                return new VoidbridgeBetSetting()
+                return new VegasGamesBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
@@ -387,18 +387,18 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Gold Deluxe
 
-        #region VoidBridge
+        #region VegasGames
 
         /// <summary>
-        /// Updates the void bridge status.
+        /// Updates the vegas games status.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
         /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The Void bridge status.</param>
+        /// <param name="isEnabled">The vegas games status.</param>
         /// <returns>The Result Info.</returns>
-        public IResultInfo UpdateVoidBridgeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_3rdProductUpdCustStatus";
 
@@ -406,7 +406,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, VoidBridgeProductId);
+                db.AddInParameter("productid", DbType.Int32, VegasGamesProductId);
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);
@@ -425,7 +425,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        #endregion VoidBridge
+        #endregion VegasGames
 
         #region AG Casino
 

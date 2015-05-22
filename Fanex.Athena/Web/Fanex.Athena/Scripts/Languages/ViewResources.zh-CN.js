@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/11/2015 1:37:46 PM
+// Lasted generated date: 5/20/2015 9:51:28 AM
 // </history>
 
 var _language_zh_CN={

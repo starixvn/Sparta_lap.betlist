@@ -134,8 +134,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                   return ViewResources.PlaytechCasino;
                 case Product.AGC:
                   return ViewResources.AGCasino;
-                case Product.VB:
-                    return ViewResources.Voidbridge;
+                case Product.VG:
+                  return ViewResources.VegasGames;
             }
 
             return productCode;

@@ -59,8 +59,8 @@ namespace Fanex.Athena.Models.DataDomain
         GoldDeluxe = 9,
 
         /// <summary>
-        /// Void_bridge product.
+        /// Vegas Games product.
         /// </summary>
-        VoidBridge = 10
+        VegasGames = 10
     }
 }

@@ -112,11 +112,11 @@ namespace Fanex.Athena.Models.DTO.Common
             }
         }
 
-        public bool IsAllowVB
+        public bool IsAllowVG
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.VB);
+                return ProductList.Any(p => p.ProductCode == Product.VG);
             }
         }
     }
