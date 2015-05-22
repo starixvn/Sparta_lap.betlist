@@ -11,6 +11,7 @@
 #center
 {
     position: relative;
+    margin-left: 3px !important;
 }
 #notification_popup
 {
