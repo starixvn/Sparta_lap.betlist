@@ -68,6 +68,61 @@
                     <!--/AA-->
                 </tr>
             }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">                
+                <!--Away-->
+                <td class="score-value" colspan="3">
+                    @ViewResources.Total
+                </td>
+                <!--/Away-->
+                <!--HH-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.HomeHome).ToString("#,###.##")</span>
+                </td>
+                <!--/HH-->
+                <!--HD-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.HomeDraw).ToString("#,###.##")</span>
+                </td>
+                <!--/HD-->
+                <!--HA-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.HomeAway).ToString("#,###.##")</span>
+                </td>
+                <!--/HA-->
+                <!--DH-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.DrawHome).ToString("#,###.##")</span>
+                </td>
+                <!--/DH-->
+                <!--DD-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.DrawDraw).ToString("#,###.##")</span>
+                </td>
+                <!--/DD-->
+                <!--DA-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.DrawAway).ToString("#,###.##")</span>
+                </td>
+                <!--/DA-->
+                <!--AH-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.AwayHome).ToString("#,###.##")</span>
+                </td>
+                <!--/AH-->
+                <!--AD-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.AwayDraw).ToString("#,###.##")</span>
+                </td>
+                <!--/AD-->
+                <!--AA-->
+                <td class="score-value">
+                    <span>@Model.MainData.Sum(t => t.AwayAway).ToString("#,###.##")</span>
+                </td>
+                <!--/AA-->
+            </tr>
+            }
         </tbody>
     </table>
 </div>

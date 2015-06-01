@@ -6,7 +6,7 @@
                             .OrderBy(x => x.LeagueName)
                             .OrderByDescending(x => x.LiveIndicator)
                             .ToList();
-                            
+
     var index = 1;
 }
 <div class="data-content">
@@ -21,7 +21,7 @@
                 </tr>
                 var matchOfLeague = Model.MainData
                             .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
-                            .ToList();                   
+                            .ToList();
 
                 // Render Match League
                 foreach (var match in matchOfLeague)
@@ -80,6 +80,20 @@
                     <!--/Away No Bet-->
                 </tr>
                 }
+            }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td class="score-value" colspan="3">
+                    @ViewResources.Total
+                </td>
+                <!--Home No Bet-->
+                <td class="score-value">@Model.MainData.Sum(t => t.HomeNoBet).ToString("#,###.##")</td>
+                <!--/Home No Bet--><!--Draw No Bet-->
+                <td class="score-value"><a><span>@Model.MainData.Sum(t => t.DrawNoBet).ToString("#,###.##")</span></a></td>
+                <!--/Draw No Bet--><!--Away No Bet-->
+                <td class="score-value">@Model.MainData.Sum(t => t.AwayNoBet).ToString("#,###.##")</td><!--/Away No Bet-->
+            </tr>
             }
         </tbody>
     </table>

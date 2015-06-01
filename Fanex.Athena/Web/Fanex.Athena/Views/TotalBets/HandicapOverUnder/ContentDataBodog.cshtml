@@ -26,7 +26,7 @@
 
                 foreach (var match in matchOfLeague)
                 {                                       
-                    <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+                <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
                     <td style="width: 3%" class="order-number">@(index++)
                     </td>
                     <td style="width: 10%">
@@ -86,6 +86,28 @@
                     </td>
                 </tr>                       
                 }
+            }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td colspan="3">
+                    @ViewResources.Total
+                </td>
+                <!--Render Fulltime Handicap OU-->
+                <td class="score-value">
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeHandicap), false, false)
+                </td>
+                <td style="width: 12%" class="score-value">
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeOverUnder), false, false)
+                </td>
+                <!--Render 1st Half Handicap OU-->
+                <td style="width: 12%" class="score-value">
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeHandicap), false, false)
+                </td>
+                <td style="width: 12%" class="score-value">
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeOverUnder), false, false)
+                </td>
+            </tr>
             }
         </tbody>
     </table>

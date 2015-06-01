@@ -177,6 +177,76 @@
                 </tr>
                 }
             }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td class="score-value" colspan="2">
+                    @ViewResources.Total
+                </td>
+                <!--Warrior-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.Warrior2ND).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.Warrior3RD).ToString("#,###.##")
+                </td>
+                <!--/Warrior-->
+                <!--First Ball-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OverUnderFirstBall).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OddEvenFirstBall).ToString("#,###.##")
+                </td>
+                <!--/First Ball-->
+                <!--Last Ball-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OverUnderLastBall).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OddEvenLastBall).ToString("#,###.##")
+                </td>
+                <!--/Last Ball-->
+                <!--Next Ball-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OverUnderNext).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OddEvenNext).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.HighLow).ToString("#,###.##")
+                </td>
+                <!--/Next Ball-->
+                <!--Next Combo-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NextComboOo).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NextComboUo).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NextComboOe).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NextComboUE).ToString("#,###.##")
+                </td>
+                <!--/Next Combo-->
+                <!--Full time O/E-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.OddEvenFullTime).ToString("#,###.##")
+                </td>
+                <!--/Full time O/E-->
+                <!--Number wheel-->
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NumberWheelLiveGame).ToString("#,###.##")
+                </td>
+                <td class="score-value">
+                    @Model.MainData.Sum(t => t.NumberWheelPreGame).ToString("#,###.##")
+                </td>
+                <!--/Number wheel-->
+            </tr>
+            }
         </tbody>
     </table>
 </div>

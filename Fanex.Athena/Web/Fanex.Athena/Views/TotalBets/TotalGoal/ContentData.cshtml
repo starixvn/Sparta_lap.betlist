@@ -42,6 +42,19 @@
                     </td>
                 </tr>
             }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td class="score-value" colspan="3">@ViewResources.Total</td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => t.Total01).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => t.Total23).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => t.Total46).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => t.Total7Over).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => (decimal)t.TotalFirstHalf01).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => (decimal)t.TotalFirstHalf23).ToString("#,###.##")</span></td>
+                <td class="score-value"><span>@Model.MainData.Sum(t => (decimal)t.Total4Over).ToString("#,###.##")</span></td>
+            </tr>
+            }
         </tbody>
     </table>
 </div>

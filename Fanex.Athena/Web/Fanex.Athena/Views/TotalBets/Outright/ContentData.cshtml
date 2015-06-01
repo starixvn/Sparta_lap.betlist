@@ -45,6 +45,17 @@
                 </tr>
                 }
             }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td colspan="2">@ViewResources.Total</td>
+                <!--/Team--><!--Balance-->
+                <td><span>@Model.MainData.Sum(t => t.Balance).ToString("#,###.##")</span></td>
+                <!--/Balance--><!--Forecast-->
+                <td class="score-value"><span></span></td>
+                <!--/Forecast-->
+            </tr>
+            }
         </tbody>
     </table>
 </div>

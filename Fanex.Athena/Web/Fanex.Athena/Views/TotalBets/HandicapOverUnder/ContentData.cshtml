@@ -101,6 +101,22 @@
                 </tr>
                 }
             }
+            @if (Model.MainData.Any())
+            {
+            <tr class="total-footer">
+                <td class="order-number" colspan="3">@ViewResources.Total</td>
+                <!--Render Fulltime Handicap OU-->
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeHandicap), true, false)</td>
+                <td></td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeOverUnder), true, false)</td>
+                <td></td>
+                <!--Render 1st Half Handicap OU-->
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeHandicap), true, false)</td>
+                <td></td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeOverUnder), true, false)</td>
+                <td></td>
+            </tr>
+            }
         </tbody>
     </table>
 </div>
