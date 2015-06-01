@@ -28,6 +28,8 @@ namespace Fanex.Athena.Models.MetaModel.BetList
             IsLastBetMonitoring = false;
         }
 
+        public bool IsShowSumStake { get; set; }
+
         public IList<ProductOption> ProductOptions
         {
             get;

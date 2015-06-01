@@ -153,7 +153,8 @@ namespace Fanex.Athena.Api.BetList
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
                     SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
-                    SumBetEffective = ticketResult.SumBetEffective
+                    SumBetEffective = ticketResult.SumBetEffective,
+                    SumStake = ticketResult.MainTicketList.Sum(x => x.Stake)
                 },
                 LeagueName = leagueName,
             };

@@ -36,6 +36,7 @@ var Totalbets = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "bettype", betType);
+            url = QueryString.setParam(url, "isShowSumStake", true);
 
             window.location.href = url;
         },
@@ -44,6 +45,7 @@ var Totalbets = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "multiplebettype", betType);
+            url = QueryString.setParam(url, "isShowSumStake", true);
 
             window.location.href = url;
         },

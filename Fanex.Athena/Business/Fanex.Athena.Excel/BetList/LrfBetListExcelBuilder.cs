@@ -83,6 +83,49 @@ namespace Fanex.Athena.Excel.BetList
         /// <summary>
         /// Add footer row.
         /// </summary>
+        /// <param name="builder">The current builder.</param>        
+        /// <param name="sumStake">The sum stake value.</param>
+        /// <returns>Return the currency builder.</returns>
+        public static BetListExcelBuilder AddFooterForSumStake(
+            this BetListExcelBuilder builder,            
+            decimal sumStake)
+        {
+            ICellStyle footerStyle = builder.CreateCellStyle();
+            footerStyle.CloneStyleFrom(builder.EvenCellStyle);
+            footerStyle.FillForegroundColor = 47;
+            footerStyle.Alignment = HorizontalAlignment.Right;
+            footerStyle.BorderTop = BorderStyle.None;
+            footerStyle.BorderLeft = BorderStyle.None;
+            footerStyle.BorderBottom = BorderStyle.None;
+            footerStyle.SetFont(builder.RTFHelper.PosFont);
+
+            // Total Text
+            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            for (int i = 0; i < 6; i++)
+            {
+                builder.AddCell(rtfTotal, footerStyle);
+            }
+            
+            var rtfSumStake = new HSSFRichTextString(string.Format(NumberFormat, sumStake));
+            builder.AddCell(rtfSumStake, footerStyle);
+
+            var emptyText = new HSSFRichTextString();
+            builder.AddCell(emptyText, footerStyle);
+            builder.AddCell(emptyText, footerStyle);
+            builder.AddCell(emptyText, footerStyle);
+            builder.AddCell(emptyText, footerStyle);
+
+            // Merge cells
+            int lastRowIndex = builder.LastContentRow;
+            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 5), footerStyle);
+
+            // Return
+            return builder;
+        }
+
+        /// <summary>
+        /// Add footer row.
+        /// </summary>
         /// <param name="builder">The current builder.</param>
         /// <param name="sumCustomerWL">The total customer win-loss.</param>
         /// <param name="sumBetEffective">The total bet effective.</param>

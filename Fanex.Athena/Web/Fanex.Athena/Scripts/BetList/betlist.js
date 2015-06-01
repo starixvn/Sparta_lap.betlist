@@ -8,6 +8,8 @@ var BetList = (function ($) {
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
+    var _isShowSumStake;
+
     return {
         resizeGrid: function () {
             if ($(".no-info-row").length > 0) {
@@ -44,6 +46,8 @@ var BetList = (function ($) {
                 $("#BetListGrid").setGridWidth($(window).width());
             }).trigger('resize');
 
+            _isShowSumStake = $("#IsShowSumStake").val() === "1";
+            
             _sortColumnName = _sortColumnName || $("#SortBy").val();
             _sortOrder = _sortOrder || $("#SortOrder").val();
         },
@@ -72,7 +76,12 @@ var BetList = (function ($) {
             // Resize
             jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
             // Remove unnecessary item
-            $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+            if (_isShowSumStake) {
+                $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+            } else {
+                $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
+            }
+
             $("table.ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
             $(".content-filter").attr("style", "width: " + $("#gbox_BetListGrid").css("width"));
 
@@ -250,8 +259,13 @@ var BetList = (function ($) {
                 gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl, BetEffective: sumBetEffective };
-
-                if (response.IsShowTotal === undefined || response.IsShowTotal) {
+                
+                if (_isShowSumStake) {
+                    gridOption.userData.Stake = jqGridAdditional.formatDecimal(summary.SumStake);
+                    gridOption.userDataOnFooter = true;
+                    gridOption.footerrow = true;
+                }
+                else if (response.IsShowTotal === undefined || response.IsShowTotal) {
                     gridOption.userDataOnFooter = true;
                 }
                 else {
