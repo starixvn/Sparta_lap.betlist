@@ -21,14 +21,14 @@ namespace Fanex.Athena.Models.DTO.TotalBets
 
         public decimal NoGoal { get; set; }
 
-        public decimal HomeFirstHalfFirstGoal { get; set; }
+        public decimal? HomeFirstHalfFirstGoal { get; set; }
 
-        public decimal HomeFirstHalfLastGoal { get; set; }
+        public decimal? HomeFirstHalfLastGoal { get; set; }
 
-        public decimal AwayFirstHalfFirstGoal { get; set; }
+        public decimal? AwayFirstHalfFirstGoal { get; set; }
 
-        public decimal AwayFirstHalfLastGoal { get; set; }
+        public decimal? AwayFirstHalfLastGoal { get; set; }
 
-        public decimal FirstHalfNoGoal { get; set; }
+        public decimal? FirstHalfNoGoal { get; set; }
     }
 }

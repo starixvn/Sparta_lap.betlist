@@ -341,11 +341,11 @@ bool addBasedOption = false)
     <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
         }
 }
-@helper PositiveFormatExt(object objValue)
+@helper PositiveFormatExt(decimal? value)
     {
-        if (!(objValue is DBNull))
+        if ((value.HasValue))
         {
-    @PositiveFormat(Convert.ToDecimal(objValue), true, false);
+    @PositiveFormat(Convert.ToDecimal(value), true, false);
         }
 }
 @helper DecFormat(decimal value, bool isDisplayZero = true)
