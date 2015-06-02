@@ -185,64 +185,64 @@
                 </td>
                 <!--Warrior-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.Warrior2ND).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.Warrior2ND))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.Warrior3RD).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.Warrior3RD))
                 </td>
                 <!--/Warrior-->
                 <!--First Ball-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OverUnderFirstBall).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OverUnderFirstBall))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OddEvenFirstBall).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenFirstBall))
                 </td>
                 <!--/First Ball-->
                 <!--Last Ball-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OverUnderLastBall).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OverUnderLastBall))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OddEvenLastBall).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenLastBall))
                 </td>
                 <!--/Last Ball-->
                 <!--Next Ball-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OverUnderNext).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OverUnderNext))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OddEvenNext).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenNext))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.HighLow).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.HighLow))
                 </td>
                 <!--/Next Ball-->
                 <!--Next Combo-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NextComboOo).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NextComboOo))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NextComboUo).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NextComboUo))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NextComboOe).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NextComboOe))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NextComboUE).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NextComboUE))
                 </td>
                 <!--/Next Combo-->
                 <!--Full time O/E-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.OddEvenFullTime).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenFullTime))
                 </td>
                 <!--/Full time O/E-->
                 <!--Number wheel-->
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NumberWheelLiveGame).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NumberWheelLiveGame))
                 </td>
                 <td class="score-value">
-                    @Model.MainData.Sum(t => t.NumberWheelPreGame).ToString("#,###.##")
+                    @RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.NumberWheelPreGame))
                 </td>
                 <!--/Number wheel-->
             </tr>

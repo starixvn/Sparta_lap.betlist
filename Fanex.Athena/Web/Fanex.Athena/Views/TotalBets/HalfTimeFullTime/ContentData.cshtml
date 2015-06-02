@@ -78,47 +78,47 @@
                 <!--/Away-->
                 <!--HH-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeHome).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeHome), true, false)
                 </td>
                 <!--/HH-->
                 <!--HD-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeDraw).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeDraw), true, false)
                 </td>
                 <!--/HD-->
                 <!--HA-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeAway).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeAway), true, false)
                 </td>
                 <!--/HA-->
                 <!--DH-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.DrawHome).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawHome), true, false)
                 </td>
                 <!--/DH-->
                 <!--DD-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.DrawDraw).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawDraw), true, false)
                 </td>
                 <!--/DD-->
                 <!--DA-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.DrawAway).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawAway), true, false)
                 </td>
                 <!--/DA-->
                 <!--AH-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.AwayHome).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayHome), true, false)
                 </td>
                 <!--/AH-->
                 <!--AD-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.AwayDraw).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayDraw), true, false)
                 </td>
                 <!--/AD-->
                 <!--AA-->
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.AwayAway).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayAway), true, false)
                 </td>
                 <!--/AA-->
             </tr>

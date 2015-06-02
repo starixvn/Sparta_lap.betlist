@@ -97,14 +97,14 @@
             <tr class="total-footer">
                 <td class="score-value" colspan="3">@ViewResources.Total</td>
                 <!--Render Fulltime Money Line-->
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.TotalHomeFt),false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.TotalAwayFt),false)</td>
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalHomeFt), false)</td>
+                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.TotalAwayFt), false)</td>
                 <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastHomeFt),false)</td>
                 <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastAwayFt),false)</td>
                 <!--Render 1st Half Money Line-->
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.TotalHomeFirstHalf),false)</td>
+                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.TotalHomeFirstHalf), false)</td>
                 <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.TotalAwayFirstHalf),false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastHomeFirstHalf),false)</td>
+                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.ForecastHomeFirstHalf), false)</td>
                 <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastAwayFirstHalf),false)</td>
             </tr>
             }

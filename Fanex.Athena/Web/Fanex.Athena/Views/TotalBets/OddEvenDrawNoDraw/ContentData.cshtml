@@ -121,16 +121,16 @@
             <tr class="total-footer">
                 <td class="score-value" colspan="3">@ViewResources.Total</td>
                 <!--Render Fulltime Odd/Even + 1 X 2 + DND --><!--OddEvenValue-->
-                <td class="score-value">@Model.MainData.Sum(t => t.OddEvenFt).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenFt), true, false)</td>
                 <!--/OddEvenValue--><!--OneXTwoValue-->
-                <td class="score-value">@Model.MainData.Sum(t => t.OneXTwoFt).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.OneXTwoFt), true)</td>
                 <td></td>
                 <!--/OneXTwoValue--><!--DrawNoDrawValue-->
-                <td class="score-value">@Model.MainData.Sum(t => t.DrawNoDraw).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.DrawNoDraw), true, false)</td>
                 <!--/DrawNoDrawValue--><!--Render 1st Half Odd/Even + 1 X 2 + DND --><!--OddEvenFirstHalfValue-->
-                <td class="score-value">@Model.MainData.Sum(t => t.OddEvenFirstHalf).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.OddEvenFirstHalf), true, false)</td>
                 <!--/OddEvenFirstHalfValue--><!--OneXTwoFirstHalfValue-->
-                <td class="score-value">@Model.MainData.Sum(t => t.OneXTwoFirstHalf).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.OneXTwoFirstHalf), true)</td>
                 <!--/OneXTwoFirstHalfValue-->
                 <td></td>
             </tr>

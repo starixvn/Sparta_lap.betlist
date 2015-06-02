@@ -79,25 +79,25 @@
                     @ViewResources.Total
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeFirstGoal + t.AwayFirstGoal).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeFirstGoal + t.AwayFirstGoal), true, false)
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeLastGoal + t.AwayLastGoal).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeLastGoal + t.AwayLastGoal), true, false)
 
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.NoGoal).ToString("#,###.##")</span>
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.NoGoal), true, false)
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeFirstHalfFirstGoal + t.AwayFirstHalfFirstGoal).ToString("#,###.##")</span>
+                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.HomeFirstHalfFirstGoal + t.AwayFirstHalfFirstGoal))
 
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.HomeFirstHalfLastGoal + t.AwayFirstHalfLastGoal).ToString("#,###.##")</span>
+                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.HomeFirstHalfLastGoal + t.AwayFirstHalfLastGoal))
 
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => t.FirstHalfNoGoal).ToString("#,###.##")</span>
+                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.FirstHalfNoGoal))
                 </td>
             </tr>
             }

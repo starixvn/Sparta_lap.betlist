@@ -88,11 +88,11 @@
                     @ViewResources.Total
                 </td>
                 <!--Home No Bet-->
-                <td class="score-value">@Model.MainData.Sum(t => t.HomeNoBet).ToString("#,###.##")</td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)</td>
                 <!--/Home No Bet--><!--Draw No Bet-->
-                <td class="score-value"><a><span>@Model.MainData.Sum(t => t.DrawNoBet).ToString("#,###.##")</span></a></td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)</td>
                 <!--/Draw No Bet--><!--Away No Bet-->
-                <td class="score-value">@Model.MainData.Sum(t => t.AwayNoBet).ToString("#,###.##")</td><!--/Away No Bet-->
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)</td><!--/Away No Bet-->
             </tr>
             }
         </tbody>
