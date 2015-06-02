@@ -54,14 +54,13 @@ var BetList = (function ($) {
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
             // add sort icon
-
             var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
             if (sortCol) {
-                $(grid).closest("div.ui-jqgrid-view")
-                    .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+                $(grid).closest(".ui-jqgrid-view")
+                    .find(".ui-jqgrid-sortable")
                     .each(function (index, element) {
                         var $this = $(element);
-                        $this.find("span.s-ico").remove();
+                        $this.find(".s-ico").remove();
 
                         if (element.id.indexOf(sortCol) > -1) {
                             var sortClass = "sort-" + _sortOrder;
@@ -71,7 +70,8 @@ var BetList = (function ($) {
                             $this.addClass("sorted-heading");
                         }
                     });
-            }
+                }
+
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
             jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
@@ -82,7 +82,7 @@ var BetList = (function ($) {
                 $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Stake]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
             }
 
-            $("table.ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
+            $(".ui-jqgrid-htable .ui-jqgrid-resize").css("height", "14px");
             $(".content-filter").attr("style", "width: " + $("#gbox_BetListGrid").css("width"));
 
             // Show no information if there is no record
@@ -93,9 +93,9 @@ var BetList = (function ($) {
             }
             else {
                 // Remove noinfo message if exist
-                var contentTable = $("table.ui-jqgrid-htable");
+                var contentTable = $(".ui-jqgrid-htable");
                 if (contentTable.find(".no-info-row").length > 0) {
-                    $(".ui-jqgrid-htable tbody .no-info-row").remove();
+                    $(".ui-jqgrid-htable .no-info-row").remove();
                 }
                 $("#pager2").show();
             }
@@ -105,7 +105,7 @@ var BetList = (function ($) {
             $.each($(grid)[0].grid.headers, function (index, value) {
                 var cmi = cm[index];
                 if (cmi.sortable) {
-                    $('div.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
+                    $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
                 }
             });
 
@@ -396,7 +396,7 @@ var BetList = (function ($) {
         ValidProducts: function () {
             var temp = true;
             $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($("input.childCheckbox:checked").length === 0) {
+            if ($(".childCheckbox:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({

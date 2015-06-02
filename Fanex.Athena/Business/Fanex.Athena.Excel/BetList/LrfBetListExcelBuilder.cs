@@ -90,36 +90,26 @@ namespace Fanex.Athena.Excel.BetList
             this BetListExcelBuilder builder,            
             decimal sumStake)
         {
-            ICellStyle footerStyle = builder.CreateCellStyle();
-            footerStyle.CloneStyleFrom(builder.EvenCellStyle);
-            footerStyle.FillForegroundColor = 47;
-            footerStyle.Alignment = HorizontalAlignment.Right;
-            footerStyle.BorderTop = BorderStyle.None;
-            footerStyle.BorderLeft = BorderStyle.None;
-            footerStyle.BorderBottom = BorderStyle.None;
-            footerStyle.SetFont(builder.RTFHelper.PosFont);
+            ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            // Total Text
             var rtfTotal = new HSSFRichTextString(ViewResources.Total);
             for (int i = 0; i < 6; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
             
-            var rtfSumStake = new HSSFRichTextString(string.Format(NumberFormat, sumStake));
-            builder.AddCell(rtfSumStake, footerStyle);
+            builder.AddCell(new HSSFRichTextString(string.Format(NumberFormat, sumStake)), footerStyle);
 
+            // add the rest columns
             var emptyText = new HSSFRichTextString();
             builder.AddCell(emptyText, footerStyle);
             builder.AddCell(emptyText, footerStyle);
             builder.AddCell(emptyText, footerStyle);
             builder.AddCell(emptyText, footerStyle);
 
-            // Merge cells
             int lastRowIndex = builder.LastContentRow;
             builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 5), footerStyle);
 
-            // Return
             return builder;
         }
 
@@ -141,43 +131,28 @@ namespace Fanex.Athena.Excel.BetList
             IFont redFont,
             IFont blackFont)
         {
-            ICellStyle footerStyle = builder.CreateCellStyle();
-            footerStyle.CloneStyleFrom(builder.EvenCellStyle);
-            footerStyle.FillForegroundColor = 47;
-            footerStyle.Alignment = HorizontalAlignment.Right;
-            footerStyle.BorderTop = BorderStyle.None;
-            footerStyle.BorderLeft = BorderStyle.None;
-            footerStyle.BorderBottom = BorderStyle.None;
-            footerStyle.SetFont(builder.RTFHelper.PosFont);
+            ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            // Total Text
             var rtfTotal = new HSSFRichTextString(ViewResources.Total);
             for (int i = 0; i < 7; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
 
-            // Sum Customer Wl
-            var rtfSumCustomerWl = new HSSFRichTextString(string.Format(NumberFormat, sumCustomerWL));
-            builder.AddCell(rtfSumCustomerWl, footerStyle);
+            builder.AddCell(new HSSFRichTextString(string.Format(NumberFormat, sumCustomerWL)), footerStyle);
 
-            // Sum Bet Effective
-            var rtfSumBetEffective = new HSSFRichTextString(string.Format(NumberFormat, sumBetEffective));
-            builder.AddCell(rtfSumBetEffective, footerStyle);
+            builder.AddCell(new HSSFRichTextString(string.Format(NumberFormat, sumBetEffective)), footerStyle);
 
-            // Sum Licensee Wl
             var rtfSumLicenseeWl = new HSSFRichTextString(string.Format(NumberFormat, sumLicenseeWLComm));
             rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm >= 0 ? blackFont : redFont);
             builder.AddCell(rtfSumLicenseeWl, footerStyle);
 
-            // Last footer cell
+            // add the rest column
             builder.AddCell(new HSSFRichTextString(), footerStyle);
 
-            // Merge cells
             int lastRowIndex = builder.LastContentRow;
             builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, 6), footerStyle);
 
-            // Return
             return builder;
         }
 
@@ -317,6 +292,19 @@ namespace Fanex.Athena.Excel.BetList
             builder.AddCell(rtfSystemId, ticketHelper.Index % 2 == 0 ? oddStyle : evenStyle);
 
             return builder;
+        }
+
+        private static ICellStyle CreateFooterCellStyle(BetListExcelBuilder builder)
+        {
+            ICellStyle footerStyle = builder.CreateCellStyle();
+            footerStyle.CloneStyleFrom(builder.EvenCellStyle);
+            footerStyle.FillForegroundColor = 47;
+            footerStyle.Alignment = HorizontalAlignment.Right;
+            footerStyle.BorderTop = BorderStyle.None;
+            footerStyle.BorderLeft = BorderStyle.None;
+            footerStyle.BorderBottom = BorderStyle.None;
+            footerStyle.SetFont(builder.RTFHelper.PosFont);
+            return footerStyle;
         }
     }
 }
