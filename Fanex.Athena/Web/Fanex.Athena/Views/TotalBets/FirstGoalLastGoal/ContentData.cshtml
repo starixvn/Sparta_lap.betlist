@@ -89,15 +89,15 @@
                     <span>@Model.MainData.Sum(t => t.NoGoal).ToString("#,###.##")</span>
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => (decimal)t.HomeFirstHalfFirstGoal + (decimal)t.AwayFirstHalfFirstGoal).ToString("#,###.##")</span>
+                    <span>@Model.MainData.Sum(t => t.HomeFirstHalfFirstGoal + t.AwayFirstHalfFirstGoal).ToString("#,###.##")</span>
 
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => (decimal)t.HomeFirstHalfLastGoal + (decimal)t.AwayFirstHalfLastGoal).ToString("#,###.##")</span>
+                    <span>@Model.MainData.Sum(t => t.HomeFirstHalfLastGoal + t.AwayFirstHalfLastGoal).ToString("#,###.##")</span>
 
                 </td>
                 <td class="score-value">
-                    <span>@Model.MainData.Sum(t => (decimal)t.FirstHalfNoGoal).ToString("#,###.##")</span>
+                    <span>@Model.MainData.Sum(t => t.FirstHalfNoGoal).ToString("#,###.##")</span>
                 </td>
             </tr>
             }
