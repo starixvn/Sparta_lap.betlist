@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
         private readonly string _subDomainPath = Extension.Utility.AppSettings.GetValue("SubDomainPath");
 
-        public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetalModel metaModel)
+        public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
         {
             DataTable dataTable;
             GetResultFromAPIRealTime(metaModel, out dataTable);
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The RNG Casino result list.</returns>
-        public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetalModel metaModel)
+        public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
         {
             List<RNGCasinoResult> casinos = new List<RNGCasinoResult>();
             DataTable dataTable;
@@ -198,7 +198,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <param name="dataTable">The data table.</param>
-        private static void GetResultFromAPI(RNGCasinoResultMetalModel metalModel, out DataTable dataTable)
+        private static void GetResultFromAPI(RNGCasinoResultMetaModel metalModel, out DataTable dataTable)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();
             dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
@@ -213,7 +213,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
         }
 
-        private static void GetResultFromAPIRealTime(RNGCasinoResultMetalModel metalModel, out DataTable dataTable)
+        private static void GetResultFromAPIRealTime(RNGCasinoResultMetaModel metalModel, out DataTable dataTable)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();
             dataTable = casinoLib.RealTimeWinLossHandHistory(

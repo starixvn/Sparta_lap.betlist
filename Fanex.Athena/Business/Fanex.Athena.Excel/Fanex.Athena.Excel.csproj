@@ -139,6 +139,7 @@
     <Compile Include="Report\MobileWinLossExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\RacingCommissionExcel.cs" />
+    <Compile Include="RNGCasino\HandHistoryExcel.cs" />
     <Compile Include="Warehouse\TopCustomer.cs" />
     <Compile Include="Report\TurnoverExcel.cs" />
     <Compile Include="Warehouse\TopWinLoss.cs" />

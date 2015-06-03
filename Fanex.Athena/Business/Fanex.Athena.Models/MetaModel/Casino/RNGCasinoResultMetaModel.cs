@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RNGCasinoResultMetalModel.cs" company="Microsoft">
+// <copyright file="RNGCasinoResultMetaModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,11 +9,13 @@ namespace Fanex.Athena.Models.MetaModel.Casino
     using System;
 
     /// <summary>
-    /// RGNCasinoResultMetalModel class.
+    /// RNGCasinoResultMetaModel class.
     /// </summary>
     [Serializable]
-    public class RNGCasinoResultMetalModel
+    public class RNGCasinoResultMetaModel
     {
+        public bool IsExportExcel { get; set; }
+
         public long RefNo { get; set; }
 
         public string BetType
@@ -50,7 +52,7 @@ namespace Fanex.Athena.Models.MetaModel.Casino
 
         public string BaseCurrency { get; set; }
 
-        public bool Isvalid()
+        public bool IsValid()
         {
             return RefNo > 0
                 && FromDate <= ToDate && CustId > 0

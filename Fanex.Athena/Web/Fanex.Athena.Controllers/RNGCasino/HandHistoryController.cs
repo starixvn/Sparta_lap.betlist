@@ -6,12 +6,12 @@
 
 namespace Fanex.Athena.Controllers.RNGCasino
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Casino;
     using Fanex.Athena.Models.DTO.Casino.RNGResultDetail;
@@ -21,7 +21,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Logging;
+    using Fanex.Athena.Web.ResultExtension;
 
     /// <summary>
     ///  Hand history controller.
@@ -41,58 +41,37 @@ namespace Fanex.Athena.Controllers.RNGCasino
         /// <returns>The data string.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RNGCasinoData(RNGCasinoResultMetalModel metaModel)
+        public ActionResult RNGCasinoData(RNGCasinoResultMetaModel metaModel)
         {
-            try
+            if (metaModel != null)
             {
-                if (metaModel != null)
-                {
-                    metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
-                    var data = metaModel.Isvalid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
-                        this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
-                        ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
-                        : new List<RNGCasinoResult>();
-                    var total = new List<RNGCasinoResult>();
-
-                    if (data != null)
-                    {
-                        var item = new RNGCasinoResult
-                        {
-                            Stake = data.Sum(x => x.Stake),
-                            Bet = data.Sum(x => x.Bet),
-                            WinLoss = data.Sum(x => x.WinLoss),
-                            RollingComm = data.Sum(x => x.RollingComm),
-                            Result = string.Empty,
-                        };
-                        total.Add(item);
-                    }
-
-                    var jsonStr = Json(new { Param = metaModel, Data = data, Total = total, }, JsonRequestBehavior.AllowGet);
-                    jsonStr.MaxJsonLength = int.MaxValue;
-                    return jsonStr;
-                }
-
-                return this.Json(new { Param = string.Empty, Data = string.Empty, Total = string.Empty, });
+                var data = GetData(metaModel);
+                var totalData = GetTotalData(data);
+                var json = Json(new { Param = metaModel, Data = data, Total = totalData }, JsonRequestBehavior.AllowGet);
+                json.MaxJsonLength = int.MaxValue;
+                return json;
             }
-            catch (Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw;
-            }
+
+            return this.Json(new { Param = string.Empty, Data = string.Empty, Total = string.Empty, });
         }
 
         /// <summary>
         /// Load RNGCasino result page.
         /// </summary>
-        /// <param name="metalModel">The metal model.</param>
+        /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RNGCasino(RNGCasinoResultMetalModel metalModel)
+        public ActionResult RNGCasino(RNGCasinoResultMetaModel metaModel)
         {
+            if (metaModel.IsExportExcel)
+            {
+                return GetExcelResult(metaModel);
+            }
+
             var model = new RNGCasinoResultViewModel
             {
-                Param = metalModel,
+                Param = metaModel,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
@@ -106,7 +85,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetalModel metalModel)
+        public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetaModel metalModel)
         {
             if (this.SessionService.UserSession.UserName == "pgmbravo")
             {
@@ -148,6 +127,18 @@ namespace Fanex.Athena.Controllers.RNGCasino
             }
 
             return this.View("~/Views/RNGCasino/RNGCasinoDetail/Noinfo.cshtml");
+        }
+
+        private static RNGCasinoResult GetTotalData(IList<RNGCasinoResult> data)
+        {
+            return new RNGCasinoResult
+            {
+                Stake = data.Sum(x => x.Stake),
+                Bet = data.Sum(x => x.Bet),
+                WinLoss = data.Sum(x => x.WinLoss),
+                RollingComm = data.Sum(x => x.RollingComm),
+                Result = string.Empty,
+            };
         }
 
         /// <summary>
@@ -247,6 +238,33 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 default:
                     return string.Empty;
             }
+        }
+
+        private ActionResult GetExcelResult(RNGCasinoResultMetaModel metaModel)
+        {
+            const string FileName = "CasinoHandHistory";
+            var templatePath = Server.MapPath("~/App_Data/Template/RNGCasino/HandHistory.xls");
+
+            var data = GetData(metaModel);
+            var totalData = GetTotalData(data);
+            var viewModel = new RNGCasinoResultViewModel
+            {
+                Data = data,
+            };
+
+            var excel = new HandHistoryExcel(templatePath, FileName, metaModel, viewModel, totalData);
+            excel.Export();
+
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        private IList<RNGCasinoResult> GetData(RNGCasinoResultMetaModel metaModel)
+        {
+            metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
+            return metaModel.IsValid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
+                this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
+                ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
+                : new List<RNGCasinoResult>();
         }
     }
 }

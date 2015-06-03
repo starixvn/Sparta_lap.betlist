@@ -3,6 +3,12 @@
 /// //##
 "use strict";
 var RNGCasino = (function ($) {
+    function exportToExcel() {
+        var url = window.location.href;
+        url = QueryString.setParam(url, "IsExportExcel", true);
+        window.location.href = url;
+    }
+
     return {
         initialize: function () {
             RNGCasino.initEvent();
@@ -26,6 +32,8 @@ var RNGCasino = (function ($) {
                 url = QueryString.setParam(url, "IsShowPic", isShowPic);
                 window.location.href = url;
             });
+
+            $("#ExportToExcel").click(exportToExcel);
         },
 
         viewCasinoDetail: function (dataUrl) {
