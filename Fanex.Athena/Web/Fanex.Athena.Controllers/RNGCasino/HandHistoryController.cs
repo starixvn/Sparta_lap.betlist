@@ -244,7 +244,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
         {
             const string FileName = "CasinoHandHistory";
             var templatePath = Server.MapPath("~/App_Data/Template/RNGCasino/HandHistory.xls");
-
+            metaModel.IsShowPic = false;
             var data = GetData(metaModel);
             var totalData = GetTotalData(data);
             var viewModel = new RNGCasinoResultViewModel
