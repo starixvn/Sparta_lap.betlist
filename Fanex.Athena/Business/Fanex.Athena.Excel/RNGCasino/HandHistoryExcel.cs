@@ -219,7 +219,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBet].SetCellValue(item.Bet);
             row.Cells[ColumnWinLoss].SetCellValue(item.WinLoss);
             row.Cells[ColumnRollingComm].SetCellValue(item.RollingComm);
-            row.Cells[ColumnResults].SetCellValue(item.Result);
+            row.Cells[ColumnResults].SetCellValue(NormalizeResultText(item.Result));
         }
 
         private static void AssignTotalColumns(IRow row, RNGCasinoResult item)
@@ -228,6 +228,11 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBet].SetCellValue(item.Bet);
             row.Cells[ColumnWinLoss].SetCellValue(item.WinLoss);
             row.Cells[ColumnRollingComm].SetCellValue(item.RollingComm);
+        }
+        
+        private static string NormalizeResultText(string result)
+        {
+            return result.Replace("<BR>", "\n");
         }
 
         private void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
@@ -249,6 +254,6 @@ namespace Fanex.Athena.Excel.Report
         private void AssignGroupHeader(ISheet sheet, string sessionLogId, int currentRow)
         {
             SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, ViewResources.SessionID + ": " + sessionLogId);
-        }
+        }        
     }
 }
