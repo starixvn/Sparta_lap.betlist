@@ -206,7 +206,7 @@ namespace Fanex.Athena.Excel.Report
 
         private static void AssignCommonData(IRow row, RNGCasinoResult item)
         {
-            row.Cells[ColumnIndex].SetCellValue(item.Index + 1);
+            row.Cells[ColumnIndex].SetCellValue(item.Index);
             row.Cells[ColumnGameId].SetCellValue(item.GameId);
             row.Cells[ColumnPlayerHistoryNo].SetCellValue(item.PlayerHistoryNo);
             row.Cells[ColumnGameType].SetCellValue(item.GameTypeName);
