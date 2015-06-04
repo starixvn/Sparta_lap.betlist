@@ -55,7 +55,7 @@
   </log4net>
   <Fanex.Data.DbSettingProvider default="XmlDbSettingProvider">
     <providers>
-      <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\SpNameConfig\FanexSpName.<#=site.SiteEnvironment#>.xml" enableWatching="1" />
+      <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\SpNameConfig\FanexSpName.xml" enableWatching="1" />
     </providers>
   </Fanex.Data.DbSettingProvider>
   <#=site.LoggingServer#>
