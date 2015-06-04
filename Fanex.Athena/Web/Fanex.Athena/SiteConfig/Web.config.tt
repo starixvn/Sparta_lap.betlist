@@ -59,8 +59,8 @@
     </providers>
   </Fanex.Data.DbSettingProvider>
   <#=site.LoggingServer#>
-  <appSettings configSource="Web.AppSettings.<#=site.SiteEnvironment#>.config" />
-  <connectionStrings configSource="Web.ConnectionStrings.<#=site.SiteEnvironment#>.config" />
+  <appSettings configSource="Web.AppSettings.config" />
+  <connectionStrings configSource="Web.ConnectionStrings.config" />
   <system.web>
     <compilation debug="<#=site.DebugMode#>" targetFramework="4.0">
       <assemblies>
