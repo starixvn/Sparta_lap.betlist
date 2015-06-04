@@ -6,3 +6,4 @@
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.AppSettings.PRO.config
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.AppSettings.UAT.config
 // Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.AppSettings.LOCAL.config
+// Fanex.Athena\Web\Fanex.Athena\SiteConfig\Web.AppSettings.DEV.config

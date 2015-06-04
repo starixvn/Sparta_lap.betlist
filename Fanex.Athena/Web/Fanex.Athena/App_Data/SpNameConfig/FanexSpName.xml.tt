@@ -19,7 +19,7 @@
     foreach(var site in sites)
     {        
 		var x = site.SiteEnvironment.ToString();
-        var fileName = x == "DEV" ? "FanexSpName.xml" : string.Format("FanexSpName.{0}.xml", site.SiteEnvironment);
+        var fileName = string.Format("FanexSpName.{0}.xml", site.SiteEnvironment);
         manager.StartNewFile(fileName);
 		#>
 <#=site.GenerateSpName#>
