@@ -727,6 +727,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Trade.
+        /// </summary>
+        public static string BetTrade {
+            get {
+                return ResourceManager.GetString("BetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet type.
         /// </summary>
         public static string BetType {
@@ -4224,6 +4233,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string MessageSuccess {
             get {
                 return ResourceManager.GetString("MessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microgaming.
+        /// </summary>
+        public static string Microgaming {
+            get {
+                return ResourceManager.GetString("Microgaming", resourceCulture);
             }
         }
         

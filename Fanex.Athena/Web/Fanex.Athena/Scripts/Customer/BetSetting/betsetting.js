@@ -21,7 +21,7 @@ var BetSetting = (function ($) {
             if ($idList.length > 0) {
                 _sportIds = $idList.val().split(",");
             }
-
+            
             BetSetting.initMenu();
             BetSetting.initEvent();
         },
@@ -39,10 +39,16 @@ var BetSetting = (function ($) {
             });
 
             // Bind event
+
+           
+
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
             $("#btnDisableEsports").on("click", BetSetting.updateEsportStatus);
+
+            
+            
 
             // Formating number in text box.
             BetSetting.formatInputText();
@@ -89,7 +95,10 @@ var BetSetting = (function ($) {
                     $('#macau').addClass('activeTab');
                     break;
             }
-
+            $("#dd").on('click', function (event) {
+                $(this).toggleClass('active');
+                event.stopPropagation();
+            });
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
@@ -831,4 +840,8 @@ var BetSetting = (function ($) {
 
 $(window).load(function () {
     BetSetting.initialize();
+
+    $(document).click(function () {
+        $('.wrapper-dropdown-5').removeClass('active');
+    });
 });

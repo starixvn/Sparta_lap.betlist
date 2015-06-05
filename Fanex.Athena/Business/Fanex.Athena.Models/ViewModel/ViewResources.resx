@@ -2671,6 +2671,12 @@
   <data name="AGOpeningBalance" xml:space="preserve">
     <value>AG Opening Balance</value>
   </data>
+  <data name="BetTrade" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
+  <data name="Microgaming" xml:space="preserve">
+    <value>Microgaming</value>
+  </data>
   <data name="DisableMacau" xml:space="preserve">
     <value>Disable Macau</value>
     <comment>#32647</comment>
