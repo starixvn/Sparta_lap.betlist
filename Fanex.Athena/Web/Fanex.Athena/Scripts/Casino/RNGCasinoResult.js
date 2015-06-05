@@ -58,11 +58,6 @@ var RNGCasino = (function ($) {
             grandTotalCell.html(Site.getSingleResource('GrandTotal'));
             grandTotalCell.css('text-align', 'right');
 
-            // set group color
-            $('.jqgroup td').css('background-color', '#F4E8D4');
-            $('.jqfoot td').css('background-color', '#CEF6CA');
-            $('.footrow td').css('background-color', '#B2DFEF');
-
             // resize when group collapse
             $(".tree-wrap-ltr").click(function () {
                 var scrollHeight = $("#ReportGrid").width() > $('.ui-jqgrid-bdiv').width() ? 18 : 0;
@@ -121,7 +116,6 @@ var RNGCasino = (function ($) {
             reportGrid.jqGrid(gridOption);
 
             jqGridAdditional.resetLayout(reportGrid);
-            jqGridAdditional.showRecommendedBrowser(gridOption.pager);
         },
 
         ajaxComplete: function (response) {

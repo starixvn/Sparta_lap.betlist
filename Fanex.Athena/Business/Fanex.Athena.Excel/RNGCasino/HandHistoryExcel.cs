@@ -219,7 +219,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBet].SetCellValue(item.Bet);
             row.Cells[ColumnWinLoss].SetCellValue(item.WinLoss);
             row.Cells[ColumnRollingComm].SetCellValue(item.RollingComm);
-            row.Cells[ColumnResults].SetCellValue(NormalizeResultText(item.Result));
+            row.Cells[ColumnResults].SetCellValue(NormalizeResultText(item.Result ?? string.Empty));
         }
 
         private static void AssignTotalColumns(IRow row, RNGCasinoResult item)
