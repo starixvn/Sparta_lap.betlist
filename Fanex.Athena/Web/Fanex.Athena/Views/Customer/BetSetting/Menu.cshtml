@@ -3,7 +3,7 @@
 @using Fanex.Athena.Models.DataDomain
 <div>
     <div style="display:inline-block; padding-bottom: 5px">
-            <div class="grid_2 filter-label">
+            <div class="grid_2 product-select-label">
                 <label>@ViewResources.Product</label>
             </div>
             <div id="dd" class="wrapper-dropdown-5">@Model.BetSettingName
@@ -159,7 +159,40 @@
                 </a></li>
             }
             <!--/Macau-->
-        </ul>
-        @Html.Hidden("TabId", (int)Model.TabId)
+
+                    <!--MicroGaming-->
+                    @if (Model.IsAllowVegasGames)
+                    { 
+                        <li><a href="@Url.Action("Index", "BetSetting", new
+                                {
+                                    TabId = 11,
+                                    CustId = Model.CustId,
+                                    UserName = Model.UserName,
+                                    NickName = Model.NickName,
+                                    BetSettingName = ViewResources.Microgaming
+                                })" id="microgaming">
+                            @ViewResources.Microgaming
+                        </a></li>
+                    }
+                    <!--/MicroGaming-->
+
+                    <!--BetTrade-->
+                    @if (Model.IsAllowVegasGames)
+                    { 
+                        <li><a href="@Url.Action("Index", "BetSetting", new
+                                {
+                                    TabId = 12,
+                                    CustId = Model.CustId,
+                                    UserName = Model.UserName,
+                                    NickName = Model.NickName,
+                                    BetSettingName = ViewResources.BetTrade
+                                })" id="bettrade">
+                            @ViewResources.BetTrade
+                        </a></li>
+                    }
+                    <!--/BetTrade-->
+		        </ul>
+                @Html.Hidden("TabId", (int)Model.TabId)
+	        </div>
     </div>
 </div>

@@ -99,6 +99,10 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
                 case ProductType.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
+                case ProductType.MicroGaming:
+                    return View("~/Views/Customer/BetSetting/MicroGaming.cshtml", viewModel);
+                case ProductType.BetTrade:
+                    return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -178,6 +182,8 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
             metaModel.IsAllowMacau = productAccess.IsAllowMC;
+            metaModel.IsAllowMicroGaming = productAccess.IsAllowMG;
+            metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
             try
@@ -282,6 +288,22 @@ namespace Fanex.Athena.Controllers.Customer
                        SessionService.LicenseeSession.LicenseeName);
                     model.MacauViewModel = macauViewModel;
                     model.IsEnabled = macauViewModel.IsEnabled;
+                    break;
+
+                case ProductType.MicroGaming:
+                    var microGamingViewModel = _betSettingService.GetMicroGamingSetting(
+                       metaModel.CustId,
+                       SessionService.LicenseeSession.LicenseeName);
+                    model.MicroGamingViewModel = microGamingViewModel;
+                    model.IsEnabled = microGamingViewModel.IsEnabled;
+                    break;
+
+                case ProductType.BetTrade:
+                    var betTradeViewModel = _betSettingService.GetBetTradeSetting(
+                       metaModel.CustId,
+                       SessionService.LicenseeSession.LicenseeName);
+                    model.BetTradeViewModel = betTradeViewModel;
+                    model.IsEnabled = betTradeViewModel.IsEnabled;
                     break;
             }
 

@@ -736,6 +736,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BetTrade is not offered for this currency..
+        /// </summary>
+        public static string BetTradeNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("BetTradeNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet type.
         /// </summary>
         public static string BetType {
@@ -4242,6 +4251,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Microgaming {
             get {
                 return ResourceManager.GetString("Microgaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microgaming is not offered for this currency..
+        /// </summary>
+        public static string MicroGamingNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("MicroGamingNotOfferCurrency", resourceCulture);
             }
         }
         

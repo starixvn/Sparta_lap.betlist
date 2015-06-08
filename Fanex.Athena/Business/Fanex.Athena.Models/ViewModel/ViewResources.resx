@@ -2695,4 +2695,10 @@
     <value>Macau Win Loss</value>
     <comment>#38247</comment>
   </data>
+  <data name="BetTradeNotOfferCurrency" xml:space="preserve">
+    <value>BetTrade is not offered for this currency.</value>
+  </data>
+  <data name="MicroGamingNotOfferCurrency" xml:space="preserve">
+    <value>Microgaming is not offered for this currency.</value>
+  </data>
 </root>

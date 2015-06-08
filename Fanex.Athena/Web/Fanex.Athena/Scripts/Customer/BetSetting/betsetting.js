@@ -13,6 +13,8 @@ var BetSetting = (function ($) {
     var TAB_AGCASINO = 8;
     var TAB_GOLDDELUXE = 9;
     var TAB_MACAU = 10;
+    var TAB_MICROGAMING = 11;
+    var TAB_BETTRADE = 12;
 
     var _sportIds = null;
     return {
@@ -40,15 +42,10 @@ var BetSetting = (function ($) {
 
             // Bind event
 
-           
-
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
             $("#btnDisableEsports").on("click", BetSetting.updateEsportStatus);
-
-            
-            
 
             // Formating number in text box.
             BetSetting.formatInputText();
@@ -99,6 +96,7 @@ var BetSetting = (function ($) {
                 $(this).toggleClass('active');
                 event.stopPropagation();
             });
+
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
@@ -124,6 +122,12 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_MACAU:
                     url = "BetSettingAPI/UpdateMacauStatus";
+                    break;
+                case TAB_MICROGAMING:
+                    url = "BetSettingAPI/UpdateMicroGamingStatus";
+                    break;
+                case TAB_BETTRADE:
+                    url = "BetSettingAPI/UpdateBetTradeStatus";
                     break;
             }
 

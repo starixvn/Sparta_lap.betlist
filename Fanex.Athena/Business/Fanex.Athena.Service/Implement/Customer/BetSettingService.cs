@@ -23,6 +23,8 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -74,7 +76,87 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
-        #region Macau
+        #region MicroGaming
+
+        /// <summary>
+        /// Get Micro Gaming setting.
+        /// </summary>
+        /// <param name="custId">Customer Id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <returns>MicroGaming setting.</returns>
+        public MicroGamingBetSetting GetMicroGamingSetting(int custId, string siteName)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetMicroGamingSetting(custId);
+
+            return setting;
+        }
+
+        /// <summary>
+        /// Updates the Micro Gaming status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The vegas games status.</param>
+        /// <returns>The result info.</returns>
+        public IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateMicroGamingStatus(userId, custId, language, ip, isEnabled);
+        }
+
+        #endregion MicroGaming
+
+        #region BetTrade
+        /// <summary>
+        /// Get Bet Trade setting.
+        /// </summary>
+        /// <param name="custId">Customer Id.</param>
+        /// <param name="siteName">Site name.</param>
+        /// <returns>MicroGaming setting.</returns>
+        public BetTradeBetSetting GetBetTradeSetting(int custId, string siteName)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetBetTradeSetting(custId);
+
+            return setting;
+        }
+
+        /// <summary>
+        /// Updates the Bet Trade status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The vegas games status.</param>
+        /// <returns>The result info.</returns>
+        public IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
+            return _betSettingDataAccess.UpdateBetTradeStatus(userId, custId, language, ip, isEnabled);
+        }
+        #endregion
+
+        #region VegasGames
 
         /// <summary>
         /// Get Macau setting.
@@ -470,7 +552,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             var agcasinoSetting = _betSettingDataAccess.GetAgCasinoSetting(setting.CustId);
-            
+
             if (!agcasinoSetting.IsEnabled || !_authorizationService.HasPermissionOnData(setting.CustId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
@@ -651,7 +733,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
-            
+
             var result = false;
 
             if (customerInfo.SyncCasino)

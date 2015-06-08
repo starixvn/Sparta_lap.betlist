@@ -196,6 +196,52 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
+        /// Update Micro Gaming status.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="nickName">Nick name.</param>
+        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
+        /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public JsonResult UpdateMicroGamingStatus(int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateMicroGamingStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Update Bet Trade status.
+        /// </summary>
+        /// <param name="custId">Customer ID value.</param>
+        /// <param name="nickName">Nick name.</param>
+        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
+        /// <returns>Result value.</returns>
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateBetTradeStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Update Gold Deluxe status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>

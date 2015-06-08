@@ -134,6 +134,10 @@ div > input[type="button"]
 /* Content data */
 
 /*Menu */
+.product-select-label label {
+    display: block;
+    padding-top: 5px;
+}
 .wrapper-dropdown-5 {
     /* Size & position */
     position: relative;
@@ -165,7 +169,7 @@ div > input[type="button"]
         margin-top: -3px;
         border-width: 6px 6px 0px 6px;
         border-style: solid;
-        border-color: #4cbeff transparent;
+        border-color: #726E6E transparent;
     }
 
     .wrapper-dropdown-5 .dropdown {
@@ -227,14 +231,14 @@ div > input[type="button"]
 
     .wrapper-dropdown-5.active {
         border-radius: 0px 0px 0 0;
-        background: #4cbeff;
+        background: #D3D3D3;
         box-shadow: none;
         border-bottom: 1px solid rgba(0,0,0,0.2);
         color: white;
     }
 
     .wrapper-dropdown-5.active:after {
-        border-color: #82d1ff transparent;
+        border-color: #333 transparent;
     }
 
     .wrapper-dropdown-5.active .dropdown {

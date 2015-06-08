@@ -15,49 +15,64 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
 
     /// <summary>
     ///     Bet setting interface.
     /// </summary>
     public interface IBetSettingDataAccess
     {
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
-        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+        AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
-        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
-        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
+        BetTradeBetSetting GetBetTradeSetting(int custId);
 
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
 
-        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IList<BetSetting> GetKenoBetSetting(int custId);
 
-        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
+        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
 
-        AgCasinoBetSetting GetAgCasinoSetting(int custId);
+        MicroGamingBetSetting GetMicroGamingSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
 
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
+        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+
+        VegasGamesBetSetting GetVegasGamesSetting(int custId);
+
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
-        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
+        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
 
-        IList<BetSetting> GetKenoBetSetting(int custId);
+        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
-        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+        IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
-        IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
 
-        IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
+        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
-        IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
+        IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled);
+
+        IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
+
+        IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+
+        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+
+        IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled);
+
+        IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

@@ -24,6 +24,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -39,6 +41,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         protected const int GoldDeluxeProductId = 11;
         protected const int MacauProductId = 12;
+        protected const int BetTradeProductId = 13;
+        protected const int MicroGamingProductId = 14;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -55,10 +59,58 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Get bet setting data
 
         /// <summary>
-        /// Get Macau setting.
+        /// Get Micro Gaming setting.
         /// </summary>
         /// <param name="custId">Customer id.</param>
-        /// <returns>Macau setting.</returns>
+        /// <returns>Micro Gaming setting.</returns>
+        public MicroGamingBetSetting GetMicroGamingSetting(int custId)
+        {
+            var uspName = "Lrf_3rdProductSelCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddInParameter("ProductId", DbType.Int32, MicroGamingProductId);
+                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("Currency", DbType.Int32, 1);
+
+                db.ExecuteNonQuery();
+
+                return new MicroGamingBetSetting()
+                {
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get bet trade setting.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <returns>bet trade setting.</returns>
+        public BetTradeBetSetting GetBetTradeSetting(int custId)
+        {
+            var uspName = "Lrf_3rdProductSelCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddInParameter("ProductId", DbType.Int32, BetTradeProductId);
+                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("Currency", DbType.Int32, 1);
+
+                db.ExecuteNonQuery();
+
+                return new BetTradeBetSetting()
+                {
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
+                };
+            }
+        }
         public MacauBetSetting GetMacauSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
@@ -426,6 +478,84 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #endregion VegasGames
+
+        #region MicroGaming
+
+        /// <summary>
+        /// Updates the micro gaming status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The vegas games status.</param>
+        /// <returns>The Result Info.</returns>
+        public IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            var uspName = "Lrf_3rdProductUpdCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("productid", DbType.Int32, MicroGamingProductId);
+                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
+                db.AddInParameter("ip", DbType.String, ip);
+                db.AddInParameter("language", DbType.String, language);
+
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                var errorMessage = db.GetParameterValue("ErrMsg");
+
+                return new ResultInfo
+                {
+                    Code = 0,
+                    Message = Converter.ToString2(errorMessage)
+                };
+            }
+        }
+
+        #endregion MicroGaming
+
+        #region BetTrade
+        /// <summary>
+        /// Updates the bet trade status.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="ip">The host address.</param>
+        /// <param name="isEnabled">The bet trade status.</param>
+        /// <returns>The Result Info.</returns>
+        public IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        {
+            var uspName = "Lrf_3rdProductUpdCustStatus";
+
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("userid", DbType.Int32, userId);
+                db.AddInParameter("productid", DbType.Int32, BetTradeProductId);
+                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
+                db.AddInParameter("ip", DbType.String, ip);
+                db.AddInParameter("language", DbType.String, language);
+
+                db.AddOutParameter("ErrMsg", DbType.String, 8000);
+
+                db.ExecuteNonQuery();
+
+                var errorMessage = db.GetParameterValue("ErrMsg");
+
+                return new ResultInfo
+                {
+                    Code = 0,
+                    Message = Converter.ToString2(errorMessage)
+                };
+            }
+        }
+        #endregion
 
         #region AG Casino
 
@@ -843,10 +973,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        #endregion Live Casino
-
-        #endregion Update bet setting
-
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
             return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, ip, language);
@@ -856,6 +982,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         {
             return UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
         }
+        #endregion Live Casino
+
+        #endregion Update bet setting
 
         #region Get Sport Name
 

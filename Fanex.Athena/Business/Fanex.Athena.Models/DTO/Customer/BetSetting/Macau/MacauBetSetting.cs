@@ -12,12 +12,9 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting.Macau
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// TODO: Vegas Game setting model.
     /// </summary>
-    public class MacauBetSetting
+    public class VegasGamesBetSetting : ThirdPartyBetSetting
     {
-        public bool IsLineEnabled { get; set; }
-
-        public bool IsEnabled { get; set; }
     }
 }

@@ -62,5 +62,15 @@ namespace Fanex.Athena.Models.DataDomain
         /// Macau product.
         /// </summary>
         Macau = 10
+
+        /// <summary>
+        /// Micro Gaming product.
+        /// </summary>
+        MicroGaming = 11,
+
+        /// <summary>
+        /// Bet Trade product.
+        /// </summary>
+        BetTrade = 12
     }
 }

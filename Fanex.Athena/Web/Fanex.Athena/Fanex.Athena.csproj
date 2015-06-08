@@ -3284,6 +3284,8 @@
     <Content Include="SiteConfig\Web.DEV.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
+    <Content Include="Views\Customer\BetSetting\MicroGaming.cshtml" />
+    <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
