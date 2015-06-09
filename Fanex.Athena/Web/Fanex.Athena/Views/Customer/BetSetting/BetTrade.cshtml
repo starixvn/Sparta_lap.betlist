@@ -10,7 +10,7 @@
 
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
-    var isLineEnabled = Model.MicroGamingViewModel.IsLineEnabled;
+    var isLineEnabled = Model.BetTradeViewModel.IsLineEnabled;
 }
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)

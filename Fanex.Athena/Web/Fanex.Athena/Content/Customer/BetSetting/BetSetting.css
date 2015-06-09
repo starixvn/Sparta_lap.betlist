@@ -137,6 +137,7 @@ div > input[type="button"]
 .product-select-label label {
     display: block;
     padding-top: 5px;
+    font-weight: bold;
 }
 .wrapper-dropdown-5 {
     /* Size & position */

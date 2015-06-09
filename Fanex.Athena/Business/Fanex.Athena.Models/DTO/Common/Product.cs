@@ -42,7 +42,7 @@ namespace Fanex.Athena.Models.DTO.Common
 
         public const string VG = "VG";
 
-        public const string MG = "MG";
+        public const string MGC = "MGC";
 
         public const string BT = "BT";
       
