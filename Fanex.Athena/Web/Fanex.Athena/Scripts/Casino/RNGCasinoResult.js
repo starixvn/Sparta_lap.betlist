@@ -3,6 +3,14 @@
 /// //##
 "use strict";
 var RNGCasino = (function ($) {
+    var NUMBER_OF_GRANTOTAL_ROW = 2;
+
+    function exportToExcel() {
+        var url = window.location.href;
+        url = QueryString.setParam(url, "IsExportExcel", true);
+        window.location.href = url;
+    }
+
     return {
         initialize: function () {
             RNGCasino.initEvent();
@@ -26,6 +34,12 @@ var RNGCasino = (function ($) {
                 url = QueryString.setParam(url, "IsShowPic", isShowPic);
                 window.location.href = url;
             });
+
+            $("#ExportToExcel").click(exportToExcel);
+
+            $("#ReportGrid").on("click", ".tree-wrap-ltr", function () {
+                jqGridAdditional.gridComplete($("#ReportGrid").get(0), null, NUMBER_OF_GRANTOTAL_ROW);
+            });
         },
 
         viewCasinoDetail: function (dataUrl) {
@@ -39,7 +53,7 @@ var RNGCasino = (function ($) {
             });
         },
 
-        bindTotal: function (totalData/*, summaryTotal*/) {
+        bindTotal: function (totalData) {
             var columnModel = RNGCasinoOption.getTotalColModel();
             var colspan = RNGCasinoOption.totalColspan[0];
             var summaryColspan = colspan + 1;
@@ -49,11 +63,6 @@ var RNGCasino = (function ($) {
             var grandTotalCell = $('.grandTotal td:first-child');
             grandTotalCell.html(Site.getSingleResource('GrandTotal'));
             grandTotalCell.css('text-align', 'right');
-
-            // set group color
-            $('.jqgroup td').css('background-color', '#F4E8D4');
-            $('.jqfoot td').css('background-color', '#CEF6CA');
-            $('.footrow td').css('background-color', '#B2DFEF');
 
             // resize when group collapse
             $(".tree-wrap-ltr").click(function () {
@@ -68,7 +77,6 @@ var RNGCasino = (function ($) {
             var onPaging = false;
             var gridOption = RNGCasinoOption.getGridOption();
             var numOfRow = response.Data.length;
-            var numOfTotalRow = response.Total.length;
             gridOption.data = response.Data;
             gridOption.pager = '#ppdata';
             gridOption.onPaging = function (pgButton) {
@@ -84,7 +92,7 @@ var RNGCasino = (function ($) {
             };
 
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                jqGridAdditional.gridComplete(this, gridOption, NUMBER_OF_GRANTOTAL_ROW);
                 if (numOfRow > RNGCasinoOption.pageSize) {
                     $("#pg_ppdata").show();
                 }
@@ -100,7 +108,7 @@ var RNGCasino = (function ($) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        RNGCasino.bindTotal(response.Total, response.SummaryTotal);
+                        RNGCasino.bindTotal(response.Total);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
@@ -113,7 +121,13 @@ var RNGCasino = (function ($) {
             reportGrid.jqGrid(gridOption);
 
             jqGridAdditional.resetLayout(reportGrid);
-            jqGridAdditional.showRecommendedBrowser(gridOption.pager);
+
+            // shrink container width if it's too large
+            var bodyWidth = $(window.document.body).width();
+            var $container = $(".container_26");
+            if ($container.width() > bodyWidth) {
+                $container.css("width", bodyWidth);
+            }
         },
 
         ajaxComplete: function (response) {
@@ -150,8 +164,7 @@ $(window).load(function () {
 });
 //#end
 $(window).resize(function () {
-    var reportGrid = $("#ReportGrid");
-    jqGridAdditional.resetLayout(reportGrid);
+    jqGridAdditional.resetLayout($("#ReportGrid"));
 });
 
 $(window).unload(function () {

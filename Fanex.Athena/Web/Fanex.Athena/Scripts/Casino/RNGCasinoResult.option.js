@@ -125,7 +125,7 @@ var RNGCasinoOption = (function () {
     var stakeColumn = {
         name: 'Stake',
         index: 'Stake',
-        width: 40,
+        width: 50,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -137,7 +137,7 @@ var RNGCasinoOption = (function () {
     var betColumn = {
         name: 'Bet',
         index: 'Bet',
-        width: 40,
+        width: 50,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -162,7 +162,7 @@ var RNGCasinoOption = (function () {
     var rollingCommColumn = {
         name: 'RollingComm',
         index: 'RollingComm',
-        width: 40,
+        width: 50,
         align: 'right',
         sortable: false,
         resizable: false,

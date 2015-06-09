@@ -1,4 +1,15 @@
-﻿div.history-link
+﻿.jqgroup td
+{ 
+    background-color: #F4E8D4;
+}
+.jqfoot td
+{
+    background-color: #CEF6CA;
+}
+.footrow td{
+    background-color: #B2DFEF;
+}
+div.history-link
 {
     cursor: pointer;
     background: url(Images/undo.png) no-repeat scroll center #FFEFDE;

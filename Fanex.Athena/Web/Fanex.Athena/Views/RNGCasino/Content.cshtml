@@ -5,6 +5,7 @@
 <div class="theme_jqGrid">
     <div class="container_26">
         <div class="grid_26 mobile_winloss">
+        
             <div class="report-title hide">                
                 @ViewResources.Username: @(string.Format("{0}({1}) - ", Model.Param.ExternalId, Model.Param.SystemId))
                 @ViewResources.RefNo: @Model.Param.RefNo - @string.Format(ViewResources.Viewin, 
@@ -15,11 +16,13 @@
                 <label for="chkIsShowPic">@ViewResources.Resultswithpictures</label>
                 <div onclick="history.back()" class="history-link">
                 </div>
+                
                 <input type="hidden" id="casino-detail-currency-id" value="@Model.Param.CurrencyId" />
                 <input type="hidden" id="casino-detail-currency-name" value="@Model.Param.CurrencyName" />
                 <input type="hidden" id="casino-detail-base-currency" value="@Model.Param.BaseCurrency" />
                 <input type="hidden" id="is-allow-cust-comm" value="@(Model.IsAllowedCustomerCommission ? "true" : "false")" />                
             </div>
+            
             <div class="report-content ">
                 <div style="width: 100%">
                     <table id="ReportGrid">

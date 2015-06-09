@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.Interface.Casino
 
     public interface IRNGCasinoService
     {
-        List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetalModel metaModel);
+        List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel);
 
         CasinoHandHistoryDetailViewModel GetRNGCasinoResultDetail(RNGCasinoResultDetailMetaModel metaModel);
 
