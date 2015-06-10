@@ -13,9 +13,6 @@ namespace Fanex.Athena.Service.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
 
@@ -26,10 +23,11 @@ namespace Fanex.Athena.Service.Interface.Customer
     {
         MacauBetSetting GetMacauSetting(int custId, string siteName);
         #region Get Bet Setting
-        MicroGamingBetSetting GetMicroGamingSetting(int custId, string siteName);
+        ThirdPartyBetSetting GetMicroGamingSetting(int custId, string siteName);
 
-        BetTradeBetSetting GetBetTradeSetting(int custId, string siteName);
+        ThirdPartyBetSetting GetBetTradeSetting(int custId, string siteName);
 
+        ThirdPartyBetSetting GetVegasGamesSetting(int custId, string siteName);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 

@@ -23,7 +23,7 @@ var BetSetting = (function ($) {
             if ($idList.length > 0) {
                 _sportIds = $idList.val().split(",");
             }
-            
+
             BetSetting.initMenu();
             BetSetting.initEvent();
         },
@@ -125,12 +125,13 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_MICROGAMING:
                     url = "BetSettingAPI/UpdateMicroGamingStatus";
+                    status = $("#ckEnable").is(":checked") === true ? 1 : 0;
                     break;
                 case TAB_BETTRADE:
                     url = "BetSettingAPI/UpdateBetTradeStatus";
                     break;
             }
-
+            
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl(url),

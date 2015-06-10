@@ -15,9 +15,6 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
 
     /// <summary>
     ///     Bet setting interface.
@@ -26,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     {
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
-        BetTradeBetSetting GetBetTradeSetting(int custId);
+        ThirdPartyBetSetting GetBetTradeSetting(int custId);
 
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
 
@@ -34,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
 
-        MicroGamingBetSetting GetMicroGamingSetting(int custId);
+        ThirdPartyBetSetting GetMicroGamingSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
@@ -43,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
         [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
-        VegasGamesBetSetting GetVegasGamesSetting(int custId);
+        ThirdPartyBetSetting GetVegasGamesSetting(int custId);
 
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 

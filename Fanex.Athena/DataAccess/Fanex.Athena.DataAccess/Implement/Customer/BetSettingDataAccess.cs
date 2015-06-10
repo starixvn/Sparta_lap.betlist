@@ -23,9 +23,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -63,7 +60,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer id.</param>
         /// <returns>Micro Gaming setting.</returns>
-        public MicroGamingBetSetting GetMicroGamingSetting(int custId)
+        public ThirdPartyBetSetting GetMicroGamingSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 
@@ -77,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 db.ExecuteNonQuery();
 
-                return new MicroGamingBetSetting()
+                return new ThirdPartyBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
@@ -90,7 +87,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer id.</param>
         /// <returns>bet trade setting.</returns>
-        public BetTradeBetSetting GetBetTradeSetting(int custId)
+        public ThirdPartyBetSetting GetBetTradeSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 
@@ -104,14 +101,20 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
                 db.ExecuteNonQuery();
 
-                return new BetTradeBetSetting()
+                return new ThirdPartyBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
                 };
             }
         }
-        public MacauBetSetting GetMacauSetting(int custId)
+
+        /// <summary>
+        /// Get VegasGames setting.
+        /// </summary>
+        /// <param name="custId">Customer id.</param>
+        /// <returns>VegasGames setting.</returns>
+        public ThirdPartyBetSetting GetVegasGamesSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 

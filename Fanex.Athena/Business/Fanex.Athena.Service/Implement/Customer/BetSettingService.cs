@@ -22,9 +22,6 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.BetTrade;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.MicroGaming;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -84,7 +81,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
         /// <returns>MicroGaming setting.</returns>
-        public MicroGamingBetSetting GetMicroGamingSetting(int custId, string siteName)
+        public ThirdPartyBetSetting GetMicroGamingSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
@@ -124,7 +121,7 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
         /// <returns>MicroGaming setting.</returns>
-        public BetTradeBetSetting GetBetTradeSetting(int custId, string siteName)
+        public ThirdPartyBetSetting GetBetTradeSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
@@ -163,8 +160,8 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
-        /// <returns>Macau setting.</returns>
-        public MacauBetSetting GetMacauSetting(int custId, string siteName)
+        /// <returns>VegasGames setting.</returns>
+        public ThirdPartyBetSetting GetVegasGamesSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {

@@ -125,14 +125,12 @@
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGame.cs" />
-    <Compile Include="DTO\Customer\BetSetting\BetTrade\BetTradeBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeGame.cs" />
     <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
-    <Compile Include="DTO\Customer\BetSetting\MicroGaming\MicroGamingBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\NumberGameBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\RacingBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\CommonBetSetting.cs" />
@@ -418,6 +416,10 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTO\Customer\BetSetting\BetTrade\" />
+    <Folder Include="DTO\Customer\BetSetting\MicroGaming\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

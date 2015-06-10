@@ -286,15 +286,15 @@ namespace Fanex.Athena.Controllers.Customer
                     var macauViewModel = _betSettingService.GetMacauSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
-                    model.MacauViewModel = macauViewModel;
-                    model.IsEnabled = macauViewModel.IsEnabled;
+                    model.ThirdPartyViewModel = vegasGamesViewModel;
+                    model.IsEnabled = vegasGamesViewModel.IsEnabled;
                     break;
 
                 case ProductType.MicroGaming:
                     var microGamingViewModel = _betSettingService.GetMicroGamingSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
-                    model.MicroGamingViewModel = microGamingViewModel;
+                    model.ThirdPartyViewModel = microGamingViewModel;
                     model.IsEnabled = microGamingViewModel.IsEnabled;
                     break;
 
@@ -302,7 +302,7 @@ namespace Fanex.Athena.Controllers.Customer
                     var betTradeViewModel = _betSettingService.GetBetTradeSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
-                    model.BetTradeViewModel = betTradeViewModel;
+                    model.ThirdPartyViewModel = betTradeViewModel;
                     model.IsEnabled = betTradeViewModel.IsEnabled;
                     break;
             }
