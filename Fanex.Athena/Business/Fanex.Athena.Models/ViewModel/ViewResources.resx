@@ -2701,4 +2701,10 @@
   <data name="MicroGamingNotOfferCurrency" xml:space="preserve">
     <value>Microgaming is not offered for this currency.</value>
   </data>
+  <data name="DisableMicrogaming" xml:space="preserve">
+    <value>Disable Microgaming</value>
+  </data>
+  <data name="EnableMicrogaming" xml:space="preserve">
+    <value>Enable Microgaming</value>
+  </data>
 </root>

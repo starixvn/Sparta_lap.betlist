@@ -1834,6 +1834,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Microgaming.
+        /// </summary>
+        public static string DisableMicrogaming {
+            get {
+                return ResourceManager.GetString("DisableMicrogaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable RNG Casino.
         /// </summary>
         public static string DisableRNGCasino {
@@ -2037,6 +2046,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EnableMacau {
             get {
                 return ResourceManager.GetString("EnableMacau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Microgaming.
+        /// </summary>
+        public static string EnableMicrogaming {
+            get {
+                return ResourceManager.GetString("EnableMicrogaming", resourceCulture);
             }
         }
         

@@ -157,6 +157,10 @@ var _language_en_US={
 				 	
                      BettingLimit:"Betting Limit",
 				 	
+                     BetTrade:"Bet Trade",
+				 	
+                     BetTradeNotOfferCurrency:"BetTrade is not offered for this currency.",
+				 	
                      BetType:"Bet type",
 				 	
                      BG:"BG",
@@ -399,6 +403,8 @@ var _language_en_US={
 				 	
                      DisableMacau:"Disable Macau",
 				 	
+                     DisableMicrogaming:"Disable Microgaming",
+				 	
                      DisableRNGCasino:"Disable RNG Casino",
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
@@ -444,6 +450,8 @@ var _language_en_US={
                      EnableLiveCasino:"Enable Live Casino",
 				 	
                      EnableMacau:"Enable Macau",
+				 	
+                     EnableMicrogaming:"Enable Microgaming",
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
 				 	
@@ -934,6 +942,10 @@ var _language_en_US={
                      MessageInvalidCommValue:"Invalid commission value!",
 				 	
                      MessageSuccess:"Successful",
+				 	
+                     Microgaming:"Microgaming",
+				 	
+                     MicroGamingNotOfferCurrency:"Microgaming is not offered for this currency.",
 				 	
                      MinBet:"Min Bet",
 				 	

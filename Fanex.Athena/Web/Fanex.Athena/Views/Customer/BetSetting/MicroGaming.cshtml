@@ -39,7 +39,7 @@
         {
             <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
             data-cust-id="@Model.Param.CustId" 
-            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableVegasGames : ViewResources.EnableVegasGames)"
+            data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableMicrogaming: ViewResources.EnableMicrogaming)"
             id="btnUpdateStatus" />
         }
     </div>
