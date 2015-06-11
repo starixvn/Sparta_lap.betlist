@@ -29,6 +29,8 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         ThirdPartyBetSetting GetVegasGamesSetting(int custId, string siteName);
 
+        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
+
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);

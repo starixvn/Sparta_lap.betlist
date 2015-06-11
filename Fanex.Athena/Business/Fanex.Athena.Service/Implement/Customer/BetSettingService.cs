@@ -133,6 +133,12 @@ namespace Fanex.Athena.Service.Implement.Customer
             return setting;
         }
 
+        public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
+        {
+            return null;
+        }
+
+
         /// <summary>
         /// Updates the Bet Trade status.
         /// </summary>

@@ -136,6 +136,27 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
+        {
+            var uspName = "Lrf_3rdProductSelCustStatus";
+            using (var db = new ObjectDb(uspName))
+            {
+                db.AddInParameter("CustID", DbType.Int32, custId);
+                db.AddInParameter("ProductId", DbType.Int32, productid);
+                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+                db.AddOutParameter("Currency", DbType.Int32, 1);
+
+                db.ExecuteNonQuery();
+
+                return new VegasGamesBetSetting()
+                {
+                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
+                };
+            }
+        }
+
         /// <summary>
         /// Get Gold Deluxe setting.
         /// </summary>
