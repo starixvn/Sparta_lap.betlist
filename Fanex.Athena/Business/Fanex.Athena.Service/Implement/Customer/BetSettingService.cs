@@ -133,9 +133,22 @@ namespace Fanex.Athena.Service.Implement.Customer
             return setting;
         }
 
+        /// <summary>
+        /// Gets the third party bet setting.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="productid">The productid.</param>
+        /// <returns></returns>
         public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
         {
-            return null;
+            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            {
+                return null;
+            }
+
+            var setting = _betSettingDataAccess.GetThirdPartyBetSetting(custId, productid);
+
+            return setting;
         }
 
         /// <summary>

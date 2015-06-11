@@ -136,6 +136,12 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
+        /// <summary>
+        /// Gets the third party bet setting.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="productid">The productid.</param>
+        /// <returns></returns>
         public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
