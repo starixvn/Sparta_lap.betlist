@@ -138,7 +138,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             return null;
         }
 
-
         /// <summary>
         /// Updates the Bet Trade status.
         /// </summary>
