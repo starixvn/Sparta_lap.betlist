@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/26/2015 3:53:46 PM
+// Lasted generated date: 6/11/2015 1:01:18 PM
 // </history>
 
 var _language_en_US={
@@ -36,6 +36,10 @@ var _language_en_US={
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
                      AGCasinoWinLoss:"AG Casino Win Loss",
+				 	
+                     AGClosingBalance:"AG Closing Balance",
+				 	
+                     AGOpeningBalance:"AG Opening Balance",
 				 	
                      AH:"AH",
 				 	

@@ -213,8 +213,8 @@ var AgCasinoBalanceOption = (function () {
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'OpeningBalance', 'TransferIn', 'TransferOut',
-      'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'ClosingBalance', 'CurrencyId', 'CustomerId'];
+    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'AGOpeningBalance', 'TransferIn', 'TransferOut',
+      'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'AGClosingBalance', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn, openingBalanceColumn, transferInColumn, transferOutColumn,
         turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn, closingBalanceColumn, currencyIdColumn, customerIdColumn];
@@ -275,7 +275,6 @@ var AgCasinoBalanceOption = (function () {
         var blankFormatter = function () { return "-"; };
 
         $.each(colModel, function (index, item) {
-
             // Not show drill down link on total link
             if (item.name === "CurrencyName") {
                 item.formatter = null;

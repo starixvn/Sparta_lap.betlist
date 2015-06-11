@@ -64,7 +64,12 @@ var AgCasinoBalance = (function ($) {
     return {
         resizeGrid: function () {
             setTimeout(function () {
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
+                var $gridContent = $(".ui-jqgrid-bdiv");
+                if ($gridContent.length === 0) {
+                    return;
+                }
+
+                var gridTop = $gridContent.offset().top;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                                 - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
@@ -74,9 +79,9 @@ var AgCasinoBalance = (function ($) {
                 var actualHeight = $("#ReportGrid").height();
                 var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
                 var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $(".ui-jqgrid-bdiv").width();
+                var contentWidth = $gridContent.width();
                 var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
+                $gridContent.height(Math.min(newHeight, gridHeight))
                                     .css("max-height", gridHeight);
             }, 100);
         },
@@ -90,7 +95,6 @@ var AgCasinoBalance = (function ($) {
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
-                // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 _level = 0;
                 AgCasinoBalance.submit();
@@ -98,10 +102,10 @@ var AgCasinoBalance = (function ($) {
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#AgCasinoBalanceForm");
+                var $mainForm = $("#AgCasinoBalanceForm");
                 var url = Site.resolveClientUrl(AgCasinoBalanceOption.urlExcelData);
-                mainForm.attr("action", url);
-                mainForm.submit();
+                $mainForm.attr("action", url);
+                $mainForm.submit();
                 $('#IsExportExcel').val(false);
                 return false;
             });
@@ -125,20 +129,16 @@ var AgCasinoBalance = (function ($) {
         },
 
         renderBreadCrumb: function (level) {
-            //hide history link
             level = Number(level);
             if (level === 0) {
                 $(".breadCrumbHolder").hide();
             }
             else {
-                /*show history link*/
                 $(".breadCrumbHolder").show();
                 $("#history-link-container").width($("#ReportGrid").width() + 17);
                 //add more 20px for scrolling
                 $("div#history-link-container li.level0").show();
 
-                /*show history link*/
-                $(".breadCrumbHolder").show();
                 $(".level0").show();
 
                 $(".level2").showHide(level === 2);

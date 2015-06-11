@@ -2665,4 +2665,10 @@
   <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
     <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>
   </data>
+  <data name="AGClosingBalance" xml:space="preserve">
+    <value>AG Closing Balance</value>
+  </data>
+  <data name="AGOpeningBalance" xml:space="preserve">
+    <value>AG Opening Balance</value>
+  </data>
 </root>
