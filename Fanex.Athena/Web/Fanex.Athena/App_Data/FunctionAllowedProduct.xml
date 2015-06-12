@@ -6,23 +6,23 @@
 
   <Group Name="Report">
     <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,MGC"></Function>
-    <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS"></Function>
-    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB"></Function>
-    <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,KN,RB"></Function>
-    <Function Name="CustomerWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG"></Function>
+    <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGC"></Function>
+    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,MGC"></Function>
+    <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,KN,RB,MGC"></Function>
+    <Function Name="CustomerWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC"></Function>
     <Function Name="MatchWinLoss" Product="SB,BA,NG,LC,VS,RB"></Function>
-    <Function Name="MobileWinloss" Product="SB,BA,NG,LC,VS,RB"></Function>
-    <Function Name="Turnover" Product="SB,BA,NG,LC,VS,CS,KN,RB"></Function>
-    <Function Name="WinLossByProduct" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG"></Function>
+    <Function Name="MobileWinloss" Product="SB,BA,NG,LC,VS,RB,MGC"></Function>
+    <Function Name="Turnover" Product="SB,BA,NG,LC,VS,CS,KN,RB,MGC"></Function>
+    <Function Name="WinLossByProduct" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC"></Function>
     <Function Name="ResultPage_GetNormalSports" Product="SB,BA,NG,LC,VS,KN,RB"></Function>
   </Group>
 
   <Group Name="BetList">
-    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG"></Function>
-    <Function Name="BetList_DailyBetList" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG"></Function>
+    <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC"></Function>
+    <Function Name="BetList_DailyBetList" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC"></Function>
   </Group>
 
   <Group Name="API">
-    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,LC,VS,CS,RB,BG"></Function>
+    <Function Name="CustomerAPI_RemoveFromGroupCom" Product="SB,BA,NG,LC,VS,CS,RB,BG,MGC"></Function>
   </Group>
 </Root>
