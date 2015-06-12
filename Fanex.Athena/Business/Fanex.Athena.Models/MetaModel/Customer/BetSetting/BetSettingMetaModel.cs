@@ -15,13 +15,13 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
     {
         public BetSettingMetaModel()
         {
-            TabId = ProductType.Sportsbook;
+            TabId = ProductTypes.Sportsbook;
             BetSettingName = "Sportsbook";
             Editable = true;
             IsAllowLiveCasino = false;
         }
 
-        public ProductType TabId { get; set; }
+        public ProductTypes TabId { get; set; }
 
         public string SiteName { get; set; }
 

@@ -23,12 +23,6 @@ namespace Fanex.Athena.Service.Interface.Customer
     {
         MacauBetSetting GetMacauSetting(int custId, string siteName);
         #region Get Bet Setting
-        ThirdPartyBetSetting GetMicroGamingSetting(int custId, string siteName);
-
-        ThirdPartyBetSetting GetBetTradeSetting(int custId, string siteName);
-
-        ThirdPartyBetSetting GetVegasGamesSetting(int custId, string siteName);
-
         ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
@@ -86,11 +80,7 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
 
-        IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
-        IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
-        IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
         #endregion
     }
 }

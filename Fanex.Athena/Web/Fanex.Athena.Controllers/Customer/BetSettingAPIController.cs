@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Data;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.MetaModel.Casino;
@@ -184,15 +185,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateMacauStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
-
-            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return UpdateThirdPartyProductStatus((int)ProductTypes.VegasGames, custId, nickName, status);
         }
 
         /// <summary>
@@ -207,15 +200,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMicroGamingStatus(int custId, string nickName, int status)
         {
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateMicroGamingStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
-
-            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return UpdateThirdPartyProductStatus((int)ProductTypes.MicroGaming, custId, nickName, status);
         }
 
         /// <summary>
@@ -230,15 +215,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateBetTradeStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
-
-            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return UpdateThirdPartyProductStatus((int)ProductTypes.BetTrade, custId, nickName, status);
         }
 
         /// <summary>
@@ -619,6 +596,19 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         #endregion Bet setting API
+
+        private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
+        {
+            var userSession = SessionService.UserSession;
+            var result = _betSettingService.UpdateThirdPartyProductStatus(productId, userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+
+            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
+            {
+                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         #region Get Betsetting params
 

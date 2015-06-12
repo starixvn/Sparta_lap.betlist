@@ -315,6 +315,7 @@
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\AgCasinoBetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\ThirdPartyBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\GoldDeluxeBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\LiveCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\ActionViewModel.cs" />
@@ -418,10 +419,7 @@
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTO\Customer\BetSetting\BetTrade\" />
-    <Folder Include="DTO\Customer\BetSetting\MicroGaming\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

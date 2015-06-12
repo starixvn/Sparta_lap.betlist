@@ -25,15 +25,11 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
-        ThirdPartyBetSetting GetBetTradeSetting(int custId);
-
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
 
         IList<BetSetting> GetKenoBetSetting(int custId);
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
-
-        ThirdPartyBetSetting GetMicroGamingSetting(int custId);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
@@ -42,15 +38,11 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
         [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
-        ThirdPartyBetSetting GetVegasGamesSetting(int custId);
-
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
 
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
-        IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
@@ -62,15 +54,13 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
-        IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
         IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
 
-        IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }

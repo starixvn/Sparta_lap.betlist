@@ -11,10 +11,10 @@ var BetSetting = (function ($) {
     var TAB_RNGCASINO = 6;
     var TAB_KENO = 7;
     var TAB_AGCASINO = 8;
-    var TAB_GOLDDELUXE = 9;
-    var TAB_MACAU = 10;
-    var TAB_MICROGAMING = 11;
-    var TAB_BETTRADE = 12;
+    var TAB_GOLDDELUXE = 11;
+    var TAB_VEGASGAMES = 12;
+    var TAB_BETTRADE = 13;
+    var TAB_MICROGAMING = 14;
 
     var _sportIds = null;
     return {
@@ -96,7 +96,9 @@ var BetSetting = (function ($) {
                 $(this).toggleClass('active');
                 event.stopPropagation();
             });
-
+            $("#dd").on("click", "a", function () {
+                Site.blockUI();
+            });
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
@@ -131,7 +133,7 @@ var BetSetting = (function ($) {
                     url = "BetSettingAPI/UpdateBetTradeStatus";
                     break;
             }
-            
+
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl(url),

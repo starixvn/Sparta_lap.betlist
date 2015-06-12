@@ -13,7 +13,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                             {
-                                TabId = 1,
+                                TabId = (int)ProductTypes.Sportsbook,
                                 CustId = Model.CustId,
                                 UserName = Model.UserName,
                                 NickName = Model.NickName,
@@ -28,7 +28,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                             {
-                                TabId = 2,
+                                TabId = (int)ProductTypes.Racing,
                                 CustId = Model.CustId,
                                 UserName = Model.UserName,
                                 NickName = Model.NickName,
@@ -43,7 +43,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                             {
-                                TabId = 3,
+                                TabId = (int)ProductTypes.NumberGame,
                                 CustId = Model.CustId,
                                 UserName = Model.UserName,
                                 NickName = Model.NickName,
@@ -58,7 +58,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                             {
-                                TabId = 4,
+                                TabId = (int)ProductTypes.VirtualSports,
                                 CustId = Model.CustId,
                                 UserName = Model.UserName,
                                 NickName = Model.NickName,
@@ -73,7 +73,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 5,
+                                    TabId = (int)ProductTypes.LiveCasino,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -88,7 +88,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 6,
+                                    TabId = (int)ProductTypes.RngCasino,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -103,7 +103,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 7,
+                                    TabId = (int)ProductTypes.Keno,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -118,7 +118,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 8,
+                                    TabId = (int)ProductTypes.AgCasino,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -133,7 +133,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 9,
+                                    TabId = (int)ProductTypes.GoldDeluxe,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -144,28 +144,28 @@
                     }
                     <!--/Gold Deluxe-->
 
-            <!--Macau-->
-            @if (Model.IsAllowMacau)
-            { 
-                <li><a href="@Url.Action("Index", "BetSetting", new
-                        {
-                            TabId = 10,
-                            CustId = Model.CustId,
-                            UserName = Model.UserName,
-                            NickName = Model.NickName,
-                            BetSettingName = ViewResources.Macau
-                        })" id="macau">
-                    @ViewResources.Macau
-                </a></li>
-            }
-            <!--/Macau-->
+                    <!--VegasGames-->
+                    @if (Model.IsAllowVegasGames)
+                    { 
+                        <li><a href="@Url.Action("Index", "BetSetting", new
+                                {
+                                    TabId = (int)ProductTypes.VegasGames,
+                                    CustId = Model.CustId,
+                                    UserName = Model.UserName,
+                                    NickName = Model.NickName,
+                                    BetSettingName = ViewResources.VegasGames
+                                })" id="vegasgames">
+                            @ViewResources.VegasGames
+                        </a></li>
+                    }
+                    <!--/VegasGames-->
 
                     <!--MicroGaming-->
                     @if (Model.IsAllowVegasGames)
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 11,
+                                    TabId = (int)ProductTypes.MicroGaming,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,
@@ -181,7 +181,7 @@
                     { 
                         <li><a href="@Url.Action("Index", "BetSetting", new
                                 {
-                                    TabId = 12,
+                                    TabId = (int)ProductTypes.BetTrade,
                                     CustId = Model.CustId,
                                     UserName = Model.UserName,
                                     NickName = Model.NickName,

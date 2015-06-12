@@ -71,27 +71,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             _customer = new Customer();
         }
 
-        #endregion
-
-        #region MicroGaming
-
-        /// <summary>
-        /// Get Micro Gaming setting.
-        /// </summary>
-        /// <param name="custId">Customer Id.</param>
-        /// <param name="siteName">Site name.</param>
-        /// <returns>MicroGaming setting.</returns>
-        public ThirdPartyBetSetting GetMicroGamingSetting(int custId, string siteName)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return null;
-            }
-
-            var setting = _betSettingDataAccess.GetMicroGamingSetting(custId);
-
-            return setting;
-        }
+        #endregion        
 
         /// <summary>
         /// Updates the Micro Gaming status.
@@ -102,37 +82,16 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="ip">The host address.</param>
         /// <param name="isEnabled">The vegas games status.</param>
         /// <returns>The result info.</returns>
-        public IResultInfo UpdateMicroGamingStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateMicroGamingStatus(userId, custId, language, ip, isEnabled);
+            return _betSettingDataAccess.UpdateThirdPartyProductStatus(productId, userId, custId, language, ip, isEnabled);
         }
-
-        #endregion MicroGaming
-
-        #region BetTrade
-        /// <summary>
-        /// Get Bet Trade setting.
-        /// </summary>
-        /// <param name="custId">Customer Id.</param>
-        /// <param name="siteName">Site name.</param>
-        /// <returns>MicroGaming setting.</returns>
-        public ThirdPartyBetSetting GetBetTradeSetting(int custId, string siteName)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return null;
-            }
-
-            var setting = _betSettingDataAccess.GetBetTradeSetting(custId);
-
-            return setting;
-        }
-
+        
         /// <summary>
         /// Gets the third party bet setting.
         /// </summary>

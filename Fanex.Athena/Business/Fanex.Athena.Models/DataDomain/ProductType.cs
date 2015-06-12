@@ -6,7 +6,10 @@
 
 namespace Fanex.Athena.Models.DataDomain
 {
-    public enum ProductType
+    using System;
+
+    [Flags]
+    public enum ProductTypes
     {
         /// <summary>
         /// None, value = 0.
@@ -54,23 +57,23 @@ namespace Fanex.Athena.Models.DataDomain
         AgCasino = 8,
 
         /// <summary>
-        /// Gold Deluxe product.
+        /// Gold Deluxe product: 11.
         /// </summary>
-        GoldDeluxe = 9,
+        GoldDeluxe = 11,
 
         /// <summary>
         /// Macau product.
         /// </summary>
-        Macau = 10
+        VegasGames = 12,
+        
+        /// <summary>
+        /// Bet Trade product: 13.
+        /// </summary>
+        BetTrade = 13,
 
         /// <summary>
-        /// Micro Gaming product.
+        /// Micro Gaming product: 14.
         /// </summary>
-        MicroGaming = 11,
-
-        /// <summary>
-        /// Bet Trade product.
-        /// </summary>
-        BetTrade = 12
+        MicroGaming = 14
     }
 }

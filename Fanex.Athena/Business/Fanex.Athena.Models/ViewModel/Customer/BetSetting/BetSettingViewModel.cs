@@ -65,8 +65,6 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             }
         }
 
-        public ThirdPartyBetSetting ThirdPartyViewModel { get; set; }
-
         public RngCasinoBetSetting RngCasinoData { get; set; }
 
         public bool? IsEnabled { get; set; }
