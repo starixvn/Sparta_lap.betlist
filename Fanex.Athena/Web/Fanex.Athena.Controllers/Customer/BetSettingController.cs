@@ -84,29 +84,41 @@ namespace Fanex.Athena.Controllers.Customer
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
+            var viewType = string.Empty;
             switch (metaModel.TabId)
             {
                 case ProductTypes.NumberGame:
-                    return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/NumberGame.cshtml";
+                    break;
                 case ProductTypes.LiveCasino:
-                    return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/LiveCasino.cshtml";
+                    break;
                 case ProductTypes.RngCasino:
-                    return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/RngCasino.cshtml";
+                    break;
                 case ProductTypes.Keno:
-                    return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/Keno.cshtml";
+                    break;
                 case ProductTypes.AgCasino:
-                    return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/AgCasino.cshtml";
+                    break;
                 case ProductTypes.GoldDeluxe:
-                    return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/GoldDeluxe.cshtml";
+                    break;
                 case ProductType.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
                 case ProductTypes.MicroGaming:
-                    return View("~/Views/Customer/BetSetting/MicroGaming.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/MicroGaming.cshtml";
+                    break;
                 case ProductTypes.BetTrade:
-                    return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/BetTrade.cshtml";
+                    break;
                 default: // Sportsbook, Racing, Virtual Sports
-                    return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
+                    viewType = "~/Views/Customer/BetSetting/Main.cshtml";
+                    break;
             }
+
+            return View(viewType, viewModel);
         }
 
         #endregion Displaying bet settings
@@ -211,11 +223,12 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = new BetSettingViewModel { Param = metaModel };
             var language = SessionService.UserSession.Language;
-            EsportSettingType esportSetting = EsportSettingType.NoneOffering;
+            
             var productId = (int)metaModel.TabId;
             switch (metaModel.TabId)
             {
                 case ProductTypes.Sportsbook:
+                    EsportSettingType esportSetting = EsportSettingType.NoneOffering;
                     model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, ref esportSetting));
                     model.EsportSetting = esportSetting;
                     break;
@@ -239,16 +252,10 @@ namespace Fanex.Athena.Controllers.Customer
                     break;
 
                 case ProductTypes.RngCasino:
+                    model.RngCasinoData = new RngCasinoBetSetting() { Data = new List<GameKind>() };
                     if (customerInfo.SyncCasino)
                     {
                         model.RngCasinoData = _casinoSetting.GetRngCasinoSetting(metaModel.CustId, SessionService.LicenseeSession.LicenseeName, language);
-                    }
-                    else
-                    {
-                        model.RngCasinoData = new RngCasinoBetSetting()
-                        {
-                            Data = new List<GameKind>()
-                        };
                     }
 
                     model.IsEnabled = IsRngCasinoEnabled(customerInfo);
@@ -278,9 +285,7 @@ namespace Fanex.Athena.Controllers.Customer
                     var viewModel = _betSettingService.GetGoldDeluxeSetting(
                         metaModel.CustId,
                         SessionService.LicenseeSession.LicenseeName);
-                    model.GoldDeluxeViewModel.BetSetting = viewModel.BetSetting;
-                    model.GoldDeluxeViewModel.Games = viewModel.Games;
-
+                    model.GoldDeluxeViewModel = viewModel;
                     model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
                     break;
 

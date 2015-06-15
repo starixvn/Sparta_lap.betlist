@@ -57,13 +57,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             }
         }
 
-        public GoldDeluxeBetSettingViewModel GoldDeluxeViewModel
-        {
-            get
-            {
-                return _goldDeluxeViewModel;
-            }
-        }
+        public GoldDeluxeBetSettingViewModel GoldDeluxeViewModel { get; set; }
 
         public RngCasinoBetSetting RngCasinoData { get; set; }
 
