@@ -13,7 +13,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     /// <summary>
     /// GoldDeluxeBetSettingViewModel class.
     /// </summary>
-    public class GoldDeluxeBetSettingViewModel
+    public class GoldDeluxeBetSettingViewModel : BetSettingViewModel
     {
         public GoldDeluxeBetSetting BetSetting { get; set; }
 

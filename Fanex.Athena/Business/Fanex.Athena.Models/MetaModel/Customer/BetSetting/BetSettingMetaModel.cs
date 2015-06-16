@@ -21,7 +21,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
             IsAllowLiveCasino = false;
         }
 
-        public ProductTypes TabId { get; set; }
+        public int TabId { get; set; }
 
         public string SiteName { get; set; }
 

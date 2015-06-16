@@ -84,7 +84,7 @@ namespace Fanex.Athena.Controllers.Customer
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
-            var data = _betSettingService.GetAgCasinoGroupBettingLimit(custId, siteName, currency);
+            var data = _betSettingService.GetAgCasinoGroupBettings(custId, siteName, currency);
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

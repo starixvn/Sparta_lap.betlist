@@ -384,7 +384,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <returns>List result.</returns>
-        public IList<BetSetting> GetKenoBetSetting(int custId)
+        public IList<BetSetting> GetKenoBetSettings(int custId)
         {
             var uspName = "Lrf_CustomerSelEditKN";
 

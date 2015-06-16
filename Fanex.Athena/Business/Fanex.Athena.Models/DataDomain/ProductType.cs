@@ -6,74 +6,66 @@
 
 namespace Fanex.Athena.Models.DataDomain
 {
-    using System;
-
-    [Flags]
-    public enum ProductTypes
+    public static class ProductTypes
     {
-        /// <summary>
-        /// None, value = 0.
-        /// </summary>
-        None = 0,
-
         /// <summary>
         /// SportsBook product.
         /// </summary>
-        Sportsbook = 1,
+        public const int Sportsbook = 1;
 
         /// <summary>
         /// Racing product.
         /// </summary>
-        Racing = 2,
+        public const int Racing = 2;
 
         /// <summary>
         /// NumberGame product.
         /// </summary>
-        NumberGame = 3,
+        public const int NumberGame = 3;
 
         /// <summary>
         /// VirtualSports product.
         /// </summary>
-        VirtualSports = 4,
+        public const int VirtualSports = 4;
 
         /// <summary>
         /// LiveCasino product.
         /// </summary>
-        LiveCasino = 5,
+        public const int LiveCasino = 5;
 
         /// <summary>
         /// RNGCasino product.
         /// </summary>
-        RngCasino = 6,
+        public const int RngCasino = 6;
 
         /// <summary>
         /// Keno product.
         /// </summary>
-        Keno = 7,
+        public const int Keno = 7;
 
         /// <summary>
         /// AGCasino product.
         /// </summary>
-        AgCasino = 8,
+        public const int AgCasino = 8;
 
         /// <summary>
         /// Gold Deluxe product: 11.
         /// </summary>
-        GoldDeluxe = 11,
+        public const int GoldDeluxe = 11;
 
         /// <summary>
         /// Macau product.
         /// </summary>
-        VegasGames = 12,
+        public const int VegasGames = 12;
         
         /// <summary>
         /// Bet Trade product: 13.
         /// </summary>
-        BetTrade = 13,
+        public const int BetTrade = 13;
 
         /// <summary>
         /// Micro Gaming product: 14.
         /// </summary>
-        MicroGaming = 14
+        public const int MicroGaming = 14;
     }
 }

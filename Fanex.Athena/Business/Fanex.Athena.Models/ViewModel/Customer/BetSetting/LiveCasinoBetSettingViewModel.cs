@@ -12,16 +12,8 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     /// <summary>
     /// LiveCasinoBetSettingViewModel class.
     /// </summary>
-    public class LiveCasinoBetSettingViewModel
+    public class LiveCasinoBetSettingViewModel : BetSettingViewModel
     {
-        public string GameTypeName { get; set; }
-
-        public int GameTypeId { get; set; }
-
-        public List<LiveCasinoBetSetting> BettingLimitList { get; set; }
-
-        public string StakeLevelNameChecked { get; set; }
-
-        public int BetTypeId { get; set; }
+        public IList<LiveCasinoBetSettingGame> LiveCasinoData { get; set; }
     }
 }

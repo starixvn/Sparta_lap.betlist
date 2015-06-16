@@ -23,26 +23,25 @@ namespace Fanex.Athena.Service.Interface.Customer
     {
         MacauBetSetting GetMacauSetting(int custId, string siteName);
         #region Get Bet Setting
-        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
+        ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid);
 
-        GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
+        GoldDeluxeBetSettingViewModel GetGoldDeluxeViewModel(int custId, string siteName);
 
-        AgCasinoBetSetting GetAgCasinoSetting(int custId);
+        AgCasinoBetSettingViewModel GetAgCasinoViewModel(int custId, string licenseeName);
 
-        IList<AgCasinoGame> GetAgCasinoGroupBettingLimit(int custId, string siteName, int currency);
+        IList<AgCasinoGame> GetAgCasinoGroupBettings(int custId, string siteName, int currency);
 
-        IList<BetSetting> GetKenoBetSetting(int custId);
+        BetSettingViewModel GetKenoViewModel(int custId);
 
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
-        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+        BetSettingViewModel GetSportBookViewModel(int custId);
 
-        IList<BetSetting> GetNumberGameBetSetting(int custId);
+        BetSettingViewModel GetNumberGameViewModel(int custId);
 
-        IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
+        BetSettingViewModel GetRacingViewModel(int custId, bool isAllowSaToreCurrency);
 
-        IList<BetSetting> GetVirtualSportsBetSetting(int custId);
+        BetSettingViewModel GetVirtualSportsViewModel(int custId);
 
-        IList<LiveCasinoBetSettingViewModel> GetLiveCasinoBetSetting(int custId, string language);
+        LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language);
         #endregion
 
         #region Update Bet Setting

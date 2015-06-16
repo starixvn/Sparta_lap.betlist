@@ -27,7 +27,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
 
-        IList<BetSetting> GetKenoBetSetting(int custId);
+        IList<BetSetting> GetKenoBetSettings(int custId);
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
 
