@@ -137,7 +137,6 @@ div > input[type="button"]
 .product-select-label label {
     display: block;
     padding-top: 5px;
-    font-weight: bold;
 }
 .wrapper-dropdown-5 {
     /* Size & position */
@@ -158,6 +157,7 @@ div > input[type="button"]
     -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
+    font-weight: bold;	
     }
 
     .wrapper-dropdown-5:after { /* Little arrow */

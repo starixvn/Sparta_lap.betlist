@@ -10,4 +10,23 @@
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
- </Root>
+
+  <SpNameConfig Environment="DEV" SpName="Lrf_LicenseeProductSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_3rdProductSelCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_3rdProductUpdCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_LicenseeProductSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_3rdProductSelCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL" SpName="Lrf_3rdProductUpdCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+</Root>

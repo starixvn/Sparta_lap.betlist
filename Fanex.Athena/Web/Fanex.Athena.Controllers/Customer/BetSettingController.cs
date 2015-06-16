@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -83,7 +84,7 @@ namespace Fanex.Athena.Controllers.Customer
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            switch (metaModel.TabId)
+            switch (metaModel.ProductId)
             {
                 case ProductTypes.NumberGame:
                     return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
@@ -112,11 +113,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Common
 
-        /// <summary>
-        /// Check if Live Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
         private static bool? IsLiveCasinoEnabled(CustomerInfo customerInfo)
         {
             bool? resultValue = false;
@@ -132,11 +128,6 @@ namespace Fanex.Athena.Controllers.Customer
             return resultValue;
         }
 
-        /// <summary>
-        /// Check if RNG Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
         private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
         {
             bool? resultValue = false;
@@ -164,11 +155,17 @@ namespace Fanex.Athena.Controllers.Customer
         [NonAction]
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
         {
+            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
+            var viewModel = GetViewModel(metaModel.ProductId, metaModel.CustId, customerInfo);
+            if (viewModel == null)
+            {
+                return null;
+            }
+
             var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             metaModel.LicenessId = licenseeSession.LicenseeId;
-            var licenseeList = _licenseeService.GetByResellerId(userSession.UserId, BopingResellerId);
-            metaModel.Editable = licenseeList.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
+            var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
+            metaModel.Editable = licensees.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
                                  metaModel.LicenessId == LicenseeSpondemo;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
@@ -186,7 +183,30 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            return GetViewModel(metaModel, customerInfo);
+            var betSettingProducts = _betSettingService.GetBetSettingProducts(licenseeSession.LicenseeId);
+
+            if (!customerInfo.SyncCasino)
+            {
+                DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);                
+            }
+
+            if (!customerInfo.SyncLiveCasino)
+            {
+                DisableBetSettingProduct(betSettingProducts, ProductTypes.LiveCasino);
+            }
+
+            metaModel.BetSettingProducts = betSettingProducts.Where(x => x.IsEnable).ToList();
+            viewModel.Param = metaModel;
+            return viewModel;
+        }
+
+        private void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
+        {
+            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
+            if (product != null)
+            {
+                product.IsEnable = false;
+            }
         }
 
         /// <summary>
@@ -199,39 +219,35 @@ namespace Fanex.Athena.Controllers.Customer
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel, CustomerInfo customerInfo)
+        private BetSettingViewModel GetViewModel(int productId, int custId, CustomerInfo customerInfo)
         {
             BetSettingViewModel model;
-            var language = SessionService.UserSession.Language;
-
-            var productId = metaModel.TabId;
-            var custId = metaModel.CustId;
             switch (productId)
             {
                 case ProductTypes.Sportsbook:
-                    model = _betSettingService.GetSportBookViewModel(custId);                    
+                    model = _betSettingService.GetSportBookViewModel(custId);
                     break;
 
-                case ProductTypes.Racing:                    
+                case ProductTypes.Racing:
                     var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(custId);
                     model = _betSettingService.GetRacingViewModel(custId, isAllowSaToteCurrency);
                     break;
 
                 case ProductTypes.NumberGame:
-                    model = _betSettingService.GetNumberGameViewModel(custId);                    
+                    model = _betSettingService.GetNumberGameViewModel(custId);
                     break;
 
                 case ProductTypes.VirtualSports:
-                    model = _betSettingService.GetVirtualSportsViewModel(custId);                    
+                    model = _betSettingService.GetVirtualSportsViewModel(custId);
                     break;
 
                 case ProductTypes.LiveCasino:
-                    model = _betSettingService.GetLiveCasinoViewModel(custId, language);
-                    model.IsEnabled = IsLiveCasinoEnabled(customerInfo);                    
+                    model = _betSettingService.GetLiveCasinoViewModel(custId, SessionService.UserSession.Language);
+                    model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
 
                 case ProductTypes.RngCasino:
-                    model = GetRngCasinoViewModel(custId, customerInfo, language);                
+                    model = GetRngCasinoViewModel(custId, customerInfo, SessionService.UserSession.Language);
                     break;
 
                 case ProductTypes.Keno:
@@ -249,14 +265,12 @@ namespace Fanex.Athena.Controllers.Customer
                 case ProductTypes.VegasGames:
                 case ProductTypes.MicroGaming:
                 case ProductTypes.BetTrade:
-                    model = _betSettingService.GetThirdPartyViewModel(custId, productId);            
+                    model = _betSettingService.GetThirdPartyViewModel(custId, productId);
                     break;
 
                 default:
                     throw new ArgumentException("Invalid product id.");
             }
-
-            model.Param = metaModel;
 
             return model;
         }
@@ -270,7 +284,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
             else
             {
-                gameKinds = new List<GameKind>();                
+                gameKinds = new List<GameKind>();
             }
 
             return new RngCasinoBetSettingViewModel

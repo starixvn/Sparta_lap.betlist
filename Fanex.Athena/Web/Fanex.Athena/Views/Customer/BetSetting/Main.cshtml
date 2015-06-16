@@ -12,7 +12,7 @@
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{
-    switch (Model.Param.TabId)
+    switch (Model.Param.ProductId)
     {
         case ProductTypes.Sportsbook:
             ViewBag.BetSettingType = ViewResources.Sport;
@@ -28,12 +28,12 @@
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
-@if (Model.Param.TabId == ProductTypes.Sportsbook)
+@if (Model.Param.ProductId == ProductTypes.Sportsbook)
 {
     <!--Check box-->
     <div class="copy-setting" id="copy-settting" style="width: 855px">
         @Html.CheckBox("chkCopyAll")
-        <label for="chkCopyAll">@(Model.Param.TabId == ProductTypes.Sportsbook ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
+        <label for="chkCopyAll">@(Model.Param.ProductId == ProductTypes.Sportsbook ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
     </div>
     <!--Check box-->
 }

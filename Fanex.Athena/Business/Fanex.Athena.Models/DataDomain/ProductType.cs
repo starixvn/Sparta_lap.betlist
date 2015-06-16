@@ -9,44 +9,54 @@ namespace Fanex.Athena.Models.DataDomain
     public static class ProductTypes
     {
         /// <summary>
-        /// SportsBook product.
+        /// SportsBook product: 0.
         /// </summary>
-        public const int Sportsbook = 1;
+        public const int Sportsbook = 0;
 
         /// <summary>
-        /// Racing product.
+        /// Racing product: 1.
         /// </summary>
-        public const int Racing = 2;
+        public const int Racing = 1;
 
         /// <summary>
-        /// NumberGame product.
+        /// NumberGame product: 2.
         /// </summary>
-        public const int NumberGame = 3;
+        public const int NumberGame = 2;
 
         /// <summary>
-        /// VirtualSports product.
+        /// BA product: 3.
         /// </summary>
-        public const int VirtualSports = 4;
+        public const int BA = 3;
 
         /// <summary>
-        /// LiveCasino product.
+        /// LiveCasino product: 4.
         /// </summary>
-        public const int LiveCasino = 5;
+        public const int LiveCasino = 4;
 
         /// <summary>
-        /// RNGCasino product.
+        /// VirtualSports product: 5.
+        /// </summary>
+        public const int VirtualSports = 5;
+
+        /// <summary>
+        /// RNGCasino product: 6.
         /// </summary>
         public const int RngCasino = 6;
 
         /// <summary>
-        /// Keno product.
+        /// Bingo product: 7.
         /// </summary>
-        public const int Keno = 7;
+        public const int Bingo = 7;
 
         /// <summary>
-        /// AGCasino product.
+        /// Keno product: 8.
         /// </summary>
-        public const int AgCasino = 8;
+        public const int Keno = 8;
+
+        /// <summary>
+        /// AGCasino product: 10.
+        /// </summary>
+        public const int AgCasino = 10;
 
         /// <summary>
         /// Gold Deluxe product: 11.

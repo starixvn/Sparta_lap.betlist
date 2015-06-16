@@ -6,193 +6,33 @@
             <div class="grid_2 product-select-label">
                 <label>@ViewResources.Product</label>
             </div>
-            <div id="dd" class="wrapper-dropdown-5">@Model.BetSettingName
+            <div id="product-dropdown" class="wrapper-dropdown-5">@Model.BetSettingName
 		        <ul class="dropdown">
-			        <!--SportsbookTab-->
-                    @if (Model.IsAllowSportsBook)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
+                    @{
+                        var viewResource = ViewResources.ResourceManager;
+                        viewResource.IgnoreCase = true;
+                    }
+                    @foreach (var product in Model.BetSettingProducts)
+                    {
+                        var resourceKey = product.ProductName.Replace(" ", string.Empty);
+                        var productName = viewResource.GetString(product.ProductName.Replace(" ", string.Empty));
+                        if (string.IsNullOrWhiteSpace(productName))
+                        {
+                            productName = product.ProductName;
+                        }
+                         <li><a href="@Url.Action("Index", "BetSetting", new
                             {
-                                TabId = ProductTypes.Sportsbook,
+                                ProductId = product.ProductId,
                                 CustId = Model.CustId,
                                 UserName = Model.UserName,
                                 NickName = Model.NickName,
-                                BetSettingName = ViewResources.Sportsbook
-                            })" id="sportsbook">
-                            @ViewResources.Sportsbook
+                                BetSettingName = productName
+                            })">
+                            @productName
                         </a></li>
-                    }
-                    <!--SportsbookTab-->
-                    <!--RacingTab-->
-                    @if (Model.IsAllowRacing)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                            {
-                                TabId = ProductTypes.Racing,
-                                CustId = Model.CustId,
-                                UserName = Model.UserName,
-                                NickName = Model.NickName,
-                                BetSettingName = ViewResources.Racing
-                            })" id="racing">
-                            @ViewResources.Racing
-                        </a></li>
-                    }
-                    <!--/RacingTab-->
-                    <!--NumberGameTab-->
-                    @if (Model.IsAllowNumberGame)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                            {
-                                TabId = ProductTypes.NumberGame,
-                                CustId = Model.CustId,
-                                UserName = Model.UserName,
-                                NickName = Model.NickName,
-                                BetSettingName = ViewResources.NumberGame
-                            })" id="numbergame">
-                            @ViewResources.NumberGame
-                        </a></li>
-                    }
-                    <!--/NumberGameTab-->
-                    <!--VirtualSportsTab-->
-                    @if (Model.IsAllowVirtualSport)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                            {
-                                TabId = ProductTypes.VirtualSports,
-                                CustId = Model.CustId,
-                                UserName = Model.UserName,
-                                NickName = Model.NickName,
-                                BetSettingName = ViewResources.VirtualSports
-                            })" id="virtualsports">
-                            @ViewResources.VirtualSports
-                        </a></li>
-                    }
-                    <!--/VirtualSportsTab-->
-                    <!--LivecasinoTab-->
-                    @if (Model.IsAllowLiveCasino)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.LiveCasino,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.LiveCasino
-                                })" id="livecasino">
-                            @ViewResources.LiveCasino
-                        </a></li>
-                    }
-                    <!--/LivecasinoTab-->
-                    <!--RNG Tab-->
-                    @if (Model.IsAllowRngCasino)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.RngCasino,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.RNGCasino
-                                })" id="rngcasino">
-                            @ViewResources.RNGCasino
-                        </a></li>
-                    }
-                    <!--/RNG Tab-->
-                    <!--Keno Tab-->
-                    @if (Model.IsAllowKeno)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.Keno,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.Keno
-                                })" id="keno">
-                            @ViewResources.Keno
-                        </a></li>
-                    }
-                    <!--/Keno Tab-->
-                    <!--AG Casino-->
-                    @if (Model.IsAllowAgCasino)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.AgCasino,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.AGCasino
-                                })" id="agcasino">
-                            @ViewResources.AGCasino
-                        </a></li>
-                    }
-                    <!--/AG Casino-->
-                    <!--Gold Deluxe-->
-                    @if (Model.IsAllowGoldDeluxe)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.GoldDeluxe,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.GoldDeluxe
-                                })" id="golddeluxe">
-                            @ViewResources.GoldDeluxe
-                        </a></li>
-                    }
-                    <!--/Gold Deluxe-->
-
-                    <!--VegasGames-->
-                    @if (Model.IsAllowVegasGames)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.VegasGames,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.VegasGames
-                                })" id="vegasgames">
-                            @ViewResources.VegasGames
-                        </a></li>
-                    }
-                    <!--/VegasGames-->
-
-                    <!--MicroGaming-->
-                    @if (Model.IsAllowVegasGames)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.MicroGaming,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.Microgaming
-                                })" id="microgaming">
-                            @ViewResources.Microgaming
-                        </a></li>
-                    }
-                    <!--/MicroGaming-->
-
-                    <!--BetTrade-->
-                    @if (Model.IsAllowVegasGames)
-                    { 
-                        <li><a href="@Url.Action("Index", "BetSetting", new
-                                {
-                                    TabId = ProductTypes.BetTrade,
-                                    CustId = Model.CustId,
-                                    UserName = Model.UserName,
-                                    NickName = Model.NickName,
-                                    BetSettingName = ViewResources.BetTrade
-                                })" id="bettrade">
-                            @ViewResources.BetTrade
-                        </a></li>
-                    }
-                    <!--/BetTrade-->
+                    }			        
 		        </ul>
-                @Html.Hidden("TabId", Model.TabId)
+                @Html.Hidden("ProductId", Model.ProductId)
 	        </div>
     </div>
 </div>

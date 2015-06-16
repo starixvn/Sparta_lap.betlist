@@ -10,6 +10,7 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Customer
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -52,6 +53,25 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         private bool _isNumberGame;
 
         #endregion Field
+
+        /// <summary>
+        /// Gets the third party bet setting.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="productid">The productid.</param>
+        /// <returns></returns>
+        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
+        {
+            var uspName = "Lrf_LicenseeProductSel";
+            using (var db = new ObjectDb(uspName))
+            {
+                var param = new Hashtable
+                {
+                    { "licenseeid", licenseeId }
+                };
+                return db.Query<BetSettingProduct>(param);
+            }
+        }
 
         #region Get bet setting data
 
@@ -482,10 +502,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <returns>The Result Info.</returns>
         public IResultInfo UpdateThirdPartyProductStatus(
             int productId,
-            int userId, 
-            int custId, 
-            string language, 
-            string ip, 
+            int userId,
+            int custId,
+            string language,
+            string ip,
             bool isEnabled)
         {
             var uspName = "Lrf_3rdProductUpdCustStatus";

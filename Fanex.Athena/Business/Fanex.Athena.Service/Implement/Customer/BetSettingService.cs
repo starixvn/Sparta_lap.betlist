@@ -73,6 +73,11 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
+        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
+        {
+            return _betSettingDataAccess.GetBetSettingProducts(licenseeId);
+        }
+
         /// <summary>
         /// Updates the Micro Gaming status.
         /// </summary>
