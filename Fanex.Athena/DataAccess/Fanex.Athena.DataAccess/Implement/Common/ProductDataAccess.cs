@@ -56,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                             allowedProducts.Add(new Product
                                              {
                                                  ProductID = Converter.ToInt(reader["ProductID"]),
-                                                 ProductName = GetProductName(Converter.ToString2(reader["productprefix"])),
+                                                 ProductName = GetProductName(Converter.ToString2(reader["productname"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
                                                  AllowWinloss = Converter.ToBool(reader["winloss"])
@@ -106,39 +106,14 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <summary>
         /// Get Product Name.
         /// </summary>
-        /// <param name="productCode">Product code.</param>
+        /// <param name="productName">Product code.</param>
         /// <returns>Product name.</returns>
-        private static string GetProductName(string productCode)
+        private static string GetProductName(string productName)
         {
-            switch (productCode)
-            {
-                case Product.SB:
-                    return ViewResources.Sportsbook;
-                case Product.BA:
-                    return ViewResources.BA;
-                case Product.RB:
-                    return ViewResources.Racing;
-                case Product.NG:
-                    return ViewResources.NumberGame;
-                case Product.VS:
-                    return ViewResources.VirtualSports;
-                case Product.LC:
-                    return ViewResources.LiveCasino;
-                case Product.BG:
-                    return ViewResources.Bingo;
-                case Product.CS:
-                    return ViewResources.RNGCasino;
-                case Product.KN:
-                    return ViewResources.Keno;
-                case Product.PTCS:
-                    return ViewResources.PlaytechCasino;
-                case Product.AGC:
-                    return ViewResources.AGCasino;
-                case Product.VG:
-                    return ViewResources.Macau;
-            }
-
-            return productCode;
+            var resourceKey = productName.Replace(" ", string.Empty);
+            var resourceManager = ViewResources.ResourceManager;
+            resourceManager.IgnoreCase = true;
+            return resourceManager.GetString(resourceKey);
         }
 
         #endregion Public Methods and Operators

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
     using System.Collections.Generic;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     /// BetSettingMetaModel class.
@@ -18,7 +19,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
         public BetSettingMetaModel()
         {
             ProductId = ProductTypes.Sportsbook;
-            BetSettingName = "Sportsbook";
+            BetSettingName = ViewResources.Sportsbook;
             Editable = true;
         }
 

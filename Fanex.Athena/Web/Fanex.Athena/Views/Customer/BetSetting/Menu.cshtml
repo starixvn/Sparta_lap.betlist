@@ -14,7 +14,6 @@
                     }
                     @foreach (var product in Model.BetSettingProducts)
                     {
-                        var resourceKey = product.ProductName.Replace(" ", string.Empty);
                         var productName = viewResource.GetString(product.ProductName.Replace(" ", string.Empty));
                         if (string.IsNullOrWhiteSpace(productName))
                         {
@@ -30,7 +29,7 @@
                             })">
                             @productName
                         </a></li>
-                    }			        
+                    }
 		        </ul>
                 @Html.Hidden("ProductId", Model.ProductId)
 	        </div>
