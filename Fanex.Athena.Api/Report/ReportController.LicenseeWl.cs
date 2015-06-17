@@ -133,7 +133,9 @@ namespace Fanex.Athena.Api.Report
                 Index = index + 1,
                 AmtDueToBA = item.AmtDueToBA,
                 AmtDueToRacing = item.AmtDueToRacing,
+                AmtDueToBetTrade = item.AmtDueToBetTrade,
                 BACommission = item.BACommission,
+                BetTradeCommission = item.BetTradeCommission,
                 CurrencyId = item.CurrencyId,
                 SystemId = item.SystemId,
                 CurrencyName = item.CurrencyName,
@@ -153,6 +155,8 @@ namespace Fanex.Athena.Api.Report
                 LicenseeWLBG = item.LicenseeWL.Keys.Contains(Product.BG) ? item.LicenseeWL[Product.BG] : 0,
                 LicenseeWLCS = item.LicenseeWL.Keys.Contains(Product.CS) ? item.LicenseeWL[Product.CS] : 0,
                 LicenseeWLKN = item.LicenseeWL.Keys.Contains(Product.KN) ? item.LicenseeWL[Product.KN] : 0,
+                LicenseeWLMGC = item.LicenseeWL.Keys.Contains(Product.MGC) ? item.LicenseeWL[Product.MGC] : 0,
+                LicenseeWLBT = item.LicenseeWL.Keys.Contains(Product.BT) ? item.LicenseeWL[Product.BT] : 0,
                 TurnOverBA = item.TurnOver.Keys.Contains(Product.BA) ? item.TurnOver[Product.BA] : 0,
                 TurnOverSB = item.TurnOver.Keys.Contains(Product.SB) ? item.TurnOver[Product.SB] : 0,
                 TurnOverRB = item.TurnOver.Keys.Contains(Product.RB) ? item.TurnOver[Product.RB] : 0,
@@ -162,6 +166,8 @@ namespace Fanex.Athena.Api.Report
                 TurnOverCS = item.TurnOver.Keys.Contains(Product.CS) ? item.TurnOver[Product.CS] : 0,
                 TurnOverBG = item.TurnOver.Keys.Contains(Product.BG) ? item.TurnOver[Product.BG] : 0,
                 TurnOverKN = item.TurnOver.Keys.Contains(Product.KN) ? item.TurnOver[Product.KN] : 0,
+                TurnOverMGC = item.TurnOver.Keys.Contains(Product.MGC) ? item.TurnOver[Product.MGC] : 0,
+                TurnOverBT = item.TurnOver.Keys.Contains(Product.BT) ? item.TurnOver[Product.BT] : 0
             };
         }
 

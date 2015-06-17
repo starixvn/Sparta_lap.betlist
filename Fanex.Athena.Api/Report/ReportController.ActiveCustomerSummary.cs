@@ -115,7 +115,9 @@ namespace Fanex.Athena.Api.Report
                 CustomerCountBG = item.CustomerCount.Keys.Contains(Product.BG) ? item.CustomerCount[Product.BG] : 0,
                 CustomerCountKN = item.CustomerCount.Keys.Contains(Product.KN) ? item.CustomerCount[Product.KN] : 0,
                 CustomerCountPTCS = item.CustomerCount.Keys.Contains(Product.PTCS) ? item.CustomerCount[Product.PTCS] : 0,
-                CustomerCountAGC = item.CustomerCount.Keys.Contains(Product.AGC) ? item.CustomerCount[Product.AGC] : 0
+                CustomerCountAGC = item.CustomerCount.Keys.Contains(Product.AGC) ? item.CustomerCount[Product.AGC] : 0,
+                CustomerCountMGC = item.CustomerCount.Keys.Contains(Product.MGC) ? item.CustomerCount[Product.MGC] : 0,
+                CustomerCountBT = item.CustomerCount.Keys.Contains(Product.BT) ? item.CustomerCount[Product.BT] : 0
             };
         }
 
