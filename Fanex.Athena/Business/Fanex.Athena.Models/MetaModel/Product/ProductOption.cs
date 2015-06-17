@@ -16,5 +16,22 @@ namespace Fanex.Athena.Models.MetaModel.Product
         public string Name { get; set; }
 
         public bool Status { get; set; }
+
+        public override int GetHashCode()
+        {
+            return this.Code.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as ProductOption;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return this.Code.Equals(item.Code, System.StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

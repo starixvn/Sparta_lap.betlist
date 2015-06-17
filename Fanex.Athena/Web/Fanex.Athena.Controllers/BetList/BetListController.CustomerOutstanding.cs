@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.Language,
                 BetListCustomerOutstandingName);
 
-            metaModel.ProductOptions = new List<ProductOption>();
+            metaModel.ProductOptions = new HashSet<ProductOption>();
             for (int i = 0, j = productAccess.ProductList.Count; i < j; i++)
             {
                 var status = true;

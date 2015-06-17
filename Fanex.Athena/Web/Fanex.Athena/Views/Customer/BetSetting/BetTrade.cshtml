@@ -15,13 +15,7 @@
 </div>
 <!--Content-->
 <div class="data-content">
-    @if (Model.IsLineEnabled)
-    {
-        <div style="width: 885px!important; padding: 20px 0px 20px 0px">
-            <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.BetTrade)</div>
-        </div>
-    }
-    else
+    @if (!Model.IsLineEnabled)
     {
         <div style="width: 885px!important;width: 885px!important; padding: 20px 0px 20px 0px">
             <div>@ViewResources.BetTradeNotOfferCurrency</div>

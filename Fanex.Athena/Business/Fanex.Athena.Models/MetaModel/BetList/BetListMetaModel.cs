@@ -19,7 +19,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
     {
         public BetListMetaModel()
         {
-            ProductOptions = new List<ProductOption>();
+            ProductOptions = new HashSet<ProductOption>();
             FromDate = DateTime.Today;
             Date = DateTime.Today;
             ToDate = DateTime.Today;
@@ -30,8 +30,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
 
         public bool IsShowSumStake { get; set; }
 
-        public IList<ProductOption> ProductOptions
-        {
+        public HashSet<ProductOption> ProductOptions        {
             get;
             set;
         }

@@ -110,7 +110,7 @@ namespace Fanex.Athena.Api.BetList
             if (currencyId == 0 || currencyList.Values.Contains(currencyId))
             {
                 const string UspKey = "Lrf_BetList_MatchWL_Parlay";
-                var productOptions = new List<ProductOption>
+                var productOptions = new HashSet<ProductOption>
                 {
                     new ProductOption
                     {
