@@ -193,33 +193,5 @@ namespace Fanex.Athena.Extension.Utility
 
             return isValid;
         }
-
-        /// <summary>
-        /// Get Ignored Products.
-        /// </summary>
-        /// <param name="functionName">Function name.</param>
-        /// <returns>Product code array.</returns>
-        public static string[] GetAllowedProducts(string functionName = null)
-        {
-            if (string.IsNullOrWhiteSpace(functionName))
-            {
-                functionName = "_Default";
-            }
-
-            var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
-            var config = XDocument.Load(filePath).Descendants("Function")
-                    .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
-                    .FirstOrDefault();
-
-            if (config == null)
-            {
-                return new string[] { };
-            }
-            else
-            {
-                return config.Attribute("Product").Value.Split(',')
-                    .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            }
-        }
     }
 }

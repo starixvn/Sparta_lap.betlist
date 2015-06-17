@@ -786,10 +786,6 @@ var BetSetting = (function ($) {
                     text: ok,
                     click: function () {
                         $("#bet-setting-message").dialog("close");
-                        setTimeout(function () {
-                            Site.blockUI();
-                            window.location.reload();
-                        }, 500);
                     }
                 }
                 ],
@@ -798,6 +794,11 @@ var BetSetting = (function ($) {
                     $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
                     if (closePopup) {
                         parent.$("#bet-setting-dialog").dialog("close");
+                    } else {
+                        setTimeout(function () {
+                            Site.blockUI();
+                            window.location.reload();
+                        }, 500);
                     }
                 }
             };

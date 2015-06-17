@@ -369,7 +369,7 @@ var CustomerList = (function ($) {
             var gridTop = $(".ui-jqgrid-bdiv").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
             gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight).find(">div").height("auto");
         },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;

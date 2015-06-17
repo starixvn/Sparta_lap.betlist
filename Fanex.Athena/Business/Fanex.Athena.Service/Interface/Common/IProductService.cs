@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.Interface.Common
         /// <returns>
         ///     Product-Access object.
         /// </returns>
-        ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> allowedProducts = null);
+        ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
 
         /// <summary>
         ///     The get product list.

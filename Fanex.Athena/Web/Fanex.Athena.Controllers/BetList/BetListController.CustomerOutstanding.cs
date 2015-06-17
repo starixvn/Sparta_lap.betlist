@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
             var productAccess = this._productService.GetProductAccess(
                 metaModel.LicenseeId, 
                 SessionService.UserSession.Language,
-                Util.GetAllowedProducts(BetListCustomerOutstandingName));
+                BetListCustomerOutstandingName);
 
             metaModel.ProductOptions = new List<ProductOption>();
             for (int i = 0, j = productAccess.ProductList.Count; i < j; i++)

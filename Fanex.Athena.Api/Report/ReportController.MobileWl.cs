@@ -74,7 +74,7 @@ namespace Fanex.Athena.Api.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetAllowedProducts(MobileWinlossName));
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MobileWinlossName);
 
             var showingOption = new ShowingOption
                 {
