@@ -10,7 +10,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
 
     /// <summary>
-    /// RngCasinoBetSettingViewModel class.
+    /// RNG Casino BetSetting View Model class.
     /// </summary>
     public class RngCasinoBetSettingViewModel : BetSettingViewModel
     {

@@ -26,7 +26,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
-    using Fanex.Result.Core.DTO;
+    using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.Sportsbook.DTO;
 
     /// <summary>
     /// The result controller.

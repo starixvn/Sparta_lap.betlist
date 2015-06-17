@@ -58,8 +58,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Gets the third party bet setting.
         /// </summary>
         /// <param name="custId">The customer identifier.</param>
-        /// <param name="productid">The productid.</param>
-        /// <returns></returns>
+        /// <param name="productid">The product id.</param>
+        /// <returns>The product bet setting.</returns>
         public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
         {
             var uspName = "Lrf_LicenseeProductSel";
@@ -160,8 +160,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// Gets the third party bet setting.
         /// </summary>
         /// <param name="custId">The customer identifier.</param>
-        /// <param name="productid">The productid.</param>
-        /// <returns></returns>
+        /// <param name="productid">The product id.</param>
+        /// <returns>The third party bet setting.</returns>
         public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
@@ -960,6 +960,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         {
             return UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
         }
+
         #endregion Live Casino
 
         #endregion Update bet setting

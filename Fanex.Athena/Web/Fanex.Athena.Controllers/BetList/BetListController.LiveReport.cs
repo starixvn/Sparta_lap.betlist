@@ -170,7 +170,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         /// <summary>
-        /// Action Get for live report microgaming bet list.
+        /// Action Get for live report micro gaming bet list.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>

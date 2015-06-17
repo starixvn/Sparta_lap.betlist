@@ -12,10 +12,11 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Result.Core.DTO;
+    using Fanex.Result.Core.NumberGame.DTO;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
 
     [System.CLSCompliant(false)]
     public interface IResultDataAccess
