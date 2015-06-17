@@ -29,22 +29,16 @@
     }
 </div>
 <!--/Content-->
-<!--SubmitButton-->
 @if (Model.Param.Editable)
 {
     <div style="width: 855px">
         @if (Model.IsLineEnabled)
         {
             <div class="filter-input">
-                @if (Model.IsEnabled.HasValue && Model.IsEnabled.Value)
-                {
-                    <input id="ckEnable" type="checkbox" name="enable-product" checked="checked" class="childCheckbox" />
-                }
-                else
-                {
-                    <input id="ckEnable" type="checkbox" name="enable-product" class="childCheckbox" />
-                }
-                <label for="ckEnable">@ViewResources.EnableMicrogaming</label>
+                <input id="enable-product" type="checkbox" name="enable-product"
+                    @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "checked" : "") 
+                    class="childCheckbox" />
+                <label for="enable-product">@ViewResources.EnableMicrogaming</label>
             </div>
             <div>
                 <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 1 : 0)" 
@@ -56,4 +50,3 @@
         }
     </div>
 }
-<!--/SubmitButton-->

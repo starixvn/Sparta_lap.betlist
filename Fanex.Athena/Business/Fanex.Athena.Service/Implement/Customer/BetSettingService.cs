@@ -78,15 +78,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             return _betSettingDataAccess.GetBetSettingProducts(licenseeId);
         }
 
-        /// <summary>
-        /// Updates the Micro Gaming status.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="language">The language.</param>
-        /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The vegas games status.</param>
-        /// <returns>The result info.</returns>
         public IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
@@ -94,15 +85,15 @@ namespace Fanex.Athena.Service.Implement.Customer
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
+            var setting = _betSettingDataAccess.GetThirdPartyBetSetting(custId, productId);
+            if (!setting.IsLineEnabled)
+            {
+                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
+            }
+
             return _betSettingDataAccess.UpdateThirdPartyProductStatus(productId, userId, custId, language, ip, isEnabled);
         }
 
-        /// <summary>
-        /// Gets the third party bet setting.
-        /// </summary>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="productid">The productid.</param>
-        /// <returns></returns>
         public ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))

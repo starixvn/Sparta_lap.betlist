@@ -127,10 +127,11 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_MICROGAMING:
                     url = "BetSettingAPI/UpdateMicroGamingStatus";
-                    status = $("#ckEnable").is(":checked") === true ? 1 : 0;
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_BETTRADE:
                     url = "BetSettingAPI/UpdateBetTradeStatus";
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
             }
 
@@ -785,10 +786,10 @@ var BetSetting = (function ($) {
                     text: ok,
                     click: function () {
                         $("#bet-setting-message").dialog("close");
-                        if ($("#btnUpdateStatus").length > 0) {
+                        setTimeout(function () {
                             Site.blockUI();
-                            window.location.reload();                            
-                        }
+                            window.location.reload();
+                        }, 500);
                     }
                 }
                 ],

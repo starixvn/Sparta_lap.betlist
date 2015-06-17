@@ -2023,6 +2023,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable BetTrade.
+        /// </summary>
+        public static string EnableBetTrade {
+            get {
+                return ResourceManager.GetString("EnableBetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Gold Deluxe.
         /// </summary>
         public static string EnableGoldDeluxe {

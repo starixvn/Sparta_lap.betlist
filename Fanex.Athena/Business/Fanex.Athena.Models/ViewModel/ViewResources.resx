@@ -2707,4 +2707,7 @@
   <data name="EnableMicrogaming" xml:space="preserve">
     <value>Enable Microgaming</value>
   </data>
+  <data name="EnableBetTrade" xml:space="preserve">
+    <value>Enable BetTrade</value>
+  </data>
 </root>
