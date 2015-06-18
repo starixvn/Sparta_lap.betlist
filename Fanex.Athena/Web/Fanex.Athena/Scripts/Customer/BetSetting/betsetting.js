@@ -540,6 +540,12 @@ var BetSetting = (function ($) {
                 case TAB_GOLDDELUXE:
                     BetSetting.resetGoldDeluxeSetting();
                     break;
+                case TAB_BETTRADE:
+                    BetSetting.resetBetTradeSetting();
+                    break;
+                case TAB_MICROGAMING:
+                    BetSetting.resetMicrogamingSetting();
+                    break;
                 default:
                     BetSetting.resetValues();
                     break;
@@ -551,6 +557,14 @@ var BetSetting = (function ($) {
             $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
                 $(this).val($(this).attr('data-original')).prop('disabled', false);
             });
+        },
+        resetBetTradeSetting: function () {
+            var $checkbox = $("#enable-product");
+            $checkbox.prop("checked", $checkbox.data("original") === 1);
+        },
+        resetMicrogamingSetting: function () {
+            var $checkbox = $("#enable-product");
+            $checkbox.prop("checked", $checkbox.data("original") === 1);
         },
         resetGoldDeluxeSetting: function () {
             var $dropdown = $("#betSettingGroup");
