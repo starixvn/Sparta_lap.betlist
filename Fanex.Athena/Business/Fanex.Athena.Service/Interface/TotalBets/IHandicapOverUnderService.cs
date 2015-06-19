@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Interface.TotalBets
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.TotalBets;
     using Fanex.Athena.Models.MetaModel.TotalBets;
 
@@ -15,6 +16,7 @@ namespace Fanex.Athena.Service.Interface.TotalBets
     /// </summary>
     public interface IHandicapOverUnderService
     {
-        IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel);
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewed.")]
+        IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData);
     }
 }

@@ -1,3 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Root>  
- </Root>
+<Root>
+  <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel1378" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel2021" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel25" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV" SpName="Lrf_TotalBets_Sel14" EnvironmentText="_xtest"></SpNameConfig>  
+</Root>

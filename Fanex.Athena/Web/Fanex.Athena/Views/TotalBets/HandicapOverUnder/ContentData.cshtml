@@ -66,7 +66,7 @@
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.FullTimeOverUnder, true, false)
-                            </a>    
+                            </a>
                         }
                     </td>
                     <td style="width: 3%">
@@ -79,7 +79,7 @@
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.FirstTimeHandicap, true, false)
-                            </a>    
+                            </a>
                         }
                     </td>
                     <td style="width: 3%">
@@ -91,7 +91,7 @@
                         {
                             <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.FirstTimeOverUnder, true, false)
-                            </a>    
+                            </a>
                         }
                     </td>
                     <td style="width: 3%">
@@ -101,24 +101,40 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td class="order-number" colspan="3">@ViewResources.Total</td>
-                <!--Render Fulltime Handicap OU-->
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeHandicap), true, false)</td>
-                <td></td>
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FullTimeOverUnder), true, false)</td>
-                <td></td>
-                <!--Render 1st Half Handicap OU-->
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeHandicap), true, false)</td>
-                <td></td>
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.FirstTimeOverUnder), true, false)</td>
-                <td></td>
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%">
+                </td>
+                <td class="score-value" style="width: 38%">@ViewResources.Total
+                </td>
+                <td class="score-value" style="width: 9%">@RazorHelper.NegativeFormat(Model.TotalData.FullTimeHandicap, true, false)
+                </td>
+                <td style="width: 3%">
+                </td>
+                <td class="score-value" style="width: 9%">@RazorHelper.NegativeFormat(Model.TotalData.FullTimeOverUnder, true, false)
+                </td>
+                <td style="width: 3%">
+                </td>
+                <td class="score-value" style="width: 9%">@RazorHelper.NegativeFormat(Model.TotalData.FirstTimeHandicap, true, false)
+                </td>
+                <td style="width: 3%">
+                </td>
+                <td class="score-value" style="width: 9%">@RazorHelper.NegativeFormat(Model.TotalData.FirstTimeOverUnder, true, false)
+                </td>
+                <td style="width: 3%">
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 
