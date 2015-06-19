@@ -45,60 +45,7 @@ namespace Fanex.Athena.Models.DTO.Report
             {
                 if (string.IsNullOrEmpty(_productName))
                 {
-                    switch (_productCode.ToUpper())
-                    {
-                        case "BA":
-                            _productName = ViewResources.BA;
-                            break;
-                        case "LC":
-                            _productName = ViewResources.LiveCasino;
-                            break;
-                        case "NG":
-                            _productName = ViewResources.NumberGame;
-                            break;
-                        case "RB":
-                            _productName = ViewResources.Racing;
-                            break;
-                        case "SB":
-                            _productName = ViewResources.Sportsbook;
-                            break;
-                        case "VS":
-                            _productName = ViewResources.VirtualSports;
-                            break;
-                        case "VS180":
-                            _productName = ViewResources.VirtualSoccer;
-                            break;
-                        case "VS181":
-                            _productName = ViewResources.VirtualHorseRacing;
-                            break;
-                        case "VS182":
-                            _productName = ViewResources.VirtualGreyhounds;
-                            break;
-                        case "VS184":
-                            _productName = ViewResources.VirtualMotoRacing;
-                            break;
-                        case "VS186":
-                            _productName = ViewResources.VirtualTennis;
-                            break;
-                        case "CS":
-                            _productName = ViewResources.RNGCasino;
-                            break;
-                        case "BG":
-                            _productName = ViewResources.Bingo;
-                            break;
-                        case "KN":
-                            _productName = ViewResources.Keno;
-                            break;
-                        case "VS183":
-                            _productName = ViewResources.VirtualSpeedway;
-                            break;
-                        case "VS185":
-                            _productName = ViewResources.VirtualCycling;
-                            break;                        
-                        default:
-                            _productName = _productCode;
-                            break;
-                    }
+                    _productName = GetProductName(_productCode);
                 }
 
                 return _productName;
@@ -127,5 +74,65 @@ namespace Fanex.Athena.Models.DTO.Report
         }
 
         #endregion ICustomerWinLoss Members
+
+        private static string GetProductName(string productCode)
+        {
+            switch (productCode.ToUpper())
+            {
+                case "BA":
+                    return ViewResources.BA;
+
+                case "LC":
+                    return ViewResources.LiveCasino;
+
+                case "NG":
+                    return ViewResources.NumberGame;
+
+                case "RB":
+                    return ViewResources.Racing;
+
+                case "SB":
+                    return ViewResources.Sportsbook;
+
+                case "VS":
+                    return ViewResources.VirtualSports;
+
+                case "VS180":
+                    return ViewResources.VirtualSoccer;
+
+                case "VS181":
+                    return ViewResources.VirtualHorseRacing;
+
+                case "VS182":
+                    return ViewResources.VirtualGreyhounds;
+
+                case "VS184":
+                    return ViewResources.VirtualMotoRacing;
+
+                case "VS186":
+                    return ViewResources.VirtualTennis;
+
+                case "CS":
+                    return ViewResources.RNGCasino;
+
+                case "BG":
+                    return ViewResources.Bingo;
+
+                case "KN":
+                    return ViewResources.Keno;
+
+                case "VS183":
+                    return ViewResources.VirtualSpeedway;
+
+                case "VS185":
+                    return ViewResources.VirtualCycling;
+
+                case "MGC":
+                    return ViewResources.Microgaming;
+
+                default:
+                    return productCode;
+            }
+        }
     }
 }
