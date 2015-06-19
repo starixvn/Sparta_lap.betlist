@@ -27,16 +27,14 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 11;
-        private const int ColumnTotalTransaction = 12;
-        private const int ColumnTemplateCount = 13;
+        private const int ColumnLastProduct = 12;
+        private const int ColumnTotalTransaction = 13;
+        private const int ColumnTemplateCount = 14;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 4;
         private const int RowNoInfoTemplate = 5;
-
-        private const int TotalProductColumn = 10;
 
         private readonly IList<ActiveCustomer> _activeCustomerList;
 
@@ -111,7 +109,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Bingo,
                 ViewResources.Keno,
                 ViewResources.PlaytechCasino,
-                ViewResources.AGCasino
+                ViewResources.AGCasino,
+                ViewResources.Microgaming
             };
 
             int index = ColumnFirstProduct;
@@ -202,7 +201,8 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.BG, Status = false },
                 new ProductOption { Code = Product.KN, Status = false },
                 new ProductOption { Code = Product.PTCS, Status = false },
-                new ProductOption { Code = Product.AGC, Status = false }
+                new ProductOption { Code = Product.AGC, Status = false },
+                new ProductOption { Code = Product.MGC, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)

@@ -243,9 +243,7 @@ var ActiveCustomer = (function ($) {
 
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
-            jqGridAdditional.resetLayout(reportGrid);
-
-            $("div.container_26 div.grid_26.content-filter").width(940);
+            jqGridAdditional.resetLayout(reportGrid);            
 
             var gridWidth = reportGrid.width();
             // for the vertical scrollbar not overlap the grid content
@@ -255,6 +253,7 @@ var ActiveCustomer = (function ($) {
                 gridWidth += 20;
             }
             gridWidth = Math.min(1040, gridWidth);
+            $(".content-filter").width(gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
             $(".report-title").width(gridWidth - 25);
         }
