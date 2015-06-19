@@ -225,7 +225,7 @@
     <Setting Key="Lrf_BetList_MobileReport_SelWinloss_Mem" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem_xtest" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Forecast_SelByMatch" SpName="Lrf_BetList_Forecast_SelByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelRunningByMultipleBettypeMatch" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
