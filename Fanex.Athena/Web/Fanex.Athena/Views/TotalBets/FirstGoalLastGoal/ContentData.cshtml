@@ -72,37 +72,43 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td class="score-value" colspan="3">
-                    @ViewResources.Total
-                </td>
-                <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeFirstGoal + t.AwayFirstGoal), true, false)
-                </td>
-                <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeLastGoal + t.AwayLastGoal), true, false)
-
-                </td>
-                <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.NoGoal), true, false)
-                </td>
-                <td class="score-value">
-                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.HomeFirstHalfFirstGoal + t.AwayFirstHalfFirstGoal))
-
-                </td>
-                <td class="score-value">
-                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.HomeFirstHalfLastGoal + t.AwayFirstHalfLastGoal))
-
-                </td>
-                <td class="score-value">
-                     @RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.FirstHalfNoGoal))
-                </td>
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 15%">
+                </td>
+                <td style="width: 25%" class="score-value">
+                    @ViewResources.Total
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.HomeFirstGoal + x.AwayFirstGoal), true, false)
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.HomeLastGoal + x.AwayLastGoal), true, false)
+                </td>
+                <td style="width: 10%" class="score-value" rowspan="2">
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.NoGoal), true, false)
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.HomeFirstHalfFirstGoal + x.AwayFirstHalfFirstGoal))
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.HomeFirstHalfLastGoal + x.AwayFirstHalfLastGoal))
+                </td>
+                <td style="width: 10%" class="score-value" rowspan="2">
+                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.FirstHalfNoGoal))
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

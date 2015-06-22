@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">Odd/Even/1X2/DrawNoDraw MetaModel value.</param>
         /// <returns>A list of Odd/Even/1X2/DrawNoDraw.</returns>
-        public IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
+        public IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel25";
             var uspParams = new
@@ -43,13 +43,18 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 UserId = metaModel.UserId
             };
 
+            IList<OddEvenDrawNoDraw> data;
             using (var db = new ObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.Read();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -141,6 +146,39 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
+        }
+
+        private static OddEvenDrawNoDraw ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {
+            // Fulltime column name
+            var oddEvenHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_OE", isConvert, baseCurrency);
+            var oddEvenAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_OE", isConvert, baseCurrency);
+            var oneXTwoOdd1 = DataHelper.GetCurrencyColumnName("odds_1", isConvert, baseCurrency);
+            var oneXTwoOddX = DataHelper.GetCurrencyColumnName("odds_x", isConvert, baseCurrency);
+            var oneXTwoOdd2 = DataHelper.GetCurrencyColumnName("odds_2", isConvert, baseCurrency);
+            var drawNoDrawHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_DND", isConvert, baseCurrency);
+            var drawNoDrawAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_DND", isConvert, baseCurrency);
+
+            // First half column name
+            var oddEvenHome1StHalfColumn = DataHelper.GetCurrencyColumnName("home_odds_OE_1st", isConvert, baseCurrency);
+            var oddEvenAway1StHalfColumn = DataHelper.GetCurrencyColumnName("away_odds_OE_1st", isConvert, baseCurrency);
+            var oneXTwo1StHalfOdd1 = DataHelper.GetCurrencyColumnName("odds_1_1st", isConvert, baseCurrency);
+            var oneXTwo1StHalfOddX = DataHelper.GetCurrencyColumnName("odds_x_1st", isConvert, baseCurrency);
+            var oneXTwo1StHalfOdd2 = DataHelper.GetCurrencyColumnName("odds_2_1st", isConvert, baseCurrency);
+
+            if (reader.Read())
+            {
+                return new OddEvenDrawNoDraw
+                {                    
+                    OddEvenFt = GetTotalScore(reader, oddEvenHomeColumn, oddEvenAwayColumn),
+                    OneXTwoFt = GetOneXTwoScore(reader, oneXTwoOdd1, oneXTwoOddX, oneXTwoOdd2),
+                    DrawNoDraw = GetTotalScore(reader, drawNoDrawHomeColumn, drawNoDrawAwayColumn),
+                    OddEvenFirstHalf = GetTotalScore(reader, oddEvenHome1StHalfColumn, oddEvenAway1StHalfColumn),
+                    OneXTwoFirstHalf = GetOneXTwoScore(reader, oneXTwo1StHalfOdd1, oneXTwo1StHalfOddX, oneXTwo1StHalfOdd2),
+                };
+            }
+
+            return new OddEvenDrawNoDraw();
         }
 
         #endregion Utility

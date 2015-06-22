@@ -45,19 +45,29 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td colspan="2">@ViewResources.Total</td>
-                <!--/Team--><!--Balance-->
-                <td>@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Balance), true, false)</td>
-                <!--/Balance--><!--Forecast-->
-                <td class="score-value"><span></span></td>
-                <!--/Forecast-->
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line" style="width: 715px">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 40px">
+                </td>
+                <td style="width: auto">
+                    @ViewResources.Total
+                </td>
+                <td style="width: 150px">
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.Balance), true)
+                </td>
+                <td style="width: 150px" class="score-value">
+                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.Forecast), true, false)
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

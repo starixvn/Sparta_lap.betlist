@@ -42,21 +42,34 @@
                     </td>
                 </tr>
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td class="score-value" colspan="3">@ViewResources.Total</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total01), true, false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total23), true, false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total46), true, false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total7Over), true, false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf01))</td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf23))</td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.Total4Over))</td>
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td class="score-value" colspan="3">@ViewResources.Total
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total01), true, false)
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total23), true, false)
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total46), true, false)
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total7Over), true, false)
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf01))
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf23))
+                </td>
+                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.Total4Over))
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

@@ -81,22 +81,24 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td class="score-value" colspan="3">
-                    @ViewResources.Total
-                </td>
-                <!--Home No Bet-->
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)</td>
-                <!--/Home No Bet--><!--Draw No Bet-->
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)</td>
-                <!--/Draw No Bet--><!--Away No Bet-->
-                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)</td><!--/Away No Bet-->
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td class="score-value" colspan="3">
+                    @ViewResources.Total
+                </td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)</td>
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)</td>                
+                <td class="score-value">@RazorHelper.NegativeFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

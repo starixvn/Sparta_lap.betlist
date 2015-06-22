@@ -177,8 +177,15 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
             <tr class="total-footer">
                 <td class="score-value" colspan="2">
                     @ViewResources.Total
@@ -246,9 +253,7 @@
                 </td>
                 <!--/Number wheel-->
             </tr>
-            }
-        </tbody>
+        </thead>
     </table>
 </div>
-<div class="line">
-</div>
+@*/Footer*@ 

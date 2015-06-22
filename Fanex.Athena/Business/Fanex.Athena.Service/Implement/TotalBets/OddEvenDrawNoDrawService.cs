@@ -32,9 +32,9 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         #endregion Constructor
 
-        public IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel)
+        public IList<OddEvenDrawNoDraw> GetOddEvenDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
         {
-            return _oddEvenDrawNoDrawDataAccess.GetOddEventDrawNoDrawDataList(metaModel);
+            return _oddEvenDrawNoDrawDataAccess.GetOddEventDrawNoDrawDataList(metaModel, out totalData);
         }
     }
 }

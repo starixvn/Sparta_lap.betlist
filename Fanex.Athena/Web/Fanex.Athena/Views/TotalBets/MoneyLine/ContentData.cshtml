@@ -92,24 +92,67 @@
                 </tr>
                 }
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">
-                <td class="score-value" colspan="3">@ViewResources.Total</td>
-                <!--Render Fulltime Money Line-->
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalHomeFt), false)</td>
-                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.TotalAwayFt), false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastHomeFt),false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastAwayFt),false)</td>
-                <!--Render 1st Half Money Line-->
-                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.TotalHomeFirstHalf), false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.TotalAwayFirstHalf),false)</td>
-                <td class="score-value">@RazorHelper.DecFormat(@Model.MainData.Sum(t => t.ForecastHomeFirstHalf), false)</td>
-                <td class="score-value">@RazorHelper.PositiveFormat(@Model.MainData.Sum(t => t.ForecastAwayFirstHalf),false)</td>
-            </tr>
-            }
         </tbody>
     </table>
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%">
+                </td>
+                <td style="width: 26%;" class="score-value">
+                    @ViewResources.Total
+                </td>
+                <!--Render Fulltime Money Line-->
+                <td style="width: 7%" class="score-value">
+                    <a class="forcast-number" href="javascript:;">
+                        @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt, false)
+                    </a>
+                </td>
+                <td style="width: 7%" class="score-value">
+                    <a class="forcast-number" href="javascript:;">
+                        @RazorHelper.DecFormat(Model.TotalData.TotalAwayFt, false)
+                    </a>
+                </td>
+                <td style="width: 8%" class="score-value">
+                    <a class="forcast-number" href="javascript:;">
+                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastHomeFt, false)
+                    </a>
+                </td>
+                <td style="width: 8%" class="score-value">
+                    <a class="forcast-number" href="javascript:;">
+                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastAwayFt, false)
+                    </a>
+                </td>
+                <!--Render 1st Half Money Line-->
+                <td style="width: 7%" class="score-value">
+                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
+                        @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf, false)
+                    </a>
+                </td>
+                <td style="width: 7%" class="score-value">
+                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
+                        @RazorHelper.PositiveFormat(Model.TotalData.TotalAwayFirstHalf, false)
+                    </a>
+                </td>
+                <td style="width: 8%" class="score-value">
+                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
+                        @RazorHelper.DecFormat(Model.TotalData.ForecastHomeFirstHalf, false)
+                    </a>
+                </td>
+                <td style="width: 8%" class="score-value">
+                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
+                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastAwayFirstHalf, false)
+                    </a>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

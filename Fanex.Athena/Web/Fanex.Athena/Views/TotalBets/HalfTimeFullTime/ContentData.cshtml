@@ -68,9 +68,16 @@
                     <!--/AA-->
                 </tr>
             }
-            @if (Model.MainData.Any())
-            {
-            <tr class="total-footer">                
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
                 <!--Away-->
                 <td class="score-value" colspan="3">
                     @ViewResources.Total
@@ -120,11 +127,8 @@
                 <td class="score-value">
                     @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayAway), true, false)
                 </td>
-                <!--/AA-->
             </tr>
-            }
-        </tbody>
+        </thead>
     </table>
 </div>
-<div class="line">
-</div>
+@*/Footer*@ 
