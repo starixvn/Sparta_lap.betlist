@@ -7,7 +7,7 @@
 @using Fanex.Athena.Web.HtmlExtension;
 @using Fanex.Athena.Models.DataDomain;
 
-@helper TitleLicenseeWLPrefix(IList<ProductOption> productOptions)
+@helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
     {
         var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
         var prdText = string.Empty;
@@ -110,7 +110,7 @@
     </div>
         }
 }
-@helper RenderProductFilter(IList<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
     {
         var i = 0;
     <div class="grid_@(LabelSpan) filter-label new-line">
