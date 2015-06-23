@@ -144,15 +144,23 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             if (reader.Read())
             {
                 totalData = new HandicapOverUnder
-                {                    
-                    FullTimeHandicap = GetTotalScore(reader, hdpHomeScoreColumnName, hdpAwayScoreColumnName),
-                    FullTimeOverUnder = GetTotalScore(reader, overUnderHomeScoreColumnName, overUnderAwayScoreColumnName),
-                    FirstTimeHandicap = GetTotalScore(reader, hdpHomeScore1StHalfColumnName, hdpAwayScore1StHalfColumnName),
-                    FirstTimeOverUnder = GetTotalScore(reader, overUnderHomeScore1StHalfColumnName, overUnderAwayScore1StHalfColumnName)
+                {
+                    FullTimeHandicap = GetRunningStake(reader, hdpHomeScoreColumnName, hdpAwayScoreColumnName),
+                    FullTimeOverUnder = GetRunningStake(reader, overUnderHomeScoreColumnName, overUnderAwayScoreColumnName),
+                    FirstTimeHandicap = GetRunningStake(reader, hdpHomeScore1StHalfColumnName, hdpAwayScore1StHalfColumnName),
+                    FirstTimeOverUnder = GetRunningStake(reader, overUnderHomeScore1StHalfColumnName, overUnderAwayScore1StHalfColumnName)
                 };
             }
 
             return totalData ?? new HandicapOverUnder();
+        }
+
+        private static decimal GetRunningStake(IDataReader reader, string homeColumnName, string awayColumnName)
+        {
+            var homeScore = reader.ToDecimal(homeColumnName);
+            var awayScore = reader.ToDecimal(awayColumnName);
+
+            return homeScore + awayScore;
         }
 
         #endregion Utility
