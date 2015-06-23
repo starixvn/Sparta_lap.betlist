@@ -49,7 +49,8 @@
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
-	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -122,6 +123,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -193,6 +195,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -259,6 +262,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -324,6 +328,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -392,6 +397,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>

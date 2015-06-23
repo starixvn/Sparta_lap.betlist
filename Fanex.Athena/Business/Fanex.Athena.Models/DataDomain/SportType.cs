@@ -169,7 +169,7 @@ namespace Fanex.Athena.Models.DataDomain
         Finance = 201,
 
         /// <summary>
-        /// Casino sport, value = 2.
+        /// Casino sport, value = 251.
         /// </summary>
         Casino = 251,
 
