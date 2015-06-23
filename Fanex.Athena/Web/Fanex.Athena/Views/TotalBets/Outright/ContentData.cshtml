@@ -64,7 +64,7 @@
                     @RazorHelper.DecFormat(Model.MainData.Sum(x => x.Balance), true)
                 </td>
                 <td style="width: 150px" class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.Forecast), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.Forecast), true, false)
                 </td>
             </tr>
         </thead>

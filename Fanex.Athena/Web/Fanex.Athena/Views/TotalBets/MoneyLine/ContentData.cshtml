@@ -109,47 +109,29 @@
                 <td style="width: 26%;" class="score-value">
                     @ViewResources.Total
                 </td>
-                <!--Render Fulltime Money Line-->
                 <td style="width: 7%" class="score-value">
-                    <a class="forcast-number" href="javascript:;">
-                        @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt)
                 </td>
                 <td style="width: 7%" class="score-value">
-                    <a class="forcast-number" href="javascript:;">
-                        @RazorHelper.DecFormat(Model.TotalData.TotalAwayFt, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.TotalAwayFt)
                 </td>
                 <td style="width: 8%" class="score-value">
-                    <a class="forcast-number" href="javascript:;">
-                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastHomeFt, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.ForecastHomeFt)
                 </td>
                 <td style="width: 8%" class="score-value">
-                    <a class="forcast-number" href="javascript:;">
-                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastAwayFt, false)
-                    </a>
-                </td>
-                <!--Render 1st Half Money Line-->
-                <td style="width: 7%" class="score-value">
-                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
-                        @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.ForecastAwayFt)
                 </td>
                 <td style="width: 7%" class="score-value">
-                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
-                        @RazorHelper.PositiveFormat(Model.TotalData.TotalAwayFirstHalf, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf)
+                </td>
+                <td style="width: 7%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.TotalAwayFirstHalf)
                 </td>
                 <td style="width: 8%" class="score-value">
-                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
-                        @RazorHelper.DecFormat(Model.TotalData.ForecastHomeFirstHalf, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.ForecastHomeFirstHalf)
                 </td>
                 <td style="width: 8%" class="score-value">
-                    <a class="forcast-number" data-bet-type="21" href="javascript:;">
-                        @RazorHelper.PositiveFormat(Model.TotalData.ForecastAwayFirstHalf, false)
-                    </a>
+                    @RazorHelper.DecFormat(Model.TotalData.ForecastAwayFirstHalf)
                 </td>
             </tr>
         </thead>

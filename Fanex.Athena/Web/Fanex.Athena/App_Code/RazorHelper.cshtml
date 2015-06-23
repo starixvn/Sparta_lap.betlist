@@ -348,11 +348,11 @@ bool addBasedOption = false)
     @PositiveFormat(Convert.ToDecimal(value), true, false);
         }
 }
-@helper DecFormat(decimal value, bool isDisplayZero = true)
+@helper DecFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
     {
         if (isDisplayZero)
         {
-    <span>@value.ToString("#,##0.00")</span>
+    <span>@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
         }
         else
         {

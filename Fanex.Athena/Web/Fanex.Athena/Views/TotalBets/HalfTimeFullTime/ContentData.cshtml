@@ -90,42 +90,42 @@
                 <!--/HH-->
                 <!--HD-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeDraw), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.HomeDraw), true, false)
                 </td>
                 <!--/HD-->
                 <!--HA-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.HomeAway), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.HomeAway), true, false)
                 </td>
                 <!--/HA-->
                 <!--DH-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawHome), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawHome), true, false)
                 </td>
                 <!--/DH-->
                 <!--DD-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawDraw), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawDraw), true, false)
                 </td>
                 <!--/DD-->
                 <!--DA-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.DrawAway), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawAway), true, false)
                 </td>
                 <!--/DA-->
                 <!--AH-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayHome), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayHome), true, false)
                 </td>
                 <!--/AH-->
                 <!--AD-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayDraw), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayDraw), true, false)
                 </td>
                 <!--/AD-->
                 <!--AA-->
                 <td class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.AwayAway), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayAway), true, false)
                 </td>
             </tr>
         </thead>

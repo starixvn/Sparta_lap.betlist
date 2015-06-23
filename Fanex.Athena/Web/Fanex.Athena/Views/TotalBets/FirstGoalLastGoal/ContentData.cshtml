@@ -90,22 +90,22 @@
                     @ViewResources.Total
                 </td>
                 <td style="width: 10%" class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.HomeFirstGoal + x.AwayFirstGoal), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.HomeFirstGoal + x.AwayFirstGoal), true, false)
                 </td>
                 <td style="width: 10%" class="score-value">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.HomeLastGoal + x.AwayLastGoal), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.HomeLastGoal + x.AwayLastGoal), true, false)
                 </td>
                 <td style="width: 10%" class="score-value" rowspan="2">
-                    @RazorHelper.PositiveFormat(Model.MainData.Sum(x => x.NoGoal), true, false)
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.NoGoal), true, false)
                 </td>
                 <td style="width: 10%" class="score-value">
-                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.HomeFirstHalfFirstGoal + x.AwayFirstHalfFirstGoal))
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.HomeFirstHalfFirstGoal + x.AwayFirstHalfFirstGoal) ?? 0, true, false)
                 </td>
                 <td style="width: 10%" class="score-value">
-                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.HomeFirstHalfLastGoal + x.AwayFirstHalfLastGoal))
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.HomeFirstHalfLastGoal + x.AwayFirstHalfLastGoal) ?? 0, true, false)
                 </td>
                 <td style="width: 10%" class="score-value" rowspan="2">
-                    @RazorHelper.PositiveFormatExt(Model.MainData.Sum(x => x.FirstHalfNoGoal))
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.FirstHalfNoGoal) ?? 0, true, false)
                 </td>
             </tr>
         </thead>

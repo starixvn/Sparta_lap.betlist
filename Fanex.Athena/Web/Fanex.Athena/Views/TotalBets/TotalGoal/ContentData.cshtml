@@ -54,19 +54,19 @@
             <tr class="total-footer">
                 <td class="score-value" colspan="3">@ViewResources.Total
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total01), true, false)
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total01), true, false)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total23), true, false)
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total23), true, false)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total46), true, false)
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total46), true, false)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormat(Model.MainData.Sum(t => t.Total7Over), true, false)
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total7Over), true, false)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf01))
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalFirstHalf01) ?? 0)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.TotalFirstHalf23))
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalFirstHalf23) ?? 0)
                 </td>
-                <td class="score-value">@RazorHelper.PositiveFormatExt(Model.MainData.Sum(t => t.Total4Over))
+                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total4Over) ?? 0)
                 </td>
             </tr>
         </thead>
