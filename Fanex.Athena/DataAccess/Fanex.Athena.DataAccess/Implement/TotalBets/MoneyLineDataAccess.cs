@@ -116,14 +116,10 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             // Fulltime column name
             var totalHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds", isConvert, baseCurrency);
             var totalAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds", isConvert, baseCurrency);
-            var homeScoreColumnName = DataHelper.GetCurrencyColumnName("winlost_home", isConvert, baseCurrency);
-            var awayScoreColumnName = DataHelper.GetCurrencyColumnName("winlost_away", isConvert, baseCurrency);
 
             // First half column name
             var totalHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HT", isConvert, baseCurrency);
             var totalAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HT", isConvert, baseCurrency);
-            var homeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("winlost_home_HT", isConvert, baseCurrency);
-            var awayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("winlost_away_HT", isConvert, baseCurrency);
 
             if (reader.Read())
             {
@@ -131,12 +127,8 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 {                    
                     TotalHomeFt = reader.ToDecimal(totalHomeScoreColumnName),
                     TotalAwayFt = reader.ToDecimal(totalAwayScoreColumnName),
-                    ForecastHomeFt = reader.ToDecimal(homeScoreColumnName),
-                    ForecastAwayFt = reader.ToDecimal(awayScoreColumnName),
                     TotalHomeFirstHalf = reader.ToDecimal(totalHomeScore1StHalfColumnName),
-                    TotalAwayFirstHalf = reader.ToDecimal(totalAwayScore1StHalfColumnName),
-                    ForecastHomeFirstHalf = reader.ToDecimal(homeScore1StHalfColumnName),
-                    ForecastAwayFirstHalf = reader.ToDecimal(awayScore1StHalfColumnName)
+                    TotalAwayFirstHalf = reader.ToDecimal(totalAwayScore1StHalfColumnName)
                 };
             }
 
