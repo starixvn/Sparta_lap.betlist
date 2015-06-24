@@ -49,7 +49,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 using (var reader = db.ExecuteReader(uspParams))
                 {
                     data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
-                    reader.Read();
+                    reader.NextResult();
                     totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
@@ -169,16 +169,23 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             if (reader.Read())
             {
                 return new OddEvenDrawNoDraw
-                {                    
-                    OddEvenFt = GetTotalScore(reader, oddEvenHomeColumn, oddEvenAwayColumn),
+                {
+                    OddEvenFt = GetRunningStake(reader, oddEvenHomeColumn, oddEvenAwayColumn),
                     OneXTwoFt = GetOneXTwoScore(reader, oneXTwoOdd1, oneXTwoOddX, oneXTwoOdd2),
-                    DrawNoDraw = GetTotalScore(reader, drawNoDrawHomeColumn, drawNoDrawAwayColumn),
-                    OddEvenFirstHalf = GetTotalScore(reader, oddEvenHome1StHalfColumn, oddEvenAway1StHalfColumn),
+                    DrawNoDraw = GetRunningStake(reader, drawNoDrawHomeColumn, drawNoDrawAwayColumn),
+                    OddEvenFirstHalf = GetRunningStake(reader, oddEvenHome1StHalfColumn, oddEvenAway1StHalfColumn),
                     OneXTwoFirstHalf = GetOneXTwoScore(reader, oneXTwo1StHalfOdd1, oneXTwo1StHalfOddX, oneXTwo1StHalfOdd2),
                 };
             }
 
             return new OddEvenDrawNoDraw();
+        }
+
+        private static decimal GetRunningStake(IDataReader reader, string columnOne, string columnTwo)
+        {
+            var onwScore = reader.ToDecimal(columnOne);
+            var twoScore = reader.ToDecimal(columnTwo);
+            return onwScore + twoScore;
         }
 
         #endregion Utility
