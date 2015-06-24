@@ -150,24 +150,24 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 
         private static OddEvenDrawNoDraw ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
-            // Fulltime column name
-            var oddEvenHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_OE", isConvert, baseCurrency);
-            var oddEvenAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_OE", isConvert, baseCurrency);
-            var oneXTwoOdd1 = DataHelper.GetCurrencyColumnName("odds_1", isConvert, baseCurrency);
-            var oneXTwoOddX = DataHelper.GetCurrencyColumnName("odds_x", isConvert, baseCurrency);
-            var oneXTwoOdd2 = DataHelper.GetCurrencyColumnName("odds_2", isConvert, baseCurrency);
-            var drawNoDrawHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_DND", isConvert, baseCurrency);
-            var drawNoDrawAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_DND", isConvert, baseCurrency);
-
-            // First half column name
-            var oddEvenHome1StHalfColumn = DataHelper.GetCurrencyColumnName("home_odds_OE_1st", isConvert, baseCurrency);
-            var oddEvenAway1StHalfColumn = DataHelper.GetCurrencyColumnName("away_odds_OE_1st", isConvert, baseCurrency);
-            var oneXTwo1StHalfOdd1 = DataHelper.GetCurrencyColumnName("odds_1_1st", isConvert, baseCurrency);
-            var oneXTwo1StHalfOddX = DataHelper.GetCurrencyColumnName("odds_x_1st", isConvert, baseCurrency);
-            var oneXTwo1StHalfOdd2 = DataHelper.GetCurrencyColumnName("odds_2_1st", isConvert, baseCurrency);
-
             if (reader.Read())
             {
+                // Fulltime column name
+                var oddEvenHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_OE", isConvert, baseCurrency);
+                var oddEvenAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_OE", isConvert, baseCurrency);
+                var oneXTwoOdd1 = DataHelper.GetCurrencyColumnName("odds_1", isConvert, baseCurrency);
+                var oneXTwoOddX = DataHelper.GetCurrencyColumnName("odds_x", isConvert, baseCurrency);
+                var oneXTwoOdd2 = DataHelper.GetCurrencyColumnName("odds_2", isConvert, baseCurrency);
+                var drawNoDrawHomeColumn = DataHelper.GetCurrencyColumnName("home_odds_DND", isConvert, baseCurrency);
+                var drawNoDrawAwayColumn = DataHelper.GetCurrencyColumnName("away_odds_DND", isConvert, baseCurrency);
+
+                // First half column name
+                var oddEvenHome1StHalfColumn = DataHelper.GetCurrencyColumnName("home_odds_OE_1st", isConvert, baseCurrency);
+                var oddEvenAway1StHalfColumn = DataHelper.GetCurrencyColumnName("away_odds_OE_1st", isConvert, baseCurrency);
+                var oneXTwo1StHalfOdd1 = DataHelper.GetCurrencyColumnName("odds_1_1st", isConvert, baseCurrency);
+                var oneXTwo1StHalfOddX = DataHelper.GetCurrencyColumnName("odds_x_1st", isConvert, baseCurrency);
+                var oneXTwo1StHalfOdd2 = DataHelper.GetCurrencyColumnName("odds_2_1st", isConvert, baseCurrency);
+
                 return new OddEvenDrawNoDraw
                 {
                     OddEvenFt = GetRunningStake(reader, oddEvenHomeColumn, oddEvenAwayColumn),

@@ -113,16 +113,16 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 
         private static MoneyLine ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
-            // Fulltime column name
-            var totalHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds", isConvert, baseCurrency);
-            var totalAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds", isConvert, baseCurrency);
-
-            // First half column name
-            var totalHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HT", isConvert, baseCurrency);
-            var totalAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HT", isConvert, baseCurrency);
-
             if (reader.Read())
             {
+                // Fulltime column name
+                var totalHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds", isConvert, baseCurrency);
+                var totalAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds", isConvert, baseCurrency);
+
+                // First half column name
+                var totalHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HT", isConvert, baseCurrency);
+                var totalAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HT", isConvert, baseCurrency);
+
                 return new MoneyLine
                 {                    
                     TotalHomeFt = reader.ToDecimal(totalHomeScoreColumnName),
