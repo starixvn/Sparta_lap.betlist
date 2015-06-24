@@ -52,21 +52,25 @@
     <table class="report-table">
         <thead>
             <tr class="total-footer">
-                <td class="score-value" colspan="3">@ViewResources.Total
+                <td style="width: 3%">
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total01), true, false)
+                <td style="width: 14%">
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total23), true, false)
+                <td style="width: 14%" class="score-value">@ViewResources.Total
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total46), true, false)
+                <td style="width: 10%" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total01), true, false)
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total7Over), true, false)
+                <td style="width: 10%" class="score-value">
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalFirstHalf01) ?? 0)
+                <td style="width: 10%" class="score-value">
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalFirstHalf23) ?? 0)
+                <td style="width: 10%" class="score-value">
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.Total4Over) ?? 0)
+                <td style="width: 10%" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.TotalFirstHalf01) ?? 0)
+                </td>
+                <td style="width: 10%" class="score-value">
+                </td>
+                <td style="width: 10%" class="score-value">
                 </td>
             </tr>
         </thead>

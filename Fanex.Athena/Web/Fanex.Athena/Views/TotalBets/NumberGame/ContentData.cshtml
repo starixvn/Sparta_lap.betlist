@@ -187,68 +187,70 @@
     <table class="report-table">
         <thead>
             <tr class="total-footer">
-                <td class="score-value" colspan="2">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 14%" class="score-value">
                     @ViewResources.Total
                 </td>
                 <!--Warrior-->
-                <td class="score-value">
+                <td style="width: 7%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior2ND))
                 </td>
-                <td class="score-value">
+                <td style="width: 7%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior3RD))
                 </td>
                 <!--/Warrior-->
                 <!--First Ball-->
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderFirstBall))
                 </td>
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenFirstBall))
                 </td>
                 <!--/First Ball-->
                 <!--Last Ball-->
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderLastBall))
                 </td>
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenLastBall))
                 </td>
                 <!--/Last Ball-->
                 <!--Next Ball-->
-                <td class="score-value">
+                <td style="width: 5%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderNext))
                 </td>
-                <td class="score-value">
+                <td style="width: 5%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenNext))
                 </td>
-                <td class="score-value">
+                <td  style="width: 6%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.HighLow))
                 </td>
                 <!--/Next Ball-->
                 <!--Next Combo-->
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOo))
                 </td>
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboUo))
                 </td>
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOe))
                 </td>
-                <td class="score-value">
+                <td style="width: 4%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboUE))
                 </td>
                 <!--/Next Combo-->
                 <!--Full time O/E-->
-                <td class="score-value">
+                <td style="width: 6%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenFullTime))
                 </td>
                 <!--/Full time O/E-->
                 <!--Number wheel-->
-                <td class="score-value">
+                <td style="width: 7%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelLiveGame))
                 </td>
-                <td class="score-value">
+                <td style="width: 7%" class="score-value">
                     @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelPreGame))
                 </td>
                 <!--/Number wheel-->

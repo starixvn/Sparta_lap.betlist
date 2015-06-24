@@ -91,12 +91,19 @@
     <table class="report-table">
         <thead>
             <tr class="total-footer">
-                <td class="score-value" colspan="3">
+                <td style="width: 34px">
+                </td>
+                <td style="width: 126px">
+                </td>
+                <td style="width: 427px" class="score-value">
                     @ViewResources.Total
                 </td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)</td>
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)</td>                
-                <td class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)</td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)
+                </td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)
+                </td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)
+                </td>
             </tr>
         </thead>
     </table>
