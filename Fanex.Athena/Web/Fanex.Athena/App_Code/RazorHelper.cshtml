@@ -123,6 +123,7 @@
             @ViewResources.All</label>
         @foreach (var product in productOptions)
         {
+            <span style="float: left;">
             <input data-product-code="@product.Code" type="checkbox"
             class="childCheckbox" value="true"
             @(product.Status ? "checked=checked" : "")
@@ -132,6 +133,7 @@
             </label>
             <input type="hidden" value="@product.Code" name="ProductOptions[@i].Code" />
             <input type="hidden" value="@product.Name" name="ProductOptions[@i].Name" />
+            </span>
             i++;
         }
         @{
