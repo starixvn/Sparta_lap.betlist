@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DTO.TotalBets;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.TotalBets;
     using Models.ViewModel.TotalBets;
@@ -56,13 +57,15 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
-                var dataList = _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(metaModel);
+                HalfTimeFullTime totalData;
+                var dataList = _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(metaModel, out totalData);
                 var model = new HalfTimeFullTimeViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencyList
+                    CurrencyList = currencyList,
+                    TotalData = totalData
                 };
                 return View("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml", model);
             }

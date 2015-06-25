@@ -18,5 +18,7 @@ namespace Fanex.Athena.Models.ViewModel.TotalBets
         public TotalGoalMetaModel Param { get; set; }
 
         public IList<TotalGoal> MainData { get; set; }
+
+        public TotalGoal TotalData { get; set; }
     }
 }

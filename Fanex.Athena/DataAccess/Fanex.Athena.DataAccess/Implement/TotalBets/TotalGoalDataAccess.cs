@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>List total goal.The result value.</returns>
-        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
+        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {
             const string UspName = "Lrf_TotalBets_Sel6";
             var uspParams = new
@@ -42,14 +42,18 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 TotalRows = metaModel.TotalRows,
                 UserId = metaModel.UserId
             };
-
+            IList<TotalGoal> data;
             using (var db = new ObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -95,6 +99,23 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
+        }
+
+        private static TotalGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {           
+            if (reader.Read())
+            {
+                var total01Column = DataHelper.GetCurrencyColumnName("total01", isConvert, baseCurrency);                
+                var totalFirst01Column = DataHelper.GetCurrencyColumnName("fhtotal01", isConvert, baseCurrency);
+                
+                return new TotalGoal
+                {
+                    Total01 = reader.ToDecimal(total01Column),                    
+                    TotalFirstHalf01 = reader.ToNullableDecimal(totalFirst01Column)                    
+                };
+            }
+
+            return new TotalGoal();
         }
 
         #endregion Utility

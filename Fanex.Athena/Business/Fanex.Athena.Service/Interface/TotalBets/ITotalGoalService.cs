@@ -6,11 +6,13 @@
 namespace Fanex.Athena.Service.Interface.TotalBets
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
 
     public interface ITotalGoalService
     {
-        IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel);
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewed.")]
+        IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData);
     }
 }
