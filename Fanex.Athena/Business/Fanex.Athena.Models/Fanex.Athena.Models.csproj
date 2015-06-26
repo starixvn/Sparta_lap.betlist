@@ -90,7 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\CacheRef.cs" />
+    <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
@@ -229,6 +229,7 @@
     <Compile Include="DTO\Warehouse\TopCustomer.cs" />
     <Compile Include="DTO\Warehouse\WarehouseReportBy.cs" />
     <Compile Include="DTO\Warehouse\WinLoss.cs" />
+    <Compile Include="Helper\Validator.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />

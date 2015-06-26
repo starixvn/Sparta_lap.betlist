@@ -6,7 +6,7 @@
 namespace Fanex.Athena.Models.DTO.Common
 {
     using System;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.Helper;
 
     /// <summary>
     /// Product class.
@@ -79,7 +79,7 @@ namespace Fanex.Athena.Models.DTO.Common
         /// <returns>Bet type is valid or not.</returns>
         public bool ValidateBettype(int bettype)
         {
-            return Util.ValidateBettpe(ProductCode, bettype);
+            return Validator.ValidateBettpe(ProductCode, bettype);
         }
 
         #endregion Property
