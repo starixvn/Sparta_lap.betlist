@@ -114,16 +114,35 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             if (reader.Read())
             {
                 var homeFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_homeFG", isConvert, baseCurrency);
+                var homeLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_homeLG", isConvert, baseCurrency);
+                var awayFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_awayFG", isConvert, baseCurrency);
+                var awayLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_awayLG", isConvert, baseCurrency);
+                var nonGoalColumn = DataHelper.GetCurrencyColumnName("winlost_NoGoal", isConvert, baseCurrency);
                 var homeFirstHalfFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HhomeFG", isConvert, baseCurrency);
+                var homeFirstHalfLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HhomeLG", isConvert, baseCurrency);
+                var awayFirstHalfFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HawayFG", isConvert, baseCurrency);
+                var awayFirstHalfLastGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HawayLG", isConvert, baseCurrency);
+                var firstHalfNonGoalColumn = DataHelper.GetCurrencyColumnName("winlost_1HNoGoal", isConvert, baseCurrency);
 
                 return new FirstGoalLastGoal
-                {                    
-                    HomeFirstGoal = reader.ToDecimal(homeFirstGoalColumn),                    
-                    HomeFirstHalfFirstGoal = reader.ToNullableDecimal(homeFirstHalfFirstGoalColumn),                    
+                {
+                    HomeFirstGoal = SumColumns(reader, homeFirstGoalColumn, homeLastGoalColumn, awayFirstGoalColumn, awayLastGoalColumn, nonGoalColumn),
+                    HomeFirstHalfFirstGoal = SumColumns(reader, homeFirstHalfFirstGoalColumn, homeFirstHalfLastGoalColumn, awayFirstHalfFirstGoalColumn, awayFirstHalfLastGoalColumn, firstHalfNonGoalColumn)
                 };
             }
 
             return new FirstGoalLastGoal();
+        }
+
+        private static decimal SumColumns(IDataReader reader, params string[] columns)
+        {
+            decimal result = 0;
+            foreach (var column in columns)
+            {
+                result += reader.ToDecimal(column);
+            }
+
+            return result;
         }
 
         #endregion Utility

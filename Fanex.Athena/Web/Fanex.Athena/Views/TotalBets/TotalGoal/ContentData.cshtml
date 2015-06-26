@@ -57,20 +57,10 @@
                 <td style="width: 14%">
                 </td>
                 <td style="width: 14%" class="score-value">@ViewResources.Total
+                </td>                
+                <td style="width: 40%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.Total01, true, false)
                 </td>
-                <td style="width: 10%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.Total01, true, false)
-                </td>
-                <td style="width: 10%" class="score-value">
-                </td>
-                <td style="width: 10%" class="score-value">
-                </td>
-                <td style="width: 10%" class="score-value">
-                </td>
-                <td style="width: 10%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.TotalFirstHalf01 ?? 0, true, false)
-                </td>
-                <td style="width: 10%" class="score-value">
-                </td>
-                <td style="width: 10%" class="score-value">
+                <td style="width: 30%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.TotalFirstHalf01 ?? 0, true, false)
                 </td>
             </tr>
         </thead>

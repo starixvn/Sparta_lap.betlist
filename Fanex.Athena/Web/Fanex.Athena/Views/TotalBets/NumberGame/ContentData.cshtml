@@ -9,10 +9,7 @@
     var index = 1;
 }
 <div class="data-content">
-    <table class="report-table">
-        @{
-            Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentHeader.cshtml");
-        }
+    <table class="report-table">        
         <tbody>
             @foreach (var league in leagueList)
             {
@@ -183,78 +180,49 @@
 <div class="line">
 </div>
 @*Footer*@
-<div class="footer-content">
+<div class="footer-content" style="width: 1095px !important">
     <table class="report-table">
         <thead>
-            <tr class="total-footer">
-                <td style="width: 3%">
-                </td>
-                <td style="width: 14%" class="score-value">
-                    @ViewResources.Total
-                </td>
-                <!--Warrior-->
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior2ND))
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior3RD))
-                </td>
-                <!--/Warrior-->
-                <!--First Ball-->
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderFirstBall))
-                </td>
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenFirstBall))
-                </td>
-                <!--/First Ball-->
-                <!--Last Ball-->
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderLastBall))
-                </td>
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenLastBall))
-                </td>
-                <!--/Last Ball-->
-                <!--Next Ball-->
-                <td style="width: 5%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OverUnderNext))
-                </td>
-                <td style="width: 5%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenNext))
-                </td>
-                <td  style="width: 6%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.HighLow))
-                </td>
-                <!--/Next Ball-->
-                <!--Next Combo-->
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOo))
-                </td>
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboUo))
-                </td>
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOe))
-                </td>
-                <td style="width: 4%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboUE))
-                </td>
-                <!--/Next Combo-->
-                <!--Full time O/E-->
-                <td style="width: 6%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.OddEvenFullTime))
-                </td>
-                <!--/Full time O/E-->
-                <!--Number wheel-->
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelLiveGame))
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelPreGame))
-                </td>
-                <!--/Number wheel-->
-            </tr>
+        <tr class="total-footer">
+                    <td style="width: 3%">
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @ViewResources.Total
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior2ND + t.Warrior3RD))
+                    </td>                    
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderFirstBall))
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenFirstBall))
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderLastBall))
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenLastBall))
+                    </td>
+                    <td style="width: 5%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderNext))
+                    </td>
+                    <td style="width: 5%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenNext))
+                    </td>
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeHighLow))
+                    </td>
+                    <td style="width: 16%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOo + t.NextComboUo + t.NextComboOe + t.NextComboUE))
+                    </td>
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenFullTime))
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelLiveGame + t.NumberWheelPreGame))
+                    </td>
+                </tr>
         </thead>
     </table>
 </div>

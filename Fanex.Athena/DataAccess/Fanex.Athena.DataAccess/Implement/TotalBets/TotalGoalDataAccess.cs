@@ -105,13 +105,18 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         {           
             if (reader.Read())
             {
-                var total01Column = DataHelper.GetCurrencyColumnName("total01", isConvert, baseCurrency);                
+                var total01Column = DataHelper.GetCurrencyColumnName("total01", isConvert, baseCurrency);
+                var total23Column = DataHelper.GetCurrencyColumnName("total23", isConvert, baseCurrency);
+                var total46Column = DataHelper.GetCurrencyColumnName("total46", isConvert, baseCurrency);
+                var total07OverColumn = DataHelper.GetCurrencyColumnName("total7over", isConvert, baseCurrency);
                 var totalFirst01Column = DataHelper.GetCurrencyColumnName("fhtotal01", isConvert, baseCurrency);
-                
+                var totalFirst23Column = DataHelper.GetCurrencyColumnName("fhtotal23", isConvert, baseCurrency);
+                var total04OverColumn = DataHelper.GetCurrencyColumnName("fhtotal4over", isConvert, baseCurrency);
+
                 return new TotalGoal
                 {
-                    Total01 = reader.ToDecimal(total01Column),                    
-                    TotalFirstHalf01 = reader.ToNullableDecimal(totalFirst01Column)                    
+                    Total01 = reader.ToDecimal(total01Column) + reader.ToDecimal(total23Column) + reader.ToDecimal(total46Column) + reader.ToDecimal(total07OverColumn),
+                    TotalFirstHalf01 = reader.ToDecimal(totalFirst01Column) + reader.ToDecimal(totalFirst23Column) + reader.ToDecimal(total04OverColumn)               
                 };
             }
 

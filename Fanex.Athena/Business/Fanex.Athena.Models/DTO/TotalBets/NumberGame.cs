@@ -28,6 +28,8 @@ namespace Fanex.Athena.Models.DTO.TotalBets
 
         public decimal OverUnderLastBall { get; set; }
 
+        public decimal OddEvenFullTime { get; set; }
+
         public decimal OddEvenLastBall { get; set; }
 
         public decimal OverUnderNext { get; set; }
@@ -36,6 +38,26 @@ namespace Fanex.Athena.Models.DTO.TotalBets
 
         public decimal HighLow { get; set; }
 
+        #region Sum Stake
+
+        public decimal RunningStakeOverUnderFirstBall { get; set; }
+
+        public decimal RunningStakeOddEvenFirstBall { get; set; }
+
+        public decimal RunningStakeOverUnderLastBall { get; set; }
+
+        public decimal RunningStakeOddEvenFullTime { get; set; }
+
+        public decimal RunningStakeOddEvenLastBall { get; set; }
+
+        public decimal RunningStakeOverUnderNext { get; set; }
+
+        public decimal RunningStakeOddEvenNext { get; set; }
+
+        public decimal RunningStakeHighLow { get; set; }
+
+        #endregion Sum Stake
+
         public decimal NextComboOo { get; set; }
 
         public decimal NextComboUo { get; set; }
@@ -43,8 +65,6 @@ namespace Fanex.Athena.Models.DTO.TotalBets
         public decimal NextComboOe { get; set; }
 
         public decimal NextComboUE { get; set; }
-
-        public decimal OddEvenFullTime { get; set; }
 
         public decimal NumberWheelLiveGame { get; set; }
 

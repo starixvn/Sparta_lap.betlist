@@ -98,11 +98,11 @@
                 <td style="width: 427px" class="score-value">
                     @ViewResources.Total
                 </td>
-                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.HomeNoBet), true, false)
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeHomeNoBet), true, false)
                 </td>
-                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.DrawNoBet), true, false)
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeDrawNoBet), true, false)
                 </td>
-                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.AwayNoBet), true, false)
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeAwayNoBet), true, false)
                 </td>
             </tr>
         </thead>

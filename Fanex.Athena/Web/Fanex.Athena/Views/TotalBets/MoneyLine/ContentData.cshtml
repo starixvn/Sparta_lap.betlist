@@ -108,22 +108,16 @@
                 </td>
                 <td style="width: 26%;" class="score-value">
                     @ViewResources.Total
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt)
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.TotalData.TotalAwayFt)
+                </td>                
+                <td style="width: 14%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt + Model.TotalData.TotalAwayFt)
                 </td>
                 <td style="width: 8%" class="score-value">
                 </td>
                 <td style="width: 8%" class="score-value">
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf)
-                </td>
-                <td style="width: 7%" class="score-value">
-                    @RazorHelper.DecFormat(Model.TotalData.TotalAwayFirstHalf)
+                </td>                
+                <td style="width: 14%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf + Model.TotalData.TotalAwayFirstHalf)
                 </td>
                 <td style="width: 8%" class="score-value">
                 </td>

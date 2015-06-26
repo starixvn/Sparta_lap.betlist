@@ -19,6 +19,6 @@ namespace Fanex.Athena.Models.ViewModel.TotalBets
 
         public IList<HalfTimeFullTime> MainData { get; set; }
 
-        public HalfTimeFullTime TotalData { get; set; }
+        public decimal TotalRunningStake { get; set; }
     }
 }

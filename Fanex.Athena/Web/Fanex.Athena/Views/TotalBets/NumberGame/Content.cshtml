@@ -1,5 +1,8 @@
 ﻿@model Fanex.Athena.Models.ViewModel.TotalBets.NumberGameViewModel
 
+@{
+    Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentHeader.cshtml");
+}
 @if (Model.MainData.Count == 0)
 {
     Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentNoInfo.cshtml");
