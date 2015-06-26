@@ -93,7 +93,7 @@
   <Function Name="CustomerInformation">
     <Setting Key="Lrf_BATimeCheck" SpName="Lrf_BATimeCheck" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus" DbName="DBTXN.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdClosed" SpName="Lrf_CustomerUpdClosed" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSuspended" SpName="Lrf_CustomerUpdSuspended" DbName="DBTXN.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSpecialLevel" SpName="Lrf_CustomerUpdSpecialLevel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
