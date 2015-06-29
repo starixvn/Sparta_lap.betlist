@@ -133,8 +133,10 @@ namespace Fanex.Athena.Service.Implement.Report
                 LicenseeWL = g.SelectMany(k => k.LicenseeWL)
                 .GroupBy(j => j.Key)
                 .ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
+                BetTradeCommission = g.Sum(p => p.BetTradeCommission),
                 BACommission = g.Sum(p => p.BACommission),
                 RacingRevenue = g.Sum(p => p.RacingRevenue),
+                AmtDueToBetTrade = g.Sum(p => p.AmtDueToBetTrade),
                 AmtDueToBA = g.Sum(p => p.AmtDueToBA),
                 AmtDueToRacing = g.Sum(p => p.AmtDueToRacing),
             }).ToList();

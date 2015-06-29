@@ -5,7 +5,7 @@
   </Group>
 
   <Group Name="Report">
-    <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC"></Function>
+    <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGC,BT"></Function>
     <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGC"></Function>
     <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,MGC"></Function>
     <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,KN,RB,MGC"></Function>

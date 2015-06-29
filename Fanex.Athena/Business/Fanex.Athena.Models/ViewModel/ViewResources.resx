@@ -2710,4 +2710,10 @@
   <data name="EnableBetTrade" xml:space="preserve">
     <value>Enable BetTrade</value>
   </data>
+  <data name="AmtDueToBetTrade" xml:space="preserve">
+    <value>Amt Due To Bet Trade</value>
+  </data>
+  <data name="BetTradeCommission" xml:space="preserve">
+    <value>Bet Trade Commission</value>
+  </data>
 </root>

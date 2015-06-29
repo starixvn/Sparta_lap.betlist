@@ -83,6 +83,8 @@ var _language_en_US={
 				 	
                      AmtDueToBABalanceNote:"Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.",
 				 	
+                     AmtDueToBetTrade:"Amt Due To Bet Trade",
+				 	
                      AmtDueToRacing:"Amt Due To Racing",
 				 	
                      AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
@@ -444,6 +446,8 @@ var _language_en_US={
                      Enable:"Enable",
 				 	
                      EnableAgCasino:"Enable AG Casino",
+				 	
+                     EnableBetTrade:"Enable BetTrade",
 				 	
                      EnableGoldDeluxe:"Enable Gold Deluxe",
 				 	

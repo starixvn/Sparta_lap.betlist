@@ -34,12 +34,14 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCustomerComm = 18;
         private const int ColumnCustomerTotal = 19;
         private const int ColumnLicenseeWlSportsBook = 20;
-        private const int ColumnLicenseeWlTotal = 30;
-        private const int ColumnBaCommission = 31;
-        private const int ColumnRacingRevenue = 32;
-        private const int ColumnAmtDueToBa = 33;
-        private const int ColumnAmtDueToRacing = 34;
-        private const int ColumnTemplateCount = 35;
+        private const int ColumnLicenseeWlTotal = 31;
+        private const int ColumnBetTradeCommission = 32;
+        private const int ColumnBaCommission = 33;
+        private const int ColumnRacingRevenue = 34;
+        private const int ColumnAmtDueToBetTrade = 35;
+        private const int ColumnAmtDueToBa = 36;
+        private const int ColumnAmtDueToRacing = 37;
+        private const int ColumnTemplateCount = 38;
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
@@ -124,8 +126,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.LicenseeW_L);
+            row.Cells[ColumnBetTradeCommission].SetCellValue(ViewResources.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
+            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(ViewResources.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(ViewResources.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
 
@@ -146,6 +150,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.RNGCasino,
                 ViewResources.Bingo,
                 ViewResources.Keno,
+                ViewResources.BetTrade,
                 ViewResources.Microgaming,
                 ViewResources.Total
             };
@@ -298,6 +303,7 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.CS, Status = false },
                 new ProductOption { Code = Product.BG, Status = false },
                 new ProductOption { Code = Product.KN, Status = false },
+                new ProductOption { Code = Product.BT, Status = false },
                 new ProductOption { Code = Product.MGC, Status = false }
             };
 
@@ -328,7 +334,7 @@ namespace Fanex.Athena.Excel.Report
             //// Set data for turnover
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status)
+                if (_productOption[i].Status && _productOption[i].Code != Product.BT)
                 {
                     row.Cells[ColumnTurnoverSportBook + i].SetCellValue(data.TurnOver[_productOption[i].Code]);
                 }
@@ -352,8 +358,10 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(data.LicenseeWL.Sum(a => a.Value));
 
+            row.Cells[ColumnBetTradeCommission].SetCellValue(data.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(data.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(data.RacingRevenue);
+            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(data.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(data.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(data.AmtDueToRacing);
         }
@@ -452,7 +460,7 @@ namespace Fanex.Athena.Excel.Report
 
             if (countStatus <= 1)
             {
-                if (_productOption.Any(a => a.Status && a.Code != Product.RB && a.Code != Product.BA))
+                if (countStatus > 0)
                 {
                     HideColumn(sheet, ColumnLicenseeWlTotal, ColumnLicenseeWlTotal);
                 }
@@ -470,12 +478,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUITurnover(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status);
+            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.BT);
             int nextColumns = 0;
 
             foreach (var product in _productOption)
             {
-                if (product.Status == false)
+                if (product.Status == false || product.Code == Product.BT)
                 {
                     HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
                 }
@@ -491,7 +499,11 @@ namespace Fanex.Athena.Excel.Report
 
             if (countStatus <= 1)
             {
-                HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
+                if (countStatus > 0)
+                {
+                    HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
+                }
+
                 for (int i = 0; i < TotalTurnoverProductColumn; i++)
                 {
                     sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + i, RowHeaderTemplate + 1, ColumnTurnoverSportBook + i);
@@ -525,8 +537,10 @@ namespace Fanex.Athena.Excel.Report
                                         .GroupBy(i => i.Key)
                                         .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
                 }.LicenseeWL,
+                BetTradeCommission = group.Sum(a => a.BetTradeCommission),
                 BACommission = group.Sum(a => a.BACommission),
                 RacingRevenue = group.Sum(a => a.RacingRevenue),
+                AmtDueToBetTrade = group.Sum(a => a.AmtDueToBetTrade),
                 AmtDueToBA = group.Sum(a => a.AmtDueToBA),
                 AmtDueToRacing = group.Sum(a => a.AmtDueToRacing)
             });

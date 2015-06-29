@@ -186,7 +186,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     if (reader.FieldExists(turnOverColumnName))
                     {
-                        turnOver.Add(product.Code, reader.ToDecimal(turnOverColumnName));
+                        if (!product.Code.Equals(Product.BT))
+                        {
+                            turnOver.Add(product.Code, reader.ToDecimal(turnOverColumnName));
+                        }
                     }
                 }
 
@@ -204,6 +207,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     TotalTransaction = reader.ToInt("betcount"),
                     RacingRevenue = reader.ToDecimal("licenseewlrb" + metaModel.BaseCurrency) + reader.ToDecimal("commrb" + metaModel.BaseCurrency),
                     BACommission = reader.ToDecimal("commba" + metaModel.BaseCurrency),
+                    BetTradeCommission = reader.ToDecimal("bettradecomm" + metaModel.BaseCurrency),
+                    AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + metaModel.BaseCurrency),
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
                     AmtDueToRacing = reader.ToDecimal("amtduetorb" + metaModel.BaseCurrency),
                     Date = drilldown
@@ -221,6 +226,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     summaryTotal[currency].TotalTransaction += reader.ToInt("betcount");
                     summaryTotal[currency].RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
                     summaryTotal[currency].BACommission += reader.ToDecimal("commba" + currency);
+                    summaryTotal[currency].BetTradeCommission += reader.ToDecimal("commba" + currency);
+                    summaryTotal[currency].AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
                     summaryTotal[currency].AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
                     summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
                     decimal temp;
@@ -241,7 +248,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             }
                         }
 
-                        if (reader.FieldExists(turnOverColumnName))
+                        if (reader.FieldExists(turnOverColumnName) && !product.Code.Equals(Product.BT))
                         {
                             summaryTotal[currency].TurnOver.TryGetValue(product.Code, out temp);
                             temp += reader.ToDecimal(turnOverColumnName);
