@@ -403,6 +403,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade..
+        /// </summary>
+        public static string AmtDueToBetTradeBalanceNote {
+            get {
+                return ResourceManager.GetString("AmtDueToBetTradeBalanceNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt Due To Racing.
         /// </summary>
         public static string AmtDueToRacing {
@@ -741,6 +750,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string BetTrade {
             get {
                 return ResourceManager.GetString("BetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BetTrade Commission: Licensee commission income for BetTrade tickets..
+        /// </summary>
+        public static string BetTradeComissionBalanceNote {
+            get {
+                return ResourceManager.GetString("BetTradeComissionBalanceNote", resourceCulture);
             }
         }
         

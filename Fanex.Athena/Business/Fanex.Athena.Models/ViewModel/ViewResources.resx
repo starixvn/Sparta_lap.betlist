@@ -2716,4 +2716,10 @@
   <data name="BetTradeCommission" xml:space="preserve">
     <value>Bet Trade Commission</value>
   </data>
+  <data name="AmtDueToBetTradeBalanceNote" xml:space="preserve">
+    <value>Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.</value>
+  </data>
+  <data name="BetTradeComissionBalanceNote" xml:space="preserve">
+    <value>BetTrade Commission: Licensee commission income for BetTrade tickets.</value>
+  </data>
 </root>

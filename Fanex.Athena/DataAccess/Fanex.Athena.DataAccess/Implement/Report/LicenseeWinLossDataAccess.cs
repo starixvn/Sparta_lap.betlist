@@ -226,7 +226,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     summaryTotal[currency].TotalTransaction += reader.ToInt("betcount");
                     summaryTotal[currency].RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
                     summaryTotal[currency].BACommission += reader.ToDecimal("commba" + currency);
-                    summaryTotal[currency].BetTradeCommission += reader.ToDecimal("commba" + currency);
+                    summaryTotal[currency].BetTradeCommission += reader.ToDecimal("BetTradeComm" + currency);
                     summaryTotal[currency].AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
                     summaryTotal[currency].AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
                     summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
