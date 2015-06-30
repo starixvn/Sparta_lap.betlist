@@ -8,18 +8,18 @@
 </div>
 <div class="data-content">
     <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
-        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 140 - 2)@("px")">
+        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 120 - 2)@("px")">
             <div>@ViewResources.CustomerPedingFunds</div>
         </div>
-        <div class="row" style="width: 140px">
+        <div class="row" style="width: 120px">
             <div>@Model.MainData.CustomerPendingFunds.ToStringExt()</div>
         </div>
     </div>
     <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
-        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 140 - 2)@("px")">
+        <div class="row text-data" style="width:@(ViewBag.ContainerWidth - 120 - 2)@("px")">
             <div>@ViewResources.TotalCustomerActiveClosedSuspended</div>
         </div>
-        <div class="row" style="width: 140px">
+        <div class="row" style="width: 120px">
             <div>@Model.MainData.TotalCustomerActive/ <span class="closed">@Model.MainData.TotalCustomerClosed</span>
                 / <span class="suspended">@Model.MainData.TotalCustomerSuspended</span>
             </div>

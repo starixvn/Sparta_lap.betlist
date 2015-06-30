@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.BetList
     public partial class BetListController
     {
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
+        private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
         /// <summary>
         /// Action Get for Customer Outstanding.
@@ -32,17 +33,19 @@ namespace Fanex.Athena.Controllers.BetList
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
         public ActionResult CustomerOutstanding(BetListMetaModel metaModel)
         {
+            var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
+
             metaModel = CreateDefaultMetaModel(metaModel);
 
             var minDate = DateTime.Today.AddYears(-1);
 
             minDate = new DateTime(minDate.Year, 1, 1);
-            metaModel.FromDate = metaModel.BetListName == "betlistrunning" ? minDate : metaModel.MoveBetsDay.AddDays(1);
+            metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
             var productAccess = this._productService.GetProductAccess(
                 metaModel.LicenseeId, 
                 SessionService.UserSession.Language,
-                BetListCustomerOutstandingName);
+                isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
             metaModel.ProductOptions = new HashSet<ProductOption>();
             for (int i = 0, j = productAccess.ProductList.Count; i < j; i++)
