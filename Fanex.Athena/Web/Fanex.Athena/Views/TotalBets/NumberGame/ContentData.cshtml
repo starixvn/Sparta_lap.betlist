@@ -190,37 +190,37 @@
                         @ViewResources.Total
                     </td>
                     <td style="width: 14%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.Warrior2ND + t.Warrior3RD))
+                        @RazorHelper.DecFormat(Model.TotalData.Warrior2ND + Model.TotalData.Warrior3RD)
                     </td>                    
                     <td style="width: 4%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderFirstBall))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderFirstBall)
                     </td>
                     <td style="width: 4%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenFirstBall))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenFirstBall)
                     </td>
                     <td style="width: 4%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderLastBall))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderLastBall)
                     </td>
                     <td style="width: 4%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenLastBall))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenLastBall)
                     </td>
                     <td style="width: 5%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOverUnderNext))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderNext)
                     </td>
                     <td style="width: 5%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenNext))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenNext)
                     </td>
                     <td style="width: 6%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeHighLow))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeHighLow)
                     </td>
                     <td style="width: 16%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NextComboOo + t.NextComboUo + t.NextComboOe + t.NextComboUE))
+                        @RazorHelper.DecFormat(Model.TotalData.NextComboOo + Model.TotalData.NextComboUo + Model.TotalData.NextComboOe + Model.TotalData.NextComboUE)
                     </td>
                     <td style="width: 6%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeOddEvenFullTime))
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenFullTime)
                     </td>
                     <td style="width: 14%" class="score-value">
-                        @RazorHelper.DecFormat(Model.MainData.Sum(t => t.NumberWheelLiveGame + t.NumberWheelPreGame))
+                        @RazorHelper.DecFormat(Model.TotalData.NumberWheelLiveGame + Model.TotalData.NumberWheelPreGame)
                     </td>
                 </tr>
         </thead>
