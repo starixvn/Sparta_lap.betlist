@@ -26,7 +26,7 @@
 
                 foreach (var match in matchOfLeague)
                 {                                       
-                    <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+                <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
                     <td style="width: 3%" class="order-number">@(index++)
                     </td>
                     <td style="width: 10%">
@@ -92,3 +92,27 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%">
+                </td>
+                <td class="score-value" style="width: 38%">@ViewResources.Total
+                </td>
+                <td class="score-value" style="width: 12%">@RazorHelper.DecFormat(Model.TotalData.FullTimeHandicap, true, false)
+                </td>                
+                <td class="score-value" style="width: 12%">@RazorHelper.DecFormat(Model.TotalData.FullTimeOverUnder, true, false)
+                </td>                
+                <td class="score-value" style="width: 12%">@RazorHelper.DecFormat(Model.TotalData.FirstTimeHandicap, true, false)
+                </td>                
+                <td class="score-value" style="width: 12%">@RazorHelper.DecFormat(Model.TotalData.FirstTimeOverUnder, true, false)
+                </td>                
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">Handicap Over/Under MetaModel value.</param>
         /// <returns>A list of Handicap Over/Under.</returns>
-        public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel)
+        public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel1378";
             var uspParams = new
@@ -42,13 +42,19 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 UserId = metaModel.UserId
             };
 
+            IList<HandicapOverUnder> data;
+
             using (var db = new ObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -117,6 +123,44 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
+        }
+
+        private static HandicapOverUnder ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {
+            HandicapOverUnder totalData = null;
+
+            if (reader.Read())
+            {
+                // Fulltime column name
+                var hdpHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds_HDP", isConvert, baseCurrency);
+                var hdpAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds_HDP", isConvert, baseCurrency);
+                var overUnderHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds_OU", isConvert, baseCurrency);
+                var overUnderAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds_OU", isConvert, baseCurrency);
+
+                // First half column name
+                var hdpHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HTHDP", isConvert, baseCurrency);
+                var hdpAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HTHDP", isConvert, baseCurrency);
+                var overUnderHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HTOU", isConvert, baseCurrency);
+                var overUnderAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HTOU", isConvert, baseCurrency);
+
+                totalData = new HandicapOverUnder
+                {
+                    FullTimeHandicap = GetRunningStake(reader, hdpHomeScoreColumnName, hdpAwayScoreColumnName),
+                    FullTimeOverUnder = GetRunningStake(reader, overUnderHomeScoreColumnName, overUnderAwayScoreColumnName),
+                    FirstTimeHandicap = GetRunningStake(reader, hdpHomeScore1StHalfColumnName, hdpAwayScore1StHalfColumnName),
+                    FirstTimeOverUnder = GetRunningStake(reader, overUnderHomeScore1StHalfColumnName, overUnderAwayScore1StHalfColumnName)
+                };
+            }
+
+            return totalData ?? new HandicapOverUnder();
+        }
+
+        private static decimal GetRunningStake(IDataReader reader, string homeColumnName, string awayColumnName)
+        {
+            var homeScore = reader.ToDecimal(homeColumnName);
+            var awayScore = reader.ToDecimal(awayColumnName);
+
+            return homeScore + awayScore;
         }
 
         #endregion Utility

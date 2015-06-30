@@ -46,7 +46,7 @@
                 {
                     var curRowspan = match.RowSpan;
                 <tr>
-                    <td style="width: 10%; display: @(curRowspan == 1 && matchOfLeague.Where(g => g.Race.Equals(match.Race)).Count() > 1 ? "none" : string.Empty)" 
+                    <td style="width: 10%; display: @(curRowspan == 1 && matchOfLeague.Where(g => g.Race.Equals(match.Race)).Count() > 1 ? "none" : string.Empty)"
                         class="show-time @(match.OddStatus.ToLower().Equals("running") ? "running-match" : "completed-match")" rowspan="@match.RowSpan"
                         title="@match.OddStatus">
                         <span class="race-number">@match.Race</span>
@@ -125,8 +125,21 @@
                 </tr>
                 }
             }
+        </tbody>
+    </table>
+</div>
+<div class="line">
+</div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
             <tr class="total-footer">
-                <td colspan="3">
+                <td style="width: 10%;">
+                </td>
+                <td style="width: 8%;">
+                </td>
+                <td style="width: 30%;" class="score-value">
                     @ViewResources.Total
                 </td>
                 <td style="width: 8%" class="score-value">
@@ -148,8 +161,7 @@
                     @RazorHelper.DecFormat(Model.MainData.SumRevenueWinPlace, true)
                 </td>
             </tr>
-        </tbody>
+        </thead>
     </table>
 </div>
-<div class="line">
-</div>
+@*/Footer*@ 

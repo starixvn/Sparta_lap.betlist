@@ -9,10 +9,7 @@
     var index = 1;
 }
 <div class="data-content">
-    <table class="report-table">
-        @{
-            Html.RenderPartial("~/Views/TotalBets/NumberGame/ContentHeader.cshtml");
-        }
+    <table class="report-table">        
         <tbody>
             @foreach (var league in leagueList)
             {
@@ -182,3 +179,51 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1095px !important">
+    <table class="report-table">
+        <thead>
+        <tr class="total-footer">
+                    <td style="width: 3%">
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @ViewResources.Total
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.Warrior2ND + Model.TotalData.Warrior3RD)
+                    </td>                    
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderFirstBall)
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenFirstBall)
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderLastBall)
+                    </td>
+                    <td style="width: 4%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenLastBall)
+                    </td>
+                    <td style="width: 5%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOverUnderNext)
+                    </td>
+                    <td style="width: 5%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenNext)
+                    </td>
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeHighLow)
+                    </td>
+                    <td style="width: 16%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.NextComboOo + Model.TotalData.NextComboUo + Model.TotalData.NextComboOe + Model.TotalData.NextComboUE)
+                    </td>
+                    <td style="width: 6%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.RunningStakeOddEvenFullTime)
+                    </td>
+                    <td style="width: 14%" class="score-value">
+                        @RazorHelper.DecFormat(Model.TotalData.NumberWheelLiveGame + Model.TotalData.NumberWheelPreGame)
+                    </td>
+                </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

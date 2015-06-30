@@ -6,7 +6,7 @@
                             .OrderBy(x => x.LeagueName)
                             .OrderByDescending(x => x.LiveIndicator)
                             .ToList();
-                            
+
     var index = 1;
 }
 <div class="data-content">
@@ -21,7 +21,7 @@
                 </tr>
                 var matchOfLeague = Model.MainData
                             .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
-                            .ToList();                   
+                            .ToList();
 
                 // Render Match League
                 foreach (var match in matchOfLeague)
@@ -86,3 +86,26 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 34px">
+                </td>
+                <td style="width: 126px">
+                </td>
+                <td style="width: 427px" class="score-value">
+                    @ViewResources.Total
+                </td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeHomeNoBet), true, false)
+                </td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeDrawNoBet), true, false)
+                </td>
+                <td style="width: 135px" class="score-value">@RazorHelper.DecFormat(Model.MainData.Sum(t => t.RunningStakeAwayNoBet), true, false)
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

@@ -32,9 +32,9 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         #endregion Constructor
 
-        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
+        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {
-            return _totalGoalDataAccess.GetTotalGoalDataList(metaModel);
+            return _totalGoalDataAccess.GetTotalGoalDataList(metaModel, out totalData);
         }
     }
 }

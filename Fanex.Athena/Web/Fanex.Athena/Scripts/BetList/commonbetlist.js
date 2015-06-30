@@ -5,6 +5,7 @@ var CommonBetList = (function ($) {
     "use strict";
     return {
         initialize: function () {
+            BetList.initialize();
             $(".content-filter").remove();
 
             var actionName = $("#ActionName").val();

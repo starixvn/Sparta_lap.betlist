@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>List total goal.The result value.</returns>
-        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
+        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {
             const string UspName = "Lrf_TotalBets_Sel6";
             var uspParams = new
@@ -42,14 +42,18 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 TotalRows = metaModel.TotalRows,
                 UserId = metaModel.UserId
             };
-
+            IList<TotalGoal> data;
             using (var db = new ObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -86,15 +90,37 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     Total23 = reader.ToDecimal(total23Column),
                     Total46 = reader.ToDecimal(total46Column),
                     Total7Over = reader.ToDecimal(total07OverColumn),
-                    TotalFirstHalf01 = reader[totalFirst01Column],
-                    TotalFirstHalf23 = reader[totalFirst23Column],
-                    Total4Over = reader[total04OverColumn]
+                    TotalFirstHalf01 = reader.ToNullableDecimal(totalFirst01Column),
+                    TotalFirstHalf23 = reader.ToNullableDecimal(totalFirst23Column),
+                    Total4Over = reader.ToNullableDecimal(total04OverColumn)
                 };
 
                 dataList.Add(item);
             }
 
             return dataList;
+        }
+
+        private static TotalGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {           
+            if (reader.Read())
+            {
+                var total01Column = DataHelper.GetCurrencyColumnName("total01", isConvert, baseCurrency);
+                var total23Column = DataHelper.GetCurrencyColumnName("total23", isConvert, baseCurrency);
+                var total46Column = DataHelper.GetCurrencyColumnName("total46", isConvert, baseCurrency);
+                var total07OverColumn = DataHelper.GetCurrencyColumnName("total7over", isConvert, baseCurrency);
+                var totalFirst01Column = DataHelper.GetCurrencyColumnName("fhtotal01", isConvert, baseCurrency);
+                var totalFirst23Column = DataHelper.GetCurrencyColumnName("fhtotal23", isConvert, baseCurrency);
+                var total04OverColumn = DataHelper.GetCurrencyColumnName("fhtotal4over", isConvert, baseCurrency);
+
+                return new TotalGoal
+                {
+                    Total01 = reader.ToDecimal(total01Column) + reader.ToDecimal(total23Column) + reader.ToDecimal(total46Column) + reader.ToDecimal(total07OverColumn),
+                    TotalFirstHalf01 = reader.ToDecimal(totalFirst01Column) + reader.ToDecimal(totalFirst23Column) + reader.ToDecimal(total04OverColumn)               
+                };
+            }
+
+            return new TotalGoal();
         }
 
         #endregion Utility

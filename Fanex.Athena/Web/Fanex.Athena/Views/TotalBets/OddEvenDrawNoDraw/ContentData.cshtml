@@ -90,7 +90,7 @@
                     <td style="width: 10%" class="score-value">
                         @if (match.BetCountOddEven1StHalf != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype==2 ? 12 : match.Bettype)" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 2 ? 12 : match.Bettype)" href="javascript:;">
                                 @RazorHelper.NegativeFormat(match.OddEvenFirstHalf, true, false)
                             </a>
                         }
@@ -100,7 +100,7 @@
                     <td style="width: 7%" class="score-value">
                         @if (match.BetCountOneXTow1StHalf != 0)
                         {
-                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype==5 ? 15 : match.Bettype)" href="javascript:;">
+                            <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;">
                                 @RazorHelper.DecFormat(match.OneXTwoFirstHalf, true)
                             </a>
                         }
@@ -108,7 +108,7 @@
                     <td style="width: 3%">
                         @if (match.BetCountOneXTow1StHalf != 0)
                         {
-                            <a class="button-add"   data-match-id="@match.MatchId" data-bet-type="@(match.Bettype==5 ? 15 : match.Bettype)" href="javascript:;">
+                            <a class="button-add"   data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;">
                             </a>
                         }
                     </td>
@@ -121,3 +121,39 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%">
+                </td>
+                <td style="width: 30%" class="score-value">
+                    @ViewResources.Total
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.OddEvenFt, true, false)
+                </td>
+                <td style="width: 7%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.OneXTwoFt)
+                </td>
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.DrawNoDraw, true, false)
+                </td>
+                <td style="width: 10%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.OddEvenFirstHalf, true, false)
+                </td>
+                <td style="width: 7%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.OneXTwoFirstHalf)
+                </td>
+                <td style="width: 3%">
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

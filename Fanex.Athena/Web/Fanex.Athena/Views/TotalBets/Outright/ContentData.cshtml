@@ -50,3 +50,23 @@
 </div>
 <div class="line" style="width: 715px">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1017px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 40px">
+                </td>
+                <td style="width: auto" class="score-value">
+                    @ViewResources.Total
+                </td>
+                <td style="width: 150px" class="score-value">
+                    @RazorHelper.DecFormat(Model.MainData.Sum(x => x.Balance), true)
+                </td>
+                <td style="width: 150px" class="score-value">
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

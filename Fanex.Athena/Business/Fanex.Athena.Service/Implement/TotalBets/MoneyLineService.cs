@@ -32,9 +32,9 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         #endregion Constructor
 
-        public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel)
+        public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData)
         {
-            return _moneyLineDataAccess.GetMoneyLineDataList(metaModel);
+            return _moneyLineDataAccess.GetMoneyLineDataList(metaModel, out totalData);
         }
     }
 }

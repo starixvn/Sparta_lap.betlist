@@ -10,6 +10,7 @@
 namespace Fanex.Athena.DataAccess.Interface.TotalBets
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
 
@@ -18,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Interface.TotalBets
     /// </summary>
     public interface IHalfTimeFullTimeDataAccess
     {
-        IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel);
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewed.")]
+        IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData);
     }
 }

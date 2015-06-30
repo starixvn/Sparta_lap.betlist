@@ -33,9 +33,9 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         #endregion Constructor
 
-        public IList<NumberGame> GetNumberGameDataList(NumberGameMetaModel metaModel)
+        public IList<NumberGame> GetNumberGameDataList(NumberGameMetaModel metaModel, out NumberGame totalData)
         {
-            return _numberGameDataAccess.GetNumBerGameDataList(metaModel);
+            return _numberGameDataAccess.GetNumBerGameDataList(metaModel, out totalData);
         }
     }
 }

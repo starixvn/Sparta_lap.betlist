@@ -97,3 +97,34 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 10%">
+                </td>
+                <td style="width: 26%;" class="score-value">
+                    @ViewResources.Total
+                </td>                
+                <td style="width: 14%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFt + Model.TotalData.TotalAwayFt)
+                </td>
+                <td style="width: 8%" class="score-value">
+                </td>
+                <td style="width: 8%" class="score-value">
+                </td>                
+                <td style="width: 14%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalData.TotalHomeFirstHalf + Model.TotalData.TotalAwayFirstHalf)
+                </td>
+                <td style="width: 8%" class="score-value">
+                </td>
+                <td style="width: 8%" class="score-value">
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

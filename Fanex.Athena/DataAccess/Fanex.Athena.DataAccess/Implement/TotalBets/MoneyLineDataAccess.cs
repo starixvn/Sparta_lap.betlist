@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">Money line MetaModel value.</param>
         /// <returns>A list of money line.</returns>
-        public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel)
+        public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel2021";
             var uspParams = new
@@ -43,13 +43,19 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 UserId = metaModel.UserId
             };
 
+            IList<MoneyLine> data;
+
             using (var db = new ObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -103,6 +109,30 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
+        }
+
+        private static MoneyLine ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {
+            if (reader.Read())
+            {
+                // Fulltime column name
+                var totalHomeScoreColumnName = DataHelper.GetCurrencyColumnName("home_odds", isConvert, baseCurrency);
+                var totalAwayScoreColumnName = DataHelper.GetCurrencyColumnName("away_odds", isConvert, baseCurrency);
+
+                // First half column name
+                var totalHomeScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("home_odds_HT", isConvert, baseCurrency);
+                var totalAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HT", isConvert, baseCurrency);
+
+                return new MoneyLine
+                {                    
+                    TotalHomeFt = reader.ToDecimal(totalHomeScoreColumnName),
+                    TotalAwayFt = reader.ToDecimal(totalAwayScoreColumnName),
+                    TotalHomeFirstHalf = reader.ToDecimal(totalHomeScore1StHalfColumnName),
+                    TotalAwayFirstHalf = reader.ToDecimal(totalAwayScore1StHalfColumnName)
+                };
+            }
+
+            return new MoneyLine();
         }
 
         #endregion Utility

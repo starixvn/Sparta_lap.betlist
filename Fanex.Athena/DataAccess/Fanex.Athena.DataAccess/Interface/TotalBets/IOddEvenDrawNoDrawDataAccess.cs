@@ -10,6 +10,7 @@
 namespace Fanex.Athena.DataAccess.Interface.TotalBets
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
 
@@ -18,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Interface.TotalBets
     /// </summary>
     public interface IOddEvenDrawNoDrawDataAccess
     {
-        IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel);
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewd.")]
+        IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData);
     }
 }

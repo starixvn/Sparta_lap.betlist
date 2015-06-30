@@ -19,10 +19,10 @@ namespace Fanex.Athena.Models.DTO.TotalBets
 
         public decimal Total7Over { get; set; }
 
-        public object TotalFirstHalf01 { get; set; }
+        public decimal? TotalFirstHalf01 { get; set; }
 
-        public object TotalFirstHalf23 { get; set; }
+        public decimal? TotalFirstHalf23 { get; set; }
 
-        public object Total4Over { get; set; }
+        public decimal? Total4Over { get; set; }
     }
 }

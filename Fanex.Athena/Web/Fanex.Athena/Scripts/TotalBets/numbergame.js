@@ -37,6 +37,7 @@ var NumberGame = (function ($) {
             url = QueryString.setParam(url, "bettype", betType);
             url = QueryString.setParam(url, "LiveIndicator", isLive);
             url = QueryString.setParam(url, "betteam", betTeam);
+            url = QueryString.setParam(url, "IsShowSumStake", true);
 
             window.location.href = url;
         }

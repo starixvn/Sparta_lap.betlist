@@ -47,3 +47,23 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 14%">
+                </td>
+                <td style="width: 14%" class="score-value">@ViewResources.Total
+                </td>                
+                <td style="width: 40%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.Total01, true, false)
+                </td>
+                <td style="width: 30%" class="score-value">@RazorHelper.DecFormat(Model.TotalData.TotalFirstHalf01 ?? 0, true, false)
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

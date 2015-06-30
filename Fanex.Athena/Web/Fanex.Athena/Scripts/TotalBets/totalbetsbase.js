@@ -11,7 +11,7 @@ var Totalbets = (function ($) {
 
             var gridTop = $grid.offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - 35;
+            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 35;
             gridHeight = Math.max(150, gridHeight);
             gridHeight = Math.min($(".data-content .report-table").height(), gridHeight);
             $grid.attr("style", "height: " + gridHeight + "px !important; max-height: 100% !important;");
@@ -36,6 +36,7 @@ var Totalbets = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "bettype", betType);
+            url = QueryString.setParam(url, "isShowSumStake", true);
 
             window.location.href = url;
         },
@@ -44,6 +45,7 @@ var Totalbets = (function ($) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "multiplebettype", betType);
+            url = QueryString.setParam(url, "isShowSumStake", true);
 
             window.location.href = url;
         },

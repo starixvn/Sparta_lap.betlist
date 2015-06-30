@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// </summary>
         /// <param name="metaModel">HT/FT MetaModel value.</param>
         /// <returns>A list of HT/FT.</returns>
-        public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
+        public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel16";
             var uspParams = new
@@ -42,14 +42,18 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 TotalRows = metaModel.TotalRows,
                 UserId = metaModel.UserId
             };
-
+            IList<HalfTimeFullTime> data;
             using (var db = new ObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    return SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    reader.NextResult();
+                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                 }
             }
+
+            return data;
         }
 
         #region Utility
@@ -98,6 +102,37 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             return dataList;
+        }
+
+        private static HalfTimeFullTime ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
+        {
+            if (reader.Read())
+            {
+                var totalHh = DataHelper.GetCurrencyColumnName("totalHH", isConvert, baseCurrency);
+                var totalHd = DataHelper.GetCurrencyColumnName("totalHD", isConvert, baseCurrency);
+                var totalHa = DataHelper.GetCurrencyColumnName("totalHA", isConvert, baseCurrency);
+                var totalDh = DataHelper.GetCurrencyColumnName("totalDH", isConvert, baseCurrency);
+                var totalDd = DataHelper.GetCurrencyColumnName("totalDD", isConvert, baseCurrency);
+                var totalDa = DataHelper.GetCurrencyColumnName("totalDA", isConvert, baseCurrency);
+                var totalAh = DataHelper.GetCurrencyColumnName("totalAH", isConvert, baseCurrency);
+                var totalAd = DataHelper.GetCurrencyColumnName("totalAD", isConvert, baseCurrency);
+                var totalAa = DataHelper.GetCurrencyColumnName("totalAA", isConvert, baseCurrency);
+
+                return new HalfTimeFullTime
+                {
+                    HomeHome = reader.ToDecimal(totalHh),
+                    HomeDraw = reader.ToDecimal(totalHd),
+                    HomeAway = reader.ToDecimal(totalHa),
+                    DrawHome = reader.ToDecimal(totalDh),
+                    DrawDraw = reader.ToDecimal(totalDd),
+                    DrawAway = reader.ToDecimal(totalDa),
+                    AwayHome = reader.ToDecimal(totalAh),
+                    AwayDraw = reader.ToDecimal(totalAd),
+                    AwayAway = reader.ToDecimal(totalAa),
+                };
+            }
+
+            return new HalfTimeFullTime();
         }
 
         #endregion Utility

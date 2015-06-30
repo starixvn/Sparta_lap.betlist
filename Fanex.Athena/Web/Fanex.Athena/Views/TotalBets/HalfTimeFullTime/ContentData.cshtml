@@ -73,3 +73,23 @@
 </div>
 <div class="line">
 </div>
+@*Footer*@
+<div class="footer-content" style="width: 1037px !important">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%">
+                </td>
+                <td style="width: 20%">
+                </td>
+                <td style="width: 20%" class="score-value">
+                    @ViewResources.Total
+                </td>                
+                <td style="width: 54%" class="score-value">
+                    @RazorHelper.DecFormat(Model.TotalRunningStake, true, false)
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 

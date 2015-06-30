@@ -32,10 +32,9 @@ namespace Fanex.Athena.Service.Implement.TotalBets
 
         #endregion Constructor
 
-        public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel)
+        public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData)
         {
-            var dataList = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel);
-            return dataList;
+            return _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel, out totalData);
         }
     }
 }

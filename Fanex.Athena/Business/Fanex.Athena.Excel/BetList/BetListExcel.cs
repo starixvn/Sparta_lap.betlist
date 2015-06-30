@@ -19,8 +19,8 @@ namespace Fanex.Athena.Excel.BetList
     /// </summary>
     public class BetListExcel : BaseBetList
     {
-        public BetListExcel(ShowingOption showingOption, bool is12Bet, IList<int> hiddenListColumn)
-            : base(showingOption, is12Bet, hiddenListColumn)
+        public BetListExcel(ShowingOption showingOption, bool is12Bet, IList<int> hiddenListColumn, bool isShowSumStake = false)
+            : base(showingOption, is12Bet, hiddenListColumn, isShowSumStake)
         {
         }
     }

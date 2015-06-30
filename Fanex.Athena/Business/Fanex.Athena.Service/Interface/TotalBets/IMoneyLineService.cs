@@ -7,11 +7,13 @@
 namespace Fanex.Athena.Service.Interface.TotalBets
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
 
     public interface IMoneyLineService
     {
-        IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel);
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewd.")]
+        IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData);
     }
 }

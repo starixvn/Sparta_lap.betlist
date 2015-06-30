@@ -30,11 +30,15 @@ namespace Fanex.Athena.Excel.Base
     /// </summary>
     public abstract class BaseBetList : ExcelBase
     {
-        private readonly IList<int> _hiddenColumnIndexList;
+        private const int ColumnWinlossIndex = 7;
+
+        private readonly IList<int> _hiddenColumnIndexes;
         private readonly bool _is12Bet;
         private readonly ITicketHelper _ticketHelper;
 
         private ICellStyle _evenCellStyleLeftAligned;
+
+        private bool _isShowSumStake;
 
         // Default Fonts
         private IFont _negativeWinLossFont;
@@ -42,11 +46,12 @@ namespace Fanex.Athena.Excel.Base
         private ICellStyle _oddCellStyleLeftAligned;
         private IFont _winLossFont;
 
-        protected BaseBetList(ShowingOption showingOption, bool is12Bet, IList<int> hiddenColumnIndexList = null)
+        protected BaseBetList(ShowingOption showingOption, bool is12Bet, IList<int> hiddenColumnIndexes = null, bool isShowSumStake = false)
         {
             _is12Bet = is12Bet;
-            _hiddenColumnIndexList = hiddenColumnIndexList;
+            _hiddenColumnIndexes = hiddenColumnIndexes;
             _ticketHelper = new TicketHelper();
+            _isShowSumStake = isShowSumStake;
             ShowingOption = showingOption;
         }
 
@@ -136,8 +141,11 @@ namespace Fanex.Athena.Excel.Base
                     _ticketHelper.Index++;
                 }
 
-                // Show total row when column WL exist.
-                if (_hiddenColumnIndexList == null || !_hiddenColumnIndexList.Contains(7))
+                if (_isShowSumStake)
+                {                                        
+                    builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
+                }
+                else if (_hiddenColumnIndexes == null || !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
@@ -189,13 +197,13 @@ namespace Fanex.Athena.Excel.Base
         /// <param name="workbook">The work-book.</param>
         private void ProcessUi(IWorkbook workbook)
         {
-            if (_hiddenColumnIndexList != null)
+            if (_hiddenColumnIndexes != null)
             {
                 for (int i = 0; i < workbook.NumberOfSheets; i++)
                 {
                     ISheet sheet = workbook.GetSheetAt(i);
 
-                    HideColumn(sheet, _hiddenColumnIndexList.ToArray());
+                    HideColumn(sheet, _hiddenColumnIndexes.ToArray());
                 }
             }
         }
