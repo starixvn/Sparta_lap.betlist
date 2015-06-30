@@ -106,5 +106,11 @@ namespace Fanex.Athena.Excel.Entities
             get;
             set;
         }
+
+        public bool BTVisible
+        {
+            get;
+            set;
+        }
     }
 }

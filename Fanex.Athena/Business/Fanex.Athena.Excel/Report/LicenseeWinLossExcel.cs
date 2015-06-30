@@ -28,25 +28,25 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class LicenseeWinLossExcel : ReportBase
     {
-        private const int ColumnTurnoverTotal = 15;
-        private const int ColumnTotalTransaction = 16;
-        private const int ColumnCustomerWl = 17;
-        private const int ColumnCustomerComm = 18;
-        private const int ColumnCustomerTotal = 19;
-        private const int ColumnLicenseeWlSportsBook = 20;
-        private const int ColumnLicenseeWlTotal = 31;
-        private const int ColumnBetTradeCommission = 32;
-        private const int ColumnBaCommission = 33;
-        private const int ColumnRacingRevenue = 34;
-        private const int ColumnAmtDueToBetTrade = 35;
-        private const int ColumnAmtDueToBa = 36;
-        private const int ColumnAmtDueToRacing = 37;
-        private const int ColumnTemplateCount = 38;
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
         private const int ColumnTurnoverSportBook = 5;
+        private const int ColumnTurnoverTotal = 16;
+        private const int ColumnTotalTransaction = 17;
+        private const int ColumnCustomerWl = 18;
+        private const int ColumnCustomerComm = 19;
+        private const int ColumnCustomerTotal = 20;
+        private const int ColumnLicenseeWlSportsBook = 21;
+        private const int ColumnLicenseeWlTotal = 32;
+        private const int ColumnBetTradeCommission = 33;
+        private const int ColumnBaCommission = 34;
+        private const int ColumnRacingRevenue = 35;
+        private const int ColumnAmtDueToBetTrade = 36;
+        private const int ColumnAmtDueToBa = 37;
+        private const int ColumnAmtDueToRacing = 38;
+        private const int ColumnTemplateCount = 39;        
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
@@ -55,6 +55,9 @@ namespace Fanex.Athena.Excel.Report
 
         private const int TotalLicenseeWlProductColumn = 10;
         private const int TotalTurnoverProductColumn = 10;
+
+        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
 
         // This is drill down of report
         private readonly IList<LicenseeWinLoss> _licenseeWinLossList;
@@ -255,6 +258,11 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
 
+            if (!ShowingOption.BTVisible)
+            {
+                HideColumn(sheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+            }
+
             if (!ShowingOption.BAVisible)
             {
                 HideColumn(sheet, ColumnBaCommission, ColumnAmtDueToBa);
@@ -331,10 +339,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="data">Licensee win loss data.</param>
         protected void AssignCommonData(IRow row, LicenseeWinLoss data)
         {
-            //// Set data for turnover
+            // Set data for turnover
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status && _productOption[i].Code != Product.BT)
+                if (_productOption[i].Status && IgnoredTurnoverProducts.Contains(_productOption[i].Code) == false)
                 {
                     row.Cells[ColumnTurnoverSportBook + i].SetCellValue(data.TurnOver[_productOption[i].Code]);
                 }
@@ -350,7 +358,7 @@ namespace Fanex.Athena.Excel.Report
             // Set data for customerwinloss
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status && _productOption[i].Code != Product.RB && _productOption[i].Code != Product.BA)
+                if (_productOption[i].Status && IgnoredLicenseeWLProducts.Contains(_productOption[i].Code) == false)
                 {
                     row.Cells[ColumnLicenseeWlSportsBook + i].SetCellValue(data.LicenseeWL[_productOption[i].Code]);
                 }
@@ -439,12 +447,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUILicenseeWinLoss(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.RB && a.Code != Product.BA);
+            int countStatus = _productOption.Count(a => a.Status && IgnoredLicenseeWLProducts.Contains(a.Code) == false);
             int nextColumns = 0;
 
             foreach (var product in _productOption)
             {
-                if (product.Status == false || product.Code == Product.RB || product.Code == Product.BA)
+                if (product.Status == false || IgnoredLicenseeWLProducts.Contains(product.Code))
                 {
                     HideColumn(sheet, ColumnLicenseeWlSportsBook + nextColumns, ColumnLicenseeWlSportsBook + nextColumns);
                 }
@@ -478,12 +486,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUITurnover(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.BT);
+            int countStatus = _productOption.Count(a => a.Status && IgnoredTurnoverProducts.Contains(a.Code) == false);
             int nextColumns = 0;
 
             foreach (var product in _productOption)
             {
-                if (product.Status == false || product.Code == Product.BT)
+                if (product.Status == false || IgnoredTurnoverProducts.Contains(product.Code))
                 {
                     HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
                 }
