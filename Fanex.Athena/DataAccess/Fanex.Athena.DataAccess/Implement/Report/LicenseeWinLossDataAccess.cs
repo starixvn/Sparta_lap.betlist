@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
@@ -34,6 +34,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     /// </summary>
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
+        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.BA, Product.RB };
+        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
+
         public LicenseeWinLossDataAccess(BalanceUp balanceUp)
             : base(balanceUp)
         {
@@ -133,6 +136,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         #region Private
 
+        private static bool IsIgnoredLicenseeWLProduct(string productCode)
+        {
+            return IgnoredLicenseeWLProducts.Contains(productCode);
+        }
+
+        private static bool IsIgnoredTurnoverProduct(string productCode)
+        {
+            return IgnoredTurnoverProducts.Contains(productCode);
+        }
+
         /// <summary>
         /// Get data list.
         /// </summary>
@@ -221,15 +234,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 // Read Summary
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                    summaryTotal[currency].CustomerComm += reader.ToDecimal("playercomm" + currency);
-                    summaryTotal[currency].TotalTransaction += reader.ToInt("betcount");
-                    summaryTotal[currency].RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
-                    summaryTotal[currency].BACommission += reader.ToDecimal("commba" + currency);
-                    summaryTotal[currency].BetTradeCommission += reader.ToDecimal("BetTradeComm" + currency);
-                    summaryTotal[currency].AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
-                    summaryTotal[currency].AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
-                    summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
+                    var summaryItem = summaryTotal[currency];
+                    summaryItem.CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                    summaryItem.CustomerComm += reader.ToDecimal("playercomm" + currency);
+                    summaryItem.TotalTransaction += reader.ToInt("betcount");
+                    summaryItem.RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
+                    summaryItem.BACommission += reader.ToDecimal("commba" + currency);
+                    summaryItem.BetTradeCommission += reader.ToDecimal("BetTradeComm" + currency);
+                    summaryItem.AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
+                    summaryItem.AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
+                    summaryItem.AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
                     decimal temp;
                     var licenseeWlSummary = new Dictionary<string, decimal>();
                     var turnOverSummary = new Dictionary<string, decimal>();
@@ -238,26 +252,23 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         var licenseeWlColumnName = "LicenseeWL" + product.Code + currency;
                         var turnOverColumnName = "turnover" + product.Code + currency;
 
-                        if (reader.FieldExists(licenseeWlColumnName))
+                        if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.FieldExists(licenseeWlColumnName))
                         {
-                            if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
-                            {
-                                summaryTotal[currency].LicenseeWL.TryGetValue(product.Code, out temp);
-                                temp += reader.ToDecimal(licenseeWlColumnName);
-                                licenseeWlSummary.Add(product.Code, temp);
-                            }
+                            summaryItem.LicenseeWL.TryGetValue(product.Code, out temp);
+                            temp += reader.ToDecimal(licenseeWlColumnName);
+                            licenseeWlSummary.Add(product.Code, temp);
                         }
 
-                        if (reader.FieldExists(turnOverColumnName) && !product.Code.Equals(Product.BT))
+                        if (!IsIgnoredTurnoverProduct(product.Code) && reader.FieldExists(turnOverColumnName))
                         {
-                            summaryTotal[currency].TurnOver.TryGetValue(product.Code, out temp);
+                            summaryItem.TurnOver.TryGetValue(product.Code, out temp);
                             temp += reader.ToDecimal(turnOverColumnName);
                             turnOverSummary.Add(product.Code, temp);
                         }
                     }
 
-                    summaryTotal[currency].LicenseeWL = licenseeWlSummary;
-                    summaryTotal[currency].TurnOver = turnOverSummary;
+                    summaryItem.LicenseeWL = licenseeWlSummary;
+                    summaryItem.TurnOver = turnOverSummary;
                 }
 
                 index++;
