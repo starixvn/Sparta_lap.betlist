@@ -30,10 +30,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
 
         public bool IsShowSumStake { get; set; }
 
-        public HashSet<ProductOption> ProductOptions        {
-            get;
-            set;
-        }
+        public HashSet<ProductOption> ProductOptions { get; set; }
 
         public bool IsServerPaging { get; set; }
 
