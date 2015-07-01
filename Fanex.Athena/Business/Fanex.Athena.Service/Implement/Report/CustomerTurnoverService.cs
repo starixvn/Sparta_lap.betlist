@@ -46,9 +46,11 @@ namespace Fanex.Athena.Service.Implement.Report
             var datalist = metaModel.IsValid
                        ? _custTurnoverDataAccess.GetDataList(metaModel, languageCode, out total, out totalRows)
                        : new List<CustTurnover>();
-            if (datalist != null && datalist.Count > 0)
+
+            if (datalist.Count > 0)
             {
-                return RestructureData(datalist);
+                var rowIndex = (metaModel.PageIndex - 1) * metaModel.PageSize;
+                return RestructureData(datalist, rowIndex);
             }
 
             return datalist;
@@ -63,7 +65,7 @@ namespace Fanex.Athena.Service.Implement.Report
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<CustTurnover> RestructureData(IList<CustTurnover> datalist)
+        private static IList<CustTurnover> RestructureData(IList<CustTurnover> datalist, int startRowIndex)
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
                 .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();
@@ -71,7 +73,7 @@ namespace Fanex.Athena.Service.Implement.Report
 
             var newDataList = new List<CustTurnover>();
 
-            var index = 0;
+            var rowIndex = startRowIndex;
             var groupData = sortedData.GroupBy(i => new { i.ReportBy, i.UserName, i.Currency });
 
             foreach (var item in groupData)
@@ -92,7 +94,7 @@ namespace Fanex.Athena.Service.Implement.Report
                         var temp = col;
                         if (rowSpanFlag && numOfItem > 1)
                         {
-                            index++;
+                            rowIndex++;
                             temp.RowSpan = numOfItem;
                             rowSpanFlag = false;
                         }
@@ -102,11 +104,11 @@ namespace Fanex.Athena.Service.Implement.Report
                         }
                         else
                         {
-                            index++;
+                            rowIndex++;
                             temp.RowSpan = 0;
                         }
 
-                        temp.Index = index;
+                        temp.Index = rowIndex;
                         /*processing rowspan2*/
                         if (rowSpan2Flag && numOfSportItem > 1)
                         {
