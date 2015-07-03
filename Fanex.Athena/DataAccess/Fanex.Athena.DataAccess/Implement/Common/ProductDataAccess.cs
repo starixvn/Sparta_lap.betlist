@@ -134,7 +134,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                   return ViewResources.PlaytechCasino;
                 case Product.AGC:
                   return ViewResources.AGCasino;
-                case Product.MC:
+                case Product.VG:
                   return ViewResources.Macau;
             }
 

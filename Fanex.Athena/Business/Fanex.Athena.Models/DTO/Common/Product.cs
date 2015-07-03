@@ -40,7 +40,7 @@ namespace Fanex.Athena.Models.DTO.Common
 
         public const string GD = "GD";
 
-        public const string MC = "MC";
+        public const string VG = "VG";
       
         #endregion Field
 

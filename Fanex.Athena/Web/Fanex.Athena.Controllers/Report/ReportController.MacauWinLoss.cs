@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var product = productList.Where(p => p.ProductCode == Product.MC).SingleOrDefault();
+            var product = productList.Where(p => p.ProductCode == Product.VG).SingleOrDefault();
 
             if (product == null)
             {

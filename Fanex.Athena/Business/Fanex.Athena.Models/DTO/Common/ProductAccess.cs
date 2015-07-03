@@ -116,7 +116,7 @@ namespace Fanex.Athena.Models.DTO.Common
         {
             get
             {
-                return ProductList.Any(p => p.ProductCode == Product.MC);
+                return ProductList.Any(p => p.ProductCode == Product.VG);
             }
         }
     }
