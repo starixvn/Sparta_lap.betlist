@@ -12,7 +12,7 @@ var Turnover = (function ($) {
             }
 
             setTimeout(function () {
-                var height = $("#ReportGrid").height() + 20;
+                var height = $("#ReportGrid").height() + 22;
                 var $bdiv = $(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;

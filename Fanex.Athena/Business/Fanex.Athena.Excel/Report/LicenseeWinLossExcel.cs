@@ -53,8 +53,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 10;
-        private const int TotalTurnoverProductColumn = 10;
+        private const int TotalLicenseeWlProductColumn = 12;
+        private const int TotalTurnoverProductColumn = 12;
 
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
@@ -125,6 +125,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
+            row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
