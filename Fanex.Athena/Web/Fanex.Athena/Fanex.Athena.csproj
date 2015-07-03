@@ -3272,13 +3272,13 @@
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\GoldDeluxe.cshtml" />
-    <Content Include="Views\Customer\BetSetting\VegasGames.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Macau.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
-    <Content Include="Views\Report\VegasGamesWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\VegasGamesWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\VegasGamesWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\MacauWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\MacauWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\MacauWinLoss\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

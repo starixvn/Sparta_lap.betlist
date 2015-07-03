@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.VegasGamesWinLoss.cs" company="Microsoft">
+// <copyright file="ReportController.MacauWinLoss.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -25,7 +25,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>Action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult VegasGamesWinloss()
+        public ActionResult MacauWinloss()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var product = productList.Where(p => p.ProductCode == Product.VG).SingleOrDefault();
+            var product = productList.Where(p => p.ProductCode == Product.MC).SingleOrDefault();
 
             if (product == null)
             {
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList
             };
 
-            return View("~/Views/Report/VegasGamesWinLoss/Main.cshtml", model);
+            return View("~/Views/Report/MacauWinLoss/Main.cshtml", model);
         }
     }
 }

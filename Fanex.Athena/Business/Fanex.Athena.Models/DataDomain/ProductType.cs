@@ -59,8 +59,8 @@ namespace Fanex.Athena.Models.DataDomain
         GoldDeluxe = 9,
 
         /// <summary>
-        /// Vegas Games product.
+        /// Macau product.
         /// </summary>
-        VegasGames = 10
+        Macau = 10
     }
 }

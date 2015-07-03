@@ -28,6 +28,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// Get money line data list.
         /// </summary>
         /// <param name="metaModel">Money line MetaModel value.</param>
+        /// <param name="totalData">Money line value.</param>
         /// <returns>A list of money line.</returns>
         public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData)
         {
@@ -111,6 +112,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Set data to object.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="isConvert">Is Convert value.</param>
+        /// <param name="baseCurrency">Base currency value.</param>
+        /// <returns>A Money line.</returns>
         private static MoneyLine ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())

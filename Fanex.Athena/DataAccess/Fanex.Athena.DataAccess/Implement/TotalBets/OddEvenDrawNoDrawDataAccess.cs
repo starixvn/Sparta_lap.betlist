@@ -25,9 +25,10 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     public class OddEvenDrawNoDrawDataAccess : IOddEvenDrawNoDrawDataAccess
     {
         /// <summary>
-        /// Get Odd/Even/1X2/DrawNoDraw data list.
+        /// GetOddEventDrawNoDrawDataList data.
         /// </summary>
-        /// <param name="metaModel">Odd/Even/1X2/DrawNoDraw MetaModel value.</param>
+        /// <param name="metaModel">Odd Even 1X2 DrawNoDraw MetaModel value.</param>
+        /// <param name="totalData">OddEvenDrawNoDraw value.</param>
         /// <returns>A list of Odd/Even/1X2/DrawNoDraw.</returns>
         public IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
         {
@@ -148,6 +149,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Get OddEvenDrawNoDraw Score.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="isConvert">Is Convert value.</param>
+        /// <param name="baseCurrency">Base currency value.</param>
+        /// <returns>Odd Even Draw No Draw score.</returns>
         private static OddEvenDrawNoDraw ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())

@@ -204,6 +204,11 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
+        /// <summary>
+        /// Assign Common Data.
+        /// </summary>
+        /// <param name="row">Row of sheet.</param>
+        /// <param name="item">RNG Casino result.</param>
         private static void AssignCommonData(IRow row, RNGCasinoResult item)
         {
             row.Cells[ColumnIndex].SetCellValue(item.Index);

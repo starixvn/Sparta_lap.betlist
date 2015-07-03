@@ -25,10 +25,11 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     public class FirstGoalLastGoalDataAccess : IFirstGoalLastGoalDataAccess
     {
         /// <summary>
-        /// Get FG/LG data list.
+        /// Get first goal last goal data list.
         /// </summary>
-        /// <param name="metaModel">FG/LG MetaModel value.</param>
-        /// <returns>A list of FG/LG.</returns>
+        /// <param name="metaModel">FirstGoalLastGoal MetaModel value.</param>
+        /// <param name="totalData">FirstGoalLastGoal value.</param>
+        /// <returns>A list of First goal/last goal.</returns>
         public IList<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel, out FirstGoalLastGoal totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel14";
@@ -109,6 +110,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Read Total Data.
+        /// </summary>
+        /// <param name="reader">Data Reader.</param>
+        /// <param name="isConvert">Boolean isConvert.</param>
+        /// <param name="baseCurrency">Base Currency.</param>
+        /// <returns>First Goal Last Goal.</returns>
         private static FirstGoalLastGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {        
             if (reader.Read())
@@ -127,7 +135,8 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                 return new FirstGoalLastGoal
                 {
                     HomeFirstGoal = SumColumns(reader, homeFirstGoalColumn, homeLastGoalColumn, awayFirstGoalColumn, awayLastGoalColumn, nonGoalColumn),
-                    HomeFirstHalfFirstGoal = SumColumns(reader, homeFirstHalfFirstGoalColumn, homeFirstHalfLastGoalColumn, awayFirstHalfFirstGoalColumn, awayFirstHalfLastGoalColumn, firstHalfNonGoalColumn)
+                    HomeFirstHalfFirstGoal = SumColumns(
+                                                reader, homeFirstHalfFirstGoalColumn, homeFirstHalfLastGoalColumn, awayFirstHalfFirstGoalColumn, awayFirstHalfLastGoalColumn, firstHalfNonGoalColumn)
                 };
             }
 

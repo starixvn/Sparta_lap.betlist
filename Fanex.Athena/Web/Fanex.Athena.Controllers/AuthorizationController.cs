@@ -166,9 +166,9 @@ namespace Fanex.Athena.Controllers
         }
 
         /// <summary>
-        /// Check current user login and clear current authentication if another session using this userid to login.
+        /// Check current user login and clear current authentication if another session using this user id to login.
         /// </summary>
-        /// <returns>The JSON data with errorcode and error message.</returns>
+        /// <returns>The JSON data with error code and error message.</returns>
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]

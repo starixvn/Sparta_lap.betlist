@@ -29,6 +29,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// Get number game data list.
         /// </summary>
         /// <param name="metaModel">Number game MetaModel value.</param>
+        /// <param name="totalData">Number game value.</param>
         /// <returns>A list of number game.</returns>
         public IList<NumberGame> GetNumBerGameDataList(NumberGameMetaModel metaModel, out NumberGame totalData)
         {
@@ -115,23 +116,6 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 
             while (reader.Read())
             {
-                var overFirstBall = reader.ToDecimal(overFirstBallColumn);
-                var underFirstBall = reader.ToDecimal(underFirstBallColumn);
-                var oddFirstBall = reader.ToDecimal(oddFirstBallColumn);
-                var evenFirstBall = reader.ToDecimal(evenFirstBallColumn);
-                var overLastBall = reader.ToDecimal(overLastBallColumn);
-                var underLastBall = reader.ToDecimal(underLastBallColumn);
-                var oddLastBall = reader.ToDecimal(oddLastBallColumn);
-                var evenLastBall = reader.ToDecimal(evenLastBallColumn);
-                var oddFullTime = reader.ToDecimal(oddFullTimeColumn);
-                var evenFullTime = reader.ToDecimal(evenFullTimeColumn);
-                var overNextBall = reader.ToDecimal(overNextBallColumn);
-                var underNextBall = reader.ToDecimal(underNextBallColumn);
-                var oddNextBall = reader.ToDecimal(oddNextBallColumn);
-                var evenNextBall = reader.ToDecimal(evenNextBallColumn);
-                var highColumn = reader.ToDecimal(highColumnColumn);
-                var lowColumn = reader.ToDecimal(lowColumnColumn);
-
                 var item = new NumberGame
                 {
                     LeagueId = reader.ToInt("leagueid"),
@@ -140,23 +124,23 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
                     Warrior2ND = reader.ToDecimal(warrior2NdColumn),
                     Warrior3RD = reader.ToDecimal(warrior3RdColumn),
 
-                    OverUnderFirstBall = overFirstBall - underFirstBall,
-                    OddEvenFirstBall = oddFirstBall - evenFirstBall,
-                    OverUnderLastBall = overLastBall - underLastBall,
-                    OddEvenLastBall = oddLastBall - evenLastBall,
-                    OddEvenFullTime = oddFullTime - evenFullTime,
-                    OverUnderNext = overNextBall - underNextBall,
-                    OddEvenNext = oddNextBall - evenNextBall,
-                    HighLow = highColumn - lowColumn,
+                    OverUnderFirstBall = reader.ToDecimal(overFirstBallColumn) - reader.ToDecimal(underFirstBallColumn),
+                    OddEvenFirstBall = reader.ToDecimal(oddFirstBallColumn) - reader.ToDecimal(evenFirstBallColumn),
+                    OverUnderLastBall = reader.ToDecimal(overLastBallColumn) - reader.ToDecimal(underLastBallColumn),
+                    OddEvenLastBall = reader.ToDecimal(oddLastBallColumn) - reader.ToDecimal(evenLastBallColumn),
+                    OddEvenFullTime = reader.ToDecimal(oddFullTimeColumn) - reader.ToDecimal(evenFullTimeColumn),
+                    OverUnderNext = reader.ToDecimal(overNextBallColumn) - reader.ToDecimal(underNextBallColumn),
+                    OddEvenNext = reader.ToDecimal(oddNextBallColumn) - reader.ToDecimal(evenNextBallColumn),
+                    HighLow = reader.ToDecimal(highColumnColumn) - reader.ToDecimal(lowColumnColumn),
 
-                    RunningStakeOverUnderFirstBall = overFirstBall + underFirstBall,
-                    RunningStakeOddEvenFirstBall = oddFirstBall + evenFirstBall,
-                    RunningStakeOverUnderLastBall = overLastBall + underLastBall,
-                    RunningStakeOddEvenLastBall = oddLastBall + evenLastBall,
-                    RunningStakeOddEvenFullTime = oddFullTime + evenFullTime,
-                    RunningStakeOverUnderNext = overNextBall + underNextBall,
-                    RunningStakeOddEvenNext = oddNextBall + evenNextBall,
-                    RunningStakeHighLow = highColumn + lowColumn,
+                    RunningStakeOverUnderFirstBall = reader.ToDecimal(overFirstBallColumn) + reader.ToDecimal(underFirstBallColumn),
+                    RunningStakeOddEvenFirstBall = reader.ToDecimal(oddFirstBallColumn) + reader.ToDecimal(evenFirstBallColumn),
+                    RunningStakeOverUnderLastBall = reader.ToDecimal(overLastBallColumn) + reader.ToDecimal(underLastBallColumn),
+                    RunningStakeOddEvenLastBall = reader.ToDecimal(oddLastBallColumn) + reader.ToDecimal(evenLastBallColumn),
+                    RunningStakeOddEvenFullTime = reader.ToDecimal(oddFullTimeColumn) + reader.ToDecimal(evenFullTimeColumn),
+                    RunningStakeOverUnderNext = reader.ToDecimal(overNextBallColumn) + reader.ToDecimal(underNextBallColumn),
+                    RunningStakeOddEvenNext = reader.ToDecimal(oddNextBallColumn) + reader.ToDecimal(evenNextBallColumn),
+                    RunningStakeHighLow = reader.ToDecimal(highColumnColumn) + reader.ToDecimal(lowColumnColumn),
 
                     NextComboOo = reader.ToDecimal(nextComboOverOddColumn),
                     NextComboOe = reader.ToDecimal(nextComboOverEvenColumn),
@@ -184,6 +168,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Set data to object.
+        /// </summary>
+        /// <param name="reader">Data reader value.</param>
+        /// <param name="isConvert">Is Convert value.</param>
+        /// <param name="baseCurrency">Base currency value.</param>
+        /// <returns>A Number game.</returns>
         private NumberGame ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (!reader.Read())
@@ -231,45 +222,28 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             var numberWheelLiveColumn = DataHelper.GetCurrencyColumnName("NumberGroup_live", isConvert, baseCurrency);
             var numberWheelPreColumn = DataHelper.GetCurrencyColumnName("NumberGroup_pre", isConvert, baseCurrency);
 
-            var overFirstBall = reader.ToDecimal(overFirstBallColumn);
-            var underFirstBall = reader.ToDecimal(underFirstBallColumn);
-            var oddFirstBall = reader.ToDecimal(oddFirstBallColumn);
-            var evenFirstBall = reader.ToDecimal(evenFirstBallColumn);
-            var overLastBall = reader.ToDecimal(overLastBallColumn);
-            var underLastBall = reader.ToDecimal(underLastBallColumn);
-            var oddLastBall = reader.ToDecimal(oddLastBallColumn);
-            var evenLastBall = reader.ToDecimal(evenLastBallColumn);
-            var oddFullTime = reader.ToDecimal(oddFullTimeColumn);
-            var evenFullTime = reader.ToDecimal(evenFullTimeColumn);
-            var overNextBall = reader.ToDecimal(overNextBallColumn);
-            var underNextBall = reader.ToDecimal(underNextBallColumn);
-            var oddNextBall = reader.ToDecimal(oddNextBallColumn);
-            var evenNextBall = reader.ToDecimal(evenNextBallColumn);
-            var highColumn = reader.ToDecimal(highColumnColumn);
-            var lowColumn = reader.ToDecimal(lowColumnColumn);
-
             return new NumberGame
             {            
                 Warrior2ND = reader.ToDecimal(warrior2NdColumn),
                 Warrior3RD = reader.ToDecimal(warrior3RdColumn),
 
-                OverUnderFirstBall = overFirstBall - underFirstBall,
-                OddEvenFirstBall = oddFirstBall - evenFirstBall,
-                OverUnderLastBall = overLastBall - underLastBall,
-                OddEvenLastBall = oddLastBall - evenLastBall,
-                OddEvenFullTime = oddFullTime - evenFullTime,
-                OverUnderNext = overNextBall - underNextBall,
-                OddEvenNext = oddNextBall - evenNextBall,
-                HighLow = highColumn - lowColumn,
+                OverUnderFirstBall = reader.ToDecimal(overFirstBallColumn) - reader.ToDecimal(underFirstBallColumn),
+                OddEvenFirstBall = reader.ToDecimal(oddFirstBallColumn) - reader.ToDecimal(evenFirstBallColumn),
+                OverUnderLastBall = reader.ToDecimal(overLastBallColumn) - reader.ToDecimal(underLastBallColumn),
+                OddEvenLastBall = reader.ToDecimal(oddLastBallColumn) - reader.ToDecimal(evenLastBallColumn),
+                OddEvenFullTime = reader.ToDecimal(oddFullTimeColumn) - reader.ToDecimal(evenFullTimeColumn),
+                OverUnderNext = reader.ToDecimal(overNextBallColumn) - reader.ToDecimal(underNextBallColumn),
+                OddEvenNext = reader.ToDecimal(oddNextBallColumn) - reader.ToDecimal(evenNextBallColumn),
+                HighLow = reader.ToDecimal(highColumnColumn) - reader.ToDecimal(lowColumnColumn),
 
-                RunningStakeOverUnderFirstBall = overFirstBall + underFirstBall,
-                RunningStakeOddEvenFirstBall = oddFirstBall + evenFirstBall,
-                RunningStakeOverUnderLastBall = overLastBall + underLastBall,
-                RunningStakeOddEvenLastBall = oddLastBall + evenLastBall,
-                RunningStakeOddEvenFullTime = oddFullTime + evenFullTime,
-                RunningStakeOverUnderNext = overNextBall + underNextBall,
-                RunningStakeOddEvenNext = oddNextBall + evenNextBall,
-                RunningStakeHighLow = highColumn + lowColumn,
+                RunningStakeOverUnderFirstBall = reader.ToDecimal(overFirstBallColumn) + reader.ToDecimal(underFirstBallColumn),
+                RunningStakeOddEvenFirstBall = reader.ToDecimal(oddFirstBallColumn) + reader.ToDecimal(evenFirstBallColumn),
+                RunningStakeOverUnderLastBall = reader.ToDecimal(overLastBallColumn) + reader.ToDecimal(underLastBallColumn),
+                RunningStakeOddEvenLastBall = reader.ToDecimal(oddLastBallColumn) + reader.ToDecimal(evenLastBallColumn),
+                RunningStakeOddEvenFullTime = reader.ToDecimal(oddFullTimeColumn) + reader.ToDecimal(evenFullTimeColumn),
+                RunningStakeOverUnderNext = reader.ToDecimal(overNextBallColumn) + reader.ToDecimal(underNextBallColumn),
+                RunningStakeOddEvenNext = reader.ToDecimal(oddNextBallColumn) + reader.ToDecimal(evenNextBallColumn),
+                RunningStakeHighLow = reader.ToDecimal(highColumnColumn) + reader.ToDecimal(lowColumnColumn),
 
                 NextComboOo = reader.ToDecimal(nextComboOverOddColumn),
                 NextComboOe = reader.ToDecimal(nextComboOverEvenColumn),

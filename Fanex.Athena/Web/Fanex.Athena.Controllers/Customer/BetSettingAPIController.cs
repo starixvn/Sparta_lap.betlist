@@ -173,7 +173,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         /// <summary>
-        /// Update VegasGames status.
+        /// Update Macau status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <param name="nickName">Nick name.</param>
@@ -182,10 +182,10 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
-        public JsonResult UpdateVegasGamesStatus(int custId, string nickName, int status)
+        public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateVegasGamesStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+            var result = _betSettingService.UpdateMacauStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
 
             if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
             {

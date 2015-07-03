@@ -1807,6 +1807,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Macau.
+        /// </summary>
+        public static string DisableMacau {
+            get {
+                return ResourceManager.GetString("DisableMacau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable RNG Casino.
         /// </summary>
         public static string DisableRNGCasino {
@@ -2001,6 +2010,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EnableLiveCasino {
             get {
                 return ResourceManager.GetString("EnableLiveCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Macau.
+        /// </summary>
+        public static string EnableMacau {
+            get {
+                return ResourceManager.GetString("EnableMacau", resourceCulture);
             }
         }
         
@@ -3936,6 +3954,33 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string LrfNotification {
             get {
                 return ResourceManager.GetString("LrfNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macau.
+        /// </summary>
+        public static string Macau {
+            get {
+                return ResourceManager.GetString("Macau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macau is not offered for this currency..
+        /// </summary>
+        public static string MacauNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("MacauNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macau Win Loss.
+        /// </summary>
+        public static string MacauWinLoss {
+            get {
+                return ResourceManager.GetString("MacauWinLoss", resourceCulture);
             }
         }
         

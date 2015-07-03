@@ -65,7 +65,8 @@ namespace Fanex.Athena.Controllers.TotalBets
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
                     CurrencyList = currencyList,
-                    TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome + totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway
+                    TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome + 
+                                        totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway
                 };
                 return View("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml", model);
             }

@@ -28,6 +28,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// Get Handicap Over/Under data list.
         /// </summary>
         /// <param name="metaModel">Handicap Over/Under MetaModel value.</param>
+        /// <param name="totalData">HandicapOverUnder value.</param>
         /// <returns>A list of Handicap Over/Under.</returns>
         public IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData)
         {
@@ -125,6 +126,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Read total data.
+        /// </summary>
+        /// <param name="reader">IDataReader class.</param>
+        /// <param name="isConvert">Boolean isConvert.</param>
+        /// <param name="baseCurrency">Base currency.</param>
+        /// <returns>HandicapOverUnder data.</returns>
         private static HandicapOverUnder ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             HandicapOverUnder totalData = null;

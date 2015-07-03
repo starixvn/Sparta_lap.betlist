@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
 
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        VegasGamesBetSetting GetVegasGamesSetting(int custId, string siteName);
+        MacauBetSetting GetMacauSetting(int custId, string siteName);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeSetting(int custId, string siteName);
 
@@ -77,6 +77,6 @@ namespace Fanex.Athena.Service.Interface.Customer
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
 
-        IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled);
     }
 }
