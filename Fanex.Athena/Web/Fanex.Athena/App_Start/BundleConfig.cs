@@ -23,7 +23,7 @@
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
-            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "0";
+            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "1";
         }
 
         /// <summary>
