@@ -89,6 +89,8 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;            
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+
+            //// Use product code of Vegas Games to Macau
             var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
             var exportedFileName = productCodeExport + string.Format(
                 "WinLoss_{0:ddMMMyyyy}_{1}.xls", 
