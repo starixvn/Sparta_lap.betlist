@@ -7,7 +7,6 @@
                     .Where(p => p.ProductCode != Product.RB && p.ProductCode != Product.BA)
                     .ToList();
 
-    var productCodeText = string.Join(", ", productList.Select(p => p.ProductCode));
     var productNameText = productList.Count <= 1
         ? ViewResources.Sportsbook
         : string.Join(", ", productList.Select(p => p.ProductName));
@@ -18,8 +17,8 @@
 </div>
 <div style="font-style: italic; width:@(ViewBag.ContainerWidth)@("px")" id="balance-note">
     <ul>
-       @* <li>@ViewResources.LicenseeW_L (@productCodeText):@String.Format(ViewResources.Licenseegrossrevenuefor, productNameText))
-        </li>*@
+        <li>@ViewResources.LicenseeW_L:&nbsp;@String.Format(ViewResources.Licenseegrossrevenuefor, productNameText))
+        </li>
         <!--BANotes-->
         @if (ViewBag.BANotes)
         {
