@@ -23,7 +23,7 @@
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
-            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "1";
+            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "0";
         }
 
         /// <summary>
@@ -231,7 +231,11 @@
                         "~/Scripts/Report/report.js",
                         "~/Scripts/global/prototype.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Plugin/FanexGrid/Fanex.Grid.js",
+                        "~/Scripts/Plugin/FanexGrid/Fanex.Pagination.js",
+                        "~/Scripts/Plugin/FanexGrid/moment.min.js",
+                        "~/Scripts/Plugin/FanexGrid/numeral.min.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -552,7 +556,9 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/Plugin/FanexGrid/Fanex.Grid.css",
+                "~/Content/Plugin/FanexGrid/Fanex.Pagination.css");
         }
 
         /// <summary>
