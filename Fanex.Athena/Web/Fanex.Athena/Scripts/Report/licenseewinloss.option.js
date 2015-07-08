@@ -454,6 +454,7 @@ var LicenseeWinLossOption = (function () {
         systemIdColumn.hidden = level === 0;
 
         // Column hidden by product
+        var allowedSb = isProductChecked(productOptions, "SB");
         var allowedBa = isProductChecked(productOptions, "BA");
         var allowedRacing = isProductChecked(productOptions, "RB");
         var allowedBetTrade = isProductChecked(productOptions, "BT");
@@ -463,7 +464,7 @@ var LicenseeWinLossOption = (function () {
         racingRevenueColumn.hidden = !allowedRacing;
         amtDueToRacingColumn.hidden = !allowedRacing;
         betTradeCommissionColumn.hidden = !allowedBetTrade;
-        amtDueToBetTradeColumn.hidden = allowedBa === false || !allowedBetTrade || !isProductChecked(productOptions, "SB");
+        amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
 
         // Row span setting
         // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
