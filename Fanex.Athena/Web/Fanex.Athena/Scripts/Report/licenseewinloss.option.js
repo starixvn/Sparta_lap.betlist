@@ -355,7 +355,7 @@ var LicenseeWinLossOption = (function () {
             }
         }
 
-        return false;
+        return null;
     }
 
     function isIgnoredTurnoverProduct(productCode) {
@@ -463,7 +463,7 @@ var LicenseeWinLossOption = (function () {
         racingRevenueColumn.hidden = !allowedRacing;
         amtDueToRacingColumn.hidden = !allowedRacing;
         betTradeCommissionColumn.hidden = !allowedBetTrade;
-        amtDueToBetTradeColumn.hidden = !allowedBetTrade;
+        amtDueToBetTradeColumn.hidden = allowedBa === false || !allowedBetTrade || !isProductChecked(productOptions, "SB");
 
         // Row span setting
         // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;

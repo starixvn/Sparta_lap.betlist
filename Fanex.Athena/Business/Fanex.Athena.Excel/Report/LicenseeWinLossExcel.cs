@@ -65,6 +65,8 @@ namespace Fanex.Athena.Excel.Report
         private readonly LicenseeWinLossMetaModel _metaModel;
         private readonly IList<ProductOption> _productOption;
         private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
+        
+        private readonly bool _isAllowBa;
 
         public LicenseeWinLossExcel(
                 string templatePath,
@@ -79,6 +81,7 @@ namespace Fanex.Athena.Excel.Report
             _licenseeWinLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             _productOption = GetProductOption(metaModel.ProductOptions);
+            _isAllowBa = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
         }
 
         public int Level
@@ -258,10 +261,15 @@ namespace Fanex.Athena.Excel.Report
                 HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
-
+            
             if (!ShowingOption.BTVisible)
             {
-                HideColumn(sheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+                HideColumn(sheet, ColumnBetTradeCommission);
+            }
+
+            if (!ShowingOption.BTVisible || !ShowingOption.SBVisible || (_isAllowBa && !ShowingOption.BAVisible))
+            {
+                HideColumn(sheet, ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.BAVisible)

@@ -189,6 +189,7 @@ namespace Fanex.Athena.Api.Report
             var currencyList = userSession.CurrencyList;
             var showingOption = new ShowingOption
             {
+                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllowSB,
                 BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllowBT,
                 BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllowBA,
                 RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllowRB,
