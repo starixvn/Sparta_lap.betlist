@@ -72,7 +72,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var selectedMonthBaCommColumn = "SelectedMonthCommBA" + baseCurrency;
             var selectedMonthRbCommColumn = "SelectedMonthCommRB" + baseCurrency;
             var selectedMonthRacingRevenueColumn = "SelectedMonthWinLossRB" + baseCurrency;
-            var selectedMonthAmtDueToBetTradeColumn = "SelectedMonthBetTradeComm" + baseCurrency;
+            var selectedMonthAmtDueToBetTradeColumn = "SelectedMonthAmtDueToBT" + baseCurrency;
             var selectedMonthAmtDueToBaColumn = "SelectedMonthAmtDuetoBA" + baseCurrency;
             var selectedMonthAmtDueToRacingColumn = "SelectedMonthAmtDuetoRB" + baseCurrency;
             var selectedMonthCustomerCommColumn = "SelectedMonthPlayerComm" + baseCurrency;
