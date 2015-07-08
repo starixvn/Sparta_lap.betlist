@@ -85,6 +85,8 @@ var _language_en_US={
 				 	
                      AmtDueToBetTrade:"Amt Due To Bet Trade",
 				 	
+                     AmtDueToBetTradeBalanceNote:"Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.",
+				 	
                      AmtDueToRacing:"Amt Due To Racing",
 				 	
                      AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
@@ -160,6 +162,10 @@ var _language_en_US={
                      BettingLimit:"Betting Limit",
 				 	
                      BetTrade:"Bet Trade",
+				 	
+                     BetTradeComissionBalanceNote:"BetTrade Commission: Licensee commission income for BetTrade tickets.",
+				 	
+                     BetTradeCommission:"Bet Trade Commission",
 				 	
                      BetTradeNotOfferCurrency:"BetTrade is not offered for this currency.",
 				 	
