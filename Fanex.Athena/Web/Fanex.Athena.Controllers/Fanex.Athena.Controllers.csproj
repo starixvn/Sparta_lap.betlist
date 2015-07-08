@@ -175,6 +175,7 @@
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
+    <Compile Include="Report\ReportController.AgCasinoBalance.cs" />
     <Compile Include="Report\UserGuideController.cs" />
     <Compile Include="Report\ReportController.AgCasinoWinLoss.cs" />
     <Compile Include="Report\ReportController.PlaytechCasino.cs" />

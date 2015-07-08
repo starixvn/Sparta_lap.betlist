@@ -2516,4 +2516,16 @@
   <data name="TotalActiveCustomer" xml:space="preserve">
     <value>总活跃会员人数</value>
   </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>AG Casino Balance</value>
+    <comment>#26990</comment>
+  </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>Transfer In</value>
+    <comment>#26990</comment>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>Transfer Out</value>
+    <comment>#26990</comment>
+  </data>
 </root>

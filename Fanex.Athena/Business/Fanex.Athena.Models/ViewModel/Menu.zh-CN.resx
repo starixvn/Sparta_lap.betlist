@@ -345,6 +345,10 @@
     <value>活跃会员人数摘要</value>
     <comment>Active Customer Summary</comment>
   </data>
+  <data name="Menu_63" xml:space="preserve">
+    <value>AG Casino Balance</value>
+    <comment>#26990</comment>
+  </data>
   <data name="Menu_7" xml:space="preserve">
     <value>让球/大小/滚球</value>
     <comment>Handicap/Over Under/Live</comment>

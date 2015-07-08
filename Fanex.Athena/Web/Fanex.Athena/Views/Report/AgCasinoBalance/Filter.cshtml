@@ -1,0 +1,69 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DataDomain
+@model Fanex.Athena.Models.ViewModel.Report.AgCasinoBalanceViewModel
+<div class="grid_26 content-filter new-line">
+    <!--grid_26-->
+    <form id="AgCasinoBalanceForm" name="AgCasinoBalanceForm" method="post" action="">
+    <div class="grid_3 filter-label">
+        <label>@ViewResources.ViewDataInMonth</label>
+    </div>
+    <div class="grid_8 filter-input month-picker">
+        <div id="DateControl">
+        </div>
+        <div id="MonthPickerFromDay">
+        </div>
+        <div id="MonthPickerToDay">
+        </div>
+    </div>
+    <div>
+        <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
+        <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
+        <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
+        <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
+        <input type="hidden" id="MinDate" value="@(new DateTime(2014, 10, 16).ToString("yyyy/M/d"))" />
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.Currency
+        </label>
+    </div>
+    <div class="grid_4 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+    </div>
+    <div class="grid_3 filter-label">
+        <label for="IsExcludedTestData">
+            @ViewResources.ExcludeTestData
+        </label>
+    </div>
+    <div class="grid_5 filter-input option-list">
+        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
+    </div>
+    <div class="grid_2 note-group">
+        @*<div>
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+            </div>
+        </div>*@
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input" id="control-container">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    <input type="hidden" id="DrillDownCurrencyId" name="DrillDownCurrencyId" value="@Model.Param.DrillDownCurrencyId" />
+    <input type="hidden" id="DrillDownCustomerId" name="DrillDownCustomerId" value="@Model.Param.DrillDownCustomerId" />
+    <input type="hidden" id="DrillDownFromDate" name="DrillDownFromDate" value="@Model.Param.DrillDownFromDate" />
+    <input type="hidden" id="DrillDownToDate" name="DrillDownToDate" value="@Model.Param.DrillDownToDate" />
+    <input type="hidden" id="DrillDownLevel" name="DrillDownLevel" value="@Model.Param.DrillDownLevel" />
+    <input type="hidden" id="PageIndex" name="PageIndex" value="@Model.Param.PageIndex" />
+    <input type="hidden" id="PageSize" name="PageSize" value="@Model.Param.PageSize" />
+    </form>
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
+    <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+</div>

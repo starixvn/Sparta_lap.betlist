@@ -56,12 +56,15 @@ namespace Fanex.Athena.Controllers
         /// <returns>Redirect to sign in page or the home page.</returns>
         private ActionResult ReAuthorize(string defaultView)
         {
-            var user = SessionService.UserSession;
-            if (user == null || user.UserId <= 0
-                || string.IsNullOrEmpty(user.UserName) || SessionService.LicenseeSession == null)
+            if (!HttpContext.Response.IsRequestBeingRedirected)
             {
-                Session.Clear();
-                return RedirectToAction("LocationRestriction", "Utility");
+                var user = SessionService.UserSession;
+                if (user == null || user.UserId <= 0
+                    || string.IsNullOrEmpty(user.UserName) || SessionService.LicenseeSession == null)
+                {
+                    Session.Clear();
+                    return RedirectToAction("LocationRestriction", "Utility");
+                }
             }
 
             return View(defaultView);

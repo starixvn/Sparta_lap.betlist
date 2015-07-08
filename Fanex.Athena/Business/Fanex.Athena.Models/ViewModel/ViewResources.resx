@@ -2566,6 +2566,18 @@
     <value>Customer Log</value>
     <comment>26174</comment>
   </data>
+  <data name="AGCasinoBalance" xml:space="preserve">
+    <value>AG Casino Balance</value>
+    <comment>#26990</comment>
+  </data>
+  <data name="TransferIn" xml:space="preserve">
+    <value>Transfer In</value>
+    <comment>#26990</comment>
+  </data>
+  <data name="TransferOut" xml:space="preserve">
+    <value>Transfer Out</value>
+    <comment>#26990</comment>
+  </data>
   <data name="MoreThanOneCustomerFoundMsg" xml:space="preserve">
     <value>More than 1 customer found. Please search for 1 customer only.</value>
     <comment>#26970</comment>
@@ -2652,5 +2664,11 @@
   </data>
   <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
     <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>
+  </data>
+  <data name="AGClosingBalance" xml:space="preserve">
+    <value>AG Closing Balance</value>
+  </data>
+  <data name="AGOpeningBalance" xml:space="preserve">
+    <value>AG Opening Balance</value>
   </data>
 </root>
