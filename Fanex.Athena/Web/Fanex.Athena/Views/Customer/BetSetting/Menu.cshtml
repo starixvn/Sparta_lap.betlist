@@ -140,8 +140,8 @@
             }
             <!--/Gold Deluxe-->
 
-            <!--VegasGames-->
-            @if (Model.IsAllowVegasGames)
+            <!--Macau-->
+            @if (Model.IsAllowMacau)
             { 
                 <li><a href="@Url.Action("Index", "BetSetting", new
                         {
@@ -149,12 +149,12 @@
                             CustId = Model.CustId,
                             UserName = Model.UserName,
                             NickName = Model.NickName,
-                            BetSettingName = ViewResources.VegasGames
-                        })" id="vegasgames">
-                    @ViewResources.VegasGames
+                            BetSettingName = ViewResources.Macau
+                        })" id="macau">
+                    @ViewResources.Macau
                 </a></li>
             }
-            <!--/VegasGames-->
+            <!--/Macau-->
         </ul>
         @Html.Hidden("TabId", (int)Model.TabId)
     </div>

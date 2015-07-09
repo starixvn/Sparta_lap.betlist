@@ -12,7 +12,7 @@ var BetSetting = (function ($) {
     var TAB_KENO = 7;
     var TAB_AGCASINO = 8;
     var TAB_GOLDDELUXE = 9;
-    var TAB_VEGASGAMES = 10;
+    var TAB_MACAU = 10;
 
     var _sportIds = null;
     return {
@@ -85,8 +85,8 @@ var BetSetting = (function ($) {
                 case TAB_GOLDDELUXE:
                     $('#golddeluxe').addClass('activeTab');
                     break;
-                case TAB_VEGASGAMES:
-                    $('#vegasgames').addClass('activeTab');
+                case TAB_MACAU:
+                    $('#macau').addClass('activeTab');
                     break;
             }
 
@@ -114,8 +114,8 @@ var BetSetting = (function ($) {
                 case TAB_GOLDDELUXE:
                     url = "BetSettingAPI/UpdateGoldDeluxeStatus";
                     break;
-                case TAB_VEGASGAMES:
-                    url = "BetSettingAPI/UpdateVegasGamesStatus";
+                case TAB_MACAU:
+                    url = "BetSettingAPI/UpdateMacauStatus";
                     break;
             }
 

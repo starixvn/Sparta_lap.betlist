@@ -574,7 +574,7 @@ namespace Fanex.Athena.Controllers.Account
         #region Helpers
 
         /// <summary>
-        /// Parse a comma separated string into int IList.
+        /// Parse a comma separated string into IList.
         /// </summary>
         /// <param name="values">The function string.</param>
         /// <returns>The list id of functions.</returns>

@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -74,43 +74,43 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion
 
-        #region VegasGames
+        #region Macau
 
         /// <summary>
-        /// Get VegasGames setting.
+        /// Get Macau setting.
         /// </summary>
         /// <param name="custId">Customer Id.</param>
         /// <param name="siteName">Site name.</param>
-        /// <returns>VegasGames setting.</returns>
-        public VegasGamesBetSetting GetVegasGamesSetting(int custId, string siteName)
+        /// <returns>Macau setting.</returns>
+        public MacauBetSetting GetMacauSetting(int custId, string siteName)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return null;
             }
 
-            var setting = _betSettingDataAccess.GetVegasGamesSetting(custId);
+            var setting = _betSettingDataAccess.GetMacauSetting(custId);
 
             return setting;
         }
 
         /// <summary>
-        /// Updates the vegas games status.
+        /// Updates the macau status.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
         /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The vegas games status.</param>
+        /// <param name="isEnabled">The macau status.</param>
         /// <returns>The result info.</returns>
-        public IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             if (!_authorizationService.HasPermissionOnData(custId, 0))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateVegasGamesStatus(userId, custId, language, ip, isEnabled);
+            return _betSettingDataAccess.UpdateMacauStatus(userId, custId, language, ip, isEnabled);
         }
 
         #endregion VegasGames

@@ -28,6 +28,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// Get total goal data list.
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
+        /// <param name="totalData">Total goal value.</param>
         /// <returns>List total goal.The result value.</returns>
         public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {
@@ -101,6 +102,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Read total data.
+        /// </summary>
+        /// <param name="reader">IDataReader class.</param>
+        /// <param name="isConvert">Boolean isConvert.</param>
+        /// <param name="baseCurrency">Base currency.</param>
+        /// <returns>Total goal data.</returns>
         private static TotalGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {           
             if (reader.Read())

@@ -25,9 +25,10 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     public class HalfTimeFullTimeDataAccess : IHalfTimeFullTimeDataAccess
     {
         /// <summary>
-        /// Get HT/FT data list.
+        /// Get HalfTime FullTime data list.
         /// </summary>
         /// <param name="metaModel">HT/FT MetaModel value.</param>
+        /// <param name="totalData">HalfTimeFullTime value.</param>
         /// <returns>A list of HT/FT.</returns>
         public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData)
         {
@@ -104,6 +105,13 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             return dataList;
         }
 
+        /// <summary>
+        /// Read TotalData.
+        /// </summary>
+        /// <param name="reader">Data Reader class.</param>
+        /// <param name="isConvert">Boolean isConvert.</param>
+        /// <param name="baseCurrency">Base Currency.</param>
+        /// <returns>Half Time Full Time.</returns>
         private static HalfTimeFullTime ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())

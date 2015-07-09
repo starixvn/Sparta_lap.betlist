@@ -117,25 +117,25 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 case Product.BA:
                     return ViewResources.BA;
                 case Product.RB:
-                  return ViewResources.Racing;
+                    return ViewResources.Racing;
                 case Product.NG:
-                  return ViewResources.NumberGame;
+                    return ViewResources.NumberGame;
                 case Product.VS:
-                  return ViewResources.VirtualSports;
+                    return ViewResources.VirtualSports;
                 case Product.LC:
-                  return ViewResources.LiveCasino;
+                    return ViewResources.LiveCasino;
                 case Product.BG:
-                  return ViewResources.Bingo;
+                    return ViewResources.Bingo;
                 case Product.CS:
-                  return ViewResources.RNGCasino;
+                    return ViewResources.RNGCasino;
                 case Product.KN:
-                  return ViewResources.Keno;
+                    return ViewResources.Keno;
                 case Product.PTCS:
-                  return ViewResources.PlaytechCasino;
+                    return ViewResources.PlaytechCasino;
                 case Product.AGC:
-                  return ViewResources.AGCasino;
+                    return ViewResources.AGCasino;
                 case Product.VG:
-                  return ViewResources.VegasGames;
+                    return ViewResources.Macau;
             }
 
             return productCode;

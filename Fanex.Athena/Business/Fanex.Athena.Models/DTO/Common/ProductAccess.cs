@@ -112,7 +112,7 @@ namespace Fanex.Athena.Models.DTO.Common
             }
         }
 
-        public bool IsAllowVG
+        public bool IsAllowMC
         {
             get
             {

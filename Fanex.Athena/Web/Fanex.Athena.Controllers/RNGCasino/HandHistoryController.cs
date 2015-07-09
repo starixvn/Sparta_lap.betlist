@@ -240,6 +240,11 @@ namespace Fanex.Athena.Controllers.RNGCasino
             }
         }
 
+        /// <summary>
+        /// Get Excel Result.
+        /// </summary>
+        /// <param name="metaModel">RNG Casino Result meta model.</param>
+        /// <returns>Excel result.</returns>
         private ActionResult GetExcelResult(RNGCasinoResultMetaModel metaModel)
         {
             const string FileName = "CasinoHandHistory";

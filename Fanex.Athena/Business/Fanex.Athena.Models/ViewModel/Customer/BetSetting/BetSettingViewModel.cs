@@ -9,8 +9,8 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
     using System.Collections.Generic;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
 
     /// <summary>
@@ -66,7 +66,7 @@ namespace Fanex.Athena.Models.ViewModel.Customer.BetSetting
             }
         }
 
-        public VegasGamesBetSetting VegasGamesViewModel { get; set; }
+        public MacauBetSetting MacauViewModel { get; set; }
 
         public RngCasinoBetSetting RngCasinoData { get; set; }
 

@@ -294,6 +294,11 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
+        /// <summary>
+        /// Create Footer Cell.
+        /// </summary>
+        /// <param name="builder">Bet list excel.</param>
+        /// <returns>Footer Style.</returns>
         private static ICellStyle CreateFooterCellStyle(BetListExcelBuilder builder)
         {
             ICellStyle footerStyle = builder.CreateCellStyle();

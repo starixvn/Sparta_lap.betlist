@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VegasGamesBetSetting.cs" company="Microsoft">
+// <copyright file="MacauBetSetting.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames
+namespace Fanex.Athena.Models.DTO.Customer.BetSetting.Macau
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class VegasGamesBetSetting
+    public class MacauBetSetting
     {
         public bool IsLineEnabled { get; set; }
 

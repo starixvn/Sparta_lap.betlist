@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.VegasGames;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Const
 
         protected const int GoldDeluxeProductId = 11;
-        protected const int VegasGamesProductId = 12;
+        protected const int MacauProductId = 12;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -55,25 +55,25 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         #region Get bet setting data
 
         /// <summary>
-        /// Get VegasGames setting.
+        /// Get Macau setting.
         /// </summary>
         /// <param name="custId">Customer id.</param>
-        /// <returns>VegasGames setting.</returns>
-        public VegasGamesBetSetting GetVegasGamesSetting(int custId)
+        /// <returns>Macau setting.</returns>
+        public MacauBetSetting GetMacauSetting(int custId)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
 
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, VegasGamesProductId);
+                db.AddInParameter("ProductId", DbType.Int32, MacauProductId);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("Currency", DbType.Int32, 1);
 
                 db.ExecuteNonQuery();
 
-                return new VegasGamesBetSetting()
+                return new MacauBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
@@ -387,18 +387,18 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Gold Deluxe
 
-        #region VegasGames
+        #region Macau
 
         /// <summary>
-        /// Updates the vegas games status.
+        /// Updates the macau status.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
         /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The vegas games status.</param>
+        /// <param name="isEnabled">The macau status.</param>
         /// <returns>The Result Info.</returns>
-        public IResultInfo UpdateVegasGamesStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_3rdProductUpdCustStatus";
 
@@ -406,7 +406,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, VegasGamesProductId);
+                db.AddInParameter("productid", DbType.Int32, MacauProductId);
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);

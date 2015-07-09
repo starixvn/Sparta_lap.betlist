@@ -2671,4 +2671,22 @@
   <data name="AGOpeningBalance" xml:space="preserve">
     <value>AG Opening Balance</value>
   </data>
+  <data name="DisableMacau" xml:space="preserve">
+    <value>Disable Macau</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="EnableMacau" xml:space="preserve">
+    <value>Enable Macau</value>
+    <comment>#32647</comment>
+  </data>
+  <data name="Macau" xml:space="preserve">
+    <value>Macau</value>
+  </data>
+  <data name="MacauNotOfferCurrency" xml:space="preserve">
+    <value>Macau is not offered for this currency.</value>
+  </data>
+  <data name="MacauWinLoss" xml:space="preserve">
+    <value>Macau Win Loss</value>
+    <comment>#38247</comment>
+  </data>
 </root>

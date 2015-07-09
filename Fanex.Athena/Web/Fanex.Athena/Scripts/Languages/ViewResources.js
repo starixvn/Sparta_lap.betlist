@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 6/11/2015 1:01:18 PM
+// Lasted generated date: 7/3/2015 2:21:06 PM
 // </history>
 
 var _language_en_US={
@@ -31,15 +31,9 @@ var _language_en_US={
 				 	
                      AGCasino:"AG Casino",
 				 	
-                     AGCasinoBalance:"AG Casino Balance",
-				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
                      AGCasinoWinLoss:"AG Casino Win Loss",
-				 	
-                     AGClosingBalance:"AG Closing Balance",
-				 	
-                     AGOpeningBalance:"AG Opening Balance",
 				 	
                      AH:"AH",
 				 	
@@ -397,6 +391,8 @@ var _language_en_US={
 				 	
                      DisableLiveCasino:"Disable Live Casino",
 				 	
+                     DisableMacau:"Disable Macau",
+				 	
                      DisableRNGCasino:"Disable RNG Casino",
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
@@ -440,6 +436,8 @@ var _language_en_US={
                      EnableGoldDeluxe:"Enable Gold Deluxe",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
+				 	
+                     EnableMacau:"Enable Macau",
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
 				 	
@@ -870,6 +868,12 @@ var _language_en_US={
                      Loss:"Loss",
 				 	
                      LrfNotification:"LRF-Notification",
+				 	
+                     Macau:"Macau",
+				 	
+                     MacauNotOfferCurrency:"Macau is not offered for this currency.",
+				 	
+                     MacauWinLoss:"Macau Win Loss",
 				 	
                      Main:"Main",
 				 	
@@ -1478,10 +1482,6 @@ var _language_en_US={
                      ToViewHistoryRptMsg:"Please click to view history report",
 				 	
                      ToWinToNil:"To Win To Nil",
-				 	
-                     TransferIn:"Transfer In",
-				 	
-                     TransferOut:"Transfer Out",
 				 	
                      TransTime:"Trans.Time",
 				 	

@@ -97,8 +97,8 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
                 case ProductType.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
-                case ProductType.VegasGames:
-                    return View("~/Views/Customer/BetSetting/VegasGames.cshtml", viewModel);
+                case ProductType.Macau:
+                    return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -177,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
-            metaModel.IsAllowVegasGames = productAccess.IsAllowVG;
+            metaModel.IsAllowMacau = productAccess.IsAllowMC;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
             try
@@ -276,12 +276,12 @@ namespace Fanex.Athena.Controllers.Customer
                     model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
                     break;
 
-                case ProductType.VegasGames:
-                    var vegasGamesViewModel = _betSettingService.GetVegasGamesSetting(
+                case ProductType.Macau:
+                    var macauViewModel = _betSettingService.GetMacauSetting(
                        metaModel.CustId,
                        SessionService.LicenseeSession.LicenseeName);
-                    model.VegasGamesViewModel = vegasGamesViewModel;
-                    model.IsEnabled = vegasGamesViewModel.IsEnabled;
+                    model.MacauViewModel = macauViewModel;
+                    model.IsEnabled = macauViewModel.IsEnabled;
                     break;
             }
 
