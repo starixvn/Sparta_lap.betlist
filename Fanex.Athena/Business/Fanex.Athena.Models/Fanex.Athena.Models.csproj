@@ -143,7 +143,6 @@
     <Compile Include="DTO\Customer\BetSetting\RngCasino\GameType.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\RngCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\StakeLevel.cs" />
-    <Compile Include="DTO\Customer\BetSetting\Macau\MacauBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\ThirdPartyBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\VSBetSetting.cs" />
     <Compile Include="DTO\Customer\CustomerDTO.cs" />

@@ -12,7 +12,7 @@ var BetSetting = (function ($) {
     var TAB_KENO = 8;
     var TAB_AGCASINO = 10;
     var TAB_GOLDDELUXE = 11;
-    var TAB_VEGASGAMES = 12;
+    var TAB_MACAU = 12;
     var TAB_BETTRADE = 13;
     var TAB_MICROGAMING = 14;
 
@@ -60,38 +60,6 @@ var BetSetting = (function ($) {
         initMenu: function () {
             var productId = parseInt($("#ProductId").val());
             var enable = $("#editable").val() === "False" ? false : true;
-            switch (tabid) {
-                case TAB_SPORTSBOOK:
-                    $('#sportsbook').addClass('activeTab');
-                    break;
-                case TAB_RACING:
-                    $('#racing').addClass('activeTab');
-                    break;
-                case TAB_NUMBERGAME:
-                    $('#numbergame').addClass('activeTab');
-                    break;
-                case TAB_VIRTUALSPORTS:
-                    $('#virtualsports').addClass('activeTab');
-                    break;
-                case TAB_LIVECASINO:
-                    $('#livecasino').addClass('activeTab');
-                    break;
-                case TAB_RNGCASINO:
-                    $('#rngcasino').addClass('activeTab');
-                    break;
-                case TAB_KENO:
-                    $('#keno').addClass('activeTab');
-                    break;
-                case TAB_AGCASINO:
-                    $('#agcasino').addClass('activeTab');
-                    break;
-                case TAB_GOLDDELUXE:
-                    $('#golddeluxe').addClass('activeTab');
-                    break;
-                case TAB_MACAU:
-                    $('#macau').addClass('activeTab');
-                    break;
-            }
             $("#product-dropdown").on('click', function (event) {
                 $(this).toggleClass('active');
                 event.stopPropagation();

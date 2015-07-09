@@ -98,7 +98,7 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
                 case ProductTypes.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
-                case ProductType.Macau:
+                case ProductTypes.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
                 case ProductTypes.MicroGaming:
                     return View("~/Views/Customer/BetSetting/MicroGaming.cshtml", viewModel);
@@ -163,6 +163,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenessId = licenseeSession.LicenseeId;
             var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
             metaModel.Editable = licensees.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
@@ -172,7 +173,6 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowRacing = productAccess.IsAllowRB;
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVS;
             metaModel.IsAllowNumberGame = productAccess.IsAllowNG;
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
             metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
@@ -212,7 +212,8 @@ namespace Fanex.Athena.Controllers.Customer
         /// <summary>
         /// Get bet setting view model.
         /// </summary>
-        /// <param name="metaModel">Meta model.</param>
+        /// <param name="productId">The product ID.</param>
+        /// <param name="custId">The customer ID.</param>
         /// <param name="customerInfo">Customer info.</param>
         /// <returns>Bet setting view model.</returns>
         [SuppressMessage(
@@ -262,7 +263,7 @@ namespace Fanex.Athena.Controllers.Customer
                     model = _betSettingService.GetGoldDeluxeViewModel(custId, SessionService.LicenseeSession.LicenseeName);
                     break;
 
-                case ProductTypes.VegasGames:
+                case ProductTypes.Macau:
                 case ProductTypes.MicroGaming:
                 case ProductTypes.BetTrade:
                     model = _betSettingService.GetThirdPartyViewModel(custId, productId);

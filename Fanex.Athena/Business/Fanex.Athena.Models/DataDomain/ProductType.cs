@@ -66,7 +66,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Macau product.
         /// </summary>
-        public const int VegasGames = 12;
+        public const int Macau = 12;
         
         /// <summary>
         /// Bet Trade product: 13.

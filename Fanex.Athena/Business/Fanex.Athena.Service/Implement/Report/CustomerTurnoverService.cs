@@ -60,6 +60,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// Update row span for data.
         /// </summary>
         /// <param name="datalist">The data list.</param>
+        /// <param name="startRowIndex">The start row index.</param>
         /// <returns>The customer turnover data list.</returns>
         [SuppressMessage(
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -69,7 +70,6 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
                 .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();
-            //// Calculate rowspan
 
             var newDataList = new List<CustTurnover>();
 

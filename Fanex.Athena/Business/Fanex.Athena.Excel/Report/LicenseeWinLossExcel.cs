@@ -46,7 +46,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnAmtDueToBetTrade = 36;
         private const int ColumnAmtDueToBa = 37;
         private const int ColumnAmtDueToRacing = 38;
-        private const int ColumnTemplateCount = 39;        
+        private const int ColumnTemplateCount = 39;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
@@ -263,7 +263,7 @@ namespace Fanex.Athena.Excel.Report
                 HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
-            
+
             if (!ShowingOption.BTVisible)
             {
                 HideColumn(sheet, ColumnBetTradeCommission);
@@ -302,45 +302,6 @@ namespace Fanex.Athena.Excel.Report
                     HideColumn(sheet, ColumnDate);
                     break;
             }
-        }
-
-        /// <summary>
-        /// Get full product option list for licensee win loss report.
-        /// </summary>
-        /// <param name="products">The product option list.</param>
-        /// <returns>The full product option list.</returns>
-        private static IList<ProductOption> GetProductOption(IList<ProductOption> products)
-        {
-            var offeredProducts = new ProductOption[]
-            {
-                new ProductOption { Code = Product.SB, Status = false },
-                new ProductOption { Code = Product.RB, Status = false },
-                new ProductOption { Code = Product.NG, Status = false },
-                new ProductOption { Code = Product.BA, Status = false },
-                new ProductOption { Code = Product.LC, Status = false },
-                new ProductOption { Code = Product.VS, Status = false },
-                new ProductOption { Code = Product.CS, Status = false },
-                new ProductOption { Code = Product.BG, Status = false },
-                new ProductOption { Code = Product.KN, Status = false },
-                new ProductOption { Code = Product.BT, Status = false },
-                new ProductOption { Code = Product.MGC, Status = false }
-            };
-
-            var offeredProductsLength = offeredProducts.Count();
-
-            foreach (var product in products)
-            {
-                for (var j = 0; j < offeredProductsLength; j++)
-                {
-                    if (product.Code == offeredProducts[j].Code)
-                    {
-                        offeredProducts[j] = product;
-                        break;
-                    }
-                }
-            }
-
-            return offeredProducts;
         }
 
         /// <summary>
@@ -565,6 +526,45 @@ namespace Fanex.Athena.Excel.Report
             });
 
             return currencies;
+        }
+
+        /// <summary>
+        /// Get full product option list for licensee win loss report.
+        /// </summary>
+        /// <param name="products">The product option list.</param>
+        /// <returns>The full product option list.</returns>
+        private static IList<ProductOption> GetProductOption(IList<ProductOption> products)
+        {
+            var offeredProducts = new ProductOption[]
+            {
+                new ProductOption { Code = Product.SB, Status = false },
+                new ProductOption { Code = Product.RB, Status = false },
+                new ProductOption { Code = Product.NG, Status = false },
+                new ProductOption { Code = Product.BA, Status = false },
+                new ProductOption { Code = Product.LC, Status = false },
+                new ProductOption { Code = Product.VS, Status = false },
+                new ProductOption { Code = Product.CS, Status = false },
+                new ProductOption { Code = Product.BG, Status = false },
+                new ProductOption { Code = Product.KN, Status = false },
+                new ProductOption { Code = Product.BT, Status = false },
+                new ProductOption { Code = Product.MGC, Status = false }
+            };
+
+            var offeredProductsLength = offeredProducts.Count();
+
+            foreach (var product in products)
+            {
+                for (var j = 0; j < offeredProductsLength; j++)
+                {
+                    if (product.Code == offeredProducts[j].Code)
+                    {
+                        offeredProducts[j] = product;
+                        break;
+                    }
+                }
+            }
+
+            return offeredProducts;
         }
     }
 }

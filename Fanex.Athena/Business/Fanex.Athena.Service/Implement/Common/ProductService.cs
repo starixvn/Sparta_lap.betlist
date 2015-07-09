@@ -87,17 +87,10 @@ namespace Fanex.Athena.Service.Implement.Common
             }
         }
 
-        /// <summary>
-        /// Get product access of licensee.
-        /// </summary>
-        /// <param name="licenseeId">The licensee identity.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="allowedProducts">Allowed products.</param>
-        /// <returns>The accessed product.</returns>
         public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
-        {            
+        {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
-            
+
             var originalProducts = this.GetProductList(licenseeId, languageCode);
             var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;

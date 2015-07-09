@@ -185,7 +185,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.VegasGames, custId, nickName, status);
+            return UpdateThirdPartyProductStatus((int)ProductTypes.Macau, custId, nickName, status);
         }
 
         /// <summary>

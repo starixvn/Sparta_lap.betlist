@@ -39,7 +39,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
 
         public string BetSettingName { get; set; }
 
-        public bool Editable { get; set; }     
+        public bool Editable { get; set; }
 
         public bool IsAllowSportsBook { get; set; }
 
@@ -64,6 +64,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
         public bool IsAllowMicroGaming { get; set; }
 
         public bool IsAllowBetTrade { get; set; }
+
         public IList<BetSettingProduct> BetSettingProducts { get; set; }
     }
 }

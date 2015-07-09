@@ -21,7 +21,6 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        MacauBetSetting GetMacauSetting(int custId, string siteName);
         IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
 
         #region Get Bet Setting

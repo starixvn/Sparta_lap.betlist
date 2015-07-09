@@ -110,67 +110,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             };
         }
 
-        /// <summary>
-        /// Updates the Bet Trade status.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="language">The language.</param>
-        /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The vegas games status.</param>
-        /// <returns>The result info.</returns>
-        public IResultInfo UpdateBetTradeStatus(int userId, int custId, string language, string ip, bool isEnabled)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            return _betSettingDataAccess.UpdateBetTradeStatus(userId, custId, language, ip, isEnabled);
-        }
-        #endregion
-
-        #region VegasGames
-
-        /// <summary>
-        /// Get Macau setting.
-        /// </summary>
-        /// <param name="custId">Customer Id.</param>
-        /// <param name="siteName">Site name.</param>
-        /// <returns>VegasGames setting.</returns>
-        public ThirdPartyBetSetting GetVegasGamesSetting(int custId, string siteName)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return null;
-            }
-
-            var setting = _betSettingDataAccess.GetMacauSetting(custId);
-
-            return setting;
-        }
-
-        /// <summary>
-        /// Updates the macau status.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="language">The language.</param>
-        /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The macau status.</param>
-        /// <returns>The result info.</returns>
-        public IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            return _betSettingDataAccess.UpdateMacauStatus(userId, custId, language, ip, isEnabled);
-        }
-
-        #endregion VegasGames
-
         #region Gold Deluxe
 
         /// <summary>
@@ -428,7 +367,6 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// Get SportsBook bet setting.
         /// </summary>
         /// <param name="custId">The customer id.</param>
-        /// <param name="esportSetting">ESport Setting.</param>
         /// <returns>The  bet setting list.</returns>
         public BetSettingViewModel GetSportBookViewModel(int custId)
         {
@@ -496,10 +434,10 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <returns>The bet setting of live casino list.</returns>
         public LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language)
         {
-            var betSettings = !_authorizationService.HasPermissionOnData(custId, 0) 
-                            ? _betSettingDataAccess.GetLiveCasinoBetSetting(custId, language) 
+            var betSettings = !_authorizationService.HasPermissionOnData(custId, 0)
+                            ? _betSettingDataAccess.GetLiveCasinoBetSetting(custId, language)
                             : new List<LiveCasinoBetSetting>();
-            
+
             var resultList = new List<LiveCasinoBetSettingGame>();
 
             var gameTypeIdList = betSettings.Select(x => x.GameTypeId).Distinct().ToList();

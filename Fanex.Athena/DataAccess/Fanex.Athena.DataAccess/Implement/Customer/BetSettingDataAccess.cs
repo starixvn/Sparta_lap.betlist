@@ -57,8 +57,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Gets the third party bet setting.
         /// </summary>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="productid">The product id.</param>
+        /// <param name="licenseeId">The customer identifier.</param>
         /// <returns>The product bet setting.</returns>
         public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
         {
@@ -74,87 +73,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         }
 
         #region Get bet setting data
-
-        /// <summary>
-        /// Get Micro Gaming setting.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <returns>Micro Gaming setting.</returns>
-        public ThirdPartyBetSetting GetMicroGamingSetting(int custId)
-        {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, MicroGamingProductId);
-                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("Currency", DbType.Int32, 1);
-
-                db.ExecuteNonQuery();
-
-                return new ThirdPartyBetSetting()
-                {
-                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
-                };
-            }
-        }
-
-        /// <summary>
-        /// Get bet trade setting.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <returns>bet trade setting.</returns>
-        public ThirdPartyBetSetting GetBetTradeSetting(int custId)
-        {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, BetTradeProductId);
-                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("Currency", DbType.Int32, 1);
-
-                db.ExecuteNonQuery();
-
-                return new ThirdPartyBetSetting()
-                {
-                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
-                };
-            }
-        }
-
-        /// <summary>
-        /// Get VegasGames setting.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <returns>VegasGames setting.</returns>
-        public ThirdPartyBetSetting GetVegasGamesSetting(int custId)
-        {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, MacauProductId);
-                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("Currency", DbType.Int32, 1);
-
-                db.ExecuteNonQuery();
-
-                return new MacauBetSetting()
-                {
-                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
-                };
-            }
-        }
 
         /// <summary>
         /// Gets the third party bet setting.
@@ -494,6 +412,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Updates the macau status.
         /// </summary>
+        /// <param name="productId">The product ID.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
@@ -533,7 +452,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        #endregion VegasGames
+        #endregion Macau
 
         #region AG Casino
 
