@@ -46,4 +46,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
