@@ -4327,6 +4327,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Microgaming Win Loss.
+        /// </summary>
+        public static string MicrogamingWinLoss {
+            get {
+                return ResourceManager.GetString("MicrogamingWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Min Bet.
         /// </summary>
         public static string MinBet {

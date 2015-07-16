@@ -2722,4 +2722,7 @@
   <data name="BetTradeComissionBalanceNote" xml:space="preserve">
     <value>BetTrade Commission: Licensee commission income for BetTrade tickets.</value>
   </data>
+  <data name="MicrogamingWinLoss" xml:space="preserve">
+    <value>Microgaming Win Loss</value>
+  </data>
 </root>

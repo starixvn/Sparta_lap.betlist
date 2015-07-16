@@ -5,6 +5,7 @@ var ThirdPartyWinLoss = (function ($) {
     "use strict";
     var cacheData = {};
     var ajaxRequest = null;
+    var _canDrilldown = true;
     var _level = 0;
     var _submitData;
 
@@ -35,9 +36,6 @@ var ThirdPartyWinLoss = (function ($) {
                 $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
                 $('#FromDay').val(fromDate.getDate());
                 $('#ToDay').val(toDate.getDate());
-            },
-            log: function (/*msg*/) {
-                //console.warn(msg);
             }
         });
     }
@@ -69,10 +67,7 @@ var ThirdPartyWinLoss = (function ($) {
             ThirdPartyWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             ThirdPartyWinLoss.initEvent();
             initMonthPicker();
-            Site.addUserGuide({
-                resourceName: "AGCasinoWL",
-                title: $("#ReportTitle").val()
-            });
+            _canDrilldown = $("#CanDrilldown").val() !== "0";
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -184,11 +179,13 @@ var ThirdPartyWinLoss = (function ($) {
         submit: function () {
             var mainForm = $("#ThirdPartyWinLossForm");
             var postdata = mainForm.serializeObject();
-            var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
+            if (!postdata.FromDate) {
+                var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
+                var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
 
-            postdata.FromDate = fromDate.toDateString();
-            postdata.ToDate = toDate.toDateString();
+                postdata.FromDate = fromDate.toDateString();
+                postdata.ToDate = toDate.toDateString();
+            }
 
             var option = {
                 type: "POST",
@@ -316,7 +313,7 @@ var ThirdPartyWinLoss = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
 
-            var gridOption = ThirdPartyWinLossOption.getGridOption(level);
+            var gridOption = ThirdPartyWinLossOption.getGridOption(level, _canDrilldown);
             gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
 

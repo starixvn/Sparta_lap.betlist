@@ -212,6 +212,7 @@
     <Compile Include="BetList\BetListController.RacingCommission.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
+    <Compile Include="Report\ReportController.MicrogamingWinLoss.cs" />
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
     <Compile Include="Report\ReportController.AgCasinoBalance.cs" />

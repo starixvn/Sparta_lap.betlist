@@ -526,7 +526,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\agcasinowinloss.css" />
-    <Content Include="Content\Report\golddeluxewinloss.css" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
@@ -588,6 +587,9 @@
     <Content Include="Views\Report\AgCasinoBalance\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Filter.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Main.cshtml" />
+    <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
