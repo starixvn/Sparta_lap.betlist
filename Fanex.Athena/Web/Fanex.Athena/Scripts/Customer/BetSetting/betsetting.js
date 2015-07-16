@@ -93,7 +93,6 @@ var BetSetting = (function ($) {
             BetSetting.checkEnableBetSetting(tabid, enable);
         },
         updateStatus: function () {
-
             var tabid = parseInt($("#TabId").val());
             var nickName = $(this).data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
@@ -318,15 +317,15 @@ var BetSetting = (function ($) {
         updateAgCasinoBetSetting: function (custId, userName, nickName) {
             var params = {
                 custid: custId,
-                userName: +userName,
-                nickName: +nickName,
+                userName: userName,
+                nickName: nickName,
                 group: $("#betSettingGroup").val()
             };
 
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting?'),
+                url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -442,9 +441,9 @@ var BetSetting = (function ($) {
                 var stakeId = $("input[name=gameTypeName" + i + "]:checked").attr("data-stake-id");
 
                 params["stakeId" + i] = stakeId;
-                params["gameTypeId" + i] = + gametypeId.val();
+                params["gameTypeId" + i] = gametypeId.val();
                 params["stakeLevelName" + i] = stakeLevelNameChecked.val();
-                params["betTypeId" + i] = + betTypeId.val();
+                params["betTypeId" + i] = betTypeId.val();
             }
             $.ajax({
                 type: 'POST',

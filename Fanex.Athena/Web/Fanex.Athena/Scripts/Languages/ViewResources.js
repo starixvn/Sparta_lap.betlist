@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/3/2015 2:21:06 PM
+// Lasted generated date: 7/15/2015 2:40:59 PM
 // </history>
 
 var _language_en_US={
@@ -31,9 +31,15 @@ var _language_en_US={
 				 	
                      AGCasino:"AG Casino",
 				 	
+                     AGCasinoBalance:"AG Casino Balance",
+				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
 				 	
                      AGCasinoWinLoss:"AG Casino Win Loss",
+				 	
+                     AGClosingBalance:"AG Closing Balance",
+				 	
+                     AGOpeningBalance:"AG Opening Balance",
 				 	
                      AH:"AH",
 				 	
@@ -1482,6 +1488,10 @@ var _language_en_US={
                      ToViewHistoryRptMsg:"Please click to view history report",
 				 	
                      ToWinToNil:"To Win To Nil",
+				 	
+                     TransferIn:"Transfer In",
+				 	
+                     TransferOut:"Transfer Out",
 				 	
                      TransTime:"Trans.Time",
 				 	

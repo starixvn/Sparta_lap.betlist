@@ -17,7 +17,7 @@ public partial class sso : System.Web.UI.Page
 
         if (_maintenanceService.MaintenanceInfo.IsDownTime)
         {
-            Server.Transfer("~/Utility/UnderMaintenance");
+            Response.Redirect("~/Utility/UnderMaintenance");
         }
         else
         {
