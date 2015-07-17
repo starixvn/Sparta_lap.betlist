@@ -27,6 +27,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
     using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.MicroGaming;
+    using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
 
     /// <summary>
@@ -364,6 +366,16 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
                     }
+
+                    break;
+
+                case SportType.MicroGaming:
+                    _htmlResult = ParserService.Instance.Parser(new MicroGaming
+                    {
+                        DepositCustId = 123456,
+                        SiteName = "spondemo",
+                        GameId = 123456,
+                    });
 
                     break;
 
