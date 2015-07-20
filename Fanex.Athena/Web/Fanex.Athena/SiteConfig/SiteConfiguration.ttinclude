@@ -113,7 +113,7 @@
                     case SiteEnvironment.LOCAL:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"Licensee-Local\" />";
                     case SiteEnvironment.UAT:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.40.40.73\\private$\\entlib\" defaultCategory=\"Licensee-UAT\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.3.127.2\\private$\\entlib\" defaultCategory=\"Licensee-UAT\" />";
                     case SiteEnvironment.PRO:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=http://10.40.40.127/msmq/Private$/entlib\" defaultCategory=\"Licensee-Live\" />";
                     case SiteEnvironment.BACKUPMNL:
