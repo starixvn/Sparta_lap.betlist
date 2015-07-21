@@ -2455,9 +2455,6 @@
     <value>AG Casino is not offered for this currency.</value>
     <comment>#19458</comment>
   </data>
-  <data name="AGCasinoProblemDisplayBetSetting" xml:space="preserve">
-    <value>There is problem to display bet setting group's detail.</value>
-  </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
   </data>

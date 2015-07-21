@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/15/2015 2:40:59 PM
+// Lasted generated date: 7/21/2015 5:11:48 PM
 // </history>
 
 var _language_en_US={
@@ -956,6 +956,8 @@ var _language_en_US={
                      Microgaming:"Microgaming",
 				 	
                      MicroGamingNotOfferCurrency:"Microgaming is not offered for this currency.",
+				 	
+                     MicrogamingWinLoss:"Microgaming Win Loss",
 				 	
                      MinBet:"Min Bet",
 				 	
