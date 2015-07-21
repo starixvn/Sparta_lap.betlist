@@ -51,9 +51,20 @@ namespace Fanex.Athena.Api.BetList
             var statusNormalText = string.Format(StatusTemp, statusText);
             
             // If Sport type is keno, doesn't show "Result" link.
-            if (ticket.SportTypeId == 202)
+            if (ticket.SportTypeId == (int)SportType.Keno)
             {
                 return statusNormalText;
+            }
+
+            if (ticket.SportTypeId == (int)SportType.MicroGaming)
+            {
+                const string MicroGamingTemplate =
+                        "<div class='result microgaming-link' onclick='BetList.ViewMicroGaming({0},{1});'>{2}</div>";
+                return statusNormalText + string.Format(
+                    MicroGamingTemplate,
+                    ticket.CustId == 0 ? metaModel.CustId : ticket.CustId,
+                    ticket.BetCheck,
+                    ViewResources.Results);
             }
 
             switch (ticket.BetTypeId)

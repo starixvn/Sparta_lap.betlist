@@ -296,6 +296,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Keno product ,value=202.
         /// </summary>
-        Keno = 202
+        Keno = 202,
+
+        /// <summary>
+        /// MicroGaming product, value = 203.
+        /// </summary>
+        MicroGaming = 203,
     }
 }

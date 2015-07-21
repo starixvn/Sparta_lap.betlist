@@ -298,7 +298,8 @@ namespace Fanex.Athena.Controllers.Report
             }
             else
             {
-                GetNormalPopUpData(metalModel, sportType, licenseeId, userId, setting);
+                var siteName = SessionService.LicenseeSession.LicenseeName;
+                GetNormalPopUpData(metalModel, sportType, licenseeId, userId, siteName, setting);
             }
         }
 
@@ -314,7 +315,7 @@ namespace Fanex.Athena.Controllers.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, int licenseeId, int userId, ResultSetting setting)
+        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, int licenseeId, int userId, string siteName, ResultSetting setting)
         {
             IResultService resultService = new ResultService();
 
@@ -372,9 +373,9 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.MicroGaming:
                     _htmlResult = ParserService.Instance.Parser(new MicroGaming
                     {
-                        DepositCustId = 123456,
-                        SiteName = "spondemo",
-                        GameId = 123456,
+                        DepositCustId = metalModel.CustId,
+                        SiteName = siteName,
+                        GameId = metalModel.GameId,
                     });
 
                     break;

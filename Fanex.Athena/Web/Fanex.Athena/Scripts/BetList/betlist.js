@@ -418,6 +418,24 @@ var BetList = (function ($) {
 
             url += urlParam;
             window.location = url;
+        },
+
+        ViewMicroGaming: function (custId, gameId) {
+            var url = Site.resolveClientUrl('Report/ResultPopup');
+            url = QueryString.setParam(url, "CustId", custId);
+            url = QueryString.setParam(url, "GameID", gameId);
+
+            var height = 450;
+            var width = 750;
+            var title = Site.getSingleResource("Result");
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: width + 25,
+                height: height + 70
+            });
         }
     };
 })(jQuery);
