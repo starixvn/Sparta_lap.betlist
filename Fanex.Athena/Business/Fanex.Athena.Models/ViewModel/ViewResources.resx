@@ -2637,30 +2637,12 @@
   <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
     <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
-  <data name="VegasGames" xml:space="preserve">
-    <value>Vegas Games</value>
-  </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
     <value>You cannot update member bet limit for product {0}.</value>
     <comment>#32647</comment>
   </data>
-  <data name="DisableVegasGames" xml:space="preserve">
-    <value>Disable Vegas Games</value>
-    <comment>#32647</comment>
-  </data>
-  <data name="EnableVegasGames" xml:space="preserve">
-    <value>Enable Vegas Games</value>
-    <comment>#32647</comment>
-  </data>
-  <data name="VegasGamesNotOfferCurrency" xml:space="preserve">
-    <value>Vegas Games is not offered for this currency.</value>
-  </data>
   <data name="GoldDeluxeWinLoss" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
-  </data>
-  <data name="VegasGamesWinLoss" xml:space="preserve">
-    <value>Vegas Games Win Loss</value>
-    <comment>#38247</comment>
   </data>
   <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
     <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>

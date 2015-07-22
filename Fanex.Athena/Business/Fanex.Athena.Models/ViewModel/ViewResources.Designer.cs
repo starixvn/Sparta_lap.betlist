@@ -1897,15 +1897,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Vegas Games.
-        /// </summary>
-        public static string DisableVegasGames {
-            get {
-                return ResourceManager.GetString("DisableVegasGames", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dividend Won.
         /// </summary>
         public static string DividendWon {
@@ -2109,15 +2100,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EnableRNGCasino {
             get {
                 return ResourceManager.GetString("EnableRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Vegas Games.
-        /// </summary>
-        public static string EnableVegasGames {
-            get {
-                return ResourceManager.GetString("EnableVegasGames", resourceCulture);
             }
         }
         
@@ -7338,33 +7320,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string UserTooManyLicensees {
             get {
                 return ResourceManager.GetString("UserTooManyLicensees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games.
-        /// </summary>
-        public static string VegasGames {
-            get {
-                return ResourceManager.GetString("VegasGames", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games is not offered for this currency..
-        /// </summary>
-        public static string VegasGamesNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("VegasGamesNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games Win Loss.
-        /// </summary>
-        public static string VegasGamesWinLoss {
-            get {
-                return ResourceManager.GetString("VegasGamesWinLoss", resourceCulture);
             }
         }
         
