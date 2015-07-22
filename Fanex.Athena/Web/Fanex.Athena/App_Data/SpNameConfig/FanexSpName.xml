@@ -145,7 +145,7 @@
   </Function>
 
   <Function Name="CustomerSettingsThridParty">
-    <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus_xtest" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_3rdProductUpdCustStatus" SpName="Lrf_3rdProductUpdCustStatus_xtest" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
   
