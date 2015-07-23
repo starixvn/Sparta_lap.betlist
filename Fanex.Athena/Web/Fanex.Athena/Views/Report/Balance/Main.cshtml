@@ -22,7 +22,7 @@
 
     ViewBag.ColumnWidth = 115;
     
-    ViewBag.FirstColumnWidth = ViewBag.ColumnCount == 9 ? 140 : (9 - ViewBag.ColumnCount) * 140;
+    ViewBag.FirstColumnWidth = ViewBag.ColumnCount == 9 ? 140 : (9 - ViewBag.ColumnCount) * 130;
 
     ViewBag.ContainerWidth = ViewBag.FirstColumnWidth + ViewBag.ColumnWidth;
     ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowBT ? 2 : 0);
