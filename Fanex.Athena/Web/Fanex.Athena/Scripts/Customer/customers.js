@@ -679,10 +679,16 @@ var CustomerList = (function ($) {
             list.attr('class', 'level-' + list.val());
         },
 
-        viewCustOption: function (context) {
-            var custId = context.attr("custid");
+        viewCustOption: function ($context) {
+            var custId = $context.attr("custid");
             var popup = $("#view-cust-option");
             var link = $("#cust-option-link-" + custId);
+
+            var position = $context.offset();
+            popup.css({
+                top: position.top + $context.height(),
+                left: $context.offset().left
+            });
 
             if (popup.attr("custid") === custId) {
                 popup.toggle();
@@ -691,12 +697,6 @@ var CustomerList = (function ($) {
                 popup.attr("custid", custId);
                 popup.attr("externalid", link.attr("externalid"));
                 popup.attr("systemid", link.attr("systemid"));
-
-                popup.css({
-                    top: CustomerList.mousePosition.y + 10,
-                    left: CustomerList.mousePosition.x - 40
-                });
-
                 popup.show();
             }
 
