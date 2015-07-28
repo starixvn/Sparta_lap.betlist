@@ -56,17 +56,6 @@ namespace Fanex.Athena.Api.BetList
                 return statusNormalText;
             }
 
-            if (ticket.SportTypeId == (int)SportType.MicroGaming)
-            {
-                const string MicroGamingTemplate =
-                        "<div class='result microgaming-link' onclick='BetList.ViewMicroGaming({0},{1});'>{2}</div>";
-                return statusNormalText + string.Format(
-                    MicroGamingTemplate,
-                    ticket.CustId == 0 ? metaModel.CustId : ticket.CustId,
-                    ticket.BetCheck,
-                    ViewResources.Results);
-            }
-
             switch (ticket.BetTypeId)
             {
                 case 71:
