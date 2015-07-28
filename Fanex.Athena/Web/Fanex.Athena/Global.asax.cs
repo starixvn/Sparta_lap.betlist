@@ -7,6 +7,7 @@
 namespace Fanex.Athena
 {
     using System;
+    using System.Data.SqlClient;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
@@ -95,6 +96,13 @@ namespace Fanex.Athena
                              "\r\nBrowser:" + Request.Browser.Type.ToString() +
                              "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
                              "\r\nAgent:" + Request.UserAgent.ToString();
+            var sqlException = ex as SqlException;
+            if (sqlException != null)
+            {
+                message += "\r\nProcedure: " + sqlException.Procedure +
+                    "\r\nLine Number: " + sqlException.LineNumber +
+                    "\r\nServer: " + sqlException.Server;
+            }
 
             ISessionService sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
