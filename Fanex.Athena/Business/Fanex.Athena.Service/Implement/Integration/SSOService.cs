@@ -145,12 +145,11 @@ namespace Fanex.Athena.Service.Implement.Integration
                     "\r\nExtendedData: " + resultInfo.ExtendedData +
                     "\r\nLicensee: " + licname +
                      "\r\nUserName: " + userName +
-                     "\r\nPassword: " + passWord +
                      "\r\nTimeSpan: " + timeSpan +
                      "\r\nSiteOutUrl: " + siteOutUrl +
                      "\r\nLanguageCode: " + languageCode;
 
-                Logging.LogService.Error(message);
+                Logging.LogService.Info(message);
 
                 RedirectToErrorPage(resultInfo.Code); 
             }
