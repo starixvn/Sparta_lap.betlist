@@ -375,7 +375,7 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         DepositCustId = metalModel.CustId,
                         SiteName = siteName,
-                        GameId = metalModel.GameId,
+                        GameId = metalModel.BetCheck,
                     });
 
                     break;

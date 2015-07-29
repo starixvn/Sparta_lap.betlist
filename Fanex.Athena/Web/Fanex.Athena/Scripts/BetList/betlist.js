@@ -292,7 +292,7 @@ var BetList = (function ($) {
             return url;
         },
 
-        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
+        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid) {
             var url = Site.resolveClientUrl('Report/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
@@ -300,6 +300,8 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "sporttype", sporttype);
             url = QueryString.setParam(url, "isoutright", isOutright);
             url = QueryString.setParam(url, "betid", betid);
+            url = QueryString.setParam(url, "betcheck", betcheck);
+            url = QueryString.setParam(url, "custid", custid);
 
             return url;
         },
@@ -309,12 +311,13 @@ var BetList = (function ($) {
             $(".league-name-title").html(leagueNameText + " - ");
         },
 
-        showResult: function (matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid) {
+        showResult: function (matchid, raceNo, bettype, sporttype, refno, 
+            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
             bettype = Number(bettype);
             var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
             var url = isParlay
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid);
+                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
             var height = isParlay ? 450 : 150;
             var width = 750;
@@ -418,24 +421,6 @@ var BetList = (function ($) {
 
             url += urlParam;
             window.location = url;
-        },
-
-        ViewMicroGaming: function (custId, gameId) {
-            var url = Site.resolveClientUrl('Report/ResultPopup');
-            url = QueryString.setParam(url, "CustId", custId);
-            url = QueryString.setParam(url, "GameID", gameId);
-
-            var height = 450;
-            var width = 750;
-            var title = Site.getSingleResource("Result");
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
-                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
-
-            $(dialogForm).dialog({
-                modal: true,
-                width: width + 25,
-                height: height + 70
-            });
         }
     };
 })(jQuery);

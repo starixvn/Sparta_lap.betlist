@@ -40,6 +40,6 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int CustId { get; set; }
 
-        public int GameId { get; set; }
+        public int BetCheck { get; set; }
     }
 }
