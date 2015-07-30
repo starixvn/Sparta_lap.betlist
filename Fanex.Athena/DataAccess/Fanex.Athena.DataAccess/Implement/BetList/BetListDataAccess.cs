@@ -188,7 +188,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadLrfTicket(reader, baseCurrency));
+                        ticketResult.MainTicketList.AddRange(ReadLrfTicket(reader, baseCurrency, metaModel.CustId));
                         if (reader.NextResult())
                         {
                             ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
@@ -1006,7 +1006,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency)
+        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -1099,7 +1099,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.HomeId = ordinalHomeId >= 0 ? reader.ToInt("homeid") : 0;
                 ticket.AwayId = ordinalAwayId >= 0 ? reader.ToInt("awayid") : 0;
                 ticket.MatchId = ordinalMatchId >= 0 ? reader.ToInt("matchid") : 0;
-                ticket.CustId = ordinalCustId >= 0 ? reader.ToInt("custid") : 0;
+                ticket.CustId = ordinalCustId >= 0 ? reader.ToInt("custid") : custId;
                 ticket.CurrencyId = ordinalCurrencyId >= 0 ? reader.ToInt("currencyid") : 0;
                 ticket.LiveHomeScore = ordinalLiveHomeScore >= 0 ? reader.ToInt("livehomescore") : 0;
                 ticket.LiveAwayScore = ordinalLiveAwayScore >= 0 ? reader.ToInt("liveawayscore") : 0;
