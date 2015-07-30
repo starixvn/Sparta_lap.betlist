@@ -275,18 +275,15 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         private void GetPopUpData(ResultPopupMetalModel metalModel)
         {
-            var userSession = SessionService.UserSession;
             IResultService resultService = new ResultService();
-            var sportType = (SportType)metalModel.SportType;
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var userId = userSession.UserId;
+            var sportType = (SportType)metalModel.SportType;            
             var setting = new ResultSetting
             {
                 SportType = sportType,
                 IsOutRight = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
                 IsPopUp = true,
-                LanguageCode = userSession.Language
+                LanguageCode = SessionService.UserSession.Language
             };
             if (setting.IsParlayPopUp)
             {
@@ -298,8 +295,7 @@ namespace Fanex.Athena.Controllers.Report
             }
             else
             {
-                var siteName = SessionService.LicenseeSession.LicenseeName;
-                GetNormalPopUpData(metalModel, sportType, licenseeId, userId, siteName, setting);
+                GetNormalPopUpData(metalModel, sportType, setting);
             }
         }
 
@@ -315,9 +311,11 @@ namespace Fanex.Athena.Controllers.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, int licenseeId, int userId, string siteName, ResultSetting setting)
+        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
         {
             IResultService resultService = new ResultService();
+            var userId = SessionService.UserSession.UserId;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             switch (sportType)
             {
@@ -374,8 +372,8 @@ namespace Fanex.Athena.Controllers.Report
                     _htmlResult = ParserService.Instance.Parser(new MicroGaming
                     {
                         DepositCustId = metalModel.CustId,
-                        SiteName = siteName,
-                        GameId = metalModel.BetCheck,
+                        SiteName = SessionService.LicenseeSession.LicenseeName,
+                        GameId = metalModel.BetCheck
                     });
 
                     break;
