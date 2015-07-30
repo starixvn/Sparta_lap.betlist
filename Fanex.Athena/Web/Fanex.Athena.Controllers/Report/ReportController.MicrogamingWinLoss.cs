@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     public partial class ReportController
     {
         /// <summary>
-        /// Microgaming win loss main action.
+        /// Micro gaming win loss main action.
         /// </summary>
         /// <returns>Action result.</returns>
         [HttpGet]
