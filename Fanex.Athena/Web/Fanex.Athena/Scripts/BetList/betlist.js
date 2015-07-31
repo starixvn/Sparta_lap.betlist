@@ -306,7 +306,7 @@ var BetList = (function ($) {
         },
 
         getMicrogamingResultUrl: function (betcheck, custid) {
-            var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');            
+            var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
             url = QueryString.setParam(url, "betcheck", betcheck);
             url = QueryString.setParam(url, "custid", custid);
 
@@ -323,9 +323,9 @@ var BetList = (function ($) {
                 var dialogForm = '<div title="' + title + '">' + html + '</div>';
                 $(dialogForm).dialog({
                     modal: true,
-                    width: 800,
-                    height: 400
-                }); 
+                    width: 750,
+                    height: 500
+                });
             });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
@@ -333,7 +333,7 @@ var BetList = (function ($) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
-            } else {                                
+            } else {
                 bettype = Number(bettype);
                 var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
                 var url = isParlay
@@ -341,7 +341,7 @@ var BetList = (function ($) {
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
                 var height = isParlay ? 450 : 150;
-                var width = 750;                
+                var width = 750;
                 var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
                          width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
                 $(dialogForm).dialog({

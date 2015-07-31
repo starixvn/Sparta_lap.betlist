@@ -483,6 +483,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <None Include="App_Data\Fanex.Result\GoldDeluxe.xls" />
+    <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
     <Content Include="Content\Fanex.Result\images\goal-icon.png" />
@@ -595,20 +596,8 @@
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
     <Content Include="Content\BetList\betlist.core.css" />
-    <Content Include="Content\BetList\images\1F.gif" />
-    <Content Include="Content\BetList\images\1L.gif" />
-    <Content Include="Content\BetList\lastbetmonitornew.css" />
-    <Content Include="Content\BetList\systemparlaydetail.css" />
     <Content Include="Content\BetList\dailystatement.css" />
-    <Content Include="Content\BetList\images\ajax-loader.gif" />
-    <Content Include="Content\BetList\images\firstGoal.gif" />
-    <Content Include="Content\BetList\images\lastGoal.gif" />
-    <Content Include="Content\BetList\images\q_Icon2_1.png" />
-    <Content Include="Content\BetList\images\q_Icon_2.png" />
-    <Content Include="Content\BetList\images\tab_topbg.gif" />
-    <Content Include="Content\BetList\images\undo.png" />
     <Content Include="Content\BetList\lastbetmonitor.css" />
-    <Content Include="Content\BetList\lastbetmonitor.table.css" />
     <Content Include="Content\Customer\BetSetting\BetSetting.css" />
     <Content Include="Content\Customer\BetSetting\images\arrow.gif" />
     <Content Include="Content\Customer\BetSetting\images\bgDIVIDER.gif" />
@@ -619,7 +608,6 @@
     <Content Include="Content\Customer\BetSetting\images\off-on_hr.png" />
     <Content Include="Content\Customer\BetSetting\images\shadow.png" />
     <Content Include="Content\Customer\BetSetting\rngcasino.css" />
-    <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Customer\CustomerLog\customerlog.css" />
     <Content Include="Content\Customer\groupcomm.css" />
     <Content Include="Content\Customer\images\ajax-loader.gif" />
@@ -3343,12 +3331,10 @@
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
-    <Content Include="Content\BetList\betlist.core.css" />
     <Content Include="Content\BetList\images\1F.gif" />
     <Content Include="Content\BetList\images\1L.gif" />
     <Content Include="Content\BetList\lastbetmonitornew.css" />
     <Content Include="Content\BetList\systemparlaydetail.css" />
-    <Content Include="Content\BetList\dailystatement.css" />
     <Content Include="Content\BetList\images\ajax-loader.gif" />
     <Content Include="Content\BetList\images\firstGoal.gif" />
     <Content Include="Content\BetList\images\lastGoal.gif" />
@@ -3356,7 +3342,6 @@
     <Content Include="Content\BetList\images\q_Icon_2.png" />
     <Content Include="Content\BetList\images\tab_topbg.gif" />
     <Content Include="Content\BetList\images\undo.png" />
-    <Content Include="Content\BetList\lastbetmonitor.css" />
     <Content Include="Content\BetList\lastbetmonitor.table.css" />
     <Content Include="Content\Customer\BetSetting\BetSetting.css" />
     <Content Include="Content\Customer\BetSetting\images\arrow.gif" />

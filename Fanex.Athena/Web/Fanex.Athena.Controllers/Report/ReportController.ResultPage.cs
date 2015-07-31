@@ -189,17 +189,12 @@ namespace Fanex.Athena.Controllers.Report
         [AjaxRequest]
         public string MicrogamingResultPopup(int betCheck, int custId)
         {
-            if (ModelState.IsValid)
-            {
-                return ParserService.Instance.Parser(new MicroGaming
-                    {
-                        CustId = custId,
-                        SiteName = SessionService.LicenseeSession.LicenseeName,
-                        GameId = betCheck
-                    });
-            }
-
-            return ViewResources.ErrorProcessingMsg;
+            return ParserService.Instance.Parser(new MicroGaming
+                {
+                    CustId = custId,
+                    SiteName = SessionService.LicenseeSession.LicenseeName,
+                    GameId = betCheck
+                });
         }
 
         /// <summary>
@@ -222,8 +217,8 @@ namespace Fanex.Athena.Controllers.Report
                     SportType = (SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
-               
-                return View("~/Views/Report/Result/Popup/Main.cshtml");                                
+
+                return View("~/Views/Report/Result/Popup/Main.cshtml");
             }
 
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
@@ -293,7 +288,7 @@ namespace Fanex.Athena.Controllers.Report
         private void GetPopUpData(ResultPopupMetalModel metalModel)
         {
             IResultService resultService = new ResultService();
-            var sportType = (SportType)metalModel.SportType;            
+            var sportType = (SportType)metalModel.SportType;
             var setting = new ResultSetting
             {
                 SportType = sportType,
@@ -421,7 +416,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 IEnumerable<Sport> limitedSports;
                 var productAccess = _productService.GetProductAccess(
-                    licenseeSession.LicenseeId, 
+                    licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
                 var limitedProduct =
