@@ -371,7 +371,7 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.MicroGaming:
                     _htmlResult = ParserService.Instance.Parser(new MicroGaming
                     {
-                        DepositCustId = metalModel.CustId,
+                        CustId = metalModel.CustId,
                         SiteName = SessionService.LicenseeSession.LicenseeName,
                         GameId = metalModel.BetCheck
                     });
