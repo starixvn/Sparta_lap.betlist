@@ -319,13 +319,12 @@ var BetList = (function ($) {
         },
         showMicrogamingResultPopup: function (title, betcheck, custid) {
             var url = BetList.getMicrogamingResultUrl(betcheck, custid);
-            $.get(url, function (html) {
-                var dialogForm = '<div title="' + title + '">' + html + '</div>';
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: 750,
-                    height: 500
-                });
+
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="450" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 750,
+                height: 500
             });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,

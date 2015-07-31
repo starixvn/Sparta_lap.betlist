@@ -186,15 +186,20 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [AjaxRequest]
-        public string MicrogamingResultPopup(int betCheck, int custId)
+        public ActionResult MicrogamingResultPopup(int betCheck, int custId)
         {
-            return ParserService.Instance.Parser(new MicroGaming
-                {
-                    CustId = custId,
-                    SiteName = SessionService.LicenseeSession.LicenseeName,
-                    GameId = betCheck
-                });
+            if (ModelState.IsValid)
+            {
+                ViewBag.Data = ParserService.Instance.Parser(new MicroGaming
+                    {
+                        CustId = custId,
+                        SiteName = SessionService.LicenseeSession.LicenseeName,
+                        GameId = betCheck
+                    });
+                return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
+            }
+
+            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
         /// <summary>

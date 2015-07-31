@@ -591,6 +591,7 @@
     <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

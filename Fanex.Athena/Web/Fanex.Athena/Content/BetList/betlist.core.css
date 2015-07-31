@@ -1,13 +1,4 @@
-﻿/*************
- * iframe of microgaming result popup
- *************/
-.iframe-rs, .iframe-rs-wrap {
-	width: 100%;
-	height: 100%;
-	border: none;
-}
-
-a
+﻿a
 {
     text-decoration: none;
 }
