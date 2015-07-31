@@ -185,6 +185,23 @@ namespace Fanex.Athena.Controllers.Report
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
+        [HttpGet]
+        [AjaxRequest]
+        public string MicrogamingResultPopup(int betCheck, int custId)
+        {
+            if (ModelState.IsValid)
+            {
+                return ParserService.Instance.Parser(new MicroGaming
+                    {
+                        CustId = custId,
+                        SiteName = SessionService.LicenseeSession.LicenseeName,
+                        GameId = betCheck
+                    });
+            }
+
+            return ViewResources.ErrorProcessingMsg;
+        }
+
         /// <summary>
         /// Generate tennis detailed result.
         /// </summary>
@@ -365,16 +382,6 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
                     }
-
-                    break;
-
-                case SportType.MicroGaming:
-                    _htmlResult = ParserService.Instance.Parser(new MicroGaming
-                    {
-                        CustId = metalModel.CustId,
-                        SiteName = SessionService.LicenseeSession.LicenseeName,
-                        GameId = metalModel.BetCheck
-                    });
 
                     break;
 

@@ -5,6 +5,7 @@
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+    var SPORT_MICROGAMMING = 203;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -47,7 +48,7 @@ var BetList = (function ($) {
             }).trigger('resize');
 
             _isShowSumStake = $("#IsShowSumStake").val() === "1";
-            
+
             _sortColumnName = _sortColumnName || $("#SortBy").val();
             _sortOrder = _sortOrder || $("#SortOrder").val();
         },
@@ -70,7 +71,7 @@ var BetList = (function ($) {
                             $this.addClass("sorted-heading");
                         }
                     });
-                }
+            }
 
             betListGrid.setGridWidth($("#BodyContent").width());
             // Resize
@@ -259,7 +260,7 @@ var BetList = (function ($) {
                 gridOption.rowNum = rowNum;
                 gridOption.data = rawData;
                 gridOption.userData = { WinLoss: sumWinLoss, LicenseeWL: sumLicenseeWl, BetEffective: sumBetEffective };
-                
+
                 if (_isShowSumStake) {
                     gridOption.userData.Stake = jqGridAdditional.formatDecimal(summary.SumStake);
                     gridOption.userDataOnFooter = true;
@@ -292,7 +293,7 @@ var BetList = (function ($) {
             return url;
         },
 
-        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid) {
+        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
             var url = Site.resolveClientUrl('Report/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
@@ -300,6 +301,12 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "sporttype", sporttype);
             url = QueryString.setParam(url, "isoutright", isOutright);
             url = QueryString.setParam(url, "betid", betid);
+
+            return url;
+        },
+
+        getMicrogamingResultUrl: function (betcheck, custid) {
+            var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');            
             url = QueryString.setParam(url, "betcheck", betcheck);
             url = QueryString.setParam(url, "custid", custid);
 
@@ -310,26 +317,39 @@ var BetList = (function ($) {
             var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
         },
-
-        showResult: function (matchid, raceNo, bettype, sporttype, refno, 
+        showMicrogamingResultPopup: function (title, betcheck, custid) {
+            var url = BetList.getMicrogamingResultUrl(betcheck, custid);
+            $.get(url, function (html) {
+                var dialogForm = '<div title="' + title + '">' + html + '</div>';
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: 800,
+                    height: 400
+                }); 
+            });
+        },
+        showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
-            bettype = Number(bettype);
-            var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
-            var url = isParlay
+            var title = Site.getSingleResource("Result");
+            if (sporttype === SPORT_MICROGAMMING) {
+                BetList.showMicrogamingResultPopup(title, betcheck, custid);
+            } else {                                
+                bettype = Number(bettype);
+                var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
+                var url = isParlay
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-            var height = isParlay ? 450 : 150;
-            var width = 750;
-            var title = Site.getSingleResource("Result");
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
+                var height = isParlay ? 450 : 150;
+                var width = 750;                
+                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
                          width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
-
-            $(dialogForm).dialog({
-                modal: true,
-                width: width + 25,
-                height: height + 70
-            });
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: width + 25,
+                    height: height + 70
+                });
+            }
         },
 
         showMixParlayDetail: function (transId, divEvent) {
