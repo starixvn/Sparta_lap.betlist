@@ -3,6 +3,7 @@
 ///
 var MicroGamingWinLoss = (function ($) {
     "use strict";
+    var VALID_MONTH_RANGE = 3;
     var ajaxRequest = null;
 
     return {
@@ -30,6 +31,7 @@ var MicroGamingWinLoss = (function ($) {
         },
         initialize: function () {
             MicroGamingWinLoss.initEvent();
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, MicroGamingWinLossOption.urlData);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -71,7 +73,7 @@ var MicroGamingWinLoss = (function ($) {
 
         //#Get Data
         ajaxComplete: function (response) {
-            if (response != null) {                
+            if (response != null) {
                 MicroGamingWinLoss.setReportTitle($("#CurrencyId").val(),
                      $("#FromDate").val(), $("#ToDate").val());
                 MicroGamingWinLoss.bindData(response);
@@ -152,7 +154,7 @@ var MicroGamingWinLoss = (function ($) {
 
                     MicroGamingWinLoss.resizeGrid();
                 }
-
+                $(".ui-icon-circlesmall-minus").remove();
                 Site.unBlockUI();
             };
 
