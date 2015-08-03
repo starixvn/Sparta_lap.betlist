@@ -548,6 +548,7 @@
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
     <Content Include="App_Data\Template\RNGCasino\HandHistory.xls" />
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
+    <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -567,6 +568,8 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\agcasinobalance.js" />
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
+    <Content Include="Scripts\Report\microgamingwinloss.js" />
+    <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

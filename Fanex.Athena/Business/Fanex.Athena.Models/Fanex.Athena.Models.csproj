@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\Report\AgCasinoWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\ActiveCustomerMetaModel.cs" />
+    <Compile Include="MetaModel\Report\MicroGamingWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
@@ -352,6 +354,7 @@
     <Compile Include="ViewModel\Report\AgCasinoWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\ActiveCustomerViewModel.cs" />
     <Compile Include="ViewModel\Report\ActiveCustomerGridViewModel.cs" />
+    <Compile Include="ViewModel\Report\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
     <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />

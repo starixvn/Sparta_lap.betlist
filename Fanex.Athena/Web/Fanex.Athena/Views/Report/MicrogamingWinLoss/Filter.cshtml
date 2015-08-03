@@ -1,12 +1,12 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.ThirdPartyWinLossViewModel
+@model Fanex.Athena.Models.ViewModel.Report.MicroGamingWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     @{
         var historyDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
      }
-     <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
+     <form id="MicroGamingWinLossForm" name="MicroGamingWinLossForm" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
                 historyDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     @Html.Hidden("ProductId", Model.Param.ProductId)
@@ -68,6 +68,5 @@
     </div>
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
-    @Html.Hidden("ReportTitle", ViewResources.MicrogamingWinLoss)    
-    @Html.Hidden("CanDrilldown", 0)
+    @Html.Hidden("ReportTitle", ViewResources.MicrogamingWinLoss)
 </div>

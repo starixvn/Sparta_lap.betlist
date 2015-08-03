@@ -19,10 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportController
     {
-        /// <summary>
-        /// Micro gaming win loss main action.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult MicrogamingWinloss()
@@ -33,14 +29,14 @@ namespace Fanex.Athena.Controllers.Report
 
             var products = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var product = products.Where(p => p.ProductCode == Product.GD).SingleOrDefault();
+            var product = products.Where(p => p.ProductCode == Product.MGC).SingleOrDefault();
 
             if (product == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            var metaModel = new ThirdPartyWinLossMetaModel
+            var metaModel = new MicroGamingWinLossMetaModel
             {
                 IsAllowReportby = true,
                 FromDate = date,
@@ -55,7 +51,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyId(metaModel);
 
-            var model = new ThirdPartyWinLossViewModel
+            var model = new MicroGamingWinLossViewModel
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
