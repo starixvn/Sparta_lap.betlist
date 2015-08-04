@@ -124,7 +124,13 @@ namespace Fanex.Athena.Excel.Report
             for (index = 0; index < rowCount; index++)
             {
                 var winloss = _winLossList[index];
-                SetTypeName(sheet, winloss, ref typeId, ref currentRow);
+
+                if (typeId != winloss.TypeID)
+                {
+                    SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, winloss.TypeName);
+                    typeId = winloss.TypeID;
+                    currentRow++;
+                }
 
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
@@ -248,7 +254,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, ColumnDate);
 
             return rowIndex;
         }
@@ -287,20 +293,6 @@ namespace Fanex.Athena.Excel.Report
             reportTitle.Append(ViewResources.WinLoss);
             reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
             return reportTitle.ToString();
-        }
-
-        private void SetTypeName(
-            ISheet sheet,
-            MicroGamingWinLoss winloss,
-            ref int typeId,
-            ref int currentRow)
-        {
-            if (typeId != winloss.TypeID)
-            {
-                SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, winloss.TypeName);
-                typeId = winloss.TypeID;
-                currentRow++;
-            }
         }
 
         private int CalculateReportRowSpan(MicroGamingWinLoss winloss)
