@@ -49,4 +49,8 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="UAT" SpName="Lrf_FunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeFunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeUserFunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
