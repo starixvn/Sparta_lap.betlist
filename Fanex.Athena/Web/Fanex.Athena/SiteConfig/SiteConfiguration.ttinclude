@@ -60,28 +60,6 @@
             }
         }
 
-		public string LoggingMachine
-        {
-            get
-            {
-                switch (SiteEnvironment)
-                {
-                    case SiteEnvironment.LOCAL:
-                        return "Licensee-Local";
-                    case SiteEnvironment.UAT:
-                        return "Licensee-UAT";
-                    case SiteEnvironment.PRO:
-                        return "Licensee-Live";
-                    case SiteEnvironment.BACKUPMNL:
-                        return "Licensee-Live";
-                    case SiteEnvironment.SANDBOX:
-                        return "Licensee-Local";
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
-
         public string BucketServerUri
         {
              get
@@ -111,15 +89,15 @@
                 switch (SiteEnvironment)
                 {
                     case SiteEnvironment.LOCAL:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"Licensee-Local\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     case SiteEnvironment.UAT:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.3.127.2\\private$\\entlib\" defaultCategory=\"Licensee-UAT\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.40.40.73\\private$\\entlib\" defaultCategory=\"LRF-UAT\" />";
                     case SiteEnvironment.PRO:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=http://10.40.40.127/msmq/Private$/entlib\" defaultCategory=\"Licensee-Live\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=http://10.40.40.127/msmq/Private$/entlib\" defaultCategory=\"LRF\" />";
                     case SiteEnvironment.BACKUPMNL:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=TCP:10.2.98.3\\private$\\entlib\" defaultCategory=\"Licensee-Live\" />";
                     case SiteEnvironment.SANDBOX:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"Licensee-Local\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     default:
                         return string.Empty;
                 }
