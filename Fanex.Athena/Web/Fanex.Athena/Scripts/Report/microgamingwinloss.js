@@ -32,6 +32,9 @@ var MicroGamingWinLoss = (function ($) {
         initialize: function () {
             MicroGamingWinLoss.initEvent();
             Site.setConstraintMonthRange(VALID_MONTH_RANGE, MicroGamingWinLossOption.urlData);
+            
+            // Resize grid when pressing collapse/expand group
+            $(".report-content").on("click", ".tree-wrap-ltr", MicroGamingWinLoss.resizeGrid);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -154,7 +157,7 @@ var MicroGamingWinLoss = (function ($) {
 
                     MicroGamingWinLoss.resizeGrid();
                 }
-                $(".ui-icon-circlesmall-minus").remove();
+
                 Site.unBlockUI();
             };
 
