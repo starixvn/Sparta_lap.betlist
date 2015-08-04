@@ -305,7 +305,7 @@ namespace Fanex.Athena.Excel.Report
 
         private int CalculateReportRowSpan(MicroGamingWinLoss winloss)
         {
-            return _winLossList.Count(x => x.TypeID == winloss.TypeID && x.CurrencyID == winloss.CurrencyID);
+            return _winLossList.Count(x => x.TypeID == winloss.TypeID && x.Date.Date == winloss.Date.Date);
         }
     }
 }
