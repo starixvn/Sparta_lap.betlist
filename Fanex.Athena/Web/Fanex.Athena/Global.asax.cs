@@ -78,25 +78,30 @@ namespace Fanex.Athena
         public void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-            Exception ex = Server.GetLastError().GetBaseException();
-            var httpException = ex as HttpException;
+            Exception exception = Server.GetLastError().GetBaseException();
+            if (exception is HttpAntiForgeryException)
+            {
+                return;
+            }
+
+            var httpException = exception as HttpException;
             if (httpException != null && httpException.GetHttpCode() == 404)
             {
                 return;
             }
 
-            string message = ex.Message +
-                             "\r\nSOURCE: " + ex.Source +
+            string message = exception.Message +
+                             "\r\nSOURCE: " + exception.Source +
                              "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
                              "\r\nFORM: " + string.Join("~", Request.Form) +
                              "\r\nUrl: " + Request.RawUrl +
                              "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
-                             "\r\nTARGETSITE: " + ex.TargetSite +
-                             "\r\nSTACKTRACE: " + ex.StackTrace +
+                             "\r\nTARGETSITE: " + exception.TargetSite +
+                             "\r\nSTACKTRACE: " + exception.StackTrace +
                              "\r\nBrowser:" + Request.Browser.Type.ToString() +
                              "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
                              "\r\nAgent:" + Request.UserAgent.ToString();
-            var sqlException = ex as SqlException;
+            var sqlException = exception as SqlException;
             if (sqlException != null)
             {
                 message += "\r\nProcedure: " + sqlException.Procedure +
@@ -111,7 +116,7 @@ namespace Fanex.Athena
                 message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
             }
 
-            Logging.LogService.Error(message, ex);
+            Logging.LogService.Error(message, exception);
         }
 
         protected void Application_BeginRequest()
