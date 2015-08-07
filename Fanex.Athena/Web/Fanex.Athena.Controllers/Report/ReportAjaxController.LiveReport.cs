@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report.LiveReports;
@@ -56,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                     BySports = dataBySport,
                     ByCurrencies = dataByCurrency,
                     ByBetType = dataByBetType,
-                    IsShowedDetailLink = metaModel.FromDate >= balanceUpDay && !productCode.Equals(Product.KN, System.StringComparison.OrdinalIgnoreCase),
+                    IsShowedDetailLink = metaModel.FromDate >= balanceUpDay,
                     Param = metaModel,
                     ProductAccess = productAccess
                 });

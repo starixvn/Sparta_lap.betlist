@@ -6,7 +6,7 @@
 }
 <div class="container_26">
     <div class="grid_26">
-        <div style="width: @(ViewBag.ContainerWidth)px;">
+        <div style="width: @(ViewBag.WrapperWidth)px;">
             @RazorHelper.Paging("CustomerPendingFundsForm", Model.TotalRows, param.PageIndex, param.PageSize)
         </div>
         <div class="report-content " style="width: @(ViewBag.WrapperWidth)px">
@@ -73,10 +73,11 @@
             </div>
             @if (Model.DataList != null && Model.DataList.Count > 0)
             {
+                var totalWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth + 2;
                 var total = Model.TotalData;
                 //total 
                 <div id="report-total" class="total-content" style="width: @(ViewBag.ContainerWidth)px;">
-                    <div class="row " style="width: @(ViewBag.TotalWidth)px">
+                    <div class="row " style="width: @(totalWidth)px">
                         <div class="title-text">
                             @ViewResources.Total
                         </div>
@@ -90,7 +91,7 @@
                 </div>
             }
         </div>
-        <div style="width:@(ViewBag.ContainerWidth)px;">
+        <div style="width:@(ViewBag.WrapperWidth)px;">
             @RazorHelper.Paging("CustomerPendingFundsForm", Model.TotalRows, param.PageIndex, param.PageSize)
         </div>
     </div>

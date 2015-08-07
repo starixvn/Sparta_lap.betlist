@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/20/2015 9:51:38 AM
+// Lasted generated date: 7/21/2015 5:12:33 PM
 // </history>
 
 var _language_ko_KR={
@@ -28,8 +28,6 @@ var _language_ko_KR={
                      AGCasino:"AG Casino",
 				 	
                      AGCasinoNotOfferCurrency:"AG Casino is not offered for this currency.",
-				 	
-                     AGCasinoProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      AH:"AH",
 				 	

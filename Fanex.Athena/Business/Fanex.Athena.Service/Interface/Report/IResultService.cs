@@ -10,7 +10,10 @@ namespace Fanex.Athena.Service.Interface.Report
     using System.Collections.Generic;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Result.Core.DTO;
+    using Fanex.Result.Core.LiveCasino.DTO;
+    using Fanex.Result.Core.NumberGame.DTO;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
 
     public interface IResultService
     {

@@ -10,6 +10,7 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Customer
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -23,7 +24,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.Macau;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
@@ -39,6 +39,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         protected const int GoldDeluxeProductId = 11;
         protected const int MacauProductId = 12;
+        protected const int BetTradeProductId = 13;
+        protected const int MicroGamingProductId = 14;
         protected const int LiveCasinoActionId = 2037;
         protected const string WriteLogSPName = "WriteLog_UserLog_RunSP";
         protected const int RngCasinoSportId = 251;
@@ -52,28 +54,46 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 
         #endregion Field
 
+        /// <summary>
+        /// Gets the third party bet setting.
+        /// </summary>
+        /// <param name="licenseeId">The customer identifier.</param>
+        /// <returns>The product bet setting.</returns>
+        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
+        {
+            var uspName = "Lrf_LicenseeProductSel";
+            using (var db = new ObjectDb(uspName))
+            {
+                var param = new Hashtable
+                {
+                    { "licenseeid", licenseeId }
+                };
+                return db.Query<BetSettingProduct>(param);
+            }
+        }
+
         #region Get bet setting data
 
         /// <summary>
-        /// Get Macau setting.
+        /// Gets the third party bet setting.
         /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <returns>Macau setting.</returns>
-        public MacauBetSetting GetMacauSetting(int custId)
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="productid">The product id.</param>
+        /// <returns>The third party bet setting.</returns>
+        public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
-
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, MacauProductId);
+                db.AddInParameter("ProductId", DbType.Int32, productid);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("Currency", DbType.Int32, 1);
 
                 db.ExecuteNonQuery();
 
-                return new MacauBetSetting()
+                return new ThirdPartyBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
                     IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
@@ -93,7 +113,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, GoldDeluxeProductId);
+                db.AddInParameter("ProductId", DbType.Int32, (int)ProductTypes.GoldDeluxe);
                 db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
                 db.AddOutParameter("Currency", DbType.Int32, 1);
@@ -302,7 +322,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
         /// <returns>List result.</returns>
-        public IList<BetSetting> GetKenoBetSetting(int custId)
+        public IList<BetSetting> GetKenoBetSettings(int custId)
         {
             var uspName = "Lrf_CustomerSelEditKN";
 
@@ -366,7 +386,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, GoldDeluxeProductId);
+                db.AddInParameter("productid", DbType.Int32, (int)ProductTypes.GoldDeluxe);
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);
@@ -392,13 +412,20 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         /// <summary>
         /// Updates the macau status.
         /// </summary>
+        /// <param name="productId">The product ID.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="custId">The customer identifier.</param>
         /// <param name="language">The language.</param>
         /// <param name="ip">The host address.</param>
         /// <param name="isEnabled">The macau status.</param>
         /// <returns>The Result Info.</returns>
-        public IResultInfo UpdateMacauStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateThirdPartyProductStatus(
+            int productId,
+            int userId,
+            int custId,
+            string language,
+            string ip,
+            bool isEnabled)
         {
             var uspName = "Lrf_3rdProductUpdCustStatus";
 
@@ -406,7 +433,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, MacauProductId);
+                db.AddInParameter("productid", DbType.Int32, productId);
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);
                 db.AddInParameter("language", DbType.String, language);
@@ -425,7 +452,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        #endregion VegasGames
+        #endregion Macau
 
         #region AG Casino
 
@@ -843,10 +870,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        #endregion Live Casino
-
-        #endregion Update bet setting
-
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
             return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, ip, language);
@@ -856,6 +879,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         {
             return UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
         }
+
+        #endregion Live Casino
+
+        #endregion Update bet setting
 
         #region Get Sport Name
 

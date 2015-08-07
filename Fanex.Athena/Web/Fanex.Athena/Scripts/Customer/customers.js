@@ -369,7 +369,7 @@ var CustomerList = (function ($) {
             var gridTop = $(".ui-jqgrid-bdiv").offset().top;
             var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
             gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight);
+            $(".ui-jqgrid-bdiv").css("max-height", gridHeight).find(">div").height("auto");
         },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;
@@ -422,7 +422,6 @@ var CustomerList = (function ($) {
             _pagingOption = pagingHeper.getSetting();
             CustomerList.submit();
         },
-        mousePosition: { x: 0, y: 0 },
         initialize: function () {
             $("#SubmitButtonComm").prop("disabled", true);
             CustomerList.initEvent();
@@ -496,10 +495,6 @@ var CustomerList = (function ($) {
             $("#login-info-link").on("click", CustomerList.viewLogInfo);
 
             $("#close-cust-option-link").on("click", CustomerList.closeCustOption);
-
-            $(document).on('mousedown', function (e) {
-                CustomerList.mousePosition = { x: e.pageX, y: e.pageY };
-            });
         },
         initGridColumnOption: function () {
             var data = $.parseJSON($("#AllowedGridColumns").val());
@@ -679,10 +674,16 @@ var CustomerList = (function ($) {
             list.attr('class', 'level-' + list.val());
         },
 
-        viewCustOption: function (context) {
-            var custId = context.attr("custid");
+        viewCustOption: function ($context) {
+            var custId = $context.attr("custid");
             var popup = $("#view-cust-option");
             var link = $("#cust-option-link-" + custId);
+
+            var position = $context.offset();
+            popup.css({
+                top: position.top + $context.height(),
+                left: $context.offset().left
+            });
 
             if (popup.attr("custid") === custId) {
                 popup.toggle();
@@ -691,12 +692,6 @@ var CustomerList = (function ($) {
                 popup.attr("custid", custId);
                 popup.attr("externalid", link.attr("externalid"));
                 popup.attr("systemid", link.attr("systemid"));
-
-                popup.css({
-                    top: CustomerList.mousePosition.y + 10,
-                    left: CustomerList.mousePosition.x - 40
-                });
-
                 popup.show();
             }
 
@@ -712,10 +707,16 @@ var CustomerList = (function ($) {
 
         // -------------Update cust status----------------------------------------
         // view popup update
-        viewUpdatePopUp: function (context) {
-            var custId = context.attr("custid");
+        viewUpdatePopUp: function ($context) {
+            var custId = $context.attr("custid");
             var statusLink = $("#edit-cust-status-" + custId);
             var popup = $("#update-cust-status-popup");
+
+            var position = $context.offset();
+            popup.css({
+                top: position.top + $context.height(),
+                left: $context.offset().left
+            });
 
             if (popup.attr("custid") === custId) {
                 popup.toggle();
@@ -732,11 +733,6 @@ var CustomerList = (function ($) {
                 popup.attr("custid", custId);
                 popup.attr("closed", isClosed);
                 popup.attr("suspended", isSuspended);
-
-                popup.css({
-                    top: CustomerList.mousePosition.y + 10,
-                    left: CustomerList.mousePosition.x - 90
-                });
 
                 popup.show();
             }

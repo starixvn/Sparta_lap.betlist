@@ -170,6 +170,40 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         /// <summary>
+        /// Action Get for live report micro gaming bet list.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The action result.</returns>
+        [HttpGet]
+        public ActionResult LiveReportMicroGaming(LiveReportBetListMetaModel metaModel)
+        {
+            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            if (metaModel.IsExportExcel)
+            {
+                var currencyList = SessionService.UserSession.CurrencyList;
+
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                {
+                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossMicroGaming";
+
+                    var title = ViewResources.BetList
+
+                        + string.Format(
+                        " - {0} - {1} --> {2} - {3}",
+                        ViewResources.NumberGame,
+                        metaModel.FromDate.ToShortDateString(),
+                        metaModel.ToDate.ToShortDateString(),
+                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                }
+
+                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            }
+
+            return View("~/Views/BetList/LiveReport/MicroGaming.cshtml", metaModel);
+        }
+
+        /// <summary>
         /// The racing live report.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>

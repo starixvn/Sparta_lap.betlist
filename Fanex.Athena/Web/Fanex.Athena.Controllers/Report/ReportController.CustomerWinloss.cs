@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetAllowedProducts(CustomerWinLossName));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -91,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(historyParam);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetAllowedProducts(CustomerWinLossName));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {

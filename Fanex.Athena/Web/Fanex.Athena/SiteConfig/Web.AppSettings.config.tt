@@ -16,7 +16,7 @@
 <#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
 <#
     var manager = TemplateFileManager.Create(this);
-	List<string> sites = new List<string>() {"LOCAL","UAT","PRO","SANDBOX","BACKUPMNL"};
+	List<string> sites = new List<string>() {"DEV","LOCAL","UAT","PRO","SANDBOX","BACKUPMNL"};
     foreach(var site in sites)
     {
         var x = site.ToString();
@@ -24,6 +24,80 @@
         manager.StartNewFile(fileName);
 		switch(site)
 		{
+			case "DEV":
+				#>
+<appSettings>
+	<clear />
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="webpages:Version" value="2.0.0.0" />
+	<add key="Enviroment" value="DEV"/>
+	<add key="PreserveLoginUrl" value="true" />
+	<add key="ClientValidationEnabled" value="true" />
+	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
+	<add key="JsVersion" value="v=37033" />
+	<add key="LocalTest" value="1" />
+	<add key="IsTesting" value="0" />
+	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />  
+	<add key="RemoteCacheUrl" value="tcp://10.18.200.209:8888/CallGetOddsFunction" />
+	<add key="LBUrl" value="" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012" />
+	<add key="BasedCurrency" value="EUR" />
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="EnableRacing" value="1" />
+	<add key="EnableRacingHRUK" value="1" />
+	<add key="EnableRacingHRSA" value="1" />
+	<add key="EnableRacingHRAust" value="1" />
+	<add key="EnableRacingGreyhoundUK" value="1" />
+	<add key="EnableRacingGreyhoundAust" value="1" />
+	<add key="EnableRacingHarnessAust" value="1" />
+	<add key="EnableNumberGame" value="1" />    
+	<add key="ColumnWidth" value="120" />
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/" />
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="" />
+	<add key="restrictuserprefix" value="pgm;dba;tester;" />
+	<add key="superadminlist" value="pgmson;" />
+	<add key="ExcludeFunctionIdList" value="" />
+	<add key="AcceptIp" value="*" />
+	<add key="IsDisableRngCasino" value="false" />
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="SubDomainPath" value="" />
+	<add key="EnableAssignCurrency" value="true" />
+	<add key="LicenseeOfferNewForecast" value="14" />
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesOfferOddsGroup" value="19,22,23,24,63,67,69,77,79,89,93,94,99,102,103,108,116,126" />
+	<add key="LicenseeOfferStatusFunction" value="12" />
+	<add key="LegendEnvironment" value="UAT" />
+	<add key="LegendAdminSite" value="http://10.18.200.209:7980/V1" />
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	 <!-- AG Casino API -->
+	<add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
+	<!-- /AG Casino API  -->
+	<!-- Gold Deluxe API -->
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<!-- /Gold Deluxe API  -->
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
+</appSettings>
+<#
+				break;
 			case "LOCAL":
 				#>
 <appSettings>
@@ -36,7 +110,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=36216" />
+	<add key="JsVersion" value="v=37033" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />  
@@ -50,6 +124,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -83,14 +158,15 @@
 	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
 	 <!-- AG Casino API -->
-  <add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
-  <!-- /AG Casino API  -->
-  <!-- Gold Deluxe API -->
-  <add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
-  <add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
-  <add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
-  <!-- /Gold Deluxe API  -->
-  <add key="EnableEsportSettingStatus" value="false" />
+	<add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
+	<!-- /AG Casino API  -->
+	<!-- Gold Deluxe API -->
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<!-- /Gold Deluxe API  -->
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
 </appSettings>
 				<#
 				break;
@@ -107,7 +183,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=36216" />
+	<add key="JsVersion" value="v=37033" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -121,6 +197,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -156,6 +233,7 @@
 	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/GetUserGroupBettingLimit" />
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
 </appSettings>
 
 				<#
@@ -173,7 +251,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=36216" />
+	<add key="JsVersion" value="v=37033" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -187,6 +265,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -222,6 +301,7 @@
 	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://10.40.40.109:8090/3rd/GetUserGroupBettingLimit" />
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
 </appSettings>
 
 				<#
@@ -238,7 +318,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=36216" />
+	<add key="JsVersion" value="v=37033" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.209:8888/CallGetRefFunction" />
@@ -252,6 +332,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -290,6 +371,7 @@
 	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
 </appSettings>
 				<#
 				break;
@@ -306,7 +388,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=36216" />
+	<add key="JsVersion" value="v=37033" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -320,6 +402,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="116.193.67.114" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -355,6 +438,7 @@
 	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
 </appSettings>
                 <#break;
 			default:

@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
     using Fanex.Athena.Service.Implement.Customer.CustomerLog;
     using RazorEngine;
+    using RazorEngine.Templating;
 
     /// <summary>
     /// TODO: Update summary.
@@ -84,10 +85,9 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <returns> HTML string.</returns>
         private static string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
-            var templateFormat = string.Format("~/Views/Customer/CustomerLog/Action/{0}.cshtml", actionId);
-            var template = File.ReadAllText(HostingEnvironment.MapPath(templateFormat));
-            Razor.GetTemplate(template, actionId.ToString());
-            return Razor.Run(actionId.ToString(), viewModel);
+            var templatePath = HostingEnvironment.MapPath(string.Format("~/Views/Customer/CustomerLog/Action/{0}.cshtml", actionId));
+            var template = File.ReadAllText(templatePath);
+            return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
         }
 
         #endregion Parse dictonary to razor view

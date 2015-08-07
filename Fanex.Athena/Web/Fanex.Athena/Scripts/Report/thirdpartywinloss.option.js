@@ -69,10 +69,7 @@ var ThirdPartyWinLossOption = (function () {
         resizable: false,
         width: 120,
         align: 'left',
-        sortable: false,
-        formatter: function (cellvalue, options, rowObject) {
-            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-        }
+        sortable: false
     };
 
     var currencyColumn =
@@ -82,8 +79,7 @@ var ThirdPartyWinLossOption = (function () {
         width: 60,
         align: 'center',
         sortable: false,
-        resizable: false,
-        formatter: currencyFormatter
+        resizable: false
     };
 
     var turnoverColumn =
@@ -172,6 +168,7 @@ var ThirdPartyWinLossOption = (function () {
 
     var me =
     {
+        canDrilldown: true,
         LICENSEE_12BET: 1,
         licenseeId: 0,
         totalColspan: [2, 2, 3],
@@ -206,13 +203,16 @@ var ThirdPartyWinLossOption = (function () {
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function (level) {
+    me.getColModel = function (level, canDrilldown) {
         level = Number(level);
 
-        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+        if (canDrilldown) {
+            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
-        dateColumn.hidden = level > 0;
+            dateColumn.hidden = level > 0;
+        }
+
         dateColumn.formatoptions =
         {
             newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
@@ -223,9 +223,9 @@ var ThirdPartyWinLossOption = (function () {
         return Site.clone(colModelList);
     };
 
-    me.getGridOption = function (level) {
+    me.getGridOption = function (level, canDrilldown) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel(level);
+        me.gridOption.colModel = me.getColModel(level, canDrilldown);
         return Site.clone(me.gridOption);
     };
 

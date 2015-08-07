@@ -15,20 +15,22 @@
 @{
     ViewBag.ColumnCount = 2;
 
+    ViewBag.ColumnCount += Model.ProductAccess.IsAllowBT ? 2 : 0;
     ViewBag.ColumnCount += Model.ProductAccess.IsAllowBA ? 2 : 0;
     ViewBag.ColumnCount += Model.ProductAccess.IsAllowRB ? 2 : 0;
     ViewBag.ColumnCount += Model.IsAllowedCustomerCommission ? 1 : 0;
 
-    ViewBag.ColumnWidth = 140;
-    // Make the first column = 420px if column count = 2
-    ViewBag.FirstColumnWidth = ViewBag.ColumnCount == 7 ? ViewBag.ColumnWidth : (7 - ViewBag.ColumnCount)*140;
+    ViewBag.ColumnWidth = 115;
+    
+    ViewBag.FirstColumnWidth = ViewBag.ColumnCount == 9 ? 140 : (9 - ViewBag.ColumnCount) * 130;
 
     ViewBag.ContainerWidth = ViewBag.FirstColumnWidth + ViewBag.ColumnWidth;
+    ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowBT ? 2 : 0);
     ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowBA ? 2 : 0);
     ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.ProductAccess.IsAllowRB ? 2 : 0);
     ViewBag.ContainerWidth += ViewBag.ColumnWidth * (Model.IsAllowedCustomerCommission ? 1 : 0);
     ViewBag.ContainerWidth += ViewBag.ColumnCount;
-    if (ViewBag.ContainerWidth < 700) {ViewBag.ContainerWidth = 700;}
+    if (ViewBag.ContainerWidth < 700) { ViewBag.ContainerWidth = 700; }
     ViewBag.FilterWidth = ViewBag.ContainerWidth > 1075 ? 1075 : ViewBag.ContainerWidth;
 }
 @section ContentTitle

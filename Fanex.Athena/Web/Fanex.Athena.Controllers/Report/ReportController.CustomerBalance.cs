@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId, 
                 userSession.Language,
-                Util.GetAllowedProducts(CustomerBalanceName));
+                CustomerBalanceName);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                                  {
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, Util.GetAllowedProducts(CustomerBalanceName));
+            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerBalanceName);
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -162,7 +162,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = _productService.GetProductAccess(
                 viewModel.Param.LicenseeId, 
                 SessionService.UserSession.Language, 
-                Util.GetAllowedProducts(CustomerBalanceName));
+                CustomerBalanceName);
 
             var showingOption = new ShowingOption
                 {

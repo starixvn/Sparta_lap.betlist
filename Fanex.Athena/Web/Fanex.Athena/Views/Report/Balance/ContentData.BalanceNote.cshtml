@@ -20,15 +20,20 @@
         <li>
         @ViewResources.LicenseeW_L:&nbsp;@String.Format(ViewResources.Licenseegrossrevenuefor, productNameText)
         </li>
+        @if (Model.ProductAccess.IsAllowBT)
+        {
+            <li>@ViewResources.BetTradeComissionBalanceNote</li>
+            <li>@ViewResources.AmtDueToBetTradeBalanceNote</li>
+        }
         <!--BANotes-->
-        @if (ViewBag.BANotes)
+        @if (Model.ProductAccess.IsAllowBA)
         {
             <li>@ViewResources.BAComissionBalanceNote</li>
             <li>@ViewResources.AmtDueToBABalanceNote</li>
         }
         <!--/BANotes-->
         <!--RacingNotes-->
-        @if (ViewBag.RacingNotes)
+        @if (Model.ProductAccess.IsAllowRB)
         { 
             <li>@ViewResources.RacingRevenueBalanceNote</li>
             <li>@ViewResources.AmtDueToRacingBalanceNote</li>

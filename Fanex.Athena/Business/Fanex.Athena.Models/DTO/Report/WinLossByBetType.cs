@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.Helper;
     using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Fanex.Athena.Models.DTO.Report
                 if (_betTypeName == null)
                 {
                     _betTypeName = CacheRef.GetBettype(_betType, _liveIndicator) +
-                        (Util.ValidateBettpe("VS", _betType) ? " (" + ViewResources.VirtualSports + ")" : string.Empty);
+                        (Validator.ValidateBettpe("VS", _betType) ? " (" + ViewResources.VirtualSports + ")" : string.Empty);
                 }
 
                 return _betTypeName;

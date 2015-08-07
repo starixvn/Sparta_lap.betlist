@@ -394,6 +394,24 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amt Due To Bet Trade.
+        /// </summary>
+        public static string AmtDueToBetTrade {
+            get {
+                return ResourceManager.GetString("AmtDueToBetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade..
+        /// </summary>
+        public static string AmtDueToBetTradeBalanceNote {
+            get {
+                return ResourceManager.GetString("AmtDueToBetTradeBalanceNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt Due To Racing.
         /// </summary>
         public static string AmtDueToRacing {
@@ -723,6 +741,42 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string BettingLimit {
             get {
                 return ResourceManager.GetString("BettingLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Trade.
+        /// </summary>
+        public static string BetTrade {
+            get {
+                return ResourceManager.GetString("BetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BetTrade Commission: Licensee commission income for BetTrade tickets..
+        /// </summary>
+        public static string BetTradeComissionBalanceNote {
+            get {
+                return ResourceManager.GetString("BetTradeComissionBalanceNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Trade Commission.
+        /// </summary>
+        public static string BetTradeCommission {
+            get {
+                return ResourceManager.GetString("BetTradeCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BetTrade is not offered for this currency..
+        /// </summary>
+        public static string BetTradeNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("BetTradeNotOfferCurrency", resourceCulture);
             }
         }
         
@@ -1816,6 +1870,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Microgaming.
+        /// </summary>
+        public static string DisableMicrogaming {
+            get {
+                return ResourceManager.GetString("DisableMicrogaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable RNG Casino.
         /// </summary>
         public static string DisableRNGCasino {
@@ -1830,15 +1893,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string DisableSSOMsg {
             get {
                 return ResourceManager.GetString("DisableSSOMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Vegas Games.
-        /// </summary>
-        public static string DisableVegasGames {
-            get {
-                return ResourceManager.GetString("DisableVegasGames", resourceCulture);
             }
         }
         
@@ -1996,6 +2050,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable BetTrade.
+        /// </summary>
+        public static string EnableBetTrade {
+            get {
+                return ResourceManager.GetString("EnableBetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Gold Deluxe.
         /// </summary>
         public static string EnableGoldDeluxe {
@@ -2023,20 +2086,20 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Microgaming.
+        /// </summary>
+        public static string EnableMicrogaming {
+            get {
+                return ResourceManager.GetString("EnableMicrogaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable RNG Casino.
         /// </summary>
         public static string EnableRNGCasino {
             get {
                 return ResourceManager.GetString("EnableRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Vegas Games.
-        /// </summary>
-        public static string EnableVegasGames {
-            get {
-                return ResourceManager.GetString("EnableVegasGames", resourceCulture);
             }
         }
         
@@ -4224,6 +4287,33 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string MessageSuccess {
             get {
                 return ResourceManager.GetString("MessageSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microgaming.
+        /// </summary>
+        public static string Microgaming {
+            get {
+                return ResourceManager.GetString("Microgaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microgaming is not offered for this currency..
+        /// </summary>
+        public static string MicroGamingNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("MicroGamingNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microgaming Win Loss.
+        /// </summary>
+        public static string MicrogamingWinLoss {
+            get {
+                return ResourceManager.GetString("MicrogamingWinLoss", resourceCulture);
             }
         }
         
@@ -7230,33 +7320,6 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string UserTooManyLicensees {
             get {
                 return ResourceManager.GetString("UserTooManyLicensees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games.
-        /// </summary>
-        public static string VegasGames {
-            get {
-                return ResourceManager.GetString("VegasGames", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games is not offered for this currency..
-        /// </summary>
-        public static string VegasGamesNotOfferCurrency {
-            get {
-                return ResourceManager.GetString("VegasGamesNotOfferCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vegas Games Win Loss.
-        /// </summary>
-        public static string VegasGamesWinLoss {
-            get {
-                return ResourceManager.GetString("VegasGamesWinLoss", resourceCulture);
             }
         }
         

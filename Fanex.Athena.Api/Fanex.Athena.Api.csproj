@@ -41,12 +41,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.Core, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <HintPath>..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.MetricGaming, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.MetricGaming.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -59,14 +71,15 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
+    <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.7.0\lib\net40\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -110,8 +123,8 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -158,6 +171,7 @@
     <Compile Include="BetList\BetListController.Outstanding.RunningBetList.cs" />
     <Compile Include="BetList\BetListController.RunningBetList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ReportController.MicroGamingWinLoss.cs" />
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
     <Compile Include="Report\ReportController.AgCasinoBalance.cs" />

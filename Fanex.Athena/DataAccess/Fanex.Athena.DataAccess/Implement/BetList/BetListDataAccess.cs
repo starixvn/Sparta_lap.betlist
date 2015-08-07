@@ -39,6 +39,38 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     {
         private const string UspExceptionName = "\n UspName=";
 
+        private static Dictionary<string, Action<IObjectDb, BetListMetaModel>> addSqlParameters = new Dictionary<string, Action<IObjectDb, BetListMetaModel>>
+        {
+            { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
+            { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
+            { "Lrf_BetList_CorrectScore", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinlossDaily", (db, metalModel) => CreateDailyWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinlostRacing", (db, metalModel) => CreateDailyRacingWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettype", (db, metalModel) => CreateRunningBetListByBettypePaprameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettypeList", (db, metalModel) => CreateRunningBetListByMultipleBettypePaprameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossByMatch", (db, metalModel) => CreateLiveReportBetListByMatchParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreaeteLiveReportNumberGameBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossRacing", (db, metalModel) => CreateLiveReportBetListRacingParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListRacingParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Racing", (db, metalModel) => CreateMatchWLRacingBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
+            { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
+            { "Lrf_BetList_MobileReport_SelWinloss_Mem", (db, metalModel) => CreateMobileWLBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelAllByDate_Mem", (db, metalModel) => CreateOutStandingCompletedBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByDate_Mem", (db, metalModel) => CreateRunningBetListParameters(db, metalModel) },
+            { "Lrf_BetList_SelAllByDateHR", (db, metalModel) => CreateMatchRunningBetListOfHRParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
+            { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
+            { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
+        };
+
         /// <summary>
         /// Get Mix Parlay Detail data.
         /// </summary>
@@ -188,7 +220,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadLrfTicket(reader, baseCurrency));
+                        ticketResult.MainTicketList.AddRange(ReadLrfTicket(reader, baseCurrency, metaModel.CustId));
                         if (reader.NextResult())
                         {
                             ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
@@ -751,7 +783,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var suportProducts = new string[4] { Product.SB, Product.BA, Product.LC, Product.VS };
+            var suportProducts = new string[5] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGC };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {
@@ -1006,7 +1038,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency)
+        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -1099,7 +1131,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.HomeId = ordinalHomeId >= 0 ? reader.ToInt("homeid") : 0;
                 ticket.AwayId = ordinalAwayId >= 0 ? reader.ToInt("awayid") : 0;
                 ticket.MatchId = ordinalMatchId >= 0 ? reader.ToInt("matchid") : 0;
-                ticket.CustId = ordinalCustId >= 0 ? reader.ToInt("custid") : 0;
+                ticket.CustId = ordinalCustId >= 0 ? reader.ToInt("custid") : custId;
                 ticket.CurrencyId = ordinalCurrencyId >= 0 ? reader.ToInt("currencyid") : 0;
                 ticket.LiveHomeScore = ordinalLiveHomeScore >= 0 ? reader.ToInt("livehomescore") : 0;
                 ticket.LiveAwayScore = ordinalLiveAwayScore >= 0 ? reader.ToInt("liveawayscore") : 0;
@@ -1176,119 +1208,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             Justification = "Reviewed. Suppression is OK here.")]
         private static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
         {
-            switch (uspKey)
-            {
-                case "Lrf_BetList_WinlostByLeague_Mem":
-                    CreateWinlossByLeagueParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelDeleted":
-                    CreateCancelBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_CorrectScore":
-                    CreateCorectScoreBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelWinLossByDate_Mem":
-                    CreateCustomerWlBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelWinlossDaily":
-                    CreateDailyWLBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelWinlostRacing":
-                    CreateDailyRacingWLBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelWinloss_Mem":
-                    CreateLicenseeWLBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelRunningByBettype":
-                    CreateRunningBetListByBettypePaprameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelRunningByBettypeList":
-                    CreateRunningBetListByMultipleBettypePaprameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_LiveReport_SelWinlossByMatch":
-                    CreateLiveReportBetListByMatchParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_LiveReport_SelWinlossOutright":
-                    CreateLiveReportOutRightBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_LiveReport_SelWinlossNumberGame":
-                    CreaeteLiveReportNumberGameBetlistParameters(db, metaModel);
-
-                    break;
-
-                case "Lrf_BetList_LiveReport_SelWinlossParlay":
-                    CreateLiveReportParlayBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_LiveReport_SelWinlossRacing":
-                case "Lrf_BetList_LiveReport_SelWinlossVHRacing":
-                    CreateLiveReportBetListRacingParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_MatchWL_Racing":
-                    CreateMatchWLRacingBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_MatchWL_Bettype":
-                    CreateMatchWLBettypeBetlistParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_MatchWL_Outright":
-                    CreateMatchWLOutRightBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_MatchWL_Parlay":
-                    CreateMatchWLParlayBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_MobileReport_SelWinloss_Mem":
-                    CreateMobileWLBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelAllByDate_Mem":
-                    CreateOutStandingCompletedBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelByDayAll_Mem":
-                    CreateDailyStatementBetListParameters(db, metaModel);
-
-                    break;
-
-                case "Lrf_BetList_SelByDayAll_Mem_Old":
-                    CreateDailyStatementBetListOldParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelRunningByDate_Mem":
-                    CreateRunningBetListParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelAllByDateHR":
-                    CreateMatchRunningBetListOfHRParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelRunningByBettypeMatch":
-                    CreateMatchRunningBetLitByBettypeParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_SelRunningByMultipleBettypeMatch":
-                    CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metaModel);
-                    break;
-
-                case "Lrf_BetList_Forecast_SelByMatch":
-                    CreateRunningBetListByForeCastMatchParameters(db, metaModel);
-                    break;
-            }
+            addSqlParameters[uspKey](db, metaModel);
         }
 
         private static void CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(IObjectDb db, BetListMetaModel metaModel)

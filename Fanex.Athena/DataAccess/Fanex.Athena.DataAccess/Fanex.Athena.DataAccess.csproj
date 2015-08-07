@@ -41,12 +41,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.Core, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.MetricGaming, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.MetricGaming.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -58,8 +70,29 @@
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=1.6.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.1.6.3.1-beta-1\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.0.7\lib\net40\Fanex.Result.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.Base, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.0.7\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-LiveCasino.1.0.0.1\lib\net40\Fanex.Result.Core.LiveCasino.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.0.1\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.Racing, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.1.0.0.1\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.0.0.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -85,14 +118,12 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
+    <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\RazorEngine.3.7.0\lib\net40\RazorEngine.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\RemotingRef.1.0.0.2\lib\net40\RemotingRef.dll</HintPath>
@@ -108,8 +139,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
@@ -135,6 +166,7 @@
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
+    <Compile Include="Implement\Report\MicroGamingWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoBalanceDataAccess.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoDataAccess.cs" />
@@ -142,6 +174,7 @@
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
+    <Compile Include="Interface\Report\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interface\Report\IAgCasinoBalanceDataAccess.cs" />

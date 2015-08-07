@@ -100,7 +100,7 @@ var RnGCasino = (function ($) {
                 });
             }
             else {
-                RnGCasino.showDialogMesage("Success", Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName), true);
+                RnGCasino.showDialogMesage("Success", Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName), false);
             }
         },
         compareStake: function (orignialStake, newStake) {
@@ -153,6 +153,11 @@ var RnGCasino = (function ($) {
                     $("#bet-setting-message").remove();
                     if (closePopup) {
                         parent.$("#bet-setting-dialog").dialog("close");
+                    } else {
+                        setTimeout(function () {
+                            Site.blockUI();
+                            window.location.reload();
+                        }, 500);
                     }
                 }
             };
@@ -160,7 +165,7 @@ var RnGCasino = (function ($) {
         },
         showUpdateSettingResult: function (result) {
             if (result.Code.toString() === "0") {
-                RnGCasino.showDialogMesage("Success", result.Message, true);
+                RnGCasino.showDialogMesage("Success", result.Message, false);
             }
             else {
                 RnGCasino.showDialogMesage("Fail", result.Message, false);

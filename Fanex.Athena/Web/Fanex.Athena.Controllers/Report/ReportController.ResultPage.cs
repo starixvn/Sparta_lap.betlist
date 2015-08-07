@@ -26,7 +26,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
-    using Fanex.Result.Core.DTO;
+    using Fanex.Result.Core.Base;
+    using Fanex.Result.Core.MicroGaming;
+    using Fanex.Result.Core.MicroGaming.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
 
     /// <summary>
     /// The result controller.
@@ -182,6 +185,23 @@ namespace Fanex.Athena.Controllers.Report
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
+        [HttpGet]
+        public ActionResult MicrogamingResultPopup(int betCheck, int custId)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Data = ParserService.Instance.Parser(new MicroGaming
+                    {
+                        CustId = custId,
+                        SiteName = SessionService.LicenseeSession.LicenseeName,
+                        GameId = betCheck
+                    });
+                return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
+            }
+
+            return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+        }
+
         /// <summary>
         /// Generate tennis detailed result.
         /// </summary>
@@ -202,8 +222,8 @@ namespace Fanex.Athena.Controllers.Report
                     SportType = (SportType)sportType,
                     LanguageCode = SessionService.UserSession.Language
                 });
-               
-                return View("~/Views/Report/Result/Popup/Main.cshtml");                                
+
+                return View("~/Views/Report/Result/Popup/Main.cshtml");
             }
 
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
@@ -272,18 +292,15 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         private void GetPopUpData(ResultPopupMetalModel metalModel)
         {
-            var userSession = SessionService.UserSession;
             IResultService resultService = new ResultService();
             var sportType = (SportType)metalModel.SportType;
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var userId = userSession.UserId;
             var setting = new ResultSetting
             {
                 SportType = sportType,
                 IsOutRight = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
                 IsPopUp = true,
-                LanguageCode = userSession.Language
+                LanguageCode = SessionService.UserSession.Language
             };
             if (setting.IsParlayPopUp)
             {
@@ -295,7 +312,7 @@ namespace Fanex.Athena.Controllers.Report
             }
             else
             {
-                GetNormalPopUpData(metalModel, sportType, licenseeId, userId, setting);
+                GetNormalPopUpData(metalModel, sportType, setting);
             }
         }
 
@@ -311,9 +328,11 @@ namespace Fanex.Athena.Controllers.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, int licenseeId, int userId, ResultSetting setting)
+        private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
         {
             IResultService resultService = new ResultService();
+            var userId = SessionService.UserSession.UserId;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
             switch (sportType)
             {
@@ -402,9 +421,9 @@ namespace Fanex.Athena.Controllers.Report
             {
                 IEnumerable<Sport> limitedSports;
                 var productAccess = _productService.GetProductAccess(
-                    licenseeSession.LicenseeId, 
+                    licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
-                    Util.GetAllowedProducts(ResultPageGetNormalSportsName));
+                    ResultPageGetNormalSportsName);
                 var limitedProduct =
                     productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
                     && productAccess.IsAllowVS;

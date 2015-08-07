@@ -13,7 +13,13 @@
             @ViewResources.LicenseeWinLoss
         </div>
     </div>
-    @*Check BA, RB commission*@
+
+    @if (Model.ProductAccess.IsAllowBT)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.BetTradeCommission
+        </div>
+    }
     @if (Model.ProductAccess.IsAllowBA)
     { 
         <div class="row" style="width: @(ViewBag.ColumnWidth)px">
@@ -24,6 +30,12 @@
     { 
         <div class="row" style="width: @(ViewBag.ColumnWidth)px">
             @ViewResources.RacingRevenue
+        </div>
+    }
+    @if (Model.ProductAccess.IsAllowBT)
+    { 
+        <div class="row" style="width: @(ViewBag.ColumnWidth)px">
+            @ViewResources.AmtDueToBetTrade
         </div>
     }
     @if (Model.ProductAccess.IsAllowBA)

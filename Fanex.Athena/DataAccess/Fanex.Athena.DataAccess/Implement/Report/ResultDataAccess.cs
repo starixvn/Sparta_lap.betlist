@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
@@ -24,7 +23,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Fanex.Result.Core.DTO;
+    using Fanex.Result.Core.LiveCasino.DTO;
+    using Fanex.Result.Core.NumberGame.DTO;
+    using Fanex.Result.Core.Racing.DTO;
+    using Fanex.Result.Core.Sportsbook.DTO;
 
     /// <summary>
     /// Result data access.
@@ -506,7 +508,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         private static Sportsbook BindSportsbook(IDataReader reader)
         {
             return new Sportsbook
-                                {                                    
+                                {
                                     AwayId = reader.ToInt("awayID"),
                                     HomeId = reader.ToInt("homeID"),
                                     BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
@@ -536,7 +538,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="reader">The data reader.</param>
         /// <param name="bettype">The Bet type ID.</param>
         /// <param name="betid">The Bet ID.</param>
-        /// <returns>The sport-book data list.</returns>        
+        /// <returns>The sport-book data list.</returns>
         private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, int bettype = 0, long betid = 0)
         {
             var results = new List<Sportsbook>();
@@ -605,7 +607,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// Mapping data to Live casino DTO.
         /// </summary>
         /// <param name="reader">The data table.</param>
-        /// <returns>The live casino data list.</returns>        
+        /// <returns>The live casino data list.</returns>
         private static IList<LiveCasino> ReadLiveCasinoMatches(IDataReader reader)
         {
             var dataList = new List<LiveCasino>();
@@ -666,6 +668,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             return dataList;
         }
 
-        #endregion Biding
+        #endregion Binding
     }
 }

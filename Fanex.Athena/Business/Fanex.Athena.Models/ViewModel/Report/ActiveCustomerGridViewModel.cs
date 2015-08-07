@@ -38,5 +38,9 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public int CustomerCountAGC { get; set; }
 
         public int CustomerCountPTCS { get; set; }
+
+        public int CustomerCountMGC { get; set; }
+
+        public int CustomerCountBT { get; set; }
     }
 }

@@ -83,6 +83,7 @@
       <Acronym>LRF</Acronym>
       <Acronym>MDI</Acronym>
       <Acronym>MHC</Acronym>
+      <Acronym>MGC</Acronym>
       <Acronym>MS</Acronym>
       <Acronym>MSN</Acronym>
       <Acronym>MU</Acronym>
@@ -146,10 +147,12 @@
       <Acronym>WL</Acronym>
       <Acronym>WLBA</Acronym>
       <Acronym>WLBG</Acronym>
+      <Acronym>WLBT</Acronym>
       <Acronym>WLCS</Acronym>
       <Acronym>WLEUR</Acronym>
       <Acronym>WLKN</Acronym>
       <Acronym>WLLC</Acronym>
+      <Acronym>WLMGC</Acronym>
       <Acronym>WLNG</Acronym>
       <Acronym>WLRB</Acronym>
       <Acronym>WLSB</Acronym>

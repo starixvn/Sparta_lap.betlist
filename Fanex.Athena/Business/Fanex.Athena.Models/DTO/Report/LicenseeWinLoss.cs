@@ -32,11 +32,15 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal BACommission { get; set; }
 
+        public decimal BetTradeCommission { get; set; }
+
         public decimal RacingRevenue { get; set; }
 
         public decimal AmtDueToBA { get; set; }
 
         public decimal AmtDueToRacing { get; set; }
+
+        public decimal AmtDueToBetTrade { get; set; }
 
         #region ICustomerWinLoss Members
 

@@ -14,6 +14,8 @@ namespace Fanex.Athena.Service.Implement.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
+    using System.Xml.Linq;
     using Fanex.Athena.DataAccess.Implement.Common;
     using Fanex.Athena.DataAccess.Interface.Common;
     using Fanex.Athena.Extension.Utility;
@@ -61,7 +63,7 @@ namespace Fanex.Athena.Service.Implement.Common
         {
             try
             {
-                var cache = CacheService.CreateInstance(CacheType.MemoryCache);
+                var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
                 var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
                 var allowedProducts = cache.Get<IList<Product>>(cacheKey);
 
@@ -85,19 +87,9 @@ namespace Fanex.Athena.Service.Implement.Common
             }
         }
 
-        /// <summary>
-        /// Get product access of licensee.
-        /// </summary>
-        /// <param name="licenseeId">The licensee identity.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="allowedProducts">Allowed products.</param>
-        /// <returns>The accessed product.</returns>
-        public ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> allowedProducts = null)
+        public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
         {
-            if (allowedProducts == null)
-            {
-                allowedProducts = Util.GetAllowedProducts();
-            }
+            var allowedProducts = GetAllowedProducts(functionConfigKey);
 
             var originalProducts = this.GetProductList(licenseeId, languageCode);
             var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
@@ -125,5 +117,41 @@ namespace Fanex.Athena.Service.Implement.Common
         }
 
         #endregion
+
+        /// <summary>
+        /// Get Allowed Products.
+        /// </summary>
+        /// <param name="functionName">Function name.</param>
+        /// <returns>Product code array.</returns>
+        private static string[] GetAllowedProducts(string functionName = null)
+        {
+            const string FunctionAllowedProductsKey = "FunctionAllowedProducts";
+
+            if (string.IsNullOrWhiteSpace(functionName))
+            {
+                functionName = "_Default";
+            }
+
+            var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
+            if (functions == null)
+            {
+                var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
+                functions = XDocument.Load(filePath).Descendants("Function");
+                CacheService.Set(FunctionAllowedProductsKey, functions);
+            }
+
+            var config = functions
+                    .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
+            if (config == null)
+            {
+                return new string[] { };
+            }
+            else
+            {
+                return config.Attribute("Product").Value.Split(',')
+                    .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            }
+        }
     }
 }

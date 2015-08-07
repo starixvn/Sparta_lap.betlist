@@ -1,6 +1,10 @@
 ﻿<#@ import namespace="System" #>
 <#
     var sites = new SiteInfo[]{        
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.DEV
+        },
         new SiteInfo
         {
             SiteEnvironment = SiteEnvironment.LOCAL
@@ -26,6 +30,7 @@
 <#+
 	enum SiteEnvironment
     {
+		DEV,
         LOCAL,
         UAT,
         PRO,
@@ -44,6 +49,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "E:/Licensee/OlympusRoot/ALLWebSite/LRF/Site3/log4net.txt";
                     case SiteEnvironment.LOCAL:
                         return "E:/Licensee/OlympusRoot/ALLWebSite/LRF/Site3/log4net.txt";
                     case SiteEnvironment.UAT:
@@ -60,12 +67,15 @@
             }
         }
 
+
         public string BucketServerUri
         {
              get
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "http://10.18.200.209:8091/pools/default";
                     case SiteEnvironment.LOCAL:
                         return "http://10.18.200.209:8091/pools/default";
                     case SiteEnvironment.UAT:
@@ -88,6 +98,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					 case SiteEnvironment.DEV:
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     case SiteEnvironment.LOCAL:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     case SiteEnvironment.UAT:
@@ -110,6 +122,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "true";
                     case SiteEnvironment.LOCAL:
                         return "false";
                     case SiteEnvironment.UAT:
@@ -131,6 +145,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<customErrors mode=\"Off\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     case SiteEnvironment.LOCAL:
                         return "<customErrors mode=\"RemoteOnly\" defaultRedirect=\"~/Utility/Error\"><error statusCode=\"403\" redirect=\"~/Utility/Error?err=403\" /><error statusCode=\"404\" redirect=\"~/Utility/Error?err=404\" /></customErrors>";
                     case SiteEnvironment.UAT:
@@ -152,6 +168,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<httpRuntime requestValidationMode=\"2.0\" />";
                     case SiteEnvironment.LOCAL:
                         return "<httpRuntime requestValidationMode=\"2.0\" />";
                     case SiteEnvironment.UAT:
@@ -173,6 +191,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<sessionState mode=\"StateServer\" />";
                     case SiteEnvironment.LOCAL:
                         return "<sessionState mode=\"StateServer\" />";
                     case SiteEnvironment.SANDBOX:
@@ -195,6 +215,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     case SiteEnvironment.LOCAL:
                         return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     case SiteEnvironment.UAT:
@@ -216,6 +238,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "";
                     case SiteEnvironment.LOCAL:
                         return "";
                     case SiteEnvironment.UAT:
@@ -237,6 +261,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
                     case SiteEnvironment.LOCAL:
                         return "<pages enableViewStateMac=\"false\" enableEventValidation=\"false\" viewStateEncryptionMode=\"Never\">";
                     case SiteEnvironment.UAT:
@@ -258,6 +284,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "";
                     case SiteEnvironment.LOCAL:
                         return "";
                     case SiteEnvironment.UAT:
@@ -279,6 +307,8 @@
             {
                 switch (SiteEnvironment)
                 {
+					case SiteEnvironment.DEV:
+                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     case SiteEnvironment.LOCAL:
                         return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     case SiteEnvironment.UAT:

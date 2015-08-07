@@ -11,18 +11,15 @@
     <script src="@Url.ContentLink("/Scripts/Report/CustomerPendingFunds.js")" type="text/javascript"></script>
 }
 @{
-    ViewBag.ColumnCount = 5;
     ViewBag.NumberWidth = 40;
     ViewBag.ExternalIdWidth = 200;
     ViewBag.SystemIdWidth = 200;
     ViewBag.BetCountWidth = 120;
     ViewBag.PendingFundsWidth = 115;
-    ViewBag.TotalWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth + 2;
     ViewBag.ContainerWidth = ViewBag.NumberWidth + ViewBag.ExternalIdWidth + ViewBag.SystemIdWidth
-        + ViewBag.BetCountWidth + ViewBag.PendingFundsWidth
-        + ViewBag.ColumnCount;
+        + ViewBag.BetCountWidth + ViewBag.PendingFundsWidth + 5;
 
-    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 18;
+    ViewBag.WrapperWidth = ViewBag.ContainerWidth + 22;
     ViewBag.FilterWidth = ViewBag.WrapperWidth > 1075 ? 1075 : ViewBag.WrapperWidth;
 }
 @section ContentTitle

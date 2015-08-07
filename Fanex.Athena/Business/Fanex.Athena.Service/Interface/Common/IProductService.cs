@@ -19,16 +19,7 @@ namespace Fanex.Athena.Service.Interface.Common
     {
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     Get page access for the licensee.
-        /// </summary>
-        /// <param name="licenseeId">Licensee Id.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="allowedProducts">Allowed products.</param>
-        /// <returns>
-        ///     Product-Access object.
-        /// </returns>
-        ProductAccess GetProductAccess(int licenseeId, string languageCode, IEnumerable<string> allowedProducts = null);
+        ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
 
         /// <summary>
         ///     The get product list.

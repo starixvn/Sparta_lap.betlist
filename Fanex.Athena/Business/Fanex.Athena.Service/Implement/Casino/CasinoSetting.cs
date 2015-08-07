@@ -95,15 +95,15 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <returns>RNG casino setting.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public RngCasinoBetSetting GetRngCasinoSetting(int custId, string licenseeName, string language)
+        public IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language)
         {
-            var gameKindList = new List<GameKind>();
+            IList<GameKind> gameKinds;
 
             try
             {
-                gameKindList = GetGameKind(language);
+                gameKinds = GetGameKind(language);
 
-                foreach (var gameKind in gameKindList)
+                foreach (var gameKind in gameKinds)
                 {
                     // Get game type base on game kind
                     var gameTypeList = GetGameType(gameKind.GameKindId, language);
@@ -119,14 +119,11 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (Exception exception)
             {
-                gameKindList = new List<GameKind>();
+                gameKinds = new List<GameKind>();
                 LogService.Error(exception.Message, exception);
             }
 
-            return new RngCasinoBetSetting
-            {
-                Data = gameKindList
-            };
+            return gameKinds;
         }
 
         /// <summary>

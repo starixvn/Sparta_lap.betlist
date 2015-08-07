@@ -83,6 +83,11 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("BasedCurrency").Split(new[] { ';' }); }
         }
 
+        public static IEnumerable<int> LiveReportNoDetailLinkSports
+        {
+            get { return GetValue("LiveReportNoDetailLinkSports").Split(',').Select(n => Convert.ToInt32(n)); }
+        }
+
         #endregion Configurations
 
         #region Racing Propertise

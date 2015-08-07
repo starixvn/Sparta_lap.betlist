@@ -13,6 +13,8 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         public decimal LicWinLoss { get; set; }
 
+        public decimal BetTradeCommission { get; set; }
+
         public decimal BACommission { get; set; }
 
         public decimal RBCommission { get; set; }
@@ -23,6 +25,8 @@ namespace Fanex.Athena.Models.DTO.Report
         {
             get { return RBCommission + RacingRevenue; }
         }
+
+        public decimal AmtDueToBetTrade { get; set; }
 
         public decimal AmtDueToBA { get; set; }
 

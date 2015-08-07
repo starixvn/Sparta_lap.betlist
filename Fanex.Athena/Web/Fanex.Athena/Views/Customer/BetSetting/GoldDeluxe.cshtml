@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.GoldDeluxeBetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
 @using Fanex.Athena.Models.DataDomain;
 @section pagecss
@@ -12,8 +12,8 @@
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
-    var hasData = Model.GoldDeluxeViewModel.Games.Count > 0;
-    var isLineEnabled = Model.GoldDeluxeViewModel.BetSetting.IsLineEnabled;
+    var hasData = Model.Games.Count > 0;
+    var isLineEnabled = Model.BetSetting.IsLineEnabled;
     var tableTextClass = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "" : "disabled-text";
 }
 <div class="content-title" style="width: 855px">
@@ -23,29 +23,29 @@
 {
     <div style="padding-bottom: 5px">
         @ViewResources.BetSettingGroups:
-        @if (Model.GoldDeluxeViewModel.BetSetting.IsEnabled && hasData)
+        @if (Model.BetSetting.IsEnabled && hasData)
         {
-            <select id="betSettingGroup" data-default="@Model.GoldDeluxeViewModel.BetSetting.Group">
-                @foreach (var item in Model.GoldDeluxeViewModel.BetSetting.CheckedGroups)
+            <select id="betSettingGroup" data-default="@Model.BetSetting.Group">
+                @foreach (var item in Model.BetSetting.CheckedGroups)
                 {
-                    <option value="@item" @(item == Model.GoldDeluxeViewModel.BetSetting.Group ? "selected" : null) >@item</option>
+                    <option value="@item" @(item == Model.BetSetting.Group ? "selected" : null) >@item</option>
                 }
             </select>
         }
         else
         {
-            <span class="@tableTextClass">@Model.GoldDeluxeViewModel.BetSetting.Group</span>
+            <span class="@tableTextClass">@Model.BetSetting.Group</span>
         }
     </div>
     
     @Html.Hidden("editable", Model.Param.Editable)
-    @Html.Hidden("dataCount", Model.GoldDeluxeViewModel.BetSetting.IsEnabled ? 1 : 0)
-    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.GoldDeluxeViewModel.Games))
+    @Html.Hidden("dataCount", Model.BetSetting.IsEnabled ? 1 : 0)
+    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Games))
 }
   
 @if (isLineEnabled && !hasData)
 {              
-    var currencyId = Model.GoldDeluxeViewModel.BetSetting.CurrencyId;
+    var currencyId = Model.BetSetting.CurrencyId;
     if (currencyId == CurrencyType.Aud || currencyId == CurrencyType.Chf || currencyId == CurrencyType.Eur || currencyId == CurrencyType.Gbp)
     {
         <div style="width: 885px!important; padding: 20px 0px 20px 0px">
@@ -84,9 +84,9 @@ else
         }
         else
         {
-            foreach (var game in Model.GoldDeluxeViewModel.Games)
+            foreach (var game in Model.Games)
             {
-                var group = game.Groups.Where(x => x.GroupType == Model.GoldDeluxeViewModel.BetSetting.Group).FirstOrDefault();
+                var group = game.Groups.Where(x => x.GroupType == Model.BetSetting.Group).FirstOrDefault();
             <div class="content-row">
                 <div class="row text-data first-column" style="width: 295px">
                     <div>@game.Name</div>

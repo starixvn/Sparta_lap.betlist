@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.ThirdPartyBetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
 @using Fanex.Athena.Models.DataDomain;
 @section pagecss
@@ -9,15 +9,13 @@
 }
 
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
-@{    
-    var isLineEnabled = Model.MacauViewModel.IsLineEnabled;
-}
+
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 </div>
 <!--Content-->
 <div class="data-content">
-    @if (isLineEnabled)
+    @if (Model.IsLineEnabled)
     {
         <div style="width: 885px!important; padding: 20px 0px 20px 0px">
             <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.Macau)</div>
@@ -35,7 +33,7 @@
 @if (Model.Param.Editable)
 {
     <div style="width: 855px">
-        @if (isLineEnabled)
+        @if (Model.IsLineEnabled)
         {
             <input type="button" class="button" data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)" 
             data-cust-id="@Model.Param.CustId" 

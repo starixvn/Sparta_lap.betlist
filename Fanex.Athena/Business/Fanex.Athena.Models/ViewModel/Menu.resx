@@ -317,4 +317,7 @@
   <data name="Menu_9" xml:space="preserve">
     <value>Odd/Even + 1x2 + DND</value>
   </data>
+  <data name="Menu_67" xml:space="preserve">
+    <value>Microgaming Win Loss</value>
+  </data>
 </root>

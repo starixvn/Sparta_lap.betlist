@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
@@ -83,22 +84,26 @@ namespace Fanex.Athena.Controllers.Customer
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            switch (metaModel.TabId)
+            switch (metaModel.ProductId)
             {
-                case ProductType.NumberGame:
+                case ProductTypes.NumberGame:
                     return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
-                case ProductType.LiveCasino:
+                case ProductTypes.LiveCasino:
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
-                case ProductType.RngCasino:
+                case ProductTypes.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
-                case ProductType.Keno:
+                case ProductTypes.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
-                case ProductType.AgCasino:
+                case ProductTypes.AgCasino:
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
-                case ProductType.GoldDeluxe:
+                case ProductTypes.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
-                case ProductType.Macau:
+                case ProductTypes.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
+                case ProductTypes.MicroGaming:
+                    return View("~/Views/Customer/BetSetting/MicroGaming.cshtml", viewModel);
+                case ProductTypes.BetTrade:
+                    return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -108,11 +113,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Common
 
-        /// <summary>
-        /// Check if Live Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
         private static bool? IsLiveCasinoEnabled(CustomerInfo customerInfo)
         {
             bool? resultValue = false;
@@ -128,11 +128,6 @@ namespace Fanex.Athena.Controllers.Customer
             return resultValue;
         }
 
-        /// <summary>
-        /// Check if RNG Casino is enabled.
-        /// </summary>
-        /// <param name="customerInfo">Customer Information.</param>
-        /// <returns>Enabled value.</returns>
         private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
         {
             bool? resultValue = false;
@@ -160,132 +155,144 @@ namespace Fanex.Athena.Controllers.Customer
         [NonAction]
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
         {
+            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
+            var viewModel = GetViewModel(metaModel.ProductId, metaModel.CustId, customerInfo);
+            if (viewModel == null)
+            {
+                return null;
+            }
+
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenessId = licenseeSession.LicenseeId;
-            var licenseeList = _licenseeService.GetByResellerId(userSession.UserId, BopingResellerId);
-            metaModel.Editable = licenseeList.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
+            var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
+            metaModel.Editable = licensees.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
                                  metaModel.LicenessId == LicenseeSpondemo;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
             metaModel.IsAllowRacing = productAccess.IsAllowRB;
             metaModel.IsAllowVirtualSport = productAccess.IsAllowVS;
             metaModel.IsAllowNumberGame = productAccess.IsAllowNG;
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
             metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
             metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
             metaModel.IsAllowKeno = productAccess.IsAllowKN;
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
             metaModel.IsAllowMacau = productAccess.IsAllowMC;
+            metaModel.IsAllowMicroGaming = productAccess.IsAllowMGC;
+            metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            try
+            var betSettingProducts = _betSettingService.GetBetSettingProducts(licenseeSession.LicenseeId);
+
+            if (!customerInfo.SyncCasino)
             {
-                return GetViewModel(metaModel, customerInfo);
+                DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);                
             }
-            catch (NullReferenceException)
+
+            if (!customerInfo.SyncLiveCasino)
             {
-                return null;
+                DisableBetSettingProduct(betSettingProducts, ProductTypes.LiveCasino);
+            }
+
+            metaModel.BetSettingProducts = betSettingProducts.Where(x => x.IsEnable).ToList();
+            viewModel.Param = metaModel;
+            return viewModel;
+        }
+
+        private void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
+        {
+            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
+            if (product != null)
+            {
+                product.IsEnable = false;
             }
         }
 
         /// <summary>
         /// Get bet setting view model.
         /// </summary>
-        /// <param name="metaModel">Meta model.</param>
+        /// <param name="productId">The product ID.</param>
+        /// <param name="custId">The customer ID.</param>
         /// <param name="customerInfo">Customer info.</param>
         /// <returns>Bet setting view model.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel, CustomerInfo customerInfo)
+        private BetSettingViewModel GetViewModel(int productId, int custId, CustomerInfo customerInfo)
         {
-            var model = new BetSettingViewModel { Param = metaModel };
-            var language = SessionService.UserSession.Language;
-            EsportSettingType esportSetting = EsportSettingType.NoneOffering;
-            switch (metaModel.TabId)
+            BetSettingViewModel model;
+            switch (productId)
             {
-                case ProductType.Sportsbook:
-                    model.MainData.AddRange(_betSettingService.GetSportBookBetSetting(metaModel.CustId, ref esportSetting));
-                    model.EsportSetting = esportSetting;
+                case ProductTypes.Sportsbook:
+                    model = _betSettingService.GetSportBookViewModel(custId);
                     break;
 
-                case ProductType.Racing:
-                    var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(metaModel.CustId);
-                    model.MainData.AddRange(_betSettingService.GetRacingBetSetting(metaModel.CustId, isAllowSaToteCurrency));
+                case ProductTypes.Racing:
+                    var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(custId);
+                    model = _betSettingService.GetRacingViewModel(custId, isAllowSaToteCurrency);
                     break;
 
-                case ProductType.NumberGame:
-                    model.MainData.AddRange(_betSettingService.GetNumberGameBetSetting(metaModel.CustId));
+                case ProductTypes.NumberGame:
+                    model = _betSettingService.GetNumberGameViewModel(custId);
                     break;
 
-                case ProductType.VirtualSports:
-                    model.MainData.AddRange(_betSettingService.GetVirtualSportsBetSetting(metaModel.CustId));
+                case ProductTypes.VirtualSports:
+                    model = _betSettingService.GetVirtualSportsViewModel(custId);
                     break;
 
-                case ProductType.LiveCasino:
-                    model.LiveCasinoData.AddRange(_betSettingService.GetLiveCasinoBetSetting(metaModel.CustId, language));
+                case ProductTypes.LiveCasino:
+                    model = _betSettingService.GetLiveCasinoViewModel(custId, SessionService.UserSession.Language);
                     model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
 
-                case ProductType.RngCasino:
-                    if (customerInfo.SyncCasino)
-                    {
-                        model.RngCasinoData = _casinoSetting.GetRngCasinoSetting(metaModel.CustId, SessionService.LicenseeSession.LicenseeName, language);
-                    }
-                    else
-                    {
-                        model.RngCasinoData = new RngCasinoBetSetting()
-                        {
-                            Data = new List<GameKind>()
-                        };
-                    }
-
-                    model.IsEnabled = IsRngCasinoEnabled(customerInfo);
+                case ProductTypes.RngCasino:
+                    model = GetRngCasinoViewModel(custId, customerInfo, SessionService.UserSession.Language);
                     break;
 
-                case ProductType.Keno:
-                    model.MainData.AddRange(_betSettingService.GetKenoBetSetting(metaModel.CustId));
+                case ProductTypes.Keno:
+                    model = _betSettingService.GetKenoViewModel(custId);
                     break;
 
-                case ProductType.AgCasino:
-                    model.AgCasinoViewModel.BetSetting = _betSettingService.GetAgCasinoSetting(metaModel.CustId);
-                    model.AgCasinoViewModel.Games = _betSettingService.GetAgCasinoGroupBettingLimit(
-                        metaModel.CustId,
-                        SessionService.LicenseeSession.LicenseeName,
-                        model.AgCasinoViewModel.BetSetting.CurrencyId);
-                    if (model.AgCasinoViewModel.BetSetting.CheckedGroups.Contains(model.AgCasinoViewModel.BetSetting.AgGroup) == false)
-                    {
-                        model.AgCasinoViewModel.BetSetting.CheckedGroups =
-                            model.AgCasinoViewModel.BetSetting.CheckedGroups.Concat(new string[] { model.AgCasinoViewModel.BetSetting.AgGroup })
-                            .OrderBy(x => x).ToArray();
-                    }
-
-                    model.IsEnabled = model.AgCasinoViewModel.BetSetting.IsEnabled;
+                case ProductTypes.AgCasino:
+                    model = _betSettingService.GetAgCasinoViewModel(custId, SessionService.LicenseeSession.LicenseeName);
                     break;
 
-                case ProductType.GoldDeluxe:
-                    var viewModel = _betSettingService.GetGoldDeluxeSetting(
-                        metaModel.CustId,
-                        SessionService.LicenseeSession.LicenseeName);
-                    model.GoldDeluxeViewModel.BetSetting = viewModel.BetSetting;
-                    model.GoldDeluxeViewModel.Games = viewModel.Games;
-
-                    model.IsEnabled = model.GoldDeluxeViewModel.BetSetting.IsEnabled;
+                case ProductTypes.GoldDeluxe:
+                    model = _betSettingService.GetGoldDeluxeViewModel(custId, SessionService.LicenseeSession.LicenseeName);
                     break;
 
-                case ProductType.Macau:
-                    var macauViewModel = _betSettingService.GetMacauSetting(
-                       metaModel.CustId,
-                       SessionService.LicenseeSession.LicenseeName);
-                    model.MacauViewModel = macauViewModel;
-                    model.IsEnabled = macauViewModel.IsEnabled;
+                case ProductTypes.Macau:
+                case ProductTypes.MicroGaming:
+                case ProductTypes.BetTrade:
+                    model = _betSettingService.GetThirdPartyViewModel(custId, productId);
                     break;
+
+                default:
+                    throw new ArgumentException("Invalid product id.");
             }
 
             return model;
+        }
+
+        private RngCasinoBetSettingViewModel GetRngCasinoViewModel(int custId, CustomerInfo customerInfo, string language)
+        {
+            IList<GameKind> gameKinds;
+            if (customerInfo.SyncCasino)
+            {
+                gameKinds = _casinoSetting.GetRngCasinoSettings(custId, SessionService.LicenseeSession.LicenseeName, language);
+            }
+            else
+            {
+                gameKinds = new List<GameKind>();
+            }
+
+            return new RngCasinoBetSettingViewModel
+            {
+                GameKinds = gameKinds,
+                IsEnabled = IsRngCasinoEnabled(customerInfo)
+            };
         }
 
         #endregion Common

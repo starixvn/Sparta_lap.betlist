@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.AgCasinoBetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
 @using Fanex.Athena.Models.DataDomain;
 @section pagecss
@@ -12,8 +12,8 @@
 }
 @{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
 @{    
-    var hasData = Model.AgCasinoViewModel.Games.Count > 0;
-    var isLineEnabled = Model.AgCasinoViewModel.BetSetting.IsLineEnabled;
+    var hasData = Model.Games.Count > 0;
+    var isLineEnabled = Model.BetSetting.IsLineEnabled;
     var tableTextClass = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "" : "disabled-text";
 }
 <div class="content-title" style="width: 855px">
@@ -23,24 +23,24 @@
 {
     <div style="padding-bottom: 5px">
         @ViewResources.BetSettingGroups:
-        @if (Model.AgCasinoViewModel.BetSetting.IsEnabled && hasData)
+        @if (Model.BetSetting.IsEnabled && hasData)
         {
-            <select id="betSettingGroup" data-default="@Model.AgCasinoViewModel.BetSetting.AgGroup">
-                @foreach (var item in Model.AgCasinoViewModel.BetSetting.CheckedGroups)
+            <select id="betSettingGroup" data-default="@Model.BetSetting.AgGroup">
+                @foreach (var item in Model.BetSetting.CheckedGroups)
                 {
-                    <option value="@item" @(item == Model.AgCasinoViewModel.BetSetting.AgGroup ? "selected" : null) >@item</option>
+                    <option value="@item" @(item == Model.BetSetting.AgGroup ? "selected" : null) >@item</option>
                 }
             </select>
         }
         else
         {
-            <span class="@tableTextClass">@Model.AgCasinoViewModel.BetSetting.AgGroup</span>
+            <span class="@tableTextClass">@Model.BetSetting.AgGroup</span>
         }
     </div>
     
     @Html.Hidden("editable", Model.Param.Editable)
-    @Html.Hidden("dataCount", Model.AgCasinoViewModel.BetSetting.IsEnabled ? 1 : 0)
-    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AgCasinoViewModel.Games))
+    @Html.Hidden("dataCount", Model.BetSetting.IsEnabled ? 1 : 0)
+    @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Games))
 }
 @if (isLineEnabled && !hasData)
 {
@@ -73,9 +73,9 @@ else
         }
         else
         {
-            foreach (var game in Model.AgCasinoViewModel.Games)
+            foreach (var game in Model.Games)
             {
-                var group = game.Groups.Where(x => x.GroupType == Model.AgCasinoViewModel.BetSetting.AgGroup).FirstOrDefault();
+                var group = game.Groups.Where(x => x.GroupType == Model.BetSetting.AgGroup).FirstOrDefault();
             <div class="content-row">
                 <div class="row text-data first-column" style="width: 295px">
                     <div>@game.Name</div>

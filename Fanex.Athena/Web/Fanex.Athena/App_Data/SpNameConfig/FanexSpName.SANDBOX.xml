@@ -16,6 +16,7 @@
     <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="Authorization">
@@ -87,6 +88,7 @@
     <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_MicroGamingWinloss" SpName="LRF_Rpt_MicroGamingWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
@@ -144,7 +146,7 @@
   </Function>
 
   <Function Name="CustomerSettingsThridParty">
-    <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_3rdProductSelCustStatus" SpName="Lrf_3rdProductSelCustStatus" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_3rdProductUpdCustStatus" SpName="Lrf_3rdProductUpdCustStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
   

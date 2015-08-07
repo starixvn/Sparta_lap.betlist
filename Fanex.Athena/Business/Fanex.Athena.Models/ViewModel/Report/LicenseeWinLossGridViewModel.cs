@@ -33,11 +33,15 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal BACommission { get; set; }
 
+        public decimal BetTradeCommission { get; set; }
+
         public decimal RacingRevenue { get; set; }
 
         public decimal AmtDueToBA { get; set; }
 
         public decimal AmtDueToRacing { get; set; }
+
+        public decimal AmtDueToBetTrade { get; set; }
 
         #region ICustomerWinLoss Members
 
@@ -75,9 +79,13 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal LicenseeWLKN { get; set; }
 
+        public decimal LicenseeWLMGC { get; set; }
+
+        public decimal LicenseeWLBT { get; set; }
+
         public decimal TotalLicenseeWL
         {
-            get { return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + LicenseeWLKN; }
+            get { return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + LicenseeWLKN + LicenseeWLMGC + LicenseeWLBT; }
         }
 
         public decimal TotalLicenseeWLSingle
@@ -107,9 +115,13 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal TurnOverKN { get; set; }
 
+        public decimal TurnOverMGC { get; set; }
+
+        public decimal TurnOverBT { get; set; }
+
         public decimal TotalTurnOver
         {
-            get { return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG + TurnOverCS + TurnOverKN; }
+            get { return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG + TurnOverCS + TurnOverKN + TurnOverMGC + TurnOverBT; }
         }
 
         public decimal TotalTurnOverSingle

@@ -3,16 +3,18 @@
 "use strict";
 
 var BetSetting = (function ($) {
-    var TAB_SPORTSBOOK = 1;
-    var TAB_RACING = 2;
-    var TAB_NUMBERGAME = 3;
-    var TAB_VIRTUALSPORTS = 4;
-    var TAB_LIVECASINO = 5;
+    var TAB_SPORTSBOOK = 0;
+    var TAB_RACING = 1;
+    var TAB_NUMBERGAME = 2;
+    var TAB_LIVECASINO = 4;
+    var TAB_VIRTUALSPORTS = 5;
     var TAB_RNGCASINO = 6;
-    var TAB_KENO = 7;
-    var TAB_AGCASINO = 8;
-    var TAB_GOLDDELUXE = 9;
-    var TAB_MACAU = 10;
+    var TAB_KENO = 8;
+    var TAB_AGCASINO = 10;
+    var TAB_GOLDDELUXE = 11;
+    var TAB_MACAU = 12;
+    var TAB_BETTRADE = 13;
+    var TAB_MICROGAMING = 14;
 
     var _sportIds = null;
     return {
@@ -39,6 +41,7 @@ var BetSetting = (function ($) {
             });
 
             // Bind event
+
             $("#btnSubmitBetSetting").on("click", BetSetting.updateBetSetting);
             $("#btnReset").on("click", BetSetting.resetBetSetting);
             $("#btnUpdateStatus").click(BetSetting.updateStatus);
@@ -55,52 +58,26 @@ var BetSetting = (function ($) {
         },
         // Displaying selected menu tab
         initMenu: function () {
-            var tabid = parseInt($("#TabId").val());
+            var productId = parseInt($("#ProductId").val());
             var enable = $("#editable").val() === "False" ? false : true;
-            switch (tabid) {
-                case TAB_SPORTSBOOK:
-                    $('#sportsbook').addClass('activeTab');
-                    break;
-                case TAB_RACING:
-                    $('#racing').addClass('activeTab');
-                    break;
-                case TAB_NUMBERGAME:
-                    $('#numbergame').addClass('activeTab');
-                    break;
-                case TAB_VIRTUALSPORTS:
-                    $('#virtualsports').addClass('activeTab');
-                    break;
-                case TAB_LIVECASINO:
-                    $('#livecasino').addClass('activeTab');
-                    break;
-                case TAB_RNGCASINO:
-                    $('#rngcasino').addClass('activeTab');
-                    break;
-                case TAB_KENO:
-                    $('#keno').addClass('activeTab');
-                    break;
-                case TAB_AGCASINO:
-                    $('#agcasino').addClass('activeTab');
-                    break;
-                case TAB_GOLDDELUXE:
-                    $('#golddeluxe').addClass('activeTab');
-                    break;
-                case TAB_MACAU:
-                    $('#macau').addClass('activeTab');
-                    break;
-            }
-
-            BetSetting.checkEnableBetSetting(tabid, enable);
+            $("#product-dropdown").on('click', function (event) {
+                $(this).toggleClass('active');
+                event.stopPropagation();
+            });
+            $("#product-dropdown").on("click", "a", function () {
+                Site.blockUI();
+            });
+            BetSetting.checkEnableBetSetting(productId, enable);
         },
         updateStatus: function () {
-            var tabid = parseInt($("#TabId").val());
+            var productId = parseInt($("#ProductId").val());
             var nickName = $(this).data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
             var status = $(this).data("status");
             var custId = $(this).data("cust-id");
             var url = null;
 
-            switch (tabid) {
+            switch (productId) {
                 case TAB_LIVECASINO:
                     url = "BetSettingAPI/UpdateLiveCasinoStatus";
                     break;
@@ -116,6 +93,14 @@ var BetSetting = (function ($) {
                 case TAB_MACAU:
                     url = "BetSettingAPI/UpdateMacauStatus";
                     break;
+                case TAB_MICROGAMING:
+                    url = "BetSettingAPI/UpdateMicroGamingStatus";
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
+                case TAB_BETTRADE:
+                    url = "BetSettingAPI/UpdateBetTradeStatus";
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
             }
 
             $.ajax({
@@ -130,7 +115,7 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     if (result.IsSuccessful) {
-                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
+                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
@@ -206,10 +191,10 @@ var BetSetting = (function ($) {
             }
         },
         updateBetSetting: function () {
-            var custId, userName, nickName, tabid;
-            tabid = parseInt($("#TabId").val());
-            var isValid = tabid === TAB_LIVECASINO ? true :
-                         (tabid === TAB_NUMBERGAME ? BetSetting.checkValidationNumberGame() : BetSetting.checkValidation());
+            var custId, userName, nickName, productId;
+            productId = parseInt($("#ProductId").val());
+            var isValid = productId === TAB_LIVECASINO ? true :
+                         (productId === TAB_NUMBERGAME ? BetSetting.checkValidationNumberGame() : BetSetting.checkValidation());
             if (!isValid) {
                 return;
             }
@@ -223,7 +208,7 @@ var BetSetting = (function ($) {
                             custId, userName, nickName, callback);
             };
 
-            switch (tabid) {
+            switch (productId) {
                 case TAB_SPORTSBOOK:
                     showComfirm('UpdateSportsbookBetSettings', BetSetting.updateSportsbookBetSetting);
                     break;
@@ -453,7 +438,7 @@ var BetSetting = (function ($) {
                 dataType: "json",
                 success: function (result) {
                     if (result.Code.toString() === "0") {
-                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
+                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
                     }
                     else {
                         BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
@@ -511,9 +496,9 @@ var BetSetting = (function ($) {
 
         // Reset bet setting
         resetBetSetting: function () {
-            var tabid = parseInt($("#TabId").val());
+            var productId = parseInt($("#ProductId").val());
 
-            switch (tabid) {
+            switch (productId) {
                 case TAB_LIVECASINO:
                     BetSetting.resetLiveCasinoBetSetting();
                     break;
@@ -522,6 +507,12 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_GOLDDELUXE:
                     BetSetting.resetGoldDeluxeSetting();
+                    break;
+                case TAB_BETTRADE:
+                    BetSetting.resetBetTradeSetting();
+                    break;
+                case TAB_MICROGAMING:
+                    BetSetting.resetMicrogamingSetting();
                     break;
                 default:
                     BetSetting.resetValues();
@@ -534,6 +525,14 @@ var BetSetting = (function ($) {
             $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
                 $(this).val($(this).attr('data-original')).prop('disabled', false);
             });
+        },
+        resetBetTradeSetting: function () {
+            var $checkbox = $("#enable-product");
+            $checkbox.prop("checked", $checkbox.data("original") === 1);
+        },
+        resetMicrogamingSetting: function () {
+            var $checkbox = $("#enable-product");
+            $checkbox.prop("checked", $checkbox.data("original") === 1);
         },
         resetGoldDeluxeSetting: function () {
             var $dropdown = $("#betSettingGroup");
@@ -574,7 +573,7 @@ var BetSetting = (function ($) {
         setCopyValueBetSetting: function ($element, enabled) {
             var copyValue = $element.first().val();
             // Check tab ids are sportsbook or racing
-            var tabid = parseInt($("#TabId").val());
+            var productId = parseInt($("#ProductId").val());
 
             // Enable or disable textbox, except the first
             $element.not(':eq(0)').each(function () {
@@ -582,12 +581,12 @@ var BetSetting = (function ($) {
             });
 
             // Check limit min max bet
-            if (tabid === TAB_SPORTSBOOK) {
+            if (productId === TAB_SPORTSBOOK) {
                 if (!BetSetting.checkLimitMinMaxBet(1)) {
                     return false;
                 }
             }
-            else if (tabid === TAB_KENO) {
+            else if (productId === TAB_KENO) {
                 if (!BetSetting.checkLimitMinMaxBet(_sportIds[0])) {
                     return false;
                 }
@@ -777,6 +776,11 @@ var BetSetting = (function ($) {
                     $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
                     if (closePopup) {
                         parent.$("#bet-setting-dialog").dialog("close");
+                    } else {
+                        setTimeout(function () {
+                            Site.blockUI();
+                            window.location.reload();
+                        }, 500);
                     }
                 }
             };
@@ -820,7 +824,7 @@ var BetSetting = (function ($) {
 
         showUpdateSettingResult: function (result) {
             if (Number(result.Code) === 0) {
-                BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, true);
+                BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
             }
             else {
                 BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
@@ -831,4 +835,8 @@ var BetSetting = (function ($) {
 
 $(window).load(function () {
     BetSetting.initialize();
+
+    $(document).click(function () {
+        $('.wrapper-dropdown-5').removeClass('active');
+    });
 });

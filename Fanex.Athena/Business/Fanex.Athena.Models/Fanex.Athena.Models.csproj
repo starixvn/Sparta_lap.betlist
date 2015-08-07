@@ -42,12 +42,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.Core, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.2.5.1\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.MetricGaming, Version=1.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.MetricGaming.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.5-beta\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -58,9 +70,6 @@
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
@@ -89,7 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\CacheRef.cs" />
+    <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
+    <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
     <Compile Include="DataDomain\DrawFilterType.cs" />
@@ -121,6 +131,7 @@
     <Compile Include="DTO\Common\ResultInfo.cs" />
     <Compile Include="DTO\Common\SportProductItem.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoGroup.cs" />
+    <Compile Include="DTO\Customer\BetSetting\BetSettingProduct.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\BetSettingWriteLog.cs" />
     <Compile Include="DTO\Customer\BetSetting\AgCasino\AgCasinoBetSetting.cs" />
@@ -130,6 +141,7 @@
     <Compile Include="DTO\Customer\BetSetting\GoldDeluxe\GoldDeluxeGroup.cs" />
     <Compile Include="DTO\Customer\BetSetting\KenoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\LiveCasinoBetSettingGame.cs" />
     <Compile Include="DTO\Customer\BetSetting\LogParam.cs" />
     <Compile Include="DTO\Customer\BetSetting\NumberGameBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\RacingBetSetting.cs" />
@@ -140,7 +152,7 @@
     <Compile Include="DTO\Customer\BetSetting\RngCasino\GameType.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\RngCasinoBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\RngCasino\StakeLevel.cs" />
-    <Compile Include="DTO\Customer\BetSetting\Macau\MacauBetSetting.cs" />
+    <Compile Include="DTO\Customer\BetSetting\ThirdPartyBetSetting.cs" />
     <Compile Include="DTO\Customer\BetSetting\VSBetSetting.cs" />
     <Compile Include="DTO\Customer\CustomerDTO.cs" />
     <Compile Include="DTO\Common\Function.cs" />
@@ -225,6 +237,7 @@
     <Compile Include="DTO\Warehouse\TopCustomer.cs" />
     <Compile Include="DTO\Warehouse\WarehouseReportBy.cs" />
     <Compile Include="DTO\Warehouse\WinLoss.cs" />
+    <Compile Include="Helper\Validator.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
@@ -264,6 +277,7 @@
     <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\Report\AgCasinoWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\ActiveCustomerMetaModel.cs" />
+    <Compile Include="MetaModel\Report\MicroGamingWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
@@ -313,6 +327,8 @@
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\BetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\AgCasinoBetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\RngCasinoBetSettingViewModel.cs" />
+    <Compile Include="ViewModel\Customer\BetSetting\ThirdPartyBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\GoldDeluxeBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\BetSetting\LiveCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\Customer\CustomerLog\ActionViewModel.cs" />
@@ -338,6 +354,7 @@
     <Compile Include="ViewModel\Report\AgCasinoWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\ActiveCustomerViewModel.cs" />
     <Compile Include="ViewModel\Report\ActiveCustomerGridViewModel.cs" />
+    <Compile Include="ViewModel\Report\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
     <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />
@@ -416,6 +433,7 @@
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

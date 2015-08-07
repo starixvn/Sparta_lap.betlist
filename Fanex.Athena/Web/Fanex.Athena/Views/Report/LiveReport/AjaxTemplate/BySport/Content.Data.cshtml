@@ -1,16 +1,17 @@
 ﻿@using Fanex.Athena.Extension.Helper
 @model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportDetailViewModel
 <div class="data-content">
+    @{
+        var liveReportNoDetailLinkSports = AppSettings.LiveReportNoDetailLinkSports;
+    }
     @foreach (var item in Model.BySports)
     {
         var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
         <div class="content-row" style="width:@(ViewBag.ContainerWidth)px;">
             <div class="row text-data" style="width:@(ViewBag.ProductWidth)px">
                 <div>
-                    @*Do not show sport link for Live Casino, Keno*@
-                    @{
-                        var liveCasinoSports = new List<int> {162,251,252,253,202};                        
-                        if (Model.IsShowedDetailLink && !liveCasinoSports.Contains(sportId))
+                    @{    
+                        if (Model.IsShowedDetailLink && !liveReportNoDetailLinkSports.Contains(sportId))
                         {
                             var detailParam = new
                             {

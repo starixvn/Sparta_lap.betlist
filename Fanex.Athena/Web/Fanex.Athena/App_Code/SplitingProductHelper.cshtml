@@ -5,7 +5,7 @@
 @using Fanex.Athena.Extension.Helper;
 @using Fanex.Athena.Models.MetaModel.Product
 <!--turnover column--->
-@helper ProductDataColumns(IList<ProductOption> productOptions, IDictionary<string, decimal> data, int columnWidth = 80, string masterClass = "turnover", bool isHiglight = false)
+@helper ProductDataColumns(IEnumerable<ProductOption> productOptions, IDictionary<string, decimal> data, int columnWidth = 80, string masterClass = "turnover", bool isHiglight = false)
     {
         var columnCount = productOptions.Count();
         var totalWidth = columnCount > 1 ? (columnCount + 1) * columnWidth : columnCount * columnWidth;

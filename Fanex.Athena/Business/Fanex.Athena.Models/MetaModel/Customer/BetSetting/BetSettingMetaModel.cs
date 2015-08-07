@@ -6,7 +6,10 @@
 
 namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     /// BetSettingMetaModel class.
@@ -15,13 +18,12 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
     {
         public BetSettingMetaModel()
         {
-            TabId = ProductType.Sportsbook;
-            BetSettingName = "Sportsbook";
+            ProductId = ProductTypes.Sportsbook;
+            BetSettingName = ViewResources.Sportsbook;
             Editable = true;
-            IsAllowLiveCasino = false;
         }
 
-        public ProductType TabId { get; set; }
+        public int ProductId { get; set; }
 
         public string SiteName { get; set; }
 
@@ -58,5 +60,11 @@ namespace Fanex.Athena.Models.MetaModel.Customer.BetSetting
         public bool IsAllowGoldDeluxe { get; set; }
 
         public bool IsAllowMacau { get; set; }
+
+        public bool IsAllowMicroGaming { get; set; }
+
+        public bool IsAllowBetTrade { get; set; }
+
+        public IList<BetSettingProduct> BetSettingProducts { get; set; }
     }
 }

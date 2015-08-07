@@ -2637,30 +2637,12 @@
   <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
     <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
   </data>
-  <data name="VegasGames" xml:space="preserve">
-    <value>Vegas Games</value>
-  </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
     <value>You cannot update member bet limit for product {0}.</value>
     <comment>#32647</comment>
   </data>
-  <data name="DisableVegasGames" xml:space="preserve">
-    <value>Disable Vegas Games</value>
-    <comment>#32647</comment>
-  </data>
-  <data name="EnableVegasGames" xml:space="preserve">
-    <value>Enable Vegas Games</value>
-    <comment>#32647</comment>
-  </data>
-  <data name="VegasGamesNotOfferCurrency" xml:space="preserve">
-    <value>Vegas Games is not offered for this currency.</value>
-  </data>
   <data name="GoldDeluxeWinLoss" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
-  </data>
-  <data name="VegasGamesWinLoss" xml:space="preserve">
-    <value>Vegas Games Win Loss</value>
-    <comment>#38247</comment>
   </data>
   <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
     <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>
@@ -2670,6 +2652,12 @@
   </data>
   <data name="AGOpeningBalance" xml:space="preserve">
     <value>AG Opening Balance</value>
+  </data>
+  <data name="BetTrade" xml:space="preserve">
+    <value>Bet Trade</value>
+  </data>
+  <data name="Microgaming" xml:space="preserve">
+    <value>Microgaming</value>
   </data>
   <data name="DisableMacau" xml:space="preserve">
     <value>Disable Macau</value>
@@ -2688,5 +2676,35 @@
   <data name="MacauWinLoss" xml:space="preserve">
     <value>Macau Win Loss</value>
     <comment>#38247</comment>
+  </data>
+  <data name="BetTradeNotOfferCurrency" xml:space="preserve">
+    <value>BetTrade is not offered for this currency.</value>
+  </data>
+  <data name="MicroGamingNotOfferCurrency" xml:space="preserve">
+    <value>Microgaming is not offered for this currency.</value>
+  </data>
+  <data name="DisableMicrogaming" xml:space="preserve">
+    <value>Disable Microgaming</value>
+  </data>
+  <data name="EnableMicrogaming" xml:space="preserve">
+    <value>Enable Microgaming</value>
+  </data>
+  <data name="EnableBetTrade" xml:space="preserve">
+    <value>Enable BetTrade</value>
+  </data>
+  <data name="AmtDueToBetTrade" xml:space="preserve">
+    <value>Amt Due To Bet Trade</value>
+  </data>
+  <data name="BetTradeCommission" xml:space="preserve">
+    <value>Bet Trade Commission</value>
+  </data>
+  <data name="AmtDueToBetTradeBalanceNote" xml:space="preserve">
+    <value>Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.</value>
+  </data>
+  <data name="BetTradeComissionBalanceNote" xml:space="preserve">
+    <value>BetTrade Commission: Licensee commission income for BetTrade tickets.</value>
+  </data>
+  <data name="MicrogamingWinLoss" xml:space="preserve">
+    <value>Microgaming Win Loss</value>
   </data>
 </root>

@@ -51,7 +51,7 @@ namespace Fanex.Athena.Api.BetList
             var statusNormalText = string.Format(StatusTemp, statusText);
             
             // If Sport type is keno, doesn't show "Result" link.
-            if (ticket.SportTypeId == 202)
+            if (ticket.SportTypeId == (int)SportType.Keno)
             {
                 return statusNormalText;
             }

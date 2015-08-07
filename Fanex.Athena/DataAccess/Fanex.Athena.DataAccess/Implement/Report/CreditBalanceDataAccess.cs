@@ -68,27 +68,33 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
             // Selected Month Columns
             var selectedMonthLicColumn = "SelectedMonthLicenseeWL" + baseCurrency;
+            var selectedMonthBetTradeCommColumn = "SelectedMonthBetTradeComm" + baseCurrency;
             var selectedMonthBaCommColumn = "SelectedMonthCommBA" + baseCurrency;
             var selectedMonthRbCommColumn = "SelectedMonthCommRB" + baseCurrency;
             var selectedMonthRacingRevenueColumn = "SelectedMonthWinLossRB" + baseCurrency;
+            var selectedMonthAmtDueToBetTradeColumn = "SelectedMonthAmtDueToBT" + baseCurrency;
             var selectedMonthAmtDueToBaColumn = "SelectedMonthAmtDuetoBA" + baseCurrency;
             var selectedMonthAmtDueToRacingColumn = "SelectedMonthAmtDuetoRB" + baseCurrency;
             var selectedMonthCustomerCommColumn = "SelectedMonthPlayerComm" + baseCurrency;
 
             // Yesterday Columns
             var yesterdayLicColumn = "YesterdayLicenseeWL" + baseCurrency;
+            var yesterdayBetTradeCommColumn = "YesterdayBetTradeComm" + baseCurrency;
             var yesterdayBaCommColumn = "YesterdayCommBA" + baseCurrency;
             var yesterdayRbCommColumn = "YesterdayCommRB" + baseCurrency;
             var yesterdayRacingRevenueColumn = "YesterdayWinLossRB" + baseCurrency;
-            var yesterdayAmtDueToBaColumn = "YesterdayAmtDuetoBA" + baseCurrency;
+            var yesterdayAmtDueToBetTradeColumn = "YesterdayAmtDueToBT" + baseCurrency;
+            var yesterdayAmtDueToBaColumn = "YesterdayAmtDueToBa" + baseCurrency;
             var yesterdayAmtDueToRacingColumn = "YesterdayAmtDuetoRB" + baseCurrency;
             var yesterdayCustomerCommColumn = "YesterdayPlayerComm" + baseCurrency;
 
             // Today Columns
             var todayLicColumn = "TodayLicenseeWL" + baseCurrency;
+            var todayBetTradeCommColumn = "TodayBetTradeComm" + baseCurrency;
             var todayBaCommColumn = "TodayCommBA" + baseCurrency;
             var todayRbCommColumn = "TodayCommRB" + baseCurrency;
             var todayRacingRevenueColumn = "TodayWinLossRB" + baseCurrency;
+            var todayAmtDueToBetTradeColumn = "TodayAmtDuetoBT" + baseCurrency;
             var todayAmtDueToBaColumn = "TodayAmtDuetoBA" + baseCurrency;
             var todayAmtDueToRacingColumn = "TodayAmtDuetoRB" + baseCurrency;
             var todayCustomerCommColumn = "TodayPlayerComm" + baseCurrency;
@@ -105,9 +111,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var selectedMonthBalance = new BalanceDetails
                     {
                         LicWinLoss = reader.ToDecimal(selectedMonthLicColumn),
+                        BetTradeCommission = reader.ToDecimal(selectedMonthBetTradeCommColumn),
                         BACommission = reader.ToDecimal(selectedMonthBaCommColumn),
                         RBCommission = reader.ToDecimal(selectedMonthRbCommColumn),
                         RacingRevenue = reader.ToDecimal(selectedMonthRacingRevenueColumn),
+                        AmtDueToBetTrade = reader.ToDecimal(selectedMonthAmtDueToBetTradeColumn),
                         AmtDueToBA = reader.ToDecimal(selectedMonthAmtDueToBaColumn),
                         AmtDueToRacing = reader.ToDecimal(selectedMonthAmtDueToRacingColumn),
                         CustomerCommission = reader.ToDecimal(selectedMonthCustomerCommColumn),
@@ -119,10 +127,12 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var yesterdayBalance = new BalanceDetails
                     {
                         LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
+                        BetTradeCommission = reader.ToDecimal(yesterdayBetTradeCommColumn),
                         BACommission = reader.ToDecimal(yesterdayBaCommColumn),
                         RBCommission = reader.ToDecimal(yesterdayRbCommColumn),
                         RacingRevenue = reader.ToDecimal(yesterdayRacingRevenueColumn),
                         AmtDueToBA = reader.ToDecimal(yesterdayAmtDueToBaColumn),
+                        AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
                         AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
                         CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
                         BalanceDateString =
@@ -134,9 +144,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var todayBalance = new BalanceDetails
                     {
                         LicWinLoss = reader.ToDecimal(todayLicColumn),
+                        BetTradeCommission = reader.ToDecimal(todayBetTradeCommColumn),
                         BACommission = reader.ToDecimal(todayBaCommColumn),
                         RBCommission = reader.ToDecimal(todayRbCommColumn),
                         RacingRevenue = reader.ToDecimal(todayRacingRevenueColumn),
+                        AmtDueToBetTrade = reader.ToDecimal(todayAmtDueToBetTradeColumn),
                         AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
                         AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
                         CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),

@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
                     UserId = userSession.UserId
                 };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, Util.GetAllowedProducts(CustomerPendingFundsName));
+            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, Util.GetAllowedProducts(CustomerPendingFundsName)),
+                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName),
                     CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     TotalRows = totalRows,

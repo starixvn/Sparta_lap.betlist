@@ -21,43 +21,49 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     /// </summary>
     public interface IBetSettingDataAccess
     {
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
-        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+        IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
 
-        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
 
-        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
+        AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
 
-        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IList<BetSetting> GetKenoBetSettings(int custId);
 
-        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
-
-        AgCasinoBetSetting GetAgCasinoSetting(int custId);
+        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
 
         IList<BetSetting> GetNumberGameBetSetting(int custId);
 
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
 
+        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
+        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
-        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
+        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
 
-        IList<BetSetting> GetKenoBetSetting(int custId);
-
-        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
-        IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
 
-        IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
+        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
-        IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
+        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
+        IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
+
+        IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+
+        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+
+        IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
+
+        IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

@@ -161,9 +161,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
 
-                    var resultList = db.Query<CustomerInfo>().ToList();
+                    var resultList = db.Query<CustomerInfo>();
 
-                    return resultList.Count > 0 ? resultList[0] : new CustomerInfo();
+                    return resultList.Any() ? resultList.First() : new CustomerInfo();
                 }
             }
             catch (ObjectDbException sqlException)

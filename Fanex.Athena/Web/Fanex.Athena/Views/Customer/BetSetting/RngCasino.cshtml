@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.RngCasinoBetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
 @using System.Linq;
 @section pagecss{
@@ -30,7 +30,7 @@
 <div class="data-content">
     <table class="report-table" style="width: 885px;">
         <tbody>
-            @if (Model.RngCasinoData.Data.Count == 0)
+            @if (Model.GameKinds.Count == 0)
             {
                 <tr style="height: 34px">
                     <td class="noinfo" colspan="3">@ViewResources.NoInfo
@@ -39,7 +39,7 @@
             }
             else
             {
-                foreach (var gameKind in Model.RngCasinoData.Data)
+                foreach (var gameKind in Model.GameKinds)
                 {
                     var rowspan = gameKind.GameTypeList.Count;
                     var visible = true;
@@ -74,7 +74,7 @@
 
     @Html.Hidden("isenabled", Model.IsEnabled.Value)
 </div>
-@if (Model.RngCasinoData.Data.Count > 0)
+@if (Model.GameKinds.Count > 0)
 {
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"

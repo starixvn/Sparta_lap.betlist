@@ -169,7 +169,7 @@ namespace Fanex.Athena.Models.DataDomain
         Finance = 201,
 
         /// <summary>
-        /// Casino sport, value = 2.
+        /// Casino sport, value = 251.
         /// </summary>
         Casino = 251,
 
@@ -296,6 +296,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// Keno product ,value=202.
         /// </summary>
-        Keno = 202
+        Keno = 202,
+
+        /// <summary>
+        /// MicroGaming product, value = 203.
+        /// </summary>
+        MicroGaming = 203,
     }
 }

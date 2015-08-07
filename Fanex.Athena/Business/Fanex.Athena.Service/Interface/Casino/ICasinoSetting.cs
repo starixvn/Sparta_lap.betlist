@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.Interface.Casino
 {
+    using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
@@ -16,7 +17,7 @@ namespace Fanex.Athena.Service.Interface.Casino
 
         bool UpdateCustClosed(CasinoStatusMetaModel metaModel);
 
-        RngCasinoBetSetting GetRngCasinoSetting(int custId, string licenseeName, string language);
+        IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language);
 
         bool UpdateRngCasinoSetting(DataTable dataTableParam, string licenseeName);
     }

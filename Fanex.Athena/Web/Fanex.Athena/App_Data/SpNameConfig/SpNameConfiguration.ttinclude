@@ -63,12 +63,16 @@
 				
 				foreach (var element in elements)
 				{
-					listOfConfig.Add(new SpNameConfig
+					var enviroments = element.Attribute("Environment").Value.Trim().Split(',');
+					foreach(var enviroment in enviroments)
 					{
-						Environment = element.Attribute("Environment").Value.Trim(),
-						SpName = element.Attribute("SpName").Value.Trim(),
-						EnvironmentText = element.Attribute("EnvironmentText").Value.Trim(),
-					});
+						listOfConfig.Add(new SpNameConfig
+						{
+							Environment = enviroment.Trim(),
+							SpName = element.Attribute("SpName").Value.Trim(),
+							EnvironmentText = element.Attribute("EnvironmentText").Value.Trim(),
+						});
+					}
 				}
 
 				return listOfConfig;

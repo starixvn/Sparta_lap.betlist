@@ -23,14 +23,17 @@ namespace Fanex.Athena.Excel.Report
     [System.CLSCompliant(false)]
     public class BalanceExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 4;
-        private const int ColumnAmtDueToRacing = 5;
-        private const int ColumnBaCommission = 2;
-        private const int ColumnCustomerCommission = 6;
         private const int ColumnDate = 0;
         private const int ColumnLicenseeWl = 1;
-        private const int ColumnRacingRevenue = 3;
-        private const int ColumnTemplateCount = 7;
+        private const int ColumnBetTradeCommission = 2;
+        private const int ColumnBaCommission = 3;
+        private const int ColumnRacingRevenue = 4;
+        private const int ColumnAmtDueToBetTrade = 5;
+        private const int ColumnAmtDueToBa = 6;
+        private const int ColumnAmtDueToRacing = 7;
+        private const int ColumnCustomerCommission = 8;
+                
+        private const int ColumnTemplateCount = 8;
         private const int RowCustomerPendingFund = 6;
         private const int RowLicensee = 1;
         private const int RowMonth = 2;
@@ -122,13 +125,16 @@ namespace Fanex.Athena.Excel.Report
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Get row copy from template
+            var columIndex = ColumnLicenseeWl;
             IRow row = sheet.CopyRow(sheet, RowLicensee, RowLicensee);
-            row.Cells[1].SetCellValue(ViewResources.LicenseeWinLoss);
-            row.Cells[2].SetCellValue(ViewResources.BACommission);
-            row.Cells[3].SetCellValue(ViewResources.RacingRevenue);
-            row.Cells[4].SetCellValue(ViewResources.AmtDueToBA);
-            row.Cells[5].SetCellValue(ViewResources.AmtDueToRacing);
-            row.Cells[6].SetCellValue(ViewResources.CustomerCommission);
+            row.Cells[columIndex++].SetCellValue(ViewResources.LicenseeWinLoss);
+            row.Cells[columIndex++].SetCellValue(ViewResources.BetTradeCommission);
+            row.Cells[columIndex++].SetCellValue(ViewResources.BACommission);
+            row.Cells[columIndex++].SetCellValue(ViewResources.RacingRevenue);
+            row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToBetTrade);
+            row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToBA);
+            row.Cells[columIndex++].SetCellValue(ViewResources.AmtDueToRacing);
+            row.Cells[columIndex++].SetCellValue(ViewResources.CustomerCommission);
 
             // Set for customer information
             SetTextRowValue(sheet, RowTitleCustomer, RowTitleCustomer, ColumnTemplateCount, ViewResources.CustomerInfo);
@@ -172,8 +178,10 @@ namespace Fanex.Athena.Excel.Report
         {
             row.Cells[ColumnDate].SetCellValue(timeText);
             row.Cells[ColumnLicenseeWl].SetCellValue(balanceDetails.LicWinLoss);
+            row.Cells[ColumnBetTradeCommission].SetCellValue(balanceDetails.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(balanceDetails.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(balanceDetails.RacingWinLoss);
+            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(balanceDetails.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(balanceDetails.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(balanceDetails.AmtDueToRacing);
             row.Cells[ColumnCustomerCommission].SetCellValue(balanceDetails.CustomerCommission);
@@ -216,8 +224,10 @@ namespace Fanex.Athena.Excel.Report
             {
                 ColumnDate,
                 ColumnLicenseeWl,
+                ColumnBetTradeCommission,
                 ColumnBaCommission,
                 ColumnRacingRevenue,
+                ColumnAmtDueToBetTrade,
                 ColumnAmtDueToBa,
                 ColumnAmtDueToRacing,
                 ColumnCustomerCommission

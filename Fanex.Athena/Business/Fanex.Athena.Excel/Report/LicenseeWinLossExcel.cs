@@ -28,31 +28,36 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class LicenseeWinLossExcel : ReportBase
     {
-        private const int ColumnTurnoverTotal = 14;
-        private const int ColumnTotalTransaction = 15;
-        private const int ColumnCustomerWl = 16;
-        private const int ColumnCustomerComm = 17;
-        private const int ColumnCustomerTotal = 18;
-        private const int ColumnLicenseeWlSportsBook = 19;
-        private const int ColumnLicenseeWlTotal = 28;
-        private const int ColumnBaCommission = 29;
-        private const int ColumnRacingRevenue = 30;
-        private const int ColumnAmtDueToBa = 31;
-        private const int ColumnAmtDueToRacing = 32;
-        private const int ColumnTemplateCount = 33;
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
         private const int ColumnTurnoverSportBook = 5;
+        private const int ColumnTurnoverTotal = 16;
+        private const int ColumnTotalTransaction = 17;
+        private const int ColumnCustomerWl = 18;
+        private const int ColumnCustomerComm = 19;
+        private const int ColumnCustomerTotal = 20;
+        private const int ColumnLicenseeWlSportsBook = 21;
+        private const int ColumnLicenseeWlTotal = 32;
+        private const int ColumnBetTradeCommission = 33;
+        private const int ColumnBaCommission = 34;
+        private const int ColumnRacingRevenue = 35;
+        private const int ColumnAmtDueToBetTrade = 36;
+        private const int ColumnAmtDueToBa = 37;
+        private const int ColumnAmtDueToRacing = 38;
+        private const int ColumnTemplateCount = 39;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 9;
-        private const int TotalTurnoverProductColumn = 9;
+        private const int TotalLicenseeWlProductColumn = 12;
+        private const int TotalTurnoverProductColumn = 12;
+
+        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
 
         // This is drill down of report
         private readonly IList<LicenseeWinLoss> _licenseeWinLossList;
@@ -60,6 +65,9 @@ namespace Fanex.Athena.Excel.Report
         private readonly LicenseeWinLossMetaModel _metaModel;
         private readonly IList<ProductOption> _productOption;
         private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
+
+        private readonly bool _isAllowSB;
+        private readonly bool _isAllowBA;
 
         public LicenseeWinLossExcel(
                 string templatePath,
@@ -74,6 +82,8 @@ namespace Fanex.Athena.Excel.Report
             _licenseeWinLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             _productOption = GetProductOption(metaModel.ProductOptions);
+            _isAllowSB = metaModel.ProductOptions.Any(x => x.Code == Product.SB);
+            _isAllowBA = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
         }
 
         public int Level
@@ -120,12 +130,15 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
+            row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.LicenseeW_L);
+            row.Cells[ColumnBetTradeCommission].SetCellValue(ViewResources.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
+            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(ViewResources.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(ViewResources.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
 
@@ -135,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
 
-            var prdHeaderList = new List<string>
+            var headerTexts = new string[]
             {
                 ViewResources.Sportsbook,
                 ViewResources.Racing,
@@ -146,19 +159,16 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.RNGCasino,
                 ViewResources.Bingo,
                 ViewResources.Keno,
+                ViewResources.BetTrade,
+                ViewResources.Microgaming,
                 ViewResources.Total
             };
 
-            int index = ColumnTurnoverSportBook;
-            foreach (string item in prdHeaderList)
+            for (int i = 0; i < headerTexts.Length; i++)
             {
-                row2.Cells[index++].SetCellValue(item);
-            }
-
-            index = ColumnLicenseeWlSportsBook;
-            foreach (string item in prdHeaderList)
-            {
-                row2.Cells[index++].SetCellValue(item);
+                var text = headerTexts[i];
+                row2.Cells[ColumnTurnoverSportBook + i].SetCellValue(text);
+                row2.Cells[ColumnLicenseeWlSportsBook + i].SetCellValue(text);
             }
         }
 
@@ -174,7 +184,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
-            var rowspan = 1;
+            var rowSpan = 1;
             var rowIndex = 1;
             var indexDetail = 1;
             int index;
@@ -194,20 +204,20 @@ namespace Fanex.Athena.Excel.Report
 
                 // Merge first two columns
                 var needMerge = index >= rowCount - 1 ||
-                                 licenseeWinLoss.Date.ToShortDateString() != _licenseeWinLossList[index + 1].Date.ToShortDateString();
+                                 licenseeWinLoss.Date.Date != _licenseeWinLossList[index + 1].Date.Date;
 
                 // Merge cell
-                if (needMerge && rowspan > 1)
+                if (needMerge && rowSpan > 1)
                 {
                     if (Level == 0)
                     {
-                        sheet.MergeCells(index + RowContentTemplate - rowspan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
                     }
 
-                    sheet.MergeCells(index + RowContentTemplate - rowspan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
+                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
                 }
 
-                rowspan = needMerge ? 1 : rowspan + 1;
+                rowSpan = needMerge ? 1 : rowSpan + 1;
 
                 var indexid = Level == 0 ? rowIndex : indexDetail++;
                 row.Cells[ColumnIndex].SetCellValue(indexid);
@@ -224,10 +234,6 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
@@ -256,6 +262,16 @@ namespace Fanex.Athena.Excel.Report
             {
                 HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
+            }
+
+            if (!ShowingOption.BTVisible)
+            {
+                HideColumn(sheet, ColumnBetTradeCommission);
+            }
+
+            if (!ShowingOption.BTVisible || (_isAllowSB && !ShowingOption.SBVisible) || (_isAllowBA && !ShowingOption.BAVisible))
+            {
+                HideColumn(sheet, ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.BAVisible)
@@ -289,51 +305,16 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Get full product option list for licensee win loss report with exactly 8 products.
-        /// </summary>
-        /// <param name="products">The product option list. This list may contain 0-8 items.</param>
-        /// <returns>The full product option list.</returns>
-        protected static IList<ProductOption> GetProductOption(IList<ProductOption> products)
-        {
-            var newProducts = new List<ProductOption>
-            {
-                new ProductOption { Code = Product.SB, Status = false },
-                new ProductOption { Code = Product.RB, Status = false },
-                new ProductOption { Code = Product.NG, Status = false },
-                new ProductOption { Code = Product.BA, Status = false },
-                new ProductOption { Code = Product.LC, Status = false },
-                new ProductOption { Code = Product.VS, Status = false },
-                new ProductOption { Code = Product.CS, Status = false },
-                new ProductOption { Code = Product.BG, Status = false },
-                new ProductOption { Code = Product.KN, Status = false }
-            };
-
-            foreach (var t in products)
-            {
-                for (var j = 0; j < newProducts.Count; j++)
-                {
-                    if (t.Code == newProducts[j].Code)
-                    {
-                        newProducts[j] = t;
-                        break;
-                    }
-                }
-            }
-
-            return newProducts;
-        }
-
-        /// <summary>
         /// Assign common data to excel row.
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="data">Licensee win loss data.</param>
         protected void AssignCommonData(IRow row, LicenseeWinLoss data)
         {
-            //// Set data for turnover
+            // Set data for turnover
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status)
+                if (_productOption[i].Status && IgnoredTurnoverProducts.Contains(_productOption[i].Code) == false)
                 {
                     row.Cells[ColumnTurnoverSportBook + i].SetCellValue(data.TurnOver[_productOption[i].Code]);
                 }
@@ -349,7 +330,7 @@ namespace Fanex.Athena.Excel.Report
             // Set data for customerwinloss
             for (int i = 0; i < _productOption.Count; i++)
             {
-                if (_productOption[i].Status && _productOption[i].Code != Product.RB && _productOption[i].Code != Product.BA)
+                if (_productOption[i].Status && IgnoredLicenseeWLProducts.Contains(_productOption[i].Code) == false)
                 {
                     row.Cells[ColumnLicenseeWlSportsBook + i].SetCellValue(data.LicenseeWL[_productOption[i].Code]);
                 }
@@ -357,8 +338,10 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(data.LicenseeWL.Sum(a => a.Value));
 
+            row.Cells[ColumnBetTradeCommission].SetCellValue(data.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(data.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(data.RacingRevenue);
+            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(data.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(data.AmtDueToBA);
             row.Cells[ColumnAmtDueToRacing].SetCellValue(data.AmtDueToRacing);
         }
@@ -371,10 +354,9 @@ namespace Fanex.Athena.Excel.Report
         /// <returns>The last row index after assign data.</returns>
         protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
-            var currencyList = _summaryTotal.Keys.ToList();
-            currencyList.Reverse();
+            var currencies = _summaryTotal.Keys.Reverse();
 
-            foreach (string currency in currencyList)
+            foreach (string currency in currencies)
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
@@ -401,9 +383,9 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            List<LicenseeWinLoss> totalCurrencyList = GetTotalCurrency(_licenseeWinLossList);
+            var currencies = GetTotalCurrency(_licenseeWinLossList);
 
-            foreach (LicenseeWinLoss totalCurrency in totalCurrencyList)
+            foreach (LicenseeWinLoss totalCurrency in currencies)
             {
                 // Copy template
                 IRow row;
@@ -426,7 +408,7 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - currencies.Count(), 0, rowIndex - 1, 3);
 
             return rowIndex;
         }
@@ -437,12 +419,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUILicenseeWinLoss(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status && a.Code != Product.RB && a.Code != Product.BA);
+            int countStatus = _productOption.Count(a => a.Status && IgnoredLicenseeWLProducts.Contains(a.Code) == false);
             int nextColumns = 0;
 
-            foreach (ProductOption product in _productOption)
+            foreach (var product in _productOption)
             {
-                if (product.Status == false || product.Code == Product.RB || product.Code == Product.BA)
+                if (product.Status == false || IgnoredLicenseeWLProducts.Contains(product.Code))
                 {
                     HideColumn(sheet, ColumnLicenseeWlSportsBook + nextColumns, ColumnLicenseeWlSportsBook + nextColumns);
                 }
@@ -458,7 +440,7 @@ namespace Fanex.Athena.Excel.Report
 
             if (countStatus <= 1)
             {
-                if (_productOption.Any(a => a.Status && a.Code != Product.RB && a.Code != Product.BA))
+                if (countStatus > 0)
                 {
                     HideColumn(sheet, ColumnLicenseeWlTotal, ColumnLicenseeWlTotal);
                 }
@@ -476,12 +458,12 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected void ProcessUITurnover(ISheet sheet)
         {
-            int countStatus = _productOption.Count(a => a.Status);
+            int countStatus = _productOption.Count(a => a.Status && IgnoredTurnoverProducts.Contains(a.Code) == false);
             int nextColumns = 0;
 
-            foreach (ProductOption product in _productOption)
+            foreach (var product in _productOption)
             {
-                if (product.Status == false)
+                if (product.Status == false || IgnoredTurnoverProducts.Contains(product.Code))
                 {
                     HideColumn(sheet, ColumnTurnoverSportBook + nextColumns, ColumnTurnoverSportBook + nextColumns);
                 }
@@ -497,7 +479,11 @@ namespace Fanex.Athena.Excel.Report
 
             if (countStatus <= 1)
             {
-                HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
+                if (countStatus > 0)
+                {
+                    HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
+                }
+
                 for (int i = 0; i < TotalTurnoverProductColumn; i++)
                 {
                     sheet.MergeCells(RowHeaderTemplate, ColumnTurnoverSportBook + i, RowHeaderTemplate + 1, ColumnTurnoverSportBook + i);
@@ -510,9 +496,9 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dataList">Report data.</param>
         /// <returns>List of LicenseeWinLoss entity.</returns>
-        private static List<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
+        private static IEnumerable<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
         {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+            var currencies = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new LicenseeWinLoss
             {
                 CurrencyName = group.Key.CurrencyName,
@@ -531,13 +517,54 @@ namespace Fanex.Athena.Excel.Report
                                         .GroupBy(i => i.Key)
                                         .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
                 }.LicenseeWL,
+                BetTradeCommission = group.Sum(a => a.BetTradeCommission),
                 BACommission = group.Sum(a => a.BACommission),
                 RacingRevenue = group.Sum(a => a.RacingRevenue),
+                AmtDueToBetTrade = group.Sum(a => a.AmtDueToBetTrade),
                 AmtDueToBA = group.Sum(a => a.AmtDueToBA),
                 AmtDueToRacing = group.Sum(a => a.AmtDueToRacing)
-            }).ToList();
+            });
 
-            return listTotalCurrency;
+            return currencies;
+        }
+
+        /// <summary>
+        /// Get full product option list for licensee win loss report.
+        /// </summary>
+        /// <param name="products">The product option list.</param>
+        /// <returns>The full product option list.</returns>
+        private static IList<ProductOption> GetProductOption(IList<ProductOption> products)
+        {
+            var offeredProducts = new ProductOption[]
+            {
+                new ProductOption { Code = Product.SB, Status = false },
+                new ProductOption { Code = Product.RB, Status = false },
+                new ProductOption { Code = Product.NG, Status = false },
+                new ProductOption { Code = Product.BA, Status = false },
+                new ProductOption { Code = Product.LC, Status = false },
+                new ProductOption { Code = Product.VS, Status = false },
+                new ProductOption { Code = Product.CS, Status = false },
+                new ProductOption { Code = Product.BG, Status = false },
+                new ProductOption { Code = Product.KN, Status = false },
+                new ProductOption { Code = Product.BT, Status = false },
+                new ProductOption { Code = Product.MGC, Status = false }
+            };
+
+            var offeredProductsLength = offeredProducts.Count();
+
+            foreach (var product in products)
+            {
+                for (var j = 0; j < offeredProductsLength; j++)
+                {
+                    if (product.Code == offeredProducts[j].Code)
+                    {
+                        offeredProducts[j] = product;
+                        break;
+                    }
+                }
+            }
+
+            return offeredProducts;
         }
     }
 }

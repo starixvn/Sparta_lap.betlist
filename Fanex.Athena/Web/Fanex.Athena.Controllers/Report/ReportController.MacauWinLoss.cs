@@ -15,12 +15,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
-    /// VegasGames report controller.
+    /// Macau report controller.
     /// </summary>
     public partial class ReportController
     {        
         /// <summary>
-        /// VegasGames win loss main action.
+        /// Macau win loss main action.
         /// </summary>
         /// <returns>Action result.</returns>
         [HttpGet]

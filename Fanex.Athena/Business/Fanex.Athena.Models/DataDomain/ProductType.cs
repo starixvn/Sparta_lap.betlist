@@ -1,66 +1,81 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProductType.cs" company="Nexcel">
+// <copyright file="ProductTypes.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.Models.DataDomain
 {
-    public enum ProductType
+    public static class ProductTypes
     {
         /// <summary>
-        /// None, value = 0.
+        /// SportsBook product: 0.
         /// </summary>
-        None = 0,
+        public const int Sportsbook = 0;
 
         /// <summary>
-        /// SportsBook product.
+        /// Racing product: 1.
         /// </summary>
-        Sportsbook = 1,
+        public const int Racing = 1;
 
         /// <summary>
-        /// Racing product.
+        /// NumberGame product: 2.
         /// </summary>
-        Racing = 2,
+        public const int NumberGame = 2;
 
         /// <summary>
-        /// NumberGame product.
+        /// BA product: 3.
         /// </summary>
-        NumberGame = 3,
+        public const int BA = 3;
 
         /// <summary>
-        /// VirtualSports product.
+        /// LiveCasino product: 4.
         /// </summary>
-        VirtualSports = 4,
+        public const int LiveCasino = 4;
 
         /// <summary>
-        /// LiveCasino product.
+        /// VirtualSports product: 5.
         /// </summary>
-        LiveCasino = 5,
+        public const int VirtualSports = 5;
 
         /// <summary>
-        /// RNGCasino product.
+        /// RNGCasino product: 6.
         /// </summary>
-        RngCasino = 6,
+        public const int RngCasino = 6;
 
         /// <summary>
-        /// Keno product.
+        /// Bingo product: 7.
         /// </summary>
-        Keno = 7,
+        public const int Bingo = 7;
 
         /// <summary>
-        /// AGCasino product.
+        /// Keno product: 8.
         /// </summary>
-        AgCasino = 8,
+        public const int Keno = 8;
 
         /// <summary>
-        /// Gold Deluxe product.
+        /// AGCasino product: 10.
         /// </summary>
-        GoldDeluxe = 9,
+        public const int AgCasino = 10;
+
+        /// <summary>
+        /// Gold Deluxe product: 11.
+        /// </summary>
+        public const int GoldDeluxe = 11;
 
         /// <summary>
         /// Macau product.
         /// </summary>
-        Macau = 10
+        public const int Macau = 12;
+        
+        /// <summary>
+        /// Bet Trade product: 13.
+        /// </summary>
+        public const int BetTrade = 13;
+
+        /// <summary>
+        /// Micro Gaming product: 14.
+        /// </summary>
+        public const int MicroGaming = 14;
     }
 }

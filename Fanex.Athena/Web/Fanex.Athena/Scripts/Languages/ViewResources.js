@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/15/2015 2:40:59 PM
+// Lasted generated date: 7/22/2015 9:58:27 AM
 // </history>
 
 var _language_en_US={
@@ -83,6 +83,10 @@ var _language_en_US={
 				 	
                      AmtDueToBABalanceNote:"Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.",
 				 	
+                     AmtDueToBetTrade:"Amt Due To Bet Trade",
+				 	
+                     AmtDueToBetTradeBalanceNote:"Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.",
+				 	
                      AmtDueToRacing:"Amt Due To Racing",
 				 	
                      AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
@@ -156,6 +160,14 @@ var _language_en_US={
                      BetSettings:"Bet Settings",
 				 	
                      BettingLimit:"Betting Limit",
+				 	
+                     BetTrade:"Bet Trade",
+				 	
+                     BetTradeComissionBalanceNote:"BetTrade Commission: Licensee commission income for BetTrade tickets.",
+				 	
+                     BetTradeCommission:"Bet Trade Commission",
+				 	
+                     BetTradeNotOfferCurrency:"BetTrade is not offered for this currency.",
 				 	
                      BetType:"Bet type",
 				 	
@@ -399,11 +411,11 @@ var _language_en_US={
 				 	
                      DisableMacau:"Disable Macau",
 				 	
+                     DisableMicrogaming:"Disable Microgaming",
+				 	
                      DisableRNGCasino:"Disable RNG Casino",
 				 	
                      DisableSSOMsg:"Single Sign On to LRF is disabled.",
-				 	
-                     DisableVegasGames:"Disable Vegas Games",
 				 	
                      DividendWon:"Dividend Won",
 				 	
@@ -439,15 +451,17 @@ var _language_en_US={
 				 	
                      EnableAgCasino:"Enable AG Casino",
 				 	
+                     EnableBetTrade:"Enable BetTrade",
+				 	
                      EnableGoldDeluxe:"Enable Gold Deluxe",
 				 	
                      EnableLiveCasino:"Enable Live Casino",
 				 	
                      EnableMacau:"Enable Macau",
 				 	
-                     EnableRNGCasino:"Enable RNG Casino",
+                     EnableMicrogaming:"Enable Microgaming",
 				 	
-                     EnableVegasGames:"Enable Vegas Games",
+                     EnableRNGCasino:"Enable RNG Casino",
 				 	
                      EndBalance:"End Balance",
 				 	
@@ -934,6 +948,12 @@ var _language_en_US={
                      MessageInvalidCommValue:"Invalid commission value!",
 				 	
                      MessageSuccess:"Successful",
+				 	
+                     Microgaming:"Microgaming",
+				 	
+                     MicroGamingNotOfferCurrency:"Microgaming is not offered for this currency.",
+				 	
+                     MicrogamingWinLoss:"Microgaming Win Loss",
 				 	
                      MinBet:"Min Bet",
 				 	
@@ -1602,12 +1622,6 @@ var _language_en_US={
                      UserNotExist:"User does not exist.",
 				 	
                      UserTooManyLicensees:"This account is assigned to more than 1 licensee.",
-				 	
-                     VegasGames:"Vegas Games",
-				 	
-                     VegasGamesNotOfferCurrency:"Vegas Games is not offered for this currency.",
-				 	
-                     VegasGamesWinLoss:"Vegas Games Win Loss",
 				 	
                      View:"View",
 				 	
