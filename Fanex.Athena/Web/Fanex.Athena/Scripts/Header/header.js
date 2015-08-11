@@ -14,8 +14,8 @@ $(document).ready(function () {
         var mainFrame = top.frames["main"];
         if (mainFrame && mainFrame.Site && mainFrame.Site.blockUI) {
             mainFrame.Site.blockUI();
+        }
 
-        };
         $.ajax({
             url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
             async: false,

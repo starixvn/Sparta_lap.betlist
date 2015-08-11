@@ -54,7 +54,6 @@ namespace Fanex.Athena.Service.Implement.Common
 
                 var sportsParameters = "<products>" + sportItemXML.ToString() + "</products>";
                 return _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
-                
             }
 
             return new List<CheckedItem>();

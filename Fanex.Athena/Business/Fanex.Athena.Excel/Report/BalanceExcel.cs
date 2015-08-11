@@ -162,6 +162,11 @@ namespace Fanex.Athena.Excel.Report
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
 
+            if (!ShowingOption.BTVisible)
+            {
+                HideColumn(sheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+            }
+
             if (!ShowingOption.CustomerCommVisible)
             {
                 HideColumn(sheet, ColumnCustomerCommission);
@@ -243,6 +248,12 @@ namespace Fanex.Athena.Excel.Report
             {
                 listColumn.Remove(ColumnRacingRevenue);
                 listColumn.Remove(ColumnAmtDueToRacing);
+            }
+
+            if (!ShowingOption.RBVisible)
+            {
+                listColumn.Remove(ColumnBetTradeCommission);
+                listColumn.Remove(ColumnAmtDueToBetTrade);
             }
 
             if (!ShowingOption.CustomerCommVisible)
