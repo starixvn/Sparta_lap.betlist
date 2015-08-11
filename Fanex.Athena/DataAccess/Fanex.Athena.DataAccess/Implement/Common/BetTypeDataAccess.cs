@@ -16,6 +16,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Common;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -33,9 +34,10 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <param name="sports">The sports (xml string parameter).</param>
         /// <param name="languageCode">The language code.</param>
         /// <returns>The data table.</returns>
-        public DataTable GetBettypes(int licenseeId, string sports, string languageCode)
+        public IList<CheckedItem> GetBettypes(int licenseeId, string sports, string languageCode)
         {
             const string UspName = "Lrf_SelBetTypeBySport";
+            IList<CheckedItem> results = new List<CheckedItem>();
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -43,7 +45,18 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     db.AddInParameter("sportlist", DbType.String, sports);
                     db.AddInParameter("langkey", DbType.String, languageCode);
-                    return db.ExecuteDataSet().Tables[0];
+                    using (var reader = db.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(new CheckedItem
+                            {
+                                Checked = true,
+                                ID = int.Parse(reader["BettypeID"].ToString()),
+                                Name = reader["BettypeName"].ToString()
+                            });
+                        }
+                    }
                 }
             }
             catch (ObjectDbException sqlException)
@@ -51,6 +64,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+
+            return results;
         }
 
         /// <summary>

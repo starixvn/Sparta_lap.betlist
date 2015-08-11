@@ -10,8 +10,7 @@
 namespace Fanex.Athena.DataAccess.Interface.Common
 {
     using System.Collections.Generic;
-    using System.Data;
-
+    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
 
     /// <summary>
@@ -21,6 +20,6 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     {
         IDictionary<string, int> GetAllBettypes(IList<ProductOption> productOptions);
 
-        DataTable GetBettypes(int licenseeId, string sports, string languageCode);
+        IList<CheckedItem> GetBettypes(int licenseeId, string sports, string languageCode);
     }
 }
