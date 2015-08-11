@@ -11,7 +11,11 @@ $(document).ready(function () {
 
     $("#languagesite").change(function () {
         var lang = $(this).val();
-        top.frames["main"].Site.blockUI();
+        var mainFrame = top.frames["main"];
+        if (mainFrame && mainFrame.Site && mainFrame.Site.blockUI) {
+            mainFrame.Site.blockUI();
+        }
+
         $.ajax({
             url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
             async: false,
@@ -19,7 +23,7 @@ $(document).ready(function () {
             cache: false,
             success: function (result) {
                 if (result === "1") {
-                    top.frames["main"].location.href = Site.resolveClientUrl("Report/Balance");
+                    mainFrame.location.href = Site.resolveClientUrl("Report/Balance");
                     top.frames["menu"].location.href = Site.resolveClientUrl("Menu/Index");
                     top.frames["header"].location.href = Site.resolveClientUrl("Header/Index");
                     top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;

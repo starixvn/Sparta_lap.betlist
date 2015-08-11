@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.Implement.Common
         {
             const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
             var sportItemXML = new StringBuilder();
-            var result = new List<CheckedItem>();
+           
             if (sports != null && sports.Count > 0 && licenseeId > 0)
             {
                 var products = sports.Where(i => i.ParentId == -1);
@@ -53,22 +53,10 @@ namespace Fanex.Athena.Service.Implement.Common
                 }
 
                 var sportsParameters = "<products>" + sportItemXML.ToString() + "</products>";
-                var tableData = _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
-                if (tableData != null && tableData.Rows.Count > 0)
-                {
-                    foreach (DataRow row in tableData.Rows)
-                    {
-                        result.Add(new CheckedItem
-                        {
-                            Checked = true,
-                            ID = int.Parse(row["BettypeID"].ToString()),
-                            Name = row["BettypeName"].ToString()
-                        });
-                    }
-                }
+                return _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
             }
 
-            return result;
+            return new List<CheckedItem>();
         }
     }
 }
