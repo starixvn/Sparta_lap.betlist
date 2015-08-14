@@ -84,4 +84,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_TotalBets_Sel6" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_TotalBets_SelHR" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
