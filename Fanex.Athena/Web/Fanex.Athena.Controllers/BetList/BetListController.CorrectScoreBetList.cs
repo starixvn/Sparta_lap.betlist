@@ -41,11 +41,12 @@ namespace Fanex.Athena.Controllers.BetList
 
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
@@ -64,8 +65,9 @@ namespace Fanex.Athena.Controllers.BetList
         [FunctionAuthorization]
         public ActionResult CorrectScoreBetList(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            var licenseeSession = this.SessionService.LicenseeSession;
+            var currencies = GetUserCurrencies(Licensees.KeenOcean);
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";
                 metaModel = CreateDefaultMetaModel(metaModel);
@@ -74,7 +76,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var showingOption = new ShowingOption
                 {
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 };
 
                 var title = ViewResources.CorrectScore + " - " + string.Format(

@@ -9,7 +9,9 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.TotalBets;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.TotalBets;
@@ -52,9 +54,9 @@ namespace Fanex.Athena.Controllers.TotalBets
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
-            var currencyList = userSession.CurrencyList;
+            var currencies = GetUserCurrencies(Licensees.KeenOcean);
 
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
                 FirstGoalLastGoal totalData;
                 var dataList = _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(metaModel, out totalData);
@@ -64,7 +66,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencyList,
+                    CurrencyList = currencies,
                     TotalData = totalData
                 };
 

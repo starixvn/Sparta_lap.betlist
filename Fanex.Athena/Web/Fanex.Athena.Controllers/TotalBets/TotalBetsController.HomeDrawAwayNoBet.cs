@@ -9,7 +9,9 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.TotalBets;
     using Models.ViewModel.TotalBets;
@@ -55,9 +57,9 @@ namespace Fanex.Athena.Controllers.TotalBets
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
-            var currencyList = userSession.CurrencyList;
+            var currencies = GetUserCurrencies(Licensees.KeenOcean);
 
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
                 var dataList = _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(metaModel);
                 var model = new HomeDrawAwayNoBetViewModel
@@ -65,7 +67,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencyList
+                    CurrencyList = currencies
                 };
 
                 return View("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml", model);

@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     Param = metaModel,
                     IsHistory = false,
                 };
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     HistoryParam = historyParam,
                     IsHistory = true,
                 };
@@ -141,7 +141,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     Param = metaModel,
                     IsHistory = false,
                 };
@@ -183,7 +183,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     HistoryParam = metaModel,
                     TotalRows = totalRows,
                     IsHistory = true,

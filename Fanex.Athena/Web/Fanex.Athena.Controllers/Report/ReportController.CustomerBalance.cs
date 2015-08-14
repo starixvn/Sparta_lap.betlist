@@ -12,7 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -67,9 +67,9 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean),
                     Param = metaModel,
-                    IsValidTimeRequest = true,
+                    IsValidTimeRequest = true
                 };
 
             var orderItemList = GenerateOrderItemList(metaModel.OrderItem);
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean),
                 Param = metaModel
             };
             var orderItemList = GenerateOrderItemList(metaModel.OrderItem);

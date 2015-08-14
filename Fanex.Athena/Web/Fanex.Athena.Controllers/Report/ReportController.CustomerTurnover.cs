@@ -8,11 +8,11 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Param = new CustomerTurnoverMetaModel { LicenseeId = licenseeSession.LicenseeId },
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean),
             };
 
             return View("~/Views/Report/CustomerTurnover/Main.cshtml", model);
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
-            var currencyName = userSession.CurrencyList
+            var currencyName = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean)
                 .Where(i => i.Value == metaModel.CurrencyId).Select(i => i.Key).SingleOrDefault();
               
             CustTurnover totalData = new CustTurnover();

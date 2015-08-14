@@ -45,12 +45,11 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
+            var currencies = GetUserCurrencies(Licensees.KeenOcean);
 
             if (metaModel.IsExportExcel)
             {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
                     return DailyBetListExcel(metaModel);
                 }
@@ -63,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = currencies,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, BetListDailyBetListName),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm

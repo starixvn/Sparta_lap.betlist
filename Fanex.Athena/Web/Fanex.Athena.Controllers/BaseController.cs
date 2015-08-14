@@ -100,5 +100,29 @@ namespace Fanex.Athena.Controllers
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
         }
+
+        protected IDictionary<string, int> GetUserCurrencies(params int[] exceptedLicensees)
+        {
+            if (exceptedLicensees.Contains(SessionService.LicenseeSession.LicenseeId))
+            {
+                return new Dictionary<string, int>();
+            }
+
+            return SessionService.UserSession.CurrencyList;
+        }
+
+        protected IDictionary<string, int> GetUserCurrenciesWithoutHkd(params int[] licensees)
+        {
+            var currencies = SessionService.UserSession.CurrencyList;
+
+            if (licensees.Contains(SessionService.LicenseeSession.LicenseeId))
+            {
+                currencies = currencies
+                    .Where(x => x.Key.Equals("HKD", System.StringComparison.OrdinalIgnoreCase) == false)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            return currencies;
+        }
     }
 }

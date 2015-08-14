@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Customer;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Customer;
@@ -227,7 +228,7 @@ namespace Fanex.Athena.Controllers.Customer
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
         {
             var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = userSession.CurrencyList;
+            model.CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean);
             model.LicenseeTypeList = licenseeSession.LicenseeType;
             model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;

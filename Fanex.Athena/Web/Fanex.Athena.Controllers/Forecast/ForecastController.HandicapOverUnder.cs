@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;
@@ -85,7 +86,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     MainData = forecastHdpOuByLeague,
                     LeagueList = leagueList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean)
                 };
         }
 

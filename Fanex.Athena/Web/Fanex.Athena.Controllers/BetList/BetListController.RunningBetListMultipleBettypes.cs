@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetList
             
             if (metaModel.IsExportExcel)
             {
-                var currencyList = userSession.CurrencyList;
+                var currencyList = GetUserCurrencies(Licensees.KeenOcean);
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {

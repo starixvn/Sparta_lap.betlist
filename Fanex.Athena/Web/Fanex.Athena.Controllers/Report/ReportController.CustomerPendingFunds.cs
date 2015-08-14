@@ -13,7 +13,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -58,7 +58,6 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.ProductOptions = productOption;
 
-            var currencyList = userSession.CurrencyList;
             var model = new CustomerPendingFundsViewModel
                 {
                     ShowEmptyContent = true,
@@ -67,7 +66,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = currencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     Param = metaModel,
                     TotalRows = 0,
                 };
@@ -99,7 +98,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName),
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                     Param = metaModel,
                     TotalRows = totalRows,
                 };

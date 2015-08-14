@@ -9,6 +9,8 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel.BetList;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Common;
@@ -32,15 +34,15 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult LastBetsMonitoring()
         {
             this._sportTypeService = new SportTypeService();
-            var metaModel = new Models.MetaModel.BetList.BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
+            var metaModel = new BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
           
             SetConvetedUSDCurrencyName(metaModel);
            
             var model = new LastBetsMonitoringViewModel
             {
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
                 SportsList = this._sportTypeService.GetAllSports(),
-                Param = metaModel,
+                Param = metaModel
             };
 
             return View("~/Views/BetList/LastBetsMonitoringNew/Main.cshtml", model);
