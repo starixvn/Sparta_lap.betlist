@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.TotalBets
         private ActionResult TotalGoalView(TotalGoalMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currencies = GetUserCurrencies(Licensees.KeenOcean);
+            var currencies = GetUserCurrencies();
             metaModel.UserId = userSession.UserId;
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))

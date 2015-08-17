@@ -130,7 +130,7 @@ namespace Fanex.Athena.Controllers.Forecast
             model.Param = metaModel;
             model.LeagueList = leagueList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.CurrencyList = GetUserCurrencies(Licensees.KeenOcean);
+            model.CurrencyList = GetUserCurrencies();
 
             return model;
         }

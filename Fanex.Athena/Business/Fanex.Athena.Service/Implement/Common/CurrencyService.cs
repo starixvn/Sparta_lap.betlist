@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.Implement.Common
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Common;
     using Fanex.Athena.DataAccess.Interface.Common;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Account;
@@ -61,6 +62,11 @@ namespace Fanex.Athena.Service.Implement.Common
         public IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId)
         {
             var temp = GetCurrenciesByUser(licenseeId, userId);
+            if (licenseeId == Licensees.KeenOcean)
+            {
+                temp = temp.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+            }
+
             if (temp != null)
             {
                 return temp

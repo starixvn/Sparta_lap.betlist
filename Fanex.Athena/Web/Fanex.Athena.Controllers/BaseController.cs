@@ -101,9 +101,9 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected IDictionary<string, int> GetUserCurrencies(params int[] exceptedLicensees)
+        protected IDictionary<string, int> GetUserCurrencies()
         {
-            if (exceptedLicensees.Contains(SessionService.LicenseeSession.LicenseeId))
+            if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
             {
                 return new Dictionary<string, int>();
             }

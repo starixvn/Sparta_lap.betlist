@@ -141,7 +141,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 MatchList = matchList,
                 HeaderInfo = headerInfo,
                 MainData = new NewForecastHdpOuData(),
-                CurrencyList = GetUserCurrencies(Licensees.KeenOcean)
+                CurrencyList = GetUserCurrencies()
             };
             try
             {

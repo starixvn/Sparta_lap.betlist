@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
+                    CurrencyList = GetUserCurrencies(),
                     IsAllowedNumberGame = productAccess.IsAllowNG,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.Report
             var model = new LiveReportViewModel
                 {
                     Param = metaModel,
-                    CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
+                    CurrencyList = GetUserCurrencies(),
                     IsAllowedNumberGame = productAccess.IsAllowNG,
                     BalanceUpDate = balance != null ? balance.BalanceUpDay : DateTime.Now,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

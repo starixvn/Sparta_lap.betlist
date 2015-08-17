@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
+                CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(Licensees.KeenOcean),
+                CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -117,7 +117,7 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult CancelledBetsBetListExcel(BetListMetaModel metaModel)
         {
-            var currencies = GetUserCurrencies(Licensees.KeenOcean);
+            var currencies = GetUserCurrencies();
 
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
             {

@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Account
     using System.Text;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Account;
     using Fanex.Athena.Models.ViewModel;
@@ -416,9 +417,17 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                ViewBag.CurrencyList
-                    = CurrencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                var currencies = CurrencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
+                {
+                    var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd).FirstOrDefault();
+                    if (currency != null)
+                    {
+                        currency.CurrencyName = "HKD";
+                    }
+                }
 
+                ViewBag.CurrencyList = currencies;
                 return View("~/Views/Account/AssignCurrency.cshtml");
             }
 
