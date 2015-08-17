@@ -5,7 +5,7 @@
     <!--grid_26-->
     <form id="licenseewinloss" name="licenseewinloss" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today.AddMonths(2), "date-range", "date-range", 3, 3, 2, 3)
     <div class="grid_2 filter-label" style="width: 45px;">
         <label>
             @ViewResources.Currency
