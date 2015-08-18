@@ -88,6 +88,7 @@
         var minDate = beginOfMonth.AddMonths(-18);
             }
             <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+            <input type="hidden" id="MaxDate" value="@AppSettings.MaxDate.ToString("yyyy/M/d")" />
         </div>
     }
 </div>

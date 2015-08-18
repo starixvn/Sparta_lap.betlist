@@ -5,7 +5,7 @@
     <!--grid_26-->
     <form id="mainform" name="mainform" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-                        new DateTime(2015, 1, 1), DateTime.Today.AddDays(-1), "date-range", "date-range", 2, 3, 2, 3, false)
+                        new DateTime(2015, 1, 1), DateTime.Today.AddDays(-1).AddMonths(2), "date-range", "date-range", 2, 3, 2, 3, false)
     <div class="new-line">
     </div>
      <div class="grid_2 filter-label">

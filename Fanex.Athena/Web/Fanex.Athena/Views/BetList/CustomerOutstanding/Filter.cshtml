@@ -22,7 +22,7 @@
         }
     </div>
 
-    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, DateTime.Today, "", "", 2, 3, 1, 3)
+    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, AppSettings.MaxDate, "", "", 2, 3, 1, 3)
 
     <div class="grid_2 filter-input">
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />

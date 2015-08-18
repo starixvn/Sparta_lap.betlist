@@ -78,6 +78,15 @@ namespace Fanex.Athena.Extension.Utility
             get { return DateTime.Parse(GetValue("HistoryDate")); }
         }
 
+        public static DateTime MaxDate
+        {
+            get
+            {
+                var dateString = GetValue("MaxDate");
+                return string.IsNullOrWhiteSpace(dateString) ? DateTime.Now : DateTime.Parse(dateString);
+            }
+        }
+
         public static string[] BasedCurrency
         {
             get { return GetValue("BasedCurrency").Split(new[] { ';' }); }
