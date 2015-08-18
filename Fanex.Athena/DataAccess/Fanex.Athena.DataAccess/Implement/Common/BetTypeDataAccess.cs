@@ -21,6 +21,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using System.Diagnostics;
+    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -64,7 +66,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
-
             return results;
         }
 

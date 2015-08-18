@@ -9,12 +9,9 @@ namespace Fanex.Athena.Controllers
     #region Using
 
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
-    using System.Xml.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
@@ -102,13 +99,6 @@ namespace Fanex.Athena.Controllers
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
             base.Initialize(requestContext);
-        }
-
-        protected override void Execute(System.Web.Routing.RequestContext requestContext)
-        {
-            var currentLanguage = LangService.GetCurrentLanguage();
-            LangService.SetPageCulture(currentLanguage);
-            base.Execute(requestContext);
         }
     }
 }
