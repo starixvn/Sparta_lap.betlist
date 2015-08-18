@@ -20,8 +20,6 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Implement.Common;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801

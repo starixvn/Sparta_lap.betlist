@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -60,24 +61,34 @@ namespace Fanex.Athena.Controllers.Report
         [AjaxRequest]
         public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             if (sports == null || sports.Count == 0)
             {
                 return Json(new List<SportProductItem>());
             }
 
-            return Json(_betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language));
+            var data = _betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language);
+            watch.Stop();
+            Fanex.Logging.LogService.Info("GetBettypes-action:" + watch.ElapsedMilliseconds);
+            return Json(data);
         }
 
         [HttpPost]
         [AjaxRequest]
         public ActionResult GetBettypes(IList<SportProductItem> sports)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             if (sports == null || sports.Count == 0)
             {
                 return Json(new List<SportProductItem>());
             }
 
-            return Json(_betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language));
+            var data = _betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language);
+            watch.Stop();
+            Fanex.Logging.LogService.Info("GetBettypes-action:" + watch.ElapsedMilliseconds);
+            return Json(data);
         }
 
         [HttpGet]

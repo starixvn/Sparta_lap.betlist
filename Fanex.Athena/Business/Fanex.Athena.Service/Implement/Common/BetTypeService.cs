@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Service.Implement.Common
 {
     using System.Collections.Generic;
-    using System.Data;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using Fanex.Athena.DataAccess.Implement.Common;
@@ -39,9 +39,11 @@ namespace Fanex.Athena.Service.Implement.Common
         {
             const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
             var sportItemXML = new StringBuilder();
-           
+
             if (sports != null && sports.Count > 0 && licenseeId > 0)
             {
+                var watch = new Stopwatch();
+                watch.Start();
                 var products = sports.Where(i => i.ParentId == -1);
 
                 foreach (var product in products)
@@ -53,6 +55,8 @@ namespace Fanex.Athena.Service.Implement.Common
                 }
 
                 var sportsParameters = "<products>" + sportItemXML.ToString() + "</products>";
+                watch.Stop();
+                Fanex.Logging.LogService.Info("GetBettypes-Service-layer:" + watch.ElapsedMilliseconds);
                 return _betTypeDataAccess.GetBettypes(licenseeId, sportsParameters, languageCode);
             }
 
