@@ -38,6 +38,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <returns>The data table.</returns>
         public IList<CheckedItem> GetBettypes(int licenseeId, string sports, string languageCode)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             const string UspName = "Lrf_SelBetTypeBySport";
             IList<CheckedItem> results = new List<CheckedItem>();
             try
@@ -66,6 +68,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+            watch.Stop();
+            Fanex.Logging.LogService.Info("Lrf_SelBetTypeBySport:" + watch.Elapsed);
             return results;
         }
 
