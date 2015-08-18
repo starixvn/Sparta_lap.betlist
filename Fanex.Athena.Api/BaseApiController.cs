@@ -9,14 +9,11 @@
 
 namespace Fanex.Athena.Api
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
@@ -85,9 +82,9 @@ namespace Fanex.Athena.Api
 
         protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
         {
+            base.Initialize(controllerContext);
             var currentLanguage = _langService.GetCurrentLanguage();
             _langService.SetPageCulture(currentLanguage);
-            base.Initialize(controllerContext);
         }
     }
 }
