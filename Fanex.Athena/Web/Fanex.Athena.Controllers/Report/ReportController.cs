@@ -58,6 +58,18 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [AjaxRequest]
+        public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
+        {
+            if (sports == null || sports.Count == 0)
+            {
+                return Json(new List<SportProductItem>());
+            }
+
+            return Json(_betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language));
+        }
+
+        [HttpPost]
+        [AjaxRequest]
         public ActionResult GetBettypes(IList<SportProductItem> sports)
         {
             if (sports == null || sports.Count == 0)

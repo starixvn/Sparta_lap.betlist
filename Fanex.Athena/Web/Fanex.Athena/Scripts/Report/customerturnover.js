@@ -59,7 +59,7 @@ var CustTurnover = (function ($) {
             alwayshow: true
         },
         sportUrl: Site.resolveClientUrl("report/GetSportsAndProducts"),
-        bettypeUrl: Site.resolveClientUrl("report/GetBettypes"),
+        bettypeUrl: Site.resolveClientUrl("report/GetBettypesBySport"),
         urlData: Site.resolveClientUrl("report/CustomerTurnover"),
         urlExcelData: Site.resolveClientUrl("report/CustomerTurnoverExcel"),
         initialize: function () {
