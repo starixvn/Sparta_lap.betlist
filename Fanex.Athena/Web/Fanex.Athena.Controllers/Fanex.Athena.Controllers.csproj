@@ -211,8 +211,10 @@
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
     <Compile Include="BetList\BetListController.RacingCommission.cs" />
+    <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
+    <Compile Include="Report\ReportAPIController.cs" />
     <Compile Include="Report\ReportController.MicrogamingWinLoss.cs" />
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
