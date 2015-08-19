@@ -321,8 +321,6 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <param name="sportType">The sport type.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
         /// <param name="setting">The setting result.</param>
         [SuppressMessage(
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",

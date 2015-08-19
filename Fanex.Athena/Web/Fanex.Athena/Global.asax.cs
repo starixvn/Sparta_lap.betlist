@@ -40,7 +40,7 @@ namespace Fanex.Athena
 
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
             RouteTable.Routes.IgnoreRoute("favicon.ico");
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
@@ -117,10 +117,6 @@ namespace Fanex.Athena
             }
 
             Logging.LogService.Error(message, exception);
-        }
-
-        protected void Application_BeginRequest()
-        {
         }
 
         /// <summary>

@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -35,7 +34,6 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IBalanceUpService _balanceUpService;
         private readonly IProductService _productService;
-        private readonly IBetTypeService _betTypeService;
         private readonly ISportTypeService _sportTypeService;
         private readonly ILeagueService _leagueService;
         private readonly IMatchService _matchService;
@@ -51,21 +49,8 @@ namespace Fanex.Athena.Controllers.Report
             this._balanceUpService = new BalanceUpService();
             this._productService = new ProductService();
             _sportTypeService = new SportTypeService();
-            this._betTypeService = new BetTypeService();
             this._leagueService = new LeagueService();
             this._matchService = new MatchService();
-        }
-
-        [HttpPost]
-        [AjaxRequest]
-        public ActionResult GetBettypes(IList<SportProductItem> sports)
-        {
-            if (sports == null || sports.Count == 0)
-            {
-                return Json(new List<SportProductItem>());
-            }
-
-            return Json(_betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language));
         }
 
         [HttpGet]

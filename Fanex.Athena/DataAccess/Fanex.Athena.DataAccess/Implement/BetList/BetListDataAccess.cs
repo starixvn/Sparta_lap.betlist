@@ -1035,6 +1035,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// </summary>
         /// <param name="reader">Reader value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
+        /// <param name="custId">The customer ID.</param>
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

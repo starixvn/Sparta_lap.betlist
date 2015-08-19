@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Service.Implement.Common
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Text;
     using Fanex.Athena.DataAccess.Implement.Common;
@@ -39,7 +38,7 @@ namespace Fanex.Athena.Service.Implement.Common
         {
             const string SportXMLItemPattern = "<product ID=\"{0}\" Sport=\"{1}\"> </product>";
             var sportItemXML = new StringBuilder();
-           
+
             if (sports != null && sports.Count > 0 && licenseeId > 0)
             {
                 var products = sports.Where(i => i.ParentId == -1);
