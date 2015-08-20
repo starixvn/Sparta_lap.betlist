@@ -1,4 +1,9 @@
-﻿@using System.Web.Optimization
+﻿@using System.Linq;
+@using System.Web.Optimization;
+
+@{
+    var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +20,7 @@
         Site.resolveClientUrl = function (relativeUrl) {
             return '@Url.Content("~/")' + relativeUrl;
         };
+        Site.userCurrencies = @(Html.Raw(JsonHelper.ToJson(sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key))));
         var _page = {
             lang: '@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag'
         };
@@ -23,9 +29,9 @@
 </head>
 <body class="@ViewBag.MasterClass">
     @{
-        var sessionService = new Fanex.Athena.Service.Implement.Users.SessionService();
         var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
     }
+    <input type="hidden" id="UserCurrencies" value="" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( Fanex.Athena.Extension.Utility.AppSettings.HistoryDate)" />
     @Html.AntiForgeryToken()

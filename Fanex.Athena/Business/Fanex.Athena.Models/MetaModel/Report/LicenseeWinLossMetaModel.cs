@@ -21,6 +21,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int DrillDownCurrencyId { get; set; }
 
+        public string DrillDownCurrencyName { get; set; }
+
         public DateTime DrillDownFromDate { get; set; }
 
         public DateTime DrillDownToDate { get; set; }

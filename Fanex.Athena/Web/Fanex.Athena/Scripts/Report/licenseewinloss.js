@@ -122,12 +122,12 @@ var LicenseeWinLoss = (function ($) {
         },
 
         //#region Layout
-        setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
+        setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
             var temp = 'api/report/LicenseeWL';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
-                 + "&tdate=" + tdate.toString("MM/dd/yyyy");
+                 + "&tdate=" + tdate.toString("MM/dd/yyyy") + "&currencyName=" + currencyName;
             }
             LicenseeWinLossOption.urlExcelData = temp;
         },
@@ -155,7 +155,7 @@ var LicenseeWinLoss = (function ($) {
             }
         },
 
-        setReportTitle: function (currencyId, fromdate, todate) {
+        setReportTitle: function (currencyId, fromdate, todate, currencyName) {
             var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
             var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
@@ -168,7 +168,7 @@ var LicenseeWinLoss = (function ($) {
             };
 
             var currencyStr = currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                 : currencyTextList[currencyId];
 
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
@@ -180,7 +180,7 @@ var LicenseeWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='ReportBy']:checked").val();                
+                var reportBy = $("input[name='ReportBy']:checked").val();
                 _reportBy = reportBy;
                 cacheData[level] = response;
                 //reset layout
@@ -225,7 +225,7 @@ var LicenseeWinLoss = (function ($) {
                         IsExcludedTestData: data.IsExcludedTestData
                     };
 
-                    LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
+                    LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "", "");
                     LicenseeWinLoss.ajaxComplete(0, response);
                 },
                 beforeSend: function () {
@@ -247,7 +247,7 @@ var LicenseeWinLoss = (function ($) {
             return new Date(year, month + 1, 0);
         },
 
-        drillDown: function (level, currencyId, customerId, datetime, keepSorting) {
+        drillDown: function (level, currencyId, customerId, datetime, currencyName, keepSorting) {
             level = Number(level);
             if (!keepSorting) {
                 _removeSorting = true;
@@ -310,12 +310,12 @@ var LicenseeWinLoss = (function ($) {
                     LicenseeWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
-                            LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate);
+                            LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName);
                         } else {
-                            LicenseeWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
+                            LicenseeWinLoss.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
                         }
                         //update excel ULR
-                        LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                        LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
                     }
                 },
                 beforeSend: function () {
@@ -338,7 +338,7 @@ var LicenseeWinLoss = (function ($) {
                 LicenseeWinLoss.renderBreadCrumb(level);
                 LicenseeWinLoss.bindData(0, reportBy, cacheData[level]);
                 //reset excel Link
-                LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "");
+                LicenseeWinLoss.setExcelUrl(0, 0, 0, "", "", "");
                 LicenseeWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
             }
             else if (level === 1) {
@@ -502,14 +502,12 @@ var LicenseeWinLoss = (function ($) {
                 }
             }
 
-            var currencyName = $.trim($("#CurrencyId option[value=" + dataDrillDown.DrillDownCurrencyId + "]").text());
-
             var url = Site.resolveClientUrl("BetList/LicenseeWl");
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", currencyName);
+            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
             url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
             url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
