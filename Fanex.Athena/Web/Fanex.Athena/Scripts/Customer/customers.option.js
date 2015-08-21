@@ -199,7 +199,7 @@ var CustomersOption = (function () {
             viewrecords: false,
             autowidth: false,
             forceFit: false,
-            shrinkToFit: false,
+            shrinkToFit: true,
             minWidth: 800,
             loadtext: 'loading...',
             loadui: 'disable',

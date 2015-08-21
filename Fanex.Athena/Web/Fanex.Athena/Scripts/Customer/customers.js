@@ -251,6 +251,7 @@ var CustomerList = (function ($) {
 
         var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
         var gridOption = processGridOption(hasData, showingColumns);
+        gridOption.width = gridOption.colModel.length < 7 ? 650 : undefined;
         gridOption.data = response.Data;
 
         // Show the grid
@@ -273,13 +274,6 @@ var CustomerList = (function ($) {
 
         var gridWidth = reportGrid.width();
 
-        if (gridWidth < 650) {
-            gridWidth = 650;
-        } else {
-            gridWidth += 20;
-        }
-        gridWidth = Math.min(1040, gridWidth);
-        reportGrid.jqGrid("setGridWidth", gridWidth);
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
         $(".content-filter").width(Math.max(1040, gridWidth));
