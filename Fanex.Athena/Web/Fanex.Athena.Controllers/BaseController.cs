@@ -123,6 +123,7 @@ namespace Fanex.Athena.Controllers
                     .ToDictionary(x => x.Key, x => x.Value);
             }
 
+            Fanex.Logging.LogService.Info(string.Join(",", currencies.Keys) + string.Join(",", currencies.Values));
             return currencies;
         }
     }
