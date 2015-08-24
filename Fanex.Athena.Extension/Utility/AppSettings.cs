@@ -26,6 +26,11 @@ namespace Fanex.Athena.Extension.Utility
         internal const char UrlSlash = '/';
 
         #region Configurations
+        
+        public static DateTime KeenOceanCutOffDate
+        {
+            get { return DateTime.Parse(GetValue("KeenOceanCutOffDate")); }
+        }
 
         public static string Enviroment
         {

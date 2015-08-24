@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -123,7 +124,6 @@ namespace Fanex.Athena.Controllers
                     .ToDictionary(x => x.Key, x => x.Value);
             }
 
-            Fanex.Logging.LogService.Info(string.Join(",", currencies.Keys) + string.Join(",", currencies.Values));
             return currencies;
         }
     }
