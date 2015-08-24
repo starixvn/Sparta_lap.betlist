@@ -112,19 +112,5 @@ namespace Fanex.Athena.Controllers
 
             return SessionService.UserSession.CurrencyList;
         }
-
-        protected IDictionary<string, int> GetUserCurrenciesWithoutHkd(params int[] licensees)
-        {
-            var currencies = SessionService.UserSession.CurrencyList;
-
-            if (licensees.Contains(SessionService.LicenseeSession.LicenseeId))
-            {
-                currencies = currencies
-                    .Where(x => x.Key.Equals("HKD", System.StringComparison.OrdinalIgnoreCase) == false)
-                    .ToDictionary(x => x.Key, x => x.Value);
-            }
-
-            return currencies;
-        }
     }
 }

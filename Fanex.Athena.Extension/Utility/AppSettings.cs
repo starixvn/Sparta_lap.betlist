@@ -27,11 +27,6 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
         
-        public static DateTime KeenOceanCutOffDate
-        {
-            get { return DateTime.Parse(GetValue("KeenOceanCutOffDate")); }
-        }
-
         public static string Enviroment
         {
             get { return GetValue("Enviroment"); }

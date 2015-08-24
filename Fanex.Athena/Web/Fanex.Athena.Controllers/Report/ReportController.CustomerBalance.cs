@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
-                    CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean),
+                    CurrencyList = userSession.CurrencyList,
                     Param = metaModel,
                     IsValidTimeRequest = true
                 };
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
-                CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean),
+                CurrencyList = userSession.CurrencyList,
                 Param = metaModel
             };
             var orderItemList = GenerateOrderItemList(metaModel.OrderItem);

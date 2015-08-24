@@ -63,13 +63,13 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <returns>The currency dictionary.</returns>
         public IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId)
         {
-            var temp = GetCurrenciesByUser(licenseeId, userId);
-            if (licenseeId == Licensees.KeenOcean && DateTime.Now.Date >= AppSettings.KeenOceanCutOffDate)
+            var currencies = GetCurrenciesByUser(licenseeId, userId);
+            if (licenseeId == Licensees.KeenOcean)
             {
-                temp = temp.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+                currencies = ModifyCurrenciesForKeenOcean(currencies);
             }
 
-            return temp
+            return currencies
                 .Where(i => i.IsActive == true)
                 .Select(p => new { p.CurrencyName, p.CurrencyId })
                   .AsEnumerable()
@@ -94,5 +94,19 @@ namespace Fanex.Athena.Service.Implement.Common
         }
 
         #endregion Public Methods and Operators
+
+        private static IList<CurrencyUser> ModifyCurrenciesForKeenOcean(IList<CurrencyUser> currencies)
+        {
+            currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+
+            var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd && x.CurrencyName.Equals("CNY") == false)
+                                     .FirstOrDefault();
+            if (currency != null)
+            {
+                currency.CurrencyName = "CNY";
+            }
+
+            return currencies;
+        }
     }
 }

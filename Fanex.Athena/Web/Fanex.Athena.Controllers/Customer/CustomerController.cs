@@ -228,7 +228,7 @@ namespace Fanex.Athena.Controllers.Customer
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
         {
             var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = GetUserCurrenciesWithoutHkd(Licensees.KeenOcean);
+            model.CurrencyList = SessionService.UserSession.CurrencyList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
             model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
