@@ -219,8 +219,8 @@ var TurnoverOption = (function () {
             "3": Site.getSingleResource("Others")
         },
         totalColspan: [3],
-        urlData: 'report/Turnover',
-        urlExcelData: 'report/Turnover',
+        urlData: 'reportapi/Turnover',
+        urlExcelData: 'report/TurnoverExcel',
         gridOption: {
             rowNum: 1000,
             datatype: 'local',

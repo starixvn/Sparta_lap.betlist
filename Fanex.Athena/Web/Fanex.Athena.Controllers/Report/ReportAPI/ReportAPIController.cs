@@ -16,10 +16,10 @@ namespace Fanex.Athena.Controllers.Report
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ReportAPIController : DefaultCultureBaseController
+    public partial class ReportAPIController : DefaultCultureBaseController
     {
         private readonly IBetTypeService _betTypeService = new BetTypeService();
-       
+
         [HttpPost]
         [AjaxRequest]
         public ActionResult GetBettypesBySport(IList<SportProductItem> sports)

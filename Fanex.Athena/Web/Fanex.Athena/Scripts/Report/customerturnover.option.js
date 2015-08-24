@@ -151,8 +151,6 @@ var CustTurnoverOption = (function () {
     var me = {
         hasCustomerComm: false,
         totalColspan: 6,
-        urlData: 'report/CustomerTurnover',
-        urlExcelData: 'report/CustomerTurnoverExcel',
         reportBy: 1, //1:daily ,2 :monthly,
         gridOption: {
             datatype: 'local',

@@ -214,7 +214,9 @@
     <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
-    <Compile Include="Report\ReportAPIController.cs" />
+    <Compile Include="Report\ReportAPI\ReportAPIController.CustomerTurnover.cs" />
+    <Compile Include="Report\ReportAPI\ReportAPIController.Turnover.cs" />
+    <Compile Include="Report\ReportAPI\ReportAPIController.cs" />
     <Compile Include="Report\ReportController.MicrogamingWinLoss.cs" />
     <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
     <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />

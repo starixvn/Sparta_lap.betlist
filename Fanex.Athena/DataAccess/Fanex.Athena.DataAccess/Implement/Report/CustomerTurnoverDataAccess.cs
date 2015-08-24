@@ -55,6 +55,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     while (reader.Read())
                     {
+                        var turnover = reader.ToDecimal("Turnover");
                         result.Add(new CustTurnover
                         {
                             // Get turnover row to list item
@@ -64,8 +65,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             SportId = reader.ToInt("sporttype"),
                             TotalTransactions = reader.ToInt("BetCount"),
                             Bettype = reader.ToString("Bettype"),
-                            Turnover = reader.ToDecimal("Turnover"),
-                            TotalTurnover = reader.ToDecimal("Turnover"),
+                            Turnover = turnover,
+                            TotalTurnover = turnover,
                             CustomerWinLoss = reader.ToDecimal("Winlost"),
                             CustomerComm = reader.ToDecimal("PlayerComm"),
                         });
