@@ -85,14 +85,14 @@ namespace Fanex.Athena.DataAccess.Implement.Base
 
         #endregion Get result DB
 
-        protected int GetCnyCurrencyIdForKeenOcean(BaseReportMetaModel model)
+        protected int GetCnyCurrencyIdForKeenOcean(int licenseeId, int currencyId, DateTime fromDate)
         {
-            if (model.LicenseeId == Licensees.KeenOcean && model.CurrencyId == CurrencyType.Hkd && model.FromDate.Date <= KeenOceanOldCnyDay)
+            if (licenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Hkd && fromDate.Date <= KeenOceanOldCnyDay)
             {
                 return CurrencyType.Cny;
             }
 
-            return model.CurrencyId;
+            return currencyId;
         }
 
         #endregion Protected
