@@ -40,9 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
                 return this.View("~/Views/BetList/LicenseeWl/Main.cshtml", metaModel);
             }
 
-            var currencyList = this.SessionService.UserSession.CurrencyList;
-
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (IsValidCurrency(metaModel.CurrencyId))
             {
                 return this.LicenseeWLExcel(metaModel);
             }
