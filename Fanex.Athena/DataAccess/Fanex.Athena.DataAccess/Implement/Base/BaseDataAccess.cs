@@ -11,9 +11,12 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Base
 {
+    using System;
     using System.Data;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common;
     using Fanex.Data;
 
@@ -22,6 +25,8 @@ namespace Fanex.Athena.DataAccess.Implement.Base
     /// </summary>
     public abstract class BaseDataAccess
     {
+        private static readonly DateTime KeenOceanOldCnyDay = new DateTime(2014, 11, 28);
+
         #region Constructors and Destructors
 
         protected BaseDataAccess()
@@ -79,6 +84,16 @@ namespace Fanex.Athena.DataAccess.Implement.Base
         }
 
         #endregion Get result DB
+
+        protected int GetCnyCurrencyIdForKeenOcean(BaseReportMetaModel model)
+        {
+            if (model.LicenseeId == Licensees.KeenOcean && model.CurrencyId == CurrencyType.Hkd && model.FromDate.Date <= KeenOceanOldCnyDay)
+            {
+                return CurrencyType.Cny;
+            }
+
+            return model.CurrencyId;
+        }
 
         #endregion Protected
     }

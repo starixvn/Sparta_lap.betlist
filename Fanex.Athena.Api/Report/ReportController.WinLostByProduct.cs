@@ -282,7 +282,8 @@ namespace Fanex.Athena.Api.Report
             var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
                              || currencyList.Values.Contains(metaModel.CurrencyId);
             var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
-                                 || currencyList.Values.Contains(currencyId);
+                                 || currencyList.Values.Contains(currencyId)
+                                 || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
 
             return validModel && validCurrency;
         }
