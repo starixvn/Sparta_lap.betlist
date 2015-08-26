@@ -42,8 +42,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("currencyid", DbType.Int32,
-                    GetCnyCurrencyIdForKeenOcean(metaModel.LicenseeId, metaModel.CurrencyId, metaModel.FromDate));
+                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("topcount", DbType.Int32, metaModel.TopCount);

@@ -25,8 +25,6 @@ namespace Fanex.Athena.DataAccess.Implement.Base
     /// </summary>
     public abstract class BaseDataAccess
     {
-        private static readonly DateTime KeenOceanOldCnyDay = new DateTime(2014, 11, 28);
-
         #region Constructors and Destructors
 
         protected BaseDataAccess()
@@ -84,16 +82,6 @@ namespace Fanex.Athena.DataAccess.Implement.Base
         }
 
         #endregion Get result DB
-
-        protected int GetCnyCurrencyIdForKeenOcean(int licenseeId, int currencyId, DateTime fromDate)
-        {
-            if (licenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Hkd && fromDate.Date <= KeenOceanOldCnyDay)
-            {
-                return CurrencyType.Cny;
-            }
-
-            return currencyId;
-        }
 
         #endregion Protected
     }

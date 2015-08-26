@@ -44,9 +44,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
-                db.AddInParameter("currencyid", DbType.Int32, 
-                    metaModel.CurrencyId < 0 ? 0 : 
-                    GetCnyCurrencyIdForKeenOcean(metaModel.LicenseeId, metaModel.CurrencyId, metaModel.FromDate));
+                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
