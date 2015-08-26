@@ -80,56 +80,39 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult Turnover(TurnoverMetaModel metaModel)
+        public ActionResult TurnoverExcel(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            
-            metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) || 
+
+            metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
             var turnoverService = new TurnoverService();
             var dataList = turnoverService.GetDataList(metaModel);
 
-            if (metaModel.IsExportExcel)
-            {
-                var model = new TurnoverViewModel
-                    {
-                        DataList = dataList,
-                        TotalData = turnoverService.SumTotalData(dataList),
-                        Param = metaModel,
-                        ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
-                        IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                        LicenseeTypeList = licenseeSession.LicenseeType,
-                        CurrencyList = userSession.CurrencyList,
-                        IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
-                    };
-
-                return TurnoverExcel(model);
-            }
-            else
-            {
-                return Json(new
+            var model = new TurnoverViewModel
                 {
+                    DataList = dataList,
                     TotalData = turnoverService.SumTotalData(dataList),
-                    Data = dataList
-                });
-            }
+                    Param = metaModel,
+                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
+                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
+                    CurrencyList = userSession.CurrencyList,
+                    IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+                };
+
+            return ExportTurnoverExcel(model);
         }
 
         #endregion Web Controller
 
         #region Export excel
 
-        /// <summary>
-        /// Turn over excel report.
-        /// </summary>
-        /// <param name="viewModel">The metal model.</param>
-        /// <returns>The excel file.</returns>
-        [HttpPost]
-        public ActionResult TurnoverExcel(TurnoverViewModel viewModel)
+        private ActionResult ExportTurnoverExcel(TurnoverViewModel viewModel)
         {
             const string FileName = "Turnover";
 

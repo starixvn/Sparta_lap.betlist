@@ -106,6 +106,7 @@ var Turnover = (function ($) {
 
         setDefaultUsername: function () {
             var username = $('#Username').val();
+
             if (username === '' || username === Turnover.defaultUserName) {
                 $('#Username').val(Turnover.defaultUserName);
                 $('#Username').attr('class', 'default-username');
@@ -171,6 +172,10 @@ var Turnover = (function ($) {
             _toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
             _currencyName = $("#CurrencyName").val().toUpperCase();
             _currencyId = $("#CurrencyId").val();
+
+            if (postdata.Username === Turnover.defaultUserName) {
+                postdata.Username = undefined;
+            }
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
             postdata.FromDate = _fromDate.toDateString();

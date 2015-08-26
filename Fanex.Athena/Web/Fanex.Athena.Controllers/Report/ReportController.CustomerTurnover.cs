@@ -48,30 +48,6 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerTurnover/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer turnover report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        [HttpPost]
-        [FunctionAuthorization]
-        public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
-        {
-            CustTurnover total = new CustTurnover();
-            var totalRow = 0;
-            IList<CustTurnover> data = new List<CustTurnover>();
-
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
-
-            if (metaModel != null && metaModel.IsValid)
-            {
-                data = GetData(metaModel, out total, out totalRow);
-            }
-
-            return Json(new { Data = data, Total = total, TotalRow = totalRow });
-        }
-
         #endregion Web Controller
 
         #region Export excel
