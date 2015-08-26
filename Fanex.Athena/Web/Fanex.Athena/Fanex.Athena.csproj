@@ -562,6 +562,35 @@
       <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Content Include="img\Slot8\S8003\01.jpg" />
+    <Content Include="img\Slot8\S8003\02.jpg" />
+    <Content Include="img\Slot8\S8003\03.jpg" />
+    <Content Include="img\Slot8\S8003\04.jpg" />
+    <Content Include="img\Slot8\S8003\05.jpg" />
+    <Content Include="img\Slot8\S8003\06.jpg" />
+    <Content Include="img\Slot8\S8003\07.jpg" />
+    <Content Include="img\Slot8\S8003\08.jpg" />
+    <Content Include="img\Slot8\S8003\09.jpg" />
+    <Content Include="img\Slot8\S8003\B1.jpg" />
+    <Content Include="img\Slot8\S8003\blank.jpg" />
+    <Content Include="img\Slot8\S8003\B_01.jpg" />
+    <Content Include="img\Slot8\S8003\B_02.jpg" />
+    <Content Include="img\Slot8\S8003\B_03.jpg" />
+    <Content Include="img\Slot8\S8003\B_04.jpg" />
+    <Content Include="img\Slot8\S8003\B_05.jpg" />
+    <Content Include="img\Slot8\S8003\B_06.jpg" />
+    <Content Include="img\Slot8\S8003\B_07.jpg" />
+    <Content Include="img\Slot8\S8003\B_08.jpg" />
+    <Content Include="img\Slot8\S8003\B_09.jpg" />
+    <Content Include="img\Slot8\S8003\B_B1.jpg" />
+    <Content Include="img\Slot8\S8003\Line1.jpg" />
+    <Content Include="img\Slot8\S8003\Line2.jpg" />
+    <Content Include="img\Slot8\S8003\Line3.jpg" />
+    <Content Include="img\Slot8\S8003\Line4.jpg" />
+    <Content Include="img\Slot8\S8003\Line5.jpg" />
+    <Content Include="img\Slot8\S8003\Line6.jpg" />
+    <Content Include="img\Slot8\S8003\Line7.jpg" />
+    <Content Include="img\Slot8\S8003\Line8.jpg" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
