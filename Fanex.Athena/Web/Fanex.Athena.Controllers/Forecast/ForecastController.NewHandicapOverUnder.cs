@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Logging;
     using Models.MetaModel.Forecast;
@@ -140,7 +141,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 MatchList = matchList,
                 HeaderInfo = headerInfo,
                 MainData = new NewForecastHdpOuData(),
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = GetUserCurrencies()
             };
             try
             {

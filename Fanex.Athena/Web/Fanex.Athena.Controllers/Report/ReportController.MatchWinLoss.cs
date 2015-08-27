@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
@@ -97,12 +97,12 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId; 
-            if (metaModel.IsExportExcel)
-            {
-                var currencyList = userSession.CurrencyList;
+            metaModel.UserId = userSession.UserId;
+            var currencies = GetUserCurrencies();
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.IsExportExcel)
+            {                
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
                     return MatchWinLossExcel(metaModel);
                 }
@@ -140,7 +140,7 @@ namespace Fanex.Athena.Controllers.Report
                 LeagueList = leagueList,
                 SpecialBetTypeResult = reportDataOutrightParlay,
 
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = currencies,
                 LicenseeTypeList = licenseeSession.LicenseeType,
 
                 ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MatchWinLossName),

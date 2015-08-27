@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.Forecast;
@@ -30,8 +31,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// <returns>The league id.</returns>
         public static int GetLeagueId(int leagueId, IList<League> leagueList)
         {
-            if (
-                leagueList.Any(l => l.LeagueId == leagueId))
+            if (leagueList.Any(l => l.LeagueId == leagueId))
             {
                 return leagueId;
             }
@@ -130,7 +130,7 @@ namespace Fanex.Athena.Controllers.Forecast
             model.Param = metaModel;
             model.LeagueList = leagueList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.CurrencyList = userSession.CurrencyList;
+            model.CurrencyList = GetUserCurrencies();
 
             return model;
         }

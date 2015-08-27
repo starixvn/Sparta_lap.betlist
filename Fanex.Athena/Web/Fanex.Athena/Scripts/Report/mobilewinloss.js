@@ -79,6 +79,7 @@ var MobileWinLoss = (function ($) {
         initMonthPicker: function () {
             $('#DateControl').monPickr({
                 minDate: Site.getHistoryDate(),
+                maxDate: $("#MaxDate").val(),
                 showDateRange: true,
                 fromDayId: 'MonthPickerFromDay',
                 toDayId: 'MonthPickerToDay',
@@ -418,8 +419,7 @@ var MobileWinLoss = (function ($) {
             dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();
             dataDrillDown.CurrencyName = $("#OriginalCurrencyName").val();
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
-
-            var currencyName = $.trim($("#CurrencyId option[value=" + dataDrillDown.DrillDownCurrencyId + "]").text());
+            
             var url = Site.resolveClientUrl("BetList/MobileWl");
 
             url = QueryString.setParam(url, "fromdate", $("#drillDownFromDate").val());
@@ -427,7 +427,7 @@ var MobileWinLoss = (function ($) {
             url = QueryString.setParam(url, "SiteType", $("#drillDownSite").val());
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", currencyName);
+            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
             url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
             url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);

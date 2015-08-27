@@ -48,9 +48,10 @@ namespace Fanex.Athena.Api.Report
             DateTime? tdate,
             int level = 0,
             int currencyId = 0,
-            int custId = 0)
+            int custId = 0,
+            string currencyName = null)
         {
-            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, currencyName);
         }
 
         /// <summary>
@@ -186,7 +187,6 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
-            var currencyList = userSession.CurrencyList;
             var showingOption = new ShowingOption
             {
                 SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllowSB,
@@ -196,12 +196,11 @@ namespace Fanex.Athena.Api.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
             };
 
             // Update metalModel Value
@@ -271,13 +270,15 @@ namespace Fanex.Athena.Api.Report
             DateTime? tdate,
             int level = 0,
             int currencyId = 0,
-            int custId = 0)
+            int custId = 0,
+            string currencyName = null)
         {
             if (IsValidRequest(metaModel, currencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId; // focus here
                 metaModel.DrillDownCurrencyId = currencyId;
+                metaModel.DrillDownCurrencyName = currencyName;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;

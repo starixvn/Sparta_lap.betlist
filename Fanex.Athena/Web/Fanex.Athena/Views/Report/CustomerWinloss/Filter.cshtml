@@ -20,7 +20,7 @@
             @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
             @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         </div>
-        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, DateTime.Today, "", "", 2, 3, 2, 3)
+        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, AppSettings.MaxDate, "", "", 2, 3, 2, 3)
         <div class="new-line">
         </div>
 @*Row 1*@

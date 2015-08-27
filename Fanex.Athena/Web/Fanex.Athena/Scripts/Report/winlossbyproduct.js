@@ -110,12 +110,12 @@ var WinLossByProduct = (function ($) {
 
         //#region Utilities
 
-        setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
+        setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
             var temp = 'api/report/WinLostByProduct';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
                 fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy") +
-                "&memberid=" + _memberId + "&systemid=" + _systemId;
+                "&memberid=" + _memberId + "&systemid=" + _systemId + "&currencyname=" + currencyName;
             }
             WinLossByProductOption.urlExcelData = temp;
         },
@@ -143,7 +143,7 @@ var WinLossByProduct = (function ($) {
             }
         },
 
-        setReportTitle: function (currencyId, fromdate, todate) {
+        setReportTitle: function (currencyId, fromdate, todate, currencyName) {
             var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
             var viewinKey = Site.getSingleResource("Viewin");
 
@@ -157,7 +157,7 @@ var WinLossByProduct = (function ($) {
             };
 
             var currencyStr = currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                 : currencyTextList[currencyId];
 
             var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId);
@@ -223,7 +223,7 @@ var WinLossByProduct = (function ($) {
                     _systemId = response.SystemId;
                     _memberId = response.MemberId;
                     WinLossByProduct.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
-                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
+                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "", "");
                     WinLossByProduct.ajaxComplete(0, response);
                 },
                 beforeSend: function () {
@@ -245,7 +245,7 @@ var WinLossByProduct = (function ($) {
 
         //#region drillDown
 
-        drillDown: function (level, currencyId, customerId, datetime) {
+        drillDown: function (level, currencyId, customerId, datetime, currencyName) {
             var param =
             {
                 MemberId: _memberId,
@@ -293,12 +293,12 @@ var WinLossByProduct = (function ($) {
                     WinLossByProduct.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
                         if (level > 0 && param.CurrencyId === '0') {
-                            WinLossByProduct.setReportTitle(currencyId, fdate, tdate);
+                            WinLossByProduct.setReportTitle(currencyId, fdate, tdate, currencyName);
                         } else {
-                            WinLossByProduct.setReportTitle(param.CurrencyId, fdate, tdate);
+                            WinLossByProduct.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
                         }
                         //update excel ULR
-                        WinLossByProduct.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                        WinLossByProduct.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
                     }
                 },
                 beforeSend: function () {
@@ -325,7 +325,7 @@ var WinLossByProduct = (function ($) {
                     WinLossByProduct.bindData(0, reportBy, _cacheData[0]);
 
                     //reset excel Link
-                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "");
+                    WinLossByProduct.setExcelUrl(0, 0, 0, "", "", "");
 
                     //re-set title                
                     WinLossByProduct.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
@@ -537,8 +537,6 @@ var WinLossByProduct = (function ($) {
                 }
             }
 
-            var currencyName = $.trim($("#CurrencyId option[value=" + dataDrillDown.DrillDownCurrencyId + "]").text());
-
             var url = Site.resolveClientUrl("BetList/LicenseeWl");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
@@ -546,7 +544,7 @@ var WinLossByProduct = (function ($) {
             url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-            url = QueryString.setParam(url, "CurrencyName", currencyName);
+            url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
             url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
             url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);

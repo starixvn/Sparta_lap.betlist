@@ -15,6 +15,7 @@ var MobileWinLossOption = (function () {
             DrillDownFromDate: rowObject.Date,
             DrillDownToDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
+            DrillDownCurrencyName: rowObject.CurrencyName,
             CustomerId: rowObject.CustomerId,
             ExternalId: rowObject.ExternalId,
             SystemId: rowObject.SystemId

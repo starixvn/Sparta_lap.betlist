@@ -8,16 +8,16 @@
 
 var WinLossByProductOption = (function () {
     "use strict";
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+    var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
         return '<a class="drilldown" href="javascript:;" onclick="return WinLossByProduct.drillDown(' + level +
-         ',' + currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+         ',' + currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         var level = WinLossByProductOption.licenseeId === 1 ? 1 : 2;
-        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, rowObject.CurrencyName, cellvalue);
     };
     var systemIdFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, rowObject.CurrencyName, cellvalue);
     };
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
@@ -25,6 +25,7 @@ var WinLossByProductOption = (function () {
                 DrillDownFromDate: rowObject.Date,
                 DrillDownToDate: rowObject.Date,
                 DrillDownCurrencyId: rowObject.CurrencyId,
+                DrillDownCurrencyName: rowObject.CurrencyName,
                 CustomerId: rowObject.CustomerId,
                 ExternalId: rowObject.ExternalId,
                 SystemId: rowObject.SystemId

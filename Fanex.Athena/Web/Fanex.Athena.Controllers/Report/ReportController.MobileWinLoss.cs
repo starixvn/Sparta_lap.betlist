@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(),
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };

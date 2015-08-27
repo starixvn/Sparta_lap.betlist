@@ -190,5 +190,12 @@ namespace Fanex.Athena.Controllers.BetList
 
             return viewinCurrency;
         }
+
+        private bool IsValidCurrency(int currencyId)
+        {
+            return currencyId == BaseCurrencyType.All ||
+                SessionService.UserSession.CurrencyList.Values.Contains(currencyId) ||
+                (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
+        }
     }
 }

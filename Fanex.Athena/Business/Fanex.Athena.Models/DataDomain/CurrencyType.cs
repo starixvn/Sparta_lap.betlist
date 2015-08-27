@@ -32,8 +32,18 @@ namespace Fanex.Athena.Models.DataDomain
         public const int Gbp = 12;
 
         /// <summary>
+        /// CNY, value = 13.
+        /// </summary>
+        public const int Cny = 13;
+
+        /// <summary>
         /// CHF, value = 41.
         /// </summary>
         public const int Chf = 41;
+
+        /// <summary>
+        /// HKD, value = 66.
+        /// </summary>
+        public const int Hkd = 66;
     }
 }

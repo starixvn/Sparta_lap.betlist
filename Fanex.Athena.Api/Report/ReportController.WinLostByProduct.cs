@@ -54,9 +54,10 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0, 
             int custId = 0, 
             int memberId = 0,
-            string systemId = null)
+            string systemId = null,
+            string currencyName = null)
         {
-            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId);
+            return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName);
         }
 
         /// <summary>
@@ -213,14 +214,11 @@ namespace Fanex.Athena.Api.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var currencyList = userSession.CurrencyList;
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
-
             var convertingOption = new ConvertingOption
             {
                 IsConvert = false,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = metaModel.Level == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
             };
 
             var viewModel = new WinLossByProductViewModel
@@ -284,7 +282,8 @@ namespace Fanex.Athena.Api.Report
             var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
                              || currencyList.Values.Contains(metaModel.CurrencyId);
             var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
-                                 || currencyList.Values.Contains(currencyId);
+                                 || currencyList.Values.Contains(currencyId)
+                                 || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
 
             return validModel && validCurrency;
         }
@@ -313,7 +312,8 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0,
             int memberId = 0,
-            string systemId = null)
+            string systemId = null,
+            string currencyName = null)
         {            
             if (!IsValidRequest(metaModel, currencyId))
             {
@@ -327,6 +327,7 @@ namespace Fanex.Athena.Api.Report
                                 ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;
+            metaModel.DrillDownCurrencyName = currencyName;
             metaModel.Level = level;
             metaModel.CustomerId = custId;
             if (metaModel.MemberId == 0)

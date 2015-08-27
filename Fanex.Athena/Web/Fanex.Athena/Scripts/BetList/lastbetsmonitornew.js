@@ -509,7 +509,7 @@ var MonitorBetListUI = function (monitorObj) {
                 var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
                 var baseCurrencyObj = $("#based-currency");
                 var noConvertOption = $("option[value='']", baseCurrencyObj);
-                
+
                 if (selectedCurrencyText.length > 1) {
                     noConvertOption.remove();
                     baseCurrencyObj.val("eur");
@@ -517,7 +517,7 @@ var MonitorBetListUI = function (monitorObj) {
                 else if (selectedCurrencyText.length === 1) {
                     var currencyName = selectedCurrencyText[0];
                     if (Site.isBaseCurrency(currencyName)) {
-                        noConvertOption.remove();                        
+                        noConvertOption.remove();
                         baseCurrencyObj.val(currencyName.toLowerCase());
                     }
                     else {

@@ -11,9 +11,12 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Base
 {
+    using System;
     using System.Data;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common;
     using Fanex.Data;
 

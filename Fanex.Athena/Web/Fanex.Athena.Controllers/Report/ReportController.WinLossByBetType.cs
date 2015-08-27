@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
@@ -49,7 +50,7 @@ namespace Fanex.Athena.Controllers.Report
                     Param = metaModel,
                     BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(),
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 };
@@ -83,7 +84,7 @@ namespace Fanex.Athena.Controllers.Report
                     MainResult = reportData,
                     BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(),
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     ColumnCount = GetMatchWinlossColumnCount(licenseeSession),

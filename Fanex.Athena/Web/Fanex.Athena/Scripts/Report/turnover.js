@@ -41,6 +41,7 @@ var Turnover = (function ($) {
         initMonthPicker: function () {
             $('#DateControl').monPickr({
                 minDate: $('#MinDate').val(),
+                maxDate: $('#MaxDate').val(),
                 showDateRange: true,
                 fromDayId: 'MonthPickerFromDay',
                 toDayId: 'MonthPickerToDay',

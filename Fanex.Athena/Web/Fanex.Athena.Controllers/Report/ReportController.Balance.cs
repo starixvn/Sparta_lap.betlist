@@ -9,7 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                     MainData = reportData,
                     Param = metaModel,
                     IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetUserCurrencies(),
                     LicenseeTypeList = licenseeSession.LicenseeType,
                     ProductAccess = productAccess,
                 };

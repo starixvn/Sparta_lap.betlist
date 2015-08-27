@@ -26,7 +26,7 @@ namespace Fanex.Athena.Extension.Utility
         internal const char UrlSlash = '/';
 
         #region Configurations
-
+        
         public static string Enviroment
         {
             get { return GetValue("Enviroment"); }
@@ -76,6 +76,15 @@ namespace Fanex.Athena.Extension.Utility
         public static DateTime HistoryDate
         {
             get { return DateTime.Parse(GetValue("HistoryDate")); }
+        }
+
+        public static DateTime MaxDate
+        {
+            get
+            {
+                var dateString = GetValue("MaxDate");
+                return string.IsNullOrWhiteSpace(dateString) ? DateTime.Now : DateTime.Parse(dateString);
+            }
         }
 
         public static string[] BasedCurrency

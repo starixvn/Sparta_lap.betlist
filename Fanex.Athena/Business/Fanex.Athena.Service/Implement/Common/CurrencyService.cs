@@ -9,10 +9,13 @@
 
 namespace Fanex.Athena.Service.Implement.Common
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Common;
     using Fanex.Athena.DataAccess.Interface.Common;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Account;
@@ -60,17 +63,17 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <returns>The currency dictionary.</returns>
         public IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId)
         {
-            var temp = GetCurrenciesByUser(licenseeId, userId);
-            if (temp != null)
+            var currencies = GetCurrenciesByUser(licenseeId, userId);
+            if (licenseeId == Licensees.KeenOcean)
             {
-                return temp
-                    .Where(i => i.IsActive == true)
-                    .Select(p => new { p.CurrencyName, p.CurrencyId })
-                      .AsEnumerable()
-                      .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
+                currencies = ModifyCurrenciesForKeenOcean(currencies);
             }
 
-            return null;
+            return currencies
+                .Where(i => i.IsActive == true)
+                .Select(p => new { p.CurrencyName, p.CurrencyId })
+                  .AsEnumerable()
+                  .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
         }
 
         /// <summary>
@@ -91,5 +94,19 @@ namespace Fanex.Athena.Service.Implement.Common
         }
 
         #endregion Public Methods and Operators
+
+        private static IList<CurrencyUser> ModifyCurrenciesForKeenOcean(IList<CurrencyUser> currencies)
+        {
+            currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
+
+            var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd && x.CurrencyName.Equals("CNY") == false)
+                                     .FirstOrDefault();
+            if (currency != null)
+            {
+                currency.CurrencyName = "CNY";
+            }
+
+            return currencies;
+        }
     }
 }

@@ -11,7 +11,7 @@
     <div class="grid_2 filter-label">
         <label>@ViewResources.Date</label>
     </div> 
-    @DatePickerHelper.RenderDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), DateTime.Today,
+    @DatePickerHelper.RenderDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), AppSettings.MaxDate,
         "Date", "", 3)
     <div class="new-line">
     </div>

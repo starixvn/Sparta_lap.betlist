@@ -5,7 +5,7 @@
 @model Fanex.Athena.Models.ViewModel.Report.CustomerTurnoverViewModel
 @{var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);}
 <div class="grid_26 content-filter new-line">
-    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "from-date", "to-date", 3, 4, 2, 7)
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, AppSettings.MaxDate, "from-date", "to-date", 3, 4, 2, 7)
     <div class="grid_2 userguide-group">
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>

@@ -5,14 +5,17 @@ window.serverPaging = true; // used in betlist.js
 
 var DailyBetList = (function ($) {
     "use strict";
+    var KEENOCEAN_LICENSEEID = 96;
+    
     var showOrHideExcelIcon = function () {
-        var currency = parseInt($("#CurrencyId").val(), 10);
-        var currencyArea = $(".export-excel-area");
-        if (currency !== 0) {
-            currencyArea.show();
-        } else {
-            currencyArea.hide();
+        var $exportExcel = $(".export-excel-area");
+        if (Site.getLicenseeId() === KEENOCEAN_LICENSEEID) {
+            $exportExcel.show();
+            return;
         }
+
+        var currency = parseInt($("#CurrencyId").val(), 10);
+        $exportExcel.toggle(currency !== 0);
     };
     return {
         submitUrl: null,
@@ -32,7 +35,7 @@ var DailyBetList = (function ($) {
                 DailyBetList.submit();
             });
 
-            $("#ExportToExcel").on("click",function () {
+            $("#ExportToExcel").on("click", function () {
                 DailyBetList.exportToExcel();
             });
 
@@ -54,7 +57,7 @@ var DailyBetList = (function ($) {
         },
 
         exportToExcel: function () {
-        /*export all data in one page*/
+            /*export all data in one page*/
             var url = window.location.href;
             var size = $('#BetListGrid').getGridParam('rowNum');
             url = Site.setLicenseeOptionParam(url);

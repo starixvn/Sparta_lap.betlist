@@ -13,18 +13,18 @@ var LicenseeWinLossOption = (function () {
     // store state of toggle() function
     var _expanseTypes = {};
 
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
+    var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
         return '<a class="drilldown" href="javascript:;" onclick="return LicenseeWinLoss.drillDown(' + level + ',' +
-         currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
+         currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
         var level = Number(LicenseeWinLossOption.licenseeId) === 1 ? 1 : 2;
-        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, rowObject.CurrencyName, cellvalue);
     };
 
     var systemIdFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, rowObject.CurrencyName, cellvalue);
     };
 
     var betlistLink = function (cellvalue, options, rowObject) {
@@ -33,10 +33,12 @@ var LicenseeWinLossOption = (function () {
             DrillDownFromDate: rowObject.Date,
             DrillDownToDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
+            DrillDownCurrencyName: rowObject.CurrencyName,
             CustomerId: rowObject.CustomerId,
             ExternalId: rowObject.ExternalId,
             SystemId: rowObject.SystemId
         };
+        
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
@@ -380,7 +382,7 @@ var LicenseeWinLossOption = (function () {
 
         var numOfLicenseeWL = JSLINQ(productOptions).Count(licenseeWLProductsFilter) + 1;
         var lastOfLicenseeWL = JSLINQ(productOptions).Last(licenseeWLProductsFilter);
-        
+
         var groupCustomerWinloss = me.hasCustomerComm ?
         {
             startColumnName: 'CustomerWinLoss',

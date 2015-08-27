@@ -96,4 +96,5 @@
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
      <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
      <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+     <input type="hidden" id="MaxDate" value="@AppSettings.MaxDate.ToString("yyyy/M/d")" />
 </div>

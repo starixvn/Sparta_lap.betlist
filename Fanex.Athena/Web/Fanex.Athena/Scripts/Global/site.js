@@ -6,8 +6,9 @@
 window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
-	var REQUEST_VERIFICATION_TOKEN;
+    var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
+    var _licenseeId = null;
 
     function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType === undefined ? "" : licenseeType;
@@ -96,6 +97,16 @@ var Site = (function ($) {
         },
         showMessaegBox: function (message) {
             $('<div title="LRF-Notification">' + message + '!</div>').dialog();
+        },
+        getLicenseeId: function () {
+            if (!_licenseeId) {
+                _licenseeId = parseInt($("#LicenseeId").val());
+            }
+
+            return _licenseeId;
+        },
+        getCurrencyName: function (currencyId) {
+            return Site.userCurrencies[currencyId];
         },
         getHistoryDate: function () {
             return _historyDate;

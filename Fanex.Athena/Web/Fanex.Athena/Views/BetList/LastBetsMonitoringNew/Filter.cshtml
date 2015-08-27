@@ -109,12 +109,21 @@
     </div>
     
     <div class="grid_3 filter-input">
+        @if (Model.IsOnlyShowAllCurrencies)
+        {
+        <select id="currency" disabled>
+            <option value="">All</option>
+        </select>
+        }
+        else
+        {
         <select id="currency">
             @foreach (var item in Model.CurrencyList)
             {
                 <option value="@item.Value">@item.Key</option>
             }
         </select>
+        }
     </div>
     <div class="grid_2 filter-label" style="width: 60px">
         <label>@ViewResources.Based</label>
@@ -180,7 +189,7 @@
         id="div-loading">
     </div>
 
-            //----------------------------Special Level--------------------------------//
+        //----------------------------Special Level--------------------------------//
 
     <input type="hidden" id="HiddenFieldBettypeHandicap" value="Handicap,1st Handicap" />
     <input type="hidden" id="HiddenFieldOverUnder" value="Over/Under,1st Over/Under" />

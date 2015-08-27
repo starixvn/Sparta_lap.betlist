@@ -41,11 +41,11 @@ namespace Fanex.Athena.Controllers.BetList
 
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
-            var custList = this._betListService.GetCancelBetCustList(metaModel);
+            var customers = this._betListService.GetCancelBetCustList(metaModel);
 
-            if (custList.Any())
+            if (customers.Any())
             {
-                var customerCancelBetItem = custList.FirstOrDefault();
+                var customerCancelBetItem = customers.FirstOrDefault();
                 if (customerCancelBetItem != null)
                 {
                     metaModel.CustId = customerCancelBetItem.CustId;
@@ -56,11 +56,11 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CustomerList = custList
+                CustomerList = customers
             };
 
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -117,9 +117,9 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult CancelledBetsBetListExcel(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
+            var currencies = GetUserCurrencies();
 
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
 

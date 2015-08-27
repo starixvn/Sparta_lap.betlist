@@ -4,7 +4,7 @@
 <div class="grid_26 content-filter new-line">
     <form id="winlossbyproduct" name="winlossbyproduct" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-                Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+                        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, AppSettings.MaxDate, "date-range", "date-range", 3, 3, 2, 3)
     <div class="grid_2 filter-label">
         <label>
             @ViewResources.Currency

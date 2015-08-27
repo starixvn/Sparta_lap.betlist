@@ -8,7 +8,9 @@ namespace Fanex.Athena.Controllers
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
@@ -99,6 +101,16 @@ namespace Fanex.Athena.Controllers
             base.Initialize(requestContext);
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
+        }
+
+        protected IDictionary<string, int> GetUserCurrencies()
+        {
+            if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
+            {
+                return new Dictionary<string, int>();
+            }
+
+            return SessionService.UserSession.CurrencyList;
         }
     }
 }

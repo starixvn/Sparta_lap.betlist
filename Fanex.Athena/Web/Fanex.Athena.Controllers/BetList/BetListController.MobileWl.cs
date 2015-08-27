@@ -37,9 +37,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (metaModel.IsExportExcel)
             {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (IsValidCurrency(metaModel.CurrencyId))
                 {
                     return this.MobileWLExcel(metaModel);
                 }

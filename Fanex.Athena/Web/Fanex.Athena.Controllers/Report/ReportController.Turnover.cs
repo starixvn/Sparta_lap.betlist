@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -66,7 +67,7 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = productAccess,
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetCurrenciesForTurnoverReport(),
                     IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
                 };
 
@@ -101,7 +102,7 @@ namespace Fanex.Athena.Controllers.Report
                     ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = userSession.CurrencyList,
+                    CurrencyList = GetCurrenciesForTurnoverReport(),
                     IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
                 };
 
@@ -145,5 +146,16 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         #endregion Export excel
+
+        private IDictionary<string, int> GetCurrenciesForTurnoverReport()
+        {
+            var currencies = GetUserCurrencies();
+            if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencies.Keys.Contains("CNY") == false)
+            {
+                currencies.Add("CNY", CurrencyType.Hkd);
+            }
+
+            return currencies;
+        }
     }
 }

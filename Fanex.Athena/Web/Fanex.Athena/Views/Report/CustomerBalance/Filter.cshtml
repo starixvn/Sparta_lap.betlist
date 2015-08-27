@@ -4,7 +4,7 @@
     @using (Html.BeginForm("CustomerBalance", "Report", FormMethod.Post, new { @id = "CustomerBalanceForm" }))
     {
         var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
-        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, DateTime.Today, "", "", 3, 3, 2, 3)
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, AppSettings.MaxDate, "", "", 3, 3, 2, 3)
           
         <div class="new-line">
         </div>
