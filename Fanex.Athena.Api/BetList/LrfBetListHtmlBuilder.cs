@@ -89,7 +89,7 @@ namespace Fanex.Athena.Api.BetList
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                            ticket.BetTypeId == (int)BetType.WinPlace;
-            if (!racing)
+            if (!racing && ticket.BetTypeId != (int)BetType.BetTradeBought)
             {
                 return running
                     ? "-"
