@@ -36,6 +36,9 @@ namespace Fanex.Athena
         /// <param name="e">The event ARGS.</param>
         public void Application_Start(object sender, EventArgs e)
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+
             AreaRegistration.RegisterAllAreas();
 
             GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
