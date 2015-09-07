@@ -512,34 +512,34 @@ var CustomerList = (function ($) {
             }
             var ischeckAll = checkedCount === totalColumns;
             $("#grid-columns-multiselect").multiSelect(
-        {
-            minWidth: 160,
-            maxHeight: 400,
-            shadow: true,
-            showHeader: true,
-            isCheckAll: ischeckAll,
-            showFooter: false,
-            checkAllText: Site.getSingleResource('All'),
-            noneSelectedText: Site.getSingleResource("Columns"),
-            selectedText: Site.getSingleResource("SelectedItemCount"),
-            listData: dataUI,
-            onCheck: function () {
-                var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
-                if (checkedItems.length === 0) {
-                    $("#SubmitButtonComm").prop("disabled", true);
-                    $("#grid-columns-multiselect-null").removeClass("hide");
-                    $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
-                }
-                else {
-                    $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
-                    for (var i = 0; i < checkedItems.length; i++) {
-                        $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
+            {
+                minWidth: 160,
+                maxHeight: 400,
+                shadow: true,
+                showHeader: true,
+                isCheckAll: ischeckAll,
+                showFooter: false,
+                checkAllText: Site.getSingleResource('All'),
+                noneSelectedText: Site.getSingleResource("Columns"),
+                selectedText: Site.getSingleResource("SelectedItemCount"),
+                listData: dataUI,
+                onCheck: function () {
+                    var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
+                    if (checkedItems.length === 0) {
+                        $("#SubmitButtonComm").prop("disabled", true);
+                        $("#grid-columns-multiselect-null").removeClass("hide");
+                        $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
                     }
-                    $("#SubmitButtonComm").prop("disabled", false);
-                    $("#grid-columns-multiselect-null").addClass("hide");
+                    else {
+                        $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
+                        for (var i = 0; i < checkedItems.length; i++) {
+                            $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
+                        }
+                        $("#SubmitButtonComm").prop("disabled", false);
+                        $("#grid-columns-multiselect-null").addClass("hide");
+                    }
                 }
-            }
-        });
+            });
         },
         initAutoComplete: function () {
             var $username = $('#txtUsername');

@@ -111,40 +111,36 @@
         }
 }
 @helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
-    {
-        var i = 0;
+ {  
+    var Url = new UrlHelper(Context.Request.RequestContext);
+    <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
+     var products = productOptions.ToList();
+     var totalProducts = products.Count;
     <div class="grid_@(LabelSpan) filter-label new-line">
         <label>
             @ViewResources.Product</label>
     </div>
     <div class="grid_@(ListSpan) option-list filter-input" id="ProductList">
-        <input type="checkbox" value="true" name="ALLProducts" id="ALLProducts" />
-        <label for="ALLProducts" class="all-products">
-            @ViewResources.All</label>
-        @foreach (var product in productOptions)
-        {
-            <span style="float: left;">
-            <input data-product-code="@product.Code" type="checkbox"
-            class="childCheckbox" value="true"
-            @(product.Status ? "checked=checked" : "")
-            data-original="@product.Status.ToString()"  name="ProductOptions[@i].Status" id="ProductOptions@(i)" />
-            <label data-product-code="@product.Code" for="ProductOptions@(i)">
-                @product.Name
-            </label>
-            <input type="hidden" value="@product.Code" name="ProductOptions[@i].Code" />
-            <input type="hidden" value="@product.Name" name="ProductOptions[@i].Name" />
-            </span>
-            i++;
-        }
-        @{
-            var Url = new UrlHelper(Context.Request.RequestContext);
-        }
-        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="product-null" class="hide" />
+        <select id="grid-products-multiselect" name="grid-products-multiselect">
+        </select>       
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
+
+        <div class="hide" id="items-container">
+            @for (var i = 0; i < totalProducts; i++)
+            {
+                <input type="hidden" name="ProductOptions[@i].Code" value="@products[i].Code"  />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@products[i].Name"  />
+                <input type="checkbox" class="childCheckbox" id="@products[i].Code" @(products[i].Status ? "checked=checked" : "")  name="ProductOptions[@i].Status" value="True"  />
+            }
+        </div>
+        <input type="hidden" id="productsData" value="@products.ToJson()" />
+
         <script type="text/javascript">
             $(window).load(function () {
-                $("#ProductList input[type=checkbox]").checkboxgroup();
+                setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 $("form").submit(function (event) {
-                    if ($("input.childCheckbox:checked").length == 0) {
+                    if ($("#items-container input[type=checkbox]:checked").length == 0) {
                         $('<div title="LRF-Notification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
                         Site.unBlockUI();
                         return false;
@@ -153,6 +149,55 @@
 
                 });
             });
+
+            function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
+                var data = $.parseJSON(dataSource);
+                var total = data.length;
+                var dataUI = [];
+                var checkedCount = 0;
+                for (var i = 0; i < total; i++) {
+                    var isChecked = Site.asBool(data[i][checkField]);
+                    if (isChecked) {
+                        checkedCount++;
+                    }
+                    dataUI.push({
+                        Id: data[i][valueField],
+                        Value: data[i][valueField],
+                        Text: Site.getSingleResource(data[i][textField]),
+                        Checked: isChecked,
+                        Enable: true,
+                        Css: "",
+                        CssClass: ""
+                    });
+                }
+                var ischeckAll = checkedCount === total;
+                $("#" + dropDownListId).multiSelect(
+                {
+                    minWidth: 160,
+                    maxHeight: 400,
+                    shadow: true,
+                    showHeader: true,
+                    isCheckAll: ischeckAll,
+                    checkAllText: Site.getSingleResource('All'),
+                    showFooter: false,
+                    listData: dataUI,
+                    onCheck: function () {
+                        var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+                        $("#items-container input[type=checkbox]:checked").prop("checked", false);
+                        if (checkedItems.length === 0) {
+                            $("#SubmitButton").prop("disabled", true);
+                            $(".error-img").removeClass("hide");
+                        }
+                        else {
+                            for (var i = 0; i < checkedItems.length; i++) {
+                                $('#items-container input#' + checkedItems[i]).prop("checked", true);
+                            }
+                            $("#SubmitButton").prop("disabled", false);
+                            $(".error-img").addClass("hide");
+                        }
+                    }
+                });
+            }
         </script>
     </div>
 }
@@ -234,7 +279,7 @@ bool addBasedOption = false)
                 Value = BaseCurrencyType.Gbp.ToString(),
                 Selected = BaseCurrencyType.Gbp == selected
             });
-            
+
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
                 Text = ViewResources.Based + " USD",
