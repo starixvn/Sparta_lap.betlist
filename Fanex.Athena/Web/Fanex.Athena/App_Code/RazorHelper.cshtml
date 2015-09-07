@@ -113,8 +113,6 @@
 @helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
  {  
     var Url = new UrlHelper(Context.Request.RequestContext);
-    <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.ContentLink("/Scripts/Plugin/MultiSelect/jquery.multiselect.js")" type="text/javascript"></script>
      var products = productOptions.ToList();
      var totalProducts = products.Count;
     <div class="grid_@(LabelSpan) filter-label new-line">
@@ -138,7 +136,7 @@
 
         <script type="text/javascript">
             $(window).load(function () {
-                setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 $("form").submit(function (event) {
                     if ($("#items-container input[type=checkbox]:checked").length == 0) {
                         $('<div title="LRF-Notification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
@@ -148,56 +146,7 @@
                     return true;
 
                 });
-            });
-
-            function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
-                var data = $.parseJSON(dataSource);
-                var total = data.length;
-                var dataUI = [];
-                var checkedCount = 0;
-                for (var i = 0; i < total; i++) {
-                    var isChecked = Site.asBool(data[i][checkField]);
-                    if (isChecked) {
-                        checkedCount++;
-                    }
-                    dataUI.push({
-                        Id: data[i][valueField],
-                        Value: data[i][valueField],
-                        Text: Site.getSingleResource(data[i][textField]),
-                        Checked: isChecked,
-                        Enable: true,
-                        Css: "",
-                        CssClass: ""
-                    });
-                }
-                var ischeckAll = checkedCount === total;
-                $("#" + dropDownListId).multiSelect(
-                {
-                    minWidth: 160,
-                    maxHeight: 400,
-                    shadow: true,
-                    showHeader: true,
-                    isCheckAll: ischeckAll,
-                    checkAllText: Site.getSingleResource('All'),
-                    showFooter: false,
-                    listData: dataUI,
-                    onCheck: function () {
-                        var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
-                        $("#items-container input[type=checkbox]:checked").prop("checked", false);
-                        if (checkedItems.length === 0) {
-                            $("#SubmitButton").prop("disabled", true);
-                            $(".error-img").removeClass("hide");
-                        }
-                        else {
-                            for (var i = 0; i < checkedItems.length; i++) {
-                                $('#items-container input#' + checkedItems[i]).prop("checked", true);
-                            }
-                            $("#SubmitButton").prop("disabled", false);
-                            $(".error-img").addClass("hide");
-                        }
-                    }
-                });
-            }
+            });           
         </script>
     </div>
 }

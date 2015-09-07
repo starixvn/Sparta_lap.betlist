@@ -232,7 +232,8 @@
                         "~/Scripts/Report/report.js",
                         "~/Scripts/global/prototype.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -334,7 +335,8 @@
                         "~/Scripts/Plugin/MonthPickr/monpickr.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -553,7 +555,8 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
         }
 
         /// <summary>
@@ -573,7 +576,8 @@
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
         }
 
         /// <summary>

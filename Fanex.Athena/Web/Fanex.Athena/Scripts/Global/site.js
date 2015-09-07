@@ -638,8 +638,57 @@ var Site = (function ($) {
                 index = index.parent;
             }
             index.location = Site.resolveClientUrl('Header/SignOut');
-        }
-    };
+        },
+
+        setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {
+                var data = $.parseJSON(dataSource);
+                var total = data.length;
+                var dataUI = [];
+                var checkedCount = 0;
+                for (var i = 0; i < total; i++) {
+                    var isChecked = Site.asBool(data[i][checkField]);
+                    if (isChecked) {
+                        checkedCount++;
+                    }
+                    dataUI.push({
+                        Id: data[i][valueField],
+                        Value: data[i][valueField],
+                        Text: Site.getSingleResource(data[i][textField]),
+                        Checked: isChecked,
+                        Enable: true,
+                        Css: "",
+                        CssClass: ""
+                    });
+                }
+                var ischeckAll = checkedCount === total;
+                $("#" + dropDownListId).multiSelect(
+                {
+                    minWidth: 160,
+                    maxHeight: 400,
+                    shadow: true,
+                    showHeader: true,
+                    isCheckAll: ischeckAll,
+                    checkAllText: Site.getSingleResource('All'),
+                    showFooter: false,
+                    listData: dataUI,
+                    onCheck: function () {
+                        var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+                        $("#items-container input[type=checkbox]:checked").prop("checked", false);
+                        if (checkedItems.length === 0) {
+                            $("#SubmitButton").prop("disabled", true);
+                            $(".error-img").removeClass("hide");
+                        }
+                        else {
+                            for (var i = 0; i < checkedItems.length; i++) {
+                                $('#items-container input#' + checkedItems[i]).prop("checked", true);
+                            }
+                            $("#SubmitButton").prop("disabled", false);
+                            $(".error-img").addClass("hide");
+                        }
+                    }
+                });
+            }
+    }
 })(jQuery);
 
 /*override alert function*/
