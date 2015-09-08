@@ -110,11 +110,11 @@
     </div>
         }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan)
  {  
     var Url = new UrlHelper(Context.Request.RequestContext);
     var i = 0;
-    <div class="grid_2 filter-label new-line">
+    <div class="grid_@(LabelSpan) filter-label new-line">
         <label>
             @ViewResources.Product</label>
     </div>
