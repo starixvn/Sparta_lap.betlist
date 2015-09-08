@@ -4,8 +4,11 @@
 var OutstandingBetList = (function ($) {
     return {
         initialize: function () {
-            //Hide label product, because it's a common function in razorhelper
-            $("#ProductList").prev().hide();
+            //Add new class to label and product list container, because it's a common function in razorhelper
+            var productListContainer = $("#ProductList");
+            productListContainer.prev().removeClass("grid_3").addClass("grid_1");
+            productListContainer.removeClass("grid_23").addClass("grid_6")
+            productListContainer.css("margin-left", "5px");
 
             //Set columns need hide
             OutstandingBetList.hiddenColList();

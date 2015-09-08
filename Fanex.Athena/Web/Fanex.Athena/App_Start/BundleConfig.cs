@@ -256,7 +256,8 @@
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
                         "~/Scripts/BetList/betlist.option.js",
-                        "~/Scripts/BetList/betlist.js");
+                        "~/Scripts/BetList/betlist.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -413,7 +414,8 @@
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/BetList/betlist.core.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
+                "~/Content/FlatPopup/jquery.flatpopup.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
         }
 
         /// <summary>
