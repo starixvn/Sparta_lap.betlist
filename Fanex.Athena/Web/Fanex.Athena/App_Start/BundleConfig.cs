@@ -228,12 +228,12 @@
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/MonthPickr/monpickr.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/Plugin/LinqJs/JSLINQ.js",
                         "~/Scripts/Report/report.js",
                         "~/Scripts/global/prototype.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -255,9 +255,9 @@
                         "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/BetList/betlist.option.js",
-                        "~/Scripts/BetList/betlist.js",
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
+                        "~/Scripts/BetList/betlist.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -371,7 +371,8 @@
                         "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js");
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -577,9 +578,9 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
+                "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
         /// <summary>
@@ -616,6 +617,7 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css");
         }
@@ -690,9 +692,9 @@
         {
             var bundle = new ScriptBundle("~/bundles/LastBetsMonitoringScripts")
                 .Include(
-                        "~/Scripts/Plugin/LinqJs/JSLINQ.js",
-                        "~/Scripts/Global/prototype.js",
                         "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
+                        "~/Scripts/Plugin/LinqJs/JSLINQ.js",
+                        "~/Scripts/Global/prototype.js",                      
                         "~/Scripts/BetList/lastbetsmonitornew.js");
             AddNewScriptBundle(bundles, bundle);
         }

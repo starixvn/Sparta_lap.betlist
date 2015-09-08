@@ -110,11 +110,10 @@
     </div>
         }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan, int ListSpan)
  {  
     var Url = new UrlHelper(Context.Request.RequestContext);
-     var products = productOptions.ToList();
-     var totalProducts = products.Count;
+    var i = 0;
     <div class="grid_@(LabelSpan) filter-label new-line">
         <label>
             @ViewResources.Product</label>
@@ -125,14 +124,15 @@
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
 
         <div class="hide" id="items-container">
-            @for (var i = 0; i < totalProducts; i++)
+            @foreach (var product in productOptions)
             {
-                <input type="hidden" name="ProductOptions[@i].Code" value="@products[i].Code"  />
-                <input type="hidden" name="ProductOptions[@i].Name" value="@products[i].Name"  />
-                <input type="checkbox" class="childCheckbox" id="@products[i].Code" @(products[i].Status ? "checked=checked" : "")  name="ProductOptions[@i].Status" value="True"  />
+                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code"  />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name"  />
+                <input type="checkbox" class="childCheckbox" id="@product.Code" @(product.Status ? "checked=checked" : "")  name="ProductOptions[@i].Status" value="True" />
+                i++;
             }
         </div>
-        <input type="hidden" id="productsData" value="@products.ToJson()" />
+        <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
 
         <script type="text/javascript">
             $(window).load(function () {

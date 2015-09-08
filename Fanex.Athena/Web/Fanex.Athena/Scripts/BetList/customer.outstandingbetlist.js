@@ -4,11 +4,8 @@
 var OutstandingBetList = (function ($) {
     return {
         initialize: function () {
-            //Add new class to label and product list container, because it's a common function in razorhelper
-            var productListContainer = $("#ProductList");
-            productListContainer.prev().removeClass("grid_3").addClass("grid_1");
-            productListContainer.removeClass("grid_23").addClass("grid_6")
-            productListContainer.css("margin-left", "5px");
+            //show or hide products dropdown list by ViewOption
+            OutstandingBetList.hiddenProductsList();
 
             //Set columns need hide
             OutstandingBetList.hiddenColList();
@@ -64,6 +61,18 @@ var OutstandingBetList = (function ($) {
                 columsHidden = "externalid,systemid";
             }
             $("#HiddenColumnList").val(columsHidden);
+        },
+
+        hiddenProductsList: function () {
+            var productsListContainer = $("#ProductList");
+            var betlistName = $("#ViewOption").find(":selected").val();
+            if (betlistName === "dailystatement") {
+                productsListContainer.prev().hide();
+            }
+            else {
+                //Remove new-line class of label to display inline, because it's a common function in razorhelper
+                productsListContainer.prev().removeClass("new-line");
+            }
         },
 
         getParamsSubmit: function () {
