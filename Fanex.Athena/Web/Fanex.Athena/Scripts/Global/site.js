@@ -688,7 +688,7 @@ $(function () {
     var $popup = $("#NotificationPopup");
     if ($popup.length > 0) {
         var options = {
-            height: 200,
+            height: 160,
             title: Site.getSingleResource("Notification")
         };
         var popup = $popup.flatPopup(options);

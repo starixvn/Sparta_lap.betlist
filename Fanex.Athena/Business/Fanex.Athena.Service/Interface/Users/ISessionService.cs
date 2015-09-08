@@ -19,6 +19,8 @@ namespace Fanex.Athena.Service.Interface.Users
     {
         #region Public Properties
 
+        bool IsFirstLoad { get; }
+
         MoveBet MoveBet { get; }
 
         string CaptchaCode { get; set; }
@@ -26,6 +28,8 @@ namespace Fanex.Athena.Service.Interface.Users
         LicenseeSession LicenseeSession { get; }
 
         UserSession UserSession { get; }
+
+        void TurnOffIsFirstLoad();
 
         void CreateNewSession(
             int userId,

@@ -70,12 +70,13 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.NotificationContent = LoadNotificationContent();
+            SessionService.TurnOffIsFirstLoad();
             return View(defaultView);
         }
 
         private string LoadNotificationContent()
         {
-            if (SessionService.MoveBet == null)
+            if (SessionService.IsFirstLoad == false || SessionService.MoveBet == null)
             {
                 return string.Empty;
             }
