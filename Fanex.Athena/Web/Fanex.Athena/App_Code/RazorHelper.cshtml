@@ -110,15 +110,15 @@
     </div>
         }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan, int ListSpan)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
  {  
     var Url = new UrlHelper(Context.Request.RequestContext);
     var i = 0;
-    <div class="grid_@(LabelSpan) filter-label new-line">
+    <div class="grid_2 filter-label new-line">
         <label>
             @ViewResources.Product</label>
     </div>
-    <div class="grid_@(ListSpan) option-list filter-input" id="ProductList">
+    <div class="grid_5 option-list filter-input" id="ProductList">
         <select id="grid-products-multiselect" name="grid-products-multiselect">
         </select>       
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />

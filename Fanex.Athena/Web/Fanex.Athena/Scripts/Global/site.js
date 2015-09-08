@@ -641,27 +641,27 @@ var Site = (function ($) {
         },
 
         setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {
-                var data = $.parseJSON(dataSource);
-                var total = data.length;
-                var dataUI = [];
-                var checkedCount = 0;
-                for (var i = 0; i < total; i++) {
-                    var isChecked = Site.asBool(data[i][checkField]);
-                    if (isChecked) {
-                        checkedCount++;
-                    }
-                    dataUI.push({
-                        Id: data[i][valueField],
-                        Value: data[i][valueField],
-                        Text: Site.getSingleResource(data[i][textField]),
-                        Checked: isChecked,
-                        Enable: true,
-                        Css: "",
-                        CssClass: ""
-                    });
+            var data = $.parseJSON(dataSource);
+            var total = data.length;
+            var dataUI = [];
+            var checkedCount = 0;
+            for (var i = 0; i < total; i++) {
+                var isChecked = Site.asBool(data[i][checkField]);
+                if (isChecked) {
+                    checkedCount++;
                 }
-                var ischeckAll = checkedCount === total;
-                $("#" + dropDownListId).multiSelect(
+                dataUI.push({
+                    Id: data[i][valueField],
+                    Value: data[i][valueField],
+                    Text: Site.getSingleResource(data[i][textField]),
+                    Checked: isChecked,
+                    Enable: true,
+                    Css: "",
+                    CssClass: ""
+                });
+            }
+            var ischeckAll = checkedCount === total;
+            $("#" + dropDownListId).multiSelect(
                 {
                     minWidth: 160,
                     maxHeight: 400,
@@ -687,8 +687,8 @@ var Site = (function ($) {
                         }
                     }
                 });
-            }
-    }
+        }
+    };
 })(jQuery);
 
 /*override alert function*/

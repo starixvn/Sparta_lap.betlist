@@ -5,7 +5,7 @@ var OutstandingBetList = (function ($) {
     return {
         initialize: function () {
             //show or hide products dropdown list by ViewOption
-            OutstandingBetList.hiddenProductsList();
+            OutstandingBetList.showHideProductsList();
 
             //Set columns need hide
             OutstandingBetList.hiddenColList();
@@ -63,7 +63,7 @@ var OutstandingBetList = (function ($) {
             $("#HiddenColumnList").val(columsHidden);
         },
 
-        hiddenProductsList: function () {
+        showHideProductsList: function () {
             var productsListContainer = $("#ProductList");
             var betlistName = $("#ViewOption").find(":selected").val();
             if (betlistName === "dailystatement") {
