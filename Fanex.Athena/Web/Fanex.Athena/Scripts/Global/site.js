@@ -642,49 +642,48 @@ var Site = (function ($) {
 
         setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {
             var data = $.parseJSON(dataSource);
-            var total = data.length;
+            var length = data.length;
             var dataUI = [];
             var checkedCount = 0;
-            for (var i = 0; i < total; i++) {
-                var isChecked = Site.asBool(data[i][checkField]);
+            for (var i = 0; i < length; i++) {
+                var item = data[i];
+                var isChecked = Site.asBool(item[checkField]);
                 if (isChecked) {
                     checkedCount++;
                 }
+
                 dataUI.push({
-                    Id: data[i][valueField],
-                    Value: data[i][valueField],
-                    Text: Site.getSingleResource(data[i][textField]),
+                    Id: item[valueField],
+                    Value: item[valueField],
+                    Text: Site.getSingleResource(item[textField]),
                     Checked: isChecked,
-                    Enable: true,
-                    Css: "",
-                    CssClass: ""
+                    Enable: true
                 });
             }
-            var ischeckAll = checkedCount === total;
+
+            var isCheckAll = checkedCount === length;
             $("#" + dropDownListId).multiSelect(
                 {
                     minWidth: 160,
                     maxHeight: 400,
                     shadow: true,
                     showHeader: true,
-                    isCheckAll: ischeckAll,
+                    isCheckAll: isCheckAll,
                     checkAllText: Site.getSingleResource('All'),
                     showFooter: false,
                     listData: dataUI,
                     onCheck: function () {
                         var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
                         $("#items-container input[type=checkbox]:checked").prop("checked", false);
-                        if (checkedItems.length === 0) {
-                            $("#SubmitButton").prop("disabled", true);
-                            $(".error-img").removeClass("hide");
-                        }
-                        else {
+                        var hasItemsChecked = checkedItems.length > 0;
+                        if (hasItemsChecked) {
                             for (var i = 0; i < checkedItems.length; i++) {
                                 $('#items-container input#' + checkedItems[i]).prop("checked", true);
                             }
-                            $("#SubmitButton").prop("disabled", false);
-                            $(".error-img").addClass("hide");
                         }
+
+                        $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                        $(".error-img").toggleClass("hide", hasItemsChecked);
                     }
                 });
         }
