@@ -17,7 +17,7 @@
         var that = $(this);
         var textWidth = that.textWidth(),
                 offset = that.width(),
-                width = offset,
+                width = 150, //offset,
                 css = {
                     'text-indent': that.css('text-indent'),
                     'overflow': that.css('overflow'),

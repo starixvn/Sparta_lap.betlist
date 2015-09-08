@@ -678,7 +678,7 @@ $(window).unload(function () {
 $(function () {
     var $marquee = $("#notification-marquee");
     if ("marquee" in $marquee) {
-        $marquee.marquee();
+        $marquee.marquee({ speed: 30 });
     }
 
     if (Site.isLoadedNotificationPopup === true) {
