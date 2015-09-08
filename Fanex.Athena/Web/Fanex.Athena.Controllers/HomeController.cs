@@ -85,16 +85,15 @@ namespace Fanex.Athena.Controllers
 
         private string LoadNotificationContent()
         {
-            var moveBet = _moveBetService.GetMoveBet();
-            if (SessionService.IsFirstLoad == false || moveBet == null)
+            if (SessionService.IsFirstLoad == false)
             {
                 return string.Empty;
             }
 
-            var now = DateTime.Now;
+            var moveBet = _moveBetService.GetMoveBet();
             var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;
-            
-            if (!endDate.HasValue || now > endDate)
+
+            if (!endDate.HasValue || DateTime.Now > endDate)
             {
                 return string.Empty;
             }

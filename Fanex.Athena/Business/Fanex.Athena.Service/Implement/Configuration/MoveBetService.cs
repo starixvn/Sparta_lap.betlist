@@ -44,10 +44,9 @@ namespace Fanex.Athena.Service.Implement.Configuration
             Justification = "Reviewed. Suppression is OK here.")]
         public MoveBet GetMoveBet()
         {
-                MoveBet moveBet = null;
                 try
                 {
-                    moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
+                    var moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
 
                     if (moveBet != null)
                     {
@@ -56,13 +55,14 @@ namespace Fanex.Athena.Service.Implement.Configuration
 
                     moveBet = this._moveBetDataAccess.GetMoveBet();
                     CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                    return moveBet;
                 }
                 catch (System.Exception ex)
                 {
                     LogService.Error(ex.Message, ex);
                 }
 
-                return moveBet;
+                return new MoveBet();
         }
 
         #endregion Public Properties
