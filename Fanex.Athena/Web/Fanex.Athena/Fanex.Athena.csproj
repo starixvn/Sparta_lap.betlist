@@ -546,6 +546,8 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Report\casinoprogressivewins.css" />
+    <Content Include="Content\jasmine\jasmine.css" />
+    <Content Include="Content\jasmine\jasmine_favicon.png" />
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Content\Report\images\expand_collapse.png" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
@@ -622,6 +624,15 @@
       <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\Library\jquery.marquee.js" />
+
+    <Content Include="Scripts\jasmine-samples\Player.js" />
+    <Content Include="Scripts\jasmine-samples\PlayerSpec.js" />
+    <Content Include="Scripts\jasmine-samples\Song.js" />
+    <Content Include="Scripts\jasmine-samples\SpecHelper.js" />
+    <Content Include="Scripts\jasmine\boot.js" />
+    <Content Include="Scripts\jasmine\console.js" />
+    <Content Include="Scripts\jasmine\jasmine-html.js" />
+    <Content Include="Scripts\jasmine\jasmine.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Library\moment.min.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
@@ -668,6 +679,7 @@
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
     <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
+    <Content Include="Jasmine\SpecRunner.html" />  </ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
