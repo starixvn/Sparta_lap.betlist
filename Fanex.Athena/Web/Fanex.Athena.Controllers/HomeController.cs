@@ -7,7 +7,9 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
+    using System.IO;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Users;
 
@@ -67,7 +69,41 @@ namespace Fanex.Athena.Controllers
                 }
             }
 
+            ViewBag.NotificationContent = LoadNotificationContent();
             return View(defaultView);
+        }
+
+        private string LoadNotificationContent()
+        {
+            if (SessionService.MoveBet == null)
+            {
+                return string.Empty;
+            }
+
+            var now = DateTime.Now;
+            var endDate = AppSettings.MoveBetDayEnd ?? SessionService.MoveBet.EstimatedTime;
+            var startDate = AppSettings.MoveBetDayStart ?? SessionService.MoveBet.AvailableWinlostDate;
+            
+            if (!endDate.HasValue || now < startDate || now > endDate)
+            {
+                return string.Empty;
+            }
+
+            var language = SessionService.UserSession.Language;
+
+            var filePath = Server.MapPath(string.Format(@"~/App_Data/Notification/{0}.htm", language));
+            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
+            {
+                filePath = filePath.Replace(language, DefaultLanguage);
+            }
+
+            using (var reader = new StreamReader(filePath))
+            {
+                var content = reader.ReadToEnd();
+                content = content.Replace("{startDate}", startDate.ToString("MM/dd/yyyy"));
+                content = content.Replace("{endDate}", endDate.Value.ToString("hh:mm:ss MM/dd/yyyy"));
+                return content;
+            }
         }
     }
 }

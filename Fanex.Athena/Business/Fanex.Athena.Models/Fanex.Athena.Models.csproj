@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataDomain\Licensees.cs" />
+    <Compile Include="DTO\Configuration\MoveBet.cs" />
     <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />

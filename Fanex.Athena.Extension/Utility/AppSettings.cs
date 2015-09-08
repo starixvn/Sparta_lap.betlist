@@ -26,7 +26,37 @@ namespace Fanex.Athena.Extension.Utility
         internal const char UrlSlash = '/';
 
         #region Configurations
-        
+
+        public static DateTime? MoveBetDayStart
+        {
+            get
+            {
+                var value = GetValue("MoveBetDayStart");
+                DateTime date;
+                if (DateTime.TryParse(value, out date))
+                {
+                    return date;
+                }
+
+                return null;
+            }
+        }
+
+        public static DateTime? MoveBetDayEnd
+        {
+            get
+            {
+                var value = GetValue("MoveBetDayEnd");
+                DateTime date;
+                if (DateTime.TryParse(value, out date))
+                {
+                    return date;
+                }
+
+                return null;
+            }
+        }
+
         public static string Enviroment
         {
             get { return GetValue("Enviroment"); }

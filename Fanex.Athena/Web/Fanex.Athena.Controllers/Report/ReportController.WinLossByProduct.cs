@@ -32,6 +32,8 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult WinLossByProduct()
         {
+            AddNotificationMessageToViewBag();
+
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, WinLossByProductName);

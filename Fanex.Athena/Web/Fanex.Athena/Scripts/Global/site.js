@@ -35,6 +35,7 @@ var Site = (function ($) {
     }
 
     return {
+        isLoadedNotificationPopup: false,
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
         needOverrideInnerSize: false,
         initialize: function () {
@@ -155,8 +156,9 @@ var Site = (function ($) {
             }
         },
         addFilterCollapseExpand: function (containerSelector) {
+            console.log(1);
             if (!containerSelector) {
-                containerSelector = ".content-filter";
+                containerSelector = ".content-filter:has(form)";
             }
 
             var $handler = $("<div class='filter-handle filter-handle-collapse'></div>");
@@ -671,4 +673,27 @@ $(window).resize(function () {
 
 $(window).unload(function () {
     $(window).unbind("resize");
+});
+
+$(function () {
+    var $marquee = $("#notification-marquee");
+    if ("marquee" in $marquee) {
+        $marquee.marquee();
+    }
+
+    if (Site.isLoadedNotificationPopup === true) {
+        return;
+    }
+
+    var $popup = $("#NotificationPopup");
+    if ($popup.length > 0) {
+        var options = {
+            height: 200,
+            title: Site.getSingleResource("Notification")
+        };
+        var popup = $popup.flatPopup(options);
+        popup.show();
+
+        Site.isLoadedNotificationPopup = true;
+    }
 });

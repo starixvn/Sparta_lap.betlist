@@ -12,6 +12,12 @@
     @RenderSection("pagejs", required: false)
 }
 <div class="container_26">
+@if (ViewBag.NotificationMessage != null)
+{
+<div class="grid_26 content-filter new-line notification">
+    <div id="notification-marquee" style="color: #C02603">@ViewBag.NotificationMessage</div>   
+</div>
+}
     <div class="grid_26">
         <div class="content-title">
             @RenderSection("ContentTitle", required: false)

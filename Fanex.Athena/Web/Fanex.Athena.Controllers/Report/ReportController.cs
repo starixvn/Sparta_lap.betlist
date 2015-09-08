@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
@@ -81,6 +82,23 @@ namespace Fanex.Athena.Controllers.Report
             matches.Insert(0, new Match() { MatchName = ViewResources.All, MatchId = 0 });
 
             return Json(matches.Select(x => new { Key = x.MatchId, Value = x.MatchName }));
+        }
+
+        private void AddNotificationMessageToViewBag()
+        {
+            var now = DateTime.Now;
+            var endDate = AppSettings.MoveBetDayEnd ?? SessionService.MoveBet.EstimatedTime;
+            var startDate = AppSettings.MoveBetDayStart ?? SessionService.MoveBet.AvailableWinlostDate;
+
+            if (!endDate.HasValue || now < startDate || now > endDate)
+            {
+                return;
+            }
+            
+            var message = ViewResources.NotificationMessage;
+            var startDateString = startDate.ToString("MM/dd/yyyy");
+            var endDateString = endDate.Value.ToString("hh:mm:ss MM/dd/yyyy");
+            ViewBag.NotificationMessage = string.Format(message, startDateString, endDateString);
         }
     }
 }

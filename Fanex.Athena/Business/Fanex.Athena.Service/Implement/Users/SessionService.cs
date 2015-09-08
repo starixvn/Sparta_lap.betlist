@@ -13,9 +13,12 @@ namespace Fanex.Athena.Service.Implement.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Service.Implement.Common;
+    using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Interface.Common;
+    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
 
     /// <summary>
@@ -32,13 +35,29 @@ namespace Fanex.Athena.Service.Implement.Users
 
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
+        private const string MoveBetKey = "MoveBetKey";
         private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
+        private IMoveBetService _moveBetService;
 
         #endregion Constants and Fields
 
         #region Public Properties
+
+        public MoveBet MoveBet
+        {
+            get
+            {
+                var temp = HttpContext.Current.Session[MoveBetKey];
+                return temp != null ? (MoveBet)temp : null;
+            }
+
+            private set
+            {
+                HttpContext.Current.Session[MoveBetKey] = value;
+            }
+        }
 
         public LicenseeSession LicenseeSession
         {
@@ -94,6 +113,8 @@ namespace Fanex.Athena.Service.Implement.Users
             _currencyService = new CurrencyService();
             _licenseeService = new LicenseeService();
             _functionService = new FunctionService();
+            _moveBetService = new MoveBetService();
+            
             var licenseeList = _licenseeService.GetByUser(userId);
             var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
@@ -112,7 +133,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 };
 
             this.UserSession = userSession;
-
+            this.MoveBet = _moveBetService.GetMoveBet();
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);

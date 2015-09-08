@@ -234,6 +234,7 @@
     <Compile Include="Implement\Common\CacheService.cs" />
     <Compile Include="Implement\Common\LeagueService.cs" />
     <Compile Include="Implement\Common\ExChangeRateService.cs" />
+    <Compile Include="Implement\Configuration\MoveBetService.cs" />
     <Compile Include="Implement\Integration\SSOService.cs" />
     <Compile Include="Implement\Keno\KenoApi.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossService.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="Interface\Common\ILanguageService.cs" />
     <Compile Include="Interface\Common\IMatchService.cs" />
     <Compile Include="Interface\Common\ISportTypeService.cs" />
+    <Compile Include="Interface\Configuration\IMoveBetService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ICustomerLogService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ILogInLogService.cs" />
     <Compile Include="Interface\Customer\IBetSettingService.cs" />

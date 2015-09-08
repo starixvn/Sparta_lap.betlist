@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Service.Interface.Users
 {
+    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Users;
 
     /// <summary>
@@ -17,6 +18,8 @@ namespace Fanex.Athena.Service.Interface.Users
     public interface ISessionService
     {
         #region Public Properties
+
+        MoveBet MoveBet { get; }
 
         string CaptchaCode { get; set; }
 
