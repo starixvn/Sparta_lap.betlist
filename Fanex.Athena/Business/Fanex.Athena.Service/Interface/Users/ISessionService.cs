@@ -21,8 +21,6 @@ namespace Fanex.Athena.Service.Interface.Users
 
         bool IsFirstLoad { get; }
 
-        MoveBet MoveBet { get; }
-
         string CaptchaCode { get; set; }
 
         LicenseeSession LicenseeSession { get; }

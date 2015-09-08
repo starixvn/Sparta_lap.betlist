@@ -10,7 +10,9 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
 
     /// <summary>
@@ -18,6 +20,13 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+        private readonly IMoveBetService _moveBetService;
+
+        public HomeController()
+        {
+            _moveBetService = new MoveBetService();
+        }
+
         public ActionResult Index()
         {
             return ReAuthorize("~/Views/Home/Index.cshtml");
@@ -76,20 +85,21 @@ namespace Fanex.Athena.Controllers
 
         private string LoadNotificationContent()
         {
-            if (SessionService.IsFirstLoad == false || SessionService.MoveBet == null)
+            var moveBet = _moveBetService.GetMoveBet();
+            if (SessionService.IsFirstLoad == false || moveBet == null)
             {
                 return string.Empty;
             }
 
             var now = DateTime.Now;
-            var endDate = AppSettings.MoveBetDayEnd ?? SessionService.MoveBet.EstimatedTime;
-            var startDate = AppSettings.MoveBetDayStart ?? SessionService.MoveBet.AvailableWinlostDate;
+            var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;
             
-            if (!endDate.HasValue || now < startDate || now > endDate)
+            if (!endDate.HasValue || now > endDate)
             {
                 return string.Empty;
             }
 
+            var startDate = AppSettings.MoveBetDayStart ?? moveBet.AvailableWinlostDate;
             var language = SessionService.UserSession.Language;
 
             var filePath = Server.MapPath(string.Format(@"~/App_Data/Notification/{0}.htm", language));

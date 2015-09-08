@@ -40,7 +40,6 @@ namespace Fanex.Athena.Service.Implement.Users
         private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
-        private IMoveBetService _moveBetService;
 
         #endregion Constants and Fields
 
@@ -57,20 +56,6 @@ namespace Fanex.Athena.Service.Implement.Users
             private set
             {
                 HttpContext.Current.Session[IsFirstLoadKey] = value;
-            }
-        }
-
-        public MoveBet MoveBet
-        {
-            get
-            {
-                var temp = HttpContext.Current.Session[MoveBetKey];
-                return temp != null ? (MoveBet)temp : null;
-            }
-
-            private set
-            {
-                HttpContext.Current.Session[MoveBetKey] = value;
             }
         }
 
@@ -133,8 +118,7 @@ namespace Fanex.Athena.Service.Implement.Users
             _currencyService = new CurrencyService();
             _licenseeService = new LicenseeService();
             _functionService = new FunctionService();
-            _moveBetService = new MoveBetService();
-            
+
             var licenseeList = _licenseeService.GetByUser(userId);
             var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
@@ -153,7 +137,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 };
 
             this.UserSession = userSession;
-            this.MoveBet = _moveBetService.GetMoveBet();
+            
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);

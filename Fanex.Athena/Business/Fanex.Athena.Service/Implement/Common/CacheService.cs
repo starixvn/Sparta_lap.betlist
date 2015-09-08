@@ -27,9 +27,9 @@ namespace Fanex.Athena.Service.Implement.Common
             return DeepClone(Cache.Get<T>(key));
         }
 
-        public static void Set<T>(string key, T value)
+        public static void Set<T>(string key, T value, int seconds = TIMEOUT)
         {
-            Cache.Set(key, DeepClone(value), TIMEOUT);
+            Cache.Set(key, DeepClone(value), seconds);
         }
 
         public static void Delete()

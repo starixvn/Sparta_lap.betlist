@@ -38,6 +38,7 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ISportTypeService _sportTypeService;
         private readonly ILeagueService _leagueService;
         private readonly IMatchService _matchService;
+        private readonly IMoveBetService _moveBetService;
 
         #endregion Fields
 
@@ -52,6 +53,7 @@ namespace Fanex.Athena.Controllers.Report
             _sportTypeService = new SportTypeService();
             this._leagueService = new LeagueService();
             this._matchService = new MatchService();
+            this._moveBetService = new MoveBetService();
         }
 
         [HttpGet]
@@ -86,15 +88,16 @@ namespace Fanex.Athena.Controllers.Report
 
         private void AddNotificationMessageToViewBag()
         {
+            var moveBet = _moveBetService.GetMoveBet();
             var now = DateTime.Now;
-            var endDate = AppSettings.MoveBetDayEnd ?? SessionService.MoveBet.EstimatedTime;
-            var startDate = AppSettings.MoveBetDayStart ?? SessionService.MoveBet.AvailableWinlostDate;
-
-            if (!endDate.HasValue || now < startDate || now > endDate)
+            var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;
+            
+            if (!endDate.HasValue || now > endDate)
             {
                 return;
             }
-            
+
+            var startDate = AppSettings.MoveBetDayStart ?? moveBet.AvailableWinlostDate;
             var message = ViewResources.NotificationMessage;
             var startDateString = startDate.ToString("MM/dd/yyyy");
             var endDateString = endDate.Value.ToString("hh:mm:ss MM/dd/yyyy");

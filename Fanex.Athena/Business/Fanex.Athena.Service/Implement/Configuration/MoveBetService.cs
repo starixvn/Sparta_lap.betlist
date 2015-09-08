@@ -6,15 +6,17 @@
 
 namespace Fanex.Athena.Service.Implement.Configuration
 {
-    using System;
     using Fanex.Athena.DataAccess.Implement.Configuration;
     using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Logging;
 
     public class MoveBetService : IMoveBetService
     {
         #region Constants and Fields
+        
+        private const int CacheTimeoutSeconds = 300; // 5 minutes.
 
         private readonly MoveBetDataAccess _moveBetDataAccess;
 
@@ -42,17 +44,25 @@ namespace Fanex.Athena.Service.Implement.Configuration
             Justification = "Reviewed. Suppression is OK here.")]
         public MoveBet GetMoveBet()
         {
-            MoveBet moveBet = null;
-            try
-            {
-                moveBet = this._moveBetDataAccess.GetMoveBet();
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-            }
+                MoveBet moveBet = null;
+                try
+                {
+                    moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
 
-            return moveBet;
+                    if (moveBet != null)
+                    {
+                        return moveBet;
+                    }
+
+                    moveBet = this._moveBetDataAccess.GetMoveBet();
+                    CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                }
+                catch (System.Exception ex)
+                {
+                    LogService.Error(ex.Message, ex);
+                }
+
+                return moveBet;
         }
 
         #endregion Public Properties
