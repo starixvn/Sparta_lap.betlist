@@ -100,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
             var startDate = AppSettings.MoveBetDayStart ?? moveBet.AvailableWinlostDate;
             var message = ViewResources.NotificationMessage;
             var startDateString = startDate.ToString("MM/dd/yyyy");
-            var endDateString = endDate.Value.ToString("hh:mm:ss MM/dd/yyyy");
+            var endDateString = endDate.Value.ToString("HH:mm:ss MM/dd/yyyy");
             ViewBag.NotificationMessage = string.Format(message, startDateString, endDateString);
         }
     }

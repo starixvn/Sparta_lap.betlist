@@ -112,7 +112,7 @@ namespace Fanex.Athena.Controllers
             {
                 var content = reader.ReadToEnd();
                 content = content.Replace("{startDate}", startDate.ToString("MM/dd/yyyy"));
-                content = content.Replace("{endDate}", endDate.Value.ToString("hh:mm:ss MM/dd/yyyy"));
+                content = content.Replace("{endDate}", endDate.Value.ToString("HH:mm:ss MM/dd/yyyy"));
                 return content;
             }
         }
