@@ -19,15 +19,11 @@ namespace Fanex.Athena.Service.Interface.Users
     {
         #region Public Properties
 
-        bool IsFirstLoad { get; }
-
         string CaptchaCode { get; set; }
 
         LicenseeSession LicenseeSession { get; }
 
         UserSession UserSession { get; }
-
-        void TurnOffIsFirstLoad();
 
         void CreateNewSession(
             int userId,

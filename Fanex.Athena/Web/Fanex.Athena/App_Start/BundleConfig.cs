@@ -745,6 +745,7 @@
                 .Include(
                         "~/Scripts/Library/jquery.min.js",
                         "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Library/jquery.cookie.js",
                         "~/Scripts/Global/site.js",
                         "~/Scripts/Header/header.js",
                         "~/Scripts/Header/jquery.jclock.js");

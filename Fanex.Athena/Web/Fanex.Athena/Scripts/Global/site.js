@@ -694,6 +694,9 @@ $(function () {
         var popup = $popup.flatPopup(options);
         popup.show();
 
+        $popup.find(".popup-close").click(function () {
+            $.cookie("isClosedNotification", "1", { path: '/' });           
+        });
         Site.isLoadedNotificationPopup = true;
     }
 });

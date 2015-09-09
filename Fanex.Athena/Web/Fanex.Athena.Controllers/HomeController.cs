@@ -20,6 +20,8 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+        private const string IsFirstLoadCookieKey = "isFirstLoad";
+
         private readonly IMoveBetService _moveBetService;
 
         public HomeController()
@@ -78,17 +80,21 @@ namespace Fanex.Athena.Controllers
                 }
             }
 
-            ViewBag.NotificationContent = LoadNotificationContent();
-            SessionService.TurnOffIsFirstLoad();
+            ViewBag.NotificationContent = LoadNotificationContent();            
             return View(defaultView);
         }
 
         private string LoadNotificationContent()
         {
-            if (SessionService.IsFirstLoad == false)
+            var cookie = Request.Cookies[IsFirstLoadCookieKey];
+            var isFirstLoad = cookie == null ? true : cookie.Value == "1";
+
+            if (isFirstLoad == false)
             {
                 return string.Empty;
             }
+
+            Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
 
             var moveBet = _moveBetService.GetMoveBet();
             var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;

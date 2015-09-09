@@ -23,10 +23,10 @@ $(document).ready(function () {
             cache: false,
             success: function (result) {
                 if (result === "1") {
-                    mainFrame.location.href = Site.resolveClientUrl("Report/Balance");
-                    top.frames["menu"].location.href = Site.resolveClientUrl("Menu/Index");
-                    top.frames["header"].location.href = Site.resolveClientUrl("Header/Index");
-                    top.frames["frFooter"].location.href = top.frames["frFooter"].location.href;
+                    if ($.cookie("isClosedNotification") !== "1") {
+                        $.cookie('isFirstLoad', '1', { path: '/' });
+                    }
+                    top.location.reload();
                 }
             }
         });

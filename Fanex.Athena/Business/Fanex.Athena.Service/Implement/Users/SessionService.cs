@@ -32,8 +32,6 @@ namespace Fanex.Athena.Service.Implement.Users
 
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
-        private const string MoveBetKey = "MoveBetKey";
-        private const string IsFirstLoadKey = "IsFirstLoadKey";
         private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
@@ -41,20 +39,6 @@ namespace Fanex.Athena.Service.Implement.Users
         #endregion Constants and Fields
 
         #region Public Properties
-
-        public bool IsFirstLoad
-        {
-            get
-            {
-                var temp = HttpContext.Current.Session[IsFirstLoadKey];
-                return temp != null ? (bool)temp : true;
-            }
-
-            private set
-            {
-                HttpContext.Current.Session[IsFirstLoadKey] = value;
-            }
-        }
 
         public LicenseeSession LicenseeSession
         {
@@ -88,11 +72,6 @@ namespace Fanex.Athena.Service.Implement.Users
         {
             get { return HttpContext.Current.Session[CaptchaCodeKey] as string; }
             set { HttpContext.Current.Session[CaptchaCodeKey] = value; }
-        }
-
-        public void TurnOffIsFirstLoad()
-        {
-            this.IsFirstLoad = false;
         }
 
         /// <summary>
