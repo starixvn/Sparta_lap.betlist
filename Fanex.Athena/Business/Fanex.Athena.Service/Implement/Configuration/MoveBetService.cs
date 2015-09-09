@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
     {
         #region Constants and Fields
         
-        private const int CacheTimeoutSeconds = 300; // 5 minutes.
+        private const int CacheTimeoutSeconds = 60; // 1 minutes.
 
         private readonly MoveBetDataAccess _moveBetDataAccess;
 
