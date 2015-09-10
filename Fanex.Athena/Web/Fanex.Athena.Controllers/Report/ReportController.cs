@@ -89,17 +89,15 @@ namespace Fanex.Athena.Controllers.Report
         private void AddNotificationMessageToViewBag()
         {
             var moveBet = _moveBetService.GetMoveBet();
-            var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;
 
-            if (!endDate.HasValue || DateTime.Now > endDate)
+            if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
             {
                 return;
             }
 
-            var startDate = AppSettings.MoveBetDayStart ?? moveBet.AvailableWinlostDate;
             var message = ViewResources.NotificationMessage;
-            var startDateString = startDate.ToString("MM/dd/yyyy");
-            var endDateString = endDate.Value.ToString("HH:mm:ss MM/dd/yyyy");
+            var startDateString = moveBet.AvailableWinlostDate.ToString("MM/dd/yyyy");
+            var endDateString = moveBet.EstimatedTime.Value.ToString("HH:mm:ss MM/dd/yyyy");
             ViewBag.NotificationMessage = string.Format(message, startDateString, endDateString);
         }
     }

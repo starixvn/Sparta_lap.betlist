@@ -95,16 +95,13 @@ namespace Fanex.Athena.Controllers
             }
 
             Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
-
+            
             var moveBet = _moveBetService.GetMoveBet();
-            var endDate = AppSettings.MoveBetDayEnd ?? moveBet.EstimatedTime;
-
-            if (!endDate.HasValue || DateTime.Now > endDate)
+            if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
             {
                 return string.Empty;
             }
 
-            var startDate = AppSettings.MoveBetDayStart ?? moveBet.AvailableWinlostDate;
             var language = SessionService.UserSession.Language;
 
             var filePath = Server.MapPath(string.Format(@"~/App_Data/Notification/{0}.htm", language));
@@ -116,8 +113,8 @@ namespace Fanex.Athena.Controllers
             using (var reader = new StreamReader(filePath))
             {
                 var content = reader.ReadToEnd();
-                content = content.Replace("{startDate}", startDate.ToString("MM/dd/yyyy"));
-                content = content.Replace("{endDate}", endDate.Value.ToString("HH:mm:ss MM/dd/yyyy"));
+                content = content.Replace("{startDate}", moveBet.AvailableWinlostDate.ToString("MM/dd/yyyy"));
+                content = content.Replace("{endDate}", moveBet.EstimatedTime.Value.ToString("HH:mm:ss MM/dd/yyyy"));
                 return content;
             }
         }

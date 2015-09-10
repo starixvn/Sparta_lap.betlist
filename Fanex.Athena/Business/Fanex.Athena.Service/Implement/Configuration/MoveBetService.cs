@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Implement.Configuration
 {
     using Fanex.Athena.DataAccess.Implement.Configuration;
+    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Configuration;
@@ -15,7 +16,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
     public class MoveBetService : IMoveBetService
     {
         #region Constants and Fields
-        
+
         private const int CacheTimeoutSeconds = 60; // 1 minutes.
 
         private readonly MoveBetDataAccess _moveBetDataAccess;
@@ -44,25 +45,35 @@ namespace Fanex.Athena.Service.Implement.Configuration
             Justification = "Reviewed. Suppression is OK here.")]
         public MoveBet GetMoveBet()
         {
-                try
+            try
+            {
+                var endDate = AppSettings.MoveBetDayEnd;
+                if (endDate.HasValue)
                 {
-                    var moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
-
-                    if (moveBet != null)
+                    return new MoveBet()
                     {
-                        return moveBet;
-                    }
+                        AvailableWinlostDate = AppSettings.MoveBetDayStart.Value,
+                        EstimatedTime = endDate
+                    };
+                }
 
-                    moveBet = this._moveBetDataAccess.GetMoveBet();
-                    CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                var moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
+
+                if (moveBet != null)
+                {
                     return moveBet;
                 }
-                catch (System.Exception ex)
-                {
-                    LogService.Error(ex.Message, ex);
-                }
 
-                return new MoveBet();
+                moveBet = this._moveBetDataAccess.GetMoveBet();
+                CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
+                return moveBet;
+            }
+            catch (System.Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+            }
+
+            return new MoveBet();
         }
 
         #endregion Public Properties
