@@ -37,6 +37,8 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult CustomerTurnover()
         {
+            AddNotificationMessageToViewBag();
+
             var licenseeSession = SessionService.LicenseeSession;
             var model = new CustomerTurnoverViewModel
             {

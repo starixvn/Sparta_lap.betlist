@@ -22,9 +22,18 @@
         if (isiPad) {
             document.location.href = Site.resolveClientUrl("Home/IndexIpad");
         }
+        var _page = {
+            lang: '@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag'
+        };
     </script>
 </head>
 <body>
+    @if (string.IsNullOrEmpty(ViewBag.NotificationContent) == false)
+    {
+        <div id="NotificationPopup" style="display: none" >
+            @Html.Raw(ViewBag.NotificationContent)
+        </div>
+    }
     <div class="ui-layout-north">
         <iframe src="@(Util.RootPath)Header/Index" id="header" name="header"
             width="100%" scrolling="no" frameborder="0" height="52px"></iframe>
@@ -70,6 +79,7 @@
                 </a>
             </div>
         </div>
-    </div>
+        
+    </div>    
 </body>
 </html>

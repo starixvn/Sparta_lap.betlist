@@ -107,6 +107,7 @@
                         "~/Scripts/Library/jquery.blockUI.js",
                         "~/Scripts/Library/jquery.balloon.js",
                         "~/Scripts/Library/jquery.autocomplete.js",
+                        "~/Scripts/Library/jquery.marquee.js",
                         "~/Scripts/Extension/jquery.extension.js",
                         "~/Scripts/Languages/ViewResources.js",
                         "~/Scripts/Languages/ViewResources.zh-CN.js",
@@ -744,6 +745,7 @@
                 .Include(
                         "~/Scripts/Library/jquery.min.js",
                         "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Library/jquery.cookie.js",
                         "~/Scripts/Global/site.js",
                         "~/Scripts/Header/header.js",
                         "~/Scripts/Header/jquery.jclock.js");
@@ -762,6 +764,12 @@
                         "~/Scripts/Library/jquery-ui.min.js",
                         "~/Scripts/Library/jquery.cookie.js",
                         "~/Scripts/Library/jquery.blockUI.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
+                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
+                        "~/Scripts/Languages/ViewResources.js",
+                        "~/Scripts/Languages/ViewResources.zh-CN.js",
+                        "~/Scripts/Languages/ViewResources.zh-TW.js",
+                        "~/Scripts/Languages/ViewResources.ko-KR.js",
                         "~/Scripts/Global/site.js");
             AddNewScriptBundle(bundles, bundle);
         }
@@ -897,6 +905,8 @@
             AddStyleBundle(
                 bundles,
                 "~/bundles/HomeViewStyles",
+                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
+                "~/Content/FlatPopup/jquery.flatpopup.css",
                 "~/Content/Global/Global.css",
                 "~/Content/Themes/12Bet/Site.css",
                 "~/Content/Layout/master.css");

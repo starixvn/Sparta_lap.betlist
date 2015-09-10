@@ -32,6 +32,8 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult MobileWinloss()
         {
+            AddNotificationMessageToViewBag();
+
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
