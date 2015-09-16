@@ -334,6 +334,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Data\Notification\zh-CN.htm" />
+    <Content Include="App_Data\Notification\zh-TW.htm" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
@@ -359,6 +361,7 @@
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\en-US.htm" />
+    <Content Include="App_Data\Notification\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-TW.htm" />
@@ -591,6 +594,7 @@
     <Content Include="img\Slot8\S8003\Line6.jpg" />
     <Content Include="img\Slot8\S8003\Line7.jpg" />
     <Content Include="img\Slot8\S8003\Line8.jpg" />
+    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />

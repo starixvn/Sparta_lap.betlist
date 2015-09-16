@@ -9,9 +9,7 @@
     <title>Header</title>
     
     @Styles.Render("~/bundles/HeaderViewStyles")
-
     @Scripts.Render("~/bundles/HeaderScripts")
-
     <script type="text/javascript">
         Site.resolveClientUrl = function (relativeUrl) {
             return '@Url.Content("~/")' + relativeUrl;

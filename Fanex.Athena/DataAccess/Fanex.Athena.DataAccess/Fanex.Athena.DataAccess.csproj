@@ -160,6 +160,7 @@
     <Compile Include="Implement\Common\LeagueDataAccess.cs" />
     <Compile Include="Implement\Common\MatchDataAccess.cs" />
     <Compile Include="Implement\Common\SportTypeDataAccess.cs" />
+    <Compile Include="Implement\Configuration\MoveBetDataAccess.cs" />
     <Compile Include="Implement\Customer\BetSettingDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
+    <Compile Include="Interface\Configuration\IMoveBetDataAccess.cs" />
     <Compile Include="Interface\Report\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IActiveCustomerSummaryDataAccess.cs" />

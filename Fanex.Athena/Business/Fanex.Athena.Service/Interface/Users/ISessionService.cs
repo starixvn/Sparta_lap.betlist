@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Service.Interface.Users
 {
+    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Users;
 
     /// <summary>

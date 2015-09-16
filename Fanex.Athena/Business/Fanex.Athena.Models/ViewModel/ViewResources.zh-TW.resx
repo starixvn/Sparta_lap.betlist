@@ -2527,4 +2527,7 @@
     <value>Transfer Out</value>
     <comment>#26990</comment>
   </data>
+  <data name="NotificationMessage" xml:space="preserve">
+    <value>資料正在處理中，在{0}後的資料將受到影響. 預計完成時間為 {1} GMT-4. 很抱歉造成您的困擾.</value>
+  </data>
 </root>

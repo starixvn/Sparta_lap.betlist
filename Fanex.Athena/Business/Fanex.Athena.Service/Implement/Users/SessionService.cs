@@ -94,6 +94,7 @@ namespace Fanex.Athena.Service.Implement.Users
             _currencyService = new CurrencyService();
             _licenseeService = new LicenseeService();
             _functionService = new FunctionService();
+
             var licenseeList = _licenseeService.GetByUser(userId);
             var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
@@ -112,7 +113,7 @@ namespace Fanex.Athena.Service.Implement.Users
                 };
 
             this.UserSession = userSession;
-
+            
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);

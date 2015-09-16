@@ -19,6 +19,8 @@ namespace Fanex.Athena.Models.DTO.Configuration
 
         #region Common
 
+        public static readonly string MemorycacheCommonMoveBet = "MemoryCache_Common_MoveBet";
+
         public static readonly string MemorycacheCommonBalanceup = "MemoryCache_Common_BalanceUp";
 
         public static readonly string MemorycacheCommonCurrency = "MemoryCache_Common_Currency";

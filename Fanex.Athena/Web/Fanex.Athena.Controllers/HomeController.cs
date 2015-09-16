@@ -7,8 +7,12 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
+    using System.IO;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
 
     /// <summary>
@@ -16,6 +20,15 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+        private const string IsFirstLoadCookieKey = "isFirstLoad";
+
+        private readonly IMoveBetService _moveBetService;
+
+        public HomeController()
+        {
+            _moveBetService = new MoveBetService();
+        }
+
         public ActionResult Index()
         {
             return ReAuthorize("~/Views/Home/Index.cshtml");
@@ -67,7 +80,43 @@ namespace Fanex.Athena.Controllers
                 }
             }
 
+            ViewBag.NotificationContent = LoadNotificationContent();            
             return View(defaultView);
+        }
+
+        private string LoadNotificationContent()
+        {
+            var cookie = Request.Cookies[IsFirstLoadCookieKey];
+            var isFirstLoad = cookie == null ? true : cookie.Value == "1";
+
+            if (isFirstLoad == false)
+            {
+                return string.Empty;
+            }
+
+            Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
+            
+            var moveBet = _moveBetService.GetMoveBet();
+            if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
+            {
+                return string.Empty;
+            }
+
+            var language = SessionService.UserSession.Language;
+
+            var filePath = Server.MapPath(string.Format(@"~/App_Data/Notification/{0}.htm", language));
+            if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
+            {
+                filePath = filePath.Replace(language, DefaultLanguage);
+            }
+
+            using (var reader = new StreamReader(filePath))
+            {
+                var content = reader.ReadToEnd();
+                content = content.Replace("{startDate}", moveBet.AvailableWinlostDate.ToString("MM/dd/yyyy"));
+                content = content.Replace("{endDate}", moveBet.EstimatedTime.Value.ToString("HH:mm:ss MM/dd/yyyy"));
+                return content;
+            }
         }
     }
 }

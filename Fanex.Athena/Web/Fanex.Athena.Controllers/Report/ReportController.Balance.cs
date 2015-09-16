@@ -40,6 +40,8 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult Balance(BalanceMetaModel metaModel)
         {
+            AddNotificationMessageToViewBag();
+
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;

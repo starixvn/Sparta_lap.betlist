@@ -2707,4 +2707,8 @@
   <data name="MicrogamingWinLoss" xml:space="preserve">
     <value>Microgaming Win Loss</value>
   </data>
+  <data name="NotificationMessage" xml:space="preserve">
+    <value>Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused.</value>
+    <comment>#42906</comment>
+  </data>
 </root>
