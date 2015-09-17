@@ -251,7 +251,7 @@ namespace Fanex.Athena.Excel.BetList
             bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             bool isRacing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                             ticket.BetTypeId == (int)BetType.WinPlace;
-            if (isRacing && is12Bet)
+            if ((isRacing && is12Bet) || ticket.BetTypeId == (int)BetType.BetTradeBought)
             {
                 string licenseeWl = isRunning
                                     ? "-"

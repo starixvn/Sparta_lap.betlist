@@ -4373,6 +4373,7 @@
     </Content>
     <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>

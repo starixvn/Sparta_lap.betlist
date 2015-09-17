@@ -96,11 +96,12 @@ namespace Fanex.Athena.Service.Implement.Common
         {
             CultureInfo def = System.Globalization.CultureInfo.CreateSpecificCulture(_defaultLanguage);
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(languageCode);
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(languageCode);
+            var newCulture = new CultureInfo(languageCode);
+            newCulture.DateTimeFormat = def.DateTimeFormat;
+            newCulture.NumberFormat = def.NumberFormat;
 
-            Thread.CurrentThread.CurrentCulture.DateTimeFormat = def.DateTimeFormat;
-            Thread.CurrentThread.CurrentCulture.NumberFormat = def.NumberFormat;
+            Thread.CurrentThread.CurrentCulture = newCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(languageCode);
         }
 
         /// <summary>

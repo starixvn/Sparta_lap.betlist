@@ -236,6 +236,11 @@ namespace Fanex.Athena.Models.DataDomain
         /// <summary>
         /// NgNumberGroup bet type, value = 90.
         /// </summary>
-        NgNumberGroup = 90
+        NgNumberGroup = 90,
+
+        /// <summary>
+        /// BetTrade bet type, value = 902.
+        /// </summary>
+        BetTradeBought = 902
     }
 }
