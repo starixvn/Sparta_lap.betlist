@@ -167,7 +167,7 @@ var Site = (function ($) {
             $container.append($handler);
 
             var originalHeight = $container.height();
-            var originalTop = originalHeight - 20;
+            var originalTop = originalHeight - 15;
             var isCollapsed = false;
             $handler.css("top", originalTop);
             $handler.click(function () {
