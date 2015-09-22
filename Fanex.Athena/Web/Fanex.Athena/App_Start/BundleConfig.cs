@@ -414,6 +414,7 @@
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/BetList/betlist.core.css",
+                "~/Content/BetList/Microgaming.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
@@ -437,7 +438,8 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/BetList/betlist.core.css");
+                "~/Content/BetList/betlist.core.css",
+                "~/Content/BetList/Microgaming.css");
         }
 
         /// <summary>
@@ -458,7 +460,8 @@
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/BetList/betlist.core.css");
+                "~/Content/BetList/betlist.core.css",
+                "~/Content/BetList/Microgaming.css");
         }
 
         /// <summary>

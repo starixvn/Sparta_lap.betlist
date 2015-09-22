@@ -487,6 +487,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <None Include="App_Data\Fanex.Result\GoldDeluxe.xls" />
+    <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />

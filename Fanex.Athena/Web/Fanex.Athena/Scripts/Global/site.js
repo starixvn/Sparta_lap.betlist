@@ -156,7 +156,6 @@ var Site = (function ($) {
             }
         },
         addFilterCollapseExpand: function (containerSelector) {
-            console.log(1);
             if (!containerSelector) {
                 containerSelector = ".content-filter:has(form)";
             }
@@ -173,7 +172,7 @@ var Site = (function ($) {
             $handler.click(function () {
                 isCollapsed = !isCollapsed;
                 $container.find("*").toggle();
-                $container.height(isCollapsed ? 5 : originalHeight);
+                $container.height(isCollapsed ? 5 : originalHeight + 5);
                 $handler.css("top", isCollapsed ? -15 : originalTop);
                 $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
                 // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
