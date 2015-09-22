@@ -721,7 +721,6 @@
         {
             var bundle = new ScriptBundle("~/bundles/CustomerLogCustomersScripts")
                 .Include(
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/Global/Paging.js",
                         "~/Scripts/Customer/Customers.option.js",
                         "~/Scripts/Customer/Customers.js",
