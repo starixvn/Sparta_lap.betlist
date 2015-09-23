@@ -97,7 +97,7 @@ var Site = (function ($) {
             });
         },
         showMessaegBox: function (message) {
-            $('<div title="LRF-Notification">' + message + '!</div>').dialog();
+            $('<div title="' + Site.getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
         },
         getLicenseeId: function () {
             if (!_licenseeId) {
@@ -253,7 +253,7 @@ var Site = (function ($) {
             // Set Url
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
@@ -265,7 +265,7 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
@@ -279,7 +279,7 @@ var Site = (function ($) {
         setProductOptionOriginalParamList: function (urlOrParams) {
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
@@ -291,7 +291,7 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
@@ -673,11 +673,11 @@ var Site = (function ($) {
                     listData: dataUI,
                     onCheck: function () {
                         var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
-                        $("#items-container input[type=checkbox]:checked").prop("checked", false);
+                        $("#product-container input[type=checkbox]:checked").prop("checked", false);
                         var hasItemsChecked = checkedItems.length > 0;
                         if (hasItemsChecked) {
                             for (var i = 0; i < checkedItems.length; i++) {
-                                $('#items-container input#' + checkedItems[i]).prop("checked", true);
+                                $('#product-container #' + checkedItems[i]).prop("checked", true);
                             }
                         }
 

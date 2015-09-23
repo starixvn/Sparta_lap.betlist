@@ -253,8 +253,8 @@ var MobileWinLossOption = (function () {
         playerCommColumn.hidden = !me.hasCustomerComm;
 
         // Column hidden by product
-        var allowedBa = $("#ProductList input[data-product-code=BA]:checked").length > 0;
-        var allowedRacing = $("#ProductList input[data-product-code=RB]:checked").length > 0;
+        var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
+        var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
 
         baCommissionColumn.hidden = !allowedBa;
         amtDueToBaColumn.hidden = !allowedBa;

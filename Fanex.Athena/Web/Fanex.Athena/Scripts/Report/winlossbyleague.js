@@ -167,7 +167,7 @@ var WinLossByLeague = (function ($) {
 
             initMonthPicker();
             Site.addFilterCollapseExpand();
-            _productCount = $("#ProductList input[type=checkbox]").length - 1;
+            _productCount = $("#ProductList .childCheckbox[type=checkbox]").length - 1;
 
             $("#searchForm").submit(function () {
                 me.submit();
@@ -315,7 +315,7 @@ var WinLossByLeague = (function ($) {
                 $("#ticket-null").addClass("hide");
             }
 
-            if ($("#ProductList input:checked").length === 0) {
+            if ($("#ProductList .childCheckbox:checked").length === 0) {
                 return $("#product-null").removeClass("hide");
             } else {
                 $("#product-null").addClass("hide");

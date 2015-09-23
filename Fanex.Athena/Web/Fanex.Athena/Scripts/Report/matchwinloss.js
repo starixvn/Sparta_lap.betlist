@@ -58,13 +58,15 @@ var MatchWinLoss = (function ($) {
             var codeList = ["RB", "NG", "LC", "VS"];
             var productList = $("#ProductList");
             var productOptions = [];
-            var showSb = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
-            var showBa = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
+            var showSb = (productCode === 'SB' || productCode === 'BA') && 
+                $('.childCheckbox[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = (productCode === 'SB' || productCode === 'BA') && 
+                $('.childCheckbox[data-product-code="BA"]', productList).attr("data-original") === 'True';
             if (showSb) { productOptions.push({ Code: "SB", Status: true }); }
             if (showBa) { productOptions.push({ Code: "BA", Status: true }); }
 
             $(codeList).each(function (index, element) {
-                var show = productCode === element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
+                var show = productCode === element && $('.childCheckbox[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
                 if (show) { productOptions.push({ Code: element, Status: true }); }
             });
 
@@ -152,14 +154,16 @@ var MatchWinLoss = (function ($) {
 
             // Sport Type params
             var productList = $("#ProductList");
-            var showSb = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
-            var showBa = (productCode === 'SB' || productCode === 'BA') && $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
+            var showSb = (productCode === 'SB' || productCode === 'BA') 
+                && $('.childCheckbox[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = (productCode === 'SB' || productCode === 'BA') 
+                && $('.childCheckbox[data-product-code="BA"]', productList).attr("data-original") === 'True';
             url = Site.setProductOptionParam(url, 0, "SB", showSb);
             url = Site.setProductOptionParam(url, 1, "BA", showBa);
 
             var codeList = ["RB", "NG", "LC", "VS"];
             $(codeList).each(function (index, element) {
-                var show = productCode === element && $('input[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
+                var show = productCode === element && $('.childCheckbox[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
                 url = Site.setProductOptionParam(url, index + 2, element, show);
             });
 
@@ -178,8 +182,8 @@ var MatchWinLoss = (function ($) {
 
             // Sport type
             var productList = $("#ProductList");
-            var showSb = $('input[data-product-code="SB"]', productList).attr("data-original") === 'True';
-            var showBa = $('input[data-product-code="BA"]', productList).attr("data-original") === 'True';
+            var showSb = $('.childCheckbox[data-product-code="SB"]', productList).attr("data-original") === 'True';
+            var showBa = $('.childCheckbox[data-product-code="BA"]', productList).attr("data-original") === 'True';
             url = Site.setProductOptionParam(url, 0, "SB", showSb);
             url = Site.setProductOptionParam(url, 1, "BA", showBa);
             url = QueryString.setParam(url, "showsb", showSb);

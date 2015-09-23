@@ -123,12 +123,12 @@
         </select>       
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
 
-        <div class="hide" id="items-container">
+        <div class="hide" id="product-container">
             @foreach (var product in productOptions)
             {
                 <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code"  />
                 <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name"  />
-                <input type="checkbox" class="childCheckbox" id="@product.Code" @(product.Status ? "checked=checked" : "")  name="ProductOptions[@i].Status" value="True" />
+                <input type="checkbox" class="childCheckbox" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "")  name="ProductOptions[@i].Status" value="True" />
                 i++;
             }
         </div>
@@ -138,8 +138,8 @@
             $(window).load(function () {
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 $("form").submit(function (event) {
-                    if ($("#items-container input[type=checkbox]:checked").length == 0) {
-                        $('<div title="LRF-Notification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
+                    if ($("#product-container input[type=checkbox]:checked").length == 0) {
+                        $('<div title="@ViewResources.LrfNotification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
                         Site.unBlockUI();
                         return false;
                     }

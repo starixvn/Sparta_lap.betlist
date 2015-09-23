@@ -417,8 +417,7 @@ var BetList = (function ($) {
         },
         ValidProducts: function () {
             var temp = true;
-            $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($(".childCheckbox:checked").length === 0) {
+            if ($("#ProductList input:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
