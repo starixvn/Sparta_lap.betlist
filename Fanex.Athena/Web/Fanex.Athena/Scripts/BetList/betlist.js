@@ -1,6 +1,6 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption*/
-/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult*/
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails*/
 
 var BetList = (function ($) {
     "use strict";
@@ -415,6 +415,28 @@ var BetList = (function ($) {
                 height: height + 50
             });
         },
+
+        showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId){
+            if (Number(transId) === 0) { return; }
+
+            var url = Site.resolveClientUrl('BetList/MicroGamingRngDetail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "refno", "9800002154");
+            url = QueryString.setParam(url, "custid", custId);
+
+            var height = 450;
+            var width = 750;
+
+            var dialogForm = '<div title=""><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: width + 25,
+                height: height + 50
+            });
+        },
+
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -463,3 +485,4 @@ var showCombMP = function (transId, index) {
 };
 
 var showCombMPDetail = BetList.showSystemParlayDetail;
+var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;

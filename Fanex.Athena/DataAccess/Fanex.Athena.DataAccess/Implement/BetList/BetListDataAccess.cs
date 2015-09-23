@@ -173,6 +173,67 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             }
         }
 
+        public SystemParlayData GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
+        {
+            const string UspName = "Lrf_BetList_RNG_Detail";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {                    
+                    db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);                 
+                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                    db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                    
+                    var dataSet = db.ExecuteDataSet();
+                    var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
+                    var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
+
+                    var systemParlayData = new SystemParlayData();
+
+                    systemParlayData.TicketList = new List<ISystemParlayTicket>();
+                    foreach (DataRow row in ticketData.Rows)
+                    {
+                        ISystemParlayTicket ticket = new SystemParlayTicket();
+                        ticket.Comm = Converter.ToDecimal(row["comm" + metaModel.BaseCurrency]);
+                        ticket.MOdds = Converter.ToDecimal(row["modds"]);
+                        ticket.PlayerComm = Converter.ToDecimal(row["playercomm" + metaModel.BaseCurrency]);
+                        ticket.Serial = Convert.ToInt64(row["serial"]);
+                        ticket.Stake = Converter.ToDecimal(row["stake" + metaModel.BaseCurrency]);
+                        ticket.Status = Converter.ToString2(row["status"]);
+                        ticket.StatusId = Converter.ToInt(row["statusid"]);
+                        ticket.TransId = Convert.ToInt64(row["transid"]);
+                        ticket.WinLost = Converter.ToDecimal(row["winlost" + metaModel.BaseCurrency]);
+                        ticket.WinLostDate = Converter.ToDateTime(row["winlostdate"]);
+
+                        systemParlayData.TicketList.Add(ticket);
+                    }
+
+                    systemParlayData.SerialList = new List<ISystemParlaySerial>();
+                    foreach (DataRow row in serialData.Rows)
+                    {
+                        ISystemParlaySerial serial = new SystemParlaySerial();
+                        serial.Serial = Convert.ToInt64(row["serial"]);
+                        serial.HomeId = Converter.ToInt(row["homeid"]);
+                        serial.AwayId = Converter.ToInt(row["awayid"]);
+
+                        systemParlayData.SerialList.Add(serial);
+                    }
+
+                    systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding" + metaModel.BaseCurrency));
+
+                    return systemParlayData;
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+            }
+        }
+
         /// <summary>
         /// Get Bet List Data.
         /// </summary>

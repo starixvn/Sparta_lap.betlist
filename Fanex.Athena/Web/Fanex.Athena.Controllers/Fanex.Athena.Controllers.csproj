@@ -207,6 +207,7 @@
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
     <Compile Include="BetList\BetListController.RacingCommission.cs" />
+    <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
     <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
