@@ -15,9 +15,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
     {
         public long TransId { get; set; }
 
-        public long RefNo { get; set; }
-
-        public long BetId { get; set; }
+        public byte TransType { get; set; }
 
         public int CustId { get; set; }
 

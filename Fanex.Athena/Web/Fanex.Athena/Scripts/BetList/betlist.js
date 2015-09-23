@@ -151,7 +151,7 @@ var BetList = (function ($) {
             // Specify the hidden column
             var hiddenColumnList = $("#HiddenColumnList").val();
             var hiddenColumnTokens = hiddenColumnList.split(",");
-            var showSummary = hiddenColumnList.indexOf("licenseewl") < 0;
+            var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
 
             $.each(hiddenColumnTokens, function (index, value) {
                 jqGridAdditional.setColumnVisible(BetListOption.columnModel, value, true);
@@ -416,24 +416,20 @@ var BetList = (function ($) {
             });
         },
 
-        showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId){
-            if (Number(transId) === 0) { return; }
-
+        showMicroGamingRnGBetsDetails: function (transId, custId, transType) {
             var url = Site.resolveClientUrl('BetList/MicroGamingRngDetail');
-            url = QueryString.setParam(url, "transId", transId);
-            url = QueryString.setParam(url, "refno", "9800002154");
+            url = QueryString.setParam(url, "transid", transId);
             url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "transType", transType);
 
-            var height = 450;
-            var width = 750;
-
-            var dialogForm = '<div title=""><iframe frameborder="0" width="' +
-                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var dialogForm = '<div title="Microgaming Rng Bet List Detail"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
-                width: width + 25,
-                height: height + 50
+                width: popW + 50,
+                height: popH + 50
             });
         },
 

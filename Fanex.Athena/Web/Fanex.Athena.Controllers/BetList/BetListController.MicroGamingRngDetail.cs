@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.SystemParlayDetail.cs" company="Nexcel">
+// <copyright file="BetListController.MicroGamingRngDetail.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,11 +8,9 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System;
     using System.Web.Mvc;
+    using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel.BetList;
-    using Fanex.BetList.Core.Builder;
 
     #endregion Using
 
@@ -21,31 +19,22 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public partial class BetListController
     {
-        /// <summary>
-        /// Action Get for MicroGaming Rng Detail.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult MicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
+        public ActionResult MicroGamingRngDetail(BetListMetaModel metaModel)
         {
-            var balanceUpInfo = this._balanceUpService.BalanceUpInfo;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel = CreateDefaultMetaModel(metaModel);
 
-            var systemParlayData = this._betListService.GetMicroGamingRngDetail(metaModel);
-
-            var builder = new BetListHTMLBuilder();
-            var systemParlayText = builder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
-            var viewModel = new MicroGamingRngDetailViewModel
+            if (!metaModel.IsExportExcel)
             {
-                DetailText = systemParlayText,
-                Param = metaModel
-            };
+                return this.View("~/Views/BetList/MicroGamingRngDetail/Main.cshtml", metaModel);
+            }
 
-            return View("~/Views/BetList/SystemParlayDetail/Main.cshtml", viewModel);
+            if (IsValidCurrency(metaModel.CurrencyId))
+            {
+                return this.LicenseeWLExcel(metaModel);
+            }
+
+            return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
     }
 }

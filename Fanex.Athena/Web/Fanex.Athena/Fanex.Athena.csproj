@@ -630,6 +630,7 @@
     <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
+    <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

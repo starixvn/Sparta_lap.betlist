@@ -145,6 +145,7 @@
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
     <Compile Include="BetList\BetListController.RacingCommission.cs" />
+    <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
     <Compile Include="CustomerLog\LogController.cs" />
     <Compile Include="CustomerLog\LogController.GroupCommission.cs" />
     <Compile Include="CustomerLog\LogController.CustomerSetting.cs" />

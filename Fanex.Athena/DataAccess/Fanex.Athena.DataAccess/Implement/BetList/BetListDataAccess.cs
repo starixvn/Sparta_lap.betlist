@@ -69,6 +69,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
+            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) }
         };
 
         /// <summary>
@@ -173,58 +174,27 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             }
         }
 
-        public SystemParlayData GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
+        [System.CLSCompliant(false)]
+        public TicketResult GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_RNG_Detail";
             try
             {
                 using (var db = new ObjectDb(UspName))
                 {                    
-                    db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);                 
+                    db.AddInParameter("refno", DbType.Int64, metaModel.TransId);                 
                     db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                    
-                    var dataSet = db.ExecuteDataSet();
-                    var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
-                    var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
 
-                    var systemParlayData = new SystemParlayData();
-
-                    systemParlayData.TicketList = new List<ISystemParlayTicket>();
-                    foreach (DataRow row in ticketData.Rows)
+                    using (var reader = db.ExecuteReader())
                     {
-                        ISystemParlayTicket ticket = new SystemParlayTicket();
-                        ticket.Comm = Converter.ToDecimal(row["comm" + metaModel.BaseCurrency]);
-                        ticket.MOdds = Converter.ToDecimal(row["modds"]);
-                        ticket.PlayerComm = Converter.ToDecimal(row["playercomm" + metaModel.BaseCurrency]);
-                        ticket.Serial = Convert.ToInt64(row["serial"]);
-                        ticket.Stake = Converter.ToDecimal(row["stake" + metaModel.BaseCurrency]);
-                        ticket.Status = Converter.ToString2(row["status"]);
-                        ticket.StatusId = Converter.ToInt(row["statusid"]);
-                        ticket.TransId = Convert.ToInt64(row["transid"]);
-                        ticket.WinLost = Converter.ToDecimal(row["winlost" + metaModel.BaseCurrency]);
-                        ticket.WinLostDate = Converter.ToDateTime(row["winlostdate"]);
-
-                        systemParlayData.TicketList.Add(ticket);
+                        var result = new TicketResult();
+                        result.MainTicketList.AddRange(ReadLrfTicket(reader, string.Empty));
+                        return result;
                     }
-
-                    systemParlayData.SerialList = new List<ISystemParlaySerial>();
-                    foreach (DataRow row in serialData.Rows)
-                    {
-                        ISystemParlaySerial serial = new SystemParlaySerial();
-                        serial.Serial = Convert.ToInt64(row["serial"]);
-                        serial.HomeId = Converter.ToInt(row["homeid"]);
-                        serial.AwayId = Converter.ToInt(row["awayid"]);
-
-                        systemParlayData.SerialList.Add(serial);
-                    }
-
-                    systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding" + metaModel.BaseCurrency));
-
-                    return systemParlayData;
                 }
             }
             catch (ObjectDbException sqlException)
@@ -982,6 +952,15 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListPagingParameters(db, metaModel);
         }
 
+        private static void CreateMicroGamingRngDetailParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
+            db.AddInParameter("custid", DbType.Int32, metaModel.CustId);            
+            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+        }
+
         #region CommonParam
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -1162,6 +1141,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var ordinalMasterOdds = reader.TryGetOrdinal("modds");
             var ordinalHandicap1 = reader.TryGetOrdinal("hdp1");
             var ordinalHandicap2 = reader.TryGetOrdinal("hdp2");
+            var hasTransDecs = reader.TryGetOrdinal("transdesc") >= 0;
 
             var tickets = new SortableList<LrfTicket>();
             while (reader.Read())
@@ -1220,7 +1200,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.MasterOdds = ordinalMasterOdds >= 0 ? reader.ToDecimal("modds") : 0;
                 ticket.Handicap1 = ordinalHandicap1 >= 0 ? reader.ToDecimal("hdp1") : 0;
                 ticket.Handicap2 = ordinalHandicap2 >= 0 ? reader.ToDecimal("hdp2") : 0;
-
+                ticket.TransDesc = hasTransDecs ? reader.ToString("transdesc") : string.Empty; 
                 tickets.Add(ticket);
             }
 

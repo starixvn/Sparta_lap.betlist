@@ -89,15 +89,11 @@ namespace Fanex.Athena.Service.Implement.BetList
                         };
         }
 
-        public SystemParlayData GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
+        public TicketResult GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
         {
             return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetMicroGamingRngDetail(metaModel)
-                        : new SystemParlayData
-                        {
-                            TicketList = new List<ISystemParlayTicket>(),
-                            SerialList = new List<ISystemParlaySerial>()
-                        };
+                        : new TicketResult();
         }
 
         /// <summary>
