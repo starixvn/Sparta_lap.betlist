@@ -2715,4 +2715,20 @@
     <value>The grand winning amount which is excluded from member balance</value>
     <comment>#43078</comment>
   </data>
+  <data name="DetailTickets" xml:space="preserve">
+    <value>Detail Tickets</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="RNGGame" xml:space="preserve">
+    <value>RNG Game</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="Settled" xml:space="preserve">
+    <value>Settled</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="DetailedBetlist" xml:space="preserve">
+    <value>Detailed Bet list</value>
+    <comment>#43078</comment>
+  </data>
 </root>

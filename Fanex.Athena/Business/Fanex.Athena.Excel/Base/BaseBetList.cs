@@ -145,7 +145,7 @@ namespace Fanex.Athena.Excel.Base
                 {                                        
                     builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
                 }
-                else if (_hiddenColumnIndexes == null || !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
+                else if (ShowingOption.GrandTotalVisible && (_hiddenColumnIndexes == null || !_hiddenColumnIndexes.Contains(ColumnWinlossIndex)))
                 {
                     var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                     var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;

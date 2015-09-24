@@ -5,6 +5,7 @@
 @using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.Cache
 @model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+
 @section pagecss {
     <link href="@Url.ContentLink("/Content/BetList/Microgaming.css")" rel="stylesheet" type="text/css" />
 }
@@ -12,7 +13,7 @@
 }
 @section ContentTitle
 {
-  @ViewResources.Microgaming - RNG Game @ViewResources.BetList - Detail Tickets - ...
+  @ViewBag.BetListTitle
 }
 @section BackButton
 {

@@ -1,5 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
-/*global Site, QueryString,jqGridAdditional, BetListOption*/
+/*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails*/
 
 var BetList = (function ($) {
@@ -305,9 +305,9 @@ var BetList = (function ($) {
             return url;
         },
 
-        getMicrogamingResultUrl: function (betcheck, custid) {
+        getMicrogamingResultUrl: function (gameid, custid) {
             var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
-            url = QueryString.setParam(url, "betcheck", betcheck);
+            url = QueryString.setParam(url, "gameid", gameid);
             url = QueryString.setParam(url, "custid", custid);
 
             return url;
@@ -317,8 +317,8 @@ var BetList = (function ($) {
             var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
         },
-        showMicrogamingResultPopup: function (title, betcheck, custid) {
-            var url = BetList.getMicrogamingResultUrl(betcheck, custid);
+        showMicrogamingResultPopup: function (title, gameid, custid) {
+            var url = BetList.getMicrogamingResultUrl(gameid, custid);
 
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="450" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
@@ -416,14 +416,16 @@ var BetList = (function ($) {
             });
         },
 
-        showMicroGamingRnGBetsDetails: function (transId, custId, transType) {
+        showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
             var url = Site.resolveClientUrl('BetList/MicroGamingRngDetail');
             url = QueryString.setParam(url, "transid", transId);
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "transType", transType);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 820;
-            var dialogForm = '<div title="Microgaming Rng Bet List Detail"><iframe scrolling="no" frameborder="0" width="' +
+            var title = Site.getSingleResource("Microgaming") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({

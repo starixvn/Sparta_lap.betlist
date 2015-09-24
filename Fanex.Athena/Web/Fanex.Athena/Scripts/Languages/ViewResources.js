@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/22/2015 9:58:27 AM
+// Lasted generated date: 9/24/2015 10:49:59 AM
 // </history>
 
 var _language_en_US={
@@ -397,7 +397,11 @@ var _language_en_US={
 				 	
                      Deposit:"Deposit",
 				 	
+                     DetailedBetlist:"Detailed Bet list",
+				 	
                      Details:"Details",
+				 	
+                     DetailTickets:"Detail Tickets",
 				 	
                      DH:"DH",
 				 	
@@ -572,6 +576,8 @@ var _language_en_US={
                      GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 				 	
                      GotoCustomerList:"Go to Customer List",
+				 	
+                     GrandPrize:"The grand winning amount which is excluded from member balance",
 				 	
                      GrandTotal:"Grand Total",
 				 	
@@ -1071,6 +1077,8 @@ var _language_en_US={
 				 	
                      Notification:"Notification",
 				 	
+                     NotificationMessage:"Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused.",
+				 	
                      NotSupportYet:"This game type has not been supported yet!",
 				 	
                      Nov:"Nov",
@@ -1297,6 +1305,8 @@ var _language_en_US={
 				 	
                      RNGCasinoUpdateSettingUnAvailableMsg:"RNG Casino Database is not currently available. Please try again later.",
 				 	
+                     RNGGame:"RNG Game",
+				 	
                      RollingComm:"Rolling Comm",
 				 	
                      RoundType:"Round Type",
@@ -1366,6 +1376,8 @@ var _language_en_US={
                      SessionLoggedMsg:"You have logged in from another session or your login session has expired",
 				 	
                      SetAsDefaultGroup:"Set as default group",
+				 	
+                     Settled:"Settled",
 				 	
                      SettledMatchCount:"Settled Match Count",
 				 	

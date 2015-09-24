@@ -40,6 +40,8 @@ namespace Fanex.Athena.Controllers.BetList
         public const int PageSizeExcel = 63000;
         public const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
 
+        private const int LicenseeId12Bet = 1;
+
         private const int ExternalIdColumn = 1;
         private const int SystemIdColumn = 2;
         private const int WinLostColumn = 7;

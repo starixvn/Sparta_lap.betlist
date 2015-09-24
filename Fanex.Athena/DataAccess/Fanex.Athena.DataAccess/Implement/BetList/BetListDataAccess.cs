@@ -181,8 +181,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             try
             {
                 using (var db = new ObjectDb(UspName))
-                {                    
-                    db.AddInParameter("refno", DbType.Int64, metaModel.TransId);                 
+                {
+                    db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
                     db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -956,7 +956,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
-            db.AddInParameter("custid", DbType.Int32, metaModel.CustId);            
+            db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
         }
@@ -1090,57 +1090,57 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var actualStakeCol = "actual_stake" + baseCurrency;
 
             // string
-            var ordinalUsername = reader.TryGetOrdinal("username");
-            var ordinalRefNo = reader.TryGetOrdinal("refno");
-            var ordinalMatchCode = reader.TryGetOrdinal("matchcode");
-            var ordinalStatus = reader.TryGetOrdinal("status");
-            var ordinalBetTeam = reader.TryGetOrdinal("betteam");
-            var ordinalBetStatus = reader.TryGetOrdinal("betstatus");
-            var ordinalShowTime = reader.TryGetOrdinal("showtime");
-            var ordinalOddsType = reader.TryGetOrdinal("oddstype");
-            var ordinalExternalId = reader.TryGetOrdinal("nickname");
-            var ordinalRace = reader.TryGetOrdinal("race");
-            var ordinalBetFrom = reader.TryGetOrdinal("betfrom");
-            var ordinalBetCheck = reader.TryGetOrdinal("betcheck");
+            var hasUsername = reader.TryGetOrdinal("username") >= 0;
+            var hasRefNo = reader.TryGetOrdinal("refno") >= 0;
+            var hasMatchCode = reader.TryGetOrdinal("matchcode") >= 0;
+            var hasStatus = reader.TryGetOrdinal("status") >= 0;
+            var hasBetTeam = reader.TryGetOrdinal("betteam") >= 0;
+            var hasBetStatus = reader.TryGetOrdinal("betstatus") >= 0;
+            var hasShowTime = reader.TryGetOrdinal("showtime") >= 0;
+            var hasOddsType = reader.TryGetOrdinal("oddstype") >= 0;
+            var hasExternalId = reader.TryGetOrdinal("nickname") >= 0;
+            var hasRace = reader.TryGetOrdinal("race") >= 0;
+            var hasBetFrom = reader.TryGetOrdinal("betfrom") >= 0;
+            var hasBetCheck = reader.TryGetOrdinal("betcheck") >= 0;
 
             // Boolean
-            var ordinalLiveIndicator = reader.TryGetOrdinal("liveindicator");
-            var ordinalNeutral = reader.TryGetOrdinal("isneutral");
+            var hasLiveIndicator = reader.TryGetOrdinal("liveindicator") >= 0;
+            var hasNeutral = reader.TryGetOrdinal("isneutral") >= 0;
 
             // Int
-            var ordinalSportType = reader.TryGetOrdinal("sporttype");
-            var ordinalBetType = reader.TryGetOrdinal("bettype");
-            var ordinalLeagueId = reader.TryGetOrdinal("leagueid");
-            var ordinalHomeId = reader.TryGetOrdinal("homeid");
-            var ordinalAwayId = reader.TryGetOrdinal("awayid");
-            var ordinalMatchId = reader.TryGetOrdinal("matchid");
-            var ordinalCustId = reader.TryGetOrdinal("custid");
-            var ordinalCurrencyId = reader.TryGetOrdinal("currencyid");
-            var ordinalLiveHomeScore = reader.TryGetOrdinal("livehomescore");
-            var ordinalLiveAwayScore = reader.TryGetOrdinal("liveawayscore");
-            var ordinalSpecialLevel = reader.TryGetOrdinal("SpecialLevel");
-            var ordinalStatusId = reader.TryGetOrdinal("StatusId");
+            var hasSportType = reader.TryGetOrdinal("sporttype") >= 0;
+            var hasBetType = reader.TryGetOrdinal("bettype") >= 0;
+            var hasLeagueId = reader.TryGetOrdinal("leagueid") >= 0;
+            var hasHomeId = reader.TryGetOrdinal("homeid") >= 0;
+            var hasAwayId = reader.TryGetOrdinal("awayid") >= 0;
+            var hasMatchId = reader.TryGetOrdinal("matchid") >= 0;
+            var hasCustId = reader.TryGetOrdinal("custid") >= 0;
+            var hasCurrencyId = reader.TryGetOrdinal("currencyid") >= 0;
+            var hasLiveHomeScore = reader.TryGetOrdinal("livehomescore") >= 0;
+            var hasLiveAwayScore = reader.TryGetOrdinal("liveawayscore") >= 0;
+            var hasSpecialLevel = reader.TryGetOrdinal("SpecialLevel") >= 0;
+            var hasStatusId = reader.TryGetOrdinal("StatusId") >= 0;
 
             // Long
-            var ordinalTransId = reader.TryGetOrdinal("transid");
-            var ordinalBetId = reader.TryGetOrdinal("betid");
+            var hasTransId = reader.TryGetOrdinal("transid") >= 0;
+            var hasBetId = reader.TryGetOrdinal("betid") >= 0;
 
             // DateTime
-            var ordinalWinlostDate = reader.TryGetOrdinal("winlostdate");
-            var ordinalTransDate = reader.TryGetOrdinal("transdate");
+            var hasWinlostDate = reader.TryGetOrdinal("winlostdate") >= 0;
+            var hasTransDate = reader.TryGetOrdinal("transdate") >= 0;
 
             // Money
-            var ordinalPlayerComm = reader.TryGetOrdinal(playerCommCol);
-            var ordinalComm = reader.TryGetOrdinal(commCol);
-            var ordinalLicenseeWl = reader.TryGetOrdinal(licenseeWlCol);
-            var ordinalWinlost = reader.TryGetOrdinal(winlostCol);
-            var ordinalBetEffective = reader.TryGetOrdinal(beteffectiveCol);
-            var ordinalStake = reader.TryGetOrdinal(stakeCol);
-            var ordinalActualStake = reader.TryGetOrdinal(actualStakeCol);
-            var ordinalOdds = reader.TryGetOrdinal("odds");
-            var ordinalMasterOdds = reader.TryGetOrdinal("modds");
-            var ordinalHandicap1 = reader.TryGetOrdinal("hdp1");
-            var ordinalHandicap2 = reader.TryGetOrdinal("hdp2");
+            var hasPlayerComm = reader.TryGetOrdinal(playerCommCol) >= 0;
+            var hasComm = reader.TryGetOrdinal(commCol) >= 0;
+            var hasLicenseeWl = reader.TryGetOrdinal(licenseeWlCol) >= 0;
+            var hasWinlost = reader.TryGetOrdinal(winlostCol) >= 0;
+            var hasBetEffective = reader.TryGetOrdinal(beteffectiveCol) >= 0;
+            var hasStake = reader.TryGetOrdinal(stakeCol) >= 0;
+            var hasActualStake = reader.TryGetOrdinal(actualStakeCol) >= 0;
+            var hasOdds = reader.TryGetOrdinal("odds") >= 0;
+            var hasMasterOdds = reader.TryGetOrdinal("modds") >= 0;
+            var hasHandicap1 = reader.TryGetOrdinal("hdp1") >= 0;
+            var hasHandicap2 = reader.TryGetOrdinal("hdp2") >= 0;
             var hasTransDecs = reader.TryGetOrdinal("transdesc") >= 0;
 
             var tickets = new SortableList<LrfTicket>();
@@ -1149,58 +1149,58 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 var ticket = new LrfTicket();
 
                 // string
-                ticket.UserName = ordinalUsername >= 0 ? reader.ToString("username") : string.Empty;
-                ticket.RefNo = ordinalRefNo >= 0 ? reader.ToString("refno") : string.Empty;
-                ticket.MatchCode = ordinalMatchCode >= 0 ? reader.ToString("matchcode") : string.Empty;
-                ticket.Status = ordinalStatus >= 0 ? reader.ToString("status") : string.Empty;
-                ticket.BetTeam = ordinalBetTeam >= 0 ? reader.ToString("betteam") : string.Empty;
-                ticket.EventStatus = ordinalBetStatus >= 0 ? reader.ToString("betstatus") : string.Empty;
-                ticket.ShowTime = ordinalShowTime >= 0 ? reader.ToString("showtime") : string.Empty;
-                ticket.OddsType = ordinalOddsType >= 0 ? reader.ToString("oddstype") : "0";
-                ticket.ExternalId = ordinalExternalId >= 0 ? reader.ToString("nickname") : string.Empty;
-                ticket.Race = ordinalRace >= 0 ? reader.ToString("race") : string.Empty;
-                ticket.BetFrom = ordinalBetFrom >= 0 ? reader.ToString("betfrom") : string.Empty;
-                ticket.BetCheck = ordinalBetCheck >= 0 ? reader.ToString("betcheck") : string.Empty;
+                ticket.UserName = hasUsername ? reader.ToString("username") : string.Empty;
+                ticket.RefNo = hasRefNo ? reader.ToString("refno") : string.Empty;
+                ticket.MatchCode = hasMatchCode ? reader.ToString("matchcode") : string.Empty;
+                ticket.Status = hasStatus ? reader.ToString("status") : string.Empty;
+                ticket.BetTeam = hasBetTeam ? reader.ToString("betteam") : string.Empty;
+                ticket.EventStatus = hasBetStatus ? reader.ToString("betstatus") : string.Empty;
+                ticket.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
+                ticket.OddsType = hasOddsType ? reader.ToString("oddstype") : "0";
+                ticket.ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty;
+                ticket.Race = hasRace ? reader.ToString("race") : string.Empty;
+                ticket.BetFrom = hasBetFrom ? reader.ToString("betfrom") : string.Empty;
+                ticket.BetCheck = hasBetCheck ? reader.ToString("betcheck") : string.Empty;
 
                 // Boolean
-                ticket.IsLive = ordinalLiveIndicator >= 0 ? ReadBoolean(reader["liveindicator"]) : false;
-                ticket.IsNeutral = ordinalNeutral >= 0 ? ReadBoolean(reader["isneutral"]) : false;
+                ticket.IsLive = hasLiveIndicator ? ReadBoolean(reader["liveindicator"]) : false;
+                ticket.IsNeutral = hasNeutral ? ReadBoolean(reader["isneutral"]) : false;
 
                 // Int
-                ticket.SportTypeId = ordinalSportType >= 0 ? reader.ToInt("sporttype") : 0;
-                ticket.BetTypeId = ordinalBetType >= 0 ? reader.ToInt("bettype") : 0;
-                ticket.LeagueId = ordinalLeagueId >= 0 ? reader.ToInt("leagueid") : 0;
-                ticket.HomeId = ordinalHomeId >= 0 ? reader.ToInt("homeid") : 0;
-                ticket.AwayId = ordinalAwayId >= 0 ? reader.ToInt("awayid") : 0;
-                ticket.MatchId = ordinalMatchId >= 0 ? reader.ToInt("matchid") : 0;
-                ticket.CustId = ordinalCustId >= 0 ? reader.ToInt("custid") : custId;
-                ticket.CurrencyId = ordinalCurrencyId >= 0 ? reader.ToInt("currencyid") : 0;
-                ticket.LiveHomeScore = ordinalLiveHomeScore >= 0 ? reader.ToInt("livehomescore") : 0;
-                ticket.LiveAwayScore = ordinalLiveAwayScore >= 0 ? reader.ToInt("liveawayscore") : 0;
-                ticket.SpecialLevel = ordinalSpecialLevel >= 0 ? reader.ToInt("SpecialLevel") : 0;
-                ticket.StatusId = ordinalStatusId >= 0 ? reader.ToInt("StatusId") : 0;
+                ticket.SportTypeId = hasSportType ? reader.ToInt("sporttype") : 0;
+                ticket.BetTypeId = hasBetType ? reader.ToInt("bettype") : 0;
+                ticket.LeagueId = hasLeagueId ? reader.ToInt("leagueid") : 0;
+                ticket.HomeId = hasHomeId ? reader.ToInt("homeid") : 0;
+                ticket.AwayId = hasAwayId ? reader.ToInt("awayid") : 0;
+                ticket.MatchId = hasMatchId ? reader.ToInt("matchid") : 0;
+                ticket.CustId = hasCustId ? reader.ToInt("custid") : custId;
+                ticket.CurrencyId = hasCurrencyId ? reader.ToInt("currencyid") : 0;
+                ticket.LiveHomeScore = hasLiveHomeScore ? reader.ToInt("livehomescore") : 0;
+                ticket.LiveAwayScore = hasLiveAwayScore ? reader.ToInt("liveawayscore") : 0;
+                ticket.SpecialLevel = hasSpecialLevel ? reader.ToInt("SpecialLevel") : 0;
+                ticket.StatusId = hasStatusId ? reader.ToInt("StatusId") : 0;
 
                 // Long
-                ticket.TransId = ordinalTransId >= 0 ? reader.To<long>("transid") : 0;
-                ticket.BetId = ordinalBetId >= 0 && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
+                ticket.TransId = hasTransId ? reader.To<long>("transid") : 0;
+                ticket.BetId = hasBetId && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
 
                 // DateTime
-                ticket.WinlostDate = ordinalWinlostDate >= 0 ? reader.ToDateTime("winlostdate") : DateTime.Now;
-                ticket.TransDate = ordinalTransDate >= 0 ? reader.ToDateTime("transdate") : DateTime.Now;
+                ticket.WinlostDate = hasWinlostDate ? reader.ToDateTime("winlostdate") : DateTime.Now;
+                ticket.TransDate = hasTransDate ? reader.ToDateTime("transdate") : DateTime.Now;
 
                 // Money
-                ticket.PlayerComm = ordinalPlayerComm >= 0 ? reader.ToDecimal(playerCommCol) : 0;
-                ticket.Comm = ordinalComm >= 0 ? reader.ToDecimal(commCol) : 0;
-                ticket.LicenseeWL = ordinalLicenseeWl >= 0 ? reader.ToDecimal(licenseeWlCol) : 0;
-                ticket.Winlost = ordinalWinlost >= 0 ? reader.ToDecimal(winlostCol) : 0;
-                ticket.BetEffective = ordinalBetEffective >= 0 ? reader.ToDecimal(beteffectiveCol) : 0;
-                ticket.Stake = ordinalStake >= 0 ? reader.ToDecimal(stakeCol) : 0;
-                ticket.ActualStake = ordinalActualStake >= 0 ? reader.ToDecimal(actualStakeCol) : 0;
-                ticket.Odds = ordinalOdds >= 0 ? reader.ToDecimal("odds") : 0;
-                ticket.MasterOdds = ordinalMasterOdds >= 0 ? reader.ToDecimal("modds") : 0;
-                ticket.Handicap1 = ordinalHandicap1 >= 0 ? reader.ToDecimal("hdp1") : 0;
-                ticket.Handicap2 = ordinalHandicap2 >= 0 ? reader.ToDecimal("hdp2") : 0;
-                ticket.TransDesc = hasTransDecs ? reader.ToString("transdesc") : string.Empty; 
+                ticket.PlayerComm = hasPlayerComm ? reader.ToDecimal(playerCommCol) : 0;
+                ticket.Comm = hasComm ? reader.ToDecimal(commCol) : 0;
+                ticket.LicenseeWL = hasLicenseeWl ? reader.ToDecimal(licenseeWlCol) : 0;
+                ticket.Winlost = hasWinlost ? reader.ToDecimal(winlostCol) : 0;
+                ticket.BetEffective = hasBetEffective ? reader.ToDecimal(beteffectiveCol) : 0;
+                ticket.Stake = hasStake ? reader.ToDecimal(stakeCol) : 0;
+                ticket.ActualStake = hasActualStake ? reader.ToDecimal(actualStakeCol) : 0;
+                ticket.Odds = hasOdds ? reader.ToDecimal("odds") : 0;
+                ticket.MasterOdds = hasMasterOdds ? reader.ToDecimal("modds") : 0;
+                ticket.Handicap1 = hasHandicap1 ? reader.ToDecimal("hdp1") : 0;
+                ticket.Handicap2 = hasHandicap2 ? reader.ToDecimal("hdp2") : 0;
+                ticket.TransDesc = hasTransDecs ? reader.ToString("transdesc") : string.Empty;
                 tickets.Add(ticket);
             }
 
