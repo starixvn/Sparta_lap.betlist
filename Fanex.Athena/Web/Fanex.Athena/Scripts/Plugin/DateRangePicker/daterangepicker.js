@@ -273,7 +273,6 @@ var _defaultPresetRanges = [
         if (typeof (settings.buttonImage) != undefined) {
             jQuery("<img alt='' title='Show date range picker' class='ui-daterangepicker-trigger' src='" + settings.buttonImage + "' />").insertAfter(_rangeInput).click(function () {
                 _toggleRP();
-                return false;
             });
         }
 
@@ -317,7 +316,7 @@ var _defaultPresetRanges = [
                 var enabled = $.inArray(presetName, _options.disabledPreset) < 0;
 
                 var presetRangeItem =
-                jQuery('<li class="ui-daterangepicker-' + presetName + ' ui-corner-all" presettype="' + this.text.replace(/ /g, '') + '"><a href="javascript:void();">' + 
+                jQuery('<li class="ui-daterangepicker-' + presetName + ' ui-corner-all" presettype="' + this.text.replace(/ /g, '') + '"><a href="javascript:void();">' +
                     Site.getSingleResource(presetName) + '</a></li>').data('dateStart', this.dateStart).data('dateEnd', this.dateEnd).addClass(enabled ? 'enabled' : 'ui-helper-hidden').appendTo(ul);
             });
             var x = 0;
@@ -389,12 +388,17 @@ var _defaultPresetRanges = [
         // inputs toggle rangepicker visibility
         _rangeInput.click(function () {
             _toggleRP();
-            return false;
         });
 
-        jQuery(document).click(function () {
+        jQuery(document).on("click", function (e) {
+            var $target = $(e.target);
+
             if (_rangePicker.is(':visible')) {
-                _hideRP();
+                // do not hide if the clicked element is the input and calendar image (to open date range picker)
+                if ($target.closest(".ui-daterangepicker-trigger").length === 0 &&
+            $target.closest(".date-range").length === 0) {
+                    _hideRP();
+                }
             }
         });
 
