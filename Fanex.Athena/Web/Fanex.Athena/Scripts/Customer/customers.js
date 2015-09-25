@@ -17,7 +17,7 @@ var CustomerList = (function ($) {
         {
             pageindex: 1,
             pagesize: 1000,
-            pagelist: [1000, 2000],
+            pagelist: [1000, 2000, 3000, 4000],
             totalrow: 1,
             elementcontainer: ".paging",
             method: "AJAX",
