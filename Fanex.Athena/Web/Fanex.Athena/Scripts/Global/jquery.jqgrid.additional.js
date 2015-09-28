@@ -59,8 +59,7 @@ var jqGridAdditional = (function () {
             /// <param name="value"></param>
             /// <returns type=""></returns>
             if (value !== undefined && value !== null) {
-                var fixedValue = Site.isInteger(value) ? parseFloat(value)
-                 : new BigDecimal(value.toString()).setScale(2, MathContext.ROUND_HALF_UP);
+                var fixedValue = new BigDecimal(value.toString()).setScale(2, MathContext.ROUND_HALF_UP);
                 if (fixedValue === "NaN") {
                     return "NaN";
                 }
