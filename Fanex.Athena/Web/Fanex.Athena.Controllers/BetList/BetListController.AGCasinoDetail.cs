@@ -36,7 +36,30 @@ namespace Fanex.Athena.Controllers.BetList
                 return this.View("~/Views/BetList/AGCasinoDetail/Main.cshtml", metaModel);
             }
 
+            if (IsValidCurrency(metaModel.CurrencyId))
+            {
+                return AGCasinoDetailExcel(metaModel);
+            }
+
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+        }
+
+        private ActionResult AGCasinoDetailExcel(BetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_LC_Detail";
+
+            var showingOption = new ShowingOption()
+            {
+                GrandTotalVisible = false
+            };
+
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var title = GetBetListTitleForAGCasino(metaModel.TransType);
+            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
+            var workbook = excel.Export(ticketResult, title);
+
+            return new ExcelResult(workbook, "AGCasinoDetail");
         }
 
         private string GetBetListTitleForAGCasino(long transType)
