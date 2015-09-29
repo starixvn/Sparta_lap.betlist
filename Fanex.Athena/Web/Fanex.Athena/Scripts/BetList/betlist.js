@@ -1,6 +1,6 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
-/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails*/
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, showAGCasinoDetails*/
 
 var BetList = (function ($) {
     "use strict";

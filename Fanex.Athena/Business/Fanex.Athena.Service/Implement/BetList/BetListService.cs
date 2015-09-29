@@ -89,20 +89,6 @@ namespace Fanex.Athena.Service.Implement.BetList
                         };
         }
 
-        public TicketResult GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetMicroGamingRngDetail(metaModel)
-                        : new TicketResult();
-        }
-
-        public TicketResult GetAGCasinoDetail(AGCasinoDetailMetaModel metaModel)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetAGCasinoDetail(metaModel)
-                        : new TicketResult();
-        }
-
         /// <summary>
         /// Get Bet List Data.
         /// </summary>

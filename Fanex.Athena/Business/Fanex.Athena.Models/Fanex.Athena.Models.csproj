@@ -316,10 +316,8 @@
     <Compile Include="MetaModel\Warehouse\WinLossMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\BetList\AGCasinoDetailViewModel.cs" />
     <Compile Include="ViewModel\BetList\BetListBaseViewModel.cs" />
     <Compile Include="ViewModel\BetList\CancelledBetsBetListViewModel.cs" />
-    <Compile Include="ViewModel\BetList\MicroGamingRngDetailViewModel.cs" />
     <Compile Include="ViewModel\BetList\LastBetsMonitoringViewModel.cs" />
     <Compile Include="ViewModel\BetList\SystemParlayDetailViewModel.cs" />
     <Compile Include="ViewModel\BetList\CustomerOutstandingViewModel.cs" />

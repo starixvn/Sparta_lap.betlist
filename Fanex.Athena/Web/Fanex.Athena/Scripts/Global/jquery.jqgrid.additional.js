@@ -52,6 +52,29 @@ var jqGridAdditional = (function () {
             grid.jqGrid('setGridWidth', actualWidth, false);
         },
 
+        formatNumber: function (value) {
+            /// <summary>
+            ///
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns type=""></returns>
+            if (value !== undefined && value !== null) {
+                if (value === "NaN") {
+                    return "NaN";
+                }
+
+                var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})');
+                var resultValue = value + '';
+
+                while (sRegExp.test(resultValue)) {
+                    resultValue = resultValue.replace(sRegExp, '$1,$2');
+                }
+
+                return resultValue;
+            }
+            return value;
+        },
+
         formatDecimal: function (value) {
             /// <summary>
             ///
