@@ -96,6 +96,13 @@ namespace Fanex.Athena.Service.Implement.BetList
                         : new TicketResult();
         }
 
+        public TicketResult GetAGCasinoDetail(AGCasinoDetailMetaModel metaModel)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
+                        ? _betlistDataAccess.GetAGCasinoDetail(metaModel)
+                        : new TicketResult();
+        }
+
         /// <summary>
         /// Get Bet List Data.
         /// </summary>
@@ -305,6 +312,7 @@ namespace Fanex.Athena.Service.Implement.BetList
         }
 
         #endregion
+
         #region Update Match
 
         private void UpdateCommonInfo(BetListMetaModel metaModel)

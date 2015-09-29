@@ -21,4 +21,5 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_RNG_Detail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_LC_Detail" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

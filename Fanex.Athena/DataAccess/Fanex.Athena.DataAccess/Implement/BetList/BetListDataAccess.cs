@@ -69,7 +69,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
-            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) }
+            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) },
+            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateAGCasinoDetailParameters(db, metalModel) }
         };
 
         /// <summary>
@@ -178,6 +179,36 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         public TicketResult GetMicroGamingRngDetail(MicroGamingRngDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_RNG_Detail";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
+                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                    db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        var result = new TicketResult();
+                        result.MainTicketList.AddRange(ReadLrfTicket(reader, string.Empty));
+                        return result;
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message + UspExceptionName + UspName, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+            }
+        }
+
+        [System.CLSCompliant(false)]
+        public TicketResult GetAGCasinoDetail(AGCasinoDetailMetaModel metaModel)
+        {
+            const string UspName = "Lrf_BetList_LC_Detail";
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -953,6 +984,15 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         }
 
         private static void CreateMicroGamingRngDetailParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
+            db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+        }
+
+        private static void CreateAGCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);

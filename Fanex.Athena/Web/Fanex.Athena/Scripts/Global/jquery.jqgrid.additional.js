@@ -242,6 +242,7 @@ var jqGridAdditional = (function () {
 
             return result;
         },
+
         assignTotal: function (totalData, columnModel) {
             /// <summary>
             /// assing total rows

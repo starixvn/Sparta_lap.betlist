@@ -241,6 +241,7 @@
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
     <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
     <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
+    <Compile Include="MetaModel\BetList\AGCasinoDetailMetaModel.cs" />
     <Compile Include="MetaModel\BetList\BetListMetaModel.cs" />
     <Compile Include="MetaModel\BetList\MicroGamingRngDetailMetaModel.cs" />
     <Compile Include="MetaModel\BetList\SystemParlayDetailMetaModel.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="MetaModel\Warehouse\WinLossMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BetList\AGCasinoDetailViewModel.cs" />
     <Compile Include="ViewModel\BetList\BetListBaseViewModel.cs" />
     <Compile Include="ViewModel\BetList\CancelledBetsBetListViewModel.cs" />
     <Compile Include="ViewModel\BetList\MicroGamingRngDetailViewModel.cs" />
