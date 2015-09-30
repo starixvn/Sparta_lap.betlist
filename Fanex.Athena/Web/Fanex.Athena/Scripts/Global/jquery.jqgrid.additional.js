@@ -52,7 +52,7 @@ var jqGridAdditional = (function () {
             grid.jqGrid('setGridWidth', actualWidth, false);
         },
 
-        formatNumber: function (value) {
+        formatInteger: function (value) {
             /// <summary>
             ///
             /// </summary>
