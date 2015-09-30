@@ -48,7 +48,9 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
-            var previousProducts = metaModel.ProductOptions;
+            var isCheckedAllProducts = metaModel.ProductOptions.Count == 0;
+            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status)
+                                            .Select(x => x.Code).ToList();
 
             metaModel.ProductOptions = new HashSet<ProductOption>();
 
@@ -60,18 +62,14 @@ namespace Fanex.Athena.Controllers.BetList
                     Name = product.ProductName
                 };
 
-                var isFirstTime = previousProducts.Count == 0;
-                if (isFirstTime)
+                if (isCheckedAllProducts)
                 {
                     productOption.Status = true;
                 }
                 else
                 {
-                    var previousProduct = previousProducts.FirstOrDefault(p => p.Code == product.ProductCode);
-                    if (previousProduct != null)
-                    {
-                        productOption.Status = previousProduct.Status;
-                    }
+                    var status = previousCheckedProducts.Any(code => code == product.ProductCode);
+                    productOption.Status = status;
                 }
 
                 metaModel.ProductOptions.Add(productOption);
