@@ -60,8 +60,8 @@ namespace Fanex.Athena.Controllers.BetList
                     Name = product.ProductName
                 };
 
-                //first time load data
-                if (previousProducts.Count == 0)
+                var isFirstTime = previousProducts.Count == 0;
+                if (isFirstTime)
                 {
                     productOption.Status = true;
                 }
