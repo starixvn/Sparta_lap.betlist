@@ -63,7 +63,7 @@
     <Setting Key="Lrf_Rpt_CustomerTurnOver" SpName="Lrf_Rpt_CustomerTurnOver" DbName="DBEXT.bodb02.bodbLicenseeNet" TimeOut="240"></Setting>
     <Setting Key="Lrf_BetTypesGetAll" SpName="Lrf_BetTypesGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_SportsGetAll" SpName="Lrf_SportsGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance_xpre" DbName="DBACC.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CommByBettype_HR" SpName="Lrf_Rpt_CommByBettype_HR" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -78,9 +78,9 @@
     <Setting Key="Lrf_Rpt_PlaytechWinloss" SpName="Lrf_Rpt_PlaytechWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PlaytechWinlossDetail_Ag" SpName="Lrf_Rpt_PlaytechWinlossDetail_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PlaytechWinlossDetail" SpName="Lrf_Rpt_PlaytechWinlossDetail" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_AGCasinoWinloss" SpName="Lrf_Rpt_AGCasinoWinloss_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_AGCasinoWinloss" SpName="Lrf_Rpt_AGCasinoWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ActiveMember" SpName="Lrf_Rpt_ActiveMember" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ThirdPartyWinloss" SpName="Lrf_Rpt_ThirdPartyWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_ThirdPartyWinloss_Ag" SpName="LRF_Rpt_ThirdPartyWinloss_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />

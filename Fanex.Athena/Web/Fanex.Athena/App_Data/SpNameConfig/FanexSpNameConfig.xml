@@ -8,6 +8,11 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_AGCasinoWinloss" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_Rpt_AGCasinoWinloss_Ag" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_Rpt_AGCasinoWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xpre"></SpNameConfig>
 
