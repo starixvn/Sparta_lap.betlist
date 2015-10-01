@@ -12,6 +12,16 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_AGCasinoWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_Rpt_AGCasinoWinloss_Ag" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_Rpt_AGCasinoWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportWinlossByMatch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSelBalance" EnvironmentText="_xpre"></SpNameConfig>
   
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xpre"></SpNameConfig>

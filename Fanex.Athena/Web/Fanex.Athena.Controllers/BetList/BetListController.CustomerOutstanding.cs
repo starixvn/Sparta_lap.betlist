@@ -75,6 +75,13 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ProductOptions.Add(productOption);
             }
 
+            var hasCheckedProduct = metaModel.ProductOptions.Any(p => p.Status);
+            if (!hasCheckedProduct)
+            {
+                var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
+                defaultProduct.Status = true;
+            }
+
             return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
         }
     }
