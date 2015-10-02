@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
             var isCheckedAllProducts = metaModel.ProductOptions.Count == 0;
             var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status)
                                             .Select(x => x.Code).ToList();
-
+            var hasCheckedBetTrade = metaModel.ProductOptions.Any(p => p.Code == "BT" && p.Status);
             metaModel.ProductOptions = new HashSet<ProductOption>();
 
             foreach (var product in productAccess.ProductList)
@@ -75,8 +75,8 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ProductOptions.Add(productOption);
             }
 
-            var hasCheckedProduct = metaModel.ProductOptions.Any(p => p.Status);
-            if (!hasCheckedProduct)
+            var hasAnyCheckedNewProduct = metaModel.ProductOptions.Any(p => p.Status);
+            if (hasCheckedBetTrade && !hasAnyCheckedNewProduct)
             {
                 var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
                 defaultProduct.Status = true;
