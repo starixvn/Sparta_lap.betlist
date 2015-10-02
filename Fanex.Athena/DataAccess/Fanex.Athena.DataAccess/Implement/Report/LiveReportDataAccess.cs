@@ -217,7 +217,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     resultByBettype = new List<LiveReportByBetType>();
                     foreach (var product in products)
                     {
-                        if (product.ProductCode == Product.BA || resultByBettype.Any(p => p.ProductName == product.ProductName))
+                        if (isInvalidProduct(product, resultByBettype))
                         {
                             continue;
                         }
@@ -254,6 +254,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         ProductCode = productCode
                     });
             }
+        }
+
+        private bool isInvalidProduct(Product product, IList<LiveReportByBetType> resultByBettype)
+        {
+            return product.ProductCode == Product.MGC ||
+                    product.ProductCode == Product.BA ||
+                    resultByBettype.Any(p => p.ProductName == product.ProductName);
         }
 
         /// <summary>
