@@ -208,7 +208,7 @@
     <Setting Key="Lrf_Statement_Mem" SpName="Lrf_Statement_Mem_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinlostRacing" SpName="Lrf_BetList_SelWinlostRacing" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelByDayAll_Mem" SpName="Lrf_BetList_SelByDayAll_Mem_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossOutright" SpName="Lrf_BetList_LiveReport_SelWinlossOutright" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossParlay" SpName="Lrf_BetList_LiveReport_SelWinlossParlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossByMatch" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
