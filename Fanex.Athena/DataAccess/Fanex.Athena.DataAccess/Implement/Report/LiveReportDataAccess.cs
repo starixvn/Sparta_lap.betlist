@@ -217,7 +217,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     resultByBettype = new List<LiveReportByBetType>();
                     foreach (var product in products)
                     {
-                        if (isInvalidProduct(product, resultByBettype))
+                        if (IsIgnoredProduct(product, resultByBettype))
                         {
                             continue;
                         }
@@ -256,7 +256,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        private bool isInvalidProduct(Product product, IList<LiveReportByBetType> resultByBettype)
+        private bool IsIgnoredProduct(Product product, IList<LiveReportByBetType> resultByBettype)
         {
             return product.ProductCode == Product.MGC ||
                     product.ProductCode == Product.BA ||

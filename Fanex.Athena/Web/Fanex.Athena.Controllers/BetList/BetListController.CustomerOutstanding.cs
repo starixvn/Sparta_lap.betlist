@@ -75,8 +75,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ProductOptions.Add(productOption);
             }
 
-            var hasAnyCheckedNewProduct = metaModel.ProductOptions.Any(p => p.Status);
-            if (hasCheckedBetTrade && !hasAnyCheckedNewProduct)
+            if (hasCheckedBetTrade)
             {
                 var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
                 defaultProduct.Status = true;

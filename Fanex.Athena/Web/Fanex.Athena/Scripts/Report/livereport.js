@@ -39,9 +39,7 @@ var LiveReport = (function ($) {
             /* detail*/
             $("body").on("click", ".sport-detailt-link", function () {
                 LiveReport.viewSportDetail(this);
-            });
-            /* detail*/
-            /*drill down*/
+            });            
         },
         initMonthPicker: function () {
             /* date-range*/
