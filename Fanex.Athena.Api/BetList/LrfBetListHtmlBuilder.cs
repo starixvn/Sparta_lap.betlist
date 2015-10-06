@@ -131,7 +131,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             winloss += running
-                ? "-"
+                ? string.Empty
                 : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.PlayerComm);
 
             return winloss;
