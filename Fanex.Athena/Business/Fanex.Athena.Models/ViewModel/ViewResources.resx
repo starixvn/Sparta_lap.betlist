@@ -2711,10 +2711,6 @@
     <value>Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused.</value>
     <comment>#42906</comment>
   </data>
-  <data name="GrandPrize" xml:space="preserve">
-    <value>The grand winning amount which is excluded from member balance</value>
-    <comment>#43078</comment>
-  </data>
   <data name="DetailTickets" xml:space="preserve">
     <value>Detail Tickets</value>
     <comment>#43078</comment>
