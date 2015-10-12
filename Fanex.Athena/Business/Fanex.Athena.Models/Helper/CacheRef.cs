@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------------
 namespace Fanex.Athena.Models.Cache
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
@@ -17,55 +18,67 @@ namespace Fanex.Athena.Models.Cache
     /// </summary>
     public sealed class CacheRef
     {
+        private static IDictionary<string, string> _mapLanguages  = new Dictionary<string, string>()
+            {
+                { "en-US", "en" },
+                { "zh-TW", "ch" },
+                { "zh-CN", "cs" },
+                { "zh-Hans", "zhcn" },
+                { "ja-JP", "jp" },
+                { "th-TH", "th" },
+                { "ko-KR", "ko" },
+                { "vi-VN", "vn" }
+            };
+
         private CacheRef()
         {
         }
 
         public static string GetBettype(object bettypeId)
         {
-            return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentLanguage(), string.Empty);
+            return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public static string GetSportName(object sportId)
         {
-            return RefData.GetSportName(sportId.ToString(), GetCurrentLanguage(), string.Empty);
+            return RefData.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public static string GetTeamName(object teamId)
         {
-            return RefData.GetTeamName(teamId.ToString(), GetCurrentLanguage(), string.Empty);
+            return RefData.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public static string GetLeagueName(object leagueId)
         {
-            return RefData.GetLeagueName(leagueId.ToString(), GetCurrentLanguage(), string.Empty);
+            return RefData.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public static string GetFncIndexName(object indexId)
         {
-            return RefData.GetFncIndexName(indexId.ToString(), GetCurrentLanguage());
+            return RefData.GetFncIndexName(indexId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public static string GetHorseTeamName(object codeId)
         {
-            return RefData.GetHorseTeamName(codeId.ToString(), GetCurrentLanguage());
+            return RefData.GetHorseTeamName(codeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public static string GetOddsTypeName(object oddsTypeId)
         {
-            return RefData.GetOddsTypeName(oddsTypeId.ToString(), GetCurrentLanguage());
+            return RefData.GetOddsTypeName(oddsTypeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public static string GetCasinoBetItem(object betTeam)
         {
             var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetCasinoBetItem(betTeamString, GetCurrentLanguage());
+            return RefData.GetCasinoBetItem(betTeamString, GetCurrentIBCLanguageCode());
         }
 
         public static string GetRouletteBetItem(object betTeam)
         {
             var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
-            return RefData.GetRouletteBetItem(betTeamString, GetCurrentLanguage());
+            return RefData.GetRouletteBetItem(betTeamString, GetCurrentIBCLanguageCode());
         }
 
         /// <summary>
@@ -80,8 +93,8 @@ namespace Fanex.Athena.Models.Cache
         {
             const int SBMinOfMaxBettype = 120;
 
-            var betTypeName = RefData.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentLanguage(), string.Empty);
-            
+            var betTypeName = RefData.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode(), string.Empty);
+
             if (betType == (int)BetType.NgNumberGroup)
             {
                 betTypeName += liveIndicator ? " (" + ViewResources.LiveGame + ")" : " (" + ViewResources.PreGame + ")";
@@ -108,20 +121,16 @@ namespace Fanex.Athena.Models.Cache
         /// Get current language in IBC format.
         /// </summary>
         /// <returns>Language in IBC format.</returns>
-        private static string GetCurrentLanguage()
+        private static string GetCurrentIBCLanguageCode()
         {
-            var current = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;
-            switch (current)
+            var languageCode = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;
+            string result;
+            if (!_mapLanguages.TryGetValue(languageCode, out result))
             {
-                case "en-US": return "en";
-                case "zh-TW": return "ch"; // Traditional
-                case "zh-CN": return "cs"; // Simplified
-                case "ja-JP": return "jp";
-                case "th-TH": return "th"; // Thai
-                case "ko-KR": return "ko"; // Korean
-                case "vi-VN": return "vn"; // Vietnamese
-                default: return "en";
+                return "en";
             }
+
+            return result;
         }
     }
 }

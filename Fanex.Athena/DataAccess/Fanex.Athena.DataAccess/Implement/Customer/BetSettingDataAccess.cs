@@ -953,6 +953,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     break;
 
                 case "zh-CN":
+                case "zh-Hans":
                     gameTypeName = "GameTypeName_Cs";
                     break;
 

@@ -60,13 +60,8 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <param name="languageCode">The language code.</param>
         public void SetPageCulture(string languageCode)
         {
-            CultureInfo def = System.Globalization.CultureInfo.CreateSpecificCulture(_defaultLanguage);
-
-            var newCulture = new CultureInfo(languageCode);
-            newCulture.DateTimeFormat = def.DateTimeFormat;
-            newCulture.NumberFormat = def.NumberFormat;
-
-            Thread.CurrentThread.CurrentCulture = newCulture;
+            var defaultCulture = CultureInfo.CreateSpecificCulture(_defaultLanguage);
+            Thread.CurrentThread.CurrentCulture = defaultCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(languageCode);
         }
 

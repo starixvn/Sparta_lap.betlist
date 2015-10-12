@@ -560,6 +560,7 @@ var Site = (function ($) {
             if (enghlishName == null || enghlishName === undefined) {
                 return enghlishName;
             }
+
             var keyName = "_language_" + _page.lang.replace("-", "_");
 
             var resources = window[keyName];
@@ -742,7 +743,7 @@ $(function () {
         popup.show();
 
         $popup.find(".popup-close").click(function () {
-            $.cookie("isClosedNotification", "1", { path: '/' });           
+            $.cookie("isClosedNotification", "1", { path: '/' });
         });
         Site.isLoadedNotificationPopup = true;
     }
