@@ -25,7 +25,7 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportWinlossByMatch" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeFunctionsSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeFunctionsSel" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
