@@ -277,7 +277,7 @@ var _defaultPresetRanges = [
         }
 
         // Capture Dates from input(s)
-        _inputDateB = Date.parse('today');
+        _inputDateA = _inputDateB = Date.parse('today');
         var inputDateAtemp,
         inputDateBtemp;
         if (_rangeInput.size() == 2) {
