@@ -597,6 +597,20 @@
     <Content Include="img\Slot8\S8003\Line6.jpg" />
     <Content Include="img\Slot8\S8003\Line7.jpg" />
     <Content Include="img\Slot8\S8003\Line8.jpg" />
+    <None Include="Scripts\Languages\ViewResources.zh-Hans.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.zh-Hans1.js</LastGenOutput>
+    </None>
+    <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
+      <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-Hans1.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Library\moment.min.js" />

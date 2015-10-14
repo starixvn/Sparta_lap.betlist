@@ -117,10 +117,6 @@ namespace Fanex.Athena.Models.Cache
             return betTypeName;
         }
 
-        /// <summary>
-        /// Get current language in IBC format.
-        /// </summary>
-        /// <returns>Language in IBC format.</returns>
         private static string GetCurrentIBCLanguageCode()
         {
             var languageCode = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;

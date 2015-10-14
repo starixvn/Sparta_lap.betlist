@@ -54,22 +54,11 @@ namespace Fanex.Athena.Service.Implement.Common
             }
         }
 
-        /// <summary>
-        /// Set culture for a page.
-        /// </summary>
-        /// <param name="languageCode">The language code.</param>
         public void SetPageCulture(string languageCode)
         {
-            var defaultCulture = CultureInfo.CreateSpecificCulture(_defaultLanguage);
-            Thread.CurrentThread.CurrentCulture = defaultCulture;
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(languageCode);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
         }
 
-        /// <summary>
-        /// Change language.
-        /// </summary>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>True or false.</returns>
         public bool ChangeLanguage(string languageCode)
         {
             if (!string.IsNullOrEmpty(languageCode))

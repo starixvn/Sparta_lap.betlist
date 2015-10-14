@@ -111,6 +111,7 @@
                         "~/Scripts/Extension/jquery.extension.js",
                         "~/Scripts/Languages/ViewResources.js",
                         "~/Scripts/Languages/ViewResources.zh-CN.js",
+                        "~/Scripts/Languages/ViewResources.zh-Hans.js",
                         "~/Scripts/Languages/ViewResources.zh-TW.js",
                         "~/Scripts/Languages/ViewResources.ko-KR.js",
                         "~/Scripts/Global/site.js",
@@ -784,6 +785,7 @@
                         "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
                         "~/Scripts/Languages/ViewResources.js",
                         "~/Scripts/Languages/ViewResources.zh-CN.js",
+                        "~/Scripts/Languages/ViewResources.zh-Hans.js",
                         "~/Scripts/Languages/ViewResources.zh-TW.js",
                         "~/Scripts/Languages/ViewResources.ko-KR.js",
                         "~/Scripts/Global/site.js");

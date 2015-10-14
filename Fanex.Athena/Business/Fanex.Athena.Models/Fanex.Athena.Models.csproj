@@ -401,6 +401,10 @@
     <Compile Include="ViewModel\Warehouse\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ViewModel\ViewResources.zh-Hans.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\Menu.zh-Hans.resx" />
     <EmbeddedResource Include="ViewModel\Menu.ko-KR.resx" />
     <EmbeddedResource Include="ViewModel\Menu.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
