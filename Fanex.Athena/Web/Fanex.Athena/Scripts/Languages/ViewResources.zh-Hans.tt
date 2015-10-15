@@ -25,7 +25,7 @@
 <#
 string filePath="";
 #>
-var _language_zh_CN={
+var _language_zh_Hans={
 	<# 
 		OpenFileDialog openFileDialog1 = new OpenFileDialog();
 		openFileDialog1.InitialDirectory = "";
