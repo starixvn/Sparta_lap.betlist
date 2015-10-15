@@ -275,28 +275,5 @@
                 }
             }
         }
-
-        public string GlobalizationSSO
-        {
-            get
-            {
-                switch (SiteEnvironment)
-                {
-					case SiteEnvironment.DEV:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.LOCAL:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.UAT:
-                        return "";
-                    case SiteEnvironment.PRO:
-                    case SiteEnvironment.BACKUPMNL:
-                        return "";
-                    case SiteEnvironment.SANDBOX:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
     }
 #>
