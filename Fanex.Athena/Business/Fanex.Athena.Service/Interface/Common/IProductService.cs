@@ -33,6 +33,8 @@ namespace Fanex.Athena.Service.Interface.Common
         /// </returns>
         IList<Product> GetProductList(int licenseeId, string languageCode);
 
+        ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode);
+
         /// <summary>
         ///     Check if the member's currency is allowed in SA Tote.
         /// </summary>

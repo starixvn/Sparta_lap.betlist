@@ -92,10 +92,29 @@ namespace Fanex.Athena.Service.Implement.Common
             var allowedProducts = GetAllowedProducts(functionConfigKey);
 
             var originalProducts = this.GetProductList(licenseeId, languageCode);
+
             var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
 
             return new ProductAccess(productList);
+        }
+
+        public ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode)
+        {
+            var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+            var cacheKey = CacheKey.MemorycacheActiveCustomerSummaryProduct + licenseeId + languageCode;
+            var allowedProducts = cache.Get<IList<Product>>(cacheKey);
+
+            if (allowedProducts == null)
+            {
+                allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId, true);
+                cache.Set(
+                    cacheKey,
+                    allowedProducts,
+                    DateTime.Now.AddMinutes(CacheTimeoutMinute));
+            }
+
+            return new ProductAccess(allowedProducts);
         }
 
         /// <summary>

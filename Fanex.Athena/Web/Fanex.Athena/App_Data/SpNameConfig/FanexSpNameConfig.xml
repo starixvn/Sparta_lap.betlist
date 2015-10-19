@@ -28,6 +28,8 @@
   <SpNameConfig Environment="UAT" SpName="LRF_LicenseeFunctionsSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xpre"></SpNameConfig>
 
+  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel_active" EnvironmentText="_xpre"></SpNameConfig>
+
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xpre"></SpNameConfig>
