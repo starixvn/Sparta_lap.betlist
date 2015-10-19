@@ -4,7 +4,6 @@
     <Setting Key="Acc_SelCurrencyByLicensee" SpName="Acc_SelCurrencyByLicensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_SelCurrencyByLicenseeUser" SpName="Lrf_SelCurrencyByLicenseeUser" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeProduct3rdSel_active" SpName="Lrf_LicenseeProduct3rdSel_active" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBalanceUpDay" SpName="Lrf_SelBalanceUpDay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_SelCurrency" SpName="Lrf_SelCurrency" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSel" SpName="Lrf_LicenseeSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -125,7 +124,7 @@
 
   <Function Name="CustomerSettings">
     <Setting Key="Lrf_CustomerUpdCasinoStatus" SpName="Lrf_CustomerUpdCasinoStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer_xtest" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdEsportStatus" SpName="Lrf_CustomerUpdEsportStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditNG" SpName="Lrf_CustomerSelEditNG" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditRB" SpName="Lrf_CustomerSelEditRB" DbName="DBCUST.CustDB.bodbLicenseeNet" />
@@ -230,8 +229,6 @@
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinlossDaily" SpName="Lrf_BetList_SelWinlossDaily" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelRunningByMultipleBettypeMatch" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_RNG_Detail" SpName="Lrf_BetList_RNG_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_LC_Detail" SpName="Lrf_BetList_LC_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />  
   </Function>
 
   <Function Name="CustomerLog">

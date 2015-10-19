@@ -79,7 +79,7 @@ namespace Fanex.Athena.Models.DTO.Common
         /// <returns>Bet type is valid or not.</returns>
         public bool ValidateBettype(int bettype)
         {
-            return Validator.ValidateBettpe(ProductCode, bettype);
+            return Validator.IsValidBettype(ProductCode, bettype);
         }
 
         #endregion Property

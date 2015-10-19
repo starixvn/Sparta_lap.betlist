@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeGroupCommSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSelEditCustomer" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMember_All" EnvironmentText="_xtest"></SpNameConfig>  
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

@@ -84,7 +84,7 @@
                     case SiteEnvironment.BACKUPMNL:
                         return "http://10.4.98.3:8091/pools/default";
                     case SiteEnvironment.SANDBOX:
-                        return "http://10.18.200.209:8091/pools/default";
+                        return "http://10.18.200.124:8091/pools/default";
                     default:
                         return string.Empty;
                 }
