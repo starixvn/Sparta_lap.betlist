@@ -2,6 +2,10 @@
 {
     text-decoration: none;
 }
+.light-blue
+{
+    color:#0017CD;
+}
 .mx-parlay .void, .mx-parlay .reject, .mx-parlay .refund {
     text-decoration: line-through;
 }

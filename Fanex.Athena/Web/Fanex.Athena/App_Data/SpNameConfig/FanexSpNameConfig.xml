@@ -3,4 +3,19 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSelEditCustomer" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMember_All" EnvironmentText="_xtest"></SpNameConfig>  
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_WinlostByLeague_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelDeleted_UserList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
