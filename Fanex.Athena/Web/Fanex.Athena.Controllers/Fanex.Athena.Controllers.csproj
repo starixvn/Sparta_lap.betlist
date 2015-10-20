@@ -44,6 +44,10 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Fanex.BetList.AGCasino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.AGCasino.1.0.0.1\lib\net40\Fanex.BetList.AGCasino.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.8.6\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +58,10 @@
     </Reference>
     <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.5.8.6\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Microgaming.2.0.0.6\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -183,12 +191,14 @@
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
     <Compile Include="BetList\BetListController.cs" />
     <Compile Include="BetList\BetListController.DailyBetList.cs" />
     <Compile Include="BetList\BetListController.CancelBetList.cs" />
     <Compile Include="BetList\BetListController.LastBetsMonitoring .cs" />
     <Compile Include="BetList\BetListController.CustomerOutstanding.cs" />
+    <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
     <Compile Include="BetList\BetListController.LicenseeWl.cs" />
     <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
@@ -309,7 +319,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
