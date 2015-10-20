@@ -159,7 +159,7 @@ var Turnover = (function ($) {
         },
 
         submit: function () {
-            if ($("#ProductList input:checked").length === 0) {
+            if ($("#ProductList .childCheckbox:checked").length === 0) {
                 return $("#product-null").removeClass("hide");
             } else {
                 $("#product-null").addClass("hide");

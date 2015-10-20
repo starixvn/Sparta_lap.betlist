@@ -20,9 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     ///     TODO: Update summary.
     /// </summary>
     public partial class ReportController
-    {
-        private const string ActiveCustomerSummaryName = "ActiveCustomerSummary";
-
+    {        
         /// <summary>
         /// Default licenseeWL action.
         /// </summary>
@@ -33,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, ActiveCustomerSummaryName);
+            var productAccess = this._productService.GetProductAccessForActiveCustomerSummary(licenseeSession.LicenseeId, userSession.Language);
             var productList = productAccess.ProductList;
             var defaultDate = DateTime.Now.AddDays(-1);
             var metaModel = new ActiveCustomerMetaModel

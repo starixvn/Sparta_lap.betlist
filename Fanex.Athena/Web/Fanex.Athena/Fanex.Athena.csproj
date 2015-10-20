@@ -487,6 +487,8 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <None Include="App_Data\Fanex.Result\GoldDeluxe.xls" />
+    <Content Include="Content\BetList\AGCasino.css" />
+    <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\fanex.result.css" />
     <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
@@ -596,6 +598,7 @@
     <Content Include="img\Slot8\S8003\Line8.jpg" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
+    <Content Include="Scripts\Library\moment.min.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
     <Content Include="Scripts\Report\agcasinowinloss.js" />
@@ -629,6 +632,8 @@
     <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
+    <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
+    <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
@@ -4455,7 +4460,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55703</DevelopmentServerPort>
+          <DevelopmentServerPort>59805</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

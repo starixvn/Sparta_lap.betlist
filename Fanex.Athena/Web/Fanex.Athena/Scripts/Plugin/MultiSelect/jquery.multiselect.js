@@ -124,7 +124,8 @@
     // built up a multiselect
     var MultiSelect = function (select, o) {
         //global variables
-        var $select = $original = $(select),
+        var $original = $(select);
+        var $select = $original,
             $options, $header, $labels, $footer, $listGroupCheckBox, $body, $listItem, $listCollapse, $divHover,
             $allLabel, $inputHeaderCheckBox, $selectinput, $headerCheckbox, $checkedInput, $dropdownlist,
             html = [],
@@ -195,7 +196,7 @@
             inputID = tempData.Id || "ui-multiselect-" + id + "-option-" + index,
             isDisabled = !tempData.Enable,
             labelClasses = tempData.CssClass || "",
-            currentGroupStatus = (tempData.Show == false ? false : true);
+            currentGroupStatus = (tempData.Show == false ? false : true),
             liClasses = "",
             divClasses = "ui-multiselect-div ui-multiselect-corner-all",
             divHtml = "";

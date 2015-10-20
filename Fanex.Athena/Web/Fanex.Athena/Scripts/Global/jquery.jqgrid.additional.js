@@ -52,6 +52,29 @@ var jqGridAdditional = (function () {
             grid.jqGrid('setGridWidth', actualWidth, false);
         },
 
+        formatInteger: function (value) {
+            /// <summary>
+            ///
+            /// </summary>
+            /// <param name="value"></param>
+            /// <returns type=""></returns>
+            if (value !== undefined && value !== null) {
+                if (value === "NaN") {
+                    return "NaN";
+                }
+
+                var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})');
+                var resultValue = value + '';
+
+                while (sRegExp.test(resultValue)) {
+                    resultValue = resultValue.replace(sRegExp, '$1,$2');
+                }
+
+                return resultValue;
+            }
+            return value;
+        },
+
         formatDecimal: function (value) {
             /// <summary>
             ///
@@ -59,8 +82,7 @@ var jqGridAdditional = (function () {
             /// <param name="value"></param>
             /// <returns type=""></returns>
             if (value !== undefined && value !== null) {
-                var fixedValue = Site.isInteger(value) ? parseFloat(value)
-                 : new BigDecimal(value.toString()).setScale(2, MathContext.ROUND_HALF_UP);
+                var fixedValue = new BigDecimal(value.toString()).setScale(2, MathContext.ROUND_HALF_UP);
                 if (fixedValue === "NaN") {
                     return "NaN";
                 }
@@ -243,6 +265,7 @@ var jqGridAdditional = (function () {
 
             return result;
         },
+
         assignTotal: function (totalData, columnModel) {
             /// <summary>
             /// assing total rows

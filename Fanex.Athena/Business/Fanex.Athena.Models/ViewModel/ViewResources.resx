@@ -2711,4 +2711,20 @@
     <value>Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused.</value>
     <comment>#42906</comment>
   </data>
+  <data name="DetailTickets" xml:space="preserve">
+    <value>Detail Tickets</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="RNGGame" xml:space="preserve">
+    <value>RNG Game</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="Settled" xml:space="preserve">
+    <value>Settled</value>
+    <comment>#43078</comment>
+  </data>
+  <data name="DetailedBetlist" xml:space="preserve">
+    <value>Detailed Bet list</value>
+    <comment>#43078</comment>
+  </data>
 </root>

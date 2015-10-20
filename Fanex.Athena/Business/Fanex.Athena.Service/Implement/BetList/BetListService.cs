@@ -298,6 +298,7 @@ namespace Fanex.Athena.Service.Implement.BetList
         }
 
         #endregion
+
         #region Update Match
 
         private void UpdateCommonInfo(BetListMetaModel metaModel)

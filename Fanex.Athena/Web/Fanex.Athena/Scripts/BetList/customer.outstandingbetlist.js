@@ -4,8 +4,8 @@
 var OutstandingBetList = (function ($) {
     return {
         initialize: function () {
-            //Hide label product, because it's a common function in razorhelper
-            $("#ProductList").prev().hide();
+            //show or hide products dropdown list by ViewOption
+            OutstandingBetList.showHideProductsList();
 
             //Set columns need hide
             OutstandingBetList.hiddenColList();
@@ -61,6 +61,18 @@ var OutstandingBetList = (function ($) {
                 columsHidden = "externalid,systemid";
             }
             $("#HiddenColumnList").val(columsHidden);
+        },
+
+        showHideProductsList: function () {
+            var productsListContainer = $("#ProductList");
+            var betlistName = $("#ViewOption").find(":selected").val();
+            if (betlistName === "dailystatement") {
+                productsListContainer.prev().hide();
+            }
+            else {
+                //Remove new-line class of label to display inline, because it's a common function in razorhelper
+                productsListContainer.prev().removeClass("new-line");
+            }
         },
 
         getParamsSubmit: function () {

@@ -182,7 +182,7 @@ var ActiveCustomer = (function ($) {
             var $footerTable = $(".ui-jqgrid-ftable");
             var colspan = $footerTable.find("td").length;
             $footerTable.find("td:eq(0)")
-                .html(Site.getSingleResource("TotalActiveCustomer") + " = " + jqGridAdditional.formatDecimal(grantTotalCustomer))
+                .html(Site.getSingleResource("TotalActiveCustomer") + " = " + jqGridAdditional.formatInteger(grantTotalCustomer))
                 .attr("colspan", colspan)
                 .css("text-align", "left")
                 .nextAll().remove();

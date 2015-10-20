@@ -36,9 +36,9 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <returns> The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IList<Product> GetProductAccessList(int licenseeId)
+        public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
         {
-            var uspName = "Lrf_LicenseeProduct3rdSel";
+            var uspName = isActiveCustomerSummaryReport ? "Lrf_LicenseeProduct3rdSel_active" : "Lrf_LicenseeProduct3rdSel";
 
             // All licensees have product Sb
             var allowedProducts = new List<Product>() { new Product { ProductCode = "SB", ProductName = ViewResources.Sportsbook } };

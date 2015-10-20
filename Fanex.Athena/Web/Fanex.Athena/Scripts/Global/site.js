@@ -97,7 +97,7 @@ var Site = (function ($) {
             });
         },
         showMessaegBox: function (message) {
-            $('<div title="LRF-Notification">' + message + '!</div>').dialog();
+            $('<div title="' + Site.getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
         },
         getLicenseeId: function () {
             if (!_licenseeId) {
@@ -156,7 +156,6 @@ var Site = (function ($) {
             }
         },
         addFilterCollapseExpand: function (containerSelector) {
-            console.log(1);
             if (!containerSelector) {
                 containerSelector = ".content-filter:has(form)";
             }
@@ -167,13 +166,13 @@ var Site = (function ($) {
             $container.append($handler);
 
             var originalHeight = $container.height();
-            var originalTop = originalHeight - 20;
+            var originalTop = originalHeight - 15;
             var isCollapsed = false;
             $handler.css("top", originalTop);
             $handler.click(function () {
                 isCollapsed = !isCollapsed;
                 $container.find("*").toggle();
-                $container.height(isCollapsed ? 5 : originalHeight);
+                $container.height(isCollapsed ? 5 : originalHeight + 5);
                 $handler.css("top", isCollapsed ? -15 : originalTop);
                 $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
                 // $container.css("background", isCollapsed ? "#E7E7E7" : "").addClass("content-filter");
@@ -254,7 +253,7 @@ var Site = (function ($) {
             // Set Url
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).prop("checked"));
@@ -266,7 +265,7 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).prop("checked") });
@@ -280,7 +279,7 @@ var Site = (function ($) {
         setProductOptionOriginalParamList: function (urlOrParams) {
             if (typeof (urlOrParams) === "string") {
                 var counter = 0;
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams = Site.setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
@@ -292,7 +291,7 @@ var Site = (function ($) {
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox']", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
@@ -638,6 +637,54 @@ var Site = (function ($) {
                 index = index.parent;
             }
             index.location = Site.resolveClientUrl('Header/SignOut');
+        },
+
+        setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {
+            var data = $.parseJSON(dataSource);
+            var length = data.length;
+            var dataUI = [];
+            var checkedCount = 0;
+            for (var i = 0; i < length; i++) {
+                var item = data[i];
+                var isChecked = Site.asBool(item[checkField]);
+                if (isChecked) {
+                    checkedCount++;
+                }
+
+                dataUI.push({
+                    Id: item[valueField],
+                    Value: item[valueField],
+                    Text: Site.getSingleResource(item[textField]),
+                    Checked: isChecked,
+                    Enable: true
+                });
+            }
+
+            var isCheckAll = checkedCount === length;
+            $("#" + dropDownListId).multiSelect(
+                {
+                    minWidth: 160,
+                    maxHeight: 400,
+                    shadow: true,
+                    showHeader: true,
+                    isCheckAll: isCheckAll,
+                    checkAllText: Site.getSingleResource('All'),
+                    showFooter: false,
+                    listData: dataUI,
+                    onCheck: function () {
+                        var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+                        $("#product-container input[type=checkbox]:checked").prop("checked", false);
+                        var hasItemsChecked = checkedItems.length > 0;
+                        if (hasItemsChecked) {
+                            for (var i = 0; i < checkedItems.length; i++) {
+                                $('#product-container #' + checkedItems[i]).prop("checked", true);
+                            }
+                        }
+
+                        $("#SubmitButton").prop("disabled", !hasItemsChecked);
+                        $(".error-img").toggleClass("hide", hasItemsChecked);
+                    }
+                });
         }
     };
 })(jQuery);

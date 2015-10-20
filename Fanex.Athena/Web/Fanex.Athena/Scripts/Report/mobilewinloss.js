@@ -29,16 +29,24 @@ var MobileWinLoss = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
+                var $dataContainer = $(".ui-jqgrid-bdiv");
+                if ($dataContainer.length === 0) {
                     return;
                 }
 
                 var height = $("#ReportGrid").height();
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
+                if (MobileWinLoss.hasHorizontalScrollBar($dataContainer)) {
+                    var scrollHeight = $dataContainer.get(0).offsetHeight - $dataContainer.get(0).clientHeight;
+                    height = height + scrollHeight;
+                }
+                var gridTop = $dataContainer.offset().top;
+                var gridHeight = window.innerHeight - gridTop - $dataContainer.height() - $(".ui-jqgrid-pager:visible").height() - 30;
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", height).css("max-height", gridHeight);
+                $dataContainer.css("height", height).css("max-height", gridHeight);
             }, 100);
+        },
+        hasHorizontalScrollBar: function (element) {
+            return element.get(0) ? element.get(0).scrollWidth > (element.innerWidth() - 30) : false;
         },
         //#region Init
         initialize: function () {
@@ -419,7 +427,7 @@ var MobileWinLoss = (function ($) {
             dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();
             dataDrillDown.CurrencyName = $("#OriginalCurrencyName").val();
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
-            
+
             var url = Site.resolveClientUrl("BetList/MobileWl");
 
             url = QueryString.setParam(url, "fromdate", $("#drillDownFromDate").val());

@@ -110,49 +110,43 @@
     </div>
         }
 }
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan = 2, int ListSpan = 24)
-    {
-        var i = 0;
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan)
+ {  
+    var Url = new UrlHelper(Context.Request.RequestContext);
+    var i = 0;
     <div class="grid_@(LabelSpan) filter-label new-line">
         <label>
             @ViewResources.Product</label>
     </div>
-    <div class="grid_@(ListSpan) option-list filter-input" id="ProductList">
-        <input type="checkbox" value="true" name="ALLProducts" id="ALLProducts" />
-        <label for="ALLProducts" class="all-products">
-            @ViewResources.All</label>
-        @foreach (var product in productOptions)
-        {
-            <span style="float: left;">
-            <input data-product-code="@product.Code" type="checkbox"
-            class="childCheckbox" value="true"
-            @(product.Status ? "checked=checked" : "")
-            data-original="@product.Status.ToString()"  name="ProductOptions[@i].Status" id="ProductOptions@(i)" />
-            <label data-product-code="@product.Code" for="ProductOptions@(i)">
-                @product.Name
-            </label>
-            <input type="hidden" value="@product.Code" name="ProductOptions[@i].Code" />
-            <input type="hidden" value="@product.Name" name="ProductOptions[@i].Name" />
-            </span>
-            i++;
-        }
-        @{
-            var Url = new UrlHelper(Context.Request.RequestContext);
-        }
-        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="product-null" class="hide" />
+    <div class="grid_5 option-list filter-input" id="ProductList">
+        <select id="grid-products-multiselect" name="grid-products-multiselect">
+        </select>       
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
+
+        <div class="hide" id="product-container">
+            @foreach (var product in productOptions)
+            {
+                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code"  />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name"  />
+                <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "")  name="ProductOptions[@i].Status" value="True" />
+                i++;
+            }
+        </div>
+        <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
+
         <script type="text/javascript">
             $(window).load(function () {
-                $("#ProductList input[type=checkbox]").checkboxgroup();
+                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 $("form").submit(function (event) {
-                    if ($("input.childCheckbox:checked").length == 0) {
-                        $('<div title="LRF-Notification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
+                    if ($("#product-container input[type=checkbox]:checked").length == 0) {
+                        $('<div title="@ViewResources.LrfNotification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
                         Site.unBlockUI();
                         return false;
                     }
                     return true;
 
                 });
-            });
+            });           
         </script>
     </div>
 }
@@ -234,7 +228,7 @@ bool addBasedOption = false)
                 Value = BaseCurrencyType.Gbp.ToString(),
                 Selected = BaseCurrencyType.Gbp == selected
             });
-            
+
             items.Insert(0, new System.Web.WebPages.Html.SelectListItem
             {
                 Text = ViewResources.Based + " USD",

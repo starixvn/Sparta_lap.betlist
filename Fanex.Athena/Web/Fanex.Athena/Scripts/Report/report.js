@@ -6,8 +6,7 @@ var Report = (function ($) {
     return {
         ValidProducts: function () {
             var temp = true;
-            $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($("input.childCheckbox:checked").length === 0) {
+            if ($(".childCheckbox:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
@@ -23,7 +22,7 @@ var Report = (function ($) {
             return temp;
         },
         setOriginalProduct: function () {
-            $("input[type='checkbox']", "#ProductList").each(function (index, element) {
+            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
                 var isCheck = $(this).is(":checked");
                 $(element).attr({ 'data-original': isCheck });
             });

@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     {
         #region Public Methods and Operators
 
-        IList<Product> GetProductAccessList(int licenseeId);
+        IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false);
 
         bool IsAllowedSaToteCurrency(int custId);
 

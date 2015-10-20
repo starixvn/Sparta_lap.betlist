@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.MetaModel.BetList;
@@ -47,23 +48,37 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
+            var isCheckedAllProducts = metaModel.ProductOptions.Count == 0;
+            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status)
+                                            .Select(x => x.Code).ToList();
+            var hasCheckedBetTrade = metaModel.ProductOptions.Any(p => p.Code == "BT" && p.Status);
             metaModel.ProductOptions = new HashSet<ProductOption>();
-            for (int i = 0, j = productAccess.ProductList.Count; i < j; i++)
+
+            foreach (var product in productAccess.ProductList)
             {
-                var status = true;
-                var statusURL = "productoptions[" + i + "].status";
-                var statusText = Request.QueryString[statusURL];
-                if (statusText != null)
+                var productOption = new ProductOption()
                 {
-                    bool.TryParse(statusText, out status);
+                    Code = product.ProductCode,
+                    Name = product.ProductName
+                };
+
+                if (isCheckedAllProducts)
+                {
+                    productOption.Status = true;
+                }
+                else
+                {
+                    var status = previousCheckedProducts.Any(code => code == product.ProductCode);
+                    productOption.Status = status;
                 }
 
-                metaModel.ProductOptions.Add(new ProductOption
-                                             {
-                                                 Code = productAccess.ProductList[i].ProductCode,
-                                                 Name = productAccess.ProductList[i].ProductName,
-                                                 Status = status
-                                             });
+                metaModel.ProductOptions.Add(productOption);
+            }
+
+            if (hasCheckedBetTrade)
+            {
+                var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
+                defaultProduct.Status = true;
             }
 
             return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);

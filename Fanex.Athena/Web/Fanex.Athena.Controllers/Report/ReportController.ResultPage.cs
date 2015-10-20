@@ -186,7 +186,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult MicrogamingResultPopup(int betCheck, int custId)
+        public ActionResult MicrogamingResultPopup(int gameId, int custId)
         {
             if (ModelState.IsValid)
             {
@@ -194,7 +194,7 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         CustId = custId,
                         SiteName = SessionService.LicenseeSession.LicenseeName,
-                        GameId = betCheck
+                        GameId = gameId
                     });
                 return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
             }

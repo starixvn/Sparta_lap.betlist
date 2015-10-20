@@ -52,7 +52,7 @@
         <div class="grid_3 filter-input">
             @Html.DropDownList("OrderItem", ViewBag.OrderItemList as List<SelectListItem>, new { })
         </div>
-        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3, 19)
+        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
         <div class="grid_3 filter-label new-line">
             &nbsp;</div>
         <div class="grid_2 filter-input">

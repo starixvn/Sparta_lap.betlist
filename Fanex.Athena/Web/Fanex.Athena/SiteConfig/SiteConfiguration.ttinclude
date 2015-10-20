@@ -75,9 +75,8 @@
                 switch (SiteEnvironment)
                 {
 					case SiteEnvironment.DEV:
-                        return "http://10.18.200.209:8091/pools/default";
                     case SiteEnvironment.LOCAL:
-                        return "http://10.18.200.209:8091/pools/default";
+                        return "http://10.18.200.124:8091/pools/default";
                     case SiteEnvironment.UAT:
                         return "http://10.40.40.128:8091/pools/default";
                     case SiteEnvironment.PRO:
@@ -99,17 +98,16 @@
                 switch (SiteEnvironment)
                 {
 					 case SiteEnvironment.DEV:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     case SiteEnvironment.LOCAL:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.124\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     case SiteEnvironment.UAT:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.40.40.73\\private$\\entlib\" defaultCategory=\"LRF-UAT\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=http://10.40.40.127/msmq/Private$/entlib\" defaultCategory=\"LRF-UAT\" />";
                     case SiteEnvironment.PRO:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=http://10.40.40.127/msmq/Private$/entlib\" defaultCategory=\"LRF\" />";
                     case SiteEnvironment.BACKUPMNL:
                         return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=TCP:10.2.98.3\\private$\\entlib\" defaultCategory=\"Licensee-Live\" />";
                     case SiteEnvironment.SANDBOX:
-                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.209\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
+                        return "<Fanex.Logging msmqPath=\"FormatName:DIRECT=tcp:10.18.200.124\\private$\\entlib\" defaultCategory=\"LRF-LOCAL\" />";
                     default:
                         return string.Empty;
                 }

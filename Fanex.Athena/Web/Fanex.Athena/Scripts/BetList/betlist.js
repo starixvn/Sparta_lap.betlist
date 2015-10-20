@@ -1,6 +1,6 @@
 ﻿/// <reference path="/@JSense.js" />
-/*global Site, QueryString,jqGridAdditional, BetListOption*/
-/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult*/
+/*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, showAGCasinoDetails*/
 
 var BetList = (function ($) {
     "use strict";
@@ -151,7 +151,7 @@ var BetList = (function ($) {
             // Specify the hidden column
             var hiddenColumnList = $("#HiddenColumnList").val();
             var hiddenColumnTokens = hiddenColumnList.split(",");
-            var showSummary = hiddenColumnList.indexOf("licenseewl") < 0;
+            var showSummary = $("#ShowSummary").val() === "0" ? false : hiddenColumnList.indexOf("licenseewl") < 0;
 
             $.each(hiddenColumnTokens, function (index, value) {
                 jqGridAdditional.setColumnVisible(BetListOption.columnModel, value, true);
@@ -305,9 +305,9 @@ var BetList = (function ($) {
             return url;
         },
 
-        getMicrogamingResultUrl: function (betcheck, custid) {
+        getMicrogamingResultUrl: function (gameid, custid) {
             var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
-            url = QueryString.setParam(url, "betcheck", betcheck);
+            url = QueryString.setParam(url, "gameid", gameid);
             url = QueryString.setParam(url, "custid", custid);
 
             return url;
@@ -317,8 +317,8 @@ var BetList = (function ($) {
             var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
         },
-        showMicrogamingResultPopup: function (title, betcheck, custid) {
-            var url = BetList.getMicrogamingResultUrl(betcheck, custid);
+        showMicrogamingResultPopup: function (title, gameid, custid) {
+            var url = BetList.getMicrogamingResultUrl(gameid, custid);
 
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="450" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
@@ -415,10 +415,48 @@ var BetList = (function ($) {
                 height: height + 50
             });
         },
+
+        showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('BetList/MicroGamingRngDetail');
+            url = QueryString.setParam(url, "transid", transId);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var title = Site.getSingleResource("Microgaming") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
+
+        showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('BetList/AGCasinoDetail');
+            url = QueryString.setParam(url, "transid", transId);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var title = Site.getSingleResource("AGCasino") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
+
         ValidProducts: function () {
             var temp = true;
-            $("#ProductList input[type=checkbox]").checkboxgroup();
-            if ($(".childCheckbox:checked").length === 0) {
+            if ($("#ProductList input:checked").length === 0) {
                 temp = false;
                 var title = Site.getSingleResource("LrfNotification");
                 $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
@@ -464,3 +502,5 @@ var showCombMP = function (transId, index) {
 };
 
 var showCombMPDetail = BetList.showSystemParlayDetail;
+var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;
+var showAGCasinoDetails = BetList.showAGCasinoDetails;
