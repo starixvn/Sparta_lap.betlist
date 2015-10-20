@@ -20,9 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     ///     TODO: Update summary.
     /// </summary>
     public partial class ReportController
-    {
-        private const string ActiveCustomerSummaryName = "ActiveCustomerSummary";
-
+    {        
         /// <summary>
         /// Default licenseeWL action.
         /// </summary>

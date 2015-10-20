@@ -101,20 +101,28 @@ namespace Fanex.Athena.Service.Implement.Common
 
         public ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode)
         {
+            const string FilterFunctionName = "ActiveCustomerSummary";
+
             var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheActiveCustomerSummaryProduct + licenseeId + languageCode;
-            var allowedProducts = cache.Get<IList<Product>>(cacheKey);
+            var products = cache.Get<IList<Product>>(cacheKey);
 
-            if (allowedProducts == null)
+            if (products == null)
             {
-                allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId, true);
+                products = this._productDataAccess.GetProductAccessList(licenseeId, true);
+                var allowedProducts = GetAllowedProducts(FilterFunctionName);
+                if (allowedProducts.Any())
+                {
+                    products = products.Where(i => allowedProducts.Contains(i.ProductCode)).ToList();
+                }
+
                 cache.Set(
                     cacheKey,
-                    allowedProducts,
+                    products,
                     DateTime.Now.AddMinutes(CacheTimeoutMinute));
             }
 
-            return new ProductAccess(allowedProducts);
+            return new ProductAccess(products);
         }
 
         /// <summary>
