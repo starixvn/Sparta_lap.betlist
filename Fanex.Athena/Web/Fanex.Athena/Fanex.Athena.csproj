@@ -623,12 +623,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
     </Content>
+    <Content Include="Scripts\jasmine-specs\Global\query.string.spec.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
-
-    <Content Include="Scripts\jasmine-samples\Player.js" />
-    <Content Include="Scripts\jasmine-samples\PlayerSpec.js" />
-    <Content Include="Scripts\jasmine-samples\Song.js" />
-    <Content Include="Scripts\jasmine-samples\SpecHelper.js" />
+    <Content Include="Scripts\jasmine-specs\Player.js" />
+    <Content Include="Scripts\jasmine-specs\PlayerSpec.js" />
+    <Content Include="Scripts\jasmine-specs\Song.js" />
+    <Content Include="Scripts\jasmine-specs\SpecHelper.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\console.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
