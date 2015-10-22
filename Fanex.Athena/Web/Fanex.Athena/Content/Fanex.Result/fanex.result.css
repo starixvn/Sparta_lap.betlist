@@ -1,9 +1,9 @@
-div.fn-rs-content-header
+.fn-rs-content-header
 {
     border: 1px solid #cbc9ca;
     padding-right: 15px;
 }
-div.fn-rs-content-scroll
+.fn-rs-content-scroll
 {
     border: 1px solid #cbc9ca;
     max-height: 740px;
@@ -13,6 +13,40 @@ div.fn-rs-content-scroll
     -ms-overflow-x: hidden;
     width: 100%;
     max-height: 780px;
+}
+.goal-record
+{
+    float: right;
+    padding: :5px 0px;
+}
+.goal-record table
+{
+    min-width: 180px;
+    border-collapse: collapse;
+    text-align: center;
+}
+.goal-record table th
+{
+    border-right: 1px solid #cbc9ca;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    color: #FFF !important;
+}
+.goal-record table .header
+{
+    color: #fff;
+    background-color: #295091;
+}
+.goal-record table tbody td
+{
+    border: solid 1px #cbc9ca;
+    padding: 1px;
+    vertical-align: middle;
+}
+.goal-record table tbody .cl-goal
+{
+    width: 50%;
 }
 table
 {
@@ -82,6 +116,28 @@ table.fn-rs tbody .cl-league
     text-align: left;
     line-height: 7px;
     height: 21px;
+}
+table.fn-rs tbody .cl-team
+{
+    text-align: left;
+}
+table.fn-rs tbody .cl-match-mt
+{
+    text-align: left;
+    font-size: 12px;
+    padding-left: 3px;
+}
+table.fn-rs tbody .cl-match-mt.home
+{
+    color: #c00;
+}
+table.fn-rs tbody .cl-match-mt.away
+{
+    color: #4169e1;
+}
+table.fn-rs tbody .cl-match-mt.win
+{
+    font-weight: bold;
 }
 table.fn-rs tbody .cl-match
 {

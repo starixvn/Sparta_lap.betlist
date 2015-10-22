@@ -1,0 +1,324 @@
+.fn-rs-content-header
+{
+    border: 1px solid #cbc9ca;
+    padding-right: 15px;
+}
+.fn-rs-content-scroll
+{
+    border: 1px solid #cbc9ca;
+    max-height: 740px;
+    overflow-y: scroll;
+    -ms-overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
+    width: 100%;
+    max-height: 780px;
+}
+.goal-record
+{
+    float: right;
+    padding: :5px 0px;
+}
+.goal-record table
+{
+    min-width: 180px;
+    border-collapse: collapse;
+    text-align: center;
+}
+.goal-record table th
+{
+    border-right: 1px solid #cbc9ca;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    color: #FFF !important;
+}
+.goal-record table .header
+{
+    color: #fff;
+    background-color: #295091;
+}
+.goal-record table tbody td
+{
+    border: solid 1px #cbc9ca;
+    padding: 1px;
+    vertical-align: middle;
+}
+.goal-record table tbody .cl-goal
+{
+    width: 50%;
+}
+table
+{
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    color: rgb(69, 69, 69);
+}
+
+table.popup
+{
+    min-width: 650px !important;
+}
+table.fn-rs
+{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1000px;
+    text-align: center;
+    border-top: 1px solid #a3d1e1;
+    line-height: 20px;
+}
+table.fn-rs.number-game
+{
+    line-height: 15px;
+}
+table.fn-rs thead th
+{
+    border-right: 1px solid #cbc9ca;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 25px;
+}
+table.fn-rs thead th.cl-title
+{
+    background: #ccc;
+}
+table.fn-rs .header, table.fn-rs .sub-header
+{
+    color: #024584;
+    background-color: #c7e9f5;
+    background-image: url("images/tab_topbg.gif");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+}
+table.fn-rs tbody tr.data:hover
+{
+    background: none repeat scroll 0 0 #fcf911 !important;
+}
+table.fn-rs tbody tr.even
+{
+    background: none repeat scroll 0 0 #fcfde9;
+}
+table.fn-rs tbody tr td
+{
+    border: solid 1px #cbc9ca;
+    padding: 1px;
+    vertical-align: middle;
+    /*width: 67px;*/
+}
+table.fn-rs tbody .cl-league
+{
+    background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
+    vertical-align: middle;
+    border: 0;
+    font-weight: bold;
+    text-align: left;
+    line-height: 7px;
+    height: 21px;
+}
+table.fn-rs tbody .cl-team
+{
+    text-align: left;
+}
+table.fn-rs tbody .cl-match-mt
+{
+    text-align: left;
+    font-size: 12px;
+    padding-left: 3px;
+}
+table.fn-rs tbody .cl-match-mt.home
+{
+    color: #c00;
+}
+table.fn-rs tbody .cl-match-mt.away
+{
+    color: #4169e1;
+}
+table.fn-rs tbody .cl-match-mt.win
+{
+    font-weight: bold;
+}
+table.fn-rs tbody .cl-match
+{
+    text-align: left;
+    font-size: 11px;
+    padding-left: 3px;
+}
+table.fn-rs tbody .cl-match.home
+{
+    color: rgb(69, 69, 69);
+}
+table.fn-rs tbody .cl-match.away
+{
+    color: rgb(69, 69, 69);
+}
+table.fn-rs tbody .cl-match div
+{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+table.fn-rs tbody .cl-match div.first-goal
+{
+    background: url("images/goal-icon.png") no-repeat -9px -32px;
+}
+table.fn-rs tbody .cl-match div.last-goal
+{
+    background: url("images/goal-icon.png") no-repeat -9px -16px;
+}
+table.fn-rs tbody .cl-match div.first-half-first-goal
+{
+    background: url("images/goal-icon.png") no-repeat -9px -65px;
+}
+table.fn-rs tbody .cl-match div.first-half-last-goal
+{
+    background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
+}
+table.fn-rs tbody .cl-match div.home, table.fn-rs tbody .cl-match div.away
+{
+    width: 100%;
+    display: inline-block;
+    margin-top: 10px;
+}
+table.fn-rs .cl-m-code
+{
+    width: 112px;
+}
+table.fn-rs .cl-m-code .m-code
+{
+    color: #599ced;
+}
+table.fn-rs .cl-ko-time
+{
+    width: 90px;
+}
+table.fn-rs .cl-match
+{
+    min-width: 82px;
+}
+table.fn-rs .cl-s, table.fn-rs .cl-ot, table.fn-rs .cl-ei
+{
+    width: 40px;
+}
+table.fn-rs .cl-totalgames, table.fn-rs .cl-totalpoint
+{
+    width: 72px;
+    color: #0054ff;
+}
+table.fn-rs .cl-totalset
+{
+    width: 68px;
+    color: #ff0000;
+}
+table.fn-rs .cl-ht-score
+{
+    width: 100px;
+    color: #0054ff;
+}
+table.fn-rs .cl-f-score
+{
+    width: 100px;
+    color: #ff0000;
+}
+table.fn-rs .cl-status
+{
+    text-transform: capitalize;
+    width: 94px;
+}
+table.fn-rs .cl-status .detail-link
+{
+    color: #0273FF;
+    cursor: pointer;
+    text-decoration: none;
+}
+table.fn-rs .cl-status .detail-link:hover
+{
+    color: #D2592D;
+}
+table.fn-rs .cl-status .penalty-result
+{
+    color: inherit;
+    cursor: inherit;
+    text-decoration: none;
+}
+table.fn-rs .cl-status .penalty-result:hover
+{
+    color: inherit;
+}
+table.number-game
+{
+}
+table.number-game .cl-result
+{
+    width: 150px;
+}
+table.number-game .cl-warrior, table.number-game .cl-lblOEFT, table.number-game .cl-lbl1stball, table.number-game .cl-lastball
+{
+    width: 70px;
+}
+table.number-game span.ball
+{
+    padding: 5px 5px;
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #fff 25%, #fff 50%, #fff 75%, #d1cdcd);
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), color-stop(0.25, #fff), color-stop(0.5, #fff), color-stop(0.75, #fff), to(#d1cdcd));
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    border: 1px solid #5c5757;
+    text-shadow: 1px 0px 0px rgba(0, 0, 0, 0.4),1px 1px 0px rgba(255, 255, 255, 0.4);
+    width: 15px !important;
+    display: inline-block;
+    text-align: center;
+    margin-left: 2px;
+}
+table.casino
+{
+}
+table.casino .cl-result
+{
+    width: 334px;
+}
+table.racing
+{
+}
+table.racing .cl-race
+{
+    width: 180px;
+}
+table.racing .cl-result
+{
+    font-weight: bold;
+    text-align: left;
+}
+table.racing .cl-win, table.racing .cl-place
+{
+    width: 100px;
+}
+table.racing .cl-status
+{
+    width: 150px;
+}
+table.racing .cl-status .official
+{
+    color: red;
+    font-weight: bold;
+}
+table.racing .cl-race-name
+{
+    width: 83px;
+}
+table.racing .cl-placing
+{
+    width: 50px;
+}
+table.racing .cl-engine-no
+{
+    width: 48px;
+}
+table .row-noinfo
+{
+    border-top: 0;
+    text-align: center;
+    padding: 4px;
+}
