@@ -3,6 +3,7 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSelEditCustomer" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMember_All" EnvironmentText="_xtest"></SpNameConfig>  
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xtest"></SpNameConfig>
