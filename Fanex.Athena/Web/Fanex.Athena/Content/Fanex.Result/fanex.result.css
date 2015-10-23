@@ -153,6 +153,10 @@ table.fn-rs tbody .cl-match.away
 {
     color: rgb(69, 69, 69);
 }
+table.fn-rs tbody .cl-match.win
+{
+    font-weight: bold;
+}
 table.fn-rs tbody .cl-match div
 {
     width: 14px;
@@ -235,6 +239,19 @@ table.fn-rs .cl-status .detail-link
 table.fn-rs .cl-status .detail-link:hover
 {
     color: #D2592D;
+}
+table.fn-rs .cl-status .ko
+{
+    color: #677AE0;
+    font-weight: bold;
+}
+table.fn-rs .cl-bg-pending
+{
+    background: Yellow;
+}
+table.fn-rs .cl-bg-postponed
+{
+    background: #fdfd87;
 }
 table.fn-rs .cl-status .penalty-result
 {

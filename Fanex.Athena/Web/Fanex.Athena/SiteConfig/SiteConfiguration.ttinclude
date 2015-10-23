@@ -196,7 +196,7 @@
                     case SiteEnvironment.SANDBOX:
                         return "<sessionState mode=\"StateServer\" />";
                     case SiteEnvironment.UAT:
-                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
+                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.40.40.127:42424\" cookieless=\"false\"  />";
                     case SiteEnvironment.PRO:
                         return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
                     case SiteEnvironment.BACKUPMNL:
