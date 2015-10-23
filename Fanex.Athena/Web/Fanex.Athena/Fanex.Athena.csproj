@@ -624,7 +624,8 @@
       <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\jasmine-specs\Global\query.string.spec.js" />
-    <Content Include="Scripts\Library\jquery.marquee.js" />
+    <Content Include="Scripts\jasmine-specs\Global\prototype-spec.js" />
+    <Content Include="Scripts\jasmine-specs\Global\query.string-spec.js" />    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\jasmine-specs\Player.js" />
     <Content Include="Scripts\jasmine-specs\PlayerSpec.js" />
     <Content Include="Scripts\jasmine-specs\Song.js" />
