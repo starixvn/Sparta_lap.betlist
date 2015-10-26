@@ -87,7 +87,11 @@
 				string generateSpNameText = AllSpName;
 				foreach (var item in listOfConfig)
 				{
-					generateSpNameText = generateSpNameText.Replace(string.Format(SpNameTemplate, item.SpName), string.Format(SpNameTemplate, item.SpName + item.EnvironmentText));
+					generateSpNameText = Regex.Replace(
+						generateSpNameText, 
+						string.Format(SpNameTemplate, item.SpName), 
+						string.Format(SpNameTemplate, item.SpName + item.EnvironmentText), 
+						RegexOptions.IgnoreCase); 
 				}
 			
 				return generateSpNameText;
