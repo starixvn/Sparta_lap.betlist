@@ -626,7 +626,12 @@
     <Content Include="Scripts\jasmine-specs\Global\query.string.spec.js" />
     <Content Include="Scripts\jasmine-specs\Global\prototype-spec.js" />
     <Content Include="Scripts\jasmine-specs\Global\query.string-spec.js" />    <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\jasmine-specs\Player.js" />
+    <Content Include="Scripts\jasmine-specs\Global\site-test.js" />
+    <Content Include="Scripts\jasmine-specs\Global\prototype-test.js" />
+    <Content Include="Scripts\jasmine-specs\Global\query.string-test.js" />
+    <Content Include="Scripts\jasmine\jasmine-fixture.js" />
+    <Content Include="Scripts\jasmine\jasmine-jquery.js" />
+    <Content Include="Scripts\Library\jquery.marquee.js" />    <Content Include="Scripts\jasmine-specs\Player.js" />
     <Content Include="Scripts\jasmine-specs\PlayerSpec.js" />
     <Content Include="Scripts\jasmine-specs\Song.js" />
     <Content Include="Scripts\jasmine-specs\SpecHelper.js" />
@@ -4493,6 +4498,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
