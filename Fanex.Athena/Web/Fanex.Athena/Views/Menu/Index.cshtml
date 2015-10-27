@@ -30,14 +30,11 @@
                 </div>
             }
             @{
-
-                var langService = new Fanex.Athena.Service.Implement.Common.LanguageService();
-                var masterFunctions = langService.MapWithLanguage(Model.MasterFunctions);
-                foreach (var masterFunction in masterFunctions)
+                foreach (var masterFunction in Model.MasterFunctions)
                 {
-                    var subFunctions = langService.MapWithLanguage(Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
+                    var subFunctions = Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
                                     ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
-                                    : null);
+                                    : null;
                     var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
                     if (subMenuCount > 0)
                     {

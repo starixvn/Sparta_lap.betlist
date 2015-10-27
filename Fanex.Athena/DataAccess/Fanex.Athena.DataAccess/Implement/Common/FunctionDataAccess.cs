@@ -44,7 +44,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                         {
                             FunctionId = reader.ToInt("functionid"),
                             ParentId = reader.ToInt("ParentId"),
-                            Name = reader.ToString("Name"),
                             Description = reader.ToString("Description"),
                             Url = reader.ToString("Url"),
                             DisplayOrder = reader.ToInt("DisplayOrder"),

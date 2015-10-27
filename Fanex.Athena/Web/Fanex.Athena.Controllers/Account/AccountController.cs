@@ -641,12 +641,8 @@ namespace Fanex.Athena.Controllers.Account
             // get all functions of licensee
             var allLicenseeFunctionList = _functionService.GetLicenseeFunctionList(licenseeId);
 
-            // convert them into another language (if any)
-            allLicenseeFunctionList = LangService.MapWithLanguage(allLicenseeFunctionList);
-
             // get all master functions
             _allMasterFunctionList = _functionService.GetMasterFunctions(allLicenseeFunctionList);
-            _allMasterFunctionList = LangService.MapWithLanguage(_allMasterFunctionList);
 
             // map each function with its sub functions
             _allFunctionMap = _functionService.GetSubFunctions(allLicenseeFunctionList);
