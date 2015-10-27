@@ -39,16 +39,19 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 {
                     db.AddInParameter("CurrencyCode", DbType.String, currenyCode);
                     db.AddInParameter("Date", DbType.DateTime, datetime);
-                    var item = new ExChangeRate();
-                    var reader = db.ExecuteReader();
-                    while (reader.Read())
+                    
+                    using (var reader = db.ExecuteReader())
                     {
-                        item.USD = reader.ToDecimal("USD");
-                        item.EUR = reader.ToDecimal("EUR");
-                        item.GBP = reader.ToDecimal("GBP");
-                    }
+                        var item = new ExChangeRate();
+                        if (reader.Read())
+                        {
+                            item.USD = reader.ToDecimal("USD");
+                            item.EUR = reader.ToDecimal("EUR");
+                            item.GBP = reader.ToDecimal("GBP");
+                        }
 
-                    return item;
+                        return item;
+                    }
                 }
             }
             catch (ObjectDbException sqlException)
