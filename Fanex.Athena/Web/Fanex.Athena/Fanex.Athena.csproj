@@ -625,7 +625,9 @@
     </Content>
     <Content Include="Scripts\jasmine-specs\Global\query.string.spec.js" />
     <Content Include="Scripts\jasmine-specs\Global\prototype-spec.js" />
-    <Content Include="Scripts\jasmine-specs\Global\query.string-spec.js" />    <Content Include="Scripts\Library\jquery.marquee.js" />
+    <Content Include="Scripts\jasmine-specs\Global\query.string-spec.js" />
+    <Content Include="Scripts\Library\jquery.marquee.js" />
+    <Content Include="Scripts\jasmine-specs\Global\paging-test.js" />
     <Content Include="Scripts\jasmine-specs\Global\site-test.js" />
     <Content Include="Scripts\jasmine-specs\Global\prototype-test.js" />
     <Content Include="Scripts\jasmine-specs\Global\query.string-test.js" />
