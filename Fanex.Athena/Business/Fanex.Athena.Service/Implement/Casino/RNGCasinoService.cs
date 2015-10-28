@@ -44,8 +44,8 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <returns>The RNG Casino result list.</returns>
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
         {
-            List<RNGCasinoResult> casinos = new List<RNGCasinoResult>();
-            var dataTable= GetResultFromAPI(metaModel);
+            var casinos = new List<RNGCasinoResult>();
+            var dataTable = GetResultFromAPI(metaModel);
           
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
