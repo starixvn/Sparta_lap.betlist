@@ -9,10 +9,8 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
@@ -43,7 +41,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             Justification = "Reviewed. Suppression is OK here.")]
         public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
         {
-            var result = new SortableList<CustomerWinLoss>();
             totalRows = 0;
             totalData = new CustomerWinLoss();
             using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
@@ -66,6 +63,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 using (var reader = db.ExecuteReader())
                 {
+                    var result = new SortableList<CustomerWinLoss>();
                     while (reader.Read())
                     {
                         result.Add(new CustomerWinLoss
@@ -108,10 +106,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             totalRows = reader.ToInt("TotalRows");
                         }
                     }
+
+                    return result;
                 }
             }
-
-            return result;
         }
     }
 }
