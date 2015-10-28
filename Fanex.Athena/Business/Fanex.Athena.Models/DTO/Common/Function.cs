@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.DTO.Common
 {
     using System;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     /// Function class.
@@ -17,7 +18,13 @@ namespace Fanex.Athena.Models.DTO.Common
     {
         public int FunctionId { get; set; }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return Menu.ResourceManager.GetString("Menu_" + FunctionId);
+            }
+        }
 
         public string Description { get; set; }
 

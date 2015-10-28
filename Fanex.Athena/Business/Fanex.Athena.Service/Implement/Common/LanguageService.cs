@@ -32,40 +32,6 @@ namespace Fanex.Athena.Service.Implement.Common
         }
 
         /// <summary>
-        /// Map function name with resource language.
-        /// </summary>
-        /// <param name="list">The functions.</param>
-        /// <returns>The mapped functions.</returns>
-        public IList<Function> MapWithLanguage(IList<Function> list)
-        {
-            if (list == null)
-            {
-                return null;
-            }
-
-            var currentResource = Type.GetType("Fanex.Athena.Models.ViewModel.Menu, Fanex.Athena.Models");
-            ResourceManager rm = new ResourceManager(currentResource);
-            var newList = new List<Function>();
-            foreach (var func in list)
-            {
-                newList.Add(new Function
-                {
-                    IsActive = func.IsActive,
-                    Description = func.Description,
-                    DisplayOrder = func.DisplayOrder,
-                    FunctionId = func.FunctionId,
-                    IsMenu = func.IsMenu,
-                    IsNew = func.IsNew,
-                    Name = rm.GetString("Menu_" + func.FunctionId),
-                    ParentId = func.ParentId,
-                    Url = func.Url
-                });
-            }
-
-            return newList;
-        }
-
-        /// <summary>
         /// Get current language.
         /// </summary>
         /// <returns>The language code.</returns>

@@ -129,10 +129,10 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var totalData = new CustomerWinLoss();
-            var totalRows = 0;
+            CustomerWinLoss totalData;
+            int totalRows;
             var custWinlossService = new CustomerWinlossService();
-            var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var dataList = custWinlossService.GetDataList(metaModel, out totalData, out totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
             
@@ -171,10 +171,10 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
 
-            var totalData = new CustomerWinLoss();
-            var totalRows = 0;
+            CustomerWinLoss totalData;
+            int totalRows;
             var custWinlossService = new CustomerWinlossService();
-            var dataList = custWinlossService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var dataList = custWinlossService.GetDataList(metaModel, out totalData, out totalRows);
 
             dataList.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 

@@ -29,7 +29,6 @@ namespace Fanex.Athena.Service.Implement.Casino
     {
         private readonly ILanguageService _langService = new LanguageService();
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
-        private readonly string _subDomainPath = Extension.Utility.AppSettings.GetValue("SubDomainPath");
 
         public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
         {
@@ -45,10 +44,9 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// <returns>The RNG Casino result list.</returns>
         public List<RNGCasinoResult> GetRNGCasinoResult(RNGCasinoResultMetaModel metaModel)
         {
-            List<RNGCasinoResult> casinos = new List<RNGCasinoResult>();
-            DataTable dataTable;
-            GetResultFromAPI(metaModel, out dataTable);
-
+            var casinos = new List<RNGCasinoResult>();
+            var dataTable = GetResultFromAPI(metaModel);
+          
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
                 var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
@@ -59,8 +57,6 @@ namespace Fanex.Athena.Service.Implement.Casino
                     var dr = dataTable.Rows[i];
                     var casino = MapDataToCasinoItem(dr);
                     casino.Index = i + 1;
-                    casino.Result = casino.Result.Replace("/Form", this._subDomainPath + "/Form");
-                    casino.Result = casino.Result.Replace("/img", this._subDomainPath + "/img");
                     if (metaModel.IsShowPic)
                     {
                         casino.Result = casino.Result.Replace("<img", "<br /><img");
@@ -190,7 +186,7 @@ namespace Fanex.Athena.Service.Implement.Casino
 
                 default:
                     return 1;
-            }            
+            }
         }
 
         /// <summary>
@@ -198,10 +194,10 @@ namespace Fanex.Athena.Service.Implement.Casino
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <param name="dataTable">The data table.</param>
-        private static void GetResultFromAPI(RNGCasinoResultMetaModel metalModel, out DataTable dataTable)
+        private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();
-            dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
+            var dataTable = casinoLib.WinLossHandHistory(metalModel.RefNo, metalModel.BetType, RNGCasinoSetting.CasinoGroup1, metalModel.IsShowPic);
             if (dataTable == null)
             {
                 dataTable = casinoLib.RealTimeWinLossHandHistory(
@@ -211,6 +207,8 @@ namespace Fanex.Athena.Service.Implement.Casino
                 RNGCasinoSetting.CasinoGroup1,
                 metalModel.IsShowPic);
             }
+
+            return dataTable;
         }
 
         private static void GetResultFromAPIRealTime(RNGCasinoResultMetaModel metalModel, out DataTable dataTable)

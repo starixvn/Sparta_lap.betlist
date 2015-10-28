@@ -26,7 +26,5 @@ namespace Fanex.Athena.Service.Interface.Common
         bool ChangeLanguage(string languageCode);
 
         void SetPageCulture(string languageCode);
-
-        IList<Function> MapWithLanguage(IList<Function> list);
     }
 }

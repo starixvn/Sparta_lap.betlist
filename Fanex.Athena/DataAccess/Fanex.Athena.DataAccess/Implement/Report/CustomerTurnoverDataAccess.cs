@@ -46,13 +46,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
             total = new CustTurnover();
             totalRow = 0;
-            IList<CustTurnover> result = new List<CustTurnover>();
+
             using (var db = new ObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
                 AddParameters(metaModel, languageCode, db);
 
                 using (var reader = db.ExecuteReader())
                 {
+                    var result = new List<CustTurnover>();
                     while (reader.Read())
                     {
                         var turnover = reader.ToDecimal("Turnover");
@@ -74,9 +75,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     if (reader.NextResult())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            /*read total data*/
                             total.TotalTransactions = reader.ToInt("SumBetCount");
                             total.Turnover = reader.ToDecimal("SumTurnover");
                             total.TotalTurnover = reader.ToDecimal("SumTurnover");
@@ -85,10 +85,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             totalRow = reader.ToInt("TotalRows");
                         }
                     }
+
+                    return result;
                 }
             }
-
-            return result;
         }
 
         /// <summary>

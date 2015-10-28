@@ -9,10 +9,8 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
@@ -41,9 +39,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
+        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
         {
-            var result = new SortableList<CustomerWinLoss>();
+            totalRows = 0;
+            totalData = new CustomerWinLoss();
             using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -64,6 +63,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                 using (var reader = db.ExecuteReader())
                 {
+                    var result = new SortableList<CustomerWinLoss>();
                     while (reader.Read())
                     {
                         result.Add(new CustomerWinLoss
@@ -89,30 +89,27 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     if (result.Count > 0 && reader.NextResult())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            // Add data to Total Result
-                            totalData = new CustomerWinLoss
-                            {
-                                Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency),
-                                TotalTransaction = reader.ToInt("sumbetcount"),
-                                MemberWL = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency),
-                                PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency),
-                                LicenseeWL = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency),
-                                BAComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency),
-                                RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
-                                    + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency),
-                                AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency),
-                                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency),
-                                BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency),
-                            };
+                            totalData.Turnover = reader.ToDecimal("sumturnover" + metaModel.BaseCurrency);
+                            totalData.TotalTransaction = reader.ToInt("sumbetcount");
+                            totalData.MemberWL = reader.ToDecimal("summemberwinlost" + metaModel.BaseCurrency);
+                            totalData.PlayerComm = reader.ToDecimal("sumplayercomm" + metaModel.BaseCurrency);
+                            totalData.LicenseeWL = reader.ToDecimal("sumlicenseewl" + metaModel.BaseCurrency);
+                            totalData.BAComm = reader.ToDecimal("sumcommba" + metaModel.BaseCurrency);
+                            totalData.RacingRevenue = reader.ToDecimal("sumwinlossrb" + metaModel.BaseCurrency)
+                                + reader.ToDecimal("sumcommrb" + metaModel.BaseCurrency);
+                            totalData.AmtDueToBA = reader.ToDecimal("sumamtduetoba" + metaModel.BaseCurrency);
+                            totalData.AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency);
+                            totalData.BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency);
+
                             totalRows = reader.ToInt("TotalRows");
                         }
                     }
+
+                    return result;
                 }
             }
-
-            return result;
         }
     }
 }

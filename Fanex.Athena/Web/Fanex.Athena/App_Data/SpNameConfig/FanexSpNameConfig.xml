@@ -1,45 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_CustomerSelBalance" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="LRF_Rpt_MicroGamingWinloss " EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="LRF_MicroGamingWinloss_Bettype" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xpre"></SpNameConfig>  
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_AGCasinoWinloss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="LRF_Rpt_AGCasinoWinloss_Ag" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="LRF_Rpt_AGCasinoWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportWinlossByMatch" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="LRF_LicenseeFunctionsSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xpre"></SpNameConfig>
-
-  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel_active" EnvironmentText="_xpre"></SpNameConfig>
-
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_MobileReport_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_RNG_Detail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_LC_Detail" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="test" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
