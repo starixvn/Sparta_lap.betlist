@@ -41,9 +41,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, ref CustomerWinLoss totalData, ref int totalRows)
+        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, CustomerWinLoss totalData, out int totalRows)
         {
             var result = new SortableList<CustomerWinLoss>();
+            totalRows = 0;
             using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -89,7 +90,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     if (result.Count > 0 && reader.NextResult())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             // Add data to Total Result
                             totalData = new CustomerWinLoss
@@ -106,6 +107,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + metaModel.BaseCurrency),
                                 BetEffective = reader.ToDecimal("sumbeteffective" + metaModel.BaseCurrency),
                             };
+
                             totalRows = reader.ToInt("TotalRows");
                         }
                     }

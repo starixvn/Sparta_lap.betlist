@@ -12,11 +12,11 @@ namespace Fanex.Athena.Service.Interface.Report
 
     public interface ICustWinlossService
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
         SortableList<CustomerWinLoss> GetDataList(
             CustomerWinLossMetaModel metaModel,
-            ref CustomerWinLoss totalData,
-           ref int totalRows);
+             CustomerWinLoss totalData,
+           out int totalRows);
     }
 }

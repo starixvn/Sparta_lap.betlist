@@ -73,7 +73,6 @@
 	<add key="IsDisableRngCasino" value="false" />
 	<add key="CasinoNo" value="01" />
 	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
-	<add key="SubDomainPath" value="" />
 	<add key="EnableAssignCurrency" value="true" />
 	<add key="LicenseeOfferNewForecast" value="14" />
 	<add key="BaseUsdLicensees" value="14"/>
