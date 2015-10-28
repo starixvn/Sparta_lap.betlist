@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Interface.Report
             Justification = "Reviewed. Suppression is OK here.")]
         SortableList<CustomerWinLoss> GetDataList(
             CustomerWinLossMetaModel metaModel,
-            CustomerWinLoss totalData,
+            out CustomerWinLoss totalData,
             out int totalRows);
     }
 }

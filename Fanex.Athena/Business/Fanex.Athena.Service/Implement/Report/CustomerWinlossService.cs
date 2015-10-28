@@ -29,11 +29,12 @@ namespace Fanex.Athena.Service.Implement.Report
             _custWinlossDataAccess = new CustomerWinlossDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, CustomerWinLoss totalData, out int totalRows)
+        public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
         {
             totalRows = 0;
+            totalData = new CustomerWinLoss();
             return metaModel.IsValid
-                       ? _custWinlossDataAccess.GetDataList(metaModel, totalData, out totalRows)
+                       ? _custWinlossDataAccess.GetDataList(metaModel, out totalData, out totalRows)
                        : new SortableList<CustomerWinLoss>();
         }
     }
