@@ -3,12 +3,11 @@
 /// <reference path="../../Global/Paging.js" />
 
 describe("Paging.js > pagingHeper", function () {
-    describe("render(option)", function () {
-        window.Site =
-            {
-                getSingleResource: function (text) { return text; }
-            };
 
+    window.Site = window.Site || {};
+    window.Site.getSingleResource = function (text) { return text; };
+
+    describe("render(option)", function () {        
         it("does not render the pager if totalrow less than page size", function () {
             var $pager = affix("#page");
             pagingHeper.render({ totalrow: 10, pagesize: 50 });

@@ -2,7 +2,7 @@
 /// <reference path="../../jasmine/jasmine-fixture.js" />
 /// <reference path="../../Global/site.js" />
 
-xdescribe("site.js > Site", function () {
+describe("site.js > Site", function () {
     describe("getLicenseeId()", function () {
         it("return a value from input#LicenseeId", function () {
             affix("input#LicenseeId[value=1]");             

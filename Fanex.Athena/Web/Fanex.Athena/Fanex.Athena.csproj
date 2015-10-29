@@ -636,8 +636,7 @@
     <Content Include="Scripts\Library\jquery.marquee.js" />    <Content Include="Scripts\jasmine-specs\Player.js" />
     <Content Include="Scripts\jasmine-specs\PlayerSpec.js" />
     <Content Include="Scripts\jasmine-specs\Song.js" />
-    <Content Include="Scripts\jasmine-specs\SpecHelper.js" />
-    <Content Include="Scripts\jasmine\boot.js" />
+    <Content Include="Scripts\jasmine-specs\SpecHelper.js" />    <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\console.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
     <Content Include="Scripts\jasmine\jasmine.js" />

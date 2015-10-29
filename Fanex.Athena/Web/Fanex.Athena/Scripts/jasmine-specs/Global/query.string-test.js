@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../Global/query.string.js" />
 
-xdescribe("query.string.js > QueryString", function () {
+describe("query.string.js > QueryString", function () {
 
     describe("getQueryString(url)", function () {
         it("return the query string part from an url", function () {
