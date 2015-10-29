@@ -93,6 +93,13 @@ namespace Fanex.Athena
                 return;
             }
 
+            // Exception when passing wrong data type to action method
+            if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+                exception.TargetSite.Name == "ExtractParameterFromDictionary")
+            {
+                return;
+            }
+
             string message = exception.Message +
                              "\r\nSOURCE: " + exception.Source +
                              "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
