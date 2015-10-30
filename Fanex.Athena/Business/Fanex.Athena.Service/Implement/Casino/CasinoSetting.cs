@@ -224,6 +224,7 @@ namespace Fanex.Athena.Service.Implement.Casino
                     gameTypeKind = "CodeName_Ct";
                     break;
                 case "zh-CN":
+                case "zh-Hans":
                     gameTypeKind = "CodeName_Cs";
                     break;
                 case "ko-KR":
@@ -249,6 +250,7 @@ namespace Fanex.Athena.Service.Implement.Casino
                     gameTypeName = "GameTypeName_Ct";
                     break;
                 case "zh-CN":
+                case "zh-Hans":
                     gameTypeName = "GameTypeName_Cs";
                     break;
                 case "ko-KR":

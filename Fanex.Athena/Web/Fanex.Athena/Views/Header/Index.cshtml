@@ -45,13 +45,11 @@
                     </div>
                 }
                 <div class="languageList">
-                    <select id="languagesite" name="languagesite">
+                    <select id="languagesite" name="languagesite" autocomplete="off">
                         @foreach (var language in Model.SupportedLanguageList)
                         {
-                            var selectedStr = language.Key.Equals(Model.Language) ? "selected=\"selected\"" : string.Empty;
-
+                            var selectedStr = language.Key.Equals(Model.Language) ? "selected=selected" : string.Empty;
                             <option value="@language.Key" @selectedStr>@language.Value</option>
-
                         }
                     </select>
                 </div>

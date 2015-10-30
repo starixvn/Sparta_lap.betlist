@@ -207,29 +207,6 @@
             }
         }
 
-        public string Globalization
-        {
-            get
-            {
-                switch (SiteEnvironment)
-                {
-					case SiteEnvironment.DEV:
-                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.LOCAL:
-                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.UAT:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\"/>";
-                    case SiteEnvironment.PRO:
-                    case SiteEnvironment.BACKUPMNL:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\"/>";
-                    case SiteEnvironment.SANDBOX:
-                        return "<globalization uiCulture=\"en\" culture=\"en-US\" fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
-
         public string MachineKey
         {
             get
@@ -293,29 +270,6 @@
                         return "<add path=\"*\" verb=\"OPTIONS\" type=\"System.Web.DefaultHttpHandler\" validate=\"false\"/>";
                     case SiteEnvironment.SANDBOX:
                         return "";
-                    default:
-                        return string.Empty;
-                }
-            }
-        }
-
-        public string GlobalizationSSO
-        {
-            get
-            {
-                switch (SiteEnvironment)
-                {
-					case SiteEnvironment.DEV:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.LOCAL:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
-                    case SiteEnvironment.UAT:
-                        return "";
-                    case SiteEnvironment.PRO:
-                    case SiteEnvironment.BACKUPMNL:
-                        return "";
-                    case SiteEnvironment.SANDBOX:
-                        return "<globalization fileEncoding=\"utf-8\" requestEncoding=\"utf-8\" responseEncoding=\"utf-8\" />";
                     default:
                         return string.Empty;
                 }

@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 7/21/2015 5:12:05 PM
+// Lasted generated date: 10/14/2015 2:38:01 PM
 // </history>
 
 var _language_zh_CN={
@@ -986,6 +986,8 @@ var _language_zh_CN={
                      NotIdenticalPasswordMsg:"密码不相同",
 				 	
                      Notification:"通知",
+				 	
+                     NotificationMessage:"数据正在处理中，在{0}后的数据将受到影响. 预计完成时间为 {1} GMT-4. 很抱歉造成您的困扰.",
 				 	
                      NotSupportYet:"目前还不支持此游戏",
 				 	

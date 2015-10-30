@@ -80,6 +80,7 @@
     <Reference Include="Sunplus.Core.Common, Version=1.1.4505.19054, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
     </Reference>
+    <Reference Include="sysglobl" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -400,6 +401,10 @@
     <Compile Include="ViewModel\Warehouse\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ViewModel\ViewResources.zh-Hans.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModel\Menu.zh-Hans.resx" />
     <EmbeddedResource Include="ViewModel\Menu.ko-KR.resx" />
     <EmbeddedResource Include="ViewModel\Menu.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

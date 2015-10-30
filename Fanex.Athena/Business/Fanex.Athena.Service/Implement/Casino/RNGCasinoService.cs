@@ -359,6 +359,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             switch (currentLang)
             {
                 case "zh-CN":
+                case "zh-Hans":
                     langKey = "_Cs";
                     break;
 

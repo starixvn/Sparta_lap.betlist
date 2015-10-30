@@ -69,7 +69,7 @@
     <#=site.HttpRuntime#>
     <#=site.SessionState#>
 	<#=site.MachineKey#>
-    <#=site.Globalization#>
+    <globalization uiCulture="auto" culture="en-US" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
     <trace enabled="false" localOnly="true" traceMode="SortByTime" />
    <#=site.Pages#>
       <namespaces>
@@ -92,7 +92,7 @@
   </system.web>
   <location path="sso.aspx">
     <system.web>
-      <#=site.GlobalizationSSO#>
+      <globalization uiCulture="auto" culture="en-US" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
       <authorization>
         <allow users="*" />
       </authorization>

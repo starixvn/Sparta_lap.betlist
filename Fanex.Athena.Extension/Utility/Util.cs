@@ -30,7 +30,8 @@ namespace Fanex.Athena.Extension.Utility
                         { "en-US", "English" },
                         { "zh-TW", "繁體中文" },
                         { "zh-CN", "简体中文" },
-                        { "ko-KR", "한국의" }
+                        { "ko-KR", "한국의" },
+                        { "zh-Hans", "简体中文(新)" }
                     };
             }
         }
