@@ -1,14 +1,17 @@
 ﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
 /// <reference path="../../jasmine/jasmine-fixture.js" />
-/// <reference path="../../Global/jquery.jqgrid.additional.js" />
 
 describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
-
-    window.Site = window.Site || {};
-    window.Site.getSingleResource = function (text) { return text; };
+    beforeEach(function () {
+        spyOn(Site, "getSingleResource").and.callFake(function (text) {
+            return text;
+        });
+    });
 
     describe("formatInteger(value)", function () {
+
         it("format number by adding commas", function () {
+            console.log(Site.getSingleResource("ActiveCustomer"));
             var result = jqGridAdditional.formatInteger(1234567);
             expect(result).toBe("1,234,567");
         });
@@ -34,16 +37,16 @@ describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
     });
 
     describe("getLicenseeWLNote(productOptionJson, caption)", function () {
-        it("return a note string for valid products", function () {            
+        it("return a note string for valid products", function () {
             var productOptions = '[{ "Code": "SB", "Status": false }, { "Code": "LC", "Status": true }]';
-            
+
             var result = jqGridAdditional.getLicenseeWLNote(productOptions, "Hello");
             expect(result).toBe("Hello(LC)");
         });
     });
 
     describe("rowSpanSetting(rowId, val, rawObject)", function () {
-        it('when RowSpan < 0, returns \' style="display:none;" \'', function () {            
+        it('when RowSpan < 0, returns \' style="display:none;" \'', function () {
             var result = jqGridAdditional.rowSpanSetting(null, null, { RowSpan: -1 });
             expect(result).toBe(' style="display:none;" ');
         });
@@ -61,7 +64,7 @@ describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
 
     describe("setNoInfo(columnModel, message)", function () {
         it("div.ui-jqgrid-sdiv should be hidden", function () {
-            affix("div.ui-jqgrid-sdiv");            
+            affix("div.ui-jqgrid-sdiv");
             jqGridAdditional.setNoInfo([]);
             expect($("div.ui-jqgrid-sdiv").is(":visible")).toBe(false);
         });
@@ -76,7 +79,7 @@ describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
         it("first td contains text of param 'message'", function () {
             affix(".ui-jqgrid-ftable");
             affix("table.ui-jqgrid-htable");
-            jqGridAdditional.setNoInfo([], "No Info Message");            
+            jqGridAdditional.setNoInfo([], "No Info Message");
             expect($("table.ui-jqgrid-htable td:first").text()).toBe('No Info Message');
         });
 
@@ -105,11 +108,11 @@ describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
         });
     });
 
-    describe("showRecommendedBrowser(pagingContainer)", function () {        
+    describe("showRecommendedBrowser(pagingContainer)", function () {
         it("pager element should contain a div having text resource 'RecommendBrowserOnReportPageMsg'", function () {
             var $pagingContainer = affix("table#pager td#ppdata_left");
             jqGridAdditional.showRecommendedBrowser("table#pager");
-            expect($($pagingContainer).find("#ppdata_left").html()).toBe('<div class="recommend-browser">RecommendBrowserOnReportPageMsg</div>');
+            expect($pagingContainer.find("#ppdata_left").html()).toBe('<div class="recommend-browser">RecommendBrowserOnReportPageMsg</div>');
         });
     });
 });

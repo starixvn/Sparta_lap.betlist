@@ -1,6 +1,5 @@
 ﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
 /// <reference path="../../jasmine/jasmine-fixture.js" />
-/// <reference path="../../Global/site.js" />
 
 describe("site.js > Site", function () {
     describe("getLicenseeId()", function () {

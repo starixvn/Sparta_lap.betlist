@@ -1,5 +1,4 @@
-﻿/// <reference path="../../Global/prototype.js" />
-
+﻿
 describe("prototype.js", function () {
     describe("String.prototype.format()", function () {
         it("return a formatted string by replacing all placeholders", function () {

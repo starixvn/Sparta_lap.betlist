@@ -1,11 +1,13 @@
 ﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
 /// <reference path="../../jasmine/jasmine-fixture.js" />
-/// <reference path="../../Global/Paging.js" />
 
 describe("Paging.js > pagingHeper", function () {
 
-    window.Site = window.Site || {};
-    window.Site.getSingleResource = function (text) { return text; };
+    beforeEach(function () {
+        spyOn(Site, "getSingleResource").and.callFake(function (text) {
+            return text;
+        });
+    });
 
     describe("render(option)", function () {        
         it("does not render the pager if totalrow less than page size", function () {
