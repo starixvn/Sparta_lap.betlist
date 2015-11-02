@@ -1,14 +1,18 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using System.Linq
+@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.ViewModel.Customer;
 @using Fanex.Athena.Models.MetaModel.Customer;
 @using Fanex.Athena.Models.DTO.Common
 @model CustomerListViewModel
+@{
+    var hasOddsGroupColumn = Model.Param.GridColumns.Any(c => c.Name == "OddsGroup");
+}
 <div class="grid_26 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
         //-----------------------------Type of licensee---------------------------//
         if (Model.LicenseeTypeList.Count > 0)
-        {            
+        {
         <div class="grid_2 filter-label">
             <label>@ViewResources.Type</label>
         </div>
@@ -26,19 +30,30 @@
             <label for="BaseCurrency">@ViewResources.Based
             </label>
         </div>
-        <div class="grid_2 filter-input">
+        <div class="grid_3 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         </div>
 
         <div class="grid_2 filter-label ">
             <label>@ViewResources.Username</label>
         </div>
-        <div class="grid_3 filter-input">
-            <input type="text" id="txtUsername" class="text_f1" style="width: 120px" />
+        <div class="grid_5 filter-input">
+            <input type="text" id="txtUsername" class="text_f1" style="width: 160px" />
         </div>
-        <div class="grid_2 filter-input" style="float: right; right: 40px">
-            <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
-        </div>
+
+        if(hasOddsGroupColumn)
+        {
+            <div class="grid_2 filter-label ">
+                <label>@ViewResources.OddsGroup</label>
+            </div>
+            <div class="grid_3 filter-input">
+                <select id="odds-group-multiselect" name="odds-group-multiselect">
+                </select>
+                <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="odds-group-multiselect-null" class="hide" />
+                <div class="hide" id="odds-group-option-container">
+                </div>
+            </div>
+        }
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -74,7 +89,7 @@
             <label>@ViewResources.SpecialLevel</label>
         </div>
         }
-        
+
         <div class="grid_2 filter-input">
             @RazorHelper.SpecialLevelListSearch(Model.Param.SpecialLevel)
         </div>
@@ -133,13 +148,17 @@
             <div class="hide" id="grid-columns-option-container">
                 @for (var i = 0; i < Model.Param.GridColumns.Count; i++)
                 {
-                    <input type="hidden" name="GridColumns[@i.ToString()].ID" value="@Model.Param.GridColumns[i].ID"  />
-                    <input type="hidden" name="GridColumns[@i.ToString()].Name" value="@Model.Param.GridColumns[i].Name"  />
-                    <input type="checkbox" id="@Model.Param.GridColumns[i].Name" @(Model.Param.GridColumns[i].Checked ? "checked=checked" : "")  name="GridColumns[@i.ToString()].Checked" value="True"  />
+                    <input type="hidden" name="GridColumns[@i.ToString()].ID" value="@Model.Param.GridColumns[i].ID" />
+                    <input type="hidden" name="GridColumns[@i.ToString()].Name" value="@Model.Param.GridColumns[i].Name" />
+                    <input type="checkbox" id="@Model.Param.GridColumns[i].Name" @(Model.Param.GridColumns[i].Checked ? "checked=checked" : "")  name="GridColumns[@i.ToString()].Checked" value="True" />
                 }
             </div>
         </div>
-        
+
+        <div class="grid_3 filter-input" style="float: right; right: 30px;">
+            <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
+        </div>
+
         <div id="hiddenfield">
             @Html.Hidden("CurrencyId", Model.Param.CurrencyId)
             @Html.Hidden("BaFilter", Model.Param.BAFilter)
@@ -159,3 +178,7 @@
     }
 </div>
 @Html.Hidden("AllowedGridColumns", Model.Param.GridColumns.ToJson())
+@if (hasOddsGroupColumn)
+{
+    @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
+}

@@ -422,6 +422,7 @@ var CustomerList = (function ($) {
             CustomerList.initPopup();
             CustomerList.initAutoComplete();
             CustomerList.initGridColumnOption();
+            CustomerList.initOddGroupOption();
             $("#SubmitButtonComm").prop("disabled", false);
             _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
             _productAccess = JSON.parse($("#ProductAccess").val());
@@ -537,6 +538,51 @@ var CustomerList = (function ($) {
                         }
                         $("#SubmitButtonComm").prop("disabled", false);
                         $("#grid-columns-multiselect-null").addClass("hide");
+                    }
+                }
+            });
+        },
+        initOddGroupOption: function () {
+            var data = ["A", "B", "C", "D"];
+            var dataUI = [];
+            for (var i = 0; i < data.length; i++) {
+                dataUI.push({
+                    Id: data[i],
+                    Value: data[i],
+                    Text: Site.getSingleResource(data[i]),
+                    Checked: true,
+                    Enable: true,
+                    Css: "",
+                    CssClass: ""
+                });
+            }
+
+            $("#odds-group-multiselect").multiSelect(
+            {
+                minWidth: 100,
+                maxHeight: 400,
+                shadow: true,
+                showHeader: true,
+                isCheckAll: true,
+                showFooter: false,
+                checkAllText: Site.getSingleResource('All'),
+                noneSelectedText: Site.getSingleResource("Odds"),
+                selectedText: Site.getSingleResource("SelectedItemCount"),
+                listData: dataUI,
+                onCheck: function () {
+                    var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
+                    if (checkedItems.length === 0) {
+                        $("#SubmitButtonComm").prop("disabled", true);
+                        $("#odds-group-multiselect-null").removeClass("hide");
+                        $("#odds-group-option-container input[type=checkbox]:checked").prop("checked", false);
+                    }
+                    else {
+                        $("#odds-group-option-container input[type=checkbox]:checked").prop("checked", false);
+                        for (var i = 0; i < checkedItems.length; i++) {
+                            $('#odds-group-option-container input#' + checkedItems[i]).prop("checked", true);
+                        }
+                        $("#SubmitButtonComm").prop("disabled", false);
+                        $("#odds-group-multiselect-null").addClass("hide");
                     }
                 }
             });
