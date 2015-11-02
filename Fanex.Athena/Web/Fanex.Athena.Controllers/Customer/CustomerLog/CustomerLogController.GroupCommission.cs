@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Models.DTO.Customer.CustomerLog;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Group commission log.
@@ -24,6 +25,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// Group commission action.
         /// </summary>
         /// <returns>Group commission log view.</returns>
+        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult GroupCommission()
         {
             var model = new CustomerLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<CustomerLog>() };

@@ -34,6 +34,8 @@ namespace Fanex.Athena.Controllers.Customer
     /// </summary>
     public class CustomerController : BaseController
     {
+        private const string CustomerListUrl = "Customer/CustomerList";
+
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
@@ -139,7 +141,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
@@ -188,6 +190,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;

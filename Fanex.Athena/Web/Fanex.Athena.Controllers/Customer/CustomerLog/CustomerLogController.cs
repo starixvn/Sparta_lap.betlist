@@ -19,6 +19,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     /// </summary>
     public partial class CustomerLogController : ReadonlyBaseController
     {
+        private const string CustomerLogUrl = "CustomerLog/LogInLog";
+
         #region Field
 
         /// <summary>
@@ -39,11 +41,10 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// Customer Log index.
         /// </summary>
         /// <returns>Log in log view.</returns>
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult Index()
         {
-            var model = new LogInLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<LogInLog>() };
-            return this.View("~/Views/Customer/CustomerLog/LogInLog/Main.cshtml", model);
+            return LogInLog();
         }
 
         #endregion Constructor
