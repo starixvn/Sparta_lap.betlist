@@ -1,6 +1,5 @@
 ﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
-window.KeepBlockingAfterInit = true;
 var CustomerList = (function ($) {
     "use strict";
     var ajaxRequest = null;
@@ -1096,7 +1095,6 @@ $(document).ready(function () {
     "use strict";
     parent.document.title = 'LRF - ' + $('.content-title').html();
     CustomerList.initialize();
-    CustomerList.submit();
 });
 
 $(window).resize(function () {

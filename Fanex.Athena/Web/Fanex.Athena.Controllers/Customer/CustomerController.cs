@@ -67,8 +67,7 @@ namespace Fanex.Athena.Controllers.Customer
                 "CustomerOption"
             };
 
-            string settingKeyForOddsGroup = "LicenseesOfferOddsGroup";
-            if (!IsCurrentLicenseeOfferOddsGroup(settingKeyForOddsGroup))
+            if (!IsCurrentLicenseeOfferOddsGroup())
             {
                 columnNames.Remove("OddsGroup");
             }
@@ -214,14 +213,14 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
-        private bool IsCurrentLicenseeOfferOddsGroup(string oddsGroupSettingKey)
+        private bool IsCurrentLicenseeOfferOddsGroup()
         {
             if (SessionService == null || SessionService.LicenseeSession == null)
             {
                 return false;
             }
 
-            var licenseeIds = GetLicenseesOfferOddsGroup(oddsGroupSettingKey);
+            var licenseeIds = GetLicenseesOfferOddsGroup();
             return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
         }
 
@@ -359,8 +358,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         private IList<CheckedItem> InitOddsGroup()
         {
-            string settingKeyForFilterOddsGroup = "LicenseesOfferFilterOddsGroup";
-            if (!IsCurrentLicenseeOfferOddsGroup(settingKeyForFilterOddsGroup))
+            if (!IsCurrentLicenseeOfferOddsGroup())
             {
                 return null;
             }
