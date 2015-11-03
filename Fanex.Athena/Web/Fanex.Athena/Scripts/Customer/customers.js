@@ -647,16 +647,16 @@ var CustomerList = (function ($) {
             }
 
             data.OddsGroups = [];
-            $("#ui-multiselect-options-odds-group-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
+            var $oddsGroupsMultiselect = $("#ui-multiselect-options-odds-group-multiselect ul.ui-multiselect-checkboxes input");
+            $oddsGroupsMultiselect.each(function (index, element) {
                 data.OddsGroups.push({
                     Name: element.name,
                     Checked: element.checked
                 });
             });
-            if (!CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
+            if (showOddsGroupFilter && !CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
                 return;
             }
-
 
             data.LicenseeType = Site.asNull($("#LicenseeType").val());
             data.PageIndex = _pagingOption.pageindex;
