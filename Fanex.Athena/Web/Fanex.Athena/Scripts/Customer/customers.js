@@ -543,27 +543,40 @@ var CustomerList = (function ($) {
             });
         },
         initOddGroupOption: function () {
-            var data = ["A", "B", "C", "D"];
+            var data = $("#OddsGroups").val();
+            if (!data) {
+                return;
+            }
+
+            data = $.parseJSON(data);
+            var totalColumns = data.length;
             var dataUI = [];
-            for (var i = 0; i < data.length; i++) {
+            var checkedCount = 0;
+            for (var i = 0; i < totalColumns; i++) {
+                var isChecked = Site.asBool(data[i].Checked);
+                if (isChecked) {
+                    checkedCount++;
+                }
+
                 dataUI.push({
-                    Id: data[i],
-                    Value: data[i],
-                    Text: Site.getSingleResource(data[i]),
-                    Checked: true,
+                    Id: data[i].Name,
+                    Value: data[i].Name,
+                    Text: Site.getSingleResource(data[i].Name),
+                    Checked: isChecked,
                     Enable: true,
                     Css: "",
                     CssClass: ""
                 });
             }
 
+            var ischeckAll = checkedCount === totalColumns;
             $("#odds-group-multiselect").multiSelect(
             {
                 minWidth: 100,
                 maxHeight: 400,
                 shadow: true,
                 showHeader: true,
-                isCheckAll: true,
+                isCheckAll: ischeckAll,
                 showFooter: false,
                 checkAllText: Site.getSingleResource('All'),
                 noneSelectedText: Site.getSingleResource("Odds"),
@@ -574,13 +587,8 @@ var CustomerList = (function ($) {
                     if (checkedItems.length === 0) {
                         $("#SubmitButtonComm").prop("disabled", true);
                         $("#odds-group-multiselect-null").removeClass("hide");
-                        $("#odds-group-option-container input[type=checkbox]:checked").prop("checked", false);
                     }
                     else {
-                        $("#odds-group-option-container input[type=checkbox]:checked").prop("checked", false);
-                        for (var i = 0; i < checkedItems.length; i++) {
-                            $('#odds-group-option-container input#' + checkedItems[i]).prop("checked", true);
-                        }
                         $("#SubmitButtonComm").prop("disabled", false);
                         $("#odds-group-multiselect-null").addClass("hide");
                     }
@@ -626,6 +634,30 @@ var CustomerList = (function ($) {
             _checkedAllRows = false;
             var data = {};
 
+            data.GridColumns = [];
+            var $gridColumnMultiselect = $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input");
+            $gridColumnMultiselect.each(function (index, element) {
+                data.GridColumns.push({
+                    Name: element.name,
+                    Checked: element.checked
+                });
+            });
+            if (!CustomerList.hasSelectedMultiselectData(data.GridColumns)) {
+                return;
+            }
+
+            data.OddsGroups = [];
+            $("#ui-multiselect-options-odds-group-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
+                data.OddsGroups.push({
+                    Name: element.name,
+                    Checked: element.checked
+                });
+            });
+            if (!CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
+                return;
+            }
+
+
             data.LicenseeType = Site.asNull($("#LicenseeType").val());
             data.PageIndex = _pagingOption.pageindex;
             data.PageSize = _pagingOption.pagesize;
@@ -643,13 +675,6 @@ var CustomerList = (function ($) {
 
             $("#BaseCurrency").attr("data-original", data.BaseCurrency);
 
-            data.GridColumns = [];
-            $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input").each(function (index, element) {
-                data.GridColumns.push({
-                    Name: element.name,
-                    Checked: element.checked
-                });
-            });
             $("#excelParam").val(JSON.stringify(data));
 
             $("#LicenseeType").attr('data-original', data.LicenseeType);
@@ -658,8 +683,9 @@ var CustomerList = (function ($) {
 
             var option = {
                 type: "POST",
-                data: data,
+                data: JSON.stringify(data),
                 dataType: "json",
+                contentType: "application/json",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {
@@ -676,6 +702,17 @@ var CustomerList = (function ($) {
             ajaxRequest = $.ajax(option);
 
             return true;
+        },
+        hasSelectedMultiselectData: function (dataList) {
+            var totalItem = dataList.length;
+            var checkedItemCount = 0;
+            for (var i = 0; i < totalItem; i++) {
+                if (dataList[i].Checked) {
+                    checkedItemCount++;
+                }
+            }
+
+            return checkedItemCount > 0;
         },
         loadPostbackParam: function () {
             var username = $('#Username').val();

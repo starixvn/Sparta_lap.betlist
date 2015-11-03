@@ -28,7 +28,6 @@ namespace Fanex.Athena.Models.MetaModel.Customer
             SpecialLevel = -1;
             GroupCommId = 0;
             AllowLicensees = new List<string>();
-            OddsGroups = new List<string> { "A", "B", "C", "D" };
         }
 
         public string Username { get; set; }
@@ -54,6 +53,6 @@ namespace Fanex.Athena.Models.MetaModel.Customer
 
         public IList<CheckedItem> GridColumns { get; set; }
 
-        public IList<string> OddsGroups { get; set; }
+        public IList<CheckedItem> OddsGroups { get; set; }
     }
 }

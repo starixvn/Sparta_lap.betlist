@@ -42,6 +42,7 @@ namespace Fanex.Athena.Controllers.Customer
         private const string STATUS = "Status";
 
         private readonly string[] _gridColumNames;
+        private readonly string[] _oddsGroupValues = new string[] { "A", "B", "C", "D" };
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
@@ -66,7 +67,8 @@ namespace Fanex.Athena.Controllers.Customer
                 "CustomerOption"
             };
 
-            if (!IsCurrentLicenseeOfferOddsGroup())
+            string settingKeyForOddsGroup = "LicenseesOfferOddsGroup";
+            if (!IsCurrentLicenseeOfferOddsGroup(settingKeyForOddsGroup))
             {
                 columnNames.Remove("OddsGroup");
             }
@@ -97,8 +99,10 @@ namespace Fanex.Athena.Controllers.Customer
                             LicenseeId = licenseeSession.LicenseeId,
                             UserId = userSession.UserId,
                             AllowLicensees = allowLicensees,
-                            GridColumns = this.IniGridColumns(productAccess, allowLicensees)
+                            GridColumns = this.IniGridColumns(productAccess, allowLicensees),
+                            OddsGroups = this.InitOddsGroup()
                         };
+
             SetConvetedUSDCurrencyName(metaModel);
 
             var model = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
@@ -210,14 +214,14 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
-        private bool IsCurrentLicenseeOfferOddsGroup()
+        private bool IsCurrentLicenseeOfferOddsGroup(string oddsGroupSettingKey)
         {
             if (SessionService == null || SessionService.LicenseeSession == null)
             {
                 return false;
             }
 
-            var licenseeIds = GetLicenseesOfferOddsGroup();
+            var licenseeIds = GetLicenseesOfferOddsGroup(oddsGroupSettingKey);
             return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
         }
 
@@ -351,6 +355,28 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             return items;
+        }
+
+        private IList<CheckedItem> InitOddsGroup()
+        {
+            string settingKeyForFilterOddsGroup = "LicenseesOfferFilterOddsGroup";
+            if (!IsCurrentLicenseeOfferOddsGroup(settingKeyForFilterOddsGroup))
+            {
+                return null;
+            }
+
+            var oddsGroups = new List<CheckedItem>();
+            foreach (var item in _oddsGroupValues)
+            {
+                var oddsGroup = new CheckedItem
+                {
+                    Name = item,
+                    Checked = true
+                };
+                oddsGroups.Add(oddsGroup);
+            }
+
+            return oddsGroups;
         }
 
         #endregion Ultilities

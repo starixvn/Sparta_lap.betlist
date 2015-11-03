@@ -5,7 +5,7 @@
 @using Fanex.Athena.Models.DTO.Common
 @model CustomerListViewModel
 @{
-    var hasOddsGroupColumn = Model.Param.GridColumns.Any(c => c.Name == "OddsGroup");
+    var showOddsGroupFilter = Model.Param.OddsGroups != null;
 }
 <div class="grid_26 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
@@ -37,23 +37,22 @@
         <div class="grid_2 filter-label ">
             <label>@ViewResources.Username</label>
         </div>
-        <div class="grid_5 filter-input">
+        <div class="grid_4 filter-input">
             <input type="text" id="txtUsername" class="text_f1" style="width: 160px" />
         </div>
 
-        if(hasOddsGroupColumn)
+        if (showOddsGroupFilter)
         {
             <div class="grid_2 filter-label ">
                 <label>@ViewResources.OddsGroup</label>
             </div>
-            <div class="grid_3 filter-input">
+            <div class="grid_4 filter-input">
                 <select id="odds-group-multiselect" name="odds-group-multiselect">
                 </select>
                 <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="odds-group-multiselect-null" class="hide" />
-                <div class="hide" id="odds-group-option-container">
-                </div>
             </div>
         }
+        
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -155,7 +154,7 @@
             </div>
         </div>
 
-        <div class="grid_3 filter-input" style="float: right; right: 30px;">
+        <div class="grid_3 filter-input" style="left: 90px;">
             <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
         </div>
 
@@ -178,7 +177,7 @@
     }
 </div>
 @Html.Hidden("AllowedGridColumns", Model.Param.GridColumns.ToJson())
-@if (hasOddsGroupColumn)
+@if (showOddsGroupFilter)
 {
     @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
 }

@@ -97,6 +97,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
 
+                    SetValueForOddsGroupParam(db, metaModel);
+
                     var dataTable = db.ExecuteDataSet().Tables[0];
 
                     var baseCurrency = metaModel.BaseCurrency;
@@ -144,6 +146,21 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+
+        private void SetValueForOddsGroupParam(ObjectDb objectDb, CustomerListMetaModel metaModel)
+        {
+            var oddsGroups = metaModel.OddsGroups;
+            if (oddsGroups != null)
+            {
+                var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
+                var oddsGroupValues = string.Join(",", selectedOddsGroups);
+                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
+            }
+            else
+            {
+                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroups);
             }
         }
 

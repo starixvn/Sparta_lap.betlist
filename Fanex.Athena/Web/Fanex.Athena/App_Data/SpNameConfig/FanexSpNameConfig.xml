@@ -17,4 +17,5 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdSuspended" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMember_All" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
