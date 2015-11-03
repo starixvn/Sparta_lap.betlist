@@ -39,7 +39,7 @@
         });
 
         it("update value in a query string if it exists", function () {
-            var result = QueryString.setParam("http://localhost?a=1", "a" , 2);
+            var result = QueryString.setParam("http://localhost?a=1", "a", 2);
             expect(result).toBe("http://localhost?a=2");
         });
 

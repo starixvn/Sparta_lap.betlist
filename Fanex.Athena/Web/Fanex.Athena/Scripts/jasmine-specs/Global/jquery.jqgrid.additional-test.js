@@ -1,13 +1,10 @@
-﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
-/// <reference path="../../jasmine/jasmine-fixture.js" />
-
-describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
+﻿describe("jquery.jqgrid.additional.js > jqGridAdditional", function () {
     beforeEach(function () {
         spyOn(Site, "getSingleResource").and.callFake(function (text) {
             return text;
         });
     });
-
+    
     describe("formatInteger(value)", function () {
 
         it("format number by adding commas", function () {

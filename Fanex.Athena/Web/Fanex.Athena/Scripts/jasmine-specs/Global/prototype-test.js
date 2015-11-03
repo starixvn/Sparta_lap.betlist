@@ -1,5 +1,4 @@
-﻿
-describe("prototype.js", function () {
+﻿describe("prototype.js", function () {
     describe("String.prototype.format()", function () {
         it("return a formatted string by replacing all placeholders", function () {
             var text = "{0} + {1} = {2}";

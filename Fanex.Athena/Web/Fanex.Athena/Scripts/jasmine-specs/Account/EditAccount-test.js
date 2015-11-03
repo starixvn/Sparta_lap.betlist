@@ -1,7 +1,4 @@
-﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
-/// <reference path="../../jasmine/jasmine-fixture.js" />
-
-describe("EditAccount", function () {
+﻿describe("EditAccount", function () {
     describe("init(option)", function () {        
         it("#resultMessage should contain 'Hello' when clicking #btnSave", function () {
             var $btnSave = affix('input#btnSave[type=button]');
@@ -12,10 +9,11 @@ describe("EditAccount", function () {
             EditAccount.init();
 
             $btnSave.click();
+
             expect($resultMessage.html()).toBe("Hello");
         });
 
-        it("#resultMessage should contain 'Hello' when clicking #btnSave", function () {
+        it("#resultMessage should contain 'Hello' when clicking #btnReset", function () {
             var $firstName = affix('input#FirstName');
             var $lastName = affix('input#LastName');
             affix('input#OldFirstName[value=Foo]');
@@ -25,7 +23,8 @@ describe("EditAccount", function () {
             EditAccount.init();
 
             $btnReset.click();
-            expect($firstName.val()).toBe("Fooa");
+
+            expect($firstName.val() === "Foo" && $lastName.val() === "Bar").toBe(true);
         });
     });
 });

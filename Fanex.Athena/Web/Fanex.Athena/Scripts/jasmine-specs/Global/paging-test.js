@@ -1,7 +1,4 @@
-﻿/// <reference path="../../jasmine/jasmine-jquery.js" />
-/// <reference path="../../jasmine/jasmine-fixture.js" />
-
-describe("Paging.js > pagingHeper", function () {
+﻿describe("Paging.js > pagingHeper", function () {
 
     beforeEach(function () {
         spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -12,14 +9,18 @@ describe("Paging.js > pagingHeper", function () {
     describe("render(option)", function () {        
         it("does not render the pager if totalrow less than page size", function () {
             var $pager = affix("#page");
+
             pagingHeper.render({ totalrow: 10, pagesize: 50 });
-            expect($pager).not.toContainElement(".pagingContainer");
+
+            expect($pager.find(".pagingContainer").length > 0).toBe(false);
         });
 
         it("render a pager if totalrow larger than page size", function () {            
             var $pager = affix("#page");
+
             pagingHeper.render({ totalrow: 100 });
-            expect($pager).toContainElement(".pagingContainer");
+
+            expect($pager.find(".pagingContainer").length > 0).toBe(true);
         });
     });
 
@@ -28,6 +29,7 @@ describe("Paging.js > pagingHeper", function () {
             affix('div.pagingContainer input[name="PageIndex"][value="1"]');
             affix('div.pagingContainer input[name="PageSize"][value="2"]');
             var result = pagingHeper.getSetting({ totalrow: 100 });
+
             expect(result).toEqual({
                 pageindex: 1,
                 pagesize: 2,
