@@ -57,7 +57,7 @@
         it('returns the id list (as comma-separated string) of checked checkboxes in ".permissionBox"', function () {
             var $permissionBox = affix('.permissionBox');
             $permissionBox.affix('input#1[type=checkbox]').prop('checked', true);
-            $permissionBox.affix('input#2[type=checkbox]').prop('checked', false);
+            $permissionBox.affix('input#2[type=checkbox]');
             $permissionBox.affix('input#3[type=checkbox]').prop('checked', true);
 
             var result = EditPermission.getSelectedFunctions();
