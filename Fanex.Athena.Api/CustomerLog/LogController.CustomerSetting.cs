@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Collections.Generic;
     using System.Web.Http;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// TODO: Update summary.
@@ -29,6 +30,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="today">Filter by To-day.</param>
         /// <returns>A list of rows.</returns>
         [HttpGet]
+        [AjaxApiFunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public dynamic CustomerSetting(string username, int viewbyid, int year, int month, int fromday, int today)
         {
             var metaModel = new CustomerLogMetaModel

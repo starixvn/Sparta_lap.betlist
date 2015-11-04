@@ -26,6 +26,8 @@ namespace Fanex.Athena.Api.CustomerLog
     /// </summary>
     public partial class LogController : BaseApiController
     {
+        private const string CustomerLogUrl = "CustomerLog/LogInLog";
+
         #region Field
 
         /// <summary>
