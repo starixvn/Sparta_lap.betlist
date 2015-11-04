@@ -576,7 +576,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [AjaxRequest]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
         public ActionResult SearchCustomer(string licenseeType, int currencyId, string query)
         {
             query = query.Trim();
