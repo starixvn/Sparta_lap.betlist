@@ -253,6 +253,8 @@ var CustomerList = (function ($) {
         gridOption.width = gridOption.colModel.length < 7 ? 650 : undefined;
         gridOption.data = response.Data;
 
+        //show report title
+        $(".report-title").removeClass("hide");
         // Show the grid
         reportGrid.jqGrid(gridOption);
         CustomersOption.setGroupHeaderColumns(reportGrid);
