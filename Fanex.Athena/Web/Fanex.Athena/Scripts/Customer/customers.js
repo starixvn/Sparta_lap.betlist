@@ -1,4 +1,4 @@
-﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption, showOddsGroupFilter */
+﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
 var CustomerList = (function ($) {
     "use strict";
@@ -655,7 +655,8 @@ var CustomerList = (function ($) {
                     Checked: element.checked
                 });
             });
-            if (showOddsGroupFilter && !CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
+            var oddsGroupData = $("#OddsGroups").val();
+            if (oddsGroupData && !CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
                 return;
             }
 
