@@ -1,4 +1,4 @@
-﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
+﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption, showOddsGroupFilter */
 /// <reference path="/@JSense.js" />
 var CustomerList = (function ($) {
     "use strict";
