@@ -65,18 +65,9 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #region Read
 
-        /// <summary>
-        /// Quickly search user name.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="userName">The user name.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="licenseeType">The licensee type.</param>
-        /// <param name="currencyId">The currency id.</param>
-        /// <returns>The data table.</returns>
-        public DataTable QuickSearch(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
         {
-            return _customerDataAccess.QuickSearch(userId, userName, licenseeId, licenseeType, currencyId);
+            return _customerDataAccess.SearchCustomers(userId, userName, licenseeId, licenseeType, currencyId);
         }
 
         /// <summary>

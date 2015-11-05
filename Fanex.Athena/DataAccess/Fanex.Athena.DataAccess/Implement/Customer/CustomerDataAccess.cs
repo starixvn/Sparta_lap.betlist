@@ -35,16 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     {
         #region Read
 
-        /// <summary>
-        /// Quick search by userName.
-        /// </summary>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="userName">Username value.</param>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="licenseeType">Licensee type value.</param>
-        /// <param name="currencyId">Currency ID value.</param>
-        /// <returns>The result value.</returns>
-        public DataTable QuickSearch(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
         {
             try
             {
@@ -56,9 +47,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("currencyid", DbType.Int32, currencyId);
                     db.AddInParameter("username", DbType.String, userName);
 
-                    var result = db.ExecuteDataSet();
-
-                    return result.Tables.Count > 0 ? result.Tables[0] : new DataTable();
+                    return db.Query<string>();
                 }
             }
             catch (ObjectDbException sqlException)

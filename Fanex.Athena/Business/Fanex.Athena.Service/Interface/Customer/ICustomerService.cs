@@ -32,7 +32,7 @@ namespace Fanex.Athena.Service.Interface.Customer
         /// <param name="licenseeType">The licensee type.</param>
         /// <param name="currencyId">The currency id.</param>
         /// <returns>The data table.</returns>
-        DataTable QuickSearch(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
+        IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
 
         /// <summary>
         /// Advance search customer.

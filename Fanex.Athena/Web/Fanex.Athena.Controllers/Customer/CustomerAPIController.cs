@@ -580,22 +580,16 @@ namespace Fanex.Athena.Controllers.Customer
         {
             query = query.Trim();
             var licenseeSession = SessionService.LicenseeSession;
-            var result = _customerService.QuickSearch(SessionService.UserSession.UserId, query, licenseeSession.LicenseeId, licenseeType, currencyId);
+            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, licenseeSession.LicenseeId, licenseeType, currencyId);
 
-            var suggestion = new StringCollection();
-            foreach (DataRow row in result.Rows)
-            {
-                suggestion.Add(row[0].ToString());
-            }
-
-            var lstUsername = new
+            var searchResult = new
                 {
                     data = new[] { string.Empty },
                     query = query,
-                    suggestions = suggestion
+                    suggestions = customerNames
                 };
 
-            return Json(lstUsername, JsonRequestBehavior.AllowGet);
+            return Json(searchResult, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Customer Comm API
