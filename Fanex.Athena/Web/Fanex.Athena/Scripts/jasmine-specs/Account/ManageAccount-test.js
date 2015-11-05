@@ -26,15 +26,4 @@
             expect(params[3] === 'Account/EditAccount?UserId=1').toBe(true);
         });
     });
-
-    describe("editPermission(sender)", function () {
-        it("showPopup() should be called with correct url param", function () {
-            var $sender = affix('[data-custid=1]');
-            spyOn(ManageAccount, 'showPopup');
-            ManageAccount.editPermission($sender.get(0));
-
-            var params = ManageAccount.showPopup.calls.allArgs()[0];
-            expect(params[3] === 'Account/EditAccount?UserId=1').toBe(true);
-        });
-    });
 });
