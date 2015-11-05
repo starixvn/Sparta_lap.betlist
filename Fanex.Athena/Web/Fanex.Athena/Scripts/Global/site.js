@@ -3,6 +3,7 @@
 /* Preset */
 // root JSON object
 "use strict";
+window.KeepBlockingAfterInit = false;
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
     var REQUEST_VERIFICATION_TOKEN;
@@ -330,7 +331,9 @@ var Site = (function ($) {
                     Site.blockUI();
                 });
 
-                Site.unBlockUI();
+                if (!window.KeepBlockingAfterInit) {
+                    Site.unBlockUI();
+                }
             } catch (err) {
             }
         },

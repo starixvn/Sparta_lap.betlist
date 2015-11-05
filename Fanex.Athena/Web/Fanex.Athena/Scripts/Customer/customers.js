@@ -1,7 +1,10 @@
 ﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
+window.KeepBlockingAfterInit = true;
+
 var CustomerList = (function ($) {
     "use strict";
+    
     var ajaxRequest = null;
     var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
@@ -1100,6 +1103,11 @@ $(document).ready(function () {
     "use strict";
     parent.document.title = 'LRF - ' + $('.content-title').html();
     CustomerList.initialize();
+    if (QueryString.getParam(window.location.href, "userName")) {
+        CustomerList.submit();
+    } else {
+        Site.unBlockUI();
+    }
 });
 
 $(window).resize(function () {
