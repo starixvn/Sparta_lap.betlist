@@ -53,6 +53,6 @@ namespace Fanex.Athena.Models.MetaModel.Customer
 
         public IList<CheckedItem> GridColumns { get; set; }
 
-        public IList<CheckedItem> OddsGroups { get; set; }
+        public IEnumerable<CheckedItem> OddsGroups { get; set; }
     }
 }
