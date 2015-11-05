@@ -23,7 +23,8 @@ module.exports = function(config) {
 	  'Scripts/jasmine/jasmine-fixture.js',
 	  'Scripts/jasmine/jasmine-jquery.js',
 	  'Scripts/jasmine/mock-ajax.js',	  
-      'Scripts/jasmine-specs/**/*.js'
+	  'Scripts/jasmine-specs/setup.js',
+      'Scripts/jasmine-specs/Account/ManageAccount-test.js'
     ],
 
 
