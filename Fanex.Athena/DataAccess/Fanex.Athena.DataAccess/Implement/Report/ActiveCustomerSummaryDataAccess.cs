@@ -119,6 +119,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate);
             db.AddInParameter("products", DbType.String, string.Join(",", productCodes));
+            db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
         }
 
         #endregion Private

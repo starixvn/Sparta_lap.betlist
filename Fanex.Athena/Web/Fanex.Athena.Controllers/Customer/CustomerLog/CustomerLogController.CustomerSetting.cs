@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Models.DTO.Customer.CustomerLog;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Customer setting log.
@@ -24,6 +25,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// Customer setting action.
         /// </summary>
         /// <returns>Customer setting log view.</returns>
+        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult CustomerSetting()
         {
             var licenseeSession = SessionService.LicenseeSession;

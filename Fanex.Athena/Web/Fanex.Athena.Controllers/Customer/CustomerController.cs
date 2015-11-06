@@ -34,6 +34,8 @@ namespace Fanex.Athena.Controllers.Customer
     /// </summary>
     public class CustomerController : BaseController
     {
+        private const string CustomerListUrl = "Customer/CustomerList";
+
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
@@ -95,11 +97,13 @@ namespace Fanex.Athena.Controllers.Customer
                             LicenseeId = licenseeSession.LicenseeId,
                             UserId = userSession.UserId,
                             AllowLicensees = allowLicensees,
-                            GridColumns = this.IniGridColumns(productAccess, allowLicensees)
+                            GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
+                            OddsGroups = IsCurrentLicenseeOfferOddsGroup() ? GetOddsGroups() : null
                         };
+
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
+            var model = CreateCustomerViewModel(metaModel);
 
             this.SetValueForBaStatus(model);
 
@@ -139,7 +143,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
@@ -160,7 +164,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                     if (metaModel.GridColumns.Where(i => i.Checked).Count() > 0)
                     {
-                        var model = GetCustomers(metaModel, licenseeSession, userSession);
+                        var model = GetCustomers(metaModel);
                         var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
                         var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
                         if (!System.IO.File.Exists(templatePath))
@@ -188,6 +192,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -207,6 +212,17 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
+        private static IEnumerable<CheckedItem> GetOddsGroups()
+        {
+            return new List<CheckedItem>()
+            {
+                new CheckedItem() { Name = "A", Checked = true },
+                new CheckedItem() { Name = "B", Checked = true },
+                new CheckedItem() { Name = "C", Checked = true },
+                new CheckedItem() { Name = "D", Checked = true },
+            };
+        }
+
         private bool IsCurrentLicenseeOfferOddsGroup()
         {
             if (SessionService == null || SessionService.LicenseeSession == null)
@@ -225,12 +241,14 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="licenseeSession">The licensee session.</param>
         /// <param name="userSession">The user session.</param>
         /// <returns>The customer view model.</returns>
-        private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
+        private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = SessionService.UserSession.CurrencyList;
+            model.CurrencyList = userSession.CurrencyList;
             model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            model.ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
             model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
             model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
@@ -250,9 +268,9 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="licenseeSession">The licensee session.</param>
         /// <param name="userSession">The user session.</param>
         /// <returns>The view model.</returns>
-        private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel, LicenseeSession licenseeSession, UserSession userSession)
+        private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel)
         {
-            var model = CreateCustomerViewModel(metaModel, licenseeSession, userSession);
+            var model = CreateCustomerViewModel(metaModel);
 
             var totalRows = 0;
             model.DataList = _customerService.Search(model.Param, ref totalRows);
@@ -300,7 +318,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="productAccess">The product access.</param>
         /// <param name="allowLicensees">The allowed licensees.</param>
         /// <returns>The columns.</returns>
-        private IList<CheckedItem> IniGridColumns(ProductAccess productAccess, IList<string> allowLicensees)
+        private IList<CheckedItem> IniGridColumns(bool isAllowBA, IList<string> allowLicensees)
         {
             var items = new List<CheckedItem>();
             foreach (var name in _gridColumNames)
@@ -312,7 +330,7 @@ namespace Fanex.Athena.Controllers.Customer
                 });
             }
 
-            if (productAccess.IsAllowBA)
+            if (isAllowBA)
             {
                 items.Add(new CheckedItem
                 {

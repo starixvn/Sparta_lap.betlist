@@ -14,16 +14,18 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Models.DTO.Customer.CustomerLog;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Log in log controller.
     /// </summary>
     public partial class CustomerLogController
-    {
+    {        
         /// <summary>
         /// Log in log action.
         /// </summary>
         /// <returns>Log in log view.</returns>
+        [FunctionAuthorization]
         public ActionResult LogInLog()
         {
             var model = new LogInLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<LogInLog>() };

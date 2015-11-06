@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Web.Http;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Log in log's API controller.
@@ -26,6 +27,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="today">Filter by today.</param>
         /// <returns>The list of rows.</returns>
         [HttpGet]
+        [AjaxApiFunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public dynamic GroupCommission(int year, int month, int fromday, int today)
         {
             var metaModel = new CustomerLogMetaModel();

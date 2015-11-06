@@ -47,7 +47,7 @@ namespace Fanex.Athena.Service.Implement.Common
 
         public bool CanManageMember
         {
-            get { return _sessionService.UserSession.FunctionIdList.Contains((int)FunctionType.CustomerInformation); }
+            get { return _sessionService.UserSession.FunctionIdList.Contains((int)FunctionType.CustomerList); }
         }
 
         public bool CanManageAccount

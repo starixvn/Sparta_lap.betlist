@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
     using System.Web.Http;
+    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Log in log's API controller.
@@ -23,6 +24,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="username">Filter by user name.</param>
         /// <returns>Data list of user name.</returns>
         [HttpGet]
+        [AjaxApiFunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public dynamic LoginLog(string username)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;

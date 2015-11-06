@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
     {
         #region Read
 
-        DataTable QuickSearch(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
+        IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]

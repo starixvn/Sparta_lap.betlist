@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="ActionFilter\AjaxFunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttribute.cs" />
+    <Compile Include="ActionFilter\AjaxApiFunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\CustomApiAuthorizeAttribute.cs" />
     <Compile Include="ActionFilter\CustomAPIExceptionHandlingAttribute.cs" />
     <Compile Include="ActionFilter\CustomAuthorizeAttribute.cs" />
