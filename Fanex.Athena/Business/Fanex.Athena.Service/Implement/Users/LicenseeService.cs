@@ -58,7 +58,7 @@ namespace Fanex.Athena.Service.Implement.Users
         ///     The licensee data access.
         /// </param>
         public LicenseeService(ILicenseeDataAccess licenseeDataAccess)
-        {
+        {            
             this._licenseeDataAccess = licenseeDataAccess;
         }
 
@@ -66,120 +66,46 @@ namespace Fanex.Athena.Service.Implement.Users
 
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The can update member ba status.
-        /// </summary>
-        /// <param name="request">
-        ///     The request.
-        /// </param>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="isAllow">
-        ///     Is Allowed updating BA status.
-        /// </param>
-        /// <returns>
-        ///  The result information.
-        /// </returns>
-        /// <exception cref="ServiceException">
-        /// The service exception.
-        /// </exception>
         public IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow)
         {
-            try
-            {
-                return this._licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "CanUpdateMemberBAStatus");
-            }
+            return this._licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
         }
 
-        /// <summary>
-        ///  Return true if licensee is belong to user.Otherwise return false.
-        /// </summary>
-        /// <param name="licenseeId">
-        /// The licensee id.
-        /// </param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>
-        ///    The boolean value.
-        /// </returns>
         public bool IsLicenseeBelongToUser(int licenseeId, int userId)
         {
             var licenseeList = GetByUser(userId);
             return licenseeList.Any(l => l.Id == licenseeId);
         }
 
-        /// <summary>
-        ///     The get by user.
-        /// </summary>
-        /// <param name="userId">
-        ///     The user id.
-        /// </param>
-        /// <returns>
-        /// The licensee list.
-        /// </returns>
         public IList<Licensee> GetByUser(int userId)
         {
             return this._licenseeDataAccess.GetByUser(userId);
         }
 
-        /// <summary>
-        ///     Get offered currency for a licensee.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        ///     The  currency list.
-        /// </returns>
         public IList<Currency> GetCurrencies(int licenseeId, int userId)
         {
             var currencies = this._licenseeDataAccess.GetCurrencies(licenseeId, userId);
             return currencies;
         }
 
-        /// <summary>
-        ///     The get customer by licensee.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <returns>
-        /// The customer list.
-        /// </returns>
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
         {
-            try
+            var cache = CacheService.CreateInstance(CacheType.MemoryCache);
+            var cacheKey = CacheKey.MemorycacheCommonLicenseeCust + licenseeId;
+            var licenseeCustList = cache.Get<IList<LicenseeCustomer>>(cacheKey);
+
+            if (licenseeCustList != null)
             {
-                var cache = CacheService.CreateInstance(CacheType.MemoryCache);
-                var cacheKey = CacheKey.MemorycacheCommonLicenseeCust + licenseeId;
-                var licenseeCustList = cache.Get<IList<LicenseeCustomer>>(cacheKey);
-
-                if (licenseeCustList != null)
-                {
-                    return licenseeCustList;
-                }
-
-                licenseeCustList = this._licenseeDataAccess.GetCustByLicensee(licenseeId)
-                                       .OrderBy(s => s.Currency)
-                                       .ToList();
-
-                cache.Set(cacheKey, licenseeCustList, DateTime.Now.AddMinutes(CacheTimeoutMinute));
-
                 return licenseeCustList;
             }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "LicenseeService");
-            }
+
+            licenseeCustList = this._licenseeDataAccess.GetCustByLicensee(licenseeId)
+                                   .OrderBy(s => s.Currency)
+                                   .ToList();
+
+            cache.Set(cacheKey, licenseeCustList, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+
+            return licenseeCustList;
         }
 
         /// <summary>

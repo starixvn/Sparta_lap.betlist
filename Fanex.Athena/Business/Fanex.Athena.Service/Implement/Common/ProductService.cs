@@ -21,10 +21,8 @@ namespace Fanex.Athena.Service.Implement.Common
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;
-    using Fanex.Athena.Service.Exception;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Caching;
-    using Fanex.Logging;
 
     #endregion
 
@@ -61,30 +59,22 @@ namespace Fanex.Athena.Service.Implement.Common
         /// </returns>
         public IList<Product> GetProductList(int licenseeId, string languageCode)
         {
-            try
+            var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+            var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
+            var allowedProducts = cache.Get<IList<Product>>(cacheKey);
+
+            if (allowedProducts != null)
             {
-                var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
-                var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
-                var allowedProducts = cache.Get<IList<Product>>(cacheKey);
-
-                if (allowedProducts != null)
-                {
-                    return allowedProducts;
-                }
-
-                allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
-                cache.Set(
-                    cacheKey,
-                    allowedProducts,
-                    DateTime.Now.AddMinutes(CacheTimeoutMinute));
-
                 return allowedProducts;
             }
-            catch (ServiceException ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new ServiceException(ex.Message, "ProductService");
-            }
+
+            allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
+            cache.Set(
+                cacheKey,
+                allowedProducts,
+                DateTime.Now.AddMinutes(CacheTimeoutMinute));
+
+            return allowedProducts;
         }
 
         public ProductAccess GetProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
@@ -132,15 +122,7 @@ namespace Fanex.Athena.Service.Implement.Common
         /// <returns>True if this customer's allowed.</returns>
         public bool IsAllowedSaToteCurrency(int custId)
         {
-            try
-            {
-                return this._productDataAccess.IsAllowedSaToteCurrency(custId);
-            }
-            catch (System.Exception ex)
-            {
-                LogService.Error(ex.Message, ex);
-                throw new NotImplementedException();
-            }
+            return this._productDataAccess.IsAllowedSaToteCurrency(custId);
         }
 
         #endregion

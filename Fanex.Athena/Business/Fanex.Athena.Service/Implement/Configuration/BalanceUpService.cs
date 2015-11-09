@@ -12,10 +12,9 @@ namespace Fanex.Athena.Service.Implement.Configuration
     using System;
     using Fanex.Athena.DataAccess.Implement.Configuration;
     using Fanex.Athena.Models.DTO.Configuration;
-    using Fanex.Athena.Service.Exception;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Caching;
-    using Fanex.Logging;
 
     /// <summary>
     ///     The balance up service.
@@ -76,9 +75,9 @@ namespace Fanex.Athena.Service.Implement.Configuration
                     cache.Set(
                         CacheKey.MemorycacheCommonBalanceup, balanceup, DateTime.Now.AddMinutes(CacheTimeoutMinute));
                 }
-                catch (System.Exception ex)
+                catch (Exception exception)
                 {
-                    LogService.Error(ex.Message, ex);
+                    LogHelper.WriteError(exception);
                 }
 
                 return balanceup;

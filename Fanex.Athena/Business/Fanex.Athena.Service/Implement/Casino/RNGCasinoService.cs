@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Implement.Casino
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Service.Interface.Common;
@@ -110,7 +111,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return resultModel;
@@ -247,7 +248,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return 0;
