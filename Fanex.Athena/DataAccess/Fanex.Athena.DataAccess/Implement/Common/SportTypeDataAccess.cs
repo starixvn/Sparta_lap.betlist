@@ -34,13 +34,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         {
         }
 
-        /// <summary>
-        /// Get products and sports.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The data table.</returns>
-        public DataTable GetSportsAndProducts(int licenseeId, string languageCode)
+        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
             const string UspName = "Lrf_SelSportDetail";
             try
@@ -49,7 +43,27 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 {
                     db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("langkey", DbType.String, languageCode);
-                    return db.ExecuteDataSet().Tables[0];
+                    using (var reader = db.ExecuteReader())
+                    {
+                        var result = new List<SportProductItem>();
+                        while (reader.Read())
+                        {
+                            var parentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1;
+
+                            if (!productId.HasValue || productId == parentId)
+                            {
+                                result.Add(new SportProductItem
+                                {
+                                    Checked = true,
+                                    ID = reader.ToInt("ID"),
+                                    Name = reader.ToString("Name"),
+                                    ParentId = parentId
+                                });
+                            }
+                        }
+
+                        return result;
+                    }
                 }
             }
             catch (ObjectDbException sqlException)

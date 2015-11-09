@@ -27,6 +27,6 @@ namespace Fanex.Athena.Service.Interface.Common
             Justification = "Reviewed. Suppression is OK here.")]
         IList<Sport> GetAllWHSports();
 
-        IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null);
+        IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null);
     }
 }
