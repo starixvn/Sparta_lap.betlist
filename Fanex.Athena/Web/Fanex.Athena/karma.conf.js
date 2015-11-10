@@ -16,15 +16,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-	  'Scripts/Library/jquery.min.js',
-	  'Scripts/Extension/jquery.extension.js',
+	   'Scripts/Library/jquery.min.js',
+	   'Scripts/Library/jquery-ui.min.js',
+	   'Scripts/Library/jquery.jqGrid.min.js',
+	   'Scripts/Extension/jquery.extension.js',
       'Scripts/Global/*.js',
+	  'Scripts/jasmine-specs/setup.js',
 	  'Scripts/Account/*.js',	 
+	  'Scripts/BetList/betlist.js',	 
+	  'Scripts/BetList/betlist.option.js',	 
 	  'Scripts/jasmine/jasmine-fixture.js',
 	  'Scripts/jasmine/jasmine-jquery.js',
 	  'Scripts/jasmine/mock-ajax.js',	  
-	  'Scripts/jasmine-specs/setup.js',
-      'Scripts/jasmine-specs/Account/ManageAccount-test.js'
+	  
+      'Scripts/jasmine-specs/**/*.js'
     ],
 
 

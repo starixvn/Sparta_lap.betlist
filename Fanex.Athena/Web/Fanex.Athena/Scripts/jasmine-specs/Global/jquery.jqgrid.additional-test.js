@@ -7,8 +7,7 @@
     
     describe("formatInteger(value)", function () {
 
-        it("format number by adding commas", function () {
-            console.log(Site.getSingleResource("ActiveCustomer"));
+        it("format number by adding commas", function () {            
             var result = jqGridAdditional.formatInteger(1234567);
             expect(result).toBe("1,234,567");
         });

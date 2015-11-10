@@ -82,8 +82,7 @@ var EditPermission = (function ($) {
             var functionIdList = '';
 
             if ($('.permissionBox').length > 0) {
-                var checkedInputs = $('.permissionBox').find("input:checked");
-                console.log($('.permissionBox').find('input').length, $('.permissionBox').find("input:checked").length);
+                var checkedInputs = $('.permissionBox').find("input:checked");                
                 $.each(checkedInputs, function () {
                     functionIdList += $(this).attr('id') + ",";
                 });

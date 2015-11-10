@@ -2,7 +2,7 @@
 
     beforeEach(function () {
         //spyOn($.fn, "on").and.callFake(function () {
-            
+
         //});
 
         //affix('#btnSave');
@@ -16,14 +16,14 @@
             BetList.initialize();
             var result = BetList.getSortParams();
 
-            expect(result).toEqual({ SortBy: 'Foo', SortOrder: 'asc'});
+            expect(result).toEqual({ SortBy: 'Foo', SortOrder: 'asc' });
         });
     });
 
     describe("loadData(params, url)", function () {
         var request;
 
-        beforeEach(function () {
+        beforeEach(function (done) {
             affix('input#HiddenColumnList[value="1"]')
             jasmine.Ajax.install();
 
@@ -34,36 +34,32 @@
                     'contentType': 'application/json',
                     'responseText': '{ "Main": {}, "Total": {}, "IsShowTotal": true, "LeagueName": "Test league" }'
                 });
-            spyOn(BetList, 'bindData').and.callFake(function (response) { });
-            spyOn(BetList, 'setLeagueTitle').and.callFake(function () { });
-            
+
+            spyOn(BetList, 'bindData');
+            spyOn(BetList, 'setLeagueTitle');
+
             BetList.loadData({}, 'localhost-test');
             request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(function () {
+                done();
+            }, 100);
         });
 
         afterEach(function () {
             jasmine.Ajax.uninstall();
         });
 
-        it("should return sorting data stored in inputs", function (done) {            
-            setTimeout(function () {
-                expect(request.url).toBe('localhost-test');
-                done();
-            }, 100);
+        it("should return sorting data stored in inputs", function () {
+            expect(request.url).toBe('localhost-test');
         });
 
-        it("BetList.bindData() should be called with expected param", function (done) {
-            setTimeout(function () {
-                expect(BetList.bindData).toHaveBeenCalledWith({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
-                done();
-            }, 100);
+        it("BetList.bindData() should be called with expected param", function () {
+            expect(BetList.bindData).toHaveBeenCalledWith({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
         });
 
-        it("BetList.setLeagueTitle() should be called with expected param", function (done) {
-            setTimeout(function () {
-                expect(BetList.setLeagueTitle).toHaveBeenCalledWith('Test league');
-                done();
-            }, 100);
+        it("BetList.setLeagueTitle() should be called with expected param", function () {
+            expect(BetList.setLeagueTitle).toHaveBeenCalledWith('Test league');
         });
     });
 
@@ -90,7 +86,7 @@
             spyOn($.fn, 'jqGrid').and.callFake(function (param) { gridOption = param; })
             BetList.bindData({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
         });
-        
+
         it("gridOption.rowNum should be a 50", function () {
             expect(gridOption.rowNum).toBe(50);
         });
@@ -149,7 +145,6 @@
             spyOn($.fn, 'dialog');
             BetList.showMicrogamingResultPopup('Hello', 1, 2);
             $dialogContainer = $.fn.dialog.calls.mostRecent().object;
-            
         });
 
         it(".dialog() should be called with correct parameters", function () {
@@ -163,6 +158,85 @@
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
             expect($iframe.attr('src')).toBe('Report/MicrogamingResultPopup?gameid=1&custid=2');
+        });
+    });
+
+    describe("showResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid)", function () {
+        beforeEach(function () {
+            spyOn($.fn, 'dialog');
+        });
+
+        it("BetList.showMicrogamingResultPopup() should be called if sporttype is Microgaming", function () {
+            var SPORT_MICROGAMMING = 203;
+            spyOn(BetList, 'showMicrogamingResultPopup');
+            BetList.showResult(null, null, null, SPORT_MICROGAMMING);
+
+            expect(BetList.showMicrogamingResultPopup).toHaveBeenCalled();
+        });
+
+        it("BetList.getMixParlayResultUrl() should be called if bettype is MixParlay", function () {
+            var BETTYPE_MIXPARLAY = 9;
+            spyOn(BetList, 'getMixParlayResultUrl');
+            BetList.showResult(null, null, BETTYPE_MIXPARLAY);
+
+            expect(BetList.getMixParlayResultUrl).toHaveBeenCalled();
+        });
+
+        it("BetList.getSportBookResultUrl() should be called if bettype is NOT MixParlay", function () {
+            spyOn(BetList, 'getSportBookResultUrl');
+            BetList.showResult(null, null);
+
+            expect(BetList.getSportBookResultUrl).toHaveBeenCalled();
+        });
+
+        it("$.fn.dialog() should be called if sporttype is NOT Microgaming", function () {
+            spyOn(BetList, 'getSportBookResultUrl');
+            BetList.showResult(null, null);
+
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+    });
+
+    describe("showMixParlayDetail(params, url)", function () {
+        var request;
+
+        beforeEach(function (done) {
+            affix('input#HiddenColumnList[value="1"]')
+            jasmine.Ajax.install();
+
+            jasmine.Ajax
+                .stubRequest('localhost-test')
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ "Main": {}, "Total": {}, "IsShowTotal": true, "LeagueName": "Test league" }'
+                });
+
+            spyOn(BetList, 'bindData');
+            spyOn(BetList, 'setLeagueTitle');
+
+            BetList.loadData({}, 'localhost-test');
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(function () {
+                done();
+            }, 100);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("should return sorting data stored in inputs", function () {
+            expect(request.url).toBe('localhost-test');
+        });
+
+        it("BetList.bindData() should be called with expected param", function () {
+            expect(BetList.bindData).toHaveBeenCalledWith({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
+        });
+
+        it("BetList.setLeagueTitle() should be called with expected param", function () {
+            expect(BetList.setLeagueTitle).toHaveBeenCalledWith('Test league');
         });
     });
 });
