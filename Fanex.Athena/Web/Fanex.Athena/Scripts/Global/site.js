@@ -3,7 +3,7 @@
 /* Preset */
 // root JSON object
 "use strict";
-window.KeepBlockingAfterInit = false;
+
 var Site = (function ($) {
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
     var REQUEST_VERIFICATION_TOKEN;
@@ -35,6 +35,7 @@ var Site = (function ($) {
     }
 
     return {
+        keepBlockingAfterInit: false,
         isLoadedNotificationPopup: false,
         // A flag used to determine whether browser need to be overridden innerHeight/innerWidth or not (ex: IE8 in low resolution)
         needOverrideInnerSize: false,
@@ -331,7 +332,7 @@ var Site = (function ($) {
                     Site.blockUI();
                 });
 
-                if (!window.KeepBlockingAfterInit) {
+                if (!Site.keepBlockingAfterInit) {
                     Site.unBlockUI();
                 }
             } catch (err) {

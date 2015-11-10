@@ -38,37 +38,9 @@ namespace Fanex.Athena.Service.Implement.Common
             return this._sportTypeDataAcess.GetAllWHSports();
         }
 
-        /// <summary>
-        /// Get products and sports.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="productId">Product ID.</param>
-        /// <returns>The products and sports.</returns>
-        public IList<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
+        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
-            var result = new List<SportProductItem>();
-            var tableData = _sportTypeDataAcess.GetSportsAndProducts(licenseeId, languageCode);
-            if (tableData != null && tableData.Rows.Count > 0)
-            {
-                if (productId.HasValue)
-                {
-                    tableData = tableData.Select("ParentID = " + productId).CopyToDataTable();
-                }
-                
-                foreach (DataRow row in tableData.Rows)
-                {
-                    result.Add(new SportProductItem
-                    {
-                        Checked = true,
-                        ID = int.Parse(row["ID"].ToString()),
-                        Name = row["Name"].ToString(),
-                        ParentId = row["ParentId"] != DBNull.Value ? int.Parse(row["ParentId"].ToString()) : -1
-                    });
-                }
-            }
-
-            return result;
+            return _sportTypeDataAcess.GetSportsAndProducts(licenseeId, languageCode, productId);            
         }
     }
 }

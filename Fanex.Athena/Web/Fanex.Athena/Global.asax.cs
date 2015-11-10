@@ -7,7 +7,6 @@
 namespace Fanex.Athena
 {
     using System;
-    using System.Data.SqlClient;
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
@@ -16,8 +15,7 @@ namespace Fanex.Athena
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
 
@@ -100,33 +98,7 @@ namespace Fanex.Athena
                 return;
             }
 
-            string message = exception.Message +
-                             "\r\nSOURCE: " + exception.Source +
-                             "\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
-                             "\r\nFORM: " + string.Join("~", Request.Form) +
-                             "\r\nUrl: " + Request.RawUrl +
-                             "\r\nQUERYSTRING: " + string.Join("~", Request.QueryString) +
-                             "\r\nTARGETSITE: " + exception.TargetSite +
-                             "\r\nSTACKTRACE: " + exception.StackTrace +
-                             "\r\nBrowser:" + Request.Browser.Type.ToString() +
-                             "\r\nBrowserVer:" + Request.Browser.Version.ToString() +
-                             "\r\nAgent:" + Request.UserAgent.ToString();
-            var sqlException = exception as SqlException;
-            if (sqlException != null)
-            {
-                message += "\r\nProcedure: " + sqlException.Procedure +
-                    "\r\nLine Number: " + sqlException.LineNumber +
-                    "\r\nServer: " + sqlException.Server;
-            }
-
-            ISessionService sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            if (licenseeSession != null)
-            {
-                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
-            }
-
-            Logging.LogService.Error(message, exception);
+            LogHelper.WriteError(exception);
         }
 
         /// <summary>

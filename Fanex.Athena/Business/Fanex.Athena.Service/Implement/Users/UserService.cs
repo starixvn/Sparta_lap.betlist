@@ -85,49 +85,21 @@ namespace Fanex.Athena.Service.Implement.Users
         /// </returns>
         public IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string ip)
         {
-            try
-            {
-                // if old password is valid, process update password
-                // create salt to hash new password
-                var oldSalt = this._userDataAccess.GetUserSalt(userName).ToString();
-                var salt = Cryptography.CreateSalt();
-                newPassword = Cryptography.CreateHash(newPassword, salt);
-                oldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
+            // if old password is valid, process update password
+            // create salt to hash new password
+            var oldSalt = this._userDataAccess.GetUserSalt(userName).ToString();
+            var salt = Cryptography.CreateSalt();
+            newPassword = Cryptography.CreateHash(newPassword, salt);
+            oldPassword = Cryptography.CreateHash(oldPassword, oldSalt);
 
-                var user = new User { Request = new Request { Ip = ip }, Username = userName };
+            var user = new User { Request = new Request { Ip = ip }, Username = userName };
 
-                return this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ChangePassword");
-            }
+            return this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
         }
 
-        /// <summary>
-        ///     The get by licensee.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="isInternal">
-        ///     The is internal.
-        /// </param>
-        /// <returns>
-        /// The system user list.
-        /// </returns>
         public List<User> GetByLicensee(int licenseeId, bool isInternal)
         {
-            try
-            {
-                return this._userDataAccess.GetByLicensee(licenseeId, isInternal);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "GetByLicensee");
-            }
+            return this._userDataAccess.GetByLicensee(licenseeId, isInternal);
         }
 
         /// <summary>
@@ -141,65 +113,20 @@ namespace Fanex.Athena.Service.Implement.Users
             {
                 Username = userName,
             };
-            try
+            using (var objectDb = new ObjectDb("Lrf_UserInfoSelByUserName"))
             {
-                using (var objectDb = new ObjectDb("Lrf_UserInfoSelByUserName"))
-                {
-                    return objectDb.Query<User>(param).FirstOrDefault();
-                }
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "GetByUsername");                
+                return objectDb.Query<User>(param).FirstOrDefault();
             }
         }
 
-        /// <summary>
-        ///     The get user info.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="userId">
-        ///     The user id.
-        /// </param>
-        /// <returns>
-        /// The system User.
-        /// </returns>
         public User GetUserInfo(int licenseeId, int userId)
         {
-            try
-            {
-                return this._userDataAccess.GetUserInfo(licenseeId, userId);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "GetUserInfo");
-            }
+            return this._userDataAccess.GetUserInfo(licenseeId, userId);
         }
 
-        /// <summary>
-        ///     The is user name existed.
-        /// </summary>
-        /// <param name="userName">
-        ///     The user name.
-        /// </param>
-        /// <returns>
-        ///     Return True if user exist.
-        /// </returns>
         public bool IsUserNameExisted(string userName)
         {
-            try
-            {
-                return this._userDataAccess.IsUsernameExited(userName);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "IsUserNameExisted");
-            }
+            return this._userDataAccess.IsUsernameExited(userName);
         }
 
         /// <summary>
@@ -222,16 +149,8 @@ namespace Fanex.Athena.Service.Implement.Users
         /// </returns>
         public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)
         {
-            try
-            {
-                requestUser.Request = new Request { Ip = ip };
-                return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "LoginOnUser");
-            }
+            requestUser.Request = new Request { Ip = ip };
+            return this._userDataAccess.LoginOnUser(requestUser, netSessionId, serverId);
         }
 
         /// <summary>
@@ -256,153 +175,53 @@ namespace Fanex.Athena.Service.Implement.Users
         /// </returns>
         public bool RecheckIn(int onuserId)
         {
-            try
-            {
-                return this._userDataAccess.RecheckIn(onuserId);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ReCheckin");
-            }
+            return this._userDataAccess.RecheckIn(onuserId);
         }
 
-        /// <summary>
-        ///     The reset password.
-        /// </summary>
-        /// <param name="user">
-        ///     The system user.
-        /// </param>
-        /// <param name="resetPwdBy">
-        ///      The user reset password.
-        /// </param>
-        /// <returns>
-        /// The result information.
-        /// </returns>
         public IResultInfo ResetPassword(User user, int resetPwdBy)
         {
-            try
+            var salt = Cryptography.CreateSalt();
+            if (string.IsNullOrEmpty(salt))
             {
-                var salt = Cryptography.CreateSalt();
-                if (string.IsNullOrEmpty(salt))
-                {
-                    throw new ServiceException("Salt cannot be null or empty", "User Service");
-                }
+                throw new ServiceException("Salt cannot be null or empty", "User Service");
+            }
 
-                user.Password = Cryptography.CreateHash(user.Password, salt);
-                return this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ResetPassword");
-            }
+            user.Password = Cryptography.CreateHash(user.Password, salt);
+            return this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
         }
 
-        /// <summary>
-        ///     The update information.
-        /// </summary>
-        /// <param name="user">
-        ///     The system user.
-        /// </param>
-        /// <param name="updatedBy">
-        ///     The updated by.
-        /// </param>
-        /// <returns>
-        /// The result information.
-        /// </returns>
         public IResultInfo UpdateInfo(User user, int updatedBy)
         {
-            try
-            {
-                return this._userDataAccess.UpdateInfo(user, updatedBy);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "UpdateInfo");
-            }
+            return this._userDataAccess.UpdateInfo(user, updatedBy);
         }
 
-        /// <summary>
-        ///     The validate internal user.
-        /// </summary>
-        /// <param name="requestUser">
-        ///     The request user.
-        /// </param>
-        /// <param name="licenseeName">
-        ///     The licensee name.
-        /// </param>
-        /// <param name="timeStamp">
-        ///     The time stamp.
-        /// </param>
-        /// <param name="resultInfo">
-        ///     The result information.
-        /// </param>
-        /// <returns>
-        /// The system user.
-        /// </returns>
-        /// <exception cref="ServiceException">
-        /// The service exception.
-        /// </exception>
         public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
         {
-            try
-            {
-                return this._userDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
-            }
-            catch (Exception exception)
-            {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ValidateInternalUser");
-            }
+            return this._userDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
         }
 
-        /// <summary>
-        ///     The validate user for  system.
-        /// </summary>
-        /// <param name="requestUser">
-        ///     The request user.
-        /// </param>
-        /// <param name="loginToken">
-        ///     The login token.
-        /// </param>
-        /// <param name="resultInfo">
-        ///     The result information.
-        /// </param>
-        /// <returns>
-        /// The system user.
-        /// </returns>
         public User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo)
         {
-            try
+            var user = GetByUsername(requestUser.Username);
+
+            if (user != null)
             {
-                var user = GetByUsername(requestUser.Username);                
-                
-                if (user != null) 
+                var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
+                if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
                 {
-                    var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
-                    if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
-                    {
-                        user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
-                    }
-                    else
-                    {
-                        resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
-                    }
+                    user = this._userDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
                 }
                 else
                 {
-                    resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
+                    resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
                 }
-
-                return user;
             }
-            catch (Exception exception)
+            else
             {
-                LogService.Error(exception.Message, exception);
-                throw new ServiceException(exception.Message, "ValidateUserForLrfSystem");
+                resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
             }
+
+            return user;
         }
 
         #endregion Public Methods and Operators

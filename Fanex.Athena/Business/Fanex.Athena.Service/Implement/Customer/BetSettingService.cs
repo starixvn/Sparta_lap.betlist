@@ -26,6 +26,7 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
     using Fanex.Athena.Service.Exception;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
@@ -191,7 +192,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
@@ -288,7 +289,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return games;
@@ -798,7 +799,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return games;
@@ -837,7 +838,7 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return string.Empty;

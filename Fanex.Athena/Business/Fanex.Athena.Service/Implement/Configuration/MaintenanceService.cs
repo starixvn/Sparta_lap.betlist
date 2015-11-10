@@ -10,9 +10,9 @@ namespace Fanex.Athena.Service.Implement.Configuration
     using System.Threading;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Caching;
-    using Fanex.Logging;
     using Sunplus.UMControllerLibrary;
 
     /// <summary>
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Service.Implement.Configuration
             }
             catch (System.Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return maintenanceInfo;

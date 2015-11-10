@@ -1,7 +1,5 @@
 ﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
-window.KeepBlockingAfterInit = true;
-
 var CustomerList = (function ($) {
     "use strict";
     
@@ -1102,8 +1100,12 @@ var CustomerList = (function ($) {
 $(document).ready(function () {
     "use strict";
     parent.document.title = 'LRF - ' + $('.content-title').html();
+
     CustomerList.initialize();
-    if (QueryString.getParam(window.location.href, "userName")) {
+    Site.keepBlockingAfterInit = true;
+
+    if (QueryString.getParam(window.location.href, "userName") ||
+        QueryString.getParam(window.location.href, "groupId")) {
         CustomerList.submit();
     } else {
         Site.unBlockUI();

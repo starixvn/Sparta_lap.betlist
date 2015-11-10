@@ -16,9 +16,9 @@ namespace Fanex.Athena.Service.Implement.Casino
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Service.Exception;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Common;
-    using Fanex.Logging;
     using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
     #endregion Using
@@ -120,7 +120,7 @@ namespace Fanex.Athena.Service.Implement.Casino
             catch (Exception exception)
             {
                 gameKinds = new List<GameKind>();
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return gameKinds;

@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.Service.Implement.Configuration
 {
+    using System;
     using Fanex.Athena.DataAccess.Implement.Configuration;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Logging;
 
     public class MoveBetService : IMoveBetService
     {
@@ -68,9 +69,9 @@ namespace Fanex.Athena.Service.Implement.Configuration
                 CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 return moveBet;
             }
-            catch (System.Exception ex)
+            catch (Exception exception)
             {
-                LogService.Error(ex.Message, ex);
+                LogHelper.WriteError(exception);
             }
 
             return new MoveBet();
