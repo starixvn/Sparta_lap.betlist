@@ -11,7 +11,6 @@
 namespace Fanex.Athena.DataAccess.Implement.Customer
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
@@ -25,6 +24,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
+    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
@@ -86,45 +86,46 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
 
-                    SetValueForOddsGroupParam(db, metaModel);
-
-                    var dataTable = db.ExecuteDataSet().Tables[0];
-
-                    var baseCurrency = metaModel.BaseCurrency;
+                    AddOddsGroupParam(db, metaModel);
+                    
                     var dataList = new List<CustomerDTO>();
 
-                    var availableFundsCol = "TotalBalance" + baseCurrency;
-                    var pendingFundsCol = "OutStanding" + baseCurrency;
-
-                    var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-                    foreach (DataRow dr in dataTable.Rows)
+                    using (var reader = db.ExecuteReader())
                     {
-                        var cust = new CustomerDTO
-                        {
-                            Index = startIndex++,
-                            CustId = Converter.ToInt(dr["custid"]),
-                            SystemId = dr["username"].ToString(),
-                            ExternalId = dr["nickname"].ToString(),
-                            IsClosed = Converter.ToBool(dr["closed"]),
-                            IsSuspended = Converter.ToBool(dr["suspended"]),
-                            BAStatus = Converter.ToBool(dr["BAStatus"]),
-                            SpecialLevel = Converter.ToInt(dr["SpecialLevel"]),
-                            IsPowerBAUserTurnoff = Converter.ToBool(dr["IsPowerBAUserTurnoff"]),
-                            AvailableFunds = Converter.ToDecimal(dr[availableFundsCol]),
-                            PendingFunds = Converter.ToDecimal(dr[pendingFundsCol]),
-                            GroupCommId = Converter.ToInt(dr["GroupCommId"]),
-                            GroupColor = dr["GroupColor"].ToString(),
-                            Group = dr["GroupName"].ToString(),
-                            OddsGroup = dr["OddsGroup"].ToString(),
-                            SBComm = Convert.ToDecimal(dr["SBComm"]) * 100,
-                            RBComm = Convert.ToDecimal(dr["RacingComm"]) * 100,
-                            NGComm = Convert.ToDecimal(dr["NGComm"]) * 100,
-                            LCComm = Convert.ToDecimal(dr["LCComm"]) * 100,
-                            CSComm = Convert.ToDecimal(dr["RNGComm"]) * 100
-                        };
+                        var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
+                        var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;
 
-                        cust.Status = cust.IsClosed ? ViewResources.Closed : cust.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
-                        dataList.Add(cust);
+                        var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+
+                        while (reader.Read())
+                        {
+                            var customer = new CustomerDTO
+                            {
+                                Index = startIndex++,
+                                CustId = reader.ToInt("custid"),
+                                SystemId = reader.ToString("username"),
+                                ExternalId = reader.ToString("nickname"),
+                                IsClosed = reader.ToBool("closed"),
+                                IsSuspended = reader.ToBool("suspended"),
+                                BAStatus = reader.ToBool("BAStatus"),
+                                SpecialLevel = reader.ToInt("SpecialLevel"),
+                                IsPowerBAUserTurnoff = reader.ToBool("IsPowerBAUserTurnoff"),
+                                AvailableFunds = reader.ToDecimal(availableFundsCol),
+                                PendingFunds = reader.ToDecimal(pendingFundsCol),
+                                GroupCommId = reader.ToInt("GroupCommId"),
+                                GroupColor = reader.ToString("GroupColor"),
+                                Group = reader.ToString("GroupName"),
+                                OddsGroup = reader.ToString("OddsGroup"),
+                                SBComm = reader.ToDecimal("SBComm") * 100,
+                                RBComm = reader.ToDecimal("RacingComm") * 100,
+                                NGComm = reader.ToDecimal("NGComm") * 100,
+                                LCComm = reader.ToDecimal("LCComm") * 100,
+                                CSComm = reader.ToDecimal("RNGComm") * 100
+                            };
+
+                            customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                            dataList.Add(customer);
+                        }
                     }
 
                     totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
@@ -138,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             }
         }
 
-        private void SetValueForOddsGroupParam(ObjectDb objectDb, CustomerListMetaModel metaModel)
+        private void AddOddsGroupParam(ObjectDb objectDb, CustomerListMetaModel metaModel)
         {
             var oddsGroups = metaModel.OddsGroups;
             if (oddsGroups != null)
@@ -224,7 +225,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);                    
+                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
                     db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
@@ -264,7 +265,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);                    
+                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("Ip", DbType.String, metaModel.Ip);
                     db.AddInParameter("IsRemovePlayercomm", DbType.Boolean, metaModel.IsRemovePlayercomm);
@@ -301,10 +302,10 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             try
             {
                 using (var db = new ObjectDb("Lrf_CustomerUpdUgroup"))
-                {                    
+                {
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                    db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);                    
+                    db.AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
                     db.AddInParameter("IP", DbType.String, metaModel.Ip);
                     db.AddInParameter("Langkey", DbType.String, metaModel.Language);
 
@@ -432,8 +433,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             try
             {
                 using (var db = new ObjectDb(UspName))
-                {                                        
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);                    
+                {
+                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
                     db.AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
