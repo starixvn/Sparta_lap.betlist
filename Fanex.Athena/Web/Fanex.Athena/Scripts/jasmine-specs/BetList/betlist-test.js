@@ -1,14 +1,5 @@
 ﻿describe("BetList", function () {
 
-    beforeEach(function () {
-        //spyOn($.fn, "on").and.callFake(function () {
-
-        //});
-
-        //affix('#btnSave');
-        //ResetPassword.init();
-    });
-
     describe("getSortParams()", function () {
         it("should return sorting data stored in inputs", function () {
             affix('input#SortBy[value="Foo"]');
@@ -41,9 +32,7 @@
             BetList.loadData({}, 'localhost-test');
             request = jasmine.Ajax.requests.mostRecent();
 
-            setTimeout(function () {
-                done();
-            }, 100);
+            setTimeout(done, 10);
         });
 
         afterEach(function () {
@@ -80,22 +69,12 @@
     });
 
     describe("bindData(url)", function () {
-        var gridOption;
-        beforeEach(function () {
+        
+        it("gridOption.colNames should be a valid array", function () {
+            var gridOption;
             affix('#HiddenColumnList');
             spyOn($.fn, 'jqGrid').and.callFake(function (param) { gridOption = param; })
             BetList.bindData({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
-        });
-
-        it("gridOption.rowNum should be a 50", function () {
-            expect(gridOption.rowNum).toBe(50);
-        });
-
-        it("gridOption.rowList should be a valid array", function () {
-            expect(JSON.stringify(gridOption.rowList)).toEqual(JSON.stringify([50, 100, 200, 300, 400, 500, 1000, 2000]));
-        });
-
-        it("gridOption.colNames should be a valid array", function () {
             expect(gridOption.colNames).toEqual(["#", "ExternalId", "SystemId", "TransTime", "Choice", "Odds", "Stake", "WinLoss", "EffectiveBettingValue", "LicenseeWL/Comm", "Status"]);
         });
     });
@@ -197,46 +176,163 @@
         });
     });
 
-    describe("showMixParlayDetail(params, url)", function () {
-        var request;
+    describe("showMixParlayDetail(transId, divEvent)", function () {
 
-        beforeEach(function (done) {
-            affix('input#HiddenColumnList[value="1"]')
-            jasmine.Ajax.install();
+        beforeEach(function () {
+            spyOn(BetList, 'resizeGrid');
+        });
 
-            jasmine.Ajax
-                .stubRequest('localhost-test')
-                .andReturn({
-                    'status': 200,
-                    'contentType': 'application/json',
-                    'responseText': '{ "Main": {}, "Total": {}, "IsShowTotal": true, "LeagueName": "Test league" }'
+        describe("'divEvent' element is visible", function () {
+            var $div;
+            beforeEach(function () {
+                $div = affix('div div');
+                BetList.showMixParlayDetail(0, $div);
+            });
+
+            it("'divEvent' element should be hide", function () {                                
+                expect($div.is(':visible')).toBe(false);
+            });
+
+            it("'divEvent' element shoult not contain any child.", function () {
+                expect($div.html()).toBe('');
+            });
+
+            it("BetList.resizeGrid() should be called.", function () {
+                expect(BetList.resizeGrid).toHaveBeenCalled();
+            });
+        });
+
+        describe("'divEvent' element is hidden", function () {
+            var $div, request, onSuccess;
+            beforeEach(function (done) {
+                $div = affix('div[style="display:none"]');
+                jasmine.Ajax.install();
+                onSuccess = jasmine.createSpy('onSuccess');
+
+                BetList.showMixParlayDetail(0, $div);
+                request = jasmine.Ajax.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    responseText: '[{ "Choice": 1 }, { "Choice": 2 }, { "Choice": 3 }]'
                 });
 
-            spyOn(BetList, 'bindData');
-            spyOn(BetList, 'setLeagueTitle');
+                setTimeout(function () {
+                    done();
+                }, 100);
+            });
 
-            BetList.loadData({}, 'localhost-test');
-            request = jasmine.Ajax.requests.mostRecent();
+            afterEach(function () {
+                jasmine.Ajax.uninstall();
+            });
 
-            setTimeout(function () {
-                done();
-            }, 100);
+            it("request url should be correct", function () {
+                expect(request.url).toMatch(/api\/betlist\/MixParlayDetail\?transId=0/);
+            });
+
+            it("'divEvent' element should be visible", function () {
+                expect($div.is(':visible')).toBe(true);
+            });
+
+            it("'divEvent' element should contain correct html", function () {
+                expect($div.html()).toBe('1<div class="line"></div>2<div class="line"></div>3');
+            });
+
+            it("BetList.resizeGrid() should be called.", function () {
+                expect(BetList.resizeGrid).toHaveBeenCalled();
+            });
+        });
+    });
+
+    describe("showSystemParlayDetail(transId, refNo, betId, custId, betTeam, baseCurrency)", function () {
+        var $dialogContainer;
+        beforeEach(function () {
+            spyOn($.fn, 'dialog');
+            BetList.showSystemParlayDetail(1, 0, 0, 0, 'Test BetTeam', 0);
+            $dialogContainer = $.fn.dialog.calls.mostRecent().object;
         });
 
-        afterEach(function () {
-            jasmine.Ajax.uninstall();
+        it(".dialog() should be called with correct parameters", function () {
+            expect($.fn.dialog).toHaveBeenCalledWith({ modal: true, width: 775, height: 500 });
         });
 
-        it("should return sorting data stored in inputs", function () {
-            expect(request.url).toBe('localhost-test');
+        it("the dialog container should has attribute 'title' = 'Test BetTeam'", function () {
+            expect($dialogContainer.attr('title')).toBe('Test BetTeam');
         });
 
-        it("BetList.bindData() should be called with expected param", function () {
-            expect(BetList.bindData).toHaveBeenCalledWith({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
+        it("the dialog container should contain an iframe with correct src attribute", function () {
+            var $iframe = $dialogContainer.find('iframe');
+            expect($iframe.attr('src')).toBe('BetList/SystemParlayDetail?transid=1&refno=0&betid=0&custid=0&betteam=Test BetTeam&basecurrency=0');
+        });
+    });
+
+    describe("showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType)", function () {
+        var $dialogContainer;
+        beforeEach(function () {
+            spyOn($.fn, 'dialog');
+            BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
+            $dialogContainer = $.fn.dialog.calls.mostRecent().object;
         });
 
-        it("BetList.setLeagueTitle() should be called with expected param", function () {
-            expect(BetList.setLeagueTitle).toHaveBeenCalledWith('Test league');
+        it(".dialog() should be called", function () {
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+
+        it("the dialog container should has attribute 'title' = 'Microgaming - DetailedBetlist - 02/01/2015'", function () {
+            expect($dialogContainer.attr('title')).toBe('Microgaming - DetailedBetlist - 02/01/2015');
+        });
+
+        it("the dialog container should contain an iframe with correct src attribute", function () {
+            var $iframe = $dialogContainer.find('iframe');
+            expect($iframe.attr('src')).toBe('BetList/MicroGamingRngDetail?transid=0&custid=0&transtype=0');
+        });
+    });
+
+    describe("showAGCasinoDetails(transId, winlostDate, custId, transType)", function () {
+        var $dialogContainer;
+        beforeEach(function () {
+            spyOn($.fn, 'dialog');
+            BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
+            $dialogContainer = $.fn.dialog.calls.mostRecent().object;
+        });
+
+        it(".dialog() should be called", function () {
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+
+        it("the dialog container should has attribute 'title' = 'AGCasino - DetailedBetlist - 02/01/2015'", function () {
+            expect($dialogContainer.attr('title')).toBe('AGCasino - DetailedBetlist - 02/01/2015');
+        });
+
+        it("the dialog container should contain an iframe with correct src attribute", function () {
+            var $iframe = $dialogContainer.find('iframe');
+            expect($iframe.attr('src')).toBe('BetList/AGCasinoDetail?transid=0&custid=0&transtype=0');
+        });
+    });
+
+    describe("ValidProducts()", function () {
+        beforeEach(function () {
+            affix('#ProductList');
+            spyOn($.fn, 'dialog');
+        });
+
+        it("should return false if #ProductList does not contain checked input", function () {            
+            expect(BetList.ValidProducts()).toBe(false)
+        });
+
+        it("$.fn.dialog() should be called if #ProductList does not contain checked input", function () {
+            BetList.ValidProducts();
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+
+        it("$.fn.dialog() should be called with correct html element if #ProductList does not contain checked input", function () {
+            BetList.ValidProducts();
+            var $dialogContainer = $.fn.dialog.calls.mostRecent().object;
+            expect($dialogContainer.prop('outerHTML')).toBe('<div title="LrfNotification">AlertChooseProductMsg</div>');
+        });
+
+        it("should return true if #ProductList contain a checked input", function () {
+            $('#ProductList').affix('input[type="checkbox"]').prop('checked', true);
+            expect(BetList.ValidProducts()).toBe(true)
         });
     });
 });

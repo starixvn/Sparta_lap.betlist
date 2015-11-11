@@ -12,10 +12,11 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 	
-	plugins : ['karma-jasmine', 'karma-phantomjs-launcher'],
+	plugins : ['karma-jasmine', 'karma-phantomjs-launcher', 'karma-slimerjs-launcher', 'karma-triflejs-launcher'],
 
     // list of files / patterns to load in the browser
     files: [
+		'Scripts/Library/moment.min.js',
 	   'Scripts/Library/jquery.min.js',
 	   'Scripts/Library/jquery-ui.min.js',
 	   'Scripts/Library/jquery.jqGrid.min.js',
@@ -25,6 +26,7 @@ module.exports = function(config) {
 	  'Scripts/Account/*.js',	 
 	  'Scripts/BetList/betlist.js',	 
 	  'Scripts/BetList/betlist.option.js',	 
+	  'Scripts/BetList/cancelledbetsbetlist.js',	 
 	  'Scripts/jasmine/jasmine-fixture.js',
 	  'Scripts/jasmine/jasmine-jquery.js',
 	  'Scripts/jasmine/mock-ajax.js',	  
@@ -66,7 +68,6 @@ module.exports = function(config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
