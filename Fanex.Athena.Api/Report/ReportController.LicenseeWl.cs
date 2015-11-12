@@ -156,9 +156,11 @@ namespace Fanex.Athena.Api.Report
                 LicenseeWLBG = item.LicenseeWL.Keys.Contains(Product.BG) ? item.LicenseeWL[Product.BG] : 0,
                 LicenseeWLCS = item.LicenseeWL.Keys.Contains(Product.CS) ? item.LicenseeWL[Product.CS] : 0,
                 LicenseeWLKN = item.LicenseeWL.Keys.Contains(Product.KN) ? item.LicenseeWL[Product.KN] : 0,
-                LicenseeWLMGC = item.LicenseeWL.Keys.Contains(Product.MGC) ? item.LicenseeWL[Product.MGC] : 0,
                 LicenseeWLBT = item.LicenseeWL.Keys.Contains(Product.BT) ? item.LicenseeWL[Product.BT] : 0,
                 LicenseeWLAGC = item.LicenseeWL.Keys.Contains(Product.AGC) ? item.LicenseeWL[Product.AGC] : 0,
+                LicenseeWLMGCLC = item.LicenseeWL.Keys.Contains(Product.MGCLC) ? item.LicenseeWL[Product.MGCLC] : 0,
+                LicenseeWLMGCRNG = item.LicenseeWL.Keys.Contains(Product.MGCRNG) ? item.LicenseeWL[Product.MGCRNG] : 0,
+
                 TurnOverBA = item.TurnOver.Keys.Contains(Product.BA) ? item.TurnOver[Product.BA] : 0,
                 TurnOverSB = item.TurnOver.Keys.Contains(Product.SB) ? item.TurnOver[Product.SB] : 0,
                 TurnOverRB = item.TurnOver.Keys.Contains(Product.RB) ? item.TurnOver[Product.RB] : 0,
@@ -171,6 +173,8 @@ namespace Fanex.Athena.Api.Report
                 TurnOverMGC = item.TurnOver.Keys.Contains(Product.MGC) ? item.TurnOver[Product.MGC] : 0,
                 TurnOverBT = item.TurnOver.Keys.Contains(Product.BT) ? item.TurnOver[Product.BT] : 0,
                 TurnOverAGC = item.TurnOver.Keys.Contains(Product.AGC) ? item.TurnOver[Product.AGC] : 0
+
+
             };
         }
 

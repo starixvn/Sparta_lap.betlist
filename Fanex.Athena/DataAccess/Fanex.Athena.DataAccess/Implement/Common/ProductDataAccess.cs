@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using Fanex.Common;
     using Fanex.Data;
     using Fanex.Logging;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     ///   The product data access.
@@ -110,7 +111,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// <returns>Product name.</returns>
         private static string GetProductName(string productName)
         {
-            var resourceKey = productName.Replace(" ", string.Empty);
+            var resourceKey = Regex.Replace(productName, @"[\s-]", string.Empty);
             var resourceManager = ViewResources.ResourceManager;
             resourceManager.IgnoreCase = true;
             return resourceManager.GetString(resourceKey);

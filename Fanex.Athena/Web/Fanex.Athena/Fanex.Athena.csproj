@@ -644,6 +644,7 @@
     <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Customer\BetSetting\MicroGamingRNGCasino.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
@@ -3380,7 +3381,7 @@
     <Content Include="SiteConfig\Web.DEV.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="Views\Customer\BetSetting\MicroGaming.cshtml" />
+    <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
     <Content Include="Views\BetList\LiveReport\MicroGaming.cshtml" />
   </ItemGroup>

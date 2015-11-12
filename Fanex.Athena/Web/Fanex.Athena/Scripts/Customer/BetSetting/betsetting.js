@@ -14,7 +14,8 @@ var BetSetting = (function ($) {
     var TAB_GOLDDELUXE = 11;
     var TAB_MACAU = 12;
     var TAB_BETTRADE = 13;
-    var TAB_MICROGAMING = 14;
+    var TAB_MICROGAMINGLIVECASINO = 14;
+    var TAB_MICROGAMINGRNGCASINO = 17;
 
     var _sportIds = null;
     return {
@@ -93,8 +94,12 @@ var BetSetting = (function ($) {
                 case TAB_MACAU:
                     url = "BetSettingAPI/UpdateMacauStatus";
                     break;
-                case TAB_MICROGAMING:
-                    url = "BetSettingAPI/UpdateMicroGamingStatus";
+                case TAB_MICROGAMINGLIVECASINO:               
+                    url = "BetSettingAPI/UpdateMicroGamingLiveCasinoStatus";
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
+                case TAB_MICROGAMINGRNGCASINO:
+                    url = "BetSettingAPI/UpdateMicroGamingRNGCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_BETTRADE:
@@ -511,7 +516,8 @@ var BetSetting = (function ($) {
                 case TAB_BETTRADE:
                     BetSetting.resetBetTradeSetting();
                     break;
-                case TAB_MICROGAMING:
+                case TAB_MICROGAMINGLIVECASINO:
+                case TAB_MICROGAMINGRNGCASINO:
                     BetSetting.resetMicrogamingSetting();
                     break;
                 default:

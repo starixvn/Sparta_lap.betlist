@@ -2680,14 +2680,16 @@
   <data name="BetTradeNotOfferCurrency" xml:space="preserve">
     <value>BetTrade is not offered for this currency.</value>
   </data>
-  <data name="MicroGamingNotOfferCurrency" xml:space="preserve">
-    <value>Microgaming is not offered for this currency.</value>
+  <data name="MicroGamingLiveCasinoNotOfferCurrency" xml:space="preserve">
+    <value>Microgaming Live Casino is not offered for this currency.</value>
+    <comment>#46454</comment>
   </data>
   <data name="DisableMicrogaming" xml:space="preserve">
     <value>Disable Microgaming</value>
   </data>
-  <data name="EnableMicrogaming" xml:space="preserve">
-    <value>Enable Microgaming</value>
+  <data name="EnableMicrogamingLiveCasino" xml:space="preserve">
+    <value>Enable Microgaming Live Casino</value>
+    <comment>#46454</comment>
   </data>
   <data name="EnableBetTrade" xml:space="preserve">
     <value>Enable BetTrade</value>
@@ -2726,6 +2728,22 @@
   <data name="DetailedBetlist" xml:space="preserve">
     <value>Detailed Bet list</value>
     <comment>#43078</comment>
+  </data>
+  <data name="MicrogamingLiveCasino" xml:space="preserve">
+    <value>Microgaming-Live Casino</value>
+    <comment>#46454</comment>
+  </data>
+  <data name="MicrogamingRNGCasino" xml:space="preserve">
+    <value>Microgaming-RNG Casino</value>
+    <comment>#46454</comment>
+  </data>
+  <data name="EnableMicrogamingRNGCasino" xml:space="preserve">
+    <value>Enable Microgaming RNG Casino</value>
+    <comment>#46454</comment>
+  </data>
+  <data name="MicroGamingRNGCasinoNotOfferCurrency" xml:space="preserve">
+    <value>Microgaming RNG Casino is not offered for this currency.</value>
+    <comment>#46454</comment>
   </data>
   <data name="CasinoProgressiveWins" xml:space="preserve">
     <value>Casino Progressive Wins</value>

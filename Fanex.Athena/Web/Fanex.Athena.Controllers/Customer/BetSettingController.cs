@@ -100,8 +100,10 @@ namespace Fanex.Athena.Controllers.Customer
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
                 case ProductTypes.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
-                case ProductTypes.MicroGaming:
-                    return View("~/Views/Customer/BetSetting/MicroGaming.cshtml", viewModel);
+                case ProductTypes.MicroGamingLiveCasino:
+                    return View("~/Views/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
+                case ProductTypes.MicrogamingRNGCasino:
+                    return View("~/Views/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
                 case ProductTypes.BetTrade:
                     return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
                 default: // Sportsbook, Racing, Virtual Sports
@@ -264,7 +266,8 @@ namespace Fanex.Athena.Controllers.Customer
                     break;
 
                 case ProductTypes.Macau:
-                case ProductTypes.MicroGaming:
+                case ProductTypes.MicroGamingLiveCasino:
+                case ProductTypes.MicrogamingRNGCasino:
                 case ProductTypes.BetTrade:
                     model = _betSettingService.GetThirdPartyViewModel(custId, productId);
                     break;

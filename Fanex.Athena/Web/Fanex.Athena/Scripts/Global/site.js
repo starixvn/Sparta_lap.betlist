@@ -665,7 +665,7 @@ var Site = (function ($) {
             var isCheckAll = checkedCount === length;
             $("#" + dropDownListId).multiSelect(
                 {
-                    minWidth: 160,
+                    minWidth: 200,
                     maxHeight: 400,
                     shadow: true,
                     showHeader: true,
