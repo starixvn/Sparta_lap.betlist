@@ -117,8 +117,8 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MicroGamingWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
 
-            var exportedFileName = metaModel.ProductCode + string.Format(
-                "WinLoss_{0:ddMMMyyyy}_{1}.xls", 
+            var exportedFileName = string.Format(
+                "MicroGamingWinLoss_{0:ddMMMyyyy}_{1}.xls", 
                 metaModel.FromDate, 
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption

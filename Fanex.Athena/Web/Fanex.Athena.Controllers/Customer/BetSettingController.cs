@@ -181,7 +181,8 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
             metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
             metaModel.IsAllowMacau = productAccess.IsAllowMC;
-            metaModel.IsAllowMicroGaming = productAccess.IsAllowMGC;
+            metaModel.IsAllowMicroGamingLiveCasino = productAccess.IsAllowMGCLC;
+            metaModel.IsAllowMicroGamingRNGCasino = productAccess.IsAllowMGCRNG;
             metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 

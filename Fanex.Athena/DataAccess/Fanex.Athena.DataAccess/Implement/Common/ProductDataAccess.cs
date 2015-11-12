@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Text.RegularExpressions;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Common;
@@ -21,7 +22,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using Fanex.Common;
     using Fanex.Data;
     using Fanex.Logging;
-    using System.Text.RegularExpressions;
 
     /// <summary>
     ///   The product data access.

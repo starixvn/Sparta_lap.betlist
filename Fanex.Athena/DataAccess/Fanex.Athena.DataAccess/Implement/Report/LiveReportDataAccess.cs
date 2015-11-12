@@ -258,7 +258,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         private bool IsIgnoredProduct(Product product, IList<LiveReportByBetType> resultByBettype)
         {
-            return product.ProductCode == Product.MGC ||
+            return product.ProductCode == Product.MGCLC || product.ProductCode == Product.MGCRNG ||
                     product.ProductCode == Product.BA ||
                     resultByBettype.Any(p => p.ProductName == product.ProductName);
         }

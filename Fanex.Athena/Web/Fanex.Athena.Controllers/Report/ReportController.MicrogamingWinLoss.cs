@@ -29,9 +29,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var products = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            var product = products.Where(p => p.ProductCode == Product.MGC).SingleOrDefault();
-
-            if (product == null)
+            if (!products.Any(p => p.ProductCode == Product.MGCLC || p.ProductCode == Product.MGCRNG))
             {
                 return this.Redirect("~/Utility/AccessDenied");
             }
@@ -43,10 +41,7 @@ namespace Fanex.Athena.Controllers.Report
                 ToDate = date,
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
-                ProductId = product.ProductID,
-                ReportBy = 1,
-                ProductCode = product.ProductCode,
-                ProductName = product.ProductName
+                ReportBy = 1
             };
 
             SetConvetedUSDCurrencyId(metaModel);

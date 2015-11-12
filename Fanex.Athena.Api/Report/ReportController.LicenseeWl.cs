@@ -170,11 +170,10 @@ namespace Fanex.Athena.Api.Report
                 TurnOverCS = item.TurnOver.Keys.Contains(Product.CS) ? item.TurnOver[Product.CS] : 0,
                 TurnOverBG = item.TurnOver.Keys.Contains(Product.BG) ? item.TurnOver[Product.BG] : 0,
                 TurnOverKN = item.TurnOver.Keys.Contains(Product.KN) ? item.TurnOver[Product.KN] : 0,
-                TurnOverMGC = item.TurnOver.Keys.Contains(Product.MGC) ? item.TurnOver[Product.MGC] : 0,
                 TurnOverBT = item.TurnOver.Keys.Contains(Product.BT) ? item.TurnOver[Product.BT] : 0,
-                TurnOverAGC = item.TurnOver.Keys.Contains(Product.AGC) ? item.TurnOver[Product.AGC] : 0
-
-
+                TurnOverAGC = item.TurnOver.Keys.Contains(Product.AGC) ? item.TurnOver[Product.AGC] : 0,
+                TurnOverMGCLC = item.TurnOver.Keys.Contains(Product.MGCLC) ? item.TurnOver[Product.MGCLC] : 0,
+                TurnOverMGCRNG = item.TurnOver.Keys.Contains(Product.MGCRNG) ? item.TurnOver[Product.MGCRNG] : 0
             };
         }
 

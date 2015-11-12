@@ -793,7 +793,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var suportProducts = new string[5] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGC };
+            var suportProducts = new string[6] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {

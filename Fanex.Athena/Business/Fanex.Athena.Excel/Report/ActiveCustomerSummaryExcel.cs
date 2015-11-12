@@ -202,7 +202,8 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.KN, Status = false },
                 new ProductOption { Code = Product.PTCS, Status = false },
                 new ProductOption { Code = Product.AGC, Status = false },
-                new ProductOption { Code = Product.MGC, Status = false }
+                new ProductOption { Code = Product.MGCLC, Status = false },
+                new ProductOption { Code = Product.MGCRNG, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)
