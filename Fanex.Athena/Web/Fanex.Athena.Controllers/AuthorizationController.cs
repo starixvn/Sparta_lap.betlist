@@ -210,7 +210,6 @@ namespace Fanex.Athena.Controllers
             else
             {
                 errorCode = ErrorType.Success;
-                errorMsg = ViewResources.SessionLoggedMsg;
             }
 
             return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
