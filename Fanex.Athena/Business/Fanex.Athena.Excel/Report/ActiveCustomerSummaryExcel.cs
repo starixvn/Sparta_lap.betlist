@@ -28,8 +28,8 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
         private const int ColumnLastProduct = 12;
-        private const int ColumnTotalTransaction = 13;
-        private const int ColumnTemplateCount = 14;
+        private const int ColumnTotalTransaction = 14;
+        private const int ColumnTemplateCount = 15;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -110,7 +110,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Keno,
                 ViewResources.PlaytechCasino,
                 ViewResources.AGCasino,
-                ViewResources.Microgaming
+                ViewResources.MicrogamingLiveCasino,
+                ViewResources.MicrogamingRNGCasino,
             };
 
             int index = ColumnFirstProduct;
