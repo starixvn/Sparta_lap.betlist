@@ -127,9 +127,6 @@ namespace Fanex.Athena.Models.DTO.Report
                 case "VS185":
                     return ViewResources.VirtualCycling;
 
-                case "MGC":
-                    return ViewResources.Microgaming;
-
                 default:
                     return productCode;
             }
