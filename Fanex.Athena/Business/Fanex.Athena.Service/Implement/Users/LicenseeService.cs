@@ -114,7 +114,7 @@ namespace Fanex.Athena.Service.Implement.Users
         /// <param name="userId">The user id.</param>
         /// <param name="resellerId">The reseller id.</param>
         /// <returns>The reseller identity list.</returns>
-        public IList<int> GetByResellerId(int userId, int resellerId)
+        public IEnumerable<int> GetByResellerId(int userId, int resellerId)
         {
             return _licenseeDataAccess.GetByResellerId(userId, resellerId);
         }
