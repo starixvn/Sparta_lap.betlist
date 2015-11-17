@@ -19,4 +19,7 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="UAT" SpName="Lrf_CustomerUpdMaxPerMatch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_CustomerUpdMember_MinMaxBet" EnvironmentText="_xpre"></SpNameConfig>  
 </Root>
