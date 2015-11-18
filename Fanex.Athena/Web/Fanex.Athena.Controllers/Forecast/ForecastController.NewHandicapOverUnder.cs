@@ -15,9 +15,8 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Logging;
+    using Fanex.Athena.Service.Helpers;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;
 
@@ -189,7 +188,7 @@ namespace Fanex.Athena.Controllers.Forecast
             }
             catch (System.Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return model;
