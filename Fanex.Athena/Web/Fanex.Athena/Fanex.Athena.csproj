@@ -559,7 +559,6 @@
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0026\Thumbs.db" />
-    <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
