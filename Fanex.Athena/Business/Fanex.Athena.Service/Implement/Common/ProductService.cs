@@ -85,7 +85,6 @@ namespace Fanex.Athena.Service.Implement.Common
 
             var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
-
             return new ProductAccess(productList);
         }
 

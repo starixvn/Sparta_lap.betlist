@@ -5,6 +5,7 @@
   </Group>
 
   <Group Name="Report">
+    <Function Name="CasinoProgressiveWins" Product="MGC"></Function>
     <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,MGC,AGC"></Function>
     <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGC"></Function>
     <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,MGC,AGC"></Function>

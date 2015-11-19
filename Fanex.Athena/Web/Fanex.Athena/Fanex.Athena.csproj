@@ -611,6 +611,8 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\agcasinobalance.js" />
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
+    <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
+    <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
@@ -640,6 +642,9 @@
     <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

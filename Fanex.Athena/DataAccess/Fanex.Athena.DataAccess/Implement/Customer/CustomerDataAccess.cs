@@ -147,10 +147,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 var oddsGroupValues = string.Join(",", selectedOddsGroups);
                 objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
             }
-            else
-            {
-                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroups);
-            }
         }
 
         /// <summary>

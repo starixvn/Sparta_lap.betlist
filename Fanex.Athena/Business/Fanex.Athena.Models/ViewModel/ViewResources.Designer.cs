@@ -907,6 +907,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Casino Progressive Wins.
+        /// </summary>
+        public static string CasinoProgressiveWins {
+            get {
+                return ResourceManager.GetString("CasinoProgressiveWins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Casino Transfer.
         /// </summary>
         public static string CasinoTransfer {
@@ -5655,6 +5664,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string RecommendBrowserOnReportPageMsg {
             get {
                 return ResourceManager.GetString("RecommendBrowserOnReportPageMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference No.
+        /// </summary>
+        public static string ReferenceNo {
+            get {
+                return ResourceManager.GetString("ReferenceNo", resourceCulture);
             }
         }
         

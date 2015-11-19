@@ -84,7 +84,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">Meta model object.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
+        protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)

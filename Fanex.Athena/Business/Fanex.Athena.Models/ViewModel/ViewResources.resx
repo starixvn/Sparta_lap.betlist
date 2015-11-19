@@ -2727,4 +2727,11 @@
     <value>Detailed Bet list</value>
     <comment>#43078</comment>
   </data>
+  <data name="CasinoProgressiveWins" xml:space="preserve">
+    <value>Casino Progressive Wins</value>
+  </data>
+  <data name="ReferenceNo" xml:space="preserve">
+    <value>Reference No</value>
+    <comment>#47601</comment>
+  </data>
 </root>

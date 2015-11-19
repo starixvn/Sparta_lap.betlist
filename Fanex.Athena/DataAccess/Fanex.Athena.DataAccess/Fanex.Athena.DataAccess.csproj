@@ -159,6 +159,7 @@
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
+    <Compile Include="Implement\Report\CasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Implement\Report\MicroGamingWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoBalanceDataAccess.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
     <Compile Include="Interface\Configuration\IMoveBetDataAccess.cs" />
+    <Compile Include="Interface\Report\ICasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Interface\Report\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IActiveCustomerSummaryDataAccess.cs" />
