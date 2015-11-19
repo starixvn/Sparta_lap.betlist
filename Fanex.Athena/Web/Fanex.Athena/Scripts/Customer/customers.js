@@ -2,7 +2,7 @@
 /// <reference path="/@JSense.js" />
 var CustomerList = (function ($) {
     "use strict";
-    
+
     var ajaxRequest = null;
     var _$specialLevelCell, _$oddsGroupCell = null;
     var _isAllowedCustomerCommission = false;
@@ -699,6 +699,10 @@ var CustomerList = (function ($) {
                 },
                 beforeSend: function () {
                     Site.blockUI();
+                },
+                error: function () {
+                    Site.unBlockUI();
+                    alert(Site.getSingleResource("ErrorProcessingMsg"));
                 }
             };
             if (ajaxRequest != null) {
