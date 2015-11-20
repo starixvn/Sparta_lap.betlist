@@ -43,8 +43,8 @@ namespace Fanex.Athena.Api.BetList
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
 
-            metaModel.FromDate = DateTime.Today.AddYears(-10);
-            metaModel.ToDate = DateTime.Today.AddYears(10);
+            metaModel.FromDate = DateTime.Today.AddYears(-1);
+            metaModel.ToDate = DateTime.Today.AddYears(1);
 
             return GetBetListResult(metaModel, UspKey);
         }

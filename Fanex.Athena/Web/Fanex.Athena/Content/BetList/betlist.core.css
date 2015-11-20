@@ -151,6 +151,10 @@ div.match + div.league
     margin: 3px;
     width: 18px;
 }
+.light-blue
+{
+    color:#0017CD;
+}
 /* Trans */
 .iplink ,.betsliplink{
 	cursor: pointer;

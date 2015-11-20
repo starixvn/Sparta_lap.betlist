@@ -51,60 +51,21 @@
 
 		public string SpNameTemplate = "SpName=\"{0}\"";
 		
-		public System.Collections.Generic.List<SpNameConfig> ListOfConfig
+		public string GenerateSpName(string allSpName, IList<SpNameConfig> listOfConfig)
 		{
-			get
-			{			
-				string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
-				Directory.SetCurrentDirectory(path);				
-				var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameConfig.xml");
-				var elements = document.Root.Elements("SpNameConfig");
-				var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
-				
-				foreach (var element in elements)
-				{
-					var enviroments = element.Attribute("Environment").Value.Trim().Split(',');
-					foreach(var enviroment in enviroments)
-					{
-						listOfConfig.Add(new SpNameConfig
-						{
-							Environment = enviroment.Trim(),
-							SpName = element.Attribute("SpName").Value.Trim(),
-							EnvironmentText = element.Attribute("EnvironmentText").Value.Trim(),
-						});
-					}
-				}
-
-				return listOfConfig;
+			listOfConfig = listOfConfig.Where (x=>x.Environment == SiteEnvironment.ToString()).ToList();
+			string generateSpNameText = allSpName;
+			foreach (var item in listOfConfig)
+			{
+				generateSpNameText = Regex.Replace(
+					generateSpNameText, 
+					string.Format(SpNameTemplate, item.SpName), 
+					string.Format(SpNameTemplate, item.SpName + item.EnvironmentText), 
+					RegexOptions.IgnoreCase); 
 			}
-		}
-
-		public string GenerateSpName
-		{
-			get 
-			{				
-				var listOfConfig = ListOfConfig.Where (x=>x.Environment == SiteEnvironment.ToString()).ToList();
-				string generateSpNameText = AllSpName;
-				foreach (var item in listOfConfig)
-				{
-					generateSpNameText = Regex.Replace(
-						generateSpNameText, 
-						string.Format(SpNameTemplate, item.SpName), 
-						string.Format(SpNameTemplate, item.SpName + item.EnvironmentText), 
-						RegexOptions.IgnoreCase); 
-				}
 			
-				return generateSpNameText;
-			}
+			return generateSpNameText;
 		}
-
-        public string AllSpName
-        {
-            get
-            {
-                return System.IO.File.ReadAllText(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml");
-            }
-        }		
     }
 
 	class SpNameConfig
@@ -114,5 +75,39 @@
 		public string SpName {get;set;}
 
 		public string EnvironmentText {get;set;}
+	}
+
+	static class Helper 
+	{
+		public static string GetAllSpName()
+        {
+            return System.IO.File.ReadAllText(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml");
+        }	
+
+		public static IList<SpNameConfig> GetListOfConfig()
+		{			
+			string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
+			Directory.SetCurrentDirectory(path);				
+			var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameConfig.xml");
+			var elements = document.Root.Elements("SpNameConfig");
+			var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();
+				
+			foreach (var element in elements)
+			{
+				var enviroments = element.Attribute("Environment").Value.Trim().Split(',');
+				foreach(var enviroment in enviroments)
+				{
+					listOfConfig.Add(new SpNameConfig
+					{
+						Environment = enviroment.Trim(),
+						SpName = element.Attribute("SpName").Value.Trim(),
+						EnvironmentText = element.Attribute("EnvironmentText").Value.Trim(),
+					});
+				}
+			}
+
+			return listOfConfig;
+		}
+
 	}
 #>

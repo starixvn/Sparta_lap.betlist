@@ -49,7 +49,7 @@ namespace Fanex.Athena.Models.Helper
         /// <param name="productCode">The product code.</param>
         /// <param name="bettype">The bet type.</param>
         /// <returns>True or false.</returns>
-        public static bool ValidateBettpe(string productCode, int bettype)
+        public static bool IsValidBettype(string productCode, int bettype)
         {
             if (string.IsNullOrEmpty(productCode))
             {

@@ -84,7 +84,7 @@
                     case SiteEnvironment.BACKUPMNL:
                         return "http://10.4.98.3:8091/pools/default";
                     case SiteEnvironment.SANDBOX:
-                        return "http://10.18.200.209:8091/pools/default";
+                        return "http://10.18.200.124:8091/pools/default";
                     default:
                         return string.Empty;
                 }
@@ -196,7 +196,7 @@
                     case SiteEnvironment.SANDBOX:
                         return "<sessionState mode=\"StateServer\" />";
                     case SiteEnvironment.UAT:
-                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
+                        return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.40.40.127:42424\" cookieless=\"false\"  />";
                     case SiteEnvironment.PRO:
                         return "<sessionState mode=\"StateServer\" timeout=\"20\" stateConnectionString=\"tcpip=10.2.8.8:42424\" cookieless=\"false\"  />";
                     case SiteEnvironment.BACKUPMNL:

@@ -32,7 +32,7 @@ namespace Fanex.Athena.Models.DTO.Report
                 if (_betTypeName == null)
                 {
                     _betTypeName = CacheRef.GetBettype(_betType, _liveIndicator) +
-                        (Validator.ValidateBettpe("VS", _betType) ? " (" + ViewResources.VirtualSports + ")" : string.Empty);
+                        (Validator.IsValidBettype("VS", _betType) ? " (" + ViewResources.VirtualSports + ")" : string.Empty);
                 }
 
                 return _betTypeName;

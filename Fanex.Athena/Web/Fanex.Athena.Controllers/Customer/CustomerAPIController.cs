@@ -9,9 +9,6 @@ namespace Fanex.Athena.Controllers.Customer
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
@@ -20,6 +17,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Implement.Users;
@@ -27,7 +25,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Logging;
 
     #endregion Using
 
@@ -119,7 +116,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return Json(result);
@@ -159,7 +156,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return Json(new ResultViewModel
@@ -210,7 +207,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                LogHelper.WriteError(exception);
             }
 
             return Json(new ResultViewModel

@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Implement.Users
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Diagnostics;
     using System.Linq;
     using System.Web;
     using Fanex.Athena.DataAccess.Implement.Users;
@@ -109,6 +110,7 @@ namespace Fanex.Athena.Service.Implement.Users
         ///     If customer id > 0 return true if the customer id is belonged to the licensee.
         ///     If transaction Id > 0 return true if the transaction id is belonged to a customer of the licensee.
         /// </returns>
+        [DebuggerStepThrough]
         public bool HasPermissionOnData(int custId, long transId)
         {
             if (custId == 0 && transId == 0)

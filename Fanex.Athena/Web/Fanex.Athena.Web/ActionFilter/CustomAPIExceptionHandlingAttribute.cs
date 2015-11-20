@@ -8,7 +8,7 @@ namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
     using System.Web.Http.Filters;
-    using Fanex.Logging;
+    using Fanex.Athena.Service.Helpers;
 
     /// <summary>
     /// TODO: Update summary.
@@ -18,7 +18,7 @@ namespace Fanex.Athena.Web.ActionFilter
     {
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
-            LogService.Error(actionExecutedContext.Exception.Message);
+            LogHelper.WriteError(actionExecutedContext.Exception);
             base.OnException(actionExecutedContext);
         }
     }
