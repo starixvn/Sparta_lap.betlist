@@ -529,6 +529,7 @@
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />

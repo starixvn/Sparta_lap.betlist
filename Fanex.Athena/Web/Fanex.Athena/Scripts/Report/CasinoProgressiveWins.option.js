@@ -38,7 +38,7 @@ var CasinoProgressiveWinsOption = (function () {
         index: 'ExternalId',
         resizable: false,
         sortable: false,
-        width: 120,
+        width: 100,
         align: 'left'
     };
 
@@ -48,7 +48,7 @@ var CasinoProgressiveWinsOption = (function () {
         index: 'SystemId',
         resizable: false,
         sortable: false,
-        width: 120,
+        width: 100,
         align: 'left'
     };
 
@@ -58,7 +58,11 @@ var CasinoProgressiveWinsOption = (function () {
         index: 'Refo',
         sortable: false,
         width: 75,
-        align: 'center'
+        align: 'center',
+        formatter: function (cellvalue, options, rowObject) {
+            /* jshint unused: false */
+            return '<a class="reference-no-link" href="javascript:;">' + cellvalue + '</a>';
+        }
     };
 
     var choiceColumn =
@@ -66,7 +70,7 @@ var CasinoProgressiveWinsOption = (function () {
         name: 'Choice',
         index: 'Choice',
         sortable: false,
-        width: 75,
+        width: 150,
         align: 'right'
     };
 
@@ -75,7 +79,7 @@ var CasinoProgressiveWinsOption = (function () {
         name: 'WinAmount',
         index: 'WinAmount',
         sortable: false,
-        width: 90,
+        width: 80,
         align: 'right',
         formatter: jqGridAdditional.formatDecimal
     };
@@ -86,7 +90,7 @@ var CasinoProgressiveWinsOption = (function () {
 
     var me =
     {
-        rowNum: 5000,     
+        rowNum: 5000,
         urlData: 'api/CasinoProgressiveWinsReport/index',
         urlExcelData: 'api/CasinoProgressiveWinsReport/index',
         gridOption:

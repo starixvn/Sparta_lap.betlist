@@ -34,6 +34,11 @@ namespace Fanex.Athena.Models.Cache
         {
         }
 
+        public static string GetResourceData(string refId, string resourceId)
+        {
+            return RefData.GetResourceDataByRefIdAndResourceId(refId, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
+        }
+
         public static string GetBettype(object bettypeId)
         {
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);

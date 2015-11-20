@@ -2626,6 +2626,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grand Prize: the grand winning amount which is excluded from member balance.
+        /// </summary>
+        public static string GrandPrize {
+            get {
+                return ResourceManager.GetString("GrandPrize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grand Total.
         /// </summary>
         public static string GrandTotal {

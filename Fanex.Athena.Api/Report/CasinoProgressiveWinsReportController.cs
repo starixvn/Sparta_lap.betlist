@@ -9,10 +9,12 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Text;
     using System.Web;
     using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
@@ -44,7 +46,15 @@ namespace Fanex.Athena.Api.Report
         #region Private Utility
 
         private static CasinoProgressiveWinsGridViewModel MapToGridView(CasinoProgressiveWins item)
-        {
+        {           
+            var gameName = CacheRef.GetResourceData("MG_Casino", item.TransDesc);
+            var betType = CacheRef.GetBettype(item.BetType);
+            var sportType = CacheRef.GetSportName(item.SportType);
+
+            var choice = new StringBuilder();
+            choice.Append("<strong>" + gameName + "</strong></br>" +
+                            "<strong class='sport'>" + sportType + "</strong>&nbsp;" +
+                            "<strong class='bettype'>" + betType + "</strong>");
             return new CasinoProgressiveWinsGridViewModel
             {
                 Index = item.Index,
@@ -52,7 +62,7 @@ namespace Fanex.Athena.Api.Report
                 ExternalId = item.ExternalId,
                 RefNo = item.RefNo,
                 WinlostDate = item.WinlostDate,
-                Choice = "Test",
+                Choice = choice.ToString(),
                 WinAmount = item.WinAmount
             };
         }
