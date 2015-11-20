@@ -62,13 +62,12 @@ var CasinoProgressiveWins = (function ($) {
         },
 
         //#region Layout
-        setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
+        setExcelUrl: function (currencyId, custId, fdate, tdate, currencyName) {
             var temp = 'api/CasinoProgressiveWinsReport/index';
-            if (level > 0) {
-                temp += "?level=" + level + "&currencyId="
+            temp += "?currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
                  + "&tdate=" + tdate.toString("MM/dd/yyyy") + "&currencyName=" + currencyName;
-            }
+            
             CasinoProgressiveWinsOption.urlExcelData = temp;
         },
 
@@ -111,7 +110,7 @@ var CasinoProgressiveWins = (function ($) {
                         IsExcludedTestData: data.IsExcludedTestData
                     };
 
-                    CasinoProgressiveWins.setExcelUrl(0, 0, 0, "", "", "");
+                    CasinoProgressiveWins.setExcelUrl(0, 0, "", "", "");
                     CasinoProgressiveWins.ajaxComplete(response);
                 },
                 beforeSend: function () {

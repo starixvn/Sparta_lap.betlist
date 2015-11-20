@@ -11,8 +11,6 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
     using Models.ViewModel;
@@ -24,27 +22,13 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
-        private const int ColumnCurrency = 4;
-        private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 16;
-        private const int ColumnTotalTransaction = 17;
-        private const int ColumnCustomerWl = 18;
-        private const int ColumnCustomerComm = 19;
-        private const int ColumnCustomerTotal = 20;
-        private const int ColumnLicenseeWlSportsBook = 21;
-        private const int ColumnLicenseeWlTotal = 32;
-        private const int ColumnBetTradeCommission = 33;
-        private const int ColumnBaCommission = 34;
-        private const int ColumnRacingRevenue = 35;
-        private const int ColumnAmtDueToBetTrade = 36;
-        private const int ColumnAmtDueToBa = 37;
-        private const int ColumnAmtDueToRacing = 38;
-        private const int ColumnTemplateCount = 39;
-        private const int RowContentTemplate = 3;
-        private const int RowGrantTotal = 6;
-        private const int RowNoInfoTemplate = 7;
-        private const int RowTotalNoSolidBorder = 5;
-        private const int RowTotalSolidBorder = 4;
+        private const int ColumnRefNo = 4;
+        private const int ColumnChoice = 5;
+        private const int ColumnAmount = 6;
+        
+        private const int ColumnTemplateCount = 7;
+        private const int RowContentTemplate = 3;        
+        private const int RowNoInfoTemplate = 4;
 
         private readonly IEnumerable<CasinoProgressiveWins> _dataList;
 
@@ -94,22 +78,12 @@ namespace Fanex.Athena.Excel.Report
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
+            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
-            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
-            row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
-            row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
-            row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
-            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
-            row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
-            row.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.LicenseeW_L);
-            row.Cells[ColumnBetTradeCommission].SetCellValue(ViewResources.BetTradeCommission);
-            row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
-            row.Cells[ColumnAmtDueToBetTrade].SetCellValue(ViewResources.AmtDueToBetTrade);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(ViewResources.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
+            row.Cells[ColumnRefNo].SetCellValue(ViewResources.ReferenceNo);
+            row.Cells[ColumnChoice].SetCellValue(ViewResources.Choice);
+            row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -187,7 +161,13 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="data">Licensee win loss data.</param>
         protected void AssignCommonData(IRow row, CasinoProgressiveWins data)
         {
-            row.Cells[ColumnTotalTransaction].SetCellValue(data.WinAmount);
+            row.Cells[ColumnIndex].SetCellValue(data.Index);
+            row.Cells[ColumnDate].SetCellValue(data.WinlostDate);
+            row.Cells[ColumnExternalId].SetCellValue(data.ExternalId);
+            row.Cells[ColumnSystemId].SetCellValue(data.SystemId);
+            row.Cells[ColumnRefNo].SetCellValue(data.RefNo);
+            row.Cells[ColumnChoice].SetCellValue(data.CurrencyId);
+            row.Cells[ColumnAmount].SetCellValue(data.WinAmount);
         }
     }
 }
