@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="DEV" SpName="Test" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

@@ -3,6 +3,8 @@
 <#@ include file="SpNameConfiguration.ttinclude" #>
 <#
     var manager = TemplateFileManager.Create(this);	
+	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
+	Directory.SetCurrentDirectory(path);
     foreach(var site in sites)
     {        
 		var x = site.SiteEnvironment.ToString();
