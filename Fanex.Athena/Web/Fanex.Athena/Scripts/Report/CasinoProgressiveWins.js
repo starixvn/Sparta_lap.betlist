@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, CasinoProgressiveWinsOption, Report, Site */
+﻿/*global jqGridAdditional, QueryString, CasinoProgressiveWinsOption, Report, Site */
 /// <reference path="/@JSense.js" />
 ///
 var CasinoProgressiveWins = (function ($) {
@@ -6,7 +6,25 @@ var CasinoProgressiveWins = (function ($) {
 
     var ajaxRequest = null;
     var _resizeTimer = null;
-    var _submitData; // cache submit data of level 0.
+
+    function getMicrogamingResultUrl(gameid, custid) {
+        var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
+        url = QueryString.setParam(url, "gameid", gameid);
+        url = QueryString.setParam(url, "custid", custid);
+
+        return url;
+    }
+
+    function showMicrogamingResultPopup(gameid, custid) {
+        var url = getMicrogamingResultUrl(gameid, custid);
+        var title = Site.getSingleResource("Result");
+        var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="450" src="' + url + '" ></iframe></div></div>';
+        $(dialogForm).dialog({
+            modal: true,
+            width: 750,
+            height: 500
+        });
+    }
 
     return {
         resizeGrid: function () {
@@ -59,6 +77,10 @@ var CasinoProgressiveWins = (function ($) {
                 $('#IsExportExcel').val(false);
                 return false;
             });
+
+            $(".report-content").on("click", ".refno-link", function () {
+                showMicrogamingResultPopup(0, 0);
+            });
         },
 
         //#region Layout
@@ -67,7 +89,7 @@ var CasinoProgressiveWins = (function ($) {
             temp += "?currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
                  + "&tdate=" + tdate.toString("MM/dd/yyyy") + "&currencyName=" + currencyName;
-            
+
             CasinoProgressiveWinsOption.urlExcelData = temp;
         },
 
@@ -90,7 +112,6 @@ var CasinoProgressiveWins = (function ($) {
             }
 
             var mainForm = $("#mainForm");
-            var data = mainForm.serializeObject();
             var option = {
                 type: "POST",
                 data: mainForm.serialize(),
@@ -99,17 +120,6 @@ var CasinoProgressiveWins = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(CasinoProgressiveWinsOption.urlData),
                 success: function (response) {
-                    _submitData = {
-                        ProductOptions: response.ProductOptions,
-                        DrawFilter: data.DrawFilter,
-                        CurrencyId: data.CurrencyId,
-                        ReportBy: Number(data.ReportBy),
-                        FromDate: new Date(data.FromDate),
-                        ToDate: new Date(data.ToDate),
-                        CurrencyName: data.CurrencyName,
-                        IsExcludedTestData: data.IsExcludedTestData
-                    };
-
                     CasinoProgressiveWins.setExcelUrl(0, 0, "", "", "");
                     CasinoProgressiveWins.ajaxComplete(response);
                 },
@@ -135,7 +145,7 @@ var CasinoProgressiveWins = (function ($) {
 
             jqGridAdditional.clearGrid("ReportGrid");
 
-            var reportGrid = $("#ReportGrid");            
+            var reportGrid = $("#ReportGrid");
             var numOfRow = response.Data.length;
 
             var gridOption = CasinoProgressiveWinsOption.getGridOption();
@@ -144,7 +154,7 @@ var CasinoProgressiveWins = (function ($) {
             gridOption.userData = {};
             gridOption.rowList = CasinoProgressiveWinsOption.rowList;
             gridOption.rowTotal = numOfRow;
-            
+
             gridOption.gridComplete = function () {
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
