@@ -59,8 +59,10 @@ var CasinoProgressiveWinsOption = (function () {
         sortable: false,
         width: 75,
         align: 'center',
-        formatter: function (cellvalue) {
-            return '<a class="refno-link" href="javascript:;">' + cellvalue + '</a>';
+        formatter: function (cellvalue, option, rowObject) {
+            return '<a class="refno-link" data-bettype="' +
+                rowObject.BetType + '" data-custid="' + 
+                rowObject.CustId + '" href="javascript:;">' + cellvalue + '</a>';
         }
     };
 

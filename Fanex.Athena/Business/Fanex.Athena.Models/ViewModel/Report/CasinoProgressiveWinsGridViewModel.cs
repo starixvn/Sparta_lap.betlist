@@ -23,5 +23,9 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public string Choice { get; set; }
 
         public decimal WinAmount { get; set; }
+
+        public int CustId { get; set; }
+
+        public int BetType { get; set; }
     }
 }

@@ -63,7 +63,9 @@ namespace Fanex.Athena.Api.Report
                 RefNo = item.RefNo,
                 WinlostDate = item.WinlostDate,
                 Choice = choice.ToString(),
-                WinAmount = item.WinAmount
+                WinAmount = item.WinAmount,
+                CustId = item.CustId,
+                BetType = item.BetType
             };
         }
 

@@ -74,7 +74,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     BetType = reader.ToInt("BetType"),
                     SportType = reader.ToInt("SportType"),
                     TransDesc = reader.ToString("TransDesc"),
-                    CurrencyId = reader.ToInt("Currency")
+                    CurrencyId = reader.ToInt("Currency"),
+                    CustId = reader.ToInt("CustId")
                 };
 
                 result.Add(item);

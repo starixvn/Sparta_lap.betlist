@@ -30,5 +30,7 @@ namespace Fanex.Athena.Models.DTO.Report
         public string TransDesc { get; set; }
 
         public int CurrencyId { get; set; }
+
+        public int CustId { get; set; }
     }
 }

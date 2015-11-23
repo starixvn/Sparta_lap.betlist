@@ -79,7 +79,10 @@ var CasinoProgressiveWins = (function ($) {
             });
 
             $(".report-content").on("click", ".refno-link", function () {
-                showMicrogamingResultPopup(0, 0);
+                var $this = $(this);
+                var bettype = $this.attr("data-bettype");
+                var custid = $this.attr("data-custid");
+                showMicrogamingResultPopup(bettype, custid);
             });
         },
 
