@@ -46,15 +46,16 @@ namespace Fanex.Athena.Api.Report
         #region Private Utility
 
         private static CasinoProgressiveWinsGridViewModel MapToGridView(CasinoProgressiveWins item)
-        {           
-            var gameName = CacheRef.GetResourceData("MG_Casino", item.TransDesc);
-            var betType = CacheRef.GetBettype(item.BetType);
-            var sportType = CacheRef.GetSportName(item.SportType);
+        {
+            var gameName = CacheRef.GetMicroGamingGameName(item.TransDesc);
+            var betTypeName = CacheRef.GetBettype(item.BetType);
+            var sportTypeName = CacheRef.GetSportName(item.SportType);
 
             var choice = new StringBuilder();
-            choice.Append("<strong>" + gameName + "</strong></br>" +
-                            "<strong class='sport'>" + sportType + "</strong>&nbsp;" +
-                            "<strong class='bettype'>" + betType + "</strong>");
+            choice.AppendFormat("<strong>{0}</strong></br>", gameName);
+            choice.AppendFormat("<strong class='sport'>{0}</strong>&nbsp;", sportTypeName);
+            choice.AppendFormat("<strong class='bettype'>{0}</strong>", betTypeName);
+
             return new CasinoProgressiveWinsGridViewModel
             {
                 Index = item.Index,
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(CasinoProgressiveWinsMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
         {
-            const string FileName = "CasinoProgressiveWins.xls";
+            const string FileName = "CasinoProgressiveWin_Microgaming.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/CasinoProgressiveWins.xls");
 
             var convertingOption = new ConvertingOption
@@ -107,7 +108,7 @@ namespace Fanex.Athena.Api.Report
                     return ExportExcel(metaModel, dataList);
                 }
 
-                if (dataList.Count() > 0)
+                if (dataList.Any())
                 {
                     return new
                     {
