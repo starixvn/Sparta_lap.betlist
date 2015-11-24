@@ -175,7 +175,7 @@ var RNGCasinoOption = (function () {
     var resultColumn = {
         name: 'Result',
         index: 'Result',
-        width: 0,
+        width: 180,
         align: 'left',
         sortable: false,
         resizable: false
@@ -200,7 +200,7 @@ var RNGCasinoOption = (function () {
             data: [],
             height: 'auto',
             viewrecords: true,
-            autowidth: true,
+            autowidth: false,
             forceFit: false,
             shrinkToFit: true,
             rowList: [100, 200, 300, 400, 500],
