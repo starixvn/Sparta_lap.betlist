@@ -13,6 +13,7 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
@@ -47,12 +48,12 @@ namespace Fanex.Athena.Api.Report
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
         public dynamic WinLostByProduct(
-            WinLossByProductMetaModel metaModel, 
-            DateTime? fdate, 
-            DateTime? tdate, 
-            int level = 0, 
-            int currencyId = 0, 
-            int custId = 0, 
+            WinLossByProductMetaModel metaModel,
+            DateTime? fdate,
+            DateTime? tdate,
+            int level = 0,
+            int currencyId = 0,
+            int custId = 0,
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
@@ -172,7 +173,7 @@ namespace Fanex.Athena.Api.Report
 
                 default:
                     return string.Empty;
-            }          
+            }
         }
 
         #region ProcessRequest
@@ -190,7 +191,7 @@ namespace Fanex.Athena.Api.Report
             WinLossByProductMetaModel metaModel,
             IList<WinLossByProduct> dataList,
             IDictionary<string, IList<WinLossByProduct>> summaryTotal,
-            string systemId, 
+            string systemId,
             string errorMessage)
         {
             const string FileName = "WinLossByProduct.xls";
@@ -314,16 +315,16 @@ namespace Fanex.Athena.Api.Report
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
-        {            
+        {
             if (!IsValidRequest(metaModel, currencyId))
             {
-                RedirectToErrorPage();
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
             }
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username) 
-                                && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase) 
+            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username)
+                                && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase)
                                 ? string.Empty : metaModel.Username;
 
             metaModel.DrillDownCurrencyId = currencyId;
@@ -375,9 +376,9 @@ namespace Fanex.Athena.Api.Report
                     ProductOptions = metaModel.ProductOptions.ToJson(),
                     MemberId = memberId,
                     SystemId = systemId,
-                    ErrorMessage = resultInfo.Message                    
+                    ErrorMessage = resultInfo.Message
                 }
-                : GetEmptyResult(metaModel, memberId, systemId, resultInfo.Message);            
+                : GetEmptyResult(metaModel, memberId, systemId, resultInfo.Message);
         }
 
         #endregion ProcessRequest
