@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
             });
             var metaModel = new CasinoProgressiveWinsMetaModel
                 {
-                    FromDate = DateTime.Now,
+                    FromDate = DateTime.Now.AddYears(-1),
                     ToDate = DateTime.Now,
                     LicenseeId = licenseeSession.LicenseeId,                                       
                     ProductOptions = productList.Select(i => new ProductOption
