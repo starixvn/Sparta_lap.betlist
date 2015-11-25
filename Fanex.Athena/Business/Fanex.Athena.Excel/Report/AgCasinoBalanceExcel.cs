@@ -144,12 +144,12 @@ namespace Fanex.Athena.Excel.Report
             for (index = pageIndex * PageSize; index < rowCount; index++)
             {
                 var casinoBalance = _casinoList[index];
+                var isDrillDownLevel = casinoBalance.RowSpan == 0;
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
 
-                row.Cells[ColumnIndex].SetCellValue(currentIndex);
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -157,13 +157,17 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
 
-                if (casinoBalance.RowSpan > 1)
+                if (isDrillDownLevel)
                 {
+                    row.Cells[ColumnIndex].SetCellValue(index + 1);
+                }
+                else if (casinoBalance.RowSpan > 1)
+                {
+                    row.Cells[ColumnIndex].SetCellValue(currentIndex);
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
                     currentIndex++;
-                    continue;
                 }
             }
 
