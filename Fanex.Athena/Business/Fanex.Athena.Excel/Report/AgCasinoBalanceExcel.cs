@@ -161,9 +161,13 @@ namespace Fanex.Athena.Excel.Report
                 {
                     row.Cells[ColumnIndex].SetCellValue(index + 1);
                 }
-                else if (casinoBalance.RowSpan > 1)
+                else
                 {
                     row.Cells[ColumnIndex].SetCellValue(currentIndex);
+                }
+
+                if (casinoBalance.RowSpan > 1)
+                {                   
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
