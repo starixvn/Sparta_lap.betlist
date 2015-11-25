@@ -99,12 +99,7 @@ var CasinoProgressiveWins = (function ($) {
         //#end
 
         //#Get Data
-        ajaxComplete: function (response) {
-            if (response != null) {
-                CasinoProgressiveWins.bindData(response);
-            }
-        },
-
+       
         submit: function () {
             Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
@@ -124,7 +119,7 @@ var CasinoProgressiveWins = (function ($) {
                 url: Site.resolveClientUrl(CasinoProgressiveWinsOption.urlData),
                 success: function (response) {
                     CasinoProgressiveWins.setExcelUrl(0, 0, "", "", "");
-                    CasinoProgressiveWins.ajaxComplete(response);
+                    CasinoProgressiveWins.bindData(response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -148,18 +143,13 @@ var CasinoProgressiveWins = (function ($) {
 
             jqGridAdditional.clearGrid("ReportGrid");
 
-            var reportGrid = $("#ReportGrid");
-            var numOfRow = response.Data.length;
-
+            var $reportGrid = $("#ReportGrid");
+            
             var gridOption = CasinoProgressiveWinsOption.getGridOption();
-            gridOption.rownumbers = true;
             gridOption.data = response.Data;
-            gridOption.userData = {};
-            gridOption.rowList = CasinoProgressiveWinsOption.rowList;
-            gridOption.rowTotal = numOfRow;
 
             gridOption.gridComplete = function () {
-                if (response == null || numOfRow === 0) {
+                if (response == null || response.Data.length === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
@@ -170,11 +160,11 @@ var CasinoProgressiveWins = (function ($) {
             };
 
             // Show the grid
-            reportGrid.jqGrid(gridOption);
+            $reportGrid.jqGrid(gridOption);
 
-            reportGrid.jqGrid('showCol', 'rn');
+            $reportGrid.jqGrid('showCol', 'rn');
 
-            jqGridAdditional.resetLayout(reportGrid);
+            jqGridAdditional.resetLayout($reportGrid);
 
             $gridBody = $(".ui-jqgrid-bdiv");
             if ($gridBody.length > 0) {

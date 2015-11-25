@@ -91,11 +91,11 @@ var CasinoProgressiveWinsOption = (function () {
 
     var me =
     {
-        rowNum: 5000,
         urlData: 'api/CasinoProgressiveWinsReport/index',
         urlExcelData: 'api/CasinoProgressiveWinsReport/index',
         gridOption:
         {
+            rowNum: 5000,
             datatype: 'local',
             colNames: [],
             colModel: [],
