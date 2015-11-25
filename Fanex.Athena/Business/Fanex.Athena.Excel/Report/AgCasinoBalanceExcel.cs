@@ -139,6 +139,7 @@ namespace Fanex.Athena.Excel.Report
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
             int index;
+            int currentIndex = 1;
 
             for (index = pageIndex * PageSize; index < rowCount; index++)
             {
@@ -148,7 +149,7 @@ namespace Fanex.Athena.Excel.Report
 
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
 
-                row.Cells[ColumnIndex].SetCellValue(index + 1);
+                row.Cells[ColumnIndex].SetCellValue(currentIndex);
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -161,6 +162,7 @@ namespace Fanex.Athena.Excel.Report
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
+                    currentIndex++;
                     continue;
                 }
             }

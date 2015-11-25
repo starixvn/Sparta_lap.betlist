@@ -13,14 +13,14 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Statement_Mem" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeProductSel" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_3rdProductSelCustStatus" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_3rdProductUpdCustStatus" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeProduct3rdSel_active" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_LicenseeProduct3rdSel_active" EnvironmentText="_xpre"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
