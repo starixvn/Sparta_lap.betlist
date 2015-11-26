@@ -205,8 +205,8 @@ namespace Fanex.Athena.Controllers.Report
         /// <summary>
         /// Generate tennis detailed result.
         /// </summary>
-        /// <param name="matchId">The match ID.</param>       
-        /// /// <param name="sportType">The sport type.</param>       
+        /// <param name="matchId">The match ID.</param>
+        /// /// <param name="sportType">The sport type.</param>
         /// <returns>The html result.</returns>
         [HttpGet]
         public ActionResult ResultDetail(int matchId, int sportType)
@@ -380,16 +380,6 @@ namespace Fanex.Athena.Controllers.Report
                     {
                         _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
                     }
-
-                    break;
-
-                case SportType.MicroGaming:
-                    _htmlResult = ParserService.Instance.Parser(new MicroGaming
-                    {
-                        CustId = metalModel.CustId,
-                        SiteName = SessionService.LicenseeSession.LicenseeName,
-                        GameId = metalModel.BetCheck
-                    });
 
                     break;
 

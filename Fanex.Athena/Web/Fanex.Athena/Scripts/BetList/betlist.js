@@ -5,6 +5,7 @@
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+    var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
 
     var _sortColumnName, _sortOrder;
@@ -330,7 +331,7 @@ var BetList = (function ($) {
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
             var title = Site.getSingleResource("Result");
-            if (sporttype === SPORT_MICROGAMMING_RNG) {
+            if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
             } else {
                 bettype = Number(bettype);
