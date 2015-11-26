@@ -31,22 +31,16 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CasinoProgressiveWinsName);
-            var productList = productAccess.ProductList.ToList();
-            productList.Add(new Product()
-            {
-                ProductCode = "MGCRNG",
-                ProductName = "Microgaming-RNG Casino"
-            });
             var metaModel = new CasinoProgressiveWinsMetaModel
                 {
                     FromDate = DateTime.Now.AddYears(-1),
                     ToDate = DateTime.Now,
-                    LicenseeId = licenseeSession.LicenseeId,                                       
-                    ProductOptions = productList.Select(i => new ProductOption
+                    LicenseeId = licenseeSession.LicenseeId,
+                    ProductOptions = productAccess.ProductList.Select(i => new ProductOption
                         {
                             Code = i.ProductCode,
                             Name = i.ProductName,
-                            Status = i.ProductCode == "MGCRNG"
+                            Status = i.ProductCode == Product.MGCRNG
                         }).ToList(),
                 };
            

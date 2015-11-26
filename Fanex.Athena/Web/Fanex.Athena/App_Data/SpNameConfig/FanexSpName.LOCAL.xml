@@ -90,6 +90,7 @@
     <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_MicroGamingWinloss" SpName="LRF_Rpt_MicroGamingWinloss_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CasinoProgressiveWins" SpName="Lrf_Rpt_CasinoProgressiveWins" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">
@@ -206,7 +207,7 @@
     <Setting Key="Lrf_BetList_SelWinLossByDate_Mem" SpName="Lrf_BetList_SelWinLossByDate_Mem_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelAllByDateHR" SpName="Lrf_BetList_SelAllByDateHR" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinloss_Mem" SpName="Lrf_BetList_SelWinloss_Mem_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Statement_Mem" SpName="Lrf_Statement_Mem_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Statement_Mem" SpName="Lrf_Statement_Mem_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinlostRacing" SpName="Lrf_BetList_SelWinlostRacing" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelByDayAll_Mem" SpName="Lrf_BetList_SelByDayAll_Mem_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelByDayAll_Mem_Old" SpName="Lrf_BetList_SelByDayAll_Mem_Old_xpre" DbName="DBACC.bodb02.bodbLicenseeNet" />

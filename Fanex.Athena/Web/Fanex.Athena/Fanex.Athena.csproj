@@ -3360,7 +3360,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\FunctionAllowedProduct.xml" />
+    <Content Include="App_Data\FunctionAllowedProduct.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />

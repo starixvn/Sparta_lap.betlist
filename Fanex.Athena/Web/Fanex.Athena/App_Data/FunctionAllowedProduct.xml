@@ -10,7 +10,7 @@
     <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,KN,RB,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="CustomerWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG"></Function>
-	<Function Name="CasinoProgressiveWins" Product="MGCRNG"></Function>
+    <Function Name="CasinoProgressiveWins" Product="MGCRNG"></Function>
     <Function Name="MatchWinLoss" Product="SB,BA,NG,LC,VS,RB"></Function>
     <Function Name="MobileWinloss" Product="SB,BA,NG,LC,VS,RB"></Function>
     <Function Name="Turnover" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG"></Function>
