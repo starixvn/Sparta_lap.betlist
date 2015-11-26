@@ -383,6 +383,16 @@ namespace Fanex.Athena.Controllers.Report
 
                     break;
 
+                case SportType.MicroGaming:
+                    _htmlResult = ParserService.Instance.Parser(new MicroGaming
+                    {
+                        CustId = metalModel.CustId,
+                        SiteName = SessionService.LicenseeSession.LicenseeName,
+                        GameId = metalModel.BetCheck
+                    });
+
+                    break;
+
                 default:
                     var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
