@@ -320,12 +320,12 @@ var BetList = (function ($) {
         showMicrogamingResultPopup: function (title, gameid, custid) {
             var url = BetList.getMicrogamingResultUrl(gameid, custid);
 
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="450" src="' + url + '" ></iframe></div></div>';
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="350" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
                 modal: true,
                 width: 750,
-                height: 500
-            });
+                height: 400
+            }) ;
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
