@@ -43,7 +43,9 @@ namespace Fanex.Athena.Service.Helpers
             var licenseeSession = sessionService.LicenseeSession;
             if (licenseeSession != null)
             {
-                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId;
+                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + 
+                    licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId + ";" +
+                    licenseeSession.UserName;
             }
 
             LogService.Error(message, exception);
