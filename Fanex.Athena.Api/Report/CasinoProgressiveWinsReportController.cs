@@ -66,7 +66,8 @@ namespace Fanex.Athena.Api.Report
                 Choice = choice.ToString(),
                 WinAmount = item.WinAmount,
                 CustId = item.CustId,
-                BetType = item.BetType
+                BetType = item.BetType,
+                GameId = item.GameId
             };
         }
 

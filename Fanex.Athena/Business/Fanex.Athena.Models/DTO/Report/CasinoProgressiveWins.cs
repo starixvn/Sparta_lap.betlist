@@ -33,5 +33,7 @@ namespace Fanex.Athena.Models.DTO.Report
         public int CurrencyId { get; set; }
 
         public int CustId { get; set; }
+
+        public string GameId { get; set; }
     }
 }

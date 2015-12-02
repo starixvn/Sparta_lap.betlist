@@ -27,5 +27,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public int CustId { get; set; }
 
         public int BetType { get; set; }
+
+        public string GameId { get; set; }
     }
 }

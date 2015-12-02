@@ -60,8 +60,8 @@ var CasinoProgressiveWinsOption = (function () {
         width: 75,
         align: 'center',
         formatter: function (cellvalue, option, rowObject) {
-            return '<a class="refno-link" data-bettype="' +
-                rowObject.BetType + '" data-custid="' + 
+            return '<a class="refno-link" data-gameid="' +
+                rowObject.GameId + '" data-custid="' + 
                 rowObject.CustId + '" href="javascript:;">' + cellvalue + '</a>';
         }
     };
