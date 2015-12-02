@@ -18,11 +18,11 @@ var CasinoProgressiveWins = (function ($) {
     function showMicrogamingResultPopup(gameid, custid) {
         var url = getMicrogamingResultUrl(gameid, custid);
         var title = Site.getSingleResource("Result");
-        var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="350" src="' + url + '" ></iframe></div></div>';
+        var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="100%" src="' + url + '" ></iframe></div></div>';
         $(dialogForm).dialog({
             modal: true,
             width: 750,
-            height: 430
+            height: 630
         });
     }
 
