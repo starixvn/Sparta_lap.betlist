@@ -126,8 +126,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     var reportTable = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
                     var grandTotalTable = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
 
-                    dataList = GetCustomers(reportTable, grandTotalTable, metaModel, out grandTotal);
-                   
+                    dataList = GetCustomers(reportTable, metaModel.BaseCurrency);
+
+                    grandTotal = GetGrandTotal(grandTotalTable, metaModel.BaseCurrency);
+
                     totalRows = Converter.ToInt(db.GetParameterValue("totalrows")); 
                     
                     return dataList;
@@ -188,31 +190,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>          
         /// <param name="grandTotal">Grand total object.</param>          
         /// <returns>The result value.</returns>
-        private static IList<WinLossByLeague> GetCustomers(
-            DataTable reportTable,
-            DataTable grandTotalTable,
-            WinLossByLeagueMetaModel metaModel,
-            out WinLossByLeague grandTotal)
+        private static IList<WinLossByLeague> GetCustomers(DataTable reportTable, string baseCurrency)
         {
             var result = new List<WinLossByLeague>();
 
             var index = 1;
-            var turnoverCol = "turnover" + metaModel.BaseCurrency;
-            var memberWlCol = "memberwinlost" + metaModel.BaseCurrency;
-            var licenseeWlCol = "licenseewl" + metaModel.BaseCurrency;
-            var bacommCol = "CommBA" + metaModel.BaseCurrency;
+            var turnoverCol = "turnover" + baseCurrency;
+            var memberWlCol = "memberwinlost" + baseCurrency;
+            var licenseeWlCol = "licenseewl" + baseCurrency;
+            var bacommCol = "CommBA" + baseCurrency;
 
-            grandTotal = new WinLossByLeague();
-
-            foreach (DataRow row in grandTotalTable.Rows)
-            {
-                grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
-                grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
-                grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
-                grandTotal.BACommission = Converter.ToDecimal(row[bacommCol]);
-                grandTotal.BetCount = Converter.ToInt(row["betcount"]);                
-            }
-            
             var reader = reportTable.CreateDataReader();
             while (reader.Read())
             {
@@ -236,6 +223,27 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
 
             return result;
+        }
+
+        private static WinLossByLeague GetGrandTotal(DataTable grandTotalTable, string baseCurrency)
+        {
+            var turnoverCol = "turnover" + baseCurrency;
+            var memberWlCol = "memberwinlost" + baseCurrency;
+            var licenseeWlCol = "licenseewl" + baseCurrency;
+            var bacommCol = "CommBA" + baseCurrency;
+
+            var grandTotal = new WinLossByLeague();
+
+            foreach (DataRow row in grandTotalTable.Rows)
+            {
+                grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
+                grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
+                grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
+                grandTotal.BACommission = Converter.ToDecimal(row[bacommCol]);
+                grandTotal.BetCount = Converter.ToInt(row["betcount"]);
+            }
+
+            return grandTotal;
         }
         
         #endregion Private

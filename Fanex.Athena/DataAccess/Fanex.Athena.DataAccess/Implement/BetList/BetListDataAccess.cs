@@ -1206,24 +1206,17 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader, string baseCurrency)
         {
             var stakeColumn = "stake" + baseCurrency;
-            var ordinalBetTeam = reader.TryGetOrdinal("betteam");
-            var ordinalStake = reader.TryGetOrdinal(stakeColumn);
+            var hasOrdinalBetTeam = reader.FieldExists("betteam");
+            var hasOrdinalStake = reader.FieldExists(stakeColumn);
             while (reader.Read())
             {
                 var ticket = new TicketData();
 
-                // string
-                ticket.BetTeam = ordinalBetTeam >= 0 ? reader.ToString("betteam") : string.Empty;
+                ticket.BetTeam = hasOrdinalBetTeam ? reader.ToString("betteam") : string.Empty;
                 ticket.RefNo = reader.ToString("refno");
                 ticket.Status = reader.ToString("status");
-
-                // Int
                 ticket.BetTypeId = reader.ToInt("bettype");
-
-                // Money
-                ticket.Stake = ordinalStake >= 0 ? reader.ToDecimal(stakeColumn) : 0;
-
-                // Decimal
+                ticket.Stake = hasOrdinalStake ? reader.ToDecimal(stakeColumn) : 0;
                 ticket.Odds = reader.ToDecimal("odds");
 
                 yield return ticket;
