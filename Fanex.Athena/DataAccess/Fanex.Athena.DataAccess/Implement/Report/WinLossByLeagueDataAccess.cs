@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <returns>The result value.</returns>
         public IList<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_WinlossByLeague";
+            const string UspName = "Lrf_Rpt_WinlostByLeague";
             try
             {                
                 using (var db = new ObjectDb(UspName))
