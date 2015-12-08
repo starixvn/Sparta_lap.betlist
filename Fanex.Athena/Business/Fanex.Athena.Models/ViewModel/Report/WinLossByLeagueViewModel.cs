@@ -15,7 +15,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
     /// </summary>
     public class WinLossByLeagueViewModel : BaseViewModel
     {
-        public IList<WinLossByLeague> MainResult { get; set; }
+        public IEnumerable<WinLossByLeague> MainResult { get; set; }
 
         public WinLossByLeagueMetaModel Param { get; set; }
 

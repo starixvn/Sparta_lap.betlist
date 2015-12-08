@@ -41,11 +41,6 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        /// <summary>
-        /// Win Loss By Product - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Http Response Message.</returns>
         [HttpGet]
         public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
         {
@@ -86,12 +81,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByLeague.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get total data.
-        /// </summary>
-        /// <param name="dataList">List data.</param>
-        /// <returns>Total data.</returns>
-        private static WinLossByLeague CalculateTotal(IList<WinLossByLeague> dataList)
+        private static WinLossByLeague CalculateTotal(IEnumerable<WinLossByLeague> dataList)
         {
             return new WinLossByLeague()
             {
@@ -104,21 +94,14 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        /// <summary>
-        /// Win Loss By Product - Get report data.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="grandTotal">Grand total object.</param>
-        /// <param name="totalrows">Total rows.</param>
-        /// <returns>Report data list.</returns>
-        private IList<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
+        private IEnumerable<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
 
-            IList<WinLossByLeague> dataList = null;
+            IEnumerable<WinLossByLeague> dataList = null;
             if (metaModel.Level == 0)
             {
                 dataList = _winlossByLeagueService.GetWinlossByLeagues(metaModel);
@@ -147,7 +130,7 @@ namespace Fanex.Athena.Api.Report
             WinLossByLeague grandTotal;
             var totalrows = 0;
             var dataList = GetData(metaModel, out grandTotal, ref totalrows);
-            return dataList.Count > 0
+            return dataList.Count() > 0
                 ? (dynamic)new
                 {
                     TotalRows = totalrows,

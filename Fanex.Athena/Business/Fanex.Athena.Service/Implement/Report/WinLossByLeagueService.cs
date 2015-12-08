@@ -53,7 +53,7 @@ namespace Fanex.Athena.Service.Implement.Report
 
         #region IWinLossByLeagueService Members
 
-        public IList<WinLossByLeague> GetWinlossByLeagues(
+        public IEnumerable<WinLossByLeague> GetWinlossByLeagues(
             WinLossByLeagueMetaModel metaModel)
         {
             return metaModel.IsValid
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Service.Implement.Report
                        : new List<WinLossByLeague>();
         }
 
-        public IList<WinLossByLeague> GetWinlossByLeagueCustomers(
+        public IEnumerable<WinLossByLeague> GetWinlossByLeagueCustomers(
             WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
             grandTotal = new WinLossByLeague();
