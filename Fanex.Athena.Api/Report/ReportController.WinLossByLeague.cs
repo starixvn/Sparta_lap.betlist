@@ -83,15 +83,18 @@ namespace Fanex.Athena.Api.Report
 
         private static WinLossByLeague CalculateTotal(IEnumerable<WinLossByLeague> dataList)
         {
-            return new WinLossByLeague()
+            var total = new WinLossByLeague();
+            foreach (var item in dataList)
             {
-                BetCount = dataList.Sum(x => x.BetCount),
-                TurnOver = dataList.Sum(x => x.TurnOver),
-                CustomerWinLoss = dataList.Sum(x => x.CustomerWinLoss),
-                LicenseeWL = dataList.Sum(x => x.LicenseeWL),
-                BACommission = dataList.Sum(x => x.BACommission),
-                AmountDue = dataList.Sum(x => x.AmountDue)
-            };
+                total.BetCount += item.BetCount;
+                total.TurnOver += item.TurnOver;
+                total.CustomerWinLoss += item.CustomerWinLoss;
+                total.LicenseeWL += item.LicenseeWL;
+                total.BACommission += item.BACommission;
+                total.AmountDue += item.AmountDue;
+            }
+
+            return total;
         }
 
         private IEnumerable<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
@@ -130,18 +133,11 @@ namespace Fanex.Athena.Api.Report
             WinLossByLeague grandTotal;
             var totalrows = 0;
             var dataList = GetData(metaModel, out grandTotal, ref totalrows);
-            return dataList.Count() > 0
-                ? (dynamic)new
+            return new
                 {
                     TotalRows = totalrows,
                     Data = dataList,
                     Total = grandTotal
-                }
-                : new
-                {
-                    TotalRows = totalrows,
-                    Data = new List<LicenseeWinLossGridViewModel>(),
-                    Total = new List<LicenseeWinLossGridViewModel>(),
                 };
         }
 
