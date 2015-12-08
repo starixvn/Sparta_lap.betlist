@@ -192,36 +192,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Get out right parlay data set.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        public DataSet GetOutrightParlayDataSet(MatchWinLossMetaModel metaModel)
-        {
-            var uspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
-
-            try
-            {
-                using (var db = new ObjectDb(uspName))
-                {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                    db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-
-                    return db.ExecuteDataSet();
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
-            }
-        }
-
         #endregion IMatchWinLossDataAccess Members
 
         /// <summary>

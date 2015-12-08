@@ -103,18 +103,6 @@ namespace Fanex.Athena.Service.Implement.Report
                        : new List<MatchWinLoss>();
         }
 
-        /// <summary>
-        /// Get out right data.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The data set.</returns>
-        public DataSet GetOutrightParlayDataSet(MatchWinLossMetaModel metaModel)
-        {
-            return metaModel.IsValid
-                       ? this._matchWinLossDataAccess.GetOutrightParlayDataSet(metaModel)
-                       : new DataSet();
-        }
-
         #endregion IMatchWinLossService Members
 
         #region Utility
