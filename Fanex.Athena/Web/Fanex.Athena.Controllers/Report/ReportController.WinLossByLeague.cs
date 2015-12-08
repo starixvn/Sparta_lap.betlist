@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
@@ -25,7 +26,6 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         public ActionResult WinLossByLeague()
         {
-            const int SportsBookProductId = 0;
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, SportsBookProductId);
+            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
             var leagues = this._leagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
                             {
