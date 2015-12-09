@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_MatchWinLossByBettype" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_MatchWinLossDetail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_WinlossByLeagueDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
