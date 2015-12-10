@@ -39,4 +39,5 @@
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BetList_SelAllByDateHR" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BetList_SelDeleted_UserList" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
