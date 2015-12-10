@@ -47,6 +47,10 @@ namespace Fanex.Athena.Service.Implement.Common
                 {
                     var childSports = sports.Where(i => i.ParentId == product.ID && i.ParentId > -1)
                         .Select(i => i.ID).ToArray();
+                    if (childSports.Length == 0)
+                    {
+                        childSports = new int[] { product.ID };
+                    }
 
                     sportItemXML.Append(string.Format(SportXMLItemPattern, product.ID, string.Join(",", childSports)));
                 }
