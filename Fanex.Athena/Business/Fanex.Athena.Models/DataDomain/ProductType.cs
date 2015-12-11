@@ -74,8 +74,13 @@ namespace Fanex.Athena.Models.DataDomain
         public const int BetTrade = 13;
 
         /// <summary>
-        /// Micro Gaming product: 14.
+        /// Micro Gaming Live Casino product: 14.
         /// </summary>
-        public const int MicroGaming = 14;
+        public const int MicroGamingLiveCasino = 14;
+
+        /// <summary>
+        /// Micro Gaming RNG Casino product: 17.
+        /// </summary>
+        public const int MicrogamingRNGCasino = 17;
     }
 }

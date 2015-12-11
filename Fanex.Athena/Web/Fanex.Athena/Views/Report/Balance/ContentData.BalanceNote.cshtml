@@ -4,7 +4,7 @@
 <br />
 @{
     var productList = Model.ProductAccess.ProductList
-                    .Where(p => p.ProductCode != Product.RB && p.ProductCode != Product.BA && p.ProductCode != Product.MGC)
+                    .Where(p => p.ProductCode != Product.RB && p.ProductCode != Product.BA && p.ProductCode != Product.MGCLC && p.ProductCode != Product.MGCRNG)
                     .ToList();
 
     var productNameText = productList.Count <= 1

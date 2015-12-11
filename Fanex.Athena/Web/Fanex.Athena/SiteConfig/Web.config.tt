@@ -1,159 +1,19 @@
-﻿<#@ template debug="true" hostSpecific="true" #>
-<#@ output extension=".txt" #>
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Xml" #>
-<#@ assembly name="System.Xml.Linq" #>
-<#@ Assembly Name="System.Data" #>
-<#@ Import Namespace="System.Data" #>
-<#@ Import Namespace="System.Data.SqlClient" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Security" #>
-<#@ import namespace="System.Text" #>
-<#@ import namespace="System.Xml.Linq" #>
-<#@ import namespace="System.Windows.Forms" #>
-<#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
-<#@ include file="SiteConfiguration.ttinclude" #>
+<#@ assembly name="Microsoft.Web.XmlTransform.dll" #>
+<#@ import namespace="System.Xml" #>
+<#@ output extension=".txt" #>
 <#
-    var manager = TemplateFileManager.Create(this);	
-    foreach(var site in sites)
-    {        
-		var x = site.SiteEnvironment.ToString();
-        var fileName = string.Format("Web.{0}.config", site.SiteEnvironment);
-        manager.StartNewFile(fileName);
-		#>
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <configSections>
-    <section name="Fanex.Data.DbSettingProvider" type="Fanex.Data.Configuration.DbSettingProviderConfigurationSection, Fanex.Data" />
-    <section name="Fanex.Logging" type="Fanex.Logging.Configuration.LoggingSettings, Fanex.Logging" />
-    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
-  </configSections>
-  <log4net>
-    <appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
-      <layout type="log4net.Layout.PatternLayout">
-        <param name="ConversionPattern" value="%d [%t] %-5p %c [%x] &lt;%X{auth}&gt; - %m%n" />
-      </layout>
-    </appender>
-    <appender name="GeneralLog" type="log4net.Appender.RollingFileAppender">
-      <file value="<#=site.LogFileValue#>" />
-      <appendToFile value="true" />
-      <maximumFileSize value="100MB" />
-      <rollingStyle value="Date" />
-      <maxSizeRollBackups value="5" />
-      <layout type="log4net.Layout.PatternLayout">
-        <conversionPattern value="%d{HH:mm:ss.fff} [%t] %-5p %c - %m%n" />
-      </layout>
-    </appender>
-    <!-- levels: DEBUG, INFO, WARN, ERROR, FATAL -->
-    <root>
-      <level value="ERROR" />
-      <appender-ref ref="ConsoleAppender" />
-      <appender-ref ref="GeneralLog" />
-    </root>
-  </log4net>
-  <Fanex.Data.DbSettingProvider default="XmlDbSettingProvider">
-    <providers>
-      <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\SpNameConfig\FanexSpName.xml" enableWatching="1" />
-    </providers>
-  </Fanex.Data.DbSettingProvider>
-  <#=site.LoggingServer#>
-  <appSettings configSource="Web.AppSettings.config" />
-  <connectionStrings configSource="Web.ConnectionStrings.config" />
-  <system.web>
-    <authentication mode="Forms">
-      <forms cookieless="UseCookies" loginUrl="~/Utility/LocationRestriction" path="/" defaultUrl="~/Home/Index" name=".LRFFORMSAUTH" protection="All" />
-    </authentication>
-    <#=site.CustomErrors#>
-    <#=site.HttpRuntime#>
-    <#=site.SessionState#>
-	<#=site.MachineKey#>
-    <globalization uiCulture="auto" culture="en-US" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
-    <trace enabled="false" localOnly="true" traceMode="SortByTime" />
-   <#=site.Pages#>
-      <namespaces>
-        <add namespace="System.Web.Helpers" />
-        <add namespace="System.Web.Mvc" />
-        <add namespace="System.Web.Mvc.Ajax" />
-        <add namespace="System.Web.Mvc.Html" />
-        <add namespace="System.Web.Routing" />
-        <add namespace="System.Web.WebPages" />
-      </namespaces>
-    </pages>
-    <httpHandlers>
-      <remove verb="*" path="*.asmx" />
-	  <#=site.HttpHandlersItem#>
-      <add verb="*" path="*.asmx" validate="false" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
-    </httpHandlers>
-    <httpModules>
-      <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
-    </httpModules>
-  </system.web>
-  <location path="sso.aspx">
-    <system.web>
-      <globalization uiCulture="auto" culture="en-US" fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
-  <location path="Whoami.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
-  <system.webServer>
-    <validation validateIntegratedModeConfiguration="false" />
-    <modules runAllManagedModulesForAllRequests="true" />
-    <staticContent>
-      <clientCache httpExpires="Sun, 29 Mar 2020 00:00:00 GMT" cacheControlMode="UseExpires" />
-    </staticContent>
-	<httpProtocol>
-      <customHeaders>
-        <remove name="X-Powered-By" />
-        <add name="X-Content-Type-Options" value="nosniff" />
-        <add name="X-Frame-Options" value="SAMEORIGIN" />
-      </customHeaders>
-    </httpProtocol>
-    <directoryBrowse enabled="false" />
-  </system.webServer>
-  <runtime>
-    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web.Extensions" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="NPOI" publicKeyToken="0df73ec7942b34e1" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.6.0" newVersion="2.0.6.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Microsoft.Practices.Unity" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.414.0" newVersion="2.0.414.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-          <dependentAssembly>
-        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
-      </dependentAssembly>
-	  <dependentAssembly>
-        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
-      </dependentAssembly>
-    </assemblyBinding>
-  </runtime>
-</configuration>
-		<#
-    }
-    manager.Process();
+string projectPath = Host.ResolveAssemblyReference("$(SolutionDir)") + @"Fanex.Athena\Web\Fanex.Athena\";
+var environments = new string[] { "LOCAL", "UAT", "PRO", "BACKUPMNL", "SANDBOX" };
+foreach(var environment in environments)
+{
+ using(var transform = new Microsoft.Web.XmlTransform.XmlTransformation( projectPath + "SiteConfig\\WebConfigTransforms\\" + environment + ".config"))
+ {
+ var document = new XmlDocument();
+ document.Load(projectPath + "Web.config");
+ transform.Apply(document);
+ document.Save(projectPath + "SiteConfig\\Web." + environment + ".config");
+ }
+}
 #>

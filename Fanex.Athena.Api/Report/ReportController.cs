@@ -9,7 +9,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System.Web;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Implement.Configuration;
@@ -71,11 +70,6 @@ namespace Fanex.Athena.Api.Report
             _microGamingWinLossService = new MicroGamingWinLossService();
         }
 
-        private static void RedirectToErrorPage()
-        {
-            HttpContext.Current.Response.Redirect("~/Utility/Error");
-        }
-
         /// <summary>
         /// Check if the request is valid or not.
         /// Check if the session is valid.
@@ -84,7 +78,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">Meta model object.</param>
         /// <param name="currencyId">Currency Id.</param>
         /// <returns>Request is valid or not.</returns>
-        private bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
+        protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
@@ -99,7 +93,7 @@ namespace Fanex.Athena.Api.Report
             var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType) ||
                                 currencyList.Values.Contains(currencyId);
 
-            return validCurrency || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);            
+            return validCurrency || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
         }
     }
 }

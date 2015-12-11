@@ -69,11 +69,11 @@
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.1.7\lib\net40\Fanex.Result.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.1.9\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=1.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.1.7\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=1.0.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.1.9\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -529,6 +529,7 @@
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\Report\agcasinowinloss.css" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
@@ -552,12 +553,12 @@
     <Content Include="App_Data\Template\RNGCasino\HandHistory.xls" />
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
     <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\CasinoProgressiveWins.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0026\Thumbs.db" />
-    <None Include="SiteConfig\SiteConfiguration.ttinclude" />
     <Compile Include="sso.aspx.cs">
       <DependentUpon>sso.aspx</DependentUpon>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
@@ -611,13 +612,10 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\agcasinobalance.js" />
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
+    <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
+    <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
-    <Content Include="SiteConfig\Web.config.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -640,6 +638,15 @@
     <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Customer\BetSetting\MicroGamingRNGCasino.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
+    <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
+    <Content Include="SiteConfig\WebConfigTransforms\BACKUPMNL.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\LOCAL.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
@@ -3353,7 +3360,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\FunctionAllowedProduct.xml" />
+    <Content Include="App_Data\FunctionAllowedProduct.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
@@ -3370,10 +3379,7 @@
     <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
-    <Content Include="SiteConfig\Web.DEV.config">
-      <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="Views\Customer\BetSetting\MicroGaming.cshtml" />
+    <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
     <Content Include="Views\BetList\LiveReport\MicroGaming.cshtml" />
   </ItemGroup>

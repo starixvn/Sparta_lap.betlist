@@ -5,6 +5,7 @@
 "use strict";
 
 var Site = (function ($) {
+    var UNBLOCKUI_TIMEOUT = 30000;
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
     var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
@@ -213,7 +214,7 @@ var Site = (function ($) {
             try {
                 $.blockUI({
                     message: "",
-                    timeout: 30000
+                    timeout: UNBLOCKUI_TIMEOUT
                 });
             }
             catch (err) {
@@ -334,7 +335,11 @@ var Site = (function ($) {
 
                 if (!Site.keepBlockingAfterInit) {
                     Site.unBlockUI();
+                } else {
+                    setTimeout(Site.unBlockUI, UNBLOCKUI_TIMEOUT);
                 }
+
+                Site.keepBlockingAfterInit = false;
             } catch (err) {
             }
         },
@@ -665,7 +670,7 @@ var Site = (function ($) {
             var isCheckAll = checkedCount === length;
             $("#" + dropDownListId).multiSelect(
                 {
-                    minWidth: 160,
+                    minWidth: 200,
                     maxHeight: 400,
                     shadow: true,
                     showHeader: true,

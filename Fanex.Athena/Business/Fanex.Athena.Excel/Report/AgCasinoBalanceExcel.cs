@@ -139,16 +139,17 @@ namespace Fanex.Athena.Excel.Report
             int rowCount = Math.Min(_casinoList.Count, checked((pageIndex + 1) * PageSize));
             var rowIndex = 0;
             int index;
+            int currentIndex = 1;
 
             for (index = pageIndex * PageSize; index < rowCount; index++)
             {
                 var casinoBalance = _casinoList[index];
+                var isDrillDownLevel = casinoBalance.RowSpan == 0;
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
 
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
 
-                row.Cells[ColumnIndex].SetCellValue(index + 1);
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -156,12 +157,21 @@ namespace Fanex.Athena.Excel.Report
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;
 
-                if (casinoBalance.RowSpan > 1)
+                if (isDrillDownLevel)
                 {
+                    row.Cells[ColumnIndex].SetCellValue(index + 1);
+                }
+                else
+                {
+                    row.Cells[ColumnIndex].SetCellValue(currentIndex);
+                }
+
+                if (casinoBalance.RowSpan > 1)
+                {                   
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
-                    continue;
+                    currentIndex++;
                 }
             }
 

@@ -18,6 +18,8 @@ namespace Fanex.Athena.Models.Cache
     /// </summary>
     public sealed class CacheRef
     {
+        private const string MicrogamingResourceKey = "MG_Casino";
+
         private static IDictionary<string, string> _mapLanguages  = new Dictionary<string, string>()
             {
                 { "en-US", "en" },
@@ -32,6 +34,11 @@ namespace Fanex.Athena.Models.Cache
 
         private CacheRef()
         {
+        }
+
+        public static string GetMicroGamingGameName(string resourceId)
+        {
+            return RefData.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public static string GetBettype(object bettypeId)

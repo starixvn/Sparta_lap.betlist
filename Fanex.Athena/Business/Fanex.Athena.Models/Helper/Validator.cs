@@ -78,7 +78,8 @@ namespace Fanex.Athena.Models.Helper
                     return bettype >= CSMinBetType && bettype <= CSMaxBetType;
                 case Product.KN:
                     return bettype >= KenoMinBetType && bettype <= KenoMaxBetType;
-                case Product.MGC:
+                case Product.MGCLC:
+                case Product.MGCRNG:
                     return bettype >= MicrogamingMinBetType && bettype <= MicrogamingMaxBetType;
             }
 

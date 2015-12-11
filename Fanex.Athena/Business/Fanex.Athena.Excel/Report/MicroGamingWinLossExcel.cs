@@ -289,7 +289,7 @@ namespace Fanex.Athena.Excel.Report
         private string GenerateProductReportTitle(string fromDate, string toDate, string title)
         {
             StringBuilder reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(_metaModel.ProductName).Append(" ");
+            reportTitle.Append(ViewResources.Microgaming).Append(" ");
             reportTitle.Append(ViewResources.WinLoss);
             reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
             return reportTitle.ToString();

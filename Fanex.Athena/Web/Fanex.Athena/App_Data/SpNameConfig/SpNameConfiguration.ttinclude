@@ -85,9 +85,7 @@
         }	
 
 		public static IList<SpNameConfig> GetListOfConfig()
-		{			
-			string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
-			Directory.SetCurrentDirectory(path);				
+		{
 			var document = System.Xml.Linq.XDocument.Load(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameConfig.xml");
 			var elements = document.Root.Elements("SpNameConfig");
 			var listOfConfig = new System.Collections.Generic.List<SpNameConfig>();

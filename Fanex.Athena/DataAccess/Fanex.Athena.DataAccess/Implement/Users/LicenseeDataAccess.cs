@@ -12,12 +12,12 @@ namespace Fanex.Athena.DataAccess.Implement.Users
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Users;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
@@ -237,31 +237,26 @@ namespace Fanex.Athena.DataAccess.Implement.Users
         /// <param name="userId">User ID value.</param>
         /// <param name="resellerId">Reseller ID.</param>
         /// <returns>List integer.</returns>
-        public IList<int> GetByResellerId(int userId, int resellerId)
+        public IEnumerable<int> GetByResellerId(int userId, int resellerId)
         {
             const string UspName = "Lrf_LicenseeSel";
 
-            var uspParams = new { UserId = userId };
-
-            var resultList = new List<int>();
-
             using (var db = new ObjectDb(UspName))
             {
-                var ds = db.ExecuteDataSet(uspParams);
-                var tableLicensee = ds != null ? ds.Tables[0] : null;
-                if (tableLicensee != null && tableLicensee.Rows.Count > 0)
+                using (var reader = db.ExecuteReader(new { UserId = userId }))
                 {
-                    foreach (DataRow dr in tableLicensee.Rows)
+                    var resultList = new List<int>();
+
+                    while (reader.Read())
                     {
-                        if (dr.Table.Columns.Contains("ResellerID") &&
-                            Convert.ToInt32(dr["ResellerID"].ToString()) == resellerId)
+                        if (reader.ToInt("ResellerID") == resellerId)
                         {
-                            resultList.Add(Convert.ToInt32(dr["LicenseeID"].ToString()));
+                            resultList.Add(reader.ToInt("LicenseeID"));
                         }
                     }
-                }
 
-                return resultList;
+                    return resultList;
+                }
             }
         }
 

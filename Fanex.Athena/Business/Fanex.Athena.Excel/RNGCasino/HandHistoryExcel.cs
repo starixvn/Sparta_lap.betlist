@@ -6,16 +6,13 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Text.RegularExpressions;
     using Base;
-    using Entities;
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Models.DTO.Casino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino;
-    using Models.DTO.Report;
     using Models.ViewModel;
     using NPOI.SS.UserModel;
 
@@ -224,7 +221,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBet].SetCellValue(item.Bet);
             row.Cells[ColumnWinLoss].SetCellValue(item.WinLoss);
             row.Cells[ColumnRollingComm].SetCellValue(item.RollingComm);
-            row.Cells[ColumnResults].SetCellValue(NormalizeResultText(item.Result ?? string.Empty));
+            row.Cells[ColumnResults].SetCellValue(RemoveHtmlTags(item.Result ?? string.Empty));
         }
 
         private static void AssignTotalColumns(IRow row, RNGCasinoResult item)
@@ -234,10 +231,11 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnWinLoss].SetCellValue(item.WinLoss);
             row.Cells[ColumnRollingComm].SetCellValue(item.RollingComm);
         }
-        
-        private static string NormalizeResultText(string result)
+
+        private static string RemoveHtmlTags(string result)
         {
-            return result.Replace("<BR>", "\n");
+            result = result.Replace("<BR>", "\n");
+            return Regex.Replace(result, @"<[^>]+>|&nbsp;", string.Empty).Trim();
         }
 
         private void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
@@ -259,6 +257,6 @@ namespace Fanex.Athena.Excel.Report
         private void AssignGroupHeader(ISheet sheet, string sessionLogId, int currentRow)
         {
             SetTextRowValue(sheet, RowContentTitleTemplate, currentRow, ColumnTemplateCount, ViewResources.SessionID + ": " + sessionLogId);
-        }        
+        }
     }
 }

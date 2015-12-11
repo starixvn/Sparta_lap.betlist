@@ -336,8 +336,12 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             const string UspKey = "Lrf_Statement_Mem";
-            var transTypeHasBetList = new[] { "get", "com", "post", "bet" };
-            var transTypeIdMap = new Dictionary<string, int> { { "betting statement", 1 }, { "void/cancelled bet", 2 }, { "outstanding bet", 3 } };
+            var transTypeHasBetList = new[] { "get", "com", "post", "bet", "gp" };
+            var transTypeIdMap = new Dictionary<string, int> 
+            {
+                { "betting statement", 1 }, { "void/cancelled bet", 2 }, 
+                { "outstanding bet", 3 }, { "grand prize", 4 } 
+            };
             var index = 1;
             var result = new List<DailyStatement>();
             var commissionColumn = "commission" + metaModel.BaseCurrency;
@@ -366,7 +370,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                             var comm = reader.ToDecimal(commissionColumn);
 
                             // Add commission.
-                            balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0);
+                            if (!transType.Equals("gp"))
+                            {
+                                balance = transType == "bal" ? reader.ToDecimal(totalAmtColumn) : balance + credit + (allowCustComm ? comm : 0);
+                            }
 
                             result.Add(new DailyStatement
                             {
@@ -559,6 +566,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("transtype", DbType.Int32, metaModel.TransType);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
         }
@@ -785,7 +793,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var suportProducts = new string[5] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGC };
+            var suportProducts = new string[6] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG };
             var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
             foreach (var product in products)
             {

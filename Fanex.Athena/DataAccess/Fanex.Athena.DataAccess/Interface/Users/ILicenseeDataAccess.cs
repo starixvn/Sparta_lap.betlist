@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
 
-        IList<int> GetByResellerId(int userId, int resellerId);
+        IEnumerable<int> GetByResellerId(int userId, int resellerId);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]

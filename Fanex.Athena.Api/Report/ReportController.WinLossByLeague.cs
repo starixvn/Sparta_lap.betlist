@@ -8,6 +8,7 @@ namespace Fanex.Athena.Api.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
@@ -15,6 +16,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
 
     /// <summary>
@@ -49,7 +51,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                RedirectToErrorPage();
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
             }
 
             metaModel.PageIndex = 1;
@@ -139,7 +141,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                RedirectToErrorPage();
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
             }
 
             WinLossByLeague grandTotal;

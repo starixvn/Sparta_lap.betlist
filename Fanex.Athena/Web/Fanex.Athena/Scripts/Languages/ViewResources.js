@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/14/2015 2:38:28 PM
+// Lasted generated date: 11/20/2015 9:15:52 AM
 // </history>
 
 var _language_en_US={
@@ -196,6 +196,8 @@ var _language_en_US={
                      CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 				 	
                      CASINOHANDHISTORY:"CASINO HAND HISTORY",
+				 	
+                     CasinoProgressiveWins:"Casino Progressive Wins",
 				 	
                      CasinoTransfer:"Casino Transfer",
 				 	
@@ -576,8 +578,6 @@ var _language_en_US={
                      GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 				 	
                      GotoCustomerList:"Go to Customer List",
-				 	
-                     GrandPrize:"The grand winning amount which is excluded from member balance",
 				 	
                      GrandTotal:"Grand Total",
 				 	
@@ -1254,6 +1254,8 @@ var _language_en_US={
                      RCCommission:"RC Commission",
 				 	
                      RecommendBrowserOnReportPageMsg:"You please consider using Firefox or Chrome for better experience when page size &gt; 1,000",
+				 	
+                     ReferenceNo:"Reference No",
 				 	
                      RefNo:"Ref No",
 				 	

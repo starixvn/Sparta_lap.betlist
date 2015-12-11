@@ -33,20 +33,20 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 16;
-        private const int ColumnTotalTransaction = 17;
-        private const int ColumnCustomerWl = 18;
-        private const int ColumnCustomerComm = 19;
-        private const int ColumnCustomerTotal = 20;
-        private const int ColumnLicenseeWlSportsBook = 21;
-        private const int ColumnLicenseeWlTotal = 32;
-        private const int ColumnBetTradeCommission = 33;
-        private const int ColumnBaCommission = 34;
-        private const int ColumnRacingRevenue = 35;
-        private const int ColumnAmtDueToBetTrade = 36;
-        private const int ColumnAmtDueToBa = 37;
-        private const int ColumnAmtDueToRacing = 38;
-        private const int ColumnTemplateCount = 39;
+        private const int ColumnTurnoverTotal = 17;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnCustomerWl = 19;
+        private const int ColumnCustomerComm = 20;
+        private const int ColumnCustomerTotal = 21;
+        private const int ColumnLicenseeWlSportsBook = 22;
+        private const int ColumnLicenseeWlTotal = 34;
+        private const int ColumnBetTradeCommission = 35;
+        private const int ColumnBaCommission = 36;
+        private const int ColumnRacingRevenue = 37;
+        private const int ColumnAmtDueToBetTrade = 38;
+        private const int ColumnAmtDueToBa = 39;
+        private const int ColumnAmtDueToRacing = 40;
+        private const int ColumnTemplateCount = 41;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
@@ -160,7 +160,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Bingo,
                 ViewResources.Keno,
                 ViewResources.BetTrade,
-                ViewResources.Microgaming,
+                ViewResources.MicrogamingLiveCasino,
+                ViewResources.MicrogamingRNGCasino,
                 ViewResources.Total
             };
 
@@ -547,7 +548,8 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.BG, Status = false },
                 new ProductOption { Code = Product.KN, Status = false },
                 new ProductOption { Code = Product.BT, Status = false },
-                new ProductOption { Code = Product.MGC, Status = false }
+                new ProductOption { Code = Product.MGCLC, Status = false },
+                new ProductOption { Code = Product.MGCRNG, Status = false }
             };
 
             var offeredProductsLength = offeredProducts.Count();

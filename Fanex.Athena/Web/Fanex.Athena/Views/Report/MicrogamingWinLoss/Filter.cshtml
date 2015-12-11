@@ -9,9 +9,6 @@
      <form id="MicroGamingWinLossForm" name="MicroGamingWinLossForm" method="post" action="">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
                 historyDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
-    @Html.Hidden("ProductId", Model.Param.ProductId)
-    @Html.Hidden("ProductCode", Model.Param.ProductCode)
-    @Html.Hidden("ProductName", Model.Param.ProductName)
     <div>
         <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />

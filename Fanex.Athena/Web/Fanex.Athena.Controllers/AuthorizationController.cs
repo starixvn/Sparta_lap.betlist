@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
+    using Fanex.Artist.Controllers.Attributes;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -86,6 +87,7 @@ namespace Fanex.Athena.Controllers
         /// <param name="model">The sign in metal model.</param>
         /// <returns>The redirected action or sign in page in case of having a error .</returns>
         [AllowAnonymous]
+        [HandleAntiForgeryError]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SuppressMessage(
@@ -95,23 +97,23 @@ namespace Fanex.Athena.Controllers
         public ActionResult SignIn(LoginMetalModel model)
         {
             var isValid = true;
-            
+
             var isAllowAutomationCaptchaCode = AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (!isAllowAutomationCaptchaCode && model.Captcha != SessionService.CaptchaCode)
             {
-               SessionService.CaptchaCode = RandomCaptchaCode();
-               SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
-               isValid = false;
+                SessionService.CaptchaCode = RandomCaptchaCode();
+                SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
+                isValid = false;
             }
 
             var secretCaptcha = AppSettings.GetValue("SecretCaptcha");
             var companyIP = AppSettings.GetValue("CompanyIP");
-            if (!isValid && !string.IsNullOrWhiteSpace(secretCaptcha) && model.Captcha == secretCaptcha && 
+            if (!isValid && !string.IsNullOrWhiteSpace(secretCaptcha) && model.Captcha == secretCaptcha &&
                  Request.UserHostAddress == companyIP)
             {
                 isValid = true;
             }
-            
+
             if (isValid && string.IsNullOrEmpty(model.UserName))
             {
                 SetErrorForView(InvalidUserNameError, ViewResources.AlertUserNameMsg);
@@ -225,7 +227,7 @@ namespace Fanex.Athena.Controllers
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
-            
+
             string code = RandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
@@ -288,7 +290,7 @@ namespace Fanex.Athena.Controllers
         }
 
         private string CreateToken()
-        {            
+        {
             return Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
         }
 

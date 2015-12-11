@@ -320,4 +320,8 @@
   <data name="Menu_67" xml:space="preserve">
     <value>Microgaming Win Loss</value>
   </data>
+  <data name="Menu_68" xml:space="preserve">
+    <value>Casino Progressive Wins</value>
+    <comment>#47601</comment>
+  </data>
 </root>
