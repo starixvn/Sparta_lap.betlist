@@ -43,11 +43,13 @@ namespace Fanex.Athena.Controllers
 
         #endregion Constant
 
-        private UserService _userService;
+        private readonly IUserService _userService;
+        private readonly IMaintenanceService _maintenanceService;
 
         public AuthorizationController()
         {
             _userService = new UserService();
+            _maintenanceService = new MaintenanceService();
         }
 
         /// <summary>
@@ -58,11 +60,10 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         public ActionResult SignIn()
         {
-            var maintenanceService = new MaintenanceService();
             var acceptIp = AppSettings.GetValue("AcceptIp");
             var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
 
-            if (isDeploying || maintenanceService.MaintenanceInfo.IsDownTime)
+            if (isDeploying || _maintenanceService.MaintenanceInfo.IsDownTime)
             {
                 return RedirectToAction("UnderMaintenance", "Utility");
             }
@@ -101,7 +102,7 @@ namespace Fanex.Athena.Controllers
             var isAllowAutomationCaptchaCode = AppSettings.GetValue("AllowAutomationCaptchaCode") == "1";
             if (!isAllowAutomationCaptchaCode && model.Captcha != SessionService.CaptchaCode)
             {
-                SessionService.CaptchaCode = RandomCaptchaCode();
+                SessionService.CaptchaCode = CreateRandomCaptchaCode();
                 SetErrorForView(InvalidCaptchaError, ViewResources.InvalidCaptchaMsg);
                 isValid = false;
             }
@@ -128,7 +129,6 @@ namespace Fanex.Athena.Controllers
 
             if (isValid)
             {
-                var userService = new UserService();
                 IResultInfo resultInfo;
                 var requestUser = new User
                 {
@@ -137,12 +137,12 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var user = userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
+                var user = _userService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
                 if (resultInfo.IsSuccessful)
                 {
                     SessionService.CreateNewSession(
                         user.Id,
-                        userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
+                        _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
                         user.Username,
                         user.IsInternal,
                         user.Licensee.Id);
@@ -176,11 +176,9 @@ namespace Fanex.Athena.Controllers
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public ActionResult RecheckIn()
         {
-            IMaintenanceService maintenanceService = new MaintenanceService();
             var userSession = SessionService.UserSession;
             int currentLoginId = 0;
 
-            // Invalid re-check-in
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
@@ -191,27 +189,23 @@ namespace Fanex.Athena.Controllers
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
 
-            var maintenanceInfo = maintenanceService.MaintenanceInfo;
-            var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.UmTimeFrom, maintenanceInfo.UmTimeTo);
+            var maintenanceInfo = _maintenanceService.MaintenanceInfo;
+            
             if (maintenanceInfo.IsDownTime)
             {
+                var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.UmTimeFrom, maintenanceInfo.UmTimeTo);
                 return Json(RecheckInResult(ErrorType.AccessDenied, message), JsonRequestBehavior.AllowGet);
             }
 
-            IUserService userService = new UserService();
-            bool isSuccess = !userService.RecheckIn(userSession.OnUserId);
+            bool isKickout = _userService.RecheckIn(userSession.OnUserId);
 
-            ErrorType errorCode = ErrorType.Unknown;
+            var errorCode = ErrorType.Success;
             var errorMsg = string.Empty;
-            if (!isSuccess)
+            if (isKickout)
             {
                 errorCode = ErrorType.KickedOut;
                 errorMsg = ViewResources.SessionLoggedMsg;
                 FormsAuthentication.SignOut();
-            }
-            else
-            {
-                errorCode = ErrorType.Success;
             }
 
             return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
@@ -228,7 +222,7 @@ namespace Fanex.Athena.Controllers
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
 
-            string code = RandomCaptchaCode();
+            string code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;
@@ -262,11 +256,6 @@ namespace Fanex.Athena.Controllers
             return File(img.FileContents, img.ContentType);
         }
 
-        /// <summary>
-        /// Get User Salt.
-        /// </summary>
-        /// <param name="userName">User name value.</param>
-        /// <returns>String value.</returns>
         [HttpGet]
         [AllowAnonymous]
         public string GetUserSalt(string userName)
@@ -289,18 +278,12 @@ namespace Fanex.Athena.Controllers
             };
         }
 
-        private string CreateToken()
+        private static string CreateToken()
         {
             return Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
         }
 
-        private void SetErrorForView(int errorCode, string errorMsg)
-        {
-            ViewBag.errCode = errorCode;
-            ViewBag.errMsg = errorMsg;
-        }
-
-        private string RandomCaptchaCode()
+        private static string CreateRandomCaptchaCode()
         {
             var randomNumber = new StringBuilder();
             for (var i = 0; i < 4; i++)
@@ -309,6 +292,12 @@ namespace Fanex.Athena.Controllers
             }
 
             return randomNumber.ToString();
+        }
+
+        private void SetErrorForView(int errorCode, string errorMsg)
+        {
+            ViewBag.errCode = errorCode;
+            ViewBag.errMsg = errorMsg;
         }
     }
 }
