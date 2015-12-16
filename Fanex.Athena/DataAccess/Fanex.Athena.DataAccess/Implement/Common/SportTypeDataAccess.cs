@@ -77,10 +77,10 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// Get all sports type.
         /// </summary>
         /// <returns>The result value.</returns>
-        public IDictionary<string, int> GetAllSports()
+        public IDictionary<int, string> GetAllSports()
         {
             const string UspName = "Lrf_SportsGetAll";
-            var result = new SortedDictionary<string, int>();
+            var result = new SortedDictionary<int, string>();
 
             using (var db = new ObjectDb(UspName))
             {
@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                         var sportId = reader.ToInt("Sporttype");
                         var sportName = CacheRef.GetSportName(sportId);
 
-                        result.Add(sportName, sportId);
+                        result.Add(sportId, sportName);
                     }
                 }
             }

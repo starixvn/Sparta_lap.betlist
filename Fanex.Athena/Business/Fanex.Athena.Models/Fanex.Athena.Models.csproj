@@ -85,6 +85,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.XML" />
     <Reference Include="TplCore">
       <HintPath>..\..\..\packages\TplCore.1.0.4694.29951\lib\net40\TplCore.dll</HintPath>
