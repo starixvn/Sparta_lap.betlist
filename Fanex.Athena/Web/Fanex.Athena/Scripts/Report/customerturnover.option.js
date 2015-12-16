@@ -68,7 +68,7 @@ var CustTurnoverOption = (function () {
     var bettypeColumn = {
         name: 'Bettype',
         index: 'Bettype',
-        width: 140,
+        width: 160,
         align: 'left',
         sortable: false,
         resizable: false,

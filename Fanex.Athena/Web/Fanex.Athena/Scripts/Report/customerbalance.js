@@ -26,9 +26,7 @@ var CustBalance = (function ($) {
                 resourceName: "CustomerBalance",
                 title: Site.getSingleResource("CustomerBalance")
             });
-            setTimeout(function () {
-                Site.addFilterCollapseExpand();
-            }, 500);
+            Site.addFilterCollapseExpand();
         },
         initEvent: function () {
             $("#data-content").scroll(function () {
