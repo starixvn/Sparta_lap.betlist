@@ -5,8 +5,7 @@
 	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
 	Directory.SetCurrentDirectory(path);
     var manager = TemplateFileManager.Create(this);	
-	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
-	Directory.SetCurrentDirectory(path);
+	
     foreach(var site in sites)
     {        
 		var x = site.SiteEnvironment.ToString();
