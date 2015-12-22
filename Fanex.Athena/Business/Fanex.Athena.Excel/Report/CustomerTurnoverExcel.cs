@@ -25,18 +25,20 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class CustomerTurnoverExcel : ReportBase
     {
-        private const int ColumnSport = 4;
-        private const int ColumnBetType = 5;
-        private const int ColumnCurrency = 3;
-        private const int ColumnCustomerComm = 10;
-        private const int ColumnCustomerTotal = 11;
-        private const int ColumnCustomerWl = 9;
         private const int ColumnDate = 1;
         private const int ColumnUserName = 2;
-        private const int ColumnTemplateCount = 11;
-        private const int ColumnTotalTransaction = 6;
-        private const int ColumnTurnover = 7;
-        private const int ColumnTotalTurnover = 8;
+        private const int ColumnCurrency = 3;
+        private const int ColumnSport = 4;
+        private const int ColumnBetType = 5;
+        private const int ColumnEffectiveBettingValue = 6;
+        private const int ColumnTotalTransaction = 7;
+        private const int ColumnTurnover = 8;
+        private const int ColumnTotalTurnover = 9;
+        private const int ColumnCustomerWl = 10;
+        private const int ColumnCustomerComm = 11;
+        private const int ColumnTemplateCount = 12;
+        private const int ColumnCustomerTotal = 12;
+
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -66,6 +68,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Currency,
                 ViewResources.Sport,
                 ViewResources.BetType,
+                ViewResources.EffectiveBettingValue,
                 ViewResources.TotalTransaction,
                 ViewResources.Turnover,
                 ViewResources.Total + " " + ViewResources.Turnover,
@@ -185,6 +188,7 @@ namespace Fanex.Athena.Excel.Report
                 }
 
                 row.Cells[ColumnBetType].SetCellValue(customerTurnover.Bettype);
+                row.Cells[ColumnEffectiveBettingValue].SetCellValue(customerTurnover.EffectiveBettingValue);
                 row.Cells[ColumnTotalTransaction].SetCellValue(customerTurnover.TotalTransactions);
                 row.Cells[ColumnTurnover].SetCellValue(customerTurnover.Turnover);
                 row.Cells[ColumnCustomerWl].SetCellValue(customerTurnover.CustomerWinLoss);
@@ -239,6 +243,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBetType].SetCellValue(string.Empty);
             row.Cells[ColumnSport].SetCellValue(string.Empty);
             row.Cells[ColumnUserName].SetCellValue(string.Empty);
+            row.Cells[ColumnEffectiveBettingValue].SetCellValue(_total.EffectiveBettingValue);
             row.Cells[ColumnTotalTransaction].SetCellValue(_total.TotalTransactions);
             row.Cells[ColumnTurnover].SetCellValue(_total.Turnover);
             row.Cells[ColumnTotalTurnover].SetCellValue(_total.Turnover);

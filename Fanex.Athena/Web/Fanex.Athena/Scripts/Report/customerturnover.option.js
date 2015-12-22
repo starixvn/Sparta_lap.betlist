@@ -74,6 +74,16 @@ var CustTurnoverOption = (function () {
         resizable: false,
         frozen: true
     };
+    var effectiveBettingVlueColumn = {
+        name: 'EffectiveBettingValue',
+        index: 'EffectiveBettingValue',
+        width: 100,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        frozen: true,
+        formatter: jqGridAdditional.formatDecimal
+    };
     var totalTransColumn = {
         name: 'TotalTransactions',
         index: 'TotalTransactions',
@@ -140,13 +150,13 @@ var CustTurnoverOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
     //#endregion
-    var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType',
+    var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType', 'EffectiveBettingValue',
     'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
     var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
-                    totalTransColumn, turnoverColumn, totalturnoverColumn, customerWlColumn, playerCommColumn,
-                    customerWlTotalColumn];
-    var customerWlTotalIndex = 11;
+                    effectiveBettingVlueColumn, totalTransColumn, turnoverColumn, totalturnoverColumn,
+                    customerWlColumn, playerCommColumn, customerWlTotalColumn];
+    var customerWlTotalIndex = 12;
 
     var me = {
         hasCustomerComm: false,
