@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
@@ -21,7 +20,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Models.ViewModel.BetList;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
-    using Fanex.Common;
 
     #endregion Using
 
@@ -62,7 +60,7 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             SetConvetedUSDCurrencyName(metaModel);
-           
+
             var model = new BetListBaseViewModel
             {
                 ShowEmptyContent = true,
@@ -91,7 +89,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
-            
+
             var firstBettype = metaModel.MultipleBettype.Split(',').FirstOrDefault();
             var title = string.Format(
                "{0} - {1}",

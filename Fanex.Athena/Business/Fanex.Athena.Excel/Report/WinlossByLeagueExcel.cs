@@ -8,13 +8,14 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
-    using Base;
-    using Entities;
+    using System.Linq;
+    using Fanex.Athena.Excel.Base;
+    using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Extension;
-    using Models.DTO.Report;
-    using Models.MetaModel.Report;
-    using Models.ViewModel;
-    using Models.ViewModel.Report;
+    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Models.ViewModel.Report;
     using NPOI.SS.UserModel;
 
     /// <summary>
@@ -53,7 +54,7 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, exportingFileName, new ShowingOption(), convertingOption)
         {
             _metaModel = metaModel;
-            _winlossByLeagueList = viewModel.MainResult;
+            _winlossByLeagueList = viewModel.MainResult.ToList();
             _totalData = totalData;
             HeaderTextList = new List<string>
             {

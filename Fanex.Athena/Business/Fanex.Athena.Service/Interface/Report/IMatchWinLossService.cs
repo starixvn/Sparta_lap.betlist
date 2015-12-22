@@ -43,12 +43,5 @@ namespace Fanex.Athena.Service.Interface.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns> The match win-loss list.</returns>
         IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel);
-
-        /// <summary>
-        ///     The get data list outright mix-parlay.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns> The data set. </returns>
-        DataSet GetOutrightParlayDataSet(MatchWinLossMetaModel metaModel);
     }
 }

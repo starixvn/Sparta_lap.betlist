@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Interface.Common
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        IDictionary<string, int> GetAllSports();
+        IDictionary<int, string> GetAllSports();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]

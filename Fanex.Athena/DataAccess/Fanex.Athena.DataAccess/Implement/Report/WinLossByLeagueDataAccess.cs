@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
@@ -32,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     /// Win loss by product data access.
     /// </summary>
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
-    {        
+    {
         public WinLossByLeagueDataAccess(BalanceUp balanceUp)
             : base(balanceUp)
         {
@@ -40,16 +39,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         #region IWinLossByLeagueDataAccess Members
 
-        /// <summary>
-        /// Get win loss by product.
-        /// </summary>
-        /// <param name="metaModel"> Meta model value.</param>
-        /// <returns>The result value.</returns>
-        public IList<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
+        public IEnumerable<WinLossByLeague> GetWinlossByLeagues(WinLossByLeagueMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_WinlossByLeague";
+            const string UspName = "Lrf_Rpt_WinlostByLeague";
             try
-            {                
+            {
                 using (var db = new ObjectDb(UspName))
                 {
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
@@ -72,8 +66,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("showba", DbType.Boolean, showBa);
 
                     using (var reader = db.ExecuteReader())
-                    {             
-                        return GetMatches(reader, metaModel);                        
+                    {
+                        return GetMatches(reader, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -91,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="grandTotal">Grand total object.</param>
         /// <param name="totalRows">Total rows.</param>
         /// <returns>The result value.</returns>
-        public IList<WinLossByLeague> GetWinlossByLeagueCustomers(
+        public IEnumerable<WinLossByLeague> GetWinlossByLeagueCustomers(
             WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
         {
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
@@ -102,8 +96,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
 
-                    IList<WinLossByLeague> dataList = null;
-
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
@@ -112,7 +104,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
                     db.AddInParameter("leagueid", DbType.Int32, metaModel.League);
                     db.AddInParameter("matchid", DbType.Int32, metaModel.Match);
-                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);                    
+                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
                     db.AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
@@ -122,14 +114,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
 
-                    var dataSet = db.ExecuteDataSet();
-                    var reportTable = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
-                    var grandTotalTable = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
+                    IEnumerable<WinLossByLeague> dataList = null;
 
-                    dataList = GetCustomers(reportTable, grandTotalTable, metaModel, out grandTotal);
-                   
-                    totalRows = Converter.ToInt(db.GetParameterValue("totalrows")); 
-                    
+                    using (var reader = db.ExecuteReader())
+                    {
+                        dataList = GetCustomers(reader, metaModel.BaseCurrency);
+                        reader.NextResult();
+                        grandTotal = GetGrandTotal(reader, metaModel.BaseCurrency);
+                    }
+
+                    totalRows = Converter.ToInt(db.GetParameterValue("totalrows"));
+
                     return dataList;
                 }
             }
@@ -144,100 +139,97 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         #region Private
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        private static IList<WinLossByLeague> GetMatches(
-            IDataReader reader,
-            WinLossByLeagueMetaModel metaModel)
-        {            
+        private static IEnumerable<WinLossByLeague> GetMatches(IDataReader reader, string baseCurrency)
+        {
             var result = new List<WinLossByLeague>();
-
+            var turnOverColumn = "turnover" + baseCurrency;
+            var memberWLColumn = "memberwinlost" + baseCurrency;
+            var licenseeWLColumn = "licenseewl" + baseCurrency;
+            var comBAColumn = "CommBA" + baseCurrency;
+            var amtDueToBAColumn = "amtduetoBa" + baseCurrency;
             var index = 1;
             while (reader.Read())
-            {                
-                var homeid = reader.ToInt("homeid");
-                var awayid = reader.ToInt("awayid");
-
+            {
                 var item = new WinLossByLeague
-                    {             
+                    {
                         Index = index++,
-                        TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
-                        CustomerWinLoss = reader.ToDecimal("memberwinlost" + metaModel.BaseCurrency),                                                
-                        LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                        BACommission = reader.ToDecimal("CommBA" + metaModel.BaseCurrency),
+                        TurnOver = reader.ToDecimal(turnOverColumn),
+                        CustomerWinLoss = reader.ToDecimal(memberWLColumn),
+                        LicenseeWL = reader.ToDecimal(licenseeWLColumn),
+                        BACommission = reader.ToDecimal(comBAColumn),
                         BetCount = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal("amtduetoBa" + metaModel.BaseCurrency),
-                        HomeId = homeid,
-                        AwayId = awayid
-                    };                
-                result.Add(item);               
+                        AmountDue = reader.ToDecimal(amtDueToBAColumn),
+                        HomeId = reader.ToInt("homeid"),
+                        AwayId = reader.ToInt("awayid")
+                    };
+                result.Add(item);
             }
-            
+
             return result;
         }
 
         /// <summary>
         /// Get data list.
         /// </summary>
-        /// <param name="reportTable">Report data table.</param>
+        /// <param name="reader">Report data table.</param>
         /// <param name="grandTotalTable">Grand total data table.</param>
-        /// <param name="metaModel">Meta model value.</param>          
-        /// <param name="grandTotal">Grand total object.</param>          
+        /// <param name="metaModel">Meta model value.</param>
+        /// <param name="grandTotal">Grand total object.</param>
         /// <returns>The result value.</returns>
-        private static IList<WinLossByLeague> GetCustomers(
-            DataTable reportTable,
-            DataTable grandTotalTable,
-            WinLossByLeagueMetaModel metaModel,
-            out WinLossByLeague grandTotal)
+        private static IEnumerable<WinLossByLeague> GetCustomers(IDataReader reader, string baseCurrency)
         {
             var result = new List<WinLossByLeague>();
 
             var index = 1;
-            var turnoverCol = "turnover" + metaModel.BaseCurrency;
-            var memberWlCol = "memberwinlost" + metaModel.BaseCurrency;
-            var licenseeWlCol = "licenseewl" + metaModel.BaseCurrency;
-            var bacommCol = "CommBA" + metaModel.BaseCurrency;
+            var turnoverCol = "turnover" + baseCurrency;
+            var memberWlCol = "memberwinlost" + baseCurrency;
+            var licenseeWlCol = "licenseewl" + baseCurrency;
+            var bacommCol = "CommBA" + baseCurrency;
 
-            grandTotal = new WinLossByLeague();
-
-            foreach (DataRow row in grandTotalTable.Rows)
-            {
-                grandTotal.TurnOver = Converter.ToDecimal(row[turnoverCol]);
-                grandTotal.CustomerWinLoss = Converter.ToDecimal(row[memberWlCol]);
-                grandTotal.LicenseeWL = Converter.ToDecimal(row[licenseeWlCol]);
-                grandTotal.BACommission = Converter.ToDecimal(row[bacommCol]);
-                grandTotal.BetCount = Converter.ToInt(row["betcount"]);                
-            }
-            
-            var reader = reportTable.CreateDataReader();
             while (reader.Read())
             {
-                var systemIdOrdinal = reader.TryGetOrdinal("username");
-                var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-                var customerIdOrdinal = reader.TryGetOrdinal("custid");
+                var hasSystemId = reader.FieldExists("username");
+                var hasExternalId = reader.FieldExists("nickname");
+                var hasCustomerId = reader.FieldExists("custid");
 
                 var item = new WinLossByLeague
                 {
                     Index = index++,
-                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     TurnOver = reader.ToDecimal(turnoverCol),
                     CustomerWinLoss = reader.ToDecimal(memberWlCol),
-                    LicenseeWL = reader.ToDecimal(licenseeWlCol),    
+                    LicenseeWL = reader.ToDecimal(licenseeWlCol),
                     BACommission = reader.ToDecimal(bacommCol),
-                    BetCount = reader.ToInt("betcount")                                      
+                    BetCount = reader.ToInt("betcount")
                 };
                 result.Add(item);
             }
 
             return result;
         }
-        
+
+        private static WinLossByLeague GetGrandTotal(IDataReader reader, string baseCurrency)
+        {
+            var turnoverCol = "turnover" + baseCurrency;
+            var memberWlCol = "memberwinlost" + baseCurrency;
+            var licenseeWlCol = "licenseewl" + baseCurrency;
+            var bacommCol = "CommBA" + baseCurrency;
+
+            var grandTotal = new WinLossByLeague();
+            if (reader.Read())
+            {
+                grandTotal.TurnOver = reader.ToDecimal(turnoverCol);
+                grandTotal.CustomerWinLoss = reader.ToDecimal(memberWlCol);
+                grandTotal.LicenseeWL = reader.ToDecimal(licenseeWlCol);
+                grandTotal.BACommission = reader.ToDecimal(bacommCol);
+                grandTotal.BetCount = reader.ToInt("betcount");
+            }
+
+            return grandTotal;
+        }
+
         #endregion Private
     }
 }

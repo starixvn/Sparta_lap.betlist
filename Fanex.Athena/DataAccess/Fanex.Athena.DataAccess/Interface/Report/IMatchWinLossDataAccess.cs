@@ -27,7 +27,5 @@ namespace Fanex.Athena.DataAccess.Interface.Report
         IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel);
 
         IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel);
-
-        DataSet GetOutrightParlayDataSet(MatchWinLossMetaModel metaModel);
     }
 }

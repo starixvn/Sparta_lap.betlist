@@ -2,9 +2,10 @@
 <#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
 <#@ include file="SpNameConfiguration.ttinclude" #>
 <#
-    var manager = TemplateFileManager.Create(this);	
 	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
 	Directory.SetCurrentDirectory(path);
+    var manager = TemplateFileManager.Create(this);	
+	
     foreach(var site in sites)
     {        
 		var x = site.SiteEnvironment.ToString();

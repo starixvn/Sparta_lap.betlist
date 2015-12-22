@@ -38,7 +38,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -97,6 +97,7 @@
 	<!-- /Gold Deluxe API  -->
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
 </appSettings>
 <#
 				break;
@@ -112,7 +113,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -169,6 +170,7 @@
 	<!-- /Gold Deluxe API  -->
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
 </appSettings>
 				<#
 				break;
@@ -187,7 +189,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -238,6 +240,7 @@
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
 </appSettings>
 
 				<#
@@ -255,7 +258,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -322,7 +325,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />
@@ -392,7 +395,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=47601" />
+	<add key="JsVersion" value="v=48081" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />

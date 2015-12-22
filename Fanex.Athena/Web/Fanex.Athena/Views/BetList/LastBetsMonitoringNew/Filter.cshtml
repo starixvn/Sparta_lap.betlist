@@ -3,17 +3,11 @@
 @model Fanex.Athena.Models.ViewModel.BetList.LastBetsMonitoringViewModel
 @using (Html.BeginForm("LastBetMonitoringNew", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
 {
-    var sportList = this.Model.SportsList
-            .Select(item => new SelectListItem { Value = item.Value.ToString(), Text = item.Key })
-            .ToList();
-    sportList.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
-    sportList.Add(new SelectListItem { Value = "999", Text = ViewResources.Parlay });
-
     <div class="grid_2 filter-label">
         <label>@ViewResources.Sport</label>
     </div>
     <div class="grid_3 filter-input">
-        @Html.DropDownList("sports", sportList, new { })
+        @Html.DropDownList("sports", Model.SportsList, new { })
     </div>
     
     <div class="grid_2 filter-label" style="width: 55px">

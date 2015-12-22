@@ -7,13 +7,14 @@
 namespace Fanex.Athena.Models.ViewModel.BetList
 {
     using System.Collections.Generic;
+    using System.Web.Mvc;
 
     /// <summary>
     /// LastBetsMonitoringViewModel class.
     /// </summary>
     public class LastBetsMonitoringViewModel : BetListBaseViewModel
     {
-        public IDictionary<string, int> SportsList { get; set; }
+        public IEnumerable<SelectListItem> SportsList { get; set; }
 
         public bool IsOnlyShowAllCurrencies { get; set; }
     }

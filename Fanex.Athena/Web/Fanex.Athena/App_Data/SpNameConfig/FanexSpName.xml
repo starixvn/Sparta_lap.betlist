@@ -73,7 +73,7 @@
     <Setting Key="Lrf_Rpt_WinlossByProduct" SpName="Lrf_Rpt_WinlossByProduct"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail" SpName="Lrf_Rpt_WinlossByProductDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail_Ag" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_WinlossByLeague" SpName="Lrf_Rpt_WinlostByLeague"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_WinlostByLeague" SpName="Lrf_Rpt_WinlostByLeague"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByLeagueDetail" SpName="Lrf_Rpt_WinlossByLeagueDetail"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_PlaytechWinloss" SpName="Lrf_Rpt_PlaytechWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
