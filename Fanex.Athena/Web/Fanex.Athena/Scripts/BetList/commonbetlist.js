@@ -9,7 +9,7 @@ var CommonBetList = (function ($) {
         initialize: function () {
             BetList.initialize();
             $(".content-filter").remove();
-
+            
             var actionName = $("#ActionName").val();
             var url = Site.resolveClientUrl('api/betlist/' + actionName);
             var serverPaging = $("#IsServerPaging").val();

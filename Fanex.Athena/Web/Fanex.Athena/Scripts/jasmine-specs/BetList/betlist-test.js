@@ -127,7 +127,7 @@
         });
 
         it(".dialog() should be called with correct parameters", function () {
-            expect($.fn.dialog).toHaveBeenCalledWith({ modal: true, width: 750, height: 500 });
+            expect($.fn.dialog).toHaveBeenCalledWith({ modal: true, width: 750, height: 400 });
         });
 
         it("the dialog container should has attribute 'title' = 'Hello'", function () {
