@@ -33,7 +33,7 @@ var OutstandingBetList = (function ($) {
                 url = QueryString.setParam(url, "currencyname", currentcurrency);
                 url = QueryString.setParam(url, "betlistname", betlistName);
                 url = Site.setProductOptionOriginalParamList(url);
-                location.href = url;
+                OutstandingBetList.redirect(url);
             });
 
             //Submit button
@@ -43,6 +43,10 @@ var OutstandingBetList = (function ($) {
                 var params = OutstandingBetList.getParamsSubmit();
                 OutstandingBetList.submit(params);
             });
+        },
+
+        redirect: function (url) {
+            location.href = url;
         },
 
         hiddenColList: function () {

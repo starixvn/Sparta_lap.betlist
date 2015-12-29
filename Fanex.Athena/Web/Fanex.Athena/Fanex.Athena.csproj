@@ -618,6 +618,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.zh-Hans.js</LastGenOutput>
     </None>
+    <Content Include="Scripts\jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.dailystatement.option-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.dailystatement-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\correctscorebetlist-test.js" />
@@ -4537,7 +4538,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59805</DevelopmentServerPort>
+          <DevelopmentServerPort>55049</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
