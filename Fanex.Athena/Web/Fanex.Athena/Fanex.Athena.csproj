@@ -350,6 +350,9 @@
     <Content Include="App_Data\SpNameConfig\FanexSpName.SANDBOX.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="App_Data\SpNameConfig\FanexSpName.SIT.xml">
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.UAT.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -648,6 +651,10 @@
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
     <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
+      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
+    </Content>
+    <Content Include="SiteConfig\WebConfigTransforms\SIT.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
