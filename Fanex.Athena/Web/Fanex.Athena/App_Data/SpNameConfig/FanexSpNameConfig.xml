@@ -3,4 +3,8 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_uat1"></SpNameConfig>
 </Root>
