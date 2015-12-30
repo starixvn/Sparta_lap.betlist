@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="metal">Meta model value.</param>
         /// <returns>The result value.</returns>
-        public IList<OutRight> GetOutRight(ResultMetalModel metal)
+        public IList<Outright> GetOutRight(ResultMetalModel metal)
         {
             const string UspName = "Lrf_Result_Outright";
             var uspParams = new
@@ -54,11 +54,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
-                        var data = new List<OutRight>();
+                        var data = new List<Outright>();
 
                         while (reader.Read())
                         {
-                            data.Add(new OutRight
+                            data.Add(new Outright
                                             {
                                                 EventDate = DateTime.Parse(reader.ToString("eventdate")),
                                                 SportType = reader.ToInt("sporttype"),
