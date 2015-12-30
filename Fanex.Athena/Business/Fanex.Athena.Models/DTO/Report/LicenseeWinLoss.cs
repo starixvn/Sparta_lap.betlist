@@ -42,6 +42,12 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmtDueToBetTrade { get; set; }
 
+        public decimal BuyBackAmountSB { get; set; }
+
+        public decimal BuyBackAmountBA { get; set; }
+
+        public decimal BuyBackAmountTotal { get; set; }
+
         #region ICustomerWinLoss Members
 
         public decimal CustomerWinLoss { get; set; }
