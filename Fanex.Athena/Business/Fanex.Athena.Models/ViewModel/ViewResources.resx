@@ -2760,4 +2760,8 @@
     <value>Amount</value>
     <comment>#47601</comment>
   </data>
+  <data name="BuyBackAmount" xml:space="preserve">
+    <value>Buy Back Amount</value>
+    <comment>#50175</comment>
+  </data>
 </root>

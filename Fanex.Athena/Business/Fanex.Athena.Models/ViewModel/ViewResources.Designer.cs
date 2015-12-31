@@ -844,6 +844,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy Back Amount.
+        /// </summary>
+        public static string BuyBackAmount {
+            get {
+                return ResourceManager.GetString("BuyBackAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Bet Type.
         /// </summary>
         public static string ByBetType {

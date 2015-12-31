@@ -215,6 +215,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CurrencyName = reader.ToString("currencyname"),
                     CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
                     CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                    BuyBackAmountSB = 1,
+                    BuyBackAmountBA = 2,
                     LicenseeWL = licenseeWl,
                     TurnOver = turnOver,
                     TotalTransaction = reader.ToInt("betcount"),
