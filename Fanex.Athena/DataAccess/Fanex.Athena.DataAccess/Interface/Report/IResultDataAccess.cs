@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     [System.CLSCompliant(false)]
     public interface IResultDataAccess
     {
-        IList<OutRight> GetOutRight(ResultMetalModel metal);
+        IList<Outright> GetOutRight(ResultMetalModel metal);
 
         #region Filter
 

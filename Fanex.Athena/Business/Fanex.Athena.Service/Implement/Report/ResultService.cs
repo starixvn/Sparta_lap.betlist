@@ -35,7 +35,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="metal">The metal model.</param>
         /// <returns>The out right data list.</returns>
-        public IList<OutRight> GetOutRight(Models.MetaModel.Report.ResultMetalModel metal)
+        public IList<Outright> GetOutRight(Models.MetaModel.Report.ResultMetalModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
         }

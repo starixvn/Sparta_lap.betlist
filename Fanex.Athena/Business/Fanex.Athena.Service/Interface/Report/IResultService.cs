@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Interface.Report
         /// </summary>
         /// <param name="metal">The metal model.</param>
         /// <returns>The out right list.</returns>
-        IList<OutRight> GetOutRight(ResultMetalModel metal);
+        IList<Outright> GetOutRight(ResultMetalModel metal);
 
         #region Filter
 

@@ -17,6 +17,10 @@
         {
             SiteEnvironment = SiteEnvironment.UAT
         },
+		new SiteInfo
+        {
+            SiteEnvironment = SiteEnvironment.SIT
+        },
         new SiteInfo
         {
             SiteEnvironment = SiteEnvironment.PRO
@@ -37,6 +41,7 @@
 		DEV,
         LOCAL,
         UAT,
+		SIT,
         PRO,
         BACKUPMNL,
         SANDBOX

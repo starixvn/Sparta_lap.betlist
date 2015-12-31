@@ -297,7 +297,7 @@ namespace Fanex.Athena.Controllers.Report
             var setting = new ResultSetting
             {
                 SportType = sportType,
-                IsOutRight = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
+                IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
                 IsPopUp = true,
                 LanguageCode = SessionService.UserSession.Language
@@ -490,7 +490,7 @@ namespace Fanex.Athena.Controllers.Report
             sports = null;
             leagues = null;
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<OutRight>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
             if (outRightData != null && outRightData.Count > 0)
             {
                 sports =
@@ -529,13 +529,13 @@ namespace Fanex.Athena.Controllers.Report
 
             var setting = new ResultSetting
             {
-                IsOutRight = true,
+                IsOutright = true,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language
             };
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<OutRight>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
             if (outRightData != null)
             {
                 var data =
