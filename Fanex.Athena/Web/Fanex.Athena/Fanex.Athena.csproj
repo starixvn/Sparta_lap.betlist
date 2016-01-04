@@ -618,6 +618,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.zh-Hans.js</LastGenOutput>
     </None>
+    <Content Include="Scripts\jasmine-specs\BetList\lastbetsmonitornew-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.dailystatement.option-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.dailystatement-test.js" />
@@ -629,6 +630,7 @@
     <Content Include="Scripts\jasmine-specs\Account\ManageAccount-test.js" />
     <Content Include="Scripts\jasmine-specs\Account\EditPermission-test.js" />
     <Content Include="Scripts\jasmine-specs\Account\EditAccount-test.js" />
+    <Content Include="Scripts\jasmine-specs\BetList\dailybetlist-test.js" />
     <Content Include="Scripts\jasmine-specs\setup.js" />
     <Content Include="Scripts\jasmine\mock-ajax.js" />
     <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
@@ -697,6 +699,7 @@
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
     <Content Include="Jasmine\SpecRunner.html" />
   </ItemGroup>
+  <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>

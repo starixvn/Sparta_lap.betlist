@@ -84,13 +84,13 @@ var MonitorBetList = function () {
     $this.tryUpdateStack = function () {
         var tempF = $("#stake-from").val();
         tempF = tempF.replace(/,/g, '');
-        tempF = tempF === undefined || tempF === "" ? 0 : parseInt(tempF);
+        tempF = tempF === "" ? 0 : parseInt(tempF);
 
         $this.stakeFrom = tempF;
 
         var tempT = $("#stake-to").val();
         tempT = tempT.replace(/,/g, '');
-        tempT = tempT === undefined || tempT === "" ? $this.maxStake : parseInt(tempT);
+        tempT = tempT === "" ? $this.maxStake : parseInt(tempT);
         $this.stakeTo = tempT;
 
         $this.params.StakeFrom = $this.stakeFrom;
