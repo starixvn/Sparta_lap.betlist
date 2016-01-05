@@ -32,8 +32,8 @@ namespace Fanex.Athena.Models.Helper
         private const int VSMaxBetType = 1299;
         private const int LCMinBetType = 1101;
         private const int LCMaxBetType = 1199;
-        private const int CSMinBetType = 71;
-        private const int CSMaxBetType = 71;
+        private const int CSMinBetType = 2101;
+        private const int CSMaxBetType = 2399;
         private const int BGMinBetType = 73;
         private const int BGMaxBetType = 73;
         private const int KenoMinBetType = 1501;

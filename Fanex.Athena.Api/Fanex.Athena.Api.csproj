@@ -61,8 +61,8 @@
       <HintPath>..\packages\Fanex.BetList.Microgaming.2.0.0.6\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.BetList.RnGCasino.1.0.0.1-beta\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
+    <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.BetList.RnGCasino.1.0.0.4-beta\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -149,6 +149,7 @@
     <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
     <Compile Include="BetList\BetListController.MixParlay.cs" />
     <Compile Include="BetList\BetListController.MobileWl.cs" />
+    <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />

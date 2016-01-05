@@ -21,7 +21,7 @@
   <Group Name="BetList">
     <Function Name="BetList_CustomerOutstanding" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="BetList_CustomerOutstandingRunning" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,MGCLC,MGCRNG"></Function>
-    <Function Name="BetList_DailyBetList" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG"></Function>
+    <Function Name="BetList_DailyBetList" Product="SB,BA,NG,LC,VS,KN,RB,BG"></Function>
   </Group>
 
   <Group Name="API">

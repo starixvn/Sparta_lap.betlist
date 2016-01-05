@@ -655,6 +655,7 @@
       <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config" />
+    <Content Include="Views\BetList\RngCasinoDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
