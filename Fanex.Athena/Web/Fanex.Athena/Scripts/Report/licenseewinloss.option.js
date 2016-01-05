@@ -680,7 +680,7 @@ var LicenseeWinLossOption = (function () {
         me.toggle = toggle;
         //#end
 
-        function addButton($container, $element, isToggle, toggleType) {
+        function addToggleButton($container, $element, isToggle, toggleType) {
             $element.css({ "float": "right", "height": "17px" })
             .appendTo($container).button({ icons: { primary: "ui-icon-circle-triangle-e" }, text: false })
             .click(function () { return toggle(isToggle, toggleType); });
@@ -691,7 +691,7 @@ var LicenseeWinLossOption = (function () {
                 clear("#btnTurnOverExpand");
                 var $container = $("#" + gridId + "_" + "TotalTurnOverSingle");
                 var $button = $('<button title="Expand to view details" id="btnTurnOverExpand">');
-                addButton($container, $button, true, 0);
+                addToggleButton($container, $button, true, 0);
             }
         };
 
@@ -700,7 +700,7 @@ var LicenseeWinLossOption = (function () {
                 clear("#btnLicenseeWLExpand");
                 var $container = $("#" + gridId + "_" + "TotalLicenseeWLSingle");
                 var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand">');
-                addButton($container, $button, true, 1);
+                addToggleButton($container, $button, true, 1);
             }
         };
 
@@ -711,7 +711,7 @@ var LicenseeWinLossOption = (function () {
                         .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
 
             var $button = $('<button id="btnTurnOverCollapse">');
-            addButton($container, $button, false, 0);
+            addToggleButton($container, $button, false, 0);
         };
 
         var addLicenseeWlCollapse = function () {
@@ -721,7 +721,7 @@ var LicenseeWinLossOption = (function () {
                         .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
 
             var $button = $('<button id="btnLicenseeWLCollapse">');
-            addButton($container, $button, false, 1);
+            addToggleButton($container, $button, false, 1);
         };
 
         // Collapsing when loading completed

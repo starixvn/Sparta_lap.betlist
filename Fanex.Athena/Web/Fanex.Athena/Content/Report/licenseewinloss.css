@@ -40,6 +40,13 @@ a
 {
     min-width: 464px;
 }
+.container_26 {
+    width: 1200px;
+}
+
+.container_26 .grid_26 {
+    width: 1200px;
+}
 /*filter*/
 .report-by-monthly
 {
