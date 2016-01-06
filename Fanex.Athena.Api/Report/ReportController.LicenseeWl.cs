@@ -149,7 +149,7 @@ namespace Fanex.Athena.Api.Report
                 ExternalId = item.ExternalId,
                 BuyBackAmountSB = item.BuyBackAmountSB,
                 BuyBackAmountBA = item.BuyBackAmountBA,
-                BuyBackAmountTotal = item.BuyBackAmountTotal,
+                TotalBuyBackAmount = item.TotalBuyBackAmount,
                 LicenseeWLBA = item.LicenseeWL.Keys.Contains(Product.BA) ? item.LicenseeWL[Product.BA] : 0,
                 LicenseeWLSB = item.LicenseeWL.Keys.Contains(Product.SB) ? item.LicenseeWL[Product.SB] : 0,
                 LicenseeWLRB = item.LicenseeWL.Keys.Contains(Product.RB) ? item.LicenseeWL[Product.RB] : 0,

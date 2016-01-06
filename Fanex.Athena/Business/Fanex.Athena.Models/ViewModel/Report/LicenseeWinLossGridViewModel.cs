@@ -47,7 +47,15 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal BuyBackAmountBA { get; set; }
 
-        public decimal BuyBackAmountTotal { get; set; }
+        public decimal TotalBuyBackAmount { get; set; }
+
+        public decimal TotalBuyBackAmountSingle
+        {
+            get
+            {
+                return TotalBuyBackAmount;
+            }
+        }
 
         #region ICustomerWinLoss Members
 

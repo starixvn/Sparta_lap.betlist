@@ -349,7 +349,7 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(data.BuyBackAmountSB);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(data.BuyBackAmountBA);
-            row.Cells[ColumnBuyBackAmountTotal].SetCellValue(data.BuyBackAmountTotal);
+            row.Cells[ColumnBuyBackAmountTotal].SetCellValue(data.TotalBuyBackAmount);
 
             // Set data for customerwinloss
             for (int i = 0; i < _productOption.Count; i++)

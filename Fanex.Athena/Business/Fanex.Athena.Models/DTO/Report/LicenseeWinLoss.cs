@@ -46,7 +46,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal BuyBackAmountBA { get; set; }
 
-        public decimal BuyBackAmountTotal
+        public decimal TotalBuyBackAmount
         {
             get
             {
