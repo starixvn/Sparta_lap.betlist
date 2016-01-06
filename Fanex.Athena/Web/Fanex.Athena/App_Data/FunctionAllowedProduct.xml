@@ -7,7 +7,7 @@
   <Group Name="Report">
     <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGCLC,MGCRNG"></Function>
-    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG"></Function>
+    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC"></Function>
     <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,CS,KN,RB,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="CustomerWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG"></Function>
     <Function Name="CasinoProgressiveWins" Product="MGCRNG"></Function>
