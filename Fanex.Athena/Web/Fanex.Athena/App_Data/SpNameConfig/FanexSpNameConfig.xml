@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_uat1"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_uat1"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_uat1"></SpNameConfig>
   
 </Root>
