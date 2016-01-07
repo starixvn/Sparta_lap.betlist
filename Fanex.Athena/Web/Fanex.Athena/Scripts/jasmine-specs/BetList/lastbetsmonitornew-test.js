@@ -247,3 +247,227 @@
         });
     });
 });
+
+describe("MonitorBetList", function () {
+    beforeEach(function () {
+        monitor = new MonitorBetList();
+        monitorUi = new MonitorBetListUI(monitor);
+    });
+
+    describe("initialize()", function () {
+        beforeEach(function () {
+            spyOn(monitorUi, "initMainObject");
+            spyOn(monitorUi, "initSports");
+            spyOn(monitorUi, "initLeague");
+            spyOn(monitorUi, "initMatch");
+            spyOn(monitorUi, "initBetType");
+            spyOn(monitorUi, "initLiveStatus");
+            spyOn(monitorUi, "initOddsType");
+            spyOn(monitorUi, "initSpecialLevel");
+            spyOn(monitorUi, "initCurrency");
+            spyOn(monitorUi, "initTimeZone");
+            spyOn(monitorUi, "initBasedCurrency");
+            spyOn(monitorUi, "initStake");
+            spyOn(monitorUi, "initPageSizeControl");
+            spyOn(monitorUi, "initFreezeButton");
+            spyOn(monitorUi, "initHighlight");
+            spyOn(monitorUi, "initSubmit");
+            spyOn(monitorUi, "initPlatForm");
+            spyOn(monitorUi, "initColumns");
+
+            monitorUi.initialize();
+        });
+
+        it("MonitorBetListUI.initMainObject should be called", function () {
+            expect(monitorUi.initMainObject).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initSports should be called", function () {
+            expect(monitorUi.initSports).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initLeague should be called", function () {
+            expect(monitorUi.initLeague).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initMatch should be called", function () {
+            expect(monitorUi.initMatch).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initBetType should be called", function () {
+            expect(monitorUi.initBetType).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initLiveStatus should be called", function () {
+            expect(monitorUi.initLiveStatus).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initOddsType should be called", function () {
+            expect(monitorUi.initOddsType).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initSpecialLevel should be called", function () {
+            expect(monitorUi.initSpecialLevel).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initCurrency should be called", function () {
+            expect(monitorUi.initCurrency).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initTimeZone should be called", function () {
+            expect(monitorUi.initTimeZone).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initBasedCurrency should be called", function () {
+            expect(monitorUi.initBasedCurrency).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initStake should be called", function () {
+            expect(monitorUi.initStake).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initPageSizeControl should be called", function () {
+            expect(monitorUi.initPageSizeControl).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initFreezeButton should be called", function () {
+            expect(monitorUi.initFreezeButton).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initHighlight should be called", function () {
+            expect(monitorUi.initHighlight).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initSubmit should be called", function () {
+            expect(monitorUi.initSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initPlatForm should be called", function () {
+            expect(monitorUi.initPlatForm).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.initColumns should be called", function () {
+            expect(monitorUi.initColumns).toHaveBeenCalled();
+        });
+    });
+
+    describe("initSports()", function () {
+        beforeEach(function () {
+            affix("input#match");
+            affix("input#league");
+        });
+        describe("SportId is 0 or 999", function () {
+            beforeEach(function () {
+                affix("input#sports[value=0]");
+                spyOn(monitorUi, "setHighlightSubmit");
+                spyOn($, "ajax");
+                spyOn(monitorUi.monitor, "numberParam");
+                monitorUi.initSports();
+                $("#sports").change();
+            });
+
+            it("MonitorBetListUI.setHighlightSubmit() should be called when $('#sports') fired change event", function () {
+                expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+            });
+
+            it("MonitorBetList.sportId should be 0 when $('#sports') fired change event", function () {
+                expect(monitor.sportId).toBe(0);
+            });
+
+            it("$('#league') should be disabled when $('#sports') fired change event with sportId is 0 or 999", function () {
+                expect($('#league')).toBeDisabled();
+            });
+
+            it("$('#match') should be disabled when $('#sports') fired change event", function () {
+                expect($('#match')).toBeDisabled();
+            });
+
+            it("$.ajax should not be called when $('#sports') fired change event with sportId is 0 or 999", function () {
+                expect($.ajax).not.toHaveBeenCalled();
+            });
+
+            it("MonitorBetListUI.monitor.numberParam should be called three times when $('#sports') fired change event", function () {
+                expect(monitorUi.monitor.numberParam.calls.count()).toBe(3);
+            });
+        });
+
+        describe("SportId not equal 0 and 999", function () {
+            var request;
+            beforeEach(function (done) {
+                affix("input#sports[value=1]");
+                spyOn(Site, "blockUI");
+                spyOn(Site, "unBlockUI");
+                spyOn($.fn, "append");
+
+                jasmine.Ajax.install();
+                jasmine.Ajax
+                .stubRequest(/api\/betlist\/GetRunningMatchList/)
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ "MatchList": {}, "LeagueList": [{"LeagueId": 1, "LeagueName": "League Name test"}] }'
+                });
+
+                monitorUi.initSports();
+                $("#sports").change();
+
+                request = jasmine.Ajax.requests.mostRecent();
+
+                setTimeout(done, 10);
+            });
+
+            afterEach(function () {
+                jasmine.Ajax.uninstall();
+            });
+
+            it("$('#league') should be enabled when $('#sports') fired change event with sportId not equal 0 and 999", function () {
+                expect($('#league')).not.toBeDisabled();
+            });
+
+            it("Site.blockUI should be called", function () {
+                expect(Site.blockUI).toHaveBeenCalled();
+            });
+
+            it("Site.unBlockUI should be called", function () {
+                expect(Site.unBlockUI).toHaveBeenCalled();
+            });
+
+            it("MonitorBetListUI.currentLeagueList should be [{LeagueId: 1, 'LeagueName': 'League Name test'}]", function () {
+                var leagueList = [{ LeagueId: 1, LeagueName: 'League Name test'}];
+                expect(monitorUi.currentLeagueList).toEqual(jasmine.arrayContaining(leagueList));
+            });
+        });
+    });
+
+    describe("initLeague()", function () {
+        beforeEach(function () {
+            affix("input#match");
+        });
+
+        describe("leagueId value is 0", function () {
+            beforeEach(function () {
+                affix("input#league[value=0]");
+                spyOn(monitorUi, "setHighlightSubmit");
+                spyOn(monitorUi.monitor, "numberParam");
+                monitorUi.initLeague();
+                $("#league").change();
+            });
+
+            it("MonitorBetListUI.setHighlightSubmit should be called", function () {
+                expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+            });
+
+            it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters", function () {
+                expect(monitorUi.monitor.numberParam.calls.argsFor(0)).toEqual(["leagueId", 0]);
+            });
+
+            it("$('#match') should be disabled when $('#league') fired change event", function () {
+                expect($('#match')).toBeDisabled();
+            });
+
+            it("MonitorBetListUI.monitor.numberParam should be called twice when $('#league') fired change event", function () {
+                expect(monitorUi.monitor.numberParam.calls.count()).toBe(2);
+            });
+        });
+    })
+});
