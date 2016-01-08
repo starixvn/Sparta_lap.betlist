@@ -94,6 +94,12 @@ namespace Fanex.Athena.Models.DTO.Report
                 case "SB":
                     return ViewResources.Sportsbook;
 
+                case "MGCLC":
+                    return ViewResources.MicrogamingLiveCasino;
+
+                case "MGCRNG":
+                    return ViewResources.MicrogamingRNGCasino;
+
                 case "VS":
                     return ViewResources.VirtualSports;
 
