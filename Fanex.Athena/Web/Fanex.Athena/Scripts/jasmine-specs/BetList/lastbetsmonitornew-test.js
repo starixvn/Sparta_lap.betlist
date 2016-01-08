@@ -128,27 +128,27 @@
             spyOn(monitor, "stopMonitor");
             spyOn(Site, "clone");
         });
-        it("MonitorBetList.startMonitor should be called with freeStatus is 1", function () {
+        it("MonitorBetList.startMonitor() should be called with freeStatus is 1", function () {
             monitor.Submit(1);
             expect(monitor.startMonitor.calls.count()).toBe(1);
         });
 
-        it("MonitorBetList.stopMonitor should be called once with freeStatus is 1", function () {
+        it("MonitorBetList.stopMonitor() should be called once with freeStatus is 1", function () {
             monitor.Submit(1);
             expect(monitor.stopMonitor).toHaveBeenCalled();
         });
 
-        it("MonitorBetList.tryUpdateStack should be called", function () {
+        it("MonitorBetList.tryUpdateStack() should be called", function () {
             monitor.Submit(1);
             expect(monitor.tryUpdateStack).toHaveBeenCalled();
         });
 
-        it("Site.clone should be called", function () {
+        it("Site.clone(obj) should be called", function () {
             monitor.Submit(1);
             expect(Site.clone).toHaveBeenCalled();
         });
 
-        it("MonitorBetList.stopMonitor should be called twice with freeStatus is 0", function () {
+        it("MonitorBetList.stopMonitor() should be called twice with freeStatus is 0", function () {
             monitor.Submit(0);
             expect(monitor.stopMonitor.calls.count()).toBe(2);
         });
@@ -221,7 +221,7 @@
             expect(monitor.lastTransId).toBe(0);
         });
 
-        it("MonitorBetList.bindNoInfoRow should be called", function () {
+        it("MonitorBetList.bindNoInfoRow() should be called", function () {
             expect(monitor.bindNoInfoRow).toHaveBeenCalled();
         });
     });
@@ -238,11 +238,11 @@
             expect(monitor.lastTransId).toBe(0);
         });
 
-        it("MonitorBetList.stopMonitor should be called", function () {
+        it("MonitorBetList.stopMonitor() should be called", function () {
             expect(monitor.stopMonitor).toHaveBeenCalled();
         });
 
-        it("MonitorBetList.doMonitor should be called", function () {
+        it("MonitorBetList.doMonitor() should be called", function () {
             expect(monitor.doMonitor).toHaveBeenCalled();
         });
     });
@@ -278,75 +278,75 @@ describe("MonitorBetList", function () {
             monitorUi.initialize();
         });
 
-        it("MonitorBetListUI.initMainObject should be called", function () {
+        it("MonitorBetListUI.initMainObject() should be called", function () {
             expect(monitorUi.initMainObject).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initSports should be called", function () {
+        it("MonitorBetListUI.initSports() should be called", function () {
             expect(monitorUi.initSports).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initLeague should be called", function () {
+        it("MonitorBetListUI.initLeague() should be called", function () {
             expect(monitorUi.initLeague).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initMatch should be called", function () {
+        it("MonitorBetListUI.initMatch() should be called", function () {
             expect(monitorUi.initMatch).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initBetType should be called", function () {
+        it("MonitorBetListUI.initBetType() should be called", function () {
             expect(monitorUi.initBetType).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initLiveStatus should be called", function () {
+        it("MonitorBetListUI.initLiveStatus() should be called", function () {
             expect(monitorUi.initLiveStatus).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initOddsType should be called", function () {
+        it("MonitorBetListUI.initOddsType() should be called", function () {
             expect(monitorUi.initOddsType).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initSpecialLevel should be called", function () {
+        it("MonitorBetListUI.initSpecialLevel() should be called", function () {
             expect(monitorUi.initSpecialLevel).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initCurrency should be called", function () {
+        it("MonitorBetListUI.initCurrency() should be called", function () {
             expect(monitorUi.initCurrency).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initTimeZone should be called", function () {
+        it("MonitorBetListUI.initTimeZone() should be called", function () {
             expect(monitorUi.initTimeZone).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initBasedCurrency should be called", function () {
+        it("MonitorBetListUI.initBasedCurrency() should be called", function () {
             expect(monitorUi.initBasedCurrency).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initStake should be called", function () {
+        it("MonitorBetListUI.initStake() should be called", function () {
             expect(monitorUi.initStake).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initPageSizeControl should be called", function () {
+        it("MonitorBetListUI.initPageSizeControl() should be called", function () {
             expect(monitorUi.initPageSizeControl).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initFreezeButton should be called", function () {
+        it("MonitorBetListUI.initFreezeButton() should be called", function () {
             expect(monitorUi.initFreezeButton).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initHighlight should be called", function () {
+        it("MonitorBetListUI.initHighlight() should be called", function () {
             expect(monitorUi.initHighlight).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initSubmit should be called", function () {
+        it("MonitorBetListUI.initSubmit() should be called", function () {
             expect(monitorUi.initSubmit).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initPlatForm should be called", function () {
+        it("MonitorBetListUI.initPlatForm() should be called", function () {
             expect(monitorUi.initPlatForm).toHaveBeenCalled();
         });
 
-        it("MonitorBetListUI.initColumns should be called", function () {
+        it("MonitorBetListUI.initColumns() should be called", function () {
             expect(monitorUi.initColumns).toHaveBeenCalled();
         });
     });
@@ -386,7 +386,7 @@ describe("MonitorBetList", function () {
                 expect($.ajax).not.toHaveBeenCalled();
             });
 
-            it("MonitorBetListUI.monitor.numberParam should be called three times when $('#sports') fired change event", function () {
+            it("MonitorBetListUI.monitor.numberParam(name, value) should be called three times when $('#sports') fired change event", function () {
                 expect(monitorUi.monitor.numberParam.calls.count()).toBe(3);
             });
         });
@@ -424,11 +424,11 @@ describe("MonitorBetList", function () {
                 expect($('#league')).not.toBeDisabled();
             });
 
-            it("Site.blockUI should be called", function () {
+            it("Site.blockUI() should be called", function () {
                 expect(Site.blockUI).toHaveBeenCalled();
             });
 
-            it("Site.unBlockUI should be called", function () {
+            it("Site.unBlockUI() should be called", function () {
                 expect(Site.unBlockUI).toHaveBeenCalled();
             });
 
@@ -453,7 +453,7 @@ describe("MonitorBetList", function () {
                 $("#league").change();
             });
 
-            it("MonitorBetListUI.setHighlightSubmit should be called", function () {
+            it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
                 expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
             });
 
@@ -465,7 +465,7 @@ describe("MonitorBetList", function () {
                 expect($('#match')).toBeDisabled();
             });
 
-            it("MonitorBetListUI.monitor.numberParam should be called twice when $('#league') fired change event", function () {
+            it("MonitorBetListUI.monitor.numberParam(name, value) should be called twice when $('#league') fired change event", function () {
                 expect(monitorUi.monitor.numberParam.calls.count()).toBe(2);
             });
         });
@@ -497,62 +497,323 @@ describe("MonitorBetList", function () {
                 expect($('#match')).not.toBeDisabled();
             });
         });
+    });
 
-        describe("initMatch()", function () {
+    describe("initMatch()", function () {
+        beforeEach(function () {
+            affix("input#match");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "numberParam");
+
+            monitorUi.initMatch();
+            $('#match').val(1);
+            $('#match').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("matchId", "1");
+        });
+    });
+
+    describe("initBetType()", function () {
+        beforeEach(function () {
+            affix("input#bet-type[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "stringParam");
+
+            monitorUi.initBetType();
+            $('#bet-type').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.stringParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("betType", "1");
+        });
+    });
+
+    describe("initLiveStatus()", function () {
+        beforeEach(function () {
+            affix("input#live-status[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "stringParam");
+
+            monitorUi.initLiveStatus();
+            $('#live-status').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.stringParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("liveStatus", "1");
+        });
+    });
+
+    describe("initOddsType()", function () {
+        beforeEach(function () {
+            affix("input#odds-type[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "stringParam");
+
+            monitorUi.initOddsType();
+            $('#odds-type').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.stringParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("oddsType", "1");
+        });
+    });
+
+    describe("initSpecialLevel()", function () {
+        beforeEach(function () {
+            affix("select#special-level");
+            spyOn($.fn, "multiSelect");
+
+            monitorUi.initSpecialLevel();
+        });
+
+        it("multiSelect function of jquery should be called", function () {
+            expect($.fn.multiSelect).toHaveBeenCalled();
+        });
+    });
+
+    describe("initCurrency()", function () {
+        beforeEach(function () {
+            affix("select#currency");
+            spyOn($.fn, "multiSelect");
+
+            monitorUi.initCurrency();
+        });
+
+        it("multiSelect function of jquery should be called", function () {
+            expect($.fn.multiSelect).toHaveBeenCalled();
+        });
+    });
+
+    describe("initTimeZone()", function () {
+        beforeEach(function () {
+            affix("input#time-zone[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "numberParam");
+
+            monitorUi.initTimeZone();
+            $('#time-zone').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("timeZone", "1");
+        });
+    });
+
+    describe("initBasedCurrency()", function () {
+        beforeEach(function () {
+            affix("input#based-currency[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "stringParam");
+
+            monitorUi.initBasedCurrency();
+            $('#based-currency').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.stringParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("basedCurrency", "1");
+        });
+    });
+
+    describe("initStake()", function () {
+        beforeEach(function () {
+            affix("input#stake-from");
+            affix("input#stake-to");
+
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "numberParam");
+
+            monitorUi.initStake();
+        });
+
+        xit("MonitorBetListUI.setHighlightSubmit() should be called when $('#stake-from') fired keyup event", function () {
+            $("#stake-from").keyup();
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called when $('#stake-from') fired change event", function () {
+            $("#stake-from").change();
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters when $('#stake-from') fired change event", function () {
+            $("#stake-from").val(1);
+            $("#stake-from").change();
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("stakeFrom", 1);
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called when $('#stake-to') fired change event", function () {
+            $("#stake-to").change();
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters when $('#stake-to') fired change event", function () {
+            $("#stake-to").val(2);
+            $("#stake-to").change();
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("stakeTo", 2);
+        });
+    });
+
+    describe("initPageSizeControl()", function () {
+        beforeEach(function () {
+            affix("#pagesize input[value=10]");
+
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "numberParam");
+
+            monitorUi.initPageSizeControl();
+
+            $("#pagesize input").click();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called when $('#pagesize input') fired click event", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters when $('#pagesize input') fired click event", function () {
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("pageSize", "10");
+        });
+
+        it("$('#pagesize input') should be enabled when $('#pagesize input') fired change event", function () {
+            expect($('#pagesize input')).toBeDisabled();
+        });
+    });
+
+    describe("initFreezeButton()", function () {
+        describe("currentStatus is 1", function () {
             beforeEach(function () {
-                spyOn(monitorUi, "setHighlightSubmit");
-                spyOn(monitorUi.monitor, "numberParam");
+                affix("button#freeze-button[data-status=1]");
 
-                monitorUi.initMatch();
-                $('#match').val(1);
-                $('#match').change();
+                spyOn(monitor, "stopMonitor");
+                spyOn(Site, "getSingleResource");
+
+                monitorUi.initFreezeButton();
+                $("#freeze-button").click();
             });
 
-            it("MonitorBetListUI.setHighlightSubmit should be called", function () {
-                expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+            if ("Site.getSingleResource(enghlishName) should be called with correct parameters", function () {
+                expect(Site.getSingleResource).toHaveBeenCalledWith("Unfreeze");
             });
 
-            it("MonitorBetListUI.monitor.numberParam should be called with correct parameters", function () {
-                expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("matchId", '1');
+            it("MonitorBetList.stopMonitor() should be callled when $('#freeze-button') fired click event", function () {
+                expect(monitor.stopMonitor).toHaveBeenCalled();
             });
         });
 
-        describe("initBetType()", function () {
+        describe("currentStatus not equal 1", function () {
             beforeEach(function () {
-                affix("input#bet-type[value=1]");
-                spyOn(monitorUi, "setHighlightSubmit");
-                spyOn(monitorUi.monitor, "stringParam");
+                affix("button#freeze-button[data-status=0]");
 
-                monitorUi.initBetType();
-                $('#bet-type').change();
+                spyOn(monitor, "startMonitor");
+                spyOn(Site, "getSingleResource");
+
+                monitorUi.initFreezeButton();
+                $("#freeze-button").click();
             });
 
-            it("MonitorBetListUI.setHighlightSubmit should be called", function () {
-                expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+            if ("Site.getSingleResource(enghlishName) should be called with correct parameters", function () {
+                expect(Site.getSingleResource).toHaveBeenCalledWith("Freeze");
             });
 
-            it("MonitorBetListUI.monitor.stringParam should be called with correct parameters", function () {
-                expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("betType", '1');
+            it("MonitorBetList.startMonitor() should be callled when $('#freeze-button') fired click event", function () {
+                expect(monitor.startMonitor).toHaveBeenCalled();
             });
         });
+    });
 
-        describe("initLiveStatus()", function () {
-            beforeEach(function () {
-                affix("input#live-status[value=1]");
-                spyOn(monitorUi, "setHighlightSubmit");
-                spyOn(monitorUi.monitor, "stringParam");
+    describe("initHighlight()", function () {
+        beforeEach(function () {
+            affix("table#last-bets-monitoring tr");
+            monitorUi.monitor.containerTable = $("#last-bets-monitoring");
 
-                monitorUi.initLiveStatus();
-                $('#live-status').change();
-            });
+            spyOn($.fn, "toggleClass");
 
-            it("MonitorBetListUI.setHighlightSubmit should be called", function () {
-                expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
-            });
+            monitorUi.initHighlight();
+            monitorUi.monitor.containerTable.find("tr").click();
+        });
 
-            it("MonitorBetListUI.monitor.stringParam should be called with correct parameters", function () {
-                expect(monitorUi.monitor.stringParam).toHaveBeenCalledWith("liveStatus", '1');
-            });
+        it("toggleClass function of jquery shuold be called with correct parameters", function () {
+            expect($.fn.toggleClass).toHaveBeenCalledWith("monitor-keep");
+        });
+    });
+
+    describe("setHighlightSubmit()", function () {
+        beforeEach(function () {
+            affix("button#submit-button");
+            jasmine.clock().install();
+
+            monitorUi.setHighlightSubmit();
+        });
+        afterEach(function () {
+            jasmine.clock().uninstall();
+        });
+
+        it("$('#submit-button') should not have 'background-color' css with value is 'rgb(211,211,211)'", function () {
+            expect($("#submit-button")).not.toHaveCss({ "background-color": "rgb(211,211,211)" });
+        });
+
+        it("$('#submit-button') should have 'background-color' css with value is 'rgb(211,211,211)'", function () {
+            jasmine.clock().tick(1000);
+            expect($("#submit-button")).toHaveCss({ "background-color": "rgb(211,211,211)" });
+        });
+    });
+
+    describe("initSubmit()", function () {
+        beforeEach(function () {
+            affix("button#submit-button");
+            affix("button#freeze-button[data-status=1]");
+
+            spyOn(monitorUi.monitor, "Submit");
+            monitorUi.initSubmit();
+            $("#submit-button").click();
+        });
+
+        it("MonitorBetList.monitor.Submit shuold be called with correct parameters", function () {
+            expect(monitorUi.monitor.Submit).toHaveBeenCalledWith("1");
+        });
+    });
+
+    describe("initPlatForm()", function () {
+        beforeEach(function () {
+            affix("input#bet-form[value=1]");
+            spyOn(monitorUi, "setHighlightSubmit");
+            spyOn(monitorUi.monitor, "numberParam");
+
+            monitorUi.initPlatForm();
+            $('#bet-form').change();
+        });
+
+        it("MonitorBetListUI.setHighlightSubmit() should be called", function () {
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
+        it("MonitorBetListUI.monitor.numberParam(name, value) should be called with correct parameters", function () {
+            expect(monitorUi.monitor.numberParam).toHaveBeenCalledWith("betFrom", "1");
         });
     });
 });

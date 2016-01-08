@@ -564,7 +564,7 @@ var MonitorBetListUI = function (monitorObj) {
 
             var stake = $("#stake-from").val();
             stake = stake.replace(/,/g, '');
-            stake = stake === undefined || stake === "" ? 0 : parseInt(stake);
+            stake = stake === "" ? 0 : parseInt(stake);
             $this.monitor.numberParam("stakeFrom", stake);
         });
 
@@ -574,8 +574,8 @@ var MonitorBetListUI = function (monitorObj) {
             var stake = $("#stake-to").val();
 
             stake = stake.replace(/,/g, '');
-            stake = stake === undefined || stake === "" ? maxStake : parseInt(stake);
-            $this.monitor.numberParam("stakeTo", $("#stake-to").val());
+            stake = stake === "" ? maxStake : parseInt(stake);
+            $this.monitor.numberParam("stakeTo", stake);
         });
     };
 
