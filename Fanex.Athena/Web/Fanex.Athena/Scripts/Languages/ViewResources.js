@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 11/20/2015 9:15:52 AM
+// Lasted generated date: 12/31/2015 10:19:55 AM
 // </history>
 
 var _language_en_US={
@@ -72,6 +72,8 @@ var _language_en_US={
                      AllCurrencies:"All Currencies",
 				 	
                      AllSites:"All Sites",
+				 	
+                     Amount:"Amount",
 				 	
                      AmountDue:"Amount Due",
 				 	
@@ -180,6 +182,8 @@ var _language_en_US={
                      BONTeamToScore:"Both/One/Neither Team To Score",
 				 	
                      Bonus:"Bonus",
+				 	
+                     BuyBackAmount:"Buy Back Amount",
 				 	
                      ByBetType:"By Bet Type",
 				 	
@@ -465,7 +469,9 @@ var _language_en_US={
 				 	
                      EnableMacau:"Enable Macau",
 				 	
-                     EnableMicrogaming:"Enable Microgaming",
+                     EnableMicrogamingLiveCasino:"Enable Microgaming Live Casino",
+				 	
+                     EnableMicrogamingRNGCasino:"Enable Microgaming RNG Casino",
 				 	
                      EnableRNGCasino:"Enable RNG Casino",
 				 	
@@ -578,6 +584,8 @@ var _language_en_US={
                      GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 				 	
                      GotoCustomerList:"Go to Customer List",
+				 	
+                     GrandPrize:"Grand Prize: the grand winning amount which is excluded from member balance",
 				 	
                      GrandTotal:"Grand Total",
 				 	
@@ -957,7 +965,13 @@ var _language_en_US={
 				 	
                      Microgaming:"Microgaming",
 				 	
-                     MicroGamingNotOfferCurrency:"Microgaming is not offered for this currency.",
+                     MicrogamingLiveCasino:"Microgaming-Live Casino",
+				 	
+                     MicroGamingLiveCasinoNotOfferCurrency:"Microgaming Live Casino is not offered for this currency.",
+				 	
+                     MicrogamingRNGCasino:"Microgaming-RNG Casino",
+				 	
+                     MicroGamingRNGCasinoNotOfferCurrency:"Microgaming RNG Casino is not offered for this currency.",
 				 	
                      MicrogamingWinLoss:"Microgaming Win Loss",
 				 	

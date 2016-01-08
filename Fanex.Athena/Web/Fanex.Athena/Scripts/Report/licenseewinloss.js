@@ -534,7 +534,6 @@ var LicenseeWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     LicenseeWinLoss.initialize();
-    //alert(Date.parse('Apr 5, 2013'));
 });
 
 $(window).resize(function () {
