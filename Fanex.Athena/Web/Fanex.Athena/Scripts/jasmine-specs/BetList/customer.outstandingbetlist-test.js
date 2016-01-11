@@ -38,7 +38,7 @@
             Report = jasmine.createSpyObj('Report', ['setOriginalProduct']);
             spyOn(OutstandingBetList, 'getParamsSubmit').and.callFake(function () { return {}; });
             spyOn(OutstandingBetList, 'submit');
-            spyOn(OutstandingBetList, 'redirect');
+            spyOn(Site, 'redirect');
             OutstandingBetList.initEvent();
         });
         it("OutstandingBetList.submit(params) should be called when fire click event on #SubmitButton", function () {
@@ -47,9 +47,9 @@
             expect(OutstandingBetList.submit).toHaveBeenCalled();
         });
 
-        it("OutstandingBetList.redirect(url) should be called when fire change event on #ViewOption", function () {
+        it("Site.redirect(url) should be called when fire change event on #ViewOption", function () {
             $("#ViewOption").change();
-            expect(OutstandingBetList.redirect).toHaveBeenCalled();
+            expect(Site.redirect).toHaveBeenCalled();
         });
     });
 

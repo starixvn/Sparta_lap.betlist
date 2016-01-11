@@ -63,4 +63,33 @@
             expect(BetList.loadData).toHaveBeenCalledWith({ bettype: 1 }, 'api/betlist/runningbetlist');
         });
     });
+
+    describe("exportToExcel()", function () {
+        beforeEach(function () {
+            affix("#ExportToExcel");
+            spyOn(Site, "setLicenseeOptionParam");
+            spyOn(QueryString, "setParam");
+            spyOn(BetList, "getSortParams");
+            spyOn(Site, "redirect");
+
+            RunningBetList.exportToExcel();
+            $("#ExportToExcel").click();
+        });
+
+        it("Site.setLicenseeOptionParam(url) should be called", function () {
+            expect(Site.setLicenseeOptionParam).toHaveBeenCalled();
+        });
+
+        it("QueryString.setParam() should be called", function () {
+            expect(QueryString.setParam).toHaveBeenCalled();
+        });
+
+        it("BetList.getSortParams() should be called", function () {
+            expect(BetList.getSortParams).toHaveBeenCalled();
+        });
+
+        it("Site.redirect(url) should be called", function () {
+            expect(Site.redirect).toHaveBeenCalled();
+        });
+    });
 });

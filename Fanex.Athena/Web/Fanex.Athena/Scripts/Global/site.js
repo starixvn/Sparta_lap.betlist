@@ -647,6 +647,10 @@ var Site = (function ($) {
         isInteger: function (text) {
             return typeof Site.isNumber(text) && parseFloat(text) === parseInt(text, 10) && !isNaN(text);
         },
+
+        redirect: function (url) {
+            window.location.href = url;
+        },
         /* clone: function (obj) {
         if (null == obj || "object" !== typeof obj) {
         return obj;

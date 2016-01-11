@@ -76,6 +76,27 @@
         });
     });
 
+    describe("switchMixParlayTotalBet(bettype)", function () {
+        beforeEach(function () {
+            spyOn(QueryString, "setParam");
+            spyOn(Site, "redirect");
+        });
+        it("QueryString.setParam(url, name, value) should not be called when length of bettype is 0", function () {
+            RunningBetListMultipleBettype.switchMixParlayTotalBet("");
+            expect(QueryString.setParam).not.toHaveBeenCalled();
+        })
+
+        it("QueryString.setParam(url, name, value) should be called when length of bettype greater than 0", function () {
+            RunningBetListMultipleBettype.switchMixParlayTotalBet("abc");
+            expect(QueryString.setParam).toHaveBeenCalled();
+        });
+
+        it("Site.redirect(url) should be called when length of bettype greater than 0", function () {
+            RunningBetListMultipleBettype.switchMixParlayTotalBet("abc");
+            expect(Site.redirect).toHaveBeenCalled();
+        });
+    });
+
     describe("showCombMPDetail(transId, refNo, betId, custId, betTeam, baseCurrency)", function () {
         describe("custId value is 0", function () {
             beforeEach(function () {
