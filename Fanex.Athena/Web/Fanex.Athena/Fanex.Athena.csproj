@@ -618,6 +618,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.zh-Hans.js</LastGenOutput>
     </None>
+    <Content Include="Scripts\jasmine-specs\BetList\runningbetlist.multiplebettypes-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\runningbetlist-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\lastbetsmonitornew-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
