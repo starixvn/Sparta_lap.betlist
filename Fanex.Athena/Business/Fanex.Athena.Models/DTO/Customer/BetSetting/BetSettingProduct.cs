@@ -6,10 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.Customer.BetSetting
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Fanex.Athena.Models.ViewModel;
 
     /// <summary>
     /// TODO: Update summary.
@@ -18,7 +15,22 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting
     {
         public int ProductId { get; set; }
 
-        public string ProductName { get; set; }
+        public string ProductName 
+        {
+            get
+            {
+                var viewResource = ViewResources.ResourceManager;
+                viewResource.IgnoreCase = true;
+                var resourceKey = "Product" + ProductCode;
+                var productName = viewResource.GetString(resourceKey);
+                if (string.IsNullOrWhiteSpace(productName))
+                {
+                    productName = ProductCode;
+                }
+
+                return productName;
+            }
+        }
 
         public string ProductCode { get; set; }
 
