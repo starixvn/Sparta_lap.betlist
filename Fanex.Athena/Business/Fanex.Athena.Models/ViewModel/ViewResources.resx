@@ -2827,4 +2827,8 @@
     <value>Microgaming-RNG Casino</value>
     <comment>#46454</comment>
   </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+    <comment>#49196</comment>
+  </data>
 </root>

@@ -2482,4 +2482,8 @@
     <value>RNG 카지노</value>
     <comment>#49196</comment>
   </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>스포츠북</value>
+    <comment>#49196</comment>
+  </data>
 </root>
