@@ -633,6 +633,7 @@
     <Content Include="Scripts\jasmine-specs\Account\EditPermission-test.js" />
     <Content Include="Scripts\jasmine-specs\Account\EditAccount-test.js" />
     <Content Include="Scripts\jasmine-specs\BetList\dailybetlist-test.js" />
+    <Content Include="Scripts\jasmine-specs\Casino\RNGCasinoResult.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Casino\RNGCasinoResult-test.js" />
     <Content Include="Scripts\jasmine-specs\setup.js" />
     <Content Include="Scripts\jasmine\mock-ajax.js" />
