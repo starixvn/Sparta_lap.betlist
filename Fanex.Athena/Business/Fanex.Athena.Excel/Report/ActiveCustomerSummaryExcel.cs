@@ -100,18 +100,18 @@ namespace Fanex.Athena.Excel.Report
             var prdHeaderList = new List<string>
             {
                 ViewResources.Sportsbook,
-                ViewResources.Racing,
-                ViewResources.NumberGame,
-                ViewResources.BA,
-                ViewResources.LiveCasino,
-                ViewResources.VirtualSports,
-                ViewResources.RNGCasino,
-                ViewResources.Bingo,
-                ViewResources.Keno,
-                ViewResources.PlaytechCasino,
-                ViewResources.AGCasino,
-                ViewResources.MicrogamingLiveCasino,
-                ViewResources.MicrogamingRNGCasino,
+                ViewResources.ProductRB,
+                ViewResources.ProductNG,
+                ViewResources.ProductBA,
+                ViewResources.ProductLC,
+                ViewResources.ProductVS,
+                ViewResources.ProductCS,
+                ViewResources.ProductBG,
+                ViewResources.ProductKN,
+                ViewResources.ProductPTCS,
+                ViewResources.ProductAGC,
+                ViewResources.ProductMGCLC,
+                ViewResources.ProductMGCRNG,
             };
 
             int index = ColumnFirstProduct;

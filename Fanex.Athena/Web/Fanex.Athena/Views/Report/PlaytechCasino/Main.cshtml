@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = string.Format("LRF - {0} - {1} {2}", ViewResources.Report, ViewResources.PlaytechCasino, ViewResources.WinLoss);
+    ViewBag.Title = string.Format("LRF - {0} - {1} {2}", ViewResources.Report, ViewResources.ProductPTCS, ViewResources.WinLoss);
     Layout = "~/Views/Shared/_ReportTableLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
@@ -17,7 +17,7 @@
 }
 @section ContentTitle
 {
-    @(ViewResources.PlaytechCasino + " " + ViewResources.WinLoss)
+    @(ViewResources.ProductPTCS + " " + ViewResources.WinLoss)
 }
 @{  
     ViewBag.NumberWidth = 40;

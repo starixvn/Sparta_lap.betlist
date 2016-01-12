@@ -25,7 +25,7 @@
     </div>
 }
 <div class="report-title" style="width:@ViewBag.TitleWidth@("px");">
-    @ViewResources.PlaytechCasino @ViewResources.WinLoss,
+    @ViewResources.ProductPTCS @ViewResources.WinLoss,
     @RazorHelper.TitleDateTime(param.Level == 0 ? param.FromDate : param.DrillDownFromDate, param.Level == 0 ? param.ToDate : param.DrillDownToDate)
     - @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, string.IsNullOrEmpty(param.CurrencyName) ? ViewResources.AllCurrencies : param.CurrencyName)
     <div style="float: right;">

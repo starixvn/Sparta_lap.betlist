@@ -156,7 +156,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                         + string.Format(
                         " - {0} - {1} --> {2} - {3}",
-                        ViewResources.NumberGame,
+                        ViewResources.ProductNG,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
@@ -190,7 +190,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                         + string.Format(
                         " - {0} - {1} --> {2} - {3}",
-                        ViewResources.NumberGame,
+                        ViewResources.ProductNG,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
@@ -225,7 +225,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                         + string.Format(
                         " - {0} - {1} --> {2} - {3}",
-                        ViewResources.Racing,
+                        ViewResources.ProductRB,
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));

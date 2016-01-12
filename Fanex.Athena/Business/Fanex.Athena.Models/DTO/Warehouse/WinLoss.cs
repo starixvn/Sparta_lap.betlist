@@ -95,7 +95,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
                             case -9:
                                 return ViewResources.SystemParlay;
                             case -1:
-                                return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.Racing;
+                                return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.ProductRB;
                             default:
                                 return CacheRef.GetLeagueName(_groupByvalue);
                         }

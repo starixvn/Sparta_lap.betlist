@@ -155,23 +155,23 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
 
             row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.Sportsbook);
-            row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.BA);
+            row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
             row2.Cells[ColumnBuyBackAmountTotal].SetCellValue(ViewResources.Total);
 
             var headerTexts = new string[]
             {
                 ViewResources.Sportsbook,
-                ViewResources.Racing,
-                ViewResources.NumberGame,
-                ViewResources.BA,
-                ViewResources.LiveCasino,
-                ViewResources.VirtualSports,
-                ViewResources.RNGCasino,
-                ViewResources.Bingo,
-                ViewResources.Keno,
-                ViewResources.BetTrade,
-                ViewResources.MicrogamingLiveCasino,
-                ViewResources.MicrogamingRNGCasino,
+                ViewResources.ProductRB,
+                ViewResources.ProductNG,
+                ViewResources.ProductBA,
+                ViewResources.ProductLC,
+                ViewResources.ProductVS,
+                ViewResources.ProductCS,
+                ViewResources.ProductBG,
+                ViewResources.ProductKN,
+                ViewResources.ProductBT,
+                ViewResources.ProductMGCLC,
+                ViewResources.ProductMGCRNG,
                 ViewResources.Total
             };
 

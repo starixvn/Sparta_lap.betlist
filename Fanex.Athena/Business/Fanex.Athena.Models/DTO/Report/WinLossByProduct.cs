@@ -80,28 +80,28 @@ namespace Fanex.Athena.Models.DTO.Report
             switch (productCode.ToUpper())
             {
                 case "BA":
-                    return ViewResources.BA;
+                    return ViewResources.ProductBA;
 
                 case "LC":
-                    return ViewResources.LiveCasino;
+                    return ViewResources.ProductLC;
 
                 case "NG":
-                    return ViewResources.NumberGame;
+                    return ViewResources.ProductNG;
 
                 case "RB":
-                    return ViewResources.Racing;
+                    return ViewResources.ProductRB;
 
                 case "SB":
                     return ViewResources.Sportsbook;
 
                 case "MGCLC":
-                    return ViewResources.MicrogamingLiveCasino;
+                    return ViewResources.ProductMGCLC;
 
                 case "MGCRNG":
-                    return ViewResources.MicrogamingRNGCasino;
+                    return ViewResources.ProductMGCRNG;
 
                 case "VS":
-                    return ViewResources.VirtualSports;
+                    return ViewResources.ProductVS;
 
                 case "VS180":
                     return ViewResources.VirtualSoccer;
@@ -119,13 +119,13 @@ namespace Fanex.Athena.Models.DTO.Report
                     return ViewResources.VirtualTennis;
 
                 case "CS":
-                    return ViewResources.RNGCasino;
+                    return ViewResources.ProductCS;
 
                 case "BG":
-                    return ViewResources.Bingo;
+                    return ViewResources.ProductBG;
 
                 case "KN":
-                    return ViewResources.Keno;
+                    return ViewResources.ProductKN;
 
                 case "VS183":
                     return ViewResources.VirtualSpeedway;

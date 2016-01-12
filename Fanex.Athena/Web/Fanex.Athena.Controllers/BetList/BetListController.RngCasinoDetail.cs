@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private string GetBetListTitleForRngCasino(long transType)
         {
-            string title = ViewResources.RNGCasino + " - " + ViewResources.BetList + " - " +
+            string title = ViewResources.ProductCS + " - " + ViewResources.BetList + " - " +
                 ViewResources.DetailTickets + " - ";
             switch (transType)
             {
