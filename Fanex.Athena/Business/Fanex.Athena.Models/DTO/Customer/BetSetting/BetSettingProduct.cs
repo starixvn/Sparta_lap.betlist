@@ -19,8 +19,6 @@ namespace Fanex.Athena.Models.DTO.Customer.BetSetting
         {
             get
             {
-                var viewResource = ViewResources.ResourceManager;
-                viewResource.IgnoreCase = true;
                 return ViewResources.ResourceManager.GetString("Product" + ProductCode);
             }
         }
