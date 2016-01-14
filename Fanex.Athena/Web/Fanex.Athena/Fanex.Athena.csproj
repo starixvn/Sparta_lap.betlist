@@ -635,6 +635,7 @@
     <Content Include="Scripts\jasmine-specs\BetList\dailybetlist-test.js" />
     <Content Include="Scripts\jasmine-specs\Casino\RNGCasinoResult.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Casino\RNGCasinoResult-test.js" />
+    <Content Include="Scripts\jasmine-specs\Customer\customers-test.js" />
     <Content Include="Scripts\jasmine-specs\setup.js" />
     <Content Include="Scripts\jasmine\mock-ajax.js" />
     <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
