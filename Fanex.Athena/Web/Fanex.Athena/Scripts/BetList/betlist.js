@@ -8,6 +8,7 @@ var BetList = (function ($) {
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
+    var SPORT_RNG_CASINO = 208;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -315,6 +316,65 @@ var BetList = (function ($) {
             return url;
         },
 
+        getServerToken: function () {
+            var serverToken = "";
+            var timestamp = moment(new Date()).format("YYYY/MM/DD h:mm:ss");
+            var auth = { login: "login", password: "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" };
+            var call = { seq: "633b0a18-3cd8-4e59-8c1b-16fc301a5f88", token: "6215e837-3488-41f2-8ce5-f2816f633447" };
+
+            var params = {
+                timestamp: timestamp,
+                auth: auth,
+                call: call
+            };
+
+            var url = "http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken";
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                cache: false,
+                url: url,
+                success: function (response) {
+                    var result = response.result;
+
+                    if (result.isAuthorized) {
+                        serverToken = result.seq;
+                    }
+                    else {
+                        console.log(result.errorCode);
+                        console.log(result.errorDescription);
+                    }
+                }
+            });
+
+            return serverToken;
+        },
+
+        getRNGCasinoUrl: function (refno, lang, template, role) {
+            var url = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
+            var serverToken = BetList.getServerToken();
+            url = QueryString.setParam(url, "serverToken", serverToken);
+            url = QueryString.setParam(url, "refId", refno);
+            url = QueryString.setParam(url, "lang", lang);
+            url = QueryString.setParam(url, "template", template);
+            url = QueryString.setParam(url, "role", role);
+
+            return url;
+        },
+
+        showRngCasinoResultPopup: function (title, refno) {
+            var url = BetList.getRNGCasinoUrl(refno, "en", "D", "M");
+
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 850,
+                height: 650
+            });
+        },
+
         setLeagueTitle: function (leagueName) {
             var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
@@ -327,14 +387,18 @@ var BetList = (function ($) {
                 modal: true,
                 width: 750,
                 height: 400
-            }) ;
+            });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
-            } else {
+            }
+            else if (sporttype === SPORT_RNG_CASINO) {
+                BetList.showRngCasinoResultPopup(title, refno);
+            }
+            else {
                 bettype = Number(bettype);
                 var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
                 var url = isParlay
