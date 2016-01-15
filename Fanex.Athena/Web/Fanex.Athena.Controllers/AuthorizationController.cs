@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers
     using System.Globalization;
     using System.IO;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Caching;
     using System.Web.Mvc;
@@ -110,7 +111,7 @@ namespace Fanex.Athena.Controllers
             var secretCaptcha = AppSettings.GetValue("SecretCaptcha");
             var companyIP = AppSettings.GetValue("CompanyIP");
             if (!isValid && !string.IsNullOrWhiteSpace(secretCaptcha) && model.Captcha == secretCaptcha &&
-                 Request.UserHostAddress == companyIP)
+                 Regex.IsMatch(Request.UserHostAddress, companyIP))
             {
                 isValid = true;
             }
