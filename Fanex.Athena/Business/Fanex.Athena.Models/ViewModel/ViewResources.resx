@@ -2835,4 +2835,17 @@
     <value>Actual Stake</value>
     <comment>#51264</comment>
   </data>
+
+  <data name="Asia" xml:space="preserve">
+    <value>Asia</value>
+    <comment>#50939</comment>
+  </data>
+  <data name="NewAsia" xml:space="preserve">
+    <value>New Asia</value>
+    <comment>#50939</comment>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>Euro</value>
+    <comment>#50939</comment>
+  </data>
 </root>

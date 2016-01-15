@@ -475,6 +475,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asia.
+        /// </summary>
+        public static string Asia {
+            get {
+                return ResourceManager.GetString("Asia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Permission Successful..
         /// </summary>
         public static string AssignPermissionSuccessful {
@@ -2217,6 +2226,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EUR {
             get {
                 return ResourceManager.GetString("EUR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Euro.
+        /// </summary>
+        public static string Euro {
+            get {
+                return ResourceManager.GetString("Euro", resourceCulture);
             }
         }
         
@@ -4665,6 +4683,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string NetworkTimeoutMsg {
             get {
                 return ResourceManager.GetString("NetworkTimeoutMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Asia.
+        /// </summary>
+        public static string NewAsia {
+            get {
+                return ResourceManager.GetString("NewAsia", resourceCulture);
             }
         }
         
