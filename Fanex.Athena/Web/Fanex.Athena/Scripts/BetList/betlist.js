@@ -339,14 +339,14 @@ var BetList = (function ($) {
                         return;
                     }
 
-                    var result = response.result;
-                    if (result.isauthorized) {
-                        var serverToken = result.seq;
+                    var result = response.Result;
+                    if (result.isAuthorized) {
+                        var serverToken = result.Seq;
                         BetList.showRngCasinoResultPopup(title, serverToken, refno);
                     }
                     else {
-                        console.log(result.errorCode);
-                        console.log(result.errorDescription);
+                        console.log(result.ErrorCode);
+                        console.log(result.ErrorDescription);
                     }
                 },
                 beforeSend: function () {
