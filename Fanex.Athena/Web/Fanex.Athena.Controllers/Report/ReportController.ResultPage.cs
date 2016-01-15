@@ -12,14 +12,17 @@ namespace Fanex.Athena.Controllers.Report
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.Mvc;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Keno;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Keno;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Service.Interface.Keno;
@@ -200,6 +203,43 @@ namespace Fanex.Athena.Controllers.Report
             }
 
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
+        }
+
+        [HttpGet]
+        public string GetRngCasinoServerToken()
+        {           
+            var uri = new Uri("http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken");
+            var paramString = CreateServerTokenParameters();
+            var result = string.Empty;
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    result = webClient.UploadString(uri, paramString);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception);
+            }
+
+            return result;
+        }
+
+        private static string CreateServerTokenParameters()
+        {
+            var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+            var auth = new { login = "login", password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" };
+            var call = new { seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f88", token = "6215e837-3488-41f2-8ce5-f2816f633447" };
+
+            return new
+            {
+                timestamp = timeStamp,
+                auth = auth,
+                call = call
+            }.ToJson();
         }
 
         /// <summary>

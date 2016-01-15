@@ -323,41 +323,60 @@ var BetList = (function ($) {
             return url;
         },
 
-        getServerToken: function () {
-            var serverToken = "";
-            var timestamp = moment(new Date()).format("YYYY/MM/DD h:mm:ss.SSS");
-            var auth = { login: "login", password: "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" };
-            var call = { seq: "633b0a18-3cd8-4e59-8c1b-16fc301a5f88", token: "6215e837-3488-41f2-8ce5-f2816f633447" };
-
-            var params = {
-                timestamp: timestamp,
-                auth: auth,
-                call: call
-            };
-
-            var url = "http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken";
+        viewRngCasinoResult: function (title, refno) {
+            var url = Site.resolveClientUrl('Report/GetRngCasinoServerToken');
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 contentType: 'application/json',
                 dataType: "json",
                 cache: false,
-                data: JSON.stringify(params),
                 url: url,
                 success: function (response) {
-                    var result = response.result;
+                    console.log(response);
+                    if (response === "") {
+                        console.log("Exception");
+                        return;
+                    }
 
-                    if (result.isAuthorized) {
-                        serverToken = result.seq;
+                    var result = response.result;
+                    if (result.isauthorized) {
+                        var serverToken = result.seq;
+                        BetList.showRngCasinoResultPopup(title, serverToken, refno);
                     }
                     else {
                         console.log(result.errorCode);
                         console.log(result.errorDescription);
                     }
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
                 }
             });
+        },
 
-            return serverToken;
+        showRngCasinoResultPopup: function (title, serverToken, refno) {
+            if (serverToken === "") {
+                return;
+            }
+
+            var currentLanguageCode = _page.lang;
+            var language = languages[currentLanguageCode];
+            var template = "D";
+            var role = "M";
+
+            var url = BetList.getRNGCasinoResultUrl(serverToken, refno, language, template, role);
+            console.log(url);
+
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 850,
+                height: 650
+            });
         },
 
         getRNGCasinoResultUrl: function (serverToken, refno, lang, template, role) {
@@ -369,25 +388,6 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "role", role);
 
             return url;
-        },
-
-        showRngCasinoResultPopup: function (title, refno) {
-            var serverToken = BetList.getServerToken();
-            if (serverToken === "") {
-                return;
-            }
-
-            var currentLanguageCode = _page.lang;
-            var language = languages[currentLanguageCode];
-
-            var url = BetList.getRNGCasinoResultUrl(serverToken, refno, language, "D", "M");
-
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
-            $(dialogForm).dialog({
-                modal: true,
-                width: 850,
-                height: 650
-            });
         },
 
         setLeagueTitle: function (leagueName) {
@@ -411,7 +411,7 @@ var BetList = (function ($) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
             }
             else if (sporttype === SPORT_RNG_CASINO) {
-                BetList.showRngCasinoResultPopup(title, refno);
+                BetList.viewRngCasinoResult(title, refno);
             }
             else {
                 bettype = Number(bettype);
