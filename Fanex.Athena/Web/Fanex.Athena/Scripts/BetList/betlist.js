@@ -1,5 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
-/*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
+/*global Site, QueryString,jqGridAdditional, BetListOption, moment, _page*/
 /*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
 showAGCasinoDetails, showRnGCasinoDetails*/
 
@@ -13,6 +13,13 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     var _isShowSumStake;
+
+    var languages = {
+        "en-US": "en",
+        "zh-TW": "ch",
+        "zh-CN": "cs",
+        "zh-Hans": "zhcn"
+    };
 
     return {
         resizeGrid: function () {
@@ -318,7 +325,7 @@ var BetList = (function ($) {
 
         getServerToken: function () {
             var serverToken = "";
-            var timestamp = moment(new Date()).format("YYYY/MM/DD h:mm:ss");
+            var timestamp = moment(new Date()).format("YYYY/MM/DD h:mm:ss.SSS");
             var auth = { login: "login", password: "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" };
             var call = { seq: "633b0a18-3cd8-4e59-8c1b-16fc301a5f88", token: "6215e837-3488-41f2-8ce5-f2816f633447" };
 
@@ -335,6 +342,7 @@ var BetList = (function ($) {
                 contentType: 'application/json',
                 dataType: "json",
                 cache: false,
+                data: JSON.stringify(params),
                 url: url,
                 success: function (response) {
                     var result = response.result;
@@ -352,9 +360,8 @@ var BetList = (function ($) {
             return serverToken;
         },
 
-        getRNGCasinoUrl: function (refno, lang, template, role) {
+        getRNGCasinoResultUrl: function (serverToken, refno, lang, template, role) {
             var url = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
-            var serverToken = BetList.getServerToken();
             url = QueryString.setParam(url, "serverToken", serverToken);
             url = QueryString.setParam(url, "refId", refno);
             url = QueryString.setParam(url, "lang", lang);
@@ -365,7 +372,15 @@ var BetList = (function ($) {
         },
 
         showRngCasinoResultPopup: function (title, refno) {
-            var url = BetList.getRNGCasinoUrl(refno, "en", "D", "M");
+            var serverToken = BetList.getServerToken();
+            if (serverToken === "") {
+                return;
+            }
+
+            var currentLanguageCode = _page.lang;
+            var language = languages[currentLanguageCode];
+
+            var url = BetList.getRNGCasinoResultUrl(serverToken, refno, language, "D", "M");
 
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
