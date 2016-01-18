@@ -253,7 +253,7 @@ namespace Fanex.Athena.Controllers.Report
         private string CreateServerTokenParameters()
         {
             var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            var auth = new { Login = "Login", Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09", SiteId = 3000 };
+            var auth = new { Login = "login", Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09", SiteId = 3000 };
             var call = new { Seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f86", VendorId = 10 };
 
             return new
@@ -274,6 +274,11 @@ namespace Fanex.Athena.Controllers.Report
             {
                 return Json(new
                 {
+                    Response = response,
+                    ErrorCode = result.ErrorCode.ToString(),
+                    ErrorDescription = result.ErrorDescription.ToString(),
+                    Token = result.Token.ToString(),
+                    UrlOriginal = GetQueryString(result.Token.ToString(), refNo),
                     Success = true,
                     Result = GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
                 });
@@ -281,6 +286,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return Json(new
             {
+                Response = response,
                 Success = false,
                 Result = new
                 {
@@ -292,19 +298,24 @@ namespace Fanex.Athena.Controllers.Report
 
         private string GetRngCasinoPopupUrl(string token, string refNo)
         {
-            var queryString = GetQueryStringParam(token, refNo);
+            var queryString = GetQueryString(token, refNo);
 
-            return RngCasinoPopupUrl + "?" + queryString;
+            return RngCasinoPopupUrl + "?" + EncryptQueryString(queryString);
         }
 
-        private string GetQueryStringParam(string token, string refNo)
+        private string GetQueryString(string token, string refNo)
         {
             var languageCode = GetLanguageCode();
 
-            var queryStringparam = string.Format(
+            var queryString = string.Format(
                 "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
 
-            var encryptParam = ResultService.EncryptQueryString(queryStringparam, EncryptedKey);
+            return queryString;
+        }
+
+        private string EncryptQueryString(string queryString)
+        {
+            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
 
             var paramEncode = HttpUtility.UrlEncode(encryptParam);
 
