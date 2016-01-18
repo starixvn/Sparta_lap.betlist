@@ -1,5 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
-/*global Site, QueryString,jqGridAdditional, BetListOption, moment, _page*/
+/*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
 showAGCasinoDetails, showRnGCasinoDetails*/
 
@@ -13,13 +13,6 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     var _isShowSumStake;
-
-    var languages = {
-        "en-US": "en",
-        "zh-TW": "ch",
-        "zh-CN": "cs",
-        "zh-Hans": "zhcn"
-    };
 
     return {
         resizeGrid: function () {
@@ -324,25 +317,22 @@ var BetList = (function ($) {
         },
 
         viewRngCasinoResult: function (title, refno) {
-            var url = Site.resolveClientUrl('Report/GetRngCasinoServerToken');
+            var url = Site.resolveClientUrl('Report/ShowRngCasinoResult');
 
+            var params = { "refNo": refno };
             $.ajax({
-                type: "GET",
+                type: "POST",
                 contentType: 'application/json',
                 dataType: "json",
+                data: JSON.stringify(params),
                 cache: false,
                 url: url,
                 success: function (response) {
                     console.log(response);
-                    if (response === "") {
-                        console.log("Exception");
-                        return;
-                    }
 
                     var result = response.Result;
-                    if (result.isAuthorized) {
-                        var serverToken = result.Seq;
-                        BetList.showRngCasinoResultPopup(title, serverToken, refno);
+                    if (response.Success) {
+                        BetList.showRngCasinoResultPopup(title, result);
                     }
                     else {
                         console.log(result.ErrorCode);
@@ -358,18 +348,10 @@ var BetList = (function ($) {
             });
         },
 
-        showRngCasinoResultPopup: function (title, serverToken, refno) {
-            if (serverToken === "") {
+        showRngCasinoResultPopup: function (title, url) {
+            if (url === "") {
                 return;
             }
-
-            var currentLanguageCode = _page.lang;
-            var language = languages[currentLanguageCode];
-            var template = "D";
-            var role = "M";
-
-            var url = BetList.getRNGCasinoResultUrl(serverToken, refno, language, template, role);
-            console.log(url);
 
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
@@ -377,17 +359,6 @@ var BetList = (function ($) {
                 width: 850,
                 height: 650
             });
-        },
-
-        getRNGCasinoResultUrl: function (serverToken, refno, lang, template, role) {
-            var url = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
-            url = QueryString.setParam(url, "serverToken", serverToken);
-            url = QueryString.setParam(url, "refId", refno);
-            url = QueryString.setParam(url, "lang", lang);
-            url = QueryString.setParam(url, "template", template);
-            url = QueryString.setParam(url, "role", role);
-
-            return url;
         },
 
         setLeagueTitle: function (leagueName) {

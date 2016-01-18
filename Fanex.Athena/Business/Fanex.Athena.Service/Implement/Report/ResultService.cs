@@ -30,6 +30,11 @@ namespace Fanex.Athena.Service.Implement.Report
             this._dataAccess = new ResultDataAccess();
         }
 
+        public static string EncryptQueryString(string parameters, string encryptedKey)
+        {
+            return IBCCrypt.IBCCrypt.Encrypt(parameters, encryptedKey);
+        }
+        
         /// <summary>
         /// Get out right data.
         /// </summary>

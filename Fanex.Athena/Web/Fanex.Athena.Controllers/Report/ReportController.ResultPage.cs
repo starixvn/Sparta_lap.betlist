@@ -33,6 +33,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The result controller.
@@ -41,6 +42,19 @@ namespace Fanex.Athena.Controllers.Report
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
 
+        private const string Template = "D";
+        private const string Role = "M";
+        private const string EncryptedKey = "Casino@ibcbet#8899";
+        private const string RngCasinoPopupUrl = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
+        private const string ServerTokenAPI = "http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken";
+        private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
+            {
+                { "en-US", "en" },
+                { "zh-TW", "ch" },
+                { "zh-CN", "cs" },
+                { "zh-Hans", "zhcn" }
+            };
+        
         private string _htmlResult;
         private MemoryStream _excelStream;
 
@@ -205,19 +219,27 @@ namespace Fanex.Athena.Controllers.Report
             return this.Redirect(Util.RootPath + "Utility/Error?err=400");
         }
 
-        [HttpGet]
-        public string GetRngCasinoServerToken()
-        {           
-            var uri = new Uri("http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken");
+        [HttpPost]
+        public ActionResult ShowRngCasinoResult(string refNo)
+        {
+            var serverResponse = GetRngCasinoServerToken();
+
+            return HandleServerTokenResult(serverResponse, refNo);
+        }
+      
+        private string GetRngCasinoServerToken()
+        {
+            var uri = new Uri(ServerTokenAPI);
             var paramString = CreateServerTokenParameters();
-            var result = string.Empty;
+            var serverResponse = string.Empty;
 
             try
             {
                 using (WebClient webClient = new WebClient())
                 {
                     webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                    result = webClient.UploadString(uri, paramString);
+
+                    serverResponse = webClient.UploadString(uri, paramString);
                 }
             }
             catch (Exception exception)
@@ -225,21 +247,80 @@ namespace Fanex.Athena.Controllers.Report
                 LogHelper.WriteError(exception);
             }
 
-            return result;
+            return serverResponse;
         }
 
-        private static string CreateServerTokenParameters()
+        private string CreateServerTokenParameters()
         {
             var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            var auth = new { login = "login", password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" };
-            var call = new { seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f88", token = "6215e837-3488-41f2-8ce5-f2816f633447" };
+            var auth = new { Login = "Login", Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09", SiteId = 3000 };
+            var call = new { Seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f86", VendorId = 10 };
 
             return new
             {
-                timestamp = timeStamp,
-                auth = auth,
-                call = call
+                TimeStamp = timeStamp,
+                Auth = auth,
+                Call = call
             }.ToJson();
+        }
+
+        private ActionResult HandleServerTokenResult(string response, string refNo)
+        {
+            var serverResponse = JsonConvert.DeserializeObject<dynamic>(response);
+
+            var result = serverResponse.Result;
+
+            if (result.ErrorCode == 0)
+            {
+                return Json(new
+                {
+                    Success = true,
+                    Result = GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
+                });
+            }
+
+            return Json(new
+            {
+                Success = false,
+                Result = new
+                {
+                    ErrorCode = result.ErrorCode.ToString(),
+                    ErrorDescription = result.ErrorDescription.ToString()
+                }
+            });
+        }
+
+        private string GetRngCasinoPopupUrl(string token, string refNo)
+        {
+            var queryString = GetQueryStringParam(token, refNo);
+
+            return RngCasinoPopupUrl + "?" + queryString;
+        }
+
+        private string GetQueryStringParam(string token, string refNo)
+        {
+            var languageCode = GetLanguageCode();
+
+            var queryStringparam = string.Format(
+                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
+
+            var encryptParam = ResultService.EncryptQueryString(queryStringparam, EncryptedKey);
+
+            var paramEncode = HttpUtility.UrlEncode(encryptParam);
+
+            return paramEncode;
+        }
+
+        private string GetLanguageCode()
+        {
+            var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
+            string result;
+            if (!_mapLanguages.TryGetValue(languageCode, out result))
+            {
+                return "en";
+            }
+
+            return result;
         }
 
         /// <summary>
