@@ -299,8 +299,10 @@ namespace Fanex.Athena.Controllers.Report
         private string GetRngCasinoPopupUrl(string token, string refNo)
         {
             var queryString = GetQueryString(token, refNo);
+            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
+            var paramEncode = HttpUtility.UrlEncode(encryptParam);
 
-            return RngCasinoPopupUrl + "?" + EncryptQueryString(queryString);
+            return RngCasinoPopupUrl + "?o=" + paramEncode;
         }
 
         private string GetQueryString(string token, string refNo)
@@ -311,15 +313,6 @@ namespace Fanex.Athena.Controllers.Report
                 "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
 
             return queryString;
-        }
-
-        private string EncryptQueryString(string queryString)
-        {
-            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
-
-            var paramEncode = HttpUtility.UrlEncode(encryptParam);
-
-            return paramEncode;
         }
 
         private string GetLanguageCode()
