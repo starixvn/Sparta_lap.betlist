@@ -328,8 +328,6 @@ var BetList = (function ($) {
                 cache: false,
                 url: url,
                 success: function (response) {
-                    console.log(response);
-
                     var result = response.Result;
                     if (response.Success) {
                         BetList.showRngCasinoResultPopup(title, result);
@@ -352,12 +350,12 @@ var BetList = (function ($) {
             if (url === "") {
                 return;
             }
-
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="800" height="600" src="' + url + '" ></iframe></div></div>';
+            
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="750" height="450" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
                 modal: true,
-                width: 850,
-                height: 650
+                width: 800,
+                height: 500
             });
         },
 
@@ -513,7 +511,7 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "custId", custId);
             url = QueryString.setParam(url, "transType", transType);
 
-            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
             var title = Site.getSingleResource("RngCasino") + " - " +
                 Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +

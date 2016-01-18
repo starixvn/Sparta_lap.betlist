@@ -45,6 +45,11 @@ namespace Fanex.Athena.Controllers.Report
         private const string Template = "D";
         private const string Role = "M";
         private const string EncryptedKey = "Casino@ibcbet#8899";
+        private const string Login = "login";
+        private const string Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09";
+        private const string Seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f86";
+        private const int VendorId = 10;
+        private const int SiteId = 3000;
         private const string RngCasinoPopupUrl = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
         private const string ServerTokenAPI = "http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken";
         private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
@@ -226,106 +231,6 @@ namespace Fanex.Athena.Controllers.Report
 
             return HandleServerTokenResult(serverResponse, refNo);
         }
-      
-        private string GetRngCasinoServerToken()
-        {
-            var uri = new Uri(ServerTokenAPI);
-            var paramString = CreateServerTokenParameters();
-            var serverResponse = string.Empty;
-
-            try
-            {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-
-                    serverResponse = webClient.UploadString(uri, paramString);
-                }
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
-            }
-
-            return serverResponse;
-        }
-
-        private string CreateServerTokenParameters()
-        {
-            var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            var auth = new { Login = "login", Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09", SiteId = 3000 };
-            var call = new { Seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f86", VendorId = 10 };
-
-            return new
-            {
-                TimeStamp = timeStamp,
-                Auth = auth,
-                Call = call
-            }.ToJson();
-        }
-
-        private ActionResult HandleServerTokenResult(string response, string refNo)
-        {
-            var serverResponse = JsonConvert.DeserializeObject<dynamic>(response);
-
-            var result = serverResponse.Result;
-
-            if (result.ErrorCode == 0)
-            {
-                return Json(new
-                {
-                    Response = response,
-                    ErrorCode = result.ErrorCode.ToString(),
-                    ErrorDescription = result.ErrorDescription.ToString(),
-                    Token = result.Token.ToString(),
-                    UrlOriginal = GetQueryString(result.Token.ToString(), refNo),
-                    Success = true,
-                    Result = GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
-                });
-            }
-
-            return Json(new
-            {
-                Response = response,
-                Success = false,
-                Result = new
-                {
-                    ErrorCode = result.ErrorCode.ToString(),
-                    ErrorDescription = result.ErrorDescription.ToString()
-                }
-            });
-        }
-
-        private string GetRngCasinoPopupUrl(string token, string refNo)
-        {
-            var queryString = GetQueryString(token, refNo);
-            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
-            var paramEncode = HttpUtility.UrlEncode(encryptParam);
-
-            return RngCasinoPopupUrl + "?o=" + paramEncode;
-        }
-
-        private string GetQueryString(string token, string refNo)
-        {
-            var languageCode = GetLanguageCode();
-
-            var queryString = string.Format(
-                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
-
-            return queryString;
-        }
-
-        private string GetLanguageCode()
-        {
-            var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
-            string result;
-            if (!_mapLanguages.TryGetValue(languageCode, out result))
-            {
-                return "en";
-            }
-
-            return result;
-        }
 
         /// <summary>
         /// Generate tennis detailed result.
@@ -408,6 +313,104 @@ namespace Fanex.Athena.Controllers.Report
         #endregion KenoPage
 
         #region Utilities
+
+        #region RNG Casino Result Private Method
+
+        private static string GetRngCasinoServerToken()
+        {
+            var uri = new Uri(ServerTokenAPI);
+            var paramString = CreateServerTokenParameters();
+            var serverResponse = string.Empty;
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+                    serverResponse = webClient.UploadString(uri, paramString);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception);
+            }
+
+            return serverResponse;
+        }
+
+        private static string CreateServerTokenParameters()
+        {
+            var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+            var auth = new { Login = Login, Password = Password, SiteId = SiteId };
+            var call = new { Seq = Seq, VendorId = VendorId };
+
+            return new
+            {
+                TimeStamp = timeStamp,
+                Auth = auth,
+                Call = call
+            }.ToJson();
+        }
+
+        private static string GetRngCasinoPopupUrl(string token, string refNo)
+        {
+            var queryString = GetQueryString(token, refNo);
+            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
+            var paramEncode = HttpUtility.UrlEncode(encryptParam);
+
+            return RngCasinoPopupUrl + "?o=" + paramEncode;
+        }
+
+        private static string GetQueryString(string token, string refNo)
+        {
+            var languageCode = GetLanguageCode();
+
+            var queryString = string.Format(
+                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
+
+            return queryString;
+        }
+
+        private static string GetLanguageCode()
+        {
+            var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
+            string result;
+            if (!_mapLanguages.TryGetValue(languageCode, out result))
+            {
+                return "en";
+            }
+
+            return result;
+        }
+
+        private ActionResult HandleServerTokenResult(string response, string refNo)
+        {
+            var serverResponse = JsonConvert.DeserializeObject<dynamic>(response);
+
+            var result = serverResponse.Result;
+
+            if (result.ErrorCode == 0)
+            {
+                return Json(new
+                {
+                    Success = true,
+                    Result = GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
+                });
+            }
+
+            return Json(new
+            {
+                Success = false,
+                Result = new
+                {
+                    ErrorCode = result.ErrorCode.ToString(),
+                    ErrorDescription = result.ErrorDescription.ToString()
+                }
+            });
+        }
+
+        #endregion
 
         #region popup-page
 
