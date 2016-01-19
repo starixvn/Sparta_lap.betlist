@@ -69,6 +69,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             Turnover = turnover,
                             TotalTurnover = turnover,
                             CustomerWinLoss = reader.ToDecimal("Winlost"),
+                            EffectiveBettingValue = reader.ToDecimal("BetEffective"),
                             CustomerComm = reader.ToDecimal("PlayerComm"),
                         });
                     }
@@ -82,6 +83,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             total.TotalTurnover = reader.ToDecimal("SumTurnover");
                             total.CustomerWinLoss = reader.ToDecimal("SumWinlost");
                             total.CustomerComm = reader.ToDecimal("SumComm");
+                            total.EffectiveBettingValue = reader.ToDecimal("SumBetEffective");
                             totalRow = reader.ToInt("TotalRows");
                         }
                     }

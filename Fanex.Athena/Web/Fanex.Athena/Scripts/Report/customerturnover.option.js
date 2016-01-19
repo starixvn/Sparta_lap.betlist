@@ -48,7 +48,7 @@ var CustTurnoverOption = (function () {
     var currencyColumn = {
         name: 'Currency',
         index: 'Currency',
-        width: 45,
+        width: 50,
         align: 'center',
         sortable: false,
         resizable: false,
@@ -74,6 +74,16 @@ var CustTurnoverOption = (function () {
         resizable: false,
         frozen: true
     };
+    var effectiveBettingVlueColumn = {
+        name: 'EffectiveBettingValue',
+        index: 'EffectiveBettingValue',
+        width: 90,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        frozen: true,
+        formatter: jqGridAdditional.formatDecimal
+    };
     var totalTransColumn = {
         name: 'TotalTransactions',
         index: 'TotalTransactions',
@@ -92,7 +102,7 @@ var CustTurnoverOption = (function () {
         name: 'Turnover',
         index: 'Turnover',
         resizable: false,
-        width: 100,
+        width: 90,
         align: 'right',
         sortable: false,
         frozen: true,
@@ -102,7 +112,7 @@ var CustTurnoverOption = (function () {
         name: 'TotalTurnover',
         index: 'TotalTurnover',
         resizable: false,
-        width: 100,
+        width: 90,
         align: 'right',
         sortable: false,
         frozen: true,
@@ -140,13 +150,13 @@ var CustTurnoverOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
     //#endregion
-    var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType',
+    var colNameList = ['#', 'Date', "Username", "Currency", 'Sport', 'BetType', 'EffectiveBettingValue',
     'TotalTransaction', 'Turnover', 'TotalTurnover', '@[Win]/@[Loss]', 'Comm', 'Total'];
 
     var colModelList = [indexColumn, dateColumn, userNameColumn, currencyColumn, sportColumn, bettypeColumn,
-                    totalTransColumn, turnoverColumn, totalturnoverColumn, customerWlColumn, playerCommColumn,
-                    customerWlTotalColumn];
-    var customerWlTotalIndex = 11;
+                    effectiveBettingVlueColumn, totalTransColumn, turnoverColumn, totalturnoverColumn,
+                    customerWlColumn, playerCommColumn, customerWlTotalColumn];
+    var customerWlTotalIndex = 12;
 
     var me = {
         hasCustomerComm: false,

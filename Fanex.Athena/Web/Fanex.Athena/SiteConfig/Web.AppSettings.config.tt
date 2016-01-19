@@ -38,7 +38,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -51,7 +51,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
@@ -113,7 +113,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -126,7 +126,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
@@ -189,7 +189,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -202,7 +202,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
@@ -259,7 +259,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=44759" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://172.16.4.118:8098/CallGetRefFunction" />
@@ -272,7 +272,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
@@ -327,7 +327,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -340,7 +340,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>
@@ -394,7 +394,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />
@@ -407,7 +407,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1" />
@@ -464,7 +464,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=50175" />
+	<add key="JsVersion" value="v=45736" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -477,7 +477,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="116.193.67.114" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
 	<add key="EnableRacing" value="1"/>

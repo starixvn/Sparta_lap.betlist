@@ -52,6 +52,8 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public string Bettype { get; set; }
 
+        public decimal EffectiveBettingValue { get; set; }
+
         public decimal Turnover { get; set; }
 
         public decimal TotalTurnover { get; set; }
