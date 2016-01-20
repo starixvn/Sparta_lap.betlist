@@ -42,16 +42,6 @@ namespace Fanex.Athena.Controllers.Report
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
 
-        private const string Template = "D";
-        private const string Role = "S";
-        private const string EncryptedKey = "Casino@ibcbet#8899";
-        private const string Login = "login";
-        private const string Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09";
-        private const string Seq = "633b0a18-3cd8-4e59-8c1b-16fc301a5f86";
-        private const int VendorId = 10;
-        private const int SiteId = 3000;
-        private const string RngCasinoPopupUrl = "http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx";
-        private const string ServerTokenAPI = "http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken";
         private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
             {
                 { "en-US", "en" },
@@ -318,7 +308,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private static string GetRngCasinoServerToken()
         {
-            var uri = new Uri(ServerTokenAPI);
+            var uri = new Uri(AppSettings.GetValue("RNGCasinoGetServerTokenAPIUrl"));
             var paramString = CreateServerTokenParameters();
             var serverResponse = string.Empty;
 
@@ -342,8 +332,14 @@ namespace Fanex.Athena.Controllers.Report
         private static string CreateServerTokenParameters()
         {
             var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            var auth = new { Login = Login, Password = Password, SiteId = SiteId };
-            var call = new { Seq = Seq, VendorId = VendorId };
+            var login = AppSettings.GetValue("RNGCasinoLogin");
+            var password = AppSettings.GetValue("RNGCasinoPassword");
+            var siteId = int.Parse(AppSettings.GetValue("RNGCasinoSiteId"));
+            var seq = AppSettings.GetValue("RNGCasinoSeq");
+            var vendorId = int.Parse(AppSettings.GetValue("RNGCasinoVendorId"));
+
+            var auth = new { Login = login, Password = password, SiteId = siteId };
+            var call = new { Seq = seq, VendorId = vendorId };
 
             return new
             {
@@ -356,18 +352,22 @@ namespace Fanex.Athena.Controllers.Report
         private static string GetRngCasinoPopupUrl(string token, string refNo)
         {
             var queryString = GetQueryString(token, refNo);
-            var encryptParam = ResultService.EncryptQueryString(queryString, EncryptedKey);
+            var encryptedKey = AppSettings.GetValue("RNGCasinoEncryptedKey");
+            var encryptParam = ResultService.EncryptQueryString(queryString, encryptedKey);
             var paramEncode = HttpUtility.UrlEncode(encryptParam);
+            var popupUrl = AppSettings.GetValue("RNGCasinoResultPopupUrl");
 
-            return RngCasinoPopupUrl + "?o=" + paramEncode;
+            return popupUrl + "?o=" + paramEncode;
         }
 
         private static string GetQueryString(string token, string refNo)
         {
             var languageCode = GetLanguageCode();
+            var template = AppSettings.GetValue("RNGCasinoTemplate");
+            var role = AppSettings.GetValue("RNGCasinoRole");
 
             var queryString = string.Format(
-                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, Template, Role);
+                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, template, role);
 
             return queryString;
         }

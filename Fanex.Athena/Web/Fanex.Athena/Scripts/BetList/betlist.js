@@ -351,7 +351,7 @@ var BetList = (function ($) {
                 return;
             }
             
-            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="750" height="450" src="' + url + '" ></iframe></div></div>';
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
                 modal: true,
                 width: 800,

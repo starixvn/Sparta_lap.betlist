@@ -98,6 +98,17 @@
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 <#
 				break;
@@ -171,6 +182,17 @@
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 				<#
 				break;
@@ -241,6 +263,17 @@
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 				<#
 				break;
@@ -311,6 +344,17 @@
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 				<#
 				break;
@@ -378,6 +422,17 @@
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 
 				<#
@@ -448,6 +503,17 @@
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
 				<#
 				break;
@@ -515,6 +581,17 @@
 	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
 </appSettings>
                 <#break;
 			default:
