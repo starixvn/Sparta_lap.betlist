@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Report
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
 
         private const string Template = "D";
-        private const string Role = "M";
+        private const string Role = "S";
         private const string EncryptedKey = "Casino@ibcbet#8899";
         private const string Login = "login";
         private const string Password = "U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09";
