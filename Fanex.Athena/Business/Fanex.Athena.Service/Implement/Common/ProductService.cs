@@ -69,10 +69,13 @@ namespace Fanex.Athena.Service.Implement.Common
             }
 
             allowedProducts = this._productDataAccess.GetProductAccessList(licenseeId);
-            cache.Set(
-                cacheKey,
-                allowedProducts,
-                DateTime.Now.AddMinutes(CacheTimeoutMinute));
+            if (allowedProducts != null && allowedProducts.Count > 0)
+            {
+                cache.Set(
+                    cacheKey,
+                    allowedProducts,
+                    DateTime.Now.AddMinutes(CacheTimeoutMinute));
+            }
 
             return allowedProducts;
         }
@@ -145,7 +148,10 @@ namespace Fanex.Athena.Service.Implement.Common
             {
                 var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
                 functions = XDocument.Load(filePath).Descendants("Function");
-                CacheService.Set(FunctionAllowedProductsKey, functions);
+                if (functions != null && functions.Count() > 0)
+                {
+                    CacheService.Set(FunctionAllowedProductsKey, functions);
+                }
             }
 
             var config = functions
