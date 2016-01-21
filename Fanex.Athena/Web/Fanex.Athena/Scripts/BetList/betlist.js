@@ -8,7 +8,9 @@ var BetList = (function ($) {
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
-    var SPORT_RNG_CASINO = 208;
+    var SPORT_RNG_GAME = 208;
+    var SPORT_RNG_MINIGAME = 209;
+    var SPORT_RNG_MOBILE = 210;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -379,7 +381,7 @@ var BetList = (function ($) {
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
             }
-            else if (sporttype === SPORT_RNG_CASINO) {
+            else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                 BetList.viewRngCasinoResult(title, refno);
             }
             else {
