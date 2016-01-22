@@ -334,10 +334,6 @@ var BetList = (function ($) {
                     if (response.Success) {
                         BetList.showRngCasinoResultPopup(title, result);
                     }
-                    else {
-                        console.log(result.ErrorCode);
-                        console.log(result.ErrorDescription);
-                    }
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -357,7 +353,7 @@ var BetList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: 800,
-                height: 500
+                height: 380
             });
         },
 
