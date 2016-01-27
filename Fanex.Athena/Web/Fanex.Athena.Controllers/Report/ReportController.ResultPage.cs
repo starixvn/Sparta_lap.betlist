@@ -12,19 +12,18 @@ namespace Fanex.Athena.Controllers.Report
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Web;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Keno;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
-    using Fanex.Athena.Service.Helpers;
+    using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Keno;
     using Fanex.Athena.Service.Implement.Report;
+    using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Service.Interface.Keno;
     using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
@@ -33,8 +32,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Newtonsoft.Json;
-    using Fanex.Athena.Service.Implement.Casino;
 
     /// <summary>
     /// The result controller.
@@ -42,7 +39,6 @@ namespace Fanex.Athena.Controllers.Report
     public partial class ReportController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
-
 
         private string _htmlResult;
         private MemoryStream _excelStream;
@@ -214,7 +210,7 @@ namespace Fanex.Athena.Controllers.Report
             IRNGCasinoSingleWalletService casinoAPI = new RGNCasinoSingleWalletService();
 
             var resultInfo = casinoAPI.GetReultInfo(refNo);
-           
+
             return Json(resultInfo);
         }
 
@@ -299,8 +295,6 @@ namespace Fanex.Athena.Controllers.Report
         #endregion KenoPage
 
         #region Utilities
-
-
 
         #region popup-page
 
