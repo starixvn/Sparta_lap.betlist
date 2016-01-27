@@ -223,8 +223,8 @@
   <ItemGroup>
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Implement\Casino\CasinoSetting.cs" />
-    <Compile Include="Implement\Casino\IRNGCasinoSingleWallet.cs" />
-    <Compile Include="Implement\Casino\RGNCasinoSingleWallet.cs" />
+    <Compile Include="Interface\Casino\IRNGCasinoSingleWalletService.cs" />
+    <Compile Include="Implement\Casino\RGNCasinoSingleWalletService.cs" />
     <Compile Include="Implement\Casino\RNGCasinoService.cs" />
     <Compile Include="Implement\Common\CacheService.cs" />
     <Compile Include="Implement\Common\LeagueService.cs" />
