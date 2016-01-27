@@ -14,12 +14,13 @@ namespace Fanex.Athena.Service.Implement.Casino
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Helpers;
+    using Fanex.Athena.Service.Interface.Casino;
     using Newtonsoft.Json;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class RGNCasinoSingleWallet : IRNGCasinoSingleWallet
+    public class RGNCasinoSingleWalletService : IRNGCasinoSingleWalletService
     {
         public dynamic GetReultInfo(string refNo)
         {

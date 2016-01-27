@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Casino
+namespace Fanex.Athena.Service.Interface.Casino
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Fanex.Athena.Service.Implement.Casino
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public interface IRNGCasinoSingleWallet
+    public interface IRNGCasinoSingleWalletService
     {
         dynamic GetReultInfo(string refNo);
         

@@ -211,7 +211,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
-            IRNGCasinoSingleWallet casinoAPI = new RGNCasinoSingleWallet();
+            IRNGCasinoSingleWalletService casinoAPI = new RGNCasinoSingleWalletService();
 
             var resultInfo = casinoAPI.GetReultInfo(refNo);
            
