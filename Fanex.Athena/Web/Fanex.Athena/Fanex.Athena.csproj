@@ -358,6 +358,7 @@
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
       <AutoGen>True</AutoGen>
