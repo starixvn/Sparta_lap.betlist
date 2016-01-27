@@ -265,7 +265,7 @@
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
 	<!-- RNG Casino API -->
 	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8066/api/CustomizedAuthorization/ServerToken" />
-	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoResultPopupUrl" value="https://cahhd.155551.com/HandHistoryPortal/HandHistoryLogin.aspx" />
 	<add key="RNGCasinoLogin" value="login" />
 	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
 	<add key="RNGCasinoSiteId" value="3000" />
@@ -345,8 +345,8 @@
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
 	<add key="Glimpse:DisableAsyncSupport" value="true" />
 	<!-- RNG Casino API -->
-	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
-	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8066/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="https://cahhd.155551.com/HandHistoryPortal/HandHistoryLogin.aspx" />
 	<add key="RNGCasinoLogin" value="login" />
 	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
 	<add key="RNGCasinoSiteId" value="3000" />
