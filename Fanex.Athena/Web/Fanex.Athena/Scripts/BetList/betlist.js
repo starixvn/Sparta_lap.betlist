@@ -319,7 +319,7 @@ var BetList = (function ($) {
         },
 
         viewRngCasinoResult: function (title, refno) {
-            var url = Site.resolveClientUrl('Report/ShowRngCasinoResult');
+            var url = Site.resolveClientUrl('Report/ShowRngCasinoSingleWalletResult');
 
             var params = { "refNo": refno };
             $.ajax({

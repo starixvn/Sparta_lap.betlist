@@ -30,11 +30,6 @@ namespace Fanex.Athena.Service.Implement.Report
             this._dataAccess = new ResultDataAccess();
         }
 
-        public static string EncryptQueryString(string parameters, string encryptedKey)
-        {
-            return IBCCrypt.IBCCrypt.Encrypt(parameters, encryptedKey);
-        }
-        
         /// <summary>
         /// Get out right data.
         /// </summary>
@@ -101,17 +96,17 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId);
         }
-     
+
         public IList<Parlay> GetPopUpParlayMatch(long refNo)
         {
-           return this._dataAccess.GetPopUpParalayMatch(refNo);            
+            return this._dataAccess.GetPopUpParalayMatch(refNo);
         }
 
         public IList<NumberGame> GetPopUpNumberGameMatchs(int matchId)
         {
-            return this._dataAccess.GetPopUpNumberGameMatch(matchId);            
+            return this._dataAccess.GetPopUpNumberGameMatch(matchId);
         }
-       
+
         #endregion Popup
     }
 }
