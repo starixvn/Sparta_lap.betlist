@@ -1,12 +1,16 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
-/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, showAGCasinoDetails*/
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
+showAGCasinoDetails, showRnGCasinoDetails*/
 
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
+    var SPORT_RNG_GAME = 208;
+    var SPORT_RNG_MINIGAME = 209;
+    var SPORT_RNG_MOBILE = 210;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -314,6 +318,45 @@ var BetList = (function ($) {
             return url;
         },
 
+        viewRngCasinoResult: function (title, refno) {
+            var url = Site.resolveClientUrl('Report/ShowRngCasinoSingleWalletResult');
+
+            var params = { "refNo": refno };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify(params),
+                cache: false,
+                url: url,
+                success: function (response) {
+                    var result = response.Result;
+                    if (response.Success) {
+                        BetList.showRngCasinoResultPopup(title, result);
+                    }
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            });
+        },
+
+        showRngCasinoResultPopup: function (title, url) {
+            if (url === "") {
+                return;
+            }
+            
+            var dialogForm = '<div title="' + title + '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 800,
+                height: 380
+            });
+        },
+
         setLeagueTitle: function (leagueName) {
             var leagueNameText = leagueName === '' || leagueName === undefined ? Site.getSingleResource('BetList') : leagueName;
             $(".league-name-title").html(leagueNameText + " - ");
@@ -326,14 +369,18 @@ var BetList = (function ($) {
                 modal: true,
                 width: 750,
                 height: 400
-            }) ;
+            });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
-            } else {
+            }
+            else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
+                BetList.viewRngCasinoResult(title, refno);
+            }
+            else {
                 bettype = Number(bettype);
                 var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
                 var url = isParlay
@@ -455,6 +502,26 @@ var BetList = (function ($) {
             });
         },
 
+        showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('BetList/RnGCasinoDetail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("RngCasino") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
+
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -505,3 +572,4 @@ var showCombMP = function (transId, index) {
 var showCombMPDetail = BetList.showSystemParlayDetail;
 var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;
 var showAGCasinoDetails = BetList.showAGCasinoDetails;
+var showRnGCasinoDetails = BetList.showRnGCasinoDetails;

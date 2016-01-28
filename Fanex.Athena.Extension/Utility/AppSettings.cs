@@ -16,12 +16,6 @@ namespace Fanex.Athena.Extension.Utility
     /// </summary>
     public static class AppSettings
     {
-        #region Definitions
-
-        public const string SessionValidatingKey = "SESSION_VALIDATING";
-
-        #endregion Definitions
-
         internal const string HttpSlashSlash = "http://";
         internal const char UrlSlash = '/';
 

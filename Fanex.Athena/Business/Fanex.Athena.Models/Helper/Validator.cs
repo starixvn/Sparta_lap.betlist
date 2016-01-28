@@ -34,6 +34,8 @@ namespace Fanex.Athena.Models.Helper
         private const int LCMaxBetType = 1199;
         private const int CSMinBetType = 71;
         private const int CSMaxBetType = 71;
+        private const int CSNewMinBetType = 2101;
+        private const int CSNewMaxBetType = 2399;
         private const int BGMinBetType = 73;
         private const int BGMaxBetType = 73;
         private const int KenoMinBetType = 1501;
@@ -75,7 +77,8 @@ namespace Fanex.Athena.Models.Helper
                 case Product.BG:
                     return bettype >= BGMinBetType && bettype <= BGMaxBetType;
                 case Product.CS:
-                    return bettype >= CSMinBetType && bettype <= CSMaxBetType;
+                    return (bettype >= CSMinBetType && bettype <= CSMaxBetType) ||
+                        (bettype >= CSNewMinBetType && bettype <= CSNewMaxBetType);
                 case Product.KN:
                     return bettype >= KenoMinBetType && bettype <= KenoMaxBetType;
                 case Product.MGCLC:

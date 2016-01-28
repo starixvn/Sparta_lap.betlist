@@ -389,11 +389,11 @@ namespace Fanex.Athena.Controllers.Report
                 switch (row["productname"].ToString())
                 {
                     case Product.RB:
-                        row["leaguename"] = ViewResources.Racing + " - " + CacheRef.GetLeagueName(row["leagueid"]);
+                        row["leaguename"] = ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(row["leagueid"]);
                         break;
 
                     case Product.NG:
-                        row["leaguename"] = ViewResources.NumberGame;
+                        row["leaguename"] = ViewResources.ProductNG;
                         break;
 
                     default:

@@ -84,7 +84,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ClosingBalance,
                 ViewResources.AffiliateTransfer,
                 ViewResources.CasinoTransfer,
-                ViewResources.BA
+                ViewResources.ProductBA
             };
         }
 

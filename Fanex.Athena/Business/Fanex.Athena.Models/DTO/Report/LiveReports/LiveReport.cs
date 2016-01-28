@@ -42,28 +42,28 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
                         switch (_productCode.ToUpper())
                         {
                             case "BA":
-                                return ViewResources.BA;
+                                return ViewResources.ProductBA;
 
                             case "LC":
-                                return ViewResources.LiveCasino;
+                                return ViewResources.ProductLC;
 
                             case "NG":
-                                return ViewResources.NumberGame;
+                                return ViewResources.ProductNG;
 
                             case "RB":
-                                return ViewResources.Racing;
+                                return ViewResources.ProductRB;
 
                             case "SB":
                                 return ViewResources.Sportsbook;
 
                             case "VS":
-                                return ViewResources.VirtualSports;
+                                return ViewResources.ProductVS;
 
                             case "CS":
-                                return ViewResources.RNGCasino;
+                                return ViewResources.ProductCS;
 
                             case "BG":
-                                return ViewResources.Bingo;
+                                return ViewResources.ProductBG;
                             default:
                                 return _productName;
                         }

@@ -208,7 +208,7 @@ namespace Fanex.Athena.Service.Implement.Report
             switch (matchWinLoss.ProductName)
             {
                 case Product.RB:
-                    return ViewResources.Racing + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
+                    return ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
                 default:
                     return CacheRef.GetLeagueName(matchWinLoss.LeagueId);
             }

@@ -16,7 +16,7 @@
             <option value="0" @(Model.Param.ViewById == 0 ? "selected='selected'" : string.Empty)>@ViewResources.All</option>
             @if (Model.Param.IsAllowBA)
             {
-                <option value="1" @(Model.Param.ViewById == 1 ? "selected='selected'" : string.Empty)>@ViewResources.BA</option>
+                <option value="1" @(Model.Param.ViewById == 1 ? "selected='selected'" : string.Empty)>@ViewResources.ProductBA</option>
             }
             <option value="2" @(Model.Param.ViewById == 2 ? "selected='selected'" : string.Empty)>@ViewResources.Status</option>
             @if (Model.Param.IsAllowCustComm)

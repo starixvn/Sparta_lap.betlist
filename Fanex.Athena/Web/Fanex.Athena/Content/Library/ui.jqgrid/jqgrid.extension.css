@@ -173,3 +173,6 @@ pre
     overflow-x: hidden !important;
     overflow-y: auto !important;
 }
+.ui-dialog .ui-dialog-content{
+    overflow: hidden;
+}

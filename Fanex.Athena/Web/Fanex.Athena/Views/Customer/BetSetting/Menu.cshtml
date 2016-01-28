@@ -8,17 +8,9 @@
             </div>
             <div id="product-dropdown" class="wrapper-dropdown-5">@Model.BetSettingName
 		        <ul class="dropdown">
-                    @{
-                        var viewResource = ViewResources.ResourceManager;
-                        viewResource.IgnoreCase = true;
-                    }
                     @foreach (var product in Model.BetSettingProducts)
                     {
-                        var productName = viewResource.GetString(product.ProductName.Replace(" ", string.Empty));
-                        if (string.IsNullOrWhiteSpace(productName))
-                        {
-                            productName = product.ProductName;
-                        }
+                        var productName = product.ProductName;
                          <li><a href="@Url.Action("Index", "BetSetting", new
                             {
                                 ProductId = product.ProductId,

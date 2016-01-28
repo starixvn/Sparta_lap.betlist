@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "LRF - " + ViewResources.TotalBets +
-    " - " + ViewResources.Racing;
+    " - " + ViewResources.ProductRB;
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
@@ -16,7 +16,7 @@
 }
 @section ContentTitle
     {
-    @ViewResources.Racing
+    @ViewResources.ProductRB
 }
 @section ContentFilter
 {

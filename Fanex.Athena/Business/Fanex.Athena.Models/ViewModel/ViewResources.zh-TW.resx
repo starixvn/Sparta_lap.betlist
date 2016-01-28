@@ -2527,4 +2527,32 @@
   <data name="NotificationMessage" xml:space="preserve">
     <value>資料正在處理中，在{0}後的資料將受到影響. 預計完成時間為 {1} GMT-4. 很抱歉造成您的困擾.</value>
   </data>
+  <data name="ProductBG" xml:space="preserve">
+    <value>賓果</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductLC" xml:space="preserve">
+    <value>娛樂廳</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductNG" xml:space="preserve">
+    <value>百練賽</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductRB" xml:space="preserve">
+    <value>賽事</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductVS" xml:space="preserve">
+    <value>虛擬運動</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductCS" xml:space="preserve">
+    <value>娛樂城</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>體育博彩</value>
+    <comment>#49196</comment>
+  </data>
 </root>

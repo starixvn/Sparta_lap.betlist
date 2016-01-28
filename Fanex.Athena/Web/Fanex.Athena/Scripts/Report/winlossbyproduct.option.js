@@ -209,7 +209,7 @@ var WinLossByProductOption = (function () {
         {
             name: 'ProductName',
             index: 'productName',
-            width: 90,
+            width: 150,
             sortable: false,
             resizable: false,
             align: "left",

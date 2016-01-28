@@ -57,7 +57,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                             allowedProducts.Add(new Product
                                              {
                                                  ProductID = Converter.ToInt(reader["ProductID"]),
-                                                 ProductName = GetProductName(Converter.ToString2(reader["productname"])),
+                                                 ProductName = GetProductName(Converter.ToString2(reader["productprefix"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
                                                  AllowWinloss = Converter.ToBool(reader["winloss"])
@@ -109,9 +109,9 @@ namespace Fanex.Athena.DataAccess.Implement.Common
         /// </summary>
         /// <param name="productName">Product code.</param>
         /// <returns>Product name.</returns>
-        private static string GetProductName(string productName)
+        private static string GetProductName(string productCode)
         {
-            var resourceKey = Regex.Replace(productName, @"[\s-]", string.Empty);
+            var resourceKey = "Product" + productCode;
             var resourceManager = ViewResources.ResourceManager;
             resourceManager.IgnoreCase = true;
             return resourceManager.GetString(resourceKey);

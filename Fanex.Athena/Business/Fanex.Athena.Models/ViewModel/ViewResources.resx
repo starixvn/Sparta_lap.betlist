@@ -186,8 +186,9 @@
   <data name="AwayNoBet" xml:space="preserve">
     <value>Away No Bet</value>
   </data>
-  <data name="BA" xml:space="preserve">
+  <data name="ProductBA" xml:space="preserve">
     <value>BA</value>
+    <comment>#49196</comment>
   </data>
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>Back to current report</value>
@@ -750,8 +751,9 @@
   <data name="LicenseeW_L" xml:space="preserve">
     <value>Licensee W/L</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
+  <data name="ProductLC" xml:space="preserve">
     <value>Live Casino</value>
+    <comment>#49196</comment>
   </data>
   <data name="LiveGame" xml:space="preserve">
     <value>Live Game</value>
@@ -957,8 +959,9 @@
   <data name="November" xml:space="preserve">
     <value>November</value>
   </data>
-  <data name="NumberGame" xml:space="preserve">
+  <data name="ProductNG" xml:space="preserve">
     <value>Number Game</value>
+    <comment>#49196</comment>
   </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>Number Game No</value>
@@ -1107,8 +1110,9 @@
   <data name="Race" xml:space="preserve">
     <value>Race</value>
   </data>
-  <data name="Racing" xml:space="preserve">
+  <data name="ProductRB" xml:space="preserve">
     <value>Racing</value>
+    <comment>#49196</comment>
   </data>
   <data name="RacingComm" xml:space="preserve">
     <value>Racing Comm</value>
@@ -1176,8 +1180,9 @@
   <data name="RM" xml:space="preserve">
     <value>RM</value>
   </data>
-  <data name="RNGCasino" xml:space="preserve">
+  <data name="ProductCS" xml:space="preserve">
     <value>RNG Casino</value>
+    <comment>#49196</comment>
   </data>
   <data name="Runner" xml:space="preserve">
     <value>Runner</value>
@@ -1458,8 +1463,9 @@
   <data name="ViewDataInMonth" xml:space="preserve">
     <value>View data in month</value>
   </data>
-  <data name="VirtualSports" xml:space="preserve">
+  <data name="ProductVS" xml:space="preserve">
     <value>Virtual Sports</value>
+    <comment>#49196</comment>
   </data>
   <data name="VS" xml:space="preserve">
     <value>VS</value>
@@ -1569,8 +1575,9 @@
   <data name="LastUpdatedBA" xml:space="preserve">
     <value>Last Updated BA</value>
   </data>
-  <data name="Bingo" xml:space="preserve">
+  <data name="ProductBG" xml:space="preserve">
     <value>Bingo</value>
+    <comment>#49196</comment>
   </data>
   <data name="PayAttentionMsg" xml:space="preserve">
     <value>Please pay attention: Customer(s) will be removed from group(s) due to different comm values.</value>
@@ -2368,8 +2375,9 @@
   <data name="WinLossByLeague" xml:space="preserve">
     <value>Win Loss By Leagues</value>
   </data>
-  <data name="Keno" xml:space="preserve">
+  <data name="ProductKN" xml:space="preserve">
     <value>Keno</value>
+    <comment>#49196</comment>
   </data>
   <data name="UpdateKenoBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Keno bet settings?</value>
@@ -2393,9 +2401,9 @@
   <data name="RB" xml:space="preserve">
     <value>RB</value>
   </data>
-  <data name="PlaytechCasino" xml:space="preserve">
+  <data name="ProductPTCS" xml:space="preserve">
     <value>Playtech Casino</value>
-    <comment>14488</comment>
+    <comment>14488, #49196</comment>
   </data>
   <data name="VirtualCycling" xml:space="preserve">
     <value>Virtual Cycling</value>
@@ -2473,9 +2481,9 @@
     <value>Daily Bet List report does not include Parlay and Outright tickets.</value>
     <comment>#19622</comment>
   </data>
-  <data name="AGCasino" xml:space="preserve">
+  <data name="ProductAGC" xml:space="preserve">
     <value>AG Casino</value>
-    <comment>#19458</comment>
+    <comment>#19458, #49196</comment>
   </data>
   <data name="BetSettingGroups" xml:space="preserve">
     <value>Bet Setting Groups</value>
@@ -2619,8 +2627,9 @@
   <data name="GoldDeluxeProblemDisplayBetSetting" xml:space="preserve">
     <value>There is problem to display bet setting group's detail.</value>
   </data>
-  <data name="GoldDeluxe" xml:space="preserve">
+  <data name="ProductGD" xml:space="preserve">
     <value>Gold Deluxe</value>
+    <comment>#49196</comment>
   </data>
   <data name="GoldDeluxeNotOfferCurrency" xml:space="preserve">
     <value>Gold Deluxe is not offered for this currency.</value>
@@ -2653,8 +2662,9 @@
   <data name="AGOpeningBalance" xml:space="preserve">
     <value>AG Opening Balance</value>
   </data>
-  <data name="BetTrade" xml:space="preserve">
+  <data name="ProductBT" xml:space="preserve">
     <value>Bet Trade</value>
+    <comment>#49196</comment>
   </data>
   <data name="Microgaming" xml:space="preserve">
     <value>Microgaming</value>
@@ -2667,8 +2677,9 @@
     <value>Enable Macau</value>
     <comment>#32647</comment>
   </data>
-  <data name="Macau" xml:space="preserve">
+  <data name="ProductVG" xml:space="preserve">
     <value>Macau</value>
+    <comment>#49196</comment>
   </data>
   <data name="MacauNotOfferCurrency" xml:space="preserve">
     <value>Macau is not offered for this currency.</value>
@@ -2729,13 +2740,13 @@
     <value>Detailed Bet list</value>
     <comment>#43078</comment>
   </data>
-  <data name="MicrogamingLiveCasino" xml:space="preserve">
+  <data name="ProductMGCLC" xml:space="preserve">
     <value>Microgaming-Live Casino</value>
-    <comment>#46454</comment>
+    <comment>#46454, #49196</comment>
   </data>
-  <data name="MicrogamingRNGCasino" xml:space="preserve">
+  <data name="ProductMGCRNG" xml:space="preserve">
     <value>Microgaming-RNG Casino</value>
-    <comment>#46454</comment>
+    <comment>#46454, #49196</comment>
   </data>
   <data name="EnableMicrogamingRNGCasino" xml:space="preserve">
     <value>Enable Microgaming RNG Casino</value>
@@ -2763,5 +2774,61 @@
   <data name="BuyBackAmount" xml:space="preserve">
     <value>Buy Back Amount</value>
     <comment>#50175</comment>
+  </data>
+  <data name="BA" xml:space="preserve">
+    <value>BA</value>
+  </data>
+  <data name="LiveCasino" xml:space="preserve">
+    <value>Live Casino</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>Number Game</value>
+  </data>
+  <data name="Racing" xml:space="preserve">
+    <value>Racing</value>
+  </data>
+  <data name="RNGCasino" xml:space="preserve">
+    <value>RNG Casino</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>Virtual Sports</value>
+  </data>
+  <data name="Bingo" xml:space="preserve">
+    <value>Bingo</value>
+  </data>
+  <data name="Keno" xml:space="preserve">
+    <value>Keno</value>
+  </data>
+  <data name="PlaytechCasino" xml:space="preserve">
+    <value>Playtech Casino</value>
+    <comment>14488</comment>
+  </data>
+  <data name="AGCasino" xml:space="preserve">
+    <value>AG Casino</value>
+    <comment>#19458</comment>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="BetTrade" xml:space="preserve">
+    <value>Bet Trade</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="Macau" xml:space="preserve">
+    <value>Macau</value>
+    <comment>#49196</comment>
+  </data>
+  <data name="MicrogamingLiveCasino" xml:space="preserve">
+    <value>Microgaming-Live Casino</value>
+    <comment>#46454</comment>
+  </data>
+  <data name="MicrogamingRNGCasino" xml:space="preserve">
+    <value>Microgaming-RNG Casino</value>
+    <comment>#46454</comment>
+  </data>
+  <data name="ProductSB" xml:space="preserve">
+    <value>Sportsbook</value>
+    <comment>#49196</comment>
   </data>
 </root>
