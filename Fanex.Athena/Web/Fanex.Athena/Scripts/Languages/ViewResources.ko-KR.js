@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/14/2015 2:38:32 PM
+// Lasted generated date: 2/1/2016 3:21:20 PM
 // </history>
 
 var _language_ko_KR={
@@ -1111,6 +1111,20 @@ var _language_ko_KR={
 				 	
                      Product:"상품",
 				 	
+                     ProductBG:"빙고",
+				 	
+                     ProductCS:"RNG 카지노",
+				 	
+                     ProductLC:"실시간 카지노",
+				 	
+                     ProductNG:"숫자 게임",
+				 	
+                     ProductRB:"경주하기",
+				 	
+                     ProductSB:"스포츠북",
+				 	
+                     ProductVS:"가상의 스포츠",
+				 	
                      PShare:"P.Share",
 				 	
                      PWin:"P.Win",
@@ -1306,8 +1320,6 @@ var _language_ko_KR={
                      Statement:"명세서",
 				 	
                      Status:"상태",
-				 	
-                     String1:"",
 				 	
                      Su:"Su",
 				 	

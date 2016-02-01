@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/31/2015 10:19:55 AM
+// Lasted generated date: 2/1/2016 3:21:36 PM
 // </history>
 
 var _language_en_US={
@@ -1234,6 +1234,38 @@ var _language_en_US={
                      ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 				 	
                      Product:"Product",
+				 	
+                     ProductAGC:"AG Casino",
+				 	
+                     ProductBA:"BA",
+				 	
+                     ProductBG:"Bingo",
+				 	
+                     ProductBT:"Bet Trade",
+				 	
+                     ProductCS:"RNG Casino",
+				 	
+                     ProductGD:"Gold Deluxe",
+				 	
+                     ProductKN:"Keno",
+				 	
+                     ProductLC:"Live Casino",
+				 	
+                     ProductMGCLC:"Microgaming-Live Casino",
+				 	
+                     ProductMGCRNG:"Microgaming-RNG Casino",
+				 	
+                     ProductNG:"Number Game",
+				 	
+                     ProductPTCS:"Playtech Casino",
+				 	
+                     ProductRB:"Racing",
+				 	
+                     ProductSB:"Sportsbook",
+				 	
+                     ProductVG:"Macau",
+				 	
+                     ProductVS:"Virtual Sports",
 				 	
                      PShare:"P.Share",
 				 	

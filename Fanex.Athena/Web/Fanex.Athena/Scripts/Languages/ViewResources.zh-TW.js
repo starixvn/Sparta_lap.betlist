@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/14/2015 2:38:40 PM
+// Lasted generated date: 2/1/2016 3:21:40 PM
 // </history>
 
 var _language_zh_TW={
@@ -1125,6 +1125,20 @@ var _language_zh_TW={
 				 	
                      Product:"產品",
 				 	
+                     ProductBG:"賓果",
+				 	
+                     ProductCS:"娛樂城",
+				 	
+                     ProductLC:"娛樂廳",
+				 	
+                     ProductNG:"百練賽",
+				 	
+                     ProductRB:"賽事",
+				 	
+                     ProductSB:"體育博彩",
+				 	
+                     ProductVS:"虛擬運動",
+				 	
                      PShare:"P.Share",
 				 	
                      PWin:"P.Win",
@@ -1320,8 +1334,6 @@ var _language_zh_TW={
                      Statement:"賬目",
 				 	
                      Status:"狀態",
-				 	
-                     String1:"",
 				 	
                      Su:"Su",
 				 	

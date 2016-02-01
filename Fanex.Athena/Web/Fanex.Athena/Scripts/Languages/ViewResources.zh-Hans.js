@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 10/15/2015 10:13:34 AM
+// Lasted generated date: 2/1/2016 3:21:39 PM
 // </history>
 
 var _language_zh_Hans={
@@ -1124,6 +1124,20 @@ var _language_zh_Hans={
                      Previous:"上个月",
 				 	
                      Product:"产品",
+				 	
+                     ProductBG:"宾果",
+				 	
+                     ProductCS:"娱乐城",
+				 	
+                     ProductLC:"娱乐厅",
+				 	
+                     ProductNG:"百练赛",
+				 	
+                     ProductRB:"赛事",
+				 	
+                     ProductSB:"体育博彩",
+				 	
+                     ProductVS:"虚拟运动",
 				 	
                      PShare:"P.Share",
 				 	
