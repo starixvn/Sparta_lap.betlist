@@ -40,3 +40,5 @@ MsBuild.xml
 MSBUILD.SUMMARY.email
 SUMMARY.DISPLAY.xml
 Fanex.Athena.sln.GhostDoc.xml
+
+/.vs
