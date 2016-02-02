@@ -218,6 +218,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
                     BuyBackAmountSB = reader.ToDecimal("BuyBackAmtSB" + metaModel.BaseCurrency),
                     BuyBackAmountBA = reader.ToDecimal("BuyBackAmtBA" + metaModel.BaseCurrency),
+                    ActualStakeSB = reader.ToDecimal("BuyBackAmtSB" + metaModel.BaseCurrency),
+                    ActualStakeBA = reader.ToDecimal("BuyBackAmtBA" + metaModel.BaseCurrency),
                     LicenseeWL = licenseeWl,
                     TurnOver = turnOver,
                     TotalTransaction = reader.ToInt("betcount"),
@@ -258,6 +260,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 summaryItem.AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
                 summaryItem.BuyBackAmountSB += reader.ToDecimal("BuyBackAmtSB" + currency);
                 summaryItem.BuyBackAmountBA += reader.ToDecimal("BuyBackAmtBA" + currency);
+                summaryItem.ActualStakeSB += reader.ToDecimal("BuyBackAmtSB" + currency);
+                summaryItem.ActualStakeBA += reader.ToDecimal("BuyBackAmtBA" + currency);
                 decimal temp;
                 var licenseeWlSummary = new Dictionary<string, decimal>();
                 var turnOverSummary = new Dictionary<string, decimal>();

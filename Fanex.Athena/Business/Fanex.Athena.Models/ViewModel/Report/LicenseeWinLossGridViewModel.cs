@@ -57,6 +57,20 @@ namespace Fanex.Athena.Models.ViewModel.Report
             }
         }
 
+        public decimal ActualStakeSB { get; set; }
+
+        public decimal ActualStakeBA { get; set; }
+
+        public decimal TotalActualStake { get; set; }
+
+        public decimal TotalActualStakeSingle
+        {
+            get
+            {
+                return TotalActualStake;
+            }
+        }
+
         #region ICustomerWinLoss Members
 
         public decimal CustomerWinLoss { get; set; }

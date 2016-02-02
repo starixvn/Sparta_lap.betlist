@@ -118,6 +118,19 @@ var LicenseeWinLossOption = (function () {
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
+    var actualStakeColumn =
+    {
+        name: 'TotalActualStakeSingle',
+        index: 'TotalActualStakeSingle',
+        width: 80,
+        align: 'right',
+        sortable: true,
+        resizable: false,
+        formatter: 'currency',
+        hidden: false,
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
     var buybackColumn =
     {
         name: 'TotalBuyBackAmountSingle',
@@ -306,13 +319,14 @@ var LicenseeWinLossOption = (function () {
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'BuyBackAmount',
+    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'ActualStake', 'BuyBackAmount',
      'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', '@[BetTrade]<br/>@[Commission]', 'BA<br/>@[Commission]',
      '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-        turnoverColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn,
-        baCommissionColumn, racingRevenueColumn, amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
+        turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
+        customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, baCommissionColumn, racingRevenueColumn,
+        amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
 
     var me =
     {
@@ -407,6 +421,24 @@ var LicenseeWinLossOption = (function () {
         columns.insertAfter(buyBackAmountSBColumn, columnIndex);
     }
 
+    function addActualStakeColumns(columns, columnIndex) {
+        var actualStakeColumn = Site.clone(productColumn);
+        actualStakeColumn.name = "TotalActualStake";
+        actualStakeColumn.index = "TotalActualStake";
+
+        var actualStakeSBColumn = Site.clone(productColumn);
+        actualStakeSBColumn.name = "ActualStakeSB";
+        actualStakeSBColumn.index = "ActualStakeSB";
+
+        var actualStakeBAColumn = Site.clone(productColumn);
+        actualStakeBAColumn.name = "ActualStakeBA";
+        actualStakeBAColumn.index = "ActualStakeBA";
+
+        columns.insertAfter(actualStakeColumn, columnIndex);
+        columns.insertAfter(actualStakeBAColumn, columnIndex);
+        columns.insertAfter(actualStakeSBColumn, columnIndex);
+    }
+
     me.setGroupHeaderColumns = function (grid, productOptions) {
         var numOfTurnover = JSLINQ(productOptions).Count(turnoverProductsFilter) + 1;
         var lastOfTurnover = JSLINQ(productOptions).Last(turnoverProductsFilter);
@@ -440,10 +472,17 @@ var LicenseeWinLossOption = (function () {
             titleText: Site.getSingleResource('BuyBackAmount')
         } : {};
 
+        var groupActualStake = lastOfLicenseeWL != null ?
+        {
+            startColumnName: "ActualStakeSB",
+            numberOfColumns: 3,
+            titleText: "Actual Stake"
+        } : {};
+
         grid.jqGrid('setGroupHeaders',
         {
             useColSpanStyle: true,
-            groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount]
+            groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount, groupActualStake]
         });
     };
 
@@ -474,7 +513,14 @@ var LicenseeWinLossOption = (function () {
         licenseeIndex++;
         temp.insertBefore("Total", licenseeIndex);
 
-        var buyBackIndex = turnOverIndex + 1;
+        var actualStakeIndex = turnOverIndex + 1;
+        if (isProductChecked(productOptions, "BA") !== null) {
+            temp.insertAfter("Total", actualStakeIndex);
+            temp.insertAfter("BA", actualStakeIndex);
+            temp.insertAfter("Sportsbook", actualStakeIndex);
+        }
+
+        var buyBackIndex = actualStakeIndex + 4;
         if (isProductChecked(productOptions, "BA") !== null) {
             temp.insertAfter("Total", buyBackIndex);
             temp.insertAfter("BA", buyBackIndex);
@@ -581,7 +627,9 @@ var LicenseeWinLossOption = (function () {
         temp.insertBefore(licenseeWLTotal, licenseeIndex);
 
         if (allowedBa !== null) {
-            addBuyBackAmountColumns(temp, turnOverIndex + 1);
+            var actualStakeIndex = turnOverIndex + 1;
+            addActualStakeColumns(temp, actualStakeIndex)
+            addBuyBackAmountColumns(temp, actualStakeIndex + 4);
         }
 
         return temp;
@@ -629,7 +677,8 @@ var LicenseeWinLossOption = (function () {
         var toggle = function (isShow, column) {
             if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
                 (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
-                (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
+                (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null)) ||
+                (column === "ActualStake" && (!isAllowedBetTrade || isAllowBA === null))) {
                 return;
             }
             _expanseTypes[column] = isShow;
@@ -637,10 +686,12 @@ var LicenseeWinLossOption = (function () {
             var param = isShow ? "showCol" : "hideCol";
             var fColumns = [];
 
-            if (column === "BuyBackAmount") {
-                fColumns = [gridName + "_BuyBackAmountSB", gridName + "_BuyBackAmountBA"];
-                grid.jqGrid(param, "BuyBackAmountSB");
-                grid.jqGrid(param, "BuyBackAmountBA");
+            if (column === "BuyBackAmount" || column === "ActualStake") {
+                var sbColumnName = column + "SB";
+                var baColumnName = column + "BA";
+                fColumns = [gridName + "_" + sbColumnName, gridName + "_" + baColumnName];
+                grid.jqGrid(param, sbColumnName);
+                grid.jqGrid(param, baColumnName);
             } else {
                 // footer product columns
                 $.each(productOptions, function (index, value) {
@@ -680,6 +731,9 @@ var LicenseeWinLossOption = (function () {
             else if (column === "LicenseeWL") {
                 addLicenseeExpand();
             }
+            else if (column === "ActualStake") {
+                addActualStakeExpand();
+            }
             else {
                 addBuyBackExpand();
             }
@@ -690,6 +744,8 @@ var LicenseeWinLossOption = (function () {
             addLicenseeWlCollapse();
 
             addBuyBackCollapse();
+
+            addActualStakeCollapse();
             
             //update footer row
             $("#footer").html($(".ui-jqgrid-ftable").html());
@@ -768,18 +824,38 @@ var LicenseeWinLossOption = (function () {
                 addToggleButton($container, $button, false, "BuyBackAmount");
             }
         };
+
+        var addActualStakeCollapse = function () {
+            if (isAllowBA !== null) {
+                clear("#btnActualStakeCollapse");
+                var $container = $(grid).closest(".ui-jqgrid-view")
+                        .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
+                $container = $container[$container.length - (me.hasCustomerComm ? 4 : 3)];
+                var $button = $('<button id="btnActualStakeCollapse">');
+                addToggleButton($container, $button, false, "ActualStake");
+            }
+        };
+
+        var addActualStakeExpand = function () {
+            if (isAllowBA !== null) {
+                clear("#btnActualStakeExpand");
+                var $container = $("#" + gridId + "_" + "TotalActualStakeSingle");
+                var $button = $('<button title="Expand to view details" id="btnActualStakeExpand">');
+                addToggleButton($container, $button, true, "ActualStake");
+            }
+        };
         // Collapsing when loading completed
         addTurnOverCollapse();
-
         addTurnOverExpand();
 
         addLicenseeExpand();
-
         addLicenseeWlCollapse();
 
         addBuyBackCollapse();
-
         addBuyBackExpand();
+
+        addActualStakeCollapse();
+        addActualStakeExpand();
     };
 
     return me;
