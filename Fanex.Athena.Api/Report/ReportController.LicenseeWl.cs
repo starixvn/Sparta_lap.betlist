@@ -163,7 +163,6 @@ namespace Fanex.Athena.Api.Report
                 LicenseeWLAGC = item.LicenseeWL.Keys.Contains(Product.AGC) ? item.LicenseeWL[Product.AGC] : 0,
                 LicenseeWLMGCLC = item.LicenseeWL.Keys.Contains(Product.MGCLC) ? item.LicenseeWL[Product.MGCLC] : 0,
                 LicenseeWLMGCRNG = item.LicenseeWL.Keys.Contains(Product.MGCRNG) ? item.LicenseeWL[Product.MGCRNG] : 0,
-
                 TurnOverBA = item.TurnOver.Keys.Contains(Product.BA) ? item.TurnOver[Product.BA] : 0,
                 TurnOverSB = item.TurnOver.Keys.Contains(Product.SB) ? item.TurnOver[Product.SB] : 0,
                 TurnOverRB = item.TurnOver.Keys.Contains(Product.RB) ? item.TurnOver[Product.RB] : 0,

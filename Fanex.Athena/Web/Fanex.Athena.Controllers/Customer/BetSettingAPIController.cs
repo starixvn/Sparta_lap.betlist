@@ -615,7 +615,8 @@ namespace Fanex.Athena.Controllers.Customer
         private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
         {
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateThirdPartyProductStatus(productId, userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+            var isEnabled = status == 1;
+            var result = _betSettingService.UpdateThirdPartyProductStatus(productId, userSession.UserId, custId, userSession.Language, Request.UserHostAddress, isEnabled);
 
             if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
             {

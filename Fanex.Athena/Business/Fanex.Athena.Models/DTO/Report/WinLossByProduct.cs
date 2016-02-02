@@ -6,8 +6,9 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using System;
     using Fanex.Athena.Models.ViewModel;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// WinLossByProduct class.
@@ -75,6 +76,7 @@ namespace Fanex.Athena.Models.DTO.Report
 
         #endregion ICustomerWinLoss Members
 
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private static string GetProductName(string productCode)
         {
             switch (productCode.ToUpper())

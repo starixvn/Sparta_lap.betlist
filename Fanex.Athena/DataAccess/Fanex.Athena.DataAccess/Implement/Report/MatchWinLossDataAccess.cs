@@ -211,7 +211,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
             var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
             var winLossRbColumn = "WinlossRB" + baseCurrency;
-
             var hasCustComm = reader.FieldExists(custCommColumn);
             var hasBetType = reader.FieldExists("bettype");
             var hasProductName = reader.FieldExists("productname");
