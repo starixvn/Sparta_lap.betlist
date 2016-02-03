@@ -29,28 +29,40 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class LicenseeWinLossExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 42;
-        private const int ColumnAmtDueToBetTrade = 41;
-        private const int ColumnAmtDueToRacing = 43;
-        private const int ColumnBaCommission = 39;
-        private const int ColumnBetTradeCommission = 38;
-        private const int ColumnBuyBackAmountBA = 19;
-        private const int ColumnBuyBackAmountSportsbook = 18;
-        private const int ColumnBuyBackAmountTotal = 20;
-        private const int ColumnCurrency = 4;
-        private const int ColumnCustomerComm = 23;
-        private const int ColumnCustomerTotal = 24;
-        private const int ColumnCustomerWl = 22;
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
-        private const int ColumnLicenseeWlSportsBook = 25;
-        private const int ColumnLicenseeWlTotal = 37;
-        private const int ColumnRacingRevenue = 40;
         private const int ColumnSystemId = 3;
-        private const int ColumnTemplateCount = 44;
-        private const int ColumnTotalTransaction = 21;
+        private const int ColumnCurrency = 4;
+
         private const int ColumnTurnoverSportBook = 5;
         private const int ColumnTurnoverTotal = 17;
+
+        private const int ColumnActualStakeSportsbook = 18;
+        private const int ColumnActualStakeBA = 19;
+        private const int ColumnActualStakeTotal = 20;
+
+        private const int ColumnBuyBackAmountSportsbook = 21;
+        private const int ColumnBuyBackAmountBA = 22;      
+        private const int ColumnBuyBackAmountTotal = 23;
+
+        private const int ColumnTotalTransaction = 24;
+
+        private const int ColumnCustomerWl = 25;
+        private const int ColumnCustomerComm = 26;
+        private const int ColumnCustomerTotal = 27;
+
+        private const int ColumnLicenseeWlSportsBook = 28;
+        private const int ColumnLicenseeWlTotal = 40;
+
+        private const int ColumnBetTradeCommission = 41;
+        private const int ColumnBaCommission = 42;
+        private const int ColumnRacingRevenue = 43;
+        private const int ColumnAmtDueToBetTrade = 44;
+        private const int ColumnAmtDueToBa = 45;
+        private const int ColumnAmtDueToRacing = 46;       
+                    
+        private const int ColumnTemplateCount = 47;
+              
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
@@ -137,6 +149,9 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
+            row.Cells[ColumnActualStakeSportsbook].SetCellValue(ViewResources.ActualStake);
+            row.Cells[ColumnActualStakeBA].SetCellValue(ViewResources.ActualStake);
+            row.Cells[ColumnActualStakeTotal].SetCellValue(ViewResources.ActualStake);
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnBuyBackAmountTotal].SetCellValue(ViewResources.BuyBackAmount);
@@ -156,6 +171,10 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
             row2.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
+
+            row2.Cells[ColumnActualStakeSportsbook].SetCellValue(ViewResources.Sportsbook);
+            row2.Cells[ColumnActualStakeBA].SetCellValue(ViewResources.ProductBA);
+            row2.Cells[ColumnActualStakeTotal].SetCellValue(ViewResources.Total);
 
             row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.Sportsbook);
             row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
@@ -350,6 +369,10 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(data.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(data.CustomerTotal);
+
+            row.Cells[ColumnActualStakeSportsbook].SetCellValue(data.ActualStakeSB);
+            row.Cells[ColumnActualStakeBA].SetCellValue(data.ActualStakeBA);
+            row.Cells[ColumnActualStakeTotal].SetCellValue(data.TotalActualStake);
 
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(data.BuyBackAmountSB);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(data.BuyBackAmountBA);
@@ -576,6 +599,10 @@ namespace Fanex.Athena.Excel.Report
                                         .GroupBy(i => i.Key)
                                         .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
                         }.LicenseeWL,
+                        BuyBackAmountSB = group.Sum(p => p.BuyBackAmountSB),
+                        BuyBackAmountBA = group.Sum(p => p.BuyBackAmountBA),
+                        ActualStakeSB = group.Sum(p => p.ActualStakeSB),
+                        ActualStakeBA = group.Sum(p => p.ActualStakeBA),
                         TotalTransaction = group.Sum(a => a.TotalTransaction),
                         CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
                         CustomerComm = group.Sum(a => a.CustomerComm),
