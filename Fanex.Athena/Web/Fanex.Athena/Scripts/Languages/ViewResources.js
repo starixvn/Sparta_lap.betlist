@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/1/2016 3:21:36 PM
+// Lasted generated date: 2/3/2016 10:43:20 AM
 // </history>
 
 var _language_en_US={
@@ -22,6 +22,8 @@ var _language_en_US={
                      ActiveCustomer:"Active Customer",
 				 	
                      ActiveCustomerSummary:"Active Customer Summary",
+				 	
+                     ActualStake:"Actual Stake",
 				 	
                      AD:"AD",
 				 	

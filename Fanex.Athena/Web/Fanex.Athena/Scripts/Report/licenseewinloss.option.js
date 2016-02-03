@@ -476,7 +476,7 @@ var LicenseeWinLossOption = (function () {
         {
             startColumnName: "ActualStakeSB",
             numberOfColumns: 3,
-            titleText: "Actual Stake"
+            titleText: Site.getSingleResource('ActualStake')
         } : {};
 
         grid.jqGrid('setGroupHeaders',
@@ -553,6 +553,7 @@ var LicenseeWinLossOption = (function () {
         var allowedRacing = isProductChecked(productOptions, "RB");
         var allowedBetTrade = isProductChecked(productOptions, "BT");
         buybackColumn.hidden = !allowedBetTrade;
+        actualStakeColumn.hidden = !allowedBetTrade;
         baCommissionColumn.hidden = !allowedBa;
         amtDueToBaColumn.hidden = !allowedBa;
         racingRevenueColumn.hidden = !allowedRacing;

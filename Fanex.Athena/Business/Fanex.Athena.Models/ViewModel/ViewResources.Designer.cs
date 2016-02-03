@@ -124,6 +124,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Stake.
+        /// </summary>
+        public static string ActualStake {
+            get {
+                return ResourceManager.GetString("ActualStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AD.
         /// </summary>
         public static string AD {
