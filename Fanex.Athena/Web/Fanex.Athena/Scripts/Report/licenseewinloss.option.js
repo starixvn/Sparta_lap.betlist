@@ -488,9 +488,7 @@ var LicenseeWinLossOption = (function () {
         licenseeIndex++;
         temp.insertBefore("Total", licenseeIndex);
 
-        var actualStakeIndex = turnOverIndex + 1;
-
-        var buyBackIndex = actualStakeIndex + 1;
+        var buyBackIndex = turnOverIndex + 2;
         if (isProductChecked(productOptions, "BA") !== null) {
             temp.insertAfter("Total", buyBackIndex);
             temp.insertAfter("BA", buyBackIndex);
