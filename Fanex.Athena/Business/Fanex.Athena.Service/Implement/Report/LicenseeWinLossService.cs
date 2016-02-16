@@ -129,8 +129,6 @@ namespace Fanex.Athena.Service.Implement.Report
                 .ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
                 BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
                 BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
-                ActualStakeSB = g.Sum(p => p.ActualStakeSB),
-                ActualStakeBA = g.Sum(p => p.ActualStakeBA),
                 TotalTransaction = g.Sum(p => p.TotalTransaction),
                 CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
                 CustomerComm = g.Sum(p => p.CustomerComm),

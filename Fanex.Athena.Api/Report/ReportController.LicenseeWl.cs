@@ -150,9 +150,7 @@ namespace Fanex.Athena.Api.Report
                 BuyBackAmountSB = item.BuyBackAmountSB,
                 BuyBackAmountBA = item.BuyBackAmountBA,
                 TotalBuyBackAmount = item.TotalBuyBackAmount,
-                ActualStakeSB = item.ActualStakeSB,
-                ActualStakeBA = item.ActualStakeBA,
-                TotalActualStake = item.TotalActualStake
+                ActualStake = item.ActualStake
             };
 
             SetLicenseeWinLossProductData(licenseeWinLossGrid, item.LicenseeWL);

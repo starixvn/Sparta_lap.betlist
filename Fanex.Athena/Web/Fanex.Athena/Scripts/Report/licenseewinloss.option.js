@@ -120,8 +120,8 @@ var LicenseeWinLossOption = (function () {
 
     var actualStakeColumn =
     {
-        name: 'TotalActualStakeSingle',
-        index: 'TotalActualStakeSingle',
+        name: 'ActualStake',
+        index: 'ActualStake',
         width: 80,
         align: 'right',
         sortable: true,
@@ -421,24 +421,6 @@ var LicenseeWinLossOption = (function () {
         columns.insertAfter(buyBackAmountSBColumn, columnIndex);
     }
 
-    function addActualStakeColumns(columns, columnIndex) {
-        var actualStakeColumn = Site.clone(productColumn);
-        actualStakeColumn.name = "TotalActualStake";
-        actualStakeColumn.index = "TotalActualStake";
-
-        var actualStakeSBColumn = Site.clone(productColumn);
-        actualStakeSBColumn.name = "ActualStakeSB";
-        actualStakeSBColumn.index = "ActualStakeSB";
-
-        var actualStakeBAColumn = Site.clone(productColumn);
-        actualStakeBAColumn.name = "ActualStakeBA";
-        actualStakeBAColumn.index = "ActualStakeBA";
-
-        columns.insertAfter(actualStakeColumn, columnIndex);
-        columns.insertAfter(actualStakeBAColumn, columnIndex);
-        columns.insertAfter(actualStakeSBColumn, columnIndex);
-    }
-
     me.setGroupHeaderColumns = function (grid, productOptions) {
         var numOfTurnover = JSLINQ(productOptions).Count(turnoverProductsFilter) + 1;
         var lastOfTurnover = JSLINQ(productOptions).Last(turnoverProductsFilter);
@@ -472,17 +454,10 @@ var LicenseeWinLossOption = (function () {
             titleText: Site.getSingleResource('BuyBackAmount')
         } : {};
 
-        var groupActualStake = lastOfLicenseeWL != null ?
-        {
-            startColumnName: "ActualStakeSB",
-            numberOfColumns: 3,
-            titleText: Site.getSingleResource('ActualStake')
-        } : {};
-
         grid.jqGrid('setGroupHeaders',
         {
             useColSpanStyle: true,
-            groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount, groupActualStake]
+            groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount]
         });
     };
 
@@ -514,13 +489,8 @@ var LicenseeWinLossOption = (function () {
         temp.insertBefore("Total", licenseeIndex);
 
         var actualStakeIndex = turnOverIndex + 1;
-        if (isProductChecked(productOptions, "BA") !== null) {
-            temp.insertAfter("Total", actualStakeIndex);
-            temp.insertAfter("BA", actualStakeIndex);
-            temp.insertAfter("Sportsbook", actualStakeIndex);
-        }
 
-        var buyBackIndex = actualStakeIndex + 4;
+        var buyBackIndex = actualStakeIndex + 1;
         if (isProductChecked(productOptions, "BA") !== null) {
             temp.insertAfter("Total", buyBackIndex);
             temp.insertAfter("BA", buyBackIndex);
@@ -628,9 +598,7 @@ var LicenseeWinLossOption = (function () {
         temp.insertBefore(licenseeWLTotal, licenseeIndex);
 
         if (allowedBa !== null) {
-            var actualStakeIndex = turnOverIndex + 1;
-            addActualStakeColumns(temp, actualStakeIndex)
-            addBuyBackAmountColumns(temp, actualStakeIndex + 4);
+            addBuyBackAmountColumns(temp, turnOverIndex + 2);
         }
 
         return temp;
@@ -678,8 +646,7 @@ var LicenseeWinLossOption = (function () {
         var toggle = function (isShow, column) {
             if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
                 (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
-                (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null)) ||
-                (column === "ActualStake" && (!isAllowedBetTrade || isAllowBA === null))) {
+                (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
                 return;
             }
             _expanseTypes[column] = isShow;
@@ -687,7 +654,7 @@ var LicenseeWinLossOption = (function () {
             var param = isShow ? "showCol" : "hideCol";
             var fColumns = [];
 
-            if (column === "BuyBackAmount" || column === "ActualStake") {
+            if (column === "BuyBackAmount") {
                 var sbColumnName = column + "SB";
                 var baColumnName = column + "BA";
                 fColumns = [gridName + "_" + sbColumnName, gridName + "_" + baColumnName];
@@ -732,9 +699,6 @@ var LicenseeWinLossOption = (function () {
             else if (column === "LicenseeWL") {
                 addLicenseeExpand();
             }
-            else if (column === "ActualStake") {
-                addActualStakeExpand();
-            }
             else {
                 addBuyBackExpand();
             }
@@ -745,8 +709,6 @@ var LicenseeWinLossOption = (function () {
             addLicenseeWlCollapse();
 
             addBuyBackCollapse();
-
-            addActualStakeCollapse();
             
             //update footer row
             $("#footer").html($(".ui-jqgrid-ftable").html());
@@ -826,25 +788,6 @@ var LicenseeWinLossOption = (function () {
             }
         };
 
-        var addActualStakeCollapse = function () {
-            if (isAllowBA !== null) {
-                clear("#btnActualStakeCollapse");
-                var $container = $(grid).closest(".ui-jqgrid-view")
-                        .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
-                $container = $container[$container.length - (me.hasCustomerComm ? 4 : 3)];
-                var $button = $('<button id="btnActualStakeCollapse">');
-                addToggleButton($container, $button, false, "ActualStake");
-            }
-        };
-
-        var addActualStakeExpand = function () {
-            if (isAllowBA !== null) {
-                clear("#btnActualStakeExpand");
-                var $container = $("#" + gridId + "_" + "TotalActualStakeSingle");
-                var $button = $('<button title="Expand to view details" id="btnActualStakeExpand">');
-                addToggleButton($container, $button, true, "ActualStake");
-            }
-        };
         // Collapsing when loading completed
         addTurnOverCollapse();
         addTurnOverExpand();
@@ -854,9 +797,6 @@ var LicenseeWinLossOption = (function () {
 
         addBuyBackCollapse();
         addBuyBackExpand();
-
-        addActualStakeCollapse();
-        addActualStakeExpand();
     };
 
     return me;

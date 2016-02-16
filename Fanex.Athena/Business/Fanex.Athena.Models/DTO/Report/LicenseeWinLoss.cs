@@ -54,15 +54,11 @@ namespace Fanex.Athena.Models.DTO.Report
             }
         }
 
-        public decimal ActualStakeSB { get; set; }
-
-        public decimal ActualStakeBA { get; set; }
-
-        public decimal TotalActualStake
+        public decimal ActualStake
         {
             get
             {
-                return ActualStakeSB + ActualStakeBA;
+                return TotalBuyBackAmount;
             }
         }
 
