@@ -127,6 +127,7 @@ namespace Fanex.Athena.Service.Implement.Report
                 TurnOver = g.SelectMany(k => k.TurnOver)
                 .GroupBy(j => j.Key)
                 .ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
+                ActualStake = g.Sum(p => p.ActualStake),
                 BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
                 BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
                 TotalTransaction = g.Sum(p => p.TotalTransaction),

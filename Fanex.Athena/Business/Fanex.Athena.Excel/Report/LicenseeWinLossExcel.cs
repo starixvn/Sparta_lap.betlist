@@ -589,6 +589,7 @@ namespace Fanex.Athena.Excel.Report
                                         .GroupBy(i => i.Key)
                                         .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
                         }.LicenseeWL,
+                        ActualStake = group.Sum(p => p.ActualStake),
                         BuyBackAmountSB = group.Sum(p => p.BuyBackAmountSB),
                         BuyBackAmountBA = group.Sum(p => p.BuyBackAmountBA),
                         TotalTransaction = group.Sum(a => a.TotalTransaction),

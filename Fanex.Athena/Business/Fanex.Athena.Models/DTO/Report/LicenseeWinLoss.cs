@@ -54,13 +54,7 @@ namespace Fanex.Athena.Models.DTO.Report
             }
         }
 
-        public decimal ActualStake
-        {
-            get
-            {
-                return TotalBuyBackAmount;
-            }
-        }
+        public decimal ActualStake { get; set; }
 
         #region ICustomerWinLoss Members
 

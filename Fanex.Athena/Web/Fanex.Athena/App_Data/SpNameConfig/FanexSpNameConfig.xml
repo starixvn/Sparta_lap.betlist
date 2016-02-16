@@ -2,5 +2,8 @@
 <Root>
   <SpNameConfig Environment="LOCAL" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_xtest"></SpNameConfig>
 
 </Root>

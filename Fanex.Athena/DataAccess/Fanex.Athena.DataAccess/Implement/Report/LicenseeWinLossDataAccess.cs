@@ -216,6 +216,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CurrencyName = reader.ToString("currencyname"),
                     CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
                     CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                    ActualStake = reader.ToDecimal("BTActualStake" + metaModel.BaseCurrency),
                     BuyBackAmountSB = reader.ToDecimal("BuyBackAmtSB" + metaModel.BaseCurrency),
                     BuyBackAmountBA = reader.ToDecimal("BuyBackAmtBA" + metaModel.BaseCurrency),
                     LicenseeWL = licenseeWl,
@@ -256,6 +257,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 summaryItem.AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
                 summaryItem.AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
                 summaryItem.AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
+                summaryItem.ActualStake += reader.ToDecimal("BTActualStake" + currency);
                 summaryItem.BuyBackAmountSB += reader.ToDecimal("BuyBackAmtSB" + currency);
                 summaryItem.BuyBackAmountBA += reader.ToDecimal("BuyBackAmtBA" + currency);
                 decimal temp;
