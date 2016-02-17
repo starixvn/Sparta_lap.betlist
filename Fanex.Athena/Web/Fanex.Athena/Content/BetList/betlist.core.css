@@ -31,6 +31,9 @@
     display: inline;
     text-align: right;
 }
+.favorite .excluding-choices{
+    word-wrap: break-word;
+}
 .handicap .odds
 {
     color: #003399;
