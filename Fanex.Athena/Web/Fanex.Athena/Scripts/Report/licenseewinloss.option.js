@@ -741,7 +741,7 @@ var LicenseeWinLossOption = (function () {
                 var $container = $(grid).closest(".ui-jqgrid-view")
                         .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
 
-                var $button = $('<button id="btnTurnOverCollapse">');
+                var $button = $('<button class="btnCollapse" id="btnTurnOverCollapse">');
                 addToggleButton($container, $button, false, "TurnOver");
             }
         };
@@ -761,7 +761,7 @@ var LicenseeWinLossOption = (function () {
 
                 var $container = $(grid).closest(".ui-jqgrid-view")
                         .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
-                var $button = $('<button id="btnLicenseeWLCollapse">');
+                var $button = $('<button class="btnCollapse" id="btnLicenseeWLCollapse">');
                 addToggleButton($container, $button, false, "LicenseeWL");
             }
         };
@@ -781,7 +781,7 @@ var LicenseeWinLossOption = (function () {
                 var $container = $(grid).closest(".ui-jqgrid-view")
                         .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
                 $container = $container[$container.length - (me.hasCustomerComm ? 3 : 2)];
-                var $button = $('<button id="btnBuyBackCollapse">');
+                var $button = $('<button class="btnCollapse" id="btnBuyBackCollapse">');
                 addToggleButton($container, $button, false, "BuyBackAmount");
             }
         };

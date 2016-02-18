@@ -85,3 +85,7 @@ body:-moz-last-node .ui-button-text
 {
     padding: 0.6em;
 }
+/* Collapse button on grid */
+.btnCollapse .ui-icon-circle-triangle-e{
+    background-position: -80px -192px;
+}
