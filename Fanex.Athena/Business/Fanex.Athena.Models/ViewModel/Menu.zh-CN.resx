@@ -310,8 +310,8 @@
     <comment>CUSTOMER REPORTS</comment>
   </data>
   <data name="Menu_53" xml:space="preserve">
-    <value>手機輸贏</value>
-    <comment>Mobile Win Loss</comment>
+    <value>Platform Win Loss</value>
+    <comment>Platform Win Loss</comment>
   </data>
   <data name="Menu_54" xml:space="preserve">
     <value>SpecialBA</value>
