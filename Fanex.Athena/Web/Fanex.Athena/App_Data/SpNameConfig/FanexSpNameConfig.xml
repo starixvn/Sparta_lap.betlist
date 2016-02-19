@@ -4,5 +4,8 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xtest"></SpNameConfig>
 
 </Root>
