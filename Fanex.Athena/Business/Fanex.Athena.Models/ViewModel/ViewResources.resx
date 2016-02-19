@@ -875,11 +875,11 @@
   <data name="Mobile" xml:space="preserve">
     <value>Mobile</value>
   </data>
-  <data name="MobileWinLoss" xml:space="preserve">
-    <value>Mobile Win Loss</value>
+  <data name="PlatformWinLoss" xml:space="preserve">
+    <value>Platform Win Loss</value>
   </data>
-  <data name="MobileWinLossTitle" xml:space="preserve">
-    <value>Mobile Win Loss - {0} --&gt; {1} - {2} - {3}</value>
+  <data name="PlatformWinLossTitle" xml:space="preserve">
+    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3}</value>
   </data>
   <data name="MoneyLine" xml:space="preserve">
     <value>Money Line</value>

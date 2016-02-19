@@ -1,7 +1,9 @@
 ﻿@{
     Layout = null;
 }
+
 @using Fanex.Athena.Models.ViewModel.Report
+@using Fanex.Athena.Models.DataDomain;
 @model MobileWinLossViewModel
 
 <div class="theme_jqGrid">
@@ -23,12 +25,10 @@
                         : string.Format(ViewResources.Viewin, Model.Param.IsConvert
                                 ? Model.Param.BaseCurrency
                                 : Model.Param.CurrencyName);
-                    var siteText = ViewResources.Site + ": " + (Model.Param.Site == 0
-                        ? ViewResources.AllSites
-                        : Model.Param.Site == 1 ? ViewResources.Mobile : ViewResources.Others);    
+                    var siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(Model.Param.Site);
                 }
 
-                @ViewResources.MobileWinLoss,
+                @ViewResources.PlatformWinLoss,
                 @RazorHelper.TitleDateTime(Model.Param.FromDate,Model.Param.ToDate)
                 @currencyText -
                 @siteText

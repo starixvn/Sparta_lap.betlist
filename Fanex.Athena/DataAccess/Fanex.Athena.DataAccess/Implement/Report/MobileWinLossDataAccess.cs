@@ -158,7 +158,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("sitetype", DbType.Byte, metaModel.Site);
+            db.AddInParameter("PlatformType", DbType.Byte, metaModel.Site);
             db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
             db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);

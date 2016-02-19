@@ -214,7 +214,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                                     CustId = reader.GetInt32(reader.GetOrdinal("CustId")),
                                     Currency = reader.GetInt32(reader.GetOrdinal("Currency")),
                                     RoleId = reader.GetByte(reader.GetOrdinal("RoleID")),
-                                    Description = reader.GetString(reader.GetOrdinal("Description")),
+                                    Description = reader["Description"].ToString(),
                                     CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName"))
                                 };
                             entityList.Add(entity);

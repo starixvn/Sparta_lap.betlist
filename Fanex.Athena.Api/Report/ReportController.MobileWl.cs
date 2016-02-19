@@ -71,7 +71,7 @@ namespace Fanex.Athena.Api.Report
             Dictionary<string, MobileWinLoss> summaryTotal,
             DateTime? date)
         {
-            const string FileName = "MobileWinLoss.xls";
+            const string FileName = "PlatformWinLoss.xls";
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");

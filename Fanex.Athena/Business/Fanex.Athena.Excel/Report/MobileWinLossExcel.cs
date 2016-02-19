@@ -161,13 +161,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            string siteText = ViewResources.Site + ": " +
-                              (_model.Param.Site == (int)SiteType.Wap
-                               ? ViewResources.Wap
-                               : _model.Param.Site == (int)SiteType.SmartPhone ? ViewResources.SmartPhone : ViewResources.Others);
+            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.Site);
 
             ReportTitle = string.Format(
-                                        ViewResources.MobileWinLossTitle,
+                                        ViewResources.PlatformWinLossTitle,
                                         _model.Param.FromDate.ToString(FormatDate),
                                         _model.Param.ToDate.ToString(FormatDate),
                                         GetExactTitleCurrencyName(_model.Param.CurrencyId),
