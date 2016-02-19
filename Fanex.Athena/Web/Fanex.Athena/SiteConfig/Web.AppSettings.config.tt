@@ -53,7 +53,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -139,7 +139,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -226,7 +226,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -307,7 +307,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -386,7 +386,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
@@ -464,7 +464,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
 	<add key="EnableRacingHRUK" value="1" />
 	<add key="EnableRacingHRSA" value="1" />
@@ -545,7 +545,7 @@
 	<add key="SecretCaptcha" value="1710" />
 	<add key="CompanyIP" value="^(202\.78\.231\.(3[4-9]|[4-5][0-9]|6[0-2])|116\.193\.67\.(1(1[4-9]|2[0-6])))$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
-	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
 	<add key="EnableRacingHRUK" value="1"/>
 	<add key="EnableRacingHRSA" value="1"/>
