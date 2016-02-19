@@ -101,6 +101,8 @@ var _language_en_US={
 				 	
                      AreYouSure:"Are you sure you want to procceed?",
 				 	
+                     Asia:"Asia",
+				 	
                      AssignPermissionSuccessful:"Assign Permission Successful.",
 				 	
                      Aug:"Aug",
@@ -488,6 +490,8 @@ var _language_en_US={
                      ErrorProcessingMsg:"Sorry, an error occurred while processing your request.",
 				 	
                      EUR:"EUR",
+				 	
+                     Euro:"Euro",
 				 	
                      Even:"Even",
 				 	
@@ -999,10 +1003,6 @@ var _language_en_US={
 				 	
                      Mobile:"Mobile",
 				 	
-                     MobileWinLoss:"Mobile Win Loss",
-				 	
-                     MobileWinLossTitle:"Mobile Win Loss - {0} --&gt; {1} - {2} - {3}",
-				 	
                      Mode:"Mode",
 				 	
                      Monday:"Monday",
@@ -1032,6 +1032,8 @@ var _language_en_US={
                      NetTurnover:"Net Turnover",
 				 	
                      NetworkTimeoutMsg:"Network time out. Please try again.",
+				 	
+                     NewAsia:"New Asia",
 				 	
                      NewGroup:"New Group",
 				 	
@@ -1218,6 +1220,10 @@ var _language_en_US={
                      PlaceTO:"Place TO",
 				 	
                      Platform:"Platform",
+				 	
+                     PlatformWinLoss:"Platform Win Loss",
+				 	
+                     PlatformWinLossTitle:"Platform Win Loss - {0} --&gt; {1} - {2} - {3}",
 				 	
                      Player:"Player",
 				 	

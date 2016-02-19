@@ -76,7 +76,7 @@ var MobileWinLoss = (function ($) {
             };
             Site.addUserGuide({
                 resourceName: "MobileWL",
-                title: Site.getSingleResource("MobileWinLoss")
+                title: Site.getSingleResource("PlatformWinLoss")
             });
         },
         initSetting: function () {
@@ -169,9 +169,9 @@ var MobileWinLoss = (function ($) {
             }
         },
         setReportTitle: function (currencyId, site, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('MobileWinLoss')
+            var titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - '
-                + Site.getSingleResource('Site') + ': {3}{4}';
+                + Site.getSingleResource('Platform') + ': {3}{4}';
             var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
             var currencyTextList =
@@ -314,7 +314,7 @@ var MobileWinLoss = (function ($) {
                         var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
                         var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
                         var currencyId = $("#CurrencyId").val();
-                        var site = $("input[name='Site']:checked").val();
+                        var site = $("#Site").val();
                         $("#drillDownFromDate").val(fromdate.toString("M/d/yyyy"));
                         $("#drillDownToDate").val(todate.toString("M/d/yyyy"));
 

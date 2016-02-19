@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/1/2016 3:21:20 PM
+// Lasted generated date: 2/19/2016 3:55:40 PM
 // </history>
 
 var _language_ko_KR={
@@ -888,10 +888,6 @@ var _language_ko_KR={
                      Mo:"모바일",
 				 	
                      Mobile:"모바일",
-				 	
-                     MobileWinLoss:"모바일 승리 패배",
-				 	
-                     MobileWinLossTitle:"모바일 승리 패배 - {0}--&gt; {1} - {2} - {3}",
 				 	
                      Mode:"모드",
 				 	

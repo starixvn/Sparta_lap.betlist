@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/1/2016 3:21:39 PM
+// Lasted generated date: 2/19/2016 3:55:57 PM
 // </history>
 
 var _language_zh_Hans={
@@ -900,10 +900,6 @@ var _language_zh_Hans={
                      Mo:"Mo",
 				 	
                      Mobile:"移动",
-				 	
-                     MobileWinLoss:"手机输赢",
-				 	
-                     MobileWinLossTitle:"手机输赢 - {0} --&gt; {1} - {2} - {3}",
 				 	
                      Mode:"模式",
 				 	

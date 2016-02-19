@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/1/2016 3:21:40 PM
+// Lasted generated date: 2/19/2016 3:56:09 PM
 // </history>
 
 var _language_zh_TW={
@@ -900,10 +900,6 @@ var _language_zh_TW={
                      Mo:"Mo",
 				 	
                      Mobile:"移動",
-				 	
-                     MobileWinLoss:"手機輸贏",
-				 	
-                     MobileWinLossTitle:"手機輸贏 - {0} --&gt; {1} - {2} - {3}",
 				 	
                      Mode:"模式",
 				 	

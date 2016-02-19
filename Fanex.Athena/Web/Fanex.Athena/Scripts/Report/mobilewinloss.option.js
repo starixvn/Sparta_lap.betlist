@@ -205,9 +205,12 @@ var MobileWinLossOption = (function () {
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         sites:
         {
-            "1": Site.getSingleResource("Wap"),
-            "2": Site.getSingleResource("SmartPhone"),
-            "3": Site.getSingleResource("Others")
+            "0": Site.getSingleResource("All"),
+            "1": Site.getSingleResource("Asia"),
+            "2": Site.getSingleResource("NewAsia"),
+            "3": Site.getSingleResource("Euro"),
+            "4": Site.getSingleResource("Wap"),
+            "5": Site.getSingleResource("SmartPhone").toUpperCase()
         },
         totalColspan: [3],
         urlData: 'api/report/MobileWinloss',
