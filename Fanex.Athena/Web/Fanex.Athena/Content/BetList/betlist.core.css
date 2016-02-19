@@ -31,8 +31,8 @@
     display: inline;
     text-align: right;
 }
-.favorite .excluding-choices{
-    word-wrap: break-word;
+.favorite .excluding-choices {
+    white-space: normal;
 }
 .handicap .odds
 {
