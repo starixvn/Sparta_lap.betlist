@@ -10,7 +10,7 @@ namespace Fanex.Athena.Models.DataDomain
     /// <summary>
     /// Site type constants.
     /// </summary>
-    public sealed class PlatformType
+    public static class PlatformType
     {
         /// <summary>
         /// All platform, value = 0.
@@ -41,10 +41,6 @@ namespace Fanex.Athena.Models.DataDomain
         /// SMARTPHONE platform, value = 5.
         /// </summary>
         public const int SmartPhone = 5;
-
-        private PlatformType()
-        {
-        }
 
         public static string GetPlatformName(int type)
         {

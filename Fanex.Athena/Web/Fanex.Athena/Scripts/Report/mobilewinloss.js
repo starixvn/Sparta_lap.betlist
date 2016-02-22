@@ -314,7 +314,7 @@ var MobileWinLoss = (function ($) {
                         var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
                         var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
                         var currencyId = $("#CurrencyId").val();
-                        var site = $("#Site").val();
+                        var site = $("#Platform").val();
                         $("#drillDownFromDate").val(fromdate.toString("M/d/yyyy"));
                         $("#drillDownToDate").val(todate.toString("M/d/yyyy"));
 
