@@ -61,9 +61,6 @@ namespace Fanex.Athena.Excel.Report
                     
         private const int ColumnTemplateCount = 45;
               
-        private const int ColumnTotalTransaction = 21;
-        private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 17;
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
