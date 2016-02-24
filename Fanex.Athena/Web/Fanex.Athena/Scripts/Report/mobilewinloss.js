@@ -309,7 +309,7 @@ var MobileWinLoss = (function ($) {
                         //update drildownValue
                         $("#drillDownDrawFilter").val($("input[name='DrawFilter']:checked").val());
                         $("#drillDownExcludeTest").val($("#IsExcludeTest").is(":checked"));
-                        $("#drillDownSite").val($("input[name='Site']:checked").val());
+                        $("#drillDownSite").val($("#Platform").val());
                         $("#drillDownCurrencyId").val($("#CurrencyId").val());
                         var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
                         var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
