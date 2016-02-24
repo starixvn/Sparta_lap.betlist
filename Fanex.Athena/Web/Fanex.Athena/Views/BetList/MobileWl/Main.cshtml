@@ -9,7 +9,7 @@
 @section pagejs {
 }
 @{
-    var siteList = new List<string> { string.Empty, ViewResources.Wap, ViewResources.SmartPhone, ViewResources.Others };
+    var siteList = new List<string> { string.Empty, ViewResources.Asia, ViewResources.NewAsia, ViewResources.Euro, ViewResources.Wap, ViewResources.SmartPhone.ToUpper() };
     var siteText = siteList[Model.SiteType];
 }
 @section ContentTitle
