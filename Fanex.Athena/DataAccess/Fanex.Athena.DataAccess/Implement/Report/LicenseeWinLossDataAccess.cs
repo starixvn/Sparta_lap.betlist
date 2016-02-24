@@ -180,6 +180,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var hasExternalId = reader.FieldExists("nickname");
             var hasCustomerId = reader.FieldExists("custid");
             var index = 1;
+            var baseCurrency = metaModel.BaseCurrency;
             while (reader.Read())
             {
                 // Read Item
@@ -187,8 +188,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var turnOver = new Dictionary<string, decimal>();
                 foreach (var product in metaModel.ProductOptions)
                 {
-                    var licenseeWlColumnName = "LicenseeWL" + product.Code + metaModel.BaseCurrency;
-                    var turnOverColumnName = "turnover" + product.Code + metaModel.BaseCurrency;
+                    var licenseeWlColumnName = "LicenseeWL" + product.Code + baseCurrency;
+                    var turnOverColumnName = "turnover" + product.Code + baseCurrency;
 
                     if (reader.FieldExists(licenseeWlColumnName))
                     {
@@ -214,19 +215,20 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
-                    CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
-                    CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                    BuyBackAmountSB = reader.ToDecimal("BuyBackAmtSB" + metaModel.BaseCurrency),
-                    BuyBackAmountBA = reader.ToDecimal("BuyBackAmtBA" + metaModel.BaseCurrency),
+                    CustomerWinLoss = reader.ToDecimal("winlost" + baseCurrency),
+                    CustomerComm = reader.ToDecimal("playercomm" + baseCurrency),
+                    ActualStake = reader.ToDecimal("BTActualStake" + baseCurrency),
+                    BuyBackAmountSB = reader.ToDecimal("BuyBackAmtSB" + baseCurrency),
+                    BuyBackAmountBA = reader.ToDecimal("BuyBackAmtBA" + baseCurrency),
                     LicenseeWL = licenseeWl,
                     TurnOver = turnOver,
                     TotalTransaction = reader.ToInt("betcount"),
-                    RacingRevenue = reader.ToDecimal("licenseewlrb" + metaModel.BaseCurrency) + reader.ToDecimal("commrb" + metaModel.BaseCurrency),
-                    BACommission = reader.ToDecimal("commba" + metaModel.BaseCurrency),
-                    BetTradeCommission = reader.ToDecimal("bettradecomm" + metaModel.BaseCurrency),
-                    AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + metaModel.BaseCurrency),
-                    AmtDueToBA = reader.ToDecimal("amtduetoba" + metaModel.BaseCurrency),
-                    AmtDueToRacing = reader.ToDecimal("amtduetorb" + metaModel.BaseCurrency),
+                    RacingRevenue = reader.ToDecimal("licenseewlrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
+                    BACommission = reader.ToDecimal("commba" + baseCurrency),
+                    BetTradeCommission = reader.ToDecimal("bettradecomm" + baseCurrency),
+                    AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + baseCurrency),
+                    AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
+                    AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency),
                     Date = drilldown
                         ? metaModel.DrillDownFromDate
                         : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
@@ -256,6 +258,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 summaryItem.AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
                 summaryItem.AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
                 summaryItem.AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
+                summaryItem.ActualStake += reader.ToDecimal("BTActualStake" + currency);
                 summaryItem.BuyBackAmountSB += reader.ToDecimal("BuyBackAmtSB" + currency);
                 summaryItem.BuyBackAmountBA += reader.ToDecimal("BuyBackAmtBA" + currency);
                 decimal temp;

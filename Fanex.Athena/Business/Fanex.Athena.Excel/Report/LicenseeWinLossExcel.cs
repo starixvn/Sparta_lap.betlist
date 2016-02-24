@@ -9,8 +9,6 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
@@ -22,6 +20,9 @@ namespace Fanex.Athena.Excel.Report
     using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
 
     /// <summary>
     /// Licensee Win Loss - Export excel.
@@ -32,35 +33,49 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
+
         private const int ColumnTurnoverSportBook = 5;
         private const int ColumnTurnoverTotal = 17;
-        private const int ColumnBuyBackAmountSportsbook = 18;
-        private const int ColumnBuyBackAmountBA = 19;
-        private const int ColumnBuyBackAmountTotal = 20;
-        private const int ColumnTotalTransaction = 21;
-        private const int ColumnCustomerWl = 22;
-        private const int ColumnCustomerComm = 23;
-        private const int ColumnCustomerTotal = 24;
-        private const int ColumnLicenseeWlSportsBook = 25;
-        private const int ColumnLicenseeWlTotal = 37;
-        private const int ColumnBetTradeCommission = 38;
-        private const int ColumnBaCommission = 39;
-        private const int ColumnRacingRevenue = 40;
-        private const int ColumnAmtDueToBetTrade = 41;
-        private const int ColumnAmtDueToBa = 42;
-        private const int ColumnAmtDueToRacing = 43;
-        private const int ColumnTemplateCount = 44;
+
+        private const int ColumnActualStake = 18;
+
+        private const int ColumnBuyBackAmountSportsbook = 19;
+        private const int ColumnBuyBackAmountBA = 20;      
+        private const int ColumnBuyBackAmountTotal = 21;
+
+        private const int ColumnTotalTransaction = 22;
+
+        private const int ColumnCustomerWl = 23;
+        private const int ColumnCustomerComm = 24;
+        private const int ColumnCustomerTotal = 25;
+
+        private const int ColumnLicenseeWlSportsBook = 26;
+        private const int ColumnLicenseeWlTotal = 38;
+
+        private const int ColumnBetTradeCommission = 39;
+        private const int ColumnBaCommission = 40;
+        private const int ColumnRacingRevenue = 41;
+        private const int ColumnAmtDueToBetTrade = 42;
+        private const int ColumnAmtDueToBa = 43;
+        private const int ColumnAmtDueToRacing = 44;       
+                    
+        private const int ColumnTemplateCount = 45;
+              
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 12;
-        private const int TotalTurnoverProductColumn = 12;
+        private const int TotalLicenseeWlProductColumn = 13;
+        private const int TotalTurnoverProductColumn = 13;
 
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
+
+        private readonly bool _isAllowBA;
+
+        private readonly bool _isAllowSB;
 
         // This is drill down of report
         private readonly IList<LicenseeWinLoss> _licenseeWinLossList;
@@ -68,9 +83,6 @@ namespace Fanex.Athena.Excel.Report
         private readonly LicenseeWinLossMetaModel _metaModel;
         private readonly IList<ProductOption> _productOption;
         private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
-
-        private readonly bool _isAllowSB;
-        private readonly bool _isAllowBA;
 
         public LicenseeWinLossExcel(
                 string templatePath,
@@ -123,6 +135,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void AssignHeader(ISheet sheet)
         {
             // row 1
@@ -134,6 +147,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
+            row.Cells[ColumnActualStake].SetCellValue(ViewResources.ActualStake);
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnBuyBackAmountTotal].SetCellValue(ViewResources.BuyBackAmount);
@@ -267,6 +281,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
@@ -346,6 +361,8 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(data.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(data.CustomerTotal);
+
+            row.Cells[ColumnActualStake].SetCellValue(data.ActualStake);
 
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(data.BuyBackAmountSB);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(data.BuyBackAmountBA);
@@ -516,43 +533,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of LicenseeWinLoss entity.</returns>
-        private static IEnumerable<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
-        {
-            var currencies = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new LicenseeWinLoss
-            {
-                CurrencyName = group.Key.CurrencyName,
-                TurnOver = new LicenseeWinLoss
-                {
-                    LicenseeWL = group.SelectMany(i => i.TurnOver)
-                                        .GroupBy(i => i.Key)
-                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
-                }.LicenseeWL,
-                TotalTransaction = group.Sum(a => a.TotalTransaction),
-                CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                CustomerComm = group.Sum(a => a.CustomerComm),
-                LicenseeWL = new LicenseeWinLoss
-                {
-                    LicenseeWL = group.SelectMany(i => i.LicenseeWL)
-                                        .GroupBy(i => i.Key)
-                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
-                }.LicenseeWL,
-                BetTradeCommission = group.Sum(a => a.BetTradeCommission),
-                BACommission = group.Sum(a => a.BACommission),
-                RacingRevenue = group.Sum(a => a.RacingRevenue),
-                AmtDueToBetTrade = group.Sum(a => a.AmtDueToBetTrade),
-                AmtDueToBA = group.Sum(a => a.AmtDueToBA),
-                AmtDueToRacing = group.Sum(a => a.AmtDueToRacing)
-            });
-
-            return currencies;
-        }
-
-        /// <summary>
         /// Get full product option list for licensee win loss report.
         /// </summary>
         /// <param name="products">The product option list.</param>
@@ -590,6 +570,46 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return offeredProducts;
+        }
+
+        /// <summary>
+        /// Get total currency data.
+        /// </summary>
+        /// <param name="dataList">Report data.</param>
+        /// <returns>List of LicenseeWinLoss entity.</returns>
+        private static IEnumerable<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
+        {
+            var currencies = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(group => new LicenseeWinLoss
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = new LicenseeWinLoss
+                        {
+                            LicenseeWL = group.SelectMany(i => i.TurnOver)
+                                        .GroupBy(i => i.Key)
+                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
+                        }.LicenseeWL,
+                        ActualStake = group.Sum(p => p.ActualStake),
+                        BuyBackAmountSB = group.Sum(p => p.BuyBackAmountSB),
+                        BuyBackAmountBA = group.Sum(p => p.BuyBackAmountBA),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        CustomerComm = group.Sum(a => a.CustomerComm),
+                        LicenseeWL = new LicenseeWinLoss
+                        {
+                            LicenseeWL = group.SelectMany(i => i.LicenseeWL)
+                                        .GroupBy(i => i.Key)
+                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
+                        }.LicenseeWL,
+                        BetTradeCommission = group.Sum(a => a.BetTradeCommission),
+                        BACommission = group.Sum(a => a.BACommission),
+                        RacingRevenue = group.Sum(a => a.RacingRevenue),
+                        AmtDueToBetTrade = group.Sum(a => a.AmtDueToBetTrade),
+                        AmtDueToBA = group.Sum(a => a.AmtDueToBA),
+                        AmtDueToRacing = group.Sum(a => a.AmtDueToRacing)
+                    });
+
+            return currencies;
         }
     }
 }

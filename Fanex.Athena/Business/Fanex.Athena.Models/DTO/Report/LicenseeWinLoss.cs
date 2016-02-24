@@ -54,6 +54,8 @@ namespace Fanex.Athena.Models.DTO.Report
             }
         }
 
+        public decimal ActualStake { get; set; }
+
         #region ICustomerWinLoss Members
 
         public decimal CustomerWinLoss { get; set; }

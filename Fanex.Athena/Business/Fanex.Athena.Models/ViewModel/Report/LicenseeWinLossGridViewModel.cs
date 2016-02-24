@@ -57,6 +57,8 @@ namespace Fanex.Athena.Models.ViewModel.Report
             }
         }
 
+        public decimal ActualStake { get; set; }
+
         #region ICustomerWinLoss Members
 
         public decimal CustomerWinLoss { get; set; }
@@ -103,7 +105,11 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal TotalLicenseeWL
         {
-            get { return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG; }
+            get
+            {
+                return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + 
+                    LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG;
+            }
         }
 
         public decimal TotalLicenseeWLSingle
@@ -143,7 +149,11 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal TotalTurnOver
         {
-            get { return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG + TurnOverCS + TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG; }
+            get
+            {
+                return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG + 
+                    TurnOverCS + TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG;
+            }
         }
 
         public decimal TotalTurnOverSingle

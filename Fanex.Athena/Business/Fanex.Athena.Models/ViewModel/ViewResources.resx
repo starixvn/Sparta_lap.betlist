@@ -2831,4 +2831,8 @@
     <value>Sportsbook</value>
     <comment>#49196</comment>
   </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>Actual Stake</value>
+    <comment>#51264</comment>
+  </data>
 </root>
