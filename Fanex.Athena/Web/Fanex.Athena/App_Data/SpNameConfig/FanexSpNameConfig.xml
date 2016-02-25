@@ -44,4 +44,5 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="UAT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
