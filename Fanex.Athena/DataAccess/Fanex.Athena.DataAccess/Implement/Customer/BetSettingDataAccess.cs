@@ -1289,8 +1289,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 RenderSport(reader, "151_31", racingList); // Horse racing SA
             }
 
-            RenderSport(reader, "151_51", racingList); // Horse racing Aust
-            RenderSport(reader, "152_41", racingList); // Greyhound UK
             RenderSport(reader, "152_51", racingList); // Greyhound Aust
             RenderSport(reader, "153_51", racingList); // Harness Aust
 
