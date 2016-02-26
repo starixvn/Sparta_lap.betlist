@@ -188,4 +188,275 @@
             expect(CustomerList.closeCustOption).toHaveBeenCalled();
         });
     });
+
+    describe("initGridColumnOption()", function () {
+        beforeEach(function () {
+            var allowedGridColumns = [{ Name: "Group", ID: 0, Checked: true }, { Name: "External ID", ID: 1, Checked: true }];
+            var allowedGridColumnsJsonString = JSON.stringify(allowedGridColumns);
+            affix("input#AllowedGridColumns");
+            $("#AllowedGridColumns").val(allowedGridColumnsJsonString);
+
+            affix("#grid-columns-multiselect");
+            spyOn($.fn, "multiSelect");
+
+            CustomerList.initGridColumnOption();
+        });
+        it("multiSelect function of jquery should be called", function () {
+            expect($.fn.multiSelect).toHaveBeenCalled();
+        });
+    });
+
+    describe("initAutoComplete()", function () {
+        beforeEach(function () {
+            affix("input#txtUsername");
+            spyOn($.fn, "autocomplete");
+            spyOn(CustomerList, "setDefaultUsername");
+
+            CustomerList.initAutoComplete();
+        });
+
+        it("autocomplete function of jquery should be called with correct param", function () {
+            expect($.fn.autocomplete).toHaveBeenCalledWith({ serviceUrl: "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0", minChars: 2 });
+        });
+
+        it("CustomerList.setDefaultUsername() should be called", function () {
+            expect(CustomerList.setDefaultUsername).toHaveBeenCalled();
+        });
+    });
+
+    describe("submit()", function () {
+        var request;
+        beforeEach(function (done) {
+            spyOn(CustomerList, "hasSelectedMultiselectData").and.returnValue(true);
+
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("Customer/CustomerList")
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ }'
+                });
+
+            CustomerList.submit();
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("ajax request should be called with url is 'Customer/CustomerList'", function () {
+            expect(request.url).toBe("Customer/CustomerList");
+        });
+
+    });
+
+    describe("hasSelectedMultiselectData(dataList)", function () {
+        it("Result should be true when all items checked", function () {
+            var dataList = [{ Name: "Group", ID: 0, Checked: true }, { Name: "External ID", ID: 1, Checked: true }];
+
+            var result = CustomerList.hasSelectedMultiselectData(dataList);
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be false when all items unchecked", function () {
+            var dataList = [{ Name: "Group", ID: 0, Checked: false }, { Name: "External ID", ID: 1, Checked: false }];
+
+            var result = CustomerList.hasSelectedMultiselectData(dataList);
+
+            expect(result).toBe(false);
+        });
+
+        it("Result should be true when at least one item checked", function () {
+            var dataList = [{ Name: "Group", ID: 0, Checked: true }, { Name: "External ID", ID: 1, Checked: false }];
+
+            var result = CustomerList.hasSelectedMultiselectData(dataList);
+
+            expect(result).toBe(true);
+        });
+    });
+
+    describe("loadPostbackParam", function () {
+        it("Site.currencyConstraint() should be called", function () {
+            spyOn(Site, "currencyConstraint");
+            CustomerList.loadPostbackParam();
+            expect(Site.currencyConstraint).toHaveBeenCalled();
+        });
+    });
+
+    describe("viewCustOption", function () {
+        it("#view-cust-option should be showed", function () {
+            affix("#context");
+            $("#context").attr("custId", 1);
+            affix("#view-cust-option");
+            $("#view-cust-option").attr("custId", 2);
+
+            CustomerList.viewCustOption($("#context"));
+            
+            expect($("#view-cust-option").is(":visible")).toBe(true);
+        });
+    });
+
+    describe("closeCustOption()", function () {
+        it("#view-cust-option should be hidden", function () {
+            affix("#view-cust-option");
+
+            CustomerList.closeCustOption();
+
+            expect($("#view-cust-option").is(":visible")).toBe(false);
+        });
+    });
+
+    describe("custStatusCheckedChanged()", function () {
+        it("#popup-update should be enable", function () {
+            affix("#update-cust-status-popup");
+            var $container = affix("div");
+            $container.append("<input type='checkbox' id='popup-suspended' />");
+            $("#popup-suspended").prop("checked", true);
+            affix("#popup-update");
+
+            CustomerList.custStatusCheckedChanged();
+
+            expect($("#popup-update").prop("disabled")).toBe(false);
+        });
+    });
+
+    describe("updateCustStatus()", function () {
+        var request;
+        beforeEach(function (done) {
+            spyOn(window, "alert");
+            spyOn(window, "confirm").and.returnValue(true);
+
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("CustomerAPI/UpdateCustStatus")
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ }'
+                });
+
+            CustomerList.updateCustStatus();
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("ajax request should be called with url is 'CustomerAPI/UpdateCustStatus'", function () {
+            expect(request.url).toBe("CustomerAPI/UpdateCustStatus");
+        });
+    });
+
+    describe("updateBASetting(context)", function () {
+        var request;
+        beforeEach(function (done) {
+            spyOn(window, "alert");
+            spyOn(window, "confirm").and.returnValue(true);
+            affix("input#CanUpdateBA[value=true]");
+            affix("div[class=ba-on]");
+            $(".ba-on").attr("data-val", "#1032392#false#zhangfan87");
+
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("CustomerAPI/UpdateBAStatus")
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ }'
+                });
+
+            CustomerList.updateBASetting(".ba-on");
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("ajax request should be called with url is 'CustomerAPI/UpdateBAStatus'", function () {
+            expect(request.url).toBe("CustomerAPI/UpdateBAStatus");
+        });
+    });
+
+    describe("Customer Option", function () {
+        beforeEach(function () {
+            affix("#view-cust-option");
+            $("#view-cust-option").attr({
+                custid: "1020055",
+                systemid: "12BETAUD01001",
+                externalid: "alvinaud"
+            });
+        });
+
+        describe("viewBetSetting()", function () {
+            it("dialog function of jquery should be called", function () {
+                affix("#bet-setting-dialog");
+
+                spyOn($.fn, "dialog");
+
+                CustomerList.viewBetSetting();
+
+                expect($.fn.dialog).toHaveBeenCalled();
+            });
+        });
+
+        describe("viewLogInfo()", function () {
+            beforeEach(function () {
+                spyOn(window, "alert");
+                spyOn($.fn, "dialog");
+                spyOn($.fn, "load");
+                CustomerList.viewLogInfo();
+            });
+
+            it("dialog function of jquery should be called", function () {                                
+                expect($.fn.dialog).toHaveBeenCalled();
+            });
+
+            it("load function of jquery should be called", function () {                               
+                expect($.fn.load).toHaveBeenCalled();
+            });
+        });
+
+        describe("viewBetList()", function () {
+            it("dialog function of jquery should be called", function () {
+                spyOn($.fn, "dialog");
+                
+                CustomerList.viewBetList();
+
+                expect($.fn.dialog).toHaveBeenCalled();
+            });
+        });
+
+        describe("viewStatement()", function () {
+            it("dialog function of jquery should be called", function () {
+                spyOn($.fn, "dialog");
+
+                CustomerList.viewStatement();
+
+                expect($.fn.dialog).toHaveBeenCalled();
+            });
+        });
+
+        describe("viewRunningBetlist()", function () {
+            it("dialog function of jquery should be called", function () {
+                spyOn($.fn, "dialog");
+                CustomerList.viewRunningBetlist("1020055", "12BETAUD01001", "alvinaud");
+
+                expect($.fn.dialog).toHaveBeenCalled();
+            });
+        });
+    })
 });
