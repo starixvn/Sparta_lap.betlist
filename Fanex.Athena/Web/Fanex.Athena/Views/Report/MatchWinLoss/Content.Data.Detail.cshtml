@@ -14,19 +14,7 @@
     {
     <tr class="expand">
         <td class="bet-type">
-            @{
-        var drillDownParam = new
-        {
-            LeagueId = matchWinloss.LeagueId,
-            MatchId = matchWinloss.MatchId,
-            BetType = matchWinloss.BetType,
-            RaceNo = matchWinloss.RaceNo,
-            IsLive = matchWinloss.IsLive,
-            HomeId = matchWinloss.HomeId,
-            AwayId = matchWinloss.AwayId,
-        };
-            }
-            <span class="downline-link" onclick="MatchWinLoss.viewMatchWinlossBetList(@drillDownParam.ToJson())">
+            <span class="downline-link" data-bettype="@matchWinloss.BetType">
                @matchWinloss.BettypeName
             </span>
         </td>

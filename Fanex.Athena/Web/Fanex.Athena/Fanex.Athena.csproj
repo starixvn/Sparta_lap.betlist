@@ -547,6 +547,7 @@
     </None>
     <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\Report\agcasinowinloss.css" />
+    <Content Include="Content\Report\images\expand_collapse.png" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />

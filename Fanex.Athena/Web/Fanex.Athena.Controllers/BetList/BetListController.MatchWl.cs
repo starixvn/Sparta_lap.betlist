@@ -133,14 +133,14 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
-                  ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + "- "
+                  ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + " - "
                   : string.Empty;
             var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
             var title = ViewResources.BetList
                 + string.Format(
-                " - {0} - {1} - {2}",
-                matchName + CacheRef.GetBettype(metaModel.BetType),
+                " - {0}{1} - {2}",
+                matchName + (metaModel.BetType > 0 ? CacheRef.GetBettype(metaModel.BetType) + " - " : string.Empty),
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 

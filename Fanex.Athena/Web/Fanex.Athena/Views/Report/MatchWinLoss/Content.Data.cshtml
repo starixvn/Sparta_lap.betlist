@@ -23,9 +23,8 @@
                 var matchName = matchWinLoss.MatchName;
                 var homeName = matchWinLoss.HomeName;
                 var awayName = matchWinLoss.AwayName;
-                var matchNameHtmlString = new HtmlString(string.Empty);
                 var maxLength = 36;
-                var racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };                
+                var racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };
                 if (productName.Equals(Product.RB) || productName.Equals(Product.NG) || productName.Equals(Product.LC))
                 {
                     if (matchName.Length > maxLength)
@@ -62,22 +61,26 @@
                     "{0} <br /><div style='height:4px'></div> {1}", homeName, awayName);
                 }
 
-                matchNameHtmlString = new HtmlString(matchName);
-            <tr>
-                <td style="width: 30px" class="order-number">
-                    @rowNumber
-                </td>
-                <td class="arrow-right">
-                    @{
-                var drillDownParam = new
+                var drilldownParams = new
                 {
                     LeagueId = matchWinLoss.LeagueId,
                     MatchId = matchWinLoss.MatchId == 0 ? Converter.ToInt(matchWinLoss.RaceNo) : matchWinLoss.MatchId,
-                    ProductCode = matchWinLoss.ProductName
+                    ProductCode = matchWinLoss.ProductName,
+                    RaceNo = matchWinLoss.RaceNo,
+                    IsLive = matchWinLoss.IsLive,
+                    HomeId = matchWinLoss.HomeId,
+                    AwayId = matchWinLoss.AwayId
                 };
-                    }
-                    <span class="match-link" onclick="MatchWinLoss.viewMatchWinlossDetail(this, @drillDownParam.ToJson())">
-                        @matchNameHtmlString
+
+            <tr data-match="@(drilldownParams.ToJson())">
+                <td style="width: 30px" class="order-number">
+                    @rowNumber
+                </td>
+                <td style="position: relative;">
+                    <span href="#" class="match-handler icon-expand">&nbsp;</span>
+                    
+                    <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" style="width: 85%">
+                        @(new HtmlString(matchName))
                     </span>
                 </td>
                 <td style="width: 85px">
