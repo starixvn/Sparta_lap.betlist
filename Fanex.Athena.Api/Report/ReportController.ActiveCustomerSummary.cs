@@ -191,7 +191,7 @@ namespace Fanex.Athena.Api.Report
             if (IsValidRequest(metaModel))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId; // focus here
+                metaModel.UserId = SessionService.UserSession.UserId;
                 
                 int totalCustomer;
                 SortableList<ActiveCustomer> dataList;
