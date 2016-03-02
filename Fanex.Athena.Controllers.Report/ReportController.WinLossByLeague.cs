@@ -49,8 +49,8 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
-            var leagues = this._leagueService.GetLeaguesBySport(
+            var sports = this.SportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
+            var leagues = this.LeagueService.GetLeaguesBySport(
                             new LeagueMetaModel()
                             {
                                 LicenseeId = licenseeSession.LicenseeId,
@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.Report
             var firstLeague = leagues.FirstOrDefault();
 
             var matches = firstLeague == null ? new List<Match>()
-                            : this._matchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate);
+                            : this.MatchService.GetMatchesByLeague(firstLeague.LeagueId, metaModel.FromDate, metaModel.ToDate);
             var viewModel = new WinLossByLeagueViewModel
             {
                 Param = metaModel,

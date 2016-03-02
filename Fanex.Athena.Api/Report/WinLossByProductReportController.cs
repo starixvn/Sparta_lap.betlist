@@ -261,14 +261,14 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByProductService.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
+                dataList = WinlossByProductService.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
             }
             else
             {
                 resultInfo = new ResultInfo();
                 dataList = licenseeId > 1 || metaModel.Level == 2
-                               ? _winlossByProductService.GetWinlossByProductCustomers(metaModel, out summaryTotal)
-                               : _winlossByProductService.GetWinlossByProductAgents(metaModel, out summaryTotal);
+                               ? WinlossByProductService.GetWinlossByProductCustomers(metaModel, out summaryTotal)
+                               : WinlossByProductService.GetWinlossByProductAgents(metaModel, out summaryTotal);
             }
         }
 
@@ -374,7 +374,7 @@ namespace Fanex.Athena.Api.Report
                 ? (dynamic)new
                 {
                     Data = WinLossByProductRestructureData(dataList, level),
-                    Total = _winlossByProductService.TotalCalc(dataList),
+                    Total = WinlossByProductService.TotalCalc(dataList),
                     SummaryTotal = summaryTotal,
                     ProductOptions = metaModel.ProductOptions.ToJson(),
                     MemberId = memberId,

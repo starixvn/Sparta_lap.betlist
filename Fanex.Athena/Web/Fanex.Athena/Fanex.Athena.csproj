@@ -787,6 +787,8 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
+    <Content Include="Scripts\Report\weeklylivematch.js" />
+    <Content Include="Scripts\Report\weeklylivematch.option.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
@@ -835,6 +837,9 @@
     <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
     <Content Include="Views\BetList\VoidbridgeDetail\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Content.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Filter.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

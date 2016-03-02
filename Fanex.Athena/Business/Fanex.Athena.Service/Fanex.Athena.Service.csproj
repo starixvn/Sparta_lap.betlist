@@ -232,6 +232,7 @@
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
+    <Compile Include="Interface\Report\IWeeklyLiveMatchService.cs" />
     <Compile Include="Interface\Report\ICasinoProgressiveWinsService.cs" />
     <Compile Include="Interface\Report\IMicroGamingWinLossService.cs" />
     <Compile Include="Interface\Report\IGoldDeluxeWinLossService.cs" />

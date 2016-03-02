@@ -101,18 +101,18 @@ namespace Fanex.Athena.Api.Report
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
-            metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
+            metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay;
 
             IEnumerable<WinLossByLeague> dataList = null;
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByLeagueService.GetWinlossByLeagues(metaModel);
+                dataList = WinlossByLeagueService.GetWinlossByLeagues(metaModel);
                 grandTotal = CalculateTotal(dataList);
             }
             else
             {
-                dataList = _winlossByLeagueService.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalrows);
+                dataList = WinlossByLeagueService.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalrows);
             }
 
             return dataList;

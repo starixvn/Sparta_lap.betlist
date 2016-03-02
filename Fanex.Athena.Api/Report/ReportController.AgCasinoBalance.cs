@@ -118,13 +118,13 @@ namespace Fanex.Athena.Api.Report
             totalRows = 0;
             if (metaModel.DrillDownLevel == 0)
             {
-                dataList = _agcasinoBalanceService.GetSummaryBalance(metaModel, out summaryTotal);
+                dataList = AgcasinoBalanceService.GetSummaryBalance(metaModel, out summaryTotal);
             }
             else
             {
                 dataList = metaModel.DrillDownLevel == 2
-                               ? _agcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal, out totalRows)
-                               : _agcasinoBalanceService.GetAgentBalanceDetail(metaModel, out summaryTotal);
+                               ? AgcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal, out totalRows)
+                               : AgcasinoBalanceService.GetAgentBalanceDetail(metaModel, out summaryTotal);
             }
         }
 
@@ -156,7 +156,7 @@ namespace Fanex.Athena.Api.Report
                     {
                         TotalRows = totalRows,
                         Data = dataList,
-                        Total = _agcasinoBalanceService.TotalCalc(dataList),
+                        Total = AgcasinoBalanceService.TotalCalc(dataList),
                         SummaryTotal = summaryTotal
                     };
                 }

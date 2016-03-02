@@ -1,0 +1,24 @@
+﻿@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Models.DataDomain
+@model Fanex.Athena.Models.ViewModel.Report.WeeklyLiveMatchViewModel
+<div class="grid_20 content-filter new-line">
+    <form id="mainform" name="mainform" method="post" action="">
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        AppSettings.HistoryDate, AppSettings.MaxDate, "date-range", "date-range")
+        <div class="grid_5 userguide-group">
+            <div>
+                <div class="userguide-icon hide" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        <div class="grid_2 filter-input" id="control-container">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+</div>

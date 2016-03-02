@@ -184,6 +184,7 @@
     <Compile Include="MetaModel\Report\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\PlaytechCasinoMetaModel.cs" />
+    <Compile Include="MetaModel\Report\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\Report\ThirdPartyWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\Report\CustomerWinlossHistoryMetaModel.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="ViewModel\Report\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
+    <Compile Include="ViewModel\Report\WeeklyLiveMatchViewModel.cs" />
     <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\Report\AgCasinoBalanceViewModel.cs" />

@@ -140,13 +140,13 @@ namespace Fanex.Athena.Api.Report
         {
             if (metaModel.DrillDownLevel == 0)
             {
-                dataList = _golddeluxeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
+                dataList = GolddeluxeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
             }
             else
             {
                 dataList = metaModel.DrillDownLevel == 2
-                               ? _golddeluxeWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _golddeluxeWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+                               ? GolddeluxeWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
+                               : GolddeluxeWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList,
-                        Total = _golddeluxeWinLossService.TotalCalc(dataList),
+                        Total = GolddeluxeWinLossService.TotalCalc(dataList),
                         SummaryTotal = summaryTotal
                     };
                 }
