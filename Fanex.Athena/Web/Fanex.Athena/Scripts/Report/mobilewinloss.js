@@ -29,20 +29,13 @@ var MobileWinLoss = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var $dataContainer = $(".ui-jqgrid-bdiv");
-                if ($dataContainer.length === 0) {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
                     return;
                 }
-
-                var height = $("#ReportGrid").height();
-                if (MobileWinLoss.hasHorizontalScrollBar($dataContainer)) {
-                    var scrollHeight = $dataContainer.get(0).offsetHeight - $dataContainer.get(0).clientHeight;
-                    height = height + scrollHeight;
-                }
-                var gridTop = $dataContainer.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $dataContainer.height() - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-                $dataContainer.css("height", height).css("max-height", gridHeight);
+                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
+                gridHeight = Math.max(130, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);
         },
         hasHorizontalScrollBar: function (element) {
