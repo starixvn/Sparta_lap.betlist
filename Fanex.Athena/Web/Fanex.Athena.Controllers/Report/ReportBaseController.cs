@@ -17,25 +17,52 @@
     {
         public const int PageSizeExcel = int.MaxValue - 1000;
 
-        protected readonly IBalanceUpService BalanceUpService;
-        protected readonly IProductService ProductService;
-        protected readonly ISportTypeService SportTypeService;
-        protected readonly ILeagueService LeagueService;
-        protected readonly IMatchService MatchService;
-        protected readonly IMoveBetService MoveBetService;
+        private readonly IBalanceUpService _balanceUpService;
+        private readonly IProductService _productService;
+        private readonly ISportTypeService _sportTypeService;
+        private readonly ILeagueService _leagueService;
+        private readonly IMatchService _matchService;
+        private readonly IMoveBetService _moveBetService;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ReportController" /> class.
-        /// </summary>
         public ReportBaseController()
             : base()
         {
-            this.BalanceUpService = new BalanceUpService();
-            this.ProductService = new ProductService();
-            SportTypeService = new SportTypeService();
-            this.LeagueService = new LeagueService();
-            this.MatchService = new MatchService();
-            this.MoveBetService = new MoveBetService();
+            _balanceUpService = new BalanceUpService();
+            _productService = new ProductService();
+            _sportTypeService = new SportTypeService();
+            _leagueService = new LeagueService();
+            _matchService = new MatchService();
+            _moveBetService = new MoveBetService();
+        }
+
+        protected IBalanceUpService BalanceUpService
+        {
+            get { return _balanceUpService; }
+        }
+
+        protected IProductService ProductService
+        {
+            get { return _productService; }
+        }
+
+        protected ISportTypeService SportTypeService
+        {
+            get { return _sportTypeService; }
+        }
+
+        protected ILeagueService LeagueService
+        {
+            get { return _leagueService; }
+        }
+
+        protected IMatchService MatchService
+        {
+            get { return _matchService; }
+        }
+
+        protected IMoveBetService MoveBetService
+        {
+            get { return _moveBetService; }
         }
 
         [HttpGet]
