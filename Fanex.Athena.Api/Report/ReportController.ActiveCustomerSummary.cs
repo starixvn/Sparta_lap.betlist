@@ -178,7 +178,7 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<ActiveCustomer> dataList,
                 out int totalCustomer)
         {            
-             dataList = ActiveCustomerService.GetActiveCustomers(metaModel, out totalCustomer);            
+             dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);            
         }
 
         /// <summary>

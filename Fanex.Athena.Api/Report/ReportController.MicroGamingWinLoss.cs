@@ -34,7 +34,7 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, MicroGamingWinLoss> summaryTotal;
             SortableList<MicroGamingWinLoss> dataList;
 
-            dataList = MicroGamingWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
+            dataList = _microGamingWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
 
             if (metaModel.IsExportExcel)
             {
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Api.Report
                 return new
                 {
                     Data = DoRestructureDataMicroGaming(dataList.GroupBy(i => new { i.TypeID, i.Date })),
-                    Total = MicroGamingWinLossService.TotalCalc(dataList),
+                    Total = _microGamingWinLossService.TotalCalc(dataList),
                     SummaryTotal = summaryTotal
                 };
             }
