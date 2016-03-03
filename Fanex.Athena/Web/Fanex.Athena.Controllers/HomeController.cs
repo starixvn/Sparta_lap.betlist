@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers
     using System;
     using System.IO;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
@@ -31,11 +30,13 @@ namespace Fanex.Athena.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
             return ReAuthorize("~/Views/Home/Index.cshtml");
         }
 
         public ActionResult IndexIpad()
         {
+            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
@@ -80,7 +81,7 @@ namespace Fanex.Athena.Controllers
                 }
             }
 
-            ViewBag.NotificationContent = LoadNotificationContent();            
+            ViewBag.NotificationContent = LoadNotificationContent();
             return View(defaultView);
         }
 
@@ -95,7 +96,7 @@ namespace Fanex.Athena.Controllers
             }
 
             Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
-            
+
             var moveBet = _moveBetService.GetMoveBet();
             if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
             {

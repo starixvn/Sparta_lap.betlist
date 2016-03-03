@@ -25,6 +25,9 @@ namespace Fanex.Athena.Service.Implement.Users
     {
         #region Constants and Fields
 
+        private const int ReportBalanceId = 42;
+        private const string ReportBalanceUrl = "Report/Balance";
+
         /// <summary>
         ///     The licensee session key.
         /// </summary>
@@ -99,21 +102,21 @@ namespace Fanex.Athena.Service.Implement.Users
             var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
-            var userSession = new UserSession
-                {
-                    UserId = userId,
 
-                    OnUserId = onuserId,
-                    UserName = userName,
-                    IsAdmin = isAdmin,
-                    IsInternal = isInternal,
-                    FunctionIdList = functionIdList,
-                    Language = language,
-                    CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId)
-                };
+            var userSession = new UserSession
+            {
+                UserId = userId,
+                OnUserId = onuserId,
+                UserName = userName,
+                IsAdmin = isAdmin,
+                IsInternal = isInternal,
+                FunctionIdList = functionIdList,
+                Language = language,
+                CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId)
+            };
 
             this.UserSession = userSession;
-            
+
             if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
@@ -121,18 +124,18 @@ namespace Fanex.Athena.Service.Implement.Users
                 agentList = agentList ?? new List<LicenseeCustomer>();
 
                 var licenseeSession = new LicenseeSession
-                    {
-                        LicenseeId = licenseeId,
-                        UserId = userId,
-                        LicenseeName = selectedLicensee.Name,
-                        UserName = userName,
-                        LicenseeType = agentList
+                {
+                    LicenseeId = licenseeId,
+                    UserId = userId,
+                    LicenseeName = selectedLicensee.Name,
+                    UserName = userName,
+                    LicenseeType = agentList
                             .Where(s => !string.IsNullOrEmpty(s.Description))
                             .Select(s => s.Description)
                             .Distinct()
                             .ToList(),
-                        CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList()
-                    };
+                    CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList()
+                };
 
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
                 this.LicenseeSession = licenseeSession;
@@ -158,22 +161,34 @@ namespace Fanex.Athena.Service.Implement.Users
                 agentList = agentList ?? new List<LicenseeCustomer>();
 
                 this.LicenseeSession = new LicenseeSession
-                    {
-                        LicenseeId = licenseeId,
-                        UserId = currentUserSession.UserId,
-                        LicenseeName = selectedLicensee.Name,
-                        UserName = currentUserSession.UserName,
-                        LicenseeType = agentList
+                {
+                    LicenseeId = licenseeId,
+                    UserId = currentUserSession.UserId,
+                    LicenseeName = selectedLicensee.Name,
+                    UserName = currentUserSession.UserName,
+                    LicenseeType = agentList
                             .Where(s => !string.IsNullOrEmpty(s.Description))
                             .Select(s => s.Description)
                             .Distinct()
                             .ToList(),
-                        CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
-                        IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm,
-                    };
+                    CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
+                    IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm,
+                };
 
                 var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToList();
+
+                string defaultReportUrl = ReportBalanceUrl;
+                if (!functionIdList.Contains(ReportBalanceId))
+                {
+                    var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
+                    if (firstFunction != null)
+                    {
+                        defaultReportUrl = firstFunction.Url;
+                    }
+                }
+
+                currentUserSession.DefaultReportUrl = defaultReportUrl;
                 currentUserSession.CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, currentUserSession.UserId);
                 currentUserSession.FunctionIdList = functionIdList;
             }
@@ -197,5 +212,5 @@ namespace Fanex.Athena.Service.Implement.Users
         }
     }
 
-        #endregion Public Properties
+    #endregion Public Properties
 }

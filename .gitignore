@@ -42,3 +42,4 @@ SUMMARY.DISPLAY.xml
 Fanex.Athena.sln.GhostDoc.xml
 
 /.vs
+/node_modules

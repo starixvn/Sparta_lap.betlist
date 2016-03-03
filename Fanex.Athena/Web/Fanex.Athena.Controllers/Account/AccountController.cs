@@ -85,6 +85,7 @@ namespace Fanex.Athena.Controllers.Account
                 SessionService.UpdateLiceseeSession(newLicenseeId);
             }
 
+            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
             return View("~/Views/Account/ChangeLicensee.cshtml");
         }
 
