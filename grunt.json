@@ -1,0 +1,26 @@
+{
+	"jsFilters": [
+    "Fanex.Athena/Web/Fanex.Athena/Content/**/*.js",
+    "Fanex.Athena/Web/Fanex.Athena/Areas/**/*.js",
+    "Fanex.Athena/Web/Fanex.Athena/Scripts/**/*.js",
+    "!*.min.js",
+    "!**/*.min.js",
+    "!**/*-vsdoc.js",
+    "!**/npm.js"
+	],
+	"lessFilters": [
+    "Fanex.Athena/Web/Fanex.Athena/Content/**/*.less",
+    "Fanex.Athena/Web/Fanex.Athena/Content/**/**/*.less",
+    "Fanex.Athena/Web/Fanex.Athena/Areas/**/*.less",
+    "Fanex.Athena/Web/Fanex.Athena/Scripts/**/*.less",
+    "!**/variables.less",
+    "!**/mixins.less"
+	],
+	"cssFilters": [
+    "Fanex.Athena/Web/Fanex.Athena/Content/**/*.css",
+    "Fanex.Athena/Web/Fanex.Athena/Scripts/**/*.css",
+    "Fanex.Athena/Web/Fanex.Athena/Areas/**/*.css",
+    "!*.min.css",
+    "!**/*.min.css"
+	]
+}
