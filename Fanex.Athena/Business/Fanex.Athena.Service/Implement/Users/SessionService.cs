@@ -10,14 +10,14 @@
 
 namespace Fanex.Athena.Service.Implement.Users
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
-
+    using Models.DTO.Common;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
     /// <summary>
     ///     The session service.
     /// </summary>
@@ -112,7 +112,9 @@ namespace Fanex.Athena.Service.Implement.Users
                 IsInternal = isInternal,
                 FunctionIdList = functionIdList,
                 Language = language,
-                CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId)
+                CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId),
+                DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList)
+
             };
 
             this.UserSession = userSession;
@@ -177,21 +179,27 @@ namespace Fanex.Athena.Service.Implement.Users
 
                 var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToList();
-
-                string defaultReportUrl = ReportBalanceUrl;
-                if (!functionIdList.Contains(ReportBalanceId))
-                {
-                    var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
-                    if (firstFunction != null)
-                    {
-                        defaultReportUrl = firstFunction.Url;
-                    }
-                }
-
-                currentUserSession.DefaultReportUrl = defaultReportUrl;
                 currentUserSession.CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, currentUserSession.UserId);
                 currentUserSession.FunctionIdList = functionIdList;
+                currentUserSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
+
             }
+        }
+
+        private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
+        {
+
+            if (!functionIdList.Contains(ReportBalanceId))
+            {
+                var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
+                if (firstFunction != null)
+                {
+                    return firstFunction.Url;
+                }
+            }
+
+            return ReportBalanceUrl;
+
         }
 
         /// <summary>
