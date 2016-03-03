@@ -16,7 +16,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Service.Interface.Report;
-    using Models.ViewModel.Report;
 
     /// <summary>
     /// ReportController class.
@@ -37,30 +36,33 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId;
-                WeeklyLiveMatch total;
-                var dataList = _weeklyLiveMatchService.GetData(metaModel, out total);
+                int[] totalData;
+                var dataList = _weeklyLiveMatchService.GetData(metaModel, out totalData);
 
+                var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, metaModel.NumberOfWeeks);
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, total);
+                    return ExportExcel(metaModel, dataList, totalData, weekHeaders);
                 }
 
                 if (dataList.Any())
                 {
                     return new
                     {
+                        WeekHeaders = weekHeaders,
+                        NumberOfWeeks = metaModel.NumberOfWeeks,
                         Data = dataList.Select(MapToGridView).ToArray(),
-                        TotalData = new object[]
-                        {
-                            13333, 2444, 3, 4555, 5, 6444
-                        }
+                        TotalData = totalData
                     };
                 }
             }
 
             return new
             {
-                Data = new object[0]
+                WeekHeaders = new List<string>(),
+                NumberOfWeeks = 0,
+                Data = new object[0],
+                TotalData = new int[0]
             };
         }
 
@@ -74,18 +76,16 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private HttpResponseMessage ExportExcel(WeeklyLiveMatchMetaModel metaModel, IEnumerable<WeeklyLiveMatch> dataList, WeeklyLiveMatch totalData)
+        private HttpResponseMessage ExportExcel(
+            WeeklyLiveMatchMetaModel metaModel,
+            IEnumerable<WeeklyLiveMatch> dataList,
+            int[] totalData,
+            IEnumerable<string> weekHeaders)
         {
             const string FileName = "WeeklyLiveMatch.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/WeeklyLiveMatch.xls");
-            
-            var excelModel = new WeeklyLiveMatchViewModel
-            {
-                Data = dataList,
-                TotalData = totalData,
-            };
 
-            var excel = new WeeklyLiveMatchExcel(templatePath, FileName, metaModel, excelModel);
+            var excel = new WeeklyLiveMatchExcel(templatePath, FileName, metaModel, dataList, totalData, weekHeaders);
 
             excel.Export();
 

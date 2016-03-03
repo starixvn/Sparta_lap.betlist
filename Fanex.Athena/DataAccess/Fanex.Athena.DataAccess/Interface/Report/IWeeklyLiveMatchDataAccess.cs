@@ -6,9 +6,8 @@
 
 namespace Fanex.Athena.DataAccess.Interface.Report
 {
+    using System;
     using System.Collections.Generic;
-    using System.Data;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
@@ -17,12 +16,8 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     /// </summary>
     public interface IWeeklyLiveMatchDataAccess
     {
-        #region Public Methods and Operators
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out WeeklyLiveMatch total);
-        
-        #endregion Public Methods and Operators
+        IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] total);
     }
 }

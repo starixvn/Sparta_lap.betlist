@@ -1,7 +1,5 @@
 {
 	"jsFilters": [
-    "Fanex.Athena/Web/Fanex.Athena/Content/**/*.js",
-    "Fanex.Athena/Web/Fanex.Athena/Areas/**/*.js",
     "Fanex.Athena/Web/Fanex.Athena/Scripts/**/*.js",
     "!*.min.js",
     "!**/*.min.js",

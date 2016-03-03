@@ -27,12 +27,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var metaModel = new WeeklyLiveMatchMetaModel();
-            var model = new WeeklyLiveMatchViewModel()
-            {
-                Param = metaModel
-            };
-
-            return View("~/Views/Report/WeeklyLiveMatch/Main.cshtml", model);
+            return View("~/Views/Report/WeeklyLiveMatch/Main.cshtml", metaModel);
         }
     }
 }

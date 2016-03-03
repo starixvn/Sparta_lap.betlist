@@ -9,56 +9,47 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
     using Models.DTO.Report;
-    using Models.MetaModel.Product;
     using Models.MetaModel.Report;
     using Models.ViewModel;
-    using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
 
-    /// <summary>
-    /// Active Customer - Export excel.
-    /// </summary>
     public class WeeklyLiveMatchExcel : ReportBase
     {
-        private const int ColumnDate = 0;
-        private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 12;
-        private const int ColumnTotalTransaction = 14;
-        private const int ColumnTemplateCount = 15;
+        private const int ColumnSport = 1;
+        private const int ColumnTemplateCount = 12;
+        private const int NumberOfStaticColumns = 2; // Column: Index, Sport.
+        private const int MaxWeekColumns = 10;
 
-        private const int RowTableHeader = 1;
-        private const int RowContentTemplate = 3;
-        private const int RowGrantTotal = 4;
-        private const int RowNoInfoTemplate = 5;
+        private const int RowContentTemplate = 2;
+        private const int RowTotalIndex = 3;
+        private const int RowNoInfoTemplate = 4;
 
-        private readonly IEnumerable<WeeklyLiveMatch> _weeklyLiveMatchList;
+        private readonly IEnumerable<WeeklyLiveMatch> _dataList;
 
         private readonly WeeklyLiveMatchMetaModel _metaModel;
-        private readonly WeeklyLiveMatch _totalData;
+        private readonly int[] _totalData;
+        private readonly IEnumerable<string> _weekHeaders;
 
         public WeeklyLiveMatchExcel(
                 string templatePath,
                 string exportingFileName,
                 WeeklyLiveMatchMetaModel metaModel,
-                WeeklyLiveMatchViewModel viewModel)
+                IEnumerable<WeeklyLiveMatch> dataList,
+                int[] totalData,
+                IEnumerable<string> weekHeaders)
             : base(templatePath, exportingFileName, null, null)
         {
+            _totalData = totalData;
             _metaModel = metaModel;
-            _weeklyLiveMatchList = viewModel.Data;
-            _totalData = viewModel.TotalData;
+            _dataList = dataList;
+            _weekHeaders = weekHeaders;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         public override void AssignData()
         {
-            int numOfDataRow = _weeklyLiveMatchList.Count();
+            int numOfDataRow = _dataList.Count();
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -75,43 +66,35 @@ namespace Fanex.Athena.Excel.Report
             }
 
             ProcessUI(sheet);
-            sheet.MergeCells(RowTableHeader, ColumnFirstProduct, RowTableHeader, ColumnLastProduct);
+            AssignTotalRow(sheet, numOfDataRow + 2);
+            var hiddenColumns = Enumerable.Range(_metaModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _metaModel.NumberOfWeeks);
+            HideColumn(sheet, hiddenColumns.ToArray());
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
+        public override void AssignTitle(ISheet sheet)
+        {
+            var fromdate = _metaModel.FromDate.ToString(FormatDate);
+            var todate = _metaModel.ToDate.ToString(FormatDate);
+
+            ReportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1}", fromdate, todate);
+            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+
+            // Freeze 2 rows title and header
+            sheet.CreateFreezePane(0, 2);
+
+            // Remove content below header before insert new data
+            ClearTemplate(sheet, RowContentTemplate);
+        }
+
         public override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
-            row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
-            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
-            
-            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            
-            var prdHeaderList = new List<string>
-            {
-                ViewResources.Sportsbook,
-                ViewResources.ProductRB,
-                ViewResources.ProductNG,
-                ViewResources.ProductBA,
-                ViewResources.ProductLC,
-                ViewResources.ProductVS,
-                ViewResources.ProductCS,
-                ViewResources.ProductBG,
-                ViewResources.ProductKN,
-                ViewResources.ProductPTCS,
-                ViewResources.ProductAGC,
-                ViewResources.ProductMGCLC,
-                ViewResources.ProductMGCRNG,
-            };
+            row.Cells[ColumnSport].SetCellValue(ViewResources.Sport);
 
-            int index = ColumnFirstProduct;
-            foreach (string item in prdHeaderList)
+            var index = ColumnSport + 1;
+            foreach (var header in _weekHeaders)
             {
-                row2.Cells[index++].SetCellValue(item);
+                row.Cells[index++].SetCellValue(header);
             }
         }
 
@@ -119,6 +102,43 @@ namespace Fanex.Athena.Excel.Report
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
+        }
+
+        public override void AssignSheetData(ISheet sheet)
+        {
+            int index;
+            var rowCount = _dataList.Count();
+
+            for (index = 0; index < rowCount; index++)
+            {
+                var dataItem = _dataList.ElementAt(index);
+
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+
+                row.Cells[ColumnIndex].SetCellValue(dataItem.Index);
+                row.Cells[ColumnSport].SetCellValue(dataItem.SportName);
+
+                var weekColumnIndex = ColumnSport + 1;
+                for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
+                {
+                    row.Cells[weekColumnIndex++].SetCellValue(dataItem.NumOfMatches.ElementAt(i));
+                }
+            }
+        }
+
+        private void AssignTotalRow(ISheet sheet, int rowIndex)
+        {
+            int cellIndex = 2;
+
+            IRow row = sheet.CopyRow(TemplateSheet, RowTotalIndex, rowIndex);
+
+            row.Cells[ColumnSport].SetCellValue(ViewResources.Total);
+            sheet.MergeCells(rowIndex, 0, rowIndex, 1);
+
+            for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
+            {
+                row.Cells[cellIndex++].SetCellValue(_totalData[i]);
+            }
         }
     }
 }

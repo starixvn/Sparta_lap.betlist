@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
@@ -18,13 +19,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     /// </summary>
     public class WeeklyLiveMatchDataAccess : BaseDataAccess, IWeeklyLiveMatchDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="total">Total value.</param>
-        /// <returns>The result value.</returns>
-        public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out WeeklyLiveMatch total)
+        public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] total)
         {
             var data = new List<WeeklyLiveMatch>();
             for (var i = 0; i < 100; i++)
@@ -37,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 });
             }
 
-            total = new WeeklyLiveMatch();
+            total = new int[] { 14545, 2565, 553, 5654, 654, 5, 6, 6, 6, 7 };
 
             return data;
         }

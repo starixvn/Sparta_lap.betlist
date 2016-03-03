@@ -1,11 +1,10 @@
-﻿/*global jqGridAdditional, JSLINQ, WeeklyLiveMatchOption, Report, Site */
+﻿/*global jqGridAdditional, WeeklyLiveMatchOption, Site */
 /// <reference path="/@JSense.js" />
 ///
 var WeeklyLiveMatch = (function ($) {
     "use strict";
     var VALID_MONTH_RANGE = 2;
-    var MILISECOND_PER_WEEK = 604800000;
-
+    
     var ajaxRequest = null;
     var _resizeTimer = null;
 
@@ -93,11 +92,9 @@ var WeeklyLiveMatch = (function ($) {
         },
 
         bindData: function (fromDate, toDate, response) {
-            
             jqGridAdditional.clearGrid("ReportGrid");
 
             var reportGrid = $("#ReportGrid");
-            
             var numOfRow = response.Data.length;
             var userData = {};
             var totalData = response.TotalData;
@@ -106,18 +103,14 @@ var WeeklyLiveMatch = (function ($) {
                 userData['Week' + i] = totalData[i];
             }
 
-            var numOfWeek = Math.round((new Date(toDate) - new Date(fromDate)) / MILISECOND_PER_WEEK) + 1;
-            var gridOption = WeeklyLiveMatchOption.getGridOption(numOfWeek);
+            var gridOption = WeeklyLiveMatchOption.getGridOption(response.NumberOfWeeks, response.WeekHeaders);
             gridOption.width = gridOption.colModel.length < 7 ? 600 : undefined;
             gridOption.data = response.Data;
             gridOption.userData = userData;
-            gridOption.rowNum = WeeklyLiveMatchOption.nonePagingSize;
-            gridOption.rowList = WeeklyLiveMatchOption.rowList;
             gridOption.rowTotal = numOfRow;
 
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, 1);
-
                 if (response == null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
@@ -141,9 +134,22 @@ var WeeklyLiveMatch = (function ($) {
             } else {
                 gridWidth += 20;
             }
+
             gridWidth = Math.min(1040, gridWidth);
             $(".content-filter").width(gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
+
+            if (numOfRow > 0) {
+                var totalText = Site.getSingleResource("Total");
+                var $footerTable = $('.ui-jqgrid-ftable');
+                var $firstCell = $footerTable.find('td:eq(0)');
+                var $secondCell = $firstCell.next();
+                
+                $firstCell.attr('colspan', 2)
+                    .css('width', $firstCell.width() + $secondCell.width() + 4)
+                    .html(totalText);
+                $secondCell.hide();
+            }
         }
 
         //#end

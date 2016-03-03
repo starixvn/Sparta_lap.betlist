@@ -28,7 +28,7 @@ var WeeklyLiveMatchOption = (function () {
 
     var numOfMatchColumn =
     {
-        width: 90,
+        width: 110,
         sortable: false,
         resizable: false,
         align: "right",
@@ -40,20 +40,17 @@ var WeeklyLiveMatchOption = (function () {
         }
     };
 
-    var colNameList = ['No.', 'Sport'];
+    var colNameList = ['#', 'Sport'];
 
     var colModelList = [indexColumn, sportNameColumn];
 
     var me =
     {
-        pageSize: 50,
-        nonePagingSize: 2000,
-        rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         urlData: 'api/WeeklyLiveMatchReport/index',
         urlExcelData: 'api/WeeklyLiveMatchReport/index',
         gridOption:
         {
+            rowNum: 500,
             datatype: 'local',
             height: '100%',
             autowidth: false,
@@ -76,13 +73,11 @@ var WeeklyLiveMatchOption = (function () {
         }
     };
 
-    me.getGridOption = function (numOfWeek) {
-
+    me.getGridOption = function (numOfWeek, weekHeaders) {
         var columnModels = Site.clone(colModelList);
         var columnNames = Site.clone(colNameList);
-        for (var i = 0; i < numOfWeek; i++)
-        {
-            columnNames.push('#');
+        for (var i = 0; i < numOfWeek; i++) {
+            columnNames.push(weekHeaders[i]);
 
             var column = Site.clone(numOfMatchColumn);
             column.name = "Week" + i;

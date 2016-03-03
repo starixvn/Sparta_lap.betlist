@@ -234,7 +234,6 @@
     <Compile Include="ViewModel\Report\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlaytechCasinoViewModel.cs" />
-    <Compile Include="ViewModel\Report\WeeklyLiveMatchViewModel.cs" />
     <Compile Include="ViewModel\Report\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\Report\AgCasinoBalanceViewModel.cs" />

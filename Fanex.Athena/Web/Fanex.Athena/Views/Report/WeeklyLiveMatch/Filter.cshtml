@@ -1,9 +1,9 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.WeeklyLiveMatchViewModel
+@model Fanex.Athena.Models.MetaModel.Report.WeeklyLiveMatchMetaModel
 <div class="grid_20 content-filter new-line">
     <form id="mainform" name="mainform" method="post" action="">
-        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate,
         AppSettings.HistoryDate, AppSettings.MaxDate, "date-range", "date-range")
         <div class="grid_5 userguide-group">
             <div>
@@ -19,6 +19,6 @@
         <div class="grid_2 filter-input" id="control-container">
             <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
         </div>
-        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("IsExportExcel", Model.IsExportExcel)
     </form>
 </div>
