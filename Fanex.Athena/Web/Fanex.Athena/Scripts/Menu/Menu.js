@@ -142,20 +142,22 @@ function KeyPress(e) {
 function activeDefaultLink() {
     var found = false;
 
-    $.each($('div#menu-container a[id^="child-menu-link"]'), function (index, value) {
-        if (found) {
-            return;
-        }
+    var $defaultPage = $("#menu-container #child-menu-link-42");
+    if ($defaultPage.length === 0) {
+        $defaultPage = $('#menu-container a[id^="child-menu-link"]:eq(0)')
+    }
 
-        var link = $(value);
-        if (link.prop('id') === "child-menu-link-42") {
-            found = true;
+    $('#menu-container .active-menu').removeClass('active-menu');
+    $defaultPage.closest("td").addClass('active-menu');
+    $defaultPage.closest("table").show();
 
-            $('td.active-menu').removeClass('active-menu');
-            link.closest("td").addClass('active-menu');
-            link.closest("table").show();
-        }
+    var parentMenuText = $defaultPage.closest("table").prev('div').text();
+    
+    parentMenuText = parentMenuText.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
     });
+
+    parent.document.title = 'LRF' + ' - ' + parentMenuText + ' - ' + $defaultPage.html();
 }
 
 $(window).load(function () {

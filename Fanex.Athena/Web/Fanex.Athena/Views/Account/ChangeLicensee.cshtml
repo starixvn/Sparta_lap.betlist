@@ -8,6 +8,8 @@
 </head>
 <body>
     <script type="text/javascript">
+        var defaultUrl = '@(ViewBag.DefaultReportUrl)';
+
         function resolveClientUrl(relativeUrl) {
             return '@Url.Content("~/")' + relativeUrl;
         }
@@ -21,7 +23,7 @@
                 message: $(divLoading), timeout: 120000
             });
 
-            document.location.href = resolveClientUrl("Report/Balance?nocache=") + (new Date().getTime());
+            document.location.href = resolveClientUrl(defaultUrl + "?nocache=") + (new Date().getTime());
             parent.menu.location.reload();
         });
     </script>
