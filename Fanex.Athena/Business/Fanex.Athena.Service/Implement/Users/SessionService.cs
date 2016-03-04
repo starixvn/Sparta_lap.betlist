@@ -10,14 +10,15 @@
 
 namespace Fanex.Athena.Service.Implement.Users
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
     using Models.DTO.Common;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
+
     /// <summary>
     ///     The session service.
     /// </summary>
@@ -114,7 +115,6 @@ namespace Fanex.Athena.Service.Implement.Users
                 Language = language,
                 CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId),
                 DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList)
-
             };
 
             this.UserSession = userSession;
@@ -182,13 +182,11 @@ namespace Fanex.Athena.Service.Implement.Users
                 currentUserSession.CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, currentUserSession.UserId);
                 currentUserSession.FunctionIdList = functionIdList;
                 currentUserSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
-
             }
         }
 
         private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
         {
-
             if (!functionIdList.Contains(ReportBalanceId))
             {
                 var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
@@ -199,7 +197,6 @@ namespace Fanex.Athena.Service.Implement.Users
             }
 
             return ReportBalanceUrl;
-
         }
 
         /// <summary>
