@@ -4,7 +4,7 @@
 var WeeklyLiveMatch = (function ($) {
     "use strict";
     var VALID_MONTH_RANGE = 2;
-    
+
     var ajaxRequest = null;
     var _resizeTimer = null;
 
@@ -38,8 +38,8 @@ var WeeklyLiveMatch = (function ($) {
             WeeklyLiveMatch.initEvent();
 
             Site.addUserGuide({
-                resourceName: "WeeklyLiveMatch",
-                title: Site.getSingleResource("WeeklyLiveMatch"),
+                resourceName: "WeeklyLiveMatches",
+                title: Site.getSingleResource("WeeklyLiveMatches"),
                 height: 380
             });
         },
@@ -62,7 +62,7 @@ var WeeklyLiveMatch = (function ($) {
                 return false;
             });
         },
-        
+
         submit: function () {
             var mainForm = $("#mainform");
             var data = mainForm.serializeObject();
@@ -75,9 +75,7 @@ var WeeklyLiveMatch = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(WeeklyLiveMatchOption.urlData),
                 success: function (response) {
-                    if (response != null) {
-                        WeeklyLiveMatch.bindData(data.FromDate, data.ToDate, response);
-                    }
+                    WeeklyLiveMatch.bindData(data.FromDate, data.ToDate, response);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -98,8 +96,7 @@ var WeeklyLiveMatch = (function ($) {
             var numOfRow = response.Data.length;
             var userData = {};
             var totalData = response.TotalData;
-            for (var i = 0; i < totalData.length; i++)
-            {
+            for (var i = 0; i < totalData.length; i++) {
                 userData['Week' + i] = totalData[i];
             }
 
@@ -124,7 +121,7 @@ var WeeklyLiveMatch = (function ($) {
             reportGrid.jqGrid(gridOption);
 
             reportGrid.jqGrid('showCol', 'rn');
-            
+
             jqGridAdditional.resetLayout(reportGrid);
 
             var gridWidth = reportGrid.width();
@@ -144,7 +141,7 @@ var WeeklyLiveMatch = (function ($) {
                 var $footerTable = $('.ui-jqgrid-ftable');
                 var $firstCell = $footerTable.find('td:eq(0)');
                 var $secondCell = $firstCell.next();
-                
+
                 $firstCell.attr('colspan', 2)
                     .css('width', $firstCell.width() + $secondCell.width() + 4)
                     .html(totalText);

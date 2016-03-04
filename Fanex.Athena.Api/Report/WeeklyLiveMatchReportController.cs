@@ -69,7 +69,7 @@ namespace Fanex.Athena.Api.Report
         private static object MapToGridView(WeeklyLiveMatch item)
         {
             var data = new List<object> { item.Index, item.SportName };
-            data.AddRange(item.NumOfMatches.Cast<object>());
+            data.AddRange(item.NumbersOfMatches.Cast<object>());
             return new
             {
                 Cell = data
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Api.Report
             int[] totalData,
             IEnumerable<string> weekHeaders)
         {
-            const string FileName = "WeeklyLiveMatch.xls";
+            const string FileName = "WeeklyLiveMatches.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/WeeklyLiveMatch.xls");
 
             var excel = new WeeklyLiveMatchExcel(templatePath, FileName, metaModel, dataList, totalData, weekHeaders);

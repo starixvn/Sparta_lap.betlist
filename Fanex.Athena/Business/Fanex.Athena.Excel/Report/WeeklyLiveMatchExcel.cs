@@ -76,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
 
-            ReportTitle = string.Format(ViewResources.ActiveCustomerSummary + ", {0} --> {1}", fromdate, todate);
+            ReportTitle = string.Format(ViewResources.WeeklyLiveMatches + ", {0} --> {1}", fromdate, todate);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
@@ -121,7 +121,7 @@ namespace Fanex.Athena.Excel.Report
                 var weekColumnIndex = ColumnSport + 1;
                 for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
                 {
-                    row.Cells[weekColumnIndex++].SetCellValue(dataItem.NumOfMatches.ElementAt(i));
+                    row.Cells[weekColumnIndex++].SetCellValue(dataItem.NumbersOfMatches.ElementAt(i));
                 }
             }
         }

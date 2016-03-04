@@ -2889,4 +2889,8 @@
     <value>Progressive Fee</value>
     <comment>#56248</comment>
   </data>
+  <data name="WeeklyLiveMatches" xml:space="preserve">
+    <value>Weekly Live Matches</value>
+    <comment>#52886</comment>
+  </data>
 </root>

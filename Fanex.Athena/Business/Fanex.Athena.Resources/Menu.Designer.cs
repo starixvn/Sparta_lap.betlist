@@ -637,6 +637,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weekly Live Matches.
+        /// </summary>
+        public static string Menu_69 {
+            get {
+                return ResourceManager.GetString("Menu_69", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handicap/Over Under/Live.
         /// </summary>
         public static string Menu_7 {

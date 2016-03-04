@@ -7900,6 +7900,15 @@ namespace Fanex.Athena.Resources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weekly Live Matches.
+        /// </summary>
+        public static string WeeklyLiveMatches {
+            get {
+                return ResourceManager.GetString("WeeklyLiveMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome.
         /// </summary>
         public static string Welcome {

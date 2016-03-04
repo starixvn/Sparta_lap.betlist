@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using Configuration;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
@@ -16,6 +17,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Interface.Report;
+    using Interface.Configuration;
 
     /// <summary>
     ///     The active customer service.
@@ -24,11 +26,14 @@ namespace Fanex.Athena.Service.Implement.Report
     {
         private const int DaysInWeek = 7;
 
+        private readonly IBalanceUpService _balanceService;
+
         private readonly IWeeklyLiveMatchDataAccess _weeklyLiveMatchDataAccess;
 
         public WeeklyLiveMatchService()
         {
-            this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess();
+            this._balanceService = new BalanceUpService();
+            this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess(_balanceService.BalanceUpInfo);
         }
 
         public IEnumerable<WeeklyLiveMatch> GetData(WeeklyLiveMatchMetaModel metaModel, out int[] total)
@@ -47,7 +52,7 @@ namespace Fanex.Athena.Service.Implement.Report
         public IEnumerable<string> GetWeekHeaders(DateTime fromDate, DateTime toDate, int numberOfWeeks)
         {
             var culture = CultureInfo.GetCultureInfo(CultureInfo.CurrentUICulture.IetfLanguageTag);
-            
+
             var firstDate = DateTimeHelper.GetFirstDateOfWeek(fromDate);
             var nextDate = firstDate.AddDays(DaysInWeek - 1);
 

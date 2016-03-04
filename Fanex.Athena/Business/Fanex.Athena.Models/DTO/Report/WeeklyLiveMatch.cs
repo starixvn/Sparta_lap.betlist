@@ -15,6 +15,6 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public int Index { get; set; }
 
-        public IEnumerable<int> NumOfMatches { get; set; }
+        public IEnumerable<int> NumbersOfMatches { get; set; }
     }
 }
