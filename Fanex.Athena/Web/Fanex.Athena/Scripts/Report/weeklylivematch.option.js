@@ -20,7 +20,7 @@ var WeeklyLiveMatchOption = (function () {
     {
         name: 'SportName',
         index: 'SportName',
-        width: 80,
+        width: 120,
         align: 'left',
         sortable: false,
         resizable: false
