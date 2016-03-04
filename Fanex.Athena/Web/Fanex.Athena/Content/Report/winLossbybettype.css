@@ -1,1 +1,6 @@
-﻿
+﻿a.bettype-link{
+    text-decoration: none;
+}
+a.bettype-link:hover{
+    text-decoration: underline;
+}

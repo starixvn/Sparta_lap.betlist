@@ -1,4 +1,4 @@
-﻿/*global Site*/
+﻿/*global Site, QueryString*/
 /// <reference path="/@JSense.js" />
 var WinLossByBetType = (function ($) {
     "use strict";
