@@ -29,16 +29,16 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult SystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
-            var balanceUpInfo = this._balanceUpService.BalanceUpInfo;
+            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var systemParlayData = this._betListService.GetSystemParlayDetail(metaModel);
+            var systemParlayData = this.BetListService.GetSystemParlayDetail(metaModel);
 
             var builder = new BetListHTMLBuilder();
-            var systemParlayText = builder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
+            var systemParlayText = builder.BuildSystemParlayDetail(this.TicketHelper, systemParlayData);
             var viewModel = new SystemParlayDetailViewModel
             {
                 DetailText = systemParlayText,

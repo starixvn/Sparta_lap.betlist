@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
             minDate = new DateTime(minDate.Year, 1, 1);
             metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
-            var productAccess = this._productService.GetProductAccess(
+            var productAccess = this.ProductService.GetProductAccess(
                 metaModel.LicenseeId, 
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);

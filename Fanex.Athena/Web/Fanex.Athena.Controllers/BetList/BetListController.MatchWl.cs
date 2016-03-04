@@ -117,7 +117,7 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult MatchWLExcel(BetListMetaModel metaModel, string uspKey, bool onePageOnly = false)
         {
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
             if (onePageOnly)
             {
                 // Sum value by page

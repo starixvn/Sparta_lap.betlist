@@ -195,6 +195,7 @@
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="BetList\BetListBaseController.cs" />
     <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
     <Compile Include="BetList\BetListController.cs" />

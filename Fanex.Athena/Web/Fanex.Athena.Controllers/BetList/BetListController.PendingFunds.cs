@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult PendingFundsExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {

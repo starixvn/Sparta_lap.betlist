@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay;
+            metaModel.BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             var currencies = GetUserCurrencies();
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = currencies,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, BetListDailyBetListName),
+                ProductAccess = this.ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, BetListDailyBetListName),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSizeDailyBetlist;
             metaModel.PageIndex = 1;
-            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
             // Sum value by page
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);

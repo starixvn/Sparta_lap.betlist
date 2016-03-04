@@ -42,7 +42,7 @@
         public ActionResult WinlossByBetTypeExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
-            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;

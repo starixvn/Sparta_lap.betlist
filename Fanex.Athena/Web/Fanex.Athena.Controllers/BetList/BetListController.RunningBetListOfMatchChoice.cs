@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult RunningBetListOfMatchChoiceExcel(BetListMetaModel metaModel)
         {
             string uspKey = "Lrf_BetList_Forecast_SelByMatch";
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {
