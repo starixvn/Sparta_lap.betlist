@@ -35,6 +35,20 @@ var WinLossByBetType = (function ($) {
                 $('#IsExportExcel').val(false);
                 $('#WinLossByBetTypeForm').submit();
             });
+
+            $("#data-content").on("click", ".bettype-link", function () {
+                WinLossByBetType.viewBetList($(this).data("bettype"));
+            });
+        },
+        viewBetList: function (betType) {
+            var url = Site.resolveClientUrl("BetList/WinLossByBetType");
+            url = Site.setLicenseeOptionOriginalParam(url);
+            url = QueryString.setParam(url, "fromdate", $("#FromDate").val());
+            url = QueryString.setParam(url, "todate", $("#ToDate").val());
+            url = QueryString.setParam(url, "bettype", betType);
+
+            Site.blockUI();
+            window.location.href = url;
         },
         sortReport: function () {
             Site.blockUI();
