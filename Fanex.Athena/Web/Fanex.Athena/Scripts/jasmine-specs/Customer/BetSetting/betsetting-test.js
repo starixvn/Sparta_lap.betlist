@@ -87,6 +87,85 @@
     });
 
     describe("updateStatus()", function () {
+        var request;
+        beforeEach(function (done) {
+            affix("input#ProductId[value=11]");
+            spyOn(BetSetting, "showDialogMesage");
 
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("BetSettingAPI/UpdateGoldDeluxeStatus")
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ IsSuccessful: true }'
+                });
+
+            BetSetting.updateStatus();
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("ajax request should be called with url is 'BetSettingAPI/UpdateGoldDeluxeStatus'", function () {
+            expect(request.url).toBe("BetSettingAPI/UpdateGoldDeluxeStatus");
+        });
+    });
+
+    describe("updateEsportStatus()", function () {
+        var request;
+        beforeEach(function (done) {
+            spyOn(BetSetting, "showDialogMesage");
+
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("BetSettingAPI/UpdateEsportStatus")
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ }'
+                });
+
+            BetSetting.updateEsportStatus();
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("ajax request should be called with url is 'BetSettingAPI/UpdateEsportStatus'", function () {
+            expect(request.url).toBe("BetSettingAPI/UpdateEsportStatus");
+        });
+    });
+
+    describe("checkEnableBetSetting(tabId, enable)", function () {
+        it("BetSetting.checkEnableLiveCasino(enable) should be called with correct parameter when tabId is TAB_LIVECASINO", function () {
+            spyOn(BetSetting, "checkEnableLiveCasino");
+            BetSetting.checkEnableBetSetting(4, true);
+
+            expect(BetSetting.checkEnableLiveCasino).toHaveBeenCalledWith(true);
+        });
+        it("BetSetting.checkEnable(sportIds, enable) should not be called when tabId equal TAB_LIVECASINO", function () {
+            spyOn(BetSetting, "checkEnable");
+            BetSetting.checkEnableBetSetting(4, true);
+
+            expect(BetSetting.checkEnable).not.toHaveBeenCalled();
+        });
+
+        it("BetSetting.checkEnable() should be called when tabId not equal TAB_LIVECASINO", function () {
+            spyOn(BetSetting, "checkEnable");
+            BetSetting.checkEnableBetSetting(2, true);
+
+            expect(BetSetting.checkEnable).toHaveBeenCalled();
+        });
     });
 });
