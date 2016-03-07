@@ -19,9 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Resources;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public partial class ReportController
     {
         [HttpGet]
