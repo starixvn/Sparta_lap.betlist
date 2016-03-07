@@ -42,10 +42,10 @@ var MatchWinLoss = (function ($) {
             });
 
             $("#data-content").on("click", ".match-handler", function () {
-                MatchWinLoss.viewMatchWinlossDetail(this)
+                MatchWinLoss.viewMatchWinlossDetail(this);
             })
             .on("click", ".match-link, .downline-link", function () {
-                MatchWinLoss.viewMatchWinlossBetList(this)
+                MatchWinLoss.viewMatchWinlossBetList(this);
             });
         },
 
