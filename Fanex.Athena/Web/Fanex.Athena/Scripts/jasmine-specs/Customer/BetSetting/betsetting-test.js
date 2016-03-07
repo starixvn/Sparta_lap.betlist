@@ -573,4 +573,252 @@
             expect(result).toEqual(expectedObj);
         });
     });
+
+    describe("resetBetSetting()", function () {
+        beforeEach(function () {
+            affix("input#ProductId[value=4]");
+
+            spyOn(BetSetting, "resetLiveCasinoBetSetting");
+            spyOn(BetSetting, "resetValues");
+        });
+
+        it("BetSetting.resetLiveCasinoBetSetting() should be called when productId equal TAB_LIVECASINO", function () {
+            BetSetting.resetBetSetting();
+
+            expect(BetSetting.resetLiveCasinoBetSetting).toHaveBeenCalled();
+        });
+
+        it("BetSetting.resetValues() should be called when productId equal default", function () {
+            $("#ProductId").val(0);
+
+            BetSetting.resetBetSetting();
+
+            expect(BetSetting.resetValues).toHaveBeenCalled();
+        });
+    });
+
+    describe("resetValues()", function () {
+        beforeEach(function () {
+            affix("input#min-bet[data-original=10]");
+            affix("input#max-bet[data-original=12]");
+            affix("input#max-per-match[data-original=15]");
+
+            BetSetting.resetValues();
+        });
+
+        it("Values of inputs should be equal data-original", function () {
+            expect($("#min-bet").val()).toBe("10");
+            expect($("#max-bet").val()).toBe("12");
+            expect($("#max-per-match").val()).toBe("15");
+        });
+
+        it("Inputs should not be disabled", function () {
+            expect($("#min-bet")).not.toBeDisabled();
+            expect($("#max-bet")).not.toBeDisabled();
+            expect($("#max-per-match")).not.toBeDisabled();
+        });
+    });
+
+    describe("resetBetTradeSetting()", function () {
+        it("'#enable-product' should be checked when original data equal 1", function () {
+            affix("input#enable-product[type=checkbox]");
+            var $checkbox = $("#enable-product");
+            $checkbox.data("original", 1);
+
+            BetSetting.resetBetTradeSetting();
+
+            expect($checkbox).toBeChecked();
+        });
+    });
+
+    describe("resetLiveCasinoBetSetting()", function () {
+        it("'input[name=gameTypeName1]' should be checked", function () {
+            affix("input#gameTypeCount[value=1]");
+            affix("input#oldCheck1[value=1]");
+            affix("input#checkbox[type=checkbox]");
+
+            var $checkbox = $("#checkbox");
+            $checkbox.attr("name", "gameTypeName1");
+            $checkbox.attr("data-stake-id", 1);
+
+            BetSetting.resetLiveCasinoBetSetting();
+
+            expect(("input[name=gameTypeName1]")).toBeChecked();
+        });
+    });
+
+    describe("checkCopyAllValues($checkbox)", function () {
+        it("BetSetting.setCopyValueBetSetting($element, enabled) should be called", function () {
+            affix("input#checkbox[type=checkbox]");
+            spyOn(BetSetting, "setCopyValueBetSetting");
+
+            BetSetting.checkCopyAllValues($("#checkbox"));
+
+            expect(BetSetting.setCopyValueBetSetting).toHaveBeenCalled();
+        });
+    });
+
+    describe("setMinMaxBet(sportId, minBet, maxBet, maxPerMatch)", function () {
+        it("Inputs should have correct value", function () {
+            affix("input#min-bet-1");
+            affix("input#max-bet-1");
+            affix("input#max-per-match-1");
+
+            BetSetting.setMinMaxBet(1, 10, 20, 15);
+
+            expect($("#min-bet-1").val()).toBe("10");
+            expect($("#max-bet-1").val()).toBe("20");
+            expect($("#max-per-match-1").val()).toBe("15");
+        });
+    });
+
+    describe("checkLimitMinMaxBets(sportIds)", function () {
+        it("Result should be false when BetSetting.checkLimitMinMaxBet(sportId) return false", function () {
+            spyOn(BetSetting, "checkLimitMinMaxBet").and.returnValue(false);
+
+            var result = BetSetting.checkLimitMinMaxBets([1, 2, 3]);
+
+            expect(result).toBe(false);
+        })
+    });
+
+    describe("checkLimitMinMaxBet(sportId)", function () {
+        beforeEach(function () {
+            affix("input#min-bet-1[data-min-value=10]");
+            affix("input#max-bet-1[data-max-value=20]");
+            affix("input#max-per-match-1[data-min-value=15]");
+            $("#max-per-match-1").attr("data-max-value", 18);
+
+            $("#min-bet-1").val(12);
+            $("#max-bet-1").val(16);
+            $("#max-per-match-1").val(17);
+
+            spyOn(BetSetting, "showBalloonMsg");
+        });
+
+        it("Result should be true with initial values", function () {
+            var result = BetSetting.checkLimitMinMaxBet(1);
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be true when all values equal 0", function () {
+            $("#min-bet-1").val(0);
+            $("#max-bet-1").val(0);
+            $("#max-per-match-1").val(0);
+
+            var result = BetSetting.checkLimitMinMaxBet(1);
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be false with '#min-bet-1' value greater than max value", function () {
+            $("#min-bet-1").val(22);
+            var result = BetSetting.checkLimitMinMaxBet(1);
+
+            expect(result).toBe(false);
+        });
+
+        it("Result should be false with maxbet value greater than max per match", function () {
+            $("#max-bet-1").val(18);
+            $("#max-per-match-1").val(17);
+            var result = BetSetting.checkLimitMinMaxBet(1);
+
+            expect(result).toBe(false);
+        });
+    });
+
+    describe("convertToFloat(str)", function () {
+        it("Result should be float number when pass valid number with string", function () {
+            var result = BetSetting.convertToFloat("2");
+
+            expect(result).toBe(2.0);
+        });
+
+        it("Result should be float number when pass valid float number with string", function () {
+            var result = BetSetting.convertToFloat("2.5");
+
+            expect(result).toBe(2.5);
+        });
+
+        it("Result should be NaN when pass invalid string", function () {
+            var result = BetSetting.convertToFloat("abc");
+
+            expect(result).toEqual(NaN);
+        });
+    });
+
+    describe("isInteger(s)", function () {
+        it("Result should be true number when pass valid number with string", function () {
+            var result = BetSetting.isInteger("2");
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be false when pass empty string", function () {
+            var result = BetSetting.isInteger("");
+
+            expect(result).toBe(false);
+        });
+
+        it("Result should be false when pass string value", function () {
+            var result = BetSetting.isInteger("abc");
+
+            expect(result).toBe(false);
+        });
+    });
+
+    describe("isDigit", function () {
+        it("Result should be true when pass valid digit", function () {
+            var result = BetSetting.isDigit("2");
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be false when pass invalid digit", function () {
+            var result = BetSetting.isDigit("g");
+
+            expect(result).toBe(false);
+        });
+    });
+
+    describe("isEmpty", function () {
+        it("Result should be true when pass empty string", function () {
+            var result = BetSetting.isEmpty("");
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be true when pass white space", function () {
+            var result = BetSetting.isEmpty(" ");
+
+            expect(result).toBe(true);
+        });
+
+        it("Result should be false when pass character", function () {
+            var result = BetSetting.isEmpty("h");
+
+            expect(result).toBe(false);
+        });
+    });
+
+    describe("showDialogMesage(title, message, closePopup)", function () {
+        it("dialog function of jquery should be called", function () {
+            spyOn($.fn, "dialog");
+
+            BetSetting.showDialogMesage("title", "This is message", function () { });
+
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+    });
+
+    describe("showConfirmAction(message, custId, userName, nickName, callback)", function () {
+        it("dialog function of jquery should be called", function () {
+            spyOn($.fn, "dialog");
+
+            BetSetting.showConfirmAction("This is message", 1, "user01", "walter", function () { });
+
+            expect($.fn.dialog).toHaveBeenCalled();
+        });
+    });
 });
