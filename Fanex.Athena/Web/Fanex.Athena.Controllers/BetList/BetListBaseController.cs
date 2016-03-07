@@ -28,8 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    [SessionState(SessionStateBehavior.ReadOnly)]
-    public class BetListBaseController : BaseController
+    public class BetListBaseController : ReadonlyBaseController
     {
         #region Constant
 
