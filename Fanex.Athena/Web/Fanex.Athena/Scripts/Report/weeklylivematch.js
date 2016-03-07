@@ -124,15 +124,9 @@ var WeeklyLiveMatch = (function ($) {
 
             jqGridAdditional.resetLayout(reportGrid);
 
-            var gridWidth = reportGrid.width();
-            // for the vertical scrollbar not overlap the grid content
-            if (gridWidth < 500) {
-                gridWidth = 500;
-            } else {
-                gridWidth += 20;
-            }
-
-            gridWidth = Math.min(1040, gridWidth);
+            var gridWidth = reportGrid.width() + 22;
+            
+            gridWidth = Math.min($(window).width() - 20, gridWidth);
             $(".content-filter").width(gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
 
