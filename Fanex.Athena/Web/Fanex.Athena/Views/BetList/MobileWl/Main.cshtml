@@ -3,14 +3,14 @@
     Layout = "~/Views/Shared/_BetListSimpleLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Models.DataDomain
+
 @model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
 @section pagecss {}
 @section pagejs {
 }
 @{
-    var platformList = new List<string> { ViewResources.All, ViewResources.Asia, ViewResources.NewAsia, ViewResources.Euro, ViewResources.Wap, ViewResources.SmartPhone.ToUpper() };
-    var platformText = platformList[Model.SiteType];
+    var platformText = PlatformType.GetPlatformName(Model.SiteType);
 }
 @section ContentTitle
 {    
