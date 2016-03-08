@@ -4669,7 +4669,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Asia.
+        ///   Looks up a localized string similar to China.
         /// </summary>
         public static string NewAsia {
             get {
