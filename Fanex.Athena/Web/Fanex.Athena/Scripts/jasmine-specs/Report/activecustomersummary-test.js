@@ -1,7 +1,6 @@
 ﻿describe("ActiveCustomer", function () {
     describe("initialize()", function () {
         it("initEvent() should be call when initialize() is called", function () {
-            ActiveCustomer.initialize();
             spyOn(ActiveCustomer, 'initEvent');
 
             ActiveCustomer.initialize();
@@ -42,7 +41,7 @@
     });
 
     describe("setReportTitle()", function () {
-        it("setReportTitle() should return correct content.", function () {
+        it("setReportTitle() should assign correct content to .report-title.", function () {
             var $title = affix('.report-title');
             
             var date = new Date();
@@ -54,27 +53,6 @@
             ActiveCustomer.setReportTitle('-1', new Date(), new Date());
             
             expect($title.html()).toBe('ActiveCustomerSummary, 1/1/2016 → 1/1/2016 - Viewin');
-        });
-    });
-
-    describe("bindTotal()", function () {
-        it("Table footer content should be correct.", function () {
-            var $table = affix('table.ui-jqgrid-ftable');
-            $table.html('<tr><td></td></tr>');
-
-            ActiveCustomer.bindTotal(1000);
-            expect($table.find('td:eq(0)').html()).toBe('TotalActiveCustomer = 1,000');
-        });
-    });
-
-    describe("bindData(response)", function () {
-        it("Table footer content should be correct.", function () {
-            var response = {};
-            var $table = affix('table.ui-jqgrid-ftable');
-            $table.html('<tr><td></td></tr>');
-
-            ActiveCustomer.bindTotal(1000);
-            expect($table.find('td:eq(0)').html()).toBe('TotalActiveCustomer = 1,000');
         });
     });
 });
