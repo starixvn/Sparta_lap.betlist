@@ -136,21 +136,17 @@ namespace Fanex.Athena.Api.BetList
             }
         }
 
-        /// <summary>
-        /// Get platform name from code
-        /// WEB => d
-        /// WAP => m
-        /// SMARTPHONE => s  or l
-        /// Others => not (d,m,s,l).
-        /// </summary>
-        /// <param name="code">Platform code.</param>
-        /// <returns>Platform name.</returns>
         private static string MapPlatForm(string code)
         {
             switch (code.Trim().ToLower())
             {
+                case "a":
+                    return ViewResources.NewAsia;
                 case "d":
-                    return ViewResources.WEB;
+                    return ViewResources.Asia;
+                case "e":
+                case "u":
+                    return ViewResources.Euro;
                 case "m":
                     return ViewResources.Wap.ToUpper();
                 case "s":
