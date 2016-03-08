@@ -302,6 +302,7 @@ namespace Fanex.Athena.Excel.Report
             {
                 HideColumn(sheet, ColumnBetTradeCommission);
                 HideColumn(sheet, ColumnBuyBackAmountSportsbook, ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
+                HideColumn(sheet, ColumnActualStake);
             }
 
             if (!ShowingOption.BTVisible || (_isAllowSB && !ShowingOption.SBVisible) || (_isAllowBA && !ShowingOption.BAVisible))

@@ -140,11 +140,9 @@ function KeyPress(e) {
 }
 
 function activeDefaultLink() {
-    var found = false;
-
     var $defaultPage = $("#menu-container #child-menu-link-42");
     if ($defaultPage.length === 0) {
-        $defaultPage = $('#menu-container a[id^="child-menu-link"]:eq(0)')
+        $defaultPage = $('#menu-container a[id^="child-menu-link"]:eq(0)');
     }
 
     $('#menu-container .active-menu').removeClass('active-menu');
