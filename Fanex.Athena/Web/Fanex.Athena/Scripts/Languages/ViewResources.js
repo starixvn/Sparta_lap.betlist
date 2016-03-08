@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/3/2016 10:43:20 AM
+// Lasted generated date: 3/8/2016 3:17:27 PM
 // </history>
 
 var _language_en_US={
@@ -1033,7 +1033,7 @@ var _language_en_US={
 				 	
                      NetworkTimeoutMsg:"Network time out. Please try again.",
 				 	
-                     NewAsia:"New Asia",
+                     NewAsia:"China",
 				 	
                      NewGroup:"New Group",
 				 	
