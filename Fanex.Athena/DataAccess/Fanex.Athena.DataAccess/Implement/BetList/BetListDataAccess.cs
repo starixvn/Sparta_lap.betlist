@@ -974,6 +974,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
             db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+            CreateBetListPagingParameters(db, metaModel);
         }
 
         #region CommonParam
