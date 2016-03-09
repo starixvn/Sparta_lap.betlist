@@ -159,11 +159,6 @@
     describe("validateName(groupName)", function () {
         var request;
         beforeEach(function (done) {
-            affix(".response-area");
-            affix("#ValidateFail");
-            affix("#ValidateOK");
-            affix("input#Add");
-
             jasmine.Ajax.install();
             jasmine.Ajax
                 .stubRequest("/CustomerComGroup\/Validate\?groupName=group01/")
