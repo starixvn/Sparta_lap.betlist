@@ -77,11 +77,15 @@
                     @rowNumber
                 </td>
                 <td style="position: relative;">
-                    <span href="#" class="match-handler icon-expand">&nbsp;</span>
-                    
-                    <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" style="width: 85%">
-                        @(new HtmlString(matchName))
-                    </span>
+                    <div class="match-container">
+                        <div class="icon-wrapper">
+                            <span href="#" class="match-handler icon-expand"></span>
+                        </div>
+
+                        <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" style="width: 100%">
+                            @(new HtmlString(matchName))
+                        </span>
+                    </div>
                 </td>
                 <td style="width: 85px">
                     @NumberHelper.DecFormat(matchWinLoss.Turnover)

@@ -1,6 +1,5 @@
 ﻿.match-handler {
 	background: url('images/expand_collapse.png') no-repeat;
-    margin: -8px 8px 0;
     width: 16px;
 	height: 16px;
     cursor: pointer;
@@ -26,10 +25,12 @@
 .match-name
 {
     color: #636363;
-    float: left;
     font-weight: bold;
     text-decoration: none;
     text-align: left;
+    vertical-align: middle;
+    display: table-cell;
+    padding-left: 5px;
 }
 
 .match-link
@@ -88,4 +89,15 @@ table.report-table tr.main td.highlight
 .container_26 .grid_26
 {
     width: 1075px;
+}
+
+.match-container{
+    display: table;
+    width: 100%;
+    margin-left: 5px;
+}
+
+.icon-wrapper{
+    display: table-cell;
+    vertical-align: middle;
 }
