@@ -1,54 +1,46 @@
 ﻿describe("AgCasinoBalanceOption", function () {
 
     describe("AgCasinoBalanceOption", function () {
-        it("AgCasinoBalanceOption.rowNum should be 50.", function () {
-            expect(AgCasinoBalanceOption.rowNum).toBe(50);
+        it("rowNum should be 10.", function () {
+            expect(AgCasinoBalanceOption.rowNum).toBe(10);
         });
 
-        it("AgCasinoBalanceOption.rowList should be a correct array.", function () {
-            expect(JSON.stringify(AgCasinoBalanceOption.rowList)).toBe(JSON.stringify([50, 100, 200, 300, 400, 500, 1000, 2000]));
+        it("totalColspan should be a correct array.", function () {
+            expect(AgCasinoBalanceOption.totalColspan).toEqual([2, 2, 3]);
         });
 
-        it("AgCasinoBalanceOption.totalColspan should be a correct array.", function () {
-            expect(JSON.stringify(AgCasinoBalanceOption.totalColspan)).toBe(JSON.stringify([2, 2, 3]));
+        it("urlData should be a correct url.", function () {
+            expect(AgCasinoBalanceOption.urlData).toBe('api/report/AgCasinoBalance');
         });
 
-        it("AgCasinoBalanceOption.urlData should be a correct url.", function () {
-            expect(AgCasinoBalanceOption.urlData).toBe('api/report/AgCasinoBalanceSummary');
-        });
-    });
-
-    describe("setGroupHeaderColumns(grid, productOptions)", function () {
-        it("jqGrid() should be called with first param 'setGroupHeaders'.", function () {
-            var methodName;
-            spyOn($.fn, 'jqGrid').and.callFake(function (param) { methodName = param; })
-            var $grid = affix('#grid');
-            AgCasinoBalanceOption.setGroupHeaderColumns($grid, [{}]);
-
-            expect(methodName).toBe('setGroupHeaders');
-        });
-
-        it("jqGrid() should be called with correct second param.", function () {
-            var groupParams;
-            spyOn($.fn, 'jqGrid').and.callFake(function (methodName, params) { groupParams = params; })
-            var $grid = affix('#grid');
-            AgCasinoBalanceOption.setGroupHeaderColumns($grid, [{ Code: 'SB' }]);
-
-            expect(JSON.stringify(groupParams.groupHeaders)).toBe('[{"startColumnName":"CustomerCountSB","numberOfColumns":1,"titleText":"Product"}]');
+        it("gridOption.pager should be #ppdata.", function () {
+            expect(AgCasinoBalanceOption.gridOption.pager).toBe('#ppdata');
         });
     });
 
-    describe("getGridOption(productOptions)", function () {
+    describe("getColName()", function () {
         it("gridOption.colNames should be correct.", function () {
-            var gridOption = AgCasinoBalanceOption.getGridOption([{ Name: 'SB', Code: 'SB', Status: false }]);
+            var columnNames = AgCasinoBalanceOption.getColName();
 
-            expect(JSON.stringify(gridOption.colNames)).toBe('["Month","SB","Total"]');
+            expect(columnNames).toEqual(["#", "Date", "ExternalId", "SystemId", "Currency", "AGOpeningBalance", "TransferIn", "TransferOut", "Turnover", "TotalTransaction", "CustomerW_L", "LicenseeW_L", "AGClosingBalance", "CurrencyId", "CustomerId"]);
         });
+    });
 
-        it("gridOption.colNames.length should equals with gridOption.colModel.length.", function () {
-            var gridOption = AgCasinoBalanceOption.getGridOption([{ Name: 'SB', Code: 'SB', Status: false }]);
+    describe("getColModel()", function () {
+        it("columnModels.length should equal with columnNames.length.", function () {
+            var columnNames = AgCasinoBalanceOption.getColName();
+            var columnModels = AgCasinoBalanceOption.getColModel();
 
-            expect(gridOption.colNames.length).toBe(gridOption.colModel.length);
+            expect(columnModels.length).toBe(columnNames.length);
+        });
+    });
+
+    describe("getTotalColModel()", function () {
+        it("totalColumnModels.length should equal with columnNames.length.", function () {
+            var columnNames = AgCasinoBalanceOption.getColName();
+            var totalColumnModels = AgCasinoBalanceOption.getTotalColModel();
+
+            expect(totalColumnModels.length).toBe(columnNames.length);
         });
     });
 });

@@ -6,11 +6,11 @@
         });
 
         it("ActiveCustomerOption.rowList should be a correct array.", function () {
-            expect(JSON.stringify(ActiveCustomerOption.rowList)).toBe(JSON.stringify([50, 100, 200, 300, 400, 500, 1000, 2000]));
+            expect(ActiveCustomerOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
         });
 
         it("ActiveCustomerOption.totalColspan should be a correct array.", function () {
-            expect(JSON.stringify(ActiveCustomerOption.totalColspan)).toBe(JSON.stringify([2, 2, 3]));
+            expect(ActiveCustomerOption.totalColspan).toEqual([2, 2, 3]);
         });
 
         it("ActiveCustomerOption.urlData should be a correct url.", function () {
@@ -42,7 +42,7 @@
         it("gridOption.colNames should be correct.", function () {
             var gridOption = ActiveCustomerOption.getGridOption([{ Name: 'SB', Code: 'SB', Status: false }]);
 
-            expect(JSON.stringify(gridOption.colNames)).toBe('["Month","SB","Total"]');
+            expect(gridOption.colNames).toEqual(["Month","SB","Total"]);
         });
 
         it("gridOption.colNames.length should equals with gridOption.colModel.length.", function () {

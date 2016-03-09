@@ -136,22 +136,102 @@
         });
     });
 
-    xdescribe("bindTotal()", function () {
-        it("Table footer content should be correct.", function () {
-            var $table = affix('table.ui-jqgrid-ftable');
-            $table.html('<tr><td></td></tr>');
+    describe("submit()", function () {
+        var request;
+        beforeEach(function (done) {
+            affix('input#DrillDownLevel')
+            jasmine.Ajax.install();
 
-            AgCasinoBalance.bindTotal(1000);
-            expect($table.find('td:eq(0)').html()).toBe('TotalAgCasinoBalance = 1,000');
+            jasmine.Ajax
+                .stubRequest('api/report/AgCasinoBalance')
+                .andReturn({
+                    'status': 200,
+                    'contentType': 'application/json',
+                    'responseText': '{ }'
+                });
+
+            spyOn(AgCasinoBalance, 'setExcelUrl');
+            spyOn(AgCasinoBalance, 'ajaxComplete');
+
+            AgCasinoBalance.submit();
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        it("request.url should be 'api/report/AgCasinoBalance'", function () {
+            expect(request.url).toBe('api/report/AgCasinoBalance');
+        });
+
+        it("#DrillDownLevel should have value 0.", function () {
+            expect($('#DrillDownLevel').val()).toBe('0');
+        });
+
+        it("AgCasinoBalance.setExcelUrl() should be called with expected params.", function () {
+            expect(AgCasinoBalance.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "");
+        });
+
+        it("AgCasinoBalance.ajaxComplete() should be called with expected params.", function () {
+            expect(AgCasinoBalance.ajaxComplete).toHaveBeenCalledWith(0, jasmine.any(Object));
         });
     });
 
-    xdescribe("bindData(response)", function () {
-        it("AgCasinoBalanceOption.setGroupHeaderColumns() should be called.", function () {
-            var gridOption;
-            spyOn(AgCasinoBalanceOption, 'setGroupHeaderColumns');
-            AgCasinoBalance.bindData({ Data: [], ProductOptions: '{}' });
-            expect(AgCasinoBalanceOption.setGroupHeaderColumns).toHaveBeenCalled();
+    describe("goBack(level)", function () {
+        it("Correspondent functions should be called if level = 0.", function () {
+            spyOn(AgCasinoBalance, 'renderBreadCrumb');
+            spyOn(AgCasinoBalance, 'bindData');
+            spyOn(AgCasinoBalance, 'setExcelUrl');
+            spyOn(AgCasinoBalance, 'setReportTitle');
+
+            AgCasinoBalance.goBack(0);
+
+            expect(AgCasinoBalance.renderBreadCrumb).toHaveBeenCalled();
+            expect(AgCasinoBalance.bindData).toHaveBeenCalled();
+            expect(AgCasinoBalance.setExcelUrl).toHaveBeenCalled();
+            expect(AgCasinoBalance.setReportTitle).toHaveBeenCalled();
+        });
+
+        it("#DrillDownLevel should have value 1 if level = 1.", function () {
+            var $level = affix('#DrillDownLevel');
+            spyOn(AgCasinoBalance, 'bindData');
+
+            AgCasinoBalance.goBack(1);
+
+            expect($level.val()).toBe('1');
+        });
+    });
+
+    describe("bindTotal(level, totalData, summaryTotal)", function () {
+        it("Some helper functions should be called.", function () {
+            spyOn(jqGridAdditional, 'assignTotal');
+            spyOn(Report, 'bindSummaryTotal');
+            spyOn(jqGridAdditional, 'setGroupFooters');
+
+            AgCasinoBalance.bindTotal();
+
+            expect(jqGridAdditional.assignTotal).toHaveBeenCalled();
+            expect(Report.bindSummaryTotal).toHaveBeenCalled();
+            expect(jqGridAdditional.setGroupFooters).toHaveBeenCalled();
+        });
+    });
+
+    describe("bindData(level, response)", function () {
+        it(".paging should be hide if level = 0.", function () {
+            var $pager = affix('.paging');
+            AgCasinoBalance.bindData(0, { Data: [], Total: []});
+
+            expect($pager.is(':visible')).toBe(false);
+        });
+
+        it("jqGridAdditional.resetLayout() should be called.", function () {
+            spyOn(jqGridAdditional, 'resetLayout');
+            AgCasinoBalance.bindData(0, { Data: [], Total: [] });
+
+            expect(jqGridAdditional.resetLayout).toHaveBeenCalled();
         });
     });
 });
