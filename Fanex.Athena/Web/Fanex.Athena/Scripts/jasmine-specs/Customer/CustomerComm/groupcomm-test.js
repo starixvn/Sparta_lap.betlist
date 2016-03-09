@@ -258,8 +258,52 @@
 
         it("'#SBComm1, #SBComm2, #SBComm3' should have correct value", function () {
             expect($("#SBComm1").val()).toBe("10");
-            expect($("#SBComm2").val()).toBe("10");
-            expect($("#SBComm3").val()).toBe("10");
-        })
+            expect($("#SBComm2").val()).toBe("15");
+            expect($("#SBComm3").val()).toBe("15");
+        });
+
+        it("'#RCComm1, #RCComm2, #RCComm3' should have correct value", function () {
+            expect($("#RCComm1").val()).toBe("20");
+            expect($("#RCComm2").val()).toBe("10");
+            expect($("#RCComm3").val()).toBe("30");
+        });
+
+        it("'#NGComm1, #NGComm2, #NGComm3' should have correct value", function () {
+            expect($("#NGComm1").val()).toBe("10");
+            expect($("#NGComm2").val()).toBe("10");
+            expect($("#NGComm3").val()).toBe("10");
+        });
+
+        it("'#LCComm1, #LCComm2, #LCComm3' should have correct value", function () {
+            expect($("#LCComm1").val()).toBe("100");
+            expect($("#LCComm2").val()).toBe("101");
+            expect($("#LCComm3").val()).toBe("102");
+        });
+
+        it("'#CSComm1, #CSComm2, #CSComm3' should have correct value", function () {
+            expect($("#CSComm1").val()).toBe("110");
+            expect($("#CSComm2").val()).toBe("120");
+            expect($("#CSComm3").val()).toBe("130");
+        });
+
+        it("'#SBComm' should has correct value", function () {
+            expect($("#SBComm").val()).toBe("0.1165");
+        });
+
+        it("'#RCComm' should has correct value", function () {
+            expect($("#RCComm").val()).toBe("0.2130");
+        });
+
+        it("'#NGComm' should has correct value", function () {           
+            expect($("#NGComm").val()).toBe("0.1110");
+        });
+
+        it("'#LCComm' should has correct value", function () {
+            expect($("#LCComm").val()).toBe("1.1112");
+        });
+
+        it("'#CSComm' should has correct value", function () {
+            expect($("#CSComm").val()).toBe("1.2330");
+        });
     });
 });
