@@ -1266,12 +1266,6 @@
   <data name="Mobile" xml:space="preserve">
     <value>移動</value>
   </data>
-  <data name="MobileWinLoss" xml:space="preserve">
-    <value>手機輸贏</value>
-  </data>
-  <data name="MobileWinLossTitle" xml:space="preserve">
-    <value>手機輸贏 - {0} --&gt; {1} - {2} - {3}</value>
-  </data>
   <data name="Monday" xml:space="preserve">
     <value>星期一</value>
   </data>

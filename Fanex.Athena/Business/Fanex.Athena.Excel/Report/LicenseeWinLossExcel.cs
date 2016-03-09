@@ -40,7 +40,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnActualStake = 18;
 
         private const int ColumnBuyBackAmountSportsbook = 19;
-        private const int ColumnBuyBackAmountBA = 20;      
+        private const int ColumnBuyBackAmountBA = 20;
         private const int ColumnBuyBackAmountTotal = 21;
 
         private const int ColumnTotalTransaction = 22;
@@ -57,10 +57,10 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnRacingRevenue = 41;
         private const int ColumnAmtDueToBetTrade = 42;
         private const int ColumnAmtDueToBa = 43;
-        private const int ColumnAmtDueToRacing = 44;       
-                    
+        private const int ColumnAmtDueToRacing = 44;
+
         private const int ColumnTemplateCount = 45;
-              
+
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;

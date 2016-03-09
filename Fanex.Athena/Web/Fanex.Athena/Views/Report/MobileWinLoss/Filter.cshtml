@@ -54,15 +54,29 @@
             <label for="RadioNoDrawsForTurnoverOnly">@ViewResources.NoDrawsForTurnoverOnly</label>
         </div>
         <div class="grid_3 filter-label new-line">
-            <label>@ViewResources.Site</label>
+            <label>@ViewResources.Platform</label>
         </div>
         <div class="grid_7 filter-input option-list" id="SiteList">
-            @Html.RadioButton("Site", "1", Model.Param.Site == 1, new { id = "WapSite" })
-            <label for="WapSite">@ViewResources.Wap</label>
-            @Html.RadioButton("Site", "2", Model.Param.Site == 2, new { id = "SmartPhoneSite" })
-            <label for="SmartPhoneSite">@ViewResources.SmartPhone</label>
-            @Html.RadioButton("Site", "3", Model.Param.Site == 3, new { id = "OthersSite" })
-            <label for="OthersSite">@ViewResources.Others</label>
+            <select name="Site" style="width: 110px;" id="Platform">
+                <option value="0">
+                    @ViewResources.All
+                </option>
+                <option value="1">
+                    @ViewResources.Asia
+                </option>
+                <option value="2">
+                    @ViewResources.NewAsia
+                </option>
+                <option value="3">
+                    @ViewResources.Euro
+                </option>
+                <option value="4">
+                    @ViewResources.Wap
+                </option>
+                <option value="5">
+                    @ViewResources.SmartPhone.ToUpper()
+                </option>
+            </select>
         </div>
         <div class="new-line">
         </div>

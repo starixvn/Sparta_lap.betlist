@@ -38,7 +38,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -124,7 +124,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />  
@@ -211,7 +211,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -292,7 +292,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://172.16.4.118:8098/CallGetRefFunction" />
@@ -371,7 +371,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -449,7 +449,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.18.200.124:8888/CallGetRefFunction" />
@@ -530,7 +530,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=53293" />
+	<add key="JsVersion" value="v=50939" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -582,8 +582,8 @@
 	<add key="EnableEsportSettingStatus" value="false" />
 	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
 	<!-- RNG Casino API -->
-	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
-	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.2.206.7:8066/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://cahhd.ibcbk.com/HandHistoryPortal/HandHistoryLogin.aspx" />
 	<add key="RNGCasinoLogin" value="login" />
 	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
 	<add key="RNGCasinoSiteId" value="3000" />

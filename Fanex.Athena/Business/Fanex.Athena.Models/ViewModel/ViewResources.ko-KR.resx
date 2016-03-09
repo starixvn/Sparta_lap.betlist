@@ -1515,12 +1515,6 @@
   <data name="Mobile" xml:space="preserve">
     <value>모바일</value>
   </data>
-  <data name="MobileWinLoss" xml:space="preserve">
-    <value>모바일 승리 패배</value>
-  </data>
-  <data name="MobileWinLossTitle" xml:space="preserve">
-    <value>모바일 승리 패배 - {0}--&gt; {1} - {2} - {3}</value>
-  </data>
   <data name="Monday" xml:space="preserve">
     <value>월요일</value>
   </data>

@@ -29,20 +29,13 @@ var MobileWinLoss = (function ($) {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
             _resizeTimer = setTimeout(function () {
-                var $dataContainer = $(".ui-jqgrid-bdiv");
-                if ($dataContainer.length === 0) {
+                if ($(".ui-jqgrid-bdiv").length === 0) {
                     return;
                 }
-
-                var height = $("#ReportGrid").height();
-                if (MobileWinLoss.hasHorizontalScrollBar($dataContainer)) {
-                    var scrollHeight = $dataContainer.get(0).offsetHeight - $dataContainer.get(0).clientHeight;
-                    height = height + scrollHeight;
-                }
-                var gridTop = $dataContainer.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $dataContainer.height() - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-                $dataContainer.css("height", height).css("max-height", gridHeight);
+                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
+                gridHeight = Math.max(130, gridHeight);
+                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
             }, 100);
         },
         hasHorizontalScrollBar: function (element) {
@@ -76,7 +69,7 @@ var MobileWinLoss = (function ($) {
             };
             Site.addUserGuide({
                 resourceName: "MobileWL",
-                title: Site.getSingleResource("MobileWinLoss")
+                title: Site.getSingleResource("PlatformWinLoss")
             });
         },
         initSetting: function () {
@@ -169,9 +162,9 @@ var MobileWinLoss = (function ($) {
             }
         },
         setReportTitle: function (currencyId, site, fromdate, todate) {
-            var titlePattern = Site.getSingleResource('MobileWinLoss')
+            var titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - '
-                + Site.getSingleResource('Site') + ': {3}{4}';
+                + Site.getSingleResource('Platform') + ': {3}{4}';
             var viewinKey = Site.getSingleResource("Viewin");
             //get currencyName
             var currencyTextList =
@@ -309,12 +302,12 @@ var MobileWinLoss = (function ($) {
                         //update drildownValue
                         $("#drillDownDrawFilter").val($("input[name='DrawFilter']:checked").val());
                         $("#drillDownExcludeTest").val($("#IsExcludeTest").is(":checked"));
-                        $("#drillDownSite").val($("input[name='Site']:checked").val());
+                        $("#drillDownSite").val($("#Platform").val());
                         $("#drillDownCurrencyId").val($("#CurrencyId").val());
                         var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
                         var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
                         var currencyId = $("#CurrencyId").val();
-                        var site = $("input[name='Site']:checked").val();
+                        var site = $("#Platform").val();
                         $("#drillDownFromDate").val(fromdate.toString("M/d/yyyy"));
                         $("#drillDownToDate").val(todate.toString("M/d/yyyy"));
 

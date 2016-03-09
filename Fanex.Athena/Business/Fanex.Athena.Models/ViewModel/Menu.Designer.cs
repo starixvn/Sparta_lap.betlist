@@ -493,7 +493,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mobile Win Loss.
+        ///   Looks up a localized string similar to Platform Win Loss.
         /// </summary>
         public static string Menu_53 {
             get {

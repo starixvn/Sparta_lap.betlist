@@ -475,6 +475,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asia.
+        /// </summary>
+        public static string Asia {
+            get {
+                return ResourceManager.GetString("Asia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Permission Successful..
         /// </summary>
         public static string AssignPermissionSuccessful {
@@ -2217,6 +2226,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EUR {
             get {
                 return ResourceManager.GetString("EUR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Euro.
+        /// </summary>
+        public static string Euro {
+            get {
+                return ResourceManager.GetString("Euro", resourceCulture);
             }
         }
         
@@ -4516,24 +4534,6 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mobile Win Loss.
-        /// </summary>
-        public static string MobileWinLoss {
-            get {
-                return ResourceManager.GetString("MobileWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mobile Win Loss - {0} --&gt; {1} - {2} - {3}.
-        /// </summary>
-        public static string MobileWinLossTitle {
-            get {
-                return ResourceManager.GetString("MobileWinLossTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mode.
         /// </summary>
         public static string Mode {
@@ -4665,6 +4665,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string NetworkTimeoutMsg {
             get {
                 return ResourceManager.GetString("NetworkTimeoutMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to China.
+        /// </summary>
+        public static string NewAsia {
+            get {
+                return ResourceManager.GetString("NewAsia", resourceCulture);
             }
         }
         
@@ -5502,6 +5511,24 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Platform {
             get {
                 return ResourceManager.GetString("Platform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform Win Loss.
+        /// </summary>
+        public static string PlatformWinLoss {
+            get {
+                return ResourceManager.GetString("PlatformWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform Win Loss - {0} --&gt; {1} - {2} - {3}.
+        /// </summary>
+        public static string PlatformWinLossTitle {
+            get {
+                return ResourceManager.GetString("PlatformWinLossTitle", resourceCulture);
             }
         }
         

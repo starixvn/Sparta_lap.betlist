@@ -3,20 +3,20 @@
     Layout = "~/Views/Shared/_BetListSimpleLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Models.DataDomain
+
 @model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
 @section pagecss {}
 @section pagejs {
 }
 @{
-    var siteList = new List<string> { string.Empty, ViewResources.Wap, ViewResources.SmartPhone, ViewResources.Others };
-    var siteText = siteList[Model.SiteType];
+    var platformText = PlatformType.GetPlatformName(Model.SiteType);
 }
 @section ContentTitle
 {    
   @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
         → </span>@Model.ToDate.ToShortDateString()
-    - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Site: @siteText - <span class="base-currency">
+    - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Platform: @platformText - <span class="base-currency">
            @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
         

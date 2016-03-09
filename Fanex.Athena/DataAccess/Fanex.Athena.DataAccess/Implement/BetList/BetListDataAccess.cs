@@ -618,7 +618,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("SiteType", DbType.Byte, metaModel.SiteType);
+            db.AddInParameter("PlatformType", DbType.Byte, metaModel.SiteType);
         }
 
         /// <summary>

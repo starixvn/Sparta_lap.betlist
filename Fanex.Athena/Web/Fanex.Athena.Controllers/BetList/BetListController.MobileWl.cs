@@ -65,8 +65,8 @@ namespace Fanex.Athena.Controllers.BetList
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
-            var siteList = new List<string> { string.Empty, ViewResources.Wap, ViewResources.SmartPhone, ViewResources.Others };
-            var siteText = siteList[metaModel.SiteType];
+            var platformText = PlatformType.GetPlatformName(metaModel.SiteType);
+
             var title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(
                 " - {0} --> {1} - {2}({3}) - {4} - {5}",
@@ -74,7 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
                 metaModel.ExternalId,
                 metaModel.SystemId,
-                ViewResources.Site + ": " + siteText,
+                ViewResources.Platform + ": " + platformText,
                 viewinCurrency);
 
             var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var workbook = excel.Export(ticketResult, title);
 
-            return new ExcelResult(workbook, "MobileWinLossBetList");
+            return new ExcelResult(workbook, "PlatformWinLossBetList");
         }
     }
 }
