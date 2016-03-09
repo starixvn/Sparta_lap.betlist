@@ -642,6 +642,7 @@
     <Content Include="Scripts\jasmine-specs\Customer\BetSetting\rngcasino-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customercommlist-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\CustomerComm\createnewgroup-test.js" />
+    <Content Include="Scripts\jasmine-specs\Customer\CustomerComm\updategroup-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\activecustomersummary-test.js" />
