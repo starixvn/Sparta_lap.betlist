@@ -140,7 +140,7 @@ var MatchWinLoss = (function ($) {
 
             var bettype = Number($(element).data('bettype'));
             if (bettype === 85 || bettype === 86) {
-                data.IsLive = data.IsLive ? '1' : '0';
+                data.IsLive = $(element).data('islive');
             }
             else {
                 data.IsLive = '';

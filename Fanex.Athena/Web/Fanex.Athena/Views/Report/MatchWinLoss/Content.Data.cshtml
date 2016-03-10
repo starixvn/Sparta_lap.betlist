@@ -67,7 +67,6 @@
                     MatchId = matchWinLoss.MatchId == 0 ? Converter.ToInt(matchWinLoss.RaceNo) : matchWinLoss.MatchId,
                     ProductCode = matchWinLoss.ProductName,
                     RaceNo = matchWinLoss.RaceNo,
-                    IsLive = matchWinLoss.IsLive,
                     HomeId = matchWinLoss.HomeId,
                     AwayId = matchWinLoss.AwayId
                 };
@@ -82,7 +81,7 @@
                             <span href="#" class="match-handler icon-expand"></span>
                         </div>
 
-                        <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" style="width: 100%">
+                        <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")" style="width: 100%">
                             @(new HtmlString(matchName))
                         </span>
                     </div>
