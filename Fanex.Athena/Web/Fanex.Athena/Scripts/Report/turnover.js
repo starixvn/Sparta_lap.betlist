@@ -12,17 +12,17 @@ var Turnover = (function ($) {
             }
 
             setTimeout(function () {
-                var height = $("#ReportGrid").height() + 22;
+                var height = $("#ReportGrid").height();
                 var $bdiv = $(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;
                 }
 
-                var gridTop = $bdiv.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - 30;
+                var gridTop = $(".ui-jqgrid-hdiv").offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height();
                 gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").height(height).css("max-height", gridHeight);
-            }, 200);
+                $bdiv.height(height).css("height", "auto").css("max-height", gridHeight);
+            }, 100);
         },
         initialize: function () {
             Turnover.initMonthPicker();
