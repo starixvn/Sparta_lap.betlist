@@ -41,7 +41,7 @@ var WinLossByBetType = (function ($) {
             });
         },
         viewBetList: function (betType) {
-            var url = Site.resolveClientUrl("BetList/WinLossByBetType");
+            var url = Site.resolveClientUrl("BetListWinLossByBetType/WinlossByBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", $("#FromDate").val());
             url = QueryString.setParam(url, "todate", $("#ToDate").val());
