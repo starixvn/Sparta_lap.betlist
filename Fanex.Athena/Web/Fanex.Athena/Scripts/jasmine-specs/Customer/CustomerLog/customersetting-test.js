@@ -64,6 +64,14 @@
             expect(CustomerLog.setUsernameOnFocus).toHaveBeenCalled();
         });
 
+        it("CustomerLog.setDefaultUsername() should be called when '#Username' fired blur event", function () {
+            spyOn(CustomerLog, "setDefaultUsername");
+
+            $("#Username").blur();
+
+            expect(CustomerLog.setDefaultUsername).toHaveBeenCalled();
+        });
+
         describe("'#SubmitButton' click event", function () {
             beforeEach(function () {
                 affix("input#showall[type=checkbox]");
