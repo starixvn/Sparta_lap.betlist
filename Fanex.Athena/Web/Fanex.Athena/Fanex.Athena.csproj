@@ -644,6 +644,7 @@
     <Content Include="Scripts\jasmine-specs\Customer\CustomerComm\createnewgroup-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\CustomerComm\groupcomm-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\CustomerComm\updategroup-test.js" />
+    <Content Include="Scripts\jasmine-specs\Customer\CustomerLog\customerlog-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\agcasinobalance-test.js" />
