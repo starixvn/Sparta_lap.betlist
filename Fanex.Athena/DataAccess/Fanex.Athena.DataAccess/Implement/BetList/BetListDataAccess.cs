@@ -45,6 +45,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
             { "Lrf_BetList_CorrectScore", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinLossRacingByDate_Mem", (db, metalModel) => CreateRacingCommissionBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinlossDaily", (db, metalModel) => CreateDailyWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinlostRacing", (db, metalModel) => CreateDailyRacingWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
@@ -903,6 +904,17 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             CreateBetlistProductOptionParameters(db, metaModel);
+        }
+
+        private static void CreateRacingCommissionBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+            CreateBetListDateRangeParameters(db, metaModel);
+            CreateBetlistBUParameters(db, metaModel);
+            CreateBetListPagingParameters(db, metaModel);
+            CreateBetlistSummaryParameters(db);
         }
 
         private static void CreateCancelBetListParameters(IObjectDb db, BetListMetaModel metaModel)
