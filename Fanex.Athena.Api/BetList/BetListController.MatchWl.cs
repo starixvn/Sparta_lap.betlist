@@ -33,8 +33,7 @@ namespace Fanex.Athena.Api.BetList
         public dynamic MatchWLMatchBetType(
             int page,
             int rows,
-            [FromUri]BetListMetaModel metaModel,
-            [FromUri]IEnumerable<ProductOption> productOptions)
+            [FromUri]BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -46,7 +45,6 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.ProductOptions = new HashSet<ProductOption>(productOptions);
 
             var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_MatchWL_Racing"
