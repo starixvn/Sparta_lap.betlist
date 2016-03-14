@@ -139,6 +139,7 @@ var MatchWinLoss = (function ($) {
             var date = $("#Date").attr('data-original');
 
             var bettype = Number($(element).data('bettype'));
+            bettype = isNaN(bettype) ? 0 : bettype;
             if (bettype === 85 || bettype === 86) {
                 data.IsLive = $(element).data('islive');
             }
@@ -148,7 +149,6 @@ var MatchWinLoss = (function ($) {
 
             var url = Site.resolveClientUrl("BetList/MatchWlMatchBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "fromdate", date);
             url = QueryString.setParam(url, "fromdate", date);
             url = QueryString.setParam(url, "date", date);
             url = QueryString.setParam(url, "matchid", data.MatchId);
