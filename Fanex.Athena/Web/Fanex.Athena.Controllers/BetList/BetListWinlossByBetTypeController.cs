@@ -41,6 +41,8 @@
         [NonAction]
         public ActionResult WinlossByBetTypeExcel(BetListMetaModel metaModel)
         {
+            metaModel.PageIndex = 1;
+            metaModel.PageSize = int.MaxValue - 1;
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
