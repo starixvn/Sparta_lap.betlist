@@ -21,7 +21,5 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     public interface IWinLossByBetTypeDataAccess
     {
         SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel);
-
-        DataSet GetDataSetForExcel(WinLossByBetTypeMetaModel metaModel);
     }
 }

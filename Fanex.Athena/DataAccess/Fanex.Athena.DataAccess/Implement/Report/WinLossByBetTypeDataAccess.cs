@@ -10,9 +10,7 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
@@ -119,43 +117,5 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         }
 
         #endregion Win Loss By Bet Type Data
-
-        #region Get Dataset For Excel
-
-        /// <summary>
-        /// Get data set for excel.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        public DataSet GetDataSetForExcel(WinLossByBetTypeMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByBettype";
-            var uspParams = new
-                {
-                    metaModel.LicenseeId,
-                    metaModel.UserId,
-                    metaModel.LicenseeType,
-                    metaModel.CurrencyId,
-                    metaModel.FromDate,
-                    metaModel.ToDate,
-                    BalanceUp.MoveBetsDay,
-                    BalanceUp.BalanceUpDay
-                };
-
-            try
-            {
-                using (var db = new ObjectDb(UspName))
-                {
-                    return db.ExecuteDataSet(uspParams);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        #endregion Get Dataset For Excel     
     }
 }
