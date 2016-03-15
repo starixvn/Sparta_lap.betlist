@@ -37,8 +37,7 @@ namespace Fanex.Athena.Controllers.Customer
         private const string CustomerListUrl = "Customer/CustomerList";
 
         private const int BopingResellerId = 7;
-        private const int Licensee12Bet = 1;
-        private const int LicenseeSpondemo = 5;
+        private static readonly int[] LicenseesEditableBetSetting = new int[] { 1, 5, 98 }; // 12Bet, Spondemo, XTD3.
 
         #endregion Const
 
@@ -167,9 +166,7 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenessId = licenseeSession.LicenseeId;
-            var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
-            metaModel.Editable = licensees.Contains(licenseeSession.LicenseeId) || metaModel.LicenessId == Licensee12Bet ||
-                                 metaModel.LicenessId == LicenseeSpondemo;
+            metaModel.Editable = IsBetSettingEditable(userSession.UserId, licenseeSession.LicenseeId);
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
             metaModel.IsAllowRacing = productAccess.IsAllowRB;
@@ -201,6 +198,19 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.BetSettingProducts = betSettingProducts.Where(x => x.IsEnable).ToList();
             viewModel.Param = metaModel;
             return viewModel;
+        }
+
+        private bool IsBetSettingEditable(int userId, int licenseeId)
+        {
+            if (LicenseesEditableBetSetting.Contains(licenseeId))
+            {
+                return true;
+            }
+            else
+            {
+                var licensees = _licenseeService.GetByResellerId(userId, BopingResellerId);
+                return licensees.Contains(licenseeId);
+            }
         }
 
         private void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
