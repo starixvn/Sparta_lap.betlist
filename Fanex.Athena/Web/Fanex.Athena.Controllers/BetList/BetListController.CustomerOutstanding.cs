@@ -35,11 +35,9 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult CustomerOutstanding(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
-
             metaModel = CreateDefaultMetaModel(metaModel);
 
             var minDate = DateTime.Today.AddYears(-1);
-
             minDate = new DateTime(minDate.Year, 1, 1);
             metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
