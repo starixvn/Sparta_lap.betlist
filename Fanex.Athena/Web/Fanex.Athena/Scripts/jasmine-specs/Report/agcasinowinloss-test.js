@@ -127,51 +127,7 @@
         });
     });
 
-    describe("submit()", function () {
-        var request;
-        beforeEach(function (done) {
-            affix('input#DrillDownLevel')
-            jasmine.Ajax.install();
-
-            jasmine.Ajax
-                .stubRequest('api/report/AgCasinoWinLoss')
-                .andReturn({
-                    'status': 200,
-                    'contentType': 'application/json',
-                    'responseText': '{ }'
-                });
-
-            spyOn(AgCasinoWinLoss, 'setExcelUrl');
-            spyOn(AgCasinoWinLoss, 'ajaxComplete');
-
-            AgCasinoWinLoss.submit();
-            request = jasmine.Ajax.requests.mostRecent();
-
-            setTimeout(done, 10);
-        });
-
-        afterEach(function () {
-            jasmine.Ajax.uninstall();
-        });
-
-        it("request.url should be 'api/report/AgCasinoWinLoss'", function () {
-            expect(request.url).toBe('api/report/AgCasinoWinLoss');
-        });
-
-        it("#DrillDownLevel should have value 0.", function () {
-            expect($('#DrillDownLevel').val()).toBe('0');
-        });
-
-        it("AgCasinoWinLoss.setExcelUrl() should be called with expected params.", function () {
-            expect(AgCasinoWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "");
-        });
-
-        it("AgCasinoWinLoss.ajaxComplete() should be called with expected params.", function () {
-            expect(AgCasinoWinLoss.ajaxComplete).toHaveBeenCalledWith(0, jasmine.any(Object));
-        });
-    });
-
-    xdescribe("goBack(level)", function () {
+    describe("goBack(level)", function () {
         it("Correspondent functions should be called if level = 0.", function () {
             spyOn(AgCasinoWinLoss, 'renderBreadCrumb');
             spyOn(AgCasinoWinLoss, 'bindData');
@@ -186,17 +142,12 @@
             expect(AgCasinoWinLoss.setReportTitle).toHaveBeenCalled();
         });
 
-        it("#DrillDownLevel should have value 1 if level = 1.", function () {
-            var $level = affix('#DrillDownLevel');
-            spyOn(AgCasinoWinLoss, 'bindData');
-
-            AgCasinoWinLoss.goBack(1);
-
-            expect($level.val()).toBe('1');
+        it("AgCasinoWinLossOption.urlExcelData should be updated to correct value.", function () {
+            expect(AgCasinoWinLossOption.urlExcelData).toBe('api/report/AgCasinoWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
         });
     });
 
-    xdescribe("bindTotal(level, totalData, summaryTotal)", function () {
+    describe("bindTotal(level, totalData, summaryTotal)", function () {
         it("Some helper functions should be called.", function () {
             spyOn(jqGridAdditional, 'assignTotal');
             spyOn(Report, 'bindSummaryTotal');
@@ -210,14 +161,7 @@
         });
     });
 
-    xdescribe("bindData(level, response)", function () {
-        it(".paging should be hide if level = 0.", function () {
-            var $pager = affix('.paging');
-            AgCasinoWinLoss.bindData(0, { Data: [], Total: []});
-
-            expect($pager.is(':visible')).toBe(false);
-        });
-
+    describe("bindData(level, response)", function () {
         it("jqGridAdditional.resetLayout() should be called.", function () {
             spyOn(jqGridAdditional, 'resetLayout');
             AgCasinoWinLoss.bindData(0, { Data: [], Total: [] });
