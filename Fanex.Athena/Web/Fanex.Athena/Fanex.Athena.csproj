@@ -644,6 +644,9 @@
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
+	<Content Include="SiteConfig\Web.SIT.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoBalance\Filter.cshtml" />
