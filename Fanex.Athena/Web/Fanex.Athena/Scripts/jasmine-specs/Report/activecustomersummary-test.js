@@ -1,6 +1,6 @@
 ﻿describe("ActiveCustomer", function () {
     describe("initialize()", function () {
-        it("initEvent() should be call when initialize() is called", function () {
+        it("initEvent() should be called when initialize() is called", function () {
             spyOn(ActiveCustomer, 'initEvent');
 
             ActiveCustomer.initialize();
