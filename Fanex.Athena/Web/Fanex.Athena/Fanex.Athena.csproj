@@ -652,6 +652,7 @@
     <Content Include="Scripts\jasmine-specs\Customer\CustomerLog\loginlog.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers-test.js" />
     <Content Include="Scripts\jasmine-specs\Customer\customers.option-test.js" />
+    <Content Include="Scripts\jasmine-specs\Forecast\forecast.ah-test.js" />
     <Content Include="Scripts\jasmine-specs\Forecast\forecastpopup-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\balance-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\agcasinowinloss.option-test.js" />
