@@ -29,7 +29,7 @@
 
             $submitButton.click();
 
-            expect(FirstGoalLastGoal.submit).toHaveBeenCalled()
+            expect(FirstGoalLastGoal.submit).toHaveBeenCalled();
         });
 
         it("Totalbets.viewRunningBetListMultiBettype(matchId, bettypeParameter) should be called with correct parameters when '.team' fired click event", function () {
@@ -42,7 +42,7 @@
 
             $team.click();
 
-            expect(Totalbets.viewRunningBetListMultiBettype).toHaveBeenCalledWith("1", "14,127")
+            expect(Totalbets.viewRunningBetListMultiBettype).toHaveBeenCalledWith("1", "14,127");
         });
     });
 
