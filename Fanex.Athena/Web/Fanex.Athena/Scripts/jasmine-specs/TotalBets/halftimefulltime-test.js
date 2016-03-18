@@ -15,7 +15,7 @@
             expect(HalfTimeFullTime.initEvent).toHaveBeenCalled();
         });
         it("Site.addUserGuide() should be called", function () {
-            var title = Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT")
+            var title = Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT");
             expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "TotalBetsHTFT", title: title });
         });
     });
