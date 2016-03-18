@@ -32,7 +32,7 @@
             expect(HalfTimeFullTime.submit).toHaveBeenCalled();
         });
 
-        it("Totalbets.viewRunningBetListMultiBettype(matchId, betType) should be called with correct parameters when '.team' fired click event", function () {
+        it("Totalbets.viewRunningBetListMatch(matchId, betType) should be called with correct parameters when '.team' fired click event", function () {
             affix("#Refresh-Content .team");
             var $team = $(".team");
             $team.attr("data-match-id", 1);
