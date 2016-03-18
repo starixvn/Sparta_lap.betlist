@@ -673,6 +673,7 @@
     <Content Include="Scripts\jasmine-specs\TotalBets\homedrawawaynobet-test.js" />
     <Content Include="Scripts\jasmine-specs\TotalBets\moneyline-test.js" />
     <Content Include="Scripts\jasmine-specs\TotalBets\numbergame-test.js" />
+    <Content Include="Scripts\jasmine-specs\TotalBets\oddevendrawnodraw-test.js" />
     <Content Include="Scripts\jasmine-specs\TotalBets\totalbetsbase-test.js" />
     <Content Include="Scripts\jasmine\mock-ajax.js" />
     <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
