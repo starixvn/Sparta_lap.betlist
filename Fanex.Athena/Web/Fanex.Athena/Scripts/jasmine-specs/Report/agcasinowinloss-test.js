@@ -29,7 +29,7 @@
             var $submit = affix('#SubmitButton');
             var $excelField = affix('#IsExportExcel');
 
-            AgCasinoWinLoss.initialize();
+            AgCasinoWinLoss.initEvent();
             $submit.click();
             expect($excelField.val()).toBe(false);
         });
@@ -40,7 +40,7 @@
 
             var spyEvent = spyOnEvent($mainform, 'submit');
             
-            AgCasinoWinLoss.initialize();
+            AgCasinoWinLoss.initEvent();
             $export.click();
             expect(spyEvent).toHaveBeenTriggered();
         });
@@ -52,7 +52,7 @@
             $link.attr('data-level', LEVEL);
             spyOn(AgCasinoWinLoss, 'goBack');
 
-            AgCasinoWinLoss.initialize();
+            AgCasinoWinLoss.initEvent();
             $link.click();
 
             expect(AgCasinoWinLoss.goBack).toHaveBeenCalledWith(LEVEL);

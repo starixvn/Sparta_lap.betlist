@@ -26,7 +26,7 @@
             var $submit = affix('#SubmitButton');
             var $excelField = affix('#IsExportExcel');
 
-            AgCasinoBalance.initialize();
+            AgCasinoBalance.initEvent();
             $submit.click();
             expect($excelField.val()).toBe(false);
         });
@@ -37,7 +37,7 @@
 
             var spyEvent = spyOnEvent($mainform, 'submit');
             
-            AgCasinoBalance.initialize();
+            AgCasinoBalance.initEvent();
             $export.click();
             expect(spyEvent).toHaveBeenTriggered();
         });
@@ -49,7 +49,7 @@
             $link.attr('data-level', LEVEL);
             spyOn(AgCasinoBalance, 'goBack');
 
-            AgCasinoBalance.initialize();
+            AgCasinoBalance.initEvent();
             $link.click();
 
             expect(AgCasinoBalance.goBack).toHaveBeenCalledWith(LEVEL);
