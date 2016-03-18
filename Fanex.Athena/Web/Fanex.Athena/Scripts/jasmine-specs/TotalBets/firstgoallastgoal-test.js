@@ -14,7 +14,7 @@
         it("FirstGoalLastGoal.initEvent() should be called", function () {
             expect(FirstGoalLastGoal.initEvent).toHaveBeenCalled();
         });
-        it("Site.addUserGuide() should be called", function () {
+        it("Site.addUserGuide() should be called with correct parameters", function () {
             var title = Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("FGLG");
             expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "TotalBetsFGLG", title: title });
         });

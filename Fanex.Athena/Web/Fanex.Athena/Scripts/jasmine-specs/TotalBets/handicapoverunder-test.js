@@ -14,7 +14,7 @@
         it("HandicapOU.initEvent() should be called", function () {
             expect(HandicapOU.initEvent).toHaveBeenCalled();
         });
-        it("Site.addUserGuide() should be called", function () {
+        it("Site.addUserGuide() should be called with correct parameters", function () {
             var title = Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HandicapOverUnderLive");
             expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "TotalBetsHdpOu", title: title });
         });

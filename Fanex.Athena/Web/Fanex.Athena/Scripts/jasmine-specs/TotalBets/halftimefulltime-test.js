@@ -14,7 +14,7 @@
         it("HalfTimeFullTime.initEvent() should be called", function () {
             expect(HalfTimeFullTime.initEvent).toHaveBeenCalled();
         });
-        it("Site.addUserGuide() should be called", function () {
+        it("Site.addUserGuide() should be called with correct parameters", function () {
             var title = Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT");
             expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "TotalBetsHTFT", title: title });
         });
