@@ -38,7 +38,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.UserId = userSession.UserId;
-            const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
+            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
 
             return GetBetListResult(metaModel, UspKey);
         }

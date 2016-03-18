@@ -50,7 +50,6 @@ var RacingCommission = (function ($) {
 
         viewRacingBetList: function (custid, systemId, externalId) {
             var url = Site.resolveClientUrl("BetList/RacingCommission");
-            url = Site.setProductOptionParam(url, 0, "RB", true);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", $("#FromDate").attr("data-original"));
             url = QueryString.setParam(url, "todate", $("#ToDate").attr("data-original"));

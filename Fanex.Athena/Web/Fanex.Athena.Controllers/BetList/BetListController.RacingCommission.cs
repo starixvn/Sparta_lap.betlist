@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult RacingCommissionExcel(BetListMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
+            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
 
             var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
 
