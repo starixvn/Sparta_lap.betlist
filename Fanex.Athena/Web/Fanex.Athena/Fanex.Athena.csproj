@@ -657,6 +657,8 @@
     <Content Include="Scripts\jasmine-specs\Forecast\forecast.newforecasthdpou-test.js" />
     <Content Include="Scripts\jasmine-specs\Forecast\forecast.onextwo-test.js" />
     <Content Include="Scripts\jasmine-specs\Forecast\forecastpopup-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\customerturnover.option-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\customerturnover-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\customerpendingfunds-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\customerbalance-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\casinoprogressivewins.option-test.js" />
