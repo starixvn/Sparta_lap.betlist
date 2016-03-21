@@ -14,7 +14,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         public WeeklyLiveMatchMetaModel()
         {
             FromDate = DateTimeHelper.GetFirstDateOfWeek(DateTime.Now);
-            ToDate = DateTime.Now;
+            ToDate = DateTime.Now.AddDays(-1);
         }
         
         public int NumberOfWeeks
