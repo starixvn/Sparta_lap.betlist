@@ -25,11 +25,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     {
         private const int StartWeekColumnIndex = 2;
 
-        public WeeklyLiveMatchDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
         public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] totalData)
         {
             string uspName = "Lrf_Rpt_LiveMatchWeekly";
@@ -42,8 +37,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-                    db.AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
 
                     using (var reader = db.ExecuteReader())
                     {

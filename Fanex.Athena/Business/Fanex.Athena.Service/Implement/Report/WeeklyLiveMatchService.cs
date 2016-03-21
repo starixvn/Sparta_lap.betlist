@@ -26,14 +26,11 @@ namespace Fanex.Athena.Service.Implement.Report
     {
         private const int DaysInWeek = 7;
 
-        private readonly IBalanceUpService _balanceService;
-
         private readonly IWeeklyLiveMatchDataAccess _weeklyLiveMatchDataAccess;
 
         public WeeklyLiveMatchService()
         {
-            this._balanceService = new BalanceUpService();
-            this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess(_balanceService.BalanceUpInfo);
+            this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess();
         }
 
         public IEnumerable<WeeklyLiveMatch> GetData(WeeklyLiveMatchMetaModel metaModel, out int[] total)
