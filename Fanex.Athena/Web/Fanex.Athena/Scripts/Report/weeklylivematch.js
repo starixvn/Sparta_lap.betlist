@@ -124,7 +124,7 @@ var WeeklyLiveMatch = (function ($) {
 
             jqGridAdditional.resetLayout(reportGrid);
 
-            var gridWidth = reportGrid.width() + 22;
+            var gridWidth = reportGrid.width() + 18;
             
             gridWidth = Math.min($(window).width() - 20, gridWidth);
             $(".content-filter").width(gridWidth);
