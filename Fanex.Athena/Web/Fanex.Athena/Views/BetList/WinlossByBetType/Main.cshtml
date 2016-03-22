@@ -4,7 +4,12 @@
 }
 @using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Models.Cache
+@using Fanex.Athena.Models.DataDomain
+
 @model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+@{ 
+    ViewBag.HideExportExcel = Model.CurrencyId == BaseCurrencyType.All || Model.FromDate.Date != Model.ToDate.Date;
+}
 @section pagecss {}
 @section pagejs {}
 @section ContentTitle

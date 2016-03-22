@@ -30,7 +30,9 @@
 
             var currencyList = this.SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != BaseCurrencyType.All && 
+                currencyList.Values.Contains(metaModel.CurrencyId) && 
+                metaModel.FromDate.Date == metaModel.ToDate.Date)
             {
                 return this.WinlossByBetTypeExcel(metaModel);
             }
