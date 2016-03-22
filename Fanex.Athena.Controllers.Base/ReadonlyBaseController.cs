@@ -6,9 +6,6 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using ONEbook.UM.Filters;
