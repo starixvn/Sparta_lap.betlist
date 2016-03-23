@@ -2847,4 +2847,8 @@
     <value>Euro</value>
     <comment>#50939</comment>
   </data>
+  <data name="ExcelExceedRowsMsg" xml:space="preserve">
+    <value>This file exceeded 65535 entries. Please contact administrator for more details.</value>
+    <comment>#52794</comment>
+  </data>
 </root>
