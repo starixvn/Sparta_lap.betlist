@@ -177,7 +177,7 @@ namespace Fanex.Athena.Excel.BetList
 
             // Index
             var indexCell = builder.AddCell(new HSSFRichTextString("#"), headerStyle);
-            builder.SetColumnWidth(indexCell.ColumnIndex, 1200);
+            builder.SetColumnWidth(indexCell.ColumnIndex, 1500);
 
             // External Id
             var externalIdCell = builder.AddCell(new HSSFRichTextString(ViewResources.ExternalId), headerStyle);
