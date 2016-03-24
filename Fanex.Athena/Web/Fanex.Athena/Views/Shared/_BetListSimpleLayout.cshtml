@@ -17,9 +17,12 @@
     @RenderSection("ContentTitle", required: false)
     <div class="export-excel">
         @RenderSection("BackButton", required: false)
+        @if (ViewBag.HideExportExcel != true)
+        {
         <input alt="@Fanex.Athena.Models.ViewModel.ViewResources.ExportToExcel" 
             src="@Url.ContentLink("/Content/Global/Images/excel.gif")" type="image" id="ExportToExcel" name="exporttoexcel"
             title="@Fanex.Athena.Models.ViewModel.ViewResources.ExportToExcel" class="hand" />
+        }
     </div>
 </div>
 <div class="content-main">

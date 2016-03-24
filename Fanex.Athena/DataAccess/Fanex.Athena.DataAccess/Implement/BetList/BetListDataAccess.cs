@@ -71,7 +71,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
             { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) },
-            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateAGCasinoDetailParameters(db, metalModel) }
+            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateAGCasinoDetailParameters(db, metalModel) },
+            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) }
         };
 
         /// <summary>
@@ -961,6 +962,20 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
             db.AddInParameter("transtype", DbType.Int16, metaModel.TransType);
+        }
+
+        private static void CreateWinLossByBetTypeParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
+            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
+            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+            CreateBetListPagingParameters(db, metaModel);
+            CreateBetlistSummaryParameters(db);
         }
 
         #region CommonParam

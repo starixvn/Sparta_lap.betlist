@@ -547,6 +547,7 @@
     </None>
     <Content Include="Content\Report\casinoprogressivewins.css" />
     <Content Include="Content\Report\agcasinowinloss.css" />
+    <Content Include="Content\Report\images\expand_collapse.png" />
     <Content Include="Content\Report\thirdpartywinloss.css" />
     <Content Include="Content\UserGuide\Images\icon_add.jpg" />
     <Content Include="Content\UserGuide\Images\team-to-score-guide1.png" />
@@ -671,6 +672,7 @@
     </Content>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config" />
     <Content Include="Views\BetList\RngCasinoDetail\Main.cshtml" />
+    <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

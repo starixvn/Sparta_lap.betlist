@@ -3,6 +3,8 @@
 
 var CommonBetList = (function ($) {
     "use strict";
+    var MAXIMUM_EXCEL_ROWS = 65535;
+
     return {
         initialize: function () {
             BetList.initialize();
@@ -14,7 +16,6 @@ var CommonBetList = (function ($) {
             if (serverPaging === "1") {
                 var paramString = QueryString.getQueryString(location.href);
                 BetList.loadDataPaging(url + "?" + paramString);
-                //BetList.loadDataPaging2(url, params);
             }
             else {
                 var params = $.parseJSON($("#BetListMetaModel").val());
@@ -31,9 +32,18 @@ var CommonBetList = (function ($) {
             $("#ExportToExcel").click(CommonBetList.exportToExcel);
         },
         exportToExcel: function () {
+            var $grid = $('#BetListGrid');
+            if ($("#IsExportAll").val() === "1") {
+                var totalRows = $grid.jqGrid('getGridParam', 'records');
+                if (totalRows > MAXIMUM_EXCEL_ROWS) {
+                    alert(Site.getSingleResource('ExcelExceedRowsMsg'));
+                    return;
+                }
+            }
+
             var url = window.location.href;
-            var page = $('#BetListGrid').getGridParam('page');
-            var size = $('#BetListGrid').getGridParam('rowNum');
+            var page = $grid.getGridParam('page');
+            var size = $grid.getGridParam('rowNum');
 
             var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {

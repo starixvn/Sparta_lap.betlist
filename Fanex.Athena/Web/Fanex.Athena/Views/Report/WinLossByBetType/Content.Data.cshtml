@@ -9,7 +9,7 @@
                 @(index++)
             </div>
             <div class="row text-data" style="width:@(ViewBag.BetTypeNameWidth)@("px")">
-                <div>@item.BetTypeName</div>
+                <div><a href="javascript:void(0)" class="bettype-link" data-bettype="@item.BetType">@item.BetTypeName</a></div>
             </div>
             <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
                 <div>@item.Turnover.ToStringExt()</div>

@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = currencies,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Controllers.BetList
         [FunctionAuthorization]
         public ActionResult RunningBetListExcel(BetListMetaModel metaModel)
         {
-            var ticketResult = this._betListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
+            var ticketResult = this.BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
 
             var showingOption = new ShowingOption
             {

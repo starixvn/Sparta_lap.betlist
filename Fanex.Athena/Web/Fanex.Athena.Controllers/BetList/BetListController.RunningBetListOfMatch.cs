@@ -63,7 +63,7 @@ namespace Fanex.Athena.Controllers.BetList
             string uspKey = IsRacing(metaModel.BetType)
                                               ? "Lrf_BetList_SelAllByDateHR"
                                               : "Lrf_BetList_SelRunningByBettypeMatch";
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
             {

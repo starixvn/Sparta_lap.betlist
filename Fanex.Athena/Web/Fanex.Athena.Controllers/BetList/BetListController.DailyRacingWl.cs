@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult DailyRacingWLPost(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
-            var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption
             {

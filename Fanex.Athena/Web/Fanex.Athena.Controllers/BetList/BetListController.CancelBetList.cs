@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
-            var customers = this._betListService.GetCancelBetCustList(metaModel);
+            var customers = this.BetListService.GetCancelBetCustList(metaModel);
 
             if (customers.Any())
             {
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CustomerList = customers
             };
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel = CreateDefaultMetaModel(metaModel);
 
-            var custList = this._betListService.GetCancelBetCustList(metaModel);
+            var custList = this.BetListService.GetCancelBetCustList(metaModel);
 
             if (custList.Any())
             {
@@ -101,7 +101,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = GetUserCurrencies(),
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = this._productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CustomerList = custList,
             };
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 metaModel = CreateDefaultMetaModel(metaModel);
 
-                var ticketResult = this._betListService.GetBetListData(metaModel, UspKey);
+                var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
                 var showingOption = new ShowingOption
                    {

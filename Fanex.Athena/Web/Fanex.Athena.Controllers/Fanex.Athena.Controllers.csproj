@@ -195,6 +195,7 @@
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="BetList\BetListBaseController.cs" />
     <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
     <Compile Include="BetList\BetListController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="BetList\BetListController.SystemParlayDetail.cs" />
     <Compile Include="BetList\BetListController.MobileWl.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
+    <Compile Include="BetList\BetListWinlossByBetTypeController.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />

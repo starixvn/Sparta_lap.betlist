@@ -2266,6 +2266,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This file exceeded 65535 entries. Please contact administrator for more details..
+        /// </summary>
+        public static string ExcelExceedRowsMsg {
+            get {
+                return ResourceManager.GetString("ExcelExceedRowsMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude Test Data.
         /// </summary>
         public static string ExcludeTestData {

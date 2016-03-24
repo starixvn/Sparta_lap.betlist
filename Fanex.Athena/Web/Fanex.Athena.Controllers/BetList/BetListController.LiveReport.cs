@@ -261,7 +261,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult LiveReportBetListExcel(BetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
             ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
@@ -294,7 +294,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var balanceUpInfo = this._balanceUpService.BalanceUpInfo;
+            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
             metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);

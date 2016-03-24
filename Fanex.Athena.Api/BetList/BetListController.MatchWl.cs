@@ -29,8 +29,11 @@ namespace Fanex.Athena.Api.BetList
         /// </summary>
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss bet type.</returns>
-        [HttpPost]
-        public dynamic MatchWLMatchBetType(BetListMetaModel metaModel)
+        [HttpGet]
+        public dynamic MatchWLMatchBetType(
+            int page,
+            int rows,
+            [FromUri]BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -47,7 +50,7 @@ namespace Fanex.Athena.Api.BetList
                 ? "Lrf_BetList_MatchWL_Racing"
                 : "Lrf_BetList_MatchWL_Bettype";
 
-            return GetBetListResult(metaModel, uspKey);
+            return GetPagingBetListResult(metaModel, uspKey, page, rows);
         }
 
         /// <summary>

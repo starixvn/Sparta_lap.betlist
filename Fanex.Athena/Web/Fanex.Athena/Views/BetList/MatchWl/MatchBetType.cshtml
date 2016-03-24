@@ -10,10 +10,11 @@
 @section ContentTitle
 {
     @{var matchName = Model.HomeId > 0 && Model.AwayId > 0
-          ? CacheRef.GetTeamName(Model.HomeId) + " vs " + CacheRef.GetTeamName(Model.AwayId) + "- "
-          : string.Empty;
+            ? CacheRef.GetTeamName(Model.HomeId) + " vs " + CacheRef.GetTeamName(Model.AwayId) + " - "
+            : string.Empty;
+        var bettypeName = Model.BetType > 0 ? CacheRef.GetBettype(Model.BetType) + " - " : string.Empty;
     }
-    @ViewResources.BetList - @matchName@CacheRef.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()
+    @ViewResources.BetList - @matchName @bettypeName @Model.FromDate.ToShortDateString()
     - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>    
 }
 @section BackButton
@@ -22,5 +23,6 @@
 }
 @{
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
-    <input type="hidden" id="HiddenColumnList" value="" />    
+    <input type="hidden" id="HiddenColumnList" value="" />
+    <input type="hidden" id="IsServerPaging" value="1" />
 }

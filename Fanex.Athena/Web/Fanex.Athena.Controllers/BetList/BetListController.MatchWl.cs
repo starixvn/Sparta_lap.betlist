@@ -40,6 +40,8 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (metaModel.IsExportExcel)
             {
+                metaModel.PageIndex = 1;
+                metaModel.PageSize = PageSizeExcel;
                 var currencyList = SessionService.UserSession.CurrencyList;
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
@@ -117,7 +119,7 @@ namespace Fanex.Athena.Controllers.BetList
         [NonAction]
         public ActionResult MatchWLExcel(BetListMetaModel metaModel, string uspKey, bool onePageOnly = false)
         {
-            var ticketResult = this._betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
             if (onePageOnly)
             {
                 // Sum value by page
@@ -133,14 +135,14 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
-                  ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + "- "
+                  ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + " - "
                   : string.Empty;
             var currencyTitle = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
 
             var title = ViewResources.BetList
                 + string.Format(
-                " - {0} - {1} - {2}",
-                matchName + CacheRef.GetBettype(metaModel.BetType),
+                " - {0}{1} - {2}",
+                matchName + (metaModel.BetType > 0 ? CacheRef.GetBettype(metaModel.BetType) + " - " : string.Empty),
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 

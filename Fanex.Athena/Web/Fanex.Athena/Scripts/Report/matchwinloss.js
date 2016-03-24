@@ -40,6 +40,13 @@ var MatchWinLoss = (function ($) {
             $('#SubmitButton').click(function () {
                 MatchWinLoss.submit();
             });
+
+            $("#data-content").on("click", ".match-handler", function () {
+                MatchWinLoss.viewMatchWinlossDetail(this);
+            })
+            .on("click", ".match-link, .downline-link", function () {
+                MatchWinLoss.viewMatchWinlossBetList(this);
+            });
         },
 
         initProductList: function () {
@@ -73,67 +80,68 @@ var MatchWinLoss = (function ($) {
             return productOptions;
         },
 
-        viewMatchWinlossDetail: function (element, data) {
-            var parentRow = $(element).closest("tr");
-            var reportTable = $("#data-content");
-            data = Site.setLicenseeOptionOriginalParam(data);
-            data.Date = $("#Date").attr('data-original');
+        viewMatchWinlossDetail: function (element) {
+            var $parentRow = $(element).closest("tr");
+            var match = $parentRow.data('match');
+            var submitData = {
+                LeagueId: match.LeagueId,
+                MatchId: match.MatchId,
+                ProductCode: match.ProductCode
+            };
+
+            submitData = Site.setLicenseeOptionOriginalParam(submitData);
+            submitData.Date = $("#Date").attr('data-original');
             
-            data.ProductOptions = MatchWinLoss.getProductOption(data.ProductCode);
-
-            // Expand & collapse
-            var isExpanding = parentRow.find('td').attr('rowspan') > 1;
-
-            if ($('tr', reportTable).hasClass('expand')) {
-                $('.main', reportTable).removeClass('main');
-                $('.expand', reportTable).remove();
-                $('.current-expanding-column', reportTable).removeAttr('rowspan');
+            submitData.ProductOptions = MatchWinLoss.getProductOption(submitData.ProductCode);
+            var isExpanded = $parentRow.find('td').attr('rowspan') > 1;
+            var $table = $("#data-content");
+            var $expandedRows = $table.find('.expand');
+            if ($expandedRows.length) {
+                $expandedRows.remove();
+                $table.find('.main').removeClass('main');
+                $table.find('.current-expanding-column').removeAttr('rowspan');
             }
 
-            if ($('td', reportTable).hasClass('arrow-down')) {
-                $('.arrow-down', reportTable).addClass('arrow-right');
-                $('.arrow-down', reportTable).removeClass('arrow-down');
-            }
-
-            if (isExpanding) {
+            $table.find('.icon-collapse').addClass('icon-expand').removeClass('icon-collapse');
+            
+            if (isExpanded) {
                 return;
             }
 
-            $(parentRow).find('td.arrow-right').addClass('arrow-down');
-            $(parentRow).find('td.arrow-down').removeClass('arrow-right');
+            // Expand.
+            $(element).addClass('icon-collapse').removeClass('icon-expand');
 
             $.ajax({
                 type: 'POST',
                 url: "MatchWinLossDetail",
-                data: JSON.stringify(data),
+                data: JSON.stringify(submitData),
                 contentType: "application/json; charset=utf-8",
                 dataType: 'html',
                 success: function (result) {
-                    parentRow.after(result);
-                    parentRow.addClass('main');
+                    $parentRow.after(result);
+                    $parentRow.addClass('main');
                     var rowspan = result.split('<tr class="expand">').length;
-                    var firstColumn = $(parentRow).find('td:first');
+                    var firstColumn = $parentRow.find('td:first');
                     firstColumn.attr("rowspan", rowspan);
                     firstColumn.addClass("current-expanding-column");
-                    firstColumn.attr("data-product-code", data.ProductCode);
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function () {
-                    Site.unBlockUI();
-                }
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             });
         },
 
-        viewMatchWinlossBetList: function (data) {
-            var reportTable = $("#data-content");
-            var productCode = $(".current-expanding-column", reportTable).attr("data-product-code");
+        viewMatchWinlossBetList: function (element) {
+            var $parentRow = $(element).closest('tr');
+            
+            var data = $parentRow.data('match') || $parentRow.prevAll('.main').data('match');
+
+            var productCode = data.ProductCode;
             var date = $("#Date").attr('data-original');
 
-            var bettype = Number(data.BetType);
+            var bettype = Number($(element).data('bettype'));
+            bettype = isNaN(bettype) ? 0 : bettype;
             if (bettype === 85 || bettype === 86) {
-                data.IsLive = data.IsLive ? '1' : '0';
+                data.IsLive = $(element).data('islive');
             }
             else {
                 data.IsLive = '';
@@ -142,12 +150,11 @@ var MatchWinLoss = (function ($) {
             var url = Site.resolveClientUrl("BetList/MatchWlMatchBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", date);
-            url = QueryString.setParam(url, "fromdate", date);
             url = QueryString.setParam(url, "date", date);
             url = QueryString.setParam(url, "matchid", data.MatchId);
             url = QueryString.setParam(url, "leagueid", data.LeagueId);
             url = QueryString.setParam(url, "raceno", data.RaceNo);
-            url = QueryString.setParam(url, "bettype", data.BetType);
+            url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "LiveIndicator", data.IsLive);
             url = QueryString.setParam(url, "homeid", data.HomeId);
             url = QueryString.setParam(url, "awayid", data.AwayId);

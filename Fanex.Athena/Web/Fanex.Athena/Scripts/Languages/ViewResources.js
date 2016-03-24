@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/8/2016 3:17:27 PM
+// Lasted generated date: 3/23/2016 10:06:43 AM
 // </history>
 
 var _language_en_US={
@@ -498,6 +498,8 @@ var _language_en_US={
                      Event:"Event",
 				 	
                      Events:"Events",
+				 	
+                     ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
 				 	
                      ExcludeTestData:"Exclude Test Data",
 				 	
