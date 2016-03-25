@@ -34,7 +34,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="DEV"/>
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
@@ -123,7 +122,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="LOCAL"/>
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
@@ -212,7 +210,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="UAT"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
@@ -294,7 +291,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="UAT"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
@@ -373,10 +369,9 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="2.0.0.0"/>
-	<add key="IsEnablePiwik" value="1" />
+	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="PRO"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
@@ -456,7 +451,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="SANDBOX"/>
 	<add key="PreserveLoginUrl" value="true" />
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
@@ -541,7 +535,6 @@
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
 	<add key="MoveBetDayEnd" value="" />
-	<add key="Enviroment" value="BACKUPMNL"/>
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>

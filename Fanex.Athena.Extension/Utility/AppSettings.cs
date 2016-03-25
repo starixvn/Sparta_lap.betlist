@@ -56,11 +56,6 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static string Enviroment
-        {
-            get { return GetValue("Enviroment"); }
-        }
-
         public static bool EnableSessionValidatingService
         {
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }
