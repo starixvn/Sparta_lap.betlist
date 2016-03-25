@@ -6550,11 +6550,11 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Smartphone.
+        ///   Looks up a localized string similar to Smart Site.
         /// </summary>
-        public static string SmartPhone {
+        public static string SmartSite {
             get {
-                return ResourceManager.GetString("SmartPhone", resourceCulture);
+                return ResourceManager.GetString("SmartSite", resourceCulture);
             }
         }
         

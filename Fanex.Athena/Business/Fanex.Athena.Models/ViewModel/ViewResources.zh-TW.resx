@@ -1750,9 +1750,6 @@
   <data name="SixMonth" xml:space="preserve">
     <value>6 months</value>
   </data>
-  <data name="SmartPhone" xml:space="preserve">
-    <value>智能手機</value>
-  </data>
   <data name="SortBy" xml:space="preserve">
     <value>排序由</value>
   </data>
@@ -2548,5 +2545,8 @@
   <data name="ProductSB" xml:space="preserve">
     <value>體育博彩</value>
     <comment>#49196</comment>
+  </data>
+  <data name="SmartSite" xml:space="preserve">
+    <value>行動裝置版</value>
   </data>
 </root>

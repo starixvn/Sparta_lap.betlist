@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/19/2016 3:55:49 PM
+// Lasted generated date: 3/25/2016 10:52:27 AM
 // </history>
 
 var _language_zh_CN={
@@ -1303,7 +1303,7 @@ var _language_zh_CN={
 				 	
                      SixMonth:"6 months",
 				 	
-                     SmartPhone:"智能手机",
+                     SmartSite:"行动装置版",
 				 	
                      SortBy:"排序由",
 				 	

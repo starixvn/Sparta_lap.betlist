@@ -46,7 +46,7 @@
             };
         });        
     </script>
-    @if (AppSettings.Enviroment.Equals("PRO", StringComparison.OrdinalIgnoreCase))
+    @if (AppSettings.IsEnablePiwik)
     {
         <script type="text/javascript">
             var _paq = _paq || [];

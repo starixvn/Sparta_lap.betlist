@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/23/2016 10:06:43 AM
+// Lasted generated date: 3/25/2016 10:52:20 AM
 // </history>
 
 var _language_en_US={
@@ -1451,7 +1451,7 @@ var _language_en_US={
 				 	
                      SixMonth:"6 months",
 				 	
-                     SmartPhone:"Smartphone",
+                     SmartSite:"Smart Site",
 				 	
                      SortBy:"Sort by",
 				 	

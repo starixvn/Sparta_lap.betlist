@@ -38,9 +38,9 @@ namespace Fanex.Athena.Models.DataDomain
         public const int Wap = 4;
 
         /// <summary>
-        /// SMARTPHONE platform, value = 5.
+        /// SmartSite platform, value = 5.
         /// </summary>
-        public const int SmartPhone = 5;
+        public const int SmartSite = 5;
 
         public static string GetPlatformName(int type)
         {
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Models.DataDomain
                 case NewAsia: return ViewResources.NewAsia;
                 case Euro: return ViewResources.Euro;
                 case Wap: return ViewResources.Wap;
-                case SmartPhone: return ViewResources.SmartPhone.ToUpper();
+                case SmartSite: return ViewResources.SmartSite;
                 default: return ViewResources.All;
             }
         }

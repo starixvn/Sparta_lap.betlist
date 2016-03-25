@@ -210,7 +210,7 @@ var MobileWinLossOption = (function () {
             "2": Site.getSingleResource("NewAsia"),
             "3": Site.getSingleResource("Euro"),
             "4": Site.getSingleResource("Wap"),
-            "5": Site.getSingleResource("SmartPhone").toUpperCase()
+            "5": Site.getSingleResource("SmartSite")
         },
         totalColspan: [3],
         urlData: 'api/report/MobileWinloss',

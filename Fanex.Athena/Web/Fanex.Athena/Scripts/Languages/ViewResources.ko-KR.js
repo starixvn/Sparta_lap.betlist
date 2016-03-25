@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 2/19/2016 3:55:40 PM
+// Lasted generated date: 3/25/2016 10:02:42 AM
 // </history>
 
 var _language_ko_KR={
@@ -1288,8 +1288,6 @@ var _language_ko_KR={
                      Site:"사이트 선택",
 				 	
                      SixMonth:"6개월",
-				 	
-                     SmartPhone:"스마트폰",
 				 	
                      SortBy:"로 정리하기",
 				 	
