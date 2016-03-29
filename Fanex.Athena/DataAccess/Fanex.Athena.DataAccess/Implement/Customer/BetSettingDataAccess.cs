@@ -1192,7 +1192,9 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
             RenderSport(reader, "8", sportList); // Baseball
             RenderSport(reader, "10", sportList); // Golf
             RenderSport(reader, "11", sportList); // Moto
-            RenderSport(reader, "44", sportList); // Muay Thai
+
+            // Remove Muay Thai, feature #55015.
+            // RenderSport(reader, "44", sportList); // Muay Thai
             RenderSport(reader, "99", sportList); // Other sports
 
             if (AppSettings.IsShowMixedSport)
