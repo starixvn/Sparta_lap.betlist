@@ -95,5 +95,139 @@
     });
 
     describe("setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName)", function () {
+        it("WinLossByProductOption.urlExcelData should has correct data", function () {
+            var expected = 'api/report/WinLostByProduct';
+
+            WinLossByProduct.setExcelUrl(0, 2, 221, "Apr 15, 2016", "Apr 20, 2016", "UUS");
+
+            expect(WinLossByProductOption.urlExcelData).toBe(expected);
+        });       
+    });
+
+    describe("renderBreadCrumb(level)", function () {
+        var $breadCumHolder;
+        beforeEach(function () {
+            $breadCumHolder = affix("input.breadCrumbHolder");
+        });
+
+        it("'.breadCrumbHolder' should be hidden when level equal 0", function () {
+            WinLossByProduct.renderBreadCrumb(0);
+
+            expect($breadCumHolder).not.toBeVisible();
+        });
+
+        it("'.breadCrumbHolder' should be hidden when level greater than 0", function () {
+            WinLossByProduct.renderBreadCrumb(4);
+
+            expect($breadCumHolder).toBeVisible();
+        });
+    });
+
+    xdescribe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
+        it("'div.report-title' should be correct", function () {
+            var $reportTitle = affix(".report-title");
+            spyOn(jqGridAdditional, "getLicenseeWLNote").and.callFake(function (a,b) { return ""; });
+
+            WinLossByProduct.setReportTitle(1, "Apr 10, 2015", "Apr 15, 2015", "USD");
+
+            var expected = Site.getSingleResource('WinLossByProduct') + ", 4/10/2015 → 4/15/2015 - USD";
+
+            expect($reportTitle).toHaveText(expected);
+        });
+    });
+
+    describe("lastDateOfMonth(year, month)", function () {
+        it("WinLossByProduct.lastDateOfMonth(year, month) should return correct value", function () {
+            var dateExpected = new Date(2016, 9, 0);
+
+            var result = WinLossByProduct.lastDateOfMonth(2016, 8);
+
+            expect(result).toEqual(dateExpected);
+        });
+    });
+
+    describe("ajaxComplete(level, response)", function () {
+        beforeEach(function () {
+            setFixtures("<input type='checkbox' name='ReportBy' checked='checked' value='test' />");
+
+            spyOn(WinLossByProduct, "renderBreadCrumb");
+            spyOn(WinLossByProduct, "bindData");
+
+            WinLossByProduct.ajaxComplete(2, {});
+        });
+
+        it("WinLossByProduct.renderBreadCrumb(level) should be called with correct parameter", function () {
+            expect(WinLossByProduct.renderBreadCrumb).toHaveBeenCalledWith(2);
+        });
+
+        it("WinLossByProduct.bindData(level, reportBy, response) should be called with correct parameter", function () {
+            expect(WinLossByProduct.bindData).toHaveBeenCalledWith(2, "test", {});
+        });
+    });
+
+    describe("submit()", function () {
+        var request;
+        beforeEach(function (done) {
+            spyOn(Report, "setOriginalProduct");
+            spyOn(Report, "ValidProducts").and.returnValue(true);
+            spyOn(Site, "updateOriginalLicenseeOption");
+
+            spyOn($.fn, "serializeObject").and.returnValue({ Username: "test" });
+            spyOn($.fn, "dialog");
+
+            spyOn(WinLossByProduct, "setReportTitle");
+            spyOn(WinLossByProduct, "setExcelUrl");
+            spyOn(WinLossByProduct, "ajaxComplete");
+
+            jasmine.Ajax.install();
+            jasmine.Ajax
+                .stubRequest("/api\/report\/WinLostByProduct/")
+                .andReturn({
+                    'status': 200,
+                    'contentType': "application/x-www-form-urlencoded; charset=UTF-8",
+                    'responseText': '{ProductOptions: ""}'
+                });
+
+            WinLossByProduct.submit();
+
+            request = jasmine.Ajax.requests.mostRecent();
+
+            setTimeout(done, 10);
+        });
+
+        afterEach(function () {
+            jasmine.Ajax.uninstall();
+        });
+
+        xit("ajax request should be called with correct url", function () {
+            var expectedUrl = "api/report/WinLostByProduct";
+            expect(request.url).toBe(expectedUrl);
+        });
+
+        it("Report.setOriginalProduct() should be called", function () {
+            expect(Report.setOriginalProduct).toHaveBeenCalled();
+        });
+        it("Report.ValidProducts() should be called", function () {
+            expect(Report.ValidProducts).toHaveBeenCalled();
+        });
+        it("Site.updateOriginalLicenseeOption() should be called", function () {
+            expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
+        });
+    });
+
+    describe("bindData(level, reportBy, response)", function () {
+        beforeEach(function () {
+            spyOn(jqGridAdditional, "clearGrid");
+            spyOn(WinLossByProductOption, "getGridOption").and.returnValue({});
+
+            WinLossByProduct.bindData(0, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+        });
+
+        it("jqGridAdditional.clearGrid(reportId) should be called", function () {
+            expect(jqGridAdditional.clearGrid).toHaveBeenCalled();
+        });
+        it("WinLossByProductOption.getGridOption(level, reportBy) should be called", function () {
+            expect(WinLossByProductOption.getGridOption).toHaveBeenCalled();
+        });
     });
 });
