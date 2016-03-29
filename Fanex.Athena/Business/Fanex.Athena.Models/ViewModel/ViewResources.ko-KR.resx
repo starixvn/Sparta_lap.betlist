@@ -1959,9 +1959,6 @@
   <data name="SixMonth" xml:space="preserve">
     <value>6개월</value>
   </data>
-  <data name="SmartPhone" xml:space="preserve">
-    <value>스마트폰</value>
-  </data>
   <data name="SortBy" xml:space="preserve">
     <value>로 정리하기</value>
   </data>

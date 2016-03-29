@@ -1271,8 +1271,9 @@
   <data name="SixMonth" xml:space="preserve">
     <value>6 months</value>
   </data>
-  <data name="SmartPhone" xml:space="preserve">
-    <value>Smartphone</value>
+  <data name="SmartSite" xml:space="preserve">
+    <value>Smart Site</value>
+    <comment>#54802</comment>
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Sort by</value>

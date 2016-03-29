@@ -27,11 +27,6 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public partial class BetListController
     {
-        /// <summary>
-        /// Action Get for match win lost bet type bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult MatchWLMatchBetType(BetListMetaModel metaModel)
         {
@@ -40,8 +35,6 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (metaModel.IsExportExcel)
             {
-                metaModel.PageIndex = 1;
-                metaModel.PageSize = PageSizeExcel;
                 var currencyList = SessionService.UserSession.CurrencyList;
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
@@ -58,11 +51,6 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/MatchWl/MatchBetType.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for match win lost parlay.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult MatchWLMixParlay(BetListMetaModel metaModel)
         {
@@ -74,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                     metaModel.IsServerPaging = true;
-                    return MatchWLExcel(metaModel, UspKey, true);
+                    return MatchWLExcel(metaModel, UspKey);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -83,11 +71,6 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/MatchWl/MixParlay.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for match win lost outright bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult MatchWLOutright(BetListMetaModel metaModel)
         {
@@ -109,25 +92,11 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/MatchWl/Outright.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for match win lost.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="uspKey">The store procedure key.</param>
-        /// <param name="onePageOnly">Only one page.</param>
-        /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult MatchWLExcel(BetListMetaModel metaModel, string uspKey, bool onePageOnly = false)
+        private ActionResult MatchWLExcel(BetListMetaModel metaModel, string uspKey)
         {
+            metaModel.PageIndex = 1;
+            metaModel.PageSize = PageSizeExcel;
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
-            if (onePageOnly)
-            {
-                // Sum value by page
-                ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
-                ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-                ticketResult.SumComm = ticketResult.MainTicketList.Sum(x => x.Comm);
-                ticketResult.SumPlayerComm = ticketResult.MainTicketList.Sum(x => x.PlayerComm);
-            }
 
             var showingOption = new ShowingOption
             {
@@ -146,10 +115,9 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 
-            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
 
-            var workbook = excel.Export(ticketResult, title, startIndex);
+            var workbook = excel.Export(ticketResult, title);
 
             return new ExcelResult(workbook, "MatchWinLossBetList");
         }

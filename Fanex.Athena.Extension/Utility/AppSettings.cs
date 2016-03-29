@@ -21,6 +21,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public static bool IsEnablePiwik
+        {
+            get { return GetValue("IsEnablePiwik") == "1"; }
+        }
+
         public static DateTime? MoveBetDayStart
         {
             get
@@ -49,11 +54,6 @@ namespace Fanex.Athena.Extension.Utility
 
                 return null;
             }
-        }
-
-        public static string Enviroment
-        {
-            get { return GetValue("Enviroment"); }
         }
 
         public static bool EnableSessionValidatingService

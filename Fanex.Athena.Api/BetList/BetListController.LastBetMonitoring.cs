@@ -151,7 +151,7 @@ namespace Fanex.Athena.Api.BetList
                     return ViewResources.Wap.ToUpper();
                 case "s":
                 case "l":
-                    return ViewResources.SmartPhone.ToUpper();
+                    return ViewResources.SmartSite;
                 default:
                     return ViewResources.Others;
             }
