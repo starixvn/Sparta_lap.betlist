@@ -657,6 +657,12 @@
     <Content Include="Scripts\jasmine-specs\Forecast\forecast.newforecasthdpou-test.js" />
     <Content Include="Scripts\jasmine-specs\Forecast\forecast.onextwo-test.js" />
     <Content Include="Scripts\jasmine-specs\Forecast\forecastpopup-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\licenseewinloss.option-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\licenseewinloss-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\golddeluxewinloss.option-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\golddeluxewinloss-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\dailyracingwinloss-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\customerwinloss-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\customerturnover.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\customerturnover-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\customerpendingfunds-test.js" />
