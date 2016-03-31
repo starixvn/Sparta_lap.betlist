@@ -42,6 +42,8 @@ namespace Fanex.Athena.Models.Helper
         private const int KenoMaxBetType = 1599;
         private const int MicrogamingMinBetType = 2001;
         private const int MicrogamingMaxBetType = 2009;
+        private const int VoidbridgeMinBetType = 4001;
+        private const int VoidbridgeMaxBetType = 7999;
 
         #endregion BetType Range
 
@@ -84,6 +86,8 @@ namespace Fanex.Athena.Models.Helper
                 case Product.MGCLC:
                 case Product.MGCRNG:
                     return bettype >= MicrogamingMinBetType && bettype <= MicrogamingMaxBetType;
+                case Product.VB:
+                    return bettype >= VoidbridgeMinBetType && bettype <= VoidbridgeMaxBetType;
             }
 
             return false;

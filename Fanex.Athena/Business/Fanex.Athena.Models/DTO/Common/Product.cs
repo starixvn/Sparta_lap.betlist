@@ -47,7 +47,9 @@ namespace Fanex.Athena.Models.DTO.Common
         public const string MGCLC = "MGCLC";
 
         public const string MGCRNG = "MGCRNG";
-      
+
+        public const string VB = "VB";
+
         #endregion Field
 
         #region Constructor
