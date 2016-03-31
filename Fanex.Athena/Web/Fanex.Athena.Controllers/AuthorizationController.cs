@@ -179,11 +179,7 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
             int currentLoginId = 0;
-            if (!AppSettings.IsEnablePiwik)
-            {
-                Fanex.Logging.Logger.Log.Error("IsAuthenticated=" + Request.IsAuthenticated.ToString());
-                Fanex.Logging.Logger.Log.Error("NullUserSession=" + userSession == null ? "true" : "false");
-            }
+         
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
