@@ -1,11 +1,10 @@
-﻿
-
-namespace Fanex.Athena.Web.ActionFilter
+﻿namespace Fanex.Athena.Web.ActionFilter
 {
     using Service.Implement.Configuration;
     using Service.Interface.Configuration;
     using System.Web.Mvc;
     using System.Web.Routing;
+
     public class UMCheckingAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -18,7 +17,6 @@ namespace Fanex.Athena.Web.ActionFilter
                 {
                     controller = "Utility",
                     action = "UnderMaintenance"
-
                 };
 
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));

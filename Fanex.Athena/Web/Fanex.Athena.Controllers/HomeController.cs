@@ -13,10 +13,12 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Users;
+    using Web.ActionFilter;
 
     /// <summary>
     /// Home controller.
     /// </summary>
+    [UMChecking]
     public class HomeController : BaseController
     {
         private const string IsFirstLoadCookieKey = "isFirstLoad";
