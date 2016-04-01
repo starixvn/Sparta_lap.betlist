@@ -57,8 +57,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult RunningBetListOfMatchExcel(BetListMetaModel metaModel)
+        private ActionResult RunningBetListOfMatchExcel(BetListMetaModel metaModel)
         {
             string uspKey = IsRacing(metaModel.BetType)
                                               ? "Lrf_BetList_SelAllByDateHR"

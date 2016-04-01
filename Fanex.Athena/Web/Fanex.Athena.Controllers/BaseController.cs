@@ -57,20 +57,17 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        [NonAction]
-        public static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
+        protected static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
             metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString())
                 ? BaseCurrencyType.Usd : BaseCurrencyType.All;
         }
 
-        [NonAction]
-        public static void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
+        protected static void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
         {
             metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
-        [NonAction]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         protected static IList<string> GetAllowLicenseesForStatusFunction()
         {
@@ -83,7 +80,6 @@ namespace Fanex.Athena.Controllers
             return new List<string>();
         }
 
-        [NonAction]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         protected static IList<string> GetLicenseesOfferOddsGroup()
         {

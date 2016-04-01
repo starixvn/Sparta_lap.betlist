@@ -179,7 +179,7 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
             int currentLoginId = 0;
-
+         
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
@@ -191,7 +191,7 @@ namespace Fanex.Athena.Controllers
             }
 
             var maintenanceInfo = _maintenanceService.MaintenanceInfo;
-            
+
             if (maintenanceInfo.IsDownTime)
             {
                 var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.UmTimeFrom, maintenanceInfo.UmTimeTo);

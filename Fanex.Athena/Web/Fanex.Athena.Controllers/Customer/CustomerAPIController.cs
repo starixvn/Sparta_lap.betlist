@@ -596,7 +596,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <param name="result">The result view model.</param>
-        [NonAction]
         private void ProcessUpdatingCustomerCom(UpdatedCustomerComMetaModel metaModel, ResultViewModel result)
         {
             metaModel.Language = SessionService.UserSession.Language;

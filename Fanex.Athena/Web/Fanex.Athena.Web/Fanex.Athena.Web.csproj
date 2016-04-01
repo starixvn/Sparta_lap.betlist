@@ -152,6 +152,7 @@
     <Compile Include="ActionFilter\CustomAuthorizeAttribute.cs" />
     <Compile Include="ActionFilter\FunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\HandleAntiForgeryErrorAttribute.cs" />
+    <Compile Include="ActionFilter\UMCheckingAttribute.cs" />
     <Compile Include="HtmlExtension\UrlExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultExtension\ExcelResult.cs" />

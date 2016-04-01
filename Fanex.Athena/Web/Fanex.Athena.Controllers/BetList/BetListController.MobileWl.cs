@@ -53,8 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>Workbook for excel.</returns>
-        [NonAction]
-        public ActionResult MobileWLExcel(BetListMetaModel metaModel)
+        private ActionResult MobileWLExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_MobileReport_SelWinloss_Mem";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);

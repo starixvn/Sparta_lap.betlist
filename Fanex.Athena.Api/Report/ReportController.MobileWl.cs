@@ -64,7 +64,6 @@ namespace Fanex.Athena.Api.Report
            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
-        [NonAction]
         private HttpResponseMessage ExportExcel(
             MobileWinLossMetaModel metaModel,
             IList<MobileWinLoss> dataList,
@@ -129,7 +128,6 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="dataList">Output parameter - report data list.</param>
         /// <param name="summaryTotal">Output parameter - summary data.</param>
-        [NonAction]
         private void GetData(
                     MobileWinLossMetaModel metaModel,
                     out IList<MobileWinLoss> dataList,
@@ -150,7 +148,6 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">Meta model object.</param>
         /// <param name="date">Report date value.</param>
         /// <returns>Dynamic object.</returns>
-        [NonAction]
         private dynamic ProcessRequest(MobileWinLossMetaModel metaModel, DateTime? date)
         {
             if (!IsValidRequest(metaModel))

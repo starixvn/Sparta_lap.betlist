@@ -118,7 +118,6 @@ namespace Fanex.Athena.Controllers.BetList
             return metaModel;
         }
 
-        [NonAction]
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);

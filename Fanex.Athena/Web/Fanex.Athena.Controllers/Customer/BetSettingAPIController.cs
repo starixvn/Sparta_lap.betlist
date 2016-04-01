@@ -632,7 +632,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// Get common parameters.
         /// </summary>
         /// <returns>The common bet setting.</returns>
-        [NonAction]
         private CommonBetSetting GetBetSettingCommonParam()
         {
             var userSession = SessionService.UserSession;
@@ -653,7 +652,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="sportType">The sport id.</param>
         /// <param name="sportsBookParam">The sport-book parameters.</param>
-        [NonAction]
         private void GetParams(string sportType, IDictionary<string, object> sportsBookParam)
         {
             var minBet = GetDecimalRequest("minbet" + sportType, 0);

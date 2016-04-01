@@ -57,8 +57,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult RunningBetListOfMatchChoiceExcel(BetListMetaModel metaModel)
+        private ActionResult RunningBetListOfMatchChoiceExcel(BetListMetaModel metaModel)
         {
             string uspKey = "Lrf_BetList_Forecast_SelByMatch";
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);

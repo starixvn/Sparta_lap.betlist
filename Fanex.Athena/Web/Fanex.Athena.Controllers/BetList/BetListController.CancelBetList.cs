@@ -114,8 +114,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The bet list metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult CancelledBetsBetListExcel(BetListMetaModel metaModel)
+        private ActionResult CancelledBetsBetListExcel(BetListMetaModel metaModel)
         {
             var currencies = GetUserCurrencies();
 

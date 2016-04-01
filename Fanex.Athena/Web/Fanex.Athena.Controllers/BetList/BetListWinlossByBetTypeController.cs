@@ -40,8 +40,7 @@
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        [NonAction]
-        public ActionResult WinlossByBetTypeExcel(BetListMetaModel metaModel)
+        private ActionResult WinlossByBetTypeExcel(BetListMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;

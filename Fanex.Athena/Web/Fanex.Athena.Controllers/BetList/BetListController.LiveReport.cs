@@ -257,8 +257,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="uspKey">The store procedure key.</param>
         /// <param name="title">The report title.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult LiveReportBetListExcel(BetListMetaModel metaModel, string uspKey, string title)
+        private ActionResult LiveReportBetListExcel(BetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);

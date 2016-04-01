@@ -66,6 +66,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
+        [FunctionAuthorization]
         public ActionResult WinLossByBetType(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -98,51 +99,6 @@ namespace Fanex.Athena.Controllers.Report
                 View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
         }
 
-        #region Excel
-
-        /// <summary>
-        /// Win loss by bet type excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
-        [HttpPost]
-        public ActionResult WinLossByBetTypeExcel(WinLossByBetTypeViewModel viewModel)
-        {
-            const string FileName = "WinLossByBetType";
-
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/WinLossByBetType.xls");
-
-            var currencyConvert = new ConvertingOption
-                {
-                    IsConvert = viewModel.Param.IsConvert,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.CurrencyName
-                };
-
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
-
-            var showingOption = new ShowingOption
-                {
-                    RBVisible = productAccess.IsAllowRB,
-                    BAVisible = productAccess.IsAllowBA,
-                    NGVisible = productAccess.IsAllowNG,
-                    SBVisible = productAccess.IsAllowSB,
-                    LCVisible = productAccess.IsAllowLC,
-                    VSVisible = productAccess.IsAllowVS,
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
-                };
-
-            var winLossByBetTypeExcel = new WinLossByBetTypeExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
-
-            winLossByBetTypeExcel.Export();
-
-            return new ExcelResult(winLossByBetTypeExcel.Workbook, FileName);
-        }
-
-        #endregion Excel
-
-        #region Get total
-
         /// <summary>
         /// Calculate total for report.
         /// </summary>
@@ -164,6 +120,42 @@ namespace Fanex.Athena.Controllers.Report
             };
         }
 
-        #endregion Get total
+        /// <summary>
+        /// Win loss by bet type excel report.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns>The excel file.</returns>
+        private ActionResult WinLossByBetTypeExcel(WinLossByBetTypeViewModel viewModel)
+        {
+            const string FileName = "WinLossByBetType";
+
+            var templatePath = Server.MapPath("~/App_Data/Template/Reports/WinLossByBetType.xls");
+
+            var currencyConvert = new ConvertingOption
+            {
+                IsConvert = viewModel.Param.IsConvert,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.CurrencyName
+            };
+
+            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+
+            var showingOption = new ShowingOption
+            {
+                RBVisible = productAccess.IsAllowRB,
+                BAVisible = productAccess.IsAllowBA,
+                NGVisible = productAccess.IsAllowNG,
+                SBVisible = productAccess.IsAllowSB,
+                LCVisible = productAccess.IsAllowLC,
+                VSVisible = productAccess.IsAllowVS,
+                CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+
+            var winLossByBetTypeExcel = new WinLossByBetTypeExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
+
+            winLossByBetTypeExcel.Export();
+
+            return new ExcelResult(winLossByBetTypeExcel.Workbook, FileName);
+        }
     }
 }

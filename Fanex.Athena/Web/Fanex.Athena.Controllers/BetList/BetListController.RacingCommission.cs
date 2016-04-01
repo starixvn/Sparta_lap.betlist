@@ -55,8 +55,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult RacingCommissionExcel(BetListMetaModel metaModel)
+        private ActionResult RacingCommissionExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
 
