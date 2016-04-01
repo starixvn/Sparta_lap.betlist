@@ -111,6 +111,6 @@ namespace Fanex.Athena.Controllers
                 Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
             }
         }
-        }
+        
     }
 }
