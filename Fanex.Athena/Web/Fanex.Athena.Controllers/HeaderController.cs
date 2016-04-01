@@ -6,15 +6,15 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System.Web.Mvc;
-    using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Users;
-
+    using System;
+    using System.Web.Mvc;
+    using System.Web.Security;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -105,19 +105,12 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         private void ClearCookies()
         {
-            var cookieNameList = HttpContext.Request.Cookies.AllKeys;
-
-            foreach (var name in cookieNameList)
+            string[] myCookies = Request.Cookies.AllKeys;
+            foreach (string cookie in myCookies)
             {
-                if (Request.Cookies[name] == null)
-                {
-                    continue;
-                }
-
-                var cookie = new System.Web.HttpCookie(name);
-                cookie.Expires = System.DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(cookie);
+                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
             }
+        }
         }
     }
 }
