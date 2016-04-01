@@ -153,7 +153,7 @@ var jqGridAdditional = (function () {
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
         },
 
-        getLicenseeWLNote: function (productOptionJson, caption) {
+        getLicenseeWLNote: function (productOptionJson, caption, hasParentheses) {
             var productOptions = $.parseJSON(productOptionJson);
             var temp = caption || Site.getSingleResource("LicenseeW_L");
             var productTemp = "";
@@ -164,7 +164,7 @@ var jqGridAdditional = (function () {
                 }
             }
             if (productTemp.length > 0) {
-                temp += "(" + productTemp + ")";
+                temp += hasParentheses ? "(" + productTemp + ")" : productTemp;
             }
             else {
                 return caption || "";

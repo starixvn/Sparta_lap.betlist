@@ -3,9 +3,6 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Api.Report
 {
@@ -33,41 +30,34 @@ namespace Fanex.Athena.Api.Report
     {
         private const string MobileWinlossName = "MobileWinloss";
 
-        //// POST api/<controller>
-
-        #region Action
-
-        /// <summary>
-        /// Mobile Win Loss report - Level 0.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
         public dynamic MobileWinloss([FromBody] MobileWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null);
         }
 
-        #endregion Action
+        private static IList<MobileWinLossMember> GetTotalData(IEnumerable<MobileWinLossMember> dataList)
+        {
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new MobileWinLossMember
+            {
+                CurrencyName = g.Key,
+                Turnover = g.Sum(p => p.Turnover),
+                TotalTransactions = g.Sum(p => p.TotalTransactions),
+                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
+                CustomerComm = g.Sum(p => p.CustomerComm),
+                LicenseeWL = g.Sum(p => p.LicenseeWL),
+                BACommission = g.Sum(p => p.BACommission),
+                RacingRevenue = g.Sum(p => p.RacingRevenue),
+                AmtDueToBA = g.Sum(p => p.AmtDueToBA),
+                AmtDueToRacing = g.Sum(p => p.AmtDueToRacing)
+            }).ToList();
+        }
 
-        #region ProceseeRequest
-
-        /// <summary>
-        /// Mobile Win Loss - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Report data list.</param>
-        /// <param name="summaryTotal">Summary data.</param>
-        /// <param name="date">Report date value.</param>
-        /// <returns>Http Response Message.</returns>
-        [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
             MobileWinLossMetaModel metaModel,
-            IList<MobileWinLoss> dataList,
-            Dictionary<string, MobileWinLoss> summaryTotal,
+            IList<MobileWinLossMember> dataList,
+            Dictionary<string, MobileWinLossMember> summaryTotal,
             DateTime? date)
         {
             const string FileName = "PlatformWinLoss.xls";
@@ -77,23 +67,23 @@ namespace Fanex.Athena.Api.Report
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MobileWinlossName);
 
             var showingOption = new ShowingOption
-                {
-                    BAVisible = metaModel.ProductOptions.Any(p => p.Code == Product.BA && p.Status),
-                    RBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.RB && p.Status),
-                    NGVisible = metaModel.ProductOptions.Any(p => p.Code == Product.NG && p.Status),
-                    LCVisible = metaModel.ProductOptions.Any(p => p.Code == Product.LC && p.Status),
-                    SBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.SB && p.Status),
-                    VSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.VS && p.Status),
-                    CSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.CS && p.Status),
-                    KNVisible = metaModel.ProductOptions.Any(p => p.Code == Product.KN && p.Status),
-                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-                };
+            {
+                BAVisible = metaModel.ProductOptions.Any(p => p.Code == Product.BA && p.Status),
+                RBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.RB && p.Status),
+                NGVisible = metaModel.ProductOptions.Any(p => p.Code == Product.NG && p.Status),
+                LCVisible = metaModel.ProductOptions.Any(p => p.Code == Product.LC && p.Status),
+                SBVisible = metaModel.ProductOptions.Any(p => p.Code == Product.SB && p.Status),
+                VSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.VS && p.Status),
+                CSVisible = metaModel.ProductOptions.Any(p => p.Code == Product.CS && p.Status),
+                KNVisible = metaModel.ProductOptions.Any(p => p.Code == Product.KN && p.Status),
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+            };
             var convertingOption = new ConvertingOption
-                {
-                    IsConvert = metaModel.IsConvert,
-                    BaseCurrency = metaModel.BaseCurrency,
-                    CurrencyName = metaModel.CurrencyName
-                };
+            {
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
 
             if (date.HasValue)
             {
@@ -103,51 +93,25 @@ namespace Fanex.Athena.Api.Report
                 metaModel.Year = date.Value.Year;
             }
 
-            var exccelModel = new MobileWinLossViewModel
-                {
-                    MainResult = dataList,
-                    SummaryTotal = summaryTotal,
-                    TotalResult = _mobileWinLossService.TotalCalc(dataList),
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList,
-                    ProductAccess = productAccess,
-                    Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0) + (productAccess.IsAllowRB ? 2 : 0),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
-                };
+            var excelModel = new MobileWinLossViewModel
+            {
+                MainResult = dataList,
+                SummaryTotal = summaryTotal,
+                TotalResult = GetTotalData(dataList),
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                ProductAccess = productAccess,
+                Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0) + (productAccess.IsAllowRB ? 2 : 0),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+            };
 
-            var mobileWinLossExcel = new MobileWinLossExcel(templatePath, FileName, exccelModel, showingOption, convertingOption);
+            var mobileWinLossExcel = new MobileWinLossExcel(templatePath, FileName, excelModel, showingOption, convertingOption);
             mobileWinLossExcel.ProductOptions = metaModel.ProductOptions;
             mobileWinLossExcel.Export();
 
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get report data .
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter - report data list.</param>
-        /// <param name="summaryTotal">Output parameter - summary data.</param>
-        private void GetData(
-                    MobileWinLossMetaModel metaModel,
-                    out IList<MobileWinLoss> dataList,
-                    out Dictionary<string, MobileWinLoss> summaryTotal)
-        {
-            var licenseeSession = SessionService.LicenseeSession;
-            var licenseeId = licenseeSession.LicenseeId;
-            metaModel.LicenseeId = licenseeId;
-
-            dataList = _mobileWinLossService.GetMasterData(metaModel, out summaryTotal);
-        }
-
-        #region Private Utility
-
-        /// <summary>
-        /// Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="date">Report date value.</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(MobileWinLossMetaModel metaModel, DateTime? date)
         {
             if (!IsValidRequest(metaModel))
@@ -158,24 +122,32 @@ namespace Fanex.Athena.Api.Report
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            Dictionary<string, MobileWinLoss> summaryTotal;
-            IList<MobileWinLoss> dataList;
+            if (metaModel.Level == 0)
+            {
+                MobileWinLossSummary totalData;
+                var dataList = _mobileWinLossService.GetSummaryData(metaModel, out totalData);
+                return new
+                {
+                    Data = dataList,
+                    Total = totalData,
+                    ProductOptions = metaModel.ProductOptions.ToJson()
+                };
+            }
+            else
+            {
+                Dictionary<string, MobileWinLossMember> summaryTotal;
+                var dataList = _mobileWinLossService.GetMemberData(metaModel, out summaryTotal);
 
-            GetData(metaModel, out dataList, out summaryTotal);
-
-            return metaModel.IsExportExcel
-                ? ExportExcel(metaModel, dataList, summaryTotal, date)
-                : (dynamic)new
-                  {
-                      Data = dataList,
-                      Total = _mobileWinLossService.TotalCalc(dataList),
-                      SummaryTotal = summaryTotal,
-                      ProductOptions = metaModel.ProductOptions.ToJson()
-                  };
+                return metaModel.IsExportExcel
+                    ? ExportExcel(metaModel, dataList, summaryTotal, date)
+                    : (dynamic)new
+                    {
+                        Data = dataList,
+                        Total = GetTotalData(dataList),
+                        SummaryTotal = summaryTotal,
+                        ProductOptions = metaModel.ProductOptions.ToJson()
+                    };
+            }
         }
-
-        #endregion Private Utility
-
-        #endregion ProceseeRequest
     }
 }

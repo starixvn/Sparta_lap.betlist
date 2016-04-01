@@ -44,10 +44,10 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalEurTemp = 5;
         private const int RowTotalTemp = 4;
 
-        private readonly IList<MobileWinLoss> _exportData;
+        private readonly IList<MobileWinLossMember> _exportData;
         private readonly MobileWinLossViewModel _model;
-        private readonly IDictionary<string, MobileWinLoss> _summaryTotal;
-        private readonly IList<MobileWinLoss> _totalList;
+        private readonly IDictionary<string, MobileWinLossMember> _summaryTotal;
+        private readonly IList<MobileWinLossMember> _totalList;
 
         public MobileWinLossExcel(
                         string templatePath,
@@ -140,7 +140,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int rowIndex = 0;
             int index = 1;
-            foreach (MobileWinLoss mobile in _exportData)
+            foreach (MobileWinLossMember mobile in _exportData)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(index);
@@ -161,7 +161,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.Site);
+            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.Platform);
 
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
@@ -207,7 +207,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">The current row.</param>
         /// <param name="mobileWinLoss">The mobile win-loss.</param>
-        protected static void AssignCellData(IRow row, MobileWinLoss mobileWinLoss)
+        protected static void AssignCellData(IRow row, MobileWinLossMember mobileWinLoss)
         {
             row.Cells[ColumnExternalId].SetCellValue(mobileWinLoss.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(mobileWinLoss.SystemId);
@@ -254,11 +254,11 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotal(ISheet sheet, int rowTotal)
         {
             int beginRowTotal = rowTotal;
-            foreach (MobileWinLoss t in _totalList)
+            foreach (MobileWinLossMember t in _totalList)
             {
                 int rowContentTemp = beginRowTotal == rowTotal ? RowTotalTemp : RowContentTemplate;
                 IRow totalRow = sheet.CopyRow(TemplateSheet, rowContentTemp, rowTotal);
-                MobileWinLoss data = t;
+                MobileWinLossMember data = t;
 
                 totalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
                 totalRow.Cells[ColumnCurrency].SetCellValue(data.CurrencyName);

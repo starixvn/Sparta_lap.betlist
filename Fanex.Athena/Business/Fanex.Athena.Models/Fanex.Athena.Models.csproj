@@ -123,6 +123,7 @@
     <Compile Include="DTO\Configuration\MoveBet.cs" />
     <Compile Include="DTO\Report\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
+    <Compile Include="DTO\Report\MobileWinLossSummary.cs" />
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
@@ -251,7 +252,7 @@
     <Compile Include="DTO\Report\LiveReports\LiveReportByBetType.cs" />
     <Compile Include="DTO\Report\LiveReports\LiveReportWinLossByMatch.cs" />
     <Compile Include="DTO\Report\MatchWinLoss.cs" />
-    <Compile Include="DTO\Report\MobileWinLoss.cs" />
+    <Compile Include="DTO\Report\MobileWinLossMember.cs" />
     <Compile Include="DTO\Report\RacingCommission.cs" />
     <Compile Include="DTO\Report\SettledMatchCount.cs" />
     <Compile Include="DTO\Report\WinLossByBetType.cs" />

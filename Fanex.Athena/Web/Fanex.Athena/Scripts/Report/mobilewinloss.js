@@ -15,6 +15,8 @@ var MobileWinLoss = (function ($) {
     var _removeSorting = false;
     var _pageSize = 0;
     var _resizeTimer = null;
+    var _submitData = {};
+
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
              JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
@@ -75,7 +77,6 @@ var MobileWinLoss = (function ($) {
         initSetting: function () {
             _pageSize = MobileWinLossOption.pageSize;
             MobileWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-            MobileWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
         },
         initMonthPicker: function () {
             $('#DateControl').monPickr({
@@ -100,8 +101,13 @@ var MobileWinLoss = (function ($) {
         initEvent: function () {
             // open betlist pop up
             $("body").on("click", ".bet-list-link", function () {
-                var dataDrillDown = $(this).attr("data-drill-down");
+                var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
                 MobileWinLoss.openBetlistPopUp(dataDrillDown);
+            });
+
+            $("body").on("click", ".drill-down-link", function () {
+                var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
+                MobileWinLoss.drillDown(dataDrillDown);
             });
 
             $("#SiteList input[type=checkbox]").checkboxgroup();
@@ -155,13 +161,11 @@ var MobileWinLoss = (function ($) {
                 /*show history link*/
                 $(".breadCrumbHolder").show();
                 $(".level0").show();
-
-                $(".level2").showHide(level === 2);
-                $(".level1").showHide(MobileWinLossOption.licenseeId === 1);
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
-        setReportTitle: function (currencyId, site, fromdate, todate) {
+        setReportTitle: function (data) {
+
             var titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - '
                 + Site.getSingleResource('Platform') + ': {3}{4}';
@@ -175,28 +179,36 @@ var MobileWinLoss = (function ($) {
                 "0": Site.getSingleResource('AllCurrencies')
             };
 
-            var currencyStr = currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                : currencyTextList[currencyId];
+            var currencyStr = currencyTextList[data.CurrencyId] === undefined
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + data.CurrencyId + '"]').text())
+                : currencyTextList[data.CurrencyId];
 
-            //get site
-            var siteStr = MobileWinLossOption.sites[site];
-            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote($("#ProductOptionJson").val());
-            var title = $.format(titlePattern, fromdate.toString("M/d/yyyy"), todate.toString("M/d/yyyy"),
-                        currencyStr, siteStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
-            $("div.report-title").html(title);
+            var platformName = MobileWinLossOption.Platforms[data.Platform];
+
+            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, "Product: ");
+            var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
+                        currencyStr, platformName, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
+
+            $(".report-title").html(title);
         },
         //#endregion
 
         //#region BindReport
 
-        bindTotal: function (totalData, summaryTotal) {
+        bindTotal: function (level, totalData, summaryTotal) {
             var columnModel = MobileWinLossOption.getTotalColModel();
-            var colspan = MobileWinLossOption.totalColspan[0];
-            var summaryColspan = colspan + 1;
-            jqGridAdditional.assignTotal(totalData, columnModel);
-            var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
-            jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+            if (level === 0) {
+                jqGridAdditional.assignTotal(totalData, columnModel);
+                jqGridAdditional.setGroupFooters(1);
+                //$('.ui-jqgrid-ftable td:visible:first').html(Site.getSingleResource('Total'));
+            }
+            else {
+                var colspan = MobileWinLossOption.totalColspan[level];
+                var summaryColspan = colspan + 1;
+                jqGridAdditional.assignTotal(totalData, columnModel);
+                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+            }
         },
         bindData: function (level, response) {
             jqGridAdditional.clearGrid("ReportGrid");
@@ -204,9 +216,9 @@ var MobileWinLoss = (function ($) {
             var onPaging = false;
             var gridOption = MobileWinLossOption.getGridOption(level);
             var numOfRow = response.Data.length;
-            var numOfTotalRow = response.Total.length;
-            gridOption.data = response.Data;
-            gridOption.userData = response.TotalEur;
+            var numOfTotalRow = 1;//response.Total.length;
+            gridOption.datastr = response.Data;
+          //  gridOption.userData = response.TotalEur;
             gridOption.rowList = MobileWinLossOption.rowList;
             gridOption.rowNum = _pageSize;
 
@@ -243,7 +255,7 @@ var MobileWinLoss = (function ($) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        MobileWinLoss.bindTotal(response.Total, response.SummaryTotal);
+                        MobileWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
@@ -251,6 +263,7 @@ var MobileWinLoss = (function ($) {
                 }
 
                 MobileWinLoss.resizeGrid();
+                $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
                 Site.unBlockUI();
             };
             // Show the grid
@@ -297,21 +310,7 @@ var MobileWinLoss = (function ($) {
                 //reset layout
                 switch (level) {
                     case 0:
-                        //update productOption
-                        $("#ProductOptionJson").val(response.ProductOptions);
-                        //update drildownValue
-                        $("#drillDownDrawFilter").val($("input[name='DrawFilter']:checked").val());
-                        $("#drillDownExcludeTest").val($("#IsExcludeTest").is(":checked"));
-                        $("#drillDownSite").val($("#Platform").val());
-                        $("#drillDownCurrencyId").val($("#CurrencyId").val());
-                        var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
-                        var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
-                        var currencyId = $("#CurrencyId").val();
-                        var site = $("#Platform").val();
-                        $("#drillDownFromDate").val(fromdate.toString("M/d/yyyy"));
-                        $("#drillDownToDate").val(todate.toString("M/d/yyyy"));
-
-                        MobileWinLoss.setReportTitle(currencyId, site, fromdate, todate);
+                        MobileWinLoss.setReportTitle(_submitData);
                         break;
                     case 1:
                         break;
@@ -331,38 +330,56 @@ var MobileWinLoss = (function ($) {
                 return false;
             }
 
-            var mainForm = $("#MobileWinLossForm");
-
+            var data = $("#MobileWinLossForm").serializeObject();
+            data.Level = 0;
             $.ajax({
                 type: "POST",
-                data: mainForm.serialize(),
+                data: data,
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(MobileWinLossOption.urlData),
                 success: function (response) {
+                    _submitData = {
+                        FromDay: data.FromDay,
+                        ToDay: data.ToDay,
+                        Month: data.Month,
+                        Year: data.Year,
+                        ProductOptions: response.ProductOptions,
+                        DrawFilter: data.DrawFilter,
+                        Platform: data.Platform,
+                        CurrencyId: data.CurrencyId,
+                        FromDate: new Date(data.FromDate),
+                        ToDate: new Date(data.ToDate),
+                        CurrencyName: data.CurrencyName,
+                        IsExcludeTest: data.IsExcludeTest
+                    };
+
                     MobileWinLoss.setExcelUrl(0, 0, 0, "");
                     MobileWinLoss.ajaxComplete(0, response);
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function () {
-                    Site.unBlockUI();
-                }
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             });
 
             return true;
         },
 
-        drillDown: function (level, currencyId, customerId, datetime) {
-            var productOptions = $.parseJSON($("#ProductOptionJson").val());
+        drillDown: function (data) {
+
             var param =
             {
-                ProductOptions: productOptions,
-                Site: $("#drillDownSite").val(),
-                DrawFilter: $("#drillDownDrawFilter").val(),
-                IsExcludeTest: $("#drillDownExcludeTest").val(),
-                CurrencyId: $("#drillDownCurrencyId").val(),
+                Level: 1,
+                FromDay: _submitData.FromDay,
+                ToDay: _submitData.ToDay,
+                Month: _submitData.Month,
+                Year: _submitData.Year,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
+                ProductOptions: $.parseJSON(_submitData.ProductOptions),
+                Platform: data.Platform,
+                DrawFilter: _submitData.DrawFilter,
+                IsExcludeTest: _submitData.IsExcludeTest,
+                CurrencyId: _submitData.CurrencyId,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
             $.ajax({
@@ -371,14 +388,12 @@ var MobileWinLoss = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData + "?level=" + level +
-                            "&currencyId=" + currencyId + "&custId=" + customerId + "&date=" + datetime),
+                url: Site.resolveClientUrl(MobileWinLossOption.urlData),
                 success: function (response) {
-                    MobileWinLoss.ajaxComplete(level, response);
+                    MobileWinLoss.ajaxComplete(1, response);
                     if (response != null && response.Data.length > 0) {
-                        MobileWinLoss.setReportTitle(param.CurrencyId, param.Site, new Date(Date.parse(datetime)), new Date(Date.parse(datetime)));
-                        //update excel ULR
-                        MobileWinLoss.setExcelUrl(level, currencyId, customerId, datetime);
+                        MobileWinLoss.setReportTitle(param);
+                        MobileWinLoss.setExcelUrl(param);
                     }
                 },
                 beforeSend: function () {
@@ -394,14 +409,11 @@ var MobileWinLoss = (function ($) {
             MobileWinLoss.bindData(level, cacheData[level]);
             if (level === 0) {
                 MobileWinLoss.renderBreadCrumb(level);
-                //reset excel Link
                 MobileWinLoss.setExcelUrl(0, 0, 0, "");
-                //re-set title
-                var fromdate = new Date($("#drillDownFromDate").val());
-                var todate = new Date($("#drillDownToDate").val());
-                var currencyId = $("#CurrencyId").val();
-                var site = $("input[name='Site']:checked").val();
-                MobileWinLoss.setReportTitle(currencyId, site, fromdate, todate);
+                MobileWinLoss.setReportTitle({
+                    CurrencyId: _submitData.CurrencyId,
+                    Platform: _submitData.Platform
+                });
             }
             else if (level === 1) {
                 MobileWinLossOption.urlExcelData = MobileWinLossOption.urlExcelData.replace("level=2", "level=1");
@@ -414,7 +426,6 @@ var MobileWinLoss = (function ($) {
         },
 
         openBetlistPopUp: function (dataDrillDown) {
-            dataDrillDown = $.parseJSON(dataDrillDown);
             dataDrillDown.DrawFilter = $("#drillDownDrawFilter").val();
             dataDrillDown.IsExcludedTestData = $("#OriginalIsExcludedTestData").val() === 'True';
             dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();

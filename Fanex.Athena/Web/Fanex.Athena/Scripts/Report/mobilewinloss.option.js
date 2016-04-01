@@ -23,15 +23,44 @@ var MobileWinLossOption = (function () {
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
-    var indexColumn = {
-        name: 'Index',
-        index: 'Index',
-        width: 30,
+    var drilldownLink = function (cellvalue, options, rowObject) {
+        var param =
+        {
+            Platform: rowObject.PlatformId,
+            PlatformName: rowObject.PlatformName,
+            Product: rowObject.ProductId,
+            ProductName: rowObject.ProductName
+        };
+        return '<a class="drill-down-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+    };
+
+    var platformIdColumn = {
+        name: 'PlatformId',
+        index: 'PlatformId',
+        key: true,
+        hidden: true,
+        align: 'center'
+    };
+
+    var platformNameColumn = {
+        name: 'PlatformName',
+        index: 'PlatformName',
+        width: 60,
         align: 'center',
         valign: 'middle',
         sortable: false,
         resizable: false,
-        frozen: true,
+        formatter: drilldownLink
+    };
+
+    var indexColumn = {
+        name: 'Index',
+        index: 'Index',
+        width: 60,
+        align: 'center',
+        valign: 'middle',
+        sortable: false,
+        resizable: false,
         cellattr: jqGridAdditional.rowSpanSetting
     };
     var externalIdColumn = {
@@ -40,7 +69,6 @@ var MobileWinLossOption = (function () {
         width: 85,
         align: 'left',
         sortable: true,
-        frozen: true,
         resizable: false
     };
     var systemIdColumn = {
@@ -49,8 +77,7 @@ var MobileWinLossOption = (function () {
         width: 120,
         align: 'left',
         sortable: true,
-        resizable: false,
-        frozen: true
+        resizable: false
     };
     var currencyColumn = {
         name: 'CurrencyName',
@@ -58,8 +85,7 @@ var MobileWinLossOption = (function () {
         width: 60,
         align: 'center',
         sortable: true,
-        resizable: false,
-        frozen: true
+        resizable: false
     };
     var turnoverColumn = {
         name: 'Turnover',
@@ -69,8 +95,18 @@ var MobileWinLossOption = (function () {
         align: 'right',
         sortable: true,
         formatter: 'currency',
-        frozen: true,
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
+    var turnoverPercentColumn = {
+        name: 'TurnoverPercent',
+        index: 'TurnoverPercent',
+        resizable: false,
+        width: 85,
+        align: 'right',
+        sortable: true,
+        formatter: 'currency',
+        formatoptions: {suffix: '%'}
     };
     var totalTransColumn = {
         name: 'TotalTransactions',
@@ -189,21 +225,20 @@ var MobileWinLossOption = (function () {
         hidden: true
     };
 
-    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
+    var colNameList = ['Id', 'Platform','#', 'ExternalId', "SystemId", "Currency", 'Turnover','%Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
                 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
-    var colModelList = [indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
-                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
+    var colModelList = [platformIdColumn, platformNameColumn, indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
+                turnoverPercentColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
                 baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
-    var customerWlTotalIndex = 8;
+    var customerWlTotalIndex = 10;
 
     var me = {
-        licenseeId: 0,
         hasCustomerComm: true,
         pageSize: 50,
         nonePagingSize: 2000,
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
-        sites:
+        Platforms:
         {
             "0": Site.getSingleResource("All"),
             "1": Site.getSingleResource("Asia"),
@@ -212,11 +247,11 @@ var MobileWinLossOption = (function () {
             "4": Site.getSingleResource("Wap"),
             "5": Site.getSingleResource("SmartSite")
         },
-        totalColspan: [3],
+        totalColspan: [0, 3],
         urlData: 'api/report/MobileWinloss',
         urlExcelData: 'api/report/MobileWinloss',
         gridOption: {
-            datatype: 'local',
+            datatype: 'jsonstring',
             colNames: [],
             colModel: [],
             data: [],
@@ -233,6 +268,16 @@ var MobileWinLossOption = (function () {
             footerrow: true,
             userDataOnFooter: true,
             cmTemplate: { title: true }, //enable tooltip
+
+            treeGrid: true,
+            treeGridModel: 'adjacency',
+            treedatatype: "local",
+            ExpandColumn: 'PlatformName',
+            treeReader: {
+                level_field: "Level",
+                parent_id_field: "ParentPlatformId", 
+                leaf_field: "IsLeaf"
+            },
             userData: [],
 
             beforeSelectRow: function () {
@@ -250,7 +295,18 @@ var MobileWinLossOption = (function () {
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function () {
+    me.getColModel = function (level) {
+        platformNameColumn.hidden = level === 1;
+        turnoverPercentColumn.hidden = level === 1;
+        indexColumn.hidden = level === 0;
+        systemIdColumn.hidden = level === 0;
+        externalIdColumn.hidden = level === 0;
+        currencyColumn.hidden = level === 0;
+
+        licenseeWlColumn.classes = (level === 0 ? null : "highlight");
+        baCommissionColumn.classes = licenseeWlColumn.classes;
+
+
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
@@ -273,9 +329,9 @@ var MobileWinLossOption = (function () {
         return colModelList;
     };
 
-    me.getGridOption = function () {
+    me.getGridOption = function (level) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel();
+        me.gridOption.colModel = me.getColModel(level);
 
         return me.gridOption;
     };

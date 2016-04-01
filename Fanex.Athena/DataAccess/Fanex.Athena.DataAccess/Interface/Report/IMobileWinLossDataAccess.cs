@@ -3,10 +3,6 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.Interface.Report
 {
@@ -19,12 +15,12 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     /// </summary>
     public interface IMobileWinLossDataAccess
     {
-        #region Public Methods and Operators
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<MobileWinLoss> GetMasterData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLoss> summaryTotal);
-
-        #endregion Public Methods and Operators
+        IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData);
     }
 }

@@ -18,18 +18,12 @@ namespace Fanex.Athena.Service.Interface.Report
     /// </summary>
     public interface IMobileWinLossService
     {
-        #region Public Methods and Operators
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<MobileWinLoss> GetMasterData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLoss> summaryTotal);
-
-        IList<MobileWinLoss> TotalCalc(IList<MobileWinLoss> dataList);
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IDictionary<string, IList<MobileWinLoss>> ReStructuredData(IList<MobileWinLoss> dataList);
-
-        #endregion Public Methods and Operators
+        IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal);
     }
 }

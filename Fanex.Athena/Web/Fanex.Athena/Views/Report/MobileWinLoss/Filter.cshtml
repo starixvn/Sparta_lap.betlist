@@ -57,7 +57,7 @@
             <label>@ViewResources.Platform</label>
         </div>
         <div class="grid_7 filter-input option-list" id="SiteList">
-            <select name="Site" style="width: 110px;" id="Platform">
+            <select name="Platform" style="width: 110px;" id="Platform">
                 <option value="0">
                     @ViewResources.All
                 </option>
@@ -99,13 +99,6 @@
             @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
         </div>     
     }
-    <!--drill down paramters-->
-    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
-    @Html.Hidden("drillDownSite", Model.Param.Site)
-    @Html.Hidden("drillDownDrawFilter", Model.Param.DrawFilter)
-    @Html.Hidden("drillDownExcludeTest", Model.Param.IsExcludeTest)
-    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
-    @Html.Hidden("drillDownCurrencyId", Model.Param.CurrencyId)
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
      <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />

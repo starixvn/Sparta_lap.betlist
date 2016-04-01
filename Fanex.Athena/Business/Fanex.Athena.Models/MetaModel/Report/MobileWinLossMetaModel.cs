@@ -24,9 +24,11 @@ namespace Fanex.Athena.Models.MetaModel.Report
             ToDay = today.Day;
             CurrencyId = 0;
             DrawFilter = DrawFilterType.Normal;
-            Site = PlatformType.SmartSite;
+            Platform = PlatformType.SmartSite;
             IsExcludeTest = true;
         }
+
+        public int Level { get; set; }
 
         public int Year { get; set; }
 
@@ -48,7 +50,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int DrawFilter { get; set; }
 
-        public int Site { get; set; }
+        public int Platform { get; set; }
 
         public bool IsExcludeTest { get; set; }
 
@@ -56,7 +58,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                return base.IsValid && Site <= PlatformType.SmartSite && Site >= PlatformType.All;
+                return base.IsValid && Platform <= PlatformType.SmartSite && Platform >= PlatformType.All;
             }
         }
     }

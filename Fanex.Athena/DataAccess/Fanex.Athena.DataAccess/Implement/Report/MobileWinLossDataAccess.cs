@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
@@ -36,15 +35,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
         }
 
-        #region IMobileWinLossDataAccess Members
-
-        /// <summary>
-        ///   Get Data List.
-        /// </summary>
-        /// <param name="metaModel"> The meta Model. </param>
-        /// <param name="summaryTotal"> The total in EUR. </param>
-        /// <returns> The result value.</returns>
-        public IList<MobileWinLoss> GetMasterData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLoss> summaryTotal)
+        public IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
         {
             const string UspName = "Lrf_Rpt_MobileWinloss";
             try
@@ -54,7 +45,28 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     UpdateUspParams(db, metaModel, metaModel.CurrencyId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, out summaryTotal);
+                        return ReadSummaryData(reader, metaModel, out totalData);
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+        
+        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal)
+        {
+            const string UspName = "Lrf_Rpt_MobileWinloss";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    UpdateUspParams(db, metaModel, metaModel.CurrencyId);
+                    using (var reader = db.ExecuteReader())
+                    {
+                        return ReadMemberData(reader, metaModel, out summaryTotal);
                     }
                 }
             }
@@ -65,29 +77,72 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        #endregion IMobileWinLossDataAccess Members
-
         #region Private
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
+        private static IList<MobileWinLossSummary> ReadSummaryData(IDataReader reader, MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
+        {
+            var dataList = new List<MobileWinLossSummary>();
+            totalData = new MobileWinLossSummary()
+            {
+                TurnoverPercent = 100
+            };
+
+            var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
+            var winlostComumn = "Winlost" + metaModel.BaseCurrency;
+            var playerCommColumn = "PlayerComm" + metaModel.BaseCurrency;
+            var licenseeWlColumn = "LicenseeWL" + metaModel.BaseCurrency;
+            var commBaColumn = "CommBA" + metaModel.BaseCurrency;
+            var commRbColumn = "CommRB" + metaModel.BaseCurrency;
+            var winLossRbColumn = "WinlossRB" + metaModel.BaseCurrency;
+            var index = 1;
+            var parentIds = new int[] { 0, 1, 0, 3, 3, 0, 6, 6, 6 };
+            while (reader.Read() && index - 1 < parentIds.Length)
+            {
+                var mobile = new MobileWinLossSummary
+                {
+                    Index = index,
+                    TotalTransactions = reader.ToInt("Betcount"),
+                    Turnover = reader.ToDecimal(turnoverColumn),
+                    CustomerWinLoss = reader.ToDecimal(winlostComumn),
+                    CustomerComm = reader.ToDecimal(playerCommColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                };
+                mobile.PlatformId = index;
+                if (parentIds[index - 1] > 0)
+                { 
+                    mobile.IsLeaf = true;
+                    mobile.Level = 1;
+                    mobile.ParentPlatformId = parentIds[index - 1].ToString(); // jqGrid need string type to collapse nodes properly.
+                }
+
+                mobile.PlatformName = "Platform" + index;
+                mobile.ProductId = 1;
+                mobile.ProductName = "SB";
+                dataList.Add(mobile);
+                totalData.Turnover += mobile.Turnover;
+                index++;
+            }
+
+            foreach (var item in dataList)
+            {
+                item.TurnoverPercent = item.Turnover / totalData.Turnover;
+            }
+
+            return dataList;
+        }
+
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<MobileWinLoss> GetData(
+        private static IList<MobileWinLossMember> ReadMemberData(
             IDataReader reader,
             MobileWinLossMetaModel metaModel,
-            out Dictionary<string, MobileWinLoss> summaryTotal)
+            out Dictionary<string, MobileWinLossMember> summaryTotal)
         {
-            var dataList = new List<MobileWinLoss>();
-            summaryTotal = new Dictionary<string, MobileWinLoss>();
+            var dataList = new List<MobileWinLossMember>();
+            summaryTotal = new Dictionary<string, MobileWinLossMember>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal.Add(currency, new MobileWinLoss());
+                summaryTotal.Add(currency, new MobileWinLossMember());
             }
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
@@ -104,7 +159,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             while (reader.Read())
             {
                 // Read Item
-                var mobile = new MobileWinLoss
+                var mobile = new MobileWinLossMember
                 {
                     Index = index,
                     CurrencyName = reader.ToString("currencyName"),
@@ -120,7 +175,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CurrencyId = reader.ToInt("Currency")
                 };
 
-                // mobile.Date = level == 0 ? reader.ToDateTime("winlostdate") : metaModel.FromDate;
                 mobile.SystemId = reader.ToString("username");
                 mobile.CustomerId = reader.ToInt("custid");
                 mobile.ExternalId = reader.ToString("nickname");
@@ -158,7 +212,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("PlatformType", DbType.Byte, metaModel.Site);
+            db.AddInParameter("PlatformType", DbType.Byte, metaModel.Platform);
             db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
             db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
