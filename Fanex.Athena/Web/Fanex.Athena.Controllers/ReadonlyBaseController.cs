@@ -8,11 +8,12 @@ namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
     using System.Web.SessionState;
-
+    using Web.ActionFilter;
     /// <summary>
     /// Read only controller.
     /// </summary>
     [SessionState(SessionStateBehavior.ReadOnly)]
+    [UMChecking]
     public class ReadonlyBaseController : BaseController
     {
     }

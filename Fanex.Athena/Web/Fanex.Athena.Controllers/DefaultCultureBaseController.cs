@@ -8,11 +8,11 @@ namespace Fanex.Athena.Controllers
 {
     #region Using
 
-    using System.Web.Mvc;
-    using System.Web.SessionState;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Users;
-
+    using System.Web.Mvc;
+    using System.Web.SessionState;
+    using Web.ActionFilter;
     #endregion Using
 
     /// <summary>
@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     [Authorize]
     [SessionState(SessionStateBehavior.ReadOnly)]
+    [UMChecking]
     public class DefaultCultureBaseController : Controller
     {
         private readonly ISessionService _sessionService = new SessionService();

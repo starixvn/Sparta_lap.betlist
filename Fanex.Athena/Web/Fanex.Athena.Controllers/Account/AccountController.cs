@@ -27,6 +27,7 @@ namespace Fanex.Athena.Controllers.Account
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
+    [UMChecking]
     public class AccountController : BaseController
     {
         private const string ParentUrl = "Account/Manage";

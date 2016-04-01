@@ -66,6 +66,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
+        [FunctionAuthorization]
         public ActionResult WinLossByBetType(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -105,8 +106,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="viewModel">The view model.</param>
         /// <returns>The excel file.</returns>
-        [HttpPost]
-        public ActionResult WinLossByBetTypeExcel(WinLossByBetTypeViewModel viewModel)
+        private ActionResult WinLossByBetTypeExcel(WinLossByBetTypeViewModel viewModel)
         {
             const string FileName = "WinLossByBetType";
 
