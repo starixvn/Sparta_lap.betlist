@@ -319,7 +319,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="uspKey">Stored procedure key.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
-        [NonAction]
         private dynamic LiveReportBetListResult(LiveReportBetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
@@ -343,7 +342,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="pageIndex">Page Index.</param>
         /// <param name="pageSize">Page Size.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
-        [NonAction]
         private dynamic GetLiveReportPagingBetListResult(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;

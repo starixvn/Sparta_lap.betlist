@@ -67,8 +67,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <param name="uspKey">The store procedure.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        public ActionResult PendingFundsExcel(BetListMetaModel metaModel, string uspKey)
+        private ActionResult PendingFundsExcel(BetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 

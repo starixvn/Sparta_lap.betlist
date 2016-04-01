@@ -77,9 +77,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        [FunctionAuthorization]
-        public ActionResult DailyBetListExcel(BetListMetaModel metaModel)
+        private ActionResult DailyBetListExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 

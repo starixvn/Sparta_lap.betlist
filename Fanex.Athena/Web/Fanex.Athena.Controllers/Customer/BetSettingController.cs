@@ -153,7 +153,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>Bet setting view model.</returns>
-        [NonAction]
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
         {
             var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);

@@ -79,9 +79,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        [NonAction]
-        [FunctionAuthorization]
-        public ActionResult RunningBetListMultipleBettypesExcel(BetListMetaModel metaModel)
+        private ActionResult RunningBetListMultipleBettypesExcel(BetListMetaModel metaModel)
         {
             var ticketResult = this.BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettypeList");
 
