@@ -4,17 +4,17 @@
 <#
 	string path = SiteInfo.Host.ResolveAssemblyReference("$(SolutionDir)");
 	Directory.SetCurrentDirectory(path);
-    var manager = TemplateFileManager.Create(this);	
+	var manager = TemplateFileManager.Create(this);	
 	var allSpName = Helper.GetAllSpName();
 	var listOfConfig = Helper.GetListOfConfig();
-    foreach(var site in sites)
-    {        
+	foreach(var site in sites)
+	{        
 		var x = site.SiteEnvironment.ToString();
-        var fileName = x == "DEV" ? "FanexSpName.xml" : string.Format("FanexSpName.{0}.xml", site.SiteEnvironment);
-        manager.StartNewFile(fileName);
+		var fileName = x == "DEV" ? "FanexSpName.xml" : string.Format("FanexSpName.{0}.xml", site.SiteEnvironment);
+		manager.StartNewFile(fileName);
 		#>
 <#=site.GenerateSpName(allSpName, listOfConfig)#>
 		<#
-    }
-    manager.Process();
+	}
+	manager.Process();
 #>

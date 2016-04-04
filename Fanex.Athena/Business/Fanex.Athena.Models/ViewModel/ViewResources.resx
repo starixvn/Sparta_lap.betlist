@@ -2852,6 +2852,10 @@
     <value>This file exceeded 65535 entries. Please contact administrator for more details.</value>
     <comment>#52794</comment>
   </data>
+  <data name="ProductVB" xml:space="preserve">
+    <value>Voidbridge</value>
+    <comment>#55057</comment>
+  </data>
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
