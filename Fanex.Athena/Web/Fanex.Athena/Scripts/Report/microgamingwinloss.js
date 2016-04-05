@@ -164,8 +164,6 @@ var MicroGamingWinLoss = (function ($) {
             // Show the grid
             reportGrid.jqGrid(gridOption);
 
-            reportGrid.jqGrid('showCol', 'rn');
-
             jqGridAdditional.resetLayout(reportGrid);
 
             $gridBody = $(".ui-jqgrid-bdiv");
