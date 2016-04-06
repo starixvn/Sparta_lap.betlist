@@ -783,6 +783,7 @@
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config" />
     <Content Include="Views\BetList\RngCasinoDetail\Main.cshtml" />
     <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
+    <Content Include="Views\BetList\VoidbridgeDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

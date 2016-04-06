@@ -11,6 +11,7 @@ var BetList = (function ($) {
     var SPORT_RNG_GAME = 208;
     var SPORT_RNG_MINIGAME = 209;
     var SPORT_RNG_MOBILE = 210;
+    var SPORT_VOIDBRIDGE = 212;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -380,6 +381,8 @@ var BetList = (function ($) {
             else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                 BetList.viewRngCasinoResult(title, refno);
             }
+            else if (sporttype === SPORT_VOIDBRIDGE) {
+            }
             else {
                 bettype = Number(bettype);
                 var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
@@ -503,6 +506,26 @@ var BetList = (function ($) {
         },
 
         showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('BetList/RnGCasinoDetail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("ProductVB") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
+
+        showVoidbridgeDetails: function (transId, winlostDate, custId, transType) {
             var url = Site.resolveClientUrl('BetList/RnGCasinoDetail');
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "winlostDate", winlostDate);

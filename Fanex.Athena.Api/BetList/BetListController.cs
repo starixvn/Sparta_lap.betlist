@@ -76,7 +76,7 @@ namespace Fanex.Athena.Api.BetList
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
-
+            
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay && metaModel != null)

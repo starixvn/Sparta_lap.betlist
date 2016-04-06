@@ -68,6 +68,10 @@
       <HintPath>..\..\..\packages\Fanex.BetList.RnGCasino.1.0.0.6\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.BetList.VoidBridge, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.0.0.4-beta\lib\net40\Fanex.BetList.VoidBridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
@@ -215,6 +219,7 @@
     <Compile Include="BetList\BetListController.SystemParlayDetail.cs" />
     <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
+    <Compile Include="BetList\BetListController.VoidbridgeDetail.cs" />
     <Compile Include="BetList\BetListWinlossByBetTypeController.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
