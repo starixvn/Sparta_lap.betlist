@@ -17,7 +17,10 @@ var MicroGamingWinLossOption = (function () {
         valign: 'middle',
         frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting,
-        sortable: false
+        sortable: false,
+        sorttype: function (cellValue, obj) {
+            return obj.Index + '-' + (obj.RowSpan > 1 ? 0 : 1);
+        }
     };
 
     var typeNameColumn =
@@ -152,7 +155,7 @@ var MicroGamingWinLossOption = (function () {
             viewrecords: true,
             gridview: true,
             pager: '#ppdata',
-            rownumbers: true
+            sortname: 'Index'
         }
     };
 
