@@ -16,6 +16,7 @@ var MobileWinLoss = (function ($) {
     var _pageSize = 0;
     var _resizeTimer = null;
     var _submitData = {};
+    var _drilldownData = {};
 
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
@@ -330,7 +331,13 @@ var MobileWinLoss = (function ($) {
                 return false;
             }
 
+            var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
+            var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
+
             var data = $("#MobileWinLossForm").serializeObject();
+            data.FromDate = fromdate;
+            data.ToDate = todate;
+            data.IsExcludeTest = $('#IsExcludeTest').is(':checked');
             data.Level = 0;
             $.ajax({
                 type: "POST",
@@ -382,6 +389,9 @@ var MobileWinLoss = (function ($) {
                 CurrencyId: _submitData.CurrencyId,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
+            _drilldownData = {
+                Platform: data.Platform
+            };
             $.ajax({
                 type: "POST",
                 data: JSON.stringify(param),
@@ -396,12 +406,8 @@ var MobileWinLoss = (function ($) {
                         MobileWinLoss.setExcelUrl(param);
                     }
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function () {
-                    Site.unBlockUI();
-                }
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             });
         },
 
@@ -426,27 +432,23 @@ var MobileWinLoss = (function ($) {
         },
 
         openBetlistPopUp: function (dataDrillDown) {
-            dataDrillDown.DrawFilter = $("#drillDownDrawFilter").val();
-            dataDrillDown.IsExcludedTestData = $("#OriginalIsExcludedTestData").val() === 'True';
-            dataDrillDown.CurrencyId = $("#OriginalCurrencyId").val();
-            dataDrillDown.CurrencyName = $("#OriginalCurrencyName").val();
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
             var url = Site.resolveClientUrl("BetList/MobileWl");
 
-            url = QueryString.setParam(url, "fromdate", $("#drillDownFromDate").val());
-            url = QueryString.setParam(url, "todate", $("#drillDownToDate").val());
-            url = QueryString.setParam(url, "SiteType", $("#drillDownSite").val());
-            url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
+            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
+            url = QueryString.setParam(url, "todate", _submitData.ToDate);
+            url = QueryString.setParam(url, "SiteType", _drilldownData.Platform);
+            url = QueryString.setParam(url, "excludetest", _submitData.IsExcludeTest);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
             url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-            url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
+            url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
             url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-            url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-            url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-            url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+            url = QueryString.setParam(url, "BaseCurrency", $("#BaseCurrency").attr("data-original"));
+            url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
+            url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
 
             url = Site.setProductOptionOriginalParamList(url);
 

@@ -15,20 +15,17 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         public MobileWinLossSummary()
         {
-            Date = DateTime.Now;
         }
-
-        public DateTime Date { get; set; }
 
         public byte Level { get; set; }
 
-        public string ParentPlatformId { get; set; }
+        public string Parent { get; set; }
 
-        public int PlatformId { get; set; }
+        public int PlatformType { get; set; }
 
         public bool IsLeaf { get; set; }
 
-        public string PlatformName { get; set; }
+        public string Name { get; set; }
 
         public decimal Turnover { get; set; }
 
@@ -37,8 +34,6 @@ namespace Fanex.Athena.Models.DTO.Report
         public int TotalTransactions { get; set; }
 
         public decimal LicenseeWL { get; set; }
-        
-        public int Index { get; set; }
         
         public int ProductId { get; set; }
 

@@ -6,21 +6,24 @@
 
 namespace Fanex.Athena.DataAccess.Extension
 {
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public sealed class DataHelper
-    {
-        private DataHelper()
-        {
-        }
+    using Fanex.Athena.Models.ViewModel;
 
+    public static class DataHelper
+    {
         public static string GetCurrencyColumnName(string columnName, bool isConvert, string baseCurrency)
         {
             var columnNameSuffix = isConvert ? baseCurrency : string.Empty;
 
             columnName = columnName + columnNameSuffix;
             return columnName;
+        }
+
+        public static string GetProductName(string productCode)
+        {
+            var resourceKey = "Product" + productCode;
+            var resourceManager = ViewResources.ResourceManager;
+            resourceManager.IgnoreCase = true;
+            return resourceManager.GetString(resourceKey);
         }
     }
 }

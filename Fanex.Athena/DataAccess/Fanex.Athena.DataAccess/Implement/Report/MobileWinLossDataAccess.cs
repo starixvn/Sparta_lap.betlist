@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Extension;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Report;
@@ -37,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         public IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
         {
-            const string UspName = "Lrf_Rpt_MobileWinloss";
+            const string UspName = "Lrf_Rpt_PlatformWinloss";
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -55,7 +56,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 throw new DataAccessException(sqlException.Message, UspName);
             }
         }
-        
+
         public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal)
         {
             const string UspName = "Lrf_Rpt_MobileWinloss";
@@ -79,6 +80,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         #region Private
 
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private static IList<MobileWinLossSummary> ReadSummaryData(IDataReader reader, MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
         {
             var dataList = new List<MobileWinLossSummary>();
@@ -91,36 +94,50 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
             var playerCommColumn = "PlayerComm" + metaModel.BaseCurrency;
             var licenseeWlColumn = "LicenseeWL" + metaModel.BaseCurrency;
-            var commBaColumn = "CommBA" + metaModel.BaseCurrency;
-            var commRbColumn = "CommRB" + metaModel.BaseCurrency;
-            var winLossRbColumn = "WinlossRB" + metaModel.BaseCurrency;
-            var index = 1;
-            var parentIds = new int[] { 0, 1, 0, 3, 3, 0, 6, 6, 6 };
-            while (reader.Read() && index - 1 < parentIds.Length)
+            var parentRows = new Dictionary<int, MobileWinLossSummary>();
+            var childId = -1;
+            while (reader.Read())
             {
-                var mobile = new MobileWinLossSummary
+                var platformType = reader.ToInt("PlatformType");
+                var productCode = reader.ToString("productprefix").ToUpper();
+                MobileWinLossSummary parent;
+                if (!parentRows.ContainsKey(platformType))
                 {
-                    Index = index,
+                    parent = new MobileWinLossSummary()
+                    {
+                        PlatformType = platformType,
+                        Name = PlatformType.GetPlatformName(platformType)
+                    };
+                    parentRows.Add(platformType, parent);
+                    dataList.Add(parent);
+                }
+                else
+                {
+                    parent = parentRows[platformType];
+                }
+
+                var child = new MobileWinLossSummary
+                {
+                    PlatformType = childId--,
+                    Parent = platformType.ToString(),
+                    IsLeaf = true,
+                    Level = 1,
+                    Name = DataHelper.GetProductName(productCode),
                     TotalTransactions = reader.ToInt("Betcount"),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
-                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn)
                 };
-                mobile.PlatformId = index;
-                if (parentIds[index - 1] > 0)
-                { 
-                    mobile.IsLeaf = true;
-                    mobile.Level = 1;
-                    mobile.ParentPlatformId = parentIds[index - 1].ToString(); // jqGrid need string type to collapse nodes properly.
-                }
 
-                mobile.PlatformName = "Platform" + index;
-                mobile.ProductId = 1;
-                mobile.ProductName = "SB";
-                dataList.Add(mobile);
-                totalData.Turnover += mobile.Turnover;
-                index++;
+                parent.TotalTransactions += child.TotalTransactions;
+                parent.Turnover += child.Turnover;
+                parent.CustomerWinLoss += child.CustomerWinLoss;
+                parent.CustomerComm += child.CustomerComm;
+                parent.LicenseeWL += child.LicenseeWL;
+
+                dataList.Add(child);
+                totalData.Turnover += child.Turnover;
             }
 
             foreach (var item in dataList)

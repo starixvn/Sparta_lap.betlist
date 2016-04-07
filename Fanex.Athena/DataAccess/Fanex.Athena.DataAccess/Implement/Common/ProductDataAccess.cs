@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
+    using Extension;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.Common;
@@ -57,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                             allowedProducts.Add(new Product
                                              {
                                                  ProductID = Converter.ToInt(reader["ProductID"]),
-                                                 ProductName = GetProductName(Converter.ToString2(reader["productprefix"])),
+                                                 ProductName = DataHelper.GetProductName(Converter.ToString2(reader["productprefix"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
                                                  AllowWinloss = Converter.ToBool(reader["winloss"])
@@ -102,19 +103,6 @@ namespace Fanex.Athena.DataAccess.Implement.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, new { });
             }
-        }
-
-        /// <summary>
-        /// Get Product Name.
-        /// </summary>
-        /// <param name="productName">Product code.</param>
-        /// <returns>Product name.</returns>
-        private static string GetProductName(string productCode)
-        {
-            var resourceKey = "Product" + productCode;
-            var resourceManager = ViewResources.ResourceManager;
-            resourceManager.IgnoreCase = true;
-            return resourceManager.GetString(resourceKey);
         }
 
         #endregion Public Methods and Operators

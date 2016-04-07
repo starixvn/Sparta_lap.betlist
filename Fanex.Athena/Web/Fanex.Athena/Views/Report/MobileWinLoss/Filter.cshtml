@@ -5,10 +5,11 @@
 @model Fanex.Athena.Models.ViewModel.Report.MobileWinLossViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("MobileWinloss", "Report", FormMethod.Post, new { @id = "MobileWinLossForm" }))
-    {   
+    {
         <div class="grid_3 filter-label">
             <label>
-                @ViewResources.ViewDataInMonth</label>
+                @ViewResources.ViewDataInMonth
+            </label>
         </div>
         <div class="grid_8 filter-input month-picker">
             <div id="DateControl">
@@ -18,6 +19,20 @@
             <div id="MonthPickerToDay">
             </div>
         </div>
+        <div class="grid_2 filter-label">
+            <label>
+                @ViewResources.Currency
+            </label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true)
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -25,22 +40,9 @@
             </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
             </div>
-        </div>
-        <div class="grid_3 filter-label new-line">
-            <label>
-                @ViewResources.Currency</label>
-        </div>
-        <div class="grid_4 filter-input">
-            @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
-        </div>
-        <div class="grid_3 filter-label">
-            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
-        </div>
-        <div class="grid_1 filter-input">
-            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
         </div>
         <div class="grid_3 filter-label new-line">
             <label>@ViewResources.DrawFilter</label>
@@ -56,7 +58,7 @@
         <div class="grid_3 filter-label new-line">
             <label>@ViewResources.Platform</label>
         </div>
-        <div class="grid_7 filter-input option-list" id="SiteList">
+        <div class="grid_4 filter-input option-list" id="SiteList">
             <select name="Platform" style="width: 110px;" id="Platform">
                 <option value="0">
                     @ViewResources.All
@@ -78,30 +80,39 @@
                 </option>
             </select>
         </div>
+        <div class="grid_2 filter-label">
+            <label for="BaseCurrency">
+                @ViewResources.Based
+            </label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency("eur")
+        </div>
         <div class="new-line">
         </div>
-                  //Product
+        //Product
         @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
-    
+
         <div class="grid_3 filter-label new-line">
-            &nbsp;</div>
-        <div class="grid_2 filter-input submit-wrapper">
-            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
-        </div>    
-        <div>
-            <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
-            <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
-            @Html.Hidden("FromDay", Model.Param.FromDay)
-            @Html.Hidden("ToDay", Model.Param.ToDay)
-            @Html.Hidden("Month", Model.Param.Month)
-            @Html.Hidden("Year", Model.Param.Year)
-            @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-            @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
-        </div>     
+            &nbsp;
+        </div>
+            <div class="grid_2 filter-input submit-wrapper">
+                <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+            </div>
+            <div>
+                <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+                <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+                @Html.Hidden("FromDay", Model.Param.FromDay)
+                @Html.Hidden("ToDay", Model.Param.ToDay)
+                @Html.Hidden("Month", Model.Param.Month)
+                @Html.Hidden("Year", Model.Param.Year)
+                @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+                @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+            </div>
     }
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
-     <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
-     <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
-     <input type="hidden" id="MaxDate" value="@AppSettings.MaxDate.ToString("yyyy/M/d")" />
+    <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+    <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+    <input type="hidden" id="MaxDate" value="@AppSettings.MaxDate.ToString("yyyy/M/d")" />
 </div>

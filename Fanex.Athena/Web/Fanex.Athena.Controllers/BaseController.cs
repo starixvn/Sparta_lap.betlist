@@ -59,13 +59,13 @@ namespace Fanex.Athena.Controllers
 
         protected static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
-            metaModel.CurrencyId = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString())
+            metaModel.CurrencyId = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString())
                 ? BaseCurrencyType.Usd : BaseCurrencyType.All;
         }
 
         protected static void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
         {
-            metaModel.BaseCurrency = metaModel.BaseUsdLicensees.Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
+            metaModel.BaseCurrency = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
@@ -107,6 +107,17 @@ namespace Fanex.Athena.Controllers
             }
 
             return SessionService.UserSession.CurrencyList;
+        }
+
+        private static IEnumerable<string> GetBaseUsdLicensees()
+        {
+            var items = AppSettings.GetValue("BaseUsdLicensees");
+            if (!string.IsNullOrEmpty(items))
+            {
+                return items.Split(',');
+            }
+
+            return new string[] { };
         }
     }
 }

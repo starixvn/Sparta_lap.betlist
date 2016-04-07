@@ -34,19 +34,19 @@ var MobileWinLossOption = (function () {
         return '<a class="drill-down-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
-    var platformIdColumn = {
-        name: 'PlatformId',
-        index: 'PlatformId',
+    var idColumn = {
+        name: 'PlatformType',
+        index: 'PlatformType',
         key: true,
         hidden: true,
         align: 'center'
     };
 
     var platformNameColumn = {
-        name: 'PlatformName',
-        index: 'PlatformName',
+        name: 'Name',
+        index: 'Name',
         width: 60,
-        align: 'center',
+        align: 'left',
         valign: 'middle',
         sortable: false,
         resizable: false,
@@ -227,7 +227,7 @@ var MobileWinLossOption = (function () {
 
     var colNameList = ['Id', 'Platform','#', 'ExternalId', "SystemId", "Currency", 'Turnover','%Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
                 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
-    var colModelList = [platformIdColumn, platformNameColumn, indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
+    var colModelList = [idColumn, platformNameColumn, indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
                 turnoverPercentColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
                 baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
     var customerWlTotalIndex = 10;
@@ -275,7 +275,7 @@ var MobileWinLossOption = (function () {
             ExpandColumn: 'PlatformName',
             treeReader: {
                 level_field: "Level",
-                parent_id_field: "ParentPlatformId", 
+                parent_id_field: "Parent", 
                 leaf_field: "IsLeaf"
             },
             userData: [],

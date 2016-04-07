@@ -48,6 +48,7 @@ namespace Fanex.Athena.Controllers.Report
                                              }).ToList();
 
             SetConvetedUSDCurrencyId(metaModel);
+            SetConvetedUSDCurrencyName(metaModel);
 
             metaModel.ProductOptions = productOption;
 
