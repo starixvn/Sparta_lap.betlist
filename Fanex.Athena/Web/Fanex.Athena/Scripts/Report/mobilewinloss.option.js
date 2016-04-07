@@ -45,7 +45,7 @@ var MobileWinLossOption = (function () {
     var platformNameColumn = {
         name: 'Name',
         index: 'Name',
-        width: 60,
+        width: 100,
         align: 'left',
         valign: 'middle',
         sortable: false,
@@ -106,7 +106,7 @@ var MobileWinLossOption = (function () {
         align: 'right',
         sortable: true,
         formatter: 'currency',
-        formatoptions: {suffix: '%'}
+        formatoptions: { suffix: '%' }
     };
     var totalTransColumn = {
         name: 'TotalTransactions',
@@ -272,7 +272,7 @@ var MobileWinLossOption = (function () {
             treeGrid: true,
             treeGridModel: 'adjacency',
             treedatatype: "local",
-            ExpandColumn: 'PlatformName',
+            ExpandColumn: 'Name',
             treeReader: {
                 level_field: "Level",
                 parent_id_field: "Parent", 
@@ -302,6 +302,10 @@ var MobileWinLossOption = (function () {
         systemIdColumn.hidden = level === 0;
         externalIdColumn.hidden = level === 0;
         currencyColumn.hidden = level === 0;
+        baCommissionColumn.hidden = level === 0;
+        amtDueToBaColumn.hidden = level === 0;
+        racingRevenueColumn.hidden = level === 0;
+        amtDueToRacingColumn.hidden = level === 0;
 
         licenseeWlColumn.classes = (level === 0 ? null : "highlight");
         baCommissionColumn.classes = licenseeWlColumn.classes;
@@ -315,10 +319,12 @@ var MobileWinLossOption = (function () {
         var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
         var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
 
-        baCommissionColumn.hidden = !allowedBa;
-        amtDueToBaColumn.hidden = !allowedBa;
-        racingRevenueColumn.hidden = !allowedRacing;
-        amtDueToRacingColumn.hidden = !allowedRacing;
+        if (level === 1) {
+            baCommissionColumn.hidden = !allowedBa;
+            amtDueToBaColumn.hidden = !allowedBa;
+            racingRevenueColumn.hidden = !allowedRacing;
+            amtDueToRacingColumn.hidden = !allowedRacing;
+        }
 
         // Row span setting
         indexColumn.cellattr = jqGridAdditional.rowSpanSetting;

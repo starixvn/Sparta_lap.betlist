@@ -137,12 +137,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 parent.LicenseeWL += child.LicenseeWL;
 
                 dataList.Add(child);
+
+                totalData.TotalTransactions += child.TotalTransactions;
                 totalData.Turnover += child.Turnover;
+                totalData.CustomerWinLoss += child.CustomerWinLoss;
+                totalData.CustomerComm += child.CustomerComm;
+                totalData.LicenseeWL += child.LicenseeWL;
             }
 
             foreach (var item in dataList)
             {
-                item.TurnoverPercent = item.Turnover / totalData.Turnover;
+                item.TurnoverPercent = item.Turnover / totalData.Turnover * 100;
             }
 
             return dataList;
