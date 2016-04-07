@@ -57,9 +57,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal)
+        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out MobileWinLossMember totalData)
         {
-            const string UspName = "Lrf_Rpt_MobileWinloss";
+            const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -67,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     UpdateUspParams(db, metaModel, metaModel.CurrencyId);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadMemberData(reader, metaModel, out summaryTotal);
+                        return ReadMemberData(reader, metaModel, out totalData);
                     }
                 }
             }
@@ -106,7 +106,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     parent = new MobileWinLossSummary()
                     {
                         PlatformType = platformType,
-                        Name = PlatformType.GetPlatformName(platformType)
+                        Name = PlatformType.GetPlatformName(platformType),
+                        ProductCodes = string.Empty
                     };
                     parentRows.Add(platformType, parent);
                     dataList.Add(parent);
@@ -127,7 +128,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
-                    LicenseeWL = reader.ToDecimal(licenseeWlColumn)
+                    LicenseeWL = reader.ToDecimal(licenseeWlColumn),
+                    ProductCodes = productCode
                 };
 
                 parent.TotalTransactions += child.TotalTransactions;
@@ -135,6 +137,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 parent.CustomerWinLoss += child.CustomerWinLoss;
                 parent.CustomerComm += child.CustomerComm;
                 parent.LicenseeWL += child.LicenseeWL;
+                parent.ProductCodes += productCode + ",";
 
                 dataList.Add(child);
 
@@ -158,14 +161,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         private static IList<MobileWinLossMember> ReadMemberData(
             IDataReader reader,
             MobileWinLossMetaModel metaModel,
-            out Dictionary<string, MobileWinLossMember> summaryTotal)
+            out MobileWinLossMember totalData)
         {
             var dataList = new List<MobileWinLossMember>();
-            summaryTotal = new Dictionary<string, MobileWinLossMember>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal.Add(currency, new MobileWinLossMember());
-            }
+            totalData = new MobileWinLossMember();
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
@@ -180,43 +179,38 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var index = 1;
             while (reader.Read())
             {
-                // Read Item
-                var mobile = new MobileWinLossMember
+                var item = new MobileWinLossMember
                 {
                     Index = index,
-                    CurrencyName = reader.ToString("currencyName"),
+                    //// CurrencyName = reader.ToString("currencyName"),
                     TotalTransactions = reader.ToInt("Betcount"),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
-                    BACommission = reader.ToDecimal(commBaColumn),
-                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
-                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
+                    //// BACommission = reader.ToDecimal(commBaColumn),
+                    //// RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
+                    //// AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
+                    //// AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency")
                 };
 
-                mobile.SystemId = reader.ToString("username");
-                mobile.CustomerId = reader.ToInt("custid");
-                mobile.ExternalId = reader.ToString("nickname");
+                item.SystemId = reader.ToString("username");
+                item.CustomerId = reader.ToInt("custid");
+                item.ExternalId = reader.ToString("nickname");
 
-                dataList.Add(mobile);
+                dataList.Add(item);
                 index++;
 
-                // Read Summary
-                foreach (var currency in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currency].TotalTransactions += reader.ToInt("Betcount");
-                    summaryTotal[currency].Turnover += reader.ToDecimal("Turnover" + currency);
-                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("Winlost" + currency);
-                    summaryTotal[currency].CustomerComm += reader.ToDecimal("PlayerComm" + currency);
-                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("LicenseeWL" + currency);
-                    summaryTotal[currency].BACommission += reader.ToDecimal("CommBA" + currency);
-                    summaryTotal[currency].RacingRevenue += reader.ToDecimal("WinlossRB" + currency) + reader.ToDecimal("CommRB" + currency);
-                    summaryTotal[currency].AmtDueToBA += reader.ToDecimal("AmtDueToBA" + currency);
-                    summaryTotal[currency].AmtDueToRacing += reader.ToDecimal("AmtDueToRB" + currency);
-                }
+                totalData.TotalTransactions += item.TotalTransactions;
+                totalData.Turnover += item.Turnover;
+                totalData.CustomerWinLoss += item.CustomerWinLoss;
+                totalData.CustomerComm += item.CustomerComm;
+                totalData.LicenseeWL += item.LicenseeWL;
+                totalData.BACommission += item.BACommission;
+                totalData.RacingRevenue += item.RacingRevenue;
+                totalData.AmtDueToBA += item.AmtDueToBA;
+                totalData.AmtDueToRacing += item.AmtDueToRacing;
             }
 
             return dataList;
@@ -234,7 +228,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("PlatformType", DbType.Byte, metaModel.Platform);
+            db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
             db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
             db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);

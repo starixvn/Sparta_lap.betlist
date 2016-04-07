@@ -46,8 +46,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly IList<MobileWinLossMember> _exportData;
         private readonly MobileWinLossViewModel _model;
-        private readonly IDictionary<string, MobileWinLossMember> _summaryTotal;
-        private readonly IList<MobileWinLossMember> _totalList;
+        private readonly MobileWinLossMember _totalData;
 
         public MobileWinLossExcel(
                         string templatePath,
@@ -59,8 +58,7 @@ namespace Fanex.Athena.Excel.Report
         {
             _model = model;
             _exportData = model.MainResult;
-            _totalList = model.TotalResult;
-            _summaryTotal = model.SummaryTotal;
+            _totalData = model.TotalResult;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -149,10 +147,6 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
                 index++;
             }
-
-            int totalRowEur = AssignTotal(sheet, rowIndex + RowContentTemplate);
-
-            AssignSummaryTotal(sheet, totalRowEur);
         }
 
         /// <summary>
@@ -161,7 +155,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.Platform);
+            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.PlatformType);
 
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
@@ -224,28 +218,6 @@ namespace Fanex.Athena.Excel.Report
         }
 
         /// <summary>
-        /// Assign summary total row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The row index.</param>
-        protected void AssignSummaryTotal(ISheet sheet, int rowIndex)
-        {
-            List<string> currencyList = _summaryTotal.Keys.ToList();
-            currencyList.Reverse();
-            foreach (string currency in currencyList)
-            {
-                // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalEurTemp, rowIndex);
-                AssignCellData(row, _summaryTotal[currency]);
-                row.Cells[0].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
-
-                // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                rowIndex++;
-            }
-        }
-
-        /// <summary>
         /// Assign total row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
@@ -254,17 +226,14 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotal(ISheet sheet, int rowTotal)
         {
             int beginRowTotal = rowTotal;
-            foreach (MobileWinLossMember t in _totalList)
-            {
-                int rowContentTemp = beginRowTotal == rowTotal ? RowTotalTemp : RowContentTemplate;
-                IRow totalRow = sheet.CopyRow(TemplateSheet, rowContentTemp, rowTotal);
-                MobileWinLossMember data = t;
 
-                totalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
-                totalRow.Cells[ColumnCurrency].SetCellValue(data.CurrencyName);
-                AssignCellData(totalRow, data);
-                rowTotal++;
-            }
+            int rowContentTemp = beginRowTotal == rowTotal ? RowTotalTemp : RowContentTemplate;
+            IRow totalRow = sheet.CopyRow(TemplateSheet, rowContentTemp, rowTotal);
+
+            totalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+            totalRow.Cells[ColumnCurrency].SetCellValue(_totalData.CurrencyName);
+            AssignCellData(totalRow, _totalData);
+            rowTotal++;
 
             sheet.MergeCells(beginRowTotal, ColumnIndex, rowTotal - 1, ColumnSystemId);
             sheet.MergeCells(rowTotal, ColumnIndex, rowTotal, ColumnSystemId);

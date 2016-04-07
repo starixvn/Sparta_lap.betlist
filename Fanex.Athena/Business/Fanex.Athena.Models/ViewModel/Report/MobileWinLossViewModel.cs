@@ -17,9 +17,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
     {
         public IList<MobileWinLossMember> MainResult { get; set; }
 
-        public IDictionary<string, MobileWinLossMember> SummaryTotal { get; set; }
-
-        public IList<MobileWinLossMember> TotalResult { get; set; }
+        public MobileWinLossMember TotalResult { get; set; }
 
         public MobileWinLossMetaModel Param { get; set; }
 

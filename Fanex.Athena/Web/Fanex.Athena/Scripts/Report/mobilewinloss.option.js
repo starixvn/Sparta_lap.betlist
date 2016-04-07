@@ -26,12 +26,10 @@ var MobileWinLossOption = (function () {
     var drilldownLink = function (cellvalue, options, rowObject) {
         var param =
         {
-            Platform: rowObject.PlatformId,
-            PlatformName: rowObject.PlatformName,
-            Product: rowObject.ProductId,
-            ProductName: rowObject.ProductName
+            PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
+            ProductCodes: rowObject.ProductCodes ? rowObject.ProductCodes.replace(/,\s*$/, "") : ""
         };
-        return '<a class="drill-down-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+        return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
     var idColumn = {
@@ -69,7 +67,8 @@ var MobileWinLossOption = (function () {
         width: 85,
         align: 'left',
         sortable: true,
-        resizable: false
+        resizable: false,
+        formatter: betlistLink
     };
     var systemIdColumn = {
         name: 'SystemId',
@@ -77,7 +76,8 @@ var MobileWinLossOption = (function () {
         width: 120,
         align: 'left',
         sortable: true,
-        resizable: false
+        resizable: false,
+        formatter: betlistLink
     };
     var currencyColumn = {
         name: 'CurrencyName',
@@ -310,27 +310,31 @@ var MobileWinLossOption = (function () {
         licenseeWlColumn.classes = (level === 0 ? null : "highlight");
         baCommissionColumn.classes = licenseeWlColumn.classes;
 
-
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
 
-        // Column hidden by product
-        var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
-        var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
-
         if (level === 1) {
+            var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
+            var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
+
             baCommissionColumn.hidden = !allowedBa;
             amtDueToBaColumn.hidden = !allowedBa;
             racingRevenueColumn.hidden = !allowedRacing;
             amtDueToRacingColumn.hidden = !allowedRacing;
         }
 
-        // Row span setting
-        indexColumn.cellattr = jqGridAdditional.rowSpanSetting;
+        if (level === 0)
+        {
+            var columns = Site.clone(colModelList);
 
-        externalIdColumn.formatter = betlistLink;
-        systemIdColumn.formatter = betlistLink;
+            for (var i = 0; i < columns.length; i++)
+            {   
+                columns[i].sortable = false;
+            }
+
+            return columns;
+        }
 
         return colModelList;
     };

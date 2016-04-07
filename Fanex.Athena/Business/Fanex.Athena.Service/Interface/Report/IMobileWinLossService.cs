@@ -24,6 +24,6 @@ namespace Fanex.Athena.Service.Interface.Report
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal);
+        IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out MobileWinLossMember totalData);
     }
 }

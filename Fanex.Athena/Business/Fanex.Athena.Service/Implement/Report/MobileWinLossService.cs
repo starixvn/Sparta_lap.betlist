@@ -42,15 +42,15 @@ namespace Fanex.Athena.Service.Implement.Report
             }
         }
 
-        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLossMember> summaryTotal)
+        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out MobileWinLossMember totalData)
         {
             if (metaModel.IsValid)
             {
-                return this._mobileWinLossDataAccess.GetMemberData(metaModel, out summaryTotal);
+                return this._mobileWinLossDataAccess.GetMemberData(metaModel, out totalData);
             }
             else
             {
-                summaryTotal = new Dictionary<string, MobileWinLossMember>();
+                totalData = new MobileWinLossMember();
                 return new List<MobileWinLossMember>();
             }
         }

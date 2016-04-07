@@ -106,7 +106,7 @@ var MobileWinLoss = (function ($) {
                 MobileWinLoss.openBetlistPopUp(dataDrillDown);
             });
 
-            $("body").on("click", ".drill-down-link", function () {
+            $("body").on("click", ".drilldown", function () {
                 var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
                 MobileWinLoss.drillDown(dataDrillDown);
             });
@@ -184,11 +184,12 @@ var MobileWinLoss = (function ($) {
                 ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + data.CurrencyId + '"]').text())
                 : currencyTextList[data.CurrencyId];
 
-            var platformName = MobileWinLossOption.Platforms[data.Platform];
-
-            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, "Product: ");
+            var platformName = MobileWinLossOption.Platforms[data.PlatformType];            
+            var productText = data.ProductCodes ?
+                "Product: " + data.ProductCodes.split(",").join(", ") :
+                jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, "Product: ");
             var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
-                        currencyStr, platformName, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
+                        currencyStr, platformName, ', ' + productText);
 
             $(".report-title").html(title);
         },
@@ -201,7 +202,6 @@ var MobileWinLoss = (function ($) {
             if (level === 0) {
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(1);
-                //$('.ui-jqgrid-ftable td:visible:first').html(Site.getSingleResource('Total'));
             }
             else {
                 var colspan = MobileWinLossOption.totalColspan[level];
@@ -217,9 +217,7 @@ var MobileWinLoss = (function ($) {
             var onPaging = false;
             var gridOption = MobileWinLossOption.getGridOption(level);
             var numOfRow = response.Data.length;
-            var numOfTotalRow = 1;//response.Total.length;
             gridOption.datastr = response.Data;
-          //  gridOption.userData = response.TotalEur;
             gridOption.rowList = MobileWinLossOption.rowList;
             gridOption.rowNum = _pageSize;
 
@@ -239,7 +237,7 @@ var MobileWinLoss = (function ($) {
             };
 
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                jqGridAdditional.gridComplete(this, gridOption);
                 if (numOfRow > MobileWinLossOption.pageSize) {
                     _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                     $("#pg_ppdata").show();
@@ -267,7 +265,6 @@ var MobileWinLoss = (function ($) {
                 $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
                 Site.unBlockUI();
             };
-            // Show the grid
             reportGrid.jqGrid(gridOption);
             /*group header*/
             if (MobileWinLossOption.hasCustomerComm) {
@@ -280,7 +277,7 @@ var MobileWinLoss = (function ($) {
 
             jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
-            if (!_removeSorting) {
+            if (level === 1 && !_removeSorting) {
                 reportGrid.closest("div.ui-jqgrid-view")
                            .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
                 .each(function (index, element) {
@@ -296,8 +293,6 @@ var MobileWinLoss = (function ($) {
                     }
                 });
             }
-
-
         },
 
         //#endregion
@@ -353,7 +348,7 @@ var MobileWinLoss = (function ($) {
                         Year: data.Year,
                         ProductOptions: response.ProductOptions,
                         DrawFilter: data.DrawFilter,
-                        Platform: data.Platform,
+                        PlatformType: data.Platform,
                         CurrencyId: data.CurrencyId,
                         FromDate: new Date(data.FromDate),
                         ToDate: new Date(data.ToDate),
@@ -372,6 +367,12 @@ var MobileWinLoss = (function ($) {
         },
 
         drillDown: function (data) {
+            var products = data.ProductCodes.split(",");
+            var productOptions = [];
+            for (var i = 0; i < products.length; i++)
+            {
+                productOptions.push({ code: products[i], status: true });
+            }
 
             var param =
             {
@@ -382,15 +383,16 @@ var MobileWinLoss = (function ($) {
                 Year: _submitData.Year,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                ProductOptions: $.parseJSON(_submitData.ProductOptions),
-                Platform: data.Platform,
+                ProductCodes: data.ProductCodes,
+                ProductOptions: productOptions,
+                PlatformType: data.PlatformType,
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludeTest: _submitData.IsExcludeTest,
                 CurrencyId: _submitData.CurrencyId,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
             _drilldownData = {
-                Platform: data.Platform
+                PlatformType: data.PlatformType
             };
             $.ajax({
                 type: "POST",
@@ -418,7 +420,7 @@ var MobileWinLoss = (function ($) {
                 MobileWinLoss.setExcelUrl(0, 0, 0, "");
                 MobileWinLoss.setReportTitle({
                     CurrencyId: _submitData.CurrencyId,
-                    Platform: _submitData.Platform
+                    PlatformType: _submitData.PlatformType
                 });
             }
             else if (level === 1) {
@@ -438,7 +440,7 @@ var MobileWinLoss = (function ($) {
 
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
             url = QueryString.setParam(url, "todate", _submitData.ToDate);
-            url = QueryString.setParam(url, "SiteType", _drilldownData.Platform);
+            url = QueryString.setParam(url, "SiteType", _drilldownData.PlatformType);
             url = QueryString.setParam(url, "excludetest", _submitData.IsExcludeTest);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
             url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);

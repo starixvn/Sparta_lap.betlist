@@ -36,28 +36,11 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null);
         }
 
-        private static IList<MobileWinLossMember> GetTotalData(IEnumerable<MobileWinLossMember> dataList)
-        {
-            return dataList.GroupBy(d => d.CurrencyName).Select(g => new MobileWinLossMember
-            {
-                CurrencyName = g.Key,
-                Turnover = g.Sum(p => p.Turnover),
-                TotalTransactions = g.Sum(p => p.TotalTransactions),
-                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
-                CustomerComm = g.Sum(p => p.CustomerComm),
-                LicenseeWL = g.Sum(p => p.LicenseeWL),
-                BACommission = g.Sum(p => p.BACommission),
-                RacingRevenue = g.Sum(p => p.RacingRevenue),
-                AmtDueToBA = g.Sum(p => p.AmtDueToBA),
-                AmtDueToRacing = g.Sum(p => p.AmtDueToRacing)
-            }).ToList();
-        }
-
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
             MobileWinLossMetaModel metaModel,
             IList<MobileWinLossMember> dataList,
-            Dictionary<string, MobileWinLossMember> summaryTotal,
+            MobileWinLossMember totalData,
             DateTime? date)
         {
             const string FileName = "PlatformWinLoss.xls";
@@ -96,8 +79,7 @@ namespace Fanex.Athena.Api.Report
             var excelModel = new MobileWinLossViewModel
             {
                 MainResult = dataList,
-                SummaryTotal = summaryTotal,
-                TotalResult = GetTotalData(dataList),
+                TotalResult = totalData,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,
@@ -153,16 +135,15 @@ namespace Fanex.Athena.Api.Report
             }
             else
             {
-                Dictionary<string, MobileWinLossMember> summaryTotal;
-                var dataList = _mobileWinLossService.GetMemberData(metaModel, out summaryTotal);
+                MobileWinLossMember totalData;
+                var dataList = _mobileWinLossService.GetMemberData(metaModel, out totalData);
 
                 return metaModel.IsExportExcel
-                    ? ExportExcel(metaModel, dataList, summaryTotal, date)
+                    ? ExportExcel(metaModel, dataList, totalData, date)
                     : (dynamic)new
                     {
                         Data = dataList,
-                        Total = GetTotalData(dataList),
-                        SummaryTotal = summaryTotal,
+                        Total = totalData,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
             }
