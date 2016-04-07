@@ -420,6 +420,7 @@
                 "~/Content/BetList/betlist.core.css",
                 "~/Content/BetList/Microgaming.css",
                 "~/Content/BetList/AGCasino.css",
+                "~/Content/BetList/Voidbridge.css",
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
@@ -445,7 +446,8 @@
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/BetList/betlist.core.css",
                 "~/Content/BetList/Microgaming.css",
-                "~/Content/BetList/AGCasino.css");
+                "~/Content/BetList/AGCasino.css",
+                "~/Content/BetList/Voidbridge.css");
         }
 
         /// <summary>
@@ -468,7 +470,8 @@
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
                 "~/Content/BetList/betlist.core.css",
                 "~/Content/BetList/Microgaming.css",
-                "~/Content/BetList/AGCasino.css");
+                "~/Content/BetList/AGCasino.css",
+                "~/Content/BetList/Voidbridge.css");
         }
 
         /// <summary>

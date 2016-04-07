@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 3/25/2016 10:52:20 AM
+// Lasted generated date: 4/7/2016 10:38:40 AM
 // </history>
 
 var _language_en_US={
@@ -1272,6 +1272,8 @@ var _language_en_US={
                      ProductRB:"Racing",
 				 	
                      ProductSB:"Sportsbook",
+				 	
+                     ProductVB:"Voidbridge",
 				 	
                      ProductVG:"Macau",
 				 	
