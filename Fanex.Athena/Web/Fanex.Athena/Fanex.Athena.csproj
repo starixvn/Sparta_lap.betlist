@@ -571,6 +571,7 @@
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
     <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\CasinoProgressiveWins.xls" />
+    <Content Include="App_Data\Template\Reports\PlatformWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />

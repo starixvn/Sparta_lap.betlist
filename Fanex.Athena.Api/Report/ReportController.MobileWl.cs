@@ -112,6 +112,22 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);
         }
 
+        private HttpResponseMessage ExportExcelForPlatformWinLoss(
+            MobileWinLossMetaModel metaModel,
+            IList<MobileWinLossSummary> dataList,
+            MobileWinLossSummary total)
+        {
+            const string FileName = "PlatformWinLoss.xls";
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLoss.xls");
+
+            var mobileWinLossExcel = new PlatformWinLossExcel(templatePath, FileName, metaModel, dataList, total);
+            mobileWinLossExcel.Export();
+
+            return ExcelStream(mobileWinLossExcel.Workbook, FileName);
+        }
+
         private dynamic ProcessRequest(MobileWinLossMetaModel metaModel, DateTime? date)
         {
             if (!IsValidRequest(metaModel))
@@ -126,12 +142,14 @@ namespace Fanex.Athena.Api.Report
             {
                 MobileWinLossSummary totalData;
                 var dataList = _mobileWinLossService.GetSummaryData(metaModel, out totalData);
-                return new
-                {
-                    Data = dataList,
-                    Total = totalData,
-                    ProductOptions = metaModel.ProductOptions.ToJson()
-                };
+                return metaModel.IsExportExcel ?
+                    ExportExcelForPlatformWinLoss(metaModel, dataList, totalData) :
+                   (dynamic)new
+                   {
+                       Data = dataList,
+                       Total = totalData,
+                       ProductOptions = metaModel.ProductOptions.ToJson()
+                   };
             }
             else
             {
