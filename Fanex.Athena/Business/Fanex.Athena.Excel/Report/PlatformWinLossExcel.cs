@@ -129,7 +129,7 @@
 
         public override void AssignTitle(ISheet sheet)
         {
-            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Platform);
+            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
                                         _model.FromDate.ToString(FormatDate),

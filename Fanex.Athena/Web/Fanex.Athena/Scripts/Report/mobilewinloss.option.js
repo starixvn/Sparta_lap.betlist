@@ -106,7 +106,7 @@ var MobileWinLossOption = (function () {
         align: 'right',
         sortable: true,
         formatter: 'currency',
-        formatoptions: { suffix: '%' }
+        formatoptions: { decimalPlaces: 2, suffix: '%' }
     };
     var totalTransColumn = {
         name: 'TotalTransactions',

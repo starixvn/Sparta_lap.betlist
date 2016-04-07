@@ -85,10 +85,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         private static IList<MobileWinLossSummary> ReadSummaryData(IDataReader reader, MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
         {
             var dataList = new List<MobileWinLossSummary>();
-            totalData = new MobileWinLossSummary()
-            {
-                TurnoverPercent = 100
-            };
+            totalData = new MobileWinLossSummary();
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
@@ -148,9 +145,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 totalData.LicenseeWL += child.LicenseeWL;
             }
 
-            foreach (var item in dataList)
+            totalData.TurnoverPercent = totalData.Turnover > 0 ? 100 : 0;
+            if (totalData.Turnover > 0)
             {
-                item.TurnoverPercent = item.Turnover / totalData.Turnover * 100;
+                foreach (var item in dataList)
+                {
+                    item.TurnoverPercent = item.Turnover / totalData.Turnover * 100;
+                }
             }
 
             return dataList;
