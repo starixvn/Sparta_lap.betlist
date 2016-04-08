@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MobileWinLossService.cs" company="Nexcel">
+// <copyright file="PlatformWinLossService.cs" company="Nexcel">
 // The mobile win loss service.
 // </copyright>
 // <summary>
@@ -17,19 +17,19 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Report;
 
-    public class MobileWinLossService : IMobileWinLossService
+    public class PlatformWinLossService : IPlatformWinLossService
     {
         private readonly IBalanceUpService _balanceUpService;
 
-        private readonly MobileWinLossDataAccess _mobileWinLossDataAccess;
+        private readonly PlatformWinLossDataAccess _mobileWinLossDataAccess;
 
-        public MobileWinLossService()
+        public PlatformWinLossService()
         {
             this._balanceUpService = new BalanceUpService();
-            this._mobileWinLossDataAccess = new MobileWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
+            this._mobileWinLossDataAccess = new PlatformWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
         }
 
-        public IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
+        public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
         {
             if (metaModel.IsValid)
             {
@@ -37,12 +37,12 @@ namespace Fanex.Athena.Service.Implement.Report
             }
             else
             {
-                totalData = new MobileWinLossSummary();
-                return new List<MobileWinLossSummary>();
+                totalData = new PlatformWinLossSummary();
+                return new List<PlatformWinLossSummary>();
             }
         }
 
-        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out MobileWinLossMember totalData)
+        public IList<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, out PlatformWinLossMember totalData)
         {
             if (metaModel.IsValid)
             {
@@ -50,8 +50,8 @@ namespace Fanex.Athena.Service.Implement.Report
             }
             else
             {
-                totalData = new MobileWinLossMember();
-                return new List<MobileWinLossMember>();
+                totalData = new PlatformWinLossMember();
+                return new List<PlatformWinLossMember>();
             }
         }
     }

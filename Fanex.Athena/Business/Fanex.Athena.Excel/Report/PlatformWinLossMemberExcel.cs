@@ -1,11 +1,8 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="MobileWinLossExcel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="PlatformWinLossMemberExcel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Excel.Report
 {
@@ -20,10 +17,7 @@ namespace Fanex.Athena.Excel.Report
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
 
-    /// <summary>
-    /// The mobile win-loss.
-    /// </summary>
-    public class MobileWinLossExcel : ReportBase
+    public class PlatformWinLossMemberExcel : ReportBase
     {
         private const int ColumnAmtDueToBa = 12;
         private const int ColumnAmtDueToRacing = 13;
@@ -44,14 +38,14 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalEurTemp = 5;
         private const int RowTotalTemp = 4;
 
-        private readonly IList<MobileWinLossMember> _exportData;
-        private readonly MobileWinLossViewModel _model;
-        private readonly MobileWinLossMember _totalData;
+        private readonly IList<PlatformWinLossMember> _exportData;
+        private readonly PlatformWinLossViewModel _model;
+        private readonly PlatformWinLossMember _totalData;
 
-        public MobileWinLossExcel(
+        public PlatformWinLossMemberExcel(
                         string templatePath,
                                   string exportingFileName,
-                                  MobileWinLossViewModel model,
+                                  PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
                                   ConvertingOption convertingOption)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
@@ -138,7 +132,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int rowIndex = 0;
             int index = 1;
-            foreach (MobileWinLossMember mobile in _exportData)
+            foreach (PlatformWinLossMember mobile in _exportData)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(index);
@@ -201,7 +195,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">The current row.</param>
         /// <param name="mobileWinLoss">The mobile win-loss.</param>
-        protected static void AssignCellData(IRow row, MobileWinLossMember mobileWinLoss)
+        protected static void AssignCellData(IRow row, PlatformWinLossMember mobileWinLoss)
         {
             row.Cells[ColumnExternalId].SetCellValue(mobileWinLoss.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(mobileWinLoss.SystemId);

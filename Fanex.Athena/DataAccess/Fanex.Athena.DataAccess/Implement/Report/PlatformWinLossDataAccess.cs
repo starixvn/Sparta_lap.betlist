@@ -1,11 +1,7 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MobileWinLossDataAccess.cs" company="Nexcel Solution">
+// <copyright file="PlatformWinLossDataAccess.cs" company="Nexcel Solution">
 // TODO: Update copyright text.
 // </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.Implement.Report
@@ -27,16 +23,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Logging;
 
     /// <summary>
-    /// Mobile win loss data access.
+    /// Platform win loss data access.
     /// </summary>
-    public class MobileWinLossDataAccess : BaseDataAccess, IMobileWinLossDataAccess
+    public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
-        public MobileWinLossDataAccess(BalanceUp balanceUp)
+        public PlatformWinLossDataAccess(BalanceUp balanceUp)
             : base(balanceUp)
         {
         }
 
-        public IList<MobileWinLossSummary> GetSummaryData(MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
+        public IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
             try
@@ -57,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        public IList<MobileWinLossMember> GetMemberData(MobileWinLossMetaModel metaModel, out MobileWinLossMember totalData)
+        public IList<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, out PlatformWinLossMember totalData)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
@@ -82,25 +78,25 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<MobileWinLossSummary> ReadSummaryData(IDataReader reader, MobileWinLossMetaModel metaModel, out MobileWinLossSummary totalData)
+        private static IList<PlatformWinLossSummary> ReadSummaryData(IDataReader reader, PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
         {
-            var dataList = new List<MobileWinLossSummary>();
-            totalData = new MobileWinLossSummary();
+            var dataList = new List<PlatformWinLossSummary>();
+            totalData = new PlatformWinLossSummary();
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
             var playerCommColumn = "PlayerComm" + metaModel.BaseCurrency;
             var licenseeWlColumn = "LicenseeWL" + metaModel.BaseCurrency;
-            var parentRows = new Dictionary<int, MobileWinLossSummary>();
+            var parentRows = new Dictionary<int, PlatformWinLossSummary>();
             var childId = -1;
             while (reader.Read())
             {
                 var platformType = reader.ToInt("PlatformType");
                 var productCode = reader.ToString("productprefix").ToUpper();
-                MobileWinLossSummary parent;
+                PlatformWinLossSummary parent;
                 if (!parentRows.ContainsKey(platformType))
                 {
-                    parent = new MobileWinLossSummary()
+                    parent = new PlatformWinLossSummary()
                     {
                         PlatformType = platformType,
                         Name = PlatformType.GetPlatformName(platformType),
@@ -114,7 +110,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     parent = parentRows[platformType];
                 }
 
-                var child = new MobileWinLossSummary
+                var child = new PlatformWinLossSummary
                 {
                     PlatformType = childId--,
                     Parent = platformType.ToString(),
@@ -159,13 +155,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<MobileWinLossMember> ReadMemberData(
+        private static IList<PlatformWinLossMember> ReadMemberData(
             IDataReader reader,
-            MobileWinLossMetaModel metaModel,
-            out MobileWinLossMember totalData)
+            PlatformWinLossMetaModel metaModel,
+            out PlatformWinLossMember totalData)
         {
-            var dataList = new List<MobileWinLossMember>();
-            totalData = new MobileWinLossMember();
+            var dataList = new List<PlatformWinLossMember>();
+            totalData = new PlatformWinLossMember();
 
             var turnoverColumn = "Turnover" + metaModel.BaseCurrency;
             var winlostComumn = "Winlost" + metaModel.BaseCurrency;
@@ -180,7 +176,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var index = 1;
             while (reader.Read())
             {
-                var item = new MobileWinLossMember
+                var item = new PlatformWinLossMember
                 {
                     Index = index,
                     //// CurrencyName = reader.ToString("currencyName"),
@@ -223,7 +219,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="db">Database value.</param>
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="currencyId">Currency ID value.</param>
-        private void UpdateUspParams(ObjectDb db, MobileWinLossMetaModel metaModel, int currencyId)
+        private void UpdateUspParams(ObjectDb db, PlatformWinLossMetaModel metaModel, int currencyId)
         {
             currencyId = Math.Max(0, currencyId);
 

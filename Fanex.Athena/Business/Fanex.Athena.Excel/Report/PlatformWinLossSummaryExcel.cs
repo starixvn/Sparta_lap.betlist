@@ -10,7 +10,7 @@
     using Models.ViewModel;
     using NPOI.SS.UserModel;
     
-    public class PlatformWinLossExcel : ReportBase
+    public class PlatformWinLossSummaryExcel : ReportBase
     {
         private const int ColumnPlatform = 0;
         private const int ColumnTurnover = 1;
@@ -32,16 +32,16 @@
         
         private readonly string _templatePath;
         private readonly string _fileName;
-        private readonly MobileWinLossMetaModel _model;
-        private readonly IList<MobileWinLossSummary> _dataList;
-        private readonly MobileWinLossSummary _total;
+        private readonly PlatformWinLossMetaModel _model;
+        private readonly IList<PlatformWinLossSummary> _dataList;
+        private readonly PlatformWinLossSummary _total;
 
-        public PlatformWinLossExcel(
+        public PlatformWinLossSummaryExcel(
             string templatePath,
             string fileName,
-            MobileWinLossMetaModel metaModel,
-            IList<MobileWinLossSummary> dataList,
-            MobileWinLossSummary total)
+            PlatformWinLossMetaModel metaModel,
+            IList<PlatformWinLossSummary> dataList,
+            PlatformWinLossSummary total)
             : base(templatePath, fileName, new ShowingOption(), new ConvertingOption())
         {
             _templatePath = templatePath;
@@ -146,7 +146,7 @@
             ClearTemplate(sheet, RowParentContentTemplate);
         }
 
-        private static void AssignCellData(IRow row, MobileWinLossSummary data)
+        private static void AssignCellData(IRow row, PlatformWinLossSummary data)
         {
             row.Cells[ColumnPlatform].SetCellValue(data.Name);
             row.Cells[ColumnTurnover].SetCellValue(data.Turnover);

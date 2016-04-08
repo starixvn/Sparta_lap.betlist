@@ -2,9 +2,9 @@
 @{
     Layout = null;
 }
-@model Fanex.Athena.Models.ViewModel.Report.MobileWinLossViewModel
+@model Fanex.Athena.Models.ViewModel.Report.PlatformWinLossViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("MobileWinloss", "Report", FormMethod.Post, new { @id = "MobileWinLossForm" }))
+    @using (Html.BeginForm("MainForm", "Report", FormMethod.Post, new { @id = "MainForm" }))
     {
         <div class="grid_3 filter-label">
             <label>

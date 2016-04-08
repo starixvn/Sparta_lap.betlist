@@ -138,7 +138,7 @@ namespace Fanex.Athena.Models.MetaModel.BetList
 
         public bool IsLastBetMonitoring { get; set; }
 
-        public int SiteType { get; set; }
+        public int PlatformType { get; set; }
 
         public string BetChoice { get; set; }
 

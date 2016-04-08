@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MobileWinLossMetaModel.cs" company="Nexcel">
+// <copyright file="PlatformWinLossMetaModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,12 +9,9 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
     using Fanex.Athena.Models.DataDomain;
 
-    /// <summary>
-    /// MobileWinLossMetaModel class.
-    /// </summary>
-    public class MobileWinLossMetaModel : BaseReportMetaModel
+    public class PlatformWinLossMetaModel : BaseReportMetaModel
     {
-        public MobileWinLossMetaModel()
+        public PlatformWinLossMetaModel()
         {
             LicenseeId = 0;
             var today = DateTime.Now;

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.MobileWl.cs" company="Microsoft">
+// <copyright file="BetListController.PlatformWinLoss.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -19,13 +19,8 @@ namespace Fanex.Athena.Api.BetList
     /// </summary>
     public partial class BetListController
     {
-        /// <summary>
-        /// Get data for licensee win lost bet list.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Bet list data.</returns>
         [HttpPost]
-        public dynamic MobileWL(BetListMetaModel metaModel)
+        public dynamic PlatformWinLoss(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

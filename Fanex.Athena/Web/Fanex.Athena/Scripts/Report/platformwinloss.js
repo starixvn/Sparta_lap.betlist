@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, MobileWinLossOption, JSLINQ,jqGridAdditional*/
+﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional*/
 /// <reference path="/@JSense.js" />
 /// //##
 /*
@@ -6,7 +6,7 @@
 *  "0" for master,"1" for agent and "2" for member
 */
 
-var MobileWinLoss = (function ($) {
+var PlatformWinLoss = (function ($) {
     "use strict";
     var cacheData = {};
     var _level = null;
@@ -46,12 +46,12 @@ var MobileWinLoss = (function ($) {
         },
         //#region Init
         initialize: function () {
-            MobileWinLoss.initSetting();
-            MobileWinLoss.initMonthPicker();
-            MobileWinLoss.initEvent();
-            MobileWinLoss.setExcelUrl(0, 0, 0, "");
+            PlatformWinLoss.initSetting();
+            PlatformWinLoss.initMonthPicker();
+            PlatformWinLoss.initEvent();
+            PlatformWinLoss.setExcelUrl(0, 0, 0, "");
             Site.addFilterCollapseExpand();
-            MobileWinLossOption.gridOption.onSortCol = function (index) {
+            PlatformWinLossOption.gridOption.onSortCol = function (index) {
                 Site.blockUI();
                 window.setTimeout(function () {
                     _removeSorting = false;
@@ -64,7 +64,7 @@ var MobileWinLoss = (function ($) {
 
                     cacheData[_level].Data = sortData(cacheData[_level].Data);
 
-                    MobileWinLoss.bindData(_level, cacheData[_level]);
+                    PlatformWinLoss.bindData(_level, cacheData[_level]);
 
                     Site.unBlockUI();
                 }, 100);
@@ -76,8 +76,8 @@ var MobileWinLoss = (function ($) {
             });
         },
         initSetting: function () {
-            _pageSize = MobileWinLossOption.pageSize;
-            MobileWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+            _pageSize = PlatformWinLossOption.pageSize;
+            PlatformWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
         },
         initMonthPicker: function () {
             $('#DateControl').monPickr({
@@ -103,12 +103,12 @@ var MobileWinLoss = (function ($) {
             // open betlist pop up
             $("body").on("click", ".bet-list-link", function () {
                 var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
-                MobileWinLoss.openBetlistPopUp(dataDrillDown);
+                PlatformWinLoss.openBetlistPopUp(dataDrillDown);
             });
 
             $("body").on("click", ".drilldown", function () {
                 var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
-                MobileWinLoss.drillDown(dataDrillDown);
+                PlatformWinLoss.drillDown(dataDrillDown);
             });
 
             $("#SiteList input[type=checkbox]").checkboxgroup();
@@ -118,13 +118,13 @@ var MobileWinLoss = (function ($) {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 _removeSorting = true;
-                MobileWinLoss.submit();
+                PlatformWinLoss.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#MobileWinLossForm");
-                var url = Site.resolveClientUrl(MobileWinLossOption.urlExcelData);
+                var mainForm = $("#PlatformWinLossForm");
+                var url = Site.resolveClientUrl(PlatformWinLossOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 return false;
@@ -132,7 +132,7 @@ var MobileWinLoss = (function ($) {
 
             $("#level-link-container").on("click", ".level-link", function () {
                 var level = Number($(this).attr("data-level"));
-                return MobileWinLoss.goBack(level);
+                return PlatformWinLoss.goBack(level);
             });
         },
 
@@ -140,11 +140,11 @@ var MobileWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, datetime) {
-            var temp = 'api/report/MobileWinloss';
+            var temp = 'api/report/PlatformWinLoss';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&date=" + datetime;
             }
-            MobileWinLossOption.urlExcelData = temp;
+            PlatformWinLossOption.urlExcelData = temp;
         },
 
         renderBreadCrumb: function (level) {
@@ -184,7 +184,7 @@ var MobileWinLoss = (function ($) {
                 ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + data.CurrencyId + '"]').text())
                 : currencyTextList[data.CurrencyId];
 
-            var platformName = MobileWinLossOption.Platforms[data.PlatformType];            
+            var platformName = PlatformWinLossOption.Platforms[data.PlatformType];            
             var productText = data.ProductCodes ?
                 "Product: " + data.ProductCodes.split(",").join(", ") :
                 jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, "Product: ");
@@ -198,13 +198,13 @@ var MobileWinLoss = (function ($) {
         //#region BindReport
 
         bindTotal: function (level, totalData, summaryTotal) {
-            var columnModel = MobileWinLossOption.getTotalColModel();
+            var columnModel = PlatformWinLossOption.getTotalColModel();
             if (level === 0) {
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(1);
             }
             else {
-                var colspan = MobileWinLossOption.totalColspan[level];
+                var colspan = PlatformWinLossOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
@@ -215,17 +215,17 @@ var MobileWinLoss = (function ($) {
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
-            var gridOption = MobileWinLossOption.getGridOption(level);
+            var gridOption = PlatformWinLossOption.getGridOption(level);
             var numOfRow = response.Data.length;
             gridOption.datastr = response.Data;
-            gridOption.rowList = MobileWinLossOption.rowList;
+            gridOption.rowList = PlatformWinLossOption.rowList;
             gridOption.rowNum = _pageSize;
 
             gridOption.rowTotal = numOfRow;
             gridOption.pager = '#ppdata';
 
             gridOption.onPaging = function (pgButton) {
-                if (numOfRow > MobileWinLossOption.pageSize) {
+                if (numOfRow > PlatformWinLossOption.pageSize) {
                     onPaging = true;
                     if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
                         Site.blockUI();
@@ -238,7 +238,7 @@ var MobileWinLoss = (function ($) {
 
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption);
-                if (numOfRow > MobileWinLossOption.pageSize) {
+                if (numOfRow > PlatformWinLossOption.pageSize) {
                     _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                     $("#pg_ppdata").show();
                 }
@@ -254,20 +254,20 @@ var MobileWinLoss = (function ($) {
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        MobileWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
+                        PlatformWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
                     onPaging = false;
                 }
 
-                MobileWinLoss.resizeGrid();
+                PlatformWinLoss.resizeGrid();
                 $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
                 Site.unBlockUI();
             };
             reportGrid.jqGrid(gridOption);
             /*group header*/
-            if (MobileWinLossOption.hasCustomerComm) {
+            if (PlatformWinLossOption.hasCustomerComm) {
                 jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
             }
             else {
@@ -306,14 +306,14 @@ var MobileWinLoss = (function ($) {
                 //reset layout
                 switch (level) {
                     case 0:
-                        MobileWinLoss.setReportTitle(_submitData);
+                        PlatformWinLoss.setReportTitle(_submitData);
                         break;
                     case 1:
                         break;
                 }
 
-                MobileWinLoss.renderBreadCrumb(level);
-                MobileWinLoss.bindData(level, response);
+                PlatformWinLoss.renderBreadCrumb(level);
+                PlatformWinLoss.bindData(level, response);
             }
         },
 
@@ -329,7 +329,7 @@ var MobileWinLoss = (function ($) {
             var fromdate = new Date($("#Year").val(), $("#Month").val() - 1, $("#FromDay").val(), 0, 0, 0, 0);
             var todate = new Date($("#Year").val(), $("#Month").val() - 1, $("#ToDay").val(), 0, 0, 0, 0);
 
-            var data = $("#MobileWinLossForm").serializeObject();
+            var data = $("#MainForm").serializeObject();
             data.FromDate = fromdate;
             data.ToDate = todate;
             data.IsExcludeTest = $('#IsExcludeTest').is(':checked');
@@ -339,7 +339,7 @@ var MobileWinLoss = (function ($) {
                 data: data,
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData),
+                url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
                 success: function (response) {
                     _submitData = {
                         FromDay: data.FromDay,
@@ -356,8 +356,8 @@ var MobileWinLoss = (function ($) {
                         IsExcludeTest: data.IsExcludeTest
                     };
 
-                    MobileWinLoss.setExcelUrl(0, 0, 0, "");
-                    MobileWinLoss.ajaxComplete(0, response);
+                    PlatformWinLoss.setExcelUrl(0, 0, 0, "");
+                    PlatformWinLoss.ajaxComplete(0, response);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -400,12 +400,12 @@ var MobileWinLoss = (function ($) {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 cache: false,
-                url: Site.resolveClientUrl(MobileWinLossOption.urlData),
+                url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
                 success: function (response) {
-                    MobileWinLoss.ajaxComplete(1, response);
+                    PlatformWinLoss.ajaxComplete(1, response);
                     if (response != null && response.Data.length > 0) {
-                        MobileWinLoss.setReportTitle(param);
-                        MobileWinLoss.setExcelUrl(param);
+                        PlatformWinLoss.setReportTitle(param);
+                        PlatformWinLoss.setExcelUrl(param);
                     }
                 },
                 beforeSend: Site.blockUI,
@@ -414,18 +414,18 @@ var MobileWinLoss = (function ($) {
         },
 
         goBack: function (level) {
-            MobileWinLoss.bindData(level, cacheData[level]);
+            PlatformWinLoss.bindData(level, cacheData[level]);
             if (level === 0) {
-                MobileWinLoss.renderBreadCrumb(level);
-                MobileWinLoss.setExcelUrl(0, 0, 0, "");
-                MobileWinLoss.setReportTitle({
+                PlatformWinLoss.renderBreadCrumb(level);
+                PlatformWinLoss.setExcelUrl(0, 0, 0, "");
+                PlatformWinLoss.setReportTitle({
                     CurrencyId: _submitData.CurrencyId,
                     PlatformType: _submitData.PlatformType
                 });
             }
             else if (level === 1) {
-                MobileWinLossOption.urlExcelData = MobileWinLossOption.urlExcelData.replace("level=2", "level=1");
-                MobileWinLoss.renderBreadCrumb(level);
+                PlatformWinLossOption.urlExcelData = PlatformWinLossOption.urlExcelData.replace("level=2", "level=1");
+                PlatformWinLoss.renderBreadCrumb(level);
             }
         },
 
@@ -436,11 +436,11 @@ var MobileWinLoss = (function ($) {
         openBetlistPopUp: function (dataDrillDown) {
             dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
-            var url = Site.resolveClientUrl("BetList/MobileWl");
+            var url = Site.resolveClientUrl("BetList/PlatformWinLoss");
 
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
             url = QueryString.setParam(url, "todate", _submitData.ToDate);
-            url = QueryString.setParam(url, "SiteType", _drilldownData.PlatformType);
+            url = QueryString.setParam(url, "PlatformType", _drilldownData.PlatformType);
             url = QueryString.setParam(url, "excludetest", _submitData.IsExcludeTest);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
             url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
@@ -468,14 +468,14 @@ var MobileWinLoss = (function ($) {
 })(jQuery);
 $(window).load(function () {
     "use strict";
-    MobileWinLoss.initialize();
+    PlatformWinLoss.initialize();
 });
 //#end
 $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    MobileWinLoss.resizeGrid();
+    PlatformWinLoss.resizeGrid();
 });
 
 $(window).unload(function () {

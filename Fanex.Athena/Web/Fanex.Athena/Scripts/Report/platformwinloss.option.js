@@ -1,5 +1,5 @@
 ﻿/*global Site,jqGridAdditional*/
-/*exported MobileWinLossOption*/
+/*exported PlatformWinLossOption*/
 /// <reference path="/@JSense.js" />
 //##
 /*
@@ -7,7 +7,7 @@
 *  "0" for master,"1" for agent and "2" for member
 */
 
-var MobileWinLossOption = (function () {
+var PlatformWinLossOption = (function () {
     "use strict";
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
@@ -248,8 +248,8 @@ var MobileWinLossOption = (function () {
             "5": Site.getSingleResource("SmartSite")
         },
         totalColspan: [0, 3],
-        urlData: 'api/report/MobileWinloss',
-        urlExcelData: 'api/report/MobileWinloss',
+        urlData: 'api/report/PlatformWinLoss',
+        urlExcelData: 'api/report/PlatformWinLoss',
         gridOption: {
             datatype: 'jsonstring',
             colNames: [],

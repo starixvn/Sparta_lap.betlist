@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.MobileWl.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ReportController.PlatformWinLoss.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -23,31 +23,28 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
 
-    /// <summary>
-    /// MobileWinLossController class.
-    /// </summary>
     public partial class ReportController
     {
-        private const string MobileWinlossName = "MobileWinloss";
+        private const string PlatformWinlossName = "PlatformWinloss";
 
         [HttpPost]
-        public dynamic MobileWinloss([FromBody] MobileWinLossMetaModel metaModel)
+        public dynamic PlatformWinloss([FromBody] PlatformWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null);
         }
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
-            MobileWinLossMetaModel metaModel,
-            IList<MobileWinLossMember> dataList,
-            MobileWinLossMember totalData,
+            PlatformWinLossMetaModel metaModel,
+            IList<PlatformWinLossMember> dataList,
+            PlatformWinLossMember totalData,
             DateTime? date)
         {
-            const string FileName = "PlatformWinLoss.xls";
+            const string FileName = "PlatformWinLossMember.xls";
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MobileWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MobileWinlossName);
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, PlatformWinlossName);
 
             var showingOption = new ShowingOption
             {
@@ -76,7 +73,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.Year = date.Value.Year;
             }
 
-            var excelModel = new MobileWinLossViewModel
+            var excelModel = new PlatformWinLossViewModel
             {
                 MainResult = dataList,
                 TotalResult = totalData,
@@ -87,30 +84,30 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var mobileWinLossExcel = new MobileWinLossExcel(templatePath, FileName, excelModel, showingOption, convertingOption);
+            var mobileWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption);
             mobileWinLossExcel.ProductOptions = metaModel.ProductOptions;
             mobileWinLossExcel.Export();
 
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);
         }
 
-        private HttpResponseMessage ExportExcelForPlatformWinLoss(
-            MobileWinLossMetaModel metaModel,
-            IList<MobileWinLossSummary> dataList,
-            MobileWinLossSummary total)
+        private HttpResponseMessage ExportExcelSummary(
+            PlatformWinLossMetaModel metaModel,
+            IList<PlatformWinLossSummary> dataList,
+            PlatformWinLossSummary total)
         {
-            const string FileName = "PlatformWinLoss.xls";
+            const string FileName = "PlatformWinLossSummary.xls";
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLoss.xls");
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
 
-            var mobileWinLossExcel = new PlatformWinLossExcel(templatePath, FileName, metaModel, dataList, total);
+            var mobileWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total);
             mobileWinLossExcel.Export();
 
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(MobileWinLossMetaModel metaModel, DateTime? date)
+        private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel, DateTime? date)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -122,10 +119,10 @@ namespace Fanex.Athena.Api.Report
 
             if (metaModel.Level == 0)
             {
-                MobileWinLossSummary totalData;
-                var dataList = _mobileWinLossService.GetSummaryData(metaModel, out totalData);
+                PlatformWinLossSummary totalData;
+                var dataList = _platformWinLossService.GetSummaryData(metaModel, out totalData);
                 return metaModel.IsExportExcel ?
-                    ExportExcelForPlatformWinLoss(metaModel, dataList, totalData) :
+                    ExportExcelSummary(metaModel, dataList, totalData) :
                    (dynamic)new
                    {
                        Data = dataList,
@@ -135,8 +132,8 @@ namespace Fanex.Athena.Api.Report
             }
             else
             {
-                MobileWinLossMember totalData;
-                var dataList = _mobileWinLossService.GetMemberData(metaModel, out totalData);
+                PlatformWinLossMember totalData;
+                var dataList = _platformWinLossService.GetMemberData(metaModel, out totalData);
 
                 return metaModel.IsExportExcel
                     ? ExportExcel(metaModel, dataList, totalData, date)

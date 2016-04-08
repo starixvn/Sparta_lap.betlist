@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
-            { "Lrf_BetList_MobileReport_SelWinloss_Mem", (db, metalModel) => CreateMobileWLBetListParameters(db, metalModel) },
+            { "Lrf_BetList_MobileReport_SelWinloss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelAllByDate_Mem", (db, metalModel) => CreateOutStandingCompletedBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
@@ -604,12 +604,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetlistProductOptionParameters(db, metaModel);
         }
 
-        /// <summary>
-        /// Create parameters for Mobile win loss bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
-        private static void CreateMobileWLBetListParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
@@ -620,7 +615,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("PlatformType", DbType.Byte, metaModel.SiteType);
+            db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
         }
 
         /// <summary>

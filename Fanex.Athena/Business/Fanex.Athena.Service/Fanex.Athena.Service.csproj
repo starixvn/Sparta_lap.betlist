@@ -284,7 +284,7 @@
     <Compile Include="Implement\Report\LicenseeWinLossService.cs" />
     <Compile Include="Implement\Report\LiveReportService.cs" />
     <Compile Include="Implement\Report\MatchWinLossService.cs" />
-    <Compile Include="Implement\Report\MobileWinLossService.cs" />
+    <Compile Include="Implement\Report\PlatformWinLossService.cs" />
     <Compile Include="Implement\Report\RacingCommissionService.cs" />
     <Compile Include="Implement\Report\SettledMatchCountService.cs" />
     <Compile Include="Implement\Report\TurnoverService.cs" />
@@ -347,7 +347,7 @@
     <Compile Include="Interface\Report\ILicenseeWinLossService.cs" />
     <Compile Include="Interface\Report\ILiveReportService.cs" />
     <Compile Include="Interface\Report\IMatchWinLossService.cs" />
-    <Compile Include="Interface\Report\IMobileWinLossService.cs" />
+    <Compile Include="Interface\Report\IPlatformWinLossService.cs" />
     <Compile Include="Interface\Report\IRacingCommissionService.cs" />
     <Compile Include="Interface\Report\ISettledMatchCountService.cs" />
     <Compile Include="Interface\Report\ITurnoverService.cs" />

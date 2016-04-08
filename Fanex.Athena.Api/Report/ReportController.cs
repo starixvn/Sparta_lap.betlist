@@ -21,19 +21,10 @@ namespace Fanex.Athena.Api.Report
     /// </summary>
     public partial class ReportController : BaseApiController
     {
-        /// <summary>
-        /// Licensee Win Loss Service.
-        /// </summary>
         private readonly ILicenseeWinLossService _licenseeWinLossService;
 
-        /// <summary>
-        /// Mobile win loss service.
-        /// </summary>
-        private readonly IMobileWinLossService _mobileWinLossService;
+        private readonly IPlatformWinLossService _platformWinLossService;
 
-        /// <summary>
-        /// Licensee Win Loss Service.
-        /// </summary>
         private readonly IWinLossByProductService _winlossByProductService;
 
         private readonly IWinLossByLeagueService _winlossByLeagueService;
@@ -58,7 +49,7 @@ namespace Fanex.Athena.Api.Report
         public ReportController()
         {
             _licenseeWinLossService = new LicenseeWinLossService();
-            _mobileWinLossService = new MobileWinLossService();
+            _platformWinLossService = new PlatformWinLossService();
             _winlossByProductService = new WinLossByProductService();
             _winlossByLeagueService = new WinLossByLeagueService();
             _balanceUpService = new BalanceUpService();
