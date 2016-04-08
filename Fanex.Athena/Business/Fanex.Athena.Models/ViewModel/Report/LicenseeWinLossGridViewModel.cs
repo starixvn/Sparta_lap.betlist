@@ -110,7 +110,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
             get
             {
                 return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS + 
-                    LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG;
+                    LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG + LicenseeWLVB;
             }
         }
 
@@ -156,7 +156,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
             get
             {
                 return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG + 
-                    TurnOverCS + TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG;
+                    TurnOverCS + TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG + TurnOverVB;
             }
         }
 
