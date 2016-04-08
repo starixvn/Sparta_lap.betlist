@@ -219,7 +219,7 @@
     <Compile Include="BetList\BetListController.SystemParlayDetail.cs" />
     <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
-    <Compile Include="BetList\BetListController.VoidbridgeDetail.cs" />
+    <Compile Include="BetList\BetListVoidbridgeController.cs" />
     <Compile Include="BetList\BetListWinlossByBetTypeController.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
