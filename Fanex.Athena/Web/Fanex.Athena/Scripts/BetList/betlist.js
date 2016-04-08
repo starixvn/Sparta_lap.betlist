@@ -526,7 +526,7 @@ var BetList = (function ($) {
         },
 
         showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
-            var url = Site.resolveClientUrl('BetList/VoidbridgeDetail');
+            var url = Site.resolveClientUrl('BetListVoidbridge/VoidbridgeDetail');
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "winlostDate", winlostDate);
             url = QueryString.setParam(url, "custId", custId);

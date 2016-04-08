@@ -9,8 +9,11 @@
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
 
-    public partial class BetListController
+    public class BetListVoidbridgeController : BetListBaseController
     {
+        private readonly string _title = 
+            ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
+
         [HttpGet]
         public ActionResult VoidbridgeDetail(BetListMetaModel metaModel)
         {
@@ -18,7 +21,7 @@
 
             if (!metaModel.IsExportExcel)
             {
-                ViewBag.BetListTitle = GetBetListTitleForVoidbridge(metaModel.TransType);
+                ViewBag.BetListTitle = _title;
                 return this.View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", metaModel);
             }
 
@@ -36,33 +39,10 @@
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
             var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
-            var title = GetBetListTitleForVoidbridge(metaModel.TransType);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
-            var workbook = excel.Export(ticketResult, title);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var workbook = excel.Export(ticketResult, _title);
 
             return new ExcelResult(workbook, "VoidbridgeDetail");
-        }
-
-        private string GetBetListTitleForVoidbridge(long transType)
-        {
-            string title = ViewResources.ProductVB + " - " + ViewResources.BetList + " - " +
-                ViewResources.DetailTickets + " - ";
-            switch (transType)
-            {
-                case MicroGamingRngTransTypeYesterday:
-                    title += ViewResources.Yesterday;
-                    break;
-
-                case MicroGamingRngTransTypeTodayRunning:
-                    title += ViewResources.Today + " - " + ViewResources.Running;
-                    break;
-
-                default:
-                    title += ViewResources.Today + " - " + ViewResources.Settled;
-                    break;
-            }
-
-            return title;
         }
     }
 }
