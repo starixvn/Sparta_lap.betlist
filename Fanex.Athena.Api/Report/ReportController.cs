@@ -19,7 +19,7 @@ namespace Fanex.Athena.Api.Report
     /// <summary>
     /// LicenseeWLController class.
     /// </summary>
-    public partial class ReportController : BaseApiController
+    public partial class ReportController : ApiReportBaseController
     {
         private readonly ILicenseeWinLossService _licenseeWinLossService;
 
@@ -43,9 +43,6 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IMicroGamingWinLossService _microGamingWinLossService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReportController" /> class.
-        /// </summary>
         public ReportController()
         {
             _licenseeWinLossService = new LicenseeWinLossService();
@@ -59,32 +56,6 @@ namespace Fanex.Athena.Api.Report
             _thirdPartyWinLossService = new ThirdPartyWinLossService();
             _agcasinoBalanceService = new AgCasinoBalanceService();
             _microGamingWinLossService = new MicroGamingWinLossService();
-        }
-
-        /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
-        protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
-        {
-            var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                             || currencyList.Values.Contains(metaModel.CurrencyId)
-                             || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
-            var validCurrency = IsValidCurrencyRequest(currencyId, currencyList);
-            return validModel && validCurrency;
-        }
-
-        private bool IsValidCurrencyRequest(int currencyId, System.Collections.Generic.IDictionary<string, int> currencyList)
-        {
-            var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType) ||
-                                currencyList.Values.Contains(currencyId);
-
-            return validCurrency || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
         }
     }
 }
