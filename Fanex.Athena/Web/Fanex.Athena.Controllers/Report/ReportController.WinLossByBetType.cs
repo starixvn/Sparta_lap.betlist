@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var metaModel = new WinLossByBetTypeMetaModel
                 {
-                    BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay,
+                    BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay,
                     LicenseeId = licenseeSession.LicenseeId,
                     UserId = userSession.UserId
                 };
@@ -48,11 +48,11 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     ShowEmptyContent = true,
                     Param = metaModel,
-                    BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                    BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     CurrencyList = GetUserCurrencies(),
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 };
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
@@ -83,11 +83,11 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     Param = metaModel,
                     MainResult = reportData,
-                    BalanceUpdate = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                    BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     CurrencyList = GetUserCurrencies(),
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     ColumnCount = GetMatchWinlossColumnCount(licenseeSession),
                     Total = total
                 };
@@ -138,7 +138,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
 
             var showingOption = new ShowingOption
             {

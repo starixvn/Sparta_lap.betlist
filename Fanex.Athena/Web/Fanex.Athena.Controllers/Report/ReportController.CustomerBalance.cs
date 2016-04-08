@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyId = 0
                 };
 
-            var productAccess = _productService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 licenseeSession.LicenseeId, 
                 userSession.Language,
                 CustomerBalanceName);
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerBalanceName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerBalanceName);
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
-            var productAccess = _productService.GetProductAccess(
+            var productAccess = ProductService.GetProductAccess(
                 viewModel.Param.LicenseeId, 
                 SessionService.UserSession.Language, 
                 CustomerBalanceName);

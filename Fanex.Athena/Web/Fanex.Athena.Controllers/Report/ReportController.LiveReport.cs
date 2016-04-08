@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var balance = _balanceUpService.BalanceUpInfo;
+            var balance = BalanceUpService.BalanceUpInfo;
             var metaModel = new LiveReportMetalModel
                 {
                     FromDate = DateTime.Now,
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
 
             var model = new LiveReportViewModel
                 {
@@ -79,11 +79,11 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
 
             var isExportedExcel = Request.Form["exporttoexcel.x"] != null;
-            var balance = _balanceUpService.BalanceUpInfo;
+            var balance = BalanceUpService.BalanceUpInfo;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
+            var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var liveReportService = new LiveReportService();
             var model = new LiveReportViewModel
                 {
@@ -113,7 +113,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var liveReportService = new LiveReportService();
             var dataList = liveReportService.GetLiveReportWinLossByMatch(metaModel);
 
@@ -142,7 +142,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "LiveReport";
             var productCode = Request.Form["productCode"];
             var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
                 {
                     CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,

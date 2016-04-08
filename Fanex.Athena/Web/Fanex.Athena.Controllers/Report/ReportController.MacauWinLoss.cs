@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
 
-            var productList = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
+            var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
             //// Use product code of Vegas Games to Macau
             var product = productList.Where(p => p.ProductCode == Product.VG).SingleOrDefault();

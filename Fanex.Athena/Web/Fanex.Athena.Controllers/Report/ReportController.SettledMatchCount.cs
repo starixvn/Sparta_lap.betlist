@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isShowAll = AppSettings.IsTesting;
-            var producAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var producAccess = ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var settledMatchCountService = new SettledMatchCountService();
 
             var model = settledMatchCountService.GetDataList(isShowAll, licenseeId, producAccess);

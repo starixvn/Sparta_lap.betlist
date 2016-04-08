@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     LicenseeId = licenseeSession.LicenseeId,
                     UserId = licenseeSession.UserId,
-                    BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString()
+                    BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString()
                 };
            
             SetConvetedUSDCurrencyName(metaModel);
@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
-            metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
+            metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
             var dailyRacingWinLossService = new DailyRacingWinLossService();
             var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 

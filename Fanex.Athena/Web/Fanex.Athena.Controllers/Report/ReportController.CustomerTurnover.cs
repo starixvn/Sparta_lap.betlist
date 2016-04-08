@@ -50,6 +50,16 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerTurnover/Main.cshtml", model);
         }
 
+        [HttpGet]
+        [AjaxRequest]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        public ActionResult GetSportsAndProducts()
+        {
+            return Json(
+                _sportTypeService.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                JsonRequestBehavior.AllowGet);
+        }
+
         #endregion Web Controller
 
         #region Export excel

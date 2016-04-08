@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -91,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(historyParam);
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                                  {
@@ -140,7 +140,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     CurrencyList = GetUserCurrencies(),
                     Param = metaModel,
                     IsHistory = false,
@@ -182,7 +182,7 @@ namespace Fanex.Athena.Controllers.Report
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                     LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                     CurrencyList = GetUserCurrencies(),
                     HistoryParam = metaModel,
                     TotalRows = totalRows,
@@ -219,7 +219,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-            var productAccess = _productService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
                 {
@@ -265,7 +265,7 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "CustomerWinLoss";
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
-            var productAccess = _productService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
                 {

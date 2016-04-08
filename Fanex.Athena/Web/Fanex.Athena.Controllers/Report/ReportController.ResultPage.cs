@@ -62,10 +62,10 @@ namespace Fanex.Athena.Controllers.Report
                     IsOutRight = false,
                     IsExportExcel = false,
                     ToDate = DateTime.Now,
-                    BalanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay
+                    BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay
                 }
             };
-            var productAccess = _productService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
             ViewBag.IsAllowedRNG = productAccess.IsAllowBG || productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             return View("~/Views/Report/Result/Main.cshtml", model);
@@ -430,7 +430,7 @@ namespace Fanex.Athena.Controllers.Report
             if (sports.Count > 0)
             {
                 IEnumerable<Sport> limitedSports;
-                var productAccess = _productService.GetProductAccess(
+                var productAccess = ProductService.GetProductAccess(
                     licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);

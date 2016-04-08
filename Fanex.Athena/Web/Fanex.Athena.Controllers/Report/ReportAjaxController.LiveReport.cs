@@ -36,8 +36,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = licenseeSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var balanceUpDay = this._balanceUpService.BalanceUpInfo.BalanceUpDay;
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var balanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay;
 
             IList<LiveReport> dataByCurrency;
             IList<LiveReport> dataBySport;

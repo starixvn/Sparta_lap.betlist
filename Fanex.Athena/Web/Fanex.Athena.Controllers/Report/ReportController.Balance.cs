@@ -47,8 +47,8 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
             var creditBalanceService = new CreditBalanceService();            
             var reportData = creditBalanceService.GetReportData(metaModel);
 
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = this.SessionService.LicenseeSession;
             const string FileName = "Balance";
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Balance.xls");
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = this.ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
                 {

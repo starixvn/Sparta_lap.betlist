@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
 
-            var products = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
+            var products = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
             if (!products.Any(p => p.ProductCode == Product.MGCLC || p.ProductCode == Product.MGCRNG))
             {
