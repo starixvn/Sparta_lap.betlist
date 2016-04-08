@@ -27,9 +27,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 12;
-        private const int ColumnTotalTransaction = 14;
-        private const int ColumnTemplateCount = 15;
+        private const int ColumnLastProduct = 14;
+        private const int ColumnTotalTransaction = 15;
+        private const int ColumnTemplateCount = 16;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -112,6 +112,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductAGC,
                 ViewResources.ProductMGCLC,
                 ViewResources.ProductMGCRNG,
+                ViewResources.ProductVB
             };
 
             int index = ColumnFirstProduct;
@@ -204,7 +205,8 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.PTCS, Status = false },
                 new ProductOption { Code = Product.AGC, Status = false },
                 new ProductOption { Code = Product.MGCLC, Status = false },
-                new ProductOption { Code = Product.MGCRNG, Status = false }
+                new ProductOption { Code = Product.MGCRNG, Status = false },
+                new ProductOption { Code = Product.VB, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)
