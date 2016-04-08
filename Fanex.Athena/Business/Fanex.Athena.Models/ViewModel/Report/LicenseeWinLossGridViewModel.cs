@@ -103,6 +103,8 @@ namespace Fanex.Athena.Models.ViewModel.Report
 
         public decimal LicenseeWLMGCRNG { get; set; }
 
+        public decimal LicenseeWLVB { get; set; }
+
         public decimal TotalLicenseeWL
         {
             get
@@ -146,6 +148,8 @@ namespace Fanex.Athena.Models.ViewModel.Report
         public decimal TurnOverMGCLC { get; set; }
 
         public decimal TurnOverMGCRNG { get; set; }
+
+        public decimal TurnOverVB { get; set; }
 
         public decimal TotalTurnOver
         {

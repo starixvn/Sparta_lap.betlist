@@ -173,6 +173,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLAGC = licenseeWLProducts.Keys.Contains(Product.AGC) ? licenseeWLProducts[Product.AGC] : 0;
             licenseeWinLoss.LicenseeWLMGCLC = licenseeWLProducts.Keys.Contains(Product.MGCLC) ? licenseeWLProducts[Product.MGCLC] : 0;
             licenseeWinLoss.LicenseeWLMGCRNG = licenseeWLProducts.Keys.Contains(Product.MGCRNG) ? licenseeWLProducts[Product.MGCRNG] : 0;
+            licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.Keys.Contains(Product.VB) ? licenseeWLProducts[Product.VB] : 0;
         }
 
         private static void SetTurnOverProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
@@ -190,6 +191,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverAGC = turnOverProducts.Keys.Contains(Product.AGC) ? turnOverProducts[Product.AGC] : 0;
             licenseeWinLoss.TurnOverMGCLC = turnOverProducts.Keys.Contains(Product.MGCLC) ? turnOverProducts[Product.MGCLC] : 0;
             licenseeWinLoss.TurnOverMGCRNG = turnOverProducts.Keys.Contains(Product.MGCRNG) ? turnOverProducts[Product.MGCRNG] : 0;
+            licenseeWinLoss.TurnOverVB = turnOverProducts.Keys.Contains(Product.VB) ? turnOverProducts[Product.VB] : 0;
         }
 
         /// <summary>
