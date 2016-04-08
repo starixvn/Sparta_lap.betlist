@@ -59,7 +59,7 @@
             <label>@ViewResources.Platform</label>
         </div>
         <div class="grid_4 filter-input option-list" id="SiteList">
-            <select name="Platform" style="width: 110px;" id="Platform">
+            <select name="PlatformType" style="width: 110px;" id="PlatformType">
                 <option value="0">
                     @ViewResources.All
                 </option>
@@ -106,7 +106,6 @@
                 @Html.Hidden("ToDay", Model.Param.ToDay)
                 @Html.Hidden("Month", Model.Param.Month)
                 @Html.Hidden("Year", Model.Param.Year)
-                @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
                 @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
             </div>
     }

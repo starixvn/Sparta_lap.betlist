@@ -416,9 +416,9 @@
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\en-US.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\en-US.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />

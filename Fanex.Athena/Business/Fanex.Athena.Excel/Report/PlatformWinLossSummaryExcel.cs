@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
@@ -9,7 +10,7 @@
     using Models.MetaModel.Report;
     using Models.ViewModel;
     using NPOI.SS.UserModel;
-    
+
     public class PlatformWinLossSummaryExcel : ReportBase
     {
         private const int ColumnPlatform = 0;
@@ -135,14 +136,13 @@
                                         _model.FromDate.ToString(FormatDate),
                                         _model.ToDate.ToString(FormatDate),
                                         GetExactTitleCurrencyName(_model.CurrencyId),
-                                        platformText) + GetLicenseeWLProduct();
+                                        platformText) + ", " + GetProductTitle();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
 
-            // Remove content below header before insert new data
             ClearTemplate(sheet, RowParentContentTemplate);
         }
 
@@ -156,6 +156,20 @@
             row.Cells[ColumnCustomerComm].SetCellValue(data.CustomerComm);
             row.Cells[ColumnCustomerTotal].SetCellValue(data.CustomerTotal);
             row.Cells[ColumnLicenseeWinLoss].SetCellValue(data.LicenseeWL);
+        }
+
+        private string GetProductTitle()
+        {
+            var selectedProducts = ProductOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == ProductOptions.Count)
+            {
+                return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
+            }
+
+            var text = selectedProducts
+                .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
+
+            return string.Format("{0}: {1}", ViewResources.Product, text);
         }
     }
 }

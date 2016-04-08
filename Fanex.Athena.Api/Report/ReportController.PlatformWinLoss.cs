@@ -28,17 +28,16 @@ namespace Fanex.Athena.Api.Report
         private const string PlatformWinlossName = "PlatformWinloss";
 
         [HttpPost]
-        public dynamic PlatformWinloss([FromBody] PlatformWinLossMetaModel metaModel)
+        public dynamic PlatformWinloss(PlatformWinLossMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, null);
+            return ProcessRequest(metaModel);
         }
 
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossMember> dataList,
-            PlatformWinLossMember totalData,
-            DateTime? date)
+            PlatformWinLossMember totalData)
         {
             const string FileName = "PlatformWinLossMember.xls";
             var licenseeSession = SessionService.LicenseeSession;
@@ -64,15 +63,7 @@ namespace Fanex.Athena.Api.Report
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName
             };
-
-            if (date.HasValue)
-            {
-                metaModel.FromDay = date.Value.Day;
-                metaModel.ToDay = date.Value.Day;
-                metaModel.Month = date.Value.Month;
-                metaModel.Year = date.Value.Year;
-            }
-
+            
             var excelModel = new PlatformWinLossViewModel
             {
                 MainResult = dataList,
@@ -107,7 +98,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel, DateTime? date)
+        private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
@@ -136,7 +127,7 @@ namespace Fanex.Athena.Api.Report
                 var dataList = _platformWinLossService.GetMemberData(metaModel, out totalData);
 
                 return metaModel.IsExportExcel
-                    ? ExportExcel(metaModel, dataList, totalData, date)
+                    ? ExportExcel(metaModel, dataList, totalData)
                     : (dynamic)new
                     {
                         Data = dataList,

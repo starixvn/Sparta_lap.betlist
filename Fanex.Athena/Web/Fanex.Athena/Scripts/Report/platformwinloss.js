@@ -28,6 +28,22 @@ var PlatformWinLoss = (function ($) {
         return data;
     }
 
+    function getProductText(productOptionJson) {
+        var productOptions = $.parseJSON(productOptionJson);
+        var temp = Site.getSingleResource("Product");
+        var productText = "";
+        var selectedProductCount = 0;
+        for (var i = 0; i < productOptions.length; i++) {
+            if (productOptions[i].Status) {
+                selectedProductCount++;
+                productText += productText.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
+            }
+        }
+
+        return Site.getSingleResource("Product") + ": " + 
+            (selectedProductCount === productOptions.length ? Site.getSingleResource('All') : productText);
+    }
+
     return {
         resizeGrid: function () {
             clearTimeout(_resizeTimer);
@@ -49,7 +65,6 @@ var PlatformWinLoss = (function ($) {
             PlatformWinLoss.initSetting();
             PlatformWinLoss.initMonthPicker();
             PlatformWinLoss.initEvent();
-            PlatformWinLoss.setExcelUrl(0, 0, 0, "");
             Site.addFilterCollapseExpand();
             PlatformWinLossOption.gridOption.onSortCol = function (index) {
                 Site.blockUI();
@@ -71,7 +86,7 @@ var PlatformWinLoss = (function ($) {
                 return 'stop';
             };
             Site.addUserGuide({
-                resourceName: "MobileWL",
+                resourceName: "PlatformWinLoss",
                 title: Site.getSingleResource("PlatformWinLoss")
             });
         },
@@ -100,7 +115,6 @@ var PlatformWinLoss = (function ($) {
             });
         },
         initEvent: function () {
-            // open betlist pop up
             $("body").on("click", ".bet-list-link", function () {
                 var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
                 PlatformWinLoss.openBetlistPopUp(dataDrillDown);
@@ -112,21 +126,17 @@ var PlatformWinLoss = (function ($) {
             });
 
             $("#SiteList input[type=checkbox]").checkboxgroup();
-            // events
 
             $('#SubmitButton').click(function () {
-                // Site.blockUI();
-                $('#IsExportExcel').val(false);
                 _removeSorting = true;
                 PlatformWinLoss.submit();
             });
 
             $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
-                var mainForm = $("#PlatformWinLossForm");
-                var url = Site.resolveClientUrl(PlatformWinLossOption.urlExcelData);
-                mainForm.attr("action", url);
-                mainForm.submit();
+                var data = _level === 0 ? Site.clone(_submitData) : Site.clone(_drilldownData);
+                data.IsExportExcel = true;
+                data.Level = _level;
+                Site.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
                 return false;
             });
 
@@ -139,13 +149,6 @@ var PlatformWinLoss = (function ($) {
         //#endregion
 
         //#region Layout
-        setExcelUrl: function (level, currencyId, custId, datetime) {
-            var temp = 'api/report/PlatformWinLoss';
-            if (level > 0) {
-                temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&date=" + datetime;
-            }
-            PlatformWinLossOption.urlExcelData = temp;
-        },
 
         renderBreadCrumb: function (level) {
             //hide history link
@@ -165,8 +168,7 @@ var PlatformWinLoss = (function ($) {
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
-        setReportTitle: function (data) {
-
+        setReportTitle: function (data, isSingleProduct) {
             var titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - '
                 + Site.getSingleResource('Platform') + ': {3}{4}';
@@ -184,10 +186,9 @@ var PlatformWinLoss = (function ($) {
                 ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + data.CurrencyId + '"]').text())
                 : currencyTextList[data.CurrencyId];
 
-            var platformName = PlatformWinLossOption.Platforms[data.PlatformType];            
-            var productText = data.ProductCodes ?
-                "Product: " + data.ProductCodes.split(",").join(", ") :
-                jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, "Product: ");
+            var platformName = PlatformWinLossOption.Platforms[data.PlatformType];
+            var productText = Site.getSingleResource('Product') + ': ';
+            productText = isSingleProduct ? productText + data.ProductCodes : getProductText(_submitData.ProductOptions);
             var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
                         currencyStr, platformName, ', ' + productText);
 
@@ -211,19 +212,17 @@ var PlatformWinLoss = (function ($) {
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
             }
         },
-        bindData: function (level, response) {
+        bindData: function (level, response, productOptions) {
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
-            var gridOption = PlatformWinLossOption.getGridOption(level);
+            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
             var numOfRow = response.Data.length;
             gridOption.datastr = response.Data;
             gridOption.rowList = PlatformWinLossOption.rowList;
             gridOption.rowNum = _pageSize;
-
+            gridOption.treeGrid = level === 0;
             gridOption.rowTotal = numOfRow;
-            gridOption.pager = '#ppdata';
-
             gridOption.onPaging = function (pgButton) {
                 if (numOfRow > PlatformWinLossOption.pageSize) {
                     onPaging = true;
@@ -275,8 +274,6 @@ var PlatformWinLoss = (function ($) {
             }
             jqGridAdditional.resetLayout(reportGrid);
 
-            jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-
             if (level === 1 && !_removeSorting) {
                 reportGrid.closest("div.ui-jqgrid-view")
                            .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
@@ -299,25 +296,8 @@ var PlatformWinLoss = (function ($) {
 
         //#region GetData
 
-        ajaxComplete: function (level, response) {
-            _level = Number(level);
-            if (response != null) {
-                cacheData[level] = response;
-                //reset layout
-                switch (level) {
-                    case 0:
-                        PlatformWinLoss.setReportTitle(_submitData);
-                        break;
-                    case 1:
-                        break;
-                }
-
-                PlatformWinLoss.renderBreadCrumb(level);
-                PlatformWinLoss.bindData(level, response);
-            }
-        },
-
         submit: function () {
+            _level = 0;
             Report.setOriginalProduct();
             Site.updateOriginalLicenseeOption();
 
@@ -333,7 +313,7 @@ var PlatformWinLoss = (function ($) {
             data.FromDate = fromdate;
             data.ToDate = todate;
             data.IsExcludeTest = $('#IsExcludeTest').is(':checked');
-            data.Level = 0;
+            data.Level = _level;
             $.ajax({
                 type: "POST",
                 data: data,
@@ -348,16 +328,18 @@ var PlatformWinLoss = (function ($) {
                         Year: data.Year,
                         ProductOptions: response.ProductOptions,
                         DrawFilter: data.DrawFilter,
-                        PlatformType: data.Platform,
+                        PlatformType: data.PlatformType,
                         CurrencyId: data.CurrencyId,
                         FromDate: new Date(data.FromDate),
                         ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
-                        IsExcludeTest: data.IsExcludeTest
+                        IsExcludeTest: data.IsExcludeTest,
+                        BaseCurrency: data.BaseCurrency
                     };
-
-                    PlatformWinLoss.setExcelUrl(0, 0, 0, "");
-                    PlatformWinLoss.ajaxComplete(0, response);
+                    cacheData[_level] = response;
+                    PlatformWinLoss.setReportTitle(_submitData);
+                    PlatformWinLoss.renderBreadCrumb(_level);
+                    PlatformWinLoss.bindData(_level, response, JSON.parse(_submitData.ProductOptions));
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -367,16 +349,16 @@ var PlatformWinLoss = (function ($) {
         },
 
         drillDown: function (data) {
+            _level = 1;
             var products = data.ProductCodes.split(",");
             var productOptions = [];
-            for (var i = 0; i < products.length; i++)
-            {
-                productOptions.push({ code: products[i], status: true });
+            for (var i = 0; i < products.length; i++) {
+                productOptions.push({ Code: products[i], Status: true });
             }
 
-            var param =
+            _drilldownData =
             {
-                Level: 1,
+                Level: _level,
                 FromDay: _submitData.FromDay,
                 ToDay: _submitData.ToDay,
                 Month: _submitData.Month,
@@ -389,24 +371,19 @@ var PlatformWinLoss = (function ($) {
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludeTest: _submitData.IsExcludeTest,
                 CurrencyId: _submitData.CurrencyId,
-                BaseCurrency: $("#BaseCurrency").attr("data-original")
-            };
-            _drilldownData = {
-                PlatformType: data.PlatformType
+                BaseCurrency: _submitData.BaseCurrency
             };
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(param),
-                contentType: "application/json; charset=utf-8",
+                data: _drilldownData,
                 dataType: "json",
                 cache: false,
                 url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
                 success: function (response) {
-                    PlatformWinLoss.ajaxComplete(1, response);
-                    if (response != null && response.Data.length > 0) {
-                        PlatformWinLoss.setReportTitle(param);
-                        PlatformWinLoss.setExcelUrl(param);
-                    }
+                    cacheData[_level] = response;
+                    PlatformWinLoss.setReportTitle(_drilldownData, data.IsSingleProduct);
+                    PlatformWinLoss.renderBreadCrumb(_level);
+                    PlatformWinLoss.bindData(_level, response, JSON.parse(_submitData.ProductOptions));
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -414,10 +391,10 @@ var PlatformWinLoss = (function ($) {
         },
 
         goBack: function (level) {
+            _level = level;
             PlatformWinLoss.bindData(level, cacheData[level]);
             if (level === 0) {
                 PlatformWinLoss.renderBreadCrumb(level);
-                PlatformWinLoss.setExcelUrl(0, 0, 0, "");
                 PlatformWinLoss.setReportTitle({
                     CurrencyId: _submitData.CurrencyId,
                     PlatformType: _submitData.PlatformType
@@ -434,8 +411,6 @@ var PlatformWinLoss = (function ($) {
         },
 
         openBetlistPopUp: function (dataDrillDown) {
-            dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
-
             var url = Site.resolveClientUrl("BetList/PlatformWinLoss");
 
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
@@ -448,7 +423,7 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-            url = QueryString.setParam(url, "BaseCurrency", $("#BaseCurrency").attr("data-original"));
+            url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
             url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
             url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
 

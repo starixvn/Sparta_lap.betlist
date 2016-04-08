@@ -26,6 +26,7 @@ var PlatformWinLossOption = (function () {
     var drilldownLink = function (cellvalue, options, rowObject) {
         var param =
         {
+            IsSingleProduct: rowObject.PlatformType < 0,
             PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
             ProductCodes: rowObject.ProductCodes ? rowObject.ProductCodes.replace(/,\s*$/, "") : ""
         };
@@ -268,7 +269,6 @@ var PlatformWinLossOption = (function () {
             footerrow: true,
             userDataOnFooter: true,
             cmTemplate: { title: true }, //enable tooltip
-
             treeGrid: true,
             treeGridModel: 'adjacency',
             treedatatype: "local",
@@ -279,7 +279,7 @@ var PlatformWinLossOption = (function () {
                 leaf_field: "IsLeaf"
             },
             userData: [],
-
+            pager: '#ppdata',
             beforeSelectRow: function () {
                 return false;
             },
@@ -289,13 +289,25 @@ var PlatformWinLossOption = (function () {
         }
     };
 
+    function isProductChecked(productOptions, productCode) {
+        var length = productOptions.length;
+
+        for (var i = 0; i < length; i++) {
+            if (productOptions[i].Code === productCode) {
+                return productOptions[i].Status;
+            }
+        }
+
+        return false;
+    }
+
     me.getColName = function () {
         // Column Customer Wl
         colNameList[customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'Customer W/L';
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function (level) {
+    me.getColModel = function (level, productOptions) {
         platformNameColumn.hidden = level === 1;
         turnoverPercentColumn.hidden = level === 1;
         indexColumn.hidden = level === 0;
@@ -315,8 +327,9 @@ var PlatformWinLossOption = (function () {
         playerCommColumn.hidden = !me.hasCustomerComm;
 
         if (level === 1) {
-            var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
-            var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
+            var allowedBa = isProductChecked(productOptions, "BA");
+            console.log(productOptions, allowedBa);
+            var allowedRacing = isProductChecked(productOptions, "RB");
 
             baCommissionColumn.hidden = !allowedBa;
             amtDueToBaColumn.hidden = !allowedBa;
@@ -339,9 +352,9 @@ var PlatformWinLossOption = (function () {
         return colModelList;
     };
 
-    me.getGridOption = function (level) {
+    me.getGridOption = function (level, productOptions) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel(level);
+        me.gridOption.colModel = me.getColModel(level, productOptions);
 
         return me.gridOption;
     };
