@@ -339,10 +339,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             const string UspKey = "Lrf_Statement_Mem";
             var transTypeHasBetList = new[] { "get", "com", "post", "bet", "gp" };
-            var transTypeIdMap = new Dictionary<string, int> 
+            var transTypeIdMap = new Dictionary<string, int>
             {
-                { "betting statement", 1 }, { "void/cancelled bet", 2 }, 
-                { "outstanding bet", 3 }, { "grand prize", 4 } 
+                { "betting statement", 1 }, { "void/cancelled bet", 2 },
+                { "outstanding bet", 3 }, { "grand prize", 4 }
             };
             var index = 1;
             var result = new List<DailyStatement>();
@@ -1120,10 +1120,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var hasNeutral = reader.TryGetOrdinal("isneutral") >= 0;
 
             // Int
-            var hasSportType = reader.TryGetOrdinal("sporttype") >= 0;
             var hasBetType = reader.TryGetOrdinal("bettype") >= 0;
             var hasLeagueId = reader.TryGetOrdinal("leagueid") >= 0;
-            var hasHomeId = reader.TryGetOrdinal("homeid") >= 0;
             var hasAwayId = reader.TryGetOrdinal("awayid") >= 0;
             var hasMatchId = reader.TryGetOrdinal("matchid") >= 0;
             var hasCustId = reader.TryGetOrdinal("custid") >= 0;
@@ -1138,7 +1136,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var hasBetId = reader.TryGetOrdinal("betid") >= 0;
 
             // DateTime
-            var hasWinlostDate = reader.TryGetOrdinal("winlostdate") >= 0;
             var hasTransDate = reader.TryGetOrdinal("transdate") >= 0;
 
             // Money
@@ -1179,10 +1176,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.IsNeutral = hasNeutral ? ReadBoolean(reader["isneutral"]) : false;
 
                 // Int
-                ticket.SportTypeId = hasSportType ? reader.ToInt("sporttype") : 0;
+                ticket.SportTypeId = reader.GetValueOrDefault("sporttype", 0);
                 ticket.BetTypeId = hasBetType ? reader.ToInt("bettype") : 0;
                 ticket.LeagueId = hasLeagueId ? reader.ToInt("leagueid") : 0;
-                ticket.HomeId = hasHomeId ? reader.ToInt("homeid") : 0;
+                ticket.HomeId = reader.GetValueOrDefault("homeid", 0);
                 ticket.AwayId = hasAwayId ? reader.ToInt("awayid") : 0;
                 ticket.MatchId = hasMatchId ? reader.ToInt("matchid") : 0;
                 ticket.CustId = hasCustId ? reader.ToInt("custid") : custId;
@@ -1193,11 +1190,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.StatusId = hasStatusId ? reader.ToInt("StatusId") : 0;
 
                 // Long
-                ticket.TransId = hasTransId ? reader.To<long>("transid") : 0;
+                ticket.TransId = reader.GetValueOrDefault<long>("transid", 0);
                 ticket.BetId = hasBetId && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
 
                 // DateTime
-                ticket.WinlostDate = hasWinlostDate ? reader.ToDateTime("winlostdate") : DateTime.Now;
+                ticket.WinlostDate = reader.GetValueOrDefault("winlostdate", DateTime.Now);
                 ticket.TransDate = hasTransDate ? reader.ToDateTime("transdate") : DateTime.Now;
 
                 // Money
