@@ -28,13 +28,7 @@ namespace Fanex.Athena.Extension.Utility
               string key,
              Func<T> defaultValueProvider)
         {
-            if (reader.GetOrdinal(key) >= 0)
-            {
-                var result = reader[key];
-                return result != null && result != DBNull.Value ? (T)result : defaultValueProvider();
-            }
-
-            return defaultValueProvider();
+            return reader.GetValueOrDefault(key, defaultValueProvider());
         }
     }
 }

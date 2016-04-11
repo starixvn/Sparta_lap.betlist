@@ -1190,7 +1190,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                 ticket.StatusId = hasStatusId ? reader.ToInt("StatusId") : 0;
 
                 // Long
-                ticket.TransId = reader.GetValueOrDefault<long>("transid", 0);
+                ticket.TransId = reader.GetValueOrDefault("transid", 0L);
                 ticket.BetId = hasBetId && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
 
                 // DateTime

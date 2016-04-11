@@ -21,9 +21,7 @@ namespace Fanex.Athena.Extension.Utility
              TKey key,
              Func<TValue> defaultValueProvider)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value) ? value
-                 : defaultValueProvider();
+            return dictionary.GetValueOrDefault(key, defaultValueProvider());
         }
     }
 }
