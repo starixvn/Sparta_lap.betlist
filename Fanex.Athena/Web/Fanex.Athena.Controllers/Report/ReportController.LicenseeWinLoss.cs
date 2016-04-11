@@ -17,10 +17,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class LicenseeWinLossReportController : ReportBaseController
     {
         private const string LicenseeWinLossName = "LicenseeWinLoss";
 
@@ -30,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult LicenseeWinLoss()
+        public ActionResult Index()
         {
             AddNotificationMessageToViewBag();
 

@@ -342,9 +342,8 @@ var LicenseeWinLossOption = (function () {
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [2, 2, 3],
         //level 0,1,2
-        urlData: 'api/report/LicenseeWl',
-        urlExcelData: 'api/report/LicenseeWl',
-        urlResources: 'Report/LicenseeWLResource',
+        urlData: 'api/LicenseeWinLossReport/LicenseeWL',
+        urlExcelData: 'api/LicenseeWinLossReport/LicenseeWL',
         gridOption:
         {
             datatype: 'local',

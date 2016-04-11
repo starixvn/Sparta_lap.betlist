@@ -9,12 +9,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Web;
-    using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -23,12 +17,24 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Web;
+    using System.Web.Http;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class LicenseeWinLossReportController : ApiReportBaseController
     {
+        private readonly ILicenseeWinLossService _licenseeWinLossService;
+
+        public LicenseeWinLossReportController()
+        {
+            _licenseeWinLossService = new LicenseeWinLossService();
+        }
+
         #region Action
 
         /// <summary>
