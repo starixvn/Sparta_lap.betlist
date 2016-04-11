@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.Extension
     using System;
     using System.Data;
     using Fanex.Common.Extensions;
-
+    using Logging;
     /// <summary>
     ///     The data reader extensions.
     /// </summary>
@@ -21,10 +21,18 @@ namespace Fanex.Athena.DataAccess.Extension
     {
         public static T GetValueOrDefault<T>(this IDataReader reader, string key, T defaultValue)
         {
-            if (reader.GetOrdinal(key) >= 0)
+            try
             {
-                var result = reader[key];
-                return result != null && result != DBNull.Value ? (T)result : defaultValue;
+                var columnIndex = reader.GetOrdinal(key);
+                if (columnIndex >= 0)
+                {
+                    var result = reader.GetValue(columnIndex);
+                    return result != null && result != DBNull.Value ? (T)result : defaultValue;
+                }
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                Logger.Log.Error(exception.Message, exception);
             }
 
             return defaultValue;
