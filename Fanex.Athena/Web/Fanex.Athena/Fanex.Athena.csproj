@@ -676,6 +676,7 @@
     <Content Include="Scripts\jasmine-specs\Report\agcasinobalance.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\activecustomersummary.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\activecustomersummary-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\turnover-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\turnover.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\winlossbybettype-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\winlossbyleague-test.js" />
