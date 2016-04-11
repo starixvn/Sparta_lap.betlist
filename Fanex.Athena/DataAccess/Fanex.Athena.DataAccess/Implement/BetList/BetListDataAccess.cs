@@ -1101,115 +1101,64 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var stakeCol = "stake" + baseCurrency;
             var actualStakeCol = "actual_stake" + baseCurrency;
 
-            // string
-            var hasUsername = reader.TryGetOrdinal("username") >= 0;
-            var hasRefNo = reader.TryGetOrdinal("refno") >= 0;
-            var hasMatchCode = reader.TryGetOrdinal("matchcode") >= 0;
-            var hasStatus = reader.TryGetOrdinal("status") >= 0;
-            var hasBetTeam = reader.TryGetOrdinal("betteam") >= 0;
-            var hasBetStatus = reader.TryGetOrdinal("betstatus") >= 0;
-            var hasShowTime = reader.TryGetOrdinal("showtime") >= 0;
-            var hasOddsType = reader.TryGetOrdinal("oddstype") >= 0;
-            var hasExternalId = reader.TryGetOrdinal("nickname") >= 0;
-            var hasRace = reader.TryGetOrdinal("race") >= 0;
-            var hasBetFrom = reader.TryGetOrdinal("betfrom") >= 0;
-            var hasBetCheck = reader.TryGetOrdinal("betcheck") >= 0;
-
-            // Boolean
-            var hasLiveIndicator = reader.TryGetOrdinal("liveindicator") >= 0;
-            var hasNeutral = reader.TryGetOrdinal("isneutral") >= 0;
-
-            // Int
-            var hasBetType = reader.TryGetOrdinal("bettype") >= 0;
-            var hasLeagueId = reader.TryGetOrdinal("leagueid") >= 0;
-            var hasAwayId = reader.TryGetOrdinal("awayid") >= 0;
-            var hasMatchId = reader.TryGetOrdinal("matchid") >= 0;
-            var hasCustId = reader.TryGetOrdinal("custid") >= 0;
-            var hasCurrencyId = reader.TryGetOrdinal("currencyid") >= 0;
-            var hasLiveHomeScore = reader.TryGetOrdinal("livehomescore") >= 0;
-            var hasLiveAwayScore = reader.TryGetOrdinal("liveawayscore") >= 0;
-            var hasSpecialLevel = reader.TryGetOrdinal("SpecialLevel") >= 0;
-            var hasStatusId = reader.TryGetOrdinal("StatusId") >= 0;
-
-            // Long
-            var hasTransId = reader.TryGetOrdinal("transid") >= 0;
-            var hasBetId = reader.TryGetOrdinal("betid") >= 0;
-
-            // DateTime
-            var hasTransDate = reader.TryGetOrdinal("transdate") >= 0;
-
-            // Money
-            var hasPlayerComm = reader.TryGetOrdinal(playerCommCol) >= 0;
-            var hasComm = reader.TryGetOrdinal(commCol) >= 0;
-            var hasLicenseeWl = reader.TryGetOrdinal(licenseeWlCol) >= 0;
-            var hasWinlost = reader.TryGetOrdinal(winlostCol) >= 0;
-            var hasBetEffective = reader.TryGetOrdinal(beteffectiveCol) >= 0;
-            var hasStake = reader.TryGetOrdinal(stakeCol) >= 0;
-            var hasActualStake = reader.TryGetOrdinal(actualStakeCol) >= 0;
-            var hasOdds = reader.TryGetOrdinal("odds") >= 0;
-            var hasMasterOdds = reader.TryGetOrdinal("modds") >= 0;
-            var hasHandicap1 = reader.TryGetOrdinal("hdp1") >= 0;
-            var hasHandicap2 = reader.TryGetOrdinal("hdp2") >= 0;
-            var hasTransDecs = reader.TryGetOrdinal("transdesc") >= 0;
-
             var tickets = new SortableList<LrfTicket>();
             while (reader.Read())
             {
                 var ticket = new LrfTicket();
 
                 // string
-                ticket.UserName = hasUsername ? reader.ToString("username") : string.Empty;
-                ticket.RefNo = hasRefNo ? reader.ToString("refno") : string.Empty;
-                ticket.MatchCode = hasMatchCode ? reader.ToString("matchcode") : string.Empty;
-                ticket.Status = hasStatus ? reader.ToString("status") : string.Empty;
-                ticket.BetTeam = hasBetTeam ? reader.ToString("betteam") : string.Empty;
-                ticket.EventStatus = hasBetStatus ? reader.ToString("betstatus") : string.Empty;
-                ticket.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
-                ticket.OddsType = hasOddsType ? reader.ToString("oddstype") : "0";
-                ticket.ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty;
-                ticket.Race = hasRace ? reader.ToString("race") : string.Empty;
-                ticket.BetFrom = hasBetFrom ? reader.ToString("betfrom") : string.Empty;
-                ticket.BetCheck = hasBetCheck ? reader.ToString("betcheck") : string.Empty;
+                ticket.UserName = reader.GetValueOrDefault("username", string.Empty);
+                ticket.RefNo = reader.GetValueOrDefault("refno", string.Empty);
+                ticket.MatchCode = reader.GetValueOrDefault("matchcode", string.Empty);
+                ticket.Status = reader.GetValueOrDefault("status", string.Empty);
+                ticket.BetTeam = reader.GetValueOrDefault("betteam", string.Empty);
+                ticket.EventStatus = reader.GetValueOrDefault("betstatus", string.Empty);
+                ticket.ShowTime = reader.GetValueOrDefault("showtime", string.Empty);
+                ticket.OddsType = reader.GetValueOrDefault("oddstype", "0");
+                ticket.ExternalId = reader.GetValueOrDefault("nickname", string.Empty);
+                ticket.Race = reader.GetValueOrDefault("race", string.Empty);
+                ticket.BetFrom = reader.GetValueOrDefault("betfrom", string.Empty);
+                ticket.BetCheck = reader.GetValueOrDefault("betcheck", string.Empty);
 
                 // Boolean
-                ticket.IsLive = hasLiveIndicator ? ReadBoolean(reader["liveindicator"]) : false;
-                ticket.IsNeutral = hasNeutral ? ReadBoolean(reader["isneutral"]) : false;
+                ticket.IsLive = reader.GetOrdinal("liveindicator") >= 0 ? ReadBoolean(reader["liveindicator"]) : false;
+                ticket.IsNeutral = reader.GetOrdinal("isneutral") >= 0 ? ReadBoolean(reader["isneutral"]) : false;
 
                 // Int
                 ticket.SportTypeId = reader.GetValueOrDefault("sporttype", 0);
-                ticket.BetTypeId = hasBetType ? reader.ToInt("bettype") : 0;
-                ticket.LeagueId = hasLeagueId ? reader.ToInt("leagueid") : 0;
-                ticket.HomeId = reader.GetValueOrDefault("homeid", 0);
-                ticket.AwayId = hasAwayId ? reader.ToInt("awayid") : 0;
-                ticket.MatchId = hasMatchId ? reader.ToInt("matchid") : 0;
-                ticket.CustId = hasCustId ? reader.ToInt("custid") : custId;
-                ticket.CurrencyId = hasCurrencyId ? reader.ToInt("currencyid") : 0;
-                ticket.LiveHomeScore = hasLiveHomeScore ? reader.ToInt("livehomescore") : 0;
-                ticket.LiveAwayScore = hasLiveAwayScore ? reader.ToInt("liveawayscore") : 0;
-                ticket.SpecialLevel = hasSpecialLevel ? reader.ToInt("SpecialLevel") : 0;
-                ticket.StatusId = hasStatusId ? reader.ToInt("StatusId") : 0;
+                ticket.BetTypeId = reader.GetValueOrDefault("bettype", 0);
+                ticket.LeagueId = reader.GetValueOrDefault("leagueid", 0);
+                ticket.HomeId = reader.GetValueOrDefault("homeid", 0L);
+                ticket.AwayId = reader.GetValueOrDefault("awayid", 0L);
+                ticket.MatchId = reader.GetValueOrDefault("matchid", 0);
+                ticket.CustId = reader.GetValueOrDefault("custid", custId);
+                ticket.CurrencyId = reader.GetValueOrDefault("currencyid", 0);
+                ticket.LiveHomeScore = reader.GetValueOrDefault("livehomescore", 0);
+                ticket.LiveAwayScore = reader.GetValueOrDefault("liveawayscore", 0);
+                ticket.SpecialLevel = reader.GetValueOrDefault("SpecialLevel", 0);
+                ticket.StatusId = reader.GetValueOrDefault("StatusId", 0);
 
                 // Long
                 ticket.TransId = reader.GetValueOrDefault("transid", 0L);
-                ticket.BetId = hasBetId && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
+                ticket.BetId = reader.GetValueOrDefault("betid", (long?)null);
 
                 // DateTime
                 ticket.WinlostDate = reader.GetValueOrDefault("winlostdate", DateTime.Now);
-                ticket.TransDate = hasTransDate ? reader.ToDateTime("transdate") : DateTime.Now;
+                ticket.TransDate = reader.GetValueOrDefault("transdate", DateTime.Now);
 
                 // Money
-                ticket.PlayerComm = hasPlayerComm ? reader.ToDecimal(playerCommCol) : 0;
-                ticket.Comm = hasComm ? reader.ToDecimal(commCol) : 0;
-                ticket.LicenseeWL = hasLicenseeWl ? reader.ToDecimal(licenseeWlCol) : 0;
-                ticket.Winlost = hasWinlost ? reader.ToDecimal(winlostCol) : 0;
-                ticket.BetEffective = hasBetEffective ? reader.ToDecimal(beteffectiveCol) : 0;
-                ticket.Stake = hasStake ? reader.ToDecimal(stakeCol) : 0;
-                ticket.ActualStake = hasActualStake ? reader.ToDecimal(actualStakeCol) : 0;
-                ticket.Odds = hasOdds ? reader.ToDecimal("odds") : 0;
-                ticket.MasterOdds = hasMasterOdds ? reader.ToDecimal("modds") : 0;
-                ticket.Handicap1 = hasHandicap1 ? reader.ToDecimal("hdp1") : 0;
-                ticket.Handicap2 = hasHandicap2 ? reader.ToDecimal("hdp2") : 0;
-                ticket.TransDesc = hasTransDecs ? reader.ToString("transdesc") : string.Empty;
+                ticket.PlayerComm = reader.GetValueOrDefault(playerCommCol, 0m);
+                ticket.Comm = reader.GetValueOrDefault(commCol, 0m);
+                ticket.LicenseeWL = reader.GetValueOrDefault(licenseeWlCol, 0m);
+                ticket.Winlost = reader.GetValueOrDefault(winlostCol, 0m);
+                ticket.BetEffective = reader.GetValueOrDefault(beteffectiveCol, 0m);
+                ticket.Stake = reader.GetValueOrDefault(stakeCol, 0m);
+                ticket.ActualStake = reader.GetValueOrDefault(actualStakeCol, 0m);
+                ticket.Odds = reader.GetValueOrDefault("odds", 0m);
+                ticket.MasterOdds = reader.GetValueOrDefault("modds", 0m);
+                ticket.Handicap1 = reader.GetValueOrDefault("hdp1", 0m);
+                ticket.Handicap2 = reader.GetValueOrDefault("hdp2", 0m);
+                ticket.TransDesc = reader.GetValueOrDefault("transdesc", string.Empty);
                 tickets.Add(ticket);
             }
 
