@@ -119,7 +119,6 @@
     <Compile Include="Utility\AppSettings.cs" />
     <Compile Include="Utility\CookiesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\DataReaderExtension.cs" />
     <Compile Include="Utility\DictionaryPropertyComparer.cs" />
     <Compile Include="Utility\DictionayExtension.cs" />
     <Compile Include="Utility\GroupCommSetting.cs" />

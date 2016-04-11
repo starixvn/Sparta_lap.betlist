@@ -19,20 +19,22 @@ namespace Fanex.Athena.DataAccess.Extension
     /// </summary>
     public static class DataReaderExtensions
     {
-        #region Public Methods and Operators
+        public static T GetValueOrDefault<T>(this IDataReader reader, string key, T defaultValue)
+        {
+            if (reader.GetOrdinal(key) >= 0)
+            {
+                var result = reader[key];
+                return result != null && result != DBNull.Value ? (T)result : defaultValue;
+            }
 
-        /// <summary>
-        ///     The field exists.
-        /// </summary>
-        /// <param name="reader">
-        ///     The reader.
-        ///  value.</param>
-        /// <param name="fieldName">
-        ///     The field name.
-        ///  value.</param>
-        /// <returns>
-        ///     The field exists.
-        /// The result value.</returns>
+            return defaultValue;
+        }
+
+        public static T GetValueOrDefault<T>(this IDataReader reader, string key, Func<T> defaultValueProvider)
+        {
+            return reader.GetValueOrDefault(key, defaultValueProvider());
+        }
+
         public static bool FieldExists(this IDataReader reader, string fieldName)
         {
             reader.GetSchemaTable().DefaultView.RowFilter = string.Format("ColumnName= '{0}'", fieldName);
@@ -70,7 +72,5 @@ namespace Fanex.Athena.DataAccess.Extension
         {
             return reader[fieldName] != DBNull.Value ? reader.ToDecimal(fieldName) : defaultValue;
         }
-
-        #endregion Public Methods and Operators
     }
 }

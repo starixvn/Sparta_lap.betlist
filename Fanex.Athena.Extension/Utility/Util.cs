@@ -9,8 +9,6 @@ namespace Fanex.Athena.Extension.Utility
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web;
-    using System.Xml.Linq;
 
     /// <summary>
     /// TODO: Update summary.
