@@ -222,6 +222,11 @@ namespace Fanex.Athena.Excel.Report
 
         private string GetProductTitle()
         {
+            if (ProductOptions.Count == 1)
+            {
+                return string.Format("{0}: {1}", ViewResources.Product, ProductOptions.First().Code);
+            }
+
             var selectedProducts = ProductOptions.Where(x => x.Status);
             if (selectedProducts.Count() == ProductOptions.Count)
             {

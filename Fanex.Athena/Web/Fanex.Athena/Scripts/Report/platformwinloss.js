@@ -40,7 +40,7 @@ var PlatformWinLoss = (function ($) {
             }
         }
 
-        return Site.getSingleResource("Product") + ": " + 
+        return Site.getSingleResource("Product") + ": " +
             (selectedProductCount === productOptions.length ? Site.getSingleResource('All') : productText);
     }
 
@@ -168,12 +168,11 @@ var PlatformWinLoss = (function ($) {
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
-        setReportTitle: function (data, isSingleProduct) {
+        setReportTitle: function (data) {
             var titlePattern = Site.getSingleResource('PlatformWinLoss')
                 + ', {0} → {1} - {2} - '
                 + Site.getSingleResource('Platform') + ': {3}{4}';
             var viewinKey = Site.getSingleResource("Viewin");
-            //get currencyName
             var currencyTextList =
             {
                 "-3": viewinKey.replace("{0}", "GBP"),
@@ -188,7 +187,9 @@ var PlatformWinLoss = (function ($) {
 
             var platformName = PlatformWinLossOption.Platforms[data.PlatformType];
             var productText = Site.getSingleResource('Product') + ': ';
-            productText = isSingleProduct ? productText + data.ProductCodes : getProductText(_submitData.ProductOptions);
+            productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
+                productText + data.ProductOptions[0].Code :
+                getProductText(_submitData.ProductOptions);
             var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
                         currencyStr, platformName, ', ' + productText);
 
@@ -339,7 +340,7 @@ var PlatformWinLoss = (function ($) {
                     cacheData[_level] = response;
                     PlatformWinLoss.setReportTitle(_submitData);
                     PlatformWinLoss.renderBreadCrumb(_level);
-                    PlatformWinLoss.bindData(_level, response, JSON.parse(_submitData.ProductOptions));
+                    PlatformWinLoss.bindData(_level, response, $.parseJSON(_submitData.ProductOptions));
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -350,10 +351,12 @@ var PlatformWinLoss = (function ($) {
 
         drillDown: function (data) {
             _level = 1;
-            var products = data.ProductCodes.split(",");
-            var productOptions = [];
-            for (var i = 0; i < products.length; i++) {
-                productOptions.push({ Code: products[i], Status: true });
+            var productOptions;
+            if (data.ProductCode) {
+                productOptions = [{ Code: data.ProductCode, Status: true }];
+            }
+            else {
+                productOptions = $.parseJSON(_submitData.ProductOptions);
             }
 
             _drilldownData =
@@ -365,7 +368,6 @@ var PlatformWinLoss = (function ($) {
                 Year: _submitData.Year,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                ProductCodes: data.ProductCodes,
                 ProductOptions: productOptions,
                 PlatformType: data.PlatformType,
                 DrawFilter: _submitData.DrawFilter,
@@ -381,9 +383,9 @@ var PlatformWinLoss = (function ($) {
                 url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
                 success: function (response) {
                     cacheData[_level] = response;
-                    PlatformWinLoss.setReportTitle(_drilldownData, data.IsSingleProduct);
+                    PlatformWinLoss.setReportTitle(_drilldownData);
                     PlatformWinLoss.renderBreadCrumb(_level);
-                    PlatformWinLoss.bindData(_level, response, JSON.parse(_submitData.ProductOptions));
+                    PlatformWinLoss.bindData(_level, response, $.parseJSON(_submitData.ProductOptions));
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -413,8 +415,8 @@ var PlatformWinLoss = (function ($) {
         openBetlistPopUp: function (dataDrillDown) {
             var url = Site.resolveClientUrl("BetList/PlatformWinLoss");
 
-            url = QueryString.setParam(url, "fromdate", _submitData.FromDate);
-            url = QueryString.setParam(url, "todate", _submitData.ToDate);
+            url = QueryString.setParam(url, "fromdate", _submitData.FromDate.toString("M/d/yyyy"));
+            url = QueryString.setParam(url, "todate", _submitData.ToDate.toString("M/d/yyyy"));
             url = QueryString.setParam(url, "PlatformType", _drilldownData.PlatformType);
             url = QueryString.setParam(url, "excludetest", _submitData.IsExcludeTest);
             url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
@@ -424,8 +426,6 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-            url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
-            url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
 
             url = Site.setProductOptionOriginalParamList(url);
 

@@ -12,8 +12,6 @@ var PlatformWinLossOption = (function () {
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
         {
-            DrillDownFromDate: rowObject.Date,
-            DrillDownToDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
             DrillDownCurrencyName: rowObject.CurrencyName,
             CustomerId: rowObject.CustomerId,
@@ -26,10 +24,10 @@ var PlatformWinLossOption = (function () {
     var drilldownLink = function (cellvalue, options, rowObject) {
         var param =
         {
-            IsSingleProduct: rowObject.PlatformType < 0,
             PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
-            ProductCodes: rowObject.ProductCodes ? rowObject.ProductCodes.replace(/,\s*$/, "") : ""
+            ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
         };
+
         return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
@@ -248,7 +246,7 @@ var PlatformWinLossOption = (function () {
             "4": Site.getSingleResource("Wap"),
             "5": Site.getSingleResource("SmartSite")
         },
-        totalColspan: [0, 3],
+        totalColspan: [0, 4],
         urlData: 'api/report/PlatformWinLoss',
         urlExcelData: 'api/report/PlatformWinLoss',
         gridOption: {
@@ -328,7 +326,6 @@ var PlatformWinLossOption = (function () {
 
         if (level === 1) {
             var allowedBa = isProductChecked(productOptions, "BA");
-            console.log(productOptions, allowedBa);
             var allowedRacing = isProductChecked(productOptions, "RB");
 
             baCommissionColumn.hidden = !allowedBa;

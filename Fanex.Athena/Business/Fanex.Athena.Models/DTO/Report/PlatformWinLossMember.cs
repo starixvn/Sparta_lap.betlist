@@ -12,13 +12,10 @@ namespace Fanex.Athena.Models.DTO.Report
     {
         public PlatformWinLossMember()
         {
-            Date = DateTime.Now;
             CurrencyName = string.Empty;
         }
 
         public int CurrencyId { get; set; }
-
-        public DateTime Date { get; set; }
 
         public string CurrencyName { get; set; }
 

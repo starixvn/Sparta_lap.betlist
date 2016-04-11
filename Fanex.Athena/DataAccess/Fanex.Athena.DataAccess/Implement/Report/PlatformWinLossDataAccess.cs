@@ -100,7 +100,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     {
                         PlatformType = platformType,
                         Name = PlatformType.GetPlatformName(platformType),
-                        ProductCodes = string.Empty
+                        ProductCode = string.Empty
                     };
                     parentRows.Add(platformType, parent);
                     dataList.Add(parent);
@@ -122,7 +122,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
-                    ProductCodes = productCode
+                    ProductCode = productCode
                 };
 
                 parent.TotalTransactions += child.TotalTransactions;
@@ -130,7 +130,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 parent.CustomerWinLoss += child.CustomerWinLoss;
                 parent.CustomerComm += child.CustomerComm;
                 parent.LicenseeWL += child.LicenseeWL;
-                parent.ProductCodes += productCode + ",";
 
                 dataList.Add(child);
 
