@@ -9,6 +9,12 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Web;
+    using System.Web.Http;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -19,12 +25,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Service.Implement.Report;
     using Service.Interface.Report;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Web;
-    using System.Web.Http;
 
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
@@ -166,38 +166,38 @@ namespace Fanex.Athena.Api.Report
 
         private static void SetLicenseeWinLossProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> licenseeWLProducts)
         {
-            licenseeWinLoss.LicenseeWLBA = licenseeWLProducts.GetValueOrDefault(Product.BA, 0); 
-            licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.Keys.Contains(Product.SB) ? licenseeWLProducts[Product.SB] : 0;
-            licenseeWinLoss.LicenseeWLRB = licenseeWLProducts.Keys.Contains(Product.RB) ? licenseeWLProducts[Product.RB] : 0;
-            licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.Keys.Contains(Product.NG) ? licenseeWLProducts[Product.NG] : 0;
-            licenseeWinLoss.LicenseeWLLC = licenseeWLProducts.Keys.Contains(Product.LC) ? licenseeWLProducts[Product.LC] : 0;
-            licenseeWinLoss.LicenseeWLVS = licenseeWLProducts.Keys.Contains(Product.VS) ? licenseeWLProducts[Product.VS] : 0;
-            licenseeWinLoss.LicenseeWLBG = licenseeWLProducts.Keys.Contains(Product.BG) ? licenseeWLProducts[Product.BG] : 0;
-            licenseeWinLoss.LicenseeWLCS = licenseeWLProducts.Keys.Contains(Product.CS) ? licenseeWLProducts[Product.CS] : 0;
-            licenseeWinLoss.LicenseeWLKN = licenseeWLProducts.Keys.Contains(Product.KN) ? licenseeWLProducts[Product.KN] : 0;
-            licenseeWinLoss.LicenseeWLBT = licenseeWLProducts.Keys.Contains(Product.BT) ? licenseeWLProducts[Product.BT] : 0;
-            licenseeWinLoss.LicenseeWLAGC = licenseeWLProducts.Keys.Contains(Product.AGC) ? licenseeWLProducts[Product.AGC] : 0;
-            licenseeWinLoss.LicenseeWLMGCLC = licenseeWLProducts.Keys.Contains(Product.MGCLC) ? licenseeWLProducts[Product.MGCLC] : 0;
-            licenseeWinLoss.LicenseeWLMGCRNG = licenseeWLProducts.Keys.Contains(Product.MGCRNG) ? licenseeWLProducts[Product.MGCRNG] : 0;
-            licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.Keys.Contains(Product.VB) ? licenseeWLProducts[Product.VB] : 0;
+            licenseeWinLoss.LicenseeWLBA = licenseeWLProducts.GetValueOrDefault(Product.BA, 0);
+            licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.GetValueOrDefault(Product.SB, 0);
+            licenseeWinLoss.LicenseeWLRB = licenseeWLProducts.GetValueOrDefault(Product.RB, 0);
+            licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.GetValueOrDefault(Product.NG, 0);
+            licenseeWinLoss.LicenseeWLLC = licenseeWLProducts.GetValueOrDefault(Product.LC, 0);
+            licenseeWinLoss.LicenseeWLVS = licenseeWLProducts.GetValueOrDefault(Product.VS, 0);
+            licenseeWinLoss.LicenseeWLBG = licenseeWLProducts.GetValueOrDefault(Product.BG, 0);
+            licenseeWinLoss.LicenseeWLCS = licenseeWLProducts.GetValueOrDefault(Product.CS, 0);
+            licenseeWinLoss.LicenseeWLKN = licenseeWLProducts.GetValueOrDefault(Product.KN, 0);
+            licenseeWinLoss.LicenseeWLBT = licenseeWLProducts.GetValueOrDefault(Product.BT, 0);
+            licenseeWinLoss.LicenseeWLAGC = licenseeWLProducts.GetValueOrDefault(Product.AGC, 0);
+            licenseeWinLoss.LicenseeWLMGCLC = licenseeWLProducts.GetValueOrDefault(Product.MGCLC, 0);
+            licenseeWinLoss.LicenseeWLMGCRNG = licenseeWLProducts.GetValueOrDefault(Product.MGCRNG, 0);
+            licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.GetValueOrDefault(Product.VB, 0);
         }
 
         private static void SetTurnOverProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
         {
-            licenseeWinLoss.TurnOverBA = turnOverProducts.Keys.Contains(Product.BA) ? turnOverProducts[Product.BA] : 0;
-            licenseeWinLoss.TurnOverSB = turnOverProducts.Keys.Contains(Product.SB) ? turnOverProducts[Product.SB] : 0;
-            licenseeWinLoss.TurnOverRB = turnOverProducts.Keys.Contains(Product.RB) ? turnOverProducts[Product.RB] : 0;
-            licenseeWinLoss.TurnOverNG = turnOverProducts.Keys.Contains(Product.NG) ? turnOverProducts[Product.NG] : 0;
-            licenseeWinLoss.TurnOverLC = turnOverProducts.Keys.Contains(Product.LC) ? turnOverProducts[Product.LC] : 0;
-            licenseeWinLoss.TurnOverVS = turnOverProducts.Keys.Contains(Product.VS) ? turnOverProducts[Product.VS] : 0;
-            licenseeWinLoss.TurnOverCS = turnOverProducts.Keys.Contains(Product.CS) ? turnOverProducts[Product.CS] : 0;
-            licenseeWinLoss.TurnOverBG = turnOverProducts.Keys.Contains(Product.BG) ? turnOverProducts[Product.BG] : 0;
-            licenseeWinLoss.TurnOverKN = turnOverProducts.Keys.Contains(Product.KN) ? turnOverProducts[Product.KN] : 0;
-            licenseeWinLoss.TurnOverBT = turnOverProducts.Keys.Contains(Product.BT) ? turnOverProducts[Product.BT] : 0;
-            licenseeWinLoss.TurnOverAGC = turnOverProducts.Keys.Contains(Product.AGC) ? turnOverProducts[Product.AGC] : 0;
-            licenseeWinLoss.TurnOverMGCLC = turnOverProducts.Keys.Contains(Product.MGCLC) ? turnOverProducts[Product.MGCLC] : 0;
-            licenseeWinLoss.TurnOverMGCRNG = turnOverProducts.Keys.Contains(Product.MGCRNG) ? turnOverProducts[Product.MGCRNG] : 0;
-            licenseeWinLoss.TurnOverVB = turnOverProducts.Keys.Contains(Product.VB) ? turnOverProducts[Product.VB] : 0;
+            licenseeWinLoss.TurnOverBA = turnOverProducts.GetValueOrDefault(Product.BA, 0);
+            licenseeWinLoss.TurnOverSB = turnOverProducts.GetValueOrDefault(Product.SB, 0);
+            licenseeWinLoss.TurnOverRB = turnOverProducts.GetValueOrDefault(Product.RB, 0);
+            licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
+            licenseeWinLoss.TurnOverLC = turnOverProducts.GetValueOrDefault(Product.LC, 0);
+            licenseeWinLoss.TurnOverVS = turnOverProducts.GetValueOrDefault(Product.VS, 0);
+            licenseeWinLoss.TurnOverCS = turnOverProducts.GetValueOrDefault(Product.CS, 0);
+            licenseeWinLoss.TurnOverBG = turnOverProducts.GetValueOrDefault(Product.BG, 0);
+            licenseeWinLoss.TurnOverKN = turnOverProducts.GetValueOrDefault(Product.KN, 0);
+            licenseeWinLoss.TurnOverBT = turnOverProducts.GetValueOrDefault(Product.BT, 0);
+            licenseeWinLoss.TurnOverAGC = turnOverProducts.GetValueOrDefault(Product.AGC, 0);
+            licenseeWinLoss.TurnOverMGCLC = turnOverProducts.GetValueOrDefault(Product.MGCLC, 0);
+            licenseeWinLoss.TurnOverMGCRNG = turnOverProducts.GetValueOrDefault(Product.MGCRNG, 0);
+            licenseeWinLoss.TurnOverVB = turnOverProducts.GetValueOrDefault(Product.VB, 0);
         }
 
         /// <summary>
