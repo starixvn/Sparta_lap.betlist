@@ -160,7 +160,7 @@ namespace Fanex.Athena.Api.Report
 
         private static void SetLicenseeWinLossProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> licenseeWLProducts)
         {
-            licenseeWinLoss.LicenseeWLBA = licenseeWLProducts.Keys.Contains(Product.BA) ? licenseeWLProducts[Product.BA] : 0;
+            licenseeWinLoss.LicenseeWLBA = licenseeWLProducts.GetValueOrDefault(Product.BA, 0); 
             licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.Keys.Contains(Product.SB) ? licenseeWLProducts[Product.SB] : 0;
             licenseeWinLoss.LicenseeWLRB = licenseeWLProducts.Keys.Contains(Product.RB) ? licenseeWLProducts[Product.RB] : 0;
             licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.Keys.Contains(Product.NG) ? licenseeWLProducts[Product.NG] : 0;
