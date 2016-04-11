@@ -77,19 +77,19 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                         while (reader.Read())
                         {
                             var topcustomer = new TopCustomer();
-                            if (reader.FieldExists("errorcode"))
+                            if (reader.HasColumn("errorcode"))
                             {
                                 topcustomer.ErrorCode = reader["errorcode"];
                                 topcustomer.Message = reader["message"];
                             }
                             else
                             {
-                                topcustomer.Member = reader.FieldExists("UserName") ? reader.ToString("UserName") : string.Empty;
+                                topcustomer.Member = reader.HasColumn("UserName") ? reader.ToString("UserName") : string.Empty;
                                 topcustomer.Currency = reader.ToString("Currency");
                                 topcustomer.MemberWinLoss = reader.ToDecimal("MemberWinlost");
                                 topcustomer.BetCount = reader.ToInt("betcount");
                                 topcustomer.Turnover = reader.ToDecimal("Turnover");
-                                topcustomer.LastLoginDate = reader.FieldExists("LastActiveDate") ? reader["LastActiveDate"] : null;
+                                topcustomer.LastLoginDate = reader.HasColumn("LastActiveDate") ? reader["LastActiveDate"] : null;
                             }
 
                             dataList.Add(topcustomer);

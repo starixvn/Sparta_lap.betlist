@@ -317,8 +317,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                             parlay.Sportbook.Add(new Sportsbook
                                                       {
-                                                          Bettype = reader.FieldExists("bettype") ? reader.ToInt("bettype") : 0,
-                                                          BetID = reader.FieldExists("betcheck") ? reader.ToString("betcheck") : string.Empty,
+                                                          Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
+                                                          BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
                                                           AwayId = reader.ToInt("awayID"),
                                                           HomeId = reader.ToInt("homeID"),
                                                           BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
@@ -327,7 +327,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                                           EventStatus = reader.ToString("eventstatus"),
                                                           FinalAwayScore = reader.ToNullableInt("finalawayscore"),
                                                           HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                                          Color = reader.FieldExists("lcolor") &&
+                                                          Color = reader.HasColumn("lcolor") &&
                                                               reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
                                                           FinalHomeScore = reader.ToNullableInt("finalhomescore"),
                                                           HtHomeScore = reader.ToNullableInt("hthomescore"),
@@ -517,7 +517,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                     EventStatus = reader.ToString("eventstatus"),
                                     FinalAwayScore = reader.ToNullableInt("finalawayscore"),
                                     HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                    Color = reader.FieldExists("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                                    Color = reader.HasColumn("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
                                     FinalHomeScore = reader.ToNullableInt("finalhomescore"),
                                     HtHomeScore = reader.ToNullableInt("hthomescore"),
                                     EventDate = DateTime.Parse(reader.ToString("eventdate")),
@@ -591,7 +591,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                             MatchId = reader.ToInt("matchid"),
                             EventStatus = reader.ToString("eventstatus"),
                             EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                            IsPending = reader.FieldExists("isrefund") && reader.ToString("isrefund") != "0",
+                            IsPending = reader.HasColumn("isrefund") && reader.ToString("isrefund") != "0",
                             KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                             MatchCode = reader.ToString("matchcode"),
                             Seg = new List<int> { reader.ToInt("seq") },

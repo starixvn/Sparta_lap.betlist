@@ -176,9 +176,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     });
             }
 
-            var hasSystemId = reader.FieldExists("username");
-            var hasExternalId = reader.FieldExists("nickname");
-            var hasCustomerId = reader.FieldExists("custid");
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
             var index = 1;
             var baseCurrency = metaModel.BaseCurrency;
             while (reader.Read())
@@ -191,7 +191,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + baseCurrency;
                     var turnOverColumnName = "turnover" + product.Code + baseCurrency;
 
-                    if (reader.FieldExists(licenseeWlColumnName))
+                    if (reader.HasColumn(licenseeWlColumnName))
                     {
                         if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
                         {
@@ -199,7 +199,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         }
                     }
 
-                    if (reader.FieldExists(turnOverColumnName))
+                    if (reader.HasColumn(turnOverColumnName))
                     {
                         if (!product.Code.Equals(Product.BT))
                         {
@@ -269,14 +269,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + currency;
                     var turnOverColumnName = "turnover" + product.Code + currency;
 
-                    if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.FieldExists(licenseeWlColumnName))
+                    if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.HasColumn(licenseeWlColumnName))
                     {
                         summaryItem.LicenseeWL.TryGetValue(product.Code, out temp);
                         temp += reader.ToDecimal(licenseeWlColumnName);
                         licenseeWlSummary.Add(product.Code, temp);
                     }
 
-                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.FieldExists(turnOverColumnName))
+                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.HasColumn(turnOverColumnName))
                     {
                         summaryItem.TurnOver.TryGetValue(product.Code, out temp);
                         temp += reader.ToDecimal(turnOverColumnName);

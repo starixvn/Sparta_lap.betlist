@@ -74,8 +74,8 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 MemberWinLoss = reader.ToDecimal("MemberWinLost"),
                                 LicenseeWinloss = reader.ToDecimal("LicenseeWL"),
                                 Turnover = reader.ToDecimal("Turnover"),
-                                Liveindicator = reader.FieldExists("liveindicator") && (reader.ToInt("liveindicator") == 1),
-                                BettypeId = reader.FieldExists("bettype") ? reader.ToInt("bettype") : 0,
+                                Liveindicator = reader.HasColumn("liveindicator") && (reader.ToInt("liveindicator") == 1),
+                                BettypeId = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
                             });
                         }
                     }

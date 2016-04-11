@@ -303,7 +303,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             var extraHomeWinLossColumn = DataHelper.GetCurrencyColumnName("x_hl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraDrawWinLossColumn = DataHelper.GetCurrencyColumnName("x_dl", metaModel.IsConvert, metaModel.BaseCurrency);
             var extraAwayWinLossColumn = DataHelper.GetCurrencyColumnName("x_al", metaModel.IsConvert, metaModel.BaseCurrency);
-            var hasExtraColumn = reader.FieldExists(extraColumnName);
+            var hasExtraColumn = reader.HasColumn(extraColumnName);
             while (reader.Read())
             {
                 var item = new ForecastOneXTwo

@@ -188,9 +188,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             while (reader.Read())
             {
-                var hasSystemId = reader.FieldExists("username");
-                var hasExternalId = reader.FieldExists("nickname");
-                var hasCustomerId = reader.FieldExists("custid");
+                var hasSystemId = reader.HasColumn("username");
+                var hasExternalId = reader.HasColumn("nickname");
+                var hasCustomerId = reader.HasColumn("custid");
 
                 var item = new WinLossByLeague
                 {

@@ -211,14 +211,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
             var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
             var winLossRbColumn = "WinlossRB" + baseCurrency;
-            var hasCustComm = reader.FieldExists(custCommColumn);
-            var hasBetType = reader.FieldExists("bettype");
-            var hasProductName = reader.FieldExists("productname");
-            var hasLiveIndicator = reader.FieldExists("liveindicator");
-            var hasIsNeutral = reader.FieldExists("isneutral");
-            var hasKickofTime = reader.FieldExists("KickoffTime");
-            var hasShowTime = reader.FieldExists("showtime");
-            var hasSportType = reader.FieldExists("sporttype");
+            var hasCustComm = reader.HasColumn(custCommColumn);
+            var hasBetType = reader.HasColumn("bettype");
+            var hasProductName = reader.HasColumn("productname");
+            var hasLiveIndicator = reader.HasColumn("liveindicator");
+            var hasIsNeutral = reader.HasColumn("isneutral");
+            var hasKickofTime = reader.HasColumn("KickoffTime");
+            var hasShowTime = reader.HasColumn("showtime");
+            var hasSportType = reader.HasColumn("sporttype");
 
             var dataList = new List<MatchWinLoss>();
             while (reader.Read())

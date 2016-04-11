@@ -3,20 +3,13 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.Extension
 {
     using System;
     using System.Data;
     using Fanex.Common.Extensions;
-    using Logging;
-    /// <summary>
-    ///     The data reader extensions.
-    /// </summary>
+
     public static class DataReaderExtensions
     {
         public static T GetValueOrDefault<T>(this IDataReader reader, string key, T defaultValue)
@@ -24,20 +17,16 @@ namespace Fanex.Athena.DataAccess.Extension
             try
             {
                 var columnIndex = reader.GetOrdinal(key);
-                if (columnIndex >= 0)
+                var result = reader.GetValue(columnIndex);
+                if (!object.ReferenceEquals(result, null) && result != DBNull.Value)
                 {
-                    var result = reader.GetValue(columnIndex);
-                    if (!object.ReferenceEquals(result, null) && result != DBNull.Value)
-                    {
-                        return (T)((object)Convert.ChangeType(result, typeof(T)));
-                    }
-
-                    return defaultValue;
+                    return (T)Convert.ChangeType(result, typeof(T));
                 }
+
+                return defaultValue;
             }
-            catch (IndexOutOfRangeException exception)
+            catch (IndexOutOfRangeException)
             {
-                Logger.Log.Error(exception.Message, exception);
             }
 
             return defaultValue;
@@ -48,26 +37,25 @@ namespace Fanex.Athena.DataAccess.Extension
             return reader.GetValueOrDefault(key, defaultValueProvider());
         }
 
-        public static bool FieldExists(this IDataReader reader, string fieldName)
+        public static bool HasColumn(this IDataRecord reader, string columnName)
         {
-            reader.GetSchemaTable().DefaultView.RowFilter = string.Format("ColumnName= '{0}'", fieldName);
-            return reader.GetSchemaTable().DefaultView.Count > 0;
+            return reader.TryGetOrdinal(columnName) >= 0;
         }
 
         /// <summary>
         /// Return -1 if field does not exist.
         /// </summary>
         /// <param name="reader">Reader value.</param>
-        /// <param name="fieldName">Field name value.</param>
+        /// <param name="columnName">Field name value.</param>
         /// <returns>The result value.</returns>
-        public static int TryGetOrdinal(this IDataRecord reader, string fieldName)
+        public static int TryGetOrdinal(this IDataRecord reader, string columnName)
         {
             var fieldCount = reader.FieldCount;
 
             for (var i = 0; i < fieldCount; i++)
             {
                 var name = reader.GetName(i);
-                if (name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
+                if (name.Equals(columnName, StringComparison.OrdinalIgnoreCase))
                 {
                     return i;
                 }
