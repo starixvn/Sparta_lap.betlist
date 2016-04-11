@@ -42,7 +42,7 @@ var PlatformWinLossOption = (function () {
     var platformNameColumn = {
         name: 'Name',
         index: 'Name',
-        width: 100,
+        width: 120,
         align: 'left',
         valign: 'middle',
         sortable: false,

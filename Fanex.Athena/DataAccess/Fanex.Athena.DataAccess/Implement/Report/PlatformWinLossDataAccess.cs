@@ -178,16 +178,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var item = new PlatformWinLossMember
                 {
                     Index = index,
-                    //// CurrencyName = reader.ToString("currencyName"),
+                    CurrencyName = reader.ToString("currencyName"),
                     TotalTransactions = reader.ToInt("Betcount"),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
                     CustomerComm = reader.ToDecimal(playerCommColumn),
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
-                    //// BACommission = reader.ToDecimal(commBaColumn),
-                    //// RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
-                    //// AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    //// AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
+                    BACommission = reader.ToDecimal(commBaColumn),
+                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
+                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
+                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency")
                 };
 
