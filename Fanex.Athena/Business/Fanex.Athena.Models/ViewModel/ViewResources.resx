@@ -2855,4 +2855,8 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="TurnoverPercent" xml:space="preserve">
+    <value>%Turnover</value>
+    <comment>#54751</comment>
+  </data>
 </root>

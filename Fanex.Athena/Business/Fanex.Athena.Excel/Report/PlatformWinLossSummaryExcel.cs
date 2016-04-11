@@ -56,7 +56,7 @@
             {
                 ViewResources.Platform,
                 ViewResources.Turnover,
-                ViewResources.Turnover,
+                ViewResources.TurnoverPercent,
                 ViewResources.TotalTransaction,
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,

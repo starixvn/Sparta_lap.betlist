@@ -7207,6 +7207,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to %Turnover.
+        /// </summary>
+        public static string TurnoverPercent {
+            get {
+                return ResourceManager.GetString("TurnoverPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turnover, {0} --&gt; {1} - {2} {3} ({4}).
         /// </summary>
         public static string TurnoverTitle {
