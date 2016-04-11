@@ -27,7 +27,12 @@ namespace Fanex.Athena.DataAccess.Extension
                 if (columnIndex >= 0)
                 {
                     var result = reader.GetValue(columnIndex);
-                    return result != null && result != DBNull.Value ? (T)result : defaultValue;
+                    if (!object.ReferenceEquals(result, null) && result != DBNull.Value)
+                    {
+                        return (T)((object)Convert.ChangeType(result, typeof(T)));
+                    }
+
+                    return defaultValue;
                 }
             }
             catch (IndexOutOfRangeException exception)
