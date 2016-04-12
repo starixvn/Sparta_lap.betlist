@@ -35,7 +35,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeId;
             metaModel.UserId = userSession.UserId;
 
-            const string UspKey = "Lrf_BetList_MobileReport_SelWinloss_Mem";
+            const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
             return GetBetListResult(metaModel, UspKey);
         }
     }

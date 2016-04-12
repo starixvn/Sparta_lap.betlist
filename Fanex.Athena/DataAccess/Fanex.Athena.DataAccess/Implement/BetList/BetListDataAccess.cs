@@ -61,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
-            { "Lrf_BetList_MobileReport_SelWinloss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
+            { "Lrf_BetList_PlatformWinLoss_Mem", (db, metalModel) => CreatePlatformWinLossBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelAllByDate_Mem", (db, metalModel) => CreateOutStandingCompletedBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
