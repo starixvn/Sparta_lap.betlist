@@ -5,7 +5,7 @@
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <!--grid_26-->
-    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/Report/LiveReport?isViewedHistory=false")">
+    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=false")">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate,
                 AppSettings.MaxDate, "date-range", "date-range", 1, 3, 1, 3)
     <div class="grid_2 filter-label">

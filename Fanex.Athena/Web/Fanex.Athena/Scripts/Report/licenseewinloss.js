@@ -123,7 +123,7 @@ var LicenseeWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = 'api/report/LicenseeWL';
+            var temp = 'api/LicenseeWinLossReport/LicenseeWL';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")

@@ -268,7 +268,6 @@
     <Compile Include="Forecast\ForecastController.cs" />
     <Compile Include="Forecast\ForecastController.HandicapOverUnder.cs" />
     <Compile Include="Forecast\ForecastController.OneXTwo.cs" />
-    <Compile Include="Report\ReportAjaxController.LiveReport.cs" />
     <Compile Include="Report\NoteController.cs" />
     <Compile Include="Report\ReportController.WinLossByProduct.cs" />
     <Compile Include="HomeController.cs" />
@@ -280,7 +279,7 @@
     <Compile Include="Report\ReportController.CustomerTurnover.cs" />
     <Compile Include="Report\LicenseeWinLossReportController.cs" />
     <Compile Include="Report\ReportController.DailyRacingWinLoss.cs" />
-    <Compile Include="Report\ReportController.LiveReport.cs" />
+    <Compile Include="Report\LiveReportController.cs" />
     <Compile Include="Report\ReportController.RacingCommission.cs" />
     <Compile Include="Report\ReportController.Turnover.cs" />
     <Compile Include="Report\ReportController.MatchWinLoss.cs" />

@@ -15,10 +15,10 @@ var LiveReport = (function ($) {
             $("#switchreport").click(function () {
                 var mod = $(this).attr("data-history-mode");
                 if (mod === "False") {
-                    location.href = Site.resolveClientUrl("Report/LiveReport?isViewedHistory=True");
+                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=True");
                 }
                 else {
-                    location.href = Site.resolveClientUrl("Report/LiveReport?isViewedHistory=False");
+                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=False");
                 }
             });
 
@@ -90,7 +90,7 @@ var LiveReport = (function ($) {
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                url: Site.resolveClientUrl("Report/LiveReportDetail"),
+                url: Site.resolveClientUrl("LiveReport/Detail"),
                 success: function () {
                 },
                 beforeSend: function () {
@@ -190,7 +190,7 @@ var LiveReport = (function ($) {
             var url = urlMap["Key" + jsonData.SportId];
             var showBetList = url !== null && url !== undefined;
             url = url === null || url === undefined
-                    ? Site.resolveClientUrl("Report/LiveReportMatchList")
+                    ? Site.resolveClientUrl("LiveReport/MatchList")
                     : Site.resolveClientUrl(url);
 
             if (showBetList) {
