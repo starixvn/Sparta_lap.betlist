@@ -135,6 +135,9 @@ namespace Fanex.Athena.Models.DTO.Report
                 case "VS185":
                     return ViewResources.VirtualCycling;
 
+                case "VB":
+                    return ViewResources.ProductVB;
+
                 default:
                     return productCode;
             }
