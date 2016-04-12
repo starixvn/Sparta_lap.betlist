@@ -427,7 +427,10 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
 
-            url = Site.setProductOptionOriginalParamList(url);
+            for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
+                var product = _drilldownData.ProductOptions[i];
+                url = Site.setProductOptionParam(url, i, product.Code, product.Status);
+            }
 
             var popH = Math.min(600, window.innerHeight - 100), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
