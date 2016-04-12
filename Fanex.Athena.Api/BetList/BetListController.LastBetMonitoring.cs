@@ -84,7 +84,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var ticketResult = _betListService.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = BetListService.GetLastBetsMonitoringData(metaModel);
 
             // Show empty content if data is empty
             return ticketResult == null || ticketResult.MainTicketList.Count == 0
@@ -200,7 +200,7 @@ namespace Fanex.Athena.Api.BetList
             var builder = new BetListHTMLBuilder();
             foreach (var ticket in ticketResult.MainTicketList)
             {
-                _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
+                TicketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
                 // Begin of row
                 var row = string.Format("<tr class='content-row monitor-hightlight' id='trans-{0}' data-transid='{0}'>", ticket.TransId);
@@ -231,7 +231,7 @@ namespace Fanex.Athena.Api.BetList
                 // Choice
                 builder.AddChoice(
                     ticket,
-                    _ticketHelper,
+                    TicketHelper,
                     ticketResult.TicketDataList,
                     "<td data-name=\"Choice\" class='bl-event'>",
                     "</td>",
@@ -271,7 +271,7 @@ namespace Fanex.Athena.Api.BetList
                 }
 
                 const string FormatDetail = @"showCombMPDetail({0},{1},&quot;{2}&quot;,{3},&quot;{4}&quot;,&quot;{5}&quot;)";
-                var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " + _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
+                var betTeam = TicketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " + TicketHelper.GetCombinationMPOfferName(ticket.BetTeam);
                 return string.Format(
                                 FormatDetail,
                                 ticket.TransId,

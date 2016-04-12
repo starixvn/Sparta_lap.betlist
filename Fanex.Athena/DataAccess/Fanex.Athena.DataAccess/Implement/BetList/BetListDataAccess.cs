@@ -1105,6 +1105,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
             // string
             var hasUsername = reader.HasColumn("username");
+            var hasRefno = reader.HasColumn("refno");
             var hasMatchCode = reader.HasColumn("matchcode");
             var hasStatus = reader.HasColumn("status");
             var hasBetTeam = reader.HasColumn("betteam");
@@ -1154,7 +1155,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
 
                 // string
                 ticket.UserName = hasUsername ? reader.ToString("username") : string.Empty;
-                ticket.RefNo = reader.ToString("refno");
+                ticket.RefNo = hasRefno ? reader.ToString("refno") : string.Empty;
                 ticket.MatchCode = hasMatchCode ? reader.ToString("matchcode") : string.Empty;
                 ticket.Status = hasStatus ? reader.ToString("status") : string.Empty;
                 ticket.BetTeam = hasBetTeam ? reader.ToString("betteam") : string.Empty;

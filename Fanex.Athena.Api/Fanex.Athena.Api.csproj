@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseApiController.cs" />
+    <Compile Include="BetList\ApiBetListBaseController.cs" />
     <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
     <Compile Include="BetList\BetListController.MixParlay.cs" />

@@ -321,7 +321,7 @@ namespace Fanex.Athena.Api.BetList
         /// <returns>Dynamic object, contains bet list result.</returns>
         private dynamic LiveReportBetListResult(LiveReportBetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             return new
             {
@@ -345,7 +345,7 @@ namespace Fanex.Athena.Api.BetList
         private dynamic GetLiveReportPagingBetListResult(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUpInfo = _balanceUpService.BalanceUpInfo;
+            var balanceUpInfo = BalanceUpService.BalanceUpInfo;
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
@@ -353,7 +353,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
 
-            var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var totalPage = metaModel.TotalRows % metaModel.PageSize == 0
                 ? metaModel.TotalRows / metaModel.PageSize
