@@ -200,7 +200,7 @@
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\LicenseeWinLossReportController.cs" />
     <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
-    <Compile Include="Report\ReportController.WinLostByProduct.cs" />
+    <Compile Include="Report\WinLossByProductReportController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">

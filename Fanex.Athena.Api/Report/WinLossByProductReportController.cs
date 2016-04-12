@@ -1,11 +1,8 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.WinLostByProduct.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="WinLossByProductReportController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Api.Report
 {
@@ -26,12 +23,18 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
 
-    /// <summary>
-    /// WinLossByProductController class.
-    /// </summary>
-    public partial class ReportController
+    public class WinLossByProductReportController : ApiReportBaseController
     {
+        private readonly IWinLossByProductService _winlossByProductService;
+
+        public WinLossByProductReportController()
+        {
+            _winlossByProductService = new WinLossByProductService();
+        }
+
         #region Action
 
         /// <summary>
@@ -47,7 +50,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="systemId">System Id.</param>
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
-        public dynamic WinLostByProduct(
+        public dynamic WinLossByProduct(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -67,7 +70,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="metaModel">The level 0 MetaModel.</param>
         /// <returns>Process Request.</returns>
         [HttpPost]
-        public dynamic WinLostByProduct([FromBody] WinLossByProductMetaModel metaModel)
+        public dynamic WinLossByProduct([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

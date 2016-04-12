@@ -23,8 +23,6 @@ namespace Fanex.Athena.Api.Report
     {        
         private readonly IPlatformWinLossService _platformWinLossService;
 
-        private readonly IWinLossByProductService _winlossByProductService;
-
         private readonly IWinLossByLeagueService _winlossByLeagueService;
 
         private readonly IBalanceUpService _balanceUpService;
@@ -44,7 +42,6 @@ namespace Fanex.Athena.Api.Report
         public ReportController()
         {
             _platformWinLossService = new PlatformWinLossService();
-            _winlossByProductService = new WinLossByProductService();
             _winlossByLeagueService = new WinLossByLeagueService();
             _balanceUpService = new BalanceUpService();
             _agcasinoWinLossService = new AgCasinoWinLossService();
