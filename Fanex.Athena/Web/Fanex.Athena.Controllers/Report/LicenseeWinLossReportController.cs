@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.LicenseeWinLoss.cs" company="Microsoft">
+// <copyright file="LicenseeWinLossReportController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
@@ -21,10 +20,6 @@ namespace Fanex.Athena.Controllers.Report
     {
         private const string LicenseeWinLossName = "LicenseeWinLoss";
 
-        /// <summary>
-        /// Default licenseeWL action.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult Index()
@@ -36,31 +31,31 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = this.ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, LicenseeWinLossName);
             var productList = productAccess.ProductList;
             var metaModel = new LicenseeWinLossMetaModel
+            {
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
+                LicenseeId = licenseeSession.LicenseeId,
+                IsExcludedTestData = true,
+                DrawFilter = DrawFilterType.Normal,
+                ReportBy = ReportByType.Daily,
+                ProductOptions = productList.Select(i => new ProductOption
                 {
-                    FromDate = DateTime.Now,
-                    ToDate = DateTime.Now,
-                    LicenseeId = licenseeSession.LicenseeId,                    
-                    IsExcludedTestData = true,
-                    DrawFilter = DrawFilterType.Normal,
-                    ReportBy = ReportByType.Daily,
-                    ProductOptions = productList.Select(i => new ProductOption
-                        {
-                            Code = i.ProductCode,
-                            Name = i.ProductName,
-                            Status = i.ProductCode == Product.SB
-                        }).ToList(),
-                };
-           
+                    Code = i.ProductCode,
+                    Name = i.ProductName,
+                    Status = i.ProductCode == Product.SB
+                }).ToList(),
+            };
+
             SetConvetedUSDCurrencyId(metaModel);
-           
+
             var model = new LicenseeWinLossViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    CurrencyList = GetUserCurrencies(),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    ProductAccess = productAccess,
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = GetUserCurrencies(),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                ProductAccess = productAccess,
+            };
 
             return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
         }

@@ -198,7 +198,7 @@
     <Compile Include="Report\ReportController.ThirdPartyWinLoss.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.cs" />
-    <Compile Include="Report\ReportController.LicenseeWl.cs" />
+    <Compile Include="Report\LicenseeWinLossReportController.cs" />
     <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
     <Compile Include="Report\ReportController.WinLostByProduct.cs" />
   </ItemGroup>

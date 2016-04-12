@@ -278,7 +278,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Report\ReportController.CustomerTurnover.cs" />
-    <Compile Include="Report\ReportController.LicenseeWinLoss.cs" />
+    <Compile Include="Report\LicenseeWinLossReportController.cs" />
     <Compile Include="Report\ReportController.DailyRacingWinLoss.cs" />
     <Compile Include="Report\ReportController.LiveReport.cs" />
     <Compile Include="Report\ReportController.RacingCommission.cs" />
