@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
@@ -37,7 +38,6 @@ namespace Fanex.Athena.Controllers.Customer
         private const string CustomerListUrl = "Customer/CustomerList";
 
         private const int BopingResellerId = 7;
-        private static readonly int[] LicenseesEditableBetSetting = new int[] { 1, 5, 98 }; // 12Bet, Spondemo, XTD3.
 
         #endregion Const
 
@@ -87,24 +87,34 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 case ProductTypes.NumberGame:
                     return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
+
                 case ProductTypes.LiveCasino:
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
+
                 case ProductTypes.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
+
                 case ProductTypes.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
+
                 case ProductTypes.AgCasino:
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
+
                 case ProductTypes.GoldDeluxe:
                     return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
+
                 case ProductTypes.Macau:
                     return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
+
                 case ProductTypes.MicroGamingLiveCasino:
                     return View("~/Views/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
+
                 case ProductTypes.MicrogamingRNGCasino:
                     return View("~/Views/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
+
                 case ProductTypes.BetTrade:
                     return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
+
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -186,7 +196,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (!customerInfo.SyncCasino)
             {
-                DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);                
+                DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);
             }
 
             if (!customerInfo.SyncLiveCasino)
@@ -201,7 +211,9 @@ namespace Fanex.Athena.Controllers.Customer
 
         private bool IsBetSettingEditable(int userId, int licenseeId)
         {
-            if (LicenseesEditableBetSetting.Contains(licenseeId))
+            var setting = AppSettings.GetValue("LicenseesEditableBetSettings");
+            var licenseeIds = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
+            if (licenseeIds.Contains(licenseeId.ToString()))
             {
                 return true;
             }
