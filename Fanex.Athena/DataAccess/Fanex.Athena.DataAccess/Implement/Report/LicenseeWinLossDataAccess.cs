@@ -181,33 +181,42 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var hasCustomerId = reader.HasColumn("custid");
             var index = 1;
             var baseCurrency = metaModel.BaseCurrency;
-            while (reader.Read())
+            var licenseeWLColumns = new Dictionary<string, string>();
+            var turnoverColumns = new Dictionary<string, string>();
+            if (reader.FieldCount > 0)
             {
-                // Read Item
-                var licenseeWl = new Dictionary<string, decimal>();
-                var turnOver = new Dictionary<string, decimal>();
                 foreach (var product in metaModel.ProductOptions)
                 {
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + baseCurrency;
                     var turnOverColumnName = "turnover" + product.Code + baseCurrency;
 
-                    if (reader.HasColumn(licenseeWlColumnName))
+                    if (!IsIgnoredLicenseeWLProduct(product.Code) &&
+                        reader.HasColumn(licenseeWlColumnName))
                     {
-                        if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
-                        {
-                            licenseeWl.Add(product.Code, reader.ToDecimal(licenseeWlColumnName));
-                        }
+                        licenseeWLColumns.Add(licenseeWlColumnName, product.Code);
                     }
 
-                    if (reader.HasColumn(turnOverColumnName))
+                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.HasColumn(turnOverColumnName))
                     {
-                        if (!product.Code.Equals(Product.BT))
-                        {
-                            turnOver.Add(product.Code, reader.ToDecimal(turnOverColumnName));
-                        }
+                        turnoverColumns.Add(turnOverColumnName, product.Code);
                     }
                 }
+            }
 
+            while (reader.Read())
+            {
+                var licenseeWl = new Dictionary<string, decimal>();
+                var turnOver = new Dictionary<string, decimal>();
+                foreach (var column in licenseeWLColumns)
+                {
+                    licenseeWl.Add(column.Value, reader.ToDecimal(column.Key));
+                }
+
+                foreach (var column in turnoverColumns)
+                {
+                    turnOver.Add(column.Value, reader.ToDecimal(column.Key));
+                }
+                
                 var item = new LicenseeWinLoss
                 {
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
@@ -289,12 +298,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
         private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
             var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;

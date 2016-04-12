@@ -41,6 +41,7 @@ namespace Fanex.Athena.Api.BetList
             _ticketHelper = new TicketHelper();
         }
 
+        [CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }
@@ -51,6 +52,7 @@ namespace Fanex.Athena.Api.BetList
             get { return _balanceUpService; }
         }
 
+        [CLSCompliant(false)]
         protected ITicketHelper TicketHelper
         {
             get { return _ticketHelper; }
