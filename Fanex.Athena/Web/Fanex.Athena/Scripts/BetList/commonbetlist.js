@@ -10,12 +10,16 @@ var CommonBetList = (function ($) {
             BetList.initialize();
             $(".content-filter").remove();
             
-            var actionName = $("#ActionName").val();
-            var url = Site.resolveClientUrl('api/betlist/' + actionName);
+            var apiUrl = $("#ApiUrl").val();
+            if (!apiUrl) {
+                apiUrl = 'api/betlist/' + $("#ActionName").val();
+            }
+
+            apiUrl = Site.resolveClientUrl(apiUrl);
             var serverPaging = $("#IsServerPaging").val();
             if (serverPaging === "1") {
                 var paramString = QueryString.getQueryString(location.href);
-                BetList.loadDataPaging(url + "?" + paramString);
+                BetList.loadDataPaging(apiUrl + "?" + paramString);
             }
             else {
                 var params = $.parseJSON($("#BetListMetaModel").val());
@@ -24,7 +28,7 @@ var CommonBetList = (function ($) {
                 params.FromDate = params.FromDateString;
                 params.ToDate = params.ToDateString;
                 params.Date = params.DateString;
-                BetList.loadData(params, url, window.loadBetListSuccessCallback);
+                BetList.loadData(params, apiUrl, window.loadBetListSuccessCallback);
             }
 
             $(".content-title").width($(".content-main").width() - 50);

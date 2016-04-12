@@ -159,7 +159,7 @@
     <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
-    <Compile Include="BetList\BetListController.VoidbridgeDetail.cs" />
+    <Compile Include="BetList\VoidbridgeBetListController.cs" />
     <Compile Include="BetList\BetListController.WinlossByBetType.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />

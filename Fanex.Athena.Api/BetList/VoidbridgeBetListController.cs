@@ -3,10 +3,10 @@
     using System.Web.Http;
     using Fanex.Athena.Models.MetaModel.BetList;
 
-    public partial class BetListController
+    public class VoidbridgeBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic VoidbridgeDetail(BetListMetaModel metaModel)
+        public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;
 
