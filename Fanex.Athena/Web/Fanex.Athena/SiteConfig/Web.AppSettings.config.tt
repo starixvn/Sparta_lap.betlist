@@ -543,7 +543,7 @@
 	<add key="MoveBetDayEnd" value="" />
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
-	<add key="AllowAutomationCaptchaCode" value="1"/>
+	<add key="AllowAutomationCaptchaCode" value="0"/>
 	<add key="JsVersion" value="v=54751" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
