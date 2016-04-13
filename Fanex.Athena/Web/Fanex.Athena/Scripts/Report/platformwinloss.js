@@ -373,7 +373,8 @@ var PlatformWinLoss = (function ($) {
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludeTest: _submitData.IsExcludeTest,
                 CurrencyId: _submitData.CurrencyId,
-                BaseCurrency: _submitData.BaseCurrency
+                BaseCurrency: _submitData.BaseCurrency,
+                CurrencyName: _submitData.CurrencyName,
             };
             $.ajax({
                 type: "POST",

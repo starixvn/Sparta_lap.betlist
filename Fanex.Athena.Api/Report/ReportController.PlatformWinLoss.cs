@@ -92,10 +92,17 @@ namespace Fanex.Athena.Api.Report
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
 
-            var mobileWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total);
-            mobileWinLossExcel.Export();
+            var convertingOption = new ConvertingOption
+            {
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
 
-            return ExcelStream(mobileWinLossExcel.Workbook, FileName);
+            var platformWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total, convertingOption);
+            platformWinLossExcel.Export();
+
+            return ExcelStream(platformWinLossExcel.Workbook, FileName);
         }
 
         private dynamic ProcessRequest(PlatformWinLossMetaModel metaModel)

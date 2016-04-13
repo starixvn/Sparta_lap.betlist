@@ -42,8 +42,9 @@
             string fileName,
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
-            PlatformWinLossSummary total)
-            : base(templatePath, fileName, new ShowingOption(), new ConvertingOption())
+            PlatformWinLossSummary total,
+            ConvertingOption convertingOption)
+            : base(templatePath, fileName, new ShowingOption(), convertingOption)
         {
             _templatePath = templatePath;
             _fileName = fileName;
