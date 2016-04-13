@@ -164,10 +164,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var transferOutColumn = "TransferOut" + metaModel.BaseCurrency;
             var closingBalanceColumn = "ClosingBalance" + metaModel.BaseCurrency;
 
-            var hasSystemIdColumn = reader.TryGetOrdinal("username") >= 0;
-            var hasExternalIdColumn = reader.TryGetOrdinal("nickname") >= 0;
-            var hasCustomerIdColumn = reader.TryGetOrdinal("custid") >= 0;
-            var hasWinlostDateColumn = reader.TryGetOrdinal("date") >= 0;
+            var hasSystemIdColumn = reader.HasColumn("username");
+            var hasExternalIdColumn = reader.HasColumn("nickname");
+            var hasCustomerIdColumn = reader.HasColumn("custid");
+            var hasWinlostDateColumn = reader.HasColumn("date");
             var index = metaModel.DrillDownLevel == 2 ? ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1 : 1;
             while (reader.Read())
             {

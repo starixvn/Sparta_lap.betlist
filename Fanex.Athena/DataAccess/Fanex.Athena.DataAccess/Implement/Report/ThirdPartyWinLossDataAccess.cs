@@ -154,26 +154,26 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
 
-            var systemIdOrdinal = reader.TryGetOrdinal("username");
-            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-            var customerIdOrdinal = reader.TryGetOrdinal("custid");
-            var winlostDateOrdinal = reader.TryGetOrdinal("winlostdate");
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
+            var hasWinlostDate = reader.HasColumn("winlostdate");
             var index = 1;
             while (reader.Read())
             {
                 var item = new ThirdPartyWinLoss
                 {
                     Index = index++,
-                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = winlostDateOrdinal >= 0 ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
+                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);

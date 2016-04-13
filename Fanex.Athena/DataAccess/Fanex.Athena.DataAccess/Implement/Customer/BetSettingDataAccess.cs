@@ -176,7 +176,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                 {
                     if (reader.Read())
                     {
-                        esportSetting = reader.TryGetOrdinal("DisableEsports") >= 0 ?
+                        esportSetting = reader.HasColumn("DisableEsports") ?
                             (EsportSettingType)Converter.ToInt(reader["DisableEsports"])
                             : EsportSettingType.NoneOffering;
                         return RenderSportBookBetSetting(reader);

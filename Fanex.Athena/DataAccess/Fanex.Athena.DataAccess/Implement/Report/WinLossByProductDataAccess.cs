@@ -173,18 +173,18 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
             }
 
-            var systemIdOrdinal = reader.TryGetOrdinal("username");
-            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-            var customerIdOrdinal = reader.TryGetOrdinal("custid");
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
 
             while (reader.Read())
             {
                 // Read Item
                 var item = new WinLossByProduct
                 {
-                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     ProductCode = reader.ToString("productcode"),
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),

@@ -12,43 +12,7 @@ namespace Fanex.Athena.DataAccess.Extension
 
     public static class DataReaderExtensions
     {
-        public static T GetValueOrDefault<T>(this IDataReader reader, string key, T defaultValue)
-        {
-            try
-            {
-                var columnIndex = reader.GetOrdinal(key);
-                var result = reader.GetValue(columnIndex);
-                if (!object.ReferenceEquals(result, null) && result != DBNull.Value)
-                {
-                    return (T)Convert.ChangeType(result, typeof(T));
-                }
-
-                return defaultValue;
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
-
-            return defaultValue;
-        }
-
-        public static T GetValueOrDefault<T>(this IDataReader reader, string key, Func<T> defaultValueProvider)
-        {
-            return reader.GetValueOrDefault(key, defaultValueProvider());
-        }
-
         public static bool HasColumn(this IDataRecord reader, string columnName)
-        {
-            return reader.TryGetOrdinal(columnName) >= 0;
-        }
-
-        /// <summary>
-        /// Return -1 if field does not exist.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="columnName">Field name value.</param>
-        /// <returns>The result value.</returns>
-        public static int TryGetOrdinal(this IDataRecord reader, string columnName)
         {
             var fieldCount = reader.FieldCount;
 
@@ -57,11 +21,11 @@ namespace Fanex.Athena.DataAccess.Extension
                 var name = reader.GetName(i);
                 if (name.Equals(columnName, StringComparison.OrdinalIgnoreCase))
                 {
-                    return i;
+                    return true;
                 }
             }
 
-            return -1;
+            return false;
         }
 
         public static int? ToNullableInt(this IDataReader reader, string fieldName, int? defaultValue = null)
