@@ -679,6 +679,7 @@
     <Content Include="Scripts\jasmine-specs\Report\playtechcasino-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\racingcommission-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\report-test.js" />
+    <Content Include="Scripts\jasmine-specs\Report\Result-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\thirdpartywinloss-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\thirdpartywinloss.option-test.js" />
     <Content Include="Scripts\jasmine-specs\Report\turnover-test.js" />
