@@ -111,7 +111,7 @@ var WinLossByProduct = (function ($) {
         //#region Utilities
 
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = 'api/report/WinLostByProduct';
+            var temp = "api/WinLossByProductReport/WinLossByProduct";
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
                 fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy") +
