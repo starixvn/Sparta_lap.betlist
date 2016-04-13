@@ -503,7 +503,7 @@ var LicenseeWinLoss = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("BetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);

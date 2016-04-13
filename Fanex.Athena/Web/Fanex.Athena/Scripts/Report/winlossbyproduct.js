@@ -537,7 +537,7 @@ var WinLossByProduct = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("BetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));

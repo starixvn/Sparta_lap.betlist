@@ -174,7 +174,7 @@
     <Compile Include="BetList\BetListController.CancelledBetsBetList.cs" />
     <Compile Include="BetList\BetListController.Outstanding.DailyStatement.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
-    <Compile Include="BetList\BetListController.LicenseeWl.cs" />
+    <Compile Include="BetList\LicenseeWinLossBetListController.cs" />
     <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
     <Compile Include="BetList\BetListController.MatchWl.cs" />
     <Compile Include="BetList\BetListController.CustomerWl.cs" />

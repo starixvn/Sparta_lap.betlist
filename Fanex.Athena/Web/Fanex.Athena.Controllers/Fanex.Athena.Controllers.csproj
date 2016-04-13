@@ -210,7 +210,7 @@
     <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
     <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
-    <Compile Include="BetList\BetListController.LicenseeWl.cs" />
+    <Compile Include="BetList\LicenseeWinLossBetListController.cs" />
     <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
     <Compile Include="BetList\BetListController.MatchWl.cs" />
     <Compile Include="BetList\BetListController.LiveReport.cs" />

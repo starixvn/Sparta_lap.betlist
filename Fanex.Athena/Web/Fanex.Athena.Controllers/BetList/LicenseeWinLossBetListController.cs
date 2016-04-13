@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.LicenseeWl.cs" company="Nexcel">
+// <copyright file="LicenseeWinLossBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,16 +20,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class LicenseeWinLossBetListController : BetListBaseController
     {        
-        /// <summary>
-        /// Action Get for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
         public ActionResult LicenseeWL(BetListMetaModel metaModel)
         {
