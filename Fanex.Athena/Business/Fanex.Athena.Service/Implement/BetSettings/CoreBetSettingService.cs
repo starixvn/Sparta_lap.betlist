@@ -8,7 +8,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 {
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.BetSettings;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Service.Interface.BetSettings;
 
     public class CoreBetSettingService : ICoreBetSettingService

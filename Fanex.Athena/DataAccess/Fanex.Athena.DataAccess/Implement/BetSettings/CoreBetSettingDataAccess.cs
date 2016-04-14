@@ -10,7 +10,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Implement.Base;
     using Fanex.Athena.DataAccess.Interface.BetSettings;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Data;
 
     public class CoreBetSettingDataAccess : BaseDataAccess, ICoreBetSettingDataAccess

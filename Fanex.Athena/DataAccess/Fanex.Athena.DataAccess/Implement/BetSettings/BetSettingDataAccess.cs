@@ -17,8 +17,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.BetSettings;
+    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;

@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.Implement.Casino
     using System.Data;
     using System.Linq;
     using CasinoLibrary.SBAgent;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
+    using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Service.Exception;
     using Fanex.Athena.Service.Helpers;

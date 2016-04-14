@@ -10,10 +10,10 @@ namespace Fanex.Athena.Service.Interface.BetSettings
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.BetSettings;
+    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
+    using Fanex.Athena.Models.ViewModel.BetSettings;
 
     /// <summary>
     ///     IBet setting service.

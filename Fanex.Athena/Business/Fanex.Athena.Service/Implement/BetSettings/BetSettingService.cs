@@ -22,11 +22,11 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
+    using Fanex.Athena.Models.DTO.BetSettings;
+    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
+    using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.Exception;
     using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Casino;

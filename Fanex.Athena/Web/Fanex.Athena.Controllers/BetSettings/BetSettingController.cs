@@ -12,9 +12,9 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
-    using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
-    using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
+    using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
+    using Fanex.Athena.Models.MetaModel.BetSettings;
+    using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Casino;
