@@ -131,26 +131,11 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return null;
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             AssignRequiredProperties(metaModel);
 
-            metaModel.IsAllowSportsBook = ProductAccess.IsAllowSB;
-            metaModel.IsAllowRacing = ProductAccess.IsAllowRB;
-            metaModel.IsAllowVirtualSport = ProductAccess.IsAllowVS;
-            metaModel.IsAllowNumberGame = ProductAccess.IsAllowNG;
-            metaModel.IsAllowRngCasino = ProductAccess.IsAllowCS && customerInfo.SyncCasino;
-            metaModel.IsAllowLiveCasino = ProductAccess.IsAllowLC && customerInfo.SyncLiveCasino;
-            metaModel.IsAllowKeno = ProductAccess.IsAllowKN;
-            metaModel.IsAllowAgCasino = ProductAccess.IsAllowAG;
-            metaModel.IsAllowGoldDeluxe = ProductAccess.IsAllowGD;
-            metaModel.IsAllowMacau = ProductAccess.IsAllowMC;
-            metaModel.IsAllowMicroGamingLiveCasino = ProductAccess.IsAllowMGCLC;
-            metaModel.IsAllowMicroGamingRNGCasino = ProductAccess.IsAllowMGCRNG;
-            metaModel.IsAllowBetTrade = ProductAccess.IsAllowBT;
-            ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
-
+            ViewBag.HasCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             viewModel.Param = metaModel;
+
             return viewModel;
         }
 
