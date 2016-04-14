@@ -29,8 +29,6 @@ namespace Fanex.Athena.Models.MetaModel.BetSettings
 
         public int CustId { get; set; }
 
-        public int LicenessId { get; set; }
-
         public int CurrencyId { get; set; }
 
         public string UserName { get; set; }
@@ -67,6 +65,6 @@ namespace Fanex.Athena.Models.MetaModel.BetSettings
 
         public bool IsAllowBetTrade { get; set; }
 
-        public IList<BetSettingProduct> BetSettingProducts { get; set; }
+        public IEnumerable<BetSettingProduct> BetSettingProducts { get; set; }
     }
 }

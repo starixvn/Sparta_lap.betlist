@@ -10,8 +10,6 @@ namespace Fanex.Athena.Controllers.Customer
     using BetSettings;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.BetSettings;
     using Models.ViewModel.BetSettings;
@@ -20,18 +18,10 @@ namespace Fanex.Athena.Controllers.Customer
     public class VoidbridgeBetSettingController : BetSettingBaseController
     {
         private readonly IVoidbridgeBetSettingService _voidbridgeBetSettingService;
-        private readonly IProductService _productService;
-
-        private ProductAccess _productAccess;
 
         public VoidbridgeBetSettingController()
         {
             _voidbridgeBetSettingService = new VoidbridgeBetSettingService();
-            _productService = new ProductService();
-
-            _productAccess = _productService.GetProductAccess(
-                    SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language);
         }
 
         [HttpGet]
@@ -41,11 +31,6 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var viewModel = GetViewModel(metaModel);
 
-            if (viewModel == null)
-            {
-                return this.Redirect("~/Utility/AccessDenied");
-            }
-
             return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
         }
 
@@ -54,7 +39,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult GetStatus(int custId)
         {
-            if (_productAccess.IsAllowVB == false)
+            if (ProductAccess.IsAllowVB == false)
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
@@ -69,7 +54,7 @@ namespace Fanex.Athena.Controllers.Customer
         [ValidateAntiForgeryToken]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            if (_productAccess.IsAllowVB == false)
+            if (ProductAccess.IsAllowVB == false)
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
@@ -87,9 +72,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel)
         {
-            metaModel.Editable = IsBetSettingEditable(SessionService.UserSession.UserId, SessionService.LicenseeSession.LicenseeId);
-
-            metaModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
+            AssignRequiredProperties(metaModel);
             return new BetSettingViewModel()
             {
                 IsEnabled = _voidbridgeBetSettingService.GetStatus(metaModel.CustId),

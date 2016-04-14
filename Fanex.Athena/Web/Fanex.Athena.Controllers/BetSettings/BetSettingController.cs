@@ -11,14 +11,12 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
+    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetSettings;
     using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Interface.Casino;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Service.Implement.BetSettings;
     using Service.Interface.BetSettings;
@@ -26,13 +24,11 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class BetSettingController : BetSettingBaseController
     {
         private readonly IBetSettingService _betSettingService;
-        private readonly IProductService _productService;
         private readonly ICasinoSetting _casinoSetting;
 
         public BetSettingController()
         {
             this._betSettingService = new BetSettingService();
-            this._productService = new ProductService();
             this._casinoSetting = new CasinoSetting();
         }
 
@@ -137,25 +133,23 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.LicenessId = licenseeSession.LicenseeId;
-            metaModel.Editable = IsBetSettingEditable(userSession.UserId, licenseeSession.LicenseeId);
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            metaModel.IsAllowSportsBook = productAccess.IsAllowSB;
-            metaModel.IsAllowRacing = productAccess.IsAllowRB;
-            metaModel.IsAllowVirtualSport = productAccess.IsAllowVS;
-            metaModel.IsAllowNumberGame = productAccess.IsAllowNG;
-            metaModel.IsAllowRngCasino = productAccess.IsAllowCS && customerInfo.SyncCasino;
-            metaModel.IsAllowLiveCasino = productAccess.IsAllowLC && customerInfo.SyncLiveCasino;
-            metaModel.IsAllowKeno = productAccess.IsAllowKN;
-            metaModel.IsAllowAgCasino = productAccess.IsAllowAG;
-            metaModel.IsAllowGoldDeluxe = productAccess.IsAllowGD;
-            metaModel.IsAllowMacau = productAccess.IsAllowMC;
-            metaModel.IsAllowMicroGamingLiveCasino = productAccess.IsAllowMGCLC;
-            metaModel.IsAllowMicroGamingRNGCasino = productAccess.IsAllowMGCRNG;
-            metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
+            AssignRequiredProperties(metaModel);
+
+            metaModel.IsAllowSportsBook = ProductAccess.IsAllowSB;
+            metaModel.IsAllowRacing = ProductAccess.IsAllowRB;
+            metaModel.IsAllowVirtualSport = ProductAccess.IsAllowVS;
+            metaModel.IsAllowNumberGame = ProductAccess.IsAllowNG;
+            metaModel.IsAllowRngCasino = ProductAccess.IsAllowCS && customerInfo.SyncCasino;
+            metaModel.IsAllowLiveCasino = ProductAccess.IsAllowLC && customerInfo.SyncLiveCasino;
+            metaModel.IsAllowKeno = ProductAccess.IsAllowKN;
+            metaModel.IsAllowAgCasino = ProductAccess.IsAllowAG;
+            metaModel.IsAllowGoldDeluxe = ProductAccess.IsAllowGD;
+            metaModel.IsAllowMacau = ProductAccess.IsAllowMC;
+            metaModel.IsAllowMicroGamingLiveCasino = ProductAccess.IsAllowMGCLC;
+            metaModel.IsAllowMicroGamingRNGCasino = ProductAccess.IsAllowMGCRNG;
+            metaModel.IsAllowBetTrade = ProductAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            metaModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
             viewModel.Param = metaModel;
             return viewModel;
         }
@@ -181,7 +175,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                     break;
 
                 case ProductTypes.Racing:
-                    var isAllowSaToteCurrency = _productService.IsAllowedSaToteCurrency(custId);
+                    var isAllowSaToteCurrency = ProductService.IsAllowedSaToteCurrency(custId);
                     model = _betSettingService.GetRacingViewModel(custId, isAllowSaToteCurrency);
                     break;
 

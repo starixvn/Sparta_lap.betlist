@@ -11,13 +11,16 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.MetaModel.BetSettings;
     using Fanex.Athena.Service.Implement.Customer;
     using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Service.Interface.Users;
+    using Models.DTO.Common;
+    using Models.MetaModel.BetSettings;
     using Service.Implement.BetSettings;
+    using Service.Implement.Common;
     using Service.Interface.BetSettings;
+    using Service.Interface.Common;
 
     public class BetSettingBaseController : ReadonlyBaseController
     {
@@ -28,17 +31,19 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly ICoreBetSettingService _coreBetSettingService;
         private readonly ILicenseeService _licenseeService;
         private readonly ICustomerService _customerService;
+        private readonly IProductService _productService;
+        private readonly ProductAccess _productAccess;
 
         public BetSettingBaseController()
         {
             this._coreBetSettingService = new CoreBetSettingService();
             this._licenseeService = new LicenseeService();
             this._customerService = new CustomerService();
-        }
-        
-        protected ILicenseeService LicenseeService
-        {
-            get { return _licenseeService; }
+            this._productService = new ProductService();
+
+            _productAccess = _productService.GetProductAccess(
+                    SessionService.LicenseeSession.LicenseeId,
+                    SessionService.UserSession.Language);
         }
 
         protected ICustomerService CustomerService
@@ -46,7 +51,32 @@ namespace Fanex.Athena.Controllers.BetSettings
             get { return _customerService; }
         }
 
-        protected IList<BetSettingProduct> GetBetSettingProducts(int custId)
+        protected IProductService ProductService
+        {
+            get { return _productService; }
+        }
+
+        protected ProductAccess ProductAccess
+        {
+            get { return _productAccess; }
+        }
+
+        protected void AssignRequiredProperties(BetSettingMetaModel metaModel)
+        {
+            metaModel.Editable = IsBetSettingEditable();
+            metaModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
+        }
+
+        private static void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
+        {
+            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
+            if (product != null)
+            {
+                product.IsEnable = false;
+            }
+        }
+
+        private IEnumerable<BetSettingProduct> GetBetSettingProducts(int custId)
         {
             var customerInfo = _customerService.GetCustomerInfo(custId);
 
@@ -65,27 +95,18 @@ namespace Fanex.Athena.Controllers.BetSettings
             return betSettingProducts.Where(x => x.IsEnable).ToList();
         }
 
-        protected bool IsBetSettingEditable(int userId, int licenseeId)
+        private bool IsBetSettingEditable()
         {
             var setting = AppSettings.GetValue("LicenseesEditableBetSettings");
             var licenseeIds = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
-            if (licenseeIds.Contains(licenseeId.ToString()))
+            if (licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
             {
                 return true;
             }
             else
             {
-                var licensees = _licenseeService.GetByResellerId(userId, BopingResellerId);
-                return licensees.Contains(licenseeId);
-            }
-        }
-
-        private void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
-        {
-            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
-            if (product != null)
-            {
-                product.IsEnable = false;
+                var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
+                return licensees.Contains(SessionService.LicenseeSession.LicenseeId);
             }
         }
     }
