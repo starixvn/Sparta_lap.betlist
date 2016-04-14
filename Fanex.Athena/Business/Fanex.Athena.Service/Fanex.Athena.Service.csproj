@@ -226,7 +226,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Implement\BetSettings\CoreBetSettingService.cs" />
+    <Compile Include="Implement\BetSettings\VoidbridgeBetSettingService.cs" />
     <Compile Include="Implement\Casino\CasinoSetting.cs" />
+    <Compile Include="Interface\BetSettings\ICoreBetSettingService.cs" />
+    <Compile Include="Interface\BetSettings\IVoidbridgeBetSettingService.cs" />
     <Compile Include="Interface\Casino\IRNGCasinoSingleWalletService.cs" />
     <Compile Include="Implement\Casino\RGNCasinoSingleWalletService.cs" />
     <Compile Include="Implement\Casino\RNGCasinoService.cs" />
@@ -251,7 +255,7 @@
     <Compile Include="Implement\Common\LanguageService.cs" />
     <Compile Include="Implement\Common\MatchService.cs" />
     <Compile Include="Implement\Common\SportTypeService.cs" />
-    <Compile Include="Implement\Customer\BetSettingService.cs" />
+    <Compile Include="Implement\BetSettings\BetSettingService.cs" />
     <Compile Include="Implement\BetList\BetListService.cs" />
     <Compile Include="Implement\Forecast\ForecastService.cs" />
     <Compile Include="Implement\TotalBets\FirstGoalLastGoalService.cs" />
@@ -306,7 +310,7 @@
     <Compile Include="Interface\Configuration\IMoveBetService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ICustomerLogService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ILogInLogService.cs" />
-    <Compile Include="Interface\Customer\IBetSettingService.cs" />
+    <Compile Include="Interface\BetSettings\IBetSettingService.cs" />
     <Compile Include="Interface\BetList\IBetListService.cs" />
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />

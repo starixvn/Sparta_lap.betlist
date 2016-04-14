@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.BetSettingViewModel
+@using Fanex.Athena.Models.ViewModel;
+@using Fanex.Athena.Models.DataDomain;
+@section pagecss
+{
+}
+
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+
+<div class="content-title" style="width: 855px">
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+</div>
+<!--Content-->
+<div class="data-content">
+    <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+        <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.ProductVB)</div>
+    </div>
+</div>
+<!--/Content-->
+<!--SubmitButton-->
+@if (Model.Param.Editable && Model.IsEnabled.HasValue)
+{
+    <div style="width: 855px">
+        <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 0 : 1)"
+                   data-cust-id="@Model.Param.CustId"
+                   data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.Value ? ViewResources.DisableVoidbridge : ViewResources.EnableVoidbridge)"
+                   id="btnUpdateStatus" />
+    </div>
+}
+<!--/SubmitButton-->

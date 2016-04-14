@@ -4,65 +4,37 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Controllers.Customer
+namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
-    using Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Customer;
-    using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.RngCasino;
     using Fanex.Athena.Models.MetaModel.Customer.BetSetting;
     using Fanex.Athena.Models.ViewModel.Customer.BetSetting;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
+    using Service.Implement.BetSettings;
+    using Service.Interface.BetSettings;
 
-    /// <summary>
-    ///     Bet setting controller.
-    /// </summary>
-    public class BetSettingController : ReadonlyBaseController
+    public class BetSettingController : BetSettingBaseController
     {
-        #region Const
-
-        private const string CustomerListUrl = "Customer/CustomerList";
-
-        private const int BopingResellerId = 7;
-
-        #endregion Const
-
-        #region Field
-
         private readonly IBetSettingService _betSettingService;
-        private readonly ILicenseeService _licenseeService;
         private readonly IProductService _productService;
         private readonly ICasinoSetting _casinoSetting;
-        private readonly ICustomerService _customerService;
-
-        #endregion Field
-
-        #region Constructor
 
         public BetSettingController()
         {
             this._betSettingService = new BetSettingService();
             this._productService = new ProductService();
-            this._licenseeService = new LicenseeService();
             this._casinoSetting = new CasinoSetting();
-            this._customerService = new CustomerService();
         }
-
-        #endregion Constructor
 
         #region Displaying bet settings
 
@@ -154,18 +126,9 @@ namespace Fanex.Athena.Controllers.Customer
             return resultValue;
         }
 
-        /// <summary>
-        /// Get view model.
-        /// Get list of LicenseeId base on ResellerId.
-        /// BOPING's Id = 7.
-        /// Set editable. Only 12Bet (licenseeId = 1), SPONDEMO (licenseeId = 5) and BOPING can edit bet setting.
-        ///  Checking sync casino.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>Bet setting view model.</returns>
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
         {
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
+            var customerInfo = CustomerService.GetCustomerInfo(metaModel.CustId);
             var viewModel = GetViewModel(metaModel.ProductId, metaModel.CustId, customerInfo);
             if (viewModel == null)
             {
@@ -192,45 +155,9 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.IsAllowBetTrade = productAccess.IsAllowBT;
             ViewBag.HasCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            var betSettingProducts = _betSettingService.GetBetSettingProducts(licenseeSession.LicenseeId);
-
-            if (!customerInfo.SyncCasino)
-            {
-                DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);
-            }
-
-            if (!customerInfo.SyncLiveCasino)
-            {
-                DisableBetSettingProduct(betSettingProducts, ProductTypes.LiveCasino);
-            }
-
-            metaModel.BetSettingProducts = betSettingProducts.Where(x => x.IsEnable).ToList();
+            metaModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
             viewModel.Param = metaModel;
             return viewModel;
-        }
-
-        private bool IsBetSettingEditable(int userId, int licenseeId)
-        {
-            var setting = AppSettings.GetValue("LicenseesEditableBetSettings");
-            var licenseeIds = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
-            if (licenseeIds.Contains(licenseeId.ToString()))
-            {
-                return true;
-            }
-            else
-            {
-                var licensees = _licenseeService.GetByResellerId(userId, BopingResellerId);
-                return licensees.Contains(licenseeId);
-            }
-        }
-
-        private void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
-        {
-            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
-            if (product != null)
-            {
-                product.IsEnable = false;
-            }
         }
 
         /// <summary>

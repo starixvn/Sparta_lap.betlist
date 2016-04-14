@@ -3,21 +3,16 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Implement.Customer
+namespace Fanex.Athena.DataAccess.Implement.BetSettings
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Exception;
     using Fanex.Athena.DataAccess.Extension;
     using Fanex.Athena.DataAccess.Implement.Base;
-    using Fanex.Athena.DataAccess.Interface.Customer;
+    using Fanex.Athena.DataAccess.Interface.BetSettings;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DataDomain;
@@ -30,9 +25,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///     Bet setting data access.
-    /// </summary>
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {
         #region Const
@@ -53,24 +45,6 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
         private bool _isNumberGame;
 
         #endregion Field
-
-        /// <summary>
-        /// Gets the third party bet setting.
-        /// </summary>
-        /// <param name="licenseeId">The customer identifier.</param>
-        /// <returns>The product bet setting.</returns>
-        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
-        {
-            var uspName = "Lrf_LicenseeProductSel";
-            using (var db = new ObjectDb(uspName))
-            {
-                var param = new Hashtable
-                {
-                    { "licenseeid", licenseeId }
-                };
-                return db.Query<BetSettingProduct>(param);
-            }
-        }
 
         #region Get bet setting data
 

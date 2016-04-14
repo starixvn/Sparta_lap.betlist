@@ -3,11 +3,8 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Alex.Nguyen" date="2013.1.25">Created</change>
-// </history>
 
-namespace Fanex.Athena.Controllers.Customer
+namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
     using System.Collections;
@@ -22,22 +19,15 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Implement.Common;
     using Fanex.Athena.Service.Implement.Customer;
+    using Fanex.Athena.Service.Interface.BetSettings;
     using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Web.ActionFilter;
+    using Service.Implement.BetSettings;
 
-    /// <summary>
-    /// Bet setting API controller.
-    /// </summary>
     public class BetSettingApiController : ReadonlyBaseController
     {
-        #region Constants
-
         private const string CustomerListUrl = "Customer/CustomerList";
-
-        #endregion Constants
-
-        #region Fields        
 
         private readonly IBetSettingService _betSettingService;
         private readonly IProductService _productService;
@@ -47,8 +37,6 @@ namespace Fanex.Athena.Controllers.Customer
             new Dictionary<string, RacingBetSetting>();
 
         private ProductAccess _productAccess;
-
-        #endregion Fields
 
         #region Constructor
 
@@ -60,7 +48,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             _productAccess = _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language);            
+                    SessionService.UserSession.Language);
         }
 
         #endregion Constructor
@@ -524,7 +512,7 @@ namespace Fanex.Athena.Controllers.Customer
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
-            var userSession = SessionService.UserSession;            
+            var userSession = SessionService.UserSession;
             var ip = Request.UserHostAddress;
 
             var gameTypeCount = int.Parse(HttpContext.Request["gameTypeCount"]);
@@ -636,13 +624,13 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var userSession = SessionService.UserSession;
             var commonItem = new CommonBetSetting
-                {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    Ip = Request.UserHostAddress,
-                    Language = userSession.Language,
-                    UserId = userSession.UserId,
-                    CustId = int.Parse(Request["custid"])
-                };
+            {
+                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                Ip = Request.UserHostAddress,
+                Language = userSession.Language,
+                UserId = userSession.UserId,
+                CustId = int.Parse(Request["custid"])
+            };
 
             return commonItem;
         }

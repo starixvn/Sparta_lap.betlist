@@ -1960,6 +1960,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Voidbridge.
+        /// </summary>
+        public static string DisableVoidbridge {
+            get {
+                return ResourceManager.GetString("DisableVoidbridge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dividend Won.
         /// </summary>
         public static string DividendWon {
@@ -2172,6 +2181,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string EnableRNGCasino {
             get {
                 return ResourceManager.GetString("EnableRNGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Voidbridge.
+        /// </summary>
+        public static string EnableVoidbridge {
+            get {
+                return ResourceManager.GetString("EnableVoidbridge", resourceCulture);
             }
         }
         

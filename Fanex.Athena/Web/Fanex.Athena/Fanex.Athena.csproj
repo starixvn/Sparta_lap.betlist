@@ -745,6 +745,7 @@
     </Content>
     <Content Include="SiteConfig\Web.PRO.config">
       <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="SiteConfig\Web.SANDBOX.config">
       <DependentUpon>Web.config.tt</DependentUpon>
@@ -784,6 +785,7 @@
     <Content Include="Views\BetList\RngCasinoDetail\Main.cshtml" />
     <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
     <Content Include="Views\BetList\VoidbridgeDetail\Main.cshtml" />
+    <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

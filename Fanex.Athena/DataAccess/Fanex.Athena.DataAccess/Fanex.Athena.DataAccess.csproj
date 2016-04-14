@@ -147,13 +147,15 @@
     <Compile Include="Extension\DataHelper.cs" />
     <Compile Include="Extension\DataReaderExtensions.cs" />
     <Compile Include="Implement\BetList\BetListDataAccess.cs" />
+    <Compile Include="Implement\BetSettings\CoreBetSettingDataAccess.cs" />
+    <Compile Include="Implement\BetSettings\VoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Implement\Common\BetTypeDataAccess.cs" />
     <Compile Include="Implement\Common\ExChangeRateDataAccess.cs" />
     <Compile Include="Implement\Common\LeagueDataAccess.cs" />
     <Compile Include="Implement\Common\MatchDataAccess.cs" />
     <Compile Include="Implement\Common\SportTypeDataAccess.cs" />
     <Compile Include="Implement\Configuration\MoveBetDataAccess.cs" />
-    <Compile Include="Implement\Customer\BetSettingDataAccess.cs" />
+    <Compile Include="Implement\BetSettings\BetSettingDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
@@ -167,6 +169,8 @@
     <Compile Include="Implement\Report\ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
+    <Compile Include="Interface\BetSettings\ICoreBetSettingDataAccess.cs" />
+    <Compile Include="Interface\BetSettings\IVoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
     <Compile Include="Interface\Configuration\IMoveBetDataAccess.cs" />
     <Compile Include="Interface\Report\ICasinoProgressiveWinsDataAccess.cs" />
@@ -234,7 +238,7 @@
     <Compile Include="Implement\Users\LicenseeDataAccess.cs" />
     <Compile Include="Implement\Common\ProductDataAccess.cs" />
     <Compile Include="Implement\Report\MatchWinLossDataAccess.cs" />
-    <Compile Include="Interface\Customer\IBetSettingDataAccess.cs" />
+    <Compile Include="Interface\BetSettings\IBetSettingDataAccess.cs" />
     <Compile Include="Interface\Customer\ICustomerDataAccess.cs" />
     <Compile Include="Interface\Customer\IGroupComDataAccess.cs" />
     <Compile Include="Interface\Report\IBalanceDataAccess.cs" />

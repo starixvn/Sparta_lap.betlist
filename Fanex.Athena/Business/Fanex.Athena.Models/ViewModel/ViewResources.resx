@@ -2863,4 +2863,10 @@
     <value>%Turnover</value>
     <comment>#54751</comment>
   </data>
+  <data name="DisableVoidbridge" xml:space="preserve">
+    <value>Disable Voidbridge</value>
+  </data>
+  <data name="EnableVoidbridge" xml:space="preserve">
+    <value>Enable Voidbridge</value>
+  </data>
 </root>

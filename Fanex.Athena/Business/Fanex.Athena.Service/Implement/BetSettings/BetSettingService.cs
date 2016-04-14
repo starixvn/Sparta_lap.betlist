@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Customer
+namespace Fanex.Athena.Service.Implement.BetSettings
 {
     #region
 
@@ -16,7 +16,9 @@ namespace Fanex.Athena.Service.Implement.Customer
     using System.Text;
     using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
-    using Fanex.Athena.DataAccess.Implement.Customer;
+    using Customer;
+    using DataAccess.Interface.BetSettings;
+    using Fanex.Athena.DataAccess.Implement.BetSettings;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
@@ -29,10 +31,10 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Service.Helpers;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Service.Interface.BetSettings;
     using Fanex.Athena.Service.Interface.Users;
     using Fanex.Common;
-    using Fanex.Logging;
+    using Interface.Customer;
 
     #endregion
 
@@ -49,19 +51,13 @@ namespace Fanex.Athena.Service.Implement.Customer
 
         #endregion Constants
 
-        #region Field
-
-        private readonly BetSettingDataAccess _betSettingDataAccess;
+        private readonly IBetSettingDataAccess _betSettingDataAccess;
         private readonly ICustomerService _customerService;
         private readonly CasinoSetting _casinoSetting;
         private readonly IAuthorizationService _authorizationService;
         private readonly Customer _customer;
 
         private NumberGameBetSetting _numberGameBetSetting;
-
-        #endregion
-
-        #region Constructor
 
         public BetSettingService()
         {
@@ -70,13 +66,6 @@ namespace Fanex.Athena.Service.Implement.Customer
             _casinoSetting = new CasinoSetting();
             _authorizationService = new AuthorizationService();
             _customer = new Customer();
-        }
-
-        #endregion
-
-        public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
-        {
-            return _betSettingDataAccess.GetBetSettingProducts(licenseeId);
         }
 
         public IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
@@ -449,18 +438,18 @@ namespace Fanex.Athena.Service.Implement.Customer
                     betSettings.Where(x => x.GameTypeId == gameTypeId).Select(i => i.GameType).FirstOrDefault();
                 var bettingLimitList =
                     betSettings.Where(x => x.GameTypeId == gameTypeId).Select(i => new LiveCasinoBetSetting
-                        {
-                            StakeLevelId = i.StakeLevelId,
-                            StakeLevelName = i.StakeLevelName,
-                            IsCheck = i.IsCheck
-                        }).ToList();
+                    {
+                        StakeLevelId = i.StakeLevelId,
+                        StakeLevelName = i.StakeLevelName,
+                        IsCheck = i.IsCheck
+                    }).ToList();
 
                 resultList.Add(new LiveCasinoBetSettingGame
-                    {
-                        GameTypeName = gameTypeName,
-                        GameTypeId = gameTypeId,
-                        BettingLimitList = bettingLimitList
-                    });
+                {
+                    GameTypeName = gameTypeName,
+                    GameTypeId = gameTypeId,
+                    BettingLimitList = bettingLimitList
+                });
             }
 
             return new LiveCasinoBetSettingViewModel
@@ -570,21 +559,21 @@ namespace Fanex.Athena.Service.Implement.Customer
             }
 
             _numberGameBetSetting = new NumberGameBetSetting
-                                        {
-                                            CustId = setting.CustId,
-                                            UserId = setting.UserId,
-                                            Language = setting.Language,
-                                            Ip = setting.Ip,
-                                            MinBet = (decimal)data["minbet161"],
-                                            MaxBet = (decimal)data["maxbet161"],
-                                            MaxPerMatch = (decimal)data["maxpermatch161"],
-                                            IsDataChange =
+            {
+                CustId = setting.CustId,
+                UserId = setting.UserId,
+                Language = setting.Language,
+                Ip = setting.Ip,
+                MinBet = (decimal)data["minbet161"],
+                MaxBet = (decimal)data["maxbet161"],
+                MaxPerMatch = (decimal)data["maxpermatch161"],
+                IsDataChange =
                                                 !string.IsNullOrEmpty(data["minbet161"].ToString()) &&
                                                 !string.IsNullOrEmpty(data["maxbet161"].ToString()) &&
                                                 !string.IsNullOrEmpty(data["maxpermatch161"].ToString()) &&
                                                 !string.IsNullOrEmpty(data["maxperball"].ToString()),
-                                            MaxPerBall = (decimal)data["maxperball"]
-                                        };
+                MaxPerBall = (decimal)data["maxperball"]
+            };
 
             return _betSettingDataAccess.UpdateNumbetGameBetSetting(_numberGameBetSetting);
         }

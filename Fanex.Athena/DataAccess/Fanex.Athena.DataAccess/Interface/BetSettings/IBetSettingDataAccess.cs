@@ -3,28 +3,17 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
-namespace Fanex.Athena.DataAccess.Interface.Customer
+
+namespace Fanex.Athena.DataAccess.Interface.BetSettings
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
 
-    /// <summary>
-    ///     Bet setting interface.
-    /// </summary>
     public interface IBetSettingDataAccess
     {
-        IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
-
-        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
-
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
         GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
@@ -37,10 +26,13 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
 
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
+        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
+
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
+
+        void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
 
@@ -56,9 +48,25 @@ namespace Fanex.Athena.DataAccess.Interface.Customer
 
         IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
 
+        IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
+
         IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param);
 
+        void UpdateRacing15131(CommonBetSetting racingBetSetting);
+
+        void UpdateRacing15141(CommonBetSetting racingBetSetting);
+
+        void UpdateRacing15151(CommonBetSetting racingBetSetting);
+
+        void UpdateRacing15241(CommonBetSetting racingBetSetting);
+
+        void UpdateRacing15251(CommonBetSetting racingBetSetting);
+
+        void UpdateRacing15351(CommonBetSetting racingBetSetting);
+
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingBetSettingList);
+
+        IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
 

@@ -302,5 +302,7 @@ namespace Fanex.Athena.Models.DataDomain
         /// MicroGaming product, value = 203.
         /// </summary>
         MicroGaming = 203,
+
+        Voidbridge = 212
     }
 }

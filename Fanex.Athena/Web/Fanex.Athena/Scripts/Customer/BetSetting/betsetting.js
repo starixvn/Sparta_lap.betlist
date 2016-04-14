@@ -16,6 +16,7 @@ var BetSetting = (function ($) {
     var TAB_BETTRADE = 13;
     var TAB_MICROGAMINGLIVECASINO = 14;
     var TAB_MICROGAMINGRNGCASINO = 17;
+    var TAB_VOIDBRIDGE = 22;
 
     var _sportIds = null;
     return {
@@ -105,6 +106,9 @@ var BetSetting = (function ($) {
                 case TAB_BETTRADE:
                     url = "BetSettingAPI/UpdateBetTradeStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
+                case TAB_VOIDBRIDGE:
+                    url = "VoidbridgeBetSetting/UpdateStatus";
                     break;
             }
 

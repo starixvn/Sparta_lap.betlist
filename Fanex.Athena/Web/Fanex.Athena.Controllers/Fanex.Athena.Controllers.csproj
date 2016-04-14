@@ -225,6 +225,8 @@
     <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
     <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
     <Compile Include="BetList\BetListController.RacingCommission.cs" />
+    <Compile Include="BetSettings\BetSettingBaseController.cs" />
+    <Compile Include="BetSettings\VoidbridgeBetSettingController.cs" />
     <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
@@ -257,8 +259,8 @@
     <Compile Include="Customer\CustomerLog\CustomerLogController.LogInLog.cs" />
     <Compile Include="BetList\BetListController.RunningBetList.cs" />
     <Compile Include="ReadonlyBaseController.cs" />
-    <Compile Include="Customer\BetSettingController.cs" />
-    <Compile Include="Customer\BetSettingAPIController.cs" />
+    <Compile Include="BetSettings\BetSettingController.cs" />
+    <Compile Include="BetSettings\BetSettingAPIController.cs" />
     <Compile Include="Customer\CustomerController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>

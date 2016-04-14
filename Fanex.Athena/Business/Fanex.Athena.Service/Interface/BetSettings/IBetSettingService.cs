@@ -4,12 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Interface.Customer
+namespace Fanex.Athena.Service.Interface.BetSettings
 {
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer.BetSetting;
     using Fanex.Athena.Models.DTO.Customer.BetSetting.AgCasino;
@@ -21,9 +20,8 @@ namespace Fanex.Athena.Service.Interface.Customer
     /// </summary>
     public interface IBetSettingService
     {
-        IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
-
         #region Get Bet Setting
+
         ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeViewModel(int custId, string siteName);
@@ -43,9 +41,11 @@ namespace Fanex.Athena.Service.Interface.Customer
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
 
         LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language);
-        #endregion
+
+        #endregion Get Bet Setting
 
         #region Update Bet Setting
+
         IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
@@ -81,6 +81,7 @@ namespace Fanex.Athena.Service.Interface.Customer
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
 
         IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
-        #endregion
+
+        #endregion Update Bet Setting
     }
 }

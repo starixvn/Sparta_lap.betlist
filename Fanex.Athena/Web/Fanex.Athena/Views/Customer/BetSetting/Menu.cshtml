@@ -1,6 +1,9 @@
 ﻿@model Fanex.Athena.Models.MetaModel.Customer.BetSetting.BetSettingMetaModel
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.DataDomain
+
+@{ 
+    var separatedProducts = new string[] { "voidbridge" };
+}
 <div>
     <div style="display:inline-block; padding-bottom: 5px">
             <div class="grid_2 product-select-label">
@@ -11,7 +14,13 @@
                     @foreach (var product in Model.BetSettingProducts)
                     {
                         var productName = product.ProductName;
-                         <li><a href="@Url.Action("Index", "BetSetting", new
+                        var controllerName = "BetSetting";
+                        if(separatedProducts.Contains(productName.ToLowerInvariant()))
+                        {
+                            controllerName = productName + controllerName;
+                        }
+
+                         <li><a href="@Url.Action("Index", controllerName, new
                             {
                                 ProductId = product.ProductId,
                                 CustId = Model.CustId,
