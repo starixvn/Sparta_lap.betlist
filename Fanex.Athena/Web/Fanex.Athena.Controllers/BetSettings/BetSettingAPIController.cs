@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Web.Mvc;
@@ -389,33 +388,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         /// <summary>
-        /// Update number game settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateNumberGameBetSetting(string nickName)
-        {
-            if (_productAccess.IsAllowNG == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var numberGame = GetBetSettingCommonParam();
-            var hashData = GetNumberGameParam();
-            var result = _betSettingService.UpdateNumberGameBetSetting(numberGame, hashData);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateNumberGameBetSettingSuccessMsg, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// Update Keno settings.
         /// </summary>
         /// <param name="nickName">The user name.</param>
@@ -700,23 +672,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return racingBetSetting;
-        }
-
-        /// <summary>
-        /// Get the hash table parameters for Number game.
-        /// </summary>
-        /// <returns>The hash table parameters.</returns>
-        private Hashtable GetNumberGameParam()
-        {
-            var hashData = new Hashtable
-                               {
-                                   { "minbet161", decimal.Parse(HttpContext.Request["minbet161"]) },
-                                   { "maxbet161", decimal.Parse(HttpContext.Request["maxbet161"]) },
-                                   { "maxpermatch161", decimal.Parse(HttpContext.Request["maxpermatch161"]) },
-                                   { "maxperball", GetDecimalRequest("maxperball", 0) }
-                               };
-
-            return hashData;
         }
 
         /// <summary>

@@ -226,7 +226,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Implement\BetSettings\BetSettingBaseService.cs" />
     <Compile Include="Implement\BetSettings\CoreBetSettingService.cs" />
+    <Compile Include="Interface\BetSettings\INumberGameBetSettingService.cs" />
+    <Compile Include="Implement\BetSettings\NumberGameBetSettingService.cs" />
     <Compile Include="Implement\BetSettings\VoidbridgeBetSettingService.cs" />
     <Compile Include="Implement\Casino\CasinoSetting.cs" />
     <Compile Include="Interface\BetSettings\ICoreBetSettingService.cs" />

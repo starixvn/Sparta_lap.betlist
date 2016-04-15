@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     #region
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
@@ -41,7 +40,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     /// <summary>
     ///     Bet setting service.
     /// </summary>
-    public class BetSettingService : IBetSettingService
+    public class BetSettingService : BetSettingBaseService, IBetSettingService
     {
         #region Constants
 
@@ -54,23 +53,19 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         private readonly IBetSettingDataAccess _betSettingDataAccess;
         private readonly ICustomerService _customerService;
         private readonly CasinoSetting _casinoSetting;
-        private readonly IAuthorizationService _authorizationService;
         private readonly Customer _customer;
-
-        private NumberGameBetSetting _numberGameBetSetting;
 
         public BetSettingService()
         {
             _betSettingDataAccess = new BetSettingDataAccess();
             _customerService = new CustomerService();
             _casinoSetting = new CasinoSetting();
-            _authorizationService = new AuthorizationService();
             _customer = new Customer();
         }
 
         public IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -86,7 +81,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
         public ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return null;
             }
@@ -110,7 +105,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>Gold Deluxe setting.</returns>
         public GoldDeluxeBetSettingViewModel GetGoldDeluxeViewModel(int custId, string siteName)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return null;
             }
@@ -155,7 +150,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         public IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group)
         {
             var setting = _betSettingDataAccess.GetGoldDeluxeSetting(custId);
-            if (!setting.IsEnabled || !_authorizationService.HasPermissionOnData(custId, 0))
+            if (!setting.IsEnabled || !HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -189,7 +184,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
         public IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -203,7 +198,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
         public AgCasinoBetSettingViewModel GetAgCasinoViewModel(int custId, string licenseeName)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return null;
             }
@@ -235,7 +230,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<AgCasinoGame> GetAgCasinoGroupBettings(int custId, string siteName, int currency)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return new List<AgCasinoGame>();
             }
@@ -286,7 +281,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
         public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -307,7 +302,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>The result info.</returns>
         public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -334,7 +329,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>The result value.</returns>
         public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -361,7 +356,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         public BetSettingViewModel GetSportBookViewModel(int custId)
         {
             var esportSetting = EsportSettingType.NoneOffering;
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
+            var betSettings = HasPermissionOnData(custId)
                         ? _betSettingDataAccess.GetSportBookBetSetting(custId, ref esportSetting)
                         : new List<BetSetting>();
 
@@ -369,17 +364,6 @@ namespace Fanex.Athena.Service.Implement.BetSettings
             {
                 MainData = betSettings,
                 EsportSetting = esportSetting
-            };
-        }
-
-        public BetSettingViewModel GetNumberGameViewModel(int custId)
-        {
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
-                        ? _betSettingDataAccess.GetNumberGameBetSetting(custId)
-                        : new List<BetSetting>();
-            return new BetSettingViewModel
-            {
-                MainData = betSettings
             };
         }
 
@@ -391,7 +375,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>The bet setting list.</returns>
         public BetSettingViewModel GetRacingViewModel(int custId, bool isAllowSaToreCurrency)
         {
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
+            var betSettings = HasPermissionOnData(custId)
                         ? _betSettingDataAccess.GetRacingBetSetting(custId, isAllowSaToreCurrency)
                         : new List<BetSetting>();
             return new BetSettingViewModel
@@ -407,7 +391,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>The bet setting list.</returns>
         public BetSettingViewModel GetVirtualSportsViewModel(int custId)
         {
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
+            var betSettings = HasPermissionOnData(custId)
                         ? _betSettingDataAccess.GetVirtualSportsBetSetting(custId)
                         : new List<BetSetting>();
             return new BetSettingViewModel
@@ -424,7 +408,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         /// <returns>The bet setting of live casino list.</returns>
         public LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language)
         {
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
+            var betSettings = HasPermissionOnData(custId)
                             ? _betSettingDataAccess.GetLiveCasinoBetSetting(custId, language)
                             : new List<LiveCasinoBetSetting>();
 
@@ -460,7 +444,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
         public BetSettingViewModel GetKenoViewModel(int custId)
         {
-            var betSettings = _authorizationService.HasPermissionOnData(custId, 0)
+            var betSettings = HasPermissionOnData(custId)
                         ? _betSettingDataAccess.GetKenoBetSettings(custId)
                         : new List<BetSetting>();
 
@@ -485,7 +469,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 
             var agcasinoSetting = _betSettingDataAccess.GetAgCasinoSetting(setting.CustId);
 
-            if (!agcasinoSetting.IsEnabled || !_authorizationService.HasPermissionOnData(setting.CustId, 0))
+            if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -506,7 +490,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
                 return ErrorResult("Invalid parameter. sportsBook is null");
             }
 
-            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
+            if (!HasPermissionOnData(setting.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -537,45 +521,12 @@ namespace Fanex.Athena.Service.Implement.BetSettings
             }
 
             var custId = racingParam.First().Value.CustId;
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 throw new ServiceException(ViewResources.UpdateSpecialLevelMsg, "BetSetting");
             }
 
             return _betSettingDataAccess.UpdateRacingBetSetting(racingParam);
-        }
-
-        /// <summary>
-        /// Update NumberGame bet setting.
-        /// </summary>
-        /// <param name="setting">The metal model.</param>
-        /// <param name="data">The parameter.</param>
-        /// <returns>The information of result.</returns>
-        public IResultInfo UpdateNumberGameBetSetting(CommonBetSetting setting, Hashtable data)
-        {
-            if (!_authorizationService.HasPermissionOnData(setting.CustId, 0))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            _numberGameBetSetting = new NumberGameBetSetting
-            {
-                CustId = setting.CustId,
-                UserId = setting.UserId,
-                Language = setting.Language,
-                Ip = setting.Ip,
-                MinBet = (decimal)data["minbet161"],
-                MaxBet = (decimal)data["maxbet161"],
-                MaxPerMatch = (decimal)data["maxpermatch161"],
-                IsDataChange =
-                                                !string.IsNullOrEmpty(data["minbet161"].ToString()) &&
-                                                !string.IsNullOrEmpty(data["maxbet161"].ToString()) &&
-                                                !string.IsNullOrEmpty(data["maxpermatch161"].ToString()) &&
-                                                !string.IsNullOrEmpty(data["maxperball"].ToString()),
-                MaxPerBall = (decimal)data["maxperball"]
-            };
-
-            return _betSettingDataAccess.UpdateNumbetGameBetSetting(_numberGameBetSetting);
         }
 
         /// <summary>
@@ -591,7 +542,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting sporttype=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -626,7 +577,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         {
             var customerInfo = _customerService.GetCustomerInfo(custId);
 
-            if (customerInfo.DisableLiveCasino || !_authorizationService.HasPermissionOnData(custId, 0))
+            if (customerInfo.DisableLiveCasino || !HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -661,7 +612,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         {
             var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
 
-            if (customerInfo.DisableCasino || !_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            if (customerInfo.DisableCasino || !HasPermissionOnData(metaModel.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -700,7 +651,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -719,19 +670,6 @@ namespace Fanex.Athena.Service.Implement.BetSettings
                 xmlparam);
         }
 
-        #region Utility
-
-        private static IResultInfo ErrorResult(string message)
-        {
-            return new ResultInfo
-            {
-                Code = 1,
-                Message = message
-            };
-        }
-
-        #endregion
-
         #region Private Method
 
         /// <summary>
@@ -745,7 +683,7 @@ namespace Fanex.Athena.Service.Implement.BetSettings
             Justification = "Reviewed. Suppression is OK here.")]
         private IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int custId, string siteName, int currency)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!HasPermissionOnData(custId))
             {
                 return new List<GoldDeluxeGame>();
             }

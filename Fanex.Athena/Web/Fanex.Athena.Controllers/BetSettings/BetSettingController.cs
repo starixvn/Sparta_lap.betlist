@@ -53,9 +53,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             switch (metaModel.ProductId)
             {
-                case ProductTypes.NumberGame:
-                    return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
-
                 case ProductTypes.LiveCasino:
                     return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
 
@@ -131,9 +128,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return null;
             }
 
-            AssignRequiredProperties(viewModel, metaModel.CustId);
-
-            viewModel.Param = metaModel;
+            AssignRequiredProperties(viewModel, metaModel);
 
             return viewModel;
         }
@@ -161,10 +156,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                 case ProductTypes.Racing:
                     var isAllowSaToteCurrency = ProductService.IsAllowedSaToteCurrency(custId);
                     model = _betSettingService.GetRacingViewModel(custId, isAllowSaToteCurrency);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    model = _betSettingService.GetNumberGameViewModel(custId);
                     break;
 
                 case ProductTypes.VirtualSports:

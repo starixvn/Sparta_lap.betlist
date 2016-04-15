@@ -19,7 +19,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -39,12 +38,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
         protected const int LiveCasinoSportId = 162;
 
         #endregion Const
-
-        #region Field
-
-        private bool _isNumberGame;
-
-        #endregion Field
 
         #region Get bet setting data
 
@@ -154,33 +147,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
                             (EsportSettingType)Converter.ToInt(reader["DisableEsports"])
                             : EsportSettingType.NoneOffering;
                         return RenderSportBookBetSetting(reader);
-                    }
-                }
-            }
-
-            return new List<BetSetting>();
-        }
-
-        /// <summary>
-        /// Get number game bet setting.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <returns>Result value.</returns>
-        public IList<BetSetting> GetNumberGameBetSetting(int custId)
-        {
-            var uspName = "Lrf_CustomerSelEditNG";
-
-            // Set isNumberGame = true
-            this._isNumberGame = true;
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                using (var reader = db.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return RenderNumberGameBetSetting(reader);
                     }
                 }
             }
@@ -696,36 +662,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
 
         #endregion Racing
 
-        #region Number game
-
-        /// <summary>
-        /// Update number game bet setting.
-        /// </summary>
-        /// <param name="param">Parameter value.</param>
-        /// <returns>The result value.</returns>
-        public IResultInfo UpdateNumbetGameBetSetting(NumberGameBetSetting param)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet161";
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("custid", DbType.Int32, param.CustId);
-                db.AddInParameter("userid", DbType.Int32, param.UserId);
-                db.AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
-                db.AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
-                db.AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
-                db.AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
-                db.AddInParameter("language", DbType.String, param.Language);
-                db.AddInParameter("ip", DbType.String, param.Ip);
-                AddResultParam(db);
-                db.ExecuteNonQuery();
-
-                return GetResult(db);
-            }
-        }
-
-        #endregion Number game
-
         #region Keno
 
         /// <summary>
@@ -857,57 +793,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
         #endregion Live Casino
 
         #endregion Update bet setting
-
-        #region Get Sport Name
-
-        /// <summary>
-        /// Get sport name.
-        /// </summary>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <returns>The result value.</returns>
-        private static string GetSportName(string sportId)
-        {
-            var sportName = string.Empty;
-
-            switch (sportId)
-            {
-                case "99MP":
-                    sportName = ViewResources.MixSportsParlay;
-                    break;
-
-                case "151_31":
-                    sportName = ViewResources.HorseRacingSATote;
-                    break;
-
-                case "151_41":
-                    sportName = ViewResources.HorseRacingUK_IrishTote;
-                    break;
-
-                case "151_51":
-                    sportName = ViewResources.HorseRacingAustTote;
-                    break;
-
-                case "152_41":
-                    sportName = ViewResources.GreyhoundUK_IrishTote;
-                    break;
-
-                case "152_51":
-                    sportName = ViewResources.GreyhoundAustTote;
-                    break;
-
-                case "153_51":
-                    sportName = ViewResources.HarnessAustTote;
-                    break;
-
-                default:
-                    sportName = ViewResources.OtherSport;
-                    break;
-            }
-
-            return sportName;
-        }
-
-        #endregion Get Sport Name
 
         #region Live Casino Utility
 
@@ -1159,87 +1044,29 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
 
             var sportList = new List<BetSetting>();
 
-            RenderSport(reader, "1", sportList); // Soccer
-            RenderSport(reader, "2", sportList); // Basket ball
-            RenderSport(reader, "3", sportList); // Football
-            RenderSport(reader, "5", sportList); // Tennis
-            RenderSport(reader, "8", sportList); // Baseball
-            RenderSport(reader, "10", sportList); // Golf
-            RenderSport(reader, "11", sportList); // Moto
+            BetSettingHelper.RenderSport(reader, "1", sportList); // Soccer
+            BetSettingHelper.RenderSport(reader, "2", sportList); // Basket ball
+            BetSettingHelper.RenderSport(reader, "3", sportList); // Football
+            BetSettingHelper.RenderSport(reader, "5", sportList); // Tennis
+            BetSettingHelper.RenderSport(reader, "8", sportList); // Baseball
+            BetSettingHelper.RenderSport(reader, "10", sportList); // Golf
+            BetSettingHelper.RenderSport(reader, "11", sportList); // Moto
 
             // Remove Muay Thai, feature #55015.
-            // RenderSport(reader, "44", sportList); // Muay Thai
-            RenderSport(reader, "99", sportList); // Other sports
+            // BetSettingHelper.RenderSport(reader, "44", sportList); // Muay Thai
+            BetSettingHelper.RenderSport(reader, "99", sportList); // Other sports
 
             if (AppSettings.IsShowMixedSport)
             {
-                RenderSport(reader, "99MP", sportList);
+                BetSettingHelper.RenderSport(reader, "99MP", sportList);
             }
 
-            RenderSport(reader, "154", sportList); // Horse Racing Fixed Odds
+            BetSettingHelper.RenderSport(reader, "154", sportList); // Horse Racing Fixed Odds
 
             return sportList;
         }
 
-        /// <summary>
-        /// Render sport.
-        /// </summary>
-        /// <param name="reader">The row value.</param>
-        /// <param name="sportId">Sport ID value.</param>
-        /// <param name="resultList">Result list value.</param>
-        private void RenderSport(IDataReader reader, string sportId, List<BetSetting> resultList)
-        {
-            var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
-            var sportName = CacheRef.GetSportName(sportId);
-
-            sportName = string.IsNullOrEmpty(sportName) ? GetSportName(sportId) : sportName;
-
-            var sport = new BetSetting
-            {
-                MaxBet = Converter.ToDecimal(reader["maxbet" + sportSuffix]),
-                MinBet = Converter.ToDecimal(reader["minbet" + sportSuffix]),
-                MaxPerMatch = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix]),
-                MaxPerMatchMax = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix + "_Max"]),
-                MaxPerMatchMin = Converter.ToDecimal(reader["MaxPerMatch" + sportSuffix + "_Min"]),
-                BetValueMax = Converter.ToDecimal(reader["MaxBet" + sportSuffix + "_Min"]),
-                BetValueMin = Converter.ToDecimal(reader["MinBet" + sportSuffix + "_Max"]),
-                BetSettingType = sportName,
-                SportId = sportId
-            };
-
-            if (_isNumberGame)
-            {
-                sport.MaxPerBall = Converter.ToDecimal(reader["maxperball" + sportSuffix]);
-                sport.MaxPerBallMax = Converter.ToDecimal(reader["maxperball" + sportSuffix + "_Max"]);
-            }
-
-            resultList.Add(sport);
-        }
-
         #endregion Sport Book
-
-        #region Number Game
-
-        /// <summary>
-        /// Render number game bet setting.
-        /// </summary>
-        /// <param name="reader">Number game table value.</param>
-        /// <returns>The result value.</returns>
-        private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
-        {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
-            var numberGameList = new List<BetSetting>();
-
-            RenderSport(reader, "161", numberGameList); // Soccer
-
-            return numberGameList;
-        }
-
-        #endregion Number Game
 
         #region Racing
 
@@ -1258,15 +1085,15 @@ namespace Fanex.Athena.DataAccess.Implement.BetSettings
 
             var racingList = new List<BetSetting>();
 
-            RenderSport(reader, "151_41", racingList); // Horse racing UK
+            BetSettingHelper.RenderSport(reader, "151_41", racingList); // Horse racing UK
 
             if (isAllowSaToteCurrency)
             {
-                RenderSport(reader, "151_31", racingList); // Horse racing SA
+                BetSettingHelper.RenderSport(reader, "151_31", racingList); // Horse racing SA
             }
 
-            RenderSport(reader, "152_51", racingList); // Greyhound Aust
-            RenderSport(reader, "153_51", racingList); // Harness Aust
+            BetSettingHelper.RenderSport(reader, "152_51", racingList); // Greyhound Aust
+            BetSettingHelper.RenderSport(reader, "153_51", racingList); // Harness Aust
 
             return racingList;
         }

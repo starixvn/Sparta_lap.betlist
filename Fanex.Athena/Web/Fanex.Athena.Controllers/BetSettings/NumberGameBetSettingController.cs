@@ -1,0 +1,82 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="NumberGameBetSettingController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
+namespace Fanex.Athena.Controllers.Customer
+{
+    using System.Collections;
+    using System.Web.Mvc;
+    using BetSettings;
+    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Web.ActionFilter;
+    using Models.MetaModel.BetSettings;
+    using Models.ViewModel.BetSettings;
+    using Service.Implement.BetSettings;
+    using Service.Interface.BetSettings;
+
+    public class NumberGameBetSettingController : BetSettingBaseController
+    {
+        private readonly INumberGameBetSettingService _numberGameBetSettingService;
+
+        public NumberGameBetSettingController()
+        {
+            _numberGameBetSettingService = new NumberGameBetSettingService();
+        }
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        public ActionResult Index(BetSettingMetaModel metaModel)
+        {
+            var viewModel = GetViewModel(metaModel);
+
+            return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
+        }
+
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public JsonResult UpdateBetSetting(string nickName)
+        {
+            if (ProductAccess.IsAllowNG == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
+            var numberGame = GetBetSettingCommonParam();
+            var hashData = GetNumberGameParam();
+            var result = _numberGameBetSettingService.UpdateBetSetting(numberGame, hashData);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateNumberGameBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
+        {
+            var viewModel = _numberGameBetSettingService.GetViewModel(metaModel.CustId);
+            viewModel.Param = metaModel;
+            AssignRequiredProperties(viewModel, metaModel);
+            return viewModel;
+        }
+
+        private Hashtable GetNumberGameParam()
+        {
+            var hashData = new Hashtable
+                               {
+                                   { "minbet161", decimal.Parse(HttpContext.Request["minbet161"]) },
+                                   { "maxbet161", decimal.Parse(HttpContext.Request["maxbet161"]) },
+                                   { "maxpermatch161", decimal.Parse(HttpContext.Request["maxpermatch161"]) },
+                                   { "maxperball", GetDecimalRequest("maxperball", 0) }
+                               };
+
+            return hashData;
+        }
+    }
+}

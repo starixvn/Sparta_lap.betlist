@@ -62,10 +62,39 @@ namespace Fanex.Athena.Controllers.BetSettings
             get { return _productAccess; }
         }
 
-        protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, int custId)
+        protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
+            viewModel.Param = metaModel;
             viewModel.Editable = IsBetSettingEditable();
-            viewModel.BetSettingProducts = GetBetSettingProducts(custId);
+            viewModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
+        }
+
+        protected CommonBetSetting GetBetSettingCommonParam()
+        {
+            var userSession = SessionService.UserSession;
+            var commonItem = new CommonBetSetting
+            {
+                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                Ip = Request.UserHostAddress,
+                Language = userSession.Language,
+                UserId = userSession.UserId,
+                CustId = int.Parse(Request["custid"])
+            };
+
+            return commonItem;
+        }
+
+        protected decimal GetDecimalRequest(string name, decimal defaultValue)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Request[name]))
+            {
+                return defaultValue;
+            }
+
+            decimal value;
+            return !decimal.TryParse(HttpContext.Request[name], out value)
+                       ? defaultValue
+                       : value;
         }
 
         private static void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)

@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Models.MetaModel.BetSettings;
     using Models.ViewModel.BetSettings;
     using Service.Implement.BetSettings;
+    using Service.Interface.BetSettings;
 
     public class VoidbridgeBetSettingController : BetSettingBaseController
     {
@@ -32,21 +33,6 @@ namespace Fanex.Athena.Controllers.Customer
             var viewModel = GetViewModel(metaModel);
 
             return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
-        }
-
-        [HttpGet]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult GetStatus(int custId)
-        {
-            if (ProductAccess.IsAllowVB == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var data = _voidbridgeBetSettingService.GetStatus(custId);
-
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -77,7 +63,7 @@ namespace Fanex.Athena.Controllers.Customer
                 IsEnabled = _voidbridgeBetSettingService.GetStatus(metaModel.CustId),
                 Param = metaModel
             };
-            AssignRequiredProperties(viewModel, metaModel.CustId);
+            AssignRequiredProperties(viewModel, metaModel);
             return viewModel;
         }
     }

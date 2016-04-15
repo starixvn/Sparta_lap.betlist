@@ -199,6 +199,7 @@
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="BetSettings\BetSettingBaseController.cs" />
+    <Compile Include="BetSettings\NumberGameBetSettingController.cs" />
     <Compile Include="BetSettings\VoidbridgeBetSettingController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />

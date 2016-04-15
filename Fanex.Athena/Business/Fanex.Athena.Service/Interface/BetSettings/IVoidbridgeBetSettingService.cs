@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.BetSettings
+namespace Fanex.Athena.Service.Interface.BetSettings
 {
     using Fanex.Athena.Models.DTO.Common;
 

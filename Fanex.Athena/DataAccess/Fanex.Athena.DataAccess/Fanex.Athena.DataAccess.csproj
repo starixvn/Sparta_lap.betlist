@@ -147,6 +147,8 @@
     <Compile Include="Extension\DataHelper.cs" />
     <Compile Include="Extension\DataReaderExtensions.cs" />
     <Compile Include="Implement\BetList\BetListDataAccess.cs" />
+    <Compile Include="Implement\BetSettings\BetSettingHelper.cs" />
+    <Compile Include="Implement\BetSettings\NumberGameBetSettingDataAccess.cs" />
     <Compile Include="Implement\BetSettings\CoreBetSettingDataAccess.cs" />
     <Compile Include="Implement\BetSettings\VoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Implement\Common\BetTypeDataAccess.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Implement\Report\ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
+    <Compile Include="Interface\BetSettings\INumberGameBetSettingDataAccess.cs" />
     <Compile Include="Interface\BetSettings\ICoreBetSettingDataAccess.cs" />
     <Compile Include="Interface\BetSettings\IVoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />

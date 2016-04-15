@@ -34,8 +34,6 @@ namespace Fanex.Athena.Service.Interface.BetSettings
 
         BetSettingViewModel GetSportBookViewModel(int custId);
 
-        BetSettingViewModel GetNumberGameViewModel(int custId);
-
         BetSettingViewModel GetRacingViewModel(int custId, bool isAllowSaToreCurrency);
 
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
@@ -58,8 +56,6 @@ namespace Fanex.Athena.Service.Interface.BetSettings
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam);
-
-        IResultInfo UpdateNumberGameBetSetting(CommonBetSetting setting, Hashtable data);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
 
