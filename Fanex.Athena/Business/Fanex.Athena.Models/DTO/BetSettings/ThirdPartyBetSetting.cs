@@ -19,5 +19,7 @@ namespace Fanex.Athena.Models.DTO.BetSettings
         public bool IsLineEnabled { get; set; }
 
         public bool IsEnabled { get; set; }
+
+        public int CurrencyId { get; set; }
     }
 }

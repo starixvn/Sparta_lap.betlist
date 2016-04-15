@@ -71,6 +71,7 @@
     <Compile Include="BetSettingAPIController.cs" />
     <Compile Include="BetSettingBaseController.cs" />
     <Compile Include="BetSettingController.cs" />
+    <Compile Include="GoldDeluxeBetSettingController.cs" />
     <Compile Include="ThirdPartyBetSettingController.cs" />
     <Compile Include="NumberGameBetSettingController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

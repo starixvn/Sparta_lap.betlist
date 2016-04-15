@@ -65,9 +65,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                 case ProductTypes.AgCasino:
                     return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
 
-                case ProductTypes.GoldDeluxe:
-                    return View("~/Views/Customer/BetSetting/GoldDeluxe.cshtml", viewModel);
-
                 default: // Sportsbook, Racing, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
@@ -165,10 +162,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 case ProductTypes.AgCasino:
                     model = _betSettingService.GetAgCasinoViewModel(custId, SessionService.LicenseeSession.LicenseeName);
-                    break;
-
-                case ProductTypes.GoldDeluxe:
-                    model = _betSettingService.GetGoldDeluxeViewModel(custId, SessionService.LicenseeSession.LicenseeName);
                     break;
 
                 default:

@@ -19,10 +19,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     /// </summary>
     public interface IBetSettingService
     {
-        #region Get Bet Setting
-
-        GoldDeluxeBetSettingViewModel GetGoldDeluxeViewModel(int custId, string siteName);
-
         AgCasinoBetSettingViewModel GetAgCasinoViewModel(int custId, string licenseeName);
 
         IList<AgCasinoGame> GetAgCasinoGroupBettings(int custId, string siteName, int currency);
@@ -36,12 +32,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
 
         LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language);
-
-        #endregion Get Bet Setting
-
-        #region Update Bet Setting
-
-        IResultInfo UpdateGoldDeluxeBetSetting(string siteName, int custId, string group);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
 
@@ -65,14 +55,10 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
             string ip,
            string language);
 
-        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
-
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
-
-        #endregion Update Bet Setting
     }
 }

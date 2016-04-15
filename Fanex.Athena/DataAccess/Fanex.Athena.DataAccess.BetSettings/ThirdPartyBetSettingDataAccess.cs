@@ -32,7 +32,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 return new ThirdPartyBetSetting()
                 {
                     IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
+                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled")),
+                    CurrencyId = Converter.ToInt(db.GetParameterValue("Currency"))
                 };
             }
         }

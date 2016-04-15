@@ -16,8 +16,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     {
         AgCasinoBetSetting GetAgCasinoSetting(int custId);
 
-        GoldDeluxeBetSetting GetGoldDeluxeSetting(int custId);
-
         IList<BetSetting> GetKenoBetSettings(int custId);
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
@@ -25,7 +23,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
 
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
-        
+
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting);
@@ -35,10 +33,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
-
-        IResultInfo UpdateGoldDeluxeBetSetting(CommonBetSetting data, string group);
-
-        IResultInfo UpdateGoldDeluxeStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
@@ -63,7 +57,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
-        
+
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

@@ -63,11 +63,13 @@
     <Compile Include="BetSettingBaseService.cs" />
     <Compile Include="BetSettingService.cs" />
     <Compile Include="CoreBetSettingService.cs" />
+    <Compile Include="Interfaces\IGoldDeluxeBetSettingService.cs" />
     <Compile Include="Interfaces\IBetSettingService.cs" />
     <Compile Include="Interfaces\ICoreBetSettingService.cs" />
     <Compile Include="Interfaces\IThirdPartyBetSettingService.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingService.cs" />
     <Compile Include="Interfaces\IVoidbridgeBetSettingService.cs" />
+    <Compile Include="GoldDeluxeBetSettingService.cs" />
     <Compile Include="ThirdPartyBetSettingService.cs" />
     <Compile Include="NumberGameBetSettingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
