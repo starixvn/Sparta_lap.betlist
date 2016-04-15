@@ -4,25 +4,25 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Implement.BetSettings
+namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
-    using Fanex.Athena.DataAccess.Interface.BetSettings;
-    using Fanex.Athena.Extension.Utility;
+    using Common;
+    using Core;
+    using Extension.Utility;
+    using Fanex.Athena.DataAccess.BetSettings.Interfaces;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Logging;
+    using Logging;
 
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {

@@ -13,8 +13,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core.Extensions;
     using Data;
-    using Extension;
     using Fanex.Athena.Models.DTO.Forecast.ForecastHdou;
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
     using Fanex.Athena.Models.MetaModel;
@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     /// Forecast Data Access.
     /// </summary>
     public class ForecastDataAccess : IForecastDataAccess
-    {        
+    {
         #region Forecast AH
 
         /// <summary>
@@ -195,17 +195,17 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
             const string UspName = "Lrf_Forecast_SelByLeague";
 
             var paramValues = new
-                {
-                    LicenseeId = metaModel.LicenseeId,
-                    UserId = metaModel.UserId,
-                    LicenseeType = metaModel.LicenseeType,
-                    CurrencyId = metaModel.CurrencyId,
-                    LeagueId = metaModel.LeagueId,
-                    Baseoffsethdp = 0,
-                    baseoffsetou = 0,
-                    baseoffseththdp = 0,
-                    baseoffsethtou = 0
-                };
+            {
+                LicenseeId = metaModel.LicenseeId,
+                UserId = metaModel.UserId,
+                LicenseeType = metaModel.LicenseeType,
+                CurrencyId = metaModel.CurrencyId,
+                LeagueId = metaModel.LeagueId,
+                Baseoffsethdp = 0,
+                baseoffsetou = 0,
+                baseoffseththdp = 0,
+                baseoffsethtou = 0
+            };
             using (var db = new ObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(paramValues))
@@ -291,7 +291,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="reader">Data reader.</param>
         /// <returns>A list of forecast one x two.</returns>
         private static IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
-        {            
+        {
             var forecasts = new List<ForecastOneXTwo>();
             var extraColumnName = "isExtra";
             var homeWinLossColumn = DataHelper.GetCurrencyColumnName("hl", metaModel.IsConvert, metaModel.BaseCurrency);

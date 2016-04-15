@@ -13,12 +13,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report.LiveReports;
@@ -189,18 +188,18 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                                 {
                                     var item =
                                         new LiveReport
-                                            {
-                                                ReportType = 2,
-                                                ProductName = reader.ToString("SportType"),
-                                                ProductCode = reader.ToString("SportType"),
-                                                TurnOver = reader.ToDecimal("Turnover" + currency),
-                                                CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
-                                                CustomerComm = reader.ToDecimal("PlayerComm" + currency),
-                                                LicenseeComm = reader.ToDecimal("Comm" + currency),
-                                                LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
-                                                AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
-                                                BetCount = reader.ToInt("Betcount")
-                                            };
+                                        {
+                                            ReportType = 2,
+                                            ProductName = reader.ToString("SportType"),
+                                            ProductCode = reader.ToString("SportType"),
+                                            TurnOver = reader.ToDecimal("Turnover" + currency),
+                                            CustomerWinLoss = reader.ToDecimal("Winlost" + currency),
+                                            CustomerComm = reader.ToDecimal("PlayerComm" + currency),
+                                            LicenseeComm = reader.ToDecimal("Comm" + currency),
+                                            LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency),
+                                            AmountDue = reader.ToDecimal("AmtDueto3rd" + currency),
+                                            BetCount = reader.ToInt("Betcount")
+                                        };
                                     items.Add(item);
                                 }
 
@@ -226,10 +225,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                         if (temp.Count > 0)
                         {
                             resultByBettype.Add(new LiveReportByBetType
-                                {
-                                    ProductName = product.ProductName,
-                                    LiveReports = temp
-                                });
+                            {
+                                ProductName = product.ProductName,
+                                LiveReports = temp
+                            });
                         }
                     }
                 }

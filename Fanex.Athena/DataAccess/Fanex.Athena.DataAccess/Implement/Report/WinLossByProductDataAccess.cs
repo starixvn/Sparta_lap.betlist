@@ -12,12 +12,11 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DataDomain;
@@ -165,7 +164,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             bool drilldown,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
         {
-            var result = new List<WinLossByProduct>();            
+            var result = new List<WinLossByProduct>();
             var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
             summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
             foreach (var currency in SystemConstants.BaseCurrencyList)

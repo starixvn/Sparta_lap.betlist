@@ -13,9 +13,9 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.Extensions;
     using Data;
     using DataAccess.Interface.TotalBets;
-    using Extension;
     using Fanex.Common;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
@@ -124,9 +124,9 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             }
 
             var racingData = new Racing
-                {
-                    RacingDataList = dataList
-                };
+            {
+                RacingDataList = dataList
+            };
 
             // Get total
             foreach (DataRow dr in totalTable.Rows)

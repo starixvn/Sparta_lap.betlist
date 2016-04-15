@@ -8,8 +8,8 @@ namespace Fanex.Athena.Service.Implement.BetSettings
 {
     using System.Collections;
     using System.Collections.Generic;
-    using DataAccess.Implement.BetSettings;
-    using DataAccess.Interface.BetSettings;
+    using DataAccess.BetSettings;
+    using DataAccess.BetSettings.Interfaces;
     using Interface.BetSettings;
     using Models.DTO.BetSettings;
     using Models.DTO.Common;

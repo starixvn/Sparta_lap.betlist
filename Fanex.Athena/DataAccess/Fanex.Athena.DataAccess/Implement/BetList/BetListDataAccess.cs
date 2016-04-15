@@ -16,9 +16,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using DataAccess.Core.Utilities;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.BetList;
     using Fanex.Athena.Extension;
     using Fanex.Athena.Extension.Utility;
@@ -31,7 +32,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Utilities;
 
     /// <summary>
     /// TODO: Update summary.

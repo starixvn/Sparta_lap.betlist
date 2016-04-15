@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.Implement.Common
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Common;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.Common;

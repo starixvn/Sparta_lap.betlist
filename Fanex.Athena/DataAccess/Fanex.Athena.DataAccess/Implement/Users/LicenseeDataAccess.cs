@@ -3,17 +3,14 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
+
 namespace Fanex.Athena.DataAccess.Implement.Users
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Users;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
@@ -121,11 +118,11 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                         while (reader.Read())
                         {
                             var entity = new Licensee
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")),
-                                    Name = reader.GetString(reader.GetOrdinal("LicenseeName")),
-                                    IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm"))
-                                };
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")),
+                                Name = reader.GetString(reader.GetOrdinal("LicenseeName")),
+                                IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm"))
+                            };
                             entityList.Add(entity);
                         }
                     }
@@ -166,10 +163,10 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                         while (reader.Read())
                         {
                             var currency = new Currency
-                                {
-                                    CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                    Name = reader.GetString(reader.GetOrdinal("CurrencyName"))
-                                };
+                            {
+                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
+                                Name = reader.GetString(reader.GetOrdinal("CurrencyName"))
+                            };
 
                             entityList.Add(currency);
                         }
@@ -208,15 +205,15 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                         while (reader.Read())
                         {
                             var entity = new LicenseeCustomer
-                                {
-                                    Id = licenseeId,
-                                    Username = reader.GetString(reader.GetOrdinal("username")),
-                                    CustId = reader.GetInt32(reader.GetOrdinal("CustId")),
-                                    Currency = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                    RoleId = reader.GetByte(reader.GetOrdinal("RoleID")),
-                                    Description = reader["Description"].ToString(),
-                                    CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName"))
-                                };
+                            {
+                                Id = licenseeId,
+                                Username = reader.GetString(reader.GetOrdinal("username")),
+                                CustId = reader.GetInt32(reader.GetOrdinal("CustId")),
+                                Currency = reader.GetInt32(reader.GetOrdinal("Currency")),
+                                RoleId = reader.GetByte(reader.GetOrdinal("RoleID")),
+                                Description = reader["Description"].ToString(),
+                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName"))
+                            };
                             entityList.Add(entity);
                         }
                     }

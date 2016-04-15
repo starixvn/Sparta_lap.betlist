@@ -13,9 +13,8 @@ namespace Fanex.Athena.DataAccess.Implement.Users
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Users;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Users;
@@ -85,16 +84,16 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                         while (reader.Read())
                         {
                             var entity = new User
-                                {
-                                    Id = Convert.ToInt32(reader["UserID"]),
-                                    Username = reader.ToString("username"),
-                                    FirstName = reader.ToString("firstname"),
-                                    LastName = reader.ToString("lastname"),
-                                    Status = reader.ToString("status"),
-                                    IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
-                                    Licensee = new Licensee { Id = licenseeId },
-                                    IsInternal = Converter.ToBool(reader["isinternal"])
-                                };
+                            {
+                                Id = Convert.ToInt32(reader["UserID"]),
+                                Username = reader.ToString("username"),
+                                FirstName = reader.ToString("firstname"),
+                                LastName = reader.ToString("lastname"),
+                                Status = reader.ToString("status"),
+                                IsManageAccount = Convert.ToBoolean(reader["ismanageaccount"]),
+                                Licensee = new Licensee { Id = licenseeId },
+                                IsInternal = Converter.ToBool(reader["isinternal"])
+                            };
 
                             entityList.Add(entity);
                         }
@@ -390,15 +389,15 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                         if (reader.Read())
                         {
                             user = new User
-                                {
-                                    Id = reader.ToInt("UserID"),
-                                    Username = reader.ToString("username"),
-                                    FirstName = reader.ToString("firstname"),
-                                    LastName = reader.ToString("lastname"),
-                                    Email = reader.ToString("email"),
-                                    Role = reader.ToString("userrole"),                                    
-                                    IsInternal = Converter.ToBool(reader["isinternal"])
-                                };
+                            {
+                                Id = reader.ToInt("UserID"),
+                                Username = reader.ToString("username"),
+                                FirstName = reader.ToString("firstname"),
+                                LastName = reader.ToString("lastname"),
+                                Email = reader.ToString("email"),
+                                Role = reader.ToString("userrole"),
+                                IsInternal = Converter.ToBool(reader["isinternal"])
+                            };
                             var licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
                             user.Licensee = licensee;
                         }
@@ -431,7 +430,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                 var user = new User();
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("UserName", DbType.String, requestUser.Username);                    
+                    db.AddInParameter("UserName", DbType.String, requestUser.Username);
                     db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
                     db.AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
                     db.AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
@@ -442,19 +441,19 @@ namespace Fanex.Athena.DataAccess.Implement.Users
                     db.AddOutParameter("ServerID", DbType.Int32, 4);
 
                     using (var reader = db.ExecuteReader())
-                    {                        
+                    {
                         if (reader.Read())
                         {
                             user = new User
-                                {
-                                    Id = reader.ToInt("UserID"),
-                                    Username = reader.ToString("username"),
-                                    FirstName = reader.ToString("firstname"),
-                                    LastName = reader.ToString("lastname"),
-                                    Email = reader.ToString("email"),
-                                    Role = reader.ToString("userrole"),
-                                    IsInternal = Converter.ToBool(reader["isinternal"])
-                                };
+                            {
+                                Id = reader.ToInt("UserID"),
+                                Username = reader.ToString("username"),
+                                FirstName = reader.ToString("firstname"),
+                                LastName = reader.ToString("lastname"),
+                                Email = reader.ToString("email"),
+                                Role = reader.ToString("userrole"),
+                                IsInternal = Converter.ToBool(reader["isinternal"])
+                            };
 
                             var licensee = new Licensee { Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")) };
                             user.Licensee = licensee;

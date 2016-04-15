@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Be
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.BetSettings", "Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj", "{BD14328F-0BCA-43E4-A3DF-CE166AC95135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetSettings", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj", "{68F63A3B-062C-4ADC-8718-91134A6FFB85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Base\Fanex.Athena.DataAccess.Core.csproj", "{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -238,6 +242,30 @@ Global
 		{BD14328F-0BCA-43E4-A3DF-CE166AC95135}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BD14328F-0BCA-43E4-A3DF-CE166AC95135}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD14328F-0BCA-43E4-A3DF-CE166AC95135}.Release|x86.Build.0 = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Debug|x86.Build.0 = Debug|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|x86.ActiveCfg = Release|Any CPU
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85}.Release|x86.Build.0 = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Debug|x86.Build.0 = Debug|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|x86.ActiveCfg = Release|Any CPU
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,6 +286,8 @@ Global
 		{392B39F4-3F95-40D2-A3E1-F08AD10CE6F7} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
 		{83F7DC5C-E81C-45E5-BC83-B58E45198A2E} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
 		{BD14328F-0BCA-43E4-A3DF-CE166AC95135} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+		{68F63A3B-062C-4ADC-8718-91134A6FFB85} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
+		{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35

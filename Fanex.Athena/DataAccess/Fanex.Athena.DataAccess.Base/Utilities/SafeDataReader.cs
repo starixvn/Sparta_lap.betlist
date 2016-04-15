@@ -1,9 +1,9 @@
-﻿namespace Fanex.Athena.DataAccess.Utilities
+﻿namespace Fanex.Athena.DataAccess.Core.Utilities
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Extension;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Common.Extensions;
 
     public class SafeDataReader

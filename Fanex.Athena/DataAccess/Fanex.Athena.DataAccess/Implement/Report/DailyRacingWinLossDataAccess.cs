@@ -11,11 +11,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
-    using Base;
+    using Core;
+    using Core.Exception;
     using Data;
-    using Exception;
     using Fanex.Common.Extensions;
     using Interface.Report;
     using Logging;

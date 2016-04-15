@@ -13,12 +13,11 @@ namespace Fanex.Athena.DataAccess.Implement.Common
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Common;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -101,7 +100,7 @@ namespace Fanex.Athena.DataAccess.Implement.Common
 
         /// <summary>
         /// Get sport by date.
-        /// </summary>        
+        /// </summary>
         /// <returns> The result value.</returns>
         public IList<Sport> GetAllWHSports()
         {

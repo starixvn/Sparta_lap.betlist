@@ -143,21 +143,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exception\DataAccessException.cs" />
-    <Compile Include="Extension\DataHelper.cs" />
-    <Compile Include="Extension\DataReaderExtensions.cs" />
     <Compile Include="Implement\BetList\BetListDataAccess.cs" />
-    <Compile Include="Implement\BetSettings\BetSettingHelper.cs" />
-    <Compile Include="Implement\BetSettings\NumberGameBetSettingDataAccess.cs" />
-    <Compile Include="Implement\BetSettings\CoreBetSettingDataAccess.cs" />
-    <Compile Include="Implement\BetSettings\VoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Implement\Common\BetTypeDataAccess.cs" />
     <Compile Include="Implement\Common\ExChangeRateDataAccess.cs" />
     <Compile Include="Implement\Common\LeagueDataAccess.cs" />
     <Compile Include="Implement\Common\MatchDataAccess.cs" />
     <Compile Include="Implement\Common\SportTypeDataAccess.cs" />
     <Compile Include="Implement\Configuration\MoveBetDataAccess.cs" />
-    <Compile Include="Implement\BetSettings\BetSettingDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
@@ -171,9 +163,6 @@
     <Compile Include="Implement\Report\ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
-    <Compile Include="Interface\BetSettings\INumberGameBetSettingDataAccess.cs" />
-    <Compile Include="Interface\BetSettings\ICoreBetSettingDataAccess.cs" />
-    <Compile Include="Interface\BetSettings\IVoidbridgeBetSettingDataAccess.cs" />
     <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
     <Compile Include="Interface\Configuration\IMoveBetDataAccess.cs" />
     <Compile Include="Interface\Report\ICasinoProgressiveWinsDataAccess.cs" />
@@ -199,7 +188,6 @@
     <Compile Include="Implement\Users\AuthorizationDataAccess.cs" />
     <Compile Include="Implement\Common\FunctionDataAccess.cs" />
     <Compile Include="Implement\Configuration\BalanceUpDataAccess.cs" />
-    <Compile Include="Implement\Base\BaseDataAccess.cs" />
     <Compile Include="Implement\Customer\CustomerDataAccess.cs" />
     <Compile Include="Implement\Customer\GroupComDataAccess.cs" />
     <Compile Include="Implement\Report\CreditBalanceDataAccess.cs" />
@@ -241,7 +229,6 @@
     <Compile Include="Implement\Users\LicenseeDataAccess.cs" />
     <Compile Include="Implement\Common\ProductDataAccess.cs" />
     <Compile Include="Implement\Report\MatchWinLossDataAccess.cs" />
-    <Compile Include="Interface\BetSettings\IBetSettingDataAccess.cs" />
     <Compile Include="Interface\Customer\ICustomerDataAccess.cs" />
     <Compile Include="Interface\Customer\IGroupComDataAccess.cs" />
     <Compile Include="Interface\Report\IBalanceDataAccess.cs" />
@@ -271,7 +258,6 @@
     <Compile Include="Interface\Warehouse\ITopCustomerDataAccess.cs" />
     <Compile Include="Interface\Warehouse\IWinLossDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\SafeDataReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
@@ -281,6 +267,10 @@
     <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
       <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Base\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

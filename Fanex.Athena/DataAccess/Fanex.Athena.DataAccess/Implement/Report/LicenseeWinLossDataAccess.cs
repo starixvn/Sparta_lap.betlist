@@ -14,9 +14,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
@@ -216,7 +216,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 {
                     turnOver.Add(column.Value, reader.ToDecimal(column.Key));
                 }
-                
+
                 var item = new LicenseeWinLoss
                 {
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,

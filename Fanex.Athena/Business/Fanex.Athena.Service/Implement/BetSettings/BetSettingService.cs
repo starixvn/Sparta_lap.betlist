@@ -16,8 +16,8 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
     using Customer;
-    using DataAccess.Interface.BetSettings;
-    using Fanex.Athena.DataAccess.Implement.BetSettings;
+    using DataAccess.BetSettings.Interfaces;
+    using Fanex.Athena.DataAccess.BetSettings;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;

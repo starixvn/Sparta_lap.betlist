@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Implement.Base
+namespace Fanex.Athena.DataAccess.Core
 {
     using System.Data;
     using Fanex.Athena.Models.DTO.Common;

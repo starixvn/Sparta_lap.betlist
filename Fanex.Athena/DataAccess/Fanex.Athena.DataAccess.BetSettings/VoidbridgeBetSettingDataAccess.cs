@@ -1,8 +1,8 @@
-﻿namespace Fanex.Athena.DataAccess.Implement.BetSettings
+﻿namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Data;
     using Data;
-    using Fanex.Athena.DataAccess.Interface.BetSettings;
+    using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Common.Extensions;
     using Models.DataDomain;
     using Models.DTO.Common;

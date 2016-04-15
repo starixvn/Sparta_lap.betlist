@@ -12,14 +12,11 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
     using Fanex.Common.Extensions;
@@ -51,22 +48,22 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         public IList<TopCustomer> GetDataList(TopCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_rpt_DWTopCustomerSel";
-            var dataList = new List<TopCustomer>();            
+            var dataList = new List<TopCustomer>();
             var uspParams = new
-                            {
-                                FromDate = metaModel.FromDate,
-                                ToDate = metaModel.ToDate,
-                                currencyid = metaModel.CurrencyId,
-                                sortingid = metaModel.SortingId,
-                                customer = metaModel.ExternalId,
-                                activemin = metaModel.ActiveMin,
-                                basedcurrency = metaModel.BaseCurrencyId,
-                                wlmtotalmin = metaModel.WinLossTotalMin,
-                                betcountmin = metaModel.BetCountMin,
-                                sportid = metaModel.SportId,
-                                toprow = metaModel.TopRow,
-                                UserID = metaModel.UserId
-                            };
+            {
+                FromDate = metaModel.FromDate,
+                ToDate = metaModel.ToDate,
+                currencyid = metaModel.CurrencyId,
+                sortingid = metaModel.SortingId,
+                customer = metaModel.ExternalId,
+                activemin = metaModel.ActiveMin,
+                basedcurrency = metaModel.BaseCurrencyId,
+                wlmtotalmin = metaModel.WinLossTotalMin,
+                betcountmin = metaModel.BetCountMin,
+                sportid = metaModel.SportId,
+                toprow = metaModel.TopRow,
+                UserID = metaModel.UserId
+            };
 
             try
             {
@@ -113,22 +110,22 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
         /// <returns> Data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel metaModel)
         {
-            const string UspName = "Lrf_rpt_DWTopCustomerSel";            
+            const string UspName = "Lrf_rpt_DWTopCustomerSel";
             var uspParams = new
-                            {
-                                FromDate = metaModel.FromDate,
-                                ToDate = metaModel.ToDate,
-                                currencyid = metaModel.CurrencyId,
-                                sortingid = metaModel.SortingId,
-                                customer = metaModel.ExternalId,
-                                activemin = metaModel.ActiveMin,
-                                basedcurrency = metaModel.BaseCurrencyId,
-                                wlmtotalmin = metaModel.WinLossTotalMin,
-                                betcountmin = metaModel.BetCountMin,
-                                sportid = metaModel.SportId,
-                                toprow = metaModel.TopRow,
-                                UserID = metaModel.UserId
-                            };
+            {
+                FromDate = metaModel.FromDate,
+                ToDate = metaModel.ToDate,
+                currencyid = metaModel.CurrencyId,
+                sortingid = metaModel.SortingId,
+                customer = metaModel.ExternalId,
+                activemin = metaModel.ActiveMin,
+                basedcurrency = metaModel.BaseCurrencyId,
+                wlmtotalmin = metaModel.WinLossTotalMin,
+                betcountmin = metaModel.BetCountMin,
+                sportid = metaModel.SportId,
+                toprow = metaModel.TopRow,
+                UserID = metaModel.UserId
+            };
 
             try
             {

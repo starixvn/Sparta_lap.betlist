@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Extension
+namespace Fanex.Athena.DataAccess.Core.Extensions
 {
     using System;
     using System.Data;

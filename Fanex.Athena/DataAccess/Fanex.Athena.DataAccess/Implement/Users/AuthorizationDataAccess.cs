@@ -11,7 +11,7 @@
 namespace Fanex.Athena.DataAccess.Implement.Users
 {
     using System.Data;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Interface.Users;
     using Fanex.Common;
     using Fanex.Data;

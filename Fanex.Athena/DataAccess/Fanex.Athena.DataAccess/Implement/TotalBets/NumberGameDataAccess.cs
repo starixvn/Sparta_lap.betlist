@@ -13,8 +13,8 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.Extensions;
     using Data;
-    using Extension;
     using Fanex.Athena.DataAccess.Interface.TotalBets;
     using Fanex.Common.Extensions;
     using Models.DTO.TotalBets;
@@ -224,7 +224,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
             var numberWheelPreColumn = DataHelper.GetCurrencyColumnName("NumberGroup_pre", isConvert, baseCurrency);
 
             return new NumberGame
-            {            
+            {
                 Warrior2ND = reader.ToDecimal(warrior2NdColumn),
                 Warrior3RD = reader.ToDecimal(warrior3RdColumn),
 

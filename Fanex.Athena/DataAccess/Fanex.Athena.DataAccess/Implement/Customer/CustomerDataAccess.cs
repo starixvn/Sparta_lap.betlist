@@ -16,8 +16,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
     using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Customer;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Customer;
@@ -87,7 +87,7 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
 
                     AddOddsGroupParam(db, metaModel);
-                    
+
                     var dataList = new List<CustomerDTO>();
 
                     using (var reader = db.ExecuteReader())

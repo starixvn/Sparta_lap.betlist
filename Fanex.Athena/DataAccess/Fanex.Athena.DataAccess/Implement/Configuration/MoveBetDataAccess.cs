@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.Implement.Configuration
 {
     using System;
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Configuration;
     using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Common;

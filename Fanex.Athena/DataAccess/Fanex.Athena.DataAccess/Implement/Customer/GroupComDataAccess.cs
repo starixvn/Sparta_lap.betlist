@@ -12,9 +12,8 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Customer;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
@@ -47,18 +46,18 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                         while (reader.Read())
                         {
                             var entity = new GroupCommMetaModel
-                                {
-                                    GroupCommId = reader.ToInt("GroupCommId"),
-                                    GroupName = reader.ToString("GroupName"),
-                                    SBComm = reader.ToDecimal("SBComm"),
-                                    RCComm = reader.ToDecimal("RacingComm"),
-                                    NGComm = reader.ToDecimal("NGComm"),
-                                    LCComm = reader.ToDecimal("LCComm"),
-                                    CSComm = reader.ToDecimal("RNGComm"),
-                                    GroupColor = reader.ToString("GroupColor"),
-                                    NumberOfCustomer = reader.ToInt("NumberOfCustomer"),
-                                    IsDefaultGroup = reader.ToBool("IsDefault")
-                                };
+                            {
+                                GroupCommId = reader.ToInt("GroupCommId"),
+                                GroupName = reader.ToString("GroupName"),
+                                SBComm = reader.ToDecimal("SBComm"),
+                                RCComm = reader.ToDecimal("RacingComm"),
+                                NGComm = reader.ToDecimal("NGComm"),
+                                LCComm = reader.ToDecimal("LCComm"),
+                                CSComm = reader.ToDecimal("RNGComm"),
+                                GroupColor = reader.ToString("GroupColor"),
+                                NumberOfCustomer = reader.ToInt("NumberOfCustomer"),
+                                IsDefaultGroup = reader.ToBool("IsDefault")
+                            };
 
                             entityList.Add(entity);
                         }
@@ -118,17 +117,17 @@ namespace Fanex.Athena.DataAccess.Implement.Customer
                         if (reader.Read())
                         {
                             return new GroupCommMetaModel
-                                {
-                                    GroupCommId = groupCommId,
-                                    GroupName = reader.ToString("GroupName"),
-                                    SBComm = reader.ToDecimal("SBComm"),
-                                    RCComm = reader.ToDecimal("RacingComm"),
-                                    NGComm = reader.ToDecimal("NGComm"),
-                                    LCComm = reader.ToDecimal("LCComm"),
-                                    CSComm = reader.ToDecimal("RNGComm"),
-                                    GroupColor = reader.To<string>("GroupColor"),
-                                    IsDefaultGroup = reader.ToBool("IsDefault")
-                                };
+                            {
+                                GroupCommId = groupCommId,
+                                GroupName = reader.ToString("GroupName"),
+                                SBComm = reader.ToDecimal("SBComm"),
+                                RCComm = reader.ToDecimal("RacingComm"),
+                                NGComm = reader.ToDecimal("NGComm"),
+                                LCComm = reader.ToDecimal("LCComm"),
+                                CSComm = reader.ToDecimal("RNGComm"),
+                                GroupColor = reader.To<string>("GroupColor"),
+                                IsDefaultGroup = reader.ToBool("IsDefault")
+                            };
                         }
                     }
                 }

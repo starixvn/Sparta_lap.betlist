@@ -1,11 +1,11 @@
-﻿namespace Fanex.Athena.DataAccess.Implement.BetSettings
+﻿namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using Common;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Common;
 
     public class BetSettingHelper
     {

@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core.Extensions;
     using Data;
     using DataAccess.Interface.TotalBets;
     using Extension;
