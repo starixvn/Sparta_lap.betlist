@@ -4,13 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.BetSettings
+namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections;
     using System.Collections.Generic;
+    using BetSettings.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
-    using Interface.BetSettings;
     using Models.DTO.BetSettings;
     using Models.DTO.Common;
     using Models.ViewModel;

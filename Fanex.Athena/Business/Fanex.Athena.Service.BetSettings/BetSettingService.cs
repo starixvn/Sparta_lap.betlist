@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.BetSettings
+namespace Fanex.Athena.Service.BetSettings
 {
     #region
 
@@ -15,7 +15,6 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     using System.Text;
     using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
-    using Customer;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.BetSettings;
     using Fanex.Athena.Extension.Utility;
@@ -26,11 +25,12 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetSettings;
+    using Fanex.Athena.Service.BetSettings.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Interface.BetSettings;
     using Fanex.Common;
+    using Implement.Customer;
     using Interface.Customer;
 
     #endregion

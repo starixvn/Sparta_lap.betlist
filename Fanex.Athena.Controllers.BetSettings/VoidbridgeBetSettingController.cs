@@ -13,8 +13,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.BetSettings;
     using Models.ViewModel.BetSettings;
-    using Service.Implement.BetSettings;
-    using Service.Interface.BetSettings;
+    using Service.BetSettings;
+    using Service.BetSettings.Interfaces;
 
     public class VoidbridgeBetSettingController : BetSettingBaseController
     {

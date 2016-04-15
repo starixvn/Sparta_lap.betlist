@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Interface.BetSettings
+﻿namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     using System.Collections;
     using Fanex.Athena.Models.DTO.BetSettings;

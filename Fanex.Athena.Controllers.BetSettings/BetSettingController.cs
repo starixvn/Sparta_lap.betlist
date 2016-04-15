@@ -18,8 +18,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Service.Core.Casino.Interfaces;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Web.ActionFilter;
-    using Service.Implement.BetSettings;
-    using Service.Interface.BetSettings;
+    using Service.BetSettings;
+    using Service.BetSettings.Interfaces;
 
     public class BetSettingController : BetSettingBaseController
     {
