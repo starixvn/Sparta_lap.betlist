@@ -61,38 +61,6 @@ namespace Fanex.Athena.Service.BetSettings
             _customer = new Customer();
         }
 
-        public IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var setting = _betSettingDataAccess.GetThirdPartyBetSetting(custId, productId);
-            if (!setting.IsLineEnabled)
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            return _betSettingDataAccess.UpdateThirdPartyProductStatus(productId, userId, custId, language, ip, isEnabled);
-        }
-
-        public ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return null;
-            }
-
-            var setting = _betSettingDataAccess.GetThirdPartyBetSetting(custId, productid);
-
-            return new ThirdPartyBetSettingViewModel
-            {
-                IsLineEnabled = setting.IsLineEnabled,
-                IsEnabled = setting.IsEnabled
-            };
-        }
-
         #region Gold Deluxe
 
         /// <summary>

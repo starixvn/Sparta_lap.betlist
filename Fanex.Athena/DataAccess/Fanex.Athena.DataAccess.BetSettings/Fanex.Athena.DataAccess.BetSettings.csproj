@@ -81,8 +81,10 @@
     <Compile Include="CoreBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\ICoreBetSettingDataAccess.cs" />
+    <Compile Include="Interfaces\IThirdPartyBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IVoidbridgeBetSettingDataAccess.cs" />
+    <Compile Include="ThirdPartyBetSettingDataAccess.cs" />
     <Compile Include="NumberGameBetSettingDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VoidbridgeBetSettingDataAccess.cs" />

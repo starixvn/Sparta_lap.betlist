@@ -25,9 +25,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IList<BetSetting> GetRacingBetSetting(int custId, bool isAllowSaToreCurrency);
 
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
-
-        ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid);
-
+        
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting);
@@ -65,9 +63,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
-
-        IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
-
+        
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

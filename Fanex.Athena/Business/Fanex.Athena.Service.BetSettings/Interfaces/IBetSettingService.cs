@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.BetSettings;
@@ -21,8 +20,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     public interface IBetSettingService
     {
         #region Get Bet Setting
-
-        ThirdPartyBetSettingViewModel GetThirdPartyViewModel(int custId, int productid);
 
         GoldDeluxeBetSettingViewModel GetGoldDeluxeViewModel(int custId, string siteName);
 
@@ -75,8 +72,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
-
-        IResultInfo UpdateThirdPartyProductStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
 
         #endregion Update Bet Setting
     }

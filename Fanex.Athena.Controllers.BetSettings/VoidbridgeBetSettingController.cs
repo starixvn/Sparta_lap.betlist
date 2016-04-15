@@ -18,11 +18,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
     public class VoidbridgeBetSettingController : BetSettingBaseController
     {
-        private readonly IVoidbridgeBetSettingService _voidbridgeBetSettingService;
+        private readonly IVoidbridgeBetSettingService _betSettingService;
 
         public VoidbridgeBetSettingController()
         {
-            _voidbridgeBetSettingService = new VoidbridgeBetSettingService();
+            _betSettingService = new VoidbridgeBetSettingService();
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var userSession = SessionService.UserSession;
-            var result = _voidbridgeBetSettingService.UpdateStatus(userSession.UserId, custId, Request.UserHostAddress, status == 1);
+            var result = _betSettingService.UpdateStatus(userSession.UserId, custId, Request.UserHostAddress, status == 1);
 
             if (result.Code == 0)
             {
@@ -60,8 +60,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var viewModel = new BetSettingBaseViewModel()
             {
-                IsEnabled = _voidbridgeBetSettingService.GetStatus(metaModel.CustId),
-                Param = metaModel
+                IsEnabled = _betSettingService.GetStatus(metaModel.CustId),
             };
             AssignRequiredProperties(viewModel, metaModel);
             return viewModel;

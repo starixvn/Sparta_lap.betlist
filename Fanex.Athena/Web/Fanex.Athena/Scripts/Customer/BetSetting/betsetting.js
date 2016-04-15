@@ -93,18 +93,18 @@ var BetSetting = (function ($) {
                     url = "BetSettingAPI/UpdateGoldDeluxeStatus";
                     break;
                 case TAB_MACAU:
-                    url = "BetSettingAPI/UpdateMacauStatus";
+                    url = "ThirdPartyBetSetting/UpdateMacauStatus";
                     break;
                 case TAB_MICROGAMINGLIVECASINO:               
-                    url = "BetSettingAPI/UpdateMicroGamingLiveCasinoStatus";
+                    url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_MICROGAMINGRNGCASINO:
-                    url = "BetSettingAPI/UpdateMicroGamingRNGCasinoStatus";
+                    url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_BETTRADE:
-                    url = "BetSettingAPI/UpdateBetTradeStatus";
+                    url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_VOIDBRIDGE:

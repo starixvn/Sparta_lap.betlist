@@ -18,11 +18,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
     public class NumberGameBetSettingController : BetSettingBaseController
     {
-        private readonly INumberGameBetSettingService _numberGameBetSettingService;
+        private readonly INumberGameBetSettingService _betSettingService;
 
         public NumberGameBetSettingController()
         {
-            _numberGameBetSettingService = new NumberGameBetSettingService();
+            _betSettingService = new NumberGameBetSettingService();
         }
 
         [HttpGet]
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var numberGame = GetBetSettingCommonParam();
             var hashData = GetNumberGameParam();
-            var result = _numberGameBetSettingService.UpdateBetSetting(numberGame, hashData);
+            var result = _betSettingService.UpdateBetSetting(numberGame, hashData);
 
             if (result.Code == 0)
             {
@@ -59,8 +59,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
         {
-            var viewModel = _numberGameBetSettingService.GetViewModel(metaModel.CustId);
-            viewModel.Param = metaModel;
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
             AssignRequiredProperties(viewModel, metaModel);
             return viewModel;
         }

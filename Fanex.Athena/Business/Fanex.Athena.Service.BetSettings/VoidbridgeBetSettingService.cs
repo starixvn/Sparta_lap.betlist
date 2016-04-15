@@ -14,11 +14,11 @@ namespace Fanex.Athena.Service.BetSettings
 
     public class VoidbridgeBetSettingService : BetSettingBaseService, IVoidbridgeBetSettingService
     {
-        private readonly IVoidbridgeBetSettingDataAccess _voidbridgeDataAccess;
+        private readonly IVoidbridgeBetSettingDataAccess _betSettingDataAccess;
 
         public VoidbridgeBetSettingService()
         {
-            _voidbridgeDataAccess = new VoidbridgeBetSettingDataAccess();
+            _betSettingDataAccess = new VoidbridgeBetSettingDataAccess();
         }
 
         public bool? GetStatus(int custId)
@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return null;
             }
 
-            return _voidbridgeDataAccess.GetStatus(custId);
+            return _betSettingDataAccess.GetStatus(custId);
         }
 
         public IResultInfo UpdateStatus(int userId, int custId, string ip, bool status)
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Service.BetSettings
                 };
             }
 
-            return _voidbridgeDataAccess.UpdateStatus(userId, custId, ip, status);
+            return _betSettingDataAccess.UpdateStatus(userId, custId, ip, status);
         }
     }
 }

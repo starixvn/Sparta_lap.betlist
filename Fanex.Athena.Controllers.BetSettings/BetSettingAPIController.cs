@@ -161,66 +161,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         /// <summary>
-        /// Update Macau status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.Macau, custId, nickName, status);
-        }
-
-        /// <summary>
-        /// Update Micro Gaming Live Casino status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.MicroGamingLiveCasino, custId, nickName, status);
-        }
-
-        /// <summary>
-        /// Update Micro Gaming RNG Casino status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.MicrogamingRNGCasino, custId, nickName, status);
-        }
-
-        /// <summary>
-        /// Update Bet Trade status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
-        {
-            return UpdateThirdPartyProductStatus((int)ProductTypes.BetTrade, custId, nickName, status);
-        }
-
-        /// <summary>
         /// Update Gold Deluxe status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
@@ -571,20 +511,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         #endregion Bet setting API
-
-        private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
-        {
-            var userSession = SessionService.UserSession;
-            var isEnabled = status == 1;
-            var result = _betSettingService.UpdateThirdPartyProductStatus(productId, userSession.UserId, custId, userSession.Language, Request.UserHostAddress, isEnabled);
-
-            if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
 
         #region Get Betsetting params
 

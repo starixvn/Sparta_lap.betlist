@@ -18,17 +18,17 @@ namespace Fanex.Athena.Service.BetSettings
 
     public class NumberGameBetSettingService : BetSettingBaseService, INumberGameBetSettingService
     {
-        private readonly INumberGameBetSettingDataAccess _numberBetSettingDataAccess;
+        private readonly INumberGameBetSettingDataAccess _betSettingDataAccess;
 
         public NumberGameBetSettingService()
         {
-            _numberBetSettingDataAccess = new NumberGameBetSettingDataAccess();
+            _betSettingDataAccess = new NumberGameBetSettingDataAccess();
         }
 
         public BetSettingViewModel GetViewModel(int custId)
         {
             var betSettings = HasPermissionOnData(custId)
-                        ? _numberBetSettingDataAccess.GetBetSetting(custId)
+                        ? _betSettingDataAccess.GetBetSetting(custId)
                         : new List<BetSetting>();
             return new BetSettingViewModel
             {
@@ -66,7 +66,7 @@ namespace Fanex.Athena.Service.BetSettings
                 MaxPerBall = (decimal)data["maxperball"]
             };
 
-            return _numberBetSettingDataAccess.UpdateBetSetting(numberGameBetSetting);
+            return _betSettingDataAccess.UpdateBetSetting(numberGameBetSetting);
         }
     }
 }

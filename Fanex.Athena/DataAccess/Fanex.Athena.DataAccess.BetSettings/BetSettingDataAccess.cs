@@ -42,33 +42,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
         #region Get bet setting data
 
         /// <summary>
-        /// Gets the third party bet setting.
-        /// </summary>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="productid">The product id.</param>
-        /// <returns>The third party bet setting.</returns>
-        public ThirdPartyBetSetting GetThirdPartyBetSetting(int custId, int productid)
-        {
-            var uspName = "Lrf_3rdProductSelCustStatus";
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, productid);
-                db.AddOutParameter("IsEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-                db.AddOutParameter("Currency", DbType.Int32, 1);
-
-                db.ExecuteNonQuery();
-
-                return new ThirdPartyBetSetting()
-                {
-                    IsEnabled = Converter.ToBool(db.GetParameterValue("IsEnabled")),
-                    IsLineEnabled = Converter.ToBool(db.GetParameterValue("IsLineEnabled"))
-                };
-            }
-        }
-
-        /// <summary>
         /// Get Gold Deluxe setting.
         /// </summary>
         /// <param name="custId">Customer id.</param>
@@ -346,53 +319,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
         }
 
         #endregion Gold Deluxe
-
-        #region Macau
-
-        /// <summary>
-        /// Updates the macau status.
-        /// </summary>
-        /// <param name="productId">The product ID.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="language">The language.</param>
-        /// <param name="ip">The host address.</param>
-        /// <param name="isEnabled">The macau status.</param>
-        /// <returns>The Result Info.</returns>
-        public IResultInfo UpdateThirdPartyProductStatus(
-            int productId,
-            int userId,
-            int custId,
-            string language,
-            string ip,
-            bool isEnabled)
-        {
-            var uspName = "Lrf_3rdProductUpdCustStatus";
-
-            using (var db = new ObjectDb(uspName))
-            {
-                db.AddInParameter("custid", DbType.Int32, custId);
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("productid", DbType.Int32, productId);
-                db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
-                db.AddInParameter("ip", DbType.String, ip);
-                db.AddInParameter("language", DbType.String, language);
-
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
-
-                db.ExecuteNonQuery();
-
-                var errorMessage = db.GetParameterValue("ErrMsg");
-
-                return new ResultInfo
-                {
-                    Code = 0,
-                    Message = Converter.ToString2(errorMessage)
-                };
-            }
-        }
-
-        #endregion Macau
 
         #region AG Casino
 
