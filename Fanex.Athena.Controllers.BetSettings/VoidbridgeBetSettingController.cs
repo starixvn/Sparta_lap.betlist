@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
-namespace Fanex.Athena.Controllers.Customer
+namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Web.Mvc;
     using BetSettings;

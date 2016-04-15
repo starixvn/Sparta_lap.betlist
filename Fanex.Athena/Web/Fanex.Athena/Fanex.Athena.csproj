@@ -4560,6 +4560,10 @@
       <Project>{83f7dc5c-e81c-45e5-bc83-b58e45198a2e}</Project>
       <Name>Fanex.Athena.Controllers.BetList</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj">
+      <Project>{bd14328f-0bca-43e4-a3df-ce166ac95135}</Project>
+      <Name>Fanex.Athena.Controllers.BetSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
       <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
       <Name>Fanex.Athena.Controllers.Forecast</Name>

@@ -4,11 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
-namespace Fanex.Athena.Controllers.Customer
+namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections;
     using System.Web.Mvc;
-    using BetSettings;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ActionFilter;

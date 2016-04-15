@@ -198,9 +198,6 @@
   <ItemGroup>
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
-    <Compile Include="BetSettings\BetSettingBaseController.cs" />
-    <Compile Include="BetSettings\NumberGameBetSettingController.cs" />
-    <Compile Include="BetSettings\VoidbridgeBetSettingController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportAPI\ReportAPIController.CustomerTurnover.cs" />
@@ -229,8 +226,6 @@
     <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.LogInLog.cs" />
-    <Compile Include="BetSettings\BetSettingController.cs" />
-    <Compile Include="BetSettings\BetSettingAPIController.cs" />
     <Compile Include="Customer\CustomerController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
