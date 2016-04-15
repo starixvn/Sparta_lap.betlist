@@ -1,15 +1,16 @@
-﻿@model Fanex.Athena.Models.MetaModel.BetSettings.BetSettingMetaModel
+﻿@model Fanex.Athena.Models.ViewModel.BetSettings.BetSettingBaseViewModel
 @using Fanex.Athena.Models.ViewModel
 
 @{ 
     var separatedProducts = new string[] { "voidbridge" };
+    var metaModel = Model.Param;
 }
 <div>
     <div style="display:inline-block; padding-bottom: 5px">
             <div class="grid_2 product-select-label">
                 <label>@ViewResources.Product</label>
             </div>
-            <div id="product-dropdown" class="wrapper-dropdown-5">@Model.BetSettingName
+            <div id="product-dropdown" class="wrapper-dropdown-5">@metaModel.BetSettingName
 		        <ul class="dropdown">
                     @foreach (var product in Model.BetSettingProducts)
                     {
@@ -23,16 +24,16 @@
                          <li><a href="@Url.Action("Index", controllerName, new
                             {
                                 ProductId = product.ProductId,
-                                CustId = Model.CustId,
-                                UserName = Model.UserName,
-                                NickName = Model.NickName,
+                                CustId = metaModel.CustId,
+                                UserName = metaModel.UserName,
+                                NickName = metaModel.NickName,
                                 BetSettingName = productName
                             })">
                             @productName
                         </a></li>
                     }
 		        </ul>
-                @Html.Hidden("ProductId", Model.ProductId)
+                @Html.Hidden("ProductId", metaModel.ProductId)
 	        </div>
     </div>
 </div>

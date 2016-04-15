@@ -131,9 +131,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return null;
             }
 
-            AssignRequiredProperties(metaModel);
+            AssignRequiredProperties(viewModel, metaModel.CustId);
 
-            ViewBag.HasCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             viewModel.Param = metaModel;
 
             return viewModel;

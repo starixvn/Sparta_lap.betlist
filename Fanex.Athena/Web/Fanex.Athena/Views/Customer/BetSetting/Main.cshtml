@@ -10,7 +10,7 @@
 @section pagejs
 {
 }
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
 @{
     switch (Model.Param.ProductId)
     {
@@ -38,7 +38,7 @@
     <!--Check box-->
 }
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
-@Html.Hidden("editable", Model.Param.Editable)
+@Html.Hidden("editable", Model.Editable)
 @Html.Hidden("dataCount", (Model.MainData.Count))
 <!--Header-->
 <div class="header-content" style="width: 884px;">
@@ -104,7 +104,7 @@
 </div>
 <!--/Content-->
 <!--SubmitButton-->
-@if (Model.Param.Editable && Model.MainData.Count > 0)
+@if (Model.Editable && Model.MainData.Count > 0)
 {
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"

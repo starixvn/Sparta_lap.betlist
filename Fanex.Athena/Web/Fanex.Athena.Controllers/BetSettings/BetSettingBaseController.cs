@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Service.Interface.Users;
     using Models.DTO.Common;
     using Models.MetaModel.BetSettings;
+    using Models.ViewModel.BetSettings;
     using Service.Implement.BetSettings;
     using Service.Implement.Common;
     using Service.Interface.BetSettings;
@@ -61,10 +62,10 @@ namespace Fanex.Athena.Controllers.BetSettings
             get { return _productAccess; }
         }
 
-        protected void AssignRequiredProperties(BetSettingMetaModel metaModel)
+        protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, int custId)
         {
-            metaModel.Editable = IsBetSettingEditable();
-            metaModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
+            viewModel.Editable = IsBetSettingEditable();
+            viewModel.BetSettingProducts = GetBetSettingProducts(custId);
         }
 
         private static void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)

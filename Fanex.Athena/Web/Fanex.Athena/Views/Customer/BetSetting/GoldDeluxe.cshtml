@@ -10,7 +10,7 @@
 @section pagejs {
     <script src="@Url.ContentLink("/Scripts/Customer/BetSetting/golddeluxe.js")" type="text/javascript"></script>
 }
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
 @{    
     var hasData = Model.Games.Count > 0;
     var isLineEnabled = Model.BetSetting.IsLineEnabled;
@@ -38,7 +38,7 @@
         }
     </div>
     
-    @Html.Hidden("editable", Model.Param.Editable)
+    @Html.Hidden("editable", Model.Editable)
     @Html.Hidden("dataCount", Model.BetSetting.IsEnabled ? 1 : 0)
     @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Games))
 }
@@ -104,7 +104,7 @@ else
 }
 <!--/Content-->
 <!--SubmitButton-->
-@if (Model.Param.Editable)
+@if (Model.Editable)
 {
     <div style="width: 855px">
         <input type="button" @(isLineEnabled && hasData ? null : "disabled") class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" 

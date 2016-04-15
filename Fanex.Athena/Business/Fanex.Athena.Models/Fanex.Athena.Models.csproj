@@ -351,6 +351,7 @@
     <Compile Include="ViewModel\BetList\CustomerOutstandingViewModel.cs" />
     <Compile Include="ViewModel\BetList\DailyStatementViewModel.cs" />
     <Compile Include="MetaModel\Casino\RNGCasinoResultMetaModel.cs" />
+    <Compile Include="ViewModel\BetSettings\BetSettingBaseViewModel.cs" />
     <Compile Include="ViewModel\Casino\RNGCasinoResultViewModel.cs" />
     <Compile Include="ViewModel\Casino\RNGResultDetail\CasinoHandHistoryDetailViewModel.cs" />
     <Compile Include="ViewModel\BetSettings\BetSettingViewModel.cs" />

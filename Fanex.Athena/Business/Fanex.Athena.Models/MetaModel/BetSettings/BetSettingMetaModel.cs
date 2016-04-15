@@ -20,7 +20,6 @@ namespace Fanex.Athena.Models.MetaModel.BetSettings
         {
             ProductId = ProductTypes.Sportsbook;
             BetSettingName = ViewResources.Sportsbook;
-            Editable = true;
         }
 
         public int ProductId { get; set; }
@@ -34,9 +33,5 @@ namespace Fanex.Athena.Models.MetaModel.BetSettings
         public string NickName { get; set; }
 
         public string BetSettingName { get; set; }
-
-        public bool Editable { get; set; }
-
-        public IEnumerable<BetSettingProduct> BetSettingProducts { get; set; }
     }
 }

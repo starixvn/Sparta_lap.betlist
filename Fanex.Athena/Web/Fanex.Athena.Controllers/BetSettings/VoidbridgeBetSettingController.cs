@@ -70,14 +70,15 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        private BetSettingViewModel GetViewModel(BetSettingMetaModel metaModel)
+        private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
         {
-            AssignRequiredProperties(metaModel);
-            return new BetSettingViewModel()
+            var viewModel = new BetSettingBaseViewModel()
             {
                 IsEnabled = _voidbridgeBetSettingService.GetStatus(metaModel.CustId),
                 Param = metaModel
             };
+            AssignRequiredProperties(viewModel, metaModel.CustId);
+            return viewModel;
         }
     }
 }

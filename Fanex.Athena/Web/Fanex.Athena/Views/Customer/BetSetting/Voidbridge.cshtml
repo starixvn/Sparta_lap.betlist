@@ -1,14 +1,14 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.BetSettings.BetSettingViewModel
+@model Fanex.Athena.Models.ViewModel.BetSettings.BetSettingBaseViewModel
 @using Fanex.Athena.Models.ViewModel;
-@using Fanex.Athena.Models.DataDomain;
+
 @section pagecss
 {
 }
 
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
 
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
@@ -21,7 +21,7 @@
 </div>
 <!--/Content-->
 <!--SubmitButton-->
-@if (Model.Param.Editable && Model.IsEnabled.HasValue)
+@if (Model.Editable && Model.IsEnabled.HasValue)
 {
     <div style="width: 855px">
         <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 0 : 1)"
