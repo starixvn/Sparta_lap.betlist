@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using Service.Implement.Common;
-    using Service.Interface.Common;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
 
     public partial class ReportController : ReportBaseController
     {

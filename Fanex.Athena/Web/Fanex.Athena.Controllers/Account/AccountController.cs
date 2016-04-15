@@ -18,10 +18,10 @@ namespace Fanex.Athena.Controllers.Account
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Account;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>

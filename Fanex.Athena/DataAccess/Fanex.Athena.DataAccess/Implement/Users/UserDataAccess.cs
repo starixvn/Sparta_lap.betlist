@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Implement.Users
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Users;
@@ -106,6 +107,18 @@ namespace Fanex.Athena.DataAccess.Implement.Users
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
+        public User GetByUsername(string userName)
+        {
+            var param = new
+            {
+                Username = userName,
+            };
+            using (var objectDb = new ObjectDb("Lrf_UserInfoSelByUserName"))
+            {
+                return objectDb.Query<User>(param).FirstOrDefault();
             }
         }
 

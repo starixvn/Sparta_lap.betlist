@@ -26,10 +26,10 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Authorization;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
 
     /// <summary>
     /// TODO: Update summary.
@@ -179,7 +179,7 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
             int currentLoginId = 0;
-         
+
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);

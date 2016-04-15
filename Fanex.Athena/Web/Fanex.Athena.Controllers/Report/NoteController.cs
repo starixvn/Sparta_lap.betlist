@@ -8,10 +8,10 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
     using Fanex.Athena.Models.ViewModel.Note;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Configuration;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -46,12 +46,12 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeId = this.SessionService.LicenseeSession.LicenseeId;
             var productList = this._productService.GetProductList(licenseeId, SessionService.UserSession.Language);
             var model = new NoteViewModel
-                {
-                    BalanceUpDate = balanceUpInfo.BalanceUpDay,
-                    MoveBetsDate = balanceUpInfo.MoveBetsDay,
-                    ProductList = productList,
-                    IsHistory = isHistory,
-                };
+            {
+                BalanceUpDate = balanceUpInfo.BalanceUpDay,
+                MoveBetsDate = balanceUpInfo.MoveBetsDay,
+                ProductList = productList,
+                IsHistory = isHistory,
+            };
 
             var viewPath = string.Format("~/Views/Note/{0}.cshtml", viewName);
             return View(viewPath, model);

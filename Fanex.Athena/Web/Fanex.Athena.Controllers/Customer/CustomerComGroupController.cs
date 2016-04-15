@@ -22,9 +22,9 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Common;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
@@ -105,14 +105,14 @@ namespace Fanex.Athena.Controllers.Customer
             /*Find group which is set to default*/
             var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
             var model = new GroupCommMetaModel
-                {
-                    LicenseeId = licenseeSession.LicenseeId,
-                    IsUpdateNG = productAccess.IsAllowNG,
-                    IsUpdateRacing = productAccess.IsAllowRB,
-                    IsUpdateLC = productAccess.IsAllowLC,
-                    IsUpdateCS = productAccess.IsAllowCS,
-                    DefaultGroupId = defaultGroupId
-                };
+            {
+                LicenseeId = licenseeSession.LicenseeId,
+                IsUpdateNG = productAccess.IsAllowNG,
+                IsUpdateRacing = productAccess.IsAllowRB,
+                IsUpdateLC = productAccess.IsAllowLC,
+                IsUpdateCS = productAccess.IsAllowCS,
+                DefaultGroupId = defaultGroupId
+            };
 
             return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
@@ -149,10 +149,10 @@ namespace Fanex.Athena.Controllers.Customer
                 if (valid)
                 {
                     var request = new Request
-                        {
-                            Language = SessionService.UserSession.Language,
-                            Ip = Request.UserHostAddress
-                        };
+                    {
+                        Language = SessionService.UserSession.Language,
+                        Ip = Request.UserHostAddress
+                    };
                     _customerComService.InsertGroup(metaModel, request, licenseeSession.UserId, out result);
                     GetCreateErrorMessage(result);
                 }
@@ -384,11 +384,11 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
-                {
-                    RBVisible = productAccess.IsAllowRB,
-                    NGVisible = productAccess.IsAllowNG,
-                    CSVisible = productAccess.IsAllowCS
-                };
+            {
+                RBVisible = productAccess.IsAllowRB,
+                NGVisible = productAccess.IsAllowNG,
+                CSVisible = productAccess.IsAllowCS
+            };
 
             var mainTable = _customerComService.GetDataForExcel(licenseeSession.LicenseeId);
 

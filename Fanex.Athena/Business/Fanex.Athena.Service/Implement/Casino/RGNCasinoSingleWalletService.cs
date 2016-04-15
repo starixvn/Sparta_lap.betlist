@@ -14,8 +14,8 @@ namespace Fanex.Athena.Service.Implement.Casino
     using System.Web;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Helpers;
-    using Fanex.Athena.Service.Interface.Casino;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
+    using Fanex.Athena.Service.Core.Helpers;
     using Newtonsoft.Json;
 
     /// <summary>

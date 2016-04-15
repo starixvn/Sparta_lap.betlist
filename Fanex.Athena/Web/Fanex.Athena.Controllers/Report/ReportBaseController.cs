@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System;
-    using Fanex.Athena.Service.Interface.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Models.ViewModel;
-    using Service.Implement.Common;
-    using Service.Implement.Configuration;
-    using Service.Interface.Common;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
 
     public class ReportBaseController : ReadonlyBaseController
     {

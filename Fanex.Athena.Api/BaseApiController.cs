@@ -9,15 +9,16 @@
 
 namespace Fanex.Athena.Api
 {
+    using System;
     using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using NPOI.SS.UserModel;
 

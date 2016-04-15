@@ -13,18 +13,16 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Customer;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer;
-    using Fanex.Athena.Service.Implement.Common;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Newtonsoft.Json;
@@ -91,15 +89,15 @@ namespace Fanex.Athena.Controllers.Customer
             var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
             var metaModel = new CustomerListMetaModel
-                        {
-                            Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
-                            GroupCommId = groupId,
-                            LicenseeId = licenseeSession.LicenseeId,
-                            UserId = userSession.UserId,
-                            AllowLicensees = allowLicensees,
-                            GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
-                            OddsGroups = IsCurrentLicenseeOfferOddsGroup() ? GetOddsGroups() : null
-                        };
+            {
+                Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
+                GroupCommId = groupId,
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = userSession.UserId,
+                AllowLicensees = allowLicensees,
+                GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
+                OddsGroups = IsCurrentLicenseeOfferOddsGroup() ? GetOddsGroups() : null
+            };
 
             SetConvetedUSDCurrencyName(metaModel);
 
@@ -200,10 +198,10 @@ namespace Fanex.Athena.Controllers.Customer
             var logInfo = _customerService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
 
             var model = new LogInfoViewModel
-                {
-                    LogInfo = logInfo,
-                    ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
-                };
+            {
+                LogInfo = logInfo,
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
+            };
 
             return View("~/Views/Customer/CustomerDialog/LogInfo.cshtml", model);
         }
@@ -293,10 +291,10 @@ namespace Fanex.Athena.Controllers.Customer
             var specialBaPermission = userSession.IsAllowedSpecialBA;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var request = new Request
-                {
-                    Language = userSession.Language,
-                    Ip = Request.UserHostAddress
-                };
+            {
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress
+            };
             var canUpdateBa = specialBaPermission;
             var canUpdateBaMessage = string.Empty;
             if (!specialBaPermission)

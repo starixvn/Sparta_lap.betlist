@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Interface.Casino
+namespace Fanex.Athena.Service.Core.Casino.Interfaces
 {
     using System;
     using System.Collections.Generic;

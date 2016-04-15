@@ -15,9 +15,9 @@ namespace Fanex.Athena.Service.Implement.Casino
     using CasinoLibrary.SBAgent;
     using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
     using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Service.Exception;
-    using Fanex.Athena.Service.Helpers;
-    using Fanex.Athena.Service.Interface.Casino;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
+    using Fanex.Athena.Service.Core.Exception;
+    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
     using CustomerCasinoSetting = CasinoLibrary.SBAgent.Customer;
 
@@ -28,10 +28,6 @@ namespace Fanex.Athena.Service.Implement.Casino
     /// </summary>
     public class CasinoSetting : ICasinoSetting
     {
-        #region Variables
-
-        #endregion Variables
-
         #region ICasinoSetting Members
 
         /// <summary>
@@ -223,10 +219,12 @@ namespace Fanex.Athena.Service.Implement.Casino
                 case "zh-TW":
                     gameTypeKind = "CodeName_Ct";
                     break;
+
                 case "zh-CN":
                 case "zh-Hans":
                     gameTypeKind = "CodeName_Cs";
                     break;
+
                 case "ko-KR":
                     gameTypeKind = "CodeName_Ko";
                     break;
@@ -249,10 +247,12 @@ namespace Fanex.Athena.Service.Implement.Casino
                 case "zh-TW":
                     gameTypeName = "GameTypeName_Ct";
                     break;
+
                 case "zh-CN":
                 case "zh-Hans":
                     gameTypeName = "GameTypeName_Cs";
                     break;
+
                 case "ko-KR":
                     gameTypeName = "GameTypeName_Ko";
                     break;

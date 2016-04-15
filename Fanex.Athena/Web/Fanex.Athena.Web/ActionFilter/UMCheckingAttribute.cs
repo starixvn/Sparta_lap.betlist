@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Web.ActionFilter
 {
-    using Service.Implement.Configuration;
-    using Service.Interface.Configuration;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
 
     public class UMCheckingAttribute : ActionFilterAttribute
     {
@@ -21,7 +21,7 @@
 
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
             }
-            
+
             base.OnActionExecuting(filterContext);
         }
     }

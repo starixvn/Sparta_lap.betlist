@@ -11,15 +11,14 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Http;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Implement.BetList;
-    using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Interface.BetList;
-    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
@@ -41,7 +40,6 @@ namespace Fanex.Athena.Api.BetList
             _ticketHelper = new TicketHelper();
         }
 
-        [CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }
@@ -75,7 +73,7 @@ namespace Fanex.Athena.Api.BetList
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
-            
+
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay && metaModel != null)
@@ -133,9 +131,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-                        
+
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
-            
+
             var leagueName = string.Empty;
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)

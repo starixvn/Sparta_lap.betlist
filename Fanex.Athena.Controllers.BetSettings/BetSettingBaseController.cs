@@ -11,17 +11,17 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Athena.Service.Interface.Users;
     using Models.DTO.Common;
     using Models.MetaModel.BetSettings;
     using Models.ViewModel.BetSettings;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
     using Service.Implement.BetSettings;
-    using Service.Implement.Common;
     using Service.Interface.BetSettings;
-    using Service.Interface.Common;
 
     public class BetSettingBaseController : ReadonlyBaseController
     {

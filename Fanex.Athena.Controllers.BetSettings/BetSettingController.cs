@@ -15,8 +15,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetSettings;
     using Fanex.Athena.Models.ViewModel.BetSettings;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Web.ActionFilter;
     using Service.Implement.BetSettings;
     using Service.Interface.BetSettings;

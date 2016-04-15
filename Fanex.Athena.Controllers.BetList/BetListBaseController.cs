@@ -13,16 +13,15 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.SessionState;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Implement.BetList;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Configuration;
     using Fanex.Athena.Service.Interface.BetList;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
 
@@ -50,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <summary>
         /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
         /// </summary>
-        protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes = 
+        protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
             new ReadOnlyCollection<int>(new List<int>() { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         /// <summary>
@@ -95,7 +94,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             get { return _ticketHelper; }
         }
-        
+
         /// <summary>
         /// Set the Licensee Id, Balance Up Date.
         /// Remove the UTC part of DateTime value.

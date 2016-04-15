@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Models.DTO.Customer.CustomerLog;
     using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
-    using Fanex.Athena.Service.Implement.Common;
+    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>

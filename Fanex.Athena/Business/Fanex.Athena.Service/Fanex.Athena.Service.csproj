@@ -225,7 +225,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Implement\BetSettings\BetSettingBaseService.cs" />
     <Compile Include="Implement\BetSettings\CoreBetSettingService.cs" />
     <Compile Include="Interface\BetSettings\INumberGameBetSettingService.cs" />
@@ -237,10 +236,6 @@
     <Compile Include="Interface\Casino\IRNGCasinoSingleWalletService.cs" />
     <Compile Include="Implement\Casino\RGNCasinoSingleWalletService.cs" />
     <Compile Include="Implement\Casino\RNGCasinoService.cs" />
-    <Compile Include="Implement\Common\CacheService.cs" />
-    <Compile Include="Implement\Common\LeagueService.cs" />
-    <Compile Include="Implement\Common\ExChangeRateService.cs" />
-    <Compile Include="Implement\Configuration\MoveBetService.cs" />
     <Compile Include="Implement\Integration\SSOService.cs" />
     <Compile Include="Implement\Keno\KenoApi.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossService.cs" />
@@ -254,10 +249,6 @@
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
     <Compile Include="Interface\Casino\IRNGCasinoService.cs" />
-    <Compile Include="Implement\Common\BetTypeService.cs" />
-    <Compile Include="Implement\Common\LanguageService.cs" />
-    <Compile Include="Implement\Common\MatchService.cs" />
-    <Compile Include="Implement\Common\SportTypeService.cs" />
     <Compile Include="Implement\BetSettings\BetSettingService.cs" />
     <Compile Include="Implement\BetList\BetListService.cs" />
     <Compile Include="Implement\Forecast\ForecastService.cs" />
@@ -273,15 +264,6 @@
     <Compile Include="Implement\TotalBets\TotalGoalService.cs" />
     <Compile Include="Implement\Customer\CustomerLog\CustomerLogService.cs" />
     <Compile Include="Implement\Customer\CustomerLog\LogInLogService.cs" />
-    <Compile Include="Implement\Users\AuthorizationService.cs" />
-    <Compile Include="Implement\Common\CurrencyService.cs" />
-    <Compile Include="Implement\Common\FunctionAccessService.cs" />
-    <Compile Include="Implement\Common\FunctionService.cs" />
-    <Compile Include="Implement\Users\LicenseeService.cs" />
-    <Compile Include="Implement\Common\ProductService.cs" />
-    <Compile Include="Implement\Users\SessionService.cs" />
-    <Compile Include="Implement\Configuration\BalanceUpService.cs" />
-    <Compile Include="Implement\Configuration\MaintenanceService.cs" />
     <Compile Include="Implement\Customer\CustomerService.cs" />
     <Compile Include="Implement\Customer\GroupComService.cs" />
     <Compile Include="Implement\Report\BaseReportService.cs" />
@@ -300,17 +282,9 @@
     <Compile Include="Implement\Report\SettledMatchCountService.cs" />
     <Compile Include="Implement\Report\TurnoverService.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeService.cs" />
-    <Compile Include="Implement\Users\UserService.cs" />
     <Compile Include="Implement\Warehouse\TopCustomerService.cs" />
     <Compile Include="Implement\Warehouse\WinLossService.cs" />
     <Compile Include="Interface\Casino\ICasinoSetting.cs" />
-    <Compile Include="Interface\Common\ILeagueService.cs" />
-    <Compile Include="Interface\Common\IBetTypeService.cs" />
-    <Compile Include="Interface\Common\IExChangeRateService.cs" />
-    <Compile Include="Interface\Common\ILanguageService.cs" />
-    <Compile Include="Interface\Common\IMatchService.cs" />
-    <Compile Include="Interface\Common\ISportTypeService.cs" />
-    <Compile Include="Interface\Configuration\IMoveBetService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ICustomerLogService.cs" />
     <Compile Include="Interface\Customer\CustomerLog\ILogInLogService.cs" />
     <Compile Include="Interface\BetSettings\IBetSettingService.cs" />
@@ -338,15 +312,6 @@
     <Compile Include="Interface\TotalBets\IOutrightService.cs" />
     <Compile Include="Interface\TotalBets\IRacingService.cs" />
     <Compile Include="Interface\TotalBets\ITotalGoalService.cs" />
-    <Compile Include="Interface\Users\IAuthorizationService.cs" />
-    <Compile Include="Interface\Common\ICurrencyService.cs" />
-    <Compile Include="Interface\Common\IFunctionAccessService.cs" />
-    <Compile Include="Interface\Common\IFunctionService.cs" />
-    <Compile Include="Interface\Users\ILicenseeService.cs" />
-    <Compile Include="Interface\Common\IProductService.cs" />
-    <Compile Include="Interface\Users\ISessionService.cs" />
-    <Compile Include="Interface\Configuration\IBalanceUpService.cs" />
-    <Compile Include="Interface\Configuration\IMaintenanceService.cs" />
     <Compile Include="Interface\Customer\ICustomerService.cs" />
     <Compile Include="Interface\Customer\IGroupComService.cs" />
     <Compile Include="Interface\Report\ICreditBalanceService.cs" />
@@ -364,11 +329,9 @@
     <Compile Include="Interface\Report\ITurnoverService.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeServive.cs" />
     <Compile Include="Interface\Report\IWinLossByProductService.cs" />
-    <Compile Include="Interface\Users\IUserService.cs" />
     <Compile Include="Interface\Warehouse\ITopCustomerService.cs" />
     <Compile Include="Interface\Warehouse\IWinLossService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exception\ServiceException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
@@ -390,6 +353,10 @@
     <ProjectReference Include="..\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
       <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

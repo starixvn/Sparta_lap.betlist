@@ -9,18 +9,16 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.MetaModel;
-    using Fanex.Athena.Service.Implement.Configuration;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Implement.Report;
-    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Report;
 
     /// <summary>
     /// LicenseeWLController class.
     /// </summary>
     public partial class ReportController : ApiReportBaseController
-    {        
+    {
         private readonly IPlatformWinLossService _platformWinLossService;
 
         private readonly IWinLossByLeagueService _winlossByLeagueService;

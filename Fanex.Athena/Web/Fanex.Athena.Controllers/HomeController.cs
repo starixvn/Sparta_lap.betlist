@@ -9,10 +9,10 @@ namespace Fanex.Athena.Controllers
     using System;
     using System.IO;
     using System.Web.Mvc;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     /// <summary>

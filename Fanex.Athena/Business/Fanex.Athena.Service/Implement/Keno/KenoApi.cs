@@ -12,7 +12,7 @@ namespace Fanex.Athena.Service.Implement.Keno
     using System.Web;
     using System.Web.Script.Serialization;
     using Fanex.Athena.Models.DTO.Keno;
-    using Fanex.Athena.Service.Exception;
+    using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Interface.Keno;
 
     /// <summary>

@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.Service.Implement.BetSettings
 {
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Models.DTO.Common;
 
     public class BetSettingBaseService

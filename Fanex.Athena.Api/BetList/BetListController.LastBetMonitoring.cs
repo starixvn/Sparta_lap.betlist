@@ -22,8 +22,8 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Interface.Common;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
     using CacheRefHelper = Fanex.BetList.Core.TicketHelper.CacheRef;
 

@@ -12,8 +12,8 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Interface.Common;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
 
     /// <summary>
     /// TODO: Update summary.

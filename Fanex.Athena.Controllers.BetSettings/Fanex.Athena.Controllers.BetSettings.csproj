@@ -76,6 +76,7 @@
     <Compile Include="VoidbridgeBetSettingController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +91,10 @@
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
       <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
       <Project>{ae7d3fed-bfff-4ad6-816b-3a1644940511}</Project>

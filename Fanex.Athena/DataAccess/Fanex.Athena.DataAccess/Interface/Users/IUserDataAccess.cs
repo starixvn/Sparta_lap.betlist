@@ -25,6 +25,8 @@ namespace Fanex.Athena.DataAccess.Interface.Users
 
         List<User> GetByLicensee(int licenseeId, bool isInternal);
 
+        User GetByUsername(string userName);
+
         User GetUserInfo(int licenseeId, int userId);
 
         object GetUserSalt(string userName);

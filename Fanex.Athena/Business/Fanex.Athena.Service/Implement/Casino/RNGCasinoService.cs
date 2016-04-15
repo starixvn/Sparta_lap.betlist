@@ -16,10 +16,10 @@ namespace Fanex.Athena.Service.Implement.Casino
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
-    using Fanex.Athena.Service.Helpers;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Interface.Casino;
-    using Fanex.Athena.Service.Interface.Common;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Common;
     using Fanex.Logging;
 
@@ -47,7 +47,7 @@ namespace Fanex.Athena.Service.Implement.Casino
         {
             var casinos = new List<RNGCasinoResult>();
             var dataTable = GetResultFromAPI(metaModel);
-          
+
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
                 var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");

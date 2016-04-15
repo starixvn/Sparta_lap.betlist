@@ -8,7 +8,7 @@ namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
     using System.Web.Http.Filters;
-    using Fanex.Athena.Service.Helpers;
+    using Fanex.Athena.Service.Core.Helpers;
 
     /// <summary>
     /// TODO: Update summary.

@@ -17,13 +17,13 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Helpers;
-    using Fanex.Athena.Service.Implement.Common;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Helpers;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Athena.Service.Interface.Users;
     using Fanex.Athena.Web.ActionFilter;
 
     #endregion Using
@@ -245,21 +245,21 @@ namespace Fanex.Athena.Controllers.Customer
             if (!productAccess.IsAllowBA)
             {
                 return Json(new
-                    {
-                        IsSuccessful = false,
-                        Message = ViewResources.NotAllowBA,
-                        IsBA = isAllowBA,
-                        BAStatus = isAllowBA ? "On" : "Off",
-                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-                    });
+                {
+                    IsSuccessful = false,
+                    Message = ViewResources.NotAllowBA,
+                    IsBA = isAllowBA,
+                    BAStatus = isAllowBA ? "On" : "Off",
+                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                });
             }
 
             var request = new Request
-                {
-                    Language = userSession.Language,
-                    Ip = Request.UserHostAddress
-                };
+            {
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress
+            };
 
             var specialBaPermission = userSession.IsAllowedSpecialBA;
             if (!specialBaPermission)
@@ -269,14 +269,14 @@ namespace Fanex.Athena.Controllers.Customer
                 if (!isAllowUpdateBa)
                 {
                     return Json(new
-                        {
-                            IsSuccessful = false,
-                            isAllowUpdateBaResult.Message,
-                            IsBA = isAllowBA,
-                            BAStatus = isAllowBA ? "On" : "Off",
-                            ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                            Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-                        });
+                    {
+                        IsSuccessful = false,
+                        isAllowUpdateBaResult.Message,
+                        IsBA = isAllowBA,
+                        BAStatus = isAllowBA ? "On" : "Off",
+                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+                    });
                 }
             }
 
@@ -290,26 +290,26 @@ namespace Fanex.Athena.Controllers.Customer
             if (updateResult.IsSuccessful)
             {
                 return Json(new
-                    {
-                        IsSuccessful = true,
-                        updateResult.Message,
-                        IsBA = !isAllowBA,
-                        BAStatus = isAllowBA ? "On" : "Off",
-                        ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                        Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip,
-                        OddsGroup = updateResult.ExtendedData
-                    });
+                {
+                    IsSuccessful = true,
+                    updateResult.Message,
+                    IsBA = !isAllowBA,
+                    BAStatus = isAllowBA ? "On" : "Off",
+                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip,
+                    OddsGroup = updateResult.ExtendedData
+                });
             }
 
             return this.Json(new
-                {
-                    IsSuccessful = false,
-                    updateResult.Message,
-                    IsBA = isAllowBA,
-                    BAStatus = isAllowBA ? "On" : "Off",
-                    ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
-                    Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
-                });
+            {
+                IsSuccessful = false,
+                updateResult.Message,
+                IsBA = isAllowBA,
+                BAStatus = isAllowBA ? "On" : "Off",
+                ConfirmMessage = isAllowBA ? ViewResources.AlertTurnOffBAMsg : ViewResources.AlertTurnOnBAMsg,
+                Tooltip = isAllowBA ? ViewResources.TurnOffBaTooltip : ViewResources.TurnOnBaTooltip
+            });
         }
 
         #endregion BA API
@@ -332,10 +332,10 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult UpdateCustomerCom(UpdatedCustomerComMetaModel metaModel)
         {
             var result = new ResultViewModel
-                {
-                    Success = false,
-                    ErrorMessage = ViewResources.HttpError_Default
-                };
+            {
+                Success = false,
+                ErrorMessage = ViewResources.HttpError_Default
+            };
             if (metaModel.Customers != null && metaModel.Customers.Count > 0)
             {
                 var commList = GroupCommSetting.Commissions;
@@ -408,15 +408,15 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
 
             var result = new ResultViewModel
-                {
-                    Success = false,
-                    ErrorMessage = ViewResources.Error
-                };
+            {
+                Success = false,
+                ErrorMessage = ViewResources.Error
+            };
             var request = new Request
-                {
-                    Language = userSession.Language,
-                    Ip = Request.UserHostAddress
-                };
+            {
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress
+            };
 
             /*Check valid data submited.*/
             var commList = GroupCommSetting.Commissions;
@@ -462,10 +462,10 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
             var result = new ResultViewModel
-                {
-                    Success = false,
-                    ErrorMessage = ViewResources.Error
-                };
+            {
+                Success = false,
+                ErrorMessage = ViewResources.Error
+            };
 
             var metaModel = new RemoveFromGroupComMetaModel()
             {
@@ -489,15 +489,15 @@ namespace Fanex.Athena.Controllers.Customer
             result.ErrorMessage = temp.Message;
             result.ErrorCode = temp.Code;
             result.ExtendedData = new
-                {
-                    SBComm = 0,
-                    RCComm = 0,
-                    NGComm = 0,
-                    LCComm = 0,
-                    RNGComm = 0,
-                    GroupName = ViewResources.None,
-                    GroupColor = "#ffffff",
-                };
+            {
+                SBComm = 0,
+                RCComm = 0,
+                NGComm = 0,
+                LCComm = 0,
+                RNGComm = 0,
+                GroupName = ViewResources.None,
+                GroupColor = "#ffffff",
+            };
 
             return Json(result);
         }
@@ -549,15 +549,15 @@ namespace Fanex.Athena.Controllers.Customer
                 if (newGroup != null)
                 {
                     result.ExtendedData = new
-                        {
-                            SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
-                            RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
-                            NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
-                            LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
-                            RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
-                            newGroup.GroupName,
-                            newGroup.GroupColor,
-                        };
+                    {
+                        SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
+                        RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
+                        NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
+                        LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
+                        RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
+                        newGroup.GroupName,
+                        newGroup.GroupColor,
+                    };
                 }
             }
 
@@ -580,11 +580,11 @@ namespace Fanex.Athena.Controllers.Customer
             var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, licenseeSession.LicenseeId, licenseeType, currencyId);
 
             var searchResult = new
-                {
-                    data = new[] { string.Empty },
-                    query = query,
-                    suggestions = customerNames
-                };
+            {
+                data = new[] { string.Empty },
+                query = query,
+                suggestions = customerNames
+            };
 
             return Json(searchResult, JsonRequestBehavior.AllowGet);
         }

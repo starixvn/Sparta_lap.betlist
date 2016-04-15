@@ -9,8 +9,6 @@ namespace Fanex.Athena.Service.Implement.Customer
     #region Using
 
     using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
@@ -18,13 +16,13 @@ namespace Fanex.Athena.Service.Implement.Customer
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Casino;
-    using Fanex.Athena.Service.Interface.Common;
     using Fanex.Athena.Service.Interface.Customer;
-    using Fanex.Athena.Service.Interface.Users;
 
     #endregion Using
 
@@ -121,14 +119,14 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="isSyncCSComm">Sync RNG commission or not.</param>
         /// <returns>The information of result.</returns>
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)
-        {            
-            var result = _customerDataAccess.UpdateCustomersCommission(metaModel);            
+        {
+            var result = _customerDataAccess.UpdateCustomersCommission(metaModel);
             var callApiSuccess = true;
             if (result.IsSuccessful && isSyncCSComm && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
                 var customerIds = result.ExtendedData.Split(',');
                 if (customerIds.Length > 0)
-                {                   
+                {
                     callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
                     {
                         Comm = metaModel.CSComm,
@@ -210,23 +208,23 @@ namespace Fanex.Athena.Service.Implement.Customer
         /// <param name="isAllowedRNGCasino">Allow RNG Casino or not.</param>
         /// <returns>The result information.</returns>
         public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino)
-        {          
+        {
             var result = _customerDataAccess.RemoveCustomersFromGroup(metaModel);
             var callApiSuccess = true;
             if (result.IsSuccessful && metaModel.IsRemovePlayercomm && isAllowedRNGCasino && !string.IsNullOrWhiteSpace(result.ExtendedData))
             {
                 var customerIds = result.ExtendedData.Split(',');
                 if (customerIds.Length > 0)
-                {                  
+                {
                     var user = _sessionService.UserSession;
                     callApiSuccess = _rngCasinoService.UpdateMemberCommission(new RNGCasinoUpdateMemberComMetaModel
-                  {
-                      Comm = 0,
-                      CustomerId = customerIds,
-                      FromIp = metaModel.Ip,
-                      ModifyBy = user.UserId,
-                      ModifyUserName = user.UserName
-                  });
+                    {
+                        Comm = 0,
+                        CustomerId = customerIds,
+                        FromIp = metaModel.Ip,
+                        ModifyBy = user.UserId,
+                        ModifyUserName = user.UserName
+                    });
                 }
             }
 
@@ -442,6 +440,7 @@ namespace Fanex.Athena.Service.Implement.Customer
 
             return _customerDataAccess.UpdateOddsGroup(userId, custId, group, ip, language);
         }
+
         #endregion Update
     }
 }

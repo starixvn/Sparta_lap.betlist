@@ -6,21 +6,15 @@
 
 namespace Fanex.Athena.Controllers
 {
-    #region Using
-
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Users;
-
-    #endregion Using
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
 
     /// <summary>
     /// Base controller.

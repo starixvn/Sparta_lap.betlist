@@ -13,10 +13,9 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Web.ActionFilter;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
 
     /// <summary>
     /// Utility controller.
@@ -42,10 +41,10 @@ namespace Fanex.Athena.Controllers
             if (!int.TryParse(Request.QueryString["Code"] != null ? Request.QueryString["Code"] : "0", out code))
             {
                 code = -1;
-            }            
+            }
 
             switch (code)
-            {                
+            {
                 case 1:
                     message = ViewResources.SSOLinkIncorrectMsg;
                     break;
@@ -288,7 +287,7 @@ namespace Fanex.Athena.Controllers
                 });
             }
         }
-        
+
         private ActionResult RedirectFromLoginPage(int licenseeId)
         {
             SessionService.UpdateLiceseeSession(licenseeId);

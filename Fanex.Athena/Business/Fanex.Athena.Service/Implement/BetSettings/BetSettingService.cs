@@ -26,12 +26,10 @@ namespace Fanex.Athena.Service.Implement.BetSettings
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetSettings;
-    using Fanex.Athena.Service.Exception;
-    using Fanex.Athena.Service.Helpers;
+    using Fanex.Athena.Service.Core.Exception;
+    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Implement.Users;
     using Fanex.Athena.Service.Interface.BetSettings;
-    using Fanex.Athena.Service.Interface.Users;
     using Fanex.Common;
     using Interface.Customer;
 

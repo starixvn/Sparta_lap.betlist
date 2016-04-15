@@ -20,10 +20,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Service.Core.Casino.Interfaces;
     using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Service.Implement.Keno;
     using Fanex.Athena.Service.Implement.Report;
-    using Fanex.Athena.Service.Interface.Casino;
     using Fanex.Athena.Service.Interface.Keno;
     using Fanex.Athena.Service.Interface.Report;
     using Fanex.Athena.Web.ActionFilter;
@@ -193,11 +193,11 @@ namespace Fanex.Athena.Controllers.Report
             if (ModelState.IsValid)
             {
                 ViewBag.Data = ParserService.Instance.Parser(new MicroGaming
-                    {
-                        CustId = custId,
-                        SiteName = SessionService.LicenseeSession.LicenseeName,
-                        GameId = gameId
-                    });
+                {
+                    CustId = custId,
+                    SiteName = SessionService.LicenseeSession.LicenseeName,
+                    GameId = gameId
+                });
                 return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
             }
 
@@ -257,10 +257,10 @@ namespace Fanex.Athena.Controllers.Report
             var userId = SessionService.UserSession.UserId;
             return Json(
                 new
-            {
-                Url = api.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
-                UserId = userId
-            },
+                {
+                    Url = api.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
+                    UserId = userId
+                },
             JsonRequestBehavior.AllowGet);
         }
 
