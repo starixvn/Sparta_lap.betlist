@@ -198,36 +198,8 @@
   <ItemGroup>
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
-    <Compile Include="BaseController.cs" />
-    <Compile Include="BetList\BetListBaseController.cs" />
-    <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
-    <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
-    <Compile Include="BetList\BetListController.cs" />
-    <Compile Include="BetList\BetListController.DailyBetList.cs" />
-    <Compile Include="BetList\BetListController.CancelBetList.cs" />
-    <Compile Include="BetList\BetListController.LastBetsMonitoring .cs" />
-    <Compile Include="BetList\BetListController.CustomerOutstanding.cs" />
-    <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
-    <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
-    <Compile Include="BetList\LicenseeWinLossBetListController.cs" />
-    <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
-    <Compile Include="BetList\BetListController.MatchWl.cs" />
-    <Compile Include="BetList\BetListController.LiveReport.cs" />
-    <Compile Include="BetList\BetListController.CustomerWl.cs" />
-    <Compile Include="BetList\BetListController.PendingFunds.cs" />
-    <Compile Include="BetList\BetListController.SystemParlayDetail.cs" />
-    <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
-    <Compile Include="BetList\BetListVoidbridgeController.cs" />
-    <Compile Include="BetList\BetListWinlossByBetTypeController.cs" />
-    <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
-    <Compile Include="BetList\BetListController.RacingCommission.cs" />
     <Compile Include="BetSettings\BetSettingBaseController.cs" />
     <Compile Include="BetSettings\VoidbridgeBetSettingController.cs" />
-    <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="Report\ReportAPI\ReportAPIController.CustomerTurnover.cs" />
@@ -245,7 +217,6 @@
     <Compile Include="MenuController.cs" />
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.ResultPage.cs" />
-    <Compile Include="Forecast\ForecastController.NewHandicapOverUnder.cs" />
     <Compile Include="Report\ReportController.MacauWinLoss.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
@@ -257,8 +228,6 @@
     <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />
     <Compile Include="Customer\CustomerLog\CustomerLogController.LogInLog.cs" />
-    <Compile Include="BetList\BetListController.RunningBetList.cs" />
-    <Compile Include="ReadonlyBaseController.cs" />
     <Compile Include="BetSettings\BetSettingController.cs" />
     <Compile Include="BetSettings\BetSettingAPIController.cs" />
     <Compile Include="Customer\CustomerController.cs">
@@ -266,10 +235,6 @@
     </Compile>
     <Compile Include="Customer\CustomerAPIController.cs" />
     <Compile Include="Customer\CustomerComGroupController.cs" />
-    <Compile Include="Forecast\ForecastController.Ah.cs" />
-    <Compile Include="Forecast\ForecastController.cs" />
-    <Compile Include="Forecast\ForecastController.HandicapOverUnder.cs" />
-    <Compile Include="Forecast\ForecastController.OneXTwo.cs" />
     <Compile Include="Report\NoteController.cs" />
     <Compile Include="Report\ReportController.WinLossByProduct.cs" />
     <Compile Include="HomeController.cs" />
@@ -289,22 +254,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\ReportController.WinLossByBetType.cs" />
-    <Compile Include="TotalBets\TotalBetsController.cs" />
-    <Compile Include="TotalBets\TotalBetsController.FirstGoalLastGoal.cs" />
-    <Compile Include="TotalBets\TotalBetsController.HalfTimeFullTime.cs" />
-    <Compile Include="TotalBets\TotalBetsController.HandicapOU.cs" />
-    <Compile Include="TotalBets\TotalBetsController.HomeDrawAwayNoBet.cs" />
-    <Compile Include="TotalBets\TotalBetsController.MoneyLine.cs" />
-    <Compile Include="TotalBets\TotalBetsController.NumberGame.cs" />
-    <Compile Include="TotalBets\TotalBetsController.OddEvenDrawNoDraw.cs" />
-    <Compile Include="TotalBets\TotalBetsController.Outright.cs" />
-    <Compile Include="TotalBets\TotalBetsController.Racing.cs" />
-    <Compile Include="TotalBets\TotalBetsController.TotalGoal.cs" />
-    <Compile Include="WareHouse\WareHouseController.TopCustomer.cs" />
-    <Compile Include="WareHouse\WareHouseController.cs" />
-    <Compile Include="WareHouse\WareHouseController.WinLoss.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
+      <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>
+      <Name>Fanex.Athena.Controllers.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>

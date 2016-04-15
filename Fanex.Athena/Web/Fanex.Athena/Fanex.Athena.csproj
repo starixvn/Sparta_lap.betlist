@@ -4556,6 +4556,22 @@
       <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
       <Name>Fanex.Athena.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
+      <Project>{83f7dc5c-e81c-45e5-bc83-b58e45198a2e}</Project>
+      <Name>Fanex.Athena.Controllers.BetList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
+      <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
+      <Name>Fanex.Athena.Controllers.Forecast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
+      <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
+      <Name>Fanex.Athena.Controllers.TotalBets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.WareHouse\Fanex.Athena.Controllers.WareHouse.csproj">
+      <Project>{f266d127-f96b-4bcc-8138-88954fffd5a9}</Project>
+      <Name>Fanex.Athena.Controllers.WareHouse</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
