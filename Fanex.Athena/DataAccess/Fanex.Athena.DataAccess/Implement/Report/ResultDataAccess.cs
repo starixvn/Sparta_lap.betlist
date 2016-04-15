@@ -28,9 +28,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
 
-    /// <summary>
-    /// Result data access.
-    /// </summary>
+    [System.CLSCompliant(false)]
     public class ResultDataAccess : IResultDataAccess
     {
         /// <summary>

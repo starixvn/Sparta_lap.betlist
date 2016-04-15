@@ -40,6 +40,7 @@ namespace Fanex.Athena.Api.BetList
             _ticketHelper = new TicketHelper();
         }
 
+        [System.CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }

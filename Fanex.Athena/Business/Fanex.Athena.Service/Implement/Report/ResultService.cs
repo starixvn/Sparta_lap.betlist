@@ -18,9 +18,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
 
-    /// <summary>
-    /// Result service class.
-    /// </summary>
+    [System.CLSCompliant(false)]
     public class ResultService : IResultService
     {
         private readonly IResultDataAccess _dataAccess;

@@ -15,6 +15,7 @@ namespace Fanex.Athena.Service.Interface.Report
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
 
+    [System.CLSCompliant(false)]
     public interface IResultService
     {
         /// <summary>
