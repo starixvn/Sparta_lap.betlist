@@ -63,6 +63,7 @@
     <Compile Include="BetSettingBaseService.cs" />
     <Compile Include="BetSettingService.cs" />
     <Compile Include="CoreBetSettingService.cs" />
+    <Compile Include="Interfaces\IAgCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IGoldDeluxeBetSettingService.cs" />
     <Compile Include="Interfaces\IBetSettingService.cs" />
     <Compile Include="Interfaces\ICoreBetSettingService.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Interfaces\INumberGameBetSettingService.cs" />
     <Compile Include="Interfaces\IVoidbridgeBetSettingService.cs" />
     <Compile Include="GoldDeluxeBetSettingService.cs" />
+    <Compile Include="AgCasinoBetSettingService.cs" />
     <Compile Include="ThirdPartyBetSettingService.cs" />
     <Compile Include="NumberGameBetSettingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,7 +82,7 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Base\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>

@@ -54,28 +54,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         #region Bet setting API
 
         /// <summary>
-        /// Get Ag Casino Group Betting Limit.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="siteName">Site name.</param>
-        /// <param name="currency">Currency id.</param>
-        /// <returns>Ag Casino Group Betting Limit.</returns>
-        [HttpGet]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult GetAgGroupBettingLimit(int custId, string siteName, int currency)
-        {
-            if (_productAccess.IsAllowAG == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var data = _betSettingService.GetAgCasinoGroupBettings(custId, siteName, currency);
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// Update Live Casino status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
@@ -132,61 +110,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             if (result.Code == 0)
             {
                 result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Update Ag Casino status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateAgCasinoStatus(int custId, string nickName, int status)
-        {
-            if (_productAccess.IsAllowAG == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateAgCasinoStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Update Ag-Casino settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <param name="group">Bet setting group.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateAgCasinoBetSetting(string nickName, string group)
-        {
-            if (_productAccess.IsAllowAG == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var setting = GetBetSettingCommonParam();
-            var result = _betSettingService.UpdateAgCasinoBetSetting(setting, group);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateAgCasinoBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

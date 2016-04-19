@@ -17,7 +17,7 @@
     <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="Authorization">

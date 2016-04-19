@@ -87,7 +87,7 @@ var BetSetting = (function ($) {
                     url = "BetSettingAPI/UpdateRngCasinoStatus";
                     break;
                 case TAB_AGCASINO:
-                    url = "BetSettingAPI/UpdateAgCasinoStatus";
+                    url = "AgCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_GOLDDELUXE:
                     url = "GoldDeluxeBetSetting/UpdateStatus";
@@ -319,7 +319,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting'),
+                url: Site.resolveClientUrl('AgCasinoBetSetting/UpdateBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {

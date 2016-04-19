@@ -79,11 +79,13 @@
     <Compile Include="BetSettingDataAccess.cs" />
     <Compile Include="BetSettingHelper.cs" />
     <Compile Include="CoreBetSettingDataAccess.cs" />
+    <Compile Include="Interfaces\IAgCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\ICoreBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IThirdPartyBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IVoidbridgeBetSettingDataAccess.cs" />
+    <Compile Include="AgCasinoBetSettingDataAccess.cs" />
     <Compile Include="ThirdPartyBetSettingDataAccess.cs" />
     <Compile Include="NumberGameBetSettingDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,7 +100,7 @@
       <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
       <Name>Fanex.Athena.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.DataAccess.Base\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>

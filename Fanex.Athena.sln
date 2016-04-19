@@ -50,7 +50,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Be
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetSettings", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj", "{68F63A3B-062C-4ADC-8718-91134A6FFB85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Base\Fanex.Athena.DataAccess.Core.csproj", "{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj", "{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core", "Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj", "{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}"
 EndProject

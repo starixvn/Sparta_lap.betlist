@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.BetSettings;
@@ -19,10 +18,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     /// </summary>
     public interface IBetSettingService
     {
-        AgCasinoBetSettingViewModel GetAgCasinoViewModel(int custId, string licenseeName);
-
-        IList<AgCasinoGame> GetAgCasinoGroupBettings(int custId, string siteName, int currency);
-
         BetSettingViewModel GetKenoViewModel(int custId);
 
         BetSettingViewModel GetSportBookViewModel(int custId);
@@ -32,8 +27,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
 
         LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language);
-
-        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
 
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting);
 
@@ -54,8 +47,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
             List<LiveCasinoBetSetting> metaModel,
             string ip,
            string language);
-
-        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 

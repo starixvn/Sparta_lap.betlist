@@ -9,13 +9,10 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     using System.Collections.Generic;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.DTO.Common;
 
     public interface IBetSettingDataAccess
     {
-        AgCasinoBetSetting GetAgCasinoSetting(int custId);
-
         IList<BetSetting> GetKenoBetSettings(int custId);
 
         IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
@@ -27,10 +24,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting);
-
-        IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting data, string group);
-
-        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 

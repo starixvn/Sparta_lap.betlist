@@ -8,28 +8,22 @@ namespace Fanex.Athena.Service.BetSettings
 {
     #region
 
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Text;
-    using System.Xml.Linq;
     using CasinoLibrary.SBAgent;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.BetSettings;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.DTO.BetSettings.AgCasino;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
-    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Common;
     using Implement.Customer;
     using Interface.Customer;
 
@@ -52,103 +46,6 @@ namespace Fanex.Athena.Service.BetSettings
             _casinoSetting = new CasinoSetting();
             _customer = new Customer();
         }
-
-        #region AgCasino
-
-        public AgCasinoBetSettingViewModel GetAgCasinoViewModel(int custId, string licenseeName)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return null;
-            }
-
-            var betSetting = _betSettingDataAccess.GetAgCasinoSetting(custId);
-
-            var viewModel = new AgCasinoBetSettingViewModel();
-
-            viewModel.BetSetting = betSetting;
-            viewModel.Games = GetAgCasinoGroupBettings(custId, licenseeName, betSetting.CurrencyId);
-            if (betSetting.CheckedGroups.Contains(betSetting.AgGroup) == false)
-            {
-                betSetting.CheckedGroups = betSetting.CheckedGroups.Concat(new string[] { betSetting.AgGroup })
-                    .OrderBy(x => x).ToArray();
-            }
-
-            viewModel.IsEnabled = betSetting.IsEnabled;
-            return viewModel;
-        }
-
-        /// <summary>
-        /// Get Ag Casino Group Betting Limit.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="siteName">Site name.</param>
-        /// <param name="currency">Currency id.</param>
-        /// <returns>Ag Casino Group Betting Limit.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public IList<AgCasinoGame> GetAgCasinoGroupBettings(int custId, string siteName, int currency)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return new List<AgCasinoGame>();
-            }
-
-            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
-            var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
-            var apiResult = string.Empty;
-            var games = new List<AgCasinoGame>();
-            try
-            {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    apiResult = webClient.UploadString(uri, parameters);
-                }
-
-                var xml = XDocument.Parse(apiResult);
-
-                foreach (var xmlGame in xml.Descendants("Game"))
-                {
-                    var game = new AgCasinoGame()
-                    {
-                        GameType = xmlGame.Attribute("GameType").Value,
-                        Name = xmlGame.Attribute("Name").Value,
-                        Groups = new List<AgCasinoGroup>()
-                    };
-
-                    foreach (var xmlGroup in xmlGame.Descendants("Group"))
-                    {
-                        game.Groups.Add(new AgCasinoGroup()
-                        {
-                            GroupType = xmlGroup.Attribute("GroupType").Value,
-                            Min = Converter.ToInt(xmlGroup.Element("Min").Value),
-                            Max = Converter.ToInt(xmlGroup.Element("Max").Value)
-                        });
-                    }
-
-                    games.Add(game);
-                }
-            }
-            catch (Exception exception)
-            {
-                LogHelper.WriteError(exception);
-            }
-
-            return games;
-        }
-
-        public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
-        }
-
-        #endregion AgCasino
 
         /// <summary>
         /// Enable or disable live casino.
@@ -311,29 +208,6 @@ namespace Fanex.Athena.Service.BetSettings
             {
                 MainData = betSettings
             };
-        }
-
-        /// <summary>
-        ///  Update SportsBook bet setting.
-        /// </summary>
-        /// <param name="setting">The common setting.</param>
-        /// <param name="group">Bet setting group.</param>
-        /// <returns>The information of result.</returns>
-        public IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group)
-        {
-            if (setting == null)
-            {
-                return ErrorResult("Invalid parameter. AG Casino is null");
-            }
-
-            var agcasinoSetting = _betSettingDataAccess.GetAgCasinoSetting(setting.CustId);
-
-            if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.CustId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            return _betSettingDataAccess.UpdateAgCasinoBetSetting(setting, group);
         }
 
         /// <summary>
