@@ -170,20 +170,25 @@ var PlatformWinLoss = (function ($) {
         },
         setReportTitle: function (data) {
             var titlePattern = Site.getSingleResource('PlatformWinLoss')
-                + ', {0} → {1} - {2} - '
-                + Site.getSingleResource('Platform') + ': {3}{4}';
+                + ', {0} → {1} - {2} - {3} - '
+                + Site.getSingleResource('Platform') + ': {4}{5}';
+
+            var selectedCurrency = $('#CurrencyId option[value="' + data.CurrencyId + '"]').text();
+            var currencyText = data.CurrencyId === "0" ?
+                Site.getSingleResource('AllCurrencies') :
+                Site.getSingleResource('Currency') + " " + selectedCurrency;
+
             var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList =
-            {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
+            var baseCurrency = {
+                "gbp": viewinKey.replace("{0}", "GBP"),
+                "usd": viewinKey.replace("{0}", "USD"),
+                "eur": viewinKey.replace("{0}", "EUR")
             };
 
-            var currencyStr = currencyTextList[data.CurrencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + data.CurrencyId + '"]').text())
-                : currencyTextList[data.CurrencyId];
+            var baseCurrencyKey = $('#BaseCurrency').val();
+            var baseCurrencyText = baseCurrency[baseCurrencyKey] === undefined
+                ? viewinKey.replace("{0}", selectedCurrency)
+                : baseCurrency[baseCurrencyKey];
 
             var platformName = PlatformWinLossOption.Platforms[data.PlatformType];
             var productText = Site.getSingleResource('Product') + ': ';
@@ -191,7 +196,7 @@ var PlatformWinLoss = (function ($) {
                 productText + data.ProductOptions[0].Code :
                 getProductText(_submitData.ProductOptions);
             var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
-                        currencyStr, platformName, ', ' + productText);
+                        currencyText, baseCurrencyText, platformName, ', ' + productText);
 
             $(".report-title").html(title);
         },

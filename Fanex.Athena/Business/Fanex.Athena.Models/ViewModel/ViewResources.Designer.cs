@@ -5542,7 +5542,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platform Win Loss - {0} --&gt; {1} - {2} - {3}.
+        ///   Looks up a localized string similar to Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}.
         /// </summary>
         public static string PlatformWinLossTitle {
             get {

@@ -150,14 +150,19 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.PlatformType);
+            var metaModel = _model.Param;
+            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
+            var currencyText = metaModel.CurrencyId == 0 ?
+                ViewResources.AllCurrencies :
+                string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
 
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
-                                        _model.Param.FromDate.ToString(FormatDate),
-                                        _model.Param.ToDate.ToString(FormatDate),
-                                        GetExactTitleCurrencyName(_model.Param.CurrencyId),
-                                        siteText) + ", " + GetProductTitle();
+                                        metaModel.FromDate.ToString(FormatDate),
+                                        metaModel.ToDate.ToString(FormatDate),
+                                        currencyText,
+                                        GetBaseCurrencyTitle(),
+                                        platformText) + ", " + GetProductTitle();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
@@ -237,6 +242,32 @@ namespace Fanex.Athena.Excel.Report
                 .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
 
             return string.Format("{0}: {1}", ViewResources.Product, text);
+        }
+
+        private string GetBaseCurrencyTitle()
+        {
+            string title;
+            var baseCurrencyId = _model.Param.BaseCurrencyId;
+            switch (baseCurrencyId)
+            {
+                case BaseCurrencyType.Eur:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+                    break;
+
+                case BaseCurrencyType.Usd:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+                    break;
+
+                case BaseCurrencyType.Gbp:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+                    break;
+
+                default:
+                    title = string.Format(ViewResources.Viewin, _model.Param.CurrencyName);
+                    break;
+            }
+
+            return title;
         }
     }
 }

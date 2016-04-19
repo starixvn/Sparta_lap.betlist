@@ -879,7 +879,7 @@
     <value>Platform Win Loss</value>
   </data>
   <data name="PlatformWinLossTitle" xml:space="preserve">
-    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3}</value>
+    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}</value>
   </data>
   <data name="MoneyLine" xml:space="preserve">
     <value>Money Line</value>

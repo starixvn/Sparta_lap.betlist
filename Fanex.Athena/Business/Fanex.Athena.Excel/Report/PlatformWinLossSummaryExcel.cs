@@ -132,11 +132,16 @@
         public override void AssignTitle(ISheet sheet)
         {
             string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
+            var currencyText = _model.CurrencyId == 0 ?
+                ViewResources.AllCurrencies :
+                string.Format("{0} {1}", ViewResources.Currency, _model.CurrencyName);
+
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
                                         _model.FromDate.ToString(FormatDate),
                                         _model.ToDate.ToString(FormatDate),
-                                        GetExactTitleCurrencyName(_model.CurrencyId),
+                                        currencyText,
+                                        GetBaseCurrencyTitle(),
                                         platformText) + ", " + GetProductTitle();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnNoContent, ReportTitle);
@@ -171,6 +176,33 @@
                 .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
 
             return string.Format("{0}: {1}", ViewResources.Product, text);
+        }
+
+        private string GetBaseCurrencyTitle()
+        {
+            string title;
+            var baseCurrencyId = _model.BaseCurrencyId;
+
+            switch (baseCurrencyId)
+            {
+                case BaseCurrencyType.Eur:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+                    break;
+
+                case BaseCurrencyType.Usd:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+                    break;
+
+                case BaseCurrencyType.Gbp:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+                    break;
+
+                default:
+                    title = string.Format(ViewResources.Viewin, _model.CurrencyName);
+                    break;
+            }
+
+            return title;
         }
     }
 }
