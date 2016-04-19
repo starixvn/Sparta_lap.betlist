@@ -373,7 +373,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('BetSettingAPI/updateRacingBetSetting?'),
+                url: Site.resolveClientUrl('RacingBetSetting/updateBetSetting'),
                 cache: false,
                 data: params,
                 dataType: "json",

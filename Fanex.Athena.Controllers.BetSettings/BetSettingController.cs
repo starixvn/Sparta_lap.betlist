@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 case ProductTypes.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
 
-                default: // Sportsbook, Racing, Virtual Sports
+                default: // Sportsbook, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
         }
@@ -133,11 +133,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             {
                 case ProductTypes.Sportsbook:
                     model = _betSettingService.GetSportBookViewModel(custId);
-                    break;
-
-                case ProductTypes.Racing:
-                    var isAllowSaToteCurrency = ProductService.IsAllowedSaToteCurrency(custId);
-                    model = _betSettingService.GetRacingViewModel(custId, isAllowSaToteCurrency);
                     break;
 
                 case ProductTypes.VirtualSports:

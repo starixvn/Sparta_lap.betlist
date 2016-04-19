@@ -22,8 +22,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
         BetSettingViewModel GetSportBookViewModel(int custId);
 
-        BetSettingViewModel GetRacingViewModel(int custId, bool isAllowSaToreCurrency);
-
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
 
         LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language);
@@ -34,8 +32,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
         [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", Justification = "Reviewed")]
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
-
-        IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
 

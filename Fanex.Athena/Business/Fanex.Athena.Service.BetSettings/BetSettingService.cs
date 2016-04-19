@@ -22,7 +22,6 @@ namespace Fanex.Athena.Service.BetSettings
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.BetSettings.Interfaces;
-    using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Implement.Casino;
     using Implement.Customer;
     using Interface.Customer;
@@ -120,23 +119,6 @@ namespace Fanex.Athena.Service.BetSettings
             {
                 MainData = betSettings,
                 EsportSetting = esportSetting
-            };
-        }
-
-        /// <summary>
-        ///     Get racing bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="isAllowSaToreCurrency">Is allowed sa-tore currency.</param>
-        /// <returns>The bet setting list.</returns>
-        public BetSettingViewModel GetRacingViewModel(int custId, bool isAllowSaToreCurrency)
-        {
-            var betSettings = HasPermissionOnData(custId)
-                        ? _betSettingDataAccess.GetRacingBetSetting(custId, isAllowSaToreCurrency)
-                        : new List<BetSetting>();
-            return new BetSettingViewModel
-            {
-                MainData = betSettings
             };
         }
 
@@ -239,27 +221,6 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             return _betSettingDataAccess.UpdateEsportStatus(setting, isDisabled);
-        }
-
-        /// <summary>
-        /// Update racing bet setting.
-        /// </summary>
-        /// <param name="racingParam">Dictionary of racing parameter.</param>
-        /// <returns>The  bet setting racing.</returns>
-        public IDictionary<string, string> UpdateRacingBetSetting(Dictionary<string, RacingBetSetting> racingParam)
-        {
-            if (racingParam == null || racingParam.Count == 0)
-            {
-                throw new ServiceException("Invalid parameter. racingParam is null", "BetSetting");
-            }
-
-            var custId = racingParam.First().Value.CustId;
-            if (!HasPermissionOnData(custId))
-            {
-                throw new ServiceException(ViewResources.UpdateSpecialLevelMsg, "BetSetting");
-            }
-
-            return _betSettingDataAccess.UpdateRacingBetSetting(racingParam);
         }
 
         /// <summary>

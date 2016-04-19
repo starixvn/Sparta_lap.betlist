@@ -31,9 +31,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
 
-        private readonly Dictionary<string, RacingBetSetting> _racingBetSettingList =
-            new Dictionary<string, RacingBetSetting>();
-
         private ProductAccess _productAccess;
 
         #region Constructor
@@ -165,40 +162,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             {
                 var enableText = isDisabled ? "disabled" : "enable";
                 result.Message = string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Update racing settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateRacingBetSetting(string nickName)
-        {
-            if (_productAccess.IsAllowRB == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var racing = GetBetSettingCommonParam();
-
-            _racingBetSettingList.Add("151_31", GetRacingParam("151_31", racing.CustId, racing));
-            _racingBetSettingList.Add("151_41", GetRacingParam("151_41", racing.CustId, racing));
-            _racingBetSettingList.Add("151_51", GetRacingParam("151_51", racing.CustId, racing));
-            _racingBetSettingList.Add("152_41", GetRacingParam("152_41", racing.CustId, racing));
-            _racingBetSettingList.Add("152_51", GetRacingParam("152_51", racing.CustId, racing));
-            _racingBetSettingList.Add("153_51", GetRacingParam("153_51", racing.CustId, racing));
-
-            var result = _betSettingService.UpdateRacingBetSetting(_racingBetSettingList);
-
-            if (result["Code"].Length == 0)
-            {
-                result["Message"] = string.Format(ViewResources.UpdateRacingBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -450,31 +413,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             GetParams("154", sportsBookParam);
 
             return sportsBookParam;
-        }
-
-        /// <summary>
-        /// Get racing parameters.
-        /// </summary>
-        /// <param name="raceType">The racing type.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="data">The common bet setting parameters.</param>
-        /// <returns>The racing bet setting.</returns>
-        private RacingBetSetting GetRacingParam(string raceType, int custId, CommonBetSetting data)
-        {
-            var racingBetSetting = new RacingBetSetting(custId, data)
-            {
-                IsDataChange = !string.IsNullOrEmpty(HttpContext.Request["minbet" + raceType])
-                && !string.IsNullOrEmpty(HttpContext.Request["maxbet" + raceType]) && !string.IsNullOrEmpty(HttpContext.Request["maxpermatch" + raceType])
-            };
-
-            if (racingBetSetting.IsDataChange)
-            {
-                racingBetSetting.MinBet = GetDecimalRequest("minbet" + raceType, 0);
-                racingBetSetting.MaxBet = GetDecimalRequest("maxbet" + raceType, 0);
-                racingBetSetting.MaxPerMatch = GetDecimalRequest("maxpermatch" + raceType, 0);
-            }
-
-            return racingBetSetting;
         }
 
         /// <summary>
