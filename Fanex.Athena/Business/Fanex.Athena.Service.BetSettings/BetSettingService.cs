@@ -47,32 +47,6 @@ namespace Fanex.Athena.Service.BetSettings
         }
 
         /// <summary>
-        /// Enable or disable live casino.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <param name="language">The language code.</param>
-        /// <param name="ip">The host address.</param>
-        /// <returns>The result info.</returns>
-        public IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var customerInfo = _customerService.GetCustomerInfo(custId);
-
-            if (customerInfo.SyncLiveCasino)
-            {
-                return _betSettingDataAccess.UpdateLiveCasinoStatus(userId, custId, status, language, ip);
-            }
-
-            return new ResultInfo { Code = 1, Message = ViewResources.LCCasinoUpdateSettingUnAvailableMsg };
-        }
-
-        /// <summary>
         /// Update RNG Casino status.
         /// </summary>
         /// <param name="userId">User ID value.</param>
@@ -135,48 +109,6 @@ namespace Fanex.Athena.Service.BetSettings
             return new BetSettingViewModel
             {
                 MainData = betSettings
-            };
-        }
-
-        /// <summary>
-        ///     Get live casino bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="language">Language of licensee.</param>
-        /// <returns>The bet setting of live casino list.</returns>
-        public LiveCasinoBetSettingViewModel GetLiveCasinoViewModel(int custId, string language)
-        {
-            var betSettings = HasPermissionOnData(custId)
-                            ? _betSettingDataAccess.GetLiveCasinoBetSetting(custId, language)
-                            : new List<LiveCasinoBetSetting>();
-
-            var resultList = new List<LiveCasinoBetSettingGame>();
-
-            var gameTypeIdList = betSettings.Select(x => x.GameTypeId).Distinct().ToList();
-
-            foreach (var gameTypeId in gameTypeIdList)
-            {
-                var gameTypeName =
-                    betSettings.Where(x => x.GameTypeId == gameTypeId).Select(i => i.GameType).FirstOrDefault();
-                var bettingLimitList =
-                    betSettings.Where(x => x.GameTypeId == gameTypeId).Select(i => new LiveCasinoBetSetting
-                    {
-                        StakeLevelId = i.StakeLevelId,
-                        StakeLevelName = i.StakeLevelName,
-                        IsCheck = i.IsCheck
-                    }).ToList();
-
-                resultList.Add(new LiveCasinoBetSettingGame
-                {
-                    GameTypeName = gameTypeName,
-                    GameTypeId = gameTypeId,
-                    BettingLimitList = bettingLimitList
-                });
-            }
-
-            return new LiveCasinoBetSettingViewModel
-            {
-                LiveCasinoData = resultList
             };
         }
 
@@ -256,45 +188,6 @@ namespace Fanex.Athena.Service.BetSettings
                 language,
                 ip,
                 xmlparam);
-        }
-
-        /// <summary>
-        /// Update live casino bet setting.
-        /// </summary>
-        /// <param name="userId">The user Id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="language">The language code.</param>
-        /// <returns>The result.</returns>
-        public IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, List<LiveCasinoBetSetting> metaModel, string ip, string language)
-        {
-            var customerInfo = _customerService.GetCustomerInfo(custId);
-
-            if (customerInfo.DisableLiveCasino || !HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var errCode = string.Empty;
-            var errMsg = string.Empty;
-
-            foreach (var curParam in metaModel)
-            {
-                var result = _betSettingDataAccess.UpdateLiveCasinoBetSetting(userId, custId, curParam, ip, language);
-
-                if (result.Code == 0)
-                {
-                    continue;
-                }
-
-                errCode += result.Code + ", ";
-                errMsg += result.Message + ", ";
-            }
-
-            return errCode.Length == 0
-                ? new ResultInfo { Code = 0, Message = string.Empty }
-                : new ResultInfo { Code = -1, Message = errMsg };
         }
 
         /// <summary>

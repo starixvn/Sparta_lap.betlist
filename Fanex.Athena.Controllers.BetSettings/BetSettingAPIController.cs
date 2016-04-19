@@ -51,34 +51,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         #region Bet setting API
 
         /// <summary>
-        /// Update Live Casino status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateLiveCasinoStatus(int custId, string nickName, int status)
-        {
-            if (_productAccess.IsAllowLC == false || _customerService.GetCustomerInfo(custId).SyncLiveCasino == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateLiveCasinoStatus(userSession.UserId, custId, status, userSession.Language, Request.UserHostAddress);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result);
-        }
-
-        /// <summary>
         /// Update RNG Casino status.
         /// </summary>
         /// <param name="custId">Customer ID value.</param>
@@ -242,59 +214,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             if (result.Code == 0)
             {
                 result.Message = string.Format(ViewResources.UpdateVirtualSportsBetSettingSuccessMsg, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Update live casino settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateLiveCasinoBetSetting(string nickName)
-        {
-            var custId = int.Parse(HttpContext.Request["custid"]);
-
-            if (_productAccess.IsAllowLC == false || _customerService.GetCustomerInfo(custId).SyncLiveCasino == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var userSession = SessionService.UserSession;
-            var ip = Request.UserHostAddress;
-
-            var gameTypeCount = int.Parse(HttpContext.Request["gameTypeCount"]);
-
-            var liveCasinoBetSetting = new List<LiveCasinoBetSetting>();
-
-            for (var i = 1; i <= gameTypeCount; i++)
-            {
-                var gameTypeId = int.Parse(HttpContext.Request["gameTypeId" + i]);
-                var stakeLevel = int.Parse(HttpContext.Request["stakeId" + i]);
-                var stakeLevelName = HttpContext.Request["stakeLevelName" + i];
-
-                var betTypeId = int.Parse(HttpContext.Request["betTypeId" + i]);
-
-                var liveCasino = new LiveCasinoBetSetting
-                {
-                    GameTypeId = gameTypeId,
-                    StakeLevelId = stakeLevel,
-                    StakeLevelName = stakeLevelName,
-                    BetTypeId = betTypeId
-                };
-
-                liveCasinoBetSetting.Add(liveCasino);
-            }
-
-            var result = _betSettingService.UpdateLiveCasinoBetSetting(userSession.UserId, custId, liveCasinoBetSetting, ip, userSession.Language);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateLiveCasinoBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

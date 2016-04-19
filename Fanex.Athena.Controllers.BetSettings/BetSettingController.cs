@@ -53,9 +53,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             switch (metaModel.ProductId)
             {
-                case ProductTypes.LiveCasino:
-                    return View("~/Views/Customer/BetSetting/LiveCasino.cshtml", viewModel);
-
                 case ProductTypes.RngCasino:
                     return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
 
@@ -70,21 +67,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         #endregion Displaying bet settings
 
         #region Common
-
-        private static bool? IsLiveCasinoEnabled(CustomerInfo customerInfo)
-        {
-            bool? resultValue = false;
-            if (customerInfo.DisableLiveCasino == false && customerInfo.SyncLiveCasino)
-            {
-                resultValue = true;
-            }
-            else if (customerInfo.SyncLiveCasino == false)
-            {
-                resultValue = null;
-            }
-
-            return resultValue;
-        }
 
         private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
         {
@@ -137,11 +119,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 case ProductTypes.VirtualSports:
                     model = _betSettingService.GetVirtualSportsViewModel(custId);
-                    break;
-
-                case ProductTypes.LiveCasino:
-                    model = _betSettingService.GetLiveCasinoViewModel(custId, SessionService.UserSession.Language);
-                    model.IsEnabled = IsLiveCasinoEnabled(customerInfo);
                     break;
 
                 case ProductTypes.RngCasino:

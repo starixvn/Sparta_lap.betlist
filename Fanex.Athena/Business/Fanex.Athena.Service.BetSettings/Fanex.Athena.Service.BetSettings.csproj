@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
+    <Compile Include="LiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />
     <Compile Include="RacingBetSettingService.cs" />
     <Compile Include="BetSettingBaseService.cs" />

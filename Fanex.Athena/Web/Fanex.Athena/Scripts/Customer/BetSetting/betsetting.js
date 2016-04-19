@@ -81,7 +81,7 @@ var BetSetting = (function ($) {
 
             switch (productId) {
                 case TAB_LIVECASINO:
-                    url = "BetSettingAPI/UpdateLiveCasinoStatus";
+                    url = "LiveCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_RNGCASINO:
                     url = "BetSettingAPI/UpdateRngCasinoStatus";
@@ -441,7 +441,7 @@ var BetSetting = (function ($) {
             }
             $.ajax({
                 type: 'POST',
-                url: Site.resolveClientUrl('BetSettingAPI/updateLiveCasinoBetSetting?'),
+                url: Site.resolveClientUrl('LiveCasinoBetSetting/updateBetSetting'),
                 cache: false,
                 data: params,
                 dataType: "json",

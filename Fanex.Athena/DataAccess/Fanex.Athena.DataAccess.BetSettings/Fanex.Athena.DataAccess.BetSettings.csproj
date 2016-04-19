@@ -76,7 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILiveCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IRacingBetSettingDataAccess.cs" />
+    <Compile Include="LiveCasinoBettingDataAccess.cs" />
     <Compile Include="RacingBetSettingDataAccess.cs" />
     <Compile Include="BetSettingDataAccess.cs" />
     <Compile Include="BetSettingHelper.cs" />

@@ -15,8 +15,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     {
         IList<BetSetting> GetKenoBetSettings(int custId);
 
-        IList<LiveCasinoBetSetting> GetLiveCasinoBetSetting(int custId, string language);
-
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
@@ -24,10 +22,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
-
-        IResultInfo UpdateLiveCasinoBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language);
-
-        IResultInfo UpdateLiveCasinoStatus(int userId, int custId, int status, string language, string ip);
 
         IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
 

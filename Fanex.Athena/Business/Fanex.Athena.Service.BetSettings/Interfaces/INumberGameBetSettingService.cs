@@ -1,4 +1,10 @@
-﻿namespace Fanex.Athena.Service.BetSettings.Interfaces
+﻿// -----------------------------------------------------------------------
+// <copyright file="INumberGameBetSettingService.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     using System.Collections;
     using Fanex.Athena.Models.DTO.BetSettings;
