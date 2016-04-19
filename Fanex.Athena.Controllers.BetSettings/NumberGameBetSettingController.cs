@@ -30,7 +30,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = GetViewModel(metaModel);
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
+            AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
         }
@@ -55,13 +56,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
-        {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
-            AssignRequiredProperties(viewModel, metaModel);
-            return viewModel;
         }
 
         private Hashtable GetNumberGameParam()

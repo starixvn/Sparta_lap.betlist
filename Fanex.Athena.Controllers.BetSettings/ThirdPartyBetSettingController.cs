@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Models.DataDomain;
     using Models.MetaModel.BetSettings;
     using Models.ViewModel;
-    using Models.ViewModel.BetSettings;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
 
@@ -30,7 +29,8 @@ namespace Fanex.Athena.Controllers.BetSettings
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = GetViewModel(metaModel);
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, metaModel.ProductId);
+            AssignRequiredProperties(viewModel, metaModel);
             if (viewModel == null)
             {
                 return this.Redirect("~/Utility/AccessDenied");
@@ -99,13 +99,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
-        {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, metaModel.ProductId);
-            AssignRequiredProperties(viewModel, metaModel);
-            return viewModel;
         }
     }
 }

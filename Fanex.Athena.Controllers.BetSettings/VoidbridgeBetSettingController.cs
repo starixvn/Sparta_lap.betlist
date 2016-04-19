@@ -30,7 +30,11 @@ namespace Fanex.Athena.Controllers.BetSettings
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = GetViewModel(metaModel);
+            var viewModel = new BetSettingBaseViewModel()
+            {
+                IsEnabled = _betSettingService.GetStatus(metaModel.CustId),
+            };
+            AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
         }
@@ -54,16 +58,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return Json(result);
-        }
-
-        private BetSettingBaseViewModel GetViewModel(BetSettingMetaModel metaModel)
-        {
-            var viewModel = new BetSettingBaseViewModel()
-            {
-                IsEnabled = _betSettingService.GetStatus(metaModel.CustId),
-            };
-            AssignRequiredProperties(viewModel, metaModel);
-            return viewModel;
         }
     }
 }
