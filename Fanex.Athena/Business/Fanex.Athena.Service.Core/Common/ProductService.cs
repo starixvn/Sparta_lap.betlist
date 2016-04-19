@@ -16,8 +16,8 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Linq;
     using System.Web;
     using System.Xml.Linq;
-    using Fanex.Athena.DataAccess.Implement.Common;
-    using Fanex.Athena.DataAccess.Interface.Common;
+    using Fanex.Athena.DataAccess.Core.Common;
+    using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Configuration;

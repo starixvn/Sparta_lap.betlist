@@ -8,8 +8,8 @@ namespace Fanex.Athena.Service.Core.Common
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.DataAccess.Implement.Common;
-    using Fanex.Athena.DataAccess.Interface.Common;
+    using Fanex.Athena.DataAccess.Core.Common;
+    using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Caching;
