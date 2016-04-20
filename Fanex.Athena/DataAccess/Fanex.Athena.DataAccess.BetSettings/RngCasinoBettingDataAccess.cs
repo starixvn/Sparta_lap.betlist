@@ -11,9 +11,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class RngCasinoBetSettingDataAccess : CasinoBettingBaseDataAccess, IRngCasinoBetSettingDataAccess
     {
-        protected const int RngCasinoSportId = 251;
+        private const int RngCasinoSportId = 251;
 
-        public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip)
+        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip)
         {
             return UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
         }

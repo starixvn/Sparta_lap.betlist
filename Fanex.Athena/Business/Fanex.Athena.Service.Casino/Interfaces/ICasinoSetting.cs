@@ -19,6 +19,6 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 
         IList<GameKind> GetRngCasinoSettings(int custId, string licenseeName, string language);
 
-        bool UpdateRngCasinoSetting(DataTable dataTableParam, string licenseeName);
+        bool UpdateSetting(DataTable dataTableParam, string licenseeName);
     }
 }

@@ -6,31 +6,22 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
-    using System.Collections.Generic;
     using System.Data;
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.DTO.BetSettings.RngCasino;
     using Models.DTO.Common;
-    using Models.DTO.Customer;
     using Models.MetaModel.BetSettings;
     using Models.MetaModel.Casino;
     using Models.ViewModel;
-    using Models.ViewModel.BetSettings;
     using Service.BetSettings;
-    using Service.Casino;
-    using Service.Casino.Interfaces;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IRngCasinoBetSettingService _betSettingService;
 
-        private readonly ICasinoSetting _casinoSetting;
-
         public RngCasinoBetSettingController()
         {
             _betSettingService = new RngCasinoBetSettingService();
-            this._casinoSetting = new CasinoSetting();
         }
 
         [HttpGet]
@@ -39,7 +30,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var customer = CustomerService.GetCustomerInfo(metaModel.CustId);
-            var viewModel = GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language, SessionService.LicenseeSession.LicenseeName);
             AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
@@ -74,7 +65,9 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 metaModel.TableParam = tableParam;
 
-                var result = _betSettingService.UpdateRngCasinoSetting(metaModel);
+                var customer = CustomerService.GetCustomerInfo(custId);
+
+                var result = _betSettingService.UpdateSetting(metaModel, customer.SyncCasino, customer.DisableCasino);
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -99,14 +92,16 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
+            var customer = CustomerService.GetCustomerInfo(custId);
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateRngCasinoStatus(
+            var result = _betSettingService.UpdateStatus(
                 userSession.UserId,
                 custId,
                 status,
                 userSession.Language,
                 Request.UserHostAddress,
-                userSession.UserName);
+                userSession.UserName,
+                customer.SyncCasino);
 
             if (result.Code == 0)
             {
@@ -114,21 +109,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
-        {
-            bool? resultValue = false;
-            if (customerInfo.DisableCasino == false && customerInfo.SyncCasino)
-            {
-                resultValue = true;
-            }
-            else if (customerInfo.SyncCasino == false)
-            {
-                resultValue = null;
-            }
-
-            return resultValue;
         }
 
         private DataTable GetRngCasinoParam(RngCasinoBetSettingMetaModel metaModel, string gameTypeChangedList)
@@ -152,25 +132,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return table;
-        }
-
-        private RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customerInfo, string language)
-        {
-            IList<GameKind> gameKinds;
-            if (customerInfo.SyncCasino)
-            {
-                gameKinds = _casinoSetting.GetRngCasinoSettings(custId, SessionService.LicenseeSession.LicenseeName, language);
-            }
-            else
-            {
-                gameKinds = new List<GameKind>();
-            }
-
-            return new RngCasinoBetSettingViewModel
-            {
-                GameKinds = gameKinds,
-                IsEnabled = IsRngCasinoEnabled(customerInfo)
-            };
         }
     }
 }

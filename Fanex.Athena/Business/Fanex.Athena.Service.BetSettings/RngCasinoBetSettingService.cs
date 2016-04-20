@@ -6,15 +6,18 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
+    using System.Collections.Generic;
     using CasinoLibrary.SBAgent;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Service.Casino;
-    using Fanex.Athena.Service.Customer;
+    using Models.DTO.BetSettings.RngCasino;
     using Models.DTO.Common;
+    using Models.DTO.Customer;
     using Models.MetaModel.Casino;
     using Models.ViewModel;
+    using Models.ViewModel.BetSettings;
 
     public class RngCasinoBetSettingService : BetSettingBaseService, IRngCasinoBetSettingService
     {
@@ -22,55 +25,68 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly CasinoSetting _casinoSetting;
 
-        private readonly CustomerService _customerService;
-
         private readonly Customer _customerApi;
 
         public RngCasinoBetSettingService()
         {
             _betSettingDataAccess = new RngCasinoBetSettingDataAccess();
             _casinoSetting = new CasinoSetting();
-            _customerService = new CustomerService();
             _customerApi = new Customer();
         }
 
-        public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username)
+        public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName)
+        {
+            IList<GameKind> gameKinds;
+            if (customer.SyncCasino)
+            {
+                gameKinds = _casinoSetting.GetRngCasinoSettings(custId, licenseeName, language);
+            }
+            else
+            {
+                gameKinds = new List<GameKind>();
+            }
+
+            return new RngCasinoBetSettingViewModel
+            {
+                GameKinds = gameKinds,
+                IsEnabled = IsRngCasinoEnabled(customer)
+            };
+        }
+
+        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino)
         {
             if (!HasPermissionOnData(custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            var customerInfo = _customerService.GetCustomerInfo(custId);
-            if (customerInfo.SyncCasino && !AppSettings.IsDisableRngCasino)
+            if (isSyncCasino && !AppSettings.IsDisableRngCasino)
             {
                 if (!_customerApi.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }
 
-                return _betSettingDataAccess.UpdateRngCasinoStatus(userId, custId, status, language, ip);
+                return _betSettingDataAccess.UpdateStatus(userId, custId, status, language, ip);
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
         }
 
-        public IResultInfo UpdateRngCasinoSetting(RngCasinoBetSettingMetaModel metaModel)
+        public IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino)
         {
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
-
-            if (customerInfo.DisableCasino || !HasPermissionOnData(metaModel.CustId))
+            if (isDisableCasino || !HasPermissionOnData(metaModel.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
             var result = false;
 
-            if (customerInfo.SyncCasino)
+            if (isSyncCasino)
             {
                 if (!AppSettings.IsDisableRngCasino)
                 {
-                    result = _casinoSetting.UpdateRngCasinoSetting(metaModel.TableParam, metaModel.LicenseeName);
+                    result = _casinoSetting.UpdateSetting(metaModel.TableParam, metaModel.LicenseeName);
 
                     return result ?
                         new ResultInfo { Code = 0, Message = ViewResources.MessageSuccess }
@@ -83,6 +99,21 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
+        }
+
+        private static bool? IsRngCasinoEnabled(CustomerInfo customer)
+        {
+            bool? resultValue = false;
+            if (customer.DisableCasino == false && customer.SyncCasino)
+            {
+                resultValue = true;
+            }
+            else if (customer.SyncCasino == false)
+            {
+                resultValue = null;
+            }
+
+            return resultValue;
         }
     }
 }

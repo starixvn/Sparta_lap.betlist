@@ -128,7 +128,7 @@ namespace Fanex.Athena.Service.Casino
         /// <param name="dataTableParam">The parameters.</param>
         /// <param name="licenseeName">The licensee name.</param>
         /// <returns>True if updating is successful.</returns>
-        public bool UpdateRngCasinoSetting(DataTable dataTableParam, string licenseeName)
+        public bool UpdateSetting(DataTable dataTableParam, string licenseeName)
         {
             try
             {

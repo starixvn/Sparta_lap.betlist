@@ -10,6 +10,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
     public interface IRngCasinoBetSettingDataAccess
     {
-        IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
+        IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip);
     }
 }
