@@ -45,11 +45,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         #endregion Constructor
 
-        /// <summary>
-        /// Update sport-book settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
@@ -72,11 +67,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Update sport-book settings.
-        /// </summary>
-        /// <param name="isDisabled">Is disabled.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
@@ -95,40 +85,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             {
                 var enableText = isDisabled ? "disabled" : "enable";
                 result.Message = string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateVirtualSportsBetSetting(string nickName)
-        {
-            if (_productAccess.IsAllowVS == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var commonParam = GetBetSettingCommonParam();
-            var dataParams = GetVirtualSportsParam();
-            /*Validate parameter*/
-            if (dataParams == null || dataParams.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
-            {
-                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
-            }
-
-            var result = _betSettingService
-                .UpdateVirtualSportsBetSetting(
-                commonParam.CustId,
-                commonParam.UserId,
-                commonParam.Language,
-                commonParam.Ip,
-                dataParams);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateVirtualSportsBetSettingSuccessMsg, nickName);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -180,26 +136,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             GetParams("154", sportsBookParam);
 
             return sportsBookParam;
-        }
-
-        private IList<VSBetSetting> GetVirtualSportsParam()
-        {
-            string[] sports = { "180", "181", "182", "183", "184", "185", "186" };
-
-            var settings = new List<VSBetSetting>();
-
-            foreach (var sport in sports)
-            {
-                settings.Add(new VSBetSetting
-                {
-                    MaxBet = GetDecimalRequest("maxbet" + sport, 0),
-                    MinBet = GetDecimalRequest("minbet" + sport, 0),
-                    MaxPerMatch = GetDecimalRequest("maxpermatch" + sport, 0),
-                    SportId = sport
-                });
-            }
-
-            return settings;
         }
 
         private decimal GetDecimalRequest(string name, decimal defaultValue)

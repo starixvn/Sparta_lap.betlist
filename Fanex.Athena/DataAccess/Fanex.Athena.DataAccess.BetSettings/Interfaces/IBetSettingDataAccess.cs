@@ -15,12 +15,8 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     {
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
-        IList<BetSetting> GetVirtualSportsBetSetting(int custId);
-
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
-
-        IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);
     }
 }

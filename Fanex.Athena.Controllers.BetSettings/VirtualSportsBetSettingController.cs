@@ -1,0 +1,91 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="VirtualSportsBetSettingController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
+namespace Fanex.Athena.Controllers.BetSettings
+{
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using Fanex.Athena.Web.ActionFilter;
+    using Models.DTO.BetSettings;
+    using Models.DTO.Common;
+    using Models.MetaModel.BetSettings;
+    using Models.ViewModel;
+    using Service.BetSettings;
+
+    public class VirtualSportsBetSettingController : BetSettingBaseController
+    {
+        private readonly IVirtualSportsBetSettingService _betSettingService;
+
+        public VirtualSportsBetSettingController()
+        {
+            _betSettingService = new VirtualSportsBetSettingService();
+        }
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        public ActionResult Index(BetSettingMetaModel metaModel)
+        {
+            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
+            AssignRequiredProperties(viewModel, metaModel);
+            return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
+        }
+
+        [HttpPost]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
+        public JsonResult UpdateBetSetting(string nickName)
+        {
+            if (ProductAccess.IsAllowVS == false)
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
+            var commonParam = GetBetSettingCommonParam();
+            var parameters = GetParameters();
+
+            if (parameters.Count == 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
+            {
+                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
+            }
+
+            var result = _betSettingService
+                .UpdateBetSetting(
+                commonParam.CustId,
+                commonParam.UserId,
+                commonParam.Language,
+                commonParam.Ip,
+                parameters);
+
+            if (result.Code == 0)
+            {
+                result.Message = string.Format(ViewResources.UpdateVirtualSportsBetSettingSuccessMsg, nickName);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private IList<VSBetSetting> GetParameters()
+        {
+            string[] sports = { "180", "181", "182", "183", "184", "185", "186" };
+
+            var settings = new List<VSBetSetting>();
+
+            foreach (var sport in sports)
+            {
+                settings.Add(new VSBetSetting
+                {
+                    MaxBet = GetDecimalRequest("maxbet" + sport, 0),
+                    MinBet = GetDecimalRequest("minbet" + sport, 0),
+                    MaxPerMatch = GetDecimalRequest("maxpermatch" + sport, 0),
+                    SportId = sport
+                });
+            }
+
+            return settings;
+        }
+    }
+}
