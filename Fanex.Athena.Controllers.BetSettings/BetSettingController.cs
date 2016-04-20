@@ -43,14 +43,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
-            switch (metaModel.ProductId)
-            {
-                case ProductTypes.Keno:
-                    return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
-
-                default: // Sportsbook, Virtual Sports
-                    return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
-            }
+            // Sportsbook, Virtual Sports
+            return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
         }
 
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
@@ -89,10 +83,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
                 case ProductTypes.VirtualSports:
                     model = _betSettingService.GetVirtualSportsViewModel(custId);
-                    break;
-
-                case ProductTypes.Keno:
-                    model = _betSettingService.GetKenoViewModel(custId);
                     break;
 
                 default:

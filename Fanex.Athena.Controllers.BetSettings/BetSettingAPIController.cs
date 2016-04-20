@@ -6,14 +6,11 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Fanex.Athena.Service.Core.Common;
@@ -47,8 +44,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         #endregion Constructor
-
-        #region Bet setting API
 
         /// <summary>
         /// Update sport-book settings.
@@ -105,52 +100,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Update Keno settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateKenoBetSetting(string nickName)
-        {
-            if (_productAccess.IsAllowKN == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var id = Convert.ToInt32(Request["id"]);
-            var commonParam = GetBetSettingCommonParam();
-
-            if (id <= 0 || commonParam.UserId == 0 || commonParam.CustId == 0)
-            {
-                return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
-            }
-
-            var betSetting = GetKenoBetSetting(id);
-
-            var result = _betSettingService
-                .UpdateKenoBetSetting(
-                commonParam.CustId,
-                commonParam.UserId,
-                commonParam.Language,
-                commonParam.Ip,
-                betSetting);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateKenoBetSettingSuccessMsg, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Update virtual sport settings.
-        /// </summary>
-        /// <param name="nickName">The user name.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
@@ -185,14 +134,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        #endregion Bet setting API
-
-        #region Get Betsetting params
-
-        /// <summary>
-        /// Get common parameters.
-        /// </summary>
-        /// <returns>The common bet setting.</returns>
         private CommonBetSetting GetBetSettingCommonParam()
         {
             var userSession = SessionService.UserSession;
@@ -208,11 +149,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return commonItem;
         }
 
-        /// <summary>
-        /// Get requested parameter by sport type.
-        /// </summary>
-        /// <param name="sportType">The sport id.</param>
-        /// <param name="sportsBookParam">The sport-book parameters.</param>
         private void GetParams(string sportType, IDictionary<string, object> sportsBookParam)
         {
             var minBet = GetDecimalRequest("minbet" + sportType, 0);
@@ -227,10 +163,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             sportsBookParam.Add("updateminmaxbet" + paramSuffix, update);
         }
 
-        /// <summary>
-        /// Get sport-book parameters.
-        /// </summary>
-        /// <returns>The hash table parameters.</returns>
         private IDictionary<string, object> GetSportsBookParam()
         {
             var sportsBookParam = new Dictionary<string, object>();
@@ -250,26 +182,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return sportsBookParam;
         }
 
-        /// <summary>
-        /// Get Keno requested parameters.
-        /// </summary>
-        /// <param name="id">Game type id.</param>
-        /// <returns>Keno bet setting.</returns>
-        private KenoBetSetting GetKenoBetSetting(int id)
-        {
-            return new KenoBetSetting
-            {
-                MaxBet = GetDecimalRequest("maxbet" + id, 0),
-                MinBet = GetDecimalRequest("minbet" + id, 0),
-                MaxPerMatch = GetDecimalRequest("maxpermatch" + id, 0),
-                GameTypeID = id.ToString()
-            };
-        }
-
-        /// <summary>
-        /// Get virtual sport requested parameters.
-        /// </summary>
-        /// <returns>The parameters.</returns>
         private IList<VSBetSetting> GetVirtualSportsParam()
         {
             string[] sports = { "180", "181", "182", "183", "184", "185", "186" };
@@ -290,12 +202,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return settings;
         }
 
-        /// <summary>
-        /// Get decimal parameters.
-        /// </summary>
-        /// <param name="name">The parameter name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The decimal value.</returns>
         private decimal GetDecimalRequest(string name, decimal defaultValue)
         {
             if (string.IsNullOrEmpty(HttpContext.Request[name]))
@@ -309,12 +215,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                        : value;
         }
 
-        /// <summary>
-        /// Get boolean parameters.
-        /// </summary>
-        /// <param name="name">The parameter name.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>The boolean value.</returns>
         private bool GetBooleanRequest(string name, bool defaultValue)
         {
             if (string.IsNullOrEmpty(HttpContext.Request[name]))
@@ -326,7 +226,5 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             return value == "1" || value == "on" || value == "true";
         }
-
-        #endregion Get Betsetting params
     }
 }

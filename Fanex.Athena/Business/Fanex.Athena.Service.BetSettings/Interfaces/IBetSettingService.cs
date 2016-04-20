@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.BetSettings;
 
     /// <summary>
@@ -18,13 +17,9 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     /// </summary>
     public interface IBetSettingService
     {
-        BetSettingViewModel GetKenoViewModel(int custId);
-
         BetSettingViewModel GetSportBookViewModel(int custId);
 
         BetSettingViewModel GetVirtualSportsViewModel(int custId);
-
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
 

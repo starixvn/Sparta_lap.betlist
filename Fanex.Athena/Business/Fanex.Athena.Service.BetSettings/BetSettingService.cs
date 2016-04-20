@@ -33,11 +33,6 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new BetSettingDataAccess();
         }
 
-        /// <summary>
-        /// Get SportsBook bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>The  bet setting list.</returns>
         public BetSettingViewModel GetSportBookViewModel(int custId)
         {
             var esportSetting = EsportSettingType.NoneOffering;
@@ -52,11 +47,6 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        /// <summary>
-        ///     Get virtual sports bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>The bet setting list.</returns>
         public BetSettingViewModel GetVirtualSportsViewModel(int custId)
         {
             var betSettings = HasPermissionOnData(custId)
@@ -68,24 +58,6 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public BetSettingViewModel GetKenoViewModel(int custId)
-        {
-            var betSettings = HasPermissionOnData(custId)
-                        ? _betSettingDataAccess.GetKenoBetSettings(custId)
-                        : new List<BetSetting>();
-
-            return new BetSettingViewModel()
-            {
-                MainData = betSettings
-            };
-        }
-
-        /// <summary>
-        ///  Update SportsBook bet setting.
-        /// </summary>
-        /// <param name="setting">The sport-book setting.</param>
-        /// <param name="hashParam">The metal model.</param>
-        /// <returns>The information of result.</returns>
         public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
         {
             if (setting == null)
@@ -111,15 +83,6 @@ namespace Fanex.Athena.Service.BetSettings
             return _betSettingDataAccess.UpdateEsportStatus(setting, isDisabled);
         }
 
-        /// <summary>
-        /// Update virtual sports bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="language">The language id.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="betSettings">The virtual sport bet setting.</param>
-        /// <returns>The result.</returns>
         public IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings)
         {
             const string XMLPattern = "<settings>{0}</settings>";
@@ -139,38 +102,6 @@ namespace Fanex.Athena.Service.BetSettings
             var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
 
             return _betSettingDataAccess.UpdateVirtualSportsBetSetting(
-                custId,
-                userId,
-                language,
-                ip,
-                xmlparam);
-        }
-
-        /// <summary>
-        /// Update Keno bet setting.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="language">The language id.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="setting">The bet setting.</param>
-        /// <returns>The result.</returns>
-        public IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting)
-        {
-            const string XMLPattern = "<settings>{0}</settings>";
-            const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
-            if (!HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var xmlElementBuilder = new StringBuilder();
-
-            xmlElementBuilder.Append(string.Format(XMLElement, setting.GameTypeID, setting.MinBet, setting.MaxBet, setting.MaxPerMatch));
-
-            var xmlparam = string.Format(XMLPattern, xmlElementBuilder.ToString());
-
-            return _betSettingDataAccess.UpdateKenoBetSetting(
                 custId,
                 userId,
                 language,

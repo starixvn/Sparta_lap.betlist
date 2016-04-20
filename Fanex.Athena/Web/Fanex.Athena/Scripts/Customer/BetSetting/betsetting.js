@@ -337,7 +337,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
+                url: Site.resolveClientUrl('KenoBetSetting/UpdateBetSetting?'),
                 data: params,
                 dataType: "json",
                 success: function (result) {

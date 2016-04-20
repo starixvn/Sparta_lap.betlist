@@ -13,15 +13,11 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
     public interface IBetSettingDataAccess
     {
-        IList<BetSetting> GetKenoBetSettings(int custId);
-
         IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
 
         IList<BetSetting> GetVirtualSportsBetSetting(int custId);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
-
-        IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
 

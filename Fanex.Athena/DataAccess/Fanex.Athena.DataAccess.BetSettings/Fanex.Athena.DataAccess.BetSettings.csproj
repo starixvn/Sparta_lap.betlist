@@ -76,10 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IKenoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\ILiveCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IRacingBetSettingDataAccess.cs" />
     <Compile Include="CasinoBettingBaseDataAccess.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingDataAccess.cs" />
+    <Compile Include="KenoBetSettingDataAccess.cs" />
     <Compile Include="RngCasinoBettingDataAccess.cs" />
     <Compile Include="LiveCasinoBettingDataAccess.cs" />
     <Compile Include="RacingBetSettingDataAccess.cs" />
