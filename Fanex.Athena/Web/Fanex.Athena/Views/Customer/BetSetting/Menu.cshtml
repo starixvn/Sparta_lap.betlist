@@ -3,7 +3,8 @@
 @using Fanex.Athena.Models.DataDomain
 
 @{
-    var separatedProducts = new Dictionary<int, string>() {
+    var productControllerNames = new Dictionary<int, string>() {
+        { ProductTypes.Sportsbook, "Sportsbook" },
         { ProductTypes.NumberGame, "NumberGame" },
         { ProductTypes.Voidbridge, "Voidbridge" },
         { ProductTypes.AgCasino , "AgCasino" },
@@ -16,7 +17,7 @@
         { ProductTypes.LiveCasino, "LiveCasino" },
         { ProductTypes.RngCasino, "RngCasino" },
         { ProductTypes.Keno, "Keno" },
-        { ProductTypes.VirtualSports, "VirtualSports" },
+        { ProductTypes.VirtualSports, "VirtualSports" }
     };
 
     var metaModel = Model.Param;
@@ -33,9 +34,9 @@
                 {
                     var productName = product.ProductName;
                     var controllerName = "BetSetting";
-                    if (separatedProducts.ContainsKey(product.ProductId))
+                    if (productControllerNames.ContainsKey(product.ProductId))
                     {
-                        controllerName = separatedProducts[product.ProductId] + controllerName;
+                        controllerName = productControllerNames[product.ProductId] + controllerName;
                     }
 
                          <li><a href="@Url.Action("Index", controllerName, new

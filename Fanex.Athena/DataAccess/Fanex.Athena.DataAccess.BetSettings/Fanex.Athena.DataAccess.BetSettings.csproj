@@ -87,11 +87,11 @@
     <Compile Include="RngCasinoBettingDataAccess.cs" />
     <Compile Include="LiveCasinoBettingDataAccess.cs" />
     <Compile Include="RacingBetSettingDataAccess.cs" />
-    <Compile Include="BetSettingDataAccess.cs" />
+    <Compile Include="SportsbookBetSettingDataAccess.cs" />
     <Compile Include="BetSettingHelper.cs" />
     <Compile Include="CoreBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBetSettingDataAccess.cs" />
-    <Compile Include="Interfaces\IBetSettingDataAccess.cs" />
+    <Compile Include="Interfaces\ISportsbookBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\ICoreBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IThirdPartyBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingDataAccess.cs" />

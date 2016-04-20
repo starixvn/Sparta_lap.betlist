@@ -64,7 +64,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
         {
             var uspName = "Lrf_AGC_UpdCustStatus";
 

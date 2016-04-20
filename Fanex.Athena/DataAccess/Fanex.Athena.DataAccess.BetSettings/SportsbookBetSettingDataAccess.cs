@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="SportsbookBetSettingDataAccess.cs" company="Nexcel Solution">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -18,9 +18,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Models.DTO.Common;
     using Fanex.Data;
 
-    public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
+    public class SportsbookBetSettingDataAccess : BaseDataAccess, ISportsbookBetSettingDataAccess
     {
-        public IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting)
+        public IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
             using (var db = new ObjectDb(uspName))
@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return new List<BetSetting>();
         }
 
-        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting)
+        public IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting)
         {
             var uspName = "Lrf_CustomerUpdMember_All";
 

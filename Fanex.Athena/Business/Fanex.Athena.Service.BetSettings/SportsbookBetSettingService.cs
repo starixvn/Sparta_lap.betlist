@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetSettingService.cs" company="Nexcel">
+// <copyright file="SportsbookBetSettingService.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,20 +20,20 @@ namespace Fanex.Athena.Service.BetSettings
 
     #endregion
 
-    public class BetSettingService : BetSettingBaseService, IBetSettingService
+    public class SportsbookBetSettingService : BetSettingBaseService, ISportsbookBetSettingService
     {
-        private readonly IBetSettingDataAccess _betSettingDataAccess;
+        private readonly ISportsbookBetSettingDataAccess _betSettingDataAccess;
 
-        public BetSettingService()
+        public SportsbookBetSettingService()
         {
-            _betSettingDataAccess = new BetSettingDataAccess();
+            _betSettingDataAccess = new SportsbookBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetSportBookViewModel(int custId)
+        public BetSettingViewModel GetViewModel(int custId)
         {
             var esportSetting = EsportSettingType.NoneOffering;
             var betSettings = HasPermissionOnData(custId)
-                        ? _betSettingDataAccess.GetSportBookBetSetting(custId, ref esportSetting)
+                        ? _betSettingDataAccess.GetBetSetting(custId, ref esportSetting)
                         : new List<BetSetting>();
 
             return new BetSettingViewModel
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateSportsBookBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
+        public IResultInfo UpdateBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
         {
             if (setting == null)
             {
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateSportsBookBetSetting(setting, hashParam);
+            return _betSettingDataAccess.UpdateBetSetting(setting, hashParam);
         }
 
         public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)

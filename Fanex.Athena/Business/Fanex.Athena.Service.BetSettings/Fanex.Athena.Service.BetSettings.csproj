@@ -71,11 +71,11 @@
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />
     <Compile Include="RacingBetSettingService.cs" />
     <Compile Include="BetSettingBaseService.cs" />
-    <Compile Include="BetSettingService.cs" />
+    <Compile Include="SportsbookBetSettingService.cs" />
     <Compile Include="CoreBetSettingService.cs" />
     <Compile Include="Interfaces\IAgCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IGoldDeluxeBetSettingService.cs" />
-    <Compile Include="Interfaces\IBetSettingService.cs" />
+    <Compile Include="Interfaces\ISportsbookBetSettingService.cs" />
     <Compile Include="Interfaces\ICoreBetSettingService.cs" />
     <Compile Include="Interfaces\IThirdPartyBetSettingService.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingService.cs" />

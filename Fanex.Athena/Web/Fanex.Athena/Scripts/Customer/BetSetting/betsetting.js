@@ -139,7 +139,7 @@ var BetSetting = (function ($) {
             var currentStatus = Site.asBool($(this).attr("data-current-status"));
             var eSportText = $("#esport-text-from-remotingref").val();
             var custId = $(this).data("cust-id");
-            var url = "BetSettingAPI/UpdateEsportStatus";
+            var url = "SportbooksBetSetting/UpdateEsportStatus";
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl(url),
@@ -355,7 +355,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting'),
+                url: Site.resolveClientUrl('SportsbookBetSetting/UpdateBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {

@@ -79,7 +79,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            return _betSettingDataAccess.UpdateAgCasinoStatus(userId, custId, language, ip, isEnabled);
+            return _betSettingDataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",

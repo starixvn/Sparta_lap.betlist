@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IBetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="ISportsbookBetSettingDataAccess.cs" company="Nexcel Solution">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,12 +11,12 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.Common;
 
-    public interface IBetSettingDataAccess
+    public interface ISportsbookBetSettingDataAccess
     {
-        IList<BetSetting> GetSportBookBetSetting(int custId, ref EsportSettingType esportSetting);
+        IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting);
 
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
-        IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
+        IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
     }
 }

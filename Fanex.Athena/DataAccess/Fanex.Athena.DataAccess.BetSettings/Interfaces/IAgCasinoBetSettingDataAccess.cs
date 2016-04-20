@@ -14,7 +14,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     {
         AgCasinoBetSetting GetBetSetting(int custId);
 
-        IResultInfo UpdateAgCasinoStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled);
 
         IResultInfo UpdateBetSetting(CommonBetSetting data, string group);
     }
