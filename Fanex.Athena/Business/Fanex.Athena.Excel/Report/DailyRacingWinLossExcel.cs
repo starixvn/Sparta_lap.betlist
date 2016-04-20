@@ -16,9 +16,9 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Models.Cache;
     using Models.DTO.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Daily racing win loss - Export excel.

@@ -12,7 +12,7 @@ namespace Fanex.Athena.Controllers.RNGCasino
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.Casino;
     using Fanex.Athena.Models.DTO.Casino.RNGResultDetail;
     using Fanex.Athena.Models.MetaModel.Casino;

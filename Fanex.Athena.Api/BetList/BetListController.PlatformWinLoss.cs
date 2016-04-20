@@ -9,7 +9,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
 
     #endregion Using

@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Menu_1" xml:space="preserve">
+    <value>총배팅</value>
+    <comment>TOTAL BETS</comment>
+  </data>
+  <data name="Menu_10" xml:space="preserve">
+    <value>정확한 점수</value>
+    <comment>Correct Score</comment>
+  </data>
+  <data name="Menu_11" xml:space="preserve">
+    <value>총골</value>
+    <comment>Total Goal</comment>
+  </data>
+  <data name="Menu_12" xml:space="preserve">
+    <value>믹스 팔레이</value>
+    <comment>Mix Parlay</comment>
+  </data>
+  <data name="Menu_13" xml:space="preserve">
+    <value>아우트라이트</value>
+    <comment>Outright</comment>
+  </data>
+  <data name="Menu_14" xml:space="preserve">
+    <value>HT/FT(하프타임/풀타임)</value>
+    <comment>HT/FT</comment>
+  </data>
+  <data name="Menu_15" xml:space="preserve">
+    <value>FG/LG(첫골/마지막골)</value>
+    <comment>FG/LG</comment>
+  </data>
+  <data name="Menu_16" xml:space="preserve">
+    <value>무실점승리</value>
+    <comment>Clean Sheet</comment>
+  </data>
+  <data name="Menu_17" xml:space="preserve">
+    <value>더블찬스</value>
+    <comment>Double Chance</comment>
+  </data>
+  <data name="Menu_18" xml:space="preserve">
+    <value>홈팀/무승부/원정팀 배팅없음</value>
+    <comment>Home/Draw/Away No Bet</comment>
+  </data>
+  <data name="Menu_19" xml:space="preserve">
+    <value>B/O/N 팀 득점</value>
+    <comment>B/O/N team to score</comment>
+  </data>
+  <data name="Menu_2" xml:space="preserve">
+    <value>예측</value>
+    <comment>FORECAST</comment>
+  </data>
+  <data name="Menu_20" xml:space="preserve">
+    <value>무실점으로 승리하기</value>
+    <comment>To win to nil</comment>
+  </data>
+  <data name="Menu_21" xml:space="preserve">
+    <value>3웨이 핸디캡 </value>
+    <comment>3-Way Handicap</comment>
+  </data>
+  <data name="Menu_22" xml:space="preserve">
+    <value>경주</value>
+    <comment>Racing</comment>
+  </data>
+  <data name="Menu_23" xml:space="preserve">
+    <value>숫자게임</value>
+    <comment>Number Game</comment>
+  </data>
+  <data name="Menu_24" xml:space="preserve">
+    <value>핸디캡/상위 하위/실시간</value>
+    <comment>Handicap/Over Under/Live</comment>
+  </data>
+  <data name="Menu_25" xml:space="preserve">
+    <value>1 X 2</value>
+    <comment>1 X 2</comment>
+  </data>
+  <data name="Menu_26" xml:space="preserve">
+    <value>이전 배팅 모니터링</value>
+    <comment>Last Bets Monitoring</comment>
+  </data>
+  <data name="Menu_27" xml:space="preserve">
+    <value>라이선스 사용자 승리 패배</value>
+    <comment>Licensee Win Loss</comment>
+  </data>
+  <data name="Menu_28" xml:space="preserve">
+    <value>정산된 매치 회수</value>
+    <comment>Settled Match Count</comment>
+  </data>
+  <data name="Menu_29" xml:space="preserve">
+    <value>고객 승리 패배</value>
+    <comment>Customer Win Loss</comment>
+  </data>
+  <data name="Menu_3" xml:space="preserve">
+    <value>보고서 </value>
+    <comment>REPORTS</comment>
+  </data>
+  <data name="Menu_30" xml:space="preserve">
+    <value>고객 미처리 기금 </value>
+    <comment>Customer Pending Funds</comment>
+  </data>
+  <data name="Menu_31" xml:space="preserve">
+    <value>매치 승리 패배 </value>
+    <comment>Match Win Loss</comment>
+  </data>
+  <data name="Menu_32" xml:space="preserve">
+    <value>상품에 따른 승리 패배</value>
+    <comment>Win Loss By Products</comment>
+  </data>
+  <data name="Menu_33" xml:space="preserve">
+    <value>배팅 유형에 따른 승리 패배</value>
+    <comment>Win Loss By Bet Type</comment>
+  </data>
+  <data name="Menu_34" xml:space="preserve">
+    <value>경주 수수료</value>
+    <comment>Racing Commission</comment>
+  </data>
+  <data name="Menu_35" xml:space="preserve">
+    <value>일간 경주 승리 패배</value>
+    <comment>Daily Racing Win Loss</comment>
+  </data>
+  <data name="Menu_36" xml:space="preserve">
+    <value>취소된 배팅 </value>
+    <comment>Cancelled Bets</comment>
+  </data>
+  <data name="Menu_37" xml:space="preserve">
+    <value>일간 배팅 목록 </value>
+    <comment>Daily Bet List</comment>
+  </data>
+  <data name="Menu_38" xml:space="preserve">
+    <value>실시간 리포트</value>
+    <comment>Live Report</comment>
+  </data>
+  <data name="Menu_39" xml:space="preserve">
+    <value>매출</value>
+    <comment>Turnover</comment>
+  </data>
+  <data name="Menu_4" xml:space="preserve">
+    <value>고객정보</value>
+    <comment>CUSTOMER INFORMATION</comment>
+  </data>
+  <data name="Menu_40" xml:space="preserve">
+    <value>고객 잔액</value>
+    <comment>Customer Balance</comment>
+  </data>
+  <data name="Menu_41" xml:space="preserve">
+    <value>결과</value>
+    <comment>Results</comment>
+  </data>
+  <data name="Menu_42" xml:space="preserve">
+    <value>잔액</value>
+    <comment>Balance</comment>
+  </data>
+  <data name="Menu_43" xml:space="preserve">
+    <value>고객 목록</value>
+    <comment>Customer List</comment>
+  </data>
+  <data name="Menu_44" xml:space="preserve">
+    <value>승리 패배</value>
+    <comment>Win Loss</comment>
+  </data>
+  <data name="Menu_45" xml:space="preserve">
+    <value>최순위 고객</value>
+    <comment>Top Customer</comment>
+  </data>
+  <data name="Menu_46" xml:space="preserve">
+    <value>관리 계정</value>
+    <comment>Manage Account</comment>
+  </data>
+  <data name="Menu_47" xml:space="preserve">
+    <value>신규  계정 추가</value>
+    <comment>Add New Account</comment>
+  </data>
+  <data name="Menu_48" xml:space="preserve">
+    <value>신규 계정 수정</value>
+    <comment>Edit New Account</comment>
+  </data>
+  <data name="Menu_49" xml:space="preserve">
+    <value>허가 부여</value>
+    <comment>Assign Permission</comment>
+  </data>
+  <data name="Menu_5" xml:space="preserve">
+    <value>데이터 창고</value>
+    <comment>DATA WAREHOUSE</comment>
+  </data>
+  <data name="Menu_50" xml:space="preserve">
+    <value>비밀번호 재설정</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="Menu_51" xml:space="preserve">
+    <value>고객 매출</value>
+    <comment>Customer Turnover</comment>
+  </data>
+  <data name="Menu_52" xml:space="preserve">
+    <value>고객 리포트</value>
+    <comment>CUSTOMER REPORTS</comment>
+  </data>
+  <data name="Menu_53" xml:space="preserve">
+    <value>Platform Win Loss</value>
+    <comment>Platform Win Loss</comment>
+  </data>
+  <data name="Menu_54" xml:space="preserve">
+    <value>특별 BA</value>
+    <comment>SpecialBA</comment>
+  </data>
+  <data name="Menu_55" xml:space="preserve">
+    <value>수수료 그룹 목록 </value>
+    <comment>Commission Group List</comment>
+  </data>
+  <data name="Menu_56" xml:space="preserve">
+    <value>고객 로그</value>
+    <comment>Customer Log</comment>
+  </data>
+  <data name="Menu_58" xml:space="preserve">
+    <value>AGENCY SYSTEM</value>
+    <comment>#9502</comment>
+  </data>
+  <data name="Menu_59" xml:space="preserve">
+    <value>Win Loss By Leagues</value>
+    <comment>Win Loss By Leagues</comment>
+  </data>
+  <data name="Menu_6" xml:space="preserve">
+    <value>계정 관리</value>
+    <comment>ACCOUNT MANAGEMENT</comment>
+  </data>
+  <data name="Menu_60" xml:space="preserve">
+    <value>Internal Login</value>
+    <comment>#9502</comment>
+  </data>
+  <data name="Menu_7" xml:space="preserve">
+    <value>핸디캡/상위 하위/실시간</value>
+    <comment>Handicap/Over Under/Live</comment>
+  </data>
+  <data name="Menu_8" xml:space="preserve">
+    <value>머니라인</value>
+    <comment>Money Line</comment>
+  </data>
+  <data name="Menu_9" xml:space="preserve">
+    <value>홀수/짝수 + 1x2 + DND</value>
+    <comment>Odd/Even + 1x2 + DND</comment>
+  </data>
+</root>

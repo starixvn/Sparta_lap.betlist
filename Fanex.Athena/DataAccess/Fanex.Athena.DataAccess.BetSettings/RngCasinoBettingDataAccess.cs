@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings
 {
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
 
     public class RngCasinoBetSettingDataAccess : CasinoBettingBaseDataAccess, IRngCasinoBetSettingDataAccess

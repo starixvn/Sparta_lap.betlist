@@ -13,15 +13,15 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
     public class LicenseeWinLossBetListController : BetListBaseController
-    {        
+    {
         [HttpGet]
         public ActionResult LicenseeWL(BetListMetaModel metaModel)
         {
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            // determine currency viewed in            
+            // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
 

@@ -10,7 +10,7 @@ namespace Fanex.Athena.Service.Implement.Forecast
     using System.Data;
     using DataAccess.Core.Extensions;
     using DataAccess.Implement.Forecast;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
     using Fanex.Common;
     using Interface.Forecast;

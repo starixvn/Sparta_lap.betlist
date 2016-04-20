@@ -15,10 +15,9 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Keno;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
@@ -32,6 +31,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Resources;
 
     /// <summary>
     /// The result controller.

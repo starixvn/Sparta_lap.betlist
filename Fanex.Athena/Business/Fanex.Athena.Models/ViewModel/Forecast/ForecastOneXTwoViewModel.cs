@@ -12,7 +12,7 @@ namespace Fanex.Athena.Models.ViewModel.Forecast
     using System.Collections.Generic;
     using DTO.Forecast.Forecast1X2;
 
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     using MetaModel.Forecast;
 

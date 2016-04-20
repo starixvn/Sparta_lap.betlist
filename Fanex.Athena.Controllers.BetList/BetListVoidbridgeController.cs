@@ -6,12 +6,12 @@
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     public class BetListVoidbridgeController : BetListBaseController
     {
-        private readonly string _title = 
+        private readonly string _title =
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
         [HttpGet]

@@ -5,7 +5,7 @@
     using Common;
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     public class BetSettingHelper
     {

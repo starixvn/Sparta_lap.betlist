@@ -13,11 +13,11 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Models.DTO.Common;
+    using Model.Core.DTO.Common;
 
     /// <summary>
     ///     The session service.

@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.Warehouse
     using Entities;
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Models.DTO.Warehouse;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Win Loss Report - Export excel.
@@ -162,7 +162,7 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
             HideRow(sheet, RowTableHeaderTemplate + 1);
-            
+
             int groupNameIndex = GetGroupNameIndex();
             for (int i = 1; i <= 5; i++)
             {
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 }
             }
         }
-                
+
         /// <summary>
         /// Assign data to total section.
         /// </summary>

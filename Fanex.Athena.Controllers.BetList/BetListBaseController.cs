@@ -13,9 +13,8 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
@@ -24,6 +23,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Service.Interface.BetList;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
+    using Resources;
 
     #endregion Using
 

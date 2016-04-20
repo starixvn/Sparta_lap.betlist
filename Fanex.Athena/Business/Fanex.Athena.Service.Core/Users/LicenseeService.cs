@@ -14,9 +14,9 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Caching;

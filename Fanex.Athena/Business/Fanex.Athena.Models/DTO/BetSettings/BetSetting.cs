@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.BetSettings
 {
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
     /// BetSetting class.

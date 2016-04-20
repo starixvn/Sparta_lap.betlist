@@ -9,8 +9,8 @@ namespace Fanex.Athena.Service.BetSettings
     using BetSettings.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
-    using Models.DTO.Common;
-    using Models.ViewModel;
+    using Model.Core.DTO.Common;
+    using Resources;
 
     public class VoidbridgeBetSettingService : BetSettingBaseService, IVoidbridgeBetSettingService
     {

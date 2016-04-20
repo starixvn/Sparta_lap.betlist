@@ -12,8 +12,8 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     public partial class BetListController
     {

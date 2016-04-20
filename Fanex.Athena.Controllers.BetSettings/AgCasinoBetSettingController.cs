@@ -8,9 +8,9 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.DTO.Common;
+    using Model.Core.DTO.Common;
     using Models.MetaModel.BetSettings;
-    using Models.ViewModel;
+    using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
 
@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
         }
-        
+
         [HttpPost]
         [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]

@@ -1,9 +1,7 @@
-﻿@using System.Text.RegularExpressions;
-@using System.Web.Mvc;
-@using System.Web.WebPages;
-@using Fanex.Athena.Models.ViewModel;
-@using Fanex.Athena.Extension.Helper;
-@using Fanex.Athena.Models.MetaModel.Product
+﻿@using Fanex.Athena.Extension.Helper;
+@using Fanex.Athena.Models.MetaModel.Product;
+@using Fanex.Athena.Resources;
+
 <!--turnover column--->
 @helper ProductDataColumns(IEnumerable<ProductOption> productOptions, IDictionary<string, decimal> data, int columnWidth = 80, string masterClass = "turnover", bool isHiglight = false)
     {

@@ -12,7 +12,7 @@ namespace Fanex.Athena.Models.DTO.Casino
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
     /// RNGCasinoResult class.

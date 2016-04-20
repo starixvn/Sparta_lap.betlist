@@ -10,12 +10,12 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
+    using Resources;
 
     /// <summary>
     /// Utility controller.
@@ -119,25 +119,25 @@ namespace Fanex.Athena.Controllers
             switch (errCode)
             {
                 case "400":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.InvalidRequestMsg;
+                    errorStr = ViewResources.InvalidRequestMsg;
                     break;
 
                 case "403":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_403;
+                    errorStr = ViewResources.HttpError_403;
                     break;
 
                 case "404":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_404;
+                    errorStr = ViewResources.HttpError_404;
                     break;
 
                 default:
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
+                    errorStr = ViewResources.HttpError_Default;
                     break;
             }
 
             if (string.IsNullOrEmpty(errorStr))
             {
-                errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
+                errorStr = ViewResources.HttpError_Default;
             }
 
             ViewBag.Message = errorStr;

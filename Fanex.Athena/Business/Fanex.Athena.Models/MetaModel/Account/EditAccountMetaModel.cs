@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Account
 {
     using System.ComponentModel.DataAnnotations;
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     /// <summary>
     /// EditAccountMetaModel class.

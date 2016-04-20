@@ -7,11 +7,11 @@
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
@@ -30,8 +30,8 @@
 
             var currencyList = this.SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId != BaseCurrencyType.All && 
-                currencyList.Values.Contains(metaModel.CurrencyId) && 
+            if (metaModel.CurrencyId != BaseCurrencyType.All &&
+                currencyList.Values.Contains(metaModel.CurrencyId) &&
                 metaModel.FromDate.Date == metaModel.ToDate.Date)
             {
                 return this.WinlossByBetTypeExcel(metaModel);

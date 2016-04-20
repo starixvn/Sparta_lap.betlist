@@ -13,10 +13,10 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.BetList
                 currencyTitle);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn };
-                        
+
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, hiddenColumns);
 
             var workbook = excel.Export(ticketResult, title);

@@ -14,7 +14,7 @@
 
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
 
     public interface IMaintenanceService
     {

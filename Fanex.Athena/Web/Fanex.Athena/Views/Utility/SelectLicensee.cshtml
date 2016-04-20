@@ -21,18 +21,18 @@
         <div id="header">
             <div id="userSec" class="r_div">
                 <a id="btnLogout" href='javascript:Site.signOut()'>
-                    @Fanex.Athena.Models.ViewModel.ViewResources.Logout
+                    @ViewResources.Logout
                 </a>
             </div>
             <div id="welkom" class="r_div">
-                <span>@Fanex.Athena.Models.ViewModel.ViewResources.Welcome @ViewBag.CurrentUsername</span>
+                <span>@ViewResources.Welcome @ViewBag.CurrentUsername</span>
             </div>
         </div>
     </div>
-    <div class="sel_licensee_title">@Fanex.Athena.Models.ViewModel.ViewResources.SelectLicenseeMsg</div>
+    <div class="sel_licensee_title">@ViewResources.SelectLicenseeMsg</div>
     <div class="sel_licensee_main">
        
-        @foreach (Fanex.Athena.Models.DTO.Common.Licensee item in ViewBag.LicenseeList)
+        @foreach (Fanex.Athena.Model.Core.DTO.Common.Licensee item in ViewBag.LicenseeList)
         {
              <p onclick="document.location.href='@Url.Content("~/Utility/SelectLicensee?licenseeid=")@item.Id'" style="cursor:pointer">
                     <a>

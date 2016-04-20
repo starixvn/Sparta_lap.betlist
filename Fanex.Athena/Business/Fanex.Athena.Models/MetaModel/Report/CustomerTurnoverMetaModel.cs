@@ -9,8 +9,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     /// CustomerTurnoverMetaModel class.

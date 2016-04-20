@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.ViewModel.BetSettings;
 
     public interface IThirdPartyBetSettingService

@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.BetSettings
 {
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     /// CommonBetSetting class.

@@ -16,8 +16,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Resources;
 
     /// <summary>
     /// WinLossByLeagueController class.
@@ -134,11 +134,11 @@ namespace Fanex.Athena.Api.Report
             var totalrows = 0;
             var dataList = GetData(metaModel, out grandTotal, ref totalrows);
             return new
-                {
-                    TotalRows = totalrows,
-                    Data = dataList,
-                    Total = grandTotal
-                };
+            {
+                TotalRows = totalrows,
+                Data = dataList,
+                Total = grandTotal
+            };
         }
 
         #endregion ProcessRequest

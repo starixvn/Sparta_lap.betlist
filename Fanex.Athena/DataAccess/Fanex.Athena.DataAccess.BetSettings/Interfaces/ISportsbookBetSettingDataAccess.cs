@@ -7,9 +7,9 @@
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.DTO.Common;
 
     public interface ISportsbookBetSettingDataAccess
     {

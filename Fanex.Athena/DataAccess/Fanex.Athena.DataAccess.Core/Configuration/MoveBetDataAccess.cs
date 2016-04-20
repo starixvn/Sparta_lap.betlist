@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common;
     using Fanex.Data;
     using Fanex.Logging;

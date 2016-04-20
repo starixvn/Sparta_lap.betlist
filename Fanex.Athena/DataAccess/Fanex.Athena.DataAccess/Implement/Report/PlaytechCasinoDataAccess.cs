@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;

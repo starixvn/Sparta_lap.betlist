@@ -15,9 +15,9 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Account;
     using Fanex.Athena.Service.Core.Common.Interfaces;
 

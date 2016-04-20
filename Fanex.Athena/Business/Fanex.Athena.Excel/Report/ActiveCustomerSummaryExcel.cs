@@ -11,14 +11,13 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
+    using Model.Core.DTO.Common;
     using Models.DTO.Report;
     using Models.MetaModel.Product;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Active Customer - Export excel.
@@ -94,9 +93,9 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
             row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
-            
+
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            
+
             var prdHeaderList = new List<string>
             {
                 ViewResources.Sportsbook,
@@ -146,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
                 row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
                 for (int i = 0; i < _allProductOptions.Count; i++)
-                {   
+                {
                     if (_allProductOptions[i].Status)
                     {
                         row.Cells[ColumnFirstProduct + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);

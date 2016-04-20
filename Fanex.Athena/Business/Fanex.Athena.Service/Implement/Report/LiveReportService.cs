@@ -10,9 +10,9 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Core.Configuration;

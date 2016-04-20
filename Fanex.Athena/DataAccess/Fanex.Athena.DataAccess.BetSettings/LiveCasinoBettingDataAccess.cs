@@ -10,7 +10,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Data;
     using System.Linq;
     using Common;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;

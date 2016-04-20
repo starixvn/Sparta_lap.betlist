@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel.Report.LiveReports
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
 

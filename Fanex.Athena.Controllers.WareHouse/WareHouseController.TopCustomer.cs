@@ -11,12 +11,12 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Warehouse;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -47,14 +47,14 @@ namespace Fanex.Athena.Controllers.WareHouse
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
             var model = new TopCustomerViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    ProductAccess = productAccess,
-                    CurrencyList = currencyList,
-                    SportList = sportList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                ProductAccess = productAccess,
+                CurrencyList = currencyList,
+                SportList = sportList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+            };
 
             ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
@@ -75,19 +75,19 @@ namespace Fanex.Athena.Controllers.WareHouse
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
-                {
-                    BAVisible = productAccess.IsAllowBA,
-                    RBVisible = productAccess.IsAllowRB,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    NGVisible = productAccess.IsAllowNG,
-                    SBVisible = productAccess.IsAllowSB
-                };
+            {
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                NGVisible = productAccess.IsAllowNG,
+                SBVisible = productAccess.IsAllowSB
+            };
             var currencyConvert = new ConvertingOption
-                {
-                    IsConvert = metaModel.IsConvert,
-                    BaseCurrency = metaModel.BaseCurrency,
-                    CurrencyName = metaModel.CurrencyName
-                };
+            {
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var titleText = string.Format(
@@ -103,9 +103,9 @@ namespace Fanex.Athena.Controllers.WareHouse
             var exportData = _topCustomerService.GetDataForExcel(metaModel);
 
             var topCustExcel = new TopCustomer(templatePath, FileName, currencyConvert, showingOption, exportData)
-                {
-                    ReportTitle = titleText
-                };
+            {
+                ReportTitle = titleText
+            };
 
             topCustExcel.Export();
             return new ExcelResult(topCustExcel.Workbook, FileName);
@@ -135,13 +135,13 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             /*Set default values*/
             var model = new TopCustomerViewModel
-                {
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    SportList = _sportTypeService.GetAllWHSports(),
-                };
+            {
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                SportList = _sportTypeService.GetAllWHSports(),
+            };
 
             var totalValues = new Dictionary<string, decimal>();
 

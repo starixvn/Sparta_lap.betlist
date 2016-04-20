@@ -17,12 +17,12 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Resources;
     using Service.Implement.Report;
     using Service.Interface.Report;
 

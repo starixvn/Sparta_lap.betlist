@@ -12,7 +12,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Service.Core.Configuration;

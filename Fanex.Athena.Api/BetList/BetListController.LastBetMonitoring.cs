@@ -16,15 +16,15 @@ namespace Fanex.Athena.Api.BetList
     using System.Globalization;
     using System.Linq;
     using System.Web.Http;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
+    using Resources;
     using CacheRefHelper = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     #endregion Using
@@ -142,16 +142,21 @@ namespace Fanex.Athena.Api.BetList
             {
                 case "a":
                     return ViewResources.NewAsia;
+
                 case "d":
                     return ViewResources.Asia;
+
                 case "e":
                 case "u":
                     return ViewResources.Euro;
+
                 case "m":
                     return ViewResources.Wap.ToUpper();
+
                 case "s":
                 case "l":
                     return ViewResources.SmartSite;
+
                 default:
                     return ViewResources.Others;
             }
@@ -171,10 +176,13 @@ namespace Fanex.Athena.Api.BetList
                 {
                     case 0:
                         return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
+
                     case 1:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
+
                     case 2:
                         return string.Format(PatternStatusBetlist, "#0033ff", ViewResources.MixLiveAndNoneLive);
+
                     default:
                         return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
                 }

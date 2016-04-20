@@ -11,10 +11,10 @@ namespace Fanex.Athena.Service.BetSettings
     using BetSettings.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
+    using Model.Core.DTO.Common;
     using Models.DTO.BetSettings;
-    using Models.DTO.Common;
-    using Models.ViewModel;
     using Models.ViewModel.BetSettings;
+    using Resources;
 
     public class NumberGameBetSettingService : BetSettingBaseService, INumberGameBetSettingService
     {

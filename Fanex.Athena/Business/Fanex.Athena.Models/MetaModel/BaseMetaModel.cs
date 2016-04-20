@@ -10,7 +10,7 @@ namespace Fanex.Athena.Models.MetaModel
     using System.Collections.Generic;
     using System.ComponentModel;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
     /// BaseMetaModel class.

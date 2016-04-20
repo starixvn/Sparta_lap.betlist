@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.MetaModel.Customer
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     /// CustomerListMetaModel class.

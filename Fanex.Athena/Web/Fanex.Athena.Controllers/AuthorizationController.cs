@@ -21,15 +21,15 @@ namespace Fanex.Athena.Controllers
     using System.Web.UI;
     using Fanex.Artist.Controllers.Attributes;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Authorization;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.

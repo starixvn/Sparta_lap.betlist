@@ -10,7 +10,7 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;

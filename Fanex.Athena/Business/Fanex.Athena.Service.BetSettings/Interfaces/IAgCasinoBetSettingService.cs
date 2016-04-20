@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.ViewModel.BetSettings;
     using Models.DTO.BetSettings;
     using Models.DTO.BetSettings.AgCasino;

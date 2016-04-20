@@ -8,7 +8,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
     using Fanex.Data;

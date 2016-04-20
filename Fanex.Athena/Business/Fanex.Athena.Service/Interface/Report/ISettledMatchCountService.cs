@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Service.Interface.Report
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.ViewModel.Report;
 
     /// <summary>

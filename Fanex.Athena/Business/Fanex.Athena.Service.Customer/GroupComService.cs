@@ -14,8 +14,8 @@ namespace Fanex.Athena.Service.Customer
     using System.Linq;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;

@@ -6,10 +6,8 @@
 
 namespace Fanex.Athena.Models.MetaModel.BetSettings
 {
-    using System.Collections.Generic;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Resources;
 
     /// <summary>
     /// BetSettingMetaModel class.

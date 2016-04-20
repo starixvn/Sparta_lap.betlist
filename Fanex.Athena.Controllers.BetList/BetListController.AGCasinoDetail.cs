@@ -13,10 +13,9 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
@@ -64,7 +63,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private string GetBetListTitleForAGCasino(long transType)
         {
-            string title = ViewResources.ProductAGC + " - " + ViewResources.BetList + " - " + 
+            string title = ViewResources.ProductAGC + " - " + ViewResources.BetList + " - " +
                 ViewResources.DetailTickets + " - ";
             switch (transType)
             {

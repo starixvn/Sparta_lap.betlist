@@ -12,15 +12,14 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Newtonsoft.Json;
+    using Resources;
 
     /// <summary>
     /// The customer turnover controller.
@@ -106,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
             };
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Value == metaModel.CurrencyId).Select(i => i.Key).SingleOrDefault();
-              
+
             CustTurnover totalData = new CustTurnover();
             var totalRow = 0;
             var data = GetData(metaModel, out totalData, out totalRow);

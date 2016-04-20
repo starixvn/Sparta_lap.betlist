@@ -10,7 +10,7 @@
 namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     ///     The i product service.

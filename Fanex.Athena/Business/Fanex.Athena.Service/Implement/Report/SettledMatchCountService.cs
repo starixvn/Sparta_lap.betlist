@@ -9,9 +9,9 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Interface.Report;
@@ -101,35 +101,35 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             var resultList = dtoData.Where(x => x.IsToday == 0)
                                     .Select(i => new SettledMatchCountViewModel
-                                        {
-                                            SportName = CacheRef.GetSportName(i.SportType),
-                                            YesterdayEntered = i.Entered,
-                                            YesterdayNonEntered = i.NonEntered,
-                                            TodayEntered =
+                                    {
+                                        SportName = CacheRef.GetSportName(i.SportType),
+                                        YesterdayEntered = i.Entered,
+                                        YesterdayNonEntered = i.NonEntered,
+                                        TodayEntered =
                                                 dtoData.Where(g => g.IsToday == 1 && g.SportType == i.SportType)
                                                        .Select(j => j.Entered)
                                                        .FirstOrDefault(),
-                                            TodayNonEntered =
+                                        TodayNonEntered =
                                                 dtoData.Where(g => g.IsToday == 1 && g.SportType == i.SportType)
                                                        .Select(j => j.NonEntered)
                                                        .FirstOrDefault()
-                                        }).ToList();
+                                    }).ToList();
 
             var resultList2 = dtoData.Where(x => x.IsToday == 1)
                                      .Select(i => new SettledMatchCountViewModel
-                                         {
-                                             SportName = CacheRef.GetSportName(i.SportType),
-                                             TodayEntered = i.Entered,
-                                             TodayNonEntered = i.NonEntered,
-                                             YesterdayEntered =
+                                     {
+                                         SportName = CacheRef.GetSportName(i.SportType),
+                                         TodayEntered = i.Entered,
+                                         TodayNonEntered = i.NonEntered,
+                                         YesterdayEntered =
                                                  dtoData.Where(g => g.IsToday == 0 && g.SportType == i.SportType)
                                                         .Select(j => j.Entered)
                                                         .FirstOrDefault(),
-                                             YesterdayNonEntered =
+                                         YesterdayNonEntered =
                                                  dtoData.Where(g => g.IsToday == 0 && g.SportType == i.SportType)
                                                         .Select(j => j.NonEntered)
                                                         .FirstOrDefault()
-                                         }).ToList();
+                                     }).ToList();
 
             foreach (var item in resultList2)
             {

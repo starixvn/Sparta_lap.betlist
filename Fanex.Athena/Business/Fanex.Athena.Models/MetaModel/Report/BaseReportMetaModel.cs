@@ -10,7 +10,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.Product;
 
     /// <summary>

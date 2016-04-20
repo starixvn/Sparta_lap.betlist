@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel.BetSettings
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
 
     public class BetSettingViewModel : BetSettingBaseViewModel

@@ -13,9 +13,8 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Customer;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Customer;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -26,6 +25,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Newtonsoft.Json;
+    using Resources;
 
     /// <summary>
     /// The customer controller.

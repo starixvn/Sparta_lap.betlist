@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Models.DTO.Customer;
     using Models.ViewModel.BetSettings;

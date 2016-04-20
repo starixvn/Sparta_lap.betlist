@@ -11,15 +11,15 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     /// <summary>
     /// The turn over controller.
@@ -52,24 +52,24 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
                                              .Select(i => new ProductOption
-                                                 {
-                                                     Code = i.ProductCode,
-                                                     Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.SB
-                                                 }).ToList();
+                                             {
+                                                 Code = i.ProductCode,
+                                                 Name = i.ProductName,
+                                                 Status = i.ProductCode == Product.SB
+                                             }).ToList();
 
             metaModel.ProductOptions = productOption;
 
             var model = new TurnoverViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    ProductAccess = productAccess,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = GetCurrenciesForTurnoverReport(),
-                    IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                ProductAccess = productAccess,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = GetCurrenciesForTurnoverReport(),
+                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+            };
 
             return View("~/Views/Report/Turnover/Main.cshtml", model);
         }
@@ -95,16 +95,16 @@ namespace Fanex.Athena.Controllers.Report
             var dataList = turnoverService.GetDataList(metaModel);
 
             var model = new TurnoverViewModel
-                {
-                    DataList = dataList,
-                    TotalData = turnoverService.SumTotalData(dataList),
-                    Param = metaModel,
-                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = GetCurrenciesForTurnoverReport(),
-                    IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
-                };
+            {
+                DataList = dataList,
+                TotalData = turnoverService.SumTotalData(dataList),
+                Param = metaModel,
+                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = GetCurrenciesForTurnoverReport(),
+                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
+            };
 
             return ExportTurnoverExcel(model);
         }
@@ -122,17 +122,17 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, TurnoverName);
 
             var convertingOption = new ConvertingOption
-                {
-                    IsConvert = viewModel.Param.IsConvert,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.CurrencyName
-                };
+            {
+                IsConvert = viewModel.Param.IsConvert,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.CurrencyName
+            };
 
             var showingOption = new ShowingOption
-                {
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    BAVisible = productAccess.IsAllowBA
-                };
+            {
+                CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm,
+                BAVisible = productAccess.IsAllowBA
+            };
 
             viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?
                 viewModel.Param.BaseCurrency

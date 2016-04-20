@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Common;
     using Fanex.Common.Extensions;

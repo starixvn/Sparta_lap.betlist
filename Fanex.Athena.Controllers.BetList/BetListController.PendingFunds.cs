@@ -14,10 +14,10 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <summary>
         /// Hidden column list (externalId,systemId,win-loss,licensee win-loss).
         /// </summary>
-        private static readonly List<int> HiddenColList = 
+        private static readonly List<int> HiddenColList =
             new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         /// <summary>

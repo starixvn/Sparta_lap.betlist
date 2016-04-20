@@ -25,7 +25,8 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     using Models.DTO.Forecast.Forecast1X2;
     using Models.DTO.Forecast.ForecastAH;
     using Models.MetaModel.Forecast;
-    using League = Fanex.Athena.Models.DTO.Common.League;
+    using Resources;
+    using League = Fanex.Athena.Model.Core.DTO.Common.League;
 
     /// <summary>
     /// Forecast Data Access.
@@ -274,7 +275,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
                     matchInfo.HomeScore = Converter.ToInt(db.GetParameterValue("HomeScore"));
                     matchInfo.AwayScore = Converter.ToInt(db.GetParameterValue("AwayScore"));
                     matchInfo.KickOffDateString = string.IsNullOrEmpty(date)
-                        ? Fanex.Athena.Models.ViewModel.ViewResources.Live + "!"
+                        ? ViewResources.Live + "!"
                         : Converter.ToDateTime(date).ToString("MM/dd/yyyy hh:mm tt");
                 }
             }

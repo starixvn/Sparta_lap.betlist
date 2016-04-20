@@ -9,10 +9,10 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Data;
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.DTO.Common;
+    using Model.Core.DTO.Common;
     using Models.MetaModel.BetSettings;
     using Models.MetaModel.Casino;
-    using Models.ViewModel;
+    using Resources;
     using Service.BetSettings;
 
     public class RngCasinoBetSettingController : BetSettingBaseController

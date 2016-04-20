@@ -9,7 +9,7 @@ namespace Fanex.Athena.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;

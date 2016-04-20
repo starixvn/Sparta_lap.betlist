@@ -12,9 +12,9 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Warehouse;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -41,13 +41,13 @@ namespace Fanex.Athena.Controllers.WareHouse
             var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
             var model = new WinLossViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    CurrencyList = currencyList,
-                    ProductAccess = productAccess,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = currencyList,
+                ProductAccess = productAccess,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+            };
 
             ViewBag.MaxDate = _balancUpService.BalanceUpInfo.MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
@@ -68,14 +68,14 @@ namespace Fanex.Athena.Controllers.WareHouse
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
             var productAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
-                {
-                    BAVisible = productAccess.IsAllowBA,
-                    RBVisible = productAccess.IsAllowRB,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    NGVisible = productAccess.IsAllowNG,
-                    SBVisible = productAccess.IsAllowSB
-                };
-            var viewByCurrency = 
+            {
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                NGVisible = productAccess.IsAllowNG,
+                SBVisible = productAccess.IsAllowSB
+            };
+            var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
             var groupingList = GroupingMetaModel.GetCollection();
             var titleText = string.Format(
@@ -90,16 +90,16 @@ namespace Fanex.Athena.Controllers.WareHouse
             var exportData = _winLossService.GetDataList(metaModel, ref totalValues);
 
             var currencyConvert = new ConvertingOption
-                {
-                    IsConvert = metaModel.IsConvert,
-                    BaseCurrency = metaModel.BaseCurrency,
-                    CurrencyName = metaModel.CurrencyName
-                };
+            {
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
             var winLossExcel = new TopWinLoss(templatePath, FileName, currencyConvert, showingOption, exportData, totalValues)
-                {
-                    GroupingId = metaModel.ReportBy,
-                    ReportTitle = titleText
-                };
+            {
+                GroupingId = metaModel.ReportBy,
+                ReportTitle = titleText
+            };
 
             winLossExcel.Export();
             return new ExcelResult(winLossExcel.Workbook, FileName);
@@ -126,12 +126,12 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             /*Set default values*/
             var model = new WinLossViewModel
-                {
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList,
-                    ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
-                };
+            {
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                ProductAccess = _productService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
 
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
 

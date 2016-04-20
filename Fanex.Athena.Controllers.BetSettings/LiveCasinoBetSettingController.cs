@@ -9,11 +9,11 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DTO.Common;
     using Models.DTO.BetSettings;
-    using Models.DTO.Common;
     using Models.DTO.Customer;
     using Models.MetaModel.BetSettings;
-    using Models.ViewModel;
+    using Resources;
     using Service.BetSettings;
 
     public class LiveCasinoBetSettingController : BetSettingBaseController

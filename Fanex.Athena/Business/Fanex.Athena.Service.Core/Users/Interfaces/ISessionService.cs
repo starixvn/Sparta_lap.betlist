@@ -9,8 +9,8 @@
 
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
-    using Fanex.Athena.Models.DTO.Configuration;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Users;
 
     /// <summary>
     ///     The i session service.

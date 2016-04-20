@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     public interface IExChangeRateService
     {

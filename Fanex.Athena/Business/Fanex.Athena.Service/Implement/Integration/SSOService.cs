@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.Implement.Integration
     using System.Web;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;

@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.MetaModel.Customer;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Common;
@@ -28,6 +28,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     /// <summary>
     /// Customer group commission.

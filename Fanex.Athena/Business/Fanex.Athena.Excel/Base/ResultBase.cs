@@ -16,8 +16,8 @@ namespace Fanex.Athena.Excel.Base
     using Entities;
     using Fanex.Athena.Excel.Extension;
     using Models.Cache;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// The result base.

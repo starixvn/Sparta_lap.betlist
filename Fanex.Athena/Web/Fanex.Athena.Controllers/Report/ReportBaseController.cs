@@ -2,7 +2,7 @@
 {
     using System;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Models.ViewModel;
+    using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;

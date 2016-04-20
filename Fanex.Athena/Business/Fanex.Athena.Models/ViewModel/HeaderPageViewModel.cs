@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     /// TODO: Update summary.

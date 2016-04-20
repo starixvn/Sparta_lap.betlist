@@ -15,20 +15,19 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
+    using Resources;
 
     /// <summary>
     /// The match win-loss controller.
@@ -56,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
 
             var productAccess = ProductService.GetProductAccess(
-                licenseeSession.LicenseeId, 
+                licenseeSession.LicenseeId,
                 userSession.Language,
                 MatchWinLossName);
             var productOption = productAccess.ProductList
@@ -101,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencies = GetUserCurrencies();
 
             if (metaModel.IsExportExcel)
-            {                
+            {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
                     return MatchWinLossExcel(metaModel);
@@ -415,7 +414,7 @@ namespace Fanex.Athena.Controllers.Report
         private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
         {
             var productAccess = ProductService.GetProductAccess(
-                licenseeSession.LicenseeId, 
+                licenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
                 MatchWinLossName);
             var columnCount = 6;
@@ -437,6 +436,6 @@ namespace Fanex.Athena.Controllers.Report
             return columnCount;
         }
 
-        #endregion Utility     
+        #endregion Utility
     }
 }

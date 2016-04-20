@@ -11,11 +11,11 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Models.DTO.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     public class PlatformWinLossMemberExcel : ReportBase
     {

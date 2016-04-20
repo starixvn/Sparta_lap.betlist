@@ -17,8 +17,8 @@ namespace Fanex.Athena.Excel.Warehouse
     using Common;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Top customer - Export excel.

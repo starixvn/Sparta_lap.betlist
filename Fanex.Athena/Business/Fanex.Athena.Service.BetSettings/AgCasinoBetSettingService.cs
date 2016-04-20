@@ -17,11 +17,11 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Interfaces;
+    using Model.Core.DTO.Common;
     using Models.DTO.BetSettings;
     using Models.DTO.BetSettings.AgCasino;
-    using Models.DTO.Common;
-    using Models.ViewModel;
     using Models.ViewModel.BetSettings;
+    using Resources;
 
     public class AgCasinoBetSettingService : BetSettingBaseService, IAgCasinoBetSettingService
     {

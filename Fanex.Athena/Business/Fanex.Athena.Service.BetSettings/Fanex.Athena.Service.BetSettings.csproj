@@ -100,9 +100,17 @@
       <Project>{68f63a3b-062c-4adc-8718-91134a6ffb85}</Project>
       <Name>Fanex.Athena.DataAccess.BetSettings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
       <Name>Fanex.Athena.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
       <Project>{efab3719-796c-4b55-8873-d4573416f07a}</Project>

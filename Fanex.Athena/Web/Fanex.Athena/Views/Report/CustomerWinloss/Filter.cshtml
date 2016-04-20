@@ -2,7 +2,7 @@
     Layout = null;
 }
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.DataDomain
+@using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
 @{
     var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
@@ -12,8 +12,8 @@
     @using (Html.BeginForm("CustomerWinLoss", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
     {
         <div>
-            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
-            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("IsHistory", Model.IsHistory)
             @Html.Hidden("SortDirection", Model.Param.SortDirection)
             @Html.Hidden("SortColumn", Model.Param.SortColumn)

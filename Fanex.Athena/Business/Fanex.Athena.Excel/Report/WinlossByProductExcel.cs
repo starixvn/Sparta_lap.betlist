@@ -15,12 +15,11 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DTO.Common;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Win loss by product - Export excel.
@@ -302,10 +301,13 @@ namespace Fanex.Athena.Excel.Report
             {
                 case "RowTotalHeader":
                     return new[] { 8, 9, 10, 11 };
+
                 case "RowTotal":
                     return new[] { 12, 13, 14, 15 };
+
                 case "RowTotalInEURHeader":
                     return new[] { 16, 17, 18, 19 };
+
                 case "RowTotalInEUR":
 
                     return new[] { 20, 21, 22, 23 };
@@ -376,19 +378,19 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(currentRow, ColumnCurrency, currentRow + data.Count() - 1, ColumnCurrency);
                 foreach (var item in data)
                 {
-                     int cellIndex = ColumnCurrency;                    
+                    int cellIndex = ColumnCurrency;
                     IRow row;
                     if (isFirstRowTotal)
                     {
                         row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, currentRow);
-                        row.Cells[0].SetCellValue(ViewResources.Total);    
+                        row.Cells[0].SetCellValue(ViewResources.Total);
                         isFirstRowTotal = false;
                     }
                     else
                     {
                         row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, currentRow);
                     }
-                                        
+
                     row.Cells[cellIndex++].SetCellValue(item.CurrencyName);
                     row.Cells[cellIndex].SetCellValue(item.ProductName);
                     AssignCommonData(row, item);
@@ -519,18 +521,18 @@ namespace Fanex.Athena.Excel.Report
             List<WinLossByProduct> listTotalCurrency =
                 _winlossByProductList.GroupBy(x => new { x.CurrencyId, x.CurrencyName, x.ProductCode })
                 .Select(group => new WinLossByProduct
-            {
-                CurrencyId = group.Key.CurrencyId,
-                CurrencyName = group.Key.CurrencyName,
-                ProductCode = group.Key.ProductCode,
-                TurnOver = group.Sum(a => a.TurnOver),
-                TotalTransaction = group.Sum(a => a.TotalTransaction),
-                CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                CustomerComm = group.Sum(a => a.CustomerComm),
-                LicenseeWL = group.Sum(a => a.LicenseeWL),
-                LicenseeWLComm = group.Sum(a => a.LicenseeWLComm),
-                AmountDue = group.Sum(a => a.AmountDue)
-            }).ToList();
+                {
+                    CurrencyId = group.Key.CurrencyId,
+                    CurrencyName = group.Key.CurrencyName,
+                    ProductCode = group.Key.ProductCode,
+                    TurnOver = group.Sum(a => a.TurnOver),
+                    TotalTransaction = group.Sum(a => a.TotalTransaction),
+                    CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                    CustomerComm = group.Sum(a => a.CustomerComm),
+                    LicenseeWL = group.Sum(a => a.LicenseeWL),
+                    LicenseeWLComm = group.Sum(a => a.LicenseeWLComm),
+                    AmountDue = group.Sum(a => a.AmountDue)
+                }).ToList();
 
             return listTotalCurrency;
         }

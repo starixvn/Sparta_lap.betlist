@@ -13,9 +13,9 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Gold deluxe Win Loss - Export excel.
@@ -142,7 +142,7 @@ namespace Fanex.Athena.Excel.Report
                 rowIndex++;
 
                 if (licenseeWinLoss.RowSpan > 1)
-                {                    
+                {
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
@@ -284,13 +284,13 @@ namespace Fanex.Athena.Excel.Report
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new GoldDeluxeWinLoss
-            {
-                CurrencyName = group.Key.CurrencyName,
-                TurnOver = group.Sum(a => a.TurnOver),
-                TotalTransaction = group.Sum(a => a.TotalTransaction),
-                CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                LicenseeWL = group.Sum(a => a.LicenseeWL),
-            }).ToList();
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                    }).ToList();
 
             return listTotalCurrency;
         }

@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.BetSettings
 {
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -15,7 +15,7 @@ namespace Fanex.Athena.Models.DTO.BetSettings
     {
         public int ProductId { get; set; }
 
-        public string ProductName 
+        public string ProductName
         {
             get
             {

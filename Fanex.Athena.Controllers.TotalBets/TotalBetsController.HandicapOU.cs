@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.TotalBets;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.TotalBets;

@@ -16,12 +16,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Resources;
 
     /// <summary>
     ///     TODO: Update summary.

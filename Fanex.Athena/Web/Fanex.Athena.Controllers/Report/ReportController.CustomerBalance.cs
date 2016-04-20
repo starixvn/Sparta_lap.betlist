@@ -12,16 +12,15 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     /// <summary>
     /// Customer balance controller.
@@ -29,6 +28,7 @@ namespace Fanex.Athena.Controllers.Report
     public partial class ReportController
     {
         private const string CustomerBalanceName = "CustomerBalance";
+
         #region Web Controller
 
         /// <summary>
@@ -43,34 +43,34 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
 
             var metaModel = new CustomerBalanceMetaModel
-                {
-                    LicenseeId = licenseeSession.LicenseeId,
-                    CurrencyId = 0
-                };
+            {
+                LicenseeId = licenseeSession.LicenseeId,
+                CurrencyId = 0
+            };
 
             var productAccess = ProductService.GetProductAccess(
-                licenseeSession.LicenseeId, 
+                licenseeSession.LicenseeId,
                 userSession.Language,
                 CustomerBalanceName);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
-                                                 {
-                                                     Code = i.ProductCode,
-                                                     Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.SB
-                                                 }).ToList();
+                                             {
+                                                 Code = i.ProductCode,
+                                                 Name = i.ProductName,
+                                                 Status = i.ProductCode == Product.SB
+                                             }).ToList();
 
-            metaModel.ProductOptions = productOption;            
+            metaModel.ProductOptions = productOption;
             var model = new CustomerBalanceViewModel
-                {
-                    ShowEmptyContent = true,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = productAccess,
-                    CurrencyList = userSession.CurrencyList,
-                    Param = metaModel,
-                    IsValidTimeRequest = true
-                };
+            {
+                ShowEmptyContent = true,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = productAccess,
+                CurrencyList = userSession.CurrencyList,
+                Param = metaModel,
+                IsValidTimeRequest = true
+            };
 
             var orderItemList = GenerateOrderItemList(metaModel.OrderItem);
             ViewBag.TopCountList = GenerateTopCountList(metaModel.TopCount);
@@ -160,28 +160,28 @@ namespace Fanex.Athena.Controllers.Report
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerBalance.xls");
 
             var productAccess = ProductService.GetProductAccess(
-                viewModel.Param.LicenseeId, 
-                SessionService.UserSession.Language, 
+                viewModel.Param.LicenseeId,
+                SessionService.UserSession.Language,
                 CustomerBalanceName);
 
             var showingOption = new ShowingOption
-                {
-                    BAVisible = productAccess.IsAllowBA,
-                    RBVisible = productAccess.IsAllowRB,
-                    NGVisible = productAccess.IsAllowNG,
-                    LCVisible = productAccess.IsAllowLC,
-                    SBVisible = productAccess.IsAllowSB,
-                    CSVisible = productAccess.IsAllowCS,
-                    KNVisible = productAccess.IsAllowKN,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
-                };
+            {
+                BAVisible = productAccess.IsAllowBA,
+                RBVisible = productAccess.IsAllowRB,
+                NGVisible = productAccess.IsAllowNG,
+                LCVisible = productAccess.IsAllowLC,
+                SBVisible = productAccess.IsAllowSB,
+                CSVisible = productAccess.IsAllowCS,
+                KNVisible = productAccess.IsAllowKN,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
 
             var convertingOption = new ConvertingOption
-                {
-                    IsConvert = false,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.CurrencyName
-                };
+            {
+                IsConvert = false,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.CurrencyName
+            };
 
             var custBalanceExcel = new CustomerBalanceExcel(templatePath, FileName, viewModel, showingOption, convertingOption, ViewBag.SortByText);
             custBalanceExcel.Export();

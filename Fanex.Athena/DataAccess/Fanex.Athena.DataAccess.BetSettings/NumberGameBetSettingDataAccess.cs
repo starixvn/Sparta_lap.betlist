@@ -10,8 +10,8 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Data;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Data;
 
     public class NumberGameBetSettingDataAccess : BaseDataAccess, INumberGameBetSettingDataAccess

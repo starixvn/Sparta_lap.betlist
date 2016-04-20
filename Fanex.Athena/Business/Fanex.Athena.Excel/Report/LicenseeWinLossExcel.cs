@@ -9,20 +9,20 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
-    using Models.DTO.Report;
-    using Models.MetaModel.Product;
-    using Models.MetaModel.Report;
-    using Models.ViewModel;
-    using Models.ViewModel.Report;
-    using NPOI.SS.UserModel;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Base;
+    using Entities;
+    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
+    using Models.DTO.Report;
+    using Models.MetaModel.Product;
+    using Models.MetaModel.Report;
+    using Models.ViewModel.Report;
+    using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Licensee Win Loss - Export excel.
@@ -180,8 +180,8 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductBA,
                 ViewResources.ProductLC,
                 ViewResources.ProductVS,
-                ViewResources.ProductCS,             
-                ViewResources.ProductKN,               
+                ViewResources.ProductCS,
+                ViewResources.ProductKN,
                 ViewResources.ProductAGC,
                 ViewResources.ProductBT,
                 ViewResources.ProductMGCLC,
@@ -552,7 +552,7 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.CS, Status = false },
                 new ProductOption { Code = Product.KN, Status = false },
                 new ProductOption { Code = Product.AGC, Status = false },
-                new ProductOption { Code = Product.BT, Status = false },              
+                new ProductOption { Code = Product.BT, Status = false },
                 new ProductOption { Code = Product.MGCLC, Status = false },
                 new ProductOption { Code = Product.MGCRNG, Status = false },
                 new ProductOption { Code = Product.VB, Status = false }

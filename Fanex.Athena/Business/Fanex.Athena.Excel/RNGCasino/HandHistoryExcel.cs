@@ -13,8 +13,8 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Models.DTO.Casino;
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Win loss by product - Export excel.

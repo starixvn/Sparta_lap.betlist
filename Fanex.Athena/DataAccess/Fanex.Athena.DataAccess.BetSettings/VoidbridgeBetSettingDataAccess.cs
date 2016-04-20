@@ -4,8 +4,8 @@
     using Data;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Common.Extensions;
-    using Models.DataDomain;
-    using Models.DTO.Common;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
 
     public class VoidbridgeBetSettingDataAccess : IVoidbridgeBetSettingDataAccess
     {

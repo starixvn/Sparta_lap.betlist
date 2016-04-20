@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;

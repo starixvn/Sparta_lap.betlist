@@ -7,8 +7,8 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System.Data;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common;
     using Fanex.Data;
 

@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>LRF &bull; @Fanex.Athena.Models.ViewModel.ViewResources.ChangePassword</title>
+    <title>LRF &bull; @Fanex.Athena.Resources.ViewResources.ChangePassword</title>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Global/site.js")" type="text/javascript"></script>
@@ -31,7 +31,7 @@
 <body>
     <div id="page-content">
         <div id="header-title">
-            @Fanex.Athena.Models.ViewModel.ViewResources.ChangePassword
+            @Fanex.Athena.Resources.ViewResources.ChangePassword
         </div>
         <table border="0" cellpadding="0" cellspacing="0">
             <tr>
@@ -75,7 +75,7 @@
                     <table width="250px" border="0" cellpadding="2" cellspacing="0" class="report-table">
                         <tr>
                             <td style="width: 120px">
-                                @Fanex.Athena.Models.ViewModel.ViewResources.OldPassword
+                                @Fanex.Athena.Resources.ViewResources.OldPassword
                             </td>
                             <td class="change-pass">
                                 <input type="password" name="txtOldPwd" id="txtOldPwd" />
@@ -83,27 +83,27 @@
                         </tr>
                         <tr>
                             <td>
-                                @Fanex.Athena.Models.ViewModel.ViewResources.Password
+                                @Fanex.Athena.Resources.ViewResources.Password
                             </td>
-                            <td class="change-pass" title="{static:Fanex.Athena.Models.ViewModel.ViewResources.PasswordNoteMsg}">
+                            <td class="change-pass" title="{static:Fanex.Athena.Resources.ViewResources.PasswordNoteMsg}">
                                 <input type="password" name="txtNewPwd" onkeyup="return CheckPass(this,'spnNewPwdIcon');"
                                     id="txtNewPwd" />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                @Fanex.Athena.Models.ViewModel.ViewResources.ConfirmPassword
+                                @Fanex.Athena.Resources.ViewResources.ConfirmPassword
                             </td>
-                            <td class="change-pass" title="@Fanex.Athena.Models.ViewModel.ViewResources.PasswordNoteMsg">
+                            <td class="change-pass" title="@Fanex.Athena.Resources.ViewResources.PasswordNoteMsg">
                                 <input type="password" name="txtConfirmPwd" onkeyup="return CheckPass(this,'spnConfirmPwdIcon');"
                                     id="txtConfirmPwd" />
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" class="c" style="text-align: center;">
-                                <input value="@Fanex.Athena.Models.ViewModel.ViewResources.Submit" onclick="ChangePassword();"
+                                <input value="@Fanex.Athena.Resources.ViewResources.Submit" onclick="ChangePassword();"
                                     id="btnSubmit" class="button" type="button" />&nbsp;
-                                <input value="@Fanex.Athena.Models.ViewModel.ViewResources.Reset" onclick="Reset();"
+                                <input value="@Fanex.Athena.Resources.ViewResources.Reset" onclick="Reset();"
                                     id="btnReset" class="button" type="reset" />
                             </td>
                         </tr>

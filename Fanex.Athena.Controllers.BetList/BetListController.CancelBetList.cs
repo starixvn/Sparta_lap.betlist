@@ -13,12 +13,12 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetList;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Resources;
 
     #endregion Using
 
@@ -127,9 +127,9 @@ namespace Fanex.Athena.Controllers.BetList
                 var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
                 var showingOption = new ShowingOption
-                   {
-                       CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
-                   };
+                {
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                };
                 var currencyTitle = string.Format(
                     ViewResources.Viewin,
                     metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);

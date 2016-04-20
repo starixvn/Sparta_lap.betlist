@@ -119,24 +119,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataDomain\Licensees.cs" />
-    <Compile Include="DTO\Configuration\MoveBet.cs" />
     <Compile Include="DTO\Report\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
-    <Compile Include="DTO\Report\PlatformWinLossSummary.cs" />
-    <Compile Include="Helper\CacheRef.cs" />
-    <Compile Include="DataDomain\BetType.cs" />
-    <Compile Include="DataDomain\CurrencyType.cs" />
-    <Compile Include="DataDomain\DrawFilterType.cs" />
-    <Compile Include="DataDomain\EsportSettingType.cs" />
-    <Compile Include="DataDomain\ProductTypes.cs" />
-    <Compile Include="DataDomain\BaseCurrencyType.cs" />
-    <Compile Include="DataDomain\ReportByType.cs" />
-    <Compile Include="DataDomain\PlatformType.cs" />
-    <Compile Include="DataDomain\FormatKey.cs" />
-    <Compile Include="DataDomain\FunctionType.cs" />
-    <Compile Include="DataDomain\RNGCasinoSetting.cs" />
-    <Compile Include="DataDomain\SystemConstants.cs" />
     <Compile Include="DTO\BetList\DailyStatement.cs" />
     <Compile Include="DTO\BetList\LrfTicket.cs" />
     <Compile Include="DTO\BetList\BetListMatch.cs" />
@@ -146,15 +130,6 @@
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoGameType.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetail.cs" />
     <Compile Include="DTO\Casino\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
-    <Compile Include="DTO\Common\CheckedItem.cs" />
-    <Compile Include="DataDomain\ErrorType.cs" />
-    <Compile Include="DTO\Common\ExChangeRate.cs" />
-    <Compile Include="DTO\Common\IRequest.cs" />
-    <Compile Include="DTO\Common\IResultInfo.cs" />
-    <Compile Include="DTO\Common\League.cs" />
-    <Compile Include="DTO\Common\Match.cs" />
-    <Compile Include="DTO\Common\ResultInfo.cs" />
-    <Compile Include="DTO\Common\SportProductItem.cs" />
     <Compile Include="DTO\BetSettings\AgCasino\AgCasinoGroup.cs" />
     <Compile Include="DTO\BetSettings\BetSettingProduct.cs" />
     <Compile Include="DTO\BetSettings\BetSetting.cs" />
@@ -171,8 +146,6 @@
     <Compile Include="DTO\BetSettings\NumberGameBetSetting.cs" />
     <Compile Include="DTO\BetSettings\RacingBetSetting.cs" />
     <Compile Include="DTO\BetSettings\CommonBetSetting.cs" />
-    <Compile Include="DataDomain\SportType.cs" />
-    <Compile Include="DTO\Configuration\MaintenanceInfo.cs" />
     <Compile Include="DTO\BetSettings\RngCasino\GameKind.cs" />
     <Compile Include="DTO\BetSettings\RngCasino\GameType.cs" />
     <Compile Include="DTO\BetSettings\RngCasino\RngCasinoBetSetting.cs" />
@@ -180,7 +153,6 @@
     <Compile Include="DTO\BetSettings\ThirdPartyBetSetting.cs" />
     <Compile Include="DTO\BetSettings\VSBetSetting.cs" />
     <Compile Include="DTO\Customer\CustomerDTO.cs" />
-    <Compile Include="DTO\Common\Function.cs" />
     <Compile Include="DTO\Customer\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\Customer\CustomerInfo.cs" />
     <Compile Include="DTO\Customer\CustomerLog\CustomerLog.cs" />
@@ -190,7 +162,6 @@
     <Compile Include="DTO\Customer\CustomerLog\Details\SpecialLevel.cs" />
     <Compile Include="DTO\Customer\CustomerLog\LogInLog.cs" />
     <Compile Include="DTO\Customer\LogInfo.cs" />
-    <Compile Include="DTO\Common\Currency.cs" />
     <Compile Include="DTO\Forecast\Forecast1X2\ForecastOneXTwo.cs" />
     <Compile Include="DTO\Forecast\ForecastAH\ForecastValue.cs" />
     <Compile Include="DTO\Forecast\ForecastAH\ForecastAH.cs" />
@@ -223,19 +194,6 @@
     <Compile Include="DTO\TotalBets\RacingRace.cs" />
     <Compile Include="DTO\TotalBets\TotalBetsBase.cs" />
     <Compile Include="DTO\TotalBets\TotalGoal.cs" />
-    <Compile Include="DTO\Users\CurrencyUser.cs" />
-    <Compile Include="DTO\Users\UserRole.cs" />
-    <Compile Include="DTO\Common\Licensee.cs" />
-    <Compile Include="DTO\Users\LicenseeCustomer.cs" />
-    <Compile Include="DTO\Users\LicenseeSession.cs" />
-    <Compile Include="DTO\Users\LicenseeType.cs" />
-    <Compile Include="DTO\Common\ProductAccess.cs" />
-    <Compile Include="DTO\Configuration\BalanceUp.cs" />
-    <Compile Include="DTO\Configuration\CacheKey.cs" />
-    <Compile Include="DTO\Common\Product.cs" />
-    <Compile Include="DTO\Common\Request.cs" />
-    <Compile Include="DTO\Users\User.cs" />
-    <Compile Include="DTO\Users\UserSession.cs" />
     <Compile Include="DTO\Report\Balance.cs" />
     <Compile Include="DTO\Report\BalanceDetails.cs" />
     <Compile Include="DTO\Report\DailyRacingWinLossData.cs" />
@@ -258,11 +216,9 @@
     <Compile Include="DTO\Report\WinLossByBetType.cs" />
     <Compile Include="DTO\Report\TurnoverDTO.cs" />
     <Compile Include="DTO\Report\WinLossByProduct.cs" />
-    <Compile Include="DTO\Common\Sport.cs" />
     <Compile Include="DTO\Warehouse\TopCustomer.cs" />
     <Compile Include="DTO\Warehouse\WarehouseReportBy.cs" />
     <Compile Include="DTO\Warehouse\WinLoss.cs" />
-    <Compile Include="Helper\Validator.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
@@ -278,7 +234,6 @@
     <Compile Include="MetaModel\BetList\LastBetsMonitoringMetaModel.cs" />
     <Compile Include="MetaModel\Casino\RNGCasinoResultDetailMetaModel.cs" />
     <Compile Include="MetaModel\Casino\RNGCasinoUpdateMemberComMetaModel.cs" />
-    <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
     <Compile Include="MetaModel\BetSettings\BetSettingMetaModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Customer\BaseCustomerComMetaModel.cs" />
@@ -372,11 +327,6 @@
     <Compile Include="ViewModel\Forecast\NewForecastHdpOuData.cs" />
     <Compile Include="ViewModel\Forecast\NewForecastHdpOuViewModel.cs" />
     <Compile Include="ViewModel\HeaderPageViewModel.cs" />
-    <Compile Include="ViewModel\Menu.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Menu.resx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\Report\BalanceViewModel.cs" />
@@ -422,41 +372,8 @@
     <Compile Include="ViewModel\TotalBets\RacingViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\TotalBetsBaseViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\TotalGoalViewModel.cs" />
-    <Compile Include="ViewModel\ViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\Warehouse\TopCustomerViewModel.cs" />
     <Compile Include="ViewModel\Warehouse\WinLossViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ViewModel\ViewResources.zh-Hans.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewModel\Menu.zh-Hans.resx" />
-    <EmbeddedResource Include="ViewModel\Menu.ko-KR.resx" />
-    <EmbeddedResource Include="ViewModel\Menu.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Menu.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewModel\Menu.zh-CN.resx" />
-    <EmbeddedResource Include="ViewModel\Menu.zh-TW.resx" />
-    <EmbeddedResource Include="ViewModel\ViewResources.ko-KR.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewModel\ViewResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>ViewResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewModel\ViewResources.zh-CN.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewModel\ViewResources.zh-TW.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -466,6 +383,14 @@
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.DTO.Warehouse
 {
     using System;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     /// <summary>
     /// WinLoss class.
@@ -94,8 +94,10 @@ namespace Fanex.Athena.Models.DTO.Warehouse
                         {
                             case -9:
                                 return ViewResources.SystemParlay;
+
                             case -1:
                                 return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.ProductRB;
+
                             default:
                                 return CacheRef.GetLeagueName(_groupByvalue);
                         }

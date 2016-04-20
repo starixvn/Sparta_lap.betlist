@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
     using Models.DTO.BetSettings;
-    using Models.ViewModel;
     using Models.ViewModel.BetSettings;
+    using Resources;
 
     public class RacingBetSettingService : BetSettingBaseService, IRacingBetSettingService
     {

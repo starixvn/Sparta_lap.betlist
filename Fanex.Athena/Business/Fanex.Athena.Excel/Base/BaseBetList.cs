@@ -9,7 +9,6 @@
 
 namespace Fanex.Athena.Excel.Base
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -19,11 +18,11 @@ namespace Fanex.Athena.Excel.Base
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Models.DTO.BetList;
-    using Models.ViewModel;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using Resources;
 
     /// <summary>
     /// Base bet list.
@@ -142,7 +141,7 @@ namespace Fanex.Athena.Excel.Base
                 }
 
                 if (_isShowSumStake)
-                {                                        
+                {
                     builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
                 }
                 else if (ShowingOption.GrandTotalVisible && (_hiddenColumnIndexes == null || !_hiddenColumnIndexes.Contains(ColumnWinlossIndex)))

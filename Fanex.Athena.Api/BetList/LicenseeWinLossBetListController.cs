@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System.Web.Http;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.BetList;
 
     public class LicenseeWinLossBetListController : ApiBetListBaseController

@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.DTO.Report
 {
     using Fanex.Athena.Models.Cache;
     using Fanex.Athena.Models.Helper;
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     /// <summary>
     /// WinLossByBetType class.

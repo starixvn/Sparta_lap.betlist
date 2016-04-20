@@ -13,12 +13,12 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Common;
+    using Resources;
 
     /// <summary>
     ///     The user service.

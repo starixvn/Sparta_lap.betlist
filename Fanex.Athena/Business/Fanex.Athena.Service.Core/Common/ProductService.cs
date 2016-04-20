@@ -19,8 +19,8 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Caching;
 

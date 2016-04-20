@@ -13,11 +13,11 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Globalization;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.Forecast.ForecastAH;
     using Models.MetaModel.Forecast;
-    using Models.ViewModel;
     using Models.ViewModel.Forecast;
+    using Resources;
 
     /// <summary>
     /// Forecast AH.

@@ -10,10 +10,10 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Linq;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
+    using Model.Core.DTO.Common;
     using Models.DTO.BetSettings;
-    using Models.DTO.Common;
-    using Models.ViewModel;
     using Models.ViewModel.BetSettings;
+    using Resources;
 
     public class LiveCasinoBetSettingService : BetSettingBaseService, ILiveCasinoBetSettingService
     {

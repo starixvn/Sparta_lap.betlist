@@ -14,15 +14,15 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Ag Casino Win Loss - Export excel.
     /// </summary>
     public class AgCasinoBalanceExcel : ReportBase
-    {                
+    {
         private const int ColumnTemplateCount = 13;
 
         private const int ColumnDate = 1;
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalSolidBorder = 3;
         private const int RowGrantTotal = 5;
         private const int RowNoInfoTemplate = 6;
-        
+
         // This is drill down of report
         private readonly IList<AgCasinoBalance> _casinoList;
 
@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
                 }
 
                 if (casinoBalance.RowSpan > 1)
-                {                   
+                {
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnIndex, currentRow + casinoBalance.RowSpan - 1, ColumnIndex);
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + casinoBalance.RowSpan - 1, ColumnDate);
@@ -295,7 +295,7 @@ namespace Fanex.Athena.Excel.Report
             foreach (AgCasinoBalance totalCurrency in totalCurrencyList)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
-                
+
                 if (rowIndex == beginTotalRow)
                 {
                     row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, rowIndex);
@@ -324,17 +324,17 @@ namespace Fanex.Athena.Excel.Report
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new AgCasinoBalance
-            {
-                CurrencyName = group.Key.CurrencyName,
-                OpeningBalance = group.Sum(a => a.OpeningBalance),
-                TransferIn = group.Sum(a => a.TransferIn),
-                TransferOut = group.Sum(a => a.TransferOut),
-                TurnOver = group.Sum(a => a.TurnOver),
-                TotalTransaction = group.Sum(a => a.TotalTransaction),
-                CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                LicenseeWL = group.Sum(a => a.LicenseeWL),
-                ClosingBalance = group.Sum(a => a.ClosingBalance),
-            }).ToList();
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        OpeningBalance = group.Sum(a => a.OpeningBalance),
+                        TransferIn = group.Sum(a => a.TransferIn),
+                        TransferOut = group.Sum(a => a.TransferOut),
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                        ClosingBalance = group.Sum(a => a.ClosingBalance),
+                    }).ToList();
 
             return listTotalCurrency;
         }
