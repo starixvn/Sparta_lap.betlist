@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
+    <Compile Include="Interfaces\IRngCasinoBetSettingService.cs" />
+    <Compile Include="RngCasinoBetSettingService.cs" />
     <Compile Include="LiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />
     <Compile Include="RacingBetSettingService.cs" />
@@ -98,9 +100,17 @@
       <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
       <Name>Fanex.Athena.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
+      <Project>{efab3719-796c-4b55-8873-d4573416f07a}</Project>
+      <Name>Fanex.Athena.Service.Casino</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
+      <Project>{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}</Project>
+      <Name>Fanex.Athena.Service.Customer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
       <Project>{ae7d3fed-bfff-4ad6-816b-3a1644940511}</Project>

@@ -7,16 +7,12 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
     using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetSettings;
     using Fanex.Athena.Models.ViewModel.BetSettings;
-    using Fanex.Athena.Service.Core.Casino.Interfaces;
-    using Fanex.Athena.Service.Implement.Casino;
     using Fanex.Athena.Web.ActionFilter;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
@@ -24,15 +20,11 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class BetSettingController : BetSettingBaseController
     {
         private readonly IBetSettingService _betSettingService;
-        private readonly ICasinoSetting _casinoSetting;
 
         public BetSettingController()
         {
             this._betSettingService = new BetSettingService();
-            this._casinoSetting = new CasinoSetting();
         }
-
-        #region Displaying bet settings
 
         /// <summary>
         /// The home page.
@@ -53,34 +45,12 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             switch (metaModel.ProductId)
             {
-                case ProductTypes.RngCasino:
-                    return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
-
                 case ProductTypes.Keno:
                     return View("~/Views/Customer/BetSetting/Keno.cshtml", viewModel);
 
                 default: // Sportsbook, Virtual Sports
                     return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
             }
-        }
-
-        #endregion Displaying bet settings
-
-        #region Common
-
-        private static bool? IsRngCasinoEnabled(CustomerInfo customerInfo)
-        {
-            bool? resultValue = false;
-            if (customerInfo.DisableCasino == false && customerInfo.SyncCasino)
-            {
-                resultValue = true;
-            }
-            else if (customerInfo.SyncCasino == false)
-            {
-                resultValue = null;
-            }
-
-            return resultValue;
         }
 
         private BetSettingViewModel GetViewModels(BetSettingMetaModel metaModel)
@@ -121,10 +91,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                     model = _betSettingService.GetVirtualSportsViewModel(custId);
                     break;
 
-                case ProductTypes.RngCasino:
-                    model = GetRngCasinoViewModel(custId, customerInfo, SessionService.UserSession.Language);
-                    break;
-
                 case ProductTypes.Keno:
                     model = _betSettingService.GetKenoViewModel(custId);
                     break;
@@ -135,26 +101,5 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             return model;
         }
-
-        private RngCasinoBetSettingViewModel GetRngCasinoViewModel(int custId, CustomerInfo customerInfo, string language)
-        {
-            IList<GameKind> gameKinds;
-            if (customerInfo.SyncCasino)
-            {
-                gameKinds = _casinoSetting.GetRngCasinoSettings(custId, SessionService.LicenseeSession.LicenseeName, language);
-            }
-            else
-            {
-                gameKinds = new List<GameKind>();
-            }
-
-            return new RngCasinoBetSettingViewModel
-            {
-                GameKinds = gameKinds,
-                IsEnabled = IsRngCasinoEnabled(customerInfo)
-            };
-        }
-
-        #endregion Common
     }
 }

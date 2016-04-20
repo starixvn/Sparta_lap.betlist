@@ -23,8 +23,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 
         IResultInfo UpdateKenoBetSetting(int custId, int userId, string language, string ip, string xmlData);
 
-        IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip);
-
         IResultInfo UpdateSportsBookBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, string xmlData);

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess.BetSettings;
+    using DataAccess.BetSettings.Interfaces;
     using Models.DTO.BetSettings;
     using Models.DTO.Common;
     using Models.ViewModel;

@@ -84,7 +84,7 @@ var BetSetting = (function ($) {
                     url = "LiveCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_RNGCASINO:
-                    url = "BetSettingAPI/UpdateRngCasinoStatus";
+                    url = "RngCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_AGCASINO:
                     url = "AgCasinoBetSetting/UpdateStatus";

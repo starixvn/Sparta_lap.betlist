@@ -144,8 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implement\BetList\BetListDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
@@ -177,8 +175,6 @@
     <Compile Include="Implement\TotalBets\OutrightDataAccess.cs" />
     <Compile Include="Implement\TotalBets\RacingDataAccess.cs" />
     <Compile Include="Implement\TotalBets\TotalGoalDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerDataAccess.cs" />
-    <Compile Include="Implement\Customer\GroupComDataAccess.cs" />
     <Compile Include="Implement\Report\CreditBalanceDataAccess.cs" />
     <Compile Include="Implement\Report\CustomerBalanceDataAccess.cs" />
     <Compile Include="Implement\Report\CustomerPendingFundsDataAccess.cs" />
@@ -194,8 +190,6 @@
     <Compile Include="Implement\Report\TurnoverDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\BetList\IBetListDataAccess.cs" />
-    <Compile Include="Interface\Customer\CustomerLog\ICustomerLogDataAccess.cs" />
-    <Compile Include="Interface\Customer\CustomerLog\ILogInLogDataAccess.cs" />
     <Compile Include="Interface\Forecast\IForecastDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IFirstGoalLastGoalDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IHalfTimeFullTimeDataAccess.cs" />
@@ -208,8 +202,6 @@
     <Compile Include="Interface\TotalBets\IRacingDataAccess.cs" />
     <Compile Include="Interface\TotalBets\ITotalGoalDataAccess.cs" />
     <Compile Include="Implement\Report\MatchWinLossDataAccess.cs" />
-    <Compile Include="Interface\Customer\ICustomerDataAccess.cs" />
-    <Compile Include="Interface\Customer\IGroupComDataAccess.cs" />
     <Compile Include="Interface\Report\IBalanceDataAccess.cs" />
     <Compile Include="Interface\Report\ICustBalanceDataAccess.cs" />
     <Compile Include="Interface\Report\ICustPendingFundsDataAccess.cs" />

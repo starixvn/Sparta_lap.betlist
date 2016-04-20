@@ -18,8 +18,8 @@ namespace Fanex.Athena.Controllers.RNGCasino
     using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino;
     using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
-    using Fanex.Athena.Service.Core.Casino.Interfaces;
-    using Fanex.Athena.Service.Implement.Casino;
+    using Fanex.Athena.Service.Casino;
+    using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 

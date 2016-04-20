@@ -13,8 +13,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Service.Customer;
+    using Fanex.Athena.Service.Customer.Interfaces;
     using Models.DTO.Common;
     using Models.MetaModel.BetSettings;
     using Models.ViewModel.BetSettings;

@@ -32,9 +32,5 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
         IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
 
         IResultInfo UpdateVirtualSportsBetSetting(int custId, int userId, string language, string ip, IList<VSBetSetting> betSettings);
-
-        IResultInfo UpdateRngCasinoSetting(RngCasinoBetSettingMetaModel metaModel);
-
-        IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username);
     }
 }

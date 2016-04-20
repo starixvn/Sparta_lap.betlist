@@ -18,8 +18,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Service.Customer;
+    using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Service.BetSettings;
 
@@ -49,40 +49,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         #endregion Constructor
 
         #region Bet setting API
-
-        /// <summary>
-        /// Update RNG Casino status.
-        /// </summary>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="nickName">Nick name.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <returns>Result value.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateRngCasinoStatus(int custId, string nickName, int status)
-        {
-            if (_productAccess.IsAllowCS == false || _customerService.GetCustomerInfo(custId).SyncCasino == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateRngCasinoStatus(
-                userSession.UserId,
-                custId,
-                status,
-                userSession.Language,
-                Request.UserHostAddress,
-                userSession.UserName);
-
-            if (result.Code == 0)
-            {
-                result.Message = string.Format(ViewResources.UpdateSuccess, nickName);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
 
         /// <summary>
         /// Update sport-book settings.
@@ -219,56 +185,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Update RNG CASINO settings.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="gameTypeChangedList">The game types.</param>
-        /// <returns>The JSON result.</returns>
-        [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
-        public JsonResult UpdateRngCasinoBetSetting(int custId, string gameTypeChangedList)
-        {
-            if (_productAccess.IsAllowCS == false || _customerService.GetCustomerInfo(custId).SyncCasino == false)
-            {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
-            }
-
-            try
-            {
-                var licenseeSession = SessionService.LicenseeSession;
-                var userSession = SessionService.UserSession;
-
-                var metaModel = new RngCasinoBetSettingMetaModel
-                {
-                    LicenseeId = licenseeSession.LicenseeId,
-                    LicenseeName = licenseeSession.LicenseeName,
-                    CustId = custId,
-                    ModifyById = userSession.UserId,
-                    ModifyByUsername = userSession.UserName,
-                    Ip = Request.UserHostAddress
-                };
-
-                var tableParam = GetRnGCasinoParam(metaModel, gameTypeChangedList);
-
-                metaModel.TableParam = tableParam;
-
-                var result = _betSettingService.UpdateRngCasinoSetting(metaModel);
-
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-            catch (System.Exception e)
-            {
-                if (IsDebuggingEnabled)
-                {
-                    throw;
-                }
-
-                return Json(new ResultInfo { Code = 1, Message = e.Message });
-            }
-        }
-
         #endregion Bet setting API
 
         #region Get Betsetting params
@@ -372,35 +288,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return settings;
-        }
-
-        /// <summary>
-        /// Get RNG CASINO parameters.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="gameTypeChangedList">The game types.</param>
-        /// <returns>The data table.</returns>
-        private DataTable GetRnGCasinoParam(RngCasinoBetSettingMetaModel metaModel, string gameTypeChangedList)
-        {
-            var table = new DataTable();
-            table.Columns.Add("IBCCustID", typeof(int));
-            table.Columns.Add("GameTypeID", typeof(int));
-            table.Columns.Add("StakeLevelList", typeof(string));
-            table.Columns.Add("RoleId", typeof(int));
-            table.Columns.Add("FromIP", typeof(string));
-            table.Columns.Add("ModifyBy", typeof(int));
-            table.Columns.Add("ModifyUserName", typeof(string));
-            table.Columns.Add("FromSystem", typeof(int));
-
-            var gameTypeList = gameTypeChangedList.Split(',');
-
-            foreach (var gameTypeId in gameTypeList)
-            {
-                var stakeLevel = this.HttpContext.Request["stake" + gameTypeId];
-                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername, metaModel.SystemId);
-            }
-
-            return table;
         }
 
         /// <summary>

@@ -9,22 +9,15 @@ namespace Fanex.Athena.Service.BetSettings
     #region
 
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
-    using CasinoLibrary.SBAgent;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.BetSettings;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Casino;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.BetSettings;
     using Fanex.Athena.Service.BetSettings.Interfaces;
-    using Fanex.Athena.Service.Implement.Casino;
-    using Implement.Customer;
-    using Interface.Customer;
 
     #endregion
 
@@ -34,47 +27,10 @@ namespace Fanex.Athena.Service.BetSettings
     public class BetSettingService : BetSettingBaseService, IBetSettingService
     {
         private readonly IBetSettingDataAccess _betSettingDataAccess;
-        private readonly ICustomerService _customerService;
-        private readonly CasinoSetting _casinoSetting;
-        private readonly Customer _customer;
 
         public BetSettingService()
         {
             _betSettingDataAccess = new BetSettingDataAccess();
-            _customerService = new CustomerService();
-            _casinoSetting = new CasinoSetting();
-            _customer = new Customer();
-        }
-
-        /// <summary>
-        /// Update RNG Casino status.
-        /// </summary>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="custId">Customer ID value.</param>
-        /// <param name="status">Status value: 0 - enable, 1 - disable.</param>
-        /// <param name="language">The language value.</param>
-        /// <param name="ip">The IP value.</param>
-        /// <param name="username">The username value.</param>
-        /// <returns>The result value.</returns>
-        public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip, string username)
-        {
-            if (!HasPermissionOnData(custId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var customerInfo = _customerService.GetCustomerInfo(custId);
-            if (customerInfo.SyncCasino && !AppSettings.IsDisableRngCasino)
-            {
-                if (!_customer.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
-                {
-                    return ErrorResult(ViewResources.UpdateUnSuccess);
-                }
-
-                return _betSettingDataAccess.UpdateRngCasinoStatus(userId, custId, status, language, ip);
-            }
-
-            return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
         }
 
         /// <summary>
@@ -188,41 +144,6 @@ namespace Fanex.Athena.Service.BetSettings
                 language,
                 ip,
                 xmlparam);
-        }
-
-        /// <summary>
-        /// Update RNG casino setting.
-        /// </summary>
-        /// <param name="metaModel">The metal mode.</param>
-        /// <returns>The result.</returns>
-        public IResultInfo UpdateRngCasinoSetting(RngCasinoBetSettingMetaModel metaModel)
-        {
-            var customerInfo = _customerService.GetCustomerInfo(metaModel.CustId);
-
-            if (customerInfo.DisableCasino || !HasPermissionOnData(metaModel.CustId))
-            {
-                return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
-            }
-
-            var result = false;
-
-            if (customerInfo.SyncCasino)
-            {
-                if (!AppSettings.IsDisableRngCasino)
-                {
-                    result = _casinoSetting.UpdateRngCasinoSetting(metaModel.TableParam, metaModel.LicenseeName);
-
-                    return result ?
-                        new ResultInfo { Code = 0, Message = ViewResources.MessageSuccess }
-                        : new ResultInfo { Code = 1, Message = ViewResources.Fail };
-                }
-                else
-                {
-                    return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
-                }
-            }
-
-            return new ResultInfo { Code = 1, Message = ViewResources.RNGCasinoUpdateSettingUnAvailableMsg };
         }
 
         /// <summary>

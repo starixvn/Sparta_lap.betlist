@@ -75,7 +75,7 @@ var RnGCasino = (function ($) {
                         params, gameTypeChangedList, RnGCasino.updateStakeLevel);
         },
         updateStakeLevel: function (userName, params, gameTypeChangedList) {
-            var url = Site.resolveClientUrl('BetsettingAPI/UpdateRngCasinoBetSetting');
+            var url = Site.resolveClientUrl('RngCasinoBetsetting/UpdateBetSetting');
             if (gameTypeChangedList.length > 0) {
                 $.ajax({
                     url: url,

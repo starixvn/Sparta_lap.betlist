@@ -22,8 +22,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class BetSettingDataAccess : BaseDataAccess, IBetSettingDataAccess
     {
-        protected const int RngCasinoSportId = 251;
-
         #region Get bet setting data
 
         /// <summary>
@@ -247,11 +245,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
         }
 
         #endregion Virtual sports
-
-        public IResultInfo UpdateRngCasinoStatus(int userId, int custId, int status, string language, string ip)
-        {
-            return null; // UpdateCasinoStatus(userId, custId, RngCasinoSportId, status, ip, language);
-        }
 
         #endregion Update bet setting
 

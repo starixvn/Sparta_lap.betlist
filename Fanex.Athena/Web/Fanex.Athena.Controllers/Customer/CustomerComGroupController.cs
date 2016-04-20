@@ -24,8 +24,8 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Implement.Customer;
-    using Fanex.Athena.Service.Interface.Customer;
+    using Fanex.Athena.Service.Customer;
+    using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
