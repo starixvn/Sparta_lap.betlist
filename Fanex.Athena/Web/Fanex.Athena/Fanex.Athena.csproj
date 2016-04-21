@@ -4571,6 +4571,10 @@
       <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
       <Name>Fanex.Athena.Controllers.Forecast</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj">
+      <Project>{bc358f4a-b85d-43a2-a669-d2d2c9f2eedb}</Project>
+      <Name>Fanex.Athena.Controllers.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>

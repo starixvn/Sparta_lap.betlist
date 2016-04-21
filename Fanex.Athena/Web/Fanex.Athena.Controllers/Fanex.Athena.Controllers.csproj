@@ -31,7 +31,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,67 +45,11 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Fanex.BetList.AGCasino, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.AGCasino.1.0.0.4\lib\net40\Fanex.BetList.AGCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.0-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.12.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.0-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.0-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.RnGCasino.1.0.0.6\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Voidbridge, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.0.0.6-beta\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Result.Core, Version=2.0.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.2.6\lib\net40\Fanex.Result.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.2.6\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-LiveCasino.1.0.0.8\lib\net40\Fanex.Result.Core.LiveCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.MicroGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-MicroGaming.1.0.0.2\lib\net40\Fanex.Result.Core.MicroGaming.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NumberGame.1.0.1.0\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.Racing, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-Racing.1.0.0.9\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.0.2.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -201,47 +145,15 @@
     <Compile Include="AuthorizationController.cs" />
     <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
-    <Compile Include="Report\ReportAPI\ReportAPIController.CustomerTurnover.cs" />
-    <Compile Include="Report\ReportAPI\ReportAPIController.Turnover.cs" />
-    <Compile Include="Report\ReportAPI\ReportAPIController.cs" />
-    <Compile Include="Report\ReportBaseController.cs" />
-    <Compile Include="Report\ReportController.CasinoProgressiveWins.cs" />
-    <Compile Include="Report\ReportController.MicrogamingWinLoss.cs" />
-    <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
-    <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
-    <Compile Include="Report\ReportController.AgCasinoBalance.cs" />
-    <Compile Include="Report\UserGuideController.cs" />
-    <Compile Include="Report\ReportController.AgCasinoWinLoss.cs" />
-    <Compile Include="Report\ReportController.PlaytechCasino.cs" />
     <Compile Include="MenuController.cs" />
-    <Compile Include="Report\ReportController.WinLossByLeague.cs" />
-    <Compile Include="Report\ReportController.ResultPage.cs" />
-    <Compile Include="Report\ReportController.MacauWinLoss.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="UtilityController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Report\NoteController.cs" />
-    <Compile Include="Report\ReportController.WinLossByProduct.cs" />
     <Compile Include="HomeController.cs" />
-    <Compile Include="Report\ReportController.CustomerPendingFunds.cs" />
-    <Compile Include="Report\ReportController.CustomerWinloss.cs" />
-    <Compile Include="Report\ReportController.CustomerBalance.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Report\ReportController.CustomerTurnover.cs" />
-    <Compile Include="Report\LicenseeWinLossReportController.cs" />
-    <Compile Include="Report\ReportController.DailyRacingWinLoss.cs" />
-    <Compile Include="Report\LiveReportController.cs" />
-    <Compile Include="Report\ReportController.RacingCommission.cs" />
-    <Compile Include="Report\ReportController.Turnover.cs" />
-    <Compile Include="Report\ReportController.MatchWinLoss.cs" />
-    <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\ReportController.cs" />
-    <Compile Include="Report\ReportController.WinLossByBetType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
@@ -264,10 +176,6 @@
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
-      <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
-      <Name>Fanex.Athena.Model.Customer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
       <Name>Fanex.Athena.Models</Name>
@@ -284,10 +192,6 @@
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
-      <Project>{ec87b5f7-32ca-485b-a3ff-52a5d0edce42}</Project>
-      <Name>Fanex.Athena.Service.Customer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service</Name>
@@ -296,12 +200,6 @@
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Report\ReportController.SettledMatchCount.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Report\ReportController.Balance.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
