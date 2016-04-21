@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerLogController.LogInLog.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CustomerLogController.GroupCommission.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Shadow.Nguyen" date="2013.1.24">Created</change>
+//   <change who="Shadow.Nguyen" date="2013.1.25">Created</change>
 // </history>
 
 namespace Fanex.Athena.Controllers.Customer.CustomerLog
@@ -13,24 +13,24 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using System.Web.Mvc;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
-    /// Log in log controller.
+    /// Group commission log.
     /// </summary>
     public partial class CustomerLogController
-    {        
+    {
         /// <summary>
-        /// Log in log action.
+        /// Group commission action.
         /// </summary>
-        /// <returns>Log in log view.</returns>
-        [FunctionAuthorization]
-        public ActionResult LogInLog()
+        /// <returns>Group commission log view.</returns>
+        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
+        public ActionResult GroupCommission()
         {
-            var model = new LogInLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<LogInLog>() };
+            var model = new CustomerLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<CustomerLog>() };
 
-            return View("~/Views/Customer/CustomerLog/LogInLog/Main.cshtml", model);
+            return View("~/Views/Customer/CustomerLog/GroupCommLog/Main.cshtml", model);
         }
     }
 }

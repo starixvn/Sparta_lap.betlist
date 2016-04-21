@@ -10,6 +10,7 @@ namespace Fanex.Athena.Models.ViewModel.Report.LiveReports
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Report.LiveReports;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Model.Core.ViewModel;
 
     /// <summary>
     /// LiveReportDetailViewModel class.

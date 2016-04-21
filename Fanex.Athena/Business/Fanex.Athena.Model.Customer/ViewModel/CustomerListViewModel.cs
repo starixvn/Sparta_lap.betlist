@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.ViewModel.Customer
+namespace Fanex.Athena.Model.Customer.ViewModel
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Customer.DTO;

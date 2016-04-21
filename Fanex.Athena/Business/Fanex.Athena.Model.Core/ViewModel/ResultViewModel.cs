@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.ViewModel
+namespace Fanex.Athena.Model.Core.ViewModel
 {
     /// <summary>
     /// ResultViewModel class.

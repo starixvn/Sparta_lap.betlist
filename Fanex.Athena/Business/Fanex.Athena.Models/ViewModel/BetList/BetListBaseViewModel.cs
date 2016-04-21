@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel.BetList
 {
     using Fanex.Athena.Models.MetaModel.BetList;
+    using Model.Core.ViewModel;
 
     /// <summary>
     /// BetListBaseViewModel class.

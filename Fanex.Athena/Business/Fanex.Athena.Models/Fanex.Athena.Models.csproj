@@ -243,7 +243,6 @@
     <Compile Include="MetaModel\Warehouse\TopCustomerMetaModel.cs" />
     <Compile Include="MetaModel\Warehouse\WinLossMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BetList\BetListBaseViewModel.cs" />
     <Compile Include="ViewModel\BetList\CancelledBetsBetListViewModel.cs" />
     <Compile Include="ViewModel\BetList\LastBetsMonitoringViewModel.cs" />
@@ -290,7 +289,6 @@
     <Compile Include="ViewModel\Report\SettledMatchCountViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByBetTypeViewModel.cs" />
     <Compile Include="ViewModel\Report\TurnoverViewModel.cs" />
-    <Compile Include="ViewModel\ResultViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\FirstGoalLastGoalViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\HalfTimeFullTimeViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\HandicapOverUnderViewModel.cs" />

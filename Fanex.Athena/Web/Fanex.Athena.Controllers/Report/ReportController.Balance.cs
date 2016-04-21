@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
@@ -49,18 +48,18 @@ namespace Fanex.Athena.Controllers.Report
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
-            var creditBalanceService = new CreditBalanceService();            
+            var creditBalanceService = new CreditBalanceService();
             var reportData = creditBalanceService.GetReportData(metaModel);
 
             var viewData = new BalanceViewModel
-                {
-                    MainData = reportData,
-                    Param = metaModel,
-                    IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = GetUserCurrencies(),
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = productAccess,
-                };
+            {
+                MainData = reportData,
+                Param = metaModel,
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                CurrencyList = GetUserCurrencies(),
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = productAccess,
+            };
 
             if (metaModel.IsExportExcel)
             {
@@ -85,26 +84,26 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = this.ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
             var convertingOption = new ConvertingOption
-                {
-                    IsConvert = model.Param.IsConvert,
-                    BaseCurrency = model.Param.BaseCurrency,
-                    CurrencyName = model.Param.CurrencyName
-                };
+            {
+                IsConvert = model.Param.IsConvert,
+                BaseCurrency = model.Param.BaseCurrency,
+                CurrencyName = model.Param.CurrencyName
+            };
 
             var showingOption = new ShowingOption
-                {
-                    RBVisible = productAccess.IsAllowRB,
-                    BAVisible = productAccess.IsAllowBA,
-                    NGVisible = productAccess.IsAllowNG,
-                    SBVisible = productAccess.IsAllowSB,
-                    LCVisible = productAccess.IsAllowLC,
-                    VSVisible = productAccess.IsAllowVS,
-                    CSVisible = productAccess.IsAllowCS,
-                    BGVisible = productAccess.IsAllowBG,
-                    KNVisible = productAccess.IsAllowKN,
-                    BTVisible = productAccess.IsAllowBT,
-                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-                };
+            {
+                RBVisible = productAccess.IsAllowRB,
+                BAVisible = productAccess.IsAllowBA,
+                NGVisible = productAccess.IsAllowNG,
+                SBVisible = productAccess.IsAllowSB,
+                LCVisible = productAccess.IsAllowLC,
+                VSVisible = productAccess.IsAllowVS,
+                CSVisible = productAccess.IsAllowCS,
+                BGVisible = productAccess.IsAllowBG,
+                KNVisible = productAccess.IsAllowKN,
+                BTVisible = productAccess.IsAllowBT,
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+            };
 
             var balance = new BalanceExcel(
                 templatePath,
@@ -112,7 +111,8 @@ namespace Fanex.Athena.Controllers.Report
                 showingOption,
                 convertingOption,
                 model.MainData,
-                model.Param.FromDate.ToString("MM - yyyy")) { ProductOptions = model.Param.ProductOptions };
+                model.Param.FromDate.ToString("MM - yyyy"))
+            { ProductOptions = model.Param.ProductOptions };
             balance.Export();
 
             return new ExcelResult(balance.Workbook, FileName);

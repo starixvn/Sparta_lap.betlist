@@ -18,9 +18,9 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Customer.Interfaces;
+    using Model.Core.ViewModel;
 
     #endregion
 

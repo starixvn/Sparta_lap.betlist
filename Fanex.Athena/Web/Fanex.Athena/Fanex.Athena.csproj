@@ -4563,6 +4563,10 @@
       <Project>{bd14328f-0bca-43e4-a3df-ce166ac95135}</Project>
       <Name>Fanex.Athena.Controllers.BetSettings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj">
+      <Project>{11985254-411e-45dc-9b50-8dcb8bd145ef}</Project>
+      <Name>Fanex.Athena.Controllers.Customer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
       <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
       <Name>Fanex.Athena.Controllers.Forecast</Name>

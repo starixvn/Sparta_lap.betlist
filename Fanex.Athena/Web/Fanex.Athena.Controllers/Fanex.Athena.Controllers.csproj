@@ -31,6 +31,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -222,15 +223,6 @@
     <Compile Include="UtilityController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Customer\CustomerLog\CustomerLogController.GroupCommission.cs" />
-    <Compile Include="Customer\CustomerLog\CustomerLogController.cs" />
-    <Compile Include="Customer\CustomerLog\CustomerLogController.CustomerSetting.cs" />
-    <Compile Include="Customer\CustomerLog\CustomerLogController.LogInLog.cs" />
-    <Compile Include="Customer\CustomerController.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Customer\CustomerAPIController.cs" />
-    <Compile Include="Customer\CustomerComGroupController.cs" />
     <Compile Include="Report\NoteController.cs" />
     <Compile Include="Report\ReportController.WinLossByProduct.cs" />
     <Compile Include="HomeController.cs" />

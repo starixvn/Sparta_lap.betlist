@@ -10,6 +10,7 @@ namespace Fanex.Athena.Models.ViewModel.Warehouse
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
+    using Model.Core.ViewModel;
 
     /// <summary>
     /// TopCustomerViewModel class.

@@ -15,7 +15,7 @@ namespace Fanex.Athena.Excel.Customer
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.ViewModel.Customer;
+    using Fanex.Athena.Model.Customer.ViewModel;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;

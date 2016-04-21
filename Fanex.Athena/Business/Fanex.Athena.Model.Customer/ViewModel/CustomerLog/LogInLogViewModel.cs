@@ -7,7 +7,7 @@
 //   <change who="Shadow.Nguyen" date="2013.1.24">Created</change>
 // </history>
 
-namespace Fanex.Athena.Models.ViewModel.Customer.CustomerLog
+namespace Fanex.Athena.Model.Customer.ViewModel.CustomerLog
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
