@@ -345,6 +345,13 @@ var BetList = (function ($) {
             });
         },
 
+        viewVoidbridgeResult: function (custId, gamePlayId) {
+            var url = Site.resolveClientUrl('Result/VoidbridgeResult');
+            $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
+                openVoidbridgeResult(result);
+            });
+        },
+
         showRngCasinoResultPopup: function (title, url) {
             if (url === "") {
                 return;
@@ -382,6 +389,7 @@ var BetList = (function ($) {
                 BetList.viewRngCasinoResult(title, refno);
             }
             else if (sporttype === SPORT_VOIDBRIDGE) {
+                BetList.viewVoidbridgeResult(custid, betcheck);
             }
             else {
                 bettype = Number(bettype);
@@ -597,3 +605,4 @@ var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;
 var showAGCasinoDetails = BetList.showAGCasinoDetails;
 var showRnGCasinoDetails = BetList.showRnGCasinoDetails;
 var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
+var showVoidbridgeResult = BetList.viewVoidbridgeResult;

@@ -32,7 +32,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Resources;
-
+    using Result.Core.Voidbridge;
     /// <summary>
     /// The result controller.
     /// </summary>
@@ -212,6 +212,13 @@ namespace Fanex.Athena.Controllers.Report
             var resultInfo = casinoAPI.GetReultInfo(refNo);
 
             return Json(resultInfo);
+        }
+
+        [HttpGet]
+        public string VoidbridgeResult(string custId, string gamePlayId)
+        {
+            var voidbridgeApi = new VoidbridgeApiImp();
+            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId);
         }
 
         /// <summary>

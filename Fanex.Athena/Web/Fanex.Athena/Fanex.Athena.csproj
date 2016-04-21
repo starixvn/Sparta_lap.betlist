@@ -715,6 +715,7 @@
     <Content Include="Scripts\jasmine-specs\TotalBets\totalgoal-test.js" />
     <Content Include="Scripts\jasmine-specs\WareHouse\topcustomer-test.js" />
     <Content Include="Scripts\jasmine-specs\WareHouse\winloss-test.js" />
+    <Content Include="Scripts\BetList\voidbridge-result.js" />
     <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
