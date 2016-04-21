@@ -11,10 +11,10 @@ namespace Fanex.Athena.Service.Customer
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.Customer;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.MetaModel.Customer;
+    using Fanex.Athena.Model.Customer.DTO;
+    using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Common;

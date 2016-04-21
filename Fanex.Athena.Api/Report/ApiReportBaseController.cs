@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.MetaModel;
+    using Model.Core.MetaModel;
 
     public class ApiReportBaseController : BaseApiController
     {

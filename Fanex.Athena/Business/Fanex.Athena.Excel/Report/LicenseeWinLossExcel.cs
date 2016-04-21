@@ -17,8 +17,8 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.MetaModel.Product;
     using Models.DTO.Report;
-    using Models.MetaModel.Product;
     using Models.MetaModel.Report;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;

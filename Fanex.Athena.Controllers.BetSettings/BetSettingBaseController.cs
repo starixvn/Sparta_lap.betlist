@@ -9,15 +9,15 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections.Generic;
     using System.Linq;
     using Extension.Utility;
+    using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.DTO.BetSettings;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
+    using Model.BetSettings.MetaModel;
+    using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
-    using Models.MetaModel.BetSettings;
-    using Models.ViewModel.BetSettings;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common;

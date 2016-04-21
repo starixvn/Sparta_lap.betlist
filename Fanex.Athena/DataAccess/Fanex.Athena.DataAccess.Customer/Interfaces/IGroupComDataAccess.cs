@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Customer;
+    using Fanex.Athena.Model.Customer.MetaModel;
 
     public interface IGroupComDataAccess
     {

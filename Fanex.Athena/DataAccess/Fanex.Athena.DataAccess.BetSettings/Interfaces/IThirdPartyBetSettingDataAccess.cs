@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
 {
+    using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.BetSettings;
 
     public interface IThirdPartyBetSettingDataAccess
     {

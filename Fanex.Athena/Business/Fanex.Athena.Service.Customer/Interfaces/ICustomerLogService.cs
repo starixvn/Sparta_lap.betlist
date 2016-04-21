@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Service.Customer.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
-    using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
+    using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
 
     /// <summary>
     /// TODO: Update summary.

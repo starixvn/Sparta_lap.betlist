@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.ViewModel.BetList
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Customer;
+    using Fanex.Athena.Model.Customer.DTO;
 
     /// <summary>
     /// CancelledBetsBetListViewModel class.

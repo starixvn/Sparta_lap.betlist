@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.MetaModel.BetSettings;
+    using Model.BetSettings.MetaModel;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;

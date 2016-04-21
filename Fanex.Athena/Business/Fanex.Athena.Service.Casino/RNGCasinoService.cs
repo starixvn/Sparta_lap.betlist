@@ -10,12 +10,12 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Fanex.Athena.Model.Casino.DTO;
+    using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
+    using Fanex.Athena.Model.Casino.MetaModel;
+    using Fanex.Athena.Model.Casino.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.Casino;
-    using Fanex.Athena.Models.DTO.Casino.RNGResultDetail;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;

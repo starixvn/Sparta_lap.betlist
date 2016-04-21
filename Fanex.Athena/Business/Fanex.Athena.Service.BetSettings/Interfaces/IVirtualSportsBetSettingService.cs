@@ -7,9 +7,9 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
+    using Fanex.Athena.Model.BetSettings.DTO;
+    using Fanex.Athena.Model.BetSettings.ViewModel;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.ViewModel.BetSettings;
 
     public interface IVirtualSportsBetSettingService
     {

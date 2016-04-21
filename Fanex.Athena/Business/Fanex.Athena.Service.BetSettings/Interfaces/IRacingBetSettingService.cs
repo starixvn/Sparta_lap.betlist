@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Service.BetSettings.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.BetSettings;
-    using Fanex.Athena.Models.ViewModel.BetSettings;
+    using Fanex.Athena.Model.BetSettings.DTO;
+    using Fanex.Athena.Model.BetSettings.ViewModel;
 
     public interface IRacingBetSettingService
     {

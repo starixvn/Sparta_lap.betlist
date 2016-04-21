@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
-    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Common.Extensions;
     using Fanex.Data;
 

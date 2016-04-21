@@ -14,7 +14,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.IO;
     using System.Web.Hosting;
     using System.Xml;
-    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Models.ViewModel.Customer.CustomerLog;
     using Fanex.Athena.Service.Customer;
     using RazorEngine;

@@ -23,8 +23,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
     using Fanex.Data;

@@ -9,9 +9,9 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using System.Text;
     using DataAccess.BetSettings;
+    using Model.BetSettings.DTO;
+    using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
-    using Models.DTO.BetSettings;
-    using Models.ViewModel.BetSettings;
     using Resources;
 
     public class KenoBetSettingService : BetSettingBaseService, IKenoBetSettingService

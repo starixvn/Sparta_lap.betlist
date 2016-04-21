@@ -9,8 +9,8 @@ namespace Fanex.Athena.Service.Interface.BetList
     #region
 
     using System.Collections.Generic;
+    using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.BetList.Core.Entities;
 

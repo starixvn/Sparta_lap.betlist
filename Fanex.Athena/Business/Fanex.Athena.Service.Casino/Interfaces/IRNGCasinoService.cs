@@ -7,9 +7,9 @@
 namespace Fanex.Athena.Service.Casino.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Casino;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
+    using Fanex.Athena.Model.Casino.DTO;
+    using Fanex.Athena.Model.Casino.MetaModel;
+    using Fanex.Athena.Model.Casino.ViewModel;
 
     public interface IRNGCasinoService
     {

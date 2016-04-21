@@ -14,8 +14,8 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
-    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
-    using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
+    using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Data;
 
     /// <summary>

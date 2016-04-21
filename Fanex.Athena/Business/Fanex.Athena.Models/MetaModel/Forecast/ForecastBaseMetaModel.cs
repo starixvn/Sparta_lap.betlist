@@ -10,6 +10,7 @@
 namespace Fanex.Athena.Models.MetaModel.Forecast
 {
     using System;
+    using Model.Core.MetaModel;
 
     /// <summary>
     /// ForecastBaseMetaModel class.

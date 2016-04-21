@@ -7,7 +7,7 @@
 namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
 
     /// <summary>
     /// Login log interface.

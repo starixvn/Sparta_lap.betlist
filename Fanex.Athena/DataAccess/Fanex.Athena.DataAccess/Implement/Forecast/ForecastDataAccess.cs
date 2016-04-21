@@ -17,11 +17,11 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
     using Data;
     using Fanex.Athena.Models.DTO.Forecast.ForecastHdou;
     using Fanex.Athena.Models.DTO.Forecast.NewForecastHdpOu;
-    using Fanex.Athena.Models.MetaModel;
     using Fanex.Athena.Models.ViewModel.Forecast;
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interface.Forecast;
+    using Model.Core.MetaModel;
     using Models.DTO.Forecast.Forecast1X2;
     using Models.DTO.Forecast.ForecastAH;
     using Models.MetaModel.Forecast;

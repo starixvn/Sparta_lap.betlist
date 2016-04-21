@@ -3,7 +3,7 @@
     Layout = null; 
 }
 <link href="@Url.ContentLink("/Content/RNGCasino/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
-@model Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail.CasinoHandHistoryDetailViewModel
+@model Fanex.Athena.Model.Casino.ViewModel.CasinoHandHistoryDetailViewModel
 @{
     var headerItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "BasicInfo").FirstOrDefault();
     var contentItemList = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Result_CardInfo");    

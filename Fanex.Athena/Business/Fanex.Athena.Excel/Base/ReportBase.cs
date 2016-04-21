@@ -19,7 +19,7 @@ namespace Fanex.Athena.Excel.Base
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Models.MetaModel.Product;
+    using Model.Core.MetaModel.Product;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;

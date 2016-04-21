@@ -14,7 +14,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
-    using Models.DTO.BetSettings;
+    using Model.BetSettings.DTO;
 
     public class LiveCasinoBetSettingDataAccess : CasinoBettingBaseDataAccess, ILiveCasinoBetSettingDataAccess
     {

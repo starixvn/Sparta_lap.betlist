@@ -24,8 +24,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     using Fanex.Athena.Extension;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common;

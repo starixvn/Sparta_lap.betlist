@@ -9,8 +9,8 @@ namespace Fanex.Athena.Service.BetSettings
     using BetSettings.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
+    using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
-    using Models.ViewModel.BetSettings;
     using Resources;
 
     public class ThirdPartyBetSettingService : BetSettingBaseService, IThirdPartyBetSettingService

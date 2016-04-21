@@ -11,7 +11,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.MetaModel.Product;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Model.Core.MetaModel;
 
     /// <summary>
     /// BaseReportMetaModel class.

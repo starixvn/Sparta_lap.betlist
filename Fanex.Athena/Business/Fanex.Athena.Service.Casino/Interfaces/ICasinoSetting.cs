@@ -8,8 +8,8 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.Models.DTO.BetSettings.RngCasino;
-    using Fanex.Athena.Models.MetaModel.Casino;
+    using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
+    using Fanex.Athena.Model.Casino.MetaModel;
 
     public interface ICasinoSetting
     {

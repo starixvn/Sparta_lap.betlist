@@ -12,9 +12,8 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.MetaModel.Product;
 
     #endregion Using
 
@@ -42,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
 
             var productAccess = this.ProductService.GetProductAccess(
-                metaModel.LicenseeId, 
+                metaModel.LicenseeId,
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 

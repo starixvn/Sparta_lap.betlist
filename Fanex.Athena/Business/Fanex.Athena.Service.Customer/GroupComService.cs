@@ -14,10 +14,10 @@ namespace Fanex.Athena.Service.Customer
     using System.Linq;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
+    using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.MetaModel.Customer;
+    using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Customer.Interfaces;
@@ -96,13 +96,13 @@ namespace Fanex.Athena.Service.Customer
             var data = this._groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
 
             result = new ResultViewModel
-                {
-                    ErrorCode = dataResultInfo.Code,
-                    ErrorMessage = dataResultInfo.Message,
-                    Success = dataResultInfo.IsSuccessful,
-                    Message = dataResultInfo.Message,
-                    ExtendedData = data
-                };
+            {
+                ErrorCode = dataResultInfo.Code,
+                ErrorMessage = dataResultInfo.Message,
+                Success = dataResultInfo.IsSuccessful,
+                Message = dataResultInfo.Message,
+                ExtendedData = data
+            };
             return data;
         }
 
@@ -121,13 +121,13 @@ namespace Fanex.Athena.Service.Customer
             var data = this._groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
             var callApiSuccess = true;
             result = new ResultViewModel
-                {
-                    ErrorCode = dataResultInfo.Code,
-                    ErrorMessage = dataResultInfo.Message,
-                    Success = dataResultInfo.IsSuccessful,
-                    Message = dataResultInfo.Message,
-                    ExtendedData = data
-                };
+            {
+                ErrorCode = dataResultInfo.Code,
+                ErrorMessage = dataResultInfo.Message,
+                Success = dataResultInfo.IsSuccessful,
+                Message = dataResultInfo.Message,
+                ExtendedData = data
+            };
             if (newItem.IsUpdateCS && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))
             {
                 var custtomerList = dataResultInfo.ExtendedData.Split(new char[] { ',' });
@@ -180,13 +180,13 @@ namespace Fanex.Athena.Service.Customer
                 model.IsResetDefault,
                 out dataResultInfo);
             result = new ResultViewModel
-                {
-                    ErrorCode = dataResultInfo.Code,
-                    ErrorMessage = dataResultInfo.Message,
-                    Success = dataResultInfo.IsSuccessful,
-                    Message = dataResultInfo.Message,
-                    ExtendedData = returnValue
-                };
+            {
+                ErrorCode = dataResultInfo.Code,
+                ErrorMessage = dataResultInfo.Message,
+                Success = dataResultInfo.IsSuccessful,
+                Message = dataResultInfo.Message,
+                ExtendedData = returnValue
+            };
             var callApiSuccess = true;
 
             if (model.IsRemoveCommSetting && model.IsAllowedCSComm && !string.IsNullOrEmpty(dataResultInfo.ExtendedData))

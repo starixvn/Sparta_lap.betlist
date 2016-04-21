@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.Implement.BetList
     using Fanex.Athena.DataAccess.Implement.BetList;
     using Fanex.Athena.DataAccess.Interface.BetList;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;

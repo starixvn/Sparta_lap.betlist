@@ -13,10 +13,9 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
@@ -29,6 +28,7 @@ namespace Fanex.Athena.Controllers.Report
     public partial class ReportController
     {
         private const string CustomerPendingFundsName = "CustomerPendingFunds";
+
         #region Web Controller
 
         /// <summary>
@@ -42,34 +42,34 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var metaModel = new CustomerPendingFundsMetaModel
-                {
-                    LicenseeId = licenseeSession.LicenseeId,
-                    UserId = userSession.UserId
-                };
+            {
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = userSession.UserId
+            };
             SetConvetedUSDCurrencyName(metaModel);
             var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
-                                                 {
-                                                     Code = i.ProductCode,
-                                                     Name = i.ProductName,
-                                                     Status = i.ProductCode == Product.SB
-                                                 }).ToList();
+                                             {
+                                                 Code = i.ProductCode,
+                                                 Name = i.ProductName,
+                                                 Status = i.ProductCode == Product.SB
+                                             }).ToList();
 
             metaModel.ProductOptions = productOption;
 
             var model = new CustomerPendingFundsViewModel
-                {
-                    ShowEmptyContent = true,
-                    DataList = new List<CustPendingFunds>(),
-                    TotalData = new CustPendingFunds(),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = productAccess,
-                    CurrencyList = GetUserCurrencies(),
-                    Param = metaModel,
-                    TotalRows = 0,
-                };
+            {
+                ShowEmptyContent = true,
+                DataList = new List<CustPendingFunds>(),
+                TotalData = new CustPendingFunds(),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = productAccess,
+                CurrencyList = GetUserCurrencies(),
+                Param = metaModel,
+                TotalRows = 0,
+            };
 
             return View("~/Views/Report/CustomerPendingFunds/Main.cshtml", model);
         }
@@ -94,14 +94,14 @@ namespace Fanex.Athena.Controllers.Report
             var totalRows = 0;
 
             var model = new CustomerPendingFundsViewModel
-                {
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName),
-                    CurrencyList = GetUserCurrencies(),
-                    Param = metaModel,
-                    TotalRows = totalRows,
-                };
+            {
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName),
+                CurrencyList = GetUserCurrencies(),
+                Param = metaModel,
+                TotalRows = totalRows,
+            };
             if (metaModel.IsExportExcel)
             {
                 metaModel.PageSize = PageSizeExcel;
@@ -146,11 +146,11 @@ namespace Fanex.Athena.Controllers.Report
             }
 
             var convertingOption = new ConvertingOption
-                {
-                    IsConvert = viewModel.Param.IsConvert,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.CurrencyName
-                };
+            {
+                IsConvert = viewModel.Param.IsConvert,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.CurrencyName
+            };
 
             var custPendingFundsExcel = new CustomerPendingFundsExcel(templatePath, FileName, convertingOption, viewModel);
             custPendingFundsExcel.Export();

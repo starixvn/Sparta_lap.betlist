@@ -8,7 +8,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Product;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
 
     /// <summary>
     ///     TODO: Update summary.

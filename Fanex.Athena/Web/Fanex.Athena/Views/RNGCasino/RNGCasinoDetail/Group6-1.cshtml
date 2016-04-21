@@ -3,7 +3,7 @@
     // Game type: ChineseZodiac; 
 }
 <link href="@Url.ContentLink("/Content/RNGCasino/rng-casino-hand-history.css")" rel="stylesheet" type="text/css" />
-@model Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail.CasinoHandHistoryDetailViewModel
+@model Fanex.Athena.Model.Casino.ViewModel.CasinoHandHistoryDetailViewModel
 @{
     var headerItem = Model.CasinoDetailHeaderList.FirstOrDefault();
     var hitItem = Model.CasinoDetailHeaderList.Where(x => x.ShowType.Trim() == "Result_HitBetLine" || x.ShowType.Trim() == "Result_HitScatter");    
