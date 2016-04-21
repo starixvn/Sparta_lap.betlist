@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
     /// <summary>
     /// The result controller.
     /// </summary>
-    public partial class ReportController
+    public class ResultController : ReportBaseController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
 

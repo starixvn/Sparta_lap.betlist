@@ -3,10 +3,10 @@
 var result = (function () {
     "use strict";
 
-    var api = "Report/Result";
-    var apiExcel = "Report/ResultExcel?";
-    var apiSport = "Report/GetSports";
-    var kenoResultApi = "Report/KenoResult";
+    var api = "Result/Result";
+    var apiExcel = "Result/ResultExcel?";
+    var apiSport = "Result/GetSports";
+    var kenoResultApi = "Resul/KenoResult";
     var ajaxRequest = null;
     var ajaxFilterRequest = null;
     var kenoAjaxRequest = null;
@@ -222,7 +222,7 @@ var result = (function () {
             showOutRight(isShowedRight);
             showKeno();
             $("#result-page").on("click", ".detail-link", function () {
-                var url = Site.resolveClientUrl("Report/ResultDetail")
+                var url = Site.resolveClientUrl("Result/ResultDetail")
                  + "?matchid=" + $(this).attr("data-match-id") + "&SportType="+param.SportId;
 
                 var title = Site.getSingleResource("Result");

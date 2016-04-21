@@ -290,7 +290,7 @@ var BetList = (function ($) {
         },
 
         getMixParlayResultUrl: function (refno, winlostdate, bettype) {
-            var url = Site.resolveClientUrl('Report/ResultPopup');
+            var url = Site.resolveClientUrl('Result/ResultPopup');
             url = QueryString.setParam(url, "refno", refno);
             url = QueryString.setParam(url, "winlossdate", winlostdate);
             url = QueryString.setParam(url, "bettype", bettype);
@@ -300,7 +300,7 @@ var BetList = (function ($) {
         },
 
         getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
-            var url = Site.resolveClientUrl('Report/ResultPopup');
+            var url = Site.resolveClientUrl('Result/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "raceno", raceNo);
@@ -312,7 +312,7 @@ var BetList = (function ($) {
         },
 
         getMicrogamingResultUrl: function (gameid, custid) {
-            var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
+            var url = Site.resolveClientUrl('Result/MicrogamingResultPopup');
             url = QueryString.setParam(url, "gameid", gameid);
             url = QueryString.setParam(url, "custid", custid);
 
@@ -320,7 +320,7 @@ var BetList = (function ($) {
         },
 
         viewRngCasinoResult: function (title, refno) {
-            var url = Site.resolveClientUrl('Report/ShowRngCasinoSingleWalletResult');
+            var url = Site.resolveClientUrl('Result/ShowRngCasinoSingleWalletResult');
 
             var params = { "refNo": refno };
             $.ajax({
