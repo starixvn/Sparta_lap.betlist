@@ -35,6 +35,8 @@
             $sortColumn = affix("input#SortColumn");
             $sortDirection = affix("input#SortDirection");
 
+            spyOn(RacingCommission, "viewRacingBetList");
+            //spyOn($, "parseJSON");
             RacingCommission.initEvent();
         });
 
@@ -82,8 +84,6 @@
         });
 
         it("RacingCommission.viewRacingBetList(custId, systemId, externalId) should be called with correct parameters", function () {
-            spyOn(RacingCommission, "viewRacingBetList");
-
             $betListLink.click();
 
             expect(RacingCommission.viewRacingBetList).toHaveBeenCalledWith("1", "2", "3");

@@ -1,11 +1,11 @@
 ﻿describe("CustomerSettingLogOption", function () {
-    it("CustomerSettingLogOption.colNames should has correct value", function () {
+    xit("CustomerSettingLogOption.colNames should has correct value", function () {
         var colNameList = ['LogID', 'LogDate', 'Editedby', 'Action', 'Details'];
 
         expect(CustomerSettingLogOption.colNames).toEqual(colNameList);
     });
 
-    it("CustomerSettingLogOption.colModel should has 5 items", function () {
+    xit("CustomerSettingLogOption.colModel should has 5 items", function () {
         expect(CustomerSettingLogOption.colModel.length).toBe(5);
     });
 

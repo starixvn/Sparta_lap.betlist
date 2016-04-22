@@ -20,26 +20,26 @@
     });
 
     describe("getGridOption()", function () {
-        var gridOption;
-        beforeEach(function () {
-            gridOption = RNGCasinoOption.getGridOption();
-        });
-
         it("gridOption.colNames should be array with length is 15", function () {
+            var gridOption = RNGCasinoOption.getGridOption();
             expect(gridOption.colNames.length).toEqual(15);
         });
 
         it("gridOption.colModel should be array with length is 15", function () {
+            var gridOption = RNGCasinoOption.getGridOption();
             expect(gridOption.colModel.length).toEqual(15);
         });
 
-        it("rollingCommColumn.hidden value of gridOption.colModel should be false", function () {
+        it("rollingCommColumn.hidden value of gridOption.colModel should be false when hasCustomerComm is true", function () {
+            RNGCasinoOption.hasCustomerComm = true;
+            var gridOption = RNGCasinoOption.getGridOption();
             expect(gridOption.colModel[13].hidden).toBe(false);
         });
 
         it("rollingCommColumn.hidden value of gridOption.colModel should be true when hasCustomerComm is false", function () {
             RNGCasinoOption.hasCustomerComm = false;
-            expect(gridOption.colModel[13].hidden).toBe(false);
+            var gridOption = RNGCasinoOption.getGridOption();            
+            expect(gridOption.colModel[13].hidden).toBe(true);
         });
     });
 });

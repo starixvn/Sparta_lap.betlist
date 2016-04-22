@@ -35,7 +35,7 @@
         beforeEach(function () {
             affix("input#ViewOption");
             affix("button#SubmitButton");
-            Report = jasmine.createSpyObj('Report', ['setOriginalProduct']);
+            //Report = jasmine.createSpyObj('Report', ['setOriginalProduct']);
             spyOn(OutstandingBetList, 'getParamsSubmit').and.callFake(function () { return {}; });
             spyOn(OutstandingBetList, 'submit');
             spyOn(Site, 'redirect');

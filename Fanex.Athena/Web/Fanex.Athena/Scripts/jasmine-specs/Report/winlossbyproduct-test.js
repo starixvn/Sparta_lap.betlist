@@ -181,11 +181,11 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("/api\/report\/WinLostByProduct/")
+                .stubRequest(Site.resolveClientUrl("api/report/WinLostByProduct"))
                 .andReturn({
                     'status': 200,
-                    'contentType': "application/x-www-form-urlencoded; charset=UTF-8",
-                    'responseText': '{ProductOptions: ""}'
+                    'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'responseText': '{"ProductOptions": []}'
                 });
 
             WinLossByProduct.submit();
@@ -199,7 +199,7 @@
             jasmine.Ajax.uninstall();
         });
 
-        xit("ajax request should be called with correct url", function () {
+        it("ajax request should be called with correct url", function () {
             var expectedUrl = "api/report/WinLostByProduct";
             expect(request.url).toBe(expectedUrl);
         });
@@ -212,6 +212,15 @@
         });
         it("Site.updateOriginalLicenseeOption() should be called", function () {
             expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
+        });
+        it("WinLossByProduct.setReportTitle(currencyId, fromdate, todate, currencyName) should be called", function () {
+            expect(WinLossByProduct.setReportTitle).toHaveBeenCalled();
+        });
+        it("WinLossByProduct.setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName) should be called", function () {
+            expect(WinLossByProduct.setExcelUrl).toHaveBeenCalled();
+        });
+        it("WinLossByProduct.ajaxComplete(level, response) should be called", function () {
+            expect(WinLossByProduct.ajaxComplete).toHaveBeenCalled();
         });
     });
 
