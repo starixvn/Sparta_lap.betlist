@@ -33,6 +33,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.Sportsbook.DTO;
     using Resources;
     using Result.Core.Voidbridge;
+
     /// <summary>
     /// The result controller.
     /// </summary>
