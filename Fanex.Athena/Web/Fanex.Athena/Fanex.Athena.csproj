@@ -645,7 +645,7 @@
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
-	<Content Include="SiteConfig\Web.SIT.config">
+    <Content Include="SiteConfig\Web.SIT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
@@ -4401,6 +4401,9 @@
     <Content Include="SiteConfig\Web.BACKUPMNL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
+    <None Include="SiteConfig\Web.AppSettings.SIT.config">
+      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
+    </None>
     <None Include="SiteConfig\Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>

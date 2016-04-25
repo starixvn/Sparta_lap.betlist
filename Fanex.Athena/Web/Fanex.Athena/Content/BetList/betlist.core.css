@@ -306,3 +306,7 @@ div.mx-parlay div.void > div.match, div.mx-parlay div.void div.firstGoal, div.mx
 {
     text-decoration: none;
 }
+
+.ui-jqgrid .jqgrow .transtime{
+    white-space: normal;
+}

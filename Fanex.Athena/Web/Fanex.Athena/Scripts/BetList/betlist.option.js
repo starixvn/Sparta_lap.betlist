@@ -38,7 +38,8 @@ var BetListOption = (function () {
         align: 'center',
         sortable: false,
         resizable: false,
-        title: false
+        title: false,
+        classes: 'transtime'
     };
     var choice =
     {
