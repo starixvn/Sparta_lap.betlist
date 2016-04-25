@@ -16,7 +16,7 @@
 <#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
 <#
     var manager = TemplateFileManager.Create(this);
-	List<string> sites = new List<string>() {"DEV","LOCAL","UAT","PRO","SANDBOX","BACKUPMNL"};
+	List<string> sites = new List<string>() {"DEV","LOCAL","UAT", "SIT","PRO","SANDBOX","BACKUPMNL"};
     foreach(var site in sites)
     {
         var x = site.ToString();
@@ -51,7 +51,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
@@ -140,7 +140,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
@@ -228,7 +228,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
@@ -282,7 +282,7 @@
 </appSettings>
 				<#
 				break;
-			case "UATSIT":
+			case "SIT":
 				#>
 <appSettings>
 	<clear />	
@@ -310,7 +310,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
@@ -392,7 +392,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
@@ -473,7 +473,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR" />
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1" />
@@ -557,7 +557,7 @@
 	<add key="MaxDate" value="" />
 	<add key="BasedCurrency" value="EUR"/>	
 	<add key="SecretCaptcha" value="1710" />
-	<add key="CompanyIP" value="^125\.227\.140\.97$" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
 	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
 	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210"/>
 	<add key="EnableRacing" value="1"/>
