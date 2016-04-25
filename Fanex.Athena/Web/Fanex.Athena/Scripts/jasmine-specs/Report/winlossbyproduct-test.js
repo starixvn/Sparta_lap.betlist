@@ -47,7 +47,7 @@
 
     describe("initEvent()", function () {
         var $betlistLink, $submitButton, $levelLink;
-        beforeEach(function () {
+        beforeEach(function () {           
             $betlistLink = affix(".bet-list-link");
             $betlistLink.attr("data-drill-down", 2);
 
@@ -57,11 +57,13 @@
             affix("#level-link-container .level-link");
             $levelLink = $(".level-link");
             $levelLink.attr("data-level", 3);
-
+           
+            $("body").off("click", "**");
             WinLossByProduct.initEvent();
         });
 
         it("WinLossByProduct.openBetlistPopUp(dataDrillDown) should be called with correct parameter when '.bet-list-link' fired click event", function () {
+            //spyOn(LicenseeWinLoss, "openBetlistPopUp");
             spyOn(WinLossByProduct, "openBetlistPopUp");
 
             $betlistLink.click();

@@ -1,6 +1,7 @@
 ﻿describe("LicenseeWinLoss", function () {
     beforeEach(function () {
         $.fn.monPickr = function () { };
+        spyOn($.fn, "dialog");
     });
 
     describe("initialize()", function () {
@@ -33,6 +34,10 @@
     });
 
     describe("initEvent()", function () {
+        beforeEach(function () {
+            $("body").off("click", "**");
+        });
+
         it("#IsExportExcel should have value 'false' when #SubmitButton is clicked.", function () {
             var $submit = affix('#SubmitButton');
             var $excelField = affix('#IsExportExcel');
@@ -64,6 +69,15 @@
             $link.click();
 
             expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(LEVEL);
+        });
+
+        it("LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked.", function () {
+            var $betlistLink = affix(".bet-list-link");
+
+            spyOn(LicenseeWinLoss, "openBetlistPopUp");
+            LicenseeWinLoss.initEvent();
+            $betlistLink.click();
+            expect(LicenseeWinLoss.openBetlistPopUp).toHaveBeenCalled();
         });
     });
 

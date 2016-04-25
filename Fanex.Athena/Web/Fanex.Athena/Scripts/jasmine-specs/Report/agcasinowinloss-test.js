@@ -1,6 +1,7 @@
 ﻿describe("AgCasinoWinLoss", function () {
     beforeEach(function () {
         $.fn.monPickr = function () { };
+        spyOn($.fn, "dialog");
     });
 
     describe("initialize()", function () {

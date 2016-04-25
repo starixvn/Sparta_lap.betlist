@@ -73,8 +73,8 @@
             expect($currencyId.val()).toBe('2');
             expect($customerId.val()).toBe('3');
             expect($level.val()).toBe('1');
-            expect($fromDate.val().substr(0, 15)).toBe('Sun Feb 01 2015');
-            expect($toDate.val().substr(0, 15)).toBe('Mon Feb 01 2016');
+            expect($fromDate.val().substr(0, 15)).toBe('02/01/2015');
+            expect($toDate.val().substr(0, 15)).toBe('02/01/2016');
             expect($pageIndex.val()).toBe('1');
             expect($pageSize.val()).toBe('1000');
         });

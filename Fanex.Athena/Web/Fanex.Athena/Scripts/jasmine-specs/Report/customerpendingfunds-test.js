@@ -23,6 +23,10 @@
     });
 
     describe("initEvent()", function () {
+        beforeEach(function () {
+            $("body").off("click", "**");
+        });
+
         it("viewPendingFundsBetList() should be called with correct params if .bet-list-link is clicked.", function () {
             var $content = affix('#data-content');
             var $link = $content.affix('.bet-list-link');

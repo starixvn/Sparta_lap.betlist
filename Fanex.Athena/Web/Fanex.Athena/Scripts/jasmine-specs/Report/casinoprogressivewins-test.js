@@ -1,4 +1,7 @@
 ﻿describe("CasinoProgressiveWins", function () {
+    beforeEach(function () {
+        spyOn($.fn, "dialog");
+    });
 
     describe("initialize()", function () {
         it("initEvent() should be call when initialize() is called", function () {
@@ -48,7 +51,6 @@
 
             $link.attr('data-gameid', 1);
             $link.attr('data-custid', 2);
-            spyOn($.fn, 'dialog');
 
             CasinoProgressiveWins.initEvent();
             $link.click();

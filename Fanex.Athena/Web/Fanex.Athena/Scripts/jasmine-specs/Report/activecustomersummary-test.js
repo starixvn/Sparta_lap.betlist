@@ -1,4 +1,8 @@
 ﻿describe("ActiveCustomer", function () {
+    beforeEach(function () {
+        spyOn($.fn, "dialog");
+    });
+
     describe("initialize()", function () {
         it("initEvent() should be called when initialize() is called", function () {
             spyOn(ActiveCustomer, 'initEvent');

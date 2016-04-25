@@ -36,7 +36,9 @@
             $sortDirection = affix("input#SortDirection");
 
             spyOn(RacingCommission, "viewRacingBetList");
-            //spyOn($, "parseJSON");
+
+            $("body").off("click", "**");
+
             RacingCommission.initEvent();
         });
 

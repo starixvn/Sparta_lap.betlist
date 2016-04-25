@@ -24,6 +24,7 @@
 
     describe("getColName(productOptions)", function () {
         it("gridOption.colNames should be correct.", function () {
+            LicenseeWinLossOption.hasCustomerComm = true;
             var columnNames = LicenseeWinLossOption.getColName([]);
 
             expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount', 'TotalTransaction', 'Win/Loss', 'Comm',
