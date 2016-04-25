@@ -478,6 +478,57 @@ var BetList = (function ($) {
             }
         },
 
+        showNewParlayDetail: function (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+            var $divEvent = $('#divEvent_' + transId + "" + transIndex);
+            var $nameDiv = $('#combinationOfferName_' + transId + transIndex);
+            $divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+
+            if ($divEvent.is(":hidden")) {
+                var url = Site.resolveClientUrl('api/betlist/NewParlayDetail');
+                url = QueryString.setParam(url, "transId", transId);
+                url = QueryString.setParam(url, "refNo", refNo);
+                url = QueryString.setParam(url, "handicap1", handicap1);
+                url = QueryString.setParam(url, "handicap2", handicap2);
+                url = QueryString.setParam(url, "betcheck", betcheck);
+                url = QueryString.setParam(url, "betteam", betteam);
+
+                $.ajax({
+                    type: "GET",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    cache: false,
+                    url: url,
+                    success: function (response) {
+                        var choice = "";
+                        $.each(response.Texts, function (index, item) {
+                            choice += item;
+                        });
+                        var length = response.Data.length;
+                        $.each(response.Data, function (index, item) {
+                            if (index === length - 1) {
+                                choice += item.Choice;
+                            }
+                            else {
+                                choice += item.Choice + "<div class='line'></div>";
+                            }
+                        });
+                        $divEvent.html(choice).show();
+                        $nameDiv.hide();
+                        BetList.resizeGrid();
+                    },
+                    beforeSend: Site.blockUI,
+                    complete: Site.unBlockUI
+                });
+            }
+            else {
+                $divEvent.hide().html("");
+                $nameDiv.show();
+                $(".ui-jqgrid-bdiv").css("height", 0);
+                $(".ui-jqgrid-bdiv>div").css("height", "auto");
+                BetList.resizeGrid();
+            }
+        },
+
         showSystemParlayDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
             if (Number(transId) === 0) { return; }
 
@@ -626,6 +677,8 @@ var showCombMP = function (transId, index) {
     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
     BetList.showMixParlayDetail(transId, divEvent);
 };
+
+var showNewCombMP = BetList.showNewParlayDetail;
 
 var showCombMPDetail = BetList.showSystemParlayDetail;
 var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;

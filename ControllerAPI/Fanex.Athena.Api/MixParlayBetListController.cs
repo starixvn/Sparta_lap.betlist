@@ -9,16 +9,11 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
+    using System;
+    using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
 
-    #endregion Using
-
-    /// <summary>
-    /// Mix Parlay Detail.
-    /// </summary>
     public class MixParlayBetListController : ApiBetListBaseController
     {
         [HttpGet]
@@ -27,6 +22,40 @@ namespace Fanex.Athena.Api.BetList
             var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
             var ticket = Ticket(ticketResult: ticketResult, showOdds: true);
             return ticket;
+        }
+
+        [HttpGet]
+        public dynamic NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2)
+        {
+            var texts = CacheRef.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
+
+            var ticketResult = _betListService.GetMixParlayDetailTicket(transId);
+            var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
+
+            if (handicap1 == 0)
+            {
+                // System Parlay.
+                var ticket = tickets.FirstOrDefault();
+                texts[0] = texts[0] + " x " + ticket.Currency + " " + ticket.Stake;
+            }
+            else
+            {
+                // Combo parlay.
+                tickets = tickets.OrderBy(x => x.MatchId).ToList();
+                var length = Math.Min(texts.Count(), tickets.Count());
+                for (int i = 0; i < length; i++)
+                {
+                    var text = texts[i];
+                    var ticket = tickets[i];
+                    texts[i] = text + " x " + ticket.Currency + " " + ticket.Stake;
+                }
+            }
+
+            return new
+            {
+                Data = Ticket(ticketResult: ticketResult, showOdds: true),
+                Texts = texts
+            };
         }
     }
 }

@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------------
 namespace Fanex.Athena.Model.Core.Helper
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -127,6 +128,11 @@ namespace Fanex.Athena.Model.Core.Helper
             }
 
             return betTypeName;
+        }
+
+        public static string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
+        {
+            return RefData.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
         }
 
         private static string GetCurrentIBCLanguageCode()
