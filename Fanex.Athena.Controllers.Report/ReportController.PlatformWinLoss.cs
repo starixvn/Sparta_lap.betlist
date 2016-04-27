@@ -14,7 +14,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
 
-    public partial class ReportController
+    public class PlatformWinLossReportController : ReportBaseController
     {
         private const string PlatformWinlossName = "PlatformWinloss";
 
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult MobileWinloss()
+        public ActionResult Index()
         {
             AddNotificationMessageToViewBag();
 
