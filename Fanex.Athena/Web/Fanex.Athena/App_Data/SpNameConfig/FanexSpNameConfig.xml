@@ -11,7 +11,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_MobileWinloss" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xtest"></SpNameConfig>
