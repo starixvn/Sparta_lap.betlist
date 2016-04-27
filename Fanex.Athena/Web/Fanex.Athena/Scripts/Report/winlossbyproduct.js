@@ -160,7 +160,7 @@ var WinLossByProduct = (function ($) {
                 ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                 : currencyTextList[currencyId];
 
-            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId);
+            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId, true);
 
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"),
            currencyStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));

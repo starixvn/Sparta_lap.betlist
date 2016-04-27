@@ -4327,6 +4327,15 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member.
+        /// </summary>
+        public static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commission cannot be greater than 15%.
         /// </summary>
         public static string MessageCommCannotGreaterThan {
@@ -5533,7 +5542,7 @@ namespace Fanex.Athena.Models.ViewModel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platform Win Loss - {0} --&gt; {1} - {2} - {3}.
+        ///   Looks up a localized string similar to Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}.
         /// </summary>
         public static string PlatformWinLossTitle {
             get {
@@ -7194,6 +7203,15 @@ namespace Fanex.Athena.Models.ViewModel {
         public static string Turnover {
             get {
                 return ResourceManager.GetString("Turnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %Turnover.
+        /// </summary>
+        public static string TurnoverPercent {
+            get {
+                return ResourceManager.GetString("TurnoverPercent", resourceCulture);
             }
         }
         

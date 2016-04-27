@@ -213,7 +213,7 @@
     <Compile Include="BetList\BetListController.CustomerWl.cs" />
     <Compile Include="BetList\BetListController.PendingFunds.cs" />
     <Compile Include="BetList\BetListController.SystemParlayDetail.cs" />
-    <Compile Include="BetList\BetListController.MobileWl.cs" />
+    <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListWinlossByBetTypeController.cs" />
     <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
@@ -278,7 +278,7 @@
     <Compile Include="Report\ReportController.RacingCommission.cs" />
     <Compile Include="Report\ReportController.Turnover.cs" />
     <Compile Include="Report\ReportController.MatchWinLoss.cs" />
-    <Compile Include="Report\ReportController.MobileWinLoss.cs" />
+    <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\ReportController.WinLossByBetType.cs" />

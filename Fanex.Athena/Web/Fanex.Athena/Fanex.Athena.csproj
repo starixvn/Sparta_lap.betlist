@@ -416,9 +416,9 @@
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\PlaytechCasinoWL\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\en-US.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\MobileWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\en-US.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\PlatformWinLoss\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CustomerBalance\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CustomerPendingFunds\zh-CN.htm" />
@@ -571,6 +571,7 @@
     <Content Include="App_Data\Template\Reports\AgCasinoBalance.xls" />
     <Content Include="App_Data\Template\Reports\MicroGamingWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\CasinoProgressiveWins.xls" />
+    <Content Include="App_Data\Template\Reports\PlatformWinLossSummary.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -3755,7 +3756,7 @@
     <Content Include="Content\Plugin\MonthPickr\images\bg-demo-docs-param.gif" />
     <Content Include="Content\Plugin\MonthPickr\images\demo-spindown-closed.gif" />
     <Content Include="Content\Plugin\MonthPickr\images\demo-spindown-open.gif" />
-    <Content Include="Content\Report\mobileWinLoss.css" />
+    <Content Include="Content\Report\platformWinLoss.css" />
     <Content Include="Content\Global\images\arrow-x.gif" />
     <Content Include="Content\Global\images\arrow.gif" />
     <Content Include="Content\Global\images\bg_header.jpg" />
@@ -3904,7 +3905,7 @@
     <Content Include="Scripts\Report\Result.js" />
     <Content Include="Scripts\Report\winlossbyproduct.option.js" />
     <Content Include="Scripts\Report\licenseewinloss.option.js" />
-    <Content Include="Scripts\Report\mobilewinloss.option.js" />
+    <Content Include="Scripts\Report\platformwinloss.option.js" />
     <Content Include="Scripts\Report\winlossbyproduct.js" />
     <Content Include="Scripts\Report\customerpendingfunds.js" />
     <Content Include="Scripts\Report\customerwinloss.js" />
@@ -3915,7 +3916,7 @@
     <Content Include="Scripts\Report\livereport.js" />
     <Content Include="Scripts\Report\livereportmatchlist.js" />
     <Content Include="Scripts\Report\matchwinloss.js" />
-    <Content Include="Scripts\Report\mobilewinloss.js" />
+    <Content Include="Scripts\Report\platformwinloss.js" />
     <Content Include="Scripts\Report\racingcommission.js" />
     <Content Include="Scripts\Report\report.js" />
     <Content Include="Scripts\Report\winlossbybettype.js" />
@@ -4006,7 +4007,7 @@
     <Content Include="App_Data\Template\Reports\LicenseeWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\LiveReport.xls" />
     <Content Include="App_Data\Template\Reports\MatchWinLoss.xls" />
-    <Content Include="App_Data\Template\Reports\MobileWinLoss.xls" />
+    <Content Include="App_Data\Template\Reports\PlatformWinLossMember.xls" />
     <Content Include="App_Data\Template\Reports\RacingCommission.xls" />
     <Content Include="App_Data\Template\Reports\Turnover.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByBetType.xls" />
@@ -4294,13 +4295,13 @@
     </None>
     <Content Include="Views\BetList\LastBetsMonitoringNew\Filter.cshtml" />
     <Content Include="Views\BetList\LastBetsMonitoringNew\Main.cshtml" />
-    <Content Include="Views\BetList\MobileWl\Main.cshtml" />
+    <Content Include="Views\BetList\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\EditPermission.cshtml" />
     <Content Include="Views\Account\AssignCurrency.cshtml" />
-    <Content Include="Views\BetList\MobileWl\Main.cshtml" />
+    <Content Include="Views\BetList\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\CustomerLog\Action\2801.cshtml" />
     <Content Include="Views\Account\PermissionPage.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
@@ -4337,9 +4338,9 @@
     <Content Include="Views\Report\Result\Filter.cshtml" />
     <Content Include="Views\Report\Result\Main.cshtml" />
     <Content Include="Views\Report\Result\Popup\Main.cshtml" />
-    <Content Include="Views\Report\MobileWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\MobileWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\MobileWinLoss\Main.cshtml" />
+    <Content Include="Views\Report\PlatformWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\PlatformWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
     <Content Include="Views\Note\DailyStatement.cshtml" />
     <Content Include="Scripts\Web.config" />

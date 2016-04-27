@@ -248,7 +248,7 @@
     <Compile Include="Interface\Report\ITurnoverDataAccess.cs" />
     <Compile Include="Interface\Report\ILicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\LicenseeWinLossDataAccess.cs" />
-    <Compile Include="Implement\Report\MobileWinLossDataAccess.cs" />
+    <Compile Include="Implement\Report\PlatformWinLossDataAccess.cs" />
     <Compile Include="Implement\Users\UserDataAccess.cs" />
     <Compile Include="Implement\Warehouse\TopCustomerDataAccess.cs" />
     <Compile Include="Implement\Warehouse\WinLossDataAccess.cs" />
@@ -257,7 +257,7 @@
     <Compile Include="Interface\Common\IProductDataAccess.cs" />
     <Compile Include="Interface\Report\ILiveReportDataAccess.cs" />
     <Compile Include="Interface\Report\IMatchWinLossDataAccess.cs" />
-    <Compile Include="Interface\Report\IMobileWinLossDataAccess.cs" />
+    <Compile Include="Interface\Report\IPlatformWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByProductDataAccess.cs" />
     <Compile Include="Interface\Users\IUserDataAccess.cs" />

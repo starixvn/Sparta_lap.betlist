@@ -284,8 +284,15 @@ var jqGridAdditional = (function () {
                         var cell = cellList.get(cellIndex);
                         var isCustomFormater = typeof (modelElement.formatter) === "function";
                         var rawValue = totalElement[modelElement.name];
-                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-                                 $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+                        var value;
+                        if (isCustomFormater) {
+                            value = modelElement.formatter(rawValue, modelElement.formatoptions, row);
+                        } else {
+                            var formatOptions = {};
+                            formatOptions[modelElement.formatter] = modelElement.formatoptions;
+                            value = $.fn.fmatter(modelElement.formatter, rawValue, formatOptions);
+                        }
+
                         var titleValue = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
                             var wrapper = document.createElement('div');

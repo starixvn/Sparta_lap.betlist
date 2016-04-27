@@ -70,6 +70,29 @@ var Site = (function ($) {
                 }
             });
         },
+        exportExcel: function (data, url, method) {
+            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
+                .appendTo('body');
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    var value = data[property];
+                    if (property === "ProductOptions") {
+                        var products = typeof (value) === "object" ? value : JSON.parse(value);
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
+                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    }
+                    else {
+                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
+                    }
+                }
+            }
+
+            $form.submit();
+            $form.remove();
+        },
         setConstraintMonthRange: function (monthRange, url) {
             var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
 

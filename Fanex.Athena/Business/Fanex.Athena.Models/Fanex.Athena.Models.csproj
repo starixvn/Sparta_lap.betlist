@@ -123,6 +123,7 @@
     <Compile Include="DTO\Configuration\MoveBet.cs" />
     <Compile Include="DTO\Report\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
+    <Compile Include="DTO\Report\PlatformWinLossSummary.cs" />
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
@@ -251,7 +252,7 @@
     <Compile Include="DTO\Report\LiveReports\LiveReportByBetType.cs" />
     <Compile Include="DTO\Report\LiveReports\LiveReportWinLossByMatch.cs" />
     <Compile Include="DTO\Report\MatchWinLoss.cs" />
-    <Compile Include="DTO\Report\MobileWinLoss.cs" />
+    <Compile Include="DTO\Report\PlatformWinLossMember.cs" />
     <Compile Include="DTO\Report\RacingCommission.cs" />
     <Compile Include="DTO\Report\SettledMatchCount.cs" />
     <Compile Include="DTO\Report\WinLossByBetType.cs" />
@@ -323,7 +324,7 @@
     <Compile Include="MetaModel\Report\LicenseeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\LiveReportMetalModel.cs" />
     <Compile Include="MetaModel\Report\MatchWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\Report\MobileWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\Report\PlatformWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Report\RacingCommissionMetaModel.cs" />
     <Compile Include="MetaModel\Report\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByBetTypeMetaModel.cs" />
@@ -402,7 +403,7 @@
     <Compile Include="ViewModel\Report\LiveReports\LiveReportMatchListViewModel.cs" />
     <Compile Include="ViewModel\Report\LiveReports\LiveReportViewModel.cs" />
     <Compile Include="ViewModel\Report\MatchWinLossViewModel.cs" />
-    <Compile Include="ViewModel\Report\MobileWinLossViewModel.cs" />
+    <Compile Include="ViewModel\Report\PlatformWinLossViewModel.cs" />
     <Compile Include="MetaModel\Warehouse\GroupingMetaModel.cs" />
     <Compile Include="ViewModel\Report\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModel\Report\SettledMatchCountViewModel.cs" />

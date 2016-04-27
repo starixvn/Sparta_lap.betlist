@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IMobileWinLossService.cs" company="Nexcel">
+// <copyright file="IPlatformWinLossService.cs" company="Nexcel">
 // The  mobile win loss service.
 // </copyright>
 // <summary>
@@ -13,23 +13,14 @@ namespace Fanex.Athena.Service.Interface.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
 
-    /// <summary>
-    ///     The  mobile win loss service.
-    /// </summary>
-    public interface IMobileWinLossService
+    public interface IPlatformWinLossService
     {
-        #region Public Methods and Operators
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
+        IList<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        IList<MobileWinLoss> GetMasterData(MobileWinLossMetaModel metaModel, out Dictionary<string, MobileWinLoss> summaryTotal);
-
-        IList<MobileWinLoss> TotalCalc(IList<MobileWinLoss> dataList);
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
-            Justification = "Reviewed. Suppression is OK here.")]
-        IDictionary<string, IList<MobileWinLoss>> ReStructuredData(IList<MobileWinLoss> dataList);
-
-        #endregion Public Methods and Operators
+        IList<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel, out PlatformWinLossMember totalData);
     }
 }

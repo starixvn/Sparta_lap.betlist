@@ -252,7 +252,10 @@ namespace Fanex.Athena.Service.Implement.BetList
                 if (match == null)
                 {
                     ReloadOutrightMatchList();
-                    match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
+                    if (outrightMatchList != null)
+                    {
+                        match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
+                    }
                 }
 
                 return match;

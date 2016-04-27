@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MobileWinLossMetaModel.cs" company="Nexcel">
+// <copyright file="PlatformWinLossMetaModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,12 +9,9 @@ namespace Fanex.Athena.Models.MetaModel.Report
     using System;
     using Fanex.Athena.Models.DataDomain;
 
-    /// <summary>
-    /// MobileWinLossMetaModel class.
-    /// </summary>
-    public class MobileWinLossMetaModel : BaseReportMetaModel
+    public class PlatformWinLossMetaModel : BaseReportMetaModel
     {
-        public MobileWinLossMetaModel()
+        public PlatformWinLossMetaModel()
         {
             LicenseeId = 0;
             var today = DateTime.Now;
@@ -24,9 +21,11 @@ namespace Fanex.Athena.Models.MetaModel.Report
             ToDay = today.Day;
             CurrencyId = 0;
             DrawFilter = DrawFilterType.Normal;
-            Site = PlatformType.SmartSite;
+            PlatformType = DataDomain.PlatformType.All;
             IsExcludeTest = true;
         }
+
+        public int Level { get; set; }
 
         public int Year { get; set; }
 
@@ -48,7 +47,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
 
         public int DrawFilter { get; set; }
 
-        public int Site { get; set; }
+        public int PlatformType { get; set; }
 
         public bool IsExcludeTest { get; set; }
 
@@ -56,7 +55,7 @@ namespace Fanex.Athena.Models.MetaModel.Report
         {
             get
             {
-                return base.IsValid && Site <= PlatformType.SmartSite && Site >= PlatformType.All;
+                return base.IsValid && PlatformType <= DataDomain.PlatformType.SmartSite && PlatformType >= DataDomain.PlatformType.All;
             }
         }
     }

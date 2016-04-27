@@ -1,5 +1,5 @@
 ﻿/*global Site,jqGridAdditional*/
-/*exported MobileWinLossOption*/
+/*exported PlatformWinLossOption*/
 /// <reference path="/@JSense.js" />
 //##
 /*
@@ -7,13 +7,11 @@
 *  "0" for master,"1" for agent and "2" for member
 */
 
-var MobileWinLossOption = (function () {
+var PlatformWinLossOption = (function () {
     "use strict";
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
         {
-            DrillDownFromDate: rowObject.Date,
-            DrillDownToDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
             DrillDownCurrencyName: rowObject.CurrencyName,
             CustomerId: rowObject.CustomerId,
@@ -23,15 +21,43 @@ var MobileWinLossOption = (function () {
         return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
+    var drilldownLink = function (cellvalue, options, rowObject) {
+        var param =
+        {
+            PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
+            ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
+        };
+
+        return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+    };
+
+    var idColumn = {
+        name: 'PlatformType',
+        index: 'PlatformType',
+        key: true,
+        hidden: true,
+        align: 'center'
+    };
+
+    var platformNameColumn = {
+        name: 'Name',
+        index: 'Name',
+        width: 120,
+        align: 'left',
+        valign: 'middle',
+        sortable: false,
+        resizable: false,
+        formatter: drilldownLink
+    };
+
     var indexColumn = {
         name: 'Index',
         index: 'Index',
-        width: 30,
+        width: 60,
         align: 'center',
         valign: 'middle',
         sortable: false,
         resizable: false,
-        frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting
     };
     var externalIdColumn = {
@@ -40,8 +66,8 @@ var MobileWinLossOption = (function () {
         width: 85,
         align: 'left',
         sortable: true,
-        frozen: true,
-        resizable: false
+        resizable: false,
+        formatter: betlistLink
     };
     var systemIdColumn = {
         name: 'SystemId',
@@ -50,7 +76,7 @@ var MobileWinLossOption = (function () {
         align: 'left',
         sortable: true,
         resizable: false,
-        frozen: true
+        formatter: betlistLink
     };
     var currencyColumn = {
         name: 'CurrencyName',
@@ -58,8 +84,7 @@ var MobileWinLossOption = (function () {
         width: 60,
         align: 'center',
         sortable: true,
-        resizable: false,
-        frozen: true
+        resizable: false
     };
     var turnoverColumn = {
         name: 'Turnover',
@@ -69,8 +94,18 @@ var MobileWinLossOption = (function () {
         align: 'right',
         sortable: true,
         formatter: 'currency',
-        frozen: true,
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
+    var turnoverPercentColumn = {
+        name: 'TurnoverPercent',
+        index: 'TurnoverPercent',
+        resizable: false,
+        width: 85,
+        align: 'right',
+        sortable: true,
+        formatter: 'currency',
+        formatoptions: { decimalPlaces: 2, suffix: '%' }
     };
     var totalTransColumn = {
         name: 'TotalTransactions',
@@ -189,21 +224,20 @@ var MobileWinLossOption = (function () {
         hidden: true
     };
 
-    var colNameList = ['#', 'ExternalId', "SystemId", "Currency", 'Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
+    var colNameList = ['Id', 'Platform','#', 'ExternalId', "SystemId", "Currency", 'Turnover','%Turnover', 'TotalTransaction', '@[Win]/@[Loss]',
                 'Comm', 'Total', 'LicenseeW_L', 'BA<br/>@[Commission]', '@[RacingRevenue]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
-    var colModelList = [indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
-                totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
+    var colModelList = [idColumn, platformNameColumn, indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
+                turnoverPercentColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
                 baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
-    var customerWlTotalIndex = 8;
+    var customerWlTotalIndex = 9;
 
     var me = {
-        licenseeId: 0,
         hasCustomerComm: true,
         pageSize: 50,
         nonePagingSize: 2000,
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
-        sites:
+        Platforms:
         {
             "0": Site.getSingleResource("All"),
             "1": Site.getSingleResource("Asia"),
@@ -212,11 +246,11 @@ var MobileWinLossOption = (function () {
             "4": Site.getSingleResource("Wap"),
             "5": Site.getSingleResource("SmartSite")
         },
-        totalColspan: [3],
-        urlData: 'api/report/MobileWinloss',
-        urlExcelData: 'api/report/MobileWinloss',
+        totalColspan: [0, 4],
+        urlData: 'api/report/PlatformWinLoss',
+        urlExcelData: 'api/report/PlatformWinLoss',
         gridOption: {
-            datatype: 'local',
+            datatype: 'jsonstring',
             colNames: [],
             colModel: [],
             data: [],
@@ -233,8 +267,17 @@ var MobileWinLossOption = (function () {
             footerrow: true,
             userDataOnFooter: true,
             cmTemplate: { title: true }, //enable tooltip
+            treeGrid: true,
+            treeGridModel: 'adjacency',
+            treedatatype: "local",
+            ExpandColumn: 'Name',
+            treeReader: {
+                level_field: "Level",
+                parent_id_field: "Parent", 
+                leaf_field: "IsLeaf"
+            },
             userData: [],
-
+            pager: '#ppdata',
             beforeSelectRow: function () {
                 return false;
             },
@@ -244,38 +287,71 @@ var MobileWinLossOption = (function () {
         }
     };
 
+    function isProductChecked(productOptions, productCode) {
+        var length = productOptions.length;
+
+        for (var i = 0; i < length; i++) {
+            if (productOptions[i].Code === productCode) {
+                return productOptions[i].Status;
+            }
+        }
+
+        return false;
+    }
+
     me.getColName = function () {
         // Column Customer Wl
         colNameList[customerWlTotalIndex] = me.hasCustomerComm ? 'Total' : 'Customer W/L';
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function () {
+    me.getColModel = function (level, productOptions) {
+        platformNameColumn.hidden = level === 1;
+        turnoverPercentColumn.hidden = level === 1;
+        indexColumn.hidden = level === 0;
+        systemIdColumn.hidden = level === 0;
+        externalIdColumn.hidden = level === 0;
+        currencyColumn.hidden = level === 0;
+        baCommissionColumn.hidden = level === 0;
+        amtDueToBaColumn.hidden = level === 0;
+        racingRevenueColumn.hidden = level === 0;
+        amtDueToRacingColumn.hidden = level === 0;
+
+        licenseeWlColumn.classes = (level === 0 ? null : "highlight");
+        baCommissionColumn.classes = licenseeWlColumn.classes;
+
         // Column hidden by customer comm
         customerWlColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
 
-        // Column hidden by product
-        var allowedBa = $("#ProductList .childCheckbox[data-product-code=BA]:checked").length > 0;
-        var allowedRacing = $("#ProductList .childCheckbox[data-product-code=RB]:checked").length > 0;
+        if (level === 1) {
+            var allowedBa = isProductChecked(productOptions, "BA");
+            var allowedRacing = isProductChecked(productOptions, "RB");
 
-        baCommissionColumn.hidden = !allowedBa;
-        amtDueToBaColumn.hidden = !allowedBa;
-        racingRevenueColumn.hidden = !allowedRacing;
-        amtDueToRacingColumn.hidden = !allowedRacing;
+            baCommissionColumn.hidden = !allowedBa;
+            amtDueToBaColumn.hidden = !allowedBa;
+            racingRevenueColumn.hidden = !allowedRacing;
+            amtDueToRacingColumn.hidden = !allowedRacing;
+        }
 
-        // Row span setting
-        indexColumn.cellattr = jqGridAdditional.rowSpanSetting;
+        if (level === 0)
+        {
+            var columns = Site.clone(colModelList);
 
-        externalIdColumn.formatter = betlistLink;
-        systemIdColumn.formatter = betlistLink;
+            for (var i = 0; i < columns.length; i++)
+            {   
+                columns[i].sortable = false;
+            }
+
+            return columns;
+        }
 
         return colModelList;
     };
 
-    me.getGridOption = function () {
+    me.getGridOption = function (level, productOptions) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel();
+        me.gridOption.colModel = me.getColModel(level, productOptions);
 
         return me.gridOption;
     };

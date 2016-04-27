@@ -1,0 +1,119 @@
+﻿@using Fanex.Athena.Extension.Helper
+@{
+    Layout = null;
+}
+@model Fanex.Athena.Models.ViewModel.Report.PlatformWinLossViewModel
+<div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
+    @using (Html.BeginForm("MainForm", "Report", FormMethod.Post, new { @id = "MainForm" }))
+    {
+        <div class="grid_3 filter-label">
+            <label>
+                @ViewResources.ViewDataInMonth
+            </label>
+        </div>
+        <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
+            </div>
+        </div>
+        <div class="grid_2 filter-label">
+            <label>
+                @ViewResources.Currency
+            </label>
+        </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true)
+        </div>
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
+        <div class="grid_2 note-group">
+            <div>
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.DrawFilter</label>
+        </div>
+        <div class="grid_9 filter-input option-list">
+            @Html.RadioButton("DrawFilter", "1", Model.Param.DrawFilter == 1, new { id = "RadioNormal" })
+            <label for="RadioNormal">@ViewResources.Normal</label>
+            @Html.RadioButton("DrawFilter", "2", Model.Param.DrawFilter == 2, new { id = "RadioNoDraws" })
+            <label for="RadioNoDraws">@ViewResources.NoDraws</label>
+            @Html.RadioButton("DrawFilter", "3", Model.Param.DrawFilter == 3, new { id = "RadioNoDrawsForTurnoverOnly" })
+            <label for="RadioNoDrawsForTurnoverOnly">@ViewResources.NoDrawsForTurnoverOnly</label>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            <label>@ViewResources.Platform</label>
+        </div>
+        <div class="grid_4 filter-input option-list" id="SiteList">
+            <select name="PlatformType" style="width: 110px;" id="PlatformType">
+                <option value="0">
+                    @ViewResources.All
+                </option>
+                <option value="1">
+                    @ViewResources.Asia
+                </option>
+                <option value="2">
+                    @ViewResources.NewAsia
+                </option>
+                <option value="3">
+                    @ViewResources.Euro
+                </option>
+                <option value="4">
+                    @ViewResources.Wap
+                </option>
+                <option value="5">
+                    @ViewResources.SmartSite
+                </option>
+            </select>
+        </div>
+        <div class="grid_2 filter-label">
+            <label for="BaseCurrency">
+                @ViewResources.Based
+            </label>
+        </div>
+        <div class="grid_1 filter-input">
+            @RazorHelper.BasedCurrency("eur")
+        </div>
+        <div class="new-line">
+        </div>
+        //Product
+        @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
+        <div style="height: 35px;" class="push_2 grid_12 filter-input new-line">
+            <div class="note-message">Platform data is available from 27 Feb 2016.</div>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            &nbsp;
+        </div>
+            <div class="grid_2 filter-input submit-wrapper">
+                <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+            </div>
+            <div>
+                <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+                <input type="hidden" id="ToDate" name="ToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+                @Html.Hidden("FromDay", Model.Param.FromDay)
+                @Html.Hidden("ToDay", Model.Param.ToDay)
+                @Html.Hidden("Month", Model.Param.Month)
+                @Html.Hidden("Year", Model.Param.Year)
+                @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+            </div>
+    }
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
+    <input type="hidden" id="drillDownFromDate" name="drillDownFromDate" value="@Model.Param.FromDate.ToString("M/d/yyyy")" />
+    <input type="hidden" id="drillDownToDate" name="drillDownToDate" value="@Model.Param.ToDate.ToString("M/d/yyyy")" />
+    <input type="hidden" id="MaxDate" value="@AppSettings.MaxDate.ToString("yyyy/M/d")" />
+</div>

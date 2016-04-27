@@ -42,20 +42,6 @@ namespace Fanex.Athena.Models.MetaModel
         [DefaultValue("")]
         public string CurrencyName { get; set; }
 
-        public IList<string> BaseUsdLicensees
-        {
-            get
-            {
-                var items = AppSettings.GetValue("BaseUsdLicensees");
-                if (!string.IsNullOrEmpty(items))
-                {
-                    return items.Split(',');
-                }
-
-                return new List<string>();
-            }
-        }
-
         [DefaultValue("")]
         public string BaseCurrency
         {

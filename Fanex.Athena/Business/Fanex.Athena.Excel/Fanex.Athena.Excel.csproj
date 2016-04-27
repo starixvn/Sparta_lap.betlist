@@ -142,6 +142,7 @@
     <Compile Include="Report\MicroGamingWinLossExcel.cs" />
     <Compile Include="Report\GoldDeluxeWinLossExcel.cs" />
     <Compile Include="Report\AgCasinoBalanceExcel.cs" />
+    <Compile Include="Report\PlatformWinLossSummaryExcel.cs" />
     <Compile Include="Report\PlaytechCasinoExcel.cs" />
     <Compile Include="Report\ThirdPartyWinLossExcel.cs" />
     <Compile Include="Report\WinlossByLeagueExcel.cs" />
@@ -161,7 +162,7 @@
     <Compile Include="Report\BalanceExcel.cs" />
     <Compile Include="Report\DailyRacingWinLossExcel.cs" />
     <Compile Include="Report\LiveReportExcel.cs" />
-    <Compile Include="Report\MobileWinLossExcel.cs" />
+    <Compile Include="Report\PlatformWinLossMemberExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\RacingCommissionExcel.cs" />
     <Compile Include="RNGCasino\HandHistoryExcel.cs" />

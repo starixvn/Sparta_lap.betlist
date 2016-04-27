@@ -151,7 +151,7 @@
     <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
     <Compile Include="BetList\BetListController.MixParlay.cs" />
-    <Compile Include="BetList\BetListController.MobileWl.cs" />
+    <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
     <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
     <Compile Include="BetList\BetListController.WinlossByBetType.cs" />
@@ -192,7 +192,7 @@
     <Compile Include="Report\ReportController.WinLossByLeague.cs" />
     <Compile Include="Report\ReportController.cs" />
     <Compile Include="Report\ReportController.LicenseeWl.cs" />
-    <Compile Include="Report\ReportController.MobileWl.cs" />
+    <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
     <Compile Include="Report\ReportController.WinLostByProduct.cs" />
   </ItemGroup>
   <ItemGroup>

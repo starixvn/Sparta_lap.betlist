@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MobileWinLoss.cs" company="Nexcel">
+// <copyright file="PlatformWinLossMember.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,20 +8,14 @@ namespace Fanex.Athena.Models.DTO.Report
 {
     using System;
 
-    /// <summary>
-    /// MobileWinLoss class.
-    /// </summary>
-    public class MobileWinLoss : ICustomerWinLoss
+    public class PlatformWinLossMember : ICustomerWinLoss
     {
-        public MobileWinLoss()
+        public PlatformWinLossMember()
         {
-            Date = DateTime.Now;
             CurrencyName = string.Empty;
         }
 
         public int CurrencyId { get; set; }
-
-        public DateTime Date { get; set; }
 
         public string CurrencyName { get; set; }
 

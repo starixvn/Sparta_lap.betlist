@@ -879,7 +879,7 @@
     <value>Platform Win Loss</value>
   </data>
   <data name="PlatformWinLossTitle" xml:space="preserve">
-    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3}</value>
+    <value>Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}</value>
   </data>
   <data name="MoneyLine" xml:space="preserve">
     <value>Money Line</value>
@@ -2851,5 +2851,12 @@
   <data name="ExcelExceedRowsMsg" xml:space="preserve">
     <value>This file exceeded 65535 entries. Please contact administrator for more details.</value>
     <comment>#52794</comment>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="TurnoverPercent" xml:space="preserve">
+    <value>%Turnover</value>
+    <comment>#54751</comment>
   </data>
 </root>

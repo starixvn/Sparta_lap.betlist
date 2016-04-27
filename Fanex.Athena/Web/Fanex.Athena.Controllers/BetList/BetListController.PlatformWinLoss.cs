@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.MobileWl.cs" company="Nexcel">
+// <copyright file="BetListController.PlatformWinLoss.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -25,13 +25,8 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public partial class BetListController
     {
-        /// <summary>
-        /// Action Get for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>View main.</returns>
         [HttpGet]
-        public ActionResult MobileWL(BetListMetaModel metaModel)
+        public ActionResult PlatformWinLoss(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -39,23 +34,18 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (IsValidCurrency(metaModel.CurrencyId))
                 {
-                    return this.MobileWLExcel(metaModel);
+                    return this.PlatformWinLossExcel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            return View("~/Views/BetList/MobileWl/Main.cshtml", metaModel);
+            return View("~/Views/BetList/PlatformWinLoss/Main.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Workbook for excel.</returns>
-        private ActionResult MobileWLExcel(BetListMetaModel metaModel)
+        private ActionResult PlatformWinLossExcel(BetListMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_MobileReport_SelWinloss_Mem";
+            const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
             var showingOption = new ShowingOption
             {
@@ -64,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
-            var platformText = PlatformType.GetPlatformName(metaModel.SiteType);
+            var platformText = PlatformType.GetPlatformName(metaModel.PlatformType);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(

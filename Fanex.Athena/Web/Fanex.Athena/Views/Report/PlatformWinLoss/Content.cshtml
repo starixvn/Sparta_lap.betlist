@@ -4,7 +4,7 @@
 
 @using Fanex.Athena.Models.ViewModel.Report
 @using Fanex.Athena.Models.DataDomain;
-@model MobileWinLossViewModel
+@model PlatformWinLossViewModel
 
 <div class="theme_jqGrid">
     <div class="container_26">
@@ -13,8 +13,7 @@
                 <div id="level-link-container" class="breadCrumb module">
                     <ul>
                         <li class="level0 hide level-link" data-level="0">@ViewResources.Main</li>
-                        <li class="level1 hide level-link" data-level="1">@ViewResources.Licensee</li>
-                        <li class="last level2 hide">@ViewResources.Customer</li>
+                        <li class="last level1 hide level-link" data-level="1">@ViewResources.Member</li>
                     </ul>
                 </div>
             </div>
@@ -25,7 +24,7 @@
                         : string.Format(ViewResources.Viewin, Model.Param.IsConvert
                                 ? Model.Param.BaseCurrency
                                 : Model.Param.CurrencyName);
-                    var siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(Model.Param.Site);
+                    var siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(Model.Param.PlatformType);
                 }
 
                 @ViewResources.PlatformWinLoss,

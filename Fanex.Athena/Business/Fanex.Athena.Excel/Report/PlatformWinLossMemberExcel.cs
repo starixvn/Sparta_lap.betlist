@@ -1,11 +1,8 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="MobileWinLossExcel.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="PlatformWinLossMemberExcel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Excel.Report
 {
@@ -20,10 +17,7 @@ namespace Fanex.Athena.Excel.Report
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
 
-    /// <summary>
-    /// The mobile win-loss.
-    /// </summary>
-    public class MobileWinLossExcel : ReportBase
+    public class PlatformWinLossMemberExcel : ReportBase
     {
         private const int ColumnAmtDueToBa = 12;
         private const int ColumnAmtDueToRacing = 13;
@@ -40,27 +34,24 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnTotalTrans = 5;
         private const int ColumnTurnover = 4;
         private const int RowContentTemplate = 3;
-        private const int RowNoInfoTemplate = 6;
-        private const int RowTotalEurTemp = 5;
-        private const int RowTotalTemp = 4;
+        private const int RowNoInfoTemplate = 5;
+        private const int RowTotalTemplate = 4;
 
-        private readonly IList<MobileWinLoss> _exportData;
-        private readonly MobileWinLossViewModel _model;
-        private readonly IDictionary<string, MobileWinLoss> _summaryTotal;
-        private readonly IList<MobileWinLoss> _totalList;
+        private readonly IList<PlatformWinLossMember> _dataList;
+        private readonly PlatformWinLossViewModel _model;
+        private readonly PlatformWinLossMember _totalData;
 
-        public MobileWinLossExcel(
+        public PlatformWinLossMemberExcel(
                         string templatePath,
                                   string exportingFileName,
-                                  MobileWinLossViewModel model,
+                                  PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
                                   ConvertingOption convertingOption)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
         {
             _model = model;
-            _exportData = model.MainResult;
-            _totalList = model.TotalResult;
-            _summaryTotal = model.SummaryTotal;
+            _dataList = model.MainResult;
+            _totalData = model.TotalResult;
             HeaderTextList = new List<string>
             {
                 "#",
@@ -85,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         public override void AssignData()
         {
-            int numOfDataRow = _exportData.Count;
+            int numOfDataRow = _dataList.Count;
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
@@ -140,7 +131,7 @@ namespace Fanex.Athena.Excel.Report
         {
             int rowIndex = 0;
             int index = 1;
-            foreach (MobileWinLoss mobile in _exportData)
+            foreach (PlatformWinLossMember mobile in _dataList)
             {
                 IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, rowIndex + RowContentTemplate);
                 row.Cells[ColumnIndex].SetCellValue(index);
@@ -150,9 +141,7 @@ namespace Fanex.Athena.Excel.Report
                 index++;
             }
 
-            int totalRowEur = AssignTotal(sheet, rowIndex + RowContentTemplate);
-
-            AssignSummaryTotal(sheet, totalRowEur);
+            AssignTotal(sheet);
         }
 
         /// <summary>
@@ -161,21 +150,24 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
-            string siteText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.Param.Site);
+            var metaModel = _model.Param;
+            string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
+            var currencyText = metaModel.CurrencyId == 0 ?
+                ViewResources.AllCurrencies :
+                string.Format("{0} {1}", ViewResources.Currency, metaModel.CurrencyName);
 
             ReportTitle = string.Format(
                                         ViewResources.PlatformWinLossTitle,
-                                        _model.Param.FromDate.ToString(FormatDate),
-                                        _model.Param.ToDate.ToString(FormatDate),
-                                        GetExactTitleCurrencyName(_model.Param.CurrencyId),
-                                        siteText) + GetLicenseeWLProduct();
+                                        metaModel.FromDate.ToString(FormatDate),
+                                        metaModel.ToDate.ToString(FormatDate),
+                                        currencyText,
+                                        GetBaseCurrencyTitle(),
+                                        platformText) + ", " + GetProductTitle();
 
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
-            // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 3);
 
-            // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
         }
 
@@ -206,70 +198,76 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data cell.
         /// </summary>
         /// <param name="row">The current row.</param>
-        /// <param name="mobileWinLoss">The mobile win-loss.</param>
-        protected static void AssignCellData(IRow row, MobileWinLoss mobileWinLoss)
+        /// <param name="item">The mobile win-loss.</param>
+        protected static void AssignCellData(IRow row, PlatformWinLossMember item)
         {
-            row.Cells[ColumnExternalId].SetCellValue(mobileWinLoss.ExternalId);
-            row.Cells[ColumnSystemId].SetCellValue(mobileWinLoss.SystemId);
-            row.Cells[ColumnTurnover].SetCellValue(mobileWinLoss.Turnover);
-            row.Cells[ColumnTotalTrans].SetCellValue(mobileWinLoss.TotalTransactions);
-            row.Cells[ColumnCustomerWl].SetCellValue(mobileWinLoss.CustomerWinLoss);
-            row.Cells[ColumnCustomerCommission].SetCellValue(mobileWinLoss.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(mobileWinLoss.CustomerTotal);
-            row.Cells[ColumnLicenseeWl].SetCellValue(mobileWinLoss.LicenseeWL);
-            row.Cells[ColumnBaCommission].SetCellValue(mobileWinLoss.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(mobileWinLoss.RacingRevenue);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(mobileWinLoss.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(mobileWinLoss.AmtDueToRacing);
+            row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+            row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+            row.Cells[ColumnTurnover].SetCellValue(item.Turnover);
+            row.Cells[ColumnTotalTrans].SetCellValue(item.TotalTransactions);
+            row.Cells[ColumnCustomerWl].SetCellValue(item.CustomerWinLoss);
+            row.Cells[ColumnCustomerCommission].SetCellValue(item.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(item.CustomerTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue(item.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue(item.BACommission);
+            row.Cells[ColumnRacingRevenue].SetCellValue(item.RacingRevenue);
+            row.Cells[ColumnAmtDueToBa].SetCellValue(item.AmtDueToBA);
+            row.Cells[ColumnAmtDueToRacing].SetCellValue(item.AmtDueToRacing);
         }
 
-        /// <summary>
-        /// Assign summary total row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The row index.</param>
-        protected void AssignSummaryTotal(ISheet sheet, int rowIndex)
+        private void AssignTotal(ISheet sheet)
         {
-            List<string> currencyList = _summaryTotal.Keys.ToList();
-            currencyList.Reverse();
-            foreach (string currency in currencyList)
-            {
-                // Copy template
-                IRow row = sheet.CopyRow(TemplateSheet, RowTotalEurTemp, rowIndex);
-                AssignCellData(row, _summaryTotal[currency]);
-                row.Cells[0].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+            int totalRow = _dataList.Count + RowContentTemplate;
 
-                // Merge first two column
-                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
-                rowIndex++;
-            }
+            IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
+            sheet.MergeCells(totalRow, ColumnIndex, totalRow, ColumnCurrency);
+            row.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
+            AssignCellData(row, _totalData);
         }
 
-        /// <summary>
-        /// Assign total row.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowTotal">The index of total row.</param>
-        /// <returns>Return the index row.</returns>
-        protected int AssignTotal(ISheet sheet, int rowTotal)
+        private string GetProductTitle()
         {
-            int beginRowTotal = rowTotal;
-            foreach (MobileWinLoss t in _totalList)
+            if (ProductOptions.Count == 1)
             {
-                int rowContentTemp = beginRowTotal == rowTotal ? RowTotalTemp : RowContentTemplate;
-                IRow totalRow = sheet.CopyRow(TemplateSheet, rowContentTemp, rowTotal);
-                MobileWinLoss data = t;
-
-                totalRow.Cells[ColumnIndex].SetCellValue(ViewResources.Total);
-                totalRow.Cells[ColumnCurrency].SetCellValue(data.CurrencyName);
-                AssignCellData(totalRow, data);
-                rowTotal++;
+                return string.Format("{0}: {1}", ViewResources.Product, ProductOptions.First().Code);
             }
 
-            sheet.MergeCells(beginRowTotal, ColumnIndex, rowTotal - 1, ColumnSystemId);
-            sheet.MergeCells(rowTotal, ColumnIndex, rowTotal, ColumnSystemId);
+            var selectedProducts = ProductOptions.Where(x => x.Status);
+            if (selectedProducts.Count() == ProductOptions.Count)
+            {
+                return string.Format("{0}: {1}", ViewResources.Product, ViewResources.All);
+            }
 
-            return rowTotal;
+            var text = selectedProducts
+                .Aggregate(string.Empty, (current, x) => current + (string.IsNullOrEmpty(current) ? x.Code : ", " + x.Code));
+
+            return string.Format("{0}: {1}", ViewResources.Product, text);
+        }
+
+        private string GetBaseCurrencyTitle()
+        {
+            string title;
+            var baseCurrencyId = _model.Param.BaseCurrencyId;
+            switch (baseCurrencyId)
+            {
+                case BaseCurrencyType.Eur:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+                    break;
+
+                case BaseCurrencyType.Usd:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+                    break;
+
+                case BaseCurrencyType.Gbp:
+                    title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+                    break;
+
+                default:
+                    title = string.Format(ViewResources.Viewin, _model.Param.CurrencyName);
+                    break;
+            }
+
+            return title;
         }
     }
 }

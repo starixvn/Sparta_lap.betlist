@@ -268,8 +268,9 @@ var LicenseeWinLoss = (function ($) {
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
 
-            var fdate = new Date(datetime);
-            var tdate = new Date(datetime);
+            var fdate, tdate;
+            fdate = tdate = Date.parse(datetime);
+
             if (Number(param.ReportBy) === 2) {
                 var fday = 1;
                 var month = fdate.getMonth();
