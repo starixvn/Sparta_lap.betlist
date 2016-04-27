@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Core.Extensions
 {
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     public static class DataHelper
     {

@@ -180,7 +180,7 @@
     <Compile Include="ReportController.MacauWinLoss.cs" />
     <Compile Include="ReportController.MatchWinLoss.cs" />
     <Compile Include="ReportController.MicrogamingWinLoss.cs" />
-    <Compile Include="ReportController.MobileWinLoss.cs" />
+    <Compile Include="ReportController.PlatformWinLoss.cs" />
     <Compile Include="ReportController.PlaytechCasino.cs" />
     <Compile Include="ReportController.RacingCommission.cs" />
     <Compile Include="ResultController.cs" />

@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Report
 {
     using System;
-    using Fanex.Athena.Model.Core.DataDomain;
+    using DataDomain = Model.Core.DataDomain;
 
     public class PlatformWinLossMetaModel : BaseReportMetaModel
     {
@@ -20,8 +20,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
             FromDay = 1;
             ToDay = today.Day;
             CurrencyId = 0;
-            DrawFilter = DrawFilterType.Normal;
-            PlatformType = DataDomain.PlatformType.All;
+            DrawFilter = DataDomain.DrawFilterType.Normal;
+            PlatformType = Model.Core.DataDomain.PlatformType.All;
             IsExcludeTest = true;
         }
 

@@ -10,11 +10,11 @@
 namespace Fanex.Athena.Service.Implement.Report
 {
     using System.Collections.Generic;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Interface.Configuration;
     using Fanex.Athena.Service.Interface.Report;
 
     public class PlatformWinLossService : IPlatformWinLossService

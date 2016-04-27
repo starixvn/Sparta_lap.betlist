@@ -141,8 +141,8 @@
     <Compile Include="BetListController.LiveReport.cs" />
     <Compile Include="BetListController.MatchWl.cs" />
     <Compile Include="BetListController.MicroGamingRngDetail.cs" />
-    <Compile Include="BetListController.MobileWl.cs" />
     <Compile Include="BetListController.PendingFunds.cs" />
+    <Compile Include="BetListController.PlatformWinLoss.cs" />
     <Compile Include="BetListController.RacingCommission.cs" />
     <Compile Include="BetListController.RngCasinoDetail.cs" />
     <Compile Include="BetListController.RunningBetList.cs" />

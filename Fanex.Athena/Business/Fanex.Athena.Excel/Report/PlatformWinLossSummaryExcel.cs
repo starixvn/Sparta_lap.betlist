@@ -5,11 +5,11 @@
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Models.DataDomain;
+    using Model.Core.DataDomain;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     public class PlatformWinLossSummaryExcel : ReportBase
     {
@@ -30,7 +30,7 @@
         private const int RowTotal = 5;
 
         private const int RowNoInfoTemplate = 6;
-        
+
         private readonly string _templatePath;
         private readonly string _fileName;
         private readonly PlatformWinLossMetaModel _model;

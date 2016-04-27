@@ -17,10 +17,10 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Models.MetaModel.Account;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Models.MetaModel.Account;
 
     /// <summary>
     /// Currency Data access.

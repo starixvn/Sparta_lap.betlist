@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -17,11 +16,11 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Model.Core.DTO.Common;
+    using Resources;
 
     public partial class ReportController
     {
@@ -63,7 +62,7 @@ namespace Fanex.Athena.Api.Report
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName
             };
-            
+
             var excelModel = new PlatformWinLossViewModel
             {
                 MainResult = dataList,
