@@ -149,10 +149,6 @@
         it("'#Add' should be disabled", function () {
             expect($("#Add")).toBeDisabled();
         });
-
-        it("'#GroupName' should be focused", function () {
-            expect($("#GroupName")).toBeFocused();
-        });
     });
 
     describe("validateName(groupName)", function () {

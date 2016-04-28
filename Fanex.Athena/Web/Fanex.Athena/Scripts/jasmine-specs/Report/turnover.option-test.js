@@ -7,8 +7,6 @@
                 "3": Site.getSingleResource("Others")
             };
 
-            expect(TurnoverOption.licenseeId).toBe(0);
-            expect(TurnoverOption.hasCustomerComm).toBe(true);
             expect(TurnoverOption.sites).toEqual(sites);
             expect(TurnoverOption.totalColspan).toEqual([3]);
             expect(TurnoverOption.urlData).toBe("reportapi/Turnover");

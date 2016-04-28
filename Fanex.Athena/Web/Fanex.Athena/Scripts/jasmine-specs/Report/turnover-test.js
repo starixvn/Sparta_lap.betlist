@@ -69,14 +69,6 @@
             Turnover.initEvent();
         });
 
-        it("Turnover.setUsernameOnFocus() should be called when '#Username' fired focus event", function () {
-            spyOn(Turnover, "setUsernameOnFocus");
-
-            $username.focus();
-
-            expect(Turnover.setUsernameOnFocus).toHaveBeenCalled();
-        });
-
         it("Turnover.setDefaultUsername() should be called when '#Username' fired blur event", function () {
             spyOn(Turnover, "setDefaultUsername");
 

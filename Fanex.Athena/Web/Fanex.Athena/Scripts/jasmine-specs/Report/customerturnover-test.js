@@ -178,16 +178,6 @@
 
         });
 
-        it("setUsernameOnFocus() should be called if #Username is focused.", function () {
-            var $input = affix('input#Username');
-            spyOn(CustTurnover, 'setUsernameOnFocus');
-
-            CustTurnover.initEvent();
-            $input.focus();
-
-            expect(CustTurnover.setUsernameOnFocus).toHaveBeenCalled();
-        });
-
         it("$.fn.checkboxgroup should be called with correct selector.", function () {
             spyOn($.fn, 'checkboxgroup');
 
@@ -261,7 +251,6 @@
             });
 
             CustTurnover.setReportTitle('-1', new Date(), new Date());
-            console.log($title.html());
             expect($title.html()).toBe('Customer Turnover, 1/1/2016 → 1/1/2016 - Currency:  - MinimumOdds: 0  - Username: abc');
         });
     });
