@@ -472,8 +472,6 @@ var BetList = (function ($) {
             else {
                 divEvent.css("display", "none");
                 divEvent.html("");
-                $(".ui-jqgrid-bdiv").css("height", 0);
-                $(".ui-jqgrid-bdiv>div").css("height", "auto");
                 BetList.resizeGrid();
             }
         },
@@ -523,8 +521,7 @@ var BetList = (function ($) {
             else {
                 $divEvent.hide().html("");
                 $nameDiv.show();
-                $(".ui-jqgrid-bdiv").css("height", 0);
-                $(".ui-jqgrid-bdiv>div").css("height", "auto");
+                $(".ui-jqgrid-bdiv").css("height", "auto");
                 BetList.resizeGrid();
             }
         },

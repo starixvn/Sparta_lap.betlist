@@ -32,11 +32,16 @@ namespace Fanex.Athena.Api.BetList
             var ticketResult = _betListService.GetMixParlayDetailTicket(transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
+            var textRenderPattern = "<p class='system-parlay-ticket-infor'>" 
+                                    + "<span class='system-parlay-combo-type'>{0}</span> x "
+                                    + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
+                                    + "</p>";
+            var ticketTextRender = string.Empty;
             if (handicap1 == 0)
             {
                 // System Parlay.
                 var ticket = tickets.FirstOrDefault();
-                texts[0] = texts[0] + " x " + ticket.Currency + " " + ticket.Stake;
+                texts[0] = string.Format(textRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0"));
             }
             else
             {
@@ -47,7 +52,7 @@ namespace Fanex.Athena.Api.BetList
                 {
                     var text = texts[i];
                     var ticket = tickets[i];
-                    texts[i] = text + " x " + ticket.Currency + " " + ticket.Stake;
+                    texts[i] = string.Format(textRenderPattern, text, ticket.Currency, ticket.Stake.ToString("N0"));
                 }
             }
 

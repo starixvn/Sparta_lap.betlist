@@ -313,3 +313,14 @@ div.mx-parlay div.void > div.match, div.mx-parlay div.void div.firstGoal, div.mx
 .ui-jqgrid .jqgrow .transtime{
     white-space: normal;
 }
+div.mx-parlay .system-parlay-ticket-infor{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 15px;
+    color: #000000;
+    font-weight: bold;
+}
+
+div.mx-parlay .system-parlay-ticket-infor .system-parlay-unit-stake{
+    color: #003399;
+}
