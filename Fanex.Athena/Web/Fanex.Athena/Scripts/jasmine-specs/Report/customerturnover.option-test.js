@@ -12,6 +12,8 @@
 
     describe("getGridOption()", function () {
         it("should return a correct colNames.", function () {
+            CustTurnoverOption.hasCustomerComm = false;
+
             var gridOption = CustTurnoverOption.getGridOption();
 
             expect(gridOption.colNames).toEqual(['#', 'Date', 'Username', 'Currency', 'Sport', 'BetType', 'EffectiveBettingValue', 'TotalTransaction', 'Turnover', 'TotalTurnover', 'Win/Loss', 'Comm', 'CustomerW_L']);

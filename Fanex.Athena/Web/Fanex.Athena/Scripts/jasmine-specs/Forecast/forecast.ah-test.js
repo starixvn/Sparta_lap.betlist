@@ -114,7 +114,7 @@
         });
     });
 
-    describe("viewBetlist(bettype)", function () {
+    xdescribe("viewBetlist(bettype)", function () {
         it("ForecastPopup.resizePopup(width, height, url) should be called with correct parameter", function () {
             spyOn(ForecastPopup, "resizePopup");
             Forecast.viewBetlist(5);

@@ -51,6 +51,13 @@
     });
 
     describe("initialize()", function () {
+        beforeAll(function () {
+            spyOn(CustTurnover, 'initEvent');
+            spyOn(CustTurnover, 'setDefaultUsername');
+            spyOn(CustTurnover, 'initAutoComplete');
+            spyOn(Site, 'addUserGuide');
+        });
+
         it("CustTurnover.currentLicensee should be assigned value got from #LicenseeId.", function () {
             affix('input#LicenseeId[value=1]');
 
@@ -60,24 +67,18 @@
         });
 
         it("initEvent() should be call when initialize() is called.", function () {
-            spyOn(CustTurnover, 'initEvent');
-
             CustTurnover.initialize();
 
             expect(CustTurnover.initEvent).toHaveBeenCalled();
         });
 
         it("initAutoComplete() should be call when initialize() is called.", function () {
-            spyOn(CustTurnover, 'initAutoComplete');
-
             CustTurnover.initAutoComplete();
 
             expect(CustTurnover.initAutoComplete).toHaveBeenCalled();
         });
 
         it("Site.addUserGuide() should be call when initialize() is called with correct params.", function () {
-            spyOn(Site, 'addUserGuide');
-
             CustTurnover.initialize();
 
             expect(Site.addUserGuide).toHaveBeenCalledWith({
@@ -88,10 +89,11 @@
     });
 
     describe("initEvent()", function () {
+        beforeAll(function () {
+            spyOn(CustTurnover, 'initSportProduct');
+        });
 
         it("initSportProduct() should be call when initEvent() is called.", function () {
-            spyOn(CustTurnover, 'initSportProduct');
-
             CustTurnover.initEvent();
 
             expect(CustTurnover.initSportProduct).toHaveBeenCalled();
@@ -264,7 +266,7 @@
         });
     });
 
-    describe("setDefaultUsername()", function () {
+   describe("setDefaultUsername()", function () {
         it("#Username should have class 'default-username' if it's value is empty.", function () {
             var $input = affix('input#Username');
             

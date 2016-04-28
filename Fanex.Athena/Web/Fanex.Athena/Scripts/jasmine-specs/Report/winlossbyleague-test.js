@@ -1,4 +1,4 @@
-﻿describe("WinLossByLeague", function () {
+﻿xdescribe("WinLossByLeague", function () {
     describe("ajaxPaging()", function () {
         beforeEach(function () {
             spyOn(pagingHeper, "getSetting");

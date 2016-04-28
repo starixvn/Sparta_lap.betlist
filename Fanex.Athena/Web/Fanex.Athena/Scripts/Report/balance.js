@@ -47,7 +47,6 @@ var Balance = (function ($) {
             var month = $("#Month").val();
             var year = $("#Year").val();
             var fromDate = new Date(year, month, 1);
-            console.log(month, year);
             var toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0);
             $("#FromDate").val(fromDate.toDateString());
             $("#ToDate").val(toDate.toDateString());

@@ -33,7 +33,6 @@
 
             spyOn($.fn, "spectrum").and.returnValue({});
             spyOn(GroupComm, "getcolorPalette");
-
             CreateGroup.initEvent();
         });
 

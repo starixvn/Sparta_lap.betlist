@@ -76,7 +76,7 @@
             $("#BaseCurrency").attr('data-original', 3);
         });
 
-        it("ForecastPopup.resizePopup(height, height, url) should be called with correct parameters", function () {
+        xit("ForecastPopup.resizePopup(height, height, url) should be called with correct parameters", function () {
             spyOn(ForecastPopup, "resizePopup");
 
             ForecastOneXTwo.openForecast(1, 2, "true");

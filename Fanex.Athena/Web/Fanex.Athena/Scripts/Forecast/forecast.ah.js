@@ -101,16 +101,18 @@ var Forecast = (function ($) {
     };
 })(jQuery);
 
-$(window).load(function () {
-    parent.$('.ui-dialog').css({ 'width': 725 + 'px' });
-    parent.$('.ui-dialog').css({ 'height': 330 + 'px' });
-    parent.$('.ui-dialog').css({ 'position': 'absolute' });
-    parent.$('.ui-dialog').css({ 'top': '25%' });
-    parent.$('.ui-dialog').css({ 'left': '20%' });
-    parent.$('.ui-dialog').css({ 'margin': 'auto' });
-    parent.$('.ui-dialog-title').html(Site.getSingleResource("Forecast"));
-    parent.$('#myframe').attr('width', '100%');
-    parent.$('#myframe').attr('height', '100%');
-    parent.$('#forecast-dialog').attr('style', 'width:700px;height:280px');
-    parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
-});
+if (!window._IsInJsTestingMode) {
+    $(window).load(function () {
+        parent.$('.ui-dialog').css({ 'width': 725 + 'px' });
+        parent.$('.ui-dialog').css({ 'height': 330 + 'px' });
+        parent.$('.ui-dialog').css({ 'position': 'absolute' });
+        parent.$('.ui-dialog').css({ 'top': '25%' });
+        parent.$('.ui-dialog').css({ 'left': '20%' });
+        parent.$('.ui-dialog').css({ 'margin': 'auto' });
+        parent.$('.ui-dialog-title').html(Site.getSingleResource("Forecast"));
+        parent.$('#myframe').attr('width', '100%');
+        parent.$('#myframe').attr('height', '100%');
+        parent.$('#forecast-dialog').attr('style', 'width:700px;height:280px');
+        parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
+    });
+}

@@ -134,6 +134,8 @@ var CreateGroup = (function ($) {
     };
 })(jQuery);
 
-$(window).load(function () {
-    CreateGroup.initialize();
-});
+if (!window._IsInJsTestingMode) {
+    $(window).load(function () {
+        CreateGroup.initialize();
+    });
+}

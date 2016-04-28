@@ -82,26 +82,28 @@ var ForecastOneXTwo = (function ($) {
     };
 })(jQuery);
 
-$(window).load(function () {
-    var height = Math.min(parent.innerHeight - 20, 460);
-    // Set default value for popup
-    parent.$('.ui-dialog').css({ 'width': 700 + 'px' });
-    parent.$('.ui-dialog').css({ 'height': height + 'px' });
-    parent.$('.ui-dialog').css({ 'top': (parent.innerHeight - height) / 2 + 'px' });
-    parent.$('.ui-dialog').css({ 'left': '20%' });
-    parent.$('.ui-dialog').css({ 'margin': 'auto' });
-    parent.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
+if (!window._IsInJsTestingMode) {
+    $(window).load(function () {
+        var height = Math.min(parent.innerHeight - 20, 460);
+        // Set default value for popup
+        parent.$('.ui-dialog').css({ 'width': 700 + 'px' });
+        parent.$('.ui-dialog').css({ 'height': height + 'px' });
+        parent.$('.ui-dialog').css({ 'top': (parent.innerHeight - height) / 2 + 'px' });
+        parent.$('.ui-dialog').css({ 'left': '20%' });
+        parent.$('.ui-dialog').css({ 'margin': 'auto' });
+        parent.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
 
-    parent.$('#myframe').attr('width', 690);
-    parent.$('#myframe').attr('height', height);
-    parent.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height - 60) + 'px');
-    parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
-});
+        parent.$('#myframe').attr('width', 690);
+        parent.$('#myframe').attr('height', height);
+        parent.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height - 60) + 'px');
+        parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
+    });
 
-$(window).resize(function () {
-    ForecastOneXTwo.resizeGrid();
-});
+    $(window).resize(function () {
+        ForecastOneXTwo.resizeGrid();
+    });
 
-$(window).unload(function () {
-    $(window).unbind("resize");
-});
+    $(window).unload(function () {
+        $(window).unbind("resize");
+    });
+}

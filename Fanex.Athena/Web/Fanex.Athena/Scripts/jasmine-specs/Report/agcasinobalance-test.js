@@ -23,9 +23,10 @@
 
     describe("initEvent()", function () {
         it("#IsExportExcel should have value 'false' when #SubmitButton is clicked.", function () {
+            spyOn(AgCasinoBalance, 'submit');
             var $submit = affix('#SubmitButton');
             var $excelField = affix('#IsExportExcel');
-
+            
             AgCasinoBalance.initEvent();
             $submit.click();
             expect($excelField.val()).toBe(false);
