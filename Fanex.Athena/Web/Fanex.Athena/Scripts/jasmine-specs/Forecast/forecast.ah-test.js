@@ -114,14 +114,14 @@
         });
     });
 
-    xdescribe("viewBetlist(bettype)", function () {
+    describe("viewBetlist(bettype)", function () {
         it("ForecastPopup.resizePopup(width, height, url) should be called with correct parameter", function () {
             spyOn(ForecastPopup, "resizePopup");
             Forecast.viewBetlist(5);
 
             var url = "BetList/RunningBetListOfMatch?matchid=1&bettype=5&basecurrency=1&currencyid=2&currencyname=eur&licenseetype=1";
 
-            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(960, 700, url);
+            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Number), url);
         });
     });
 

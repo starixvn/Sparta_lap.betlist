@@ -10,6 +10,7 @@
         it("'.content-filter' should be removed", function () {
             expect($('.content-filter')).not.toExist();
         });
+
         it("BetList.loadData(params, url, callback) should be called", function () {
             expect(BetList.loadData).toHaveBeenCalled();
         });

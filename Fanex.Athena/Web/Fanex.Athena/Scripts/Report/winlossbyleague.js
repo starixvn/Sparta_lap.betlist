@@ -11,7 +11,7 @@ var WinLossByLeague = (function ($) {
     var _leaguename = null;
     var _fromDate = null;
     var _toDate = null;
-    var _postdata = null;
+    var _postdata = {};
     var _currencyName = null;
     var _productCount = 0;
     var _resizeTimer;

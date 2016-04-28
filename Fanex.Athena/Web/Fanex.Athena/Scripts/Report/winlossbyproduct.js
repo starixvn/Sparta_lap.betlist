@@ -9,7 +9,7 @@ var WinLossByProduct = (function ($) {
     var _cacheData = [];
     var ajaxRequest = null;
     var _memberId, _systemId; // store data when submit level 0
-    var _submitData; // cache submit data of level 0.
+    var _submitData = {}; // cache submit data of level 0.
 
     function setDefaultUsername() {
         var $username = $('#Username');
@@ -164,7 +164,6 @@ var WinLossByProduct = (function ($) {
 
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"),
            currencyStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
-
             $("div.report-title").html(title);
         },
 
@@ -200,6 +199,7 @@ var WinLossByProduct = (function ($) {
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }
+
             var option =
             {
                 type: "POST",
@@ -236,8 +236,8 @@ var WinLossByProduct = (function ($) {
             if (ajaxRequest != null) {
                 ajaxRequest.abort();
             }
-            ajaxRequest = $.ajax(option);
 
+            ajaxRequest = $.ajax(option);
             return true;
         },
 

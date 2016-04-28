@@ -1,7 +1,6 @@
 ﻿describe("WinLossByLeagueOption", function () {
     describe("Default Option", function () {
         it("Initial values should be correct", function () {
-            expect(WinLossByLeagueOption.licenseeId).toBe(0);
             expect(WinLossByLeagueOption.currencyIndex).toBe(4);
             expect(WinLossByLeagueOption.systemIdIndex).toBe(3);
             expect(WinLossByLeagueOption.externalIdIndex).toBe(2);

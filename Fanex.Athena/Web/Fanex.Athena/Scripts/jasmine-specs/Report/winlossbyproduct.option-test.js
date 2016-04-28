@@ -1,14 +1,10 @@
 ﻿describe("WinLossByProductOption", function () {
     describe("Default Option", function () {
         it("Initial values should be correct", function () {
-            expect(WinLossByProductOption.licenseeId).toBe(0);
             expect(WinLossByProductOption.currencyIndex).toBe(4);
             expect(WinLossByProductOption.systemIdIndex).toBe(3);
             expect(WinLossByProductOption.externalIdIndex).toBe(2);
             expect(WinLossByProductOption.customerWlTotalIndex).toBe(10);
-            expect(WinLossByProductOption.hasCustomerComm).toBe(true);
-            expect(WinLossByProductOption.IsAllowBA).toBe(true);
-            expect(WinLossByProductOption.IsAllowRB).toBe(true);
 
             expect(WinLossByProductOption.pageSize).toBe(50);
             expect(WinLossByProductOption.nonePagingSize).toBe(2000);
@@ -26,6 +22,7 @@
         });
 
         it("index of customerWlTotalIndex should has value 'Total' when 'hasCustomerComm' equal true", function () {
+            WinLossByProductOption.hasCustomerComm = true;
             var colNameList = WinLossByProductOption.getColName();
             expect(colNameList[WinLossByProductOption.customerWlTotalIndex]).toBe("Total");
         });

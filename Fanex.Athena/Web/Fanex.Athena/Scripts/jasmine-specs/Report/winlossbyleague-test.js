@@ -1,4 +1,4 @@
-﻿xdescribe("WinLossByLeague", function () {
+﻿describe("WinLossByLeague", function () {
     describe("ajaxPaging()", function () {
         beforeEach(function () {
             spyOn(pagingHeper, "getSetting");
@@ -166,12 +166,11 @@
         });
     });
 
-    xdescribe("setReportTitle(level, minOdds, fromdate, todate)", function () {
+    describe("setReportTitle(level, minOdds, fromdate, todate)", function () {
         it("Report title should be correct text", function () {
-            var titleExpected = caption + ', 2/01/2016 → 2/29/2016 - Currency: EUR - Minimum odds : 0';
+            var titleExpected = 'WinLossByLeague, 2016/02/01 → 2016/02/29 - Currency:  undefined - MinimumOdds : 1';
 
             affix("div.report-title #caption");
-            var caption = Site.getSingleResource('WinLossByLeague');
             var minOddStr = Site.getSingleResource("MinimumOdds") + " : 1";
 
             WinLossByLeague.setReportTitle(0, 1, "2016/02/01", "2016/02/29");            

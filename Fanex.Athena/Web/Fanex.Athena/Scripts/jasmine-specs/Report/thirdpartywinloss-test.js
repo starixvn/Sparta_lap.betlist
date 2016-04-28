@@ -43,6 +43,7 @@
 
         describe("'#SubmitButton' fired click event", function () {
             it("'#IsExportExcel' should has value equal false", function () {
+                spyOn(ThirdPartyWinLoss, 'submit');
                 $submitButton.click();
                 
                 expect($isExportExcel.val()).toBe("false");

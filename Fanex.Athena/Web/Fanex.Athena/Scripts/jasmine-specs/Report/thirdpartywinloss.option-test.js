@@ -3,10 +3,9 @@
         it("Initial values should be correct", function () {
             expect(ThirdPartyWinLossOption.canDrilldown).toBe(true);
             expect(ThirdPartyWinLossOption.LICENSEE_12BET).toBe(1);
-            expect(ThirdPartyWinLossOption.licenseeId).toBe(0);
             expect(ThirdPartyWinLossOption.totalColspan).toEqual([2,2,3]);
-            expect(ThirdPartyWinLossOption.urlData).toBe("api/report/ThirdPartyWinLoss");
-            expect(ThirdPartyWinLossOption.urlExcelData).toBe("api/report/ThirdPartyWinLoss");
+            expect(ThirdPartyWinLossOption.urlData).toContain("api/report/ThirdPartyWinLoss");
+            expect(ThirdPartyWinLossOption.urlExcelData).toContain("api/report/ThirdPartyWinLoss");
         });
     });
 

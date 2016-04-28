@@ -143,6 +143,8 @@ var OutstandingBetList = (function ($) {
     };
 })(jQuery);
 
-$(window).load(function () {
-    OutstandingBetList.initialize();
-});
+if (!window._IsInJsTestingMode) {
+    $(window).load(function () {
+        OutstandingBetList.initialize();
+    });
+}

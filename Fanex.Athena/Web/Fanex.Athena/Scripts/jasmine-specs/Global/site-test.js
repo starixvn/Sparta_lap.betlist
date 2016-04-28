@@ -1,4 +1,4 @@
-﻿xdescribe("site.js > Site", function () {
+﻿describe("site.js > Site", function () {
     describe("getLicenseeId()", function () {
         it("return a value from input#LicenseeId", function () {
             affix("input#LicenseeId[value=1]");             
@@ -8,14 +8,14 @@
         });
     });
 
-    describe("asNull(text)", function (currencyId) {
+    describe("asNull(text)", function () {
         it("return null if the param 'text' is an empty string", function () {
             var result = Site.asNull("");
             expect(result).toBe(null);
         });
     });
 
-    describe("blockUI()", function (currencyId) {
+    describe("blockUI()", function () {
         it("div.loading will be display", function () {
             affix("div.block-body[style=display:none]");
             affix("div.loading[style=display:none]");
@@ -25,7 +25,7 @@
         });
     });
 
-    describe("setLicenseeOptionParam(urlOrParams)", function (currencyId) {
+    describe("setLicenseeOptionParam(urlOrParams)", function () {
         it("return an url with query string if 'urlOrParams' is a string", function () {
             affix("input#LicenseeType[value=1]");
             var $currencyId = affix("select#CurrencyId"); 
@@ -49,7 +49,7 @@
         });
     });
 
-    describe("setLicenseeOptionOriginalParam(urlOrParams)", function (currencyId) {
+    describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
         it("build an url from 'data-original' attributes of html tags", function () {
             affix("input#LicenseeType[data-original=1]");
             var $currencyId = affix("select#CurrencyId[data-original=2]");
@@ -60,7 +60,7 @@
         });
     });
 
-    describe("updateOriginalLicenseeOption()", function (currencyId) {
+    describe("updateOriginalLicenseeOption()", function () {
         it("update values of html tags to 'data-original' attributes", function () {
             affix("input#LicenseeType[value=1]");            
             affix("input#BaseCurrency[value=USD]");
@@ -70,14 +70,14 @@
         });
     });
 
-    describe("setProductOptionParam(url, counter, productCode, status)", function (currencyId) {
+    describe("setProductOptionParam(url, counter, productCode, status)", function () {
         it("build an url with production options", function () {            
             var result = Site.setProductOptionParam("localhost", 1, "SB", true);
             expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
         });
     });
 
-    describe("initBlockUI()", function (currencyId) {
+    describe("initBlockUI()", function () {
         it("Site.blockUI() should be called when clicking on .blockui element", function () {
             affix(".blockui");
             Site.initBlockUI();
@@ -87,7 +87,7 @@
         });
     });
 
-    describe("asBool()", function (currencyId) {
+    describe("asBool()", function () {
         it("convert a string 'TRUE' to true (boolean)", function () {
             var result = Site.asBool("TRUE");
             expect(result).toBe(true);
@@ -114,7 +114,7 @@
         });
     });
 
-    describe("getSingleResource(enghlishName)", function (currencyId) {
+    describe("getSingleResource(enghlishName)", function () {
         it("Site.blockUI() should be called when clicking on .blockui element", function () {
             affix(".blockui");
             Site.initBlockUI();
@@ -123,5 +123,4 @@
             expect(Site.blockUI).toHaveBeenCalled();
         });
     });
-
 });

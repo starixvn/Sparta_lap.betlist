@@ -62,8 +62,9 @@ var CommonBetList = (function ($) {
         }
     };
 })(jQuery);
-
-$(window).load(function () {
-    "use strict";
-    CommonBetList.initialize();
-});
+if (!window._IsInJsTestingMode) {
+    $(window).load(function () {
+        "use strict";
+        CommonBetList.initialize();
+    });
+}

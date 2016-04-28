@@ -279,7 +279,6 @@ var CustomerList = (function ($) {
         $(".paging").width(gridWidth);
         $(".report-title").width(gridWidth - 25);
         $(".content-filter").width(Math.max(1040, gridWidth));
-
         var gridTop = reportGrid.offset().top;
         var gridHeight = $(window).height() - gridTop - 50;
         gridHeight = Math.max(200, gridHeight);
@@ -1101,27 +1100,29 @@ var CustomerList = (function ($) {
     };
 })(jQuery);
 
-$(document).ready(function () {
-    "use strict";
-    parent.document.title = 'LRF - ' + $('.content-title').html();
+if (!window._IsInJsTestingMode) {
+    $(document).ready(function () {
+        "use strict";
+        parent.document.title = 'LRF - ' + $('.content-title').html();
 
-    CustomerList.initialize();
-    Site.keepBlockingAfterInit = true;
+        CustomerList.initialize();
+        Site.keepBlockingAfterInit = true;
 
-    if (QueryString.getParam(window.location.href, "userName") ||
-        QueryString.getParam(window.location.href, "groupId")) {
-        CustomerList.submit();
-    } else {
-        Site.unBlockUI();
-    }
-});
+        if (QueryString.getParam(window.location.href, "userName") ||
+            QueryString.getParam(window.location.href, "groupId")) {
+            CustomerList.submit();
+        } else {
+            Site.unBlockUI();
+        }
+    });
 
-$(window).resize(function () {
-    "use strict";
-    CustomerList.resizeGrid();
-});
+    $(window).resize(function () {
+        "use strict";
+        CustomerList.resizeGrid();
+    });
 
-$(window).unload(function () {
-    "use strict";
-    $(window).unbind("resize");
-});
+    $(window).unload(function () {
+        "use strict";
+        $(window).unbind("resize");
+    });
+}

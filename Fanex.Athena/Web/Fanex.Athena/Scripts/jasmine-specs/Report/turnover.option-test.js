@@ -44,6 +44,7 @@
         it("Columns of model should show/hide correctly", function () {
             TurnoverOption.hasCustomerComm = false;
             TurnoverOption.isAllowBa = true;
+            TurnoverOption.hasCasinoTransfer = false;
 
             var result = TurnoverOption.getColModel();
 

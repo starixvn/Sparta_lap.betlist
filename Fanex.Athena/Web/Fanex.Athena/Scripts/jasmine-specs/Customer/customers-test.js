@@ -141,8 +141,6 @@
             expect(CustomerList.viewCustOption).toHaveBeenCalled();
         });
 
-
-
         it("CustomerList.updateCustStatus() should be called when $('#popup-update') fired click event", function () {
             $('#popup-update').click();
             expect(CustomerList.updateCustStatus).toHaveBeenCalled();
@@ -238,6 +236,8 @@
                     'responseText': '{ }'
                 });
 
+            affix('#ReportGrid');
+            spyOn(CustomersOption, 'setGroupHeaderColumns');
             CustomerList.submit();
 
             request = jasmine.Ajax.requests.mostRecent();

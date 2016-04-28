@@ -121,7 +121,7 @@
         });
     });
 
-    xdescribe("updateEsportStatus()", function () {
+    describe("updateEsportStatus()", function () {
         var request;
         beforeEach(function (done) {
             spyOn(BetSetting, "showDialogMesage");
@@ -132,7 +132,7 @@
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
-                    'responseText': '{ }'
+                    'responseText': '{ Code: 0 }'
                 });
 
             BetSetting.updateEsportStatus();
