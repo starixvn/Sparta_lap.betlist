@@ -18,4 +18,5 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelCombinationParlayDetail" EnvironmentText="_uat1"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_uat1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MatchWL_Parlay" EnvironmentText="_uat1"></SpNameConfig>
 </Root>
