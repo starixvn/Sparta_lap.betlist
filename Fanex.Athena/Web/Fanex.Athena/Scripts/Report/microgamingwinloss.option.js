@@ -106,6 +106,28 @@ var MicroGamingWinLossOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
 
+    var progressiveContributionColumn =
+    {
+        name: 'ProgressiveContribution',
+        index: 'ProgressiveContribution',
+        width: 90,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        formatter: jqGridAdditional.formatDecimal
+    };
+
+    var progressivePayoutColumn =
+    {
+        name: 'ProgressivePayout',
+        index: 'ProgressivePayout',
+        width: 90,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        formatter: jqGridAdditional.formatDecimal
+    };
+
     var licenseeWlColumn =
     {
         name: 'LicenseeWL',
@@ -120,13 +142,54 @@ var MicroGamingWinLossOption = (function () {
         formatter: jqGridAdditional.formatLicenseeWl
     };
 
+    var licenseeNetWinColumn =
+    {
+        name: 'LicenseeNetWin',
+        index: 'LicenseeNetWin',
+        width: 100,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        hidden: false,
+        title: true,
+        formatter: jqGridAdditional.formatLicenseeWl
+    };
+
+    var amountDueToMGColumn =
+    {
+        name: 'AmountDueToMGC',
+        index: 'AmountDueToMGC',
+        width: 100,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        hidden: false,
+        title: true,
+        formatter: jqGridAdditional.formatLicenseeWl
+    };
+
+    var progresssiveFeeColumn =
+    {
+        name: 'ProgresssiveFee',
+        index: 'ProgresssiveFee',
+        width: 100,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        hidden: false,
+        title: true,
+        formatter: jqGridAdditional.formatLicenseeWl
+    };
+
     //#endregion
 
     var colNameList = ['#', 'TypeName', 'Date', 'Currency',
-      'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L'];
+      'Turnover', 'TotalTransaction', 'CustomerW_L', 'ProgressiveContribution', 'ProgressivePayout',
+      'LicenseeW_L', 'LicenseeNetWin', 'AmountDueToMGC', 'ProgresssiveFee'];
 
     var colModelList = [indexColumn, typeNameColumn, dateColumn, currencyColumn,
-        turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn];
+        turnoverColumn, totalTransColumn, customerWlColumn, progressiveContributionColumn, progressivePayoutColumn,
+        licenseeWlColumn, licenseeNetWinColumn, amountDueToMGColumn, progresssiveFeeColumn];
 
     var me =
     {
