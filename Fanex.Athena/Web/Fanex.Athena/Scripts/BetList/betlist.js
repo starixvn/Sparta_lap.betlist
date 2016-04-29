@@ -515,7 +515,7 @@ var BetList = (function ($) {
                             $divEvent.html(choice).show();
                             $nameDiv.hide();
                             BetList.resizeGrid();
-                        }                       
+                        }
                     },
                     beforeSend: Site.blockUI,
                     complete: Site.unBlockUI
