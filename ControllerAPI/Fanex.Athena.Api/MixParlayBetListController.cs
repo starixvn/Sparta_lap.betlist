@@ -37,22 +37,25 @@ namespace Fanex.Athena.Api.BetList
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";
             var ticketTextRender = string.Empty;
-            if (handicap1 == 0)
+            if (tickets.Count > 0)
             {
-                // System Parlay.
-                var ticket = tickets.FirstOrDefault();
-                texts[0] = string.Format(textRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0"));
-            }
-            else
-            {
-                // Combo parlay.
-                tickets = tickets.OrderBy(x => x.MatchId).ToList();
-                var length = Math.Min(texts.Count(), tickets.Count());
-                for (int i = 0; i < length; i++)
+                if (handicap1 == 0)
                 {
-                    var text = texts[i];
-                    var ticket = tickets[i];
-                    texts[i] = string.Format(textRenderPattern, text, ticket.Currency, ticket.Stake.ToString("N0"));
+                    // System Parlay.
+                    var ticket = tickets.FirstOrDefault();
+                    texts[0] = string.Format(textRenderPattern, texts[0], ticket.Currency, ticket.Stake.ToString("N0"));
+                }
+                else
+                {
+                    // Combo parlay.
+                    tickets = tickets.OrderBy(x => x.MatchId).ToList();
+                    var length = Math.Min(texts.Count(), tickets.Count());
+                    for (int i = 0; i < length; i++)
+                    {
+                        var text = texts[i];
+                        var ticket = tickets[i];
+                        texts[i] = string.Format(textRenderPattern, text, ticket.Currency, ticket.Stake.ToString("N0"));
+                    }
                 }
             }
 

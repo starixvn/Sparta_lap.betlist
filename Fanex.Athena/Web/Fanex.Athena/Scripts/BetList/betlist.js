@@ -497,22 +497,25 @@ var BetList = (function ($) {
                     cache: false,
                     url: url,
                     success: function (response) {
-                        var choice = "";
-                        $.each(response.Texts, function (index, item) {
-                            choice += item;
-                        });
                         var length = response.Data.length;
-                        $.each(response.Data, function (index, item) {
-                            if (index === length - 1) {
-                                choice += item.Choice;
-                            }
-                            else {
-                                choice += item.Choice + "<div class='line'></div>";
-                            }
-                        });
-                        $divEvent.html(choice).show();
-                        $nameDiv.hide();
-                        BetList.resizeGrid();
+                        if (length > 0) {
+                            var choice = "";
+                            $.each(response.Texts, function (index, item) {
+                                choice += item;
+                            });
+
+                            $.each(response.Data, function (index, item) {
+                                if (index === length - 1) {
+                                    choice += item.Choice;
+                                }
+                                else {
+                                    choice += item.Choice + "<div class='line'></div>";
+                                }
+                            });
+                            $divEvent.html(choice).show();
+                            $nameDiv.hide();
+                            BetList.resizeGrid();
+                        }                       
                     },
                     beforeSend: Site.blockUI,
                     complete: Site.unBlockUI
