@@ -145,6 +145,7 @@ var MicroGamingWinLossOption = (function () {
     var licenseeNetWinColumn =
     {
         name: 'LicenseeNetWin',
+        classes: 'highlight',
         index: 'LicenseeNetWin',
         width: 100,
         align: 'right',
@@ -165,7 +166,7 @@ var MicroGamingWinLossOption = (function () {
         resizable: false,
         hidden: false,
         title: true,
-        formatter: jqGridAdditional.formatLicenseeWl
+        formatter: jqGridAdditional.formatDecimal
     };
 
     var progresssiveFeeColumn =
@@ -178,7 +179,7 @@ var MicroGamingWinLossOption = (function () {
         resizable: false,
         hidden: false,
         title: true,
-        formatter: jqGridAdditional.formatLicenseeWl
+        formatter: jqGridAdditional.formatDecimal
     };
 
     //#endregion
