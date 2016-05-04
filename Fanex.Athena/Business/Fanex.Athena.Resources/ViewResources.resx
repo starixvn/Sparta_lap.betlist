@@ -2869,4 +2869,24 @@
   <data name="EnableMacauGames" xml:space="preserve">
     <value>Enable Macau Games</value>
   </data>
+  <data name="AmountDueToMGC" xml:space="preserve">
+    <value>Amount Due To Microgaming</value>
+    <comment>#56248</comment>
+  </data>
+  <data name="LicenseeNetWin" xml:space="preserve">
+    <value>Licensee Net Win</value>
+    <comment>#56248</comment>
+  </data>
+  <data name="ProgressiveContribution" xml:space="preserve">
+    <value>Progressive Contribution</value>
+    <comment>#56248</comment>
+  </data>
+  <data name="ProgressivePayout" xml:space="preserve">
+    <value>Progressive Payout</value>
+    <comment>#56248</comment>
+  </data>
+  <data name="ProgresssiveFee" xml:space="preserve">
+    <value>Progresssive Fee</value>
+    <comment>#56248</comment>
+  </data>
 </root>

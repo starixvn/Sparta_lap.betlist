@@ -33,6 +33,16 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal CustomerWinLoss { get; set; }
 
+        public decimal ProgressiveContribution { get; set; }
+
+        public decimal ProgressivePayout { get; set; }
+
         public decimal LicenseeWL { get; set; }
+
+        public decimal LicenseeNetWin { get; set; }
+
+        public decimal AmountDueToMGC { get; set; }
+
+        public decimal ProgresssiveFee { get; set; }
     }
 }
