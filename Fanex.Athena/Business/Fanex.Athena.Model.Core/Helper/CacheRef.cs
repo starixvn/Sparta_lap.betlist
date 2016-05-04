@@ -88,6 +88,11 @@ namespace Fanex.Athena.Models.Cache
             return RefData.GetRouletteBetItem(betTeamString, GetCurrentIBCLanguageCode());
         }
 
+        public static string GetCurrentLanguageCode()
+        {
+            return GetCurrentIBCLanguageCode();
+        }
+
         /// <summary>
         /// Get bet type text by bet type and live indicator.
         /// </summary>
