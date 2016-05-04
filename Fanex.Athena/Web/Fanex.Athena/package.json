@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-karma": "^1.0.0",
     "jasmine-core": "^2.4.1",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
