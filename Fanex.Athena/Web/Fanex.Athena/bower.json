@@ -17,5 +17,10 @@
     "test",
     "tests"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "jasmine-core": "jasmine#^2.4.1",
+    "jasmine-fixture": "^2.0.0",
+    "jasmine-jquery": "^2.1.1",
+    "jasmine-ajax": "^3.2.0"
+  }
 }

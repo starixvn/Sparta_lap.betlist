@@ -73,7 +73,7 @@
 
     describe("setReportTitle(currencyId, fromdate, todate)", function () {
         it("Title of report should has correct text", function () {
-            affix("input#ReportTitle[value=Microgaming Win Loss]");
+            affix('input#ReportTitle[value="Microgaming Win Loss"]');
 
             var $reportTitle = affix("div.report-title");
 

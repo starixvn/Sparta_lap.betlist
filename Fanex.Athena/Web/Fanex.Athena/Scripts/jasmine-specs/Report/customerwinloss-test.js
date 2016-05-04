@@ -18,7 +18,7 @@
         });
     });
 
-    describe("initMonthPicker()", function () {
+    xdescribe("initMonthPicker()", function () {
         it("$.fn.monPickr() should be called on a correct selector.", function () {
             $.fn.monPickr = function () { };
             affix('input#IsHistoryReport[val="True"]');

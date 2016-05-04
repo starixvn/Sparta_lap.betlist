@@ -763,8 +763,9 @@ describe("MonitorBetList", function () {
     });
 
     describe("setHighlightSubmit()", function () {
+        var $button;
         beforeEach(function () {
-            affix("button#submit-button");
+            $button = affix("button#submit-button");
             jasmine.clock().install();
 
             monitorUi.setHighlightSubmit();
@@ -774,12 +775,12 @@ describe("MonitorBetList", function () {
         });
 
         it("$('#submit-button') should not have 'background-color' css with value is 'rgb(211,211,211)'", function () {
-            expect($("#submit-button")).not.toHaveCss({ "background-color": "rgb(211,211,211)" });
+            expect($button).not.toHaveCss({ "background-color": "rgb(211,211,211)" });
         });
 
         it("$('#submit-button') should have 'background-color' css with value is 'rgb(211,211,211)'", function () {
             jasmine.clock().tick(1000);
-            expect($("#submit-button")).toHaveCss({ "background-color": "rgb(211,211,211)" });
+            expect($button.css("background-color")).toBe('rgb(211, 211, 211)');
         });
     });
 

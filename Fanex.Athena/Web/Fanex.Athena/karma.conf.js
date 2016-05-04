@@ -8,12 +8,10 @@ module.exports = function(config) {
     files: [
 		'Scripts/Library/jquery.min.js',
 		'Scripts/Library/jquery.jqGrid.min.js',
-	//	'Scripts/jasmine/jasmine.js',
-		'Scripts/jasmine/jasmine-html.js',
-		//'Scripts/jasmine/boot.js',		
-		'Scripts/jasmine/jasmine-jquery.js',
-		'Scripts/jasmine/jasmine-fixture.js',	
-		'Scripts/jasmine/mock-ajax.js',
+		'bower_components/jasmine/lib/jasmine-core/jasmine-html.js',
+		'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+		'bower_components/jasmine-fixture/dist/jasmine-fixture.min.js',	
+		'bower_components/jasmine-ajax/lib/mock-ajax.js',
 		'Scripts/Library/moment.min.js',
 		'Scripts/Library/jquery-ui.min.js',		
 		'Scripts/Extension/jquery.extension.js',
@@ -171,7 +169,7 @@ module.exports = function(config) {
 		 
 		'Scripts/Report/winlossbyleague*.js',
 		'Scripts/jasmine-specs/Report/winlossbyleague*-test.js',
-		 
+		/* 
 		'Scripts/Report/winlossbyproduct*.js',
 		'Scripts/jasmine-specs/Report/winlossbyproduct*-test.js',
 		
@@ -181,7 +179,7 @@ module.exports = function(config) {
 		 
 		  // --------- WareHouse --------- //
 		'Scripts/WareHouse/*.js',
-		 'Scripts/jasmine-specs/WareHouse/*-test.js',
+		 'Scripts/jasmine-specs/WareHouse/*-test.js',*/
     ],
     exclude: [
     ],

@@ -132,7 +132,7 @@
     describe("setReportTitle(currencyId, fromdate, todate)", function () {
         it("'div.report-title' should has correct test", function () {
             var $reportTitle = affix("div.report-title");
-            affix("input#ReportTitle[value=Third Party Win loss]");
+            affix('input#ReportTitle[value="Third Party Win loss"]');
             var viewin = Site.getSingleResource("Viewin").replace("{0}", "EUR");
             var expected = "Third Party Win loss, 04/1/2016 → 04/12/2016 - " + viewin;
 
