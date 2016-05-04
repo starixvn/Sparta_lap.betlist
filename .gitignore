@@ -29,7 +29,6 @@ bin/
 _ReSharper*/
 [Tt]est[Rr]esult*
 /packages
-Fanex.Athena/Web/Fanex.Athena/node_modules
 
 *StyleCop.Cache
 /cireport
@@ -42,4 +41,5 @@ SUMMARY.DISPLAY.xml
 Fanex.Athena.sln.GhostDoc.xml
 
 /.vs
-/node_modules
+node_modules
+bower_components

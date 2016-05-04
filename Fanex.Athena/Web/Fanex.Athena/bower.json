@@ -1,0 +1,21 @@
+{
+  "name": "bower.json",
+  "authors": [
+    "Joseph Pham <joseph.pham@starixsoft.com>"
+  ],
+  "description": "wth",
+  "main": "hello",
+  "keywords": [
+    "abc"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
