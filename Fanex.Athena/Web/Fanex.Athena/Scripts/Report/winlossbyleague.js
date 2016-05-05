@@ -11,7 +11,7 @@ var WinLossByLeague = (function ($) {
     var _leaguename = null;
     var _fromDate = null;
     var _toDate = null;
-    var _postdata = null;
+    var _postdata = {};
     var _currencyName = null;
     var _productCount = 0;
     var _resizeTimer;
@@ -537,16 +537,19 @@ var WinLossByLeague = (function ($) {
     return me;
 })(jQuery);
 
-$(window).load(function () {
-    WinLossByLeague.initialize();
-});
+if (!window._IsInJsTestingMode) {
 
-$(window).resize(function () {
-    var reportGrid = $("#ReportGrid");
-    jqGridAdditional.resetLayout(reportGrid);
-    WinLossByLeague.resizeGrid();
-});
+    $(window).load(function () {
+        WinLossByLeague.initialize();
+    });
 
-$(window).unload(function () {
-    $(window).unbind("resize");
-});
+    $(window).resize(function () {
+        var reportGrid = $("#ReportGrid");
+        jqGridAdditional.resetLayout(reportGrid);
+        WinLossByLeague.resizeGrid();
+    });
+
+    $(window).unload(function () {
+        $(window).unbind("resize");
+    });
+}

@@ -41,7 +41,7 @@ var RunningBetListMultipleBettype = (function ($) {
             }
             var url = document.location.href;
             url = QueryString.setParam(url, "multiplebettype", bettype);
-            window.location.href = url;
+            Site.redirect(url);
         },
 
         showCombMPDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {

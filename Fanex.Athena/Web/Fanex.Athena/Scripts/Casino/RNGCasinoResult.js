@@ -8,7 +8,7 @@ var RNGCasino = (function ($) {
     function exportToExcel() {
         var url = window.location.href;
         url = QueryString.setParam(url, "IsExportExcel", true);
-        window.location.href = url;
+        Site.redirect(url);
     }
 
     return {
@@ -32,7 +32,7 @@ var RNGCasino = (function ($) {
                 var isShowPic = $("#chkIsShowPic").is(':checked');
                 var url = window.location.href;
                 url = QueryString.setParam(url, "IsShowPic", isShowPic);
-                window.location.href = url;
+                Site.redirect(url);
             });
 
             $("#ExportToExcel").click(exportToExcel);

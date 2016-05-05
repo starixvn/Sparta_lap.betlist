@@ -29,7 +29,6 @@ bin/
 _ReSharper*/
 [Tt]est[Rr]esult*
 /packages
-Fanex.Athena/Web/Fanex.Athena/node_modules
 
 *StyleCop.Cache
 /cireport
@@ -42,4 +41,7 @@ SUMMARY.DISPLAY.xml
 Fanex.Athena.sln.GhostDoc.xml
 
 /.vs
-/node_modules
+node_modules
+bower_components
+/Fanex.Athena/Web/Fanex.Athena/junit
+/Fanex.Athena/Web/Fanex.Athena/PhantomJS_2.1.1_(Windows_7_0.0.0)

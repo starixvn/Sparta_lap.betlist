@@ -82,7 +82,7 @@ var EditPermission = (function ($) {
             var functionIdList = '';
 
             if ($('.permissionBox').length > 0) {
-                var checkedInputs = $("input:checked", '.permissionBox');
+                var checkedInputs = $('.permissionBox').find("input:checked");                
                 $.each(checkedInputs, function () {
                     functionIdList += $(this).attr('id') + ",";
                 });
@@ -163,7 +163,6 @@ var EditPermission = (function ($) {
             var container = $("#currency-content");
             var totalCurrency = $("input", container).length;
             var childCheckedCurrency = $("input:checked", container).length;
-
             if (childCheckedCurrency === totalCurrency) {
                 $("#currency-header").prop('checked', 'true');
             }
@@ -226,6 +225,7 @@ var EditPermission = (function ($) {
                 LangKey: "",
                 IP: ""
             };
+
             $.ajax({
                 type: 'POST',
                 dataType: "json",

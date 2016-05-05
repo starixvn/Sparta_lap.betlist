@@ -52,7 +52,7 @@ var RunningBetList = (function ($) {
                     url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
                     url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
                 }
-                window.location.href = url;
+                Site.redirect(url);
             });
         }
     };
