@@ -1,7 +1,7 @@
 {
-  "name": "a",
+  "name": "LRFWEB",
   "version": "1.0.0",
-  "description": "",
+  "description": "LRF Web",
   "main": "index.js",
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -21,6 +21,6 @@
   "scripts": {
     "test": "karma start --reporters kjhtml,junit,dots,coverage,progress"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Sparta",
+  "license": "Nexcel.vn"
 }
