@@ -1,0 +1,16 @@
+{
+	"jsFilters": [
+    "Scripts/**/*.js",
+    "!*.min.js",
+    "!**/*.min.js",
+    "!**/*-vsdoc.js",
+    "!**/npm.js"
+	],
+	"cssFilters": [
+    "Content/**/*.css",
+    "Scripts/**/*.css",
+    "Areas/**/*.css",
+    "!*.min.css",
+    "!**/*.min.css"
+	]
+}
