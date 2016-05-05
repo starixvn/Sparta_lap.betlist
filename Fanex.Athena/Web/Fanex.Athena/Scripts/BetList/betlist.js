@@ -1,7 +1,7 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
-showAGCasinoDetails, showRnGCasinoDetails*/
+showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult*/
 
 var BetList = (function ($) {
     "use strict";
@@ -348,7 +348,11 @@ var BetList = (function ($) {
         viewVoidbridgeResult: function (custId, gamePlayId) {
             var url = Site.resolveClientUrl('Result/VoidbridgeResult');
             $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
-                openVoidbridgeResult(result);
+                if (result !== '') {
+                    window.open(result, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
+                } else {
+                    alert("Could not open Voidbridge Result Page!");
+                }
             });
         },
 

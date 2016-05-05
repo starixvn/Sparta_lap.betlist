@@ -768,7 +768,7 @@
                         "~/Scripts/Library/jquery.cookie.js",
                         "~/Scripts/Global/site.js",
                         "~/Scripts/Header/header.js",
-                        "~/Scripts/Header/jquery.jclock.js");
+                        "~/Scripts/Library/jquery.jclock.js");
             AddNewScriptBundle(bundles, bundle);
         }
 

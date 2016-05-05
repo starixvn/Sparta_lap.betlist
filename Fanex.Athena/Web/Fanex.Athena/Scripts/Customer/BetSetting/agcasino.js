@@ -23,8 +23,7 @@ var AgCasino = (function ($) {
                 disableSubmitButtons(true);
             }
 
-            if($("#btnSubmitBetSetting").prop("disabled") === true)
-            {
+            if ($("#btnSubmitBetSetting").prop("disabled") === true) {
                 disableSubmitButtons(true);
             }
             $('#betSettingGroup').change();
@@ -32,11 +31,12 @@ var AgCasino = (function ($) {
         initEvent: function () {
             // dropdown group
             $('#betSettingGroup').on('change', function () {
+                var selectedGroupType = this.value;
                 var groupFilter = function (index, item) {
                     return item.GroupType === selectedGroupType;
                 };
                 var disableSubmit = false;
-                var selectedGroupType = this.value;
+
                 for (var i = 0; i < _bettingGroupLimitCache.length; i++) {
                     var game = _bettingGroupLimitCache[i];
                     var group = $(game.Groups).filter(groupFilter)[0];
@@ -53,7 +53,6 @@ var AgCasino = (function ($) {
                 disableSubmitButtons(disableSubmit);
             });
 
-           
             $("#btnUpdateStatus").off("click").click(BetSetting.updateStatus);
         },
         checkApiContainGroup: function (groupType) {

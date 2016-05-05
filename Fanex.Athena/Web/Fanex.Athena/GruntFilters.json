@@ -4,7 +4,10 @@
     "!*.min.js",
     "!**/*.min.js",
     "!**/*-vsdoc.js",
-    "!**/npm.js"
+    "!**/npm.js",
+	"!Scripts/Library/**/*.js",
+	"!Scripts/Plugin/**/*.js",
+	"!Scripts/Languages/**/*.js"
 	],
 	"cssFilters": [
     "Content/**/*.css",
