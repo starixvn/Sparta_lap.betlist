@@ -98,7 +98,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateGoldDeluxeStatus")
+                .stubRequest("GoldDeluxeBetSetting/UpdateStatus")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -116,8 +116,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateGoldDeluxeStatus'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateGoldDeluxeStatus");
+        it("ajax request should be called with url is 'GoldDeluxeBetSetting/UpdateStatus'", function () {
+            expect(request.url).toBe("GoldDeluxeBetSetting/UpdateStatus");
         });
     });
 
@@ -128,7 +128,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateEsportStatus")
+                .stubRequest("SportbooksBetSetting/UpdateEsportStatus")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -146,8 +146,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateEsportStatus'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateEsportStatus");
+        it("ajax request should be called with url is 'SportbooksBetSetting/UpdateEsportStatus'", function () {
+            expect(request.url).toBe("SportbooksBetSetting/UpdateEsportStatus");
         });
     });
 
@@ -272,7 +272,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateGoldDeluxeBetSetting")
+                .stubRequest("GoldDeluxeBetSetting/UpdateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -290,8 +290,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateGoldDeluxeBetSetting'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateGoldDeluxeBetSetting");
+        it("ajax request should be called with url is 'GoldDeluxeBetSetting/UpdateBetSetting'", function () {
+            expect(request.url).toBe("GoldDeluxeBetSetting/UpdateBetSetting");
         });
 
         it("BetSetting.showUpdateSettingResult(result) should be called", function () {
@@ -306,7 +306,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateAgCasinoBetSetting")
+                .stubRequest("AgCasinoBetSetting/UpdateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -324,8 +324,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateAgCasinoBetSetting'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateAgCasinoBetSetting");
+        it("ajax request should be called with url is 'AgCasinoBetSetting/UpdateBetSetting'", function () {
+            expect(request.url).toBe("AgCasinoBetSetting/UpdateBetSetting");
         });
 
         it("BetSetting.showUpdateSettingResult(result) should be called", function () {
@@ -341,7 +341,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateKenoBetSetting?")
+                .stubRequest("KenoBetSetting/UpdateBetSetting?")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -359,8 +359,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateKenoBetSetting?'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateKenoBetSetting?");
+        it("ajax request should be called with url is 'KenoBetSetting/UpdateBetSetting?'", function () {
+            expect(request.url).toBe("KenoBetSetting/UpdateBetSetting?");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -376,7 +376,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/UpdateSportBookBetSetting")
+                .stubRequest("SportsbookBetSetting/UpdateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -394,8 +394,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/UpdateSportBookBetSetting'", function () {
-            expect(request.url).toBe("BetSettingAPI/UpdateSportBookBetSetting");
+        it("ajax request should be called with url is 'SportsbookBetSetting/UpdateBetSetting'", function () {
+            expect(request.url).toBe("SportsbookBetSetting/UpdateBetSetting");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -411,7 +411,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/updateRacingBetSetting")
+                .stubRequest("RacingBetSetting/updateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -429,8 +429,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/updateRacingBetSetting?'", function () {
-            expect(request.url).toBe("BetSettingAPI/updateRacingBetSetting?");
+        it("ajax request should be called with url is 'RacingBetSetting/updateBetSetting?'", function () {
+            expect(request.url).toBe("RacingBetSetting/updateBetSetting?");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -447,7 +447,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/updateNumberGameBetSetting")
+                .stubRequest("NumberGameBetSetting/UpdateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -465,8 +465,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/updateNumberGameBetSetting'", function () {
-            expect(request.url).toBe("BetSettingAPI/updateNumberGameBetSetting");
+        it("ajax request should be called with url is 'NumberGameBetSetting/UpdateBetSetting'", function () {
+            expect(request.url).toBe("NumberGameBetSetting/UpdateBetSetting");
         });
 
         it("BetSetting.getBetSettingParams(sportId) should be called", function () {
@@ -482,7 +482,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/updateVirtualSportsBetSetting?")
+                .stubRequest("VirtualSportsBetSetting/updateBetSetting?")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -500,8 +500,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/updateVirtualSportsBetSetting?'", function () {
-            expect(request.url).toBe("BetSettingAPI/updateVirtualSportsBetSetting?");
+        it("ajax request should be called with url is 'VirtualSportsBetSetting/updateBetSetting?'", function () {
+            expect(request.url).toBe("VirtualSportsBetSetting/updateBetSetting?");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -517,7 +517,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetSettingAPI/updateLiveCasinoBetSetting?")
+                .stubRequest("LiveCasinoBetSetting/updateBetSetting?")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -535,8 +535,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetSettingAPI/updateLiveCasinoBetSetting?'", function () {
-            expect(request.url).toBe("BetSettingAPI/updateLiveCasinoBetSetting?");
+        it("ajax request should be called with url is 'LiveCasinoBetSetting/updateBetSetting?'", function () {
+            expect(request.url).toBe("LiveCasinoBetSetting/updateBetSetting?");
         });
 
         it("BetSetting.showDialogMesage should be called", function () {

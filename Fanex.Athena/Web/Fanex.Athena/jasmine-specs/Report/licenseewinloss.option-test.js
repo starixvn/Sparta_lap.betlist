@@ -14,7 +14,7 @@
         });
 
         it("urlData should be a correct url.", function () {
-            expect(LicenseeWinLossOption.urlData).toBe('api/report/LicenseeWl');
+            expect(LicenseeWinLossOption.urlData).toBe('api/LicenseeWinLossReport/LicenseeWL');
         });
 
         it("nonePagingSize should be correct.", function () {

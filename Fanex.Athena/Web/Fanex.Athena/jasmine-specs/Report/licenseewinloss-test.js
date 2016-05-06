@@ -89,7 +89,7 @@
             
             LicenseeWinLoss.setExcelUrl(1, 2, 3, new Date(), new Date(), 'UUS');
 
-            expect(LicenseeWinLossOption.urlExcelData).toBe('api/report/LicenseeWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016&currencyName=UUS');
+            expect(LicenseeWinLossOption.urlExcelData).toBe('api/LicenseeWinLossReport/LicenseeWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016&currencyName=UUS');
         });
     });
 
@@ -151,7 +151,7 @@
 
     describe("goBack(level)", function () {
         it("LicenseeWinLossOption.urlExcelData should be updated to correct value.", function () {
-            expect(LicenseeWinLossOption.urlExcelData).toBe('api/report/LicenseeWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016&currencyName=UUS');
+            expect(LicenseeWinLossOption.urlExcelData).toBe('api/LicenseeWinLossReport/LicenseeWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016&currencyName=UUS');
         });
     });
 });
