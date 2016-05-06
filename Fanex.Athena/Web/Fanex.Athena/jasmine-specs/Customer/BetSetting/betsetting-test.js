@@ -430,7 +430,7 @@
         });
 
         it("ajax request should be called with url is 'RacingBetSetting/updateBetSetting?'", function () {
-            expect(request.url).toBe("RacingBetSetting/updateBetSetting?");
+            expect(request.url).toBe("RacingBetSetting/updateBetSetting");
         });
 
         it("BetSetting.getBetSettingParamsForSports(sportIds) should be called", function () {
@@ -517,7 +517,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("LiveCasinoBetSetting/updateBetSetting?")
+                .stubRequest("LiveCasinoBetSetting/updateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -536,7 +536,7 @@
         });
 
         it("ajax request should be called with url is 'LiveCasinoBetSetting/updateBetSetting?'", function () {
-            expect(request.url).toBe("LiveCasinoBetSetting/updateBetSetting?");
+            expect(request.url).toBe("LiveCasinoBetSetting/updateBetSetting");
         });
 
         it("BetSetting.showDialogMesage should be called", function () {
