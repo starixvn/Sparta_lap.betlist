@@ -58,6 +58,7 @@ namespace Fanex.Athena
             if (AppSettings.IsEnableCasinoService)
             {
                 SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                Logging.LogService.Info("Casino Service Started!");
             }
         }
 
