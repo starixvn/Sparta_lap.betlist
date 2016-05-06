@@ -347,11 +347,17 @@ var BetList = (function ($) {
 
         viewVoidbridgeResult: function (custId, gamePlayId) {
             var url = Site.resolveClientUrl('Result/VoidbridgeResult');
+            Site.blockUI();
             $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                 if (result !== '') {
-                    window.open(result, '_blank', 'left=20,top=20,width=950,height=650,toolbar=1,resizable=1,scrollbars,status=1');
-                } else {
-                    alert("Could not open Voidbridge Result Page!");
+                    var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + result + '" ></iframe></div></div>';
+                    $(dialogForm).dialog({
+                        modal: true,
+                        width: 800,
+                        height: 380
+                    });
+                    Site.unBlockUI();
                 }
             });
         },
