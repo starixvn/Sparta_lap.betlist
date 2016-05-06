@@ -55,7 +55,7 @@ namespace Fanex.Athena
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");
 
-            if (!AppSettings.LocalTest)
+            if (AppSettings.IsEnableCasinoService)
             {
                 SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
             }
