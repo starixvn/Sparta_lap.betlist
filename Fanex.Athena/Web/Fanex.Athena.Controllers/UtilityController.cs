@@ -12,9 +12,8 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Configuration;
-    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
+    using ONEbook.UM.Services.Impl;
     using Resources;
 
     /// <summary>
@@ -151,23 +150,21 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult UnderMaintenance()
         {
-            IMaintenanceService maintenanceService = new MaintenanceService();
+            var maintenanceService = new MaintenanceService();
 
             var underMaintenanceTimeFrom = string.Empty;
             var underMaintenanceTimeTo = string.Empty;
-            var maintenanceInfo = maintenanceService.MaintenanceInfo;
-            var acceptIp = AppSettings.GetValue("AcceptIp");
-            var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
+            var maintenanceInfo = maintenanceService.GetUnderMaintenanceTime();
 
-            if (!isDeploying && !maintenanceInfo.IsDownTime)
+            if (!maintenanceInfo.IsUnderMaintenanceTime)
             {
                 Response.Redirect(FormsAuthentication.LoginUrl);
                 Response.End();
             }
             else
             {
-                underMaintenanceTimeFrom = maintenanceInfo.UmTimeFrom;
-                underMaintenanceTimeTo = maintenanceInfo.UmTimeTo;
+                underMaintenanceTimeFrom = maintenanceInfo.From;
+                underMaintenanceTimeTo = maintenanceInfo.To;
 
                 if (string.IsNullOrEmpty(underMaintenanceTimeFrom) || string.IsNullOrEmpty(underMaintenanceTimeTo))
                 {

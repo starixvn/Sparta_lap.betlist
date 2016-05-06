@@ -94,10 +94,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UMControllerLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UMControllerLibrary.1.0.0.1\lib\net40\UMControllerLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BetTypeService.cs" />
@@ -112,7 +108,6 @@
     <Compile Include="Common\ProductService.cs" />
     <Compile Include="Common\SportTypeService.cs" />
     <Compile Include="Configuration\BalanceUpService.cs" />
-    <Compile Include="Configuration\MaintenanceService.cs" />
     <Compile Include="Configuration\MoveBetService.cs" />
     <Compile Include="Exception\ServiceException.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
@@ -127,7 +122,6 @@
     <Compile Include="Common\Interfaces\IProductService.cs" />
     <Compile Include="Common\Interfaces\ISportTypeService.cs" />
     <Compile Include="Configuration\Interfaces\IBalanceUpService.cs" />
-    <Compile Include="Configuration\Interfaces\IMaintenanceService.cs" />
     <Compile Include="Configuration\Interfaces\IMoveBetService.cs" />
     <Compile Include="Users\Interfaces\IAuthorizationService.cs" />
     <Compile Include="Users\Interfaces\ILicenseeService.cs" />

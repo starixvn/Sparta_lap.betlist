@@ -8,13 +8,13 @@ namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using Web.ActionFilter;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Read only controller.
     /// </summary>
     [SessionState(SessionStateBehavior.ReadOnly)]
-    [UMChecking]
+    [CheckUMFilter]
     public class ReadonlyBaseController : BaseController
     {
     }

@@ -22,12 +22,13 @@ namespace Fanex.Athena.Controllers.Account
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
+    using ONEbook.UM.Filters;
     using Resources;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
-    [UMChecking]
+    [CheckUMFilter]
     public class AccountController : BaseController
     {
         private const string ParentUrl = "Account/Manage";

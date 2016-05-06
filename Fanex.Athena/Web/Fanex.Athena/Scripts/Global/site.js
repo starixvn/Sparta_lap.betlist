@@ -66,6 +66,9 @@ var Site = (function ($) {
                     500: function () {
                         Site.unBlockUI();
                         alert(Site.getSingleResource("ErrorProcessingMsg"));
+                    },
+                    301: function () {
+                        Site.signOut();
                     }
                 }
             });

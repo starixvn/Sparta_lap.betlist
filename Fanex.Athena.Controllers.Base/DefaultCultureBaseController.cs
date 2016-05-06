@@ -12,7 +12,8 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using Web.ActionFilter;
+    using ONEbook.UM.Filters;
+
     #endregion Using
 
     /// <summary>
@@ -20,7 +21,7 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     [Authorize]
     [SessionState(SessionStateBehavior.ReadOnly)]
-    [UMChecking]
+    [CheckUMFilter]
     public class DefaultCultureBaseController : Controller
     {
         private readonly ISessionService _sessionService = new SessionService();
