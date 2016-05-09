@@ -2885,8 +2885,8 @@
     <value>Progressive Payout</value>
     <comment>#56248</comment>
   </data>
-  <data name="ProgresssiveFee" xml:space="preserve">
-    <value>Progresssive Fee</value>
+  <data name="ProgressiveFee" xml:space="preserve">
+    <value>Progressive Fee</value>
     <comment>#56248</comment>
   </data>
 </root>

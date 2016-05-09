@@ -109,7 +109,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
             row.Cells[ColumnLicenseeNetWin].SetCellValue(ViewResources.LicenseeNetWin);
             row.Cells[ColumnAmountDueToMGC].SetCellValue(ViewResources.AmountDueToMGC);
-            row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgresssiveFee);
+            row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgressiveFee);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)

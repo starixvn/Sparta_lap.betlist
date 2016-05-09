@@ -169,7 +169,7 @@ var MicroGamingWinLossOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var progresssiveFeeColumn =
+    var progressiveFeeColumn =
     {
         name: 'ProgressiveFee',
         index: 'ProgressiveFee',
@@ -186,11 +186,11 @@ var MicroGamingWinLossOption = (function () {
 
     var colNameList = ['#', 'TypeName', 'Date', 'Currency',
       'Turnover', 'TotalTransaction', 'CustomerW_L', 'ProgressiveContribution', 'ProgressivePayout',
-      'LicenseeW_L', 'LicenseeNetWin', 'AmountDueToMGC', 'ProgresssiveFee'];
+      'LicenseeW_L', 'LicenseeNetWin', 'AmountDueToMGC', 'ProgressiveFee'];
 
     var colModelList = [indexColumn, typeNameColumn, dateColumn, currencyColumn,
         turnoverColumn, totalTransColumn, customerWlColumn, progressiveContributionColumn, progressivePayoutColumn,
-        licenseeWlColumn, licenseeNetWinColumn, amountDueToMGColumn, progresssiveFeeColumn];
+        licenseeWlColumn, licenseeNetWinColumn, amountDueToMGColumn, progressiveFeeColumn];
 
     var me =
     {

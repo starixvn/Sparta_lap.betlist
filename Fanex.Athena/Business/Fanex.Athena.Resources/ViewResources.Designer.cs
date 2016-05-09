@@ -5830,20 +5830,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Progressive Fee.
+        /// </summary>
+        public static string ProgressiveFee {
+            get {
+                return ResourceManager.GetString("ProgressiveFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Progressive Payout.
         /// </summary>
         public static string ProgressivePayout {
             get {
                 return ResourceManager.GetString("ProgressivePayout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Progresssive Fee.
-        /// </summary>
-        public static string ProgresssiveFee {
-            get {
-                return ResourceManager.GetString("ProgresssiveFee", resourceCulture);
             }
         }
         
