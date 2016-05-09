@@ -207,7 +207,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
             row.Cells[ColumnLicenseeNetWin].SetCellValue(data.LicenseeNetWin);
             row.Cells[ColumnAmountDueToMGC].SetCellValue(data.AmountDueToMGC);
-            row.Cells[ColumnProgressiveFee].SetCellValue(data.ProgresssiveFee);
+            row.Cells[ColumnProgressiveFee].SetCellValue(data.ProgressiveFee);
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace Fanex.Athena.Excel.Report
                         LicenseeWL = group.Sum(a => a.LicenseeWL),
                         LicenseeNetWin = group.Sum(a => a.LicenseeNetWin),
                         AmountDueToMGC = group.Sum(a => a.AmountDueToMGC),
-                        ProgresssiveFee = group.Sum(a => a.ProgresssiveFee)
+                        ProgressiveFee = group.Sum(a => a.ProgressiveFee)
                     }).ToList();
 
             return listTotalCurrency;

@@ -81,7 +81,7 @@ namespace Fanex.Athena.Service.Implement.Report
                 LicenseeWL = g.Sum(p => p.LicenseeWL),
                 LicenseeNetWin = g.Sum(p => p.LicenseeNetWin),
                 AmountDueToMGC = g.Sum(p => p.AmountDueToMGC),
-                ProgresssiveFee = g.Sum(p => p.ProgresssiveFee)
+                ProgressiveFee = g.Sum(p => p.ProgressiveFee)
             }).ToList();
         }
     }

@@ -171,8 +171,8 @@ var MicroGamingWinLossOption = (function () {
 
     var progresssiveFeeColumn =
     {
-        name: 'ProgresssiveFee',
-        index: 'ProgresssiveFee',
+        name: 'ProgressiveFee',
+        index: 'ProgressiveFee',
         width: 100,
         align: 'right',
         sortable: false,

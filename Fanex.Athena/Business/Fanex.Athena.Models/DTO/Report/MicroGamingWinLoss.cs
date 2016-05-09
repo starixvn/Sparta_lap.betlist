@@ -43,6 +43,6 @@ namespace Fanex.Athena.Models.DTO.Report
 
         public decimal AmountDueToMGC { get; set; }
 
-        public decimal ProgresssiveFee { get; set; }
+        public decimal ProgressiveFee { get; set; }
     }
 }
