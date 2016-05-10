@@ -762,8 +762,6 @@
     <Content Include="jasmine-specs\WareHouse\topcustomer-test.js" />
     <Content Include="jasmine-specs\WareHouse\winloss-test.js" />
     <Content Include="package.json" />
-    <Content Include="Jasmine\SpecRunnerReport.html" />
-    <Content Include="Jasmine\SpecRunnerSingleTesting.html" />
     <Content Include="karma.conf.js" />
     <Content Include="Scripts\Languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
@@ -837,7 +835,6 @@
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
     <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
-    <Content Include="Jasmine\SpecRunner.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
