@@ -533,10 +533,7 @@ var BetList = (function ($) {
             if (Number(transId) === 0) { return; }
 
             var url = Site.resolveClientUrl('SystemParlayBetList/Detail');
-            url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "refno", refNo);
-            url = QueryString.setParam(url, "betid", betId);
-            url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "betteam", betTeam);
             url = QueryString.setParam(url, "basecurrency", baseCurrency);
 

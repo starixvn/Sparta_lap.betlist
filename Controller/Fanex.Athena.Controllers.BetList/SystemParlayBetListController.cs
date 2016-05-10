@@ -44,8 +44,7 @@ namespace Fanex.Athena.Controllers.BetList
             var systemParlayText = _betListBuilder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
             var viewModel = new SystemParlayDetailViewModel
             {
-                DetailText = systemParlayText,
-                Param = metaModel
+                DetailText = systemParlayText
             };
 
             return View("~/Views/BetList/SystemParlayDetail/Main.cshtml", viewModel);
