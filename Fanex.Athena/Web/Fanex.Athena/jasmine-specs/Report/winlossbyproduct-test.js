@@ -19,7 +19,7 @@
         });
         
         it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
-            expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/report/WinLostByProduct");
+            expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/WinLossByProductReport/WinLossByProduct");
         });
         it("Site.addFilterCollapseExpand() should be called", function () {
             expect(Site.addFilterCollapseExpand).toHaveBeenCalled();
@@ -98,7 +98,7 @@
 
     describe("setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName)", function () {
         it("WinLossByProductOption.urlExcelData should has correct data", function () {
-            var expected = 'api/report/WinLostByProduct';
+            var expected = 'api/WinLossByProductReport/WinLossByProduct';
 
             WinLossByProduct.setExcelUrl(0, 2, 221, "Apr 15, 2016", "Apr 20, 2016", "UUS");
 
