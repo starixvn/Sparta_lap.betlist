@@ -51,8 +51,7 @@ var _language_ko_KR={
                     var valueItem = item.Descendants("value").FirstOrDefault();
 					index++;
 			#>
-                 <#=CreateJjonPropertise(item.Attribute("name").Value, valueItem.Value, se)#>
-				 	
+<#=CreateJjonPropertise(item.Attribute("name").Value, valueItem.Value, se)#>
     <# }} #>
          
 	 

@@ -2853,7 +2853,7 @@
     <comment>#52794</comment>
   </data>
   <data name="ProductVB" xml:space="preserve">
-    <value>Voidbridge</value>
+    <value>Macau Games</value>
     <comment>#55057</comment>
   </data>
   <data name="Member" xml:space="preserve">
@@ -2863,10 +2863,10 @@
     <value>%Turnover</value>
     <comment>#54751</comment>
   </data>
-  <data name="DisableVoidbridge" xml:space="preserve">
-    <value>Disable Voidbridge</value>
+  <data name="DisableMacauGames" xml:space="preserve">
+    <value>Disable Macau Games</value>
   </data>
-  <data name="EnableVoidbridge" xml:space="preserve">
-    <value>Enable Voidbridge</value>
+  <data name="EnableMacauGames" xml:space="preserve">
+    <value>Enable Macau Games</value>
   </data>
 </root>

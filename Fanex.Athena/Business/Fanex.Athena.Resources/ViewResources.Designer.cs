@@ -1933,6 +1933,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Macau Games.
+        /// </summary>
+        public static string DisableMacauGames {
+            get {
+                return ResourceManager.GetString("DisableMacauGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Microgaming.
         /// </summary>
         public static string DisableMicrogaming {
@@ -1956,15 +1965,6 @@ namespace Fanex.Athena.Resources {
         public static string DisableSSOMsg {
             get {
                 return ResourceManager.GetString("DisableSSOMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Voidbridge.
-        /// </summary>
-        public static string DisableVoidbridge {
-            get {
-                return ResourceManager.GetString("DisableVoidbridge", resourceCulture);
             }
         }
         
@@ -2158,6 +2158,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Macau Games.
+        /// </summary>
+        public static string EnableMacauGames {
+            get {
+                return ResourceManager.GetString("EnableMacauGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable Microgaming Live Casino.
         /// </summary>
         public static string EnableMicrogamingLiveCasino {
@@ -2181,15 +2190,6 @@ namespace Fanex.Athena.Resources {
         public static string EnableRNGCasino {
             get {
                 return ResourceManager.GetString("EnableRNGCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Voidbridge.
-        /// </summary>
-        public static string EnableVoidbridge {
-            get {
-                return ResourceManager.GetString("EnableVoidbridge", resourceCulture);
             }
         }
         
@@ -5776,7 +5776,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voidbridge.
+        ///   Looks up a localized string similar to Macau Games.
         /// </summary>
         public static string ProductVB {
             get {

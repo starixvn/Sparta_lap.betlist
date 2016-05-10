@@ -52,8 +52,7 @@ var _language_zh_Hans={
                     var valueItem = item.Descendants("value").FirstOrDefault();
 					index++;
 			#>
-                 <#=CreateJjonPropertise(item.Attribute("name").Value, valueItem.Value, se)#>
-				 	
+<#=CreateJjonPropertise(item.Attribute("name").Value, valueItem.Value, se)#>
     <# }} #>
          
 	 
