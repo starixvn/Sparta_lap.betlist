@@ -555,7 +555,7 @@ var MonitorBetListUI = function (monitorObj) {
         var maxStake = $this.monitor.maxStake;
         $("#stake-from").numbericTextBox(0, maxStake);
         $("#stake-to").numbericTextBox(0, maxStake);
-        $("#stake-from", "#stake-to").keyup(function () {
+        $("#stake-from, #stake-to").keyup(function () {
             $this.setHighlightSubmit();
         });
 
