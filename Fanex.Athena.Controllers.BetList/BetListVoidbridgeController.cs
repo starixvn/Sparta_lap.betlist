@@ -42,7 +42,7 @@
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, _title);
 
-            return new ExcelResult(workbook, "VoidbridgeDetail");
+            return new ExcelResult(workbook, "MacauGamesDetail");
         }
     }
 }
