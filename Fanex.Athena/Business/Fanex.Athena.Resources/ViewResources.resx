@@ -2869,8 +2869,4 @@
   <data name="EnableMacauGames" xml:space="preserve">
     <value>Enable Macau Games</value>
   </data>
-  <data name="MaxBetCanNotGreaterThanMaxPerDraw" xml:space="preserve">
-    <value>Max Bet can not be greater than Max Bet Per Draw</value>
-    <comment>#57309</comment>
-  </data>
 </root>

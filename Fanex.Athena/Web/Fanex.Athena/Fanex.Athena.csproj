@@ -4648,18 +4648,6 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
-    <Folder Include="Scripts\jasmine-specs\Account\" />
-    <Folder Include="Scripts\jasmine-specs\BetList\" />
-    <Folder Include="Scripts\jasmine-specs\Casino\" />
-    <Folder Include="Scripts\jasmine-specs\Customer\BetSetting\" />
-    <Folder Include="Scripts\jasmine-specs\Customer\CustomerComm\" />
-    <Folder Include="Scripts\jasmine-specs\Customer\CustomerLog\" />
-    <Folder Include="Scripts\jasmine-specs\Extension\" />
-    <Folder Include="Scripts\jasmine-specs\Forecast\" />
-    <Folder Include="Scripts\jasmine-specs\Global\" />
-    <Folder Include="Scripts\jasmine-specs\Report\" />
-    <Folder Include="Scripts\jasmine-specs\TotalBets\" />
-    <Folder Include="Scripts\jasmine-specs\WareHouse\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
