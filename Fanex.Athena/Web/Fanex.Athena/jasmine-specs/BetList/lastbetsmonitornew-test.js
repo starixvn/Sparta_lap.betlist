@@ -656,6 +656,11 @@ describe("MonitorBetList", function () {
             expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
         });
 
+        it("MonitorBetListUI.setHighlightSubmit() should be called when $('#stake-to') fired keyup event", function () {
+            $("#stake-to").keyup();
+            expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
+        });
+
         it("MonitorBetListUI.setHighlightSubmit() should be called when $('#stake-from') fired change event", function () {
             $("#stake-from").change();
             expect(monitorUi.setHighlightSubmit).toHaveBeenCalled();
