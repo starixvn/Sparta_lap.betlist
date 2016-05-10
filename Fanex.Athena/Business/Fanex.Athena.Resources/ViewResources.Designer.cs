@@ -4255,6 +4255,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max Bet can not be greater than Max Bet Per Draw.
+        /// </summary>
+        public static string MaxBetCanNotGreaterThanMaxPerDraw {
+            get {
+                return ResourceManager.GetString("MaxBetCanNotGreaterThanMaxPerDraw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Bet can not be greater than Max Per Match.
         /// </summary>
         public static string MaxBetCanNotGreaterThanMaxPerMatch {
