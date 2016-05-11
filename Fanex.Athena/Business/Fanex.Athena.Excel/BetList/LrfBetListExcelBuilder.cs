@@ -92,7 +92,7 @@ namespace Fanex.Athena.Excel.BetList
         {
             ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 6; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Excel.BetList
         {
             ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 7; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
