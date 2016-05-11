@@ -165,9 +165,13 @@
         });
     });
 
-    xdescribe("submit()", function () {
+    describe("submit()", function () {
+        var TESTURL = "testurl";
+        var originalUrl = WinLossByProductOption.urlData;
         var request;
+
         beforeEach(function (done) {
+            WinLossByProductOption.urlData = TESTURL;
             spyOn(Report, "setOriginalProduct");
             spyOn(Report, "ValidProducts").and.returnValue(true);
             spyOn(Site, "updateOriginalLicenseeOption");
@@ -181,7 +185,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest(Site.resolveClientUrl("api/WinLossByProductReport/WinLossByProduct"))
+                .stubRequest(Site.resolveClientUrl(TESTURL))
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -194,12 +198,12 @@
         });
 
         afterEach(function () {
+            WinLossByProductOption.urlData = originalUrl;
             jasmine.Ajax.uninstall();
         });
 
         it("ajax request should be called with correct url", function () {
-            var expectedUrl = "api/WinLossByProductReport/WinLossByProduct";
-            expect(request.url).toBe(expectedUrl);
+            expect(request.url).toBe(TESTURL);
         });
 
         it("Report.setOriginalProduct() should be called", function () {
