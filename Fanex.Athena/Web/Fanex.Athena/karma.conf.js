@@ -182,14 +182,14 @@ module.exports = function(config) {
 		
 		'Scripts/Report/winlossbyproduct*.js',
 		'jasmine-specs/Report/winlossbyproduct*-test.js',
-		/* 
+		
 		 // --------- TotalBets --------- //
 		'Scripts/TotalBets/*.js',
 		 'jasmine-specs/TotalBets/*-test.js',
 		 
 		  // --------- WareHouse --------- //
 		'Scripts/WareHouse/*.js',
-		 'jasmine-specs/WareHouse/*-test.js',*/
+		 'jasmine-specs/WareHouse/*-test.js',
     ],
     exclude: [
     ],
