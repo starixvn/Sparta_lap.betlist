@@ -93,7 +93,12 @@ module.exports = function(config) {
 		 'jasmine-specs/Extension/*-test.js',
 		 
 		 // --------- Forecast --------- //
-		'Scripts/Forecast/*.js',
+		'Scripts/Forecast/forecastpopup.js',
+		'Scripts/Forecast/forecast.ah.js',
+		'Scripts/Forecast/forecast.handicapoverunder.js',
+		'Scripts/Forecast/forecast.newforecasthdpou.js',
+		'Scripts/Forecast/forecast.onextwo.js',
+		
 		 'jasmine-specs/Forecast/*-test.js',
 		 
 		 // --------- Global --------- //
@@ -174,10 +179,10 @@ module.exports = function(config) {
 		 
 		'Scripts/Report/winlossbyleague*.js',
 		'jasmine-specs/Report/winlossbyleague*-test.js',
-		/* 
+		
 		'Scripts/Report/winlossbyproduct*.js',
 		'jasmine-specs/Report/winlossbyproduct*-test.js',
-		
+		/* 
 		 // --------- TotalBets --------- //
 		'Scripts/TotalBets/*.js',
 		 'jasmine-specs/TotalBets/*-test.js',
