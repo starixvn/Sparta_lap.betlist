@@ -708,7 +708,9 @@
     <Content Include="jasmine-specs\Report\winlossbybettype-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague.option-test.js" />
+    <Content Include="jasmine-specs\Report\platformwinloss-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyproduct-test.js" />
+    <Content Include="jasmine-specs\Report\platformwinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyproduct.option-test.js" />
     <Content Include="jasmine-specs\setup.js" />
     <Content Include="jasmine-specs\TotalBets\firstgoallastgoal-test.js" />

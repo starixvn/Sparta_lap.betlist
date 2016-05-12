@@ -150,10 +150,9 @@ module.exports = function(config) {
 		
 		'Scripts/Report/microgamingwinloss*.js',
 		'jasmine-specs/Report/microgamingwinloss*-test.js',
-		
-		// have not been implemented
-		//'Scripts/Report/platformwinloss*.js',
-		//'jasmine-specs/Report/platformwinloss*-test.js',
+	
+		'Scripts/Report/platformwinloss*.js',
+		'jasmine-specs/Report/platformwinloss*-test.js',
 		
 		'Scripts/Report/playtechcasino*.js',
 		'jasmine-specs/Report/playtechcasino*-test.js',
