@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using Configuration;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
@@ -17,7 +16,6 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Service.Interface.Report;
-    using Interface.Configuration;
 
     /// <summary>
     ///     The active customer service.

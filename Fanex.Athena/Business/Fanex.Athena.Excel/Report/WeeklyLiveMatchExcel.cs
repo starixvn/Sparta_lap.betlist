@@ -12,8 +12,8 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     public class WeeklyLiveMatchExcel : ReportBase
     {

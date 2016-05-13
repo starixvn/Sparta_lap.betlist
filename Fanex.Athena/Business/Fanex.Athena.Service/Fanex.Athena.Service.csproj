@@ -200,6 +200,7 @@
     <Compile Include="Implement\Report\AgCasinoBalanceService.cs" />
     <Compile Include="Implement\Report\PlaytechCasinoService.cs" />
     <Compile Include="Implement\Report\ThirdPartyWinLossService.cs" />
+    <Compile Include="Implement\Report\WeeklyLiveMatchService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
     <Compile Include="Implement\Forecast\ForecastService.cs" />
