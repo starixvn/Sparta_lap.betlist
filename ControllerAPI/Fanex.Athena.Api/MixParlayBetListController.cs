@@ -29,7 +29,7 @@ namespace Fanex.Athena.Api.BetList
         {
             var texts = CacheRef.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
 
-            var ticketResult = _betListService.GetMixParlayDetailTicket(transId);
+            var ticketResult = BetListService.GetMixParlayDetailTicket(transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
             var textRenderPattern = "<p class='system-parlay-ticket-infor'>" 
