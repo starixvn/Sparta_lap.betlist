@@ -45,6 +45,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.IsServerPaging = true;
 
             var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_MatchWL_Racing"
