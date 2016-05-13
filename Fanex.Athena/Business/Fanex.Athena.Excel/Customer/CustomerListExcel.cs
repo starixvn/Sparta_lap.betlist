@@ -15,10 +15,10 @@ namespace Fanex.Athena.Excel.Customer
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Extension;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Models.ViewModel.Customer;
+    using Fanex.Athena.Model.Customer.ViewModel;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -204,15 +204,15 @@ namespace Fanex.Athena.Excel.Customer
                 /*group columns*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
-                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);                    
-                }           
+                    row.Cells[GroupColumn].SetCellValue(item.GroupCommId == 0 ? ViewResources.None : item.Group);
+                }
 
                 /* commission column*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(CUSTOMERCOMM))
                 {
                     if (_exportData.ProductAccess.IsAllowSB)
                     {
-                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));                       
+                        row.Cells[SBCommColumn].SetCellValue(item.SBComm.ToStringExt(2));
                     }
 
                     if (_exportData.ProductAccess.IsAllowNG)

@@ -22,12 +22,12 @@ namespace Fanex.Athena.Excel.Report
     using Common;
     using Entities;
     using Fanex.Athena.Excel.Extension;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Models.Cache;
-    using Models.DataDomain;
-    using Models.DTO.Common;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Match Win Loss report - Export excel.
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowSpecialBetTypeTemplate = 7;
         private const int RowGrandTotalTemplate = 8;
         private const int RowNoInfoTemplate = 9;
-        
+
         private readonly MatchWinLossMetaModel _model;
         private readonly DataTable _totalData;
 

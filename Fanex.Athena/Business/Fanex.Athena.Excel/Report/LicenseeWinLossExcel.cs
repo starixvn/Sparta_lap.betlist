@@ -9,20 +9,20 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
-    using Models.DTO.Report;
-    using Models.MetaModel.Product;
-    using Models.MetaModel.Report;
-    using Models.ViewModel;
-    using Models.ViewModel.Report;
-    using NPOI.SS.UserModel;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Base;
+    using Entities;
+    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
+    using Model.Core.MetaModel.Product;
+    using Models.DTO.Report;
+    using Models.MetaModel.Report;
+    using Models.ViewModel.Report;
+    using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Licensee Win Loss - Export excel.
@@ -35,31 +35,31 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 17;
+        private const int ColumnTurnoverTotal = 18;
 
-        private const int ColumnActualStake = 18;
+        private const int ColumnActualStake = 19;
 
-        private const int ColumnBuyBackAmountSportsbook = 19;
-        private const int ColumnBuyBackAmountBA = 20;
-        private const int ColumnBuyBackAmountTotal = 21;
+        private const int ColumnBuyBackAmountSportsbook = 20;
+        private const int ColumnBuyBackAmountBA = 21;
+        private const int ColumnBuyBackAmountTotal = 22;
 
-        private const int ColumnTotalTransaction = 22;
+        private const int ColumnTotalTransaction = 23;
 
-        private const int ColumnCustomerWl = 23;
-        private const int ColumnCustomerComm = 24;
-        private const int ColumnCustomerTotal = 25;
+        private const int ColumnCustomerWl = 24;
+        private const int ColumnCustomerComm = 25;
+        private const int ColumnCustomerTotal = 26;
 
-        private const int ColumnLicenseeWlSportsBook = 26;
-        private const int ColumnLicenseeWlTotal = 38;
+        private const int ColumnLicenseeWlSportsBook = 27;
+        private const int ColumnLicenseeWlTotal = 40;
 
-        private const int ColumnBetTradeCommission = 39;
-        private const int ColumnBaCommission = 40;
-        private const int ColumnRacingRevenue = 41;
-        private const int ColumnAmtDueToBetTrade = 42;
-        private const int ColumnAmtDueToBa = 43;
-        private const int ColumnAmtDueToRacing = 44;
+        private const int ColumnBetTradeCommission = 41;
+        private const int ColumnBaCommission = 42;
+        private const int ColumnRacingRevenue = 43;
+        private const int ColumnAmtDueToBetTrade = 44;
+        private const int ColumnAmtDueToBa = 45;
+        private const int ColumnAmtDueToRacing = 46;
 
-        private const int ColumnTemplateCount = 45;
+        private const int ColumnTemplateCount = 47;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -181,11 +181,12 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductLC,
                 ViewResources.ProductVS,
                 ViewResources.ProductCS,
-                ViewResources.ProductBG,
                 ViewResources.ProductKN,
+                ViewResources.ProductAGC,
                 ViewResources.ProductBT,
                 ViewResources.ProductMGCLC,
                 ViewResources.ProductMGCRNG,
+                ViewResources.ProductVB,
                 ViewResources.Total
             };
 
@@ -549,11 +550,12 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.LC, Status = false },
                 new ProductOption { Code = Product.VS, Status = false },
                 new ProductOption { Code = Product.CS, Status = false },
-                new ProductOption { Code = Product.BG, Status = false },
                 new ProductOption { Code = Product.KN, Status = false },
+                new ProductOption { Code = Product.AGC, Status = false },
                 new ProductOption { Code = Product.BT, Status = false },
                 new ProductOption { Code = Product.MGCLC, Status = false },
-                new ProductOption { Code = Product.MGCRNG, Status = false }
+                new ProductOption { Code = Product.MGCRNG, Status = false },
+                new ProductOption { Code = Product.VB, Status = false }
             };
 
             var offeredProductsLength = offeredProducts.Count();

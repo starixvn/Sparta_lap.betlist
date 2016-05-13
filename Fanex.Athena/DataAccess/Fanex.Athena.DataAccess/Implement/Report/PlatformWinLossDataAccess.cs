@@ -10,17 +10,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Extension;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Core;
+    using Core.Exception;
+    using Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Model.Core.DTO.Configuration;
 
     /// <summary>
     /// Platform win loss data access.
@@ -99,7 +98,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     parent = new PlatformWinLossSummary()
                     {
                         PlatformType = platformType,
-                        Name = PlatformType.GetPlatformName(platformType),
+                        Name = Model.Core.DataDomain.PlatformType.GetPlatformName(platformType),
                         ProductCode = string.Empty
                     };
                     parentRows.Add(platformType, parent);

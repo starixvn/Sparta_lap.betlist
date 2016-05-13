@@ -11,11 +11,11 @@
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
             : base(balanceUp)
         {
-        }        
+        }
 
         #region Utility
 
@@ -88,16 +88,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
             const string UspName = "Lrf_Rpt_WinLossByBettype";
             var uspParams = new
-                {
-                    metaModel.LicenseeId,
-                    metaModel.UserId,
-                    metaModel.LicenseeType,
-                    metaModel.CurrencyId,
-                    metaModel.FromDate,
-                    metaModel.ToDate,
-                    BalanceUp.MoveBetsDay,
-                    BalanceUp.BalanceUpDay
-                };
+            {
+                metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.LicenseeType,
+                metaModel.CurrencyId,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                BalanceUp.MoveBetsDay,
+                BalanceUp.BalanceUpDay
+            };
 
             try
             {

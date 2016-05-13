@@ -8,10 +8,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;

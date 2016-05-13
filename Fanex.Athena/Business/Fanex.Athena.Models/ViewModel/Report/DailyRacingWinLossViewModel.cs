@@ -8,6 +8,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
 {
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Model.Core.ViewModel;
 
     /// <summary>
     /// DailyRacingWinLossViewModel class.

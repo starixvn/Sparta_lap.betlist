@@ -10,7 +10,8 @@ namespace Fanex.Athena.Models.MetaModel.BetList
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using Fanex.Athena.Models.MetaModel.Product;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Model.Core.MetaModel;
 
     /// <summary>
     /// BetListMetaModel class.

@@ -11,15 +11,15 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Interface.Configuration;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Interface.Report;
+    using Resources;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -118,8 +118,10 @@ namespace Fanex.Athena.Service.Implement.Report
             {
                 case Product.RB:
                     return string.Empty;
+
                 case Product.NG:
                     return string.Empty;
+
                 default:
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
                                    (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
@@ -138,8 +140,10 @@ namespace Fanex.Athena.Service.Implement.Report
             {
                 case Product.RB:
                     return string.Empty;
+
                 case Product.NG:
                     return string.Empty;
+
                 default:
                     var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
 
@@ -157,33 +161,33 @@ namespace Fanex.Athena.Service.Implement.Report
             var result = dataList.Where(p => p.ProductName == Product.SB || p.ProductName == Product.BA)
                                  .GroupBy(p => p.MatchId)
                                  .Select(g => new MatchWinLoss
-                                     {
-                                         LeagueId = g.Select(r => r.LeagueId).FirstOrDefault(),
-                                         LeagueName = g.Select(r => r.LeagueName).FirstOrDefault(),
-                                         SportType = g.Select(r => r.SportType).FirstOrDefault(),
-                                         MatchId = g.Select(r => r.MatchId).FirstOrDefault(),
-                                         ShowTime = g.Select(r => r.ShowTime).FirstOrDefault(),
-                                         MatchName = g.Select(r => r.MatchName).FirstOrDefault(),
-                                         MatchCode = g.Select(r => r.MatchCode).FirstOrDefault(),
-                                         HomeName = g.Select(r => r.HomeName).FirstOrDefault(),
-                                         AwayName = g.Select(r => r.AwayName).FirstOrDefault(),
-                                         ProductName = Product.SB,
-                                         RaceNo = g.Select(r => r.RaceNo).FirstOrDefault(),
-                                         IsLive = g.Select(r => r.IsLive).FirstOrDefault(),
-                                         HomeId = g.Select(r => r.HomeId).FirstOrDefault(),
-                                         AwayId = g.Select(r => r.AwayId).FirstOrDefault(),
-                                         BetType = g.Select(r => r.BetType).FirstOrDefault(),
-                                         IsNeutral = g.Select(r => r.IsNeutral).FirstOrDefault(),
-                                         Turnover = g.Sum(r => r.Turnover),
-                                         TotalTransaction = g.Sum(r => r.TotalTransaction),
-                                         CustomerWL = g.Sum(r => r.CustomerWL),
-                                         CustomerComm = g.Sum(r => r.CustomerComm),
-                                         LicenseeWL = g.Sum(r => r.LicenseeWL),
-                                         BACommission = g.Sum(r => r.BACommission),
-                                         RacingRevenue = g.Sum(r => r.RacingRevenue),
-                                         AmtDueToBA = g.Sum(r => r.AmtDueToBA),
-                                         AmtDueToRacing = g.Sum(r => r.AmtDueToRacing),
-                                     })
+                                 {
+                                     LeagueId = g.Select(r => r.LeagueId).FirstOrDefault(),
+                                     LeagueName = g.Select(r => r.LeagueName).FirstOrDefault(),
+                                     SportType = g.Select(r => r.SportType).FirstOrDefault(),
+                                     MatchId = g.Select(r => r.MatchId).FirstOrDefault(),
+                                     ShowTime = g.Select(r => r.ShowTime).FirstOrDefault(),
+                                     MatchName = g.Select(r => r.MatchName).FirstOrDefault(),
+                                     MatchCode = g.Select(r => r.MatchCode).FirstOrDefault(),
+                                     HomeName = g.Select(r => r.HomeName).FirstOrDefault(),
+                                     AwayName = g.Select(r => r.AwayName).FirstOrDefault(),
+                                     ProductName = Product.SB,
+                                     RaceNo = g.Select(r => r.RaceNo).FirstOrDefault(),
+                                     IsLive = g.Select(r => r.IsLive).FirstOrDefault(),
+                                     HomeId = g.Select(r => r.HomeId).FirstOrDefault(),
+                                     AwayId = g.Select(r => r.AwayId).FirstOrDefault(),
+                                     BetType = g.Select(r => r.BetType).FirstOrDefault(),
+                                     IsNeutral = g.Select(r => r.IsNeutral).FirstOrDefault(),
+                                     Turnover = g.Sum(r => r.Turnover),
+                                     TotalTransaction = g.Sum(r => r.TotalTransaction),
+                                     CustomerWL = g.Sum(r => r.CustomerWL),
+                                     CustomerComm = g.Sum(r => r.CustomerComm),
+                                     LicenseeWL = g.Sum(r => r.LicenseeWL),
+                                     BACommission = g.Sum(r => r.BACommission),
+                                     RacingRevenue = g.Sum(r => r.RacingRevenue),
+                                     AmtDueToBA = g.Sum(r => r.AmtDueToBA),
+                                     AmtDueToRacing = g.Sum(r => r.AmtDueToRacing),
+                                 })
                                  .OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName).ToList();
 
             result.AddRange(
@@ -209,6 +213,7 @@ namespace Fanex.Athena.Service.Implement.Report
             {
                 case Product.RB:
                     return ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId);
+
                 default:
                     return CacheRef.GetLeagueName(matchWinLoss.LeagueId);
             }
@@ -225,8 +230,10 @@ namespace Fanex.Athena.Service.Implement.Report
             {
                 case Product.RB:
                     return ViewResources.Race + " " + matchWinLoss.RaceNo;
+
                 case Product.NG:
                     return ViewResources.NumberGameNo + " " + matchWinLoss.MatchCode;
+
                 case Product.LC:
                     return string.Format(
                         "{0} {1} {2} ",
@@ -245,7 +252,7 @@ namespace Fanex.Athena.Service.Implement.Report
                     };
 
                     if (racingSportTypes.Contains(matchWinLoss.SportType))
-                    {                        
+                    {
                         return string.Format(_culturelEnglish, KICKOFFTIMEFORMATER, matchWinLoss.KickofTime);
                     }
 
@@ -255,7 +262,7 @@ namespace Fanex.Athena.Service.Implement.Report
                     var matchName = homeName + "-vs-" + awayName;
                     return matchName;
             }
-        }        
+        }
 
         #endregion Utility
     }

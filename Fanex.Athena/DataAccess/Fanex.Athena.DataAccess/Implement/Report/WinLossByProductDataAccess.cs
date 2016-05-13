@@ -12,17 +12,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -165,7 +164,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             bool drilldown,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
         {
-            var result = new List<WinLossByProduct>();            
+            var result = new List<WinLossByProduct>();
             var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
             summaryTotal = new Dictionary<string, IList<WinLossByProduct>>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
@@ -173,18 +172,18 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
             }
 
-            var systemIdOrdinal = reader.TryGetOrdinal("username");
-            var externalIdOrdinal = reader.TryGetOrdinal("nickname");
-            var customerIdOrdinal = reader.TryGetOrdinal("custid");
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
 
             while (reader.Read())
             {
                 // Read Item
                 var item = new WinLossByProduct
                 {
-                    SystemId = systemIdOrdinal >= 0 ? reader.ToString("username") : string.Empty,
-                    ExternalId = externalIdOrdinal >= 0 ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = customerIdOrdinal >= 0 ? reader.ToInt("custid") : 0,
+                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     ProductCode = reader.ToString("productcode"),
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),

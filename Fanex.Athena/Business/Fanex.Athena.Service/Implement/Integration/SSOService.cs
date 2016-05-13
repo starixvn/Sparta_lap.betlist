@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.Implement.Integration
 {
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
@@ -14,12 +13,12 @@ namespace Fanex.Athena.Service.Implement.Integration
     using System.Web;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Interface.Integration;
-    using Fanex.Athena.Service.Interface.Users;
     using RSACryptoPad;
 
     /// <summary>
@@ -30,11 +29,11 @@ namespace Fanex.Athena.Service.Implement.Integration
         private const string InternalLoginErrorMessage = "Internal login failed.";
 
         private const int DecryptKeySize = 1024;
-        
+
         private const int InValidParamErrorCode = 1;
         private const int DisableSsoErrorCode = 2;
 
-        private const string PrivateKey = "12bet.snk";        
+        private const string PrivateKey = "12bet.snk";
         private const string DefaultLanguage = "en-US";
 
         private readonly HttpContext _context;
@@ -151,7 +150,7 @@ namespace Fanex.Athena.Service.Implement.Integration
 
                 Logging.LogService.Info(message);
 
-                RedirectToErrorPage(resultInfo.Code); 
+                RedirectToErrorPage(resultInfo.Code);
             }
         }
 
@@ -163,7 +162,7 @@ namespace Fanex.Athena.Service.Implement.Integration
             parameter = parameter.Replace(" ", "+");
             var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
 
-            return HttpUtility.ParseQueryString(descryptParam);            
+            return HttpUtility.ParseQueryString(descryptParam);
         }
 
         private string GetPrivateKeyPath()

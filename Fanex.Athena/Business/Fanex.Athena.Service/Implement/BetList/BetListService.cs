@@ -12,15 +12,15 @@ namespace Fanex.Athena.Service.Implement.BetList
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.BetList;
     using Fanex.Athena.DataAccess.Interface.BetList;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Interface.BetList;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Users;
     using Fanex.BetList.Core.Entities;
 
     #endregion

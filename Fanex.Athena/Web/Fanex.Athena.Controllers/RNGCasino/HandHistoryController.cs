@@ -12,14 +12,13 @@ namespace Fanex.Athena.Controllers.RNGCasino
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Casino;
-    using Fanex.Athena.Models.DTO.Casino.RNGResultDetail;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Casino.RNGResultDetail;
-    using Fanex.Athena.Service.Implement.Casino;
-    using Fanex.Athena.Service.Interface.Casino;
+    using Fanex.Athena.Model.Casino.DTO;
+    using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
+    using Fanex.Athena.Model.Casino.MetaModel;
+    using Fanex.Athena.Model.Casino.ViewModel;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Service.Casino;
+    using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
@@ -175,54 +174,71 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 case (int)CasinoGameType.MiniBlackjack:
                 case (int)CasinoGameType.MiniCasinoHoldEm:
                     return "1";
+
                 case (int)CasinoGameType.TexasHoldEm:
                     return "1-1";
+
                 case (int)CasinoGameType.RedDog:
                 case (int)CasinoGameType.MiniRoulette:
                 case (int)CasinoGameType.FishPrawnCrab:
                 case (int)CasinoGameType.CardWheel:
                 case (int)CasinoGameType.FanTan:
                     return "2";
+
                 case (int)CasinoGameType.MoneySlot:
                 case (int)CasinoGameType.Engagement:
                 case (int)CasinoGameType.FoxForce5:
                 case (int)CasinoGameType.TattooArt:
                 case (int)CasinoGameType.MiniMoneySlot:
                     return "3";
+
                 case (int)CasinoGameType.Champions:
                 case (int)CasinoGameType.WaterMargin:
                     return "4";
+
                 case (int)CasinoGameType.WesternZodiac:
                     return "4-1";
+
                 case (int)CasinoGameType.MoneyWheel:
                     return "5";
+
                 case (int)CasinoGameType.JourneytotheWest:
                     return "6";
+
                 case (int)CasinoGameType.ChineseZodiac:
                     return "6-1";
+
                 case (int)CasinoGameType.JacksorBetter:
                     return "7-0";
+
                 case (int)CasinoGameType.JungleWild:
                 case (int)CasinoGameType.GodofProsperity:
                     return "7-1";
+
                 case (int)CasinoGameType.No4LineJacksorBetter:
                 case (int)CasinoGameType.No25LineJacksorBetter:
                 case (int)CasinoGameType.No50LineJacksorBetter:
                     return "7-2";
+
                 case (int)CasinoGameType.No10SOrBetter:
                     return "7-3";
+
                 case (int)CasinoGameType.MonkeyHilo:
                 case (int)CasinoGameType.MahjongHilo:
                     return "7-4";
+
                 case (int)CasinoGameType.KenoChinese:
                 case (int)CasinoGameType.KenoCamera:
                     return "7-5";
+
                 case (int)CasinoGameType.TurfKing:
                     return "7-6";
+
                 case (int)CasinoGameType.MamakCorner:
                 case (int)CasinoGameType.WinterSlot:
                 case (int)CasinoGameType.DragonSlot:
                     return "7-8";
+
                 case (int)CasinoGameType.MayaPush:
                 case (int)CasinoGameType.Knock2Eggs:
                 case (int)CasinoGameType.HoHoHo:
@@ -231,10 +247,12 @@ namespace Fanex.Athena.Controllers.RNGCasino
                 case (int)CasinoGameType.FruitScratch:
                 case (int)CasinoGameType.FlamesofOlympics:
                     return "8";
+
                 case (int)CasinoGameType.PenaltyHatTrick:
                 case (int)CasinoGameType.FancyScratch:
                 case (int)CasinoGameType.LoveStory:
                     return "9";
+
                 default:
                     return string.Empty;
             }

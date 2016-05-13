@@ -14,12 +14,12 @@ namespace Fanex.Athena.Excel.BetList
     using System.Globalization;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Models.DataDomain;
+    using Model.Core.DataDomain;
     using Models.DTO.BetList;
-    using Models.ViewModel;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using Resources;
 
     /// <summary>
     /// Excel bet-list builder.
@@ -83,21 +83,21 @@ namespace Fanex.Athena.Excel.BetList
         /// <summary>
         /// Add footer row.
         /// </summary>
-        /// <param name="builder">The current builder.</param>        
+        /// <param name="builder">The current builder.</param>
         /// <param name="sumStake">The sum stake value.</param>
         /// <returns>Return the currency builder.</returns>
         public static BetListExcelBuilder AddFooterForSumStake(
-            this BetListExcelBuilder builder,            
+            this BetListExcelBuilder builder,
             decimal sumStake)
         {
             ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 6; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
-            
+
             builder.AddCell(new HSSFRichTextString(string.Format(NumberFormat, sumStake)), footerStyle);
 
             // add the rest columns
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Excel.BetList
         {
             ICellStyle footerStyle = CreateFooterCellStyle(builder);
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
+            var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 7; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);

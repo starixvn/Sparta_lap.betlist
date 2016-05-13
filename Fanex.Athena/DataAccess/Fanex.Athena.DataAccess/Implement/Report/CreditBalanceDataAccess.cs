@@ -14,13 +14,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Resources;
 
     /// <summary>
     ///     Credit Balance.
@@ -36,16 +36,16 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
             var uspName = "Lrf_CustomerSelBalance";
             var uspParam = new
-                {
-                    metaModel.LicenseeId,
-                    metaModel.UserId,
-                    metaModel.CurrencyId,
-                    metaModel.LicenseeType,
-                    metaModel.MoveBetsDay,
-                    metaModel.FromDate,
-                    metaModel.ToDate,
-                    metaModel.IsOld
-                };
+            {
+                metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.CurrencyId,
+                metaModel.LicenseeType,
+                metaModel.MoveBetsDay,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                metaModel.IsOld
+            };
 
             using (var db = new ObjectDb(uspName))
             {
@@ -109,51 +109,51 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             if (reader.Read())
             {
                 var selectedMonthBalance = new BalanceDetails
-                    {
-                        LicWinLoss = reader.ToDecimal(selectedMonthLicColumn),
-                        BetTradeCommission = reader.ToDecimal(selectedMonthBetTradeCommColumn),
-                        BACommission = reader.ToDecimal(selectedMonthBaCommColumn),
-                        RBCommission = reader.ToDecimal(selectedMonthRbCommColumn),
-                        RacingRevenue = reader.ToDecimal(selectedMonthRacingRevenueColumn),
-                        AmtDueToBetTrade = reader.ToDecimal(selectedMonthAmtDueToBetTradeColumn),
-                        AmtDueToBA = reader.ToDecimal(selectedMonthAmtDueToBaColumn),
-                        AmtDueToRacing = reader.ToDecimal(selectedMonthAmtDueToRacingColumn),
-                        CustomerCommission = reader.ToDecimal(selectedMonthCustomerCommColumn),
-                        BalanceDateString = DateTime.Now.ToString("MMMM yyyy")
-                    };
+                {
+                    LicWinLoss = reader.ToDecimal(selectedMonthLicColumn),
+                    BetTradeCommission = reader.ToDecimal(selectedMonthBetTradeCommColumn),
+                    BACommission = reader.ToDecimal(selectedMonthBaCommColumn),
+                    RBCommission = reader.ToDecimal(selectedMonthRbCommColumn),
+                    RacingRevenue = reader.ToDecimal(selectedMonthRacingRevenueColumn),
+                    AmtDueToBetTrade = reader.ToDecimal(selectedMonthAmtDueToBetTradeColumn),
+                    AmtDueToBA = reader.ToDecimal(selectedMonthAmtDueToBaColumn),
+                    AmtDueToRacing = reader.ToDecimal(selectedMonthAmtDueToRacingColumn),
+                    CustomerCommission = reader.ToDecimal(selectedMonthCustomerCommColumn),
+                    BalanceDateString = DateTime.Now.ToString("MMMM yyyy")
+                };
 
                 reportBalanceList.Add(selectedMonthBalance);
 
                 var yesterdayBalance = new BalanceDetails
-                    {
-                        LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
-                        BetTradeCommission = reader.ToDecimal(yesterdayBetTradeCommColumn),
-                        BACommission = reader.ToDecimal(yesterdayBaCommColumn),
-                        RBCommission = reader.ToDecimal(yesterdayRbCommColumn),
-                        RacingRevenue = reader.ToDecimal(yesterdayRacingRevenueColumn),
-                        AmtDueToBA = reader.ToDecimal(yesterdayAmtDueToBaColumn),
-                        AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
-                        AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
-                        CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
-                        BalanceDateString =
+                {
+                    LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
+                    BetTradeCommission = reader.ToDecimal(yesterdayBetTradeCommColumn),
+                    BACommission = reader.ToDecimal(yesterdayBaCommColumn),
+                    RBCommission = reader.ToDecimal(yesterdayRbCommColumn),
+                    RacingRevenue = reader.ToDecimal(yesterdayRacingRevenueColumn),
+                    AmtDueToBA = reader.ToDecimal(yesterdayAmtDueToBaColumn),
+                    AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
+                    AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
+                    CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
+                    BalanceDateString =
                             string.Format("{0} ({1})", ViewResources.Yesterday, DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy"))
-                    };
+                };
 
                 reportBalanceList.Add(yesterdayBalance);
 
                 var todayBalance = new BalanceDetails
-                    {
-                        LicWinLoss = reader.ToDecimal(todayLicColumn),
-                        BetTradeCommission = reader.ToDecimal(todayBetTradeCommColumn),
-                        BACommission = reader.ToDecimal(todayBaCommColumn),
-                        RBCommission = reader.ToDecimal(todayRbCommColumn),
-                        RacingRevenue = reader.ToDecimal(todayRacingRevenueColumn),
-                        AmtDueToBetTrade = reader.ToDecimal(todayAmtDueToBetTradeColumn),
-                        AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
-                        AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
-                        CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),
-                        BalanceDateString = string.Format("{0} ({1})", ViewResources.Today, DateTime.Now.ToString("MM/dd/yyyy"))
-                    };
+                {
+                    LicWinLoss = reader.ToDecimal(todayLicColumn),
+                    BetTradeCommission = reader.ToDecimal(todayBetTradeCommColumn),
+                    BACommission = reader.ToDecimal(todayBaCommColumn),
+                    RBCommission = reader.ToDecimal(todayRbCommColumn),
+                    RacingRevenue = reader.ToDecimal(todayRacingRevenueColumn),
+                    AmtDueToBetTrade = reader.ToDecimal(todayAmtDueToBetTradeColumn),
+                    AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
+                    AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
+                    CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),
+                    BalanceDateString = string.Format("{0} ({1})", ViewResources.Today, DateTime.Now.ToString("MM/dd/yyyy"))
+                };
 
                 reportBalanceList.Add(todayBalance);
 

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
     using System.Collections.Generic;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
+    using Model.Core.ViewModel;
 
     public class CasinoProgressiveWinsViewModel : BaseViewModel
     {

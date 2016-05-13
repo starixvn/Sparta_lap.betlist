@@ -13,14 +13,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common;
@@ -211,14 +210,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
             var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
             var winLossRbColumn = "WinlossRB" + baseCurrency;
-            var hasCustComm = reader.FieldExists(custCommColumn);
-            var hasBetType = reader.FieldExists("bettype");
-            var hasProductName = reader.FieldExists("productname");
-            var hasLiveIndicator = reader.FieldExists("liveindicator");
-            var hasIsNeutral = reader.FieldExists("isneutral");
-            var hasKickofTime = reader.FieldExists("KickoffTime");
-            var hasShowTime = reader.FieldExists("showtime");
-            var hasSportType = reader.FieldExists("sporttype");
+            var hasCustComm = reader.HasColumn(custCommColumn);
+            var hasBetType = reader.HasColumn("bettype");
+            var hasProductName = reader.HasColumn("productname");
+            var hasLiveIndicator = reader.HasColumn("liveindicator");
+            var hasIsNeutral = reader.HasColumn("isneutral");
+            var hasKickofTime = reader.HasColumn("KickoffTime");
+            var hasShowTime = reader.HasColumn("showtime");
+            var hasSportType = reader.HasColumn("sporttype");
 
             var dataList = new List<MatchWinLoss>();
             while (reader.Read())

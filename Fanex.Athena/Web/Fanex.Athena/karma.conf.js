@@ -66,17 +66,22 @@ module.exports = function(config) {
 		'Scripts/Casino/**.js',
 		 'jasmine-specs/Casino/*-test.js',
 		 
-		 // --------- CustomerLog --------- //
+		 // --------- Customer/BetSetting --------- //
 		'Scripts/Customer/BetSetting/*.js',
 		 'jasmine-specs/Customer/BetSetting/*-test.js',
 		 
-		 // --------- CustomerComm --------- //
+		 // --------- Customer/CustomerComm --------- //
 		'Scripts/Customer/CustomerComm/*.js',
 		 'jasmine-specs/Customer/CustomerComm/*-test.js',
 		 
-		  // --------- CustomerLog --------- //
+		  // --------- Customer/CustomerLog --------- //
 		'Scripts/Customer/CustomerLog/*.js',
-		 'jasmine-specs/Customer/CustomerLog/*-test.js',
+        'jasmine-specs/Customer/CustomerLog/customerlog-test.js',
+        'jasmine-specs/Customer/CustomerLog/customersetting.option-test.js',
+        'jasmine-specs/Customer/CustomerLog/customersetting-test.js',
+        'jasmine-specs/Customer/CustomerLog/groupcommission-test.js',
+        'jasmine-specs/Customer/CustomerLog/loginlog.option-test.js',
+        'jasmine-specs/Customer/CustomerLog/loginlog-test.js',
 		 
 		  // --------- Customer --------- //
 		'Scripts/Customer/customers.js',
@@ -88,7 +93,12 @@ module.exports = function(config) {
 		 'jasmine-specs/Extension/*-test.js',
 		 
 		 // --------- Forecast --------- //
-		'Scripts/Forecast/*.js',
+		'Scripts/Forecast/forecastpopup.js',
+		'Scripts/Forecast/forecast.ah.js',
+		'Scripts/Forecast/forecast.handicapoverunder.js',
+		'Scripts/Forecast/forecast.newforecasthdpou.js',
+		'Scripts/Forecast/forecast.onextwo.js',
+		
 		 'jasmine-specs/Forecast/*-test.js',
 		 
 		 // --------- Global --------- //
@@ -140,10 +150,9 @@ module.exports = function(config) {
 		
 		'Scripts/Report/microgamingwinloss*.js',
 		'jasmine-specs/Report/microgamingwinloss*-test.js',
-		
-		// have not been implemented
-		//'Scripts/Report/platformwinloss*.js',
-		//'jasmine-specs/Report/platformwinloss*-test.js',
+	
+		'Scripts/Report/platformwinloss*.js',
+		'jasmine-specs/Report/platformwinloss*-test.js',
 		
 		'Scripts/Report/playtechcasino*.js',
 		'jasmine-specs/Report/playtechcasino*-test.js',
@@ -169,7 +178,7 @@ module.exports = function(config) {
 		 
 		'Scripts/Report/winlossbyleague*.js',
 		'jasmine-specs/Report/winlossbyleague*-test.js',
-		/* 
+		
 		'Scripts/Report/winlossbyproduct*.js',
 		'jasmine-specs/Report/winlossbyproduct*-test.js',
 		
@@ -179,7 +188,7 @@ module.exports = function(config) {
 		 
 		  // --------- WareHouse --------- //
 		'Scripts/WareHouse/*.js',
-		 'jasmine-specs/WareHouse/*-test.js',*/
+		 'jasmine-specs/WareHouse/*-test.js',
     ],
     exclude: [
     ],

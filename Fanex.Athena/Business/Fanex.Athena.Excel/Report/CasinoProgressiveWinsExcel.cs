@@ -14,11 +14,11 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Models.Cache;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
+    using Resources;
 
     public class CasinoProgressiveWinsExcel : ReportBase
     {

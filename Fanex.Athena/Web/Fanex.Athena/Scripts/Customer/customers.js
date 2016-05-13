@@ -965,7 +965,7 @@ var CustomerList = (function ($) {
 
             CustomerList.closeCustOption();
 
-            var url = Site.resolveClientUrl("BetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
+            var url = Site.resolveClientUrl("SportsbookBetSetting/Index?custid=" + custId + "&username=" + systemId + "&nickname=" + externalId);
 
             var popH = 480, popW = 905;
 

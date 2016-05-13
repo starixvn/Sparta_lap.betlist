@@ -9,7 +9,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Core.Users;
 
     /// <summary>
     /// TODO: Update summary.

@@ -11,7 +11,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Net.Http;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Core.Users;
 
     /// <summary>
     /// TODO: Update summary.

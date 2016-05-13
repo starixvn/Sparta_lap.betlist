@@ -10,11 +10,11 @@ namespace Fanex.Athena.Excel.Report
     using System.Text.RegularExpressions;
     using Base;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DTO.Casino;
-    using Fanex.Athena.Models.MetaModel.Casino;
-    using Fanex.Athena.Models.ViewModel.Casino;
-    using Models.ViewModel;
+    using Fanex.Athena.Model.Casino.DTO;
+    using Fanex.Athena.Model.Casino.MetaModel;
+    using Fanex.Athena.Model.Casino.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Win loss by product - Export excel.

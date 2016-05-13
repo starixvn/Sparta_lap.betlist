@@ -1,11 +1,11 @@
 ﻿describe("LogInLogOption", function () {
-    xit("LogInLogOption.gridOption.colNames should has correct value", function () {
+    it("LogInLogOption.gridOption.colNames should has correct value", function () {
         var colNameList = ['Username', 'CreatedDate', 'LastTxn'];
 
         expect(LogInLogOption.gridOption.colNames).toEqual(colNameList);
     });
 
-    xit("LogInLogOption.gridOption.colModel should has 3 items", function () {
+    it("LogInLogOption.gridOption.colModel should has 3 items", function () {
         expect(LogInLogOption.gridOption.colModel.length).toBe(3);
     });
 

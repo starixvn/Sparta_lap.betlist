@@ -1,14 +1,14 @@
 ﻿@{
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
-@model Fanex.Athena.Models.ViewModel.Customer.BetSetting.ThirdPartyBetSettingViewModel
+@model Fanex.Athena.Model.BetSettings.ViewModel.ThirdPartyBetSettingViewModel
 @using Fanex.Athena.Models.ViewModel;
-@using Fanex.Athena.Models.DataDomain;
+@using Fanex.Athena.Model.Core.DataDomain;
 @section pagecss
 {
 }
 
-@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model.Param);}
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
 
 <div class="content-title" style="width: 855px">
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
@@ -30,7 +30,7 @@
 </div>
 <!--/Content-->
 <!--SubmitButton-->
-@if (Model.Param.Editable)
+@if (Model.Editable)
 {
     <div style="width: 855px">
         @if (Model.IsLineEnabled)

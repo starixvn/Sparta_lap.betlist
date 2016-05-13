@@ -8,7 +8,7 @@ namespace Fanex.Athena.Models.ViewModel.Note
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>
     /// NoteViewModel class.

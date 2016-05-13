@@ -13,11 +13,11 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Interface.Configuration;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Interface.Report;
 
     /// <summary>

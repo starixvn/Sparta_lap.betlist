@@ -10,7 +10,7 @@
 namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Web.Http;
-    using Fanex.Athena.Models.MetaModel.Customer.CustomerLog;
+    using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>

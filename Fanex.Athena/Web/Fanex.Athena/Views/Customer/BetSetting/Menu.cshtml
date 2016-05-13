@@ -1,29 +1,57 @@
-﻿@model Fanex.Athena.Models.MetaModel.Customer.BetSetting.BetSettingMetaModel
+﻿@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.DataDomain
+@using Fanex.Athena.Model.Core.DataDomain
+
+@{
+    var productControllerNames = new Dictionary<int, string>() {
+        { ProductTypes.Sportsbook, "Sportsbook" },
+        { ProductTypes.NumberGame, "NumberGame" },
+        { ProductTypes.Voidbridge, "Voidbridge" },
+        { ProductTypes.AgCasino , "AgCasino" },
+        { ProductTypes.GoldDeluxe, "GoldDeluxe" },
+        { ProductTypes.Macau, "ThirdParty" },
+        { ProductTypes.BetTrade, "ThirdParty" },
+        { ProductTypes.MicroGamingLiveCasino, "ThirdParty" },
+        { ProductTypes.MicrogamingRNGCasino, "ThirdParty" },
+        { ProductTypes.Racing, "Racing" },
+        { ProductTypes.LiveCasino, "LiveCasino" },
+        { ProductTypes.RngCasino, "RngCasino" },
+        { ProductTypes.Keno, "Keno" },
+        { ProductTypes.VirtualSports, "VirtualSports" }
+    };
+
+    var metaModel = Model.Param;
+}
 <div>
     <div style="display:inline-block; padding-bottom: 5px">
-            <div class="grid_2 product-select-label">
-                <label>@ViewResources.Product</label>
-            </div>
-            <div id="product-dropdown" class="wrapper-dropdown-5">@Model.BetSettingName
-		        <ul class="dropdown">
-                    @foreach (var product in Model.BetSettingProducts)
+        <div class="grid_2 product-select-label">
+            <label>@ViewResources.Product</label>
+        </div>
+        <div id="product-dropdown" class="wrapper-dropdown-5">
+            @metaModel.BetSettingName
+            <ul class="dropdown">
+                @foreach (var product in Model.BetSettingProducts)
+                {
+                    var productName = product.ProductName;
+                    var controllerName = "BetSetting";
+                    if (productControllerNames.ContainsKey(product.ProductId))
                     {
-                        var productName = product.ProductName;
-                         <li><a href="@Url.Action("Index", "BetSetting", new
-                            {
-                                ProductId = product.ProductId,
-                                CustId = Model.CustId,
-                                UserName = Model.UserName,
-                                NickName = Model.NickName,
-                                BetSettingName = productName
-                            })">
-                            @productName
-                        </a></li>
+                        controllerName = productControllerNames[product.ProductId] + controllerName;
                     }
-		        </ul>
-                @Html.Hidden("ProductId", Model.ProductId)
-	        </div>
+
+                         <li><a href="@Url.Action("Index", controllerName, new
+                                      {
+                                          ProductId = product.ProductId,
+                                          CustId = metaModel.CustId,
+                                          UserName = metaModel.UserName,
+                                          NickName = metaModel.NickName,
+                                          BetSettingName = productName
+                                      })">
+                        @productName
+                        </a></li>
+                }
+            </ul>
+            @Html.Hidden("ProductId", metaModel.ProductId)
+        </div>
     </div>
 </div>

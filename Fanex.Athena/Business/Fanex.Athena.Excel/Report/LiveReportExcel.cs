@@ -15,9 +15,9 @@ namespace Fanex.Athena.Excel.Report
     using Entities;
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report.LiveReports;
-    using Models.ViewModel;
     using Models.ViewModel.Report.LiveReports;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Live report - Export excel.
@@ -401,16 +401,18 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="liveIndicator">Live indicator.</param>
         /// <returns>Live indicator string.</returns>
         private string GetLiveIndicatorString(int liveIndicator)
-        { 
+        {
             string title = string.Empty;
             switch (liveIndicator)
             {
                 case 0:
                     title = ViewResources.NoneLive;
                     break;
+
                 case 1:
                     title = ViewResources.Live;
                     break;
+
                 case 2:
                     title = ViewResources.LiveAndNonLive;
                     break;

@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Data;

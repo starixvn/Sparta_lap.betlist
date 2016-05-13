@@ -11,15 +11,12 @@
 namespace Fanex.Athena.DataAccess.Implement.Warehouse
 {
     using System.Collections.Generic;
-    using System.Data;
-    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Warehouse;
-    using Fanex.Athena.Models.DataDomain;
     using Fanex.Athena.Models.DTO.Warehouse;
     using Fanex.Athena.Models.MetaModel.Warehouse;
     using Fanex.Common.Extensions;
@@ -46,15 +43,15 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
             const string UspName = "Lrf_rpt_DWWinloss";
             var dataList = new List<WinLoss>();
             var uspParams = new
-                {
-                    FromDate = metaModel.FromDate,
-                    ToDate = metaModel.ToDate,
-                    CurrencyId = metaModel.CurrencyId,
-                    groupingid = metaModel.ReportBy,
-                    drawfilter = metaModel.DrawFilter,
-                    UserId = metaModel.UserId,
-                    basedcurrency = metaModel.BaseCurrencyId
-                };
+            {
+                FromDate = metaModel.FromDate,
+                ToDate = metaModel.ToDate,
+                CurrencyId = metaModel.CurrencyId,
+                groupingid = metaModel.ReportBy,
+                drawfilter = metaModel.DrawFilter,
+                UserId = metaModel.UserId,
+                basedcurrency = metaModel.BaseCurrencyId
+            };
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -74,8 +71,8 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
                                 MemberWinLoss = reader.ToDecimal("MemberWinLost"),
                                 LicenseeWinloss = reader.ToDecimal("LicenseeWL"),
                                 Turnover = reader.ToDecimal("Turnover"),
-                                Liveindicator = reader.FieldExists("liveindicator") && (reader.ToInt("liveindicator") == 1),
-                                BettypeId = reader.FieldExists("bettype") ? reader.ToInt("bettype") : 0,
+                                Liveindicator = reader.HasColumn("liveindicator") && (reader.ToInt("liveindicator") == 1),
+                                BettypeId = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
                             });
                         }
                     }
@@ -89,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
 
             return dataList;
         }
-               
+
         #endregion IWinLossDataAccess Members
     }
 }

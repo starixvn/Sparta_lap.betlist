@@ -9,7 +9,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-    using Fanex.Athena.Service.Implement.Users;
+    using Fanex.Athena.Service.Core.Users;
 
     /// <summary>
     /// Class: AuthenticationAttribute.

@@ -15,9 +15,9 @@ namespace Fanex.Athena.Excel.Report
     using Entities;
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Customer win-loss class.
@@ -37,9 +37,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnRacingRevenue = 11;
         private const int ColumnAmtDueToBa = 12;
         private const int ColumnAmtDueToRacing = 13;
-        
+
         private const int ColumnTemplateCount = 14;
-        
+
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -223,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
             if (!ShowingOption.RBVisible)
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }            
+            }
         }
 
         /// <summary>

@@ -14,18 +14,20 @@ namespace Fanex.Athena.Api
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Fanex.Athena.Service.Implement.Common;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Common;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Common;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using NPOI.SS.UserModel;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Base API Controller.
     /// </summary>
     [CustomApiAuthorize]
     [CustomAPIExceptionHandling]
+    [CheckUMFilter]
     public class BaseApiController : ApiController
     {
         private readonly ILanguageService _langService;

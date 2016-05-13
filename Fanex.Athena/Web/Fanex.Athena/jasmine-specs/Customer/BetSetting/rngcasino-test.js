@@ -51,7 +51,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("BetsettingAPI/UpdateRngCasinoBetSetting")
+                .stubRequest("RngCasinoBetsetting/UpdateBetSetting")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -66,8 +66,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("ajax request should be called with url is 'BetsettingAPI/UpdateRngCasinoBetSetting'", function () {
-            expect(request.url).toBe("BetsettingAPI/UpdateRngCasinoBetSetting");
+        it("ajax request should be called with url is 'RngCasinoBetsetting/UpdateBetSetting'", function () {
+            expect(request.url).toBe("RngCasinoBetsetting/UpdateBetSetting");
         });
 
         it("Site.getSingleResource(enghlishName) should be called with correct parameter", function () {

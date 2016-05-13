@@ -10,14 +10,12 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -44,17 +42,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         {
             const string UspName = "Lrf_Rpt_CommByBettype_HR";
             var uspParams = new
-                {
-                    LicenseeID = metaModel.LicenseeId,
-                    metaModel.UserId,
-                    metaModel.LicenseeType,
-                    metaModel.CurrencyId,
-                    metaModel.FromDate,
-                    metaModel.ToDate,
-                    BalanceUp.MoveBetsDay,
-                    metaModel.PageSize,
-                    metaModel.PageIndex
-                };
+            {
+                LicenseeID = metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.LicenseeType,
+                metaModel.CurrencyId,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                BalanceUp.MoveBetsDay,
+                metaModel.PageSize,
+                metaModel.PageIndex
+            };
 
             try
             {
@@ -63,7 +61,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         var baseCurrency = metaModel.BaseCurrency;
-                        
+
                         return this.SetToList(reader, baseCurrency, ref total);
                     }
                 }

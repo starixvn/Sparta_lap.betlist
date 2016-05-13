@@ -11,14 +11,13 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
+    using Model.Core.DTO.Common;
+    using Model.Core.MetaModel.Product;
     using Models.DTO.Report;
-    using Models.MetaModel.Product;
     using Models.MetaModel.Report;
-    using Models.ViewModel;
     using Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Active Customer - Export excel.
@@ -27,9 +26,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 12;
-        private const int ColumnTotalTransaction = 14;
-        private const int ColumnTemplateCount = 15;
+        private const int ColumnLastProduct = 14;
+        private const int ColumnTotalTransaction = 15;
+        private const int ColumnTemplateCount = 16;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -94,9 +93,9 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnDate].SetCellValue(ViewResources.Month);
             row.Cells[ColumnFirstProduct].SetCellValue(ViewResources.Product);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.Total);
-            
+
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            
+
             var prdHeaderList = new List<string>
             {
                 ViewResources.Sportsbook,
@@ -112,6 +111,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductAGC,
                 ViewResources.ProductMGCLC,
                 ViewResources.ProductMGCRNG,
+                ViewResources.ProductVB
             };
 
             int index = ColumnFirstProduct;
@@ -145,7 +145,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnDate].SetCellValue(activeCustomer.TransactionDate.ToString("MM/yyyy"));
                 row.Cells[ColumnTotalTransaction].SetCellValue(activeCustomer.TotalCustomer);
                 for (int i = 0; i < _allProductOptions.Count; i++)
-                {   
+                {
                     if (_allProductOptions[i].Status)
                     {
                         row.Cells[ColumnFirstProduct + i].SetCellValue(activeCustomer.CustomerCount[_allProductOptions[i].Code]);
@@ -204,7 +204,8 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.PTCS, Status = false },
                 new ProductOption { Code = Product.AGC, Status = false },
                 new ProductOption { Code = Product.MGCLC, Status = false },
-                new ProductOption { Code = Product.MGCRNG, Status = false }
+                new ProductOption { Code = Product.MGCRNG, Status = false },
+                new ProductOption { Code = Product.VB, Status = false }
             };
 
             for (var i = 0; i < newProducts.Count; i++)

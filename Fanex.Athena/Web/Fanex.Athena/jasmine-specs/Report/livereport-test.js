@@ -72,7 +72,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest('Report/LiveReportDetail')
+                .stubRequest('LiveReport/Detail')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -92,8 +92,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'Report/LiveReportDetail'", function () {
-            expect(request.url).toBe("Report/LiveReportDetail");
+        it("Request url should be 'LiveReport/Detail'", function () {
+            expect(request.url).toBe("LiveReport/Detail");
         });
 
         it("LiveReport.ajaxStart() should be called", function () {

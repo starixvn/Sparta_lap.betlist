@@ -15,7 +15,7 @@ namespace Fanex.Athena
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Helpers;
+    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
 
@@ -55,9 +55,10 @@ namespace Fanex.Athena
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");
 
-            if (!AppSettings.LocalTest)
+            if (AppSettings.IsEnableCasinoService)
             {
                 SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                Logging.LogService.Info("Casino Service Started!");
             }
         }
 

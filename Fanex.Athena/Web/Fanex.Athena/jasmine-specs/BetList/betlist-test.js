@@ -82,21 +82,21 @@
     describe("getMixParlayResultUrl(refno, winlostdate, bettype)", function () {
         it("should return an url with correct parameters", function () {
             var result = BetList.getMixParlayResultUrl(1, 2, 3);
-            expect(result).toBe('Report/ResultPopup?refno=1&winlossdate=2&bettype=3&matchid=1');
+            expect(result).toBe('Result/ResultPopup?refno=1&winlossdate=2&bettype=3&matchid=1');
         });
     });
 
     describe("getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid)", function () {
         it("should return an url with correct parameters", function () {
             var result = BetList.getSportBookResultUrl(1, 2, 3, 4, 5, 6, 7);
-            expect(result).toBe('Report/ResultPopup?matchid=1&bettype=2&raceno=3&sporttype=4&isoutright=6&betid=7');
+            expect(result).toBe('Result/ResultPopup?matchid=1&bettype=2&raceno=3&sporttype=4&isoutright=6&betid=7');
         });
     });
 
     describe("getMicrogamingResultUrl(gameid, custid)", function () {
         it("should return an url with correct parameters", function () {
             var result = BetList.getMicrogamingResultUrl(1, 2);
-            expect(result).toBe('Report/MicrogamingResultPopup?gameid=1&custid=2');
+            expect(result).toBe('Result/MicrogamingResultPopup?gameid=1&custid=2');
         });
     });
 
@@ -136,7 +136,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('Report/MicrogamingResultPopup?gameid=1&custid=2');
+            expect($iframe.attr('src')).toBe('Result/MicrogamingResultPopup?gameid=1&custid=2');
         });
     });
 

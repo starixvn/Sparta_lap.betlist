@@ -3,9 +3,6 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Api.BetList
 {
@@ -31,15 +28,15 @@ namespace Fanex.Athena.Api.BetList
         {
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
-            metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
+            metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay;
+            metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
             var isAllowCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
 
             return new
             {
-                Main = _betListService.GetDailyStatementData(metaModel, isAllowCustComm),
+                Main = BetListService.GetDailyStatementData(metaModel, isAllowCustComm),
                 Total = new
                 {
                     SumWinLoss = 0,

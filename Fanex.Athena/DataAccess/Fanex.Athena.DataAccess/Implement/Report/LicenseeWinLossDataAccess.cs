@@ -14,17 +14,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -176,36 +176,45 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     });
             }
 
-            var hasSystemId = reader.FieldExists("username");
-            var hasExternalId = reader.FieldExists("nickname");
-            var hasCustomerId = reader.FieldExists("custid");
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
             var index = 1;
             var baseCurrency = metaModel.BaseCurrency;
-            while (reader.Read())
+            var licenseeWLColumns = new Dictionary<string, string>();
+            var turnoverColumns = new Dictionary<string, string>();
+            if (reader.FieldCount > 0)
             {
-                // Read Item
-                var licenseeWl = new Dictionary<string, decimal>();
-                var turnOver = new Dictionary<string, decimal>();
                 foreach (var product in metaModel.ProductOptions)
                 {
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + baseCurrency;
                     var turnOverColumnName = "turnover" + product.Code + baseCurrency;
 
-                    if (reader.FieldExists(licenseeWlColumnName))
+                    if (!IsIgnoredLicenseeWLProduct(product.Code) &&
+                        reader.HasColumn(licenseeWlColumnName))
                     {
-                        if (!product.Code.Equals(Product.BA) && !product.Code.Equals(Product.RB))
-                        {
-                            licenseeWl.Add(product.Code, reader.ToDecimal(licenseeWlColumnName));
-                        }
+                        licenseeWLColumns.Add(licenseeWlColumnName, product.Code);
                     }
 
-                    if (reader.FieldExists(turnOverColumnName))
+                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.HasColumn(turnOverColumnName))
                     {
-                        if (!product.Code.Equals(Product.BT))
-                        {
-                            turnOver.Add(product.Code, reader.ToDecimal(turnOverColumnName));
-                        }
+                        turnoverColumns.Add(turnOverColumnName, product.Code);
                     }
+                }
+            }
+
+            while (reader.Read())
+            {
+                var licenseeWl = new Dictionary<string, decimal>();
+                var turnOver = new Dictionary<string, decimal>();
+                foreach (var column in licenseeWLColumns)
+                {
+                    licenseeWl.Add(column.Value, reader.ToDecimal(column.Key));
+                }
+
+                foreach (var column in turnoverColumns)
+                {
+                    turnOver.Add(column.Value, reader.ToDecimal(column.Key));
                 }
 
                 var item = new LicenseeWinLoss
@@ -269,14 +278,14 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     var licenseeWlColumnName = "LicenseeWL" + product.Code + currency;
                     var turnOverColumnName = "turnover" + product.Code + currency;
 
-                    if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.FieldExists(licenseeWlColumnName))
+                    if (!IsIgnoredLicenseeWLProduct(product.Code) && reader.HasColumn(licenseeWlColumnName))
                     {
                         summaryItem.LicenseeWL.TryGetValue(product.Code, out temp);
                         temp += reader.ToDecimal(licenseeWlColumnName);
                         licenseeWlSummary.Add(product.Code, temp);
                     }
 
-                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.FieldExists(turnOverColumnName))
+                    if (!IsIgnoredTurnoverProduct(product.Code) && reader.HasColumn(turnOverColumnName))
                     {
                         summaryItem.TurnOver.TryGetValue(product.Code, out temp);
                         temp += reader.ToDecimal(turnOverColumnName);
@@ -289,12 +298,6 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
         private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
             var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;

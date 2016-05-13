@@ -16,6 +16,7 @@ var BetSetting = (function ($) {
     var TAB_BETTRADE = 13;
     var TAB_MICROGAMINGLIVECASINO = 14;
     var TAB_MICROGAMINGRNGCASINO = 17;
+    var TAB_VOIDBRIDGE = 22;
 
     var _sportIds = null;
     return {
@@ -80,31 +81,34 @@ var BetSetting = (function ($) {
 
             switch (productId) {
                 case TAB_LIVECASINO:
-                    url = "BetSettingAPI/UpdateLiveCasinoStatus";
+                    url = "LiveCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_RNGCASINO:
-                    url = "BetSettingAPI/UpdateRngCasinoStatus";
+                    url = "RngCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_AGCASINO:
-                    url = "BetSettingAPI/UpdateAgCasinoStatus";
+                    url = "AgCasinoBetSetting/UpdateStatus";
                     break;
                 case TAB_GOLDDELUXE:
-                    url = "BetSettingAPI/UpdateGoldDeluxeStatus";
+                    url = "GoldDeluxeBetSetting/UpdateStatus";
                     break;
                 case TAB_MACAU:
-                    url = "BetSettingAPI/UpdateMacauStatus";
+                    url = "ThirdPartyBetSetting/UpdateMacauStatus";
                     break;
                 case TAB_MICROGAMINGLIVECASINO:               
-                    url = "BetSettingAPI/UpdateMicroGamingLiveCasinoStatus";
+                    url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_MICROGAMINGRNGCASINO:
-                    url = "BetSettingAPI/UpdateMicroGamingRNGCasinoStatus";
+                    url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
                 case TAB_BETTRADE:
-                    url = "BetSettingAPI/UpdateBetTradeStatus";
+                    url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
+                case TAB_VOIDBRIDGE:
+                    url = "VoidbridgeBetSetting/UpdateStatus";
                     break;
             }
 
@@ -135,7 +139,7 @@ var BetSetting = (function ($) {
             var currentStatus = Site.asBool($(this).attr("data-current-status"));
             var eSportText = $("#esport-text-from-remotingref").val();
             var custId = $(this).data("cust-id");
-            var url = "BetSettingAPI/UpdateEsportStatus";
+            var url = "SportbooksBetSetting/UpdateEsportStatus";
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl(url),
@@ -296,7 +300,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateGoldDeluxeBetSetting'),
+                url: Site.resolveClientUrl('GoldDeluxeBetSetting/UpdateBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -315,7 +319,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateAgCasinoBetSetting'),
+                url: Site.resolveClientUrl('AgCasinoBetSetting/UpdateBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -333,7 +337,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateKenoBetSetting?'),
+                url: Site.resolveClientUrl('KenoBetSetting/UpdateBetSetting?'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -351,7 +355,7 @@ var BetSetting = (function ($) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Site.resolveClientUrl('BetSettingAPI/UpdateSportBookBetSetting'),
+                url: Site.resolveClientUrl('SportsbookBetSetting/UpdateBetSetting'),
                 data: params,
                 dataType: "json",
                 success: function (result) {
@@ -369,7 +373,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: 'BetSettingAPI/updateRacingBetSetting?',
+                url: Site.resolveClientUrl('RacingBetSetting/updateBetSetting'),
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -390,7 +394,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: 'BetSettingAPI/updateNumberGameBetSetting',
+                url: Site.resolveClientUrl('NumberGameBetSetting/UpdateBetSetting'),
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -408,7 +412,7 @@ var BetSetting = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: 'BetSettingAPI/updateVirtualSportsBetSetting?',
+                url: Site.resolveClientUrl('VirtualSportsBetSetting/updateBetSetting?'),
                 cache: false,
                 data: params,
                 dataType: "json",
@@ -437,7 +441,7 @@ var BetSetting = (function ($) {
             }
             $.ajax({
                 type: 'POST',
-                url: 'BetSettingAPI/updateLiveCasinoBetSetting?',
+                url: Site.resolveClientUrl('LiveCasinoBetSetting/updateBetSetting'),
                 cache: false,
                 data: params,
                 dataType: "json",

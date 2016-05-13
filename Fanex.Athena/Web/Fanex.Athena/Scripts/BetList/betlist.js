@@ -1,7 +1,7 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
-showAGCasinoDetails, showRnGCasinoDetails*/
+showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult*/
 
 var BetList = (function ($) {
     "use strict";
@@ -11,6 +11,7 @@ var BetList = (function ($) {
     var SPORT_RNG_GAME = 208;
     var SPORT_RNG_MINIGAME = 209;
     var SPORT_RNG_MOBILE = 210;
+    var SPORT_VOIDBRIDGE = 212;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -289,7 +290,7 @@ var BetList = (function ($) {
         },
 
         getMixParlayResultUrl: function (refno, winlostdate, bettype) {
-            var url = Site.resolveClientUrl('Report/ResultPopup');
+            var url = Site.resolveClientUrl('Result/ResultPopup');
             url = QueryString.setParam(url, "refno", refno);
             url = QueryString.setParam(url, "winlossdate", winlostdate);
             url = QueryString.setParam(url, "bettype", bettype);
@@ -299,7 +300,7 @@ var BetList = (function ($) {
         },
 
         getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
-            var url = Site.resolveClientUrl('Report/ResultPopup');
+            var url = Site.resolveClientUrl('Result/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "raceno", raceNo);
@@ -311,7 +312,7 @@ var BetList = (function ($) {
         },
 
         getMicrogamingResultUrl: function (gameid, custid) {
-            var url = Site.resolveClientUrl('Report/MicrogamingResultPopup');
+            var url = Site.resolveClientUrl('Result/MicrogamingResultPopup');
             url = QueryString.setParam(url, "gameid", gameid);
             url = QueryString.setParam(url, "custid", custid);
 
@@ -319,7 +320,7 @@ var BetList = (function ($) {
         },
 
         viewRngCasinoResult: function (title, refno) {
-            var url = Site.resolveClientUrl('Report/ShowRngCasinoSingleWalletResult');
+            var url = Site.resolveClientUrl('Result/ShowRngCasinoSingleWalletResult');
 
             var params = { "refNo": refno };
             $.ajax({
@@ -339,6 +340,23 @@ var BetList = (function ($) {
                     Site.blockUI();
                 },
                 complete: function () {
+                    Site.unBlockUI();
+                }
+            });
+        },
+
+        viewVoidbridgeResult: function (custId, gamePlayId) {
+            var url = Site.resolveClientUrl('Result/VoidbridgeResult');
+            Site.blockUI();
+            $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
+                if (result !== '') {
+                    var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + result + '" ></iframe></div></div>';
+                    $(dialogForm).dialog({
+                        modal: true,
+                        width: 800,
+                        height: 380
+                    });
                     Site.unBlockUI();
                 }
             });
@@ -379,6 +397,9 @@ var BetList = (function ($) {
             }
             else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                 BetList.viewRngCasinoResult(title, refno);
+            }
+            else if (sporttype === SPORT_VOIDBRIDGE) {
+                BetList.viewVoidbridgeResult(custid, betcheck);
             }
             else {
                 bettype = Number(bettype);
@@ -510,7 +531,27 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "transType", transType);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 840;
-            var title = Site.getSingleResource("RngCasino") + " - " +
+            var title = Site.getSingleResource("ProductCS") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
+
+        showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('BetListVoidbridge/VoidbridgeDetail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("ProductVB") + " - " +
                 Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
@@ -573,3 +614,5 @@ var showCombMPDetail = BetList.showSystemParlayDetail;
 var showMicroGamingRnGBetsDetails = BetList.showMicroGamingRnGBetsDetails;
 var showAGCasinoDetails = BetList.showAGCasinoDetails;
 var showRnGCasinoDetails = BetList.showRnGCasinoDetails;
+var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
+var showVoidbridgeResult = BetList.viewVoidbridgeResult;

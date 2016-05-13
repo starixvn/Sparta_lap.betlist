@@ -11,8 +11,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 var customerCountPerProduct = new Dictionary<string, int>();
                 foreach (var product in metaModel.ProductOptions)
                 {
-                    if (reader.FieldExists(product.Code))
+                    if (reader.HasColumn(product.Code))
                     {
                         customerCountPerProduct.Add(product.Code, reader.ToInt(product.Code));
                     }

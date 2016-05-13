@@ -6,9 +6,9 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using Fanex.Athena.Models.ViewModel;
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using Resources;
 
     /// <summary>
     /// WinLossByProduct class.
@@ -134,6 +134,9 @@ namespace Fanex.Athena.Models.DTO.Report
 
                 case "VS185":
                     return ViewResources.VirtualCycling;
+
+                case "VB":
+                    return ViewResources.ProductVB;
 
                 default:
                     return productCode;

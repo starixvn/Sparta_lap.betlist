@@ -30,7 +30,6 @@ var PlatformWinLoss = (function ($) {
 
     function getProductText(productOptionJson) {
         var productOptions = $.parseJSON(productOptionJson);
-        var temp = Site.getSingleResource("Product");
         var productText = "";
         var selectedProductCount = 0;
         for (var i = 0; i < productOptions.length; i++) {

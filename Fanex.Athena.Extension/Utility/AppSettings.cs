@@ -21,6 +21,11 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public static bool IsEnableCasinoService
+        {
+            get { return GetValue("EnableCasinoService") == "1"; }
+        }
+
         public static bool IsEnablePiwik
         {
             get { return GetValue("IsEnablePiwik") == "1"; }

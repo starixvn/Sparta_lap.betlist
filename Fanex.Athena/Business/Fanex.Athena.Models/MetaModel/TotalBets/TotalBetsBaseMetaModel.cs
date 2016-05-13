@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Models.MetaModel.TotalBets
 {
+    using Fanex.Athena.Model.Core.MetaModel;
+
     /// <summary>
     /// TotalBetsBaseMetaModel class.
     /// </summary>

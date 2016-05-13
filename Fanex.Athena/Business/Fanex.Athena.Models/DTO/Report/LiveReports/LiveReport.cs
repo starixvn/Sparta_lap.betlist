@@ -7,9 +7,9 @@
 namespace Fanex.Athena.Models.DTO.Report.LiveReports
 {
     using System;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.ViewModel;
+    using Resources;
 
     /// <summary>
     /// LiveReport class.
@@ -38,6 +38,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
                 {
                     case 0:
                         return _productName;
+
                     case 1:
                         switch (_productCode.ToUpper())
                         {
@@ -64,6 +65,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
 
                             case "BG":
                                 return ViewResources.ProductBG;
+
                             default:
                                 return _productName;
                         }
@@ -87,6 +89,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
 
                     case 3:
                         return CacheRef.GetBettype(Convert.ToInt32(_productCode), false);
+
                     default:
                         return _productName;
                 }

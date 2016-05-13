@@ -10,13 +10,11 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Web.ActionFilter;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Service.Core.Users;
+    using ONEbook.UM.Services.Impl;
+    using Resources;
 
     /// <summary>
     /// Utility controller.
@@ -42,10 +40,10 @@ namespace Fanex.Athena.Controllers
             if (!int.TryParse(Request.QueryString["Code"] != null ? Request.QueryString["Code"] : "0", out code))
             {
                 code = -1;
-            }            
+            }
 
             switch (code)
-            {                
+            {
                 case 1:
                     message = ViewResources.SSOLinkIncorrectMsg;
                     break;
@@ -120,25 +118,25 @@ namespace Fanex.Athena.Controllers
             switch (errCode)
             {
                 case "400":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.InvalidRequestMsg;
+                    errorStr = ViewResources.InvalidRequestMsg;
                     break;
 
                 case "403":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_403;
+                    errorStr = ViewResources.HttpError_403;
                     break;
 
                 case "404":
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_404;
+                    errorStr = ViewResources.HttpError_404;
                     break;
 
                 default:
-                    errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
+                    errorStr = ViewResources.HttpError_Default;
                     break;
             }
 
             if (string.IsNullOrEmpty(errorStr))
             {
-                errorStr = Fanex.Athena.Models.ViewModel.ViewResources.HttpError_Default;
+                errorStr = ViewResources.HttpError_Default;
             }
 
             ViewBag.Message = errorStr;
@@ -152,23 +150,21 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult UnderMaintenance()
         {
-            IMaintenanceService maintenanceService = new MaintenanceService();
+            var maintenanceService = new MaintenanceService();
 
             var underMaintenanceTimeFrom = string.Empty;
             var underMaintenanceTimeTo = string.Empty;
-            var maintenanceInfo = maintenanceService.MaintenanceInfo;
-            var acceptIp = AppSettings.GetValue("AcceptIp");
-            var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
+            var maintenanceInfo = maintenanceService.GetUnderMaintenanceTime();
 
-            if (!isDeploying && !maintenanceInfo.IsDownTime)
+            if (!maintenanceInfo.IsUnderMaintenanceTime)
             {
                 Response.Redirect(FormsAuthentication.LoginUrl);
                 Response.End();
             }
             else
             {
-                underMaintenanceTimeFrom = maintenanceInfo.UmTimeFrom;
-                underMaintenanceTimeTo = maintenanceInfo.UmTimeTo;
+                underMaintenanceTimeFrom = maintenanceInfo.From;
+                underMaintenanceTimeTo = maintenanceInfo.To;
 
                 if (string.IsNullOrEmpty(underMaintenanceTimeFrom) || string.IsNullOrEmpty(underMaintenanceTimeTo))
                 {
@@ -288,7 +284,7 @@ namespace Fanex.Athena.Controllers
                 });
             }
         }
-        
+
         private ActionResult RedirectFromLoginPage(int licenseeId)
         {
             SessionService.UpdateLiceseeSession(licenseeId);

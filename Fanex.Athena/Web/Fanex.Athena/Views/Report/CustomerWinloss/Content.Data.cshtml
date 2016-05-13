@@ -4,7 +4,6 @@
     
 }
 @using Fanex.Athena.Extension.Helper
-@using Fanex.Athena.Models.ViewModel
 @model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
 @if (Model.DataList == null || Model.DataList.Count == 0)
 {
@@ -29,12 +28,12 @@ else
                 </div>
                 <div class="row text-data" style="width:@ViewBag.TextWidth@("px")">
                     <div>
-                        <a class="bet-list-link" data-cust-id="@item.CustId" data-system-id="@item.SystemId" data-external-id="@item.ExternalId" href="javascript:;">
+                        <a class="bet-list-link" title="@item.ExternalId" data-cust-id="@item.CustId" data-system-id="@item.SystemId" data-external-id="@item.ExternalId" href="javascript:;">
                             @RazorHelper.TruncateWithTip(item.ExternalId, 17, true)
                         </a>
                     </div>
                 </div>
-                <div class="row text-data" style="width:@ViewBag.TextWidth@("px")">
+                <div class="row text-data" title="@item.SystemId" style="width:@ViewBag.TextWidth@("px")">
                     <div>@item.SystemId</div>
                 </div>
                 <div class="row" style="width:@ViewBag.TurnoverWidth@("px")">

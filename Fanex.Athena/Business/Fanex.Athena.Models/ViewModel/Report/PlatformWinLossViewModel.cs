@@ -9,6 +9,7 @@ namespace Fanex.Athena.Models.ViewModel.Report
     using System.Collections.Generic;
     using DTO.Report;
     using MetaModel.Report;
+    using Model.Core.ViewModel;
 
     public class PlatformWinLossViewModel : BaseViewModel
     {

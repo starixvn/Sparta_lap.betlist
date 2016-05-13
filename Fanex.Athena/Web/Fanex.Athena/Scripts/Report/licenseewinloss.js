@@ -123,7 +123,7 @@ var LicenseeWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = 'api/report/LicenseeWL';
+            var temp = 'api/LicenseeWinLossReport/LicenseeWL';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
@@ -503,7 +503,7 @@ var LicenseeWinLoss = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("BetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);

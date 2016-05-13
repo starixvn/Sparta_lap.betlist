@@ -10,10 +10,10 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.ViewModel.Report;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -169,7 +169,7 @@ namespace Fanex.Athena.Excel.Report
             rowIndex += _viewModel.TotalData.Count;
 
             AssignSummaryTotalUSDRow(sheet, rowIndex);
-            
+
             AssignSummaryTotalEurRow(sheet, checked(++rowIndex));
 
             AssignSummaryTotalGbpRow(sheet, checked(++rowIndex));

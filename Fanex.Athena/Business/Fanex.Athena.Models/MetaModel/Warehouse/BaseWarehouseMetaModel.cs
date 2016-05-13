@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Warehouse
 {
     using System;
+    using Model.Core.MetaModel;
 
     /// <summary>
     /// BaseWarehouseMetaModel class.

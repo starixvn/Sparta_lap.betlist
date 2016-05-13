@@ -12,13 +12,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? metaModel.PageSizeExcel : metaModel.PageSize);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 10);
-                    
+
                     UpdateUspParams(db, metaModel, true);
                     SortableList<AgCasinoBalance> data;
                     using (var reader = db.ExecuteReader())
@@ -155,7 +155,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var result = new SortableList<AgCasinoBalance>();
 
             summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new AgCasinoBalance());
-            
+
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
             var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
@@ -164,10 +164,10 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             var transferOutColumn = "TransferOut" + metaModel.BaseCurrency;
             var closingBalanceColumn = "ClosingBalance" + metaModel.BaseCurrency;
 
-            var hasSystemIdColumn = reader.TryGetOrdinal("username") >= 0;
-            var hasExternalIdColumn = reader.TryGetOrdinal("nickname") >= 0;
-            var hasCustomerIdColumn = reader.TryGetOrdinal("custid") >= 0;
-            var hasWinlostDateColumn = reader.TryGetOrdinal("date") >= 0;
+            var hasSystemIdColumn = reader.HasColumn("username");
+            var hasExternalIdColumn = reader.HasColumn("nickname");
+            var hasCustomerIdColumn = reader.HasColumn("custid");
+            var hasWinlostDateColumn = reader.HasColumn("date");
             var index = metaModel.DrillDownLevel == 2 ? ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1 : 1;
             while (reader.Read())
             {

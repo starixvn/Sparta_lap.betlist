@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.Warehouse
 {
     using System;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
     /// WinLossMetaModel class.

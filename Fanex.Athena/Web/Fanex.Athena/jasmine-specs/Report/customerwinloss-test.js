@@ -18,10 +18,10 @@
         });
     });
 
-    xdescribe("initMonthPicker()", function () {
+    describe("initMonthPicker()", function () {
         it("$.fn.monPickr() should be called on a correct selector.", function () {
             $.fn.monPickr = function () { };
-            affix('input#IsHistoryReport[val="True"]');
+            affix('input#IsHistoryReport[value="True"]');
             affix('#DateControl');
             spyOn($.fn, 'monPickr');
 

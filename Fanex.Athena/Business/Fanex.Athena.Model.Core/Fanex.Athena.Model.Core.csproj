@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.Model.Core</RootNamespace>
+    <AssemblyName>Fanex.Athena.Model.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\RemotingRef.1.0.0.5\lib\net40\RemotingRef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataDomain\BaseCurrencyType.cs" />
+    <Compile Include="DataDomain\BetType.cs" />
+    <Compile Include="DataDomain\CurrencyType.cs" />
+    <Compile Include="DataDomain\DrawFilterType.cs" />
+    <Compile Include="DataDomain\ErrorType.cs" />
+    <Compile Include="DataDomain\EsportSettingType.cs" />
+    <Compile Include="DataDomain\FormatKey.cs" />
+    <Compile Include="DataDomain\FunctionType.cs" />
+    <Compile Include="DataDomain\Licensees.cs" />
+    <Compile Include="DataDomain\PlatformType.cs" />
+    <Compile Include="DataDomain\ProductTypes.cs" />
+    <Compile Include="DataDomain\ReportByType.cs" />
+    <Compile Include="DataDomain\RNGCasinoSetting.cs" />
+    <Compile Include="DataDomain\SportType.cs" />
+    <Compile Include="DataDomain\SystemConstants.cs" />
+    <Compile Include="DTO\Common\CheckedItem.cs" />
+    <Compile Include="DTO\Common\Currency.cs" />
+    <Compile Include="DTO\Common\ExChangeRate.cs" />
+    <Compile Include="DTO\Common\Function.cs" />
+    <Compile Include="DTO\Common\IRequest.cs" />
+    <Compile Include="DTO\Common\IResultInfo.cs" />
+    <Compile Include="DTO\Common\League.cs" />
+    <Compile Include="DTO\Common\Licensee.cs" />
+    <Compile Include="DTO\Common\Match.cs" />
+    <Compile Include="DTO\Common\Product.cs" />
+    <Compile Include="DTO\Common\ProductAccess.cs" />
+    <Compile Include="DTO\Common\Request.cs" />
+    <Compile Include="DTO\Common\ResultInfo.cs" />
+    <Compile Include="DTO\Common\Sport.cs" />
+    <Compile Include="DTO\Common\SportProductItem.cs" />
+    <Compile Include="DTO\Configuration\BalanceUp.cs" />
+    <Compile Include="DTO\Configuration\CacheKey.cs" />
+    <Compile Include="DTO\Configuration\MaintenanceInfo.cs" />
+    <Compile Include="DTO\Configuration\MoveBet.cs" />
+    <Compile Include="DTO\Users\CurrencyUser.cs" />
+    <Compile Include="DTO\Users\LicenseeCustomer.cs" />
+    <Compile Include="DTO\Users\LicenseeSession.cs" />
+    <Compile Include="DTO\Users\LicenseeType.cs" />
+    <Compile Include="DTO\Users\User.cs" />
+    <Compile Include="DTO\Users\UserRole.cs" />
+    <Compile Include="DTO\Users\UserSession.cs" />
+    <Compile Include="Helper\CacheRef.cs" />
+    <Compile Include="Helper\Validator.cs" />
+    <Compile Include="MetaModel\BaseMetaModel.cs" />
+    <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
+    <Compile Include="MetaModel\Product\ProductOption.cs" />
+    <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ResultViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

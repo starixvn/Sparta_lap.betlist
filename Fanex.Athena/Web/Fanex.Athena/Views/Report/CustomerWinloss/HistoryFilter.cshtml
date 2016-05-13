@@ -2,7 +2,7 @@
     Layout = null;
 }
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.DataDomain
+@using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("CustomerWinlossHistory", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
@@ -10,8 +10,8 @@
         <div>
             <input type="hidden" id="FromDate" name="FromDate" value="@Model.HistoryParam.FromDate.ToShortDateString()" data-original="@Model.HistoryParam.FromDate.ToShortDateString()" />
             <input type="hidden" id="ToDate" name="ToDate" value="@Model.HistoryParam.ToDate.ToShortDateString()" data-original="@Model.HistoryParam.ToDate.ToShortDateString()" />
-            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
-            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Models.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
+            @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("IsExportExcel", Model.HistoryParam.IsExportExcel)
             @Html.Hidden("FromDay", Model.HistoryParam.FromDay)
             @Html.Hidden("ToDay", Model.HistoryParam.ToDay)

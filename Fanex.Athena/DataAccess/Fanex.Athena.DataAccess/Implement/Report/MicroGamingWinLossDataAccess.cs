@@ -9,13 +9,13 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common.Extensions;
@@ -71,7 +71,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             out IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             var result = new SortableList<MicroGamingWinLoss>();
-            
+
             summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
@@ -114,7 +114,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         private void UpdateUspParams(ObjectDb db, MicroGamingWinLossMetaModel metaModel)
         {
-            var currencyId = metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId;           
+            var currencyId = metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId;
 
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("currencyid", DbType.Int32, currencyId);

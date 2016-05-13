@@ -154,6 +154,9 @@ div.match + div.league
     margin: 3px;
     width: 18px;
 }
+.gamegroupname {
+    color: #008000;
+}
 .light-blue
 {
     color:#0017CD;

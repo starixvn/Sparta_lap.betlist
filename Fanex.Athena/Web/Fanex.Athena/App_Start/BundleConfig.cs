@@ -258,6 +258,7 @@
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
                         "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
+                        "~/Scripts/BetList/voidbridge-result.js",
                         "~/Scripts/BetList/betlist.option.js",
                         "~/Scripts/BetList/betlist.js");
             AddNewScriptBundle(bundles, bundle);
@@ -280,6 +281,7 @@
                         "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/BetList/voidbridge-result.js",
                         "~/Scripts/BetList/betlist.option.js",
                         "~/Scripts/BetList/betlist.js");
             AddNewScriptBundle(bundles, bundle);
@@ -302,6 +304,7 @@
                         "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
+                        "~/Scripts/BetList/voidbridge-result.js",
                         "~/Scripts/BetList/betlist.option.js",
                         "~/Scripts/BetList/betlist.js",
                         "~/Scripts/BetList/commonbetlist.js");
@@ -765,7 +768,7 @@
                         "~/Scripts/Library/jquery.cookie.js",
                         "~/Scripts/Global/site.js",
                         "~/Scripts/Header/header.js",
-                        "~/Scripts/Header/jquery.jclock.js");
+                        "~/Scripts/Library/jquery.jclock.js");
             AddNewScriptBundle(bundles, bundle);
         }
 

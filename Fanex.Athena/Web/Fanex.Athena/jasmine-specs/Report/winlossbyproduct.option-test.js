@@ -11,8 +11,8 @@
             expect(WinLossByProductOption.rowNum).toBe(50);
             expect(WinLossByProductOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
             expect(WinLossByProductOption.totalColspan).toEqual([1, 2, 3]);
-            expect(WinLossByProductOption.urlData).toBe("api/report/WinLostByProduct");
-            expect(WinLossByProductOption.urlExcelData).toBe("api/report/WinLostByProduct");
+            expect(WinLossByProductOption.urlData).toBe("api/WinLossByProductReport/WinLossByProduct");
+            expect(WinLossByProductOption.urlExcelData).toBe("api/WinLossByProductReport/WinLossByProduct");
         });
     });
 

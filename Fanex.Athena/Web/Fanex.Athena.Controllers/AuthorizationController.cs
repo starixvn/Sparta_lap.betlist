@@ -21,15 +21,16 @@ namespace Fanex.Athena.Controllers
     using System.Web.UI;
     using Fanex.Artist.Controllers.Attributes;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DataDomain;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Users;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Models.MetaModel.Authorization;
-    using Fanex.Athena.Models.ViewModel;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Users;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using ONEbook.UM.Filters;
+    using ONEbook.UM.Services;
+    using ONEbook.UM.Services.Impl;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -57,18 +58,11 @@ namespace Fanex.Athena.Controllers
         /// The sign-in page.
         /// </summary>
         /// <returns>The sign in page.</returns>
+        [UMBackdoorFilter]
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
         {
-            var acceptIp = AppSettings.GetValue("AcceptIp");
-            var isDeploying = acceptIp != "*" && Request.UserHostAddress != acceptIp;
-
-            if (isDeploying || _maintenanceService.MaintenanceInfo.IsDownTime)
-            {
-                return RedirectToAction("UnderMaintenance", "Utility");
-            }
-
             var requestHost = Request.Url.AbsoluteUri;
 
             var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
@@ -88,6 +82,7 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         /// <param name="model">The sign in metal model.</param>
         /// <returns>The redirected action or sign in page in case of having a error .</returns>
+        [CheckUMFilter]
         [AllowAnonymous]
         [HandleAntiForgeryError]
         [HttpPost]
@@ -172,6 +167,7 @@ namespace Fanex.Athena.Controllers
         /// Check current user login and clear current authentication if another session using this user id to login.
         /// </summary>
         /// <returns>The JSON data with error code and error message.</returns>
+        [CheckUMFilter]
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
@@ -179,7 +175,7 @@ namespace Fanex.Athena.Controllers
         {
             var userSession = SessionService.UserSession;
             int currentLoginId = 0;
-         
+
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
                 return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
@@ -190,11 +186,11 @@ namespace Fanex.Athena.Controllers
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
 
-            var maintenanceInfo = _maintenanceService.MaintenanceInfo;
+            var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
 
-            if (maintenanceInfo.IsDownTime)
+            if (maintenanceInfo.IsUnderMaintenanceTime)
             {
-                var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.UmTimeFrom, maintenanceInfo.UmTimeTo);
+                var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.From, maintenanceInfo.To);
                 return Json(RecheckInResult(ErrorType.AccessDenied, message), JsonRequestBehavior.AllowGet);
             }
 

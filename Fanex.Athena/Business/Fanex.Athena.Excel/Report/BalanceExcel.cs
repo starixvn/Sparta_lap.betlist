@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.Report
     using Entities;
     using Fanex.Athena.Excel.Extension;
     using Models.DTO.Report;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// The balance excel report.
@@ -32,7 +32,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnAmtDueToBa = 6;
         private const int ColumnAmtDueToRacing = 7;
         private const int ColumnCustomerCommission = 8;
-                
+
         private const int ColumnTemplateCount = 8;
         private const int RowCustomerPendingFund = 6;
         private const int RowLicensee = 1;

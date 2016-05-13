@@ -1,25 +1,26 @@
 ﻿describe("MicroGamingWinLoss", function () {
     describe("initialize()", function () {
-        beforeEach(function () {
+        beforeAll(function () {
             spyOn(MicroGamingWinLoss, "initEvent");
             spyOn(Site, "setConstraintMonthRange");
-
-            MicroGamingWinLoss.initialize();
         });
 
         it("MicroGamingWinLoss.initEvent() should be called", function () {
+            MicroGamingWinLoss.initialize();
+
             expect(MicroGamingWinLoss.initEvent).toHaveBeenCalled();
         });
         it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
+            MicroGamingWinLoss.initialize();
+
             expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/report/MicrogamingWinloss");
         });
 
-        xit("MicroGamingWinLoss.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
-            var $reportContent = affix(".report-content");
+        it("MicroGamingWinLoss.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
             var $treeWrap = affix(".tree-wrap-ltr");
-            $reportContent.append($treeWrap);
-
+            affix(".report-content").append($treeWrap);
             spyOn(MicroGamingWinLoss, "resizeGrid");
+            MicroGamingWinLoss.initialize();
 
             $treeWrap.click();
 

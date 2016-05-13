@@ -16,8 +16,8 @@ namespace Fanex.Athena.Excel.Report
     using Common;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Models.ViewModel;
     using NPOI.SS.UserModel;
+    using Resources;
 
     /// <summary>
     /// Customer group commission.
@@ -149,7 +149,7 @@ namespace Fanex.Athena.Excel.Report
 
             if (!ShowingOption.CSVisible)
             {
-               HideColumn(sheet, ColumnCsCommission);
+                HideColumn(sheet, ColumnCsCommission);
             }
         }
     }

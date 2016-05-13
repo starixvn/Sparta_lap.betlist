@@ -10,16 +10,15 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Configuration;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Common;
@@ -151,17 +150,17 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             while (reader.Read())
             {
                 var item = new WinLossByLeague
-                    {
-                        Index = index++,
-                        TurnOver = reader.ToDecimal(turnOverColumn),
-                        CustomerWinLoss = reader.ToDecimal(memberWLColumn),
-                        LicenseeWL = reader.ToDecimal(licenseeWLColumn),
-                        BACommission = reader.ToDecimal(comBAColumn),
-                        BetCount = reader.ToInt("betcount"),
-                        AmountDue = reader.ToDecimal(amtDueToBAColumn),
-                        HomeId = reader.ToInt("homeid"),
-                        AwayId = reader.ToInt("awayid")
-                    };
+                {
+                    Index = index++,
+                    TurnOver = reader.ToDecimal(turnOverColumn),
+                    CustomerWinLoss = reader.ToDecimal(memberWLColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWLColumn),
+                    BACommission = reader.ToDecimal(comBAColumn),
+                    BetCount = reader.ToInt("betcount"),
+                    AmountDue = reader.ToDecimal(amtDueToBAColumn),
+                    HomeId = reader.ToInt("homeid"),
+                    AwayId = reader.ToInt("awayid")
+                };
                 result.Add(item);
             }
 
@@ -188,9 +187,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
             while (reader.Read())
             {
-                var hasSystemId = reader.FieldExists("username");
-                var hasExternalId = reader.FieldExists("nickname");
-                var hasCustomerId = reader.FieldExists("custid");
+                var hasSystemId = reader.HasColumn("username");
+                var hasExternalId = reader.HasColumn("nickname");
+                var hasCustomerId = reader.HasColumn("custid");
 
                 var item = new WinLossByLeague
                 {

@@ -17,12 +17,12 @@ namespace Fanex.Athena.Excel.Base
     using System.Web;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DataDomain;
-    using Models.DTO.Common;
-    using Models.MetaModel.Product;
-    using Models.ViewModel;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
+    using Model.Core.MetaModel.Product;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using Resources;
     using Utility;
 
     /// <summary>

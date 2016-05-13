@@ -1,0 +1,17 @@
+﻿namespace Fanex.Athena.Api.BetList
+{
+    using System.Web.Http;
+    using Fanex.Athena.Models.MetaModel.BetList;
+
+    public class VoidbridgeBetListController : ApiBetListBaseController
+    {
+        [HttpPost]
+        public dynamic Detail(BetListMetaModel metaModel)
+        {
+            metaModel.UserId = SessionService.UserSession.UserId;
+
+            const string UspKey = "Lrf_BetList_RNG_Detail";
+            return GetBetListResult(metaModel, UspKey);
+        }
+    }
+}

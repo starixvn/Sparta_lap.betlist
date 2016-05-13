@@ -9,16 +9,16 @@ namespace Fanex.Athena.Controllers
     using System;
     using System.IO;
     using System.Web.Mvc;
-    using Fanex.Athena.Service.Implement.Configuration;
-    using Fanex.Athena.Service.Implement.Users;
-    using Fanex.Athena.Service.Interface.Configuration;
-    using Fanex.Athena.Service.Interface.Users;
-    using Web.ActionFilter;
+    using Fanex.Athena.Service.Core.Configuration;
+    using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Home controller.
     /// </summary>
-    [UMChecking]
+    [CheckUMFilter]
     public class HomeController : BaseController
     {
         private const string IsFirstLoadCookieKey = "isFirstLoad";

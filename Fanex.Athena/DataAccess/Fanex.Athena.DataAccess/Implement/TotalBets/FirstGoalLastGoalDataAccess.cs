@@ -12,9 +12,9 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core.Extensions;
     using Data;
     using DataAccess.Interface.TotalBets;
-    using Extension;
     using Fanex.Common.Extensions;
     using Models.DTO.TotalBets;
     using Models.MetaModel.TotalBets;
@@ -118,7 +118,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="baseCurrency">Base Currency.</param>
         /// <returns>First Goal Last Goal.</returns>
         private static FirstGoalLastGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
-        {        
+        {
             if (reader.Read())
             {
                 var homeFirstGoalColumn = DataHelper.GetCurrencyColumnName("winlost_homeFG", isConvert, baseCurrency);

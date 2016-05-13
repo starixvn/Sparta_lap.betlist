@@ -16,15 +16,16 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Exception;
-    using Fanex.Athena.DataAccess.Extension;
-    using Fanex.Athena.DataAccess.Implement.Base;
+    using DataAccess.Core.Utilities;
+    using Fanex.Athena.DataAccess.Core;
+    using Fanex.Athena.DataAccess.Core.Exception;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.BetList;
     using Fanex.Athena.Extension;
     using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.DTO.Common;
-    using Fanex.Athena.Models.DTO.Customer;
     using Fanex.Athena.Models.MetaModel.BetList;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common;
@@ -339,10 +340,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             const string FormatRemark = "<span class='bl-underdog'>{0} <br/>- {1}</span>";
             const string UspKey = "Lrf_Statement_Mem";
             var transTypeHasBetList = new[] { "get", "com", "post", "bet", "gp" };
-            var transTypeIdMap = new Dictionary<string, int> 
+            var transTypeIdMap = new Dictionary<string, int>
             {
-                { "betting statement", 1 }, { "void/cancelled bet", 2 }, 
-                { "outstanding bet", 3 }, { "grand prize", 4 } 
+                { "betting statement", 1 }, { "void/cancelled bet", 2 },
+                { "outstanding bet", 3 }, { "grand prize", 4 }
             };
             var index = 1;
             var result = new List<DailyStatement>();
@@ -1091,7 +1092,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader reader, string baseCurrency, long custId = 0)
+        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -1101,118 +1102,77 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             var stakeCol = "stake" + baseCurrency;
             var actualStakeCol = "actual_stake" + baseCurrency;
 
-            // string
-            var hasUsername = reader.TryGetOrdinal("username") >= 0;
-            var hasRefNo = reader.TryGetOrdinal("refno") >= 0;
-            var hasMatchCode = reader.TryGetOrdinal("matchcode") >= 0;
-            var hasStatus = reader.TryGetOrdinal("status") >= 0;
-            var hasBetTeam = reader.TryGetOrdinal("betteam") >= 0;
-            var hasBetStatus = reader.TryGetOrdinal("betstatus") >= 0;
-            var hasShowTime = reader.TryGetOrdinal("showtime") >= 0;
-            var hasOddsType = reader.TryGetOrdinal("oddstype") >= 0;
-            var hasExternalId = reader.TryGetOrdinal("nickname") >= 0;
-            var hasRace = reader.TryGetOrdinal("race") >= 0;
-            var hasBetFrom = reader.TryGetOrdinal("betfrom") >= 0;
-            var hasBetCheck = reader.TryGetOrdinal("betcheck") >= 0;
-
-            // Boolean
-            var hasLiveIndicator = reader.TryGetOrdinal("liveindicator") >= 0;
-            var hasNeutral = reader.TryGetOrdinal("isneutral") >= 0;
-
-            // Int
-            var hasSportType = reader.TryGetOrdinal("sporttype") >= 0;
-            var hasBetType = reader.TryGetOrdinal("bettype") >= 0;
-            var hasLeagueId = reader.TryGetOrdinal("leagueid") >= 0;
-            var hasHomeId = reader.TryGetOrdinal("homeid") >= 0;
-            var hasAwayId = reader.TryGetOrdinal("awayid") >= 0;
-            var hasMatchId = reader.TryGetOrdinal("matchid") >= 0;
-            var hasCustId = reader.TryGetOrdinal("custid") >= 0;
-            var hasCurrencyId = reader.TryGetOrdinal("currencyid") >= 0;
-            var hasLiveHomeScore = reader.TryGetOrdinal("livehomescore") >= 0;
-            var hasLiveAwayScore = reader.TryGetOrdinal("liveawayscore") >= 0;
-            var hasSpecialLevel = reader.TryGetOrdinal("SpecialLevel") >= 0;
-            var hasStatusId = reader.TryGetOrdinal("StatusId") >= 0;
-
-            // Long
-            var hasTransId = reader.TryGetOrdinal("transid") >= 0;
-            var hasBetId = reader.TryGetOrdinal("betid") >= 0;
-
-            // DateTime
-            var hasWinlostDate = reader.TryGetOrdinal("winlostdate") >= 0;
-            var hasTransDate = reader.TryGetOrdinal("transdate") >= 0;
-
-            // Money
-            var hasPlayerComm = reader.TryGetOrdinal(playerCommCol) >= 0;
-            var hasComm = reader.TryGetOrdinal(commCol) >= 0;
-            var hasLicenseeWl = reader.TryGetOrdinal(licenseeWlCol) >= 0;
-            var hasWinlost = reader.TryGetOrdinal(winlostCol) >= 0;
-            var hasBetEffective = reader.TryGetOrdinal(beteffectiveCol) >= 0;
-            var hasStake = reader.TryGetOrdinal(stakeCol) >= 0;
-            var hasActualStake = reader.TryGetOrdinal(actualStakeCol) >= 0;
-            var hasOdds = reader.TryGetOrdinal("odds") >= 0;
-            var hasMasterOdds = reader.TryGetOrdinal("modds") >= 0;
-            var hasHandicap1 = reader.TryGetOrdinal("hdp1") >= 0;
-            var hasHandicap2 = reader.TryGetOrdinal("hdp2") >= 0;
-            var hasTransDecs = reader.TryGetOrdinal("transdesc") >= 0;
-
             var tickets = new SortableList<LrfTicket>();
+            var columns = new string[]
+            {
+                "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
+                "nickname", "race", "betfrom", "betcheck", "liveindicator", "isneutral", "sporttype", "bettype",
+                "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
+                "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
+                playerCommCol, commCol, licenseeWlCol, winlostCol, beteffectiveCol, stakeCol, actualStakeCol,
+                "odds", "modds", "hdp1", "hdp2", "transdesc"
+            };
+
+            var reader = new SafeDataReader(dataReader, columns);
+
             while (reader.Read())
             {
                 var ticket = new LrfTicket();
 
                 // string
-                ticket.UserName = hasUsername ? reader.ToString("username") : string.Empty;
-                ticket.RefNo = hasRefNo ? reader.ToString("refno") : string.Empty;
-                ticket.MatchCode = hasMatchCode ? reader.ToString("matchcode") : string.Empty;
-                ticket.Status = hasStatus ? reader.ToString("status") : string.Empty;
-                ticket.BetTeam = hasBetTeam ? reader.ToString("betteam") : string.Empty;
-                ticket.EventStatus = hasBetStatus ? reader.ToString("betstatus") : string.Empty;
-                ticket.ShowTime = hasShowTime ? reader.ToString("showtime") : string.Empty;
-                ticket.OddsType = hasOddsType ? reader.ToString("oddstype") : "0";
-                ticket.ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty;
-                ticket.Race = hasRace ? reader.ToString("race") : string.Empty;
-                ticket.BetFrom = hasBetFrom ? reader.ToString("betfrom") : string.Empty;
-                ticket.BetCheck = hasBetCheck ? reader.ToString("betcheck") : string.Empty;
+                ticket.UserName = reader.GetString("username");
+                ticket.RefNo = reader.GetString("refno");
+                ticket.MatchCode = reader.GetString("matchcode");
+                ticket.Status = reader.GetString("status");
+                ticket.BetTeam = reader.GetString("betteam");
+                ticket.EventStatus = reader.GetString("betstatus");
+                ticket.ShowTime = reader.GetString("showtime");
+                ticket.OddsType = reader.GetString("oddstype", "0");
+                ticket.ExternalId = reader.GetString("nickname");
+                ticket.Race = reader.GetString("race");
+                ticket.BetFrom = reader.GetString("betfrom");
+                ticket.BetCheck = reader.GetString("betcheck");
 
                 // Boolean
-                ticket.IsLive = hasLiveIndicator ? ReadBoolean(reader["liveindicator"]) : false;
-                ticket.IsNeutral = hasNeutral ? ReadBoolean(reader["isneutral"]) : false;
+                ticket.IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false);
+                ticket.IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false);
 
                 // Int
-                ticket.SportTypeId = hasSportType ? reader.ToInt("sporttype") : 0;
-                ticket.BetTypeId = hasBetType ? reader.ToInt("bettype") : 0;
-                ticket.LeagueId = hasLeagueId ? reader.ToInt("leagueid") : 0;
-                ticket.HomeId = hasHomeId ? reader.ToInt("homeid") : 0;
-                ticket.AwayId = hasAwayId ? reader.ToInt("awayid") : 0;
-                ticket.MatchId = hasMatchId ? reader.ToInt("matchid") : 0;
-                ticket.CustId = hasCustId ? reader.ToInt("custid") : custId;
-                ticket.CurrencyId = hasCurrencyId ? reader.ToInt("currencyid") : 0;
-                ticket.LiveHomeScore = hasLiveHomeScore ? reader.ToInt("livehomescore") : 0;
-                ticket.LiveAwayScore = hasLiveAwayScore ? reader.ToInt("liveawayscore") : 0;
-                ticket.SpecialLevel = hasSpecialLevel ? reader.ToInt("SpecialLevel") : 0;
-                ticket.StatusId = hasStatusId ? reader.ToInt("StatusId") : 0;
+                ticket.SportTypeId = reader.GetInt("sporttype");
+                ticket.BetTypeId = reader.GetInt("bettype");
+                ticket.LeagueId = reader.GetInt("leagueid");
+                ticket.HomeId = reader.GetInt("homeid");
+                ticket.AwayId = reader.GetInt("awayid");
+                ticket.MatchId = reader.GetInt("matchid");
+                ticket.CustId = reader.GetLong("custid", custId);
+                ticket.CurrencyId = reader.GetInt("currencyid");
+                ticket.LiveHomeScore = reader.GetInt("livehomescore");
+                ticket.LiveAwayScore = reader.GetInt("liveawayscore");
+                ticket.SpecialLevel = reader.GetInt("SpecialLevel");
+                ticket.StatusId = reader.GetInt("StatusId");
 
                 // Long
-                ticket.TransId = hasTransId ? reader.To<long>("transid") : 0;
-                ticket.BetId = hasBetId && !Convert.IsDBNull(reader["betid"]) ? new long?(reader.To<long>("betid")) : null;
+                ticket.TransId = reader.GetLong("transid");
+                var betid = reader.GetValue("betid");
+                ticket.BetId = betid == DBNull.Value ? null : (long?)betid;
 
                 // DateTime
-                ticket.WinlostDate = hasWinlostDate ? reader.ToDateTime("winlostdate") : DateTime.Now;
-                ticket.TransDate = hasTransDate ? reader.ToDateTime("transdate") : DateTime.Now;
+                ticket.WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now);
+                ticket.TransDate = reader.GetDateTime("transdate", DateTime.Now);
 
                 // Money
-                ticket.PlayerComm = hasPlayerComm ? reader.ToDecimal(playerCommCol) : 0;
-                ticket.Comm = hasComm ? reader.ToDecimal(commCol) : 0;
-                ticket.LicenseeWL = hasLicenseeWl ? reader.ToDecimal(licenseeWlCol) : 0;
-                ticket.Winlost = hasWinlost ? reader.ToDecimal(winlostCol) : 0;
-                ticket.BetEffective = hasBetEffective ? reader.ToDecimal(beteffectiveCol) : 0;
-                ticket.Stake = hasStake ? reader.ToDecimal(stakeCol) : 0;
-                ticket.ActualStake = hasActualStake ? reader.ToDecimal(actualStakeCol) : 0;
-                ticket.Odds = hasOdds ? reader.ToDecimal("odds") : 0;
-                ticket.MasterOdds = hasMasterOdds ? reader.ToDecimal("modds") : 0;
-                ticket.Handicap1 = hasHandicap1 ? reader.ToDecimal("hdp1") : 0;
-                ticket.Handicap2 = hasHandicap2 ? reader.ToDecimal("hdp2") : 0;
-                ticket.TransDesc = hasTransDecs ? reader.ToString("transdesc") : string.Empty;
+                ticket.PlayerComm = reader.GetDecimal(playerCommCol);
+                ticket.Comm = reader.GetDecimal(commCol);
+                ticket.LicenseeWL = reader.GetDecimal(licenseeWlCol);
+                ticket.Winlost = reader.GetDecimal(winlostCol);
+                ticket.BetEffective = reader.GetDecimal(beteffectiveCol);
+                ticket.Stake = reader.GetDecimal(stakeCol);
+                ticket.ActualStake = reader.GetDecimal(actualStakeCol);
+                ticket.Odds = reader.GetDecimal("odds");
+                ticket.MasterOdds = reader.GetDecimal("modds");
+                ticket.Handicap1 = reader.GetDecimal("hdp1");
+                ticket.Handicap2 = reader.GetDecimal("hdp2");
+                ticket.TransDesc = reader.GetString("transdesc");
                 tickets.Add(ticket);
             }
 
@@ -1228,8 +1188,8 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader, string baseCurrency)
         {
             var stakeColumn = "stake" + baseCurrency;
-            var hasOrdinalBetTeam = reader.FieldExists("betteam");
-            var hasOrdinalStake = reader.FieldExists(stakeColumn);
+            var hasOrdinalBetTeam = reader.HasColumn("betteam");
+            var hasOrdinalStake = reader.HasColumn(stakeColumn);
             while (reader.Read())
             {
                 var ticket = new TicketData();

@@ -14,13 +14,13 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Athena.Models.DataDomain;
+    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.BetList;
     using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Resources;
 
     #endregion Using
 
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Api.BetList
             const string StatusTemp = "<div class='status'>{0}</div>";
             var statusText = GetStatusText(ticket);
             var statusNormalText = string.Format(StatusTemp, statusText);
-            
+
             // If Sport type is keno, doesn't show "Result" link.
             if (ticket.SportTypeId == (int)SportType.Keno)
             {
@@ -66,6 +66,7 @@ namespace Fanex.Athena.Api.BetList
                         ticket.RefNo,
                         GetCasinoHandHistoryParam(ticket, metaModel),
                         ViewResources.Results);
+
                 case 72:
                 case 73:
                     return statusNormalText;

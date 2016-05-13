@@ -76,12 +76,12 @@
             $("#BaseCurrency").attr('data-original', 3);
         });
 
-        xit("ForecastPopup.resizePopup(height, height, url) should be called with correct parameters", function () {
+        it("ForecastPopup.resizePopup(height, height, url) should be called with correct parameters", function () {
             spyOn(ForecastPopup, "resizePopup");
 
             ForecastOneXTwo.openForecast(1, 2, "true");
 
-            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(900, 650, url);
+            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(900, jasmine.any(Number), url);
         });
     });
 

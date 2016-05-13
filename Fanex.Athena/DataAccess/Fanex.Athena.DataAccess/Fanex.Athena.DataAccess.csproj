@@ -42,15 +42,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.11.0.2-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.4-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.11.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.11.0.2-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.12.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.4-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.11.0.2-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.4-beta\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -118,7 +118,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\RemotingRef.1.0.0.4\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\..\packages\RemotingRef.1.0.0.5\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -143,19 +143,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exception\DataAccessException.cs" />
-    <Compile Include="Extension\DataHelper.cs" />
-    <Compile Include="Extension\DataReaderExtensions.cs" />
     <Compile Include="Implement\BetList\BetListDataAccess.cs" />
-    <Compile Include="Implement\Common\BetTypeDataAccess.cs" />
-    <Compile Include="Implement\Common\ExChangeRateDataAccess.cs" />
-    <Compile Include="Implement\Common\LeagueDataAccess.cs" />
-    <Compile Include="Implement\Common\MatchDataAccess.cs" />
-    <Compile Include="Implement\Common\SportTypeDataAccess.cs" />
-    <Compile Include="Implement\Configuration\MoveBetDataAccess.cs" />
-    <Compile Include="Implement\Customer\BetSettingDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerLog\CustomerLogDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerLog\LogInLogDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
@@ -167,8 +155,6 @@
     <Compile Include="Implement\Report\ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueDataAccess.cs" />
     <Compile Include="Implement\Report\ResultDataAccess.cs" />
-    <Compile Include="Interface\Common\ILeagueDataAccess.cs" />
-    <Compile Include="Interface\Configuration\IMoveBetDataAccess.cs" />
     <Compile Include="Interface\Report\ICasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Interface\Report\IMicroGamingWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IGoldDeluxeWinLossDataAccess.cs" />
@@ -189,12 +175,6 @@
     <Compile Include="Implement\TotalBets\OutrightDataAccess.cs" />
     <Compile Include="Implement\TotalBets\RacingDataAccess.cs" />
     <Compile Include="Implement\TotalBets\TotalGoalDataAccess.cs" />
-    <Compile Include="Implement\Users\AuthorizationDataAccess.cs" />
-    <Compile Include="Implement\Common\FunctionDataAccess.cs" />
-    <Compile Include="Implement\Configuration\BalanceUpDataAccess.cs" />
-    <Compile Include="Implement\Base\BaseDataAccess.cs" />
-    <Compile Include="Implement\Customer\CustomerDataAccess.cs" />
-    <Compile Include="Implement\Customer\GroupComDataAccess.cs" />
     <Compile Include="Implement\Report\CreditBalanceDataAccess.cs" />
     <Compile Include="Implement\Report\CustomerBalanceDataAccess.cs" />
     <Compile Include="Implement\Report\CustomerPendingFundsDataAccess.cs" />
@@ -210,12 +190,6 @@
     <Compile Include="Implement\Report\TurnoverDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\BetList\IBetListDataAccess.cs" />
-    <Compile Include="Interface\Common\IExChangeRateDataAccess.cs" />
-    <Compile Include="Interface\Common\IBetTypeDataAccess.cs" />
-    <Compile Include="Interface\Common\ISportTypeDataAccess.cs" />
-    <Compile Include="Interface\Common\IMatchDataAccess.cs" />
-    <Compile Include="Interface\Customer\CustomerLog\ICustomerLogDataAccess.cs" />
-    <Compile Include="Interface\Customer\CustomerLog\ILogInLogDataAccess.cs" />
     <Compile Include="Interface\Forecast\IForecastDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IFirstGoalLastGoalDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IHalfTimeFullTimeDataAccess.cs" />
@@ -227,16 +201,7 @@
     <Compile Include="Interface\TotalBets\IOutrightDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IRacingDataAccess.cs" />
     <Compile Include="Interface\TotalBets\ITotalGoalDataAccess.cs" />
-    <Compile Include="Interface\Users\IAthorizationDataAccess.cs" />
-    <Compile Include="Interface\Common\IFunctionDataAccess.cs" />
-    <Compile Include="Interface\Configuration\IBalanceUpDataAccess.cs" />
-    <Compile Include="Implement\Common\CurrencyDataAccess.cs" />
-    <Compile Include="Implement\Users\LicenseeDataAccess.cs" />
-    <Compile Include="Implement\Common\ProductDataAccess.cs" />
     <Compile Include="Implement\Report\MatchWinLossDataAccess.cs" />
-    <Compile Include="Interface\Customer\IBetSettingDataAccess.cs" />
-    <Compile Include="Interface\Customer\ICustomerDataAccess.cs" />
-    <Compile Include="Interface\Customer\IGroupComDataAccess.cs" />
     <Compile Include="Interface\Report\IBalanceDataAccess.cs" />
     <Compile Include="Interface\Report\ICustBalanceDataAccess.cs" />
     <Compile Include="Interface\Report\ICustPendingFundsDataAccess.cs" />
@@ -249,18 +214,13 @@
     <Compile Include="Interface\Report\ILicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\LicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlatformWinLossDataAccess.cs" />
-    <Compile Include="Implement\Users\UserDataAccess.cs" />
     <Compile Include="Implement\Warehouse\TopCustomerDataAccess.cs" />
     <Compile Include="Implement\Warehouse\WinLossDataAccess.cs" />
-    <Compile Include="Interface\Common\ICurrencyDataAccess.cs" />
-    <Compile Include="Interface\Users\ILicenseeDataAccess.cs" />
-    <Compile Include="Interface\Common\IProductDataAccess.cs" />
     <Compile Include="Interface\Report\ILiveReportDataAccess.cs" />
     <Compile Include="Interface\Report\IMatchWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlatformWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByProductDataAccess.cs" />
-    <Compile Include="Interface\Users\IUserDataAccess.cs" />
     <Compile Include="Interface\Warehouse\ITopCustomerDataAccess.cs" />
     <Compile Include="Interface\Warehouse\IWinLossDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -270,14 +230,28 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
+      <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
+      <Name>Fanex.Athena.Model.Customer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
       <Name>Fanex.Athena.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Business\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interface\Licensee\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

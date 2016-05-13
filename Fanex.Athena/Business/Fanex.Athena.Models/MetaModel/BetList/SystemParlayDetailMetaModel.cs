@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Models.MetaModel.BetList
 {
     using System;
+    using Model.Core.MetaModel;
 
     /// <summary>
     /// SystemParlayDetailMetaModel class.
