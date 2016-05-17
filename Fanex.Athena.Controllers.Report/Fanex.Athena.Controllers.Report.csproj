@@ -66,8 +66,8 @@
       <HintPath>..\packages\Fanex.Result.Core-Sportsbook.1.0.2.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Voidbridge, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Result.Core.Voidbridge.1.0.1.0-beta\lib\Fanex.Result.Core.Voidbridge.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Voidbridge, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Result.Core.Voidbridge.1.0.1.1\lib\Fanex.Result.Core.Voidbridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
