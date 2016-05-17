@@ -53,10 +53,24 @@ var BetList = (function ($) {
                 $("#BetListGrid").setGridWidth($(window).width());
             }).trigger('resize');
 
+            if (BetList.isMatchWLReport() === true) {
+                BetList.updateSortColumn();
+            }
+
             _isShowSumStake = $("#IsShowSumStake").val() === "1";
 
             _sortColumnName = _sortColumnName || $("#SortBy").val();
             _sortOrder = _sortOrder || $("#SortOrder").val();
+        },
+
+        updateSortColumn: function(){
+            BetListOption.columnModel[1].sortable = true; //externalId
+            BetListOption.columnModel[2].sortable = true; //systemId
+        },
+
+        isMatchWLReport: function(){
+            var regex = /^MatchWL/i;
+            return regex.test($("#ActionName").val());
         },
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
