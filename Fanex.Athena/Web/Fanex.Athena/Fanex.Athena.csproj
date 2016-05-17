@@ -323,10 +323,6 @@
       <HintPath>..\..\..\packages\TplCore.1.0.4694.29951\lib\net40\TplCore.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="UMControllerLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UMControllerLibrary.1.0.0.1\lib\net40\UMControllerLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
