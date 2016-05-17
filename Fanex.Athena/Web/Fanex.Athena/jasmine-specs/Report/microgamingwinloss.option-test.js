@@ -9,7 +9,7 @@
 
     describe("getColName()", function () {
         it("MicroGamingWinLossOption.getColName() should be return correct value", function () {
-            var expected = ['#', 'TypeName', 'Date', 'Currency', 'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L'];
+            var expected = ['#', 'TypeName', 'Date', 'Currency', 'Turnover', 'TotalTransaction', 'CustomerW_L', 'ProgressiveContribution', 'ProgressivePayout', 'LicenseeW_L', 'LicenseeNetWin', 'AmountDueToMGC', 'ProgressiveFee'];
 
             var result = MicroGamingWinLossOption.getColName();
 

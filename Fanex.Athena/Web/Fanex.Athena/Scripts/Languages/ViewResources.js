@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/10/2016 9:54:37 AM
+// Lasted generated date: 5/13/2016 9:45:59 AM
 // </history>
 
 var _language_en_US={
@@ -45,6 +45,7 @@ var _language_en_US={
     Amount:"Amount",
     AmountDue:"Amount Due",
     AmountDueTo:"Amount Due To",
+    AmountDueToMGC:"Amount Due To Microgaming",
     AmtDueTo:"Amt Due To",
     AmtDueToBA:"Amt Due To BA",
     AmtDueToBABalanceNote:"Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.",
@@ -433,6 +434,7 @@ var _language_en_US={
     Licensee12Bet:"12Bet Licensee",
     LicenseeFee:"Licensee Fee",
     Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
+    LicenseeNetWin:"Licensee Net Win",
     LicenseeType:"Licensee Type",
     LicenseeW_L:"Licensee W/L",
     LicenseeWinLoss:"Licensee Win Loss",
@@ -647,6 +649,9 @@ var _language_en_US={
     ProductVB:"Macau Games",
     ProductVG:"Macau",
     ProductVS:"Virtual Sports",
+    ProgressiveContribution:"Progressive Contribution",
+    ProgressiveFee:"Progressive Fee",
+    ProgressivePayout:"Progressive Payout",
     PShare:"P.Share",
     PWin:"P.Win",
     Q1:"1Q",

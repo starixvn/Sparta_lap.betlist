@@ -118,7 +118,7 @@ namespace Fanex.Athena.Api.Report
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
 
             var exportedFileName = string.Format(
-                "MicroGamingWinLoss_{0:ddMMMyyyy}_{1}.xls", 
+                "MGCWinLoss_{0:ddMMMyyyy}_{1}.xls", 
                 metaModel.FromDate, 
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption

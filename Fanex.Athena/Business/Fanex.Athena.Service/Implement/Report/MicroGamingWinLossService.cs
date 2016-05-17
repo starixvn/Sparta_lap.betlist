@@ -76,7 +76,12 @@ namespace Fanex.Athena.Service.Implement.Report
                 TurnOver = g.Sum(p => p.TurnOver),
                 TotalTransaction = g.Sum(p => p.TotalTransaction),
                 CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
-                LicenseeWL = g.Sum(p => p.LicenseeWL)
+                ProgressiveContribution = g.Sum(p => p.ProgressiveContribution),
+                ProgressivePayout = g.Sum(p => p.ProgressivePayout),
+                LicenseeWL = g.Sum(p => p.LicenseeWL),
+                LicenseeNetWin = g.Sum(p => p.LicenseeNetWin),
+                AmountDueToMGC = g.Sum(p => p.AmountDueToMGC),
+                ProgressiveFee = g.Sum(p => p.ProgressiveFee)
             }).ToList();
         }
     }

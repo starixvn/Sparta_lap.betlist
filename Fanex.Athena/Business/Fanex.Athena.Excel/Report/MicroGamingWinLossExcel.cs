@@ -23,14 +23,19 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class MicroGamingWinLossExcel : ReportBase
     {
-        private const int ColumnTemplateCount = 7;
+        private const int ColumnTemplateCount = 12;
 
         private const int ColumnDate = 1;
         private const int ColumnCurrency = 2;
         private const int ColumnTurnover = 3;
         private const int ColumnTotalTransaction = 4;
         private const int ColumnCustomerWl = 5;
-        private const int ColumnLicenseeWl = 6;
+        private const int ColumnProgressiveContribution = 6;
+        private const int ColumnProgressivePayout = 7;
+        private const int ColumnLicenseeWl = 8;
+        private const int ColumnLicenseeNetWin = 9;
+        private const int ColumnAmountDueToMGC = 10;
+        private const int ColumnProgressiveFee = 11;
 
         private const int RowContentTitleTemplate = 2;
         private const int RowContentTemplate = 3;
@@ -99,7 +104,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
+            row.Cells[ColumnProgressiveContribution].SetCellValue(ViewResources.ProgressiveContribution);
+            row.Cells[ColumnProgressivePayout].SetCellValue(ViewResources.ProgressivePayout);
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
+            row.Cells[ColumnLicenseeNetWin].SetCellValue(ViewResources.LicenseeNetWin);
+            row.Cells[ColumnAmountDueToMGC].SetCellValue(ViewResources.AmountDueToMGC);
+            row.Cells[ColumnProgressiveFee].SetCellValue(ViewResources.ProgressiveFee);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -192,7 +202,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
+            row.Cells[ColumnProgressiveContribution].SetCellValue(data.ProgressiveContribution);
+            row.Cells[ColumnProgressivePayout].SetCellValue(data.ProgressivePayout);
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
+            row.Cells[ColumnLicenseeNetWin].SetCellValue(data.LicenseeNetWin);
+            row.Cells[ColumnAmountDueToMGC].SetCellValue(data.AmountDueToMGC);
+            row.Cells[ColumnProgressiveFee].SetCellValue(data.ProgressiveFee);
         }
 
         /// <summary>
@@ -273,7 +288,12 @@ namespace Fanex.Athena.Excel.Report
                         TurnOver = group.Sum(a => a.TurnOver),
                         TotalTransaction = group.Sum(a => a.TotalTransaction),
                         CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        ProgressiveContribution = group.Sum(a => a.ProgressiveContribution),
+                        ProgressivePayout = group.Sum(a => a.ProgressivePayout),
                         LicenseeWL = group.Sum(a => a.LicenseeWL),
+                        LicenseeNetWin = group.Sum(a => a.LicenseeNetWin),
+                        AmountDueToMGC = group.Sum(a => a.AmountDueToMGC),
+                        ProgressiveFee = group.Sum(a => a.ProgressiveFee)
                     }).ToList();
 
             return listTotalCurrency;

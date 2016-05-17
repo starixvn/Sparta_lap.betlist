@@ -385,6 +385,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Due To Microgaming.
+        /// </summary>
+        public static string AmountDueToMGC {
+            get {
+                return ResourceManager.GetString("AmountDueToMGC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt Due To.
         /// </summary>
         public static string AmtDueTo {
@@ -3877,6 +3886,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Net Win.
+        /// </summary>
+        public static string LicenseeNetWin {
+            get {
+                return ResourceManager.GetString("LicenseeNetWin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Type.
         /// </summary>
         public static string LicenseeType {
@@ -5799,6 +5817,33 @@ namespace Fanex.Athena.Resources {
         public static string ProductVS {
             get {
                 return ResourceManager.GetString("ProductVS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progressive Contribution.
+        /// </summary>
+        public static string ProgressiveContribution {
+            get {
+                return ResourceManager.GetString("ProgressiveContribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progressive Fee.
+        /// </summary>
+        public static string ProgressiveFee {
+            get {
+                return ResourceManager.GetString("ProgressiveFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progressive Payout.
+        /// </summary>
+        public static string ProgressivePayout {
+            get {
+                return ResourceManager.GetString("ProgressivePayout", resourceCulture);
             }
         }
         
