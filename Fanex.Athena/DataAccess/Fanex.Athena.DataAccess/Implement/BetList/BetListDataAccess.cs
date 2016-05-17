@@ -679,6 +679,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
+            db.AddInParameter("sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
