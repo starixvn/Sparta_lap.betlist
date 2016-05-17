@@ -58,6 +58,7 @@ namespace Fanex.Athena.Controllers
         /// The sign-in page.
         /// </summary>
         /// <returns>The sign in page.</returns>
+        [CheckUMFilter]
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
