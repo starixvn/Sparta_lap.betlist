@@ -240,6 +240,11 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
                                 metaModel.SortBy = "WinLossComm";
                             }
 
+                            if (metaModel.SortBy.Equals("nickname", StringComparison.OrdinalIgnoreCase))
+                            {
+                                metaModel.SortBy = "ExternalId";
+                            }
+
                             ticketResult.MainTicketList.Sort(metaModel.SortBy, metaModel.SortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase));
                         }
                     }
@@ -633,7 +638,6 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
@@ -657,7 +661,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             var suportProducts = new string[2] { Product.SB, Product.BA };
@@ -682,11 +686,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
 
-            if (!string.IsNullOrEmpty(metaModel.SortBy))
-            {
-                db.AddInParameter("sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
-            }
-
+            CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
@@ -714,7 +714,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
             db.AddInParameter("RaceNo", DbType.String, metaModel.RaceNo);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            CreateBetListSortingParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
         }
@@ -989,7 +989,7 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
             {
-                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
             }
         }
 
