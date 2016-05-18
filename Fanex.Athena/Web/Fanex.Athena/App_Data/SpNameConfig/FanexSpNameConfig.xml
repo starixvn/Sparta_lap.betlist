@@ -2,10 +2,6 @@
 <Root>
   <SpNameConfig Environment="UAT,PRO" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
 
-  <!--#56248-->
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="LRF_Rpt_MicroGamingWinloss" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xtest"></SpNameConfig>
-
   <!--#57433-->
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_MatchWL_Outright" EnvironmentText="_xtest"></SpNameConfig>
