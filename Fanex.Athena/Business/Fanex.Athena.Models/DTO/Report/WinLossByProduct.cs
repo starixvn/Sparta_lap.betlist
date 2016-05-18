@@ -7,8 +7,7 @@
 namespace Fanex.Athena.Models.DTO.Report
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
-    using Resources;
+    using Model.Core.Helper;
 
     /// <summary>
     /// WinLossByProduct class.
@@ -46,7 +45,7 @@ namespace Fanex.Athena.Models.DTO.Report
             {
                 if (string.IsNullOrEmpty(_productName))
                 {
-                    _productName = GetProductName(_productCode);
+                    _productName = ProductHelper.GetProductName(_productCode);
                 }
 
                 return _productName;
@@ -75,72 +74,5 @@ namespace Fanex.Athena.Models.DTO.Report
         }
 
         #endregion ICustomerWinLoss Members
-
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        private static string GetProductName(string productCode)
-        {
-            switch (productCode.ToUpper())
-            {
-                case "BA":
-                    return ViewResources.ProductBA;
-
-                case "LC":
-                    return ViewResources.ProductLC;
-
-                case "NG":
-                    return ViewResources.ProductNG;
-
-                case "RB":
-                    return ViewResources.ProductRB;
-
-                case "SB":
-                    return ViewResources.Sportsbook;
-
-                case "MGCLC":
-                    return ViewResources.ProductMGCLC;
-
-                case "MGCRNG":
-                    return ViewResources.ProductMGCRNG;
-
-                case "VS":
-                    return ViewResources.ProductVS;
-
-                case "VS180":
-                    return ViewResources.VirtualSoccer;
-
-                case "VS181":
-                    return ViewResources.VirtualHorseRacing;
-
-                case "VS182":
-                    return ViewResources.VirtualGreyhounds;
-
-                case "VS184":
-                    return ViewResources.VirtualMotoRacing;
-
-                case "VS186":
-                    return ViewResources.VirtualTennis;
-
-                case "CS":
-                    return ViewResources.ProductCS;
-
-                case "BG":
-                    return ViewResources.ProductBG;
-
-                case "KN":
-                    return ViewResources.ProductKN;
-
-                case "VS183":
-                    return ViewResources.VirtualSpeedway;
-
-                case "VS185":
-                    return ViewResources.VirtualCycling;
-
-                case "VB":
-                    return ViewResources.ProductVB;
-
-                default:
-                    return productCode;
-            }
-        }
     }
 }

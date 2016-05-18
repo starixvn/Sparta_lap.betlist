@@ -93,6 +93,7 @@
     <Compile Include="DTO\Users\UserRole.cs" />
     <Compile Include="DTO\Users\UserSession.cs" />
     <Compile Include="Helper\CacheRef.cs" />
+    <Compile Include="Helper\ProductHelper.cs" />
     <Compile Include="Helper\Validator.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
