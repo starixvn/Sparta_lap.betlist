@@ -69,6 +69,7 @@ namespace Fanex.Athena.Api.BetList
             {
                 metaModel.UserId = userSession.UserId;
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
                 return GetBetListResult(metaModel, UspKey);

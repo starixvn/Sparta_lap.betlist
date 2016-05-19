@@ -31,6 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             // include LicenseeId, UserId in CreateDefaultMetaModel
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
 
             if (metaModel.IsExportExcel)
             {
@@ -54,6 +55,8 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchWLMixParlay(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
+
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -74,6 +77,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchWLOutright(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
 
             if (metaModel.IsExportExcel)
             {
