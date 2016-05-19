@@ -3,10 +3,10 @@
     var userGuideName = string.Empty;
     int bettype = 0;
 
-    if(Request.QueryString["multiplebettype"] != null)
+    if (Request.QueryString["multiplebettype"] != null)
     {
         bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
-        switch(bettype)
+        switch (bettype)
         {
             case 9:
                 title = ViewResources.MixParlay;
@@ -25,10 +25,10 @@
                 userGuideName = "TotalBetsMixParlay";
                 break;
             default:
-            break;
+                break;
         }
         var formatTitle = "{0} {1} {2} - {3}";
-        ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets,  title);
+        ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, title);
     }
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
@@ -37,18 +37,18 @@
 @section pagecss {
     <link href="@Url.ContentLink("/Content/UserGuide/user-guide.css")" rel="stylesheet" type="text/css" />
 }
-@section pagejs {    
+@section pagejs {
     <script src="@Url.ContentLink("/Scripts/BetList/runningbetlist.multiplebettypes.js")" type="text/javascript"></script>
 }
 @section ContentTitle
 {
     @{
-        if(bettype == 9 || bettype == 29)
+        if (bettype == 9 || bettype == 29)
         {
 
             <span id="mixparlay_9" class="inactive-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(9)">@ViewResources.MixParlay</span>
             <span>|</span>
-            <span id="mixparlay_29" class="active-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(29)">@ViewResources.SystemParlay</span>            
+            <span id="mixparlay_29" class="active-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(29)">@ViewResources.SystemParlay</span>
         }
         else
         {
@@ -62,12 +62,9 @@
         Html.RenderPartial("~/Views/BetList/RunningBetListMultipleBettypes/Filter.cshtml");
     }
 }
-@{
-    <div id="popupSystemParlay"></div>
-    <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
-    <input type="hidden" id="IsShowSumStake" value="1" />
-}
-<script type="text/javascript">
-    var popupTitle = "@title";
-    var userGuideName = "@userGuideName";
-</script>
+
+<div id="popupSystemParlay"></div>
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+<input type="hidden" id="IsShowSumStake" value="1" />
+<input type="hidden" id="title" value="@title" />
+<input type="hidden" id="userGuideName" value="@userGuideName" />

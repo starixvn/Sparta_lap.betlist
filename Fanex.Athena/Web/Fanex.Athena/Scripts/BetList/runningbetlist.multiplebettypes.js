@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString, BetList, popupTitle, userGuideName*/
+﻿/*global Site, QueryString, BetList */
 /// <reference path="/@JSense.js" />
 var RunningBetListMultipleBettype = (function ($) {
     "use strict";
@@ -14,8 +14,8 @@ var RunningBetListMultipleBettype = (function ($) {
             RunningBetListMultipleBettype.switchItemSelectedMixParlay();
             RunningBetListMultipleBettype.submit();
             Site.addUserGuide({
-                resourceName: userGuideName,
-                title: Site.getSingleResource("TotalBets") + " - " + popupTitle
+                resourceName: $('#userGuideName').val(),
+                title: Site.getSingleResource("TotalBets") + " - " + $('#title').val()
             });
         },
 
