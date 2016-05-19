@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
                 db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
                 db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
-
+                db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);

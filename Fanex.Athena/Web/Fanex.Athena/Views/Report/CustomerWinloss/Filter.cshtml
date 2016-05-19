@@ -56,28 +56,17 @@
         <div class="new-line">
         </div>
         @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2)
+        <div class="grid_3 filter-label">
+            <label for="IsExcludedTestData">
+                @ViewResources.ExcludeTestData
+            </label>
+        </div>
+        <div class="grid_5 filter-input option-list">
+            <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
+        </div>
 @*End Row 3*@
 @*Row 4 - Note*@
 
-@*    <div class="grid_2 filter-label new-line">
-        <label>
-            @ViewResources.DrawFilter
-        </label>
-    </div>
-    <div class="grid_9 filter-input option-list">
-        <input type="radio" value="@(DrawFilterType.Normal)" @(Model.Param.DrawFilter == DrawFilterType.Normal ? "checked=checked" : "") name="drawfilter" />
-        <label>
-            @ViewResources.Normal
-        </label>
-        <input type="radio" value="@(DrawFilterType.NoDraws)" @(Model.Param.DrawFilter == DrawFilterType.NoDraws ? "checked=checked" : "") name="drawfilter" />
-        <label>
-            @ViewResources.NoDraws
-        </label>
-        <input type="radio" value="@(DrawFilterType.NoDrawsForTurnoverOnly)" @(Model.Param.DrawFilter == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="drawfilter" />
-        <label>
-            @ViewResources.NoDrawsForTurnoverOnly
-        </label>
-    </div>       *@
         <div class="grid_2 filter-label new-line">
         </div>
         <div class="grid_@(Model.ProductAccess.IsAllowBA || Model.ProductAccess.IsAllowRB ? 15 : 13) filter-input">

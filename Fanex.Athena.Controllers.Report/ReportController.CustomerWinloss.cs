@@ -44,7 +44,8 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = new CustomerWinLossMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal
+                DrawFilter = DrawFilterType.Normal,
+                IsExcludedTestData = true
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -85,7 +86,8 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal
+                DrawFilter = DrawFilterType.Normal,
+                IsExcludedTestData = true
             };
 
             SetConvetedUSDCurrencyName(historyParam);
