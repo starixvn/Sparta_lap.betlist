@@ -44,11 +44,10 @@ module.exports = function(config) {
 		'Scripts/BetList/customer.dailystatement.js',
 		'Scripts/BetList/customer.dailystatement.option.js',
 		'Scripts/BetList/customer.outstandingbetlist.js',
-		 'Scripts/BetList/dailybetlist.js',
-		 'Scripts/BetList/lastbetsmonitornew.js',
-		// need to refactor userGuideName
-		// 'Scripts/BetList/runningbetlist.js',
-		//'Scripts/BetList/runningbetlist.multiplebettypes.js',
+		'Scripts/BetList/dailybetlist.js',
+		'Scripts/BetList/lastbetsmonitornew.js',
+		'Scripts/BetList/runningbetlist.js',
+		'Scripts/BetList/runningbetlist.multiplebettypes.js',
 		
 		'jasmine-specs/BetList/betlist-test.js',
 		'jasmine-specs/BetList/cancelledbetsbetlist-test.js',
@@ -59,8 +58,8 @@ module.exports = function(config) {
 		'jasmine-specs/BetList/customer.outstandingbetlist-test.js',
 		'jasmine-specs/BetList/dailybetlist-test.js',
 		'jasmine-specs/BetList/lastbetsmonitornew-test.js',
-		// 'jasmine-specs/BetList/runningbetlist-test.js',
-		//'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
+		 'jasmine-specs/BetList/runningbetlist-test.js',
+		'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
 		
 		// --------- Casino --------- //
 		'Scripts/Casino/**.js',
