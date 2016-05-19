@@ -989,7 +989,10 @@ namespace Fanex.Athena.DataAccess.Implement.BetList
         {
             if (string.IsNullOrWhiteSpace(metaModel.SortBy) == false)
             {
-                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+                var nonBaseCurrencyColumns = new string[] { "nickname", "username" };
+                var sortBy = nonBaseCurrencyColumns.Contains(metaModel.SortBy.ToLowerInvariant()) ?
+                    metaModel.SortBy : metaModel.SortBy + metaModel.BaseCurrency;
+                db.AddInParameter("Sort", DbType.String, sortBy + " " + metaModel.SortOrder);
             }
         }
 
