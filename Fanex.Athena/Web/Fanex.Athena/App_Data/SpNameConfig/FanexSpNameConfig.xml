@@ -3,5 +3,5 @@
   <SpNameConfig Environment="UAT,PRO" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
 
   <!--#56248-->
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="LRF_Rpt_MicroGamingWinloss" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

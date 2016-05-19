@@ -66,7 +66,7 @@
     <Setting Key="Lrf_BetTypesGetAll" SpName="Lrf_BetTypesGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_SportsGetAll" SpName="Lrf_SportsGetAll" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CustomerBalance" SpName="Lrf_Rpt_CustomerBalance" DbName="DBACC.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CommByBettype_HR" SpName="Lrf_Rpt_CommByBettype_HR" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -90,7 +90,7 @@
     <Setting Key="Lrf_Rpt_AGCasinoBalance" SpName="Lrf_Rpt_AGCasinoBalance" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Ag" SpName="LRF_Rpt_AGCasinoBalance_Ag" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoBalance_Mem" SpName="LRF_Rpt_AGCasinoBalance_Mem" DbName="DBAGCasino.bodb_PlaytechCS.bodbLicenseeNet" />
-    <Setting Key="LRF_Rpt_MicroGamingWinloss" SpName="LRF_Rpt_MicroGamingWinloss_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="LRF_Rpt_MicroGamingWinloss" SpName="LRF_Rpt_MicroGamingWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_CasinoProgressiveWins" SpName="Lrf_Rpt_CasinoProgressiveWins" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
