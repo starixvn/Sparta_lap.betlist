@@ -26,6 +26,8 @@ namespace Fanex.Athena.Models.MetaModel.Report
             DrawFilter = DrawFilterType.Normal;
         }
 
+        public bool IsExcludedTestData { get; set; }
+
         public int DrawFilter { get; set; }
 
         public string SortDirection { get; set; }
