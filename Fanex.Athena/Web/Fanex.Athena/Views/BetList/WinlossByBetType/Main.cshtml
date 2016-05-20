@@ -6,7 +6,7 @@
 @using Fanex.Athena.Models.Cache
 @using Fanex.Athena.Model.Core.DataDomain
 
-@model Fanex.Athena.Models.MetaModel.BetList.BetListMetaModel
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
 @{ 
     ViewBag.HideExportExcel = Model.CurrencyId == BaseCurrencyType.All || Model.FromDate.Date != Model.ToDate.Date;
 }

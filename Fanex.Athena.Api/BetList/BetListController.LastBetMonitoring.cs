@@ -19,8 +19,8 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.DTO.BetList;
-    using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Model.BetList.DTO;
+    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;

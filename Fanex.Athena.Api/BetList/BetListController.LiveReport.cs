@@ -18,7 +18,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Model.BetList.MetaModel;
 
     #endregion Using
 

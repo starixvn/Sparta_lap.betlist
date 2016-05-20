@@ -17,7 +17,7 @@ namespace Fanex.Athena.Excel.Base
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using Models.DTO.BetList;
+    using Model.BetList.DTO;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;

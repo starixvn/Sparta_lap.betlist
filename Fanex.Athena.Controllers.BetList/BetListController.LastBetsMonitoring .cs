@@ -12,8 +12,8 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel.BetList;
+    using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
