@@ -10,7 +10,6 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.Forecast;
     using Models.ViewModel.Forecast;
@@ -81,13 +80,13 @@ namespace Fanex.Athena.Controllers.Forecast
             var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
-                {
-                    Param = metaModel,
-                    MainData = forecastHdpOuByLeague,
-                    LeagueList = leagueList,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = GetUserCurrencies()
-                };
+            {
+                Param = metaModel,
+                MainData = forecastHdpOuByLeague,
+                LeagueList = leagueList,
+                LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                CurrencyList = GetUserCurrencies()
+            };
         }
 
         #endregion Utility

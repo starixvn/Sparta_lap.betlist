@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Model.BetList.DTO
 {
-    using System;
     using Fanex.BetList.Core.Entities;
 
     /// <summary>

@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Model.Core.MetaModel
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using Fanex.Athena.Model.Core.DataDomain;
 

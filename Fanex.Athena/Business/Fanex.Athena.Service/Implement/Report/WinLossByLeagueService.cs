@@ -10,7 +10,6 @@
 namespace Fanex.Athena.Service.Implement.Report
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Models.DTO.Report;

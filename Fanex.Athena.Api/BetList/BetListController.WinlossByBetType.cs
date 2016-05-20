@@ -3,7 +3,7 @@
     #region Using
     using System;
     using System.Web.Http;
-    using Fanex.Athena.Model.BetList.MetaModel;  
+    using Fanex.Athena.Model.BetList.MetaModel;
     #endregion Using
 
     /// <summary>

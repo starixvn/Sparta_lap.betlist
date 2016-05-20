@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using System;
-
     public class PlatformWinLossSummary : ICustomerWinLoss
     {
         public PlatformWinLossSummary()

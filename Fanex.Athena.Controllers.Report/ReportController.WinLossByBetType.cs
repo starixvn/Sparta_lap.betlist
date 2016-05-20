@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;

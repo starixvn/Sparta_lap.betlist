@@ -1,4 +1,4 @@
-﻿﻿// -----------------------------------------------------------------------
+﻿// -----------------------------------------------------------------------
 // <copyright file="DictionaryPropertyComparer.cs" company="Unknown">
 // TODO: Update copyright text.
 // </copyright>

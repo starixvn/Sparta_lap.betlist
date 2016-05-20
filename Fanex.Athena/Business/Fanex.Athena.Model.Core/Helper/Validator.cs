@@ -6,10 +6,6 @@
 
 namespace Fanex.Athena.Models.Helper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.Athena.Model.Core.DTO.Common;
 
     /// <summary>

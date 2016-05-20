@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Models.DTO.Report
 {
     using System;
-    using Fanex.Athena.Model.Core.Helper;
 
     [Serializable]
     public class CasinoProgressiveWins

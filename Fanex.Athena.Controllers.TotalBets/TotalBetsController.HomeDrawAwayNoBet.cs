@@ -9,9 +9,7 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.TotalBets;
     using Models.ViewModel.TotalBets;

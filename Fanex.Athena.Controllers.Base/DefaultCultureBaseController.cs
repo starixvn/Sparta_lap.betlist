@@ -8,10 +8,10 @@ namespace Fanex.Athena.Controllers
 {
     #region Using
 
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Fanex.Athena.Service.Core.Users;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
 
     #endregion Using

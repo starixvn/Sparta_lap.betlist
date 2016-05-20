@@ -11,7 +11,6 @@
 namespace Fanex.Athena.DataAccess.Warehouse.Interfaces
 {
     using System.Collections.Generic;
-    using System.Data;
     using Fanex.Athena.Model.Warehouse.DTO;
     using Fanex.Athena.Model.Warehouse.MetaModel;
 

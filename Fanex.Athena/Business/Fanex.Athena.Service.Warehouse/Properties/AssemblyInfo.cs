@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace", 
+[assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.Service.BetList.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.Service.Casino.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
