@@ -125,9 +125,7 @@
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
-    <Compile Include="MetaModel\AGCasinoDetailMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
-    <Compile Include="MetaModel\MicroGamingRngDetailMetaModel.cs" />
     <Compile Include="MetaModel\SystemParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportBetListMetaModel.cs" />
     <Compile Include="MetaModel\LastBetsMonitoringMetaModel.cs" />
@@ -136,8 +134,6 @@
     <Compile Include="ViewModel\CancelledBetsBetListViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
-    <Compile Include="ViewModel\CustomerOutstandingViewModel.cs" />
-    <Compile Include="ViewModel\DailyStatementViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

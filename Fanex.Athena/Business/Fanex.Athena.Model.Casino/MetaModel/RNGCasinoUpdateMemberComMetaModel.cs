@@ -6,11 +6,6 @@
 
 namespace Fanex.Athena.Model.Casino.MetaModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -28,7 +23,7 @@ namespace Fanex.Athena.Model.Casino.MetaModel
 
         public string ModifyUserName { get; set; }
 
-        public byte FromSystem 
+        public byte FromSystem
         {
             get
             {

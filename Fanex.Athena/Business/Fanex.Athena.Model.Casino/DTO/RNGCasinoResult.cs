@@ -11,7 +11,6 @@
 namespace Fanex.Athena.Model.Casino.DTO
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
