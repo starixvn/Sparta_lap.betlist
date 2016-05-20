@@ -8,7 +8,7 @@
 // </history>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Implement.Warehouse
+namespace Fanex.Athena.DataAccess.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
@@ -16,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Implement.Warehouse
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
-    using Fanex.Athena.DataAccess.Interface.Warehouse;
+    using Fanex.Athena.DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Model.Warehouse.DTO;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Common.Extensions;

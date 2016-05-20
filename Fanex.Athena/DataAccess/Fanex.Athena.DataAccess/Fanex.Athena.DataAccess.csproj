@@ -214,15 +214,11 @@
     <Compile Include="Interface\Report\ILicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\LicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlatformWinLossDataAccess.cs" />
-    <Compile Include="Implement\Warehouse\TopCustomerDataAccess.cs" />
-    <Compile Include="Implement\Warehouse\WinLossDataAccess.cs" />
     <Compile Include="Interface\Report\ILiveReportDataAccess.cs" />
     <Compile Include="Interface\Report\IMatchWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlatformWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByProductDataAccess.cs" />
-    <Compile Include="Interface\Warehouse\ITopCustomerDataAccess.cs" />
-    <Compile Include="Interface\Warehouse\IWinLossDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

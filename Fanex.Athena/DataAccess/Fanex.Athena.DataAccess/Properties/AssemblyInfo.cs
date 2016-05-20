@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.DataAccess.Interface.TotalBets", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
-    Target = "Fanex.Athena.DataAccess.Interface.Warehouse", MessageId = "Interface", Justification = "Reviewed.")]
+    Target = "Fanex.Athena.DataAccess.Warehouse.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 
 [assembly: System.CLSCompliant(true)]
 

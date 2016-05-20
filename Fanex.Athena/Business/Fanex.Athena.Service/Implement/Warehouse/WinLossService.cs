@@ -12,8 +12,8 @@ namespace Fanex.Athena.Service.Implement.Warehouse
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Implement.Warehouse;
-    using Fanex.Athena.DataAccess.Interface.Warehouse;
+    using Fanex.Athena.DataAccess.Warehouse;
+    using Fanex.Athena.DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Model.Warehouse.DTO;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Service.Core.Exception;

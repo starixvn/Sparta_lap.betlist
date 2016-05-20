@@ -8,7 +8,7 @@
 // </history>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Interface.Warehouse
+namespace Fanex.Athena.DataAccess.Warehouse.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
