@@ -10,8 +10,8 @@ namespace Fanex.Athena.Controllers.WareHouse
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Warehouse;
-    using Fanex.Athena.Models.MetaModel.Warehouse;
-    using Fanex.Athena.Models.ViewModel.Warehouse;
+    using Fanex.Athena.Model.Warehouse.MetaModel;
+    using Fanex.Athena.Model.Warehouse.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;

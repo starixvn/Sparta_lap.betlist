@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Warehouse
+namespace Fanex.Athena.Model.Warehouse.DTO
 {
     using System;
     using Fanex.Athena.Models.Cache;

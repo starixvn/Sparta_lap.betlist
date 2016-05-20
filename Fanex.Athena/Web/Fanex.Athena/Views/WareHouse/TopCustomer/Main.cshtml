@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_ReportLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Models.ViewModel.Warehouse
+@using Fanex.Athena.Model.Warehouse.ViewModel
 @model TopCustomerViewModel
 @{
     ViewBag.ShowActiveDate = !Model.ShowEmptyContent && !(Model.MainResult.Count != 0 && Model.MainResult[0].LastLoginDate == null);

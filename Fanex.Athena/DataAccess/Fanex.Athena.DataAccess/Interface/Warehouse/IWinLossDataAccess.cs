@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.Interface.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.Models.DTO.Warehouse;
-    using Fanex.Athena.Models.MetaModel.Warehouse;
+    using Fanex.Athena.Model.Warehouse.DTO;
+    using Fanex.Athena.Model.Warehouse.MetaModel;
 
     /// <summary>
     ///     The i win loss data access.

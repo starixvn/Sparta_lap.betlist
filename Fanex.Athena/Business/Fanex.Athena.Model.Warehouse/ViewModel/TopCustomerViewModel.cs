@@ -4,12 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.ViewModel.Warehouse
+namespace Fanex.Athena.Model.Warehouse.ViewModel
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.Warehouse;
-    using Fanex.Athena.Models.MetaModel.Warehouse;
+    using Fanex.Athena.Model.Warehouse.DTO;
+    using Fanex.Athena.Model.Warehouse.MetaModel;
     using Model.Core.ViewModel;
 
     /// <summary>

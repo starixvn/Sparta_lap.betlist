@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Warehouse
+namespace Fanex.Athena.Model.Warehouse.DTO
 {
     /// <summary>
     /// Warehouse report by filter.

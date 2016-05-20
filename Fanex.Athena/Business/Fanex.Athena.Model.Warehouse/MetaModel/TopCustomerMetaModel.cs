@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Warehouse
+namespace Fanex.Athena.Model.Warehouse.MetaModel
 {
     using System;
 

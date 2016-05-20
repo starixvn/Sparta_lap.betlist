@@ -13,7 +13,7 @@ namespace Fanex.Athena.Excel.Warehouse
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.DTO.Warehouse;
+    using Fanex.Athena.Model.Warehouse.DTO;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Excel.Warehouse
             { (int)WarehouseReportBy.League, (int)WarehouseReportBy.League },
          };
 
-        private IList<Fanex.Athena.Models.DTO.Warehouse.WinLoss> _dataList;
+        private IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> _dataList;
 
         private IDictionary<string, decimal> _totalValues;
 
@@ -54,7 +54,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
-                IList<Fanex.Athena.Models.DTO.Warehouse.WinLoss> dataList,
+                IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
                 IDictionary<string, decimal> totalValues)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
         {

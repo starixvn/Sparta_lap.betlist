@@ -181,9 +181,6 @@
     <Compile Include="DTO\Report\WinLossByBetType.cs" />
     <Compile Include="DTO\Report\TurnoverDTO.cs" />
     <Compile Include="DTO\Report\WinLossByProduct.cs" />
-    <Compile Include="DTO\Warehouse\TopCustomer.cs" />
-    <Compile Include="DTO\Warehouse\WarehouseReportBy.cs" />
-    <Compile Include="DTO\Warehouse\WinLoss.cs" />
     <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
@@ -240,9 +237,6 @@
     <Compile Include="MetaModel\TotalBets\RacingMetaModel.cs" />
     <Compile Include="MetaModel\TotalBets\TotalBetsBaseMetaModel.cs" />
     <Compile Include="MetaModel\TotalBets\TotalGoalMetaModel.cs" />
-    <Compile Include="MetaModel\Warehouse\BaseWarehouseMetaModel.cs" />
-    <Compile Include="MetaModel\Warehouse\TopCustomerMetaModel.cs" />
-    <Compile Include="MetaModel\Warehouse\WinLossMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\BetList\BetListBaseViewModel.cs" />
     <Compile Include="ViewModel\BetList\CancelledBetsBetListViewModel.cs" />
@@ -285,7 +279,6 @@
     <Compile Include="ViewModel\Report\LiveReports\LiveReportViewModel.cs" />
     <Compile Include="ViewModel\Report\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModel\Report\PlatformWinLossViewModel.cs" />
-    <Compile Include="MetaModel\Warehouse\GroupingMetaModel.cs" />
     <Compile Include="ViewModel\Report\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModel\Report\SettledMatchCountViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByBetTypeViewModel.cs" />
@@ -301,8 +294,6 @@
     <Compile Include="ViewModel\TotalBets\RacingViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\TotalBetsBaseViewModel.cs" />
     <Compile Include="ViewModel\TotalBets\TotalGoalViewModel.cs" />
-    <Compile Include="ViewModel\Warehouse\TopCustomerViewModel.cs" />
-    <Compile Include="ViewModel\Warehouse\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
