@@ -8,7 +8,7 @@
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;

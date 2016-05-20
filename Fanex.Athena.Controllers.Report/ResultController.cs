@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Models.Cache;
+    using Model.Core.Helper;
     using Resources;
     using Result.Core.Voidbridge;
 

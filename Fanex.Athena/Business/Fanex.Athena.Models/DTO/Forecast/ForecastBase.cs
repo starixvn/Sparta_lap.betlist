@@ -9,7 +9,7 @@
 
 namespace Fanex.Athena.Models.DTO.Forecast
 {
-    using Cache;
+    using Model.Core.Helper;
 
     /// <summary>
     /// ForecastBase class.

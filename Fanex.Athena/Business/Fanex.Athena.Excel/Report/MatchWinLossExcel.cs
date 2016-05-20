@@ -24,7 +24,7 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Extension;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Models.Cache;
+    using Model.Core.Helper;
     using Models.MetaModel.Report;
     using NPOI.SS.UserModel;
     using Resources;

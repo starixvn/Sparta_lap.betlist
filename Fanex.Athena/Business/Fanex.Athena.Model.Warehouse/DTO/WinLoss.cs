@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Model.Warehouse.DTO
 {
     using System;
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
     using Resources;
 
     /// <summary>

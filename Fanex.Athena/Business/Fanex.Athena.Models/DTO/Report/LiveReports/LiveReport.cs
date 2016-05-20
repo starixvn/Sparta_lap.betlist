@@ -8,9 +8,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
 {
     using System;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.Cache;
-    using Model.Core.Helper;
-    using Resources;
+    using Fanex.Athena.Model.Core.Helper;
 
     /// <summary>
     /// LiveReport class.
@@ -42,7 +40,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
 
                     case 1:
                         return ProductHelper.GetProductName(_productCode, _productName);
-                        
+
                     case 2:
                         var sportId = string.IsNullOrEmpty(_productCode) ? 0 : Convert.ToInt32(_productCode);
                         switch (sportId)

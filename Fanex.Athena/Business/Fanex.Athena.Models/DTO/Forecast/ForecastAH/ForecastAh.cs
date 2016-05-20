@@ -10,7 +10,7 @@
 namespace Fanex.Athena.Models.DTO.Forecast.ForecastAH
 {
     using System.Collections.Generic;
-    using Cache;
+    using Model.Core.Helper;
 
     /// <summary>
     /// ForecastAh class.

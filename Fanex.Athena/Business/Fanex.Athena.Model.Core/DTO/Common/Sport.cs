@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
 
     /// <summary>
     /// Sport class.

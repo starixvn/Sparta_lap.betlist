@@ -11,7 +11,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
     using Models.DTO.Report;
     using Models.MetaModel.Report;
     using Models.ViewModel.Report;
