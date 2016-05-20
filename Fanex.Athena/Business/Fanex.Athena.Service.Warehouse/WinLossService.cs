@@ -7,18 +7,15 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Warehouse
+namespace Fanex.Athena.Service.Warehouse
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Athena.DataAccess.Warehouse;
     using Fanex.Athena.DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Model.Warehouse.DTO;
     using Fanex.Athena.Model.Warehouse.MetaModel;
-    using Fanex.Athena.Service.Core.Exception;
-    using Fanex.Athena.Service.Interface.Warehouse;
-    using Fanex.Logging;
+    using Fanex.Athena.Service.Warehouse.Interfaces;
 
     /// <summary>
     ///     The win loss service.
@@ -53,7 +50,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
         /// </summary>
         /// <param name="model">
         ///     The model.
-        /// </param>        
+        /// </param>
         /// <param name="totalValues">
         ///     The total values.
         /// </param>

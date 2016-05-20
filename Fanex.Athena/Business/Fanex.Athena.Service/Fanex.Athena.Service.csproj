@@ -249,8 +249,6 @@
     <Compile Include="Implement\Report\SettledMatchCountService.cs" />
     <Compile Include="Implement\Report\TurnoverService.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeService.cs" />
-    <Compile Include="Implement\Warehouse\TopCustomerService.cs" />
-    <Compile Include="Implement\Warehouse\WinLossService.cs" />
     <Compile Include="Interface\BetList\IBetListService.cs" />
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />
@@ -290,8 +288,6 @@
     <Compile Include="Interface\Report\ITurnoverService.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeServive.cs" />
     <Compile Include="Interface\Report\IWinLossByProductService.cs" />
-    <Compile Include="Interface\Warehouse\ITopCustomerService.cs" />
-    <Compile Include="Interface\Warehouse\IWinLossService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

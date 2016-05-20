@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Warehouse
+namespace Fanex.Athena.Service.Warehouse
 {
     using System.Collections.Generic;
     using System.Data;
@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Implement.Warehouse
     using Fanex.Athena.DataAccess.Warehouse.Interfaces;
     using Fanex.Athena.Model.Warehouse.DTO;
     using Fanex.Athena.Model.Warehouse.MetaModel;
-    using Fanex.Athena.Service.Interface.Warehouse;
+    using Fanex.Athena.Service.Warehouse.Interfaces;
 
     /// <summary>
     ///     The top customer service.

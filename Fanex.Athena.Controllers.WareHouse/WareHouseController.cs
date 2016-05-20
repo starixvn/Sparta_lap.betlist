@@ -10,8 +10,8 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Fanex.Athena.Service.Implement.Warehouse;
-    using Fanex.Athena.Service.Interface.Warehouse;
+    using Fanex.Athena.Service.Warehouse;
+    using Fanex.Athena.Service.Warehouse.Interfaces;
 
     /// <summary>
     ///     TODO: Update summary.

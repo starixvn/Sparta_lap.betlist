@@ -40,7 +40,7 @@ using System.Runtime.InteropServices;
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.Service.Core.Users.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
-    Target = "Fanex.Athena.Service.Interface.Warehouse", MessageId = "Interface", Justification = "Reviewed.")]
+    Target = "Fanex.Athena.Service.Warehouse.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: System.CLSCompliant(true)]
 
 /* General Information about an assembly is controlled through the following

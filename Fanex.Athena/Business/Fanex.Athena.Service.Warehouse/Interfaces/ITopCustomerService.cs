@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Interface.Warehouse
+namespace Fanex.Athena.Service.Warehouse.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
