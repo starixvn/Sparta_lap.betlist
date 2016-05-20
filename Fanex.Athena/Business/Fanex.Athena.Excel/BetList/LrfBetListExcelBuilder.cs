@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.BetList
     using System.Globalization;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.Core.DataDomain;
     using Model.BetList.DTO;
+    using Model.Core.DataDomain;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

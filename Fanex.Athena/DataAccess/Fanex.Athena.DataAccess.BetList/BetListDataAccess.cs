@@ -17,15 +17,15 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using DataAccess.Core.Utilities;
+    using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
-    using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Extension;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common;
     using Fanex.Common.Extensions;
