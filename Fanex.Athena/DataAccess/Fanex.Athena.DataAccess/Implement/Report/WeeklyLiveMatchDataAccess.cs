@@ -15,7 +15,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Logging;
-    using Models.Cache;
+    using Model.Core.Helper;
 
     /// <summary>
     ///     TODO: Update summary.
