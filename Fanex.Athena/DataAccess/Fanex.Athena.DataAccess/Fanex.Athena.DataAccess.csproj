@@ -41,18 +41,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.12.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
@@ -143,7 +131,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implement\BetList\BetListDataAccess.cs" />
     <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
@@ -189,7 +176,6 @@
     <Compile Include="Implement\Report\SettledMatchCountDataAccess.cs" />
     <Compile Include="Implement\Report\TurnoverDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeDataAccess.cs" />
-    <Compile Include="Interface\BetList\IBetListDataAccess.cs" />
     <Compile Include="Interface\Forecast\IForecastDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IFirstGoalLastGoalDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IHalfTimeFullTimeDataAccess.cs" />
@@ -214,15 +200,11 @@
     <Compile Include="Interface\Report\ILicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\LicenseeWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\PlatformWinLossDataAccess.cs" />
-    <Compile Include="Implement\Warehouse\TopCustomerDataAccess.cs" />
-    <Compile Include="Implement\Warehouse\WinLossDataAccess.cs" />
     <Compile Include="Interface\Report\ILiveReportDataAccess.cs" />
     <Compile Include="Interface\Report\IMatchWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IPlatformWinLossDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeDataAccess.cs" />
     <Compile Include="Interface\Report\IWinLossByProductDataAccess.cs" />
-    <Compile Include="Interface\Warehouse\ITopCustomerDataAccess.cs" />
-    <Compile Include="Interface\Warehouse\IWinLossDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +237,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

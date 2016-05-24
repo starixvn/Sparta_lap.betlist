@@ -13,14 +13,14 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Service.BetList;
+    using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Fanex.Athena.Service.Implement.BetList;
-    using Fanex.Athena.Service.Interface.BetList;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Resources;

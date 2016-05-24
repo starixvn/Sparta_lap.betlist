@@ -6,11 +6,9 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Models.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;

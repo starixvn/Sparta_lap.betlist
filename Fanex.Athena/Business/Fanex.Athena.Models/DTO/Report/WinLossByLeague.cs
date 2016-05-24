@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
 
     /// <summary>
     /// WinLossByProduct class.

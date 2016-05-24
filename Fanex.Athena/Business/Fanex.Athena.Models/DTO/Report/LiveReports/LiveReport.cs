@@ -8,8 +8,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
 {
     using System;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.Cache;
-    using Resources;
+    using Fanex.Athena.Model.Core.Helper;
 
     /// <summary>
     /// LiveReport class.
@@ -40,35 +39,7 @@ namespace Fanex.Athena.Models.DTO.Report.LiveReports
                         return _productName;
 
                     case 1:
-                        switch (_productCode.ToUpper())
-                        {
-                            case "BA":
-                                return ViewResources.ProductBA;
-
-                            case "LC":
-                                return ViewResources.ProductLC;
-
-                            case "NG":
-                                return ViewResources.ProductNG;
-
-                            case "RB":
-                                return ViewResources.ProductRB;
-
-                            case "SB":
-                                return ViewResources.Sportsbook;
-
-                            case "VS":
-                                return ViewResources.ProductVS;
-
-                            case "CS":
-                                return ViewResources.ProductCS;
-
-                            case "BG":
-                                return ViewResources.ProductBG;
-
-                            default:
-                                return _productName;
-                        }
+                        return ProductHelper.GetProductName(_productCode, _productName);
 
                     case 2:
                         var sportId = string.IsNullOrEmpty(_productCode) ? 0 : Convert.ToInt32(_productCode);

@@ -118,10 +118,6 @@
       <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
-      <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
-      <Name>Fanex.Athena.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>

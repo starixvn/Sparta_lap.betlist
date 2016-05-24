@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Models.DTO.Report
 {
-    using System;
-
     /// <summary>
     /// CustomerWinLoss class.
     /// </summary>

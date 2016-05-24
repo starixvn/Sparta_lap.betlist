@@ -1,4 +1,4 @@
-﻿xdescribe("PlatformWinLossOption", function () {
+﻿describe("PlatformWinLossOption", function () {
     describe("Default Option", function () {
         it("Initial values should be correct", function () {
             expect(PlatformWinLossOption.pageSize).toBe(50);

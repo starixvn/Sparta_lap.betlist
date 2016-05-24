@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Models.MetaModel.Forecast;
@@ -51,9 +50,9 @@ namespace Fanex.Athena.Controllers.Forecast
         public ActionResult ForecastOneXTwo()
         {
             var metaModel = new ForecastOneXTwoMetaModel
-                {
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                };
+            {
+                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+            };
 
             SetConvetedUSDCurrencyName(metaModel);
 

@@ -8,7 +8,6 @@ namespace Fanex.Athena.Models.DTO.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// ActiveCustomer class.

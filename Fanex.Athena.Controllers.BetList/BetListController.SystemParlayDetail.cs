@@ -10,8 +10,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.MetaModel.BetList;
-    using Fanex.Athena.Models.ViewModel.BetList;
+    using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.BetList.Core.Builder;
 
     #endregion Using

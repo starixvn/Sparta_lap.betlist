@@ -1,7 +1,5 @@
 ﻿describe("RunningBetList", function () {
     beforeEach(function () {
-        userGuideName = "User Guide Name test";
-        popupTitle = "Popup Title test";
         spyOn(RunningBetList, "getUrlParams").and.returnValue("1");
     });
     describe("initialize", function () {

@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Models.Cache;
+    using Model.Core.Helper;
 
     public class VirtualSportsBetSettingDataAccess : BaseDataAccess, IVirtualSportsBetSettingDataAccess
     {

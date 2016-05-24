@@ -8,7 +8,6 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 {
     #region
 
-    using System;
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
 

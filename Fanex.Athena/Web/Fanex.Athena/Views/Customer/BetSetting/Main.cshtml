@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingViewModel
-@using Fanex.Athena.Models.ViewModel;
+
 @using Fanex.Athena.Model.Core.DataDomain;
 @section pagecss
 {
@@ -71,7 +71,7 @@
             var esportText = string.Empty;
             if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
             {
-                esportText = "& " + Fanex.Athena.Models.Cache.CacheRef.GetSportName(43);
+                esportText = "& " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
             }
         <div class="content-row">
             <div class="row text-data first-column" style="width: 190px">
@@ -113,9 +113,9 @@
         id="btnReset" />
         @if (Fanex.Athena.Extension.Utility.AppSettings.GetValue("EnableEsportSettingStatus") == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
         {
-            var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Models.Cache.CacheRef.GetSportName(43);
+            var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
             var esportStatus=Model.EsportSetting==EsportSettingType.NoneMemberOffering;
-            <input type="hidden" id="esport-text-from-remotingref" value="@Fanex.Athena.Models.Cache.CacheRef.GetSportName(43)" />
+            <input type="hidden" id="esport-text-from-remotingref" value="@Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43)" />
             <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus" value="@buttonText" id="btnDisableEsports" />
         }
     </div>

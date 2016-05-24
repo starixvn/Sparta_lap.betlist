@@ -1,8 +1,6 @@
 ﻿describe("RunningBetListMultipleBettype", function () {
     describe("initialize()", function () {
         beforeEach(function () {
-            userGuideName = "UserGuideName-test";
-            popupTitle = "PopupTitle-test";
             spyOn(RunningBetListMultipleBettype, "initEvent");
             spyOn(RunningBetListMultipleBettype, "switchItemSelectedMixParlay");
             spyOn(RunningBetListMultipleBettype, "submit");
@@ -23,8 +21,8 @@
             expect(RunningBetListMultipleBettype.submit).toHaveBeenCalled();
         });
 
-        it("Site.addUserGuide(options) should be called with correct parameters", function () {
-            expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "UserGuideName-test", title: "TotalBets - PopupTitle-test" });
+        it("Site.addUserGuide(options) should be called.", function () {
+            expect(Site.addUserGuide).toHaveBeenCalled();
         });
     });
 

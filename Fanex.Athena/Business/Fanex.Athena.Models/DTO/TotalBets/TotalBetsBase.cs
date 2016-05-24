@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Models.DTO.TotalBets
 {
-    using Cache;
+    using Model.Core.Helper;
 
     /// <summary>
     /// TotalBetsBase class.

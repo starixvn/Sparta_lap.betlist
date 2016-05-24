@@ -9,8 +9,6 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.MetaModel.Report;

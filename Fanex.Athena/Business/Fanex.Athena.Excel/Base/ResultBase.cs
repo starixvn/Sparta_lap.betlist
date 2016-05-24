@@ -15,7 +15,7 @@ namespace Fanex.Athena.Excel.Base
     using Common;
     using Entities;
     using Fanex.Athena.Excel.Extension;
-    using Models.Cache;
+    using Model.Core.Helper;
     using NPOI.SS.UserModel;
     using Resources;
 

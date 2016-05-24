@@ -10,7 +10,6 @@
 
 namespace Fanex.Athena.DataAccess.Interface.Report
 {
-    using System.Data;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;

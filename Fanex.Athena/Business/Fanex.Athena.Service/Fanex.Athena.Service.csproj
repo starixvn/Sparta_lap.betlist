@@ -52,22 +52,6 @@
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.12.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Voidbridge, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Voidbridge.1.0.0.14\lib\net40\Fanex.BetList.Voidbridge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Caching.1.0.404.95\lib\net40\Fanex.Caching.dll</HintPath>
       <Private>True</Private>
@@ -77,9 +61,6 @@
     </Reference>
     <Reference Include="Fanex.Data">
       <HintPath>..\..\..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.LiveCasinoSetting">
-      <HintPath>..\..\..\packages\Fanex.LiveCasinoSetting.1.0.0\lib\net40\Fanex.LiveCasinoSetting.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
@@ -221,7 +202,6 @@
     <Compile Include="Implement\Report\ThirdPartyWinLossService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
-    <Compile Include="Implement\BetList\BetListService.cs" />
     <Compile Include="Implement\Forecast\ForecastService.cs" />
     <Compile Include="Implement\TotalBets\FirstGoalLastGoalService.cs" />
     <Compile Include="Implement\TotalBets\HalfTimeFullTimeService.cs" />
@@ -249,9 +229,6 @@
     <Compile Include="Implement\Report\SettledMatchCountService.cs" />
     <Compile Include="Implement\Report\TurnoverService.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeService.cs" />
-    <Compile Include="Implement\Warehouse\TopCustomerService.cs" />
-    <Compile Include="Implement\Warehouse\WinLossService.cs" />
-    <Compile Include="Interface\BetList\IBetListService.cs" />
     <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
@@ -290,8 +267,6 @@
     <Compile Include="Interface\Report\ITurnoverService.cs" />
     <Compile Include="Interface\Report\IWinLossByBetTypeServive.cs" />
     <Compile Include="Interface\Report\IWinLossByProductService.cs" />
-    <Compile Include="Interface\Warehouse\ITopCustomerService.cs" />
-    <Compile Include="Interface\Warehouse\IWinLossService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,32 +2,32 @@
     var bettype = Convert.ToInt32(Request.QueryString["bettype"]);
     var title = string.Empty;
     var userGuideName = string.Empty;
-    switch(bettype)
+    switch (bettype)
     {
-        case 13: 
+        case 13:
             title = ViewResources.CleanSheet;
             userGuideName = "TotalBetsCleanSheet";
             break;
         case 27:
             title = ViewResources.ToWinToNil;
             userGuideName = "TotalBetsToWinToNil";
-            break;            
+            break;
         case 28:
             title = ViewResources.lbl3WayHandicap;
             userGuideName = "TotalBets3WayHandicap";
             break;
         default:
-        break;
+            break;
     }
     var formatTitle = "{0} {1} {2} - {3}";
-    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets,  title);
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, title);
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.BetList.BetListBaseViewModel
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @section pagecss {
 }
-@section pagejs {    
+@section pagejs {
     <script src="@Url.ContentLink("/Scripts/BetList/runningbetlist.js")" type="text/javascript"></script>
 }
 @section ContentTitle
@@ -40,12 +40,8 @@
         Html.RenderPartial("~/Views/BetList/RunningBetList/Filter.cshtml");
     }
 }
-@{
-    <div id="popupSystemParlay"></div>
-    <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
-    <input type="hidden" id="IsShowSumStake" value="1" />
-}
-<script type="text/javascript">
-    var popupTitle = "@title";
-    var userGuideName = "@userGuideName";
-</script>
+<div id="popupSystemParlay"></div>
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+<input type="hidden" id="IsShowSumStake" value="1" />
+<input type="hidden" id="title" value="@title" />
+<input type="hidden" id="userGuideName" value="@userGuideName" />

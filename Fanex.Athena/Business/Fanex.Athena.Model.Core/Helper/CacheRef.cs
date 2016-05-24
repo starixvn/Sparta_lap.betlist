@@ -3,7 +3,7 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // ---------------------------------------------------------------------------
-namespace Fanex.Athena.Models.Cache
+namespace Fanex.Athena.Model.Core.Helper
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;

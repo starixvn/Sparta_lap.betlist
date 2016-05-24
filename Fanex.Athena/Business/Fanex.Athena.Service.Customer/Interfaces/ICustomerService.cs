@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     #region Using
 
     using System.Collections.Generic;
-    using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;

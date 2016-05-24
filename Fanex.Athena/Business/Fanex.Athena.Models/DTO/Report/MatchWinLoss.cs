@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Models.DTO.Report
 {
     using System;
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
 
     /// <summary>
     /// MatchWinLoss class.

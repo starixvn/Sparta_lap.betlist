@@ -13,9 +13,9 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.Cache;
-    using Fanex.Athena.Models.MetaModel.BetList;
+    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
@@ -31,6 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             // include LicenseeId, UserId in CreateDefaultMetaModel
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
 
             if (metaModel.IsExportExcel)
             {
@@ -54,6 +55,8 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchWLMixParlay(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
+
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -74,6 +77,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult MatchWLOutright(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel.IsServerPaging = true;
 
             if (metaModel.IsExportExcel)
             {

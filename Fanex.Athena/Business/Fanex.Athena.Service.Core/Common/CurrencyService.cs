@@ -9,12 +9,10 @@
 
 namespace Fanex.Athena.Service.Core.Common
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;

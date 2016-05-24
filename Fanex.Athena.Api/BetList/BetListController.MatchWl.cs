@@ -14,8 +14,8 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Fanex.Athena.Models.MetaModel.BetList;
 
     #endregion Using
 
@@ -45,6 +45,7 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.IsServerPaging = true;
 
             var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_MatchWL_Racing"
@@ -68,6 +69,7 @@ namespace Fanex.Athena.Api.BetList
             {
                 metaModel.UserId = userSession.UserId;
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
                 return GetBetListResult(metaModel, UspKey);

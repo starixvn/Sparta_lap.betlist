@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Models.MetaModel.Report
 {
-    using System;
-
     /// <summary>
     /// ActiveCustomerMetaModel class.
     /// </summary>

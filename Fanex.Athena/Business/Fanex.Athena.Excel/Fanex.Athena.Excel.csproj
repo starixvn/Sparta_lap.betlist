@@ -178,6 +178,10 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
+      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
+      <Name>Fanex.Athena.Model.BetList</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
       <Name>Fanex.Athena.Model.BetSettings</Name>
@@ -193,6 +197,10 @@
     <ProjectReference Include="..\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
       <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj">
+      <Project>{cae29e33-ecad-4170-8196-bdb2a28eb838}</Project>
+      <Name>Fanex.Athena.Model.Warehouse</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>

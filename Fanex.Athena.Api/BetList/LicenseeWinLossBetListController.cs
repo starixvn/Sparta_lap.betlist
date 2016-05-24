@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System.Web.Http;
+    using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Models.MetaModel.BetList;
 
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
@@ -19,7 +19,7 @@ namespace Fanex.Athena.Api.BetList
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && 
+            if (metaModel.CurrencyId != 0 &&
                 !currencyList.Values.Contains(metaModel.CurrencyId) &&
                 (licenseeId == Licensees.KeenOcean && metaModel.CurrencyId != CurrencyType.Cny))
             {

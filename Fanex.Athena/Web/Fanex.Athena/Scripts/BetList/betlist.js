@@ -1,6 +1,6 @@
 ﻿/// <reference path="/@JSense.js" />
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
-/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails, 
+/*exported showCombMP, showCombMPDetail, showMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails,
 showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult*/
 
 var BetList = (function ($) {
@@ -53,15 +53,31 @@ var BetList = (function ($) {
                 $("#BetListGrid").setGridWidth($(window).width());
             }).trigger('resize');
 
+            if (BetList.isMatchWLBetList() === true) {
+                BetList.updateSortColumn();
+            }
+
             _isShowSumStake = $("#IsShowSumStake").val() === "1";
 
             _sortColumnName = _sortColumnName || $("#SortBy").val();
             _sortOrder = _sortOrder || $("#SortOrder").val();
         },
 
+        updateSortColumn: function () {
+            BetListOption.columnModel[1].sortable = true; // externalId
+            BetListOption.columnModel[2].sortable = true; // systemId
+        },
+
+        isMatchWLBetList: function () {
+            var regex = /^MatchWL/i;
+            return regex.test($("#ActionName").val());
+        },
+
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
             // add sort icon
             var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
+            sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
+            sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
             if (sortCol) {
                 $(grid).closest(".ui-jqgrid-view")
                     .find(".ui-jqgrid-sortable")
@@ -132,13 +148,13 @@ var BetList = (function ($) {
                 }
                 Site.blockUI();
                 index = index === "WinLoss" ? "Winlost" : index;
+                index = index === "ExternalId" ? "nickname" : index;
                 if (_sortColumnName === index) {
                     _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
                 } else {
                     _sortOrder = "desc";
                     _sortColumnName = index;
                 }
-
                 if (window.CorrectScoreBetList || window.CancelledBetsBetList) {
                     $("#SortBy").val(_sortColumnName);
                     $("#SortOrder").val(_sortOrder);
@@ -366,7 +382,7 @@ var BetList = (function ($) {
             if (url === "") {
                 return;
             }
-            
+
             var dialogForm = '<div title="' + title + '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
             $(dialogForm).dialog({
                 modal: true,

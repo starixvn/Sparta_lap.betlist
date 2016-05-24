@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.Cache;
+    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Interface.Report;

@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Model.BetSettings.ViewModel
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Model.BetSettings.DTO;
 
     /// <summary>
     /// LiveCasinoBetSettingViewModel class.
