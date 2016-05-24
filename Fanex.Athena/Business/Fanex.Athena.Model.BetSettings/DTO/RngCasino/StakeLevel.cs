@@ -21,6 +21,7 @@ namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
         {
             get
             {
+
                 var originalStakeName = StakeLevelName;
                 if (!string.IsNullOrEmpty(originalStakeName))
                 {
@@ -28,16 +29,25 @@ namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
                     var minStakeStr = stakeItem[0].Replace(",", string.Empty);
                     var maxStakeStr = stakeItem[1].Replace(",", string.Empty);
 
-                    var minStake = Convert.ToDecimal(minStakeStr);
-                    var maxStake = Convert.ToDecimal(maxStakeStr);
+                    try
+                    {
+                        var minStake = Convert.ToDecimal(minStakeStr);
+                        var maxStake = Convert.ToDecimal(maxStakeStr);
+                        minStakeStr = minStake.ToString("#,##0.##");
+                        maxStakeStr = maxStake.ToString("#,##0.##");
 
-                    minStakeStr = minStake.ToString("#,##0.##");
-                    maxStakeStr = maxStake.ToString("#,##0.##");
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("originalStakeName=" + StakeLevelName, ex);
+                    }
 
                     return minStakeStr + "-" + maxStakeStr;
                 }
 
                 return string.Empty;
+
+
             }
         }
 
