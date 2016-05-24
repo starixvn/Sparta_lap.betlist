@@ -33,12 +33,13 @@ namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
                     {
                         var minStake = Convert.ToDecimal(minStakeStr);
                         var maxStake = Convert.ToDecimal(maxStakeStr);
-                        minStakeStr = minStake.ToString("#,##0.##");
-                        maxStakeStr = maxStake.ToString("#,##0.##");
+                        minStakeStr = minStake.ToString();
+                        maxStakeStr = maxStake.ToString();
 
                     }
                     catch (Exception ex)
                     {
+                        
                         throw new Exception("originalStakeName=" + StakeLevelName, ex);
                     }
 
