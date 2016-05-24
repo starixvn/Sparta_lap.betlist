@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.BetList
             var ticketResult = BetListService.GetMixParlayDetailTicket(transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
 
-            var textRenderPattern = "<p class='system-parlay-ticket-infor'>" 
+            var textRenderPattern = "<p class='system-parlay-ticket-infor'>"
                                     + "<span class='system-parlay-combo-type'>{0}</span> x "
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";

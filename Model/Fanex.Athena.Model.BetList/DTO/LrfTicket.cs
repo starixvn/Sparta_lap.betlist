@@ -22,6 +22,8 @@ namespace Fanex.Athena.Model.BetList.DTO
 
         public int CurrencyId { get; set; }
 
+        public string Currency { get; set; }
+
         public int SpecialLevel { get; set; }
 
         public string BetFrom { get; set; }
