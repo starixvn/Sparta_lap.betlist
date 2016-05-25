@@ -4,9 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-
-
 namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
 {
     /// <summary>
