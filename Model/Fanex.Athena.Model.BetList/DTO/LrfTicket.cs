@@ -18,22 +18,20 @@ namespace Fanex.Athena.Model.BetList.DTO
 
         public decimal LicenseeWL { get; set; }
 
-        public decimal BetEffective { get; set; } 
+        public decimal BetEffective { get; set; }
 
         public int CurrencyId { get; set; }
-
-        public string Currency { get; set; }
 
         public int SpecialLevel { get; set; }
 
         public string BetFrom { get; set; }
 
-        public decimal WinLossComm 
+        public decimal WinLossComm
         {
             get
             {
                 return Winlost + Comm;
-            }        
+            }
         }
     }
 }
