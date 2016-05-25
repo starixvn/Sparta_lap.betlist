@@ -4,8 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-
 namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
 {
     /// <summary>
@@ -21,23 +19,7 @@ namespace Fanex.Athena.Model.BetSettings.DTO.RngCasino
         {
             get
             {
-                var originalStakeName = StakeLevelName;
-                if (!string.IsNullOrEmpty(originalStakeName))
-                {
-                    var stakeItem = originalStakeName.Split('-');
-                    var minStakeStr = stakeItem[0].Replace(",", string.Empty);
-                    var maxStakeStr = stakeItem[1].Replace(",", string.Empty);
-
-                    var minStake = Convert.ToDecimal(minStakeStr);
-                    var maxStake = Convert.ToDecimal(maxStakeStr);
-
-                    minStakeStr = minStake.ToString("#,##0.##");
-                    maxStakeStr = maxStake.ToString("#,##0.##");
-
-                    return minStakeStr + "-" + maxStakeStr;
-                }
-
-                return string.Empty;
+                return StakeLevelName ?? string.Empty;
             }
         }
 
