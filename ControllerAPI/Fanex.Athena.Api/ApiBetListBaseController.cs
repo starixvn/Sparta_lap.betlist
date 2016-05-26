@@ -73,18 +73,7 @@ namespace Fanex.Athena.Api.BetList
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay && metaModel != null)
                 {
-                    var custid = ticket.CustId != 0 ? ticket.CustId : metaModel.CustId;
-                    const string FormatDetail = @"showCombMPDetail({0},{1},{2},{3},&quot;{4}&quot;,&quot;{5}&quot;)";
-                    var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " +
-                                  _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
-                    _ticketHelper.ClientDetailSystemParlayFunction = string.Format(
-                        FormatDetail,
-                        ticket.TransId,
-                        ticket.RefNo,
-                        ticket.BetId,
-                        custid,
-                        betTeam,
-                        baseCurrency);
+                    BuildSystemParlayDetailFunction(metaModel, baseCurrency, ticket);
                 }
 
                 _ticketHelper.IsShowOddsWithChoice = showOdds;
@@ -110,6 +99,33 @@ namespace Fanex.Athena.Api.BetList
             return ticketTextList;
         }
 
+        private void BuildSystemParlayDetailFunction(BetListMetaModel metaModel, string baseCurrency, LrfTicket ticket)
+        {
+            var custid = ticket.CustId != 0 ? ticket.CustId : metaModel.CustId;
+            const string FormatDetail = @"showCombMPDetail({0},{1},{2},{3},&quot;{4}&quot;,&quot;{5}&quot;)";
+            var comboName = _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
+            var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId);
+            if (!string.IsNullOrEmpty(comboName))
+            {
+                betTeam += " - " + comboName;
+            }
+
+            _ticketHelper.ClientDetailSystemParlayFunction = string.Format(
+                FormatDetail,
+                ticket.TransId,
+                ticket.RefNo,
+                ticket.BetId,
+                custid,
+                betTeam,
+                baseCurrency);
+        }
+
+        /// <summary>
+        /// Get Bet List Result.
+        /// </summary>
+        /// <param name="metaModel">MetaModel object.</param>
+        /// <param name="uspKey">Stored procedure key.</param>
+        /// <returns>Dynamic object, contains the bet list result.</returns>
         protected dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
