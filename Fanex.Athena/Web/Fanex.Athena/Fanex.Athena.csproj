@@ -757,6 +757,9 @@
     <Content Include="jasmine-specs\TotalBets\totalgoal-test.js" />
     <Content Include="jasmine-specs\WareHouse\topcustomer-test.js" />
     <Content Include="jasmine-specs\WareHouse\winloss-test.js" />
+    <Content Include="Jasmine\SpecRunner.html" />
+    <Content Include="Jasmine\SpecRunnerReport.html" />
+    <Content Include="Jasmine\SpecRunnerSingleTesting.html" />
     <Content Include="package.json" />
     <Content Include="karma.conf.js" />
     <Content Include="Scripts\Languages\ViewResources.js">
