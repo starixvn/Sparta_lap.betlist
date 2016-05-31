@@ -51,14 +51,18 @@ namespace Fanex.Athena.Controllers.Forecast
         private static List<string> RenderForecastLink(int betType, int currentScore)
         {
             var forecastLink = new List<string>();
-            var startIndex = currentScore + 5;
-            var endIndex = currentScore - 5;
-
-            if (betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder)
+            var endIndex = 0;
+            if (currentScore <= 0 && IsOverUnder(betType))
             {
-                endIndex = Math.Max(0, endIndex);
+                currentScore = 0;
+            }
+            else
+            {
+                endIndex = currentScore - 5;
             }
 
+            var startIndex = currentScore + 5;
+            
             for (var i = startIndex; i >= endIndex; i--)
             {
                 forecastLink.Add(i.ToString(CultureInfo.InvariantCulture));
@@ -76,7 +80,21 @@ namespace Fanex.Athena.Controllers.Forecast
         private static List<int> RenderForecastHeader(int betType, int currentScore)
         {
             var forecastHeader = new List<int>();
-            var startIndex = betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap ? currentScore + 2 : currentScore + 4;
+            var startIndex = 0;
+            if (betType == (int)BetType.Handicap || betType == (int)BetType.FirstHalfHandicap)
+            {
+                startIndex = currentScore + 2;
+            }
+            else
+            {
+                if (currentScore < 0 && IsOverUnder(betType))
+                {
+                    currentScore = 0;
+                }
+
+                startIndex = currentScore + 4;
+            }
+
             var endIndex = startIndex - 4;
 
             for (int i = endIndex; i <= startIndex; i++)
@@ -85,6 +103,11 @@ namespace Fanex.Athena.Controllers.Forecast
             }
 
             return forecastHeader;
+        }
+
+        private static bool IsOverUnder(int betType)
+        {
+            return betType == (int)BetType.OverUnder || betType == (int)BetType.FirstHalfOverUnder;
         }
 
         /// <summary>
