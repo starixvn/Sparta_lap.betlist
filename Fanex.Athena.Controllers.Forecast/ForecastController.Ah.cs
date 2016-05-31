@@ -52,17 +52,19 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var forecastLink = new List<string>();
             var endIndex = 0;
-            if (currentScore <= 0 && IsOverUnder(betType))
+            if (currentScore < 0 && IsOverUnder(betType))
             {
                 currentScore = 0;
             }
-            else
-            {
-                endIndex = currentScore - 5;
-            }
 
             var startIndex = currentScore + 5;
-            
+            endIndex = currentScore - 5;
+
+            if (endIndex < 0 && IsOverUnder(betType))
+            {
+                endIndex = 0;
+            }
+
             for (var i = startIndex; i >= endIndex; i--)
             {
                 forecastLink.Add(i.ToString(CultureInfo.InvariantCulture));
