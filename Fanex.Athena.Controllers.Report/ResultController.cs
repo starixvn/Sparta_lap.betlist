@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The actin result.</returns>
-        [AjaxFunctionAuthorization]
+        [FunctionAuthorization]
         [HttpPost]
         [AjaxRequest]
         public ActionResult Result(ResultMetalModel metalModel)

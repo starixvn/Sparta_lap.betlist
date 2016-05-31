@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
         {
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
         {
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {

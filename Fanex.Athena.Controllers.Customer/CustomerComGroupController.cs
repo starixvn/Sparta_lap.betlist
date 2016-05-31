@@ -79,7 +79,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         [ValidateAntiForgeryToken]
         public ActionResult Index(bool isExportExcel)
         {
@@ -303,7 +303,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="isResetDefault">Reset default commission for customers  belong to this group.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [AjaxFunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         [ValidateAntiForgeryToken]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AjaxFunctionAuthorizationAttribute.cs" company="Nexcel">
+// <copyright file="FunctionAuthorizationAttribute.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace Fanex.Athena.Web.ActionFilter
     /// TODO: Update summary.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class AjaxFunctionAuthorizationAttribute : ActionFilterAttribute
+    public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
         public string ParentUrl { get; set; }
 
