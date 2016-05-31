@@ -374,24 +374,25 @@ var Site = (function ($) {
             $("#CurrencyName").val(currencyName);
 
             // Handle outside based currency list in some reports (customer wl, balance)
-            var baseCurrencyObj = $("#BaseCurrency");
-            var noConvertOption = $("option[value='']", baseCurrencyObj);
+            var $baseCurrency = $("#BaseCurrency");
+            var noConvertOption = $("option[value='']", $baseCurrency);
             if (currency === 0 || Site.isBaseCurrency(currencyName)) {
                 noConvertOption.remove();
-                if (userChange) {
-                    $("option[value='" + currencyName.toLowerCase() + "']", baseCurrencyObj).attr("selected", "selected");
-                    baseCurrencyObj.val(currencyName.toLowerCase());
+                if (userChange && currency !== 0) {
+                    $("option[value='" + currencyName.toLowerCase() + "']", $baseCurrency).prop("selected", true);
+                    $baseCurrency.val(currencyName.toLowerCase());
                 }
             }
             else {
                 if (noConvertOption.length === 0
-                    && baseCurrencyObj.find('option').length > 0) { // make sure baseCurrencyObj is select object
-                    $("<option value=''selected=selected>" + currencyName + "</option>").appendTo(baseCurrencyObj);
+                    && $baseCurrency.find('option').length > 0) { // make sure $baseCurrency is select object
+                    $("<option value='' selected>" + currencyName + "</option>").appendTo($baseCurrency);
                 } else {
-                    $("option[value='']", baseCurrencyObj).text(currencyName);
+                    $("option[value='']", $baseCurrency).text(currencyName);
                 }
                 if (userChange) {
-                    baseCurrencyObj.val("");
+                    $baseCurrency.val("");
+                    $("option[value='']", $baseCurrency).text(currencyName);
                 }
             }
 
@@ -400,7 +401,7 @@ var Site = (function ($) {
                 var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
                 var basedCurrency = basedCurrencyMap[currency.toString()];
                 basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
-                $("#BaseCurrency").val(basedCurrency);
+                $baseCurrency.val(basedCurrency);
             }
         },
 
