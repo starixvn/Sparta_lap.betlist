@@ -72,7 +72,6 @@ var CustomerList = (function ($) {
             error: function (/*jqXHR, textStatus, errorThrown*/) {
                 $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
                 $listItem.attr('class', 'level-' + oldValue);
-                alert("Error");
                 closeSpecialLevelList();
             }
         });
@@ -154,7 +153,6 @@ var CustomerList = (function ($) {
             error: function (/*jqXHR, textStatus, errorThrown*/) {
                 $listItem.html(oldValue);
                 $listItem.attr('class', 'group-' + oldValue);
-                alert("Error");
                 closeOddsGroupList();
             }
         });
@@ -939,7 +937,6 @@ var CustomerList = (function ($) {
                         },
                         error: function (jqXHR, textStatus) {
                             $context.html(currentBAStatus);
-                            alert(textStatus);
                         },
                         statusCode:
                         {
