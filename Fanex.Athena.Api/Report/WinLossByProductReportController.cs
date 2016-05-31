@@ -25,9 +25,10 @@ namespace Fanex.Athena.Api.Report
     using Resources;
     using Service.Implement.Report;
     using Service.Interface.Report;
-
+    using Web.ActionFilter;
     public class WinLossByProductReportController : ApiReportBaseController
     {
+        const string ParrentUrl = "Report/WinLossByProduct";
         private readonly IWinLossByProductService _winlossByProductService;
 
         public WinLossByProductReportController()
@@ -50,8 +51,10 @@ namespace Fanex.Athena.Api.Report
         /// <param name="systemId">System Id.</param>
         /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
+        [AjaxRequest]
+        [ApiFunctionAuthorization]
         public dynamic WinLossByProduct(
-            WinLossByProductMetaModel metaModel,
+           WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -69,7 +72,10 @@ namespace Fanex.Athena.Api.Report
         /// </summary>
         /// <param name="metaModel">The level 0 MetaModel.</param>
         /// <returns>Process Request.</returns>
+        /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
+        [AjaxRequest]
+        [ApiFunctionAuthorization]
         public dynamic WinLossByProduct([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);

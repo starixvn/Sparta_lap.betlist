@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken()]
         public ActionResult Index(bool isExportExcel)
         {
             return isExportExcel ? this.ExportExcel() : this.Index();

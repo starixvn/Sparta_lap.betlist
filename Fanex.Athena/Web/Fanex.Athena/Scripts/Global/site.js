@@ -53,6 +53,7 @@ var Site = (function ($) {
 
             $.ajaxSetup({
                 cache: false,
+                headers: { 'X-CSRF-Token': REQUEST_VERIFICATION_TOKEN },
                 data: {
                     __RequestVerificationToken: REQUEST_VERIFICATION_TOKEN
                 },
