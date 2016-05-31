@@ -1,28 +1,27 @@
-﻿using Fanex.Athena.Service.Core.Users;
-using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-
-namespace Fanex.Athena.Web.ActionFilter
+﻿namespace Fanex.Athena.Web.ActionFilter
 {
+    using System;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Web.Helpers;
+    using System.Web.Http.Controllers;
+    using System.Web.Http.Filters;
+    using Fanex.Athena.Service.Core.Users;
+
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        public string ParentUrl { get; set; }
         private const string AntiForgeryHeaderName = "X-CSRF-Token";
-        
+
+        public string ParentUrl { get; set; }
+
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
-
             try
             {
-
                 var content = actionContext.Request.GetRouteData();
 
                 var headers = actionContext.Request.Headers;
@@ -32,13 +31,12 @@ namespace Fanex.Athena.Web.ActionFilter
                     .Select(c => c[AntiForgeryConfig.CookieName])
                     .FirstOrDefault();
 
-                var rvt = headers.GetValues(AntiForgeryHeaderName).FirstOrDefault();
+                var crfsKey = headers.GetValues(AntiForgeryHeaderName).FirstOrDefault();
 
-                AntiForgery.Validate(cookie != null ? cookie.Value : null, rvt);
+                AntiForgery.Validate(cookie != null ? cookie.Value : null, crfsKey);
             }
             catch
             {
-
                 return UnauthorizeAccessHandler(actionContext);
             }
 
@@ -64,7 +62,6 @@ namespace Fanex.Athena.Web.ActionFilter
 
         private bool AuthorizeRequest(HttpActionContext actionContext)
         {
-
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
             var userSession = sessionService.UserSession;
