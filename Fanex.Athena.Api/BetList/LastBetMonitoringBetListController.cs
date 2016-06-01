@@ -32,11 +32,16 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class LastBetMonitoringBetListController : ApiBetListBaseController
     {
         private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
-        private readonly IMatchService _matchService = new MatchService();
+        private readonly IMatchService _matchService;
+
+        public LastBetMonitoringBetListController()
+        {
+            _matchService = new MatchService();
+        }
 
         /// <summary>
         /// Get running match list by sport.
@@ -227,7 +232,7 @@ namespace Fanex.Athena.Api.BetList
                 builder.Append("</td>");
 
                 // Username
-                builder.Append("<td data-name=\"SystemID\" class='special-color-");
+                builder.Append("<td data-name=\"SystemId\" class='special-color-");
                 builder.Append(ticket.SpecialLevel.ToString(CultureInfo.InvariantCulture));
                 builder.Append("'>");
                 builder.Append(ticket.UserName);

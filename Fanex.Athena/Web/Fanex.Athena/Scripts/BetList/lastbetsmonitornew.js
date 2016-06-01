@@ -9,7 +9,7 @@ var MonitorBetList = function () {
     var $this = this;
 
     // Param
-    $this.serviceUrl = Site.resolveClientUrl('api/betlist/LastMonitorBetListNew');
+    $this.serviceUrl = Site.resolveClientUrl('api/LastBetMonitoringBetList/LastMonitorBetListNew');
     $this.betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
     $this.sportId = 0;
     $this.leagueId = 0;
@@ -47,12 +47,14 @@ var MonitorBetList = function () {
     $this.highlightClass = "monitor-hightlight";
     $this.highlightKeepClass = "monitor-keep";
     $this.columns =
-        [{ Name: Site.getSingleResource("Platform"), IsShow: 1 },
-            { Name: Site.getSingleResource("SystemId"), IsShow: 1 }, { Name: Site.getSingleResource("ExternalId"), IsShow: 1 },
-        { Name: Site.getSingleResource("TransTime"), IsShow: 1 },
-            { Name: Site.getSingleResource("Choice"), IsShow: 1 }, { Name: Site.getSingleResource("Odds"), IsShow: 1 },
-        { Name: Site.getSingleResource("Stake"), IsShow: 1 }, { Name: Site.getSingleResource("Status"), IsShow: 1 }
-        ];
+        [{ Name: "Platform", IsShow: 1 },
+         { Name: "ExternalId", IsShow: 1 },
+         { Name: "SystemId", IsShow: 1 },
+         { Name: "TransTime", IsShow: 1 },
+         { Name: "Choice", IsShow: 1 },
+         { Name: "Odds", IsShow: 1 },
+         { Name: "Stake", IsShow: 1 },
+         { Name: "Status", IsShow: 1 }];
     $this.initialize = function () {
         Site.addUserGuide({ 
             resourceName: "LastBetsMonitoring",
@@ -341,7 +343,7 @@ var MonitorBetListUI = function (monitorObj) {
 
                 // Reload league list & match list
                 $.ajax({
-                    url: Site.resolveClientUrl('api/betlist/GetRunningMatchList'),
+                    url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
                     data: "sportid=" + sportId,
                     dataType: "json",
                     type: "GET",
@@ -635,7 +637,7 @@ var MonitorBetListUI = function (monitorObj) {
             columns.push({
                 Id: "column-" + i,
                 Value: e.Name,
-                Text: e.Name,
+                Text: Site.getSingleResource(e.Name),
                 Checked: Number(e.IsShow) === 1 ? true : false,
                 Enable: true,
                 Css: "",
@@ -666,13 +668,13 @@ var MonitorBetListUI = function (monitorObj) {
                     });
                 } else {
                     $.each($this.monitor.columns, function (i, e) {
+
                         var showItem = $.inArray(e.Name, selectedLevel);
                         if (showItem > -1) {
                             e.IsShow = 1;
                             $('td[data-name="' + e.Name + '"]').show();
                         } else {
                             e.IsShow = 0;
-                            //hide columns
                             $('td[data-name="' + e.Name + '"]').hide();
                         }
                     });
