@@ -401,7 +401,7 @@ describe("MonitorBetList", function () {
 
                 jasmine.Ajax.install();
                 jasmine.Ajax
-                .stubRequest(/api\/betlist\/GetRunningMatchList/)
+                .stubRequest(/api\/LastBetMonitoringBetList\/GetRunningMatchList/)
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
