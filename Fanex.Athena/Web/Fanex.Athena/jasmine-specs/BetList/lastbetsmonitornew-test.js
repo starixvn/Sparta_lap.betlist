@@ -180,7 +180,7 @@
             var request;
             beforeEach(function (done) {
                 jasmine.Ajax.install();
-                jasmine.Ajax.stubRequest('api/betlist/LastMonitorBetListNew')
+                jasmine.Ajax.stubRequest('api/LastBetMonitoringBetList/LastMonitorBetListNew')
                         .andReturn({
                             status: 200,
                             contentType: 'application/json',
@@ -200,8 +200,8 @@
                 jasmine.Ajax.uninstall();
             });
 
-            it("url of ajax should be 'api/betlist/LastMonitorBetListNew'", function () {
-                expect(request.url).toEqual("api/betlist/LastMonitorBetListNew");
+            it("url of ajax should be 'api/LastBetMonitoringBetList/LastMonitorBetListNew'", function () {
+                expect(request.url).toEqual("api/LastBetMonitoringBetList/LastMonitorBetListNew");
             });
 
             it("MonitorBetList.bindData() should be called", function () {
@@ -401,7 +401,7 @@ describe("MonitorBetList", function () {
 
                 jasmine.Ajax.install();
                 jasmine.Ajax
-                .stubRequest(/api\/betlist\/GetRunningMatchList/)
+                .stubRequest(/api\/LastBetMonitoringBetList\/GetRunningMatchList/)
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',

@@ -971,6 +971,7 @@ namespace Fanex.Athena.DataAccess.BetList
         private static void CreateWinLossByBetTypeParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSiteParameters(db, metaModel);
+            CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);

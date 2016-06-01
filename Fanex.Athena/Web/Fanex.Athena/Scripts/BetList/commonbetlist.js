@@ -53,6 +53,7 @@ var CommonBetList = (function ($) {
             if (serverPaging === "1") {
                 url = QueryString.setParam(url, "PageIndex", page);
                 url = QueryString.setParam(url, "PageSize", size);
+                url = QueryString.setParam(url, "IsServerPaging", true);
             }
 
             var sortParams = BetList.getSortParams();

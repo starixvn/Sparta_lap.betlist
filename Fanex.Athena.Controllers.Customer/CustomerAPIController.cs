@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [AjaxFunctionAuthorization]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
@@ -131,7 +131,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [AjaxFunctionAuthorization]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
@@ -177,7 +177,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [AjaxFunctionAuthorization]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
@@ -236,7 +236,7 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
-        [AjaxFunctionAuthorization]
+        [AjaxFunctionAuthorization(ParentUrl = CustomerListUrl)]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {

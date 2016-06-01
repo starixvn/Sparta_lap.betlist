@@ -28,6 +28,7 @@
     <div onclick="history.back()" class="history-link"></div>
 }
 @{
+    <input type="hidden" id="ApiUrl" value="api/WinlossByBetTypeBetList/WinlossByBetType" />
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
     <input type="hidden" id="HiddenColumnList" value="" />
     <input type="hidden" id="IsServerPaging" value="1" />

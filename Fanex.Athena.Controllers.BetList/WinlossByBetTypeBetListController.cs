@@ -18,7 +18,7 @@
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
-    public class BetListWinlossByBetTypeController : BetListBaseController
+    public class WinlossByBetTypeBetListController : BetListBaseController
     {
         public ActionResult WinlossByBetType(BetListMetaModel metaModel)
         {

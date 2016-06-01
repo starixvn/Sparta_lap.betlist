@@ -238,6 +238,7 @@ var BetList = (function ($) {
             _url = url;
             Site.blockUI();
             if (url && _sortColumnName) {
+                url = QueryString.setParam(url, "IsServerPaging", true);
                 url = QueryString.setParam(url, "SortBy", _sortColumnName);
                 url = QueryString.setParam(url, "SortOrder", _sortOrder);
             }
