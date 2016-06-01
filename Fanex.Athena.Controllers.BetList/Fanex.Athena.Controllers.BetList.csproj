@@ -153,7 +153,7 @@
     <Compile Include="BetListController.SystemParlayDetail.cs" />
     <Compile Include="BetListController.WinlossByLeague.cs" />
     <Compile Include="BetListVoidbridgeController.cs" />
-    <Compile Include="BetListWinlossByBetTypeController.cs" />
+    <Compile Include="WinlossByBetTypeBetListController.cs" />
     <Compile Include="LicenseeWinLossBetListController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,21 +1,15 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     #region Using
+
     using System;
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class WinlossByBetTypeBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for win lost by bet type bet list.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Bet list data.</returns>
         [HttpGet]
         public dynamic WinlossByBetType(
             int page,
@@ -50,8 +44,7 @@
                 UserId = userSession.UserId,
                 BetType = bettype,
                 SortBy = sortBy,
-                SortOrder = sortOrder,
-                IsServerPaging = true
+                SortOrder = sortOrder
             };
 
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";
