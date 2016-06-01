@@ -237,7 +237,7 @@
     <Setting Key="Lrf_BetList_RNG_Detail" SpName="Lrf_BetList_RNG_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LC_Detail" SpName="Lrf_BetList_LC_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelWinLossRacingByDate_Mem" SpName="Lrf_BetList_SelWinLossRacingByDate_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_SelWinLossByBetType" SpName="Lrf_BetList_SelWinLossByBetType_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_SelWinLossByBetType" SpName="Lrf_BetList_SelWinLossByBetType" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerLog">
