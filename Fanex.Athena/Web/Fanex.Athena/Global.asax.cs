@@ -18,20 +18,9 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using System.Web.Helpers;
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
-    // visit http://go.microsoft.com/?LinkId=9394801
 
-    /// <summary>
-    /// Global class.
-    /// </summary>
     public class MvcApplication : HttpApplication
     {
-        /// <summary>
-        /// Application start.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event ARGS.</param>
         public void Application_Start(object sender, EventArgs e)
         {
             ViewEngines.Engines.Clear();

@@ -37,24 +37,14 @@ namespace Fanex.Athena.Controllers.Customer
     {
         private const string CommissionGroupUrl = "CustomerComGroup/Index";
 
-        #region Fields
-
         private readonly IGroupComService _customerComService;
         private readonly IProductService _productService;
-
-        #endregion Fields
-
-        #region Constructor
 
         public CustomerComGroupController()
         {
             this._customerComService = new GroupComService();
             this._productService = new ProductService();
         }
-
-        #endregion Constructor
-
-        #region Action Methods
 
         #region Get data
 
@@ -80,7 +70,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
-        [ValidateAntiForgeryToken()]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(bool isExportExcel)
         {
             return isExportExcel ? this.ExportExcel() : this.Index();
@@ -90,20 +80,14 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Create group
 
-        /// <summary>
-        ///     Create new group.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         public ActionResult Create()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            /*Gathering group list*/
             var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
 
-            /*Find group which is set to default*/
             var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
             var model = new GroupCommMetaModel
             {
@@ -118,11 +102,6 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
 
-        /// <summary>
-        /// Create new group commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         [ValidateAntiForgeryToken]
@@ -133,7 +112,6 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             if (ModelState.IsValid)
             {
-                /*Check valid group name (exclude 'None')*/
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
@@ -185,11 +163,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Update group
 
-        /// <summary>
-        /// Update group commission.
-        /// </summary>
-        /// <param name="groupId">The group id.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         public ActionResult Update(int groupId)
@@ -197,10 +170,8 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
 
-            /*Gathering group list*/
             var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
 
-            /* Find group which is set to default*/
             var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
 
             var model = _customerComService.GetById(groupId);
@@ -220,11 +191,6 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);
         }
 
-        /// <summary>
-        /// Update group commission.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [SuppressMessage(
                   "StyleCop.CSharp.StylecopPlus.Rules",
                   "SP2101:MethodMustNotContainMoreLinesThan",
@@ -311,15 +277,15 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (ModelState.IsValid)
             {
-                var licenseeSession = SessionService.LicenseeSession;
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
                 var userSession = SessionService.UserSession;
-                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+                var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
                 _customerComService.DeleteGroup(
                     new DeleteGroupMetaModel()
                     {
                         GroupId = groupId,
-                        LicenseeId = licenseeSession.LicenseeId,
+                        LicenseeId = licenseeId,
                         UserId = userSession.UserId,
                         UserName = userSession.UserName,
                         Ip = Request.UserHostAddress,
@@ -366,10 +332,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Export Excel
 
-        /// <summary>
-        /// Export excel file.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
         [ValidateAntiForgeryToken]
@@ -382,8 +344,8 @@ namespace Fanex.Athena.Controllers.Customer
                 throw new FileNotFoundException(templatePath);
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var showingOption = new ShowingOption
             {
                 RBVisible = productAccess.IsAllowRB,
@@ -391,7 +353,7 @@ namespace Fanex.Athena.Controllers.Customer
                 CSVisible = productAccess.IsAllowCS
             };
 
-            var mainTable = _customerComService.GetDataForExcel(licenseeSession.LicenseeId);
+            var mainTable = _customerComService.GetDataForExcel(licenseeId);
 
             var custmerCommGroupExcel = new CustomerCommGroup(templatePath, FileName, mainTable, showingOption);
 
@@ -404,10 +366,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Utility
 
-        /// <summary>
-        /// Get error message for updating.
-        /// </summary>
-        /// <param name="result">Result View Model.</param>
         private static void GetUpdateGroupErrorMessage(ResultViewModel result)
         {
             switch (result.ErrorCode)
@@ -434,10 +392,6 @@ namespace Fanex.Athena.Controllers.Customer
             }
         }
 
-        /// <summary>
-        /// Get error message for creating.
-        /// </summary>
-        /// <param name="result">Result View Model.</param>
         private static void GetCreateErrorMessage(ResultViewModel result)
         {
             switch (result.ErrorCode)
@@ -521,7 +475,5 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         #endregion Utility
-
-        #endregion Action Methods
     }
 }

@@ -89,14 +89,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("IsTesting")) != 0; }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1056:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static string LBUrl
-        {
-            get { return GetValue("LBUrl"); }
-        }
-
         public static bool IsShowMixedSport
         {
             get { return int.Parse(GetValue("IsShowMixedSport")) == 1; }

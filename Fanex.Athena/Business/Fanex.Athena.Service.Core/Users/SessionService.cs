@@ -19,9 +19,6 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
 
-    /// <summary>
-    ///     The session service.
-    /// </summary>
     public class SessionService : ISessionService
     {
         #region Constants and Fields
@@ -78,15 +75,6 @@ namespace Fanex.Athena.Service.Core.Users
             set { HttpContext.Current.Session[CaptchaCodeKey] = value; }
         }
 
-        /// <summary>
-        /// Create new session.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="onuserId">The check-in id.</param>
-        /// <param name="userName">The user name.</param>
-        /// <param name="isInternal">True if internal user.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="language">The language code.</param>
         public void CreateNewSession(
             int userId,
             int onuserId,
@@ -144,10 +132,6 @@ namespace Fanex.Athena.Service.Core.Users
             }
         }
 
-        /// <summary>
-        /// Update licensee session.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
         public void UpdateLiceseeSession(int licenseeId)
         {
             _licenseeService = new LicenseeService();
@@ -199,17 +183,11 @@ namespace Fanex.Athena.Service.Core.Users
             return ReportBalanceUrl;
         }
 
-        /// <summary>
-        /// Update language.
-        /// </summary>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>True if processing is successful.</returns>
         public bool UpdateLanguage(string languageCode)
         {
             if (!string.IsNullOrEmpty(languageCode))
             {
-                var userSession = this.UserSession;
-                userSession.Language = languageCode;
+                UserSession.Language = languageCode;
                 return true;
             }
 

@@ -115,7 +115,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [AjaxFunctionAuthorization]
+        [FunctionAuthorization]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -44,7 +44,6 @@
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
 	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
-	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -134,7 +133,6 @@
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
 	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
-	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -223,7 +221,6 @@
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
 	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
-	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -306,7 +303,6 @@
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://172.16.4.118:8098/CallGetRefFunction" />
 	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
-	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -389,7 +385,6 @@
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
 	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
-	<add key="LBUrl" value="tcp://10.40.40.150:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -471,7 +466,6 @@
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />
 	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
-	<add key="LBUrl" value="" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>
@@ -556,7 +550,6 @@
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
 	<add key="RemoteCacheUrl" value="tcp://10.40.40.130:8099/CallGetOddsFunction" />
-	<add key="LBUrl" value="tcp://10.2.96.1:8990/UMControllerInterface" />
 	<add key="IsShowMixedSport" value="1" />
 	<add key="EnableUpdateBetSetting" value="1" />
 	<add key="EnableBundle" value="1"/>

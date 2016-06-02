@@ -26,9 +26,10 @@ namespace Fanex.Athena.Api.Report
     using Service.Implement.Report;
     using Service.Interface.Report;
     using Web.ActionFilter;
+
     public class WinLossByProductReportController : ApiReportBaseController
     {
-        const string ParrentUrl = "Report/WinLossByProduct";
+        private const string ParrentUrl = "Report/WinLossByProduct";
         private readonly IWinLossByProductService _winlossByProductService;
 
         public WinLossByProductReportController()

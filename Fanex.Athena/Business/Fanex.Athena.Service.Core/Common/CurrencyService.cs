@@ -24,33 +24,12 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class CurrencyService : ICurrencyService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The cache timeout minute.
-        /// </summary>
-        private const int CacheTimeoutMinute = 1;
-
-        /// <summary>
-        ///     The _currency data access.
-        /// </summary>
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CurrencyService" /> class.
-        /// </summary>
         public CurrencyService()
         {
             this._currencyDataAccess = new CurrencyDataAccess();
         }
-
-        #endregion Constructors and Destructors
-
-        #region Public Methods and Operators
 
         /// <summary>
         ///  Only get active currency.
@@ -70,8 +49,7 @@ namespace Fanex.Athena.Service.Core.Common
             return currencies
                 .Where(i => i.IsActive == true)
                 .Select(p => new { p.CurrencyName, p.CurrencyId })
-                  .AsEnumerable()
-                  .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
+                .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
         }
 
         /// <summary>
@@ -90,8 +68,6 @@ namespace Fanex.Athena.Service.Core.Common
         {
             return _currencyDataAccess.AssignCurrenciesByUser(request);
         }
-
-        #endregion Public Methods and Operators
 
         private static IList<CurrencyUser> ModifyCurrenciesForKeenOcean(IList<CurrencyUser> currencies)
         {

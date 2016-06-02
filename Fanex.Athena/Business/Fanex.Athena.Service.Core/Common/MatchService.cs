@@ -24,13 +24,6 @@ namespace Fanex.Athena.Service.Core.Common
 
         private ICache _cacheInstance = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
-        #region IMatchService Members
-
-        /// <summary>
-        /// Get all running matches.
-        /// </summary>
-        /// <param name="sportId">The sport identity.</param>
-        /// <returns>The match list.</returns>
         public IList<Match> GetAllRunningMatch(int sportId)
         {
             var cacheKey = RunningMatchCacheKey + sportId;
@@ -48,21 +41,14 @@ namespace Fanex.Athena.Service.Core.Common
             }
         }
 
-        /// <summary>
-        /// Get all running matches.
-        /// </summary>
-        /// <param name="leagueId">The league identity.</param>
-        /// <returns>The match list.</returns>
         public IList<Match> GetForecastMatchListByLeague(int leagueId)
         {
             return _matchDataAccess.GetForecastMatchListByLeague(leagueId);
         }
 
         public IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate)
-        {            
-            return _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);            
+        {
+            return _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
         }
-
-        #endregion IMatchService Members
     }
 }

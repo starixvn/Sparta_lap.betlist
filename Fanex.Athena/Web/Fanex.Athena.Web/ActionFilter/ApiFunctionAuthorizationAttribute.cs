@@ -18,7 +18,10 @@
 
         public string ParentUrl { get; set; }
 
-        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
+        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
+            HttpActionContext actionContext,
+            CancellationToken cancellationToken, 
+            Func<Task<HttpResponseMessage>> continuation)
         {
             try
             {
