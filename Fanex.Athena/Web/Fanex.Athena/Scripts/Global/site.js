@@ -64,6 +64,10 @@ var Site = (function ($) {
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     },
+                    403: function () {
+                        Site.unBlockUI();
+                        alert(Site.getSingleResource("HttpError_403"));
+                    },
                     500: function () {
                         Site.unBlockUI();
                         alert(Site.getSingleResource("ErrorProcessingMsg"));

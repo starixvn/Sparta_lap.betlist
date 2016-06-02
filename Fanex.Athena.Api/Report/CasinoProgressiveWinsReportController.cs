@@ -20,12 +20,15 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Service.Interface.Report;
+    using Web.ActionFilter;
 
     /// <summary>
     /// ReportController class.
     /// </summary>
-    public partial class CasinoProgressiveWinsReportController : ReportController
+    public class CasinoProgressiveWinsReportController : ApiReportBaseController
     {
+        private const string ParentUrl = "CasinoProgressiveWinsReport";
+
         private readonly ICasinoProgressiveWinsService _casinoProgressiveWinsService;
 
         public CasinoProgressiveWinsReportController()
@@ -33,17 +36,12 @@ namespace Fanex.Athena.Api.Report
             _casinoProgressiveWinsService = new CasinoProgressiveWinsService();
         }
 
-        #region Action
-
         [HttpPost]
+        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
         public dynamic Index(CasinoProgressiveWinsMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
-
-        #endregion Action
-
-        #region Private Utility
 
         private static CasinoProgressiveWinsGridViewModel MapToGridView(CasinoProgressiveWins item)
         {
@@ -123,7 +121,5 @@ namespace Fanex.Athena.Api.Report
                 Data = new List<CasinoProgressiveWinsGridViewModel>()
             };
         }
-
-        #endregion Private Utility
     }
 }

@@ -22,9 +22,12 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Service.Implement.Report;
     using Service.Interface.Report;
+    using Web.ActionFilter;
 
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
+        private const string ParentUrl = "LicenseeWinLossReport";
+
         private readonly ILicenseeWinLossService _licenseeWinLossService;
 
         public LicenseeWinLossReportController()
@@ -34,17 +37,8 @@ namespace Fanex.Athena.Api.Report
 
         #region Action
 
-        /// <summary>
-        /// Licensee win loss report for down line level.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
+        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
         public dynamic LicenseeWL(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -57,12 +51,8 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, currencyName);
         }
 
-        /// <summary>
-        /// Licensee Win Loss - Level 0.
-        /// </summary>
-        /// <param name="metaModel">The level 0 filter.</param>
-        /// <returns>Process Request.</returns>
         [HttpPost]
+        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
         public dynamic LicenseeWL([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
@@ -83,13 +73,6 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        /// <summary>
-        /// Sort data list by property (column name).
-        /// </summary>
-        /// <param name="dataList">Data list to be sorted.</param>
-        /// <param name="sortBy">Sort column name.</param>
-        /// <param name="sortOrder">ASC or DESC.</param>
-        /// <returns>Data list after being sorted.</returns>
         private static SortableList<LicenseeWinLoss> SortData(SortableList<LicenseeWinLoss> dataList, string sortBy = null, string sortOrder = "asc")
         {
             if (sortBy != null)
@@ -124,12 +107,6 @@ namespace Fanex.Athena.Api.Report
 
         #region Private Utility
 
-        /// <summary>
-        /// Convert to view model of grid.
-        /// </summary>
-        /// <param name="item">The data object.</param>
-        /// <param name="index">Row index.</param>
-        /// <returns>Licensee WinLoss Grid View Model.</returns>
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item, int index = 0)
         {
             var licenseeWinLossGrid = new LicenseeWinLossGridViewModel
@@ -197,13 +174,6 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverVB = turnOverProducts.GetValueOrDefault(Product.VB, 0);
         }
 
-        /// <summary>
-        /// Licensee win loss - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="summaryTotal">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -228,7 +198,6 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
             };
 
-            // Update metalModel Value
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
             {
                 metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
@@ -240,13 +209,13 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var exccelModel = new LicenseeWinLossViewModel
+            var excelModel = new LicenseeWinLossViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel)
+            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
@@ -256,12 +225,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(licenseeWinLoss.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get data for Licensee Win Loss report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="summaryTotal">Output parameter summary data.</param>
         private void GetData(
                 LicenseeWinLossMetaModel metaModel,
                 out SortableList<LicenseeWinLoss> dataList,
@@ -279,16 +242,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">The Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
