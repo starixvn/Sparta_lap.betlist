@@ -75,7 +75,7 @@ var CustomerComm = (function ($) {
 
             $("#MoveToGroupPopUp").dialog({
                 resizable: false,
-                height: 260,
+                height: 300,
                 width: 320,
                 modal: true,
                 buttons: [
