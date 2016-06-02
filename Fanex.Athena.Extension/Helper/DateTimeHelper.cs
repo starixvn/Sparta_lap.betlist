@@ -5,20 +5,25 @@
 
     public static class DateTimeHelper
     {
-        public static DateTime GetFirstDateOfWeek(DateTime date, DayOfWeek firstDayofWeek = DayOfWeek.Sunday)
+        public static DateTime GetFirstDateOfWeek(DateTime date, DayOfWeek startOfWeek = DayOfWeek.Monday)
         {
-            int delta = firstDayofWeek - date.DayOfWeek;
-            return date.AddDays(delta);
+            int diff = date.DayOfWeek - startOfWeek;
+            if (diff < 0)
+            {
+                diff += 7;
+            }
+
+            return date.AddDays(-1 * diff).Date;
         }
 
         /// <summary>
         /// Get number of weeks between two date.
         /// </summary>
-        /// <param name="firstDayofWeek"></param>
+        /// <param name="startOfWeek"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public static int GetWeeks(DateTime startDate, DateTime endDate, DayOfWeek firstDayofWeek = DayOfWeek.Sunday)
+        public static int GetWeeks(DateTime startDate, DateTime endDate, DayOfWeek startOfWeek = DayOfWeek.Monday)
         {
             var weekRule = CalendarWeekRule.FirstDay;
             var calendar = DateTimeFormatInfo.CurrentInfo.Calendar;
@@ -28,8 +33,8 @@
 
             if (startDate.Year == endDate.Year)
             {
-                startWeekNumber = calendar.GetWeekOfYear(startDate, weekRule, firstDayofWeek);
-                endWeekNumber = calendar.GetWeekOfYear(endDate, weekRule, firstDayofWeek);
+                startWeekNumber = calendar.GetWeekOfYear(startDate, weekRule, startOfWeek);
+                endWeekNumber = calendar.GetWeekOfYear(endDate, weekRule, startOfWeek);
                 numberOfWeeksInRange = endWeekNumber - startWeekNumber;
             }
             else
@@ -38,18 +43,18 @@
                 {
                     if (year == startDate.Year)
                     {
-                        startWeekNumber = calendar.GetWeekOfYear(startDate, weekRule, firstDayofWeek);
-                        endWeekNumber = calendar.GetWeekOfYear(new DateTime(year + 1, 1, 1).AddDays(-1), weekRule, firstDayofWeek);
+                        startWeekNumber = calendar.GetWeekOfYear(startDate, weekRule, startOfWeek);
+                        endWeekNumber = calendar.GetWeekOfYear(new DateTime(year + 1, 1, 1).AddDays(-1), weekRule, startOfWeek);
                     }
                     else if (year == endDate.Year)
                     {
-                        startWeekNumber = calendar.GetWeekOfYear(new DateTime(year, 1, 1), weekRule, firstDayofWeek);
-                        endWeekNumber = calendar.GetWeekOfYear(endDate, weekRule, firstDayofWeek);
+                        startWeekNumber = calendar.GetWeekOfYear(new DateTime(year, 1, 1), weekRule, startOfWeek);
+                        endWeekNumber = calendar.GetWeekOfYear(endDate, weekRule, startOfWeek);
                     }
                     else
                     {
-                        startWeekNumber = calendar.GetWeekOfYear(new DateTime(year, 1, 1), weekRule, firstDayofWeek);
-                        endWeekNumber = calendar.GetWeekOfYear(new DateTime(year + 1, 1, 1).AddDays(-1), weekRule, firstDayofWeek);
+                        startWeekNumber = calendar.GetWeekOfYear(new DateTime(year, 1, 1), weekRule, startOfWeek);
+                        endWeekNumber = calendar.GetWeekOfYear(new DateTime(year + 1, 1, 1).AddDays(-1), weekRule, startOfWeek);
                     }
 
                     numberOfWeeksInRange += endWeekNumber - startWeekNumber;
