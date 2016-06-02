@@ -2,7 +2,7 @@
 <div class="grid_20 content-filter new-line">
     <form id="mainform" name="mainform" method="post" action="">
         @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate,
-        AppSettings.HistoryDate.AddDays(-1), AppSettings.MaxDate.AddDays(-1), "date-range", "date-range")
+        AppSettings.HistoryDate.AddDays(-1), AppSettings.MaxDate.AddDays(-1), isFirstDayOfWeekMonday: true )
         <div class="grid_5 userguide-group">
             <div>
                 <div class="userguide-icon hide" id="UserGuide" title="@ViewResources.UserGuide">

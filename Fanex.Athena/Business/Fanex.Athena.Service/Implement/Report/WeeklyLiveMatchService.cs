@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.Implement.Report
         {
             var culture = CultureInfo.GetCultureInfo(CultureInfo.CurrentUICulture.IetfLanguageTag);
 
-            var firstDate = DateTimeHelper.GetFirstDateOfWeek(fromDate);
+            var firstDate = DateTimeHelper.GetFirstDateOfWeek(fromDate, DayOfWeek.Monday);
             var nextDate = firstDate.AddDays(DaysInWeek - 1);
 
             var headers = new List<string>();
