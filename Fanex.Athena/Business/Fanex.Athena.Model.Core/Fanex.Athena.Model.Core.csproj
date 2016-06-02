@@ -60,6 +60,7 @@
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
     <Compile Include="DataDomain\Licensees.cs" />
+    <Compile Include="DataDomain\OddsType.cs" />
     <Compile Include="DataDomain\PlatformType.cs" />
     <Compile Include="DataDomain\ProductTypes.cs" />
     <Compile Include="DataDomain\ReportByType.cs" />
