@@ -3,6 +3,9 @@
 
 @{
     var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var userCurrencies = sessionService.UserSession == null || sessionService.UserSession.CurrencyList == null ?
+        new Dictionary<string, string>() :
+        sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
 }
 <!DOCTYPE html>
 <html>
@@ -20,7 +23,7 @@
         Site.resolveClientUrl = function (relativeUrl) {
             return '@Url.Content("~/")' + relativeUrl;
         };
-        Site.userCurrencies = @(Html.Raw(JsonHelper.ToJson(sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key))));
+        Site.userCurrencies = @(Html.Raw(JsonHelper.ToJson(userCurrencies)));
         var _page = {
             lang: '@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag'
         };
@@ -44,7 +47,7 @@
                 $('#BodyContent').css('overflow-y', 'auto');
                 $('#BodyContent').css('max-height', 500);
             };
-        });        
+        });
     </script>
     @if (AppSettings.IsEnablePiwik)
     {
@@ -63,10 +66,11 @@
                 }, 500);
             });
         </script>
-    
+
         <noscript>
             <p>
-                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" /></p>
+                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" />
+            </p>
         </noscript>
     }
 </body>

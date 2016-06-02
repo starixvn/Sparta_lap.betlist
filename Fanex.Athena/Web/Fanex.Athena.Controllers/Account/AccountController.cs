@@ -102,7 +102,6 @@ namespace Fanex.Athena.Controllers.Account
             var licenseeSession = SessionService.LicenseeSession;
             var model = _userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
                 .Where(i => i.Id != userSession.UserId).ToList();
-            ViewBag.PageSession = userSession;
 
             return View("~/Views/Account/Manage.cshtml", model);
         }
