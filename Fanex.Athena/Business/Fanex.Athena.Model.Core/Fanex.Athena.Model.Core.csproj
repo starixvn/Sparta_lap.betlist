@@ -58,6 +58,7 @@
     <Compile Include="DataDomain\ErrorType.cs" />
     <Compile Include="DataDomain\EsportSettingType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
+    <Compile Include="DataDomain\FunctionNames.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
     <Compile Include="DataDomain\Licensees.cs" />
     <Compile Include="DataDomain\OddsType.cs" />

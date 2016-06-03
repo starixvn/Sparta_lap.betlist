@@ -2,6 +2,8 @@
 {
     using System;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Users;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;

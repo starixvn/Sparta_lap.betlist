@@ -26,19 +26,15 @@ namespace Fanex.Athena.Api.Report
 
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
-        private const string ParentUrl = "LicenseeWinLossReport";
-
         private readonly ILicenseeWinLossService _licenseeWinLossService;
 
         public LicenseeWinLossReportController()
         {
             _licenseeWinLossService = new LicenseeWinLossService();
         }
-
-        #region Action
-
+        
         [HttpPost]
-        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
+        [ApiFunctionAuthorization]
         public dynamic LicenseeWL(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -52,13 +48,11 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
+        [ApiFunctionAuthorization]
         public dynamic LicenseeWL([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
-
-        #endregion Action
 
         private static dynamic GetEmptyResult(LicenseeWinLossMetaModel metaModel)
         {

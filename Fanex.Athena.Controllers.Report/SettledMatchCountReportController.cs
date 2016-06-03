@@ -11,18 +11,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class SettledMatchCountReportController : ReportBaseController
     {
-        #region Const
-
-        #endregion Const
-
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult SettledMatchCount()
+        public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var isShowAll = AppSettings.IsTesting;

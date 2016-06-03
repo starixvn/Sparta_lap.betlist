@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    #region
-
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Entities;
     using Fanex.Athena.Excel.Report;
@@ -17,20 +15,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
-    #endregion
-
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class DailyRacingWinLossReportController : ReportBaseController
     {
-        /// <summary>
-        /// The daily racing win-loss.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult DailyRacingWinLoss()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var metaModel = new DailyRacingWinLossMetaModel
@@ -54,14 +43,9 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/DailyRacingWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The daily racing win-loss.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult DailyRacingWinLoss(DailyRacingWinLossMetaModel metaModel)
+        public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -80,18 +64,11 @@ namespace Fanex.Athena.Controllers.Report
                 };
 
             return metaModel.IsExportExcel
-                       ? DailyRacingWinLossExcel(model)
+                       ? Excel(model)
                        : View("~/Views/Report/DailyRacingWinLoss/Main.cshtml", model);
         }
 
-        #region Export Excel
-
-        /// <summary>
-        /// The daily racing win-loss excel.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult DailyRacingWinLossExcel(DailyRacingWinLossViewModel viewModel)
+        private ActionResult Excel(DailyRacingWinLossViewModel viewModel)
         {
             const string FileName = "DailyRacingWinLossReport";
 
@@ -127,7 +104,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(dailyRacingWinLossExcel.Workbook, FileName);
         }
-
-        #endregion
     }
 }

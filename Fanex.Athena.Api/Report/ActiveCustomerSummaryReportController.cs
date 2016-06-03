@@ -20,26 +20,25 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class ActiveCustomerSummaryReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IActiveCustomerService _activeCustomerService;
 
-        /// <summary>
-        /// Active customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model data.</param>
-        /// <returns>Process Request.</returns>
+        public ActiveCustomerSummaryReportController()
+        {
+            _activeCustomerService = new ActiveCustomerService();
+        }
+
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic ActiveCustomerSummary(ActiveCustomerMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
-
-        #endregion Action
 
         private static dynamic GetEmptyResult(ActiveCustomerMetaModel metaModel)
         {
@@ -47,7 +46,7 @@ namespace Fanex.Athena.Api.Report
             {
                 Data = new List<ActiveCustomerGridViewModel>(),
                 GrantTotalCustomer = 0,
-                ProductOptions = metaModel.ProductOptions.ToJson()                
+                ProductOptions = metaModel.ProductOptions.ToJson()
             };
         }
 
@@ -161,7 +160,7 @@ namespace Fanex.Athena.Api.Report
             };
 
             var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel);
-            
+
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);
@@ -177,8 +176,8 @@ namespace Fanex.Athena.Api.Report
                 ActiveCustomerMetaModel metaModel,
                 out SortableList<ActiveCustomer> dataList,
                 out int totalCustomer)
-        {            
-             dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);            
+        {
+            dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
         }
 
         /// <summary>
@@ -193,7 +192,7 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId;
-                
+
                 int totalCustomer;
                 SortableList<ActiveCustomer> dataList;
                 GetData(metaModel, out dataList, out totalCustomer);

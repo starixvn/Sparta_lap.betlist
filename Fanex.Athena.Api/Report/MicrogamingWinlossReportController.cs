@@ -17,15 +17,21 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class MicrogamingWinlossReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IMicroGamingWinLossService _microGamingWinLossService;
+
+        public MicrogamingWinlossReportController()
+        {
+            _microGamingWinLossService = new MicroGamingWinLossService();
+        }
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic MicroGamingWinLoss(
             MicroGamingWinLossMetaModel metaModel)
         {
@@ -53,10 +59,6 @@ namespace Fanex.Athena.Api.Report
 
             return GetEmptyMicroGamingWinLossResult();
         }
-
-        #endregion Action
-
-        #region Private Utility
 
         private static IList<MicroGamingWinLoss> DoRestructureDataMicroGaming(dynamic groupData)
         {
@@ -116,8 +118,8 @@ namespace Fanex.Athena.Api.Report
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
 
             var exportedFileName = string.Format(
-                "MGCWinLoss_{0:ddMMMyyyy}_{1}.xls", 
-                metaModel.FromDate, 
+                "MGCWinLoss_{0:ddMMMyyyy}_{1}.xls",
+                metaModel.FromDate,
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption
             {
@@ -125,7 +127,7 @@ namespace Fanex.Athena.Api.Report
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = currency.Key
             };
-        
+
             var excelModel = new MicroGamingWinLossViewModel
             {
                 MainResult = dataList,
@@ -133,12 +135,10 @@ namespace Fanex.Athena.Api.Report
             };
 
             var excel = new MicroGamingWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel);
-            
+
             excel.Export();
 
             return ExcelStream(excel.Workbook, exportedFileName);
         }
-
-        #endregion Private Utility
     }
 }

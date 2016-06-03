@@ -17,18 +17,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class RacingCommissionReportController : ReportBaseController
     {
-        /// <summary>
-        /// The racing commission report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RacingCommission()
+        public ActionResult Index()
         {
             var metaModel = new RacingCommissionMetaModel
                 {
@@ -52,14 +45,9 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/RacingCommission/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The racing commission report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult RacingCommission(RacingCommissionMetaModel metaModel)
+        public ActionResult Index(RacingCommissionMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -88,18 +76,11 @@ namespace Fanex.Athena.Controllers.Report
                 };
 
             return metaModel.IsExportExcel
-                       ? RacingCommissionExcel(model)
+                       ? Excel(model)
                        : View("~/Views/Report/RacingCommission/Main.cshtml", model);
         }
 
-        #region Export Excel
-
-        /// <summary>
-        /// The racing commission excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
-        private ActionResult RacingCommissionExcel(RacingCommissionViewModel viewModel)
+        private ActionResult Excel(RacingCommissionViewModel viewModel)
         {
             const string FileName = "RacingCommission";
 
@@ -126,7 +107,5 @@ namespace Fanex.Athena.Controllers.Report
             racingWinLossExcel.Export();
             return new ExcelResult(racingWinLossExcel.Workbook, FileName);
         }
-
-        #endregion Export Excel
     }
 }

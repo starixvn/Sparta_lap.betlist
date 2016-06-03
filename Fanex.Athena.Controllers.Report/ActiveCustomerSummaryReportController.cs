@@ -15,18 +15,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
-    {        
-        /// <summary>
-        /// Default licenseeWL action.
-        /// </summary>
-        /// <returns>The action result.</returns>
+    public class ActiveCustomerSummaryReportController : ReportBaseController
+    {
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult ActiveCustomerSummary()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -34,28 +27,28 @@ namespace Fanex.Athena.Controllers.Report
             var productList = productAccess.ProductList;
             var defaultDate = DateTime.Now.AddDays(-1);
             var metaModel = new ActiveCustomerMetaModel
+            {
+                FromDate = defaultDate,
+                ToDate = defaultDate,
+                LicenseeId = licenseeSession.LicenseeId,
+                ProductOptions = productList.Select(i => new ProductOption
                 {
-                    FromDate = defaultDate,
-                    ToDate = defaultDate,
-                    LicenseeId = licenseeSession.LicenseeId,                                        
-                    ProductOptions = productList.Select(i => new ProductOption
-                        {
-                            Code = i.ProductCode,
-                            Name = i.ProductName,
-                            Status = i.ProductCode == Product.SB
-                        }).ToList(),
-                };
-           
+                    Code = i.ProductCode,
+                    Name = i.ProductName,
+                    Status = i.ProductCode == Product.SB
+                }).ToList(),
+            };
+
             SetConvetedUSDCurrencyId(metaModel);
-           
+
             var model = new ActiveCustomerViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    ProductAccess = productAccess,
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                ProductAccess = productAccess,
+            };
 
             return View("~/Views/Report/ActiveCustomerSummary/Main.cshtml", model);
         }

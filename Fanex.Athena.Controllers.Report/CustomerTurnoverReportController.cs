@@ -20,21 +20,21 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Newtonsoft.Json;
     using Resources;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
 
-    /// <summary>
-    /// The customer turnover controller.
-    /// </summary>
-    public partial class ReportController
+    public class CustomerTurnoverReportController : ReportBaseController
     {
-        #region Web Controller
+        private readonly ISportTypeService _sportTypeService;
 
-        /// <summary>
-        /// Customer turnover report.
-        /// </summary>
-        /// <returns>The action result.</returns>
+        public CustomerTurnoverReportController()
+        {
+            _sportTypeService = new SportTypeService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CustomerTurnover()
+        public ActionResult Index()
         {
             AddNotificationMessageToViewBag();
 
@@ -59,22 +59,13 @@ namespace Fanex.Athena.Controllers.Report
                 JsonRequestBehavior.AllowGet);
         }
 
-        #endregion Web Controller
-
-        #region Export excel
-
-        /// <summary>
-        /// Customer turnover excel report.
-        /// </summary>
-        /// <param name="excelParam">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [ValidateInput(false)]
-        public ActionResult CustomerTurnoverExcel(string excelParam)
+        public ActionResult Excel(string excelParam)
         {
             const string FileName = "CustomerTurnover";
 
@@ -129,10 +120,6 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(excel.Workbook, FileName);
         }
 
-        #endregion Export excel
-
-        #region Utilities
-
         private IList<CustTurnover> GetData(CustomerTurnoverMetaModel metalModel, out CustTurnover totalData, out int totalRow)
         {
             totalData = new CustTurnover();
@@ -141,7 +128,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return custTurnoverService.GetDataList(metalModel, SessionService.UserSession.Language, out totalData, out totalRow);
         }
-
-        #endregion Utilities
     }
 }

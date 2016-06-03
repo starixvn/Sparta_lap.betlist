@@ -17,26 +17,25 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class AgCasinoBalanceReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IAgCasinoBalanceService _agcasinoBalanceService;
 
-        /// <summary>
-        /// Licensee win loss report for down line level.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Call method ProcessRequest.</returns>
+        public AgCasinoBalanceReportController()
+        {
+            _agcasinoBalanceService = new AgCasinoBalanceService();
+        }
+
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic AgCasinoBalance(AgCasinoBalanceMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
-
-        #endregion Action
 
         private static dynamic GetAgCasinoBalanceEmptyResult()
         {
@@ -139,7 +138,7 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId;
-                
+
                 IDictionary<string, AgCasinoBalance> summaryTotal;
                 SortableList<AgCasinoBalance> dataList;
                 int totalRows;

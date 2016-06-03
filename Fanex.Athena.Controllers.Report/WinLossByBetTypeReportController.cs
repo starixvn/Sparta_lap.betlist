@@ -18,55 +18,44 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DTO.Common;
 
-    /// <summary>
-    ///     Win Loss By Bet Type Controller.
-    /// </summary>
-    public partial class ReportController
+    public class WinLossByBetTypeReportController : ReportBaseController
     {
-        /// <summary>
-        /// Win loss by bet type report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult WinLossByBetType()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var metaModel = new WinLossByBetTypeMetaModel
-                {
-                    BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay,
-                    LicenseeId = licenseeSession.LicenseeId,
-                    UserId = userSession.UserId
-                };
+            {
+                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay,
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = userSession.UserId
+            };
 
             SetConvetedUSDCurrencyName(metaModel);
 
             var model = new WinLossByBetTypeViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = GetUserCurrencies(),
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = GetUserCurrencies(),
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+            };
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Win loss by bet type report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult WinLossByBetType(WinLossByBetTypeMetaModel metaModel)
+        public ActionResult Index(WinLossByBetTypeMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -76,34 +65,29 @@ namespace Fanex.Athena.Controllers.Report
             var reportData = winLossByBetTypeService.GetDataList(metaModel);
 
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
-
-            var total = GetWinLossByBetTypeTotal(reportData);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var total = GetTotal(reportData);
             var model = new WinLossByBetTypeViewModel
-                {
-                    Param = metaModel,
-                    MainResult = reportData,
-                    BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    CurrencyList = GetUserCurrencies(),
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                    ColumnCount = GetMatchWinlossColumnCount(licenseeSession),
-                    Total = total
-                };
+            {
+                Param = metaModel,
+                MainResult = reportData,
+                BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = GetUserCurrencies(),
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = productAccess,
+                ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
+                Total = total
+            };
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
             return metaModel.IsExportExcel ?
-                WinLossByBetTypeExcel(model) :
+                Excel(model) :
                 View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Calculate total for report.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The total object.</returns>
-        private static WinLossByBetType GetWinLossByBetTypeTotal(IList<WinLossByBetType> dataList)
+        private static WinLossByBetType GetTotal(IList<WinLossByBetType> dataList)
         {
             return new WinLossByBetType
             {
@@ -119,12 +103,28 @@ namespace Fanex.Athena.Controllers.Report
             };
         }
 
-        /// <summary>
-        /// Win loss by bet type excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
-        private ActionResult WinLossByBetTypeExcel(WinLossByBetTypeViewModel viewModel)
+        private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
+        {
+            var columnCount = 6;
+            if (productAccess.IsAllowBA)
+            {
+                columnCount += 2;
+            }
+
+            if (productAccess.IsAllowRB)
+            {
+                columnCount += 2;
+            }
+
+            if (isAllowedCustomerComm)
+            {
+                columnCount += 2;
+            }
+
+            return columnCount;
+        }
+
+        private ActionResult Excel(WinLossByBetTypeViewModel viewModel)
         {
             const string FileName = "WinLossByBetType";
 

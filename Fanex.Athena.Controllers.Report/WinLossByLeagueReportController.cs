@@ -18,12 +18,25 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Resources;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
 
-    public partial class ReportController
+    public class WinLossByLeagueReportController : ReportBaseController
     {
+        private readonly ISportTypeService _sportTypeService;
+        private readonly ILeagueService _leagueService;
+        private readonly IMatchService _matchService;
+
+        public WinLossByLeagueReportController()
+        {
+            _sportTypeService = new SportTypeService();
+            _leagueService = new LeagueService();
+            _matchService = new MatchService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult WinLossByLeague()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

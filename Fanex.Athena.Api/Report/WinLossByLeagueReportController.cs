@@ -18,30 +18,33 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Resources;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// WinLossByLeagueController class.
-    /// </summary>
-    public partial class ReportController
+    public class WinLossByLeagueReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IWinLossByLeagueService _winlossByLeagueService;
 
-        /// <summary>
-        /// Win Loss By Product - Level 0.
-        /// </summary>
-        /// <param name="metaModel">The level 0 MetaModel.</param>
-        /// <returns>Process Request.</returns>
+        private readonly IBalanceUpService _balanceUpService;
+
+        public WinLossByLeagueReportController()
+        {
+            _winlossByLeagueService = new WinLossByLeagueService();
+            _balanceUpService = new BalanceUpService();
+        }
+
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic WinLossByLeague([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
 
-        #endregion Action
-
-        #region ProcessRequest
-
         [HttpGet]
+        [ApiFunctionAuthorization]
         public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
@@ -118,11 +121,6 @@ namespace Fanex.Athena.Api.Report
             return dataList;
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic type.</returns>
         private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
@@ -140,7 +138,5 @@ namespace Fanex.Athena.Api.Report
                 Total = grandTotal
             };
         }
-
-        #endregion ProcessRequest
     }
 }

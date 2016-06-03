@@ -21,22 +21,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
-    /// <summary>
-    /// The turn over controller.
-    /// </summary>
-    public partial class ReportController
+    public class TurnoverReportController : ReportBaseController
     {
-        private const string TurnoverName = "Turnover";
-
-        #region Web Controller
-
-        /// <summary>
-        ///    Turn over report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult Turnover()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -49,7 +38,10 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName);
+            var productAccess = ProductService.GetProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                FunctionNames.Turnover);
             var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
                                              .Select(i => new ProductOption
                                              {
@@ -74,14 +66,9 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/Turnover/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Turn over report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult TurnoverExcel(TurnoverMetaModel metaModel)
+        public ActionResult Excel(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -99,27 +86,23 @@ namespace Fanex.Athena.Controllers.Report
                 DataList = dataList,
                 TotalData = turnoverService.SumTotalData(dataList),
                 Param = metaModel,
-                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, TurnoverName),
+                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = GetCurrenciesForTurnoverReport(),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };
 
-            return ExportTurnoverExcel(model);
+            return ExportExcel(model);
         }
 
-        #endregion Web Controller
-
-        #region Export excel
-
-        private ActionResult ExportTurnoverExcel(TurnoverViewModel viewModel)
+        private ActionResult ExportExcel(TurnoverViewModel viewModel)
         {
             const string FileName = "Turnover";
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, TurnoverName);
+            var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
 
             var convertingOption = new ConvertingOption
             {
@@ -144,8 +127,6 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(turnoverExcel.Workbook, FileName);
         }
-
-        #endregion Export excel
 
         private IDictionary<string, int> GetCurrenciesForTurnoverReport()
         {

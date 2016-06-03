@@ -18,26 +18,21 @@ namespace Fanex.Athena.Controllers.Report
     /// <summary>
     ///     Credit Balance controller.
     /// </summary>
-    public partial class ReportController
+    public class BalanceReportController : ReportBaseController
     {
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult Balance()
+        public ActionResult Index()
         {
             var metaModel = new BalanceMetaModel() { LicenseeId = SessionService.LicenseeSession.LicenseeId };
             SetConvetedUSDCurrencyName(metaModel);
-            return Balance(metaModel);
+            return Index(metaModel);
         }
 
-        /// <summary>
-        /// Balance report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [OutputCache(Duration = 0, VaryByParam = "None")]
         [FunctionAuthorization]
-        public ActionResult Balance(BalanceMetaModel metaModel)
+        public ActionResult Index(BalanceMetaModel metaModel)
         {
             AddNotificationMessageToViewBag();
 
@@ -63,20 +58,13 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                return BalanceExcel(viewData);
+                return Excel(viewData);
             }
 
             return View("~/Views/Report/Balance/Main.cshtml", viewData);
         }
 
-        #region Export Excel
-
-        /// <summary>
-        /// Balance Excel report.
-        /// </summary>
-        /// <param name="model">The view model.</param>
-        /// <returns>The excel file.</returns>
-        private ActionResult BalanceExcel(BalanceViewModel model)
+        private ActionResult Excel(BalanceViewModel model)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             const string FileName = "Balance";
@@ -117,7 +105,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(balance.Workbook, FileName);
         }
-
-        #endregion Export Excel
     }
 }

@@ -21,23 +21,13 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
 
-    /// <summary>
-    /// The customer pending fund controller.
-    /// </summary>
-    public partial class ReportController
+    public class CustomerPendingFundsReportController : ReportBaseController
     {
-        private const string CustomerPendingFundsName = "CustomerPendingFunds";
-
-        #region Web Controller
-
-        /// <summary>
-        /// The customer pending fund report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CustomerPendingFunds()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -47,7 +37,10 @@ namespace Fanex.Athena.Controllers.Report
                 UserId = userSession.UserId
             };
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName);
+            var productAccess = ProductService.GetProductAccess(
+                metaModel.LicenseeId,
+                userSession.Language,
+                FunctionNames.CustomerPendingFunds);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -74,15 +67,10 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerPendingFunds/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer pending fund report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
         [ValidateInput(false)]
-        public ActionResult CustomerPendingFunds(CustomerPendingFundsMetaModel metaModel)
+        public ActionResult Index(CustomerPendingFundsMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -97,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, CustomerPendingFundsName),
+                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, FunctionNames.CustomerPendingFunds),
                 CurrencyList = GetUserCurrencies(),
                 Param = metaModel,
                 TotalRows = totalRows,
@@ -116,7 +104,7 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                return CustomerPendingFundsExcel(model);
+                return Excel(model);
             }
 
             model.DataList = dataList;
@@ -125,17 +113,8 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerPendingFunds/Main.cshtml", model);
         }
 
-        #endregion Web Controller
-
-        #region Export excel
-
-        /// <summary>
-        /// Customer pending fund excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult CustomerPendingFundsExcel(CustomerPendingFundsViewModel viewModel)
+        public ActionResult Excel(CustomerPendingFundsViewModel viewModel)
         {
             const string FileName = "CustomerPendingFunds";
 
@@ -157,7 +136,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(custPendingFundsExcel.Workbook, FileName);
         }
-
-        #endregion Export excel
     }
 }

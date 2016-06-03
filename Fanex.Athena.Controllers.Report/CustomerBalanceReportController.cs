@@ -20,24 +20,14 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Resources;
 
-    /// <summary>
-    /// Customer balance controller.
-    /// </summary>
-    public partial class ReportController
+    public class CustomerBalanceReportController : ReportBaseController
     {
-        private const string CustomerBalanceName = "CustomerBalance";
-
-        #region Web Controller
-
-        /// <summary>
-        ///     The balance report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CustomerBalance()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -51,7 +41,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                CustomerBalanceName);
+                FunctionNames.CustomerBalance);
             var productOption = productAccess.ProductList.Where(i => i.ProductCode != Product.BA)
                                              .Select(i => new ProductOption
                                              {
@@ -84,14 +74,9 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Customer balance report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult CustomerBalance(CustomerBalanceMetaModel metaModel)
+        public ActionResult Index(CustomerBalanceMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -99,7 +84,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             var totalData = new CustBalance();
             var totalRows = 0;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerBalanceName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.CustomerBalance);
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -131,7 +116,7 @@ namespace Fanex.Athena.Controllers.Report
                 var dataListExcel = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
                 model.DataList = dataListExcel;
                 model.TotalData = totalData;
-                return CustomerBalanceExcel(model);
+                return Excel(model);
             }
 
             var dataList = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
@@ -143,17 +128,8 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
         }
 
-        #endregion Web Controller
-
-        #region Export excel
-
-        /// <summary>
-        /// Customer balance excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult CustomerBalanceExcel(CustomerBalanceViewModel viewModel)
+        public ActionResult Excel(CustomerBalanceViewModel viewModel)
         {
             const string FileName = "CustomerBalance";
 
@@ -162,7 +138,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(
                 viewModel.Param.LicenseeId,
                 SessionService.UserSession.Language,
-                CustomerBalanceName);
+                FunctionNames.CustomerBalance);
 
             var showingOption = new ShowingOption
             {
@@ -189,16 +165,7 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(custBalanceExcel.Workbook, FileName);
         }
 
-        #endregion Export excel
-
-        #region Utilities
-
-        /// <summary>
-        /// Generate top count list.
-        /// </summary>
-        /// <param name="topCount">The current top count.</param>
-        /// <returns>The select list item.</returns>
-        private static List<SelectListItem> GenerateTopCountList(int topCount)
+        private static IList<SelectListItem> GenerateTopCountList(int topCount)
         {
             const string Label100 = "100";
             const string Label500 = "500";
@@ -227,11 +194,6 @@ namespace Fanex.Athena.Controllers.Report
             return result;
         }
 
-        /// <summary>
-        /// Generate ordered item list.
-        /// </summary>
-        /// <param name="orderItem">The order item.</param>
-        /// <returns>The select list item.</returns>
         private static IEnumerable<SelectListItem> GenerateOrderItemList(short orderItem)
         {
             var result = new List<SelectListItem>
@@ -269,7 +231,5 @@ namespace Fanex.Athena.Controllers.Report
                 };
             return result;
         }
-
-        #endregion Utilities
     }
 }

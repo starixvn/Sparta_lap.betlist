@@ -14,14 +14,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class MicrogamingWinlossReportController : ReportBaseController
     {
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult MicrogamingWinloss()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

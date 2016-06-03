@@ -19,14 +19,24 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    public partial class ReportController
+    public class PlatformWinLossReportController : ApiReportBaseController
     {
-        private const string PlatformWinlossName = "PlatformWinloss";
+        private readonly IPlatformWinLossService _platformWinLossService;
+
+        public PlatformWinLossReportController()
+        {
+            _platformWinLossService = new PlatformWinLossService();
+        }
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic PlatformWinloss(PlatformWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
@@ -42,7 +52,7 @@ namespace Fanex.Athena.Api.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, PlatformWinlossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
 
             var showingOption = new ShowingOption
             {

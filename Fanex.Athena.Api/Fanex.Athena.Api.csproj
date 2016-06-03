@@ -227,16 +227,15 @@
     <Compile Include="Report\ApiReportBaseController.cs" />
     <Compile Include="Report\WeeklyLiveMatchReportController.cs" />
     <Compile Include="Report\CasinoProgressiveWinsReportController.cs" />
-    <Compile Include="Report\ReportController.MicroGamingWinLoss.cs" />
-    <Compile Include="Report\ReportController.GoldDeluxeWinLoss.cs" />
-    <Compile Include="Report\ReportController.ActiveCustomerSummary.cs" />
-    <Compile Include="Report\ReportController.AgCasinoBalance.cs" />
-    <Compile Include="Report\ReportController.AgCasinoWl.cs" />
-    <Compile Include="Report\ReportController.ThirdPartyWinLoss.cs" />
-    <Compile Include="Report\ReportController.WinLossByLeague.cs" />
-    <Compile Include="Report\ReportController.cs" />
+    <Compile Include="Report\MicrogamingWinlossReportController.cs" />
+    <Compile Include="Report\GoldDeluxeWinLossReportController.cs" />
+    <Compile Include="Report\ActiveCustomerSummaryReportController.cs" />
+    <Compile Include="Report\AgCasinoBalanceReportController.cs" />
+    <Compile Include="Report\AgCasinoWinLossReportController.cs" />
+    <Compile Include="Report\ThirdPartyWinLossReportController.cs" />
+    <Compile Include="Report\WinLossByLeagueReportController.cs" />
     <Compile Include="Report\LicenseeWinLossReportController.cs" />
-    <Compile Include="Report\ReportController.PlatformWinLoss.cs" />
+    <Compile Include="Report\PlatformWinLossReportController.cs" />
     <Compile Include="Report\WinLossByProductReportController.cs" />
   </ItemGroup>
   <ItemGroup>

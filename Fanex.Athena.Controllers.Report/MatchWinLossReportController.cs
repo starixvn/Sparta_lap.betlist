@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Models.DTO.Report;
@@ -29,20 +28,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Common;
     using Resources;
 
-    /// <summary>
-    /// The match win-loss controller.
-    /// </summary>
-    public partial class ReportController
+    public class MatchWinLossReportController : ReportBaseController
     {
-        private const string MatchWinLossName = "MatchWinLoss";
-
-        /// <summary>
-        /// The match win-loss report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult MatchWinLoss()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -57,7 +47,7 @@ namespace Fanex.Athena.Controllers.Report
             var productAccess = ProductService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
-                MatchWinLossName);
+                FunctionNames.MatchWinLoss);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -80,18 +70,13 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The match win-loss.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult MatchWinLoss(MatchWinLossMetaModel metaModel)
+        public ActionResult Index(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -103,7 +88,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
-                    return MatchWinLossExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -129,9 +114,9 @@ namespace Fanex.Athena.Controllers.Report
                 }
             }
 
-            var total = GetMatchWinLossTotal(reportData);
-            var grandTotal = GetMatchWinLossGrandTotal(reportDataOutrightParlay, total);
-
+            var total = GetTotal(reportData);
+            var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
             var model = new MatchWinLossViewModel
             {
                 Param = metaModel,
@@ -142,8 +127,8 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = currencies,
                 LicenseeTypeList = licenseeSession.LicenseeType,
 
-                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MatchWinLossName),
-                ColumnCount = GetMatchWinlossColumnCount(licenseeSession),
+                ProductAccess = productAccess,
+                ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
                 Total = total,
                 GrandTotal = grandTotal,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
@@ -151,13 +136,8 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The match win-loss detail.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult MatchWinLossDetail(MatchWinLossMetaModel metaModel)
+        public ActionResult Detail(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -167,7 +147,7 @@ namespace Fanex.Athena.Controllers.Report
             var matchWinLossService = new MatchWinLossService();
             var reportData = matchWinLossService.GetDetailDataList(metaModel);
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MatchWinLossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
 
             var model = new MatchWinLossViewModel
             {
@@ -180,13 +160,8 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/MatchWinLoss/Content.data.Detail.cshtml", model);
         }
 
-        /// <summary>
-        /// The match win-loss excel report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult MatchWinLossExcel(MatchWinLossMetaModel metaModel)
+        public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -194,7 +169,7 @@ namespace Fanex.Athena.Controllers.Report
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, MatchWinLossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
@@ -235,14 +210,7 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(matchWinLossExcel.Workbook, FileName);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get total data.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The total data.</returns>
-        private static MatchWinLoss GetMatchWinLossTotal(IList<MatchWinLoss> dataList)
+        private static MatchWinLoss GetTotal(IList<MatchWinLoss> dataList)
         {
             var totalMatchWinLoss = new MatchWinLoss
             {
@@ -260,13 +228,7 @@ namespace Fanex.Athena.Controllers.Report
             return totalMatchWinLoss;
         }
 
-        /// <summary>
-        /// Get grand total data.
-        /// </summary>
-        /// <param name="dataListOutright">The out right data list.</param>
-        /// <param name="total">The total data.</param>
-        /// <returns>The grand total. </returns>
-        private static MatchWinLoss GetMatchWinLossGrandTotal(IList<MatchWinLoss> dataListOutright, MatchWinLoss total)
+        private static MatchWinLoss GetGrandTotal(IList<MatchWinLoss> dataListOutright, MatchWinLoss total)
         {
             var grandTotalMatchWinLoss = new MatchWinLoss
             {
@@ -406,17 +368,8 @@ namespace Fanex.Athena.Controllers.Report
 
         #endregion Obsolete
 
-        /// <summary>
-        /// Count number of column.
-        /// </summary>
-        /// <param name="licenseeSession">The licensee session.</param>
-        /// <returns>The number of column.</returns>
-        private int GetMatchWinlossColumnCount(LicenseeSession licenseeSession)
+        private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
         {
-            var productAccess = ProductService.GetProductAccess(
-                licenseeSession.LicenseeId,
-                SessionService.UserSession.Language,
-                MatchWinLossName);
             var columnCount = 6;
             if (productAccess.IsAllowBA)
             {
@@ -428,14 +381,12 @@ namespace Fanex.Athena.Controllers.Report
                 columnCount += 2;
             }
 
-            if (SessionService.LicenseeSession.IsAllowedCustomerComm)
+            if (isAllowedCustomerComm)
             {
                 columnCount += 2;
             }
 
             return columnCount;
         }
-
-        #endregion Utility
     }
 }

@@ -12,39 +12,32 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class ReportController
+    public class AgCasinoBalanceReportController : ReportBaseController
     {
-        /// <summary>
-        /// Default licenseeWL action.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult AgCasinoBalance()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var toDate = DateTime.Now.AddDays(-2);
-            
+
             var metaModel = new AgCasinoBalanceMetaModel
-                {
-                    FromDate = new DateTime(toDate.Year, toDate.Month, 1),
-                    ToDate = toDate,
-                    LicenseeId = licenseeSession.LicenseeId,
-                    IsExcludedTestData = true
-                };
+            {
+                FromDate = new DateTime(toDate.Year, toDate.Month, 1),
+                ToDate = toDate,
+                LicenseeId = licenseeSession.LicenseeId,
+                IsExcludedTestData = true
+            };
 
             SetConvetedUSDCurrencyId(metaModel);
 
             var model = new AgCasinoBalanceViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList
+            };
 
             return View("~/Views/Report/AgCasinoBalance/Main.cshtml", model);
         }

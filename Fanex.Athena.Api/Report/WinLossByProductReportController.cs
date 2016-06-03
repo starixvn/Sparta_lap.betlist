@@ -37,20 +37,6 @@ namespace Fanex.Athena.Api.Report
             _winlossByProductService = new WinLossByProductService();
         }
 
-        #region Action
-
-        /// <summary>
-        /// Win Loss By Product - Drill down.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">The Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <param name="memberId">Member Id.</param>
-        /// <param name="systemId">System Id.</param>
-        /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
         [AjaxRequest]
         [ApiFunctionAuthorization]
@@ -68,12 +54,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName);
         }
 
-        /// <summary>
-        /// Win Loss By Product - Level 0.
-        /// </summary>
-        /// <param name="metaModel">The level 0 MetaModel.</param>
-        /// <returns>Process Request.</returns>
-        /// <returns>Call method ProcessRequest.</returns>
         [HttpPost]
         [AjaxRequest]
         [ApiFunctionAuthorization]
@@ -81,8 +61,6 @@ namespace Fanex.Athena.Api.Report
         {
             return ProcessRequest(metaModel, null, null);
         }
-
-        #endregion Action
 
         #region Private Utility
 
@@ -102,14 +80,6 @@ namespace Fanex.Athena.Api.Report
 
         #endregion Private Utility
 
-        /// <summary>
-        /// Get empty result for action.
-        /// </summary>
-        /// <param name="metaModel">Meta model data.</param>
-        /// <param name="memberId">Customer id.</param>
-        /// <param name="systemId">System id.</param>
-        /// <param name="errorMessage">Error message.</param>
-        /// <returns>Return dynamic result data.</returns>
         private static dynamic GetEmptyResult(WinLossByProductMetaModel metaModel, int memberId, string systemId, string errorMessage)
         {
             return new
@@ -123,11 +93,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        /// <summary>
-        /// Restructure data.
-        /// </summary>
-        /// <param name="groupData">The grouping data.</param>
-        /// <returns>Restructure data list.</returns>
         private static IList<WinLossByProduct> DoRestructureData(dynamic groupData)
         {
             var newDataList = new List<WinLossByProduct>();
@@ -166,11 +131,6 @@ namespace Fanex.Athena.Api.Report
             return newDataList;
         }
 
-        /// <summary>
-        /// Get error message.
-        /// </summary>
-        /// <param name="code">Error code.</param>
-        /// <returns>Error message.</returns>
         private static string GetErrorMessage(int code)
         {
             switch (code)

@@ -21,11 +21,6 @@ namespace Fanex.Athena.Controllers.Report
 
     public class LiveReportController : ReportBaseController
     {
-        /// <summary>
-        /// The live report.
-        /// </summary>
-        /// <param name="isViewedHistory">True if you want to view history report.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult Index(bool isViewedHistory = false)
@@ -62,11 +57,6 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/LiveReport/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The live report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
         public ActionResult Index(LiveReportMetalModel metaModel)
@@ -93,15 +83,10 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             return isExportedExcel
-                       ? LiveReportExcel(model)
+                       ? Excel(model)
                        : View("~/Views/Report/LiveReport/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The match list report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult MatchList(LiveReportMatchListMetalModel metaModel)
@@ -126,12 +111,6 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/LiveReport/MatchList/Content.cshtml", model);
         }
 
-        /// <summary>
-        /// The live report detail.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="productCode">The product code.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         public ActionResult Detail(LiveReportMetalModel metaModel, string productCode)
@@ -165,14 +144,7 @@ namespace Fanex.Athena.Controllers.Report
                 });
         }
 
-        #region Export Excel
-
-        /// <summary>
-        /// The live report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
-        private ActionResult LiveReportExcel(LiveReportViewModel viewModel)
+        private ActionResult Excel(LiveReportViewModel viewModel)
         {
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/LiveReport.xls");
             const string FileName = "LiveReport";
@@ -221,7 +193,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(liveReportExcel.Workbook, FileName);
         }
-
-        #endregion Export Excel
     }
 }

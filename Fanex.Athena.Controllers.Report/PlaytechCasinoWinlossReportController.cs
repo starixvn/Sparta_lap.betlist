@@ -23,20 +23,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
-    /// <summary>
-    /// The PLAYTECH Casino controller.
-    /// </summary>
-    public partial class ReportController
+    public class PlaytechCasinoWinlossReportController : ReportBaseController
     {
-        #region Web Controller
-
-        /// <summary>
-        /// The PLAYTECH Casino report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult PlaytechCasinoWinloss()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var metaModel = new PlaytechCasinoMetaModel
@@ -60,11 +51,6 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/PlaytechCasino/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The PLAYTECH Casino report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
         [ValidateInput(false)]
@@ -72,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult PlaytechCasinoWinloss(PlaytechCasinoMetaModel metaModel)
+        public ActionResult Index(PlaytechCasinoMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -122,23 +108,14 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                return PlaytechCasinoWinlossExcel(model);
+                return Excel(model);
             }
 
             return View("~/Views/Report/PlaytechCasino/Main.cshtml", model);
         }
 
-        #endregion Web Controller
-
-        #region Export excel
-
-        /// <summary>
-        /// PLAYTECH Casino excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult PlaytechCasinoWinlossExcel(PlaytechCasinoViewModel viewModel)
+        public ActionResult Excel(PlaytechCasinoViewModel viewModel)
         {
             const string FileName = "PlaytechCasino";
 
@@ -161,13 +138,6 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(playtechCasinoExcel.Workbook, FileName);
         }
 
-        #endregion Export excel
-
-        /// <summary>
-        /// Get total data list.
-        /// </summary>
-        /// <param name="dataList">Data list value.</param>
-        /// <returns>Data list.</returns>
         private static IList<PlaytechCasino> GetTotalDataList(IList<PlaytechCasino> dataList)
         {
             return dataList.GroupBy(d => d.CurrencyName)
@@ -185,11 +155,6 @@ namespace Fanex.Athena.Controllers.Report
                            .ToList();
         }
 
-        /// <summary>
-        /// Get base currency name.
-        /// </summary>
-        /// <param name="currencyId">Currency id value.</param>
-        /// <returns>Base currency name or empty string.</returns>
         private static string GetBaseCurrencyName(int currencyId)
         {
             switch (currencyId)

@@ -18,25 +18,21 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class GoldDeluxeWinLossReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IGoldDeluxeWinLossService _golddeluxeWinLossService;
 
-        /// <summary>
-        /// Licensee win loss report for down line level.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <returns>Call method ProcessRequest.</returns>
+        public GoldDeluxeWinLossReportController()
+        {
+            _golddeluxeWinLossService = new GoldDeluxeWinLossService();
+        }
+
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic GoldDeluxeWinLoss(
             GoldDeluxeWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -48,18 +44,12 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
         }
 
-        /// <summary>
-        /// Licensee Win Loss - Level 0.
-        /// </summary>
-        /// <param name="metaModel">The level 0 filter.</param>
-        /// <returns>Process Request.</returns>
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic GoldDeluxeWinLoss([FromBody] GoldDeluxeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
-
-        #endregion Action
 
         private static dynamic GetEmptyGoldDeluxeWinLossResult()
         {
@@ -71,18 +61,9 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region Private Utility
-
-        /// <summary>
-        /// AGCasino win loss - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="summaryTotal">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(
-            GoldDeluxeWinLossMetaModel metaModel, 
-            IList<GoldDeluxeWinLoss> dataList, 
+            GoldDeluxeWinLossMetaModel metaModel,
+            IList<GoldDeluxeWinLoss> dataList,
             IDictionary<string, GoldDeluxeWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
@@ -127,12 +108,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get data for Licensee Win Loss report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="summaryTotal">Output parameter summary data.</param>
         private void GetData(
                 GoldDeluxeWinLossMetaModel metaModel,
                 out SortableList<GoldDeluxeWinLoss> dataList,
@@ -150,16 +125,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">The Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             GoldDeluxeWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -200,7 +165,5 @@ namespace Fanex.Athena.Api.Report
 
             return GetEmptyGoldDeluxeWinLossResult();
         }
-
-        #endregion Private Utility
     }
 }

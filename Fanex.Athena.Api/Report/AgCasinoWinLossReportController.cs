@@ -21,25 +21,21 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
+    using Service.Implement.Report;
+    using Service.Interface.Report;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
-    public partial class ReportController
+    public class AgCasinoWinLossReportController : ApiReportBaseController
     {
-        #region Action
+        private readonly IAgCasinoWinLossService _agcasinoWinLossService;
 
-        /// <summary>
-        /// Licensee win loss report for down line level.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <returns>Call method ProcessRequest.</returns>
+        public AgCasinoWinLossReportController()
+        {
+            _agcasinoWinLossService = new AgCasinoWinLossService();
+        }
+
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic AgCasinoWL(
             AgCasinoWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -51,18 +47,12 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId);
         }
 
-        /// <summary>
-        /// Licensee Win Loss - Level 0.
-        /// </summary>
-        /// <param name="metaModel">The level 0 filter.</param>
-        /// <returns>Process Request.</returns>
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic AgCasinoWL([FromBody] AgCasinoWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
-
-        #endregion Action
 
         private static dynamic GetEmptyResult()
         {
@@ -74,15 +64,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region Private Utility
-
-        /// <summary>
-        /// AGCasino win loss - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="summaryTotal">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(AgCasinoWinLossMetaModel metaModel, IList<AgCasinoWinLoss> dataList, IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
@@ -92,8 +73,8 @@ namespace Fanex.Athena.Api.Report
 
             var currency = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var exportedFileName = string.Format(
-                "AGWinLoss_{0:ddMMMyyyy}_{1}.xls", 
-                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate, 
+                "AGWinLoss_{0:ddMMMyyyy}_{1}.xls",
+                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption
             {
@@ -130,12 +111,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        /// <summary>
-        /// Get data for Licensee Win Loss report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="summaryTotal">Output parameter summary data.</param>
         private void GetData(
                 AgCasinoWinLossMetaModel metaModel,
                 out SortableList<AgCasinoWinLoss> dataList,
@@ -153,15 +128,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">The Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
         /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             AgCasinoWinLossMetaModel metaModel,
@@ -203,7 +169,5 @@ namespace Fanex.Athena.Api.Report
 
             return GetEmptyResult();
         }
-
-        #endregion Private Utility
     }
 }

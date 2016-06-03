@@ -11,15 +11,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
 
     public class PlatformWinLossReportController : ReportBaseController
     {
-        private const string PlatformWinlossName = "PlatformWinloss";
-
-        #region Web Controller
-
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult Index()
@@ -30,7 +27,10 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new PlatformWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = ProductService.GetProductAccess(licenseeId, userSession.Language, PlatformWinlossName);
+            var productAccess = ProductService.GetProductAccess(
+                licenseeId,
+                userSession.Language,
+                FunctionNames.PlatformWinloss);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -55,7 +55,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return View("~/Views/Report/PlatformWinLoss/Main.cshtml", model);
         }
-
-        #endregion Web Controller
     }
 }

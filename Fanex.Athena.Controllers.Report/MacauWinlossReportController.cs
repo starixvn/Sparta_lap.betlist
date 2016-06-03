@@ -14,18 +14,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Models.ViewModel.Report;
     using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    /// Macau report controller.
-    /// </summary>
-    public partial class ReportController
-    {        
-        /// <summary>
-        /// Macau win loss main action.
-        /// </summary>
-        /// <returns>Action result.</returns>
+    public class MacauWinlossReportController : ReportBaseController
+    {
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult MacauWinloss()
+        public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -33,7 +26,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
-            //// Use product code of Vegas Games to Macau
+            // Use product code of Vegas Games to Macau.
             var product = productList.Where(p => p.ProductCode == Product.VG).SingleOrDefault();
 
             if (product == null)

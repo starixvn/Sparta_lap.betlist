@@ -24,7 +24,7 @@ namespace Fanex.Athena.Service.Core.Users
         #region Constants and Fields
 
         private const int ReportBalanceId = 42;
-        private const string ReportBalanceUrl = "Report/Balance";
+        private const string ReportBalanceUrl = "BalanceReport";
 
         /// <summary>
         ///     The licensee session key.

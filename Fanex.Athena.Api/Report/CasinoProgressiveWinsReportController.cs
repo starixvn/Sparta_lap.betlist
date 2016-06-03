@@ -27,8 +27,6 @@ namespace Fanex.Athena.Api.Report
     /// </summary>
     public class CasinoProgressiveWinsReportController : ApiReportBaseController
     {
-        private const string ParentUrl = "CasinoProgressiveWinsReport";
-
         private readonly ICasinoProgressiveWinsService _casinoProgressiveWinsService;
 
         public CasinoProgressiveWinsReportController()
@@ -37,7 +35,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorizationAttribute(ParentUrl = ParentUrl)]
+        [ApiFunctionAuthorization]
         public dynamic Index(CasinoProgressiveWinsMetaModel metaModel)
         {
             return ProcessRequest(metaModel);

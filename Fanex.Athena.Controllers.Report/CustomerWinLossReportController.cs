@@ -5,8 +5,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    #region
-
     using System;
     using System.Linq;
     using System.Web.Mvc;
@@ -22,22 +20,11 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
-    #endregion
-
-    /// <summary>
-    /// The customer win-loss controller.
-    /// </summary>
-    public partial class ReportController
+    public class CustomerWinLossReportController : ReportBaseController
     {
-        private const string CustomerWinLossName = "CustomerWinLoss";
-
-        /// <summary>
-        /// The customer win-loss.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CustomerWinLoss()
+        public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -49,7 +36,10 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyName(metaModel);
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
+            var productAccess = ProductService.GetProductAccess(
+                licenseeSession.LicenseeId,
+                userSession.Language,
+                FunctionNames.CustomerWinLoss);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -73,13 +63,9 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Customer win-loss history report.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CustomerWinlossHistory()
+        public ActionResult History()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -92,7 +78,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(historyParam);
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, CustomerWinLossName);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.CustomerWinLoss);
             var productOption = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
@@ -117,13 +103,8 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer win-loss report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult CustomerWinLoss(CustomerWinLossMetaModel metaModel)
+        public ActionResult Index(CustomerWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -152,17 +133,12 @@ namespace Fanex.Athena.Controllers.Report
             model.TotalData = totalData;
 
             return metaModel.IsExportExcel
-                       ? CustomerWinLossExcel(model)
+                       ? Excel(model)
                        : View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer win-loss history report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult CustomerWinlossHistory(CustomerWinLossHistoryMetaModel metaModel)
+        public ActionResult History(CustomerWinLossHistoryMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -201,21 +177,14 @@ namespace Fanex.Athena.Controllers.Report
                     CurrencyId = model.HistoryParam.CurrencyId
                 };
 
-                return CustomerWinLossHistoryExcel(model);
+                return HistoryExcel(model);
             }
 
             return this.View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
         }
 
-        #region Export excel
-
-        /// <summary>
-        /// The customer win-loss excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult CustomerWinLossExcel(CustomerWinLossViewModel viewModel)
+        public ActionResult Excel(CustomerWinLossViewModel viewModel)
         {
             const string FileName = "CustomerWinLoss";
 
@@ -255,13 +224,8 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(custWinlossExcel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// The customer win-loss history excel report.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
-        public ActionResult CustomerWinLossHistoryExcel(CustomerWinLossViewModel viewModel)
+        public ActionResult HistoryExcel(CustomerWinLossViewModel viewModel)
         {
             const string FileName = "CustomerWinLoss";
 
@@ -298,7 +262,5 @@ namespace Fanex.Athena.Controllers.Report
 
             return new ExcelResult(custWinlossExcel.Workbook, FileName);
         }
-
-        #endregion Export excel
     }
 }
