@@ -17,8 +17,9 @@ namespace Fanex.Athena.Controllers.Forecast
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Helpers;
-    using Models.MetaModel.Forecast;
-    using Models.ViewModel.Forecast;
+    using Model.Forecast.DTO.NewForecastHdpOu;
+    using Model.Forecast.MetaModel;
+    using Model.Forecast.ViewModel;
 
     /// <summary>
     /// Forecast Handicap Over/Under.
@@ -132,7 +133,7 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             IList<Match> matchList = new List<Match>();
             IList<League> leagueList = new List<League>();
-            var headerInfo = new Models.DTO.Forecast.NewForecastHdpOu.NewForecastHdpOuMatchInfo();
+            var headerInfo = new NewForecastHdpOuMatchInfo();
             var model = new NewForecastHdpOuViewModel
             {
                 Param = metaModel,

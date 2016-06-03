@@ -88,6 +88,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetLis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Forecast", "Fanex.Athena\Business\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj", "{C1417906-061A-4910-885F-6497A4EE8A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Forecast", "Fanex.Athena\Business\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj", "{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Forecast", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj", "{3C68D0D6-442D-4366-AB29-A793BBE92F49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -518,6 +524,42 @@ Global
 		{B269F027-9AE1-4969-89D6-56C401B96051}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B269F027-9AE1-4969-89D6-56C401B96051}.Release|x86.ActiveCfg = Release|Any CPU
 		{B269F027-9AE1-4969-89D6-56C401B96051}.Release|x86.Build.0 = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1417906-061A-4910-885F-6497A4EE8A15}.Release|x86.Build.0 = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Debug|x86.Build.0 = Debug|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|x86.ActiveCfg = Release|Any CPU
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}.Release|x86.Build.0 = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -558,6 +600,9 @@ Global
 		{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{B269F027-9AE1-4969-89D6-56C401B96051} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
+		{C1417906-061A-4910-885F-6497A4EE8A15} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{3C68D0D6-442D-4366-AB29-A793BBE92F49} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35

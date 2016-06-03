@@ -11,8 +11,8 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.MetaModel.Forecast;
-    using Models.ViewModel.Forecast;
+    using Model.Forecast.MetaModel;
+    using Model.Forecast.ViewModel;
 
     /// <summary>
     /// Forecast Handicap Over/Under.

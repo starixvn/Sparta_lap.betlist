@@ -203,7 +203,6 @@
     <Compile Include="Implement\Report\WeeklyLiveMatchService.cs" />
     <Compile Include="Implement\Report\WinLossByLeagueService.cs" />
     <Compile Include="Implement\Report\ResultService.cs" />
-    <Compile Include="Implement\Forecast\ForecastService.cs" />
     <Compile Include="Implement\TotalBets\FirstGoalLastGoalService.cs" />
     <Compile Include="Implement\TotalBets\HalfTimeFullTimeService.cs" />
     <Compile Include="Implement\TotalBets\HandicapOverUnderService.cs" />
@@ -230,7 +229,6 @@
     <Compile Include="Implement\Report\SettledMatchCountService.cs" />
     <Compile Include="Implement\Report\TurnoverService.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeService.cs" />
-    <Compile Include="Interface\Forecast\IForecastService.cs" />
     <Compile Include="Interface\Integration\ISSOService.cs" />
     <Compile Include="Interface\Keno\IKenoApi.cs" />
     <Compile Include="Interface\Report\IWeeklyLiveMatchService.cs" />

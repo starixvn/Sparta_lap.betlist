@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C1417906-061A-4910-885F-6497A4EE8A15}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.Model.Forecast</RootNamespace>
+    <AssemblyName>Fanex.Athena.Model.Forecast</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sysglobl" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\Forecast1X2\ForecastOneXTwo.cs" />
+    <Compile Include="DTO\ForecastAH\ForecastAh.cs" />
+    <Compile Include="DTO\ForecastAH\ForecastValue.cs" />
+    <Compile Include="DTO\ForecastBase.cs" />
+    <Compile Include="DTO\ForecastHDOU\ForecastHandicapOverUnder.cs" />
+    <Compile Include="DTO\NewForecastHdpOu\NewForecastHdpOuDetailItem.cs" />
+    <Compile Include="DTO\NewForecastHdpOu\NewForecastHdpOuMatchInfo.cs" />
+    <Compile Include="DTO\NewForecastHdpOu\NewForecastHdpOuTotalItem.cs" />
+    <Compile Include="MetaModel\ForecastAhMetaModel.cs" />
+    <Compile Include="MetaModel\ForecastBaseMetaModel.cs" />
+    <Compile Include="MetaModel\ForecastHandicapOverUnderMetaModel.cs" />
+    <Compile Include="MetaModel\ForecastOneXTwoMetaModel.cs" />
+    <Compile Include="MetaModel\NewForecastHandicapOverUnderMetaModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ForecastAhViewModel.cs" />
+    <Compile Include="ViewModel\ForecastBaseViewModel.cs" />
+    <Compile Include="ViewModel\ForecastHdpOuViewModel.cs" />
+    <Compile Include="ViewModel\ForecastOneXTwoViewModel.cs" />
+    <Compile Include="ViewModel\NewForecastHdpOuData.cs" />
+    <Compile Include="ViewModel\NewForecastHdpOuViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

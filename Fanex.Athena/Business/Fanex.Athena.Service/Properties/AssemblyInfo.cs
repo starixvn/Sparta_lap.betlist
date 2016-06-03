@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.Service.Customer.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
-    Target = "Fanex.Athena.Service.Interface.Forecast", MessageId = "Interface", Justification = "Reviewed.")]
+    Target = "Fanex.Athena.Service.Forecast.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.Service.Interface.Integration", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",

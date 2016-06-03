@@ -11,8 +11,8 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Service.Implement.Forecast;
-    using Service.Interface.Forecast;
+    using Service.Forecast;
+    using Service.Forecast.Interfaces;
 
     /// <summary>
     /// Forecast controller.

@@ -109,14 +109,6 @@
   <ItemGroup>
     <Compile Include="DTO\Report\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\Report\MicroGamingWinLoss.cs" />
-    <Compile Include="DTO\Forecast\Forecast1X2\ForecastOneXTwo.cs" />
-    <Compile Include="DTO\Forecast\ForecastAH\ForecastValue.cs" />
-    <Compile Include="DTO\Forecast\ForecastAH\ForecastAH.cs" />
-    <Compile Include="DTO\Forecast\ForecastBase.cs" />
-    <Compile Include="DTO\Forecast\ForecastHdou\ForecastHandicapOverUnder.cs" />
-    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuDetailItem.cs" />
-    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuMatchInfo.cs" />
-    <Compile Include="DTO\Forecast\NewForecastHdpOu\NewForecastHdpOuTotalItem.cs" />
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
@@ -170,11 +162,6 @@
     <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
     <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
     <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastAHMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastBaseMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastHandicapOverUnderMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\ForecastOneXTwoMetaModel.cs" />
-    <Compile Include="MetaModel\Forecast\NewForecastHandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\Report\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
@@ -217,12 +204,6 @@
     <Compile Include="MetaModel\TotalBets\TotalBetsBaseMetaModel.cs" />
     <Compile Include="MetaModel\TotalBets\TotalGoalMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\Forecast\ForecastAHViewModel.cs" />
-    <Compile Include="ViewModel\Forecast\ForecastBaseViewModel.cs" />
-    <Compile Include="ViewModel\Forecast\ForecastHdpOuViewModel.cs" />
-    <Compile Include="ViewModel\Forecast\ForecastOneXTwoViewModel.cs" />
-    <Compile Include="ViewModel\Forecast\NewForecastHdpOuData.cs" />
-    <Compile Include="ViewModel\Forecast\NewForecastHdpOuViewModel.cs" />
     <Compile Include="ViewModel\HeaderPageViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />

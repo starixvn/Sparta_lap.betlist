@@ -131,7 +131,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implement\Forecast\ForecastDataAccess.cs" />
     <Compile Include="Implement\Report\AgCasinoWinLossDataAccess.cs" />
     <Compile Include="Implement\Report\ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Implement\Report\CasinoProgressiveWinsDataAccess.cs" />
@@ -178,7 +177,6 @@
     <Compile Include="Implement\Report\SettledMatchCountDataAccess.cs" />
     <Compile Include="Implement\Report\TurnoverDataAccess.cs" />
     <Compile Include="Implement\Report\WinLossByBetTypeDataAccess.cs" />
-    <Compile Include="Interface\Forecast\IForecastDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IFirstGoalLastGoalDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IHalfTimeFullTimeDataAccess.cs" />
     <Compile Include="Interface\TotalBets\IHandicapOverUnderDataAccess.cs" />
