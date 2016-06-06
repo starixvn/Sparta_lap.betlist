@@ -121,20 +121,6 @@
     <Compile Include="DTO\Report\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\Report\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\Report\WinLossByLeague.cs" />
-    <Compile Include="DTO\TotalBets\FirstGoalLastGoal.cs" />
-    <Compile Include="DTO\TotalBets\HalfTimeFullTime.cs" />
-    <Compile Include="DTO\TotalBets\HandicapOverUnder.cs" />
-    <Compile Include="DTO\TotalBets\HomeDrawAwayNoBet.cs" />
-    <Compile Include="DTO\TotalBets\MoneyLine.cs" />
-    <Compile Include="DTO\TotalBets\NumberGame.cs" />
-    <Compile Include="DTO\TotalBets\OddEvenDrawNoDraw.cs" />
-    <Compile Include="DTO\TotalBets\Outright.cs" />
-    <Compile Include="DTO\TotalBets\Racing.cs" />
-    <Compile Include="DTO\TotalBets\RacingBase.cs" />
-    <Compile Include="DTO\TotalBets\RacingLeague.cs" />
-    <Compile Include="DTO\TotalBets\RacingRace.cs" />
-    <Compile Include="DTO\TotalBets\TotalBetsBase.cs" />
-    <Compile Include="DTO\TotalBets\TotalGoal.cs" />
     <Compile Include="DTO\Report\Balance.cs" />
     <Compile Include="DTO\Report\BalanceDetails.cs" />
     <Compile Include="DTO\Report\DailyRacingWinLossData.cs" />
@@ -192,17 +178,6 @@
     <Compile Include="MetaModel\Report\RacingCommissionMetaModel.cs" />
     <Compile Include="MetaModel\Report\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByBetTypeMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\FirstGoalLastGoalMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\HalfTimeFullTimeMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\HandicapOverUnderMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\HomeDrawAwayNoBetMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\MoneyLineMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\NumberGameMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\OddEvenDrawNoDrawMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\OutrightMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\RacingMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\TotalBetsBaseMetaModel.cs" />
-    <Compile Include="MetaModel\TotalBets\TotalGoalMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\HeaderPageViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
@@ -237,17 +212,6 @@
     <Compile Include="ViewModel\Report\SettledMatchCountViewModel.cs" />
     <Compile Include="ViewModel\Report\WinLossByBetTypeViewModel.cs" />
     <Compile Include="ViewModel\Report\TurnoverViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\FirstGoalLastGoalViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\HalfTimeFullTimeViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\HandicapOverUnderViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\HomeDrawAwayNoBetViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\MoneyLineViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\NumberGameViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\OddEvenDrawNoDrawViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\OutrightViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\RacingViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\TotalBetsBaseViewModel.cs" />
-    <Compile Include="ViewModel\TotalBets\TotalGoalViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

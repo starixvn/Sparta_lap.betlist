@@ -9,8 +9,8 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
-    using Service.Implement.TotalBets;
-    using Service.Interface.TotalBets;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
     /// <summary>
     /// Total bets controller.

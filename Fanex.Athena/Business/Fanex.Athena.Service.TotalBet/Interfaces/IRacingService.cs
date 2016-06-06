@@ -1,0 +1,16 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IRacingService.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.TotalBet.Interfaces
+{
+    using Model.TotalBet.DTO;
+    using Model.TotalBet.MetaModel;
+
+    public interface IRacingService
+    {
+        Racing GetRacingDataList(RacingMetaModel metaModel);
+    }
+}

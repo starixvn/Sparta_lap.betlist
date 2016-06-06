@@ -101,17 +101,17 @@
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
-      <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
-      <Name>Fanex.Athena.Models</Name>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Model.TotalBet\Fanex.Athena.Model.TotalBet.csproj">
+      <Project>{f3530308-8f06-4ea1-856a-296b27614054}</Project>
+      <Name>Fanex.Athena.Model.TotalBet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
-      <Project>{ae7d3fed-bfff-4ad6-816b-3a1644940511}</Project>
-      <Name>Fanex.Athena.Service</Name>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj">
+      <Project>{958801c9-b654-4f04-955a-08ccc659711d}</Project>
+      <Name>Fanex.Athena.Service.TotalBet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Web\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{dd931adb-a994-49c0-95a3-72bcb6e22679}</Project>

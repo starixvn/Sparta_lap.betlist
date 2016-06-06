@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F3530308-8F06-4EA1-856A-296B27614054}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.Model.TotalBet</RootNamespace>
+    <AssemblyName>Fanex.Athena.Model.TotalBet</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sysglobl" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\FirstGoalLastGoal.cs" />
+    <Compile Include="DTO\HalfTimeFullTime.cs" />
+    <Compile Include="DTO\HandicapOverUnder.cs" />
+    <Compile Include="DTO\HomeDrawAwayNoBet.cs" />
+    <Compile Include="DTO\MoneyLine.cs" />
+    <Compile Include="DTO\NumberGame.cs" />
+    <Compile Include="DTO\OddEvenDrawNoDraw.cs" />
+    <Compile Include="DTO\Outright.cs" />
+    <Compile Include="DTO\Racing.cs" />
+    <Compile Include="DTO\RacingBase.cs" />
+    <Compile Include="DTO\RacingLeague.cs" />
+    <Compile Include="DTO\RacingRace.cs" />
+    <Compile Include="DTO\TotalBetsBase.cs" />
+    <Compile Include="DTO\TotalGoal.cs" />
+    <Compile Include="MetaModel\FirstGoalLastGoalMetaModel.cs" />
+    <Compile Include="MetaModel\HalfTimeFullTimeMetaModel.cs" />
+    <Compile Include="MetaModel\HandicapOverUnderMetaModel.cs" />
+    <Compile Include="MetaModel\HomeDrawAwayNoBetMetaModel.cs" />
+    <Compile Include="MetaModel\MoneyLineMetaModel.cs" />
+    <Compile Include="MetaModel\NumberGameMetaModel.cs" />
+    <Compile Include="MetaModel\OddEvenDrawNoDrawMetaModel.cs" />
+    <Compile Include="MetaModel\OutrightMetaModel.cs" />
+    <Compile Include="MetaModel\RacingMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBetsBaseMetaModel.cs" />
+    <Compile Include="MetaModel\TotalGoalMetaModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\FirstGoalLastGoalViewModel.cs" />
+    <Compile Include="ViewModel\HalfTimeFullTimeViewModel.cs" />
+    <Compile Include="ViewModel\HandicapOverUnderViewModel.cs" />
+    <Compile Include="ViewModel\HomeDrawAwayNoBetViewModel.cs" />
+    <Compile Include="ViewModel\MoneyLineViewModel.cs" />
+    <Compile Include="ViewModel\NumberGameViewModel.cs" />
+    <Compile Include="ViewModel\OddEvenDrawNoDrawViewModel.cs" />
+    <Compile Include="ViewModel\OutrightViewModel.cs" />
+    <Compile Include="ViewModel\RacingViewModel.cs" />
+    <Compile Include="ViewModel\TotalBetsBaseViewModel.cs" />
+    <Compile Include="ViewModel\TotalGoalViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

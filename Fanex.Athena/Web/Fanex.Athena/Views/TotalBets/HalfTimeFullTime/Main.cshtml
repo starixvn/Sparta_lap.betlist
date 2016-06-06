@@ -4,7 +4,7 @@
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.TotalBets.HalfTimeFullTimeViewModel
+@model Fanex.Athena.Model.TotalBet.ViewModel.HalfTimeFullTimeViewModel
 @section page {
     <script src="@Url.ContentLink("/Scripts/TotalBets/halftimefulltime.js")" type="text/javascript"></script>
     <script type="text/javascript">

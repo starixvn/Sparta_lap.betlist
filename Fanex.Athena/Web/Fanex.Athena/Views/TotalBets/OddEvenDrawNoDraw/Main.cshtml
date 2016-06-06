@@ -4,7 +4,7 @@
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
 }
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.TotalBets.OddEvenDrawNoDrawViewModel
+@model Fanex.Athena.Model.TotalBet.ViewModel.OddEvenDrawNoDrawViewModel
 @section page {
     <script src="@Url.ContentLink("/Scripts/TotalBets/oddevendrawnodraw.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Forecast/forecastpopup.js")" type="text/javascript"></script>

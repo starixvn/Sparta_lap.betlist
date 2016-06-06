@@ -11,8 +11,8 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
-    using Models.MetaModel.TotalBets;
-    using Models.ViewModel.TotalBets;
+    using Model.TotalBet.MetaModel;
+    using Model.TotalBet.ViewModel;
 
     /// <summary>
     /// Home/Draw/Away No Bet.

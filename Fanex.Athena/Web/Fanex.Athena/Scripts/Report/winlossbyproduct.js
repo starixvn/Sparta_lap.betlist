@@ -246,6 +246,8 @@ var WinLossByProduct = (function ($) {
         //#region drillDown
 
         drillDown: function (level, currencyId, customerId, datetime, currencyName) {
+            alert(1);
+            return;
             var param =
             {
                 MemberId: _memberId,
@@ -279,6 +281,8 @@ var WinLossByProduct = (function ($) {
                     tdate = WinLossByProduct.lastDateOfMonth(year, month);
                 }
             }
+            alert(JSON.stringify(param));
+            return;
             var option =
             {
                 type: "POST",

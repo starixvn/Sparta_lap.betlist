@@ -1,6 +1,6 @@
 ﻿@using System.Linq
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.TotalBets.RacingViewModel
+@model Fanex.Athena.Model.TotalBet.ViewModel.RacingViewModel
 @{
     var leagueList = Model.MainData.RacingDataList
         .Where(x => !x.OddStatus.Equals("suspend"))
