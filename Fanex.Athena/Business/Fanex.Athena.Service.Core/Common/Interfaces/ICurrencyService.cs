@@ -12,7 +12,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Models.MetaModel.Account;
+    using Fanex.Athena.Model.Core.MetaModel.Account;
 
     /// <summary>
     ///     The i currency service.

@@ -20,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Models.MetaModel.Account;
+    using Model.Core.MetaModel.Account;
 
     /// <summary>
     /// Currency Data access.

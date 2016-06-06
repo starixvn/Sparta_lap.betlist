@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Account
+namespace Fanex.Athena.Model.Core.MetaModel.Account
 {
     /// <summary>
     /// EditPermissionMetaModel class.

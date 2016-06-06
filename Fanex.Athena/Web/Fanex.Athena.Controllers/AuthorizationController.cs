@@ -24,7 +24,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Models.MetaModel.Authorization;
+    using Fanex.Athena.Model.Core.MetaModel.Authorization;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;

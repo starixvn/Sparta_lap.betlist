@@ -1,25 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EditAccountMetaModel.cs" company="Microsoft">
+// <copyright file="ResetPasswordMetaModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Account
+namespace Fanex.Athena.Model.Core.MetaModel.Account
 {
     using System.ComponentModel.DataAnnotations;
     using Resources;
 
     /// <summary>
-    /// EditAccountMetaModel class.
+    /// ResetPasswordMetaModel class.
     /// </summary>
-    public class EditAccountMetaModel
+    public class ResetPasswordMetaModel
     {
-        public EditAccountMetaModel()
-        {
-            FirstName = string.Empty;
-            LastName = string.Empty;
-        }
-
         public int UserId { get; set; }
 
         [Display(Name = "Username", ResourceType = typeof(ViewResources))]
@@ -31,7 +25,16 @@ namespace Fanex.Athena.Models.MetaModel.Account
         [Display(Name = "LastName", ResourceType = typeof(ViewResources))]
         public string LastName { get; set; }
 
-        [Display(Name = "Status", ResourceType = typeof(ViewResources))]
-        public string Status { get; set; }
+        [Display(Name = "Password", ResourceType = typeof(ViewResources))]
+        // ReSharper disable LocalizableElement
+        [Required(ErrorMessage = "(*)")]
+        // ReSharper restore LocalizableElement
+        public string Password { get; set; }
+
+        [Display(Name = "Confirm", ResourceType = typeof(ViewResources))]
+        // ReSharper disable LocalizableElement
+        [Required(ErrorMessage = "(*)")]
+        // ReSharper restore LocalizableElement
+        public string ConfirmPassword { get; set; }
     }
 }

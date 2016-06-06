@@ -143,11 +143,6 @@
     <Compile Include="DTO\Report\WinLossByBetType.cs" />
     <Compile Include="DTO\Report\TurnoverDTO.cs" />
     <Compile Include="DTO\Report\WinLossByProduct.cs" />
-    <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
-    <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
-    <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
-    <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
-    <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\Report\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\Report\BaseReportMetaModel.cs" />
@@ -179,8 +174,6 @@
     <Compile Include="MetaModel\Report\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\Report\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\HeaderPageViewModel.cs" />
-    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\Report\BalanceViewModel.cs" />
     <Compile Include="ViewModel\Report\AgCasinoWinLossViewModel.cs" />

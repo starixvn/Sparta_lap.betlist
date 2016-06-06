@@ -43,6 +43,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -97,12 +99,19 @@
     <Compile Include="Helper\CacheRef.cs" />
     <Compile Include="Helper\ProductHelper.cs" />
     <Compile Include="Helper\Validator.cs" />
+    <Compile Include="MetaModel\Account\AssignCurrencyMetaModel.cs" />
+    <Compile Include="MetaModel\Account\EditAccountMetaModel.cs" />
+    <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
+    <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
+    <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\HeaderPageViewModel.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

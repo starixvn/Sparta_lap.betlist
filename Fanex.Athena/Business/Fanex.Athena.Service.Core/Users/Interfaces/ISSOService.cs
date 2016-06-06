@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Interface.Integration
+namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     /// <summary>
     /// TODO: Update summary.

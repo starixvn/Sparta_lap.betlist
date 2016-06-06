@@ -9,7 +9,7 @@ namespace Fanex.Athena.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
 
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Controllers
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
                 IsAllowedManagementMember = _functionAccess.CanManageMember
-            };          
+            };
 
             viewModel.MasterFunctions = _functionManager.GetMasterFunctions(viewModel.UserFunctions);
             viewModel.UserDetailFunctions = _functionManager.GetSubFunctions(viewModel.UserFunctions);

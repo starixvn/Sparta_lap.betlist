@@ -10,7 +10,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.ViewModel;
+    using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;

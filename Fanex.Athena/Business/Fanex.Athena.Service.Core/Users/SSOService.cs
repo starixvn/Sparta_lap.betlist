@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Integration
+namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Specialized;
     using System.Configuration;
@@ -18,7 +18,6 @@ namespace Fanex.Athena.Service.Implement.Integration
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Athena.Service.Interface.Integration;
     using RSACryptoPad;
 
     /// <summary>
