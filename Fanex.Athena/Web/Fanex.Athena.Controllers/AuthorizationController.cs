@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
-    using Fanex.Artist.Controllers.Attributes;
+    using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;

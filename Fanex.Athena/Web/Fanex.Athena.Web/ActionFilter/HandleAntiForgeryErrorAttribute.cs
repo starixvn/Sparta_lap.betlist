@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Artist.Controllers.Attributes
+namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
     using System.Web.Mvc;
