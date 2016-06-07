@@ -258,8 +258,8 @@ var WinLossByProduct = (function ($) {
                 ToDate: _submitData.ToDate,
                 BaseCurrency: $("#BaseCurrency").attr("data-original")
             };
-            var fdate = new Date(datetime);
-            var tdate = new Date(datetime);
+            var fdate = Date.parse(datetime);
+            var tdate = Date.parse(datetime);
             if (param.ReportBy === REPORT_BY_MONTHLY) {
                 var fday = 1;
                 var month = fdate.getMonth();
