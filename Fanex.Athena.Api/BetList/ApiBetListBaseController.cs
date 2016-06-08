@@ -25,8 +25,10 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    public partial class ApiBetListBaseController : BaseApiController
+    public class ApiBetListBaseController : BaseApiController
     {
+        private static readonly int[] RacingBetType = { 31, 32, 33, 41, 42, 43 };
+
         private readonly IBetListService _betListService;
 
         private readonly IBalanceUpService _balanceUpService;
@@ -57,14 +59,11 @@ namespace Fanex.Athena.Api.BetList
             get { return _ticketHelper; }
         }
 
-        /// <summary>
-        /// Render ticket data.
-        /// </summary>
-        /// <param name="ticketResult">TicketResult object.</param>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="startIndex">Starting value of row counter.</param>
-        /// <param name="showOdds">Show odds or not.</param>
-        /// <returns>List of TicketText.</returns>
+        protected static bool IsRacing(int betType)
+        {
+            return RacingBetType.Contains(betType);
+        }
+
         protected List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -116,12 +115,6 @@ namespace Fanex.Athena.Api.BetList
             return ticketTextList;
         }
 
-        /// <summary>
-        /// Get Bet List Result.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="uspKey">Stored procedure key.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         protected dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -156,14 +149,6 @@ namespace Fanex.Athena.Api.BetList
             };
         }
 
-        /// <summary>
-        /// Get Paging Bet List Result.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="uspKey">Stored procedure key.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page size.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         protected dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;

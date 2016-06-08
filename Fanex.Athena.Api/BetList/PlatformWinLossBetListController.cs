@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.PlatformWinLoss.cs" company="Microsoft">
+// <copyright file="PlatformWinLossBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,10 +17,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class PlatformWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic PlatformWinLoss(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

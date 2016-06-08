@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.CustomerWl.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CancelledBetsBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,21 +13,15 @@ namespace Fanex.Athena.Api.BetList
 
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Web.ActionFilter;
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class CancelledBetsBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for customer win lost bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic CustomerWL(BetListMetaModel metaModel)
+        [ApiFunctionAuthorization]
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -38,7 +32,8 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.UserId = userSession.UserId;
-            const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
+            const string UspKey = "Lrf_BetList_SelDeleted";
+            metaModel.BetType = 13;
 
             return GetBetListResult(metaModel, UspKey);
         }

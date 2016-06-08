@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.PendingFunds.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RacingCommissionBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,24 +11,15 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
-    using System;
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class RacingCommissionBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for pending funds bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic PendingFunds(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -38,13 +29,8 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-
-            const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
-
-            metaModel.FromDate = DateTime.Today.AddYears(-1);
-            metaModel.ToDate = DateTime.Today.AddYears(1);
+            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
 
             return GetBetListResult(metaModel, UspKey);
         }

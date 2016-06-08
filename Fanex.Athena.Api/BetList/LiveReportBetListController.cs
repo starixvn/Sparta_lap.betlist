@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.LiveReport.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="LiveReportBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 
@@ -25,17 +25,12 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class LiveReportBetListController : ApiBetListBaseController
     {
         #region Local Paging
 
-        /// <summary>
-        /// Get data for live report bet list by match.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
-        public dynamic LiveReportMatch(LiveReportBetListMetaModel metaModel)
+        public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -50,16 +45,11 @@ namespace Fanex.Athena.Api.BetList
 
             const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
 
-            return LiveReportBetListResult(metaModel, UspKey);
+            return GetData(metaModel, UspKey);
         }
 
-        /// <summary>
-        /// Get data for live report outright bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
-        public dynamic LiveReportOutright(LiveReportBetListMetaModel metaModel)
+        public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -70,7 +60,7 @@ namespace Fanex.Athena.Api.BetList
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
-                return LiveReportBetListResult(metaModel, UspKey);
+                return GetData(metaModel, UspKey);
             }
 
             return null;
@@ -80,26 +70,8 @@ namespace Fanex.Athena.Api.BetList
 
         #region Server Paging
 
-        /// <summary>
-        /// Get data for live report number game bet list.
-        /// </summary>
-        /// <param name="page">Page Index.</param>
-        /// <param name="rows">Row count.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="fromDate">From date value.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
-        /// <param name="sumPlayerComm">Sum player commission value.</param>
-        /// <param name="sumWinLost">Sum Win Loss value.</param>
-        /// <param name="totalRows">Total row count.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <param name="liveIndicator">Live Indicator.</param>
-        /// <param name="sortBy">Sort by column.</param>
-        /// <param name="sortOrder">Sort order.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
-        public dynamic LiveReportNumberGame(
+        public dynamic NumberGame(
             int page,
             int rows,
             int currencyId,
@@ -139,35 +111,14 @@ namespace Fanex.Athena.Api.BetList
                     LiveIndicator = liveIndicator
                 };
 
-                return GetLiveReportPagingBetListResult(metaModel, UspKey, page, rows);
+                return GetPagingData(metaModel, UspKey, page, rows);
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Get data for live report mix parlay bet list.
-        /// </summary>
-        /// <param name="page">Page index.</param>
-        /// <param name="rows">Row count.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="betType">Bet type value.</param>
-        /// <param name="fromDate">From date value.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="showSB">Show sports book or not.</param>
-        /// <param name="showBA">Show Ba or not.</param>
-        /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
-        /// <param name="sumPlayerComm">Sum player commission value.</param>
-        /// <param name="sumWinLost">Sum Win Loss value.</param>
-        /// <param name="totalRows">Total row count.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <param name="liveIndicator">Live indicator.</param>
-        /// <param name="sortBy">Sort by column.</param>
-        /// <param name="sortOrder">Sort order.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
-        public dynamic LiveReportMixParlay(
+        public dynamic MixParlay(
             int page,
             int rows,
             int currencyId,
@@ -227,32 +178,14 @@ namespace Fanex.Athena.Api.BetList
                 metaModel.ProductOptions = productOptions;
                 metaModel.BetType = betType;
 
-                return GetLiveReportPagingBetListResult(metaModel, UspKey, page, rows);
+                return GetPagingData(metaModel, UspKey, page, rows);
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Get data for live report racing bet list.
-        /// </summary>
-        /// <param name="page">Page Index.</param>
-        /// <param name="rows">Row count.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="sportType">Sport type id.</param>
-        /// <param name="fromDate">From date value.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="sumComm">Sum commission value.</param>
-        /// <param name="sumLicenseeWL">Sum Licensee Win Loss value.</param>
-        /// <param name="sumPlayerComm">Sum player commission value.</param>
-        /// <param name="sumWinLost">Sum Win Loss value.</param>
-        /// <param name="totalRows">Total row count.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <param name="sortBy">Sort By column.</param>
-        /// <param name="sortOrder">Sort order.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
-        public dynamic LiveReportRacing(
+        public dynamic Racing(
             int page,
             int rows,
             int currencyId,
@@ -303,7 +236,7 @@ namespace Fanex.Athena.Api.BetList
                     (int)SportType.VirtualCycling
                 };
                 var uspKey = racingBettypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
-                return GetLiveReportPagingBetListResult(metaModel, uspKey, page, rows);
+                return GetPagingData(metaModel, uspKey, page, rows);
             }
 
             return null;
@@ -313,13 +246,7 @@ namespace Fanex.Athena.Api.BetList
 
         #region Utility
 
-        /// <summary>
-        /// Render live report bet list result.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="uspKey">Stored procedure key.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
-        private dynamic LiveReportBetListResult(LiveReportBetListMetaModel metaModel, string uspKey)
+        private dynamic GetData(LiveReportBetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
@@ -334,15 +261,7 @@ namespace Fanex.Athena.Api.BetList
             };
         }
 
-        /// <summary>
-        /// Render live report paging bet list result.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="uspKey">Stored procedure key.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page Size.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
-        private dynamic GetLiveReportPagingBetListResult(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUpInfo = BalanceUpService.BalanceUpInfo;

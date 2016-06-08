@@ -1,8 +1,11 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.WinlossByLeague.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OutstandingRunningBBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
+// <history>
+//   <change who="Dave.Bui" date="2012.4.11">Created</change>
+// </history>
 
 namespace Fanex.Athena.Api.BetList
 {
@@ -16,15 +19,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class OutstandingRunningBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for win lost by league bet list.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Bet list data.</returns>
         [HttpPost]
-        public dynamic WinlossByLeague(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -37,7 +35,8 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
 
-            const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
+            const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
+            metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
             return GetBetListResult(metaModel, UspKey);
         }
     }

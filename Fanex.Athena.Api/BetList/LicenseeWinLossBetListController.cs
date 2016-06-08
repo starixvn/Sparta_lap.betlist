@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="LicenseeWinLossBetListController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="LicenseeWinLossBetListController : ApiBetListBaseController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------

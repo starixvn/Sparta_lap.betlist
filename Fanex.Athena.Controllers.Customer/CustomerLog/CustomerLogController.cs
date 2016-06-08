@@ -17,32 +17,17 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     {
         private const string CustomerLogUrl = "CustomerLog/LogInLog";
 
-        #region Field
-
-        /// <summary>
-        /// Product service.
-        /// </summary>
         private readonly ProductService _productService;
-
-        #endregion Field
-
-        #region Constructor
 
         public CustomerLogController()
         {
             this._productService = new ProductService();
         }
 
-        /// <summary>
-        /// Customer Log index.
-        /// </summary>
-        /// <returns>Log in log view.</returns>
         [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult Index()
         {
             return LogInLog();
         }
-
-        #endregion Constructor
     }
 }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.Outstanding.RunningBetList.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="DailyStatementBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,18 +16,10 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class DailyStatementBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for outstanding  running bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic OutstandingRunningBetList(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -37,12 +29,18 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
+            const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
+            const string UspKeyOld = "Lrf_BetList_SelByDayAll_Mem_Old";
+
+            var balanceUpInfo = BalanceUpService.BalanceUpInfo;
+            var uspKey = metaModel.FromDate < balanceUpInfo.BalanceUpDay ? UspKeyOld : UspKey;
+
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
-            return GetBetListResult(metaModel, UspKey);
+
+            return GetBetListResult(metaModel, uspKey);
         }
     }
 }

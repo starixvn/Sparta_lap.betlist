@@ -1,29 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.cs" company="Microsoft">
+// <copyright file="RNGCasinoBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.Api.BetList
 {
-    #region Using
-
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
 
-    #endregion Using
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class RNGCasinoBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic AGCasinoDetail(BetListMetaModel metaModel)
+        public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            const string UspKey = "Lrf_BetList_LC_Detail";
+            const string UspKey = "Lrf_BetList_RNG_Detail";
             return GetBetListResult(metaModel, UspKey);
         }
     }

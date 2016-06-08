@@ -189,40 +189,39 @@
   <ItemGroup>
     <Compile Include="BaseApiController.cs" />
     <Compile Include="BetList\ApiBetListBaseController.cs" />
-    <Compile Include="BetList\BetListController.AGCasinoDetail.cs" />
-    <Compile Include="BetList\BetListController.Outstanding.DailyStatementBetList.cs" />
-    <Compile Include="BetList\BetListController.MixParlay.cs" />
-    <Compile Include="BetList\BetListController.PlatformWinLoss.cs" />
-    <Compile Include="BetList\BetListController.RngCasinoDetail.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListOfMatchChoice.cs" />
+    <Compile Include="BetList\AGCasinoBetListController.cs" />
+    <Compile Include="BetList\DailyStatementBetListController.cs" />
+    <Compile Include="BetList\MixParlayBetListController.cs" />
+    <Compile Include="BetList\PlatformWinLossBetListController.cs" />
+    <Compile Include="BetList\RNGCasinoBetListController.cs" />
+    <Compile Include="BetList\RunningMatchChoiceBetListController.cs" />
     <Compile Include="BetList\VoidbridgeBetListController.cs" />
     <Compile Include="BetList\WinlossByBetTypeBetListController.cs" />
-    <Compile Include="BetList\BetListController.WinlossByLeague.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListByMultipleBettypeOfMatch.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListMultipleBettypes.cs" />
-    <Compile Include="BetList\BetListController.RacingCommission.cs" />
-    <Compile Include="BetList\BetListController.MicroGamingRngDetail.cs" />
+    <Compile Include="BetList\WinlossByLeagueBetListController.cs" />
+    <Compile Include="BetList\RunningBettypesOfMatchBetListController.cs" />
+    <Compile Include="BetList\RunningBettypesBetListController.cs" />
+    <Compile Include="BetList\RacingCommissionBetListController.cs" />
+    <Compile Include="BetList\MicroGamingRngBetListController.cs" />
     <Compile Include="CustomerLog\LogController.cs" />
     <Compile Include="CustomerLog\LogController.GroupCommission.cs" />
     <Compile Include="CustomerLog\LogController.CustomerSetting.cs" />
     <Compile Include="CustomerLog\LogController.LoginLog.cs" />
-    <Compile Include="BetList\BetListController.cs" />
-    <Compile Include="BetList\BetListController.CancelledBetsBetList.cs" />
-    <Compile Include="BetList\BetListController.Outstanding.DailyStatement.cs" />
-    <Compile Include="BetList\BetListController.RunningBetListOfMatch.cs" />
+    <Compile Include="BetList\CancelledBetsBetListController.cs" />
+    <Compile Include="BetList\OutstandingDailyStatementBetListController.cs" />
+    <Compile Include="BetList\RunningMatchBetListController.cs" />
     <Compile Include="BetList\LicenseeWinLossBetListController.cs" />
-    <Compile Include="BetList\BetListController.DailyRacingWl.cs" />
-    <Compile Include="BetList\BetListController.MatchWl.cs" />
-    <Compile Include="BetList\BetListController.CustomerWl.cs" />
-    <Compile Include="BetList\BetListController.LiveReport.cs" />
-    <Compile Include="BetList\BetListController.CorrectScoreBetList.cs" />
-    <Compile Include="BetList\BetListController.DailyBetList.cs" />
-    <Compile Include="BetList\BetListController.PendingFunds.cs" />
+    <Compile Include="BetList\DailyRacingWinLossBetListController.cs" />
+    <Compile Include="BetList\MatchWinLossBetListController.cs" />
+    <Compile Include="BetList\CustomerWinLossBetListController.cs" />
+    <Compile Include="BetList\LiveReportBetListController.cs" />
+    <Compile Include="BetList\CorrectScoreBetListController.cs" />
+    <Compile Include="BetList\DailyBetListController.cs" />
+    <Compile Include="BetList\PendingFundsBetListController.cs" />
     <Compile Include="BetList\LastBetMonitoringBetListController.cs" />
     <Compile Include="BetList\LrfBetListHtmlBuilder.cs" />
-    <Compile Include="BetList\BetListController.Outstanding.CompletedBetList.cs" />
-    <Compile Include="BetList\BetListController.Outstanding.RunningBetList.cs" />
-    <Compile Include="BetList\BetListController.RunningBetList.cs" />
+    <Compile Include="BetList\OutStandingCompletedBetListController.cs" />
+    <Compile Include="BetList\OutstandingRunningBetListController.cs" />
+    <Compile Include="BetList\RunningBetListController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\ApiReportBaseController.cs" />
     <Compile Include="Report\WeeklyLiveMatchReportController.cs" />
@@ -293,9 +292,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetList.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CorrectScoreBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,28 +13,21 @@ namespace Fanex.Athena.Api.BetList
 
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Web.ActionFilter;
 
     #endregion Using
 
-    /// <summary>
-    /// RunningBetList contains bet list:
-    /// Mix Parlay              - bet type: 9
-    /// Clean Sheet             - bet type: 13
-    /// Double Chance           - bet type: 24
-    /// B/O/N team to score     - bet type: 26
-    /// To win to nil           - bet type: 27
-    /// 3-Way Handicap          - bet type: 28.
-    /// </summary>
-    public partial class BetListController
+    public class CorrectScoreBetListController : ApiBetListBaseController
     {
         /// <summary>
-        /// Get data for running bet list.
+        /// Get data for correct score bet list.
         /// [Used in TOTAL BETS].
         /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
+        /// <param name="metaModel">Meta model.</param>
+        /// <returns>Return bet list result list.</returns>
         [HttpPost]
-        public dynamic RunningBetListMultipleBettypes(BetListMetaModel metaModel)
+        [ApiFunctionAuthorization]
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -45,9 +38,8 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            const string UspKey = "Lrf_BetList_CorrectScore";
 
-            const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
             return GetBetListResult(metaModel, UspKey);
         }
     }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.MixParlay.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MixParlayBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -18,15 +18,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// Mix Parlay Detail.
     /// </summary>
-    public partial class BetListController
+    public class MixParlayBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for running mix parlay bet list.
-        /// </summary>
-        /// <param name="transId">Transaction Id.</param>
-        /// <returns>Dynamic objects, contain Mix Parlay result.</returns>
         [HttpGet]
-        public dynamic MixParlayDetail(long transId)
+        public dynamic Detail(long transId)
         {
             var ticketResult = BetListService.GetMixParlayDetailTicket(transId);
             var ticket = Ticket(ticketResult: ticketResult, showOdds: true);

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.MicroGamingRngDetail.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MicroGamingRngBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,10 +16,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class MicroGamingRngBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic MicroGamingRngDetail(BetListMetaModel metaModel)
+        public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;
 

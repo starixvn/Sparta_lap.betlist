@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.DailyBetList.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="DailyBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,31 +14,15 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Web.ActionFilter;
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class DailyBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for daily bet list.
-        /// </summary>
-        /// <param name="page">Page index.</param>
-        /// <param name="rows">Row count.</param>
-        /// <param name="licenseeType">Licensee type.</param>
-        /// <param name="currencyId">Currency id.</param>
-        /// <param name="currencyName">Currency name.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <param name="date">Search date.</param>
-        /// <param name="productCode">Product code.</param>
-        /// <param name="status">Status value.</param>
-        /// <param name="sortBy">Sort by column.</param>
-        /// <param name="sortOrder">Sort order.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpGet]
-        public dynamic DailyBetList(
+        [ApiFunctionAuthorization]
+        public dynamic Index(
             int page,
             int rows,
             string licenseeType,

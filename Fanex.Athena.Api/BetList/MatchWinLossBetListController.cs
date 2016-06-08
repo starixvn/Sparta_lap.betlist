@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.MatchWl.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="MatchWinLossBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -19,18 +19,10 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class MatchWinLossBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for match win lost bet type bet list.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Bet list data for match win loss bet type.</returns>
         [HttpGet]
-        public dynamic MatchWLMatchBetType(
+        public dynamic MatchBetType(
             int page,
             int rows,
             [FromUri]BetListMetaModel metaModel)
@@ -60,7 +52,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss outright.</returns>
         [HttpPost]
-        public dynamic MatchWLOutright(BetListMetaModel metaModel)
+        public dynamic Outright(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -78,24 +70,8 @@ namespace Fanex.Athena.Api.BetList
             return null;
         }
 
-        /// <summary>
-        /// Get match win lost mix parlay bet list.
-        /// </summary>
-        /// <param name="page">Page Index.</param>
-        /// <param name="rows">Row count.</param>
-        /// <param name="licenseeType">Licensee Type.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <param name="betType">Bet type value.</param>
-        /// <param name="fromDate">From date value.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="showSB">Show sports book or not.</param>
-        /// <param name="showBA">Show Ba or not.</param>
-        /// <param name="sortBy">Sort by column.</param>
-        /// <param name="sortOrder">Sort order.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpGet]
-        public dynamic MatchWLMixParlay(
+        public dynamic MixParlay(
             int page,
             int rows,
             string licenseeType,

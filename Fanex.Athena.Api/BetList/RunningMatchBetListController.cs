@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListOfMatchChoice.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RunningMatchBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
+    using System.Linq;
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
 
@@ -19,7 +20,7 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class RunningMatchBetListController : ApiBetListBaseController
     {
         /// <summary>
         /// Get data for running bet list of a match.
@@ -27,7 +28,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic RunningBetListOfMatchChoice(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -40,7 +41,9 @@ namespace Fanex.Athena.Api.BetList
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            string uspKey = "Lrf_BetList_Forecast_SelByMatch";
+            string uspKey = IsRacing(metaModel.BetType)
+                ? "Lrf_BetList_SelAllByDateHR"
+                : "Lrf_BetList_SelRunningByBettypeMatch";
             return GetBetListResult(metaModel, uspKey);
         }
     }

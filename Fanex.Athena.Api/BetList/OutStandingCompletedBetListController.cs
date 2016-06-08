@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListByMultipleBettypeOfMatch.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OutStandingCompletedBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -19,15 +19,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class OutStandingCompletedBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for running bet list of a match.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic RunningBetListByMultipleBettypeOfMatch(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -40,8 +35,16 @@ namespace Fanex.Athena.Api.BetList
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
-            return GetBetListResult(metaModel, uspKey);
+            const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
+            metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);    // Need -2 miliseconds, it better than -1.
+            var result = GetBetListResult(metaModel, UspKey);
+            return new
+            {
+                result.Main,
+                result.LeagueName,
+                result.Total,
+                IsShowTotal = false
+            };
         }
     }
 }

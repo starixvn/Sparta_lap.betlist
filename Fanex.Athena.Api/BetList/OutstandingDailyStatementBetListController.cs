@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.Outstanding.DailyStatement.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OutstandingDailyStatementBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,15 +16,10 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class OutstandingDailyStatementBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for daily statement bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic OutstandingDailyStatementBetList(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;
 

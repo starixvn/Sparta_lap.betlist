@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.CorrectScoreBetList.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RunningMatchChoiceBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -19,16 +19,15 @@ namespace Fanex.Athena.Api.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class RunningMatchChoiceBetListController : ApiBetListBaseController
     {
         /// <summary>
-        /// Get data for correct score bet list.
-        /// [Used in TOTAL BETS].
+        /// Get data for running bet list of a match.
         /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Return bet list result list.</returns>
+        /// <param name="metaModel">MetaModel object.</param>
+        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic CorrectScoreBetList(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -39,9 +38,10 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.UserId = userSession.UserId;
-            const string UspKey = "Lrf_BetList_CorrectScore";
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            return GetBetListResult(metaModel, UspKey);
+            string uspKey = "Lrf_BetList_Forecast_SelByMatch";
+            return GetBetListResult(metaModel, uspKey);
         }
     }
 }

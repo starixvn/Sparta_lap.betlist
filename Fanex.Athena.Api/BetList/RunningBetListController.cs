@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController.CustomerWl.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RunningBetListController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -17,17 +17,24 @@ namespace Fanex.Athena.Api.BetList
     #endregion Using
 
     /// <summary>
-    /// TODO: Update summary.
+    /// RunningBetList contains bet list:
+    /// Mix Parlay              - bet type: 9
+    /// Clean Sheet             - bet type: 13
+    /// Double Chance           - bet type: 24
+    /// B/O/N team to score     - bet type: 26
+    /// To win to nil           - bet type: 27
+    /// 3-Way Handicap          - bet type: 28.
     /// </summary>
-    public partial class BetListController
+    public class RunningBetListController : ApiBetListBaseController
     {
         /// <summary>
-        /// Get data for customer win lost bet list.
+        /// Get data for running bet list.
+        /// [Used in TOTAL BETS].
         /// </summary>
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic RacingCommission(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
@@ -38,8 +45,9 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.UserId = userSession.UserId;
-            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
+            const string UspKey = "Lrf_BetList_SelRunningByBettype";
             return GetBetListResult(metaModel, UspKey);
         }
     }
