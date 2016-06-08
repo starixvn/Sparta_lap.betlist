@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ForecastController.HandicapOverUnder.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="HandicapOverUnderForecastController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,22 +14,16 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
-    /// <summary>
-    /// Forecast Handicap Over/Under.
-    /// </summary>
-    public partial class ForecastController
+    public class HandicapOverUnderForecastController : ForecastBaseController
     {
-        /// <summary>
-        /// Get Forecast Handicap Over/Under View.
-        /// </summary>
-        /// <returns>Action Result.</returns>
+        [HttpGet]
         [FunctionAuthorization]
-        public ActionResult ForecastHandicapOverUnder()
+        public ActionResult Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
-            this._licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
+            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
 
-            if (_licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
+            if (licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
             {
                 return this.RedirectToAction("NewForecastHdpOu");
             }
@@ -42,42 +36,30 @@ namespace Fanex.Athena.Controllers.Forecast
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = this.GetForecastViewModel(metaModel);
+            var model = this.GetViewModel(metaModel);
 
             return View("~/Views/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Get Forecast Handicap Over/Under View.
-        /// </summary>
-        /// <param name="metaModel">Meta Model.</param>
-        /// <returns>Action Result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult ForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
+        public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
-            var model = this.GetForecastViewModel(metaModel);
+            var model = this.GetViewModel(metaModel);
 
             return View("~/Views/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get Forecast View Model.
-        /// </summary>
-        /// <param name="metaModel">Meta Model.</param>
-        /// <returns>ForecastHandicapOverUnder ViewModel.</returns>
-        private ForecastHdpOuViewModel GetForecastViewModel(ForecastHandicapOverUnderMetaModel metaModel)
+        private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            var leagueList = _forecastService.GetForecastRunningLeague(metaModel);
+            var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
 
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
-            var forecastHdpOuByLeague = _forecastService.GetForecastHandicapOverUnder(metaModel);
+            var forecastHdpOuByLeague = ForecastService.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
             {
@@ -88,7 +70,5 @@ namespace Fanex.Athena.Controllers.Forecast
                 CurrencyList = GetUserCurrencies()
             };
         }
-
-        #endregion Utility
     }
 }

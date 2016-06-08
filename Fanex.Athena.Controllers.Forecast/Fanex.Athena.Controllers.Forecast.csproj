@@ -68,11 +68,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ForecastController.Ah.cs" />
-    <Compile Include="ForecastController.cs" />
-    <Compile Include="ForecastController.HandicapOverUnder.cs" />
-    <Compile Include="ForecastController.NewHandicapOverUnder.cs" />
-    <Compile Include="ForecastController.OneXTwo.cs" />
+    <Compile Include="AhForecastController.cs" />
+    <Compile Include="ForecastBaseController.cs" />
+    <Compile Include="HandicapOverUnderForecastController.cs" />
+    <Compile Include="NewHandicapOverUnderForecastController.cs" />
+    <Compile Include="OneXTwoForecastController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

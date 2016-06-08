@@ -16,9 +16,9 @@ namespace Fanex.Athena.Model.Forecast.DTO.ForecastAH
     /// </summary>
     public class ForecastValue
     {
-        public List<string> ForeCastLink { get; set; }
+        public IList<string> ForeCastLink { get; set; }
 
-        public List<int> ForecastHeader { get; set; }
+        public IList<int> ForecastHeader { get; set; }
 
         public decimal ForeCastValue0 { get; set; }
 

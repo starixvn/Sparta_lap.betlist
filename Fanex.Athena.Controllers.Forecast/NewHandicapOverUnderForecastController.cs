@@ -1,5 +1,5 @@
 ﻿// ForecastController.NewHandicapOverUnder.cs--------------------------------
-// <copyright file="ForecastController.NewHandicapOverUnder.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="NewHandicapOverUnderForecastController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,40 +13,32 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Helpers;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// Forecast Handicap Over/Under.
-    /// </summary>
-    public partial class ForecastController
+    public class NewHandicapOverUnderForecastController : ForecastBaseController
     {
-        /// <summary>
-        /// Licensee Offer New Forecast List.
-        /// </summary>
-        private IList<string> _licenseeOfferNewForecastList;
+        private readonly IMatchService _matchService;
 
-        #region New Forecast
-
-        /// <summary>
-        /// New fore cast report.
-        /// </summary>
-        /// <param name="leagueId">The league id.</param>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="currencyId">The current id.</param>
-        /// <param name="baseCurrency">The base currency.</param>
-        /// <returns>Action Result.</returns>
-        [HttpGet]
-        public ActionResult NewForecastHdpOu(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
+        public NewHandicapOverUnderForecastController()
         {
-            this._licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
+            _matchService = new MatchService();
+        }
+
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
+        {
+            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (this._licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
+            if (licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
             {
                 var metaModel = new NewForecastHandicapOverUnderMetaModel
                 {
@@ -66,7 +58,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetForecastHdpOuViewModel(metaModel));
+                return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
             }
             else
             {
@@ -74,25 +66,16 @@ namespace Fanex.Athena.Controllers.Forecast
             }
         }
 
-        /// <summary>
-        /// New fore cast report.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult NewForecastHdpOu(NewForecastHandicapOverUnderMetaModel metaModel)
+        [FunctionAuthorization]
+        public ActionResult Index(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetForecastHdpOuViewModel(metaModel));
+            return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
         }
 
-        /// <summary>
-        /// Get Match List By League.
-        /// </summary>
-        /// <param name="leagueId">The league Id.</param>
-        /// <returns>The view result.</returns>
         [HttpPost]
         public ViewResult GetMatchListByLeague(int leagueId)
         {
@@ -100,36 +83,12 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
-        #endregion New Forecast
-
-        #region Utility
-
-        /// <summary>
-        /// Get offered licensee.
-        /// </summary>
-        /// <returns>The licensee id list.</returns>
-        private static IList<string> GetLicenseeOfferNewForecastList()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
-        }
-
-        /// <summary>
-        /// Get New Forecast Handicap Over/Under ViewModel.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The view model.</returns>
         [SuppressMessage(
                   "StyleCop.CSharp.StylecopPlus.Rules",
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        private NewForecastHdpOuViewModel GetForecastHdpOuViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
+        private NewForecastHdpOuViewModel GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             IList<Match> matchList = new List<Match>();
             IList<League> leagueList = new List<League>();
@@ -147,7 +106,7 @@ namespace Fanex.Athena.Controllers.Forecast
             {
                 if (!Request.IsAjaxRequest())
                 {
-                    model.LeagueList = _forecastService.GetForecastRunningLeague(metaModel);
+                    model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
                     if (model.LeagueList.Count > 0)
                     {
                         metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
@@ -184,7 +143,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 metaModel.HomeTeamName = CacheRef.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
                 metaModel.AwayTeamName = CacheRef.GetTeamName(metaModel.AwayTeamId);
-                model.MainData = _forecastService.GetNewForecastData(metaModel, headerInfo);
+                model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
                 model.HeaderInfo = headerInfo;
             }
             catch (System.Exception exception)
@@ -194,7 +153,5 @@ namespace Fanex.Athena.Controllers.Forecast
 
             return model;
         }
-
-        #endregion Utility
     }
 }
