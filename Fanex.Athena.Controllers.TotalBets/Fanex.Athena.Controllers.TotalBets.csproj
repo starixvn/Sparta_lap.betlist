@@ -76,17 +76,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TotalBetsController.cs" />
-    <Compile Include="TotalBetsController.FirstGoalLastGoal.cs" />
-    <Compile Include="TotalBetsController.HalfTimeFullTime.cs" />
-    <Compile Include="TotalBetsController.HandicapOU.cs" />
-    <Compile Include="TotalBetsController.HomeDrawAwayNoBet.cs" />
-    <Compile Include="TotalBetsController.MoneyLine.cs" />
-    <Compile Include="TotalBetsController.NumberGame.cs" />
-    <Compile Include="TotalBetsController.OddEvenDrawNoDraw.cs" />
-    <Compile Include="TotalBetsController.Outright.cs" />
-    <Compile Include="TotalBetsController.Racing.cs" />
-    <Compile Include="TotalBetsController.TotalGoal.cs" />
+    <Compile Include="TotalBetBaseController.cs" />
+    <Compile Include="FirstGoalLastGoalTotalBetController.cs" />
+    <Compile Include="HalfTimeFullTimeTotalBetController.cs" />
+    <Compile Include="HandicapOverUnderTotalBetController.cs" />
+    <Compile Include="HomeDrawAwayNoBetTotalBetController.cs" />
+    <Compile Include="MoneyLineTotalBetController.cs" />
+    <Compile Include="NumberGameTotalBetController.cs" />
+    <Compile Include="OddEvenDrawNoDrawTotalBetController.cs" />
+    <Compile Include="OutrightTotalBetController.cs" />
+    <Compile Include="HorseRacingTotalBetController.cs" />
+    <Compile Include="TotalGoalTotalBetController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">

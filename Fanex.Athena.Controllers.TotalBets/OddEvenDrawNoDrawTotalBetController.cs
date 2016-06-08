@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.FirstGoalLastGoal.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OddEvenDrawNoDrawTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,41 +14,47 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// First Goal/Last Goal.
-    /// </summary>
-    public partial class TotalBetsController
+    public class OddEvenDrawNoDrawTotalBetController : TotalBetBaseController
     {
+        private readonly IOddEvenDrawNoDrawService _oddEvenDrawNoDrawService;
+
+        public OddEvenDrawNoDrawTotalBetController()
+        {
+            _oddEvenDrawNoDrawService = new OddEvenDrawNoDrawService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult FirstGoalLastGoal()
+        public ActionResult Index()
         {
-            var param = new FirstGoalLastGoalMetaModel
+            var param = new OddEvenDrawNoDrawMetaModel
             {
-                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
             SetConvetedUSDCurrencyName(param);
-            return this.FirstGoalLastGoalView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult FirstGoalLastGoal(FirstGoalLastGoalMetaModel metaModel)
+        public ActionResult Index(OddEvenDrawNoDrawMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.FirstGoalLastGoalView(metaModel);
+            return this.GetView(metaModel);
         }
 
         #region Utility
 
         /// <summary>
-        /// Get the view of FGLG.
+        /// Get the view of OddEvenDrawNoDraw.
         /// </summary>
-        /// <param name="metaModel">The metal model.</param>
+        /// <param name="metaModel">The parameter.</param>
         /// <returns>The action result.</returns>
-        private ActionResult FirstGoalLastGoalView(FirstGoalLastGoalMetaModel metaModel)
+        private ActionResult GetView(OddEvenDrawNoDrawMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -56,10 +62,9 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
-                FirstGoalLastGoal totalData;
-                var dataList = _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(metaModel, out totalData);
-
-                var model = new FirstGoalLastGoalViewModel
+                OddEvenDrawNoDraw totalData;
+                var dataList = _oddEvenDrawNoDrawService.GetOddEvenDrawNoDrawDataList(metaModel, out totalData);
+                var model = new OddEvenDrawNoDrawViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
@@ -68,7 +73,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     TotalData = totalData
                 };
 
-                return View("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
+                return View("~/Views/TotalBets/OddEvenDrawNoDraw/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.OddEvenDrawNoDraw.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="HomeDrawAwayNoBetTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,45 +10,43 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Odd/Even + 1X2 + Draw/NoDraw.
-    /// </summary>
-    public partial class TotalBetsController
+    public class HomeDrawAwayNoBetTotalBetController : TotalBetBaseController
     {
+        private readonly IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
+
+        public HomeDrawAwayNoBetTotalBetController()
+        {
+            _homeDrawAwayNoBetService = new HomeDrawAwayNoBetService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult OddEvenDrawNoDraw()
+        public ActionResult Index()
         {
-            var param = new OddEvenDrawNoDrawMetaModel
+            var param = new HomeDrawAwayNoBetMetaModel
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
             SetConvetedUSDCurrencyName(param);
-            return this.OddEvenDrawNoDrawView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult OddEvenDrawNoDraw(OddEvenDrawNoDrawMetaModel metaModel)
+        public ActionResult Index(HomeDrawAwayNoBetMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.OddEvenDrawNoDrawView(metaModel);
+            return this.GetView(metaModel);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get the view of OddEvenDrawNoDraw.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult OddEvenDrawNoDrawView(OddEvenDrawNoDrawMetaModel metaModel)
+        private ActionResult GetView(HomeDrawAwayNoBetMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -56,23 +54,19 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
-                OddEvenDrawNoDraw totalData;
-                var dataList = _oddEvenDrawNoDrawService.GetOddEvenDrawNoDrawDataList(metaModel, out totalData);
-                var model = new OddEvenDrawNoDrawViewModel
+                var dataList = _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(metaModel);
+                var model = new HomeDrawAwayNoBetViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencies,
-                    TotalData = totalData
+                    CurrencyList = currencies
                 };
 
-                return View("~/Views/TotalBets/OddEvenDrawNoDraw/Main.cshtml", model);
+                return View("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

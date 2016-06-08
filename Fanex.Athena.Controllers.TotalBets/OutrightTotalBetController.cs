@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.MoneyLine.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="OutrightTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,50 +10,51 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Money line controller.
-    /// </summary>
-    public partial class TotalBetsController
+    public class OutrightTotalBetController : TotalBetBaseController
     {
-        /// <summary>
-        /// Money-line pate.
-        /// </summary>
-        /// <returns>The report page.</returns>
+        private readonly IOutrightService _outrightService;
+
+        public OutrightTotalBetController()
+        {
+            _outrightService = new OutrightService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult MoneyLine()
+        public ActionResult Index()
         {
-            var param = new MoneyLineMetaModel
+            var param = new OutrightMetaModel
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.MoneyLineView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult MoneyLine(MoneyLineMetaModel metaModel)
+        public ActionResult Index(OutrightMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.MoneyLineView(metaModel);
+            return this.GetView(metaModel);
         }
 
         #region Utility
 
         /// <summary>
-        /// Get the view of MoneyLine.
+        /// Get the view of Outright.
         /// </summary>
         /// <param name="metaModel">The parameter.</param>
         /// <returns>The action result.</returns>
-        private ActionResult MoneyLineView(MoneyLineMetaModel metaModel)
+        private ActionResult GetView(OutrightMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -61,18 +62,16 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
-                MoneyLine totalData;
-                var dataList = _moneyLineService.GetMoneyLineDataList(metaModel, out totalData);
-
-                var model = new MoneyLineViewModel
+                var dataList = _outrightService.GetOutrightDataList(metaModel);
+                var model = new OutrightViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencies,
-                    TotalData = totalData
+                    CurrencyList = currencies
                 };
-                return View("~/Views/TotalBets/MoneyLine/Main.cshtml", model);
+
+                return View("~/Views/TotalBets/Outright/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

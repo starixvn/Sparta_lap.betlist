@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.TotalGoal.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="HalfTimeFullTimeTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,65 +14,63 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Total Goal controller.
-    /// </summary>
-    public partial class TotalBetsController
+    public class HalfTimeFullTimeTotalBetController : TotalBetBaseController
     {
-        [FunctionAuthorization]
-        public ActionResult TotalGoal()
+        private readonly IHalfTimeFullTimeService _halfTimeFullTimeService;
+
+        public HalfTimeFullTimeTotalBetController()
         {
-            var param = new TotalGoalMetaModel
+            _halfTimeFullTimeService = new HalfTimeFullTimeService();
+        }
+
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult Index()
+        {
+            var param = new HalfTimeFullTimeMetaModel
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.TotalGoalView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult TotalGoal(TotalGoalMetaModel metaModel)
+        public ActionResult Index(HalfTimeFullTimeMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.TotalGoalView(metaModel);
+            return this.GetView(metaModel);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get the view of Total Goal.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult TotalGoalView(TotalGoalMetaModel metaModel)
+        private ActionResult GetView(HalfTimeFullTimeMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currencies = GetUserCurrencies();
             metaModel.UserId = userSession.UserId;
+            var currencies = GetUserCurrencies();
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
-                TotalGoal totalData;
-                var dataList = _totalGoalService.GetTotalGoalDataList(metaModel, out totalData);
-                var model = new TotalGoalViewModel
+                HalfTimeFullTime totalData;
+                var dataList = _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(metaModel, out totalData);
+                var model = new HalfTimeFullTimeViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
                     CurrencyList = currencies,
-                    TotalData = totalData
+                    TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome +
+                                        totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway
                 };
-
-                return View("~/Views/TotalBets/TotalGoal/Main.cshtml", model);
+                return View("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

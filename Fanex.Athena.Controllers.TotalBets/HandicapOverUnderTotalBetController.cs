@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.HandicapOU.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="HandicapOverUnderTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,21 +15,21 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Handicap Over Under/Live.
-    /// </summary>
-    public partial class TotalBetsController
+    public class HandicapOverUnderTotalBetController : TotalBetBaseController
     {
-        #region Action
+        private readonly IHandicapOverUnderService _handicapOverUnderService;
 
-        /// <summary>
-        /// Handicap-Over-Under page.
-        /// </summary>
-        /// <returns>The report page.</returns>
+        public HandicapOverUnderTotalBetController()
+        {
+            _handicapOverUnderService = new HandicapOverUnderService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult HandicapOverUnder()
+        public ActionResult Index()
         {
             var param = new HandicapOverUnderMetaModel
             {
@@ -38,27 +38,18 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.HandicapOverUnderView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult HandicapOverUnder(HandicapOverUnderMetaModel metaModel)
+        public ActionResult Index(HandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.HandicapOverUnderView(metaModel);
+            return this.GetView(metaModel);
         }
 
-        #endregion Action
-
-        #region Utility
-
-        /// <summary>
-        /// Get the view of Handicap OU.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult HandicapOverUnderView(HandicapOverUnderMetaModel metaModel)
+        private ActionResult GetView(HandicapOverUnderMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
@@ -97,7 +88,5 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

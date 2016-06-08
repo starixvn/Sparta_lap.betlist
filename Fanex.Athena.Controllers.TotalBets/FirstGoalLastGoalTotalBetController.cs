@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.Outright.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="FirstGoalLastGoalTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,45 +10,44 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Outright controller.
-    /// </summary>
-    public partial class TotalBetsController
+    public class FirstGoalLastGoalTotalBetController : TotalBetBaseController
     {
+        private readonly IFirstGoalLastGoalService _firstGoalLastGoalService;
+
+        public FirstGoalLastGoalTotalBetController()
+        {
+            _firstGoalLastGoalService = new FirstGoalLastGoalService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult Outright()
+        public ActionResult Index()
         {
-            var param = new OutrightMetaModel
+            var param = new FirstGoalLastGoalMetaModel
             {
-                LicenseeId = SessionService.LicenseeSession.LicenseeId
+                LicenseeId = SessionService.LicenseeSession.LicenseeId,
             };
 
             SetConvetedUSDCurrencyName(param);
-
-            return this.OutrightView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult Outright(OutrightMetaModel metaModel)
+        public ActionResult Index(FirstGoalLastGoalMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.OutrightView(metaModel);
+            return this.GetView(metaModel);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get the view of Outright.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult OutrightView(OutrightMetaModel metaModel)
+        private ActionResult GetView(FirstGoalLastGoalMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -56,21 +55,22 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
-                var dataList = _outrightService.GetOutrightDataList(metaModel);
-                var model = new OutrightViewModel
+                FirstGoalLastGoal totalData;
+                var dataList = _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(metaModel, out totalData);
+
+                var model = new FirstGoalLastGoalViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencies
+                    CurrencyList = currencies,
+                    TotalData = totalData
                 };
 
-                return View("~/Views/TotalBets/Outright/Main.cshtml", model);
+                return View("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="TotalBetsController.Racing.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="NumberGameTotalBetController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,44 +10,45 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.TotalBet;
+    using Service.TotalBet.Interfaces;
 
-    /// <summary>
-    /// Horse Racing.
-    /// </summary>
-    public partial class TotalBetsController
+    public class NumberGameTotalBetController : TotalBetBaseController
     {
-        [FunctionAuthorization]
-        public ActionResult HorseRacing()
+        private readonly INumberGameService _numberGameService;
+
+        public NumberGameTotalBetController()
         {
-            var param = new RacingMetaModel
+            _numberGameService = new NumberGameService();
+        }
+
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult Index()
+        {
+            var param = new NumberGameMetaModel
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId
             };
 
             SetConvetedUSDCurrencyName(param);
 
-            return this.HorseRacingView(param);
+            return this.GetView(param);
         }
 
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult HorseRacing(RacingMetaModel metaModel)
+        public ActionResult Index(NumberGameMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            return this.HorseRacingView(metaModel);
+            return this.GetView(metaModel);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get the view of Racing.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult HorseRacingView(RacingMetaModel metaModel)
+        private ActionResult GetView(NumberGameMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
@@ -55,21 +56,21 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
             {
-                var dataList = _racingService.GetRacingDataList(metaModel);
-                var model = new RacingViewModel
+                NumberGame totalData;
+                var dataList = _numberGameService.GetNumberGameDataList(metaModel, out totalData);
+                var model = new NumberGameViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
                     LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                    CurrencyList = currencyList
+                    CurrencyList = currencyList,
+                    TotalData = totalData
                 };
 
-                return View("~/Views/TotalBets/Racing/Main.cshtml", model);
+                return View("~/Views/TotalBets/NumberGame/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
-    using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -27,6 +26,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.MetaModel.Authorization;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Athena.Web.ActionFilter;
     using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
