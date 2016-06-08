@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListOfMatch.cs" company="Nexcel">
+// <copyright file="RunningBettypesOfMatchBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
+    using Fanex.Common;
     using Resources;
 
     #endregion Using
@@ -24,15 +25,10 @@ namespace Fanex.Athena.Controllers.BetList
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
-    public partial class BetListController
+    public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for Running bet list of match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult RunningBetListOfMatch(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -42,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return RunningBetListOfMatchExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -51,16 +47,9 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for running bet list of match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult RunningBetListOfMatchExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
-            string uspKey = IsRacing(metaModel.BetType)
-                                              ? "Lrf_BetList_SelAllByDateHR"
-                                              : "Lrf_BetList_SelRunningByBettypeMatch";
+            string uspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             var showingOption = new ShowingOption
@@ -74,12 +63,18 @@ namespace Fanex.Athena.Controllers.BetList
                 leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
             }
 
+            var bettype = metaModel.BetType;
+            if (metaModel.BetType == 0 && string.IsNullOrWhiteSpace(metaModel.MultipleBettype) == false)
+            {
+                bettype = Converter.ToInt(metaModel.MultipleBettype.Split(',')[0]);
+            }
+
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
-                CacheRef.GetBettype(metaModel.BetType),
-               string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+                CacheRef.GetBettype(bettype),
+                string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes, metaModel.IsShowSumStake);
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes, true);
 
             var workbook = excel.Export(ticketResult, title);
 

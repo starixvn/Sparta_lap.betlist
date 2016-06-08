@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.DailyRacingWl.cs" company="Nexcel">
+// <copyright file="RacingCommissionBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,43 +20,37 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class RacingCommissionBetListController : BetListBaseController
     {
         /// <summary>
-        /// Action Get for daily racing win lost.
+        /// Action Get for Customer win lost bet list.
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult DailyRacingWL(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
+
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return DailyRacingWLPost(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            return View("~/Views/BetList/DailyRacingWl/Main.cshtml", metaModel);
+            return View("~/Views/BetList/RacingCommission/Main.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for daily racing win lost.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult DailyRacingWLPost(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_SelWinlostRacing";
+            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
+
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption
@@ -65,18 +59,21 @@ namespace Fanex.Athena.Controllers.BetList
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
-                metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
-            var title = ViewResources.DailyRacingWinLoss + " " + ViewResources.BetList
-                + string.Format(
-                " - {0} - {1}",
-                metaModel.Date.ToString("MMM dd, yyyy"),
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+
+            var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
+                " - {0} --> {1} - {2}({3}) - {4}",
+                metaModel.FromDate.ToShortDateString(),
+                metaModel.ToDate.ToShortDateString(),
+                metaModel.ExternalId,
+                metaModel.SystemId,
                 currencyTitle);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { BetEffectiveColumn });
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn });
 
             var workbook = excel.Export(ticketResult, title);
 
-            return new ExcelResult(workbook, "DailyRacingWinLossBetList");
+            return new ExcelResult(workbook, "CustomerWinLossBetList");
         }
     }
 }

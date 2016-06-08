@@ -29,10 +29,12 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class BetListBaseController : ReadonlyBaseController
     {
-        #region Constant
+        protected const int MicroGamingRngTransTypeYesterday = 0;
 
-        public const int PageSizeExcel = 63000;
-        public const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
+        protected const int MicroGamingRngTransTypeTodayRunning = 3;
+
+        protected const int PageSizeExcel = 63000;
+        protected const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
 
         protected const int LicenseeId12Bet = 1;
 
@@ -41,8 +43,6 @@ namespace Fanex.Athena.Controllers.BetList
         protected const int WinLostColumn = 7;
         protected const int BetEffectiveColumn = 8;
         protected const int LicenseeWLColumn = 9;
-
-        #endregion Constant
 
         #region Fields
 
@@ -122,12 +122,6 @@ namespace Fanex.Athena.Controllers.BetList
             return RacingBetType.Contains(betType);
         }
 
-        /// <summary>
-        /// Get view in currency.
-        /// </summary>
-        /// <param name="curencyId">Currency Id.</param>
-        /// <param name="defaultCurrencyName">Default currency name.</param>
-        /// <returns>View in currency.</returns>
         protected static string GetViewInCurrency(int curencyId, string defaultCurrencyName)
         {
             string viewinCurrency;

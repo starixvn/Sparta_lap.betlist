@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetList.cs" company="Microsoft">
+// <copyright file="RunningBettypesBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ namespace Fanex.Athena.Controllers.BetList
     /// To win to nil           - bet type: 27.
     /// 3-Way Handicap          - bet type: 28.
     /// </summary>
-    public partial class BetListController
+    public class RunningBettypesBetListController : BetListBaseController
     {
         /// <summary>
         /// Action Get for running bet list.
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RunningBetListMultipleBettypes(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
-                    return RunningBetListMultipleBettypesExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -74,12 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/RunningBetListMultipleBettypes/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Used in TOTAL BETS.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult RunningBetListMultipleBettypesExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             var ticketResult = this.BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettypeList");
 

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.SystemParlayDetail.cs" company="Nexcel">
+// <copyright file="SystemParlayBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -16,18 +16,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class SystemParlayBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for System Parlay Detail.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult SystemParlayDetail(SystemParlayDetailMetaModel metaModel)
+        public ActionResult Detail(SystemParlayDetailMetaModel metaModel)
         {
             var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);

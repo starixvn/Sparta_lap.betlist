@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetList.cs" company="Microsoft">
+// <copyright file="RunningBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
     /// To win to nil           - bet type: 27.
     /// 3-Way Handicap          - bet type: 28.
     /// </summary>
-    public partial class BetListController
+    public class RunningBetListController : BetListBaseController
     {
         /// <summary>
         /// Action Get for running bet list.
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult RunningBetList(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
-                    return RunningBetListExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -73,12 +73,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/RunningBetList/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Used in TOTAL BETS.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult RunningBetListExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             var ticketResult = this.BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettype");
 

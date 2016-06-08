@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.RunningBetListOfMatchChoice.cs" company="Nexcel">
+// <copyright file="RunningMatchChoiceBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,10 +21,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class RunningMatchChoiceBetListController : BetListBaseController
     {
         /// <summary>
         /// Action Get for Running bet list of match.
@@ -32,7 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult RunningBetListOfMatchChoice(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -42,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
-                    return RunningBetListOfMatchChoiceExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -56,7 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
-        private ActionResult RunningBetListOfMatchChoiceExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             string uspKey = "Lrf_BetList_Forecast_SelByMatch";
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.CancelBetList.cs" company="Nexcel">
+// <copyright file="CancelledBetsBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -22,18 +22,11 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class CancelledBetsBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Cancelled bet list.
-        /// </summary>
-        /// <returns>Action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CancelledBetsBetList()
+        public ActionResult Index()
         {
             var metaModel = CreateDefaultMetaModel();
 
@@ -66,17 +59,13 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Cancelled bet list.
-        /// </summary>
-        /// <param name="metaModel">The bet list metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
-        public ActionResult CancelledBetsBetList(BetListMetaModel metaModel)
+        [FunctionAuthorization]
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
             {
-                return CancelledBetsBetListExcel(metaModel);
+                return Excel(metaModel);
             }
 
             var licenseeSession = this.SessionService.LicenseeSession;
@@ -109,12 +98,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Action for cancelled bets export excel.
-        /// </summary>
-        /// <param name="metaModel">The bet list metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult CancelledBetsBetListExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             var currencies = GetUserCurrencies();
 

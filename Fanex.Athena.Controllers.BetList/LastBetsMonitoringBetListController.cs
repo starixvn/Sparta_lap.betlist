@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.LastBetsMonitoring .cs" company="Microsoft">
+// <copyright file="LastBetsMonitoringBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,20 +21,18 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class LastBetsMonitoringBetListController : BetListBaseController
     {
         private ISportTypeService _sportTypeService;
 
-        /// <summary>
-        /// Action Get for last bets monitoring.
-        /// </summary>
-        /// <returns>The action result.</returns>
+        public LastBetsMonitoringBetListController()
+        {
+            _sportTypeService = new SportTypeService();
+        }
+
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult LastBetsMonitoring()
+        public ActionResult Index()
         {
             this._sportTypeService = new SportTypeService();
             var metaModel = new BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };

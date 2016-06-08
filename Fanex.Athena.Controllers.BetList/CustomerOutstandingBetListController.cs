@@ -1,13 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.CustomerOutstanding.cs" company="Microsoft">
+// <copyright file="CustomerOutstandingBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,23 +13,13 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
 
-    #endregion Using
-
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class CustomerOutstandingBetListController : BetListBaseController
     {
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
-        /// <summary>
-        /// Action Get for Customer Outstanding.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
-        public ActionResult CustomerOutstanding(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
             metaModel = CreateDefaultMetaModel(metaModel);

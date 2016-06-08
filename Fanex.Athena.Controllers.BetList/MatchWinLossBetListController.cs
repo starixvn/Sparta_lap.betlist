@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.MatchWl.cs" company="Nexcel">
+// <copyright file="MatchWinLossBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,13 +21,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class MatchWinLossBetListController : BetListBaseController
     {
         [HttpGet]
-        public ActionResult MatchWLMatchBetType(BetListMetaModel metaModel)
+        public ActionResult MatchBetType(BetListMetaModel metaModel)
         {
             // include LicenseeId, UserId in CreateDefaultMetaModel
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -42,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetList
                     var uspKey = IsRacing(metaModel.BetType)
                         ? "Lrf_BetList_MatchWL_Racing"
                         : "Lrf_BetList_MatchWL_Bettype";
-                    return MatchWLExcel(metaModel, uspKey);
+                    return Excel(metaModel, uspKey);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -52,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult MatchWLMixParlay(BetListMetaModel metaModel)
+        public ActionResult MixParlay(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
             metaModel.IsServerPaging = true;
@@ -64,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                     metaModel.IsServerPaging = true;
-                    return MatchWLExcel(metaModel, UspKey);
+                    return Excel(metaModel, UspKey);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -74,7 +71,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        public ActionResult MatchWLOutright(BetListMetaModel metaModel)
+        public ActionResult Outright(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
             metaModel.IsServerPaging = true;
@@ -86,7 +83,7 @@ namespace Fanex.Athena.Controllers.BetList
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Outright";
-                    return MatchWLExcel(metaModel, UspKey);
+                    return Excel(metaModel, UspKey);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -95,7 +92,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/MatchWl/Outright.cshtml", metaModel);
         }
 
-        private ActionResult MatchWLExcel(BetListMetaModel metaModel, string uspKey)
+        private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;

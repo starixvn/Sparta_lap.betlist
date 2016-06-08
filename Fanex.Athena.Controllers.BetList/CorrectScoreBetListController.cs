@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.CorrectScoreBetList.cs" company="Nexcel">
+// <copyright file="CorrectScoreBetListController.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,19 +20,11 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class CorrectScoreBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for correct score.
-        /// Used in TOTAL BETS.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult CorrectScoreBetList()
+        public ActionResult Index()
         {
             var metaModel = CreateDefaultMetaModel();
 
@@ -54,15 +46,9 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/CorrectScoreBetList/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Action for correct score export excel.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        public ActionResult CorrectScoreBetList(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var currencies = GetUserCurrencies();

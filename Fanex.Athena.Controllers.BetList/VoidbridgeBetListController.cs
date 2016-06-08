@@ -9,13 +9,13 @@
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
-    public class BetListVoidbridgeController : BetListBaseController
+    public class VoidbridgeBetListController : BetListBaseController
     {
         private readonly string _title =
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
         [HttpGet]
-        public ActionResult VoidbridgeDetail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -27,13 +27,13 @@
 
             if (IsValidCurrency(metaModel.CurrencyId))
             {
-                return VoidbridgeDetailExcel(metaModel);
+                return ExcelDetail(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        private ActionResult VoidbridgeDetailExcel(BetListMetaModel metaModel)
+        private ActionResult ExcelDetail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
 

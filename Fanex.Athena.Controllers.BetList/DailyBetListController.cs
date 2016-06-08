@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.DailyBetList.cs" company="Nexcel">
+// <copyright file="DailyBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -23,21 +23,13 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class DailyBetListController : BetListBaseController
     {
         private const string BetListDailyBetListName = "BetList_DailyBetList";
 
-        /// <summary>
-        /// Action Get for daily bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         [FunctionAuthorization]
-        public ActionResult DailyBetList(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -50,7 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
                 {
-                    return DailyBetListExcel(metaModel);
+                    return Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -70,13 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/DailyBetList/Main.cshtml", model);
         }
 
-        /// <summary>
-        /// Export excel for daily bet list.
-        /// Export all data .
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult DailyBetListExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 

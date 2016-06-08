@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.WinlossByLeague.cs" company="Nexcel">
+// <copyright file="WinlossByLeagueBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,17 +20,9 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public partial class WinlossByLeagueBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>Action result.</returns>
-        public ActionResult WinlossByLeague(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -43,18 +35,13 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
             {
-                return this.WinlossByLeagueExcel(metaModel);
+                return this.Excel(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        /// <summary>
-        /// Export excel for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>Workbook for excel.</returns>
-        private ActionResult WinlossByLeagueExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);

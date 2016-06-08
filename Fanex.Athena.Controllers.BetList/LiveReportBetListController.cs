@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,22 +19,12 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
-    #endregion Using
-
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class LiveReportBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for live report bet list by match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportMatch(LiveReportBetListMetaModel metaModel)
+        public ActionResult Match(LiveReportBetListMetaModel metaModel)
         {
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -55,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                    return Excel(metaModel, UspKey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -64,15 +52,10 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/Match.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for live report mix parlay bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportMixParlay(LiveReportBetListMetaModel metaModel)
+        public ActionResult MixParlay(LiveReportBetListMetaModel metaModel)
         {
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -91,7 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                    return Excel(metaModel, UspKey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -100,15 +83,10 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/MixParlay.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for live report outright bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportOutright(LiveReportBetListMetaModel metaModel)
+        public ActionResult Outright(LiveReportBetListMetaModel metaModel)
         {
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
 
             if (metaModel.IsExportExcel)
             {
@@ -126,7 +104,7 @@ namespace Fanex.Athena.Controllers.BetList
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                    return Excel(metaModel, UspKey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -135,15 +113,10 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/Outright.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for live report number game bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportNumberGame(LiveReportBetListMetaModel metaModel)
+        public ActionResult NumberGame(LiveReportBetListMetaModel metaModel)
         {
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -160,7 +133,7 @@ namespace Fanex.Athena.Controllers.BetList
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                    return Excel(metaModel, UspKey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -169,15 +142,10 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/NumberGame.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Action Get for live report micro gaming bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportMicroGaming(LiveReportBetListMetaModel metaModel)
+        public ActionResult MicroGaming(LiveReportBetListMetaModel metaModel)
         {
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -194,7 +162,7 @@ namespace Fanex.Athena.Controllers.BetList
                         metaModel.FromDate.ToShortDateString(),
                         metaModel.ToDate.ToShortDateString(),
                         string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return LiveReportBetListExcel(metaModel, UspKey, title);
+                    return Excel(metaModel, UspKey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -203,18 +171,13 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/MicroGaming.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// The racing live report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult LiveReportRacing(LiveReportBetListMetaModel metaModel)
+        public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
             const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";
             const string UspKeyVHRacing = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
-            metaModel = CreateLiveReportDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel);
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
@@ -241,7 +204,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                     var spkey = racingBettypes.Contains(metaModel.SportType) ? UspKeyVHRacing : UspKeyRacing;
 
-                    return LiveReportBetListExcel(metaModel, spkey, title);
+                    return Excel(metaModel, spkey, title);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -250,14 +213,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/LiveReport/Racing.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for live report bet list by match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="uspKey">The store procedure key.</param>
-        /// <param name="title">The report title.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult LiveReportBetListExcel(BetListMetaModel metaModel, string uspKey, string title)
+        private ActionResult Excel(BetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
@@ -278,16 +234,9 @@ namespace Fanex.Athena.Controllers.BetList
             return new ExcelResult(workbook, "LiveReportBetList");
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Create default live report meta model.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
             Justification = "Reviewed.")]
-        public LiveReportBetListMetaModel CreateLiveReportDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
+        public LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
         {
             metaModel = metaModel ?? new LiveReportBetListMetaModel();
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -302,7 +251,5 @@ namespace Fanex.Athena.Controllers.BetList
 
             return metaModel;
         }
-
-        #endregion Utility
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.PendingFunds.cs" company="Nexcel">
+// <copyright file="PendingFundsBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,24 +21,13 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class PendingFundsBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Hidden column list (externalId,systemId,win-loss,licensee win-loss).
-        /// </summary>
         private static readonly List<int> HiddenColList =
             new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
-        /// <summary>
-        /// Action Get for pending funds bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult PendingFunds(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
             metaModel.FromDate = DateTime.Today.AddYears(-10);
@@ -55,19 +44,13 @@ namespace Fanex.Athena.Controllers.BetList
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
 
-                return this.PendingFundsExcel(metaModel, UspKey);
+                return this.Excel(metaModel, UspKey);
             }
 
             return View("~/Views/BetList/PendingFunds/Main.cshtml", metaModel);
         }
 
-        /// <summary>
-        /// Export excel for pending funds bet list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="uspKey">The store procedure.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult PendingFundsExcel(BetListMetaModel metaModel, string uspKey)
+        private ActionResult Excel(BetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 

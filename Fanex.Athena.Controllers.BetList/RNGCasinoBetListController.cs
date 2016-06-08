@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.cs" company="Microsoft">
+// <copyright file="RNGCasinoBetListController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,41 +15,28 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
-    public partial class BetListController
+    public class RNGCasinoBetListController : BetListBaseController
     {
         [HttpGet]
-        public ActionResult RNGCasinoDetail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
             if (!metaModel.IsExportExcel)
             {
-                ViewBag.BetListTitle = GetBetListTitleForRngCasino(metaModel.TransType);
+                ViewBag.BetListTitle = GetTitle(metaModel.TransType);
                 return this.View("~/Views/BetList/RngCasinoDetail/Main.cshtml", metaModel);
             }
 
             if (IsValidCurrency(metaModel.CurrencyId))
             {
-                return RngCasinoDetailExcel(metaModel);
+                return ExcelDetail(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        private ActionResult RngCasinoDetailExcel(BetListMetaModel metaModel)
-        {
-            const string UspKey = "Lrf_BetList_RNG_Detail";
-
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
-            var title = GetBetListTitleForRngCasino(metaModel.TransType);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "RngCasinoDetail");
-        }
-
-        private string GetBetListTitleForRngCasino(long transType)
+        private static string GetTitle(long transType)
         {
             string title = ViewResources.ProductCS + " - " + ViewResources.BetList + " - " +
                 ViewResources.DetailTickets + " - ";
@@ -69,6 +56,19 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             return title;
+        }
+
+        private ActionResult ExcelDetail(BetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_RNG_Detail";
+
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var title = GetTitle(metaModel.TransType);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var workbook = excel.Export(ticketResult, title);
+
+            return new ExcelResult(workbook, "RngCasinoDetail");
         }
     }
 }

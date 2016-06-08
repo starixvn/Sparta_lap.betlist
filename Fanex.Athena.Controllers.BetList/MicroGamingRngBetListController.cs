@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.MicroGamingRngDetail.cs" company="Nexcel">
+// <copyright file="MicroGamingRngBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -19,53 +19,28 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class MicroGamingRngBetListController : BetListBaseController
     {
-        private const int MicroGamingRngTransTypeYesterday = 0;
-
-        private const int MicroGamingRngTransTypeTodayRunning = 3;
-
         [HttpGet]
-        public ActionResult MicroGamingRngDetail(BetListMetaModel metaModel)
+        public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
             if (!metaModel.IsExportExcel)
             {
-                ViewBag.BetListTitle = GetBetListTitle(metaModel.TransType);
+                ViewBag.BetListTitle = GetTitle(metaModel.TransType);
                 return this.View("~/Views/BetList/MicroGamingRngDetail/Main.cshtml", metaModel);
             }
 
             if (IsValidCurrency(metaModel.CurrencyId))
             {
-                return MicroGamingRngDetailExcel(metaModel);
+                return ExcelDetail(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        private ActionResult MicroGamingRngDetailExcel(BetListMetaModel metaModel)
-        {
-            const string UspKey = "Lrf_BetList_RNG_Detail";
-
-            var showingOption = new ShowingOption()
-            {
-                GrandTotalVisible = false
-            };
-
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
-            var title = GetBetListTitle(metaModel.TransType);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "MicrogamingRNGDetail");
-        }
-
-        private string GetBetListTitle(long transType)
+        private static string GetTitle(long transType)
         {
             string title = ViewResources.Microgaming + " - " + ViewResources.ProductCS + " " +
                 ViewResources.BetList + " - " + ViewResources.DetailTickets + " - ";
@@ -85,6 +60,24 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             return title;
+        }
+
+        private ActionResult ExcelDetail(BetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_RNG_Detail";
+
+            var showingOption = new ShowingOption()
+            {
+                GrandTotalVisible = false
+            };
+
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var title = GetTitle(metaModel.TransType);
+            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
+            var workbook = excel.Export(ticketResult, title);
+
+            return new ExcelResult(workbook, "MicrogamingRNGDetail");
         }
     }
 }

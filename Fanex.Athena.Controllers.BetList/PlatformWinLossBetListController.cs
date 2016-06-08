@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.PlatformWinLoss.cs" company="Nexcel">
+// <copyright file="PlatformWinLossBetListController.cs" company="Nexcel">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,13 +20,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public partial class BetListController
+    public class PlatformWinLossBetListController : BetListBaseController
     {
         [HttpGet]
-        public ActionResult PlatformWinLoss(BetListMetaModel metaModel)
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -34,7 +31,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (IsValidCurrency(metaModel.CurrencyId))
                 {
-                    return this.PlatformWinLossExcel(metaModel);
+                    return this.Excel(metaModel);
                 }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -43,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
             return View("~/Views/BetList/PlatformWinLoss/Main.cshtml", metaModel);
         }
 
-        private ActionResult PlatformWinLossExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
