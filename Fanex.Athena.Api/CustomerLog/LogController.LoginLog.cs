@@ -24,7 +24,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="username">Filter by user name.</param>
         /// <returns>Data list of user name.</returns>
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
+        [ApiFunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public dynamic LoginLog(string username)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -183,6 +183,7 @@
     <Compile Include="PlaytechCasinoWinlossReportController.cs" />
     <Compile Include="RacingCommissionReportController.cs" />
     <Compile Include="ResultController.cs" />
+    <Compile Include="RNGCasino\HandHistoryController.cs" />
     <Compile Include="SettledMatchCountReportController.cs" />
     <Compile Include="TurnoverReportController.cs" />
     <Compile Include="WinLossByBetTypeReportController.cs" />
@@ -207,6 +208,10 @@
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
       <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
       <Name>Fanex.Athena.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
+      <Project>{840a8298-60ed-40dc-a64e-f9048abd32b5}</Project>
+      <Name>Fanex.Athena.Model.Casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
