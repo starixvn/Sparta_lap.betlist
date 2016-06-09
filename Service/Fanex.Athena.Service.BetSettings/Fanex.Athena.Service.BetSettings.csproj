@@ -92,11 +92,11 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
       <Project>{68f63a3b-062c-4adc-8718-91134a6ffb85}</Project>
       <Name>Fanex.Athena.DataAccess.BetSettings</Name>
     </ProjectReference>

@@ -65,11 +65,11 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj">
       <Project>{953513d5-68bd-46db-9e2a-4966d61fe310}</Project>
       <Name>Fanex.Athena.DataAccess.Warehouse</Name>
     </ProjectReference>

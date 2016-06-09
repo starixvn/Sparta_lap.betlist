@@ -80,19 +80,19 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
       <Project>{68f63a3b-062c-4adc-8718-91134a6ffb85}</Project>
       <Name>Fanex.Athena.DataAccess.BetSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj">
       <Project>{3c68d0d6-442d-4366-ab29-a793bbe92f49}</Project>
       <Name>Fanex.Athena.DataAccess.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj">
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj">
       <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
       <Name>Fanex.Athena.DataAccess</Name>
     </ProjectReference>
