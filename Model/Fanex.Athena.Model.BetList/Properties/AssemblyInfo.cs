@@ -10,7 +10,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1701:ResourceStringCompoundWordsShouldBeCasedCorrectly", Scope = "resource",
-    Target = "Fanex.Athena.Models.ViewModel.ViewResources.resources", Justification = "Reviewed.")]
+    Target = "Fanex.Athena.Model.Report.ViewModel.ViewResources.resources", Justification = "Reviewed.")]
 [assembly: CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following

@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Service.Implement.Report
 {
-    using Fanex.Athena.DataAccess.Implement.Report;
+    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;

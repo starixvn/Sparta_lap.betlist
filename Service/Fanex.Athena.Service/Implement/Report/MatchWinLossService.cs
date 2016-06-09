@@ -10,7 +10,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Implement.Report;
+    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;

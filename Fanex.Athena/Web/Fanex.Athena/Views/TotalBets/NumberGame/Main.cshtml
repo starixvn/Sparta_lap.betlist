@@ -3,7 +3,7 @@
     " - " + ViewResources.ProductNG;
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Model.Report.ViewModel
 @model Fanex.Athena.Model.TotalBet.ViewModel.NumberGameViewModel
 @section page {
     <script src="@Url.ContentLink("/Scripts/TotalBets/numbergame.js")" type="text/javascript"></script>

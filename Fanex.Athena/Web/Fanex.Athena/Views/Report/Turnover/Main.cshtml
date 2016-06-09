@@ -2,7 +2,7 @@
     ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.Turnover;
     Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Model.Report.ViewModel
 @model Fanex.Athena.Model.Report.ViewModel.TurnoverViewModel
 @section pagecss {
     <link href="@Url.ContentLink("/Content/Report/Turnover.css")" rel="stylesheet" type="text/css" />

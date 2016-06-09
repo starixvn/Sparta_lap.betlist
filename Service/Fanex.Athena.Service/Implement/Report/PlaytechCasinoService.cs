@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Service.Implement.Report
 {
     using System.Collections.Generic;
-    using Fanex.Athena.DataAccess.Implement.Report;
-    using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.DataAccess.Report;
+    using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Interface.Report;
