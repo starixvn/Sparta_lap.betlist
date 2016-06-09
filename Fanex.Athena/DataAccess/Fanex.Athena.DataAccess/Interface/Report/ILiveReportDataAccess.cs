@@ -13,8 +13,8 @@ namespace Fanex.Athena.DataAccess.Interface.Report
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.DTO.Report.LiveReports;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.DTO.LiveReports;
+    using Fanex.Athena.Model.Report.MetaModel;
 
     /// <summary>
     /// Live report data access interface.

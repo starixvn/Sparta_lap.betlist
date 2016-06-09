@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Implement.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Resources;

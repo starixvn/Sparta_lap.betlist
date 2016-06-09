@@ -8,8 +8,8 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;

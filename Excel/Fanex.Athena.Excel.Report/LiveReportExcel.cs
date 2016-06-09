@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
-    using Models.DTO.Report.LiveReports;
-    using Models.ViewModel.Report.LiveReports;
+    using Model.Report.DTO.LiveReports;
+    using Model.Report.ViewModel.LiveReports;
     using NPOI.SS.UserModel;
     using Resources;
 

@@ -8,7 +8,7 @@ namespace Fanex.Athena.Service.Interface.Report
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Model.Report.ViewModel;
 
     /// <summary>
     ///     TODO: Update summary.

@@ -18,8 +18,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Common.Extensions;
     using Interface.Report;
     using Logging;
-    using Models.DTO.Report;
-    using Models.MetaModel.Report;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
 
     /// <summary>
     /// TODO: Update summary.

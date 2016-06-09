@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.DTO.Keno
+namespace Fanex.Athena.Model.Report.DTO.Keno
 {
     /// <summary>
     /// TODO: Update summary.

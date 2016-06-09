@@ -1,6 +1,6 @@
 ﻿@using Fanex.Athena.Models.ViewModel
 @using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Models.ViewModel.Report.WinLossByBetTypeViewModel
+@model Fanex.Athena.Model.Report.ViewModel.WinLossByBetTypeViewModel
 <div class="total-content"  style="width:@(ViewBag.WrapperWidth)@("px")">
     <div class="row title-text" style="width:@(ViewBag.TotalWidth)@("px");">
         @ViewResources.Total
@@ -8,7 +8,7 @@
     <div class="row" style="width:@(ViewBag.TurnOverWidth)@("px")">
         <div>@Model.Total.Turnover.ToStringExt()</div>
     </div>
-    @SplitingProductHelper.CustomerWLContent(Model.Total as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
+    @SplitingProductHelper.CustomerWLContent(Model.Total as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss,
                                              Model.IsAllowedCustomerCommission,
                                              ViewBag.CustomerWLLargeWidth,
                                              ViewBag.CustomerWLWidth,

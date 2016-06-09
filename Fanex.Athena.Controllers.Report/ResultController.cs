@@ -16,9 +16,9 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Keno;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Model.Report.MetaModel.Keno;
+    using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Implement.Keno;

@@ -1,9 +1,9 @@
 ﻿@using Fanex.Athena.Extension.Helper
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.Report.BalanceViewModel
+@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
 <div class="data-content">
     @{ var firstRow = 1; }
-    @foreach (Fanex.Athena.Models.DTO.Report.BalanceDetails balanceDetails in Model.MainData.BalanceList)
+    @foreach (Fanex.Athena.Model.Report.DTO.BalanceDetails balanceDetails in Model.MainData.BalanceList)
     { 
         <div class="content-row" style="width:@(ViewBag.ContainerWidth + 1)@("px")">
             <div class="row text-data" style="width: @(ViewBag.FirstColumnWidth)@("px")">

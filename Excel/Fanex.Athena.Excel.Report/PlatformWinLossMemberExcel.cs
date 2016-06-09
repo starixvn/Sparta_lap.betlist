@@ -12,8 +12,8 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Models.DTO.Report;
-    using Models.ViewModel.Report;
+    using Model.Report.DTO;
+    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
 

@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Service.Interface.Keno
 {
     using System;
-    using Fanex.Athena.Models.DTO.Keno;
-    using Fanex.Athena.Models.MetaModel.Keno;
+    using Fanex.Athena.Model.Report.DTO.Keno;
+    using Fanex.Athena.Model.Report.MetaModel.Keno;
 
     /// <summary>
     /// TODO: Update summary.

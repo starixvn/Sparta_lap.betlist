@@ -14,9 +14,9 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Http;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;

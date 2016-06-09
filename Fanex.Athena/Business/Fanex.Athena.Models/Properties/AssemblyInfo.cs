@@ -16,11 +16,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Fanex.Athena.Models")]
+[assembly: AssemblyTitle("Fanex.Athena.Model.Report")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Fanex.Athena.Models")]
+[assembly: AssemblyProduct("Fanex.Athena.Model.Report")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

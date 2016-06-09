@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.ViewModel.Note
+namespace Fanex.Athena.Model.Report.ViewModel.Note
 {
     using System;
     using System.Collections.Generic;

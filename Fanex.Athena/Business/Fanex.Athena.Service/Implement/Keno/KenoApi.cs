@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Implement.Keno
     using System.Text;
     using System.Web;
     using System.Web.Script.Serialization;
-    using Fanex.Athena.Models.DTO.Keno;
+    using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Interface.Keno;
 
@@ -29,7 +29,7 @@ namespace Fanex.Athena.Service.Implement.Keno
         /// <param name="setting">Setting meta model.</param>
         /// <param name="userId">User Id value.</param>
         /// <returns>KenoAuthorization value.</returns>
-        public Models.DTO.Keno.KenoAuthorization Authorize(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public Model.Report.DTO.Keno.KenoAuthorization Authorize(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Service.Implement.Keno
         /// <param name="setting">Setting value.</param>
         /// <param name="userId">User Id value.</param>
         /// <returns>KenoExtendedToken value.</returns>
-        public Models.DTO.Keno.KenoExtendedToken ExtendToken(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public Model.Report.DTO.Keno.KenoExtendedToken ExtendToken(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Fanex.Athena.Service.Implement.Keno
         /// <param name="userId">User Id value.</param>
         /// <param name="resultDate">Result date value.</param>
         /// <returns>String Url value.</returns>
-        public string CreateKenoResultUrl(Models.MetaModel.Keno.KenoResultMetalModel setting, string userId, DateTime resultDate)
+        public string CreateKenoResultUrl(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId, DateTime resultDate)
         {
             var authorizedData = this.Authorize(setting, userId);
             if (authorizedData.ErrorCode > 0)

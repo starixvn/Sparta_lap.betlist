@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;

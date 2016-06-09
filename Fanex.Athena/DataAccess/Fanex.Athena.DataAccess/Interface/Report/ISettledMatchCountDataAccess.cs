@@ -11,7 +11,7 @@
 namespace Fanex.Athena.DataAccess.Interface.Report
 {
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Model.Report.DTO;
 
     /// <summary>
     ///     Settle Match Count Interface.

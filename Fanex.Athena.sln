@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8A8161D6-261F-4B28-9CB8-71D83D5977E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Models", "Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Report", "Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Model.Report.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers", "Fanex.Athena\Web\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj", "{BEC66A01-FA27-4418-8F8A-C2B4388A7905}"
 EndProject

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Keno
+namespace Fanex.Athena.Model.Report.MetaModel.Keno
 {
     using System.Diagnostics.CodeAnalysis;
 

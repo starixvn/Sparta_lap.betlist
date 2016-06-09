@@ -14,7 +14,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Report;
+    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Data;
 
     /// <summary>

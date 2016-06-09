@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.Implement.Report
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Implement.Report;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Interface.Report;
 
     public class PlatformWinLossService : IPlatformWinLossService

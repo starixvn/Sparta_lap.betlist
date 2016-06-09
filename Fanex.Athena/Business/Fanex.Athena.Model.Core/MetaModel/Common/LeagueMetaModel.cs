@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Report
+namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
 

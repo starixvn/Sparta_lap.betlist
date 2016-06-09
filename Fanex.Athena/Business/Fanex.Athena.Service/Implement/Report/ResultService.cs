@@ -11,7 +11,7 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.DataAccess.Implement.Report;
     using Fanex.Athena.DataAccess.Interface.Report;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Interface.Report;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// </summary>
         /// <param name="metal">The metal model.</param>
         /// <returns>The out right data list.</returns>
-        public IList<Outright> GetOutRight(Models.MetaModel.Report.ResultMetalModel metal)
+        public IList<Outright> GetOutRight(Model.Report.MetaModel.ResultMetalModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
         }

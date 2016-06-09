@@ -11,8 +11,8 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Models.ViewModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
 
     public class ActiveCustomerSummaryReportController : ReportBaseController

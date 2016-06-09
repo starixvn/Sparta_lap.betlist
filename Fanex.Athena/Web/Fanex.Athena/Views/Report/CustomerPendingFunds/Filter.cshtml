@@ -2,7 +2,7 @@
     Layout = null;
 }
 @using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.Report.CustomerPendingFundsViewModel
+@model Fanex.Athena.Model.Report.ViewModel.CustomerPendingFundsViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("CustomerPendingFunds", "Report", FormMethod.Post, new { @id = "CustomerPendingFundsForm" }))
     {      

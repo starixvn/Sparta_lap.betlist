@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.Implement.Report
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Models.DTO.Report.LiveReports;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.DTO.LiveReports;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Interface.Report;

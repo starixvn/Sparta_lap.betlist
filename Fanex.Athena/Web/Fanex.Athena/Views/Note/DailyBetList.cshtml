@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_NoteLayout.cshtml";
 }
 @using Fanex.Athena.Model.Core.DTO.Common;
-@model Fanex.Athena.Models.ViewModel.Note.NoteViewModel
+@model Fanex.Athena.Model.Report.ViewModel.Note.NoteViewModel
 @section content{
     <li>@string.Format(ViewResources.DateRangeNote, RazorHelper.TitleDateTime( Model.BalanceUpDate,null)) </li>
     <li>@ViewResources.OANDANote</li>

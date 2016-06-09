@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Models.ViewModel.Note;
+    using Fanex.Athena.Model.Report.ViewModel.Note;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;

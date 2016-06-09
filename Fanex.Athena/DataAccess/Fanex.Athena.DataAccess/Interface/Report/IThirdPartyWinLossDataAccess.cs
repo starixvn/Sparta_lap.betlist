@@ -8,8 +8,8 @@ namespace Fanex.Athena.DataAccess.Interface.Report
 {
     using System.Collections.Generic;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
 
     /// <summary>
     /// TODO: Update summary.

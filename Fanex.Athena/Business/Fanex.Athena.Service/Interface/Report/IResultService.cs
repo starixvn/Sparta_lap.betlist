@@ -9,7 +9,7 @@ namespace Fanex.Athena.Service.Interface.Report
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;

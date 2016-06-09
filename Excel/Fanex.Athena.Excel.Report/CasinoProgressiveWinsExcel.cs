@@ -12,9 +12,9 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.Helper;
-    using Models.DTO.Report;
-    using Models.MetaModel.Report;
-    using Models.ViewModel.Report;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
+    using Model.Report.ViewModel;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
