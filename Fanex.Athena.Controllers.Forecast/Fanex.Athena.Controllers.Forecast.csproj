@@ -88,7 +88,7 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
+    <ProjectReference Include="..\Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
       <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
       <Name>Fanex.Athena.Excel</Name>
     </ProjectReference>

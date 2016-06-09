@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8A8161D6-261F-4B28-9CB8-71D83D5977E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel", "Fanex.Athena\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj", "{0FC566E3-C900-4FF7-BC30-922FA73969F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel", "Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj", "{0FC566E3-C900-4FF7-BC30-922FA73969F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Models", "Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
 EndProject
@@ -105,6 +105,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Report", "Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj", "{8EFB14A8-0A10-4095-A857-C6496E830458}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.CustomerLog", "Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj", "{A765275A-F566-4122-8E8E-47DEFAB7B56B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{86746AAB-EF3C-4132-AF73-0E2EC97BAFAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -649,7 +651,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0FC566E3-C900-4FF7-BC30-922FA73969F7} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{0FC566E3-C900-4FF7-BC30-922FA73969F7} = {86746AAB-EF3C-4132-AF73-0E2EC97BAFAB}
 		{3AA658FF-B635-4990-A49C-AE886841A1CA} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{BEC66A01-FA27-4418-8F8A-C2B4388A7905} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
 		{5653BC29-0843-4D75-9140-5B370DF2F88C} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
