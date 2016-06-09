@@ -14,8 +14,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Models.DTO.Report;
     using NPOI.SS.UserModel;
     using Resources;

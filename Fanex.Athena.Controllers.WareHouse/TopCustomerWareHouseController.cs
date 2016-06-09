@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;

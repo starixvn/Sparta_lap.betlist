@@ -128,14 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BaseBetList.cs" />
-    <Compile Include="Base\ReportBase.cs" />
+    <Compile Include="BaseBetList.cs" />
+    <Compile Include="ReportBase.cs" />
     <Compile Include="BetList\BetListExcel.cs" />
     <Compile Include="BetList\LrfBetListExcelBuilder.cs" />
     <Compile Include="Customer\CustomerListExcel.cs" />
-    <Compile Include="Extension\HSSFCellExtension.cs" />
-    <Compile Include="Extension\HSSFSheetExtension.cs" />
-    <Compile Include="Extension\HSSFWorkbookExtension.cs" />
     <Compile Include="Report\WeeklyLiveMatchExcel.cs" />
     <Compile Include="Report\AgCasinoWinLossExcel.cs" />
     <Compile Include="Report\ActiveCustomerSummaryExcel.cs" />
@@ -155,11 +152,7 @@
     <Compile Include="Report\DailyRacingWinLoss12BetExcel.cs" />
     <Compile Include="Report\LicenseeWinLossExcel.cs" />
     <Compile Include="Report\MatchWinLossExcel.cs" />
-    <Compile Include="Base\ExcelBase.cs" />
-    <Compile Include="Base\ResultBase.cs" />
-    <Compile Include="Entities\ConvertingOption.cs" />
-    <Compile Include="Entities\ShowingOption.cs" />
-    <Compile Include="ExcelException.cs" />
+    <Compile Include="ResultBase.cs" />
     <Compile Include="Report\BalanceExcel.cs" />
     <Compile Include="Report\DailyRacingWinLossExcel.cs" />
     <Compile Include="Report\LiveReportExcel.cs" />
@@ -172,7 +165,6 @@
     <Compile Include="Warehouse\TopWinLoss.cs" />
     <Compile Include="Report\WinLossByBetTypeExcel.cs" />
     <Compile Include="Report\WinlossByProductExcel.cs" />
-    <Compile Include="Utility\DataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
@@ -214,6 +206,10 @@
     <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
+      <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
+      <Name>Fanex.Athena.Excel.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

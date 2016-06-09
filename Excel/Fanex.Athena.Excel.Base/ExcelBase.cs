@@ -11,7 +11,7 @@ namespace Fanex.Athena.Excel.Base
 {
     using System.IO;
     using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Extension;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 

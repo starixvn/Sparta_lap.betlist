@@ -7,7 +7,7 @@
 //   <change who="Dave.Bui" date="2012.4.11">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Base
+namespace Fanex.Athena.Excel
 {
     using System.Collections.Generic;
     using System.Data;
@@ -15,15 +15,16 @@ namespace Fanex.Athena.Excel.Base
     using System.IO;
     using System.Linq;
     using System.Web;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Base;
+    using Excel.Base.Entities;
+    using Excel.Base.Utility;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
-    using Utility;
 
     /// <summary>
     /// The report base.

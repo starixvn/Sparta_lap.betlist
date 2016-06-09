@@ -7,13 +7,14 @@
 //   <change who="Dave.Bui" date="2012.4.11">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Base
+namespace Fanex.Athena.Excel
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Base;
     using BetList;
-    using Entities;
+    using Excel.Base.Entities;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;

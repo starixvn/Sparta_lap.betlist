@@ -12,7 +12,7 @@ namespace Fanex.Athena.Excel.BetList
     using System.Collections.Generic;
 
     using Base;
-    using Entities;
+    using Excel.Base.Entities;
 
     /// <summary>
     ///     TODO: Update summary.

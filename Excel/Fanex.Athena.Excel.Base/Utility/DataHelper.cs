@@ -8,7 +8,7 @@
 // </history>
 // ----------------------------------------------------------------------
 
-namespace Fanex.Athena.Excel.Utility
+namespace Fanex.Athena.Excel.Base.Utility
 {
     using System.Data;
     using Common;

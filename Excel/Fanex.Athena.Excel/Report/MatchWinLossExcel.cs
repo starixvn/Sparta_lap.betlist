@@ -18,10 +18,9 @@ namespace Fanex.Athena.Excel.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Base;
+    using Base.Entities;
     using Common;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.Helper;

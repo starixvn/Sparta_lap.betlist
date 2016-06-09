@@ -6,14 +6,14 @@
 //  <change who="jacob.phan" date="2012.5.8">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Extension
+namespace Fanex.Athena.Excel.Base.Extension
 {
     using NPOI.SS.UserModel;
 
     /// <summary>
     /// HSSFWorkbookExtension class, define some extension method for HSSFWorkbook such as CloneSheet, RemoveSheet, ..
     /// </summary>
-    internal static class HSSFWorkbookExtension
+    public static class HSSFWorkbookExtension
     {
         /// <summary>
         /// CloneSheet method is used to copy a sheet to new sheet.

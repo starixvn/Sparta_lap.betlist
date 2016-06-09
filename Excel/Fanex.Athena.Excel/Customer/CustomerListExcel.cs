@@ -13,7 +13,7 @@ namespace Fanex.Athena.Excel.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using Fanex.Athena.Excel.Base;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Customer.ViewModel;
     using NPOI.HSSF.UserModel;

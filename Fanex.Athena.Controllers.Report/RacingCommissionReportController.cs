@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;

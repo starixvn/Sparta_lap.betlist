@@ -8,8 +8,8 @@ namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
     using Fanex.Athena.Excel.Base;
-    using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Models.ViewModel.Report;
     using NPOI.SS.UserModel;

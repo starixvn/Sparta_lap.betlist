@@ -7,14 +7,14 @@
 //   <change who="Dave.Bui" date="2012.4.11">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Base
+namespace Fanex.Athena.Excel
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
     using Common;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Excel.Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.Helper;
     using NPOI.SS.UserModel;
     using Resources;

@@ -12,8 +12,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Globalization;
     using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.Helper;
     using Models.DTO.Report;
     using Models.ViewModel.Report;

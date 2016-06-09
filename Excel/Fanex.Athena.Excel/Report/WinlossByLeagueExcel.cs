@@ -10,8 +10,8 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Athena.Excel.Base;
-    using Fanex.Athena.Excel.Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Models.DTO.Report;
     using Fanex.Athena.Models.MetaModel.Report;
     using Fanex.Athena.Models.ViewModel.Report;

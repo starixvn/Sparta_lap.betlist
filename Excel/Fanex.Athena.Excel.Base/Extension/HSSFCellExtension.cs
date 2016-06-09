@@ -6,7 +6,7 @@
 //  <change who="jacob.phan" date="2012.5.8">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Extension
+namespace Fanex.Athena.Excel.Base.Extension
 {
     using System;
     using Fanex.Common;
@@ -15,7 +15,7 @@ namespace Fanex.Athena.Excel.Extension
     /// <summary>
     /// HSSFCellExtensions class contains extension method for HSSFCell.
     /// </summary>
-    internal static class HSSFCellExtension
+    public static class HSSFCellExtension
     {
         /// <summary>
         /// Assign decimal value to cell.

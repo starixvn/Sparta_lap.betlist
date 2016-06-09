@@ -6,7 +6,7 @@
 //  <change who="jacob.phan" date="2012.5.8">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Extension
+namespace Fanex.Athena.Excel.Base.Extension
 {
     #region Using
 
@@ -19,7 +19,7 @@ namespace Fanex.Athena.Excel.Extension
     /// <summary>
     /// HSSFSheetExtensions class, define some extension method for HSSFSheet such as Copy Row, Copy Cell, ..
     /// </summary>
-    internal static class HSSFSheetExtension
+    public static class HSSFSheetExtension
     {
         /// <summary>
         /// CopyRow method is used to copy one row from a template to another template.

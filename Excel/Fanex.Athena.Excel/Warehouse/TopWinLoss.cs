@@ -11,8 +11,8 @@ namespace Fanex.Athena.Excel.Warehouse
 {
     using System.Collections.Generic;
     using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Warehouse.DTO;
     using NPOI.SS.UserModel;
     using Resources;

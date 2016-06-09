@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
     using Model.Core.DataDomain;
     using Models.DTO.Report;
     using Models.MetaModel.Report;

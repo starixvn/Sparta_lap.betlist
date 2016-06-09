@@ -12,7 +12,7 @@ namespace Fanex.Athena.Api.Report
     using System.Text;
     using System.Web;
     using System.Web.Http;
-    using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Models.DTO.Report;

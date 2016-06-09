@@ -7,7 +7,7 @@
 //   <change who="Dave.Bui" date="2012.4.11">Created</change>
 // </history>
 
-namespace Fanex.Athena.Excel.Entities
+namespace Fanex.Athena.Excel.Base.Entities
 {
     /// <summary>
     /// Showing option.

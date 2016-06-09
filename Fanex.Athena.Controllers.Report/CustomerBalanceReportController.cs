@@ -10,7 +10,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Product;

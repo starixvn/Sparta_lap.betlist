@@ -16,7 +16,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Entities;
+    using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;

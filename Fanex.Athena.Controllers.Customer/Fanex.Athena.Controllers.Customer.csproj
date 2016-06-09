@@ -94,6 +94,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
+      <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
+      <Name>Fanex.Athena.Excel.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
+      <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
+      <Name>Fanex.Athena.Excel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>
       <Name>Fanex.Athena.Controllers.Base</Name>
@@ -101,10 +109,6 @@
     <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
-      <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
-      <Name>Fanex.Athena.Excel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>

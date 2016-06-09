@@ -12,10 +12,9 @@ namespace Fanex.Athena.Excel.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Base;
+    using Base.Entities;
     using Common;
-    using Entities;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Extension;
     using NPOI.SS.UserModel;
     using Resources;
 

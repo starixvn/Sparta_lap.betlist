@@ -9,7 +9,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Base;
-    using Fanex.Athena.Excel.Extension;
+    using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Casino.ViewModel;

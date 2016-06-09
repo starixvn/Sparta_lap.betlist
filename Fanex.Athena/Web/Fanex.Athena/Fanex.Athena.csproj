@@ -4658,10 +4658,6 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
-      <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>
-      <Name>Fanex.Athena.Excel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
