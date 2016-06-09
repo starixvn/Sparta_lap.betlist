@@ -4610,9 +4610,21 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api\Fanex.Athena.Api.csproj">
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj">
+      <Project>{16d39d7b-00c0-4cc3-82f5-44bbdee7ae51}</Project>
+      <Name>Fanex.Athena.Api.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
+      <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
+      <Name>Fanex.Athena.Api.CustomerLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
+      <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>
+      <Name>Fanex.Athena.Api.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj">
       <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
-      <Name>Fanex.Athena.Api</Name>
+      <Name>Fanex.Athena.Api.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
       <Project>{83f7dc5c-e81c-45e5-bc83-b58e45198a2e}</Project>

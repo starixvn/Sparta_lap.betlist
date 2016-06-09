@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using Base;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.MetaModel;
 
