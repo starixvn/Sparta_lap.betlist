@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CAE29E33-ECAD-4170-8196-BDB2A28EB838}</ProjectGuid>
+    <ProjectGuid>{F3530308-8F06-4EA1-856A-296B27614054}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.Athena.Model.Warehouse</RootNamespace>
-    <AssemblyName>Fanex.Athena.Model.Warehouse</AssemblyName>
+    <RootNamespace>Fanex.Athena.Model.TotalBet</RootNamespace>
+    <AssemblyName>Fanex.Athena.Model.TotalBet</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -20,7 +20,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -54,16 +54,43 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\TopCustomer.cs" />
-    <Compile Include="DTO\WarehouseReportBy.cs" />
-    <Compile Include="DTO\WinLoss.cs" />
-    <Compile Include="MetaModel\BaseWarehouseMetaModel.cs" />
-    <Compile Include="MetaModel\TopCustomerMetaModel.cs" />
-    <Compile Include="MetaModel\WinLossMetaModel.cs" />
+    <Compile Include="DTO\FirstGoalLastGoal.cs" />
+    <Compile Include="DTO\HalfTimeFullTime.cs" />
+    <Compile Include="DTO\HandicapOverUnder.cs" />
+    <Compile Include="DTO\HomeDrawAwayNoBet.cs" />
+    <Compile Include="DTO\MoneyLine.cs" />
+    <Compile Include="DTO\NumberGame.cs" />
+    <Compile Include="DTO\OddEvenDrawNoDraw.cs" />
+    <Compile Include="DTO\Outright.cs" />
+    <Compile Include="DTO\Racing.cs" />
+    <Compile Include="DTO\RacingBase.cs" />
+    <Compile Include="DTO\RacingLeague.cs" />
+    <Compile Include="DTO\RacingRace.cs" />
+    <Compile Include="DTO\TotalBetsBase.cs" />
+    <Compile Include="DTO\TotalGoal.cs" />
+    <Compile Include="MetaModel\FirstGoalLastGoalMetaModel.cs" />
+    <Compile Include="MetaModel\HalfTimeFullTimeMetaModel.cs" />
+    <Compile Include="MetaModel\HandicapOverUnderMetaModel.cs" />
+    <Compile Include="MetaModel\HomeDrawAwayNoBetMetaModel.cs" />
+    <Compile Include="MetaModel\MoneyLineMetaModel.cs" />
+    <Compile Include="MetaModel\NumberGameMetaModel.cs" />
+    <Compile Include="MetaModel\OddEvenDrawNoDrawMetaModel.cs" />
+    <Compile Include="MetaModel\OutrightMetaModel.cs" />
+    <Compile Include="MetaModel\RacingMetaModel.cs" />
+    <Compile Include="MetaModel\TotalBetsBaseMetaModel.cs" />
+    <Compile Include="MetaModel\TotalGoalMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MetaModel\GroupingMetaModel.cs" />
-    <Compile Include="ViewModel\TopCustomerViewModel.cs" />
-    <Compile Include="ViewModel\WinLossViewModel.cs" />
+    <Compile Include="ViewModel\FirstGoalLastGoalViewModel.cs" />
+    <Compile Include="ViewModel\HalfTimeFullTimeViewModel.cs" />
+    <Compile Include="ViewModel\HandicapOverUnderViewModel.cs" />
+    <Compile Include="ViewModel\HomeDrawAwayNoBetViewModel.cs" />
+    <Compile Include="ViewModel\MoneyLineViewModel.cs" />
+    <Compile Include="ViewModel\NumberGameViewModel.cs" />
+    <Compile Include="ViewModel\OddEvenDrawNoDrawViewModel.cs" />
+    <Compile Include="ViewModel\OutrightViewModel.cs" />
+    <Compile Include="ViewModel\RacingViewModel.cs" />
+    <Compile Include="ViewModel\TotalBetsBaseViewModel.cs" />
+    <Compile Include="ViewModel\TotalGoalViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -72,10 +99,6 @@
     <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
-      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
-      <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

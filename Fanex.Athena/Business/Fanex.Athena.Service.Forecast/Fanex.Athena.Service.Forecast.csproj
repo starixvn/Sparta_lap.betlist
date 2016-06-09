@@ -96,19 +96,19 @@
       <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
       <Name>Fanex.Athena.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
       <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj">
       <Project>{c1417906-061a-4910-885f-6497a4ee8a15}</Project>
       <Name>Fanex.Athena.Model.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
       <Name>Fanex.Athena.Model.Report</Name>
     </ProjectReference>

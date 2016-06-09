@@ -107,11 +107,11 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
       <Name>Fanex.Athena.Model.BetSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>

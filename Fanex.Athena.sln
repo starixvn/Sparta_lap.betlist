@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8A8161D6-261F-4B28-9CB8-71D83D5977E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Report", "Fanex.Athena\Business\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Report", "Model\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj", "{3AA658FF-B635-4990-A49C-AE886841A1CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers", "Fanex.Athena\Web\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj", "{BEC66A01-FA27-4418-8F8A-C2B4388A7905}"
 EndProject
@@ -60,39 +60,39 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Cus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Customer", "Fanex.Athena\Business\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj", "{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Core", "Fanex.Athena\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj", "{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Core", "Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj", "{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Resources", "Fanex.Athena\Business\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj", "{17B0022C-4902-4C61-908A-5DB81568DC3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetSettings", "Fanex.Athena\Business\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj", "{AC255686-6654-4A34-8F56-F18C502B5B0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetSettings", "Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj", "{AC255686-6654-4A34-8F56-F18C502B5B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Customer", "Fanex.Athena\Business\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj", "{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Customer", "Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj", "{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Casino", "Fanex.Athena\Business\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj", "{840A8298-60ED-40DC-A64E-F9048ABD32B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Casino", "Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj", "{840A8298-60ED-40DC-A64E-F9048ABD32B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Customer", "Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj", "{11985254-411E-45DC-9B50-8DCB8BD145EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Report", "Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj", "{BC358F4A-B85D-43A2-A669-D2D2C9F2EEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Warehouse", "Fanex.Athena\Business\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj", "{CAE29E33-ECAD-4170-8196-BDB2A28EB838}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Warehouse", "Model\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj", "{CAE29E33-ECAD-4170-8196-BDB2A28EB838}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Warehouse", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj", "{953513D5-68BD-46DB-9E2A-4966D61FE310}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Warehouse", "Fanex.Athena\Business\Fanex.Athena.Service.Warehouse\Fanex.Athena.Service.Warehouse.csproj", "{6C45F804-D256-4705-9FB3-CEF7AC93C8AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetList", "Fanex.Athena\Business\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetList", "Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList", "Fanex.Athena\Business\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Forecast", "Fanex.Athena\Business\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj", "{C1417906-061A-4910-885F-6497A4EE8A15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Forecast", "Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj", "{C1417906-061A-4910-885F-6497A4EE8A15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Forecast", "Fanex.Athena\Business\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj", "{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Forecast", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj", "{3C68D0D6-442D-4366-AB29-A793BBE92F49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.TotalBet", "Fanex.Athena\Business\Fanex.Athena.Model.TotalBet\Fanex.Athena.Model.TotalBet.csproj", "{F3530308-8F06-4EA1-856A-296B27614054}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.TotalBet", "Model\Fanex.Athena.Model.TotalBet\Fanex.Athena.Model.TotalBet.csproj", "{F3530308-8F06-4EA1-856A-296B27614054}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.TotalBet", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.TotalBet\Fanex.Athena.DataAccess.TotalBet.csproj", "{152EBE71-ED5C-4F5C-8817-C3AA406E16B8}"
 EndProject
@@ -115,6 +115,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Warehouse", "Excel\Fanex.Athena.Excel.Warehouse\Fanex.Athena.Excel.Warehouse.csproj", "{E9D3DF2A-A136-43B8-B30E-C116178CE12A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Customer", "Excel\Fanex.Athena.Excel.Customer\Fanex.Athena.Excel.Customer.csproj", "{C741A329-44B9-4DD1-98C1-4EAAED4A9012}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{FF903E7B-A043-4B69-B750-4830F0E5C58A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -707,7 +709,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3AA658FF-B635-4990-A49C-AE886841A1CA} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{3AA658FF-B635-4990-A49C-AE886841A1CA} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{BEC66A01-FA27-4418-8F8A-C2B4388A7905} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
 		{5653BC29-0843-4D75-9140-5B370DF2F88C} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 		{AE7D3FED-BFFF-4AD6-816B-3A1644940511} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
@@ -728,23 +730,23 @@ Global
 		{EFAB3719-796C-4B55-8873-D4573416F07A} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{C25DC4BC-2721-401B-8896-D210D70B392B} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 		{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
-		{5F410090-94C0-46A5-9FEC-B6C3B745B7A0} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{5F410090-94C0-46A5-9FEC-B6C3B745B7A0} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{17B0022C-4902-4C61-908A-5DB81568DC3A} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
-		{AC255686-6654-4A34-8F56-F18C502B5B0A} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
-		{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
-		{840A8298-60ED-40DC-A64E-F9048ABD32B5} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{AC255686-6654-4A34-8F56-F18C502B5B0A} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
+		{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
+		{840A8298-60ED-40DC-A64E-F9048ABD32B5} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{11985254-411E-45DC-9B50-8DCB8BD145EF} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
 		{BC358F4A-B85D-43A2-A669-D2D2C9F2EEDB} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
-		{CAE29E33-ECAD-4170-8196-BDB2A28EB838} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{CAE29E33-ECAD-4170-8196-BDB2A28EB838} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{953513D5-68BD-46DB-9E2A-4966D61FE310} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 		{6C45F804-D256-4705-9FB3-CEF7AC93C8AF} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
-		{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{B269F027-9AE1-4969-89D6-56C401B96051} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
-		{C1417906-061A-4910-885F-6497A4EE8A15} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{C1417906-061A-4910-885F-6497A4EE8A15} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{3C68D0D6-442D-4366-AB29-A793BBE92F49} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
-		{F3530308-8F06-4EA1-856A-296B27614054} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
+		{F3530308-8F06-4EA1-856A-296B27614054} = {FF903E7B-A043-4B69-B750-4830F0E5C58A}
 		{152EBE71-ED5C-4F5C-8817-C3AA406E16B8} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
 		{958801C9-B654-4F04-955A-08CCC659711D} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{16D39D7B-00C0-4CC3-82F5-44BBDEE7AE51} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
