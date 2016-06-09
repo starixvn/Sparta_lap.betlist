@@ -20,8 +20,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using Web.ActionFilter;
 
     public class AhForecastController : ForecastBaseController
-    {
-        [HttpGet]
+    {       
         [FunctionAuthorization]
         public ActionResult Index(ForecastAHMetaModel metaModel)
         {
