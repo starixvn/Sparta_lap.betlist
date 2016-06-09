@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{958801C9-B654-4F04-955A-08CCC659711D}</ProjectGuid>
+    <ProjectGuid>{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.Athena.Service.TotalBet</RootNamespace>
-    <AssemblyName>Fanex.Athena.Service.TotalBet</AssemblyName>
+    <RootNamespace>Fanex.Athena.Service.Forecast</RootNamespace>
+    <AssemblyName>Fanex.Athena.Service.Forecast</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -44,6 +44,10 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\Casino\HandHistoryLibrary.dll</HintPath>
@@ -67,48 +71,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FirstGoalLastGoalService.cs" />
-    <Compile Include="HalfTimeFullTimeService.cs" />
-    <Compile Include="HandicapOverUnderService.cs" />
-    <Compile Include="HomeDrawAwayNoBetService.cs" />
-    <Compile Include="MoneyLineService.cs" />
-    <Compile Include="NumberGameService.cs" />
-    <Compile Include="OddEvenDrawNoDrawService.cs" />
-    <Compile Include="OutrightService.cs" />
-    <Compile Include="RacingService.cs" />
-    <Compile Include="TotalGoalService.cs" />
-    <Compile Include="Interfaces\IFirstGoalLastGoalService.cs" />
-    <Compile Include="Interfaces\IHalfTimeFullTimeService.cs" />
-    <Compile Include="Interfaces\IHandicapOverUnderService.cs" />
-    <Compile Include="Interfaces\IHomeDrawAwayNoBetService.cs" />
-    <Compile Include="Interfaces\IMoneyLineService.cs" />
-    <Compile Include="Interfaces\INumberGameService.cs" />
-    <Compile Include="Interfaces\IOddEvenDrawNoDrawService.cs" />
-    <Compile Include="Interfaces\IOutrightService.cs" />
-    <Compile Include="Interfaces\IRacingService.cs" />
-    <Compile Include="Interfaces\ITotalGoalService.cs" />
+    <Compile Include="ForecastService.cs" />
+    <Compile Include="Interfaces\IForecastService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.TotalBet\Fanex.Athena.DataAccess.TotalBet.csproj">
-      <Project>{152ebe71-ed5c-4f5c-8817-c3aa406e16b8}</Project>
-      <Name>Fanex.Athena.DataAccess.TotalBet</Name>
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
+      <Project>{68f63a3b-062c-4adc-8718-91134a6ffb85}</Project>
+      <Name>Fanex.Athena.DataAccess.BetSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj">
+      <Project>{3c68d0d6-442d-4366-ab29-a793bbe92f49}</Project>
+      <Name>Fanex.Athena.DataAccess.Forecast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj">
+      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Name>Fanex.Athena.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.TotalBet\Fanex.Athena.Model.TotalBet.csproj">
-      <Project>{f3530308-8f06-4ea1-856a-296b27614054}</Project>
-      <Name>Fanex.Athena.Model.TotalBet</Name>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
+      <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
+      <Name>Fanex.Athena.Model.Customer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj">
+      <Project>{c1417906-061a-4910-885f-6497a4ee8a15}</Project>
+      <Name>Fanex.Athena.Model.Forecast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj">
+      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
+      <Name>Fanex.Athena.Model.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
+      <Project>{efab3719-796c-4b55-8873-d4573416f07a}</Project>
+      <Name>Fanex.Athena.Service.Casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
@@ -117,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

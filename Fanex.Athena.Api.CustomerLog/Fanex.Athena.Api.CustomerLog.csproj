@@ -178,11 +178,11 @@
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
       <Project>{ec87b5f7-32ca-485b-a3ff-52a5d0edce42}</Project>
       <Name>Fanex.Athena.Service.Customer</Name>
     </ProjectReference>

@@ -100,11 +100,11 @@
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj">
       <Project>{e2ec4ea8-7955-4232-8b28-fbc3730eaeba}</Project>
       <Name>Fanex.Athena.Service.Forecast</Name>
     </ProjectReference>

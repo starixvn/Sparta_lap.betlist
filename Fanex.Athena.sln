@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{195AD258-DE51-497C-BA3B-1645AE32CAB6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{195AD258-DE51-497C-BA3B-1645AE32CAB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{D72107B8-4765-4E3D-A86D-36BD7E0D9109}"
 EndProject
@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess\Fanex.Athena.DataAccess.csproj", "{5653BC29-0843-4D75-9140-5B370DF2F88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service", "Fanex.Athena\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service", "Service\Fanex.Athena.Service\Fanex.Athena.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "Fanex.Athena.Extension\Fanex.Athena.Extension.csproj", "{71F95E53-36D0-4091-828D-ED14C9939C35}"
 EndProject
@@ -50,15 +50,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Bet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj", "{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core", "Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj", "{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core", "Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj", "{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetSettings", "Fanex.Athena\Business\Fanex.Athena.Service.BetSettings\Fanex.Athena.Service.BetSettings.csproj", "{E3C3C559-CF7C-45ED-8179-0BB9159E40A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetSettings", "Service\Fanex.Athena.Service.BetSettings\Fanex.Athena.Service.BetSettings.csproj", "{E3C3C559-CF7C-45ED-8179-0BB9159E40A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Casino", "Fanex.Athena\Business\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj", "{EFAB3719-796C-4B55-8873-D4573416F07A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Casino", "Service\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj", "{EFAB3719-796C-4B55-8873-D4573416F07A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Customer", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Customer\Fanex.Athena.DataAccess.Customer.csproj", "{C25DC4BC-2721-401B-8896-D210D70B392B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Customer", "Fanex.Athena\Business\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj", "{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Customer", "Service\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj", "{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Core", "Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj", "{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}"
 EndProject
@@ -78,17 +78,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Warehous
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Warehouse", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj", "{953513D5-68BD-46DB-9E2A-4966D61FE310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Warehouse", "Fanex.Athena\Business\Fanex.Athena.Service.Warehouse\Fanex.Athena.Service.Warehouse.csproj", "{6C45F804-D256-4705-9FB3-CEF7AC93C8AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Warehouse", "Service\Fanex.Athena.Service.Warehouse\Fanex.Athena.Service.Warehouse.csproj", "{6C45F804-D256-4705-9FB3-CEF7AC93C8AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.BetList", "Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj", "{4956FBD7-5F68-4E7B-AF6C-DB5FB1F255F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList", "Fanex.Athena\Business\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList", "Service\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj", "{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj", "{B269F027-9AE1-4969-89D6-56C401B96051}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.Forecast", "Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj", "{C1417906-061A-4910-885F-6497A4EE8A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Forecast", "Fanex.Athena\Business\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj", "{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Forecast", "Service\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj", "{E2EC4EA8-7955-4232-8B28-FBC3730EAEBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Forecast", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Forecast\Fanex.Athena.DataAccess.Forecast.csproj", "{3C68D0D6-442D-4366-AB29-A793BBE92F49}"
 EndProject
@@ -96,7 +96,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Model.TotalBet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.TotalBet", "Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.TotalBet\Fanex.Athena.DataAccess.TotalBet.csproj", "{152EBE71-ED5C-4F5C-8817-C3AA406E16B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.TotalBet", "Fanex.Athena\Business\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj", "{958801C9-B654-4F04-955A-08CCC659711D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.TotalBet", "Service\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj", "{958801C9-B654-4F04-955A-08CCC659711D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Base", "Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj", "{16D39D7B-00C0-4CC3-82F5-44BBDEE7AE51}"
 EndProject

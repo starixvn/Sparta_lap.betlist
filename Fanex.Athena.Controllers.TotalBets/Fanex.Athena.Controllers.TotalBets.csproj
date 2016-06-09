@@ -105,11 +105,11 @@
       <Project>{f3530308-8f06-4ea1-856a-296b27614054}</Project>
       <Name>Fanex.Athena.Model.TotalBet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj">
+    <ProjectReference Include="..\Service\Fanex.Athena.Service.TotalBet\Fanex.Athena.Service.TotalBet.csproj">
       <Project>{958801c9-b654-4f04-955a-08ccc659711d}</Project>
       <Name>Fanex.Athena.Service.TotalBet</Name>
     </ProjectReference>

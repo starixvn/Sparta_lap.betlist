@@ -65,19 +65,19 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena\DataAccess\Fanex.Athena.DataAccess.Warehouse\Fanex.Athena.DataAccess.Warehouse.csproj">
       <Project>{953513d5-68bd-46db-9e2a-4966d61fe310}</Project>
       <Name>Fanex.Athena.DataAccess.Warehouse</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj">
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj">
       <Project>{cae29e33-ecad-4170-8196-bdb2a28eb838}</Project>
       <Name>Fanex.Athena.Model.Warehouse</Name>
     </ProjectReference>
