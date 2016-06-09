@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Helpers;
@@ -20,23 +21,32 @@
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
-            CancellationToken cancellationToken, 
+            CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
             try
             {
-                var content = actionContext.Request.GetRouteData();
-
                 var headers = actionContext.Request.Headers;
 
-                var cookie = headers
-                    .GetCookies()
-                    .Select(c => c[AntiForgeryConfig.CookieName])
-                    .FirstOrDefault();
+                if (IsAjaxRequest(headers))
+                {
+                    if (!headers.Contains(AntiForgeryHeaderName))
+                    {
+                        return UnauthorizeAccessHandler(actionContext);
+                    }
 
-                var crfsKey = headers.GetValues(AntiForgeryHeaderName).FirstOrDefault();
+                    var cookie = headers
+                        .GetCookies()
+                        .Select(c => c[AntiForgeryConfig.CookieName])
+                        .FirstOrDefault();
 
-                AntiForgery.Validate(cookie != null ? cookie.Value : null, crfsKey);
+                    var crfsKey = headers.GetValues(AntiForgeryHeaderName).FirstOrDefault();
+                    AntiForgery.Validate(cookie != null ? cookie.Value : null, crfsKey);
+                }
+                else
+                {
+                    AntiForgery.Validate();
+                }
             }
             catch
             {
@@ -49,6 +59,11 @@
             }
 
             return continuation();
+        }
+
+        private static bool IsAjaxRequest(HttpRequestHeaders headers)
+        {
+            return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
         }
 
         private Task<HttpResponseMessage> UnauthorizeAccessHandler(HttpActionContext actionContext)
