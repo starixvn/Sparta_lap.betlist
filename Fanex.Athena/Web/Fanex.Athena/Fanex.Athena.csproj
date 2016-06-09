@@ -4675,9 +4675,9 @@
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Service\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
+    <ProjectReference Include="..\..\..\Service\Fanex.Athena.Service\Fanex.Athena.Service.Report.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
-      <Name>Fanex.Athena.Service</Name>
+      <Name>Fanex.Athena.Service.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
       <Project>{BEC66A01-FA27-4418-8F8A-C2B4388A7905}</Project>

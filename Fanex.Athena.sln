@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Report", "DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj", "{5653BC29-0843-4D75-9140-5B370DF2F88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service", "Service\Fanex.Athena.Service\Fanex.Athena.Service.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Report", "Service\Fanex.Athena.Service\Fanex.Athena.Service.Report.csproj", "{AE7D3FED-BFFF-4AD6-816B-3A1644940511}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "Fanex.Athena.Extension\Fanex.Athena.Extension.csproj", "{71F95E53-36D0-4091-828D-ED14C9939C35}"
 EndProject

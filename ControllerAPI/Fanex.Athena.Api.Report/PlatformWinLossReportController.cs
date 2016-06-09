@@ -22,8 +22,8 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
-    using Service.Implement.Report;
-    using Service.Interface.Report;
+    using Service.Report;
+    using Service.Report.Interfaces;
     using Web.ActionFilter;
 
     public class PlatformWinLossReportController : ApiReportBaseController

@@ -23,8 +23,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
-    using Service.Implement.Report;
-    using Service.Interface.Report;
+    using Service.Report;
+    using Service.Report.Interfaces;
     using Web.ActionFilter;
 
     public class WinLossByProductReportController : ApiReportBaseController

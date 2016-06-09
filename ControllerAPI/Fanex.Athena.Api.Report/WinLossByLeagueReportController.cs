@@ -20,8 +20,8 @@ namespace Fanex.Athena.Api.Report
     using Resources;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
-    using Service.Implement.Report;
-    using Service.Interface.Report;
+    using Service.Report;
+    using Service.Report.Interfaces;
     using Web.ActionFilter;
 
     public class WinLossByLeagueReportController : ApiReportBaseController

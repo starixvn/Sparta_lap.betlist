@@ -8,7 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Implement.Report;
+    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
 
     public class SettledMatchCountReportController : ReportBaseController
