@@ -13,6 +13,7 @@ namespace Fanex.Athena.Excel.Warehouse
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Base;
     using Base.Entities;
     using Common;
     using Fanex.Athena.Excel.Base.Extension;

@@ -86,9 +86,9 @@
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Excel\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
-      <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
-      <Name>Fanex.Athena.Excel</Name>
+    <ProjectReference Include="..\Excel\Fanex.Athena.Excel.Warehouse\Fanex.Athena.Excel.Warehouse.csproj">
+      <Project>{e9d3df2a-a136-43b8-b30e-c116178ce12a}</Project>
+      <Name>Fanex.Athena.Excel.Warehouse</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>

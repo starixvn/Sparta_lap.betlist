@@ -11,6 +11,7 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
+    using Base;
     using Base.Entities;
     using Common.Extensions;
     using Fanex.Athena.Excel.Base.Extension;

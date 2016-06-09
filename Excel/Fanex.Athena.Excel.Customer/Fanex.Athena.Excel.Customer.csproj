@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</ProjectGuid>
+    <ProjectGuid>{C741A329-44B9-4DD1-98C1-4EAAED4A9012}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.Athena.Excel</RootNamespace>
-    <AssemblyName>Fanex.Athena.Excel</AssemblyName>
+    <RootNamespace>Fanex.Athena.Excel.Customer</RootNamespace>
+    <AssemblyName>Fanex.Athena.Excel.Customer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -62,42 +62,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BetList.AGCasino, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.AGCasino.1.0.0.4\lib\net40\Fanex.BetList.AGCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.12.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.RnGCasino.1.0.0.8-beta\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
@@ -128,60 +101,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseBetList.cs" />
-    <Compile Include="ReportBase.cs" />
-    <Compile Include="BetList\BetListExcel.cs" />
-    <Compile Include="BetList\LrfBetListExcelBuilder.cs" />
-    <Compile Include="Customer\CustomerListExcel.cs" />
-    <Compile Include="Report\WeeklyLiveMatchExcel.cs" />
-    <Compile Include="Report\AgCasinoWinLossExcel.cs" />
-    <Compile Include="Report\ActiveCustomerSummaryExcel.cs" />
-    <Compile Include="Report\CasinoProgressiveWinsExcel.cs" />
-    <Compile Include="Report\MicroGamingWinLossExcel.cs" />
-    <Compile Include="Report\GoldDeluxeWinLossExcel.cs" />
-    <Compile Include="Report\AgCasinoBalanceExcel.cs" />
-    <Compile Include="Report\PlatformWinLossSummaryExcel.cs" />
-    <Compile Include="Report\PlaytechCasinoExcel.cs" />
-    <Compile Include="Report\ThirdPartyWinLossExcel.cs" />
-    <Compile Include="Report\WinlossByLeagueExcel.cs" />
-    <Compile Include="Report\CustomerBalanceExcel.cs" />
-    <Compile Include="Report\CustomerCommGroup.cs" />
-    <Compile Include="Report\CustomerPendingFundsExcel.cs" />
-    <Compile Include="Report\CustomerTurnoverExcel.cs" />
-    <Compile Include="Report\CustomerWinLossExcel.cs" />
-    <Compile Include="Report\DailyRacingWinLoss12BetExcel.cs" />
-    <Compile Include="Report\LicenseeWinLossExcel.cs" />
-    <Compile Include="Report\MatchWinLossExcel.cs" />
-    <Compile Include="ResultBase.cs" />
-    <Compile Include="Report\BalanceExcel.cs" />
-    <Compile Include="Report\DailyRacingWinLossExcel.cs" />
-    <Compile Include="Report\LiveReportExcel.cs" />
-    <Compile Include="Report\PlatformWinLossMemberExcel.cs" />
+    <Compile Include="CustomerCommGroup.cs" />
+    <Compile Include="CustomerListExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\RacingCommissionExcel.cs" />
-    <Compile Include="RNGCasino\HandHistoryExcel.cs" />
-    <Compile Include="Warehouse\TopCustomer.cs" />
-    <Compile Include="Report\TurnoverExcel.cs" />
-    <Compile Include="Warehouse\TopWinLoss.cs" />
-    <Compile Include="Report\WinLossByBetTypeExcel.cs" />
-    <Compile Include="Report\WinlossByProductExcel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
-      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
-      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
-      <Name>Fanex.Athena.Model.BetList</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
-      <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
-      <Name>Fanex.Athena.Model.BetSettings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
-      <Project>{840a8298-60ed-40dc-a64e-f9048abd32b5}</Project>
-      <Name>Fanex.Athena.Model.Casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
@@ -190,14 +117,6 @@
     <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
       <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Model.Warehouse\Fanex.Athena.Model.Warehouse.csproj">
-      <Project>{cae29e33-ecad-4170-8196-bdb2a28eb838}</Project>
-      <Name>Fanex.Athena.Model.Warehouse</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
-      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
-      <Name>Fanex.Athena.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena\Business\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
