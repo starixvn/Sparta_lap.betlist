@@ -37,7 +37,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic PlatformWinloss(PlatformWinLossMetaModel metaModel)
+        public dynamic Index(PlatformWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }

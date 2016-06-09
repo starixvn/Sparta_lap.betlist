@@ -95,6 +95,7 @@ var Site = (function ($) {
                 }
             }
 
+            $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
             $form.submit();
             $form.remove();
         },

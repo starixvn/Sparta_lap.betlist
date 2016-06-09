@@ -160,8 +160,8 @@ var WinLossByLeagueOption = (function () {
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
             //level 0,1,2
-            urlData: 'api/report/WinLossByLeague',
-            urlExcelData: 'api/report/WinLossByLeague',
+            urlData: 'api/WinLossByLeagueReport/Index',
+            urlExcelData: 'api/WinLossByLeagueReport/Index',
             gridOption:
             {
                 datatype: 'local',

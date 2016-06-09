@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic MicroGamingWinLoss(
+        public dynamic Index(
             MicroGamingWinLossMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

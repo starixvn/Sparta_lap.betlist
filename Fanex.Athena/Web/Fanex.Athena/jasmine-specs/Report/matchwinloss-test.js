@@ -170,7 +170,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest('MatchWinLossDetail')
+                .stubRequest('MatchWinLossReport/Detail')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -191,8 +191,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'MatchWinLossDetail'", function () {
-            expect(request.url).toBe("MatchWinLossDetail");
+        it("Request url should be correct", function () {
+            expect(request.url).toBe("MatchWinLossReport/Detail");
         });
 
         it("'#parentRow' should has class named 'main'", function () {

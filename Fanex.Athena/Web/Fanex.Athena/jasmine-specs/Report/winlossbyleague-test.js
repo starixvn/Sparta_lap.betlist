@@ -92,7 +92,7 @@
             beforeEach(function (done) {              
                 jasmine.Ajax.install();
                 jasmine.Ajax
-                    .stubRequest("report/GetLeaguesBySport")
+                    .stubRequest("WinLossByLeagueReport/GetLeaguesBySport")
                     .andReturn({
                         'status': 200,
                         'contentType': 'application/json',
@@ -110,7 +110,7 @@
             });
 
             it("ajax request should be called with correct url", function () {
-                expect(request.url).toBe("report/GetLeaguesBySport");
+                expect(request.url).toBe("WinLossByLeagueReport/GetLeaguesBySport");
             });
         });
 

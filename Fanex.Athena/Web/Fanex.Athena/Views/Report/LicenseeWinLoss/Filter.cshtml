@@ -4,6 +4,7 @@
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     <form id="licenseewinloss" name="licenseewinloss" method="post" action="">
+        @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
         AppSettings.HistoryDate, AppSettings.MaxDate, "date-range", "date-range", 3, 3, 2, 3)
     <div class="grid_2 filter-label" style="width: 45px;">

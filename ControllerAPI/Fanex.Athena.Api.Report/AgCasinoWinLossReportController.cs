@@ -36,7 +36,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic AgCasinoWL(
+        public dynamic Index(
             AgCasinoWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic AgCasinoWL([FromBody] AgCasinoWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] AgCasinoWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

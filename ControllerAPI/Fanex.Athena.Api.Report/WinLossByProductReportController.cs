@@ -40,7 +40,7 @@ namespace Fanex.Athena.Api.Report
         [HttpPost]
         [AjaxRequest]
         [ApiFunctionAuthorization]
-        public dynamic WinLossByProduct(
+        public dynamic Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Api.Report
         [HttpPost]
         [AjaxRequest]
         [ApiFunctionAuthorization]
-        public dynamic WinLossByProduct([FromBody] WinLossByProductMetaModel metaModel)
+        public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

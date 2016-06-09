@@ -35,7 +35,7 @@ var CancelledBetsBetList = (function ($) {
             var params = { custId: $("#CustId").val() };
             params = Site.setLicenseeOptionParam(params);
 
-            var url = Site.resolveClientUrl('api/betlist/CancelledBetsBetList');
+            var url = Site.resolveClientUrl('api/CancelledBetsBetList/Index');
             BetList.loadData(params, url);
         },
 

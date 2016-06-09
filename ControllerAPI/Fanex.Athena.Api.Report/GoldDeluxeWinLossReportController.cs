@@ -33,7 +33,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic GoldDeluxeWinLoss(
+        public dynamic Index(
             GoldDeluxeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -46,7 +46,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic GoldDeluxeWinLoss([FromBody] GoldDeluxeWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] GoldDeluxeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

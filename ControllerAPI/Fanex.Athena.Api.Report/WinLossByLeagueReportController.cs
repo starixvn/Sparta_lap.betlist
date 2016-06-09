@@ -38,14 +38,14 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic WinLossByLeague([FromBody] WinLossByLeagueMetaModel metaModel)
+        public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
 
-        [HttpGet]
+        [HttpPost]
         [ApiFunctionAuthorization]
-        public HttpResponseMessage WinLossByLeagueExcel([FromUri] WinLossByLeagueMetaModel metaModel)
+        public HttpResponseMessage Excel(WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {

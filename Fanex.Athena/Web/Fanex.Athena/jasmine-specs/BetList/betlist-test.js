@@ -226,7 +226,7 @@
             });
 
             it("request url should be correct", function () {
-                expect(request.url).toMatch(/api\/betlist\/MixParlayDetail\?transId=0/);
+                expect(request.url).toMatch(/api\/MixParlayBetList\/Detail\?transId=0/);
             });
 
             it("'divEvent' element should be visible", function () {
@@ -261,7 +261,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('BetList/SystemParlayDetail?transid=1&refno=0&betid=0&custid=0&betteam=Test BetTeam&basecurrency=0');
+            expect($iframe.attr('src')).toBe('SystemParlayBetList/Detail?transid=1&refno=0&betid=0&custid=0&betteam=Test BetTeam&basecurrency=0');
         });
     });
 
@@ -283,7 +283,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('BetList/MicroGamingRngDetail?transid=0&custid=0&transtype=0');
+            expect($iframe.attr('src')).toBe('MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0');
         });
     });
 
@@ -305,7 +305,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('BetList/AGCasinoDetail?transid=0&custid=0&transtype=0');
+            expect($iframe.attr('src')).toBe('AGCasinoBetList/Detail?transid=0&custid=0&transtype=0');
         });
     });
 

@@ -35,7 +35,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic ActiveCustomerSummary(ActiveCustomerMetaModel metaModel)
+        public dynamic Index(ActiveCustomerMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }

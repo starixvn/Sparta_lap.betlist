@@ -3,7 +3,7 @@
 @model DailyRacingWinLossViewModel
            <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
 
-@using (Html.BeginForm("DailyRacingWinLoss", "Report", FormMethod.Post, new { @id = "ReportForm" }))
+@using (Html.BeginForm("Index", "DailyRacingWinLossReport", FormMethod.Post, new { @id = "ReportForm" }))
 {
     <div id="hiddenfield">
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)

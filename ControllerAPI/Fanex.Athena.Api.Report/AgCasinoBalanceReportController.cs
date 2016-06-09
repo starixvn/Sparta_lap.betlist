@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic AgCasinoBalance(AgCasinoBalanceMetaModel metaModel)
+        public dynamic Index(AgCasinoBalanceMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }

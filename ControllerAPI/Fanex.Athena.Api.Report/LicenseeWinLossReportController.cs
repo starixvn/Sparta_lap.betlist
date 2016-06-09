@@ -35,7 +35,7 @@ namespace Fanex.Athena.Api.Report
         
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic LicenseeWL(
+        public dynamic Index(
             LicenseeWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         [ApiFunctionAuthorization]
-        public dynamic LicenseeWL([FromBody] LicenseeWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] LicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

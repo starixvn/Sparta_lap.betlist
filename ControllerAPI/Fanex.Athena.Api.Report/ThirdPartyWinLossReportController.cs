@@ -31,7 +31,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic ThirdPartyWinLoss(
+        public dynamic Index(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic ThirdPartyWinLoss([FromBody] ThirdPartyWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }

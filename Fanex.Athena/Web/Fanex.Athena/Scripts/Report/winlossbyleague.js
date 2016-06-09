@@ -76,7 +76,7 @@ var WinLossByLeague = (function ($) {
 
         ajaxLeagues = $.ajax({
             type: "POST",
-            url: Site.resolveClientUrl("report/GetLeaguesBySport"),
+            url: Site.resolveClientUrl("WinLossByLeagueReport/GetLeaguesBySport"),
             data: {
                 currencyId: $("#CurrencyId").val(),
                 sportid: $("#Sport").val(),
@@ -200,7 +200,9 @@ var WinLossByLeague = (function ($) {
             $("#ExportToExcel").click(function (e) {
                 _postdata.LeagueName = _leaguename;
                 _postdata.Level = _level;
-                window.location.href = (Site.resolveClientUrl("api/Report/WinLossByLeagueExcel?") + $.param(_postdata));
+                
+                Site.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
+              //  window.location.href = (Site.resolveClientUrl("api/WinLossByLeagueReport/Excel?") + $.param(_postdata));
                 e.preventDefault();
             });
 
@@ -394,7 +396,7 @@ var WinLossByLeague = (function ($) {
 
             buildProductsParams(param);
 
-            var url = Site.resolveClientUrl("BetList/WinlossByLeague?") + $.param(param);
+            var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
             window.open(url, "", "modal=no");
         },
 

@@ -21,10 +21,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Service.Report.Keno;
     using Fanex.Athena.Service.Report;
-    using Fanex.Athena.Service.Report.Keno.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Fanex.Athena.Service.Report.Keno;
+    using Fanex.Athena.Service.Report.Keno.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core;
     using Fanex.Result.Core.Base;

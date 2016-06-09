@@ -11,8 +11,8 @@
             expect(WinLossByLeagueOption.rowNum).toBe(50);
             expect(WinLossByLeagueOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
             expect(WinLossByLeagueOption.totalColspan).toEqual([1, 2, 3]);
-            expect(WinLossByLeagueOption.urlData).toBe("api/report/WinLossByLeague");
-            expect(WinLossByLeagueOption.urlExcelData).toBe("api/report/WinLossByLeague");
+            expect(WinLossByLeagueOption.urlData).toBe("api/WinLossByLeagueReport/Index");
+            expect(WinLossByLeagueOption.urlExcelData).toBe("api/WinLossByLeagueReport/Index");
         });
     });
 
