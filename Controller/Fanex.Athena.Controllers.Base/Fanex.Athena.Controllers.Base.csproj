@@ -138,7 +138,7 @@
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Service\Fanex.Athena.Service\Fanex.Athena.Service.Report.csproj">
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
       <Project>{ae7d3fed-bfff-4ad6-816b-3a1644940511}</Project>
       <Name>Fanex.Athena.Service.Report</Name>
     </ProjectReference>
