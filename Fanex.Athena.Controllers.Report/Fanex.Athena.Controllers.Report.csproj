@@ -225,7 +225,7 @@
       <Project>{3aa658ff-b635-4990-a49c-ae886841a1ca}</Project>
       <Name>Fanex.Athena.Model.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Business\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+    <ProjectReference Include="..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
