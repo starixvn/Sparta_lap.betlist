@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BD14328F-0BCA-43E4-A3DF-CE166AC95135}</ProjectGuid>
+    <ProjectGuid>{392B39F4-3F95-40D2-A3E1-F08AD10CE6F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.Athena.Controllers.BetSettings</RootNamespace>
-    <AssemblyName>Fanex.Athena.Controllers.BetSettings</AssemblyName>
+    <RootNamespace>Fanex.Athena.Controllers.Forecast</RootNamespace>
+    <AssemblyName>Fanex.Athena.Controllers.Forecast</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,34 +31,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -68,19 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VirtualSportsBetSettingController.cs" />
-    <Compile Include="KenoBetSettingController.cs" />
-    <Compile Include="LiveCasinoBetSettingController.cs" />
-    <Compile Include="RngCasinoBetSettingController.cs" />
-    <Compile Include="RacingBetSettingController.cs" />
-    <Compile Include="BetSettingBaseController.cs" />
-    <Compile Include="SportsbookBetSettingController.cs" />
-    <Compile Include="GoldDeluxeBetSettingController.cs" />
-    <Compile Include="AgCasinoBetSettingController.cs" />
-    <Compile Include="ThirdPartyBetSettingController.cs" />
-    <Compile Include="NumberGameBetSettingController.cs" />
+    <Compile Include="AhForecastController.cs" />
+    <Compile Include="ForecastBaseController.cs" />
+    <Compile Include="HandicapOverUnderForecastController.cs" />
+    <Compile Include="NewHandicapOverUnderForecastController.cs" />
+    <Compile Include="OneXTwoForecastController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VoidbridgeBetSettingController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -91,51 +84,31 @@
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>
       <Name>Fanex.Athena.Controllers.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
-      <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
-      <Name>Fanex.Athena.Model.BetSettings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
-      <Project>{840a8298-60ed-40dc-a64e-f9048abd32b5}</Project>
-      <Name>Fanex.Athena.Model.Casino</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
-      <Project>{3b212f2f-4deb-449b-9ae0-36f6e4f49f5f}</Project>
-      <Name>Fanex.Athena.Model.Customer</Name>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj">
+      <Project>{c1417906-061a-4910-885f-6497a4ee8a15}</Project>
+      <Name>Fanex.Athena.Model.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Fanex.Athena.Service.BetSettings\Fanex.Athena.Service.BetSettings.csproj">
-      <Project>{e3c3c559-cf7c-45ed-8179-0bb9159e40a8}</Project>
-      <Name>Fanex.Athena.Service.BetSettings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
-      <Project>{EFAB3719-796C-4B55-8873-D4573416F07A}</Project>
-      <Name>Fanex.Athena.Service.Casino</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
-      <Project>{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}</Project>
-      <Name>Fanex.Athena.Service.Customer</Name>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Forecast\Fanex.Athena.Service.Forecast.csproj">
+      <Project>{e2ec4ea8-7955-4232-8b28-fbc3730eaeba}</Project>
+      <Name>Fanex.Athena.Service.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
-      <Project>{ae7d3fed-bfff-4ad6-816b-3a1644940511}</Project>
-      <Name>Fanex.Athena.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena\Web\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
+    <ProjectReference Include="..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{dd931adb-a994-49c0-95a3-72bcb6e22679}</Project>
       <Name>Fanex.Athena.Web</Name>
     </ProjectReference>

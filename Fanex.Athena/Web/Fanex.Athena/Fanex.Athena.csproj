@@ -4610,47 +4610,47 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj">
       <Project>{16d39d7b-00c0-4cc3-82f5-44bbdee7ae51}</Project>
       <Name>Fanex.Athena.Api.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
       <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
       <Name>Fanex.Athena.Api.CustomerLog</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
       <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>
       <Name>Fanex.Athena.Api.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj">
       <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
       <Name>Fanex.Athena.Api.BetList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
       <Project>{83f7dc5c-e81c-45e5-bc83-b58e45198a2e}</Project>
       <Name>Fanex.Athena.Controllers.BetList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj">
       <Project>{bd14328f-0bca-43e4-a3df-ce166ac95135}</Project>
       <Name>Fanex.Athena.Controllers.BetSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj">
       <Project>{11985254-411e-45dc-9b50-8dcb8bd145ef}</Project>
       <Name>Fanex.Athena.Controllers.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
       <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
       <Name>Fanex.Athena.Controllers.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj">
       <Project>{bc358f4a-b85d-43a2-a669-d2d2c9f2eedb}</Project>
       <Name>Fanex.Athena.Controllers.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.WareHouse\Fanex.Athena.Controllers.WareHouse.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.WareHouse\Fanex.Athena.Controllers.WareHouse.csproj">
       <Project>{f266d127-f96b-4bcc-8138-88954fffd5a9}</Project>
       <Name>Fanex.Athena.Controllers.WareHouse</Name>
     </ProjectReference>
@@ -4679,12 +4679,12 @@
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
       <Project>{BEC66A01-FA27-4418-8F8A-C2B4388A7905}</Project>
       <Name>Fanex.Athena.Controllers</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
+    <ProjectReference Include="..\..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>
     </ProjectReference>
