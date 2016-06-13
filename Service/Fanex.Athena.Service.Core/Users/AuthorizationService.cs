@@ -157,7 +157,7 @@ namespace Fanex.Athena.Service.Core.Users
 
             var rawExcutionUrl = GetExecutionUrl(rawUrl);
             var rawParams = GetUrlParameters(rawUrl);
-            var excutionPatternUrl = GetExecutionUrl(urlPattern);
+            var excutionPatternUrl = "/" + GetExecutionUrl(urlPattern);
             var paramPattern = GetUrlParameters(urlPattern);
 
             if (!rawExcutionUrl.Contains(excutionPatternUrl))
