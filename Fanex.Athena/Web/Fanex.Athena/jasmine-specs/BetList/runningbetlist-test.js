@@ -58,7 +58,7 @@
         });
 
         it("BetList.loadData(params, url) should be called with correct parameters", function () {
-            expect(BetList.loadData).toHaveBeenCalledWith({ bettype: 1 }, 'api/betlist/runningbetlist');
+            expect(BetList.loadData).toHaveBeenCalledWith({ bettype: 1 }, 'api/RunningBetList/Index');
         });
     });
 

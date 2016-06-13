@@ -69,7 +69,7 @@
                 LicenseeType: "",
                 multiplebettype: ""
             };
-            var url = 'api/betlist/RunningBetListMultipleBettypes';
+            var url = 'api/RunningBettypesBetList/Index';
             expect(BetList.loadData).toHaveBeenCalledWith(params, url);
         });
     });
