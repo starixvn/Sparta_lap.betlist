@@ -30,7 +30,7 @@ var RunningBetListMultipleBettype = (function ($) {
             // Load Data
             var params = { multiplebettype: getBettypesParam() };
             params = Site.setLicenseeOptionParam(params);
-            var url = Site.resolveClientUrl('api/betlist/RunningBetListMultipleBettypes');
+            var url = Site.resolveClientUrl('api/RunningBettypesBetList/Index');
 
             BetList.loadData(params, url);
         },

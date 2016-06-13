@@ -27,7 +27,7 @@ var RunningBetList = (function ($) {
             // Load Data
             var params = { bettype: bettype };
             params = Site.setLicenseeOptionParam(params);
-            var url = Site.resolveClientUrl('api/betlist/runningbetlist');
+            var url = Site.resolveClientUrl('api/RunningBetList/Index');
             BetList.loadData(params, url);
         },
 

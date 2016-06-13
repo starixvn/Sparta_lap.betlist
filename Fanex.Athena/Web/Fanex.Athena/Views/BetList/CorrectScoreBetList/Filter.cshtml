@@ -1,7 +1,7 @@
 ﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.MetaModel.Product
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
-@using (Html.BeginForm("CorrectScoreBetList", "BetList", FormMethod.Post, new { @id = "CorrectScoreBetListForm" }))
+@using (Html.BeginForm("Index", "CorrectScoreBetList", FormMethod.Post, new { @id = "CorrectScoreBetListForm" }))
 {
     //-----------------------------Type of licensee---------------------------//
     if (Model.LicenseeTypeList.Count > 0)

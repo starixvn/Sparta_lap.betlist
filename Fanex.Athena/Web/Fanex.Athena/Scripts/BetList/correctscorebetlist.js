@@ -25,7 +25,7 @@ var CorrectScoreBetList = (function ($) {
             // Load Data
             var params = {};
             params = Site.setLicenseeOptionParam(params);
-            var url = Site.resolveClientUrl('api/betlist/CorrectScoreBetList');
+            var url = Site.resolveClientUrl('api/CorrectScoreBetList/Index');
             BetList.loadData(params, url);
         }
     };
