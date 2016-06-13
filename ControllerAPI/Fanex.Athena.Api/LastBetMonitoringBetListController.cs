@@ -84,7 +84,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
-        public dynamic LastMonitorBetListNew(LastBetsMonitoringMetaModel metaModel)
+        public dynamic Index(LastBetsMonitoringMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;

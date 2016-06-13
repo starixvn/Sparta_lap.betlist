@@ -11,7 +11,7 @@
     public class WinlossByBetTypeBetListController : ApiBetListBaseController
     {
         [HttpGet]
-        public dynamic WinlossByBetType(
+        public dynamic Index(
             int page,
             int rows,
             string licenseeType,

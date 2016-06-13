@@ -13,7 +13,7 @@ namespace Fanex.Athena.Api.BetList
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        public dynamic LicenseeWL(BetListMetaModel metaModel)
+        public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
