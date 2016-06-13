@@ -56,7 +56,7 @@ var ForecastHDPOU = (function ($) {
             ForecastPopup.showPopup(popW, popH, url);
         },
         loadSelectedLeague: function (leagueId) {
-            var url = Site.resolveClientUrl("Forecast/ForecastHandicapOverUnder");
+            var url = Site.resolveClientUrl("HandicapOverUnderForecast/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "LeagueId", leagueId);
 
@@ -81,7 +81,7 @@ var ForecastHDPOU = (function ($) {
 
             $.ajax({
                 data: data,
-                url: Site.resolveClientUrl("Forecast/ForecastHandicapOverUnder"),
+                url: Site.resolveClientUrl("HandicapOverUnderForecast/Index"),
                 type: "POST",
                 beforeSend: function () {
 
