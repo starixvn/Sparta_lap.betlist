@@ -20,7 +20,8 @@ namespace Fanex.Athena.Controllers.Report
         private const string TurnoverName = "Turnover";
 
         [HttpPost]
-        [FunctionAuthorization]
+        [FunctionAuthorization(ParentUrl = "TurnoverReport")]
+        [ValidateAntiForgeryToken]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

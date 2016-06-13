@@ -76,6 +76,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(CustomerBalanceMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -129,6 +130,8 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(CustomerBalanceViewModel viewModel)
         {
             const string FileName = "CustomerBalance";

@@ -114,7 +114,7 @@ var WinLossByLeague = (function ($) {
         ajaxMatches = $.ajax({
             type: "POST",
             datatype: "json",
-            url: Site.resolveClientUrl("report/GetMatchesByLeague"),
+            url: Site.resolveClientUrl("WinLossByLeagueReport/GetMatchesByLeague"),
             data: {
                 leagueid: leagueid,
                 fromDate: getFromDateString(),

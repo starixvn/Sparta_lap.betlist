@@ -36,6 +36,7 @@
                 <div style="float: right;">
                     @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
                     {
+                        @Html.AntiForgeryToken()
                         <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
                         <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"

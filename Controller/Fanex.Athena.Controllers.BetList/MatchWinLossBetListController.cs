@@ -18,12 +18,14 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
     public class MatchWinLossBetListController : BetListBaseController
     {
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult MatchBetType(BetListMetaModel metaModel)
         {
             // include LicenseeId, UserId in CreateDefaultMetaModel
@@ -49,6 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult MixParlay(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -71,6 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Outright(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

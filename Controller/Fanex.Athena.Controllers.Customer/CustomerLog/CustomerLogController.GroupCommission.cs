@@ -25,6 +25,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// Group commission action.
         /// </summary>
         /// <returns>Group commission log view.</returns>
+        [HttpGet]
         [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult GroupCommission()
         {

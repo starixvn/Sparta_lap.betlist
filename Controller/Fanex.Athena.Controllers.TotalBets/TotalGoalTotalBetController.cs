@@ -26,6 +26,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             _totalGoalService = new TotalGoalService();
         }
 
+        [HttpGet]
         [FunctionAuthorization]
         public ActionResult Index()
         {
@@ -41,6 +42,7 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(TotalGoalMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

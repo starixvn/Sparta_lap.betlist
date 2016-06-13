@@ -9,7 +9,7 @@ var MonitorBetList = function () {
     var $this = this;
 
     // Param
-    $this.serviceUrl = Site.resolveClientUrl('api/LastBetMonitoringBetList/LastMonitorBetListNew');
+    $this.serviceUrl = Site.resolveClientUrl('api/LastBetMonitoringBetList/Index');
     $this.betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
     $this.sportId = 0;
     $this.leagueId = 0;

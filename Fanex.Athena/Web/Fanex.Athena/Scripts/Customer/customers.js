@@ -685,9 +685,9 @@ var CustomerList = (function ($) {
 
             var option = {
                 type: "POST",
-                data: JSON.stringify(data),
+                data: data,
                 dataType: "json",
-                contentType: "application/json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {

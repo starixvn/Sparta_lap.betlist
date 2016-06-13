@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -21,6 +22,7 @@ namespace Fanex.Athena.Api.BetList
     public class MixParlayBetListController : ApiBetListBaseController
     {
         [HttpGet]
+        [ApiFunctionAuthorization]
         public dynamic Detail(long transId)
         {
             var ticketResult = BetListService.GetMixParlayDetailTicket(transId);

@@ -116,6 +116,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -143,6 +144,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The excel file.</returns>
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult ExportExcel(string excelParam)
         {
             if (string.IsNullOrEmpty(excelParam))
@@ -192,6 +194,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult LogInfo(int custId)
         {
             var licenseeSession = SessionService.LicenseeSession;

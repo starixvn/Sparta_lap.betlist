@@ -25,6 +25,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Resources;
+    using Web.ActionFilter;
     using CacheRefHelper = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     #endregion Using
@@ -49,6 +50,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="sportId">Sport Id value.</param>
         /// <returns>Return match list and league list.</returns>
         [HttpGet]
+        [ApiFunctionAuthorization]
         public dynamic GetRunningMatchList(int sportId)
         {
             var matchList = _matchService.GetAllRunningMatch(sportId);
@@ -84,6 +86,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Index(LastBetsMonitoringMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

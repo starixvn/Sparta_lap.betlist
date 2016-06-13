@@ -182,7 +182,7 @@
     <Compile Include="PlatformWinLossReportController.cs" />
     <Compile Include="PlaytechCasinoWinlossReportController.cs" />
     <Compile Include="RacingCommissionReportController.cs" />
-    <Compile Include="ResultController.cs" />
+    <Compile Include="ResultReportController.cs" />
     <Compile Include="RNGCasino\HandHistoryController.cs" />
     <Compile Include="SettledMatchCountReportController.cs" />
     <Compile Include="TurnoverReportController.cs" />

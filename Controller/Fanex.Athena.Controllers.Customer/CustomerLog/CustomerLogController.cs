@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             this._productService = new ProductService();
         }
 
+        [HttpGet]
         [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
         public ActionResult Index()
         {

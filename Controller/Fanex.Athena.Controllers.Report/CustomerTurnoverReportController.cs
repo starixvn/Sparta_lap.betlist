@@ -65,6 +65,8 @@ namespace Fanex.Athena.Controllers.Report
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [ValidateInput(false)]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(string excelParam)
         {
             const string FileName = "CustomerTurnover";

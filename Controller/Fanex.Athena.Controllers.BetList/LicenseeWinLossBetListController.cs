@@ -17,13 +17,15 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
     public class LicenseeWinLossBetListController : BetListBaseController
     {
         [HttpGet]
-        public ActionResult LicenseeWL(BetListMetaModel metaModel)
+        [FunctionAuthorization]
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
 
@@ -34,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (IsValidCurrency(metaModel.CurrencyId))
             {
-                return this.LicenseeWLExcel(metaModel);
+                return this.Excel(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
@@ -45,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// </summary>
         /// <param name="metaModel">The meta model.</param>
         /// <returns>Workbook for excel.</returns>
-        private ActionResult LicenseeWLExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);

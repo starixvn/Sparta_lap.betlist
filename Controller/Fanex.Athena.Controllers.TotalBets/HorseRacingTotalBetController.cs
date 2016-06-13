@@ -40,6 +40,7 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(RacingMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

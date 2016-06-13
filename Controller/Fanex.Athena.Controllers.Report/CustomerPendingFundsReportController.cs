@@ -70,6 +70,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [FunctionAuthorization]
         [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(CustomerPendingFundsMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -114,6 +115,8 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(CustomerPendingFundsViewModel viewModel)
         {
             const string FileName = "CustomerPendingFunds";

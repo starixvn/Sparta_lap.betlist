@@ -34,6 +34,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -43,6 +44,7 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
         }
 
+        [FunctionAuthorization]
         public ActionResult Popup(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -20,11 +20,12 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     /// Log in log controller.
     /// </summary>
     public partial class CustomerLogController
-    {        
+    {
         /// <summary>
         /// Log in log action.
         /// </summary>
         /// <returns>Log in log view.</returns>
+        [HttpGet]
         [FunctionAuthorization]
         public ActionResult LogInLog()
         {

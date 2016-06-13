@@ -8,6 +8,7 @@
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     public class VoidbridgeBetListController : BetListBaseController
     {
@@ -15,6 +16,7 @@
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

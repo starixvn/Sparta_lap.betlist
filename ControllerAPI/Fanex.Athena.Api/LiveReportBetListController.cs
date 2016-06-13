@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -30,6 +31,7 @@ namespace Fanex.Athena.Api.BetList
         #region Local Paging
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -49,6 +51,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -71,6 +74,7 @@ namespace Fanex.Athena.Api.BetList
         #region Server Paging
 
         [HttpGet]
+        [ApiFunctionAuthorization]
         public dynamic NumberGame(
             int page,
             int rows,
@@ -118,6 +122,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+        [ApiFunctionAuthorization]
         public dynamic MixParlay(
             int page,
             int rows,
@@ -185,6 +190,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
+        [ApiFunctionAuthorization]
         public dynamic Racing(
             int page,
             int rows,

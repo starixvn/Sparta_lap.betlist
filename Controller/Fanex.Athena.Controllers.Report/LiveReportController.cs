@@ -59,6 +59,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(LiveReportMetalModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -113,6 +114,8 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [AjaxRequest]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Detail(LiveReportMetalModel metaModel, string productCode)
         {
             var licenseeSession = this.SessionService.LicenseeSession;

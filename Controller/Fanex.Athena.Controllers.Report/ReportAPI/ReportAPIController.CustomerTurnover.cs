@@ -12,14 +12,34 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DTO.Common;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public partial class ReportAPIController : DefaultCultureBaseController
     {
+        private const string CustomerTurnoverReportUrl = "CustomerTurnoverReport";
+
         [HttpPost]
-        [FunctionAuthorization]
+        [AjaxRequest]
+        [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
+        {
+            if (sports == null || sports.Count == 0)
+            {
+                return Json(new List<SportProductItem>());
+            }
+
+            var data = _betTypeService.GetBettypes(SessionService.LicenseeSession.LicenseeId, sports, SessionService.UserSession.Language);
+
+            return Json(data);
+        }
+
+        [HttpPost]
+        [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
+        [ValidateAntiForgeryToken]
         public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {
             var total = new CustTurnover();

@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -23,6 +24,7 @@ namespace Fanex.Athena.Api.BetList
     public class PendingFundsBetListController : ApiBetListBaseController
     {
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

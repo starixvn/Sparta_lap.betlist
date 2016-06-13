@@ -111,7 +111,7 @@ var WinLossByProduct = (function ($) {
         //#region Utilities
 
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = "api/WinLossByProductReport/WinLossByProduct";
+            var temp = "api/WinLossByProductReport/Index";
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
                 fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy") +
@@ -538,7 +538,7 @@ var WinLossByProduct = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));

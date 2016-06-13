@@ -16,12 +16,14 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
     public class MicroGamingRngBetListController : BetListBaseController
     {
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

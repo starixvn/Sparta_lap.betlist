@@ -53,6 +53,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
@@ -115,6 +116,8 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(PlaytechCasinoViewModel viewModel)
         {
             const string FileName = "PlaytechCasino";

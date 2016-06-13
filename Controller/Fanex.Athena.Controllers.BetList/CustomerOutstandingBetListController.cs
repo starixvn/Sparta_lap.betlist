@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Web.ActionFilter;
 
     public class CustomerOutstandingBetListController : BetListBaseController
     {
@@ -19,6 +20,7 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
+        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);

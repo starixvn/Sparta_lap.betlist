@@ -76,6 +76,7 @@ namespace Fanex.Athena.Controllers.Report
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -137,6 +138,8 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Detail(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -161,6 +164,8 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

@@ -32,6 +32,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [OutputCache(Duration = 0, VaryByParam = "None")]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(BalanceMetaModel metaModel)
         {
             AddNotificationMessageToViewBag();

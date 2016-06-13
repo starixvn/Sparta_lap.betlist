@@ -87,8 +87,11 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/WinLossByLeague/Main.cshtml", viewModel);
         }
 
+        [HttpPost]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         [AjaxRequest]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -98,7 +101,10 @@ namespace Fanex.Athena.Controllers.Report
                 .Select(x => new { Key = x.LeagueId, Value = x.LeagueName }));
         }
 
+        [HttpPost]
         [AjaxRequest]
+        [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {
             var matches = _matchService.GetMatchesByLeague(leagueid, fromDate, toDate);

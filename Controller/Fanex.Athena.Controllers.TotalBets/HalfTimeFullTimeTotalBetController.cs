@@ -42,6 +42,7 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(HalfTimeFullTimeMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

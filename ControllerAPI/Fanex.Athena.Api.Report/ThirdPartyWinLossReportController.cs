@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Service.Report;
     using Service.Report.Interfaces;
+    using Web.ActionFilter;
 
     public class ThirdPartyWinLossReportController : ApiReportBaseController
     {
@@ -31,6 +32,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Index(
             ThirdPartyWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -43,6 +45,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);

@@ -68,6 +68,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Excel(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

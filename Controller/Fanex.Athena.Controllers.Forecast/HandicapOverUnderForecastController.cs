@@ -25,7 +25,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
             if (licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
             {
-                return this.RedirectToAction("NewForecastHdpOu");
+                return this.RedirectToAction("Index", "NewHandicapOverUnderForecast");
             }
 
             var metaModel = new ForecastHandicapOverUnderMetaModel
@@ -43,6 +43,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [FunctionAuthorization]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

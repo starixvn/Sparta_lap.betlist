@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.BetList
 
     using System.Web.Http;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -19,6 +20,7 @@ namespace Fanex.Athena.Api.BetList
     public class AGCasinoBetListController : ApiBetListBaseController
     {
         [HttpPost]
+        [ApiFunctionAuthorization]
         public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;

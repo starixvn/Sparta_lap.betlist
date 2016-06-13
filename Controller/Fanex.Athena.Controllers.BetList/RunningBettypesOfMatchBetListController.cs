@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -28,6 +29,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

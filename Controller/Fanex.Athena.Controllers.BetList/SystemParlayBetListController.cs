@@ -13,12 +13,14 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.BetList.Core.Builder;
+    using Web.ActionFilter;
 
     #endregion Using
 
     public class SystemParlayBetListController : BetListBaseController
     {
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Detail(SystemParlayDetailMetaModel metaModel)
         {
             var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;

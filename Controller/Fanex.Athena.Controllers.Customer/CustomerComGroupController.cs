@@ -35,8 +35,6 @@ namespace Fanex.Athena.Controllers.Customer
     /// </summary>
     public class CustomerComGroupController : ReadonlyBaseController
     {
-        private const string CommissionGroupUrl = "CustomerComGroup/Index";
-
         private readonly IGroupComService _customerComService;
         private readonly IProductService _productService;
 
@@ -69,7 +67,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [ValidateAntiForgeryToken]
         public ActionResult Index(bool isExportExcel)
         {
@@ -81,7 +79,7 @@ namespace Fanex.Athena.Controllers.Customer
         #region Create group
 
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         public ActionResult Create()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -103,7 +101,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [ValidateAntiForgeryToken]
         public ActionResult Create(GroupCommMetaModel metaModel)
         {
@@ -147,7 +145,7 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         public string Validate(string groupName)
         {
             if (!string.IsNullOrEmpty(groupName))
@@ -164,7 +162,7 @@ namespace Fanex.Athena.Controllers.Customer
         #region Update group
 
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         public ActionResult Update(int groupId)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -196,7 +194,7 @@ namespace Fanex.Athena.Controllers.Customer
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [ValidateAntiForgeryToken]
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
@@ -269,7 +267,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="isResetDefault">Reset default commission for customers  belong to this group.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [ValidateAntiForgeryToken]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
@@ -316,7 +314,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <returns>The JSON result.</returns>
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public JsonResult GetDefaultGroup()
         {
@@ -333,7 +331,7 @@ namespace Fanex.Athena.Controllers.Customer
         #region Export Excel
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CommissionGroupUrl)]
+        [FunctionAuthorization]
         [ValidateAntiForgeryToken]
         public ActionResult ExportExcel()
         {

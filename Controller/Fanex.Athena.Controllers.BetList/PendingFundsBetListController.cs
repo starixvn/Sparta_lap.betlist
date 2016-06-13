@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
             new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         [HttpGet]
+        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

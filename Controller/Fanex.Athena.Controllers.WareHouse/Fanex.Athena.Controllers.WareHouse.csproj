@@ -79,7 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WareHouseController.cs" />
     <Compile Include="TopCustomerWareHouseController.cs" />
-    <Compile Include="WareHouseController.WinLoss.cs" />
+    <Compile Include="WinLossWareHouseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">

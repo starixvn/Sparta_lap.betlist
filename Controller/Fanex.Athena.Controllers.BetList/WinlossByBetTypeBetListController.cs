@@ -12,6 +12,7 @@
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Web.ActionFilter;
 
     #endregion Using
 
@@ -20,7 +21,9 @@
     /// </summary>
     public class WinlossByBetTypeBetListController : BetListBaseController
     {
-        public ActionResult WinlossByBetType(BetListMetaModel metaModel)
+        [HttpGet]
+        [FunctionAuthorization]
+        public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
             if (!metaModel.IsExportExcel)
@@ -34,13 +37,13 @@
                 currencyList.Values.Contains(metaModel.CurrencyId) &&
                 metaModel.FromDate.Date == metaModel.ToDate.Date)
             {
-                return this.WinlossByBetTypeExcel(metaModel);
+                return this.Excel(metaModel);
             }
 
             return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        private ActionResult WinlossByBetTypeExcel(BetListMetaModel metaModel)
+        private ActionResult Excel(BetListMetaModel metaModel)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
