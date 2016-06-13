@@ -31,24 +31,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CasinoLibrary">
-      <HintPath>..\..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
+      <HintPath>..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CasinoSetting">
-      <HintPath>..\..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
+      <HintPath>..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
     </Reference>
     <Reference Include="CasinoUtility">
-      <HintPath>..\..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
+      <HintPath>..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Core.Common, Version=1.1.4505.19054, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
