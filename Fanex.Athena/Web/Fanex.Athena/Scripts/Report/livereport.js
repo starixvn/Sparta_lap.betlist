@@ -87,8 +87,7 @@ var LiveReport = (function ($) {
             /* make request*/
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
+                data: data,
                 dataType: "json",
                 url: Site.resolveClientUrl("LiveReport/Detail"),
                 success: function () {

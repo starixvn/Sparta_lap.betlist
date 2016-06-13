@@ -5,6 +5,7 @@
 
 @using (Html.BeginForm("Index", "DailyRacingWinLossReport", FormMethod.Post, new { @id = "ReportForm" }))
 {
+    @Html.AntiForgeryToken()
     <div id="hiddenfield">
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)

@@ -6,8 +6,9 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Turnover", "Report", FormMethod.Post, new { @id = "TurnoverForm" }))
     {
+        @Html.AntiForgeryToken()
         //-----------------------------Hidden Field-------------------------------//
-    
+
         @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
         @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
         @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)

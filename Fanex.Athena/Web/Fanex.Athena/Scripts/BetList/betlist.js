@@ -307,7 +307,7 @@ var BetList = (function ($) {
         },
 
         getMixParlayResultUrl: function (refno, winlostdate, bettype) {
-            var url = Site.resolveClientUrl('Result/ResultPopup');
+            var url = Site.resolveClientUrl('ResultReport/ResultPopup');
             url = QueryString.setParam(url, "refno", refno);
             url = QueryString.setParam(url, "winlossdate", winlostdate);
             url = QueryString.setParam(url, "bettype", bettype);
@@ -317,7 +317,7 @@ var BetList = (function ($) {
         },
 
         getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
-            var url = Site.resolveClientUrl('Result/ResultPopup');
+            var url = Site.resolveClientUrl('ResultReport/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "raceno", raceNo);
@@ -329,7 +329,7 @@ var BetList = (function ($) {
         },
 
         getMicrogamingResultUrl: function (gameid, custid) {
-            var url = Site.resolveClientUrl('Result/MicrogamingResultPopup');
+            var url = Site.resolveClientUrl('ResultReport/MicrogamingResultPopup');
             url = QueryString.setParam(url, "gameid", gameid);
             url = QueryString.setParam(url, "custid", custid);
 
@@ -337,7 +337,7 @@ var BetList = (function ($) {
         },
 
         viewRngCasinoResult: function (title, refno) {
-            var url = Site.resolveClientUrl('Result/ShowRngCasinoSingleWalletResult');
+            var url = Site.resolveClientUrl('ResultReport/ShowRngCasinoSingleWalletResult');
 
             var params = { "refNo": refno };
             $.ajax({
@@ -363,7 +363,7 @@ var BetList = (function ($) {
         },
 
         viewVoidbridgeResult: function (custId, gamePlayId) {
-            var url = Site.resolveClientUrl('Result/VoidbridgeResult');
+            var url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
             Site.blockUI();
             $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                 if (result !== '') {

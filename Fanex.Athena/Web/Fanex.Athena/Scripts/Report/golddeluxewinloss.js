@@ -67,7 +67,7 @@ var GoldDeluxeWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/report/GoldDeluxeWinLoss';
+            var temp = 'api/GoldDeluxeWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")

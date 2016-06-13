@@ -224,8 +224,8 @@ var AgCasinoBalanceOption = (function () {
         nonePagingSize: 5000,
         rowNum: 10,
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/AgCasinoBalance',
-        urlExcelData: 'api/report/AgCasinoBalance',
+        urlData: 'api/AgCasinoBalanceReport/Index',
+        urlExcelData: 'api/AgCasinoBalanceReport/Index',
         gridOption:
         {
             datatype: 'local',

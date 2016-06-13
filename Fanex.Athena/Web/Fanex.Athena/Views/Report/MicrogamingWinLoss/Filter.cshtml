@@ -7,6 +7,7 @@
         var historyDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
      }
      <form id="MicroGamingWinLossForm" name="MicroGamingWinLossForm" method="post" action="">
+         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
                 historyDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div>

@@ -55,7 +55,7 @@
             CasinoProgressiveWins.initEvent();
             $link.click();
 
-            expect($.fn.dialog.calls.mostRecent().object.children().attr('src')).toBe('Result/MicrogamingResultPopup?gameid=1&custid=2');
+            expect($.fn.dialog.calls.mostRecent().object.children().attr('src')).toBe('ResultReport/MicrogamingResultPopup?gameid=1&custid=2');
         });
     });
 

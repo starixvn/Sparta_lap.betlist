@@ -175,8 +175,8 @@ var GoldDeluxeWinLossOption = (function () {
         LICENSEE_12BET: 1,
         licenseeId: 0,
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/GoldDeluxeWinLoss',
-        urlExcelData: 'api/report/GoldDeluxeWinLoss',
+        urlData: 'api/GoldDeluxeWinLossReport/Index',
+        urlExcelData: 'api/GoldDeluxeWinLossReport/Index',
         gridOption:
         {
             datatype: 'local',

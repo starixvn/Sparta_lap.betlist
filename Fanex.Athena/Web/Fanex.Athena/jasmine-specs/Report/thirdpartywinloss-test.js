@@ -87,14 +87,14 @@
     });
 
     describe("setExcelUrl(level, currencyId, custId, fdate, tdate)", function () {
-        it("ThirdPartyWinLossOption.urlExcelData should be 'api/report/ThirdPartyWinLoss' when level equal 0", function () {
+        it("ThirdPartyWinLossOption.urlExcelData should be 'api/ThirdPartyWinLossReport/Index' when level equal 0", function () {
             ThirdPartyWinLoss.setExcelUrl(0);
 
-            expect(ThirdPartyWinLossOption.urlExcelData).toBe("api/report/ThirdPartyWinLoss");
+            expect(ThirdPartyWinLossOption.urlExcelData).toBe("api/ThirdPartyWinLossReport/Index");
         });
 
         it("ThirdPartyWinLossOption.urlExcelData should be correct when level greater than 0", function () {
-            var url = 'api/report/ThirdPartyWinLoss';
+            var url = 'api/ThirdPartyWinLossReport/Index';
             var queryString = "?level=1&currencyId=1&custId=2&fdate=04/1/2016&tdate=04/12/2016";
             var expected = url + queryString;
 
@@ -179,7 +179,7 @@
         beforeEach(function (done) {
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest('api/report/ThirdPartyWinLoss')
+                .stubRequest('api/ThirdPartyWinLossReport/Index')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -199,8 +199,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'api/report/ThirdPartyWinLoss'", function () {
-            expect(request.url).toBe("api/report/ThirdPartyWinLoss");
+        it("Request url should be 'api/ThirdPartyWinLossReport/Index'", function () {
+            expect(request.url).toBe("api/ThirdPartyWinLossReport/Index");
         });
         it("ThirdPartyWinLoss.setExcelUrl(level, currencyId, custId, fdate, tdate) should be called with correct parameters", function () {
             expect(ThirdPartyWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "");
@@ -216,7 +216,7 @@
         beforeEach(function (done) {
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest('api/report/ThirdPartyWinLoss?level=1&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016')
+                .stubRequest('api/ThirdPartyWinLossReport/Index?level=1&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -235,8 +235,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'api/report/ThirdPartyWinLoss?level=0&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016'", function () {
-            expect(request.url).toBe("api/report/ThirdPartyWinLoss?level=1&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016");
+        it("Request url should be 'api/ThirdPartyWinLossReport/Index?level=0&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016'", function () {
+            expect(request.url).toBe("api/ThirdPartyWinLossReport/Index?level=1&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016");
         });
         it("ThirdPartyWinLoss.ajaxComplete(level, response) should be called with correct parameter", function () {
             expect(ThirdPartyWinLoss.ajaxComplete).toHaveBeenCalledWith(1, { Data: [1, 2, 3] });

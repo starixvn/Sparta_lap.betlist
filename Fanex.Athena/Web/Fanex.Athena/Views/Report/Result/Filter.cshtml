@@ -5,6 +5,7 @@
 <div class="grid_26 content-filter new-line" style="width: 100%;">
     @using (Html.BeginForm("Result", "Report", FormMethod.Post, new { @id = "ResultPage" }))
     {
+        @Html.AntiForgeryToken()
         //---------------------------Filter---------------------------------------//
         <div class="grid_2 filter-label">
             <label id="lable-fromdate">@ViewResources.Date:&nbsp;</label>

@@ -2,8 +2,8 @@
     describe("Default Option", function () {
         it("Initial values should be correct", function () {
             expect(MicroGamingWinLossOption.totalColspan).toEqual(2);
-            expect(MicroGamingWinLossOption.urlData).toBe("api/report/MicrogamingWinloss");
-            expect(MicroGamingWinLossOption.urlExcelData).toBe("api/report/MicrogamingWinloss");
+            expect(MicroGamingWinLossOption.urlData).toBe("api/MicrogamingWinlossReport/Index");
+            expect(MicroGamingWinLossOption.urlExcelData).toBe("api/MicrogamingWinlossReport/Index");
         });
     });
 

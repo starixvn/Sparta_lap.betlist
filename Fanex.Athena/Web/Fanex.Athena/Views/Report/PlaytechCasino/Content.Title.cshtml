@@ -29,8 +29,9 @@
     @RazorHelper.TitleDateTime(param.Level == 0 ? param.FromDate : param.DrillDownFromDate, param.Level == 0 ? param.ToDate : param.DrillDownToDate)
     - @RazorHelper.ViewCurrencyBasedOnConverter(param.IsConvert, param.BaseCurrency, string.IsNullOrEmpty(param.CurrencyName) ? ViewResources.AllCurrencies : param.CurrencyName)
     <div style="float: right;">
-        @using (Html.BeginForm("PlaytechCasinoWinloss", "Report", FormMethod.Post, new { @id = "PlaytechCasinoExcelForm" }))
+        @using (Html.BeginForm("Index", "PlaytechCasinoWinlossReport", FormMethod.Post, new { @id = "PlaytechCasinoExcelForm" }))
         {
+            @Html.AntiForgeryToken()
             <input type="hidden" name="CurrencyId" value="@Model.Param.CurrencyId" />
             <input type="hidden" name="FromDate" value="@Model.Param.FromDate" />
             <input type="hidden" name="ToDate" value="@Model.Param.ToDate" />

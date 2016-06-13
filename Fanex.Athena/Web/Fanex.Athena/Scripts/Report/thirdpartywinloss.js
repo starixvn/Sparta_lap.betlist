@@ -96,7 +96,7 @@ var ThirdPartyWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/report/ThirdPartyWinLoss';
+            var temp = 'api/ThirdPartyWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")

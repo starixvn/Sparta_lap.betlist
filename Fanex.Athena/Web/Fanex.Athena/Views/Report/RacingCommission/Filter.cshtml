@@ -3,6 +3,7 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "RacingCommissionReport", FormMethod.Post, new { @id = "ReportForm" }))
     {
+        @Html.AntiForgeryToken()
         //-----------------------------Hidden Field-------------------------------//
 
         <div>

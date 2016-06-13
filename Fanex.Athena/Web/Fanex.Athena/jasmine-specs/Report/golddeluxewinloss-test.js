@@ -76,7 +76,7 @@
             
             GoldDeluxeWinLoss.setExcelUrl(1, 2, 3, new Date(), new Date());
 
-            expect(GoldDeluxeWinLossOption.urlExcelData).toBe('api/report/GoldDeluxeWinLoss?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
+            expect(GoldDeluxeWinLossOption.urlExcelData).toBe('api/GoldDeluxeWinLossReport/Index?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
         });
     });
 
@@ -153,7 +153,7 @@
         });
 
         it("GoldDeluxeWinLossOption.urlExcelData should be updated to correct value.", function () {
-            expect(GoldDeluxeWinLossOption.urlExcelData).toBe('api/report/GoldDeluxeWinLoss?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
+            expect(GoldDeluxeWinLossOption.urlExcelData).toBe('api/GoldDeluxeWinLossReport/Index?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
         });
     });
 

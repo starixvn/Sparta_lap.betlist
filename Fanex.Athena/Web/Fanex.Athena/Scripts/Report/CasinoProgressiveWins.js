@@ -8,7 +8,7 @@ var CasinoProgressiveWins = (function ($) {
     var _resizeTimer = null;
 
     function getMicrogamingResultUrl(gameid, custid) {
-        var url = Site.resolveClientUrl('Result/MicrogamingResultPopup');
+        var url = Site.resolveClientUrl('ResultReport/MicrogamingResultPopup');
         url = QueryString.setParam(url, "gameid", gameid);
         url = QueryString.setParam(url, "custid", custid);
 

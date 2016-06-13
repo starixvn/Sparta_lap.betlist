@@ -3,8 +3,9 @@
 @model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
 @using (Html.BeginForm("Index", "MatchWinLossReport", FormMethod.Post, new { @id = "MatchWinLossForm" }))
 {
+    @Html.AntiForgeryToken()
     //-----------------------------Hidden Field-------------------------------//
-    
+
     @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     //-----------------------------Date---------------------------------------//

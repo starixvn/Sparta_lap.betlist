@@ -10,7 +10,7 @@
         });
 
         it("urlData should be a correct url.", function () {
-            expect(GoldDeluxeWinLossOption.urlData).toBe('api/report/GoldDeluxeWinLoss');
+            expect(GoldDeluxeWinLossOption.urlData).toBe('api/GoldDeluxeWinLossReport/Index');
         });
 
         it("gridOption.pager should be #ppdata.", function () {
