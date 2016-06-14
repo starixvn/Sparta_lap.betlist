@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

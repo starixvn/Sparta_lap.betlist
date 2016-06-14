@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.Report
            Justification = "Reviewed. Suppression is OK here.")]
         [ValidateInput(false)]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Excel(string excelParam)
         {
             const string FileName = "CustomerTurnover";

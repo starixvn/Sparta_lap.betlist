@@ -73,7 +73,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
         {
@@ -178,7 +178,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
         {
@@ -237,7 +237,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -325,7 +325,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         [SuppressMessage(
          "StyleCop.CSharp.StylecopPlus.Rules",
          "SP2101:MethodMustNotContainMoreLinesThan",
@@ -402,7 +402,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -459,7 +459,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
             var result = new ResultViewModel
@@ -512,7 +512,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
             var metaModel = new MoveToGroupComMetaModel

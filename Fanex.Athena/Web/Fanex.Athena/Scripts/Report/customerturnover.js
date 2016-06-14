@@ -58,7 +58,7 @@ var CustTurnover = (function ($) {
             ajaxfunction: "CustTurnover.ajaxPaging()",
             alwayshow: true
         },
-        sportUrl: Site.resolveClientUrl("report/GetSportsAndProducts"),
+        sportUrl: Site.resolveClientUrl("CustomerTurnoverReport/GetSportsAndProducts"),
         bettypeUrl: Site.resolveClientUrl("ReportAPI/GetBettypesBySport"),
         urlData: Site.resolveClientUrl("reportapi/CustomerTurnover"),
         urlExcelData: Site.resolveClientUrl("report/CustomerTurnoverExcel"),

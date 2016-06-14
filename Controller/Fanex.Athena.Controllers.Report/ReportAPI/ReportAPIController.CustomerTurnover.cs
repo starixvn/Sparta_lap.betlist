@@ -24,7 +24,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
         {
             if (sports == null || sports.Count == 0)
@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {
             var total = new CustTurnover();

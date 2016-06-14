@@ -132,6 +132,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilter\CustomValidateAntiForgery.cs" />
     <Compile Include="ActionFilter\FunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttribute.cs" />
     <Compile Include="ActionFilter\ApiFunctionAuthorizationAttribute.cs" />

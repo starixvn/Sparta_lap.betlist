@@ -91,7 +91,7 @@ namespace Fanex.Athena.Controllers.Report
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         [AjaxRequest]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -104,7 +104,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {
             var matches = _matchService.GetMatchesByLeague(leagueid, fromDate, toDate);

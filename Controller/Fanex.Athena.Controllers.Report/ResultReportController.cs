@@ -81,7 +81,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(ResultMetalModel metalModel)
         {
             if (ModelState.IsValid)
@@ -143,7 +143,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The JSON result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult GetSports(ResultMetalModel metalModel)
         {
             if (ModelState.IsValid)
@@ -214,7 +214,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
             IRNGCasinoSingleWalletService casinoAPI = new RngCasinoSingleWalletService();
@@ -293,7 +293,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public string KenoResult(string userId)
         {
             IKenoApi api = new KenoApi();

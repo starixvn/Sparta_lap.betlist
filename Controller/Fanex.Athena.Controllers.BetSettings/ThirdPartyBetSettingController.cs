@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus((int)ProductTypes.Macau, custId, nickName, status);
@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus((int)ProductTypes.MicroGamingLiveCasino, custId, nickName, status);
@@ -73,7 +73,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus((int)ProductTypes.MicrogamingRNGCasino, custId, nickName, status);
@@ -81,7 +81,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus((int)ProductTypes.BetTrade, custId, nickName, status);

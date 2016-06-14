@@ -15,7 +15,7 @@
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        private const string AntiForgeryHeaderName = "X-CSRF-Token";
+        private const string AntiForgeryHeaderName = "__RequestVerificationToken";
 
         public string ParentUrl { get; set; }
 

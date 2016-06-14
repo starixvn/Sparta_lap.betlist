@@ -149,7 +149,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <returns>The JSON result.</returns>
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult EditAccount(EditAccountMetaModel model)
         {
             if (!ModelState.IsValid)
@@ -229,7 +229,7 @@ namespace Fanex.Athena.Controllers.Account
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult ResetPassword(ResetPasswordMetaModel model)
         {
             if (!ModelState.IsValid)
@@ -359,7 +359,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <returns>The action result.</returns>
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
             bool isValid = ValidatePermissionRestriction(model.UserId);
@@ -447,7 +447,7 @@ namespace Fanex.Athena.Controllers.Account
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {
             if (model.UserId <= 0 || string.IsNullOrEmpty(model.CurrencyList))

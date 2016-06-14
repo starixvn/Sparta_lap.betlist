@@ -9,7 +9,7 @@
         });
 
         it("sportUrl should be correct.", function () {
-            expect(CustTurnover.sportUrl).toBe('report/GetSportsAndProducts');
+            expect(CustTurnover.sportUrl).toBe('CustomerTurnoverReport/GetSportsAndProducts');
         });
 
         it("bettypeUrl should be correct.", function () {

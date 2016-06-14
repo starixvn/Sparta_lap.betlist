@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Excel(WinLossMetaModel metaModel)
         {
             const string FileName = "WinLoss";
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(WinLossMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -5,8 +5,9 @@
 @using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("CustomerWinlossHistory", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
+    @using (Html.BeginForm("History", "CustomerWinlossReport", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
     {
+        @Html.AntiForgeryToken()
         <div>
             <input type="hidden" id="FromDate" name="FromDate" value="@Model.HistoryParam.FromDate.ToShortDateString()" data-original="@Model.HistoryParam.FromDate.ToShortDateString()" />
             <input type="hidden" id="ToDate" name="ToDate" value="@Model.HistoryParam.ToDate.ToShortDateString()" data-original="@Model.HistoryParam.ToDate.ToShortDateString()" />

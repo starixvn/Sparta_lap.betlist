@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(bool isExportExcel)
         {
             return isExportExcel ? this.ExportExcel() : this.Index();
@@ -102,7 +102,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Create(GroupCommMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
                   Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
             var result = new ResultViewModel();
@@ -268,7 +268,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The JSON result.</returns>
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
             var result = new ResultViewModel();
@@ -332,7 +332,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult ExportExcel()
         {
             const string FileName = "CustomerCommGroup";

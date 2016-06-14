@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Web.ActionFilter;
 
     /// <summary>
     /// Utility controller.
@@ -247,7 +248,7 @@ namespace Fanex.Athena.Controllers
         /// <param name="txtNewPwd">The new password.</param>
         /// <returns>The result of changing password.</returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult ChangePass(string txtOldPwd, string txtNewPwd)
         {
             var userSession = SessionService.UserSession;

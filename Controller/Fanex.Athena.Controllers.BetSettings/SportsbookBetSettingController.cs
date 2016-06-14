@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
             if (ProductAccess.IsAllowSB == false)
@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateEsportStatus(bool isDisabled)
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")

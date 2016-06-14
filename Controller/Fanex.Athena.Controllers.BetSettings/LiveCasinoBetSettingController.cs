@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
             var customer = CustomerService.GetCustomerInfo(custId);
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = CustomerListUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
             var custId = int.Parse(HttpContext.Request["custid"]);

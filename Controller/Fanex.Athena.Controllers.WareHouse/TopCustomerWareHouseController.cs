@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(TopCustomerMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -93,7 +93,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Excel(TopCustomerMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

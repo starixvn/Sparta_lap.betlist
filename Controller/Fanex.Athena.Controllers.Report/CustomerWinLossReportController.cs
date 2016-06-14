@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(CustomerWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -141,7 +141,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult History(CustomerWinLossHistoryMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -189,7 +189,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Excel(CustomerWinLossViewModel viewModel)
         {
             const string FileName = "CustomerWinLoss";
@@ -232,7 +232,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult HistoryExcel(CustomerWinLossViewModel viewModel)
         {
             const string FileName = "CustomerWinLoss";

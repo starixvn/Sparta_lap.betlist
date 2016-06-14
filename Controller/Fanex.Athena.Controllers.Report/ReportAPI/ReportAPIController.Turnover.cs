@@ -21,7 +21,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = "TurnoverReport")]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

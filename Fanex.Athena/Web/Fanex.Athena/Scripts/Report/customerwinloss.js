@@ -117,16 +117,16 @@ var CustomerWinLoss = (function ($) {
 
         viewHistoryReport: function () {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("Report/CustomerWinlossHistory");
+            window.location.href = Site.resolveClientUrl("CustomerWinlossReport/History");
         },
 
         viewCurrentReport: function () {
             Site.blockUI();
-            window.location.href = Site.resolveClientUrl("Report/CustomerWinLoss");
+            window.location.href = Site.resolveClientUrl("CustomerWinLossReport/Index");
         },
 
         viewWinlossBetList: function (custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("BetList/CustomerWl");
+            var url = Site.resolveClientUrl("CustomerWinlossBetList/Index");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "custid", custId);

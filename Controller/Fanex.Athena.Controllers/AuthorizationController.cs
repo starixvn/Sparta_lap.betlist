@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         [HandleAntiForgeryError]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",

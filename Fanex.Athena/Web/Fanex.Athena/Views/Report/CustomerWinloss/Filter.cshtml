@@ -9,8 +9,9 @@
     var modelParam = Model.Param;
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
-    @using (Html.BeginForm("CustomerWinLoss", "Report", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
+    @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
     {
+        @Html.AntiForgeryToken()
         <div>
             @Html.Hidden("TodayVal", DateTime.Today.ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))
             @Html.Hidden("YesterdayVal", DateTime.Today.AddDays(-1).ToString(Fanex.Athena.Model.Core.DataDomain.FormatKey.ShortFormatDate))

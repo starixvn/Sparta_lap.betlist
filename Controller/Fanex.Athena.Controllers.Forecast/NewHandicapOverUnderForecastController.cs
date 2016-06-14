@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ActionResult Index(NewForecastHandicapOverUnderMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -81,7 +81,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
         [HttpPost]
         [FunctionAuthorization(ParentUrl = ParentUrl)]
-        [ValidateAntiForgeryToken]
+        [CustomValidateAntiForgery]
         public ViewResult GetMatchListByLeague(int leagueId)
         {
             var matchList = _matchService.GetForecastMatchListByLeague(leagueId).OrderBy(x => x.MatchName).ToList();
