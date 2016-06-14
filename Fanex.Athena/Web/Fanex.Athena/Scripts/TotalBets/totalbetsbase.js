@@ -32,7 +32,7 @@ var Totalbets = (function ($) {
             });
         },
         viewRunningBetListMatch: function (matchId, betType) {
-            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatch");
+            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "bettype", betType);
@@ -41,7 +41,7 @@ var Totalbets = (function ($) {
             window.location.href = url;
         },
         viewRunningBetListMultiBettype: function (matchId, betType) {
-            var url = Site.resolveClientUrl("BetList/RunningBetListByMultipleBettypeOfMatch");
+            var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "multiplebettype", betType);

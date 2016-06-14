@@ -2,6 +2,7 @@
 @model Fanex.Athena.Model.TotalBet.ViewModel.MoneyLineViewModel
 @using (Html.BeginForm("Index", "MoneyLineTotalBet", FormMethod.Post, new { @id = "MoneyLineForm" }))
 {
+    @Html.AntiForgeryToken()
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
         @RazorHelper.TimerCountDown("moneyline", 60)

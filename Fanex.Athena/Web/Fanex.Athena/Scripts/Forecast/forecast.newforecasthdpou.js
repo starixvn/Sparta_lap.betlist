@@ -77,7 +77,7 @@ var NewForecastHdpOu = (function ($) {
             $('#NewForecastHdpOuForm').submit();
         },
         openBetlist: function (betChoice, param, betType, handicap) {
-            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatchChoice");
+            var url = Site.resolveClientUrl("RunningMatchChoiceBetList/Index");
             url = QueryString.setParam(url, "betchoice", betChoice);
             url = QueryString.setParam(url, "matchid", param.MatchId);
             url = QueryString.setParam(url, "leagueid", param.LeagueId);

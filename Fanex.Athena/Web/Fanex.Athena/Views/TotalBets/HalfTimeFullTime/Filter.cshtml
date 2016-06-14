@@ -2,6 +2,7 @@
 @model Fanex.Athena.Model.TotalBet.ViewModel.HalfTimeFullTimeViewModel
 @using (Html.BeginForm("Index", "HalfTimeFullTimeTotalBet", FormMethod.Post, new { @id = "HalfTimeFullTimeForm" }))
 {
+    @Html.AntiForgeryToken()
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
         @RazorHelper.TimerCountDown("halftimefulltime", 60)

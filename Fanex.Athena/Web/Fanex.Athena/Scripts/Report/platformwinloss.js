@@ -418,7 +418,7 @@ var PlatformWinLoss = (function ($) {
         },
 
         openBetlistPopUp: function (dataDrillDown) {
-            var url = Site.resolveClientUrl("BetList/PlatformWinLoss");
+            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
 
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate.toString("M/d/yyyy"));
             url = QueryString.setParam(url, "todate", _submitData.ToDate.toString("M/d/yyyy"));

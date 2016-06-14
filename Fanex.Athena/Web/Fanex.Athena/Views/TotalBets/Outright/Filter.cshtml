@@ -2,6 +2,7 @@
 @model Fanex.Athena.Model.TotalBet.ViewModel.OutrightViewModel
 @using (Html.BeginForm("Index", "OutrightTotalBet", FormMethod.Post, new { @id = "OutrightForm" }))
 {
+    @Html.AntiForgeryToken()
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
         @RazorHelper.TimerCountDown("outright", 60)

@@ -31,7 +31,7 @@ var NumberGame = (function ($) {
             $("#NumberGameForm").submit();
         },
         viewNumberGameBetList: function (matchId, betType, isLive, betTeam) {
-            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatch");
+            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "bettype", betType);

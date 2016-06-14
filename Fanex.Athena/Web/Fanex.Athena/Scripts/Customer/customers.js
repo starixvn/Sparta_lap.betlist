@@ -1029,7 +1029,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1056,7 +1056,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1076,7 +1076,7 @@ var CustomerList = (function ($) {
         // ------------------------------------------------------------------------
         // ---------------View Running Betlist-------------------------------------
         viewRunningBetlist: function (custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1107,7 +1107,7 @@ if (!window._IsInJsTestingMode) {
 
         if (QueryString.getParam(window.location.href, "userName") ||
             QueryString.getParam(window.location.href, "groupId")) {
-            CustomerList.submit();
+            setTimeout(CustomerList.submit, 100);
         } else {
             Site.unBlockUI();
         }

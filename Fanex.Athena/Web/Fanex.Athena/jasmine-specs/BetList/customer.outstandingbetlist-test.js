@@ -58,19 +58,19 @@
         it("OutstandingBetList.submitCompletedBetList(params) should be call BetList.loadData(params, url) with correct url", function () {
             spyOn(BetList, 'loadData');
             OutstandingBetList.submitCompletedBetList(params);
-            expect(BetList.loadData).toHaveBeenCalledWith({}, 'api/betlist/OutstandingCompletedBetList');
+            expect(BetList.loadData).toHaveBeenCalledWith({}, 'api/OutstandingCompletedBetList/Index');
         });
 
         it("OutstandingBetList.submitRunningBetList(params) should be call BetList.loadData(params, url) with correct url", function () {
             spyOn(BetList, 'loadData');
             OutstandingBetList.submitRunningBetList(params);
-            expect(BetList.loadData).toHaveBeenCalledWith({}, 'api/betlist/OutstandingRunningBetList');
+            expect(BetList.loadData).toHaveBeenCalledWith({}, 'api/OutstandingRunningBetList/Index');
         });
 
         it("OutstandingBetList.submitDailyStatementBetList(params) should be call BetList.loadData(params, url) with correct url", function () {
             spyOn(CustomerDailyStatement, 'loadData');
             OutstandingBetList.submitDailyStatementBetList(params);
-            expect(CustomerDailyStatement.loadData).toHaveBeenCalledWith({}, 'api/betlist/OutstandingDailyStatementBetList');
+            expect(CustomerDailyStatement.loadData).toHaveBeenCalledWith({}, 'api/OutstandingDailyStatementBetList/Index');
         });
     });
 });

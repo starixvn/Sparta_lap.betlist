@@ -90,19 +90,19 @@ var OutstandingBetList = (function ($) {
 
         submitCompletedBetList: function (params) {
             BetList.initialize();
-            var url = Site.resolveClientUrl('api/betlist/OutstandingCompletedBetList');
+            var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
             BetList.loadData(params, url);
         },
 
         submitRunningBetList: function (params) {
             BetList.initialize();
-            var url = Site.resolveClientUrl('api/betlist/OutstandingRunningBetList');
+            var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
             BetList.loadData(params, url);
         },
 
         submitDailyStatementBetList: function (params) {
             BetList.initialize();
-            var url = Site.resolveClientUrl('api/betlist/OutstandingDailyStatementBetList');
+            var url = Site.resolveClientUrl('api/OutstandingDailyStatementBetList/Index');
             CustomerDailyStatement.loadData(params, url);
         },
 
@@ -126,7 +126,7 @@ var OutstandingBetList = (function ($) {
         viewDailyStatementBetList: function (custId, date, transType, externalId, systemId) {
             BetList.initialize();
 
-            var url = Site.resolveClientUrl('api/betlist/BetListDailyStatement');
+            var url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
 
             var params = $.parseJSON($("#BetListMetaModel").val());
 

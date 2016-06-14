@@ -2,6 +2,7 @@
 @model Fanex.Athena.Model.TotalBet.ViewModel.OddEvenDrawNoDrawViewModel
 @using (Html.BeginForm("Index", "OddEvenDrawNoDrawTotalBet", FormMethod.Post, new { @id = "OddEvenDrawNoDrawForm" }))
 {
+    @Html.AntiForgeryToken()
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
         @RazorHelper.TimerCountDown("oddevendnd", 15)
