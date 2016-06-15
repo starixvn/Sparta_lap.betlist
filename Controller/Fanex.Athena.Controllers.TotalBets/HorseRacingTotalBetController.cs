@@ -25,6 +25,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             _racingService = new RacingService();
         }
 
+        [HttpGet]
         [FunctionAuthorization]
         public ActionResult Index()
         {

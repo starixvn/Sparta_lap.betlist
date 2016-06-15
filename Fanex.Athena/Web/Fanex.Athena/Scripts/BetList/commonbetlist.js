@@ -11,9 +11,6 @@ var CommonBetList = (function ($) {
             $(".content-filter").remove();
             
             var apiUrl = $("#ApiUrl").val();
-            if (!apiUrl) {
-                apiUrl = 'api/betlist/' + $("#ActionName").val();
-            }
 
             apiUrl = Site.resolveClientUrl(apiUrl);
             var serverPaging = $("#IsServerPaging").val();

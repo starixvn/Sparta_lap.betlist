@@ -247,8 +247,8 @@ var PlatformWinLossOption = (function () {
             "5": Site.getSingleResource("SmartSite")
         },
         totalColspan: [0, 4],
-        urlData: 'api/report/PlatformWinLoss',
-        urlExcelData: 'api/report/PlatformWinLoss',
+        urlData: 'api/PlatformWinLossReport/Index',
+        urlExcelData: 'api/PlatformWinLossReport/Index',
         gridOption: {
             datatype: 'jsonstring',
             colNames: [],

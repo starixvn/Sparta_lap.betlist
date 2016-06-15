@@ -6,8 +6,8 @@
             expect(PlatformWinLossOption.rowNum).toBe(50);
             expect(PlatformWinLossOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
             expect(PlatformWinLossOption.totalColspan).toEqual([0, 4]);
-            expect(PlatformWinLossOption.urlData).toBe("api/report/PlatformWinLoss");
-            expect(PlatformWinLossOption.urlExcelData).toBe("api/report/PlatformWinLoss");
+            expect(PlatformWinLossOption.urlData).toBe("api/PlatformWinLossReport/Index");
+            expect(PlatformWinLossOption.urlExcelData).toBe("api/PlatformWinLossReport/Index");
         });
     });
 

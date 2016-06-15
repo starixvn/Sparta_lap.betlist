@@ -69,8 +69,8 @@ var BetList = (function ($) {
         },
 
         isMatchWLBetList: function () {
-            var regex = /^MatchWL/i;
-            return regex.test($("#ActionName").val());
+            var regex = /MatchWinLossBetList/i
+            return regex.test($("#ApiUrl").val());
         },
 
         gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {

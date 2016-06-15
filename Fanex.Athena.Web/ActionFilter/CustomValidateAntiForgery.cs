@@ -7,7 +7,7 @@
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class CustomValidateAntiForgery : FilterAttribute, IAuthorizationFilter
     {
-        private const string KEY_NAME = "__RequestVerificationToken";
+        private const string KEYNAME = "__RequestVerificationToken";
 
         public void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -15,22 +15,22 @@
             string clientToken = null;
             if (request.IsAjaxRequest())
             {
-                clientToken = request.Headers.Get(KEY_NAME);
+                clientToken = request.Headers.Get(KEYNAME);
             }
             else
             {
-                clientToken = request.Form[KEY_NAME];
+                clientToken = request.Form[KEYNAME];
             }
 
             if (clientToken == null)
             {
-                throw new HttpAntiForgeryException(string.Format("Header/Form does not contain {0}", KEY_NAME));
+                throw new HttpAntiForgeryException(string.Format("Header/Form does not contain {0}", KEYNAME));
             }
 
-            string serverToken = filterContext.HttpContext.Request.Cookies.Get(KEY_NAME).Value;
+            string serverToken = filterContext.HttpContext.Request.Cookies.Get(KEYNAME).Value;
             if (serverToken == null)
             {
-                throw new HttpAntiForgeryException(string.Format("Cookies does not contain {0}" + KEY_NAME));
+                throw new HttpAntiForgeryException(string.Format("Cookies does not contain {0}" + KEYNAME));
             }
 
             AntiForgery.Validate(serverToken, clientToken);

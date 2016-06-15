@@ -44,6 +44,7 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
         }
 
+        [HttpGet]
         [FunctionAuthorization]
         public ActionResult Popup(ForecastOneXTwoMetaModel metaModel)
         {

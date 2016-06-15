@@ -146,37 +146,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             return View("~/Views/BetList/LiveReport/NumberGame.cshtml", metaModel);
         }
-
-        [HttpGet]
-        [FunctionAuthorization]
-        public ActionResult MicroGaming(LiveReportBetListMetaModel metaModel)
-        {
-            metaModel = CreateDefaultMetaModel(metaModel);
-            if (metaModel.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
-                {
-                    const string UspKey = "Lrf_BetList_LiveReport_SelWinlossMicroGaming";
-
-                    var title = ViewResources.BetList
-
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        ViewResources.ProductNG,
-                        metaModel.FromDate.ToShortDateString(),
-                        metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-                    return Excel(metaModel, UspKey, title);
-                }
-
-                return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
-            }
-
-            return View("~/Views/BetList/LiveReport/MicroGaming.cshtml", metaModel);
-        }
-
+        
         [HttpGet]
         [FunctionAuthorization]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
@@ -243,7 +213,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
             Justification = "Reviewed.")]
-        public LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
+        private LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)
         {
             metaModel = metaModel ?? new LiveReportBetListMetaModel();
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

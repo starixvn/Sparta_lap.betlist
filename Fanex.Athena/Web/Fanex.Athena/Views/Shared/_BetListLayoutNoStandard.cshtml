@@ -25,6 +25,4 @@
 </div>
 <div class="content-main">
     @RenderBody()
-    @{var actionName = ViewContext.Controller.ValueProvider.GetValue("action").RawValue;}
-    <input type="hidden" id="ActionName" value="@actionName" />
 </div>
