@@ -1,4 +1,4 @@
-﻿/*global Site, JSLINQ, jqGridAdditional, pagingHeper, CustTurnoverOption */
+﻿/*global Site, JSLINQ, jqGridAdditional, PagingHeper, CustTurnoverOption */
 /// <reference path="/@JSense.js" />
 var CustTurnover = (function ($) {
     "use strict";
@@ -495,14 +495,14 @@ var CustTurnover = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
             CustTurnover.pagingOption.totalrow = parseInt(response.TotalRow);
             if (CustTurnover.pagingOption.totalrow > 0) {
-                pagingHeper.render(CustTurnover.pagingOption);
+                PagingHeper.render(CustTurnover.pagingOption);
             }
 
             CustTurnover.resizeGrid();
         },
         ajaxPaging: function () {
             CustTurnover.clearExcelExport();
-            CustTurnover.pagingOption = pagingHeper.getSetting();
+            CustTurnover.pagingOption = PagingHeper.getSetting();
             CustTurnover.loadData();
         },
         setReportTitle: function () {

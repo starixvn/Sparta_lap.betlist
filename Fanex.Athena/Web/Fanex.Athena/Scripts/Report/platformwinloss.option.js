@@ -272,9 +272,9 @@ var PlatformWinLossOption = (function () {
             treedatatype: "local",
             ExpandColumn: 'Name',
             treeReader: {
-                level_field: "Level",
-                parent_id_field: "Parent", 
-                leaf_field: "IsLeaf"
+                level_field: "Level",       // jshint ignore:line
+                parent_id_field: "Parent",  // jshint ignore:line
+                leaf_field: "IsLeaf"        // jshint ignore:line
             },
             userData: [],
             pager: '#ppdata',

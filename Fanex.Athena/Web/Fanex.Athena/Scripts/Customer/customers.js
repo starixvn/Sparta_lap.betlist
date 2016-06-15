@@ -1,4 +1,4 @@
-﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
+﻿/*global Site,JSLINQ, QueryString, PagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
 var CustomerList = (function ($) {
     "use strict";
@@ -242,7 +242,7 @@ var CustomerList = (function ($) {
         _pagingOption.totalrow = parseInt(response.TotalRows);
         if (_pagingOption.totalrow > 0) {
             $(".paging").show();
-            pagingHeper.render(_pagingOption);
+            PagingHeper.render(_pagingOption);
         }
 
         var hasData = response !== null && response.TotalRows > 0;
@@ -412,7 +412,7 @@ var CustomerList = (function ($) {
             return _checkedCustomerArray;
         },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             CustomerList.submit();
         },
         initialize: function () {
@@ -935,7 +935,7 @@ var CustomerList = (function ($) {
                                 alert(data.Message);
                             }
                         },
-                        error: function (jqXHR, textStatus) {
+                        error: function () {
                             $context.html(currentBAStatus);
                         },
                         statusCode:

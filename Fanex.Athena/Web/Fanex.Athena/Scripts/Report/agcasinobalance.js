@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, pagingHeper */
+﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, PagingHeper */
 /// <reference path="/@JSense.js" />
 ///
 var AgCasinoBalance = (function ($) {
@@ -311,7 +311,7 @@ var AgCasinoBalance = (function ($) {
             resetPagingOption();
         },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             AgCasinoBalance.drillDown(2);
         },
         //#BindReport
@@ -337,7 +337,7 @@ var AgCasinoBalance = (function ($) {
             if (level === 2 && response.TotalRows > MIN_PAGE_SIZE) {
                 _pagingOption.totalrow = parseInt(response.TotalRows);
                 $(".paging").show();
-                pagingHeper.render(_pagingOption);
+                PagingHeper.render(_pagingOption);
 
             } else {
                 $(".paging").hide();

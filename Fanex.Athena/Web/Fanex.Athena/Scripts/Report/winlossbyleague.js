@@ -1,4 +1,4 @@
-﻿/*global Site, jqGridAdditional, pagingHeper, WinLossByLeagueOption*/
+﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var WinLossByLeague = (function ($) {
@@ -156,7 +156,7 @@ var WinLossByLeague = (function ($) {
             }, 100);
         },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
 
             me.drillDown(_leagueid, _leaguename);
         },
@@ -439,7 +439,7 @@ var WinLossByLeague = (function ($) {
                         _pagingOption.totalrow = parseInt(response.TotalRows);
                         if (_pagingOption.totalrow > 0) {
                             $("#paging").show();
-                            pagingHeper.render(_pagingOption);
+                            PagingHeper.render(_pagingOption);
                         }
                     }
                 },

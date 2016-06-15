@@ -1,14 +1,14 @@
 ﻿describe("WinLossByLeague", function () {
     describe("ajaxPaging()", function () {
         beforeEach(function () {
-            spyOn(pagingHeper, "getSetting");
+            spyOn(PagingHeper, "getSetting");
             spyOn(WinLossByLeague, "drillDown");
 
             WinLossByLeague.ajaxPaging();
         });
 
-        it("pagingHeper.getSetting() should be called", function () {
-            expect(pagingHeper.getSetting).toHaveBeenCalled();
+        it("PagingHeper.getSetting() should be called", function () {
+            expect(PagingHeper.getSetting).toHaveBeenCalled();
         });
 
         it("WinLossByLeague.drillDown(leagueid, leaguename) should be called with correct parameters", function () {
