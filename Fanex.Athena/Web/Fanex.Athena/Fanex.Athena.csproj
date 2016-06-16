@@ -4433,7 +4433,6 @@
     <Content Include="Views\BetList\LicenseeWl\Main.cshtml" />
     <Content Include="Views\BetList\DailyRacingWl\Main.cshtml" />
     <Content Include="Views\BetList\CustomerWl\Main.cshtml" />
-    <Content Include="Views\BetList\NumberGameWl\Main.cshtml" />
     <Content Include="Views\Shared\_BetListSimpleLayout.cshtml" />
     <Content Include="Views\BetList\LiveReport\Match.cshtml" />
     <Content Include="Views\BetList\LiveReport\NumberGame.cshtml" />
