@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Api.BetList
 {
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Web.ActionFilter;
 
     public class RNGCasinoBetListController : ApiBetListBaseController
     {

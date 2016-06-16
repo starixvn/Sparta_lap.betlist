@@ -13,8 +13,8 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Web.ActionFilter;
 
     #endregion Using
 

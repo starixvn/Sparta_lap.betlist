@@ -10,8 +10,8 @@
 namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// Log in log's API controller.

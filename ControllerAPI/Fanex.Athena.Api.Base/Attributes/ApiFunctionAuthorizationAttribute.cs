@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Web.ActionFilter
+﻿namespace Fanex.Athena.Api.Base.Attributes
 {
     using System;
     using System.Linq;
@@ -45,7 +45,7 @@
                 }
                 else
                 {
-                    AntiForgery.Validate();
+                    System.Web.Helpers.AntiForgery.Validate();
                 }
             }
             catch

@@ -186,10 +186,6 @@
       <Project>{ec87b5f7-32ca-485b-a3ff-52a5d0edce42}</Project>
       <Name>Fanex.Athena.Service.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
-      <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
-      <Name>Fanex.Athena.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

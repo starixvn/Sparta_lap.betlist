@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.Report
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -22,7 +23,6 @@ namespace Fanex.Athena.Api.Report
     using Service.Core.Configuration.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
-    using Web.ActionFilter;
 
     public class WinLossByLeagueReportController : ApiReportBaseController
     {

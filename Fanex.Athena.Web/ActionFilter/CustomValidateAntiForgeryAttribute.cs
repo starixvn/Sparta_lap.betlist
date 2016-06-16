@@ -5,7 +5,7 @@
     using System.Web.Mvc;
 
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public sealed class CustomValidateAntiForgery : FilterAttribute, IAuthorizationFilter
+    public sealed class CustomValidateAntiForgeryAttribute : FilterAttribute, IAuthorizationFilter
     {
         private const string KEYNAME = "__RequestVerificationToken";
 

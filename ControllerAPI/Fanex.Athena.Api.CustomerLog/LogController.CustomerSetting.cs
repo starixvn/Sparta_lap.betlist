@@ -11,8 +11,8 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Fanex.Athena.Web.ActionFilter;
 
     /// <summary>
     /// TODO: Update summary.

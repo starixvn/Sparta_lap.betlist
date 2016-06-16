@@ -12,6 +12,7 @@ namespace Fanex.Athena
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Api.Base.Attributes;
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Extension.Utility;

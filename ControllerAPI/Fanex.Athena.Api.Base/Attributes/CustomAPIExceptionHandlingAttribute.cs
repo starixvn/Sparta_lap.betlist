@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Web.ActionFilter
+namespace Fanex.Athena.Api.Base.Attributes
 {
     using System;
     using System.Web.Http.Filters;

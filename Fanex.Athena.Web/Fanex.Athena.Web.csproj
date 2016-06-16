@@ -132,12 +132,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilter\CustomValidateAntiForgery.cs" />
+    <Compile Include="ActionFilter\CustomValidateAntiForgeryAttribute.cs" />
     <Compile Include="ActionFilter\FunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttribute.cs" />
-    <Compile Include="ActionFilter\ApiFunctionAuthorizationAttribute.cs" />
-    <Compile Include="ActionFilter\CustomApiAuthorizeAttribute.cs" />
-    <Compile Include="ActionFilter\CustomAPIExceptionHandlingAttribute.cs" />
     <Compile Include="ActionFilter\CustomAuthorizeAttribute.cs" />
     <Compile Include="ActionFilter\HandleAntiForgeryErrorAttribute.cs" />
     <Compile Include="HtmlExtension\UrlExtension.cs" />

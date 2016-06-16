@@ -16,6 +16,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Globalization;
     using System.Linq;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -25,7 +26,6 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Resources;
-    using Web.ActionFilter;
     using CacheRefHelper = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     #endregion Using

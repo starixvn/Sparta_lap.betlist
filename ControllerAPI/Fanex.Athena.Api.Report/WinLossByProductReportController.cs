@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.Report
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Helper;
@@ -25,7 +26,6 @@ namespace Fanex.Athena.Api.Report
     using Resources;
     using Service.Report;
     using Service.Report.Interfaces;
-    using Web.ActionFilter;
 
     public class WinLossByProductReportController : ApiReportBaseController
     {
@@ -38,7 +38,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [AjaxRequest]
         [ApiFunctionAuthorization]
         public dynamic Index(
            WinLossByProductMetaModel metaModel,
@@ -55,7 +54,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [AjaxRequest]
         [ApiFunctionAuthorization]
         public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
         {

@@ -12,7 +12,7 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
-    using Web.ActionFilter;
+    using Base.Attributes;
 
     #endregion Using
 

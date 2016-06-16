@@ -14,9 +14,9 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Collections.Generic;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Web.ActionFilter;
 
     #endregion Using
 

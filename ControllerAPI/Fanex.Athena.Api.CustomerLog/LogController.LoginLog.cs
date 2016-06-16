@@ -11,7 +11,7 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
     using System.Web.Http;
-    using Fanex.Athena.Web.ActionFilter;
+    using Base.Attributes;
 
     /// <summary>
     /// Log in log's API controller.

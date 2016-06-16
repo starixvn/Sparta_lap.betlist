@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.Report
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Extension.Utility;
@@ -23,7 +24,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Service.Report;
     using Service.Report.Interfaces;
-    using Web.ActionFilter;
 
     public class AgCasinoWinLossReportController : ApiReportBaseController
     {

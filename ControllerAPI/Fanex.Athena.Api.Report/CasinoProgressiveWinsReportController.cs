@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.Report
     using System.Text;
     using System.Web;
     using System.Web.Http;
+    using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Core.Helper;
@@ -20,7 +21,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Web.ActionFilter;
 
     /// <summary>
     /// ReportController class.
