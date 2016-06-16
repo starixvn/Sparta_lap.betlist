@@ -38,6 +38,7 @@ namespace Fanex.Athena.Controllers.Report
     /// <summary>
     /// The result controller.
     /// </summary>
+    [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
     public class ResultReportController : ReportBaseController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
@@ -52,7 +53,6 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var model = new ResultReportViewModel
@@ -80,7 +80,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The actin result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(ResultMetalModel metalModel)
         {
@@ -100,7 +99,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult ResultExcel(ResultMetalModel metalModel)
         {
             IResultService resultService = new ResultService();
@@ -142,7 +140,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult GetSports(ResultMetalModel metalModel)
         {
@@ -181,7 +178,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult ResultPopup(ResultPopupMetalModel metalModel)
         {
             if (ModelState.IsValid)
@@ -195,7 +191,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult MicrogamingResultPopup(int gameId, int custId)
         {
             if (ModelState.IsValid)
@@ -213,7 +208,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
@@ -225,7 +219,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public string VoidbridgeResult(string custId, string gamePlayId)
         {
             var voidbridgeApi = new VoidbridgeApiImp();
@@ -240,7 +233,6 @@ namespace Fanex.Athena.Controllers.Report
         /// /// <param name="sportType">The sport type.</param>
         /// <returns>The html result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult ResultDetail(int matchId, int sportType)
         {
             var resultService = new ResultService();
@@ -271,7 +263,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>Action result.</returns>
         [HttpGet]
         [AjaxRequest]
-        [FunctionAuthorization]
         public ActionResult KenoResult()
         {
             IKenoApi api = new KenoApi();
@@ -292,7 +283,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public string KenoResult(string userId)
         {

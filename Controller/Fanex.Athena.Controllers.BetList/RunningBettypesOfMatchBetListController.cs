@@ -29,7 +29,6 @@ namespace Fanex.Athena.Controllers.BetList
     public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

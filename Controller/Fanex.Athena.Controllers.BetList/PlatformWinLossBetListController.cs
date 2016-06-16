@@ -21,10 +21,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

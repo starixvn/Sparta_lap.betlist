@@ -23,7 +23,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class CustomerWinLossBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
+        [FunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

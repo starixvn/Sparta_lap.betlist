@@ -23,10 +23,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
+    [FunctionAuthorization(PermissionKeys.ReportPlaytechCasinoWinLoss)]
     public class PlaytechCasinoWinlossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
@@ -52,7 +52,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         [ValidateInput(false)]
         [SuppressMessage(
@@ -116,7 +115,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(PlaytechCasinoViewModel viewModel)
         {

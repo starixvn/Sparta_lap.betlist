@@ -41,7 +41,6 @@ namespace Fanex.Athena.Controllers.BetList
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

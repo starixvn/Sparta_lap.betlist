@@ -24,12 +24,14 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
 
     /// <summary>
     /// The customer controller.
     /// </summary>
+    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
     {
         private const string CustomerListUrl = "Customer/CustomerList";
@@ -81,7 +83,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="groupId">The group id.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult CustomerList(string userName = "", int groupId = -1)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -115,7 +116,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
@@ -143,7 +143,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult ExportExcel(string excelParam)
         {
@@ -193,7 +192,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult LogInfo(int custId)
         {

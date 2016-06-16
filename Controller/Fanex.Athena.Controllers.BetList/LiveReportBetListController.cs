@@ -20,10 +20,10 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Match(LiveReportBetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -55,7 +55,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult MixParlay(LiveReportBetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -87,7 +86,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Outright(LiveReportBetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -118,7 +116,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult NumberGame(LiveReportBetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
@@ -146,9 +143,8 @@ namespace Fanex.Athena.Controllers.BetList
 
             return View("~/Views/BetList/LiveReport/NumberGame.cshtml", metaModel);
         }
-        
+
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
             const string UspKeyRacing = "Lrf_BetList_LiveReport_SelWinlossRacing";

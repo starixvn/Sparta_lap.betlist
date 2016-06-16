@@ -19,10 +19,11 @@ namespace Fanex.Athena.Controllers.Forecast
     using Resources;
     using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
+        
         public ActionResult Index(ForecastAHMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -18,11 +18,13 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
+    [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
     public class CustomerTurnoverReportController : ReportBaseController
     {
         private readonly ISportTypeService _sportTypeService;
@@ -33,7 +35,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             AddNotificationMessageToViewBag();
@@ -65,7 +66,6 @@ namespace Fanex.Athena.Controllers.Report
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [ValidateInput(false)]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(string excelParam)
         {

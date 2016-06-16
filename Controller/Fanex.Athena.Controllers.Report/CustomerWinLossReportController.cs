@@ -20,10 +20,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
+    [FunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -64,7 +64,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult History()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -104,7 +103,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(CustomerWinLossMetaModel metaModel)
         {
@@ -140,7 +138,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult History(CustomerWinLossHistoryMetaModel metaModel)
         {
@@ -188,7 +185,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(CustomerWinLossViewModel viewModel)
         {
@@ -231,7 +227,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult HistoryExcel(CustomerWinLossViewModel viewModel)
         {

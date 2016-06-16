@@ -18,11 +18,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(bool isViewedHistory = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -58,7 +59,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(LiveReportMetalModel metaModel)
         {
@@ -89,7 +89,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult MatchList(LiveReportMatchListMetalModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -114,7 +113,6 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Detail(LiveReportMetalModel metaModel, string productCode)
         {

@@ -11,13 +11,14 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
+    [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
@@ -42,7 +43,6 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
         {

@@ -20,7 +20,6 @@ namespace Fanex.Athena.Controllers.BetList
     public class SystemParlayBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Detail(SystemParlayDetailMetaModel metaModel)
         {
             var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;

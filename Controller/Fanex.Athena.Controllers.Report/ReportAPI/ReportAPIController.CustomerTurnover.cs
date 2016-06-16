@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
     /// <summary>
@@ -19,11 +20,9 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportAPIController : DefaultCultureBaseController
     {
-        private const string CustomerTurnoverReportUrl = "CustomerTurnoverReport";
-
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerTurnoverReportUrl)]
+        [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
         [CustomValidateAntiForgery]
         public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
         {
@@ -38,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = CustomerTurnoverReportUrl)]
+        [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
         [CustomValidateAntiForgery]
         public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {

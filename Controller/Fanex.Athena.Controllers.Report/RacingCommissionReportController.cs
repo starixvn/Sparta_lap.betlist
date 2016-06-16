@@ -16,17 +16,18 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = new RacingCommissionMetaModel
-                {
-                    BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay
-                };
+            {
+                BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay
+            };
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -34,19 +35,18 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
 
             var model = new RacingCommissionViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = userSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = userSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+            };
 
             return View("~/Views/Report/RacingCommission/Main.cshtml", model);
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(RacingCommissionMetaModel metaModel)
         {
@@ -67,14 +67,14 @@ namespace Fanex.Athena.Controllers.Report
             reportData.Sort(metaModel.SortColumn, metaModel.SortDirection.Equals("ASC", StringComparison.OrdinalIgnoreCase));
 
             var model = new RacingCommissionViewModel
-                {
-                    RacingCommissionList = reportData,
-                    Param = metaModel,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = userSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    Total = total,
-                };
+            {
+                RacingCommissionList = reportData,
+                Param = metaModel,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = userSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                Total = total,
+            };
 
             return metaModel.IsExportExcel
                        ? Excel(model)
@@ -86,16 +86,16 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "RacingCommission";
 
             var currencyConvert = new ConvertingOption
-                {
-                    IsConvert = viewModel.Param.IsConvert,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.IsConvert ? string.Empty : viewModel.Param.CurrencyName
-                };
+            {
+                IsConvert = viewModel.Param.IsConvert,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.IsConvert ? string.Empty : viewModel.Param.CurrencyName
+            };
 
             var showingOption = new ShowingOption
-                {
-                    CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
-                };
+            {
+                CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/RacingCommission.xls");
 

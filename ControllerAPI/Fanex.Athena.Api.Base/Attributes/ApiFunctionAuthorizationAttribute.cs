@@ -88,15 +88,7 @@
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                if (!string.IsNullOrWhiteSpace(ParentUrl))
-                {
-                    authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
-                }
-
-                if (authorized)
-                {
-                    authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl.ToString());
-                }
+                authorized = authorization.HasPermissions(licenseeSession.LicenseeId, userSession.FunctionIdList, new string[] { });
             }
 
             return authorized;

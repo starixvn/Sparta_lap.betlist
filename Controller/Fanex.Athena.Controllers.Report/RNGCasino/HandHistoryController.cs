@@ -39,7 +39,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         /// <param name="metaModel">The meta model.</param>
         /// <returns>The data string.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult RNGCasinoData(RNGCasinoResultMetaModel metaModel)
         {
             if (metaModel != null)
@@ -60,7 +59,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult RNGCasino(RNGCasinoResultMetaModel metaModel)
         {
             if (metaModel.IsExportExcel)
@@ -83,7 +81,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         /// <param name="metalModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetaModel metalModel)
         {
             if (this.SessionService.UserSession.UserName == "pgmbravo")
@@ -103,7 +100,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         /// <param name="metaModel">The meta model.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization]
         public ViewResult RNGCasinoDetail(RNGCasinoResultDetailMetaModel metaModel)
         {
             metaModel.CurrencyName = metaModel.CurrencyName.ToUpper();

@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.BetList
     public class RNGCasinoBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

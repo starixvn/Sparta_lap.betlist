@@ -23,10 +23,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class CustomerPendingFundsReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -68,7 +68,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [ValidateInput(false)]
         [CustomValidateAntiForgery]
         public ActionResult Index(CustomerPendingFundsMetaModel metaModel)
@@ -115,7 +114,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(CustomerPendingFundsViewModel viewModel)
         {

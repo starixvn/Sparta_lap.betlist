@@ -21,10 +21,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
 
+    [FunctionAuthorization(PermissionKeys.ReportTurnover)]
     public class TurnoverReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -67,7 +67,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(TurnoverMetaModel metaModel)
         {

@@ -12,15 +12,16 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Model.Core.DataDomain;
     using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerOutstandingBetListController : BetListBaseController
     {
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);

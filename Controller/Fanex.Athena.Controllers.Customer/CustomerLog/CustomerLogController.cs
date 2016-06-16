@@ -9,10 +9,12 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using System.Web.Mvc;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
 
     /// <summary>
     /// Customer log.
     /// </summary>
+    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class CustomerLogController : ReadonlyBaseController
     {
         private const string CustomerLogUrl = "CustomerLog/LogInLog";
@@ -25,7 +27,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         }
 
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = CustomerLogUrl)]
         public ActionResult Index()
         {
             return LogInLog();

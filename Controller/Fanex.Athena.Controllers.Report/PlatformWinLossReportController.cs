@@ -15,10 +15,10 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
 
+    [FunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             AddNotificationMessageToViewBag();

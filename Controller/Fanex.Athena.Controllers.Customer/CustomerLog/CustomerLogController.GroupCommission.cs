@@ -26,7 +26,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// </summary>
         /// <returns>Group commission log view.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = CustomerLogUrl)]
         public ActionResult GroupCommission()
         {
             var model = new CustomerLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<CustomerLog>() };

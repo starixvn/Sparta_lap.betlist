@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Resources;
 
     /// <summary>
@@ -17,10 +18,8 @@ namespace Fanex.Athena.Controllers.Report
     /// </summary>
     public partial class ReportAPIController : DefaultCultureBaseController
     {
-        private const string TurnoverName = "Turnover";
-
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = "TurnoverReport")]
+        [FunctionAuthorization(PermissionKeys.ReportTurnover)]
         [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {

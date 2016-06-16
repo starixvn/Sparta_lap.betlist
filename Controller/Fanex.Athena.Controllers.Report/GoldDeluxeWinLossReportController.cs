@@ -11,11 +11,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportGoldDeluxeWinloss)]
     public partial class GoldDeluxeWinLossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;
@@ -23,22 +24,22 @@ namespace Fanex.Athena.Controllers.Report
             var date = DateTime.Now;
 
             var metaModel = new GoldDeluxeWinLossMetaModel
-                {
-                    FromDate = date.AddDays(-1),
-                    ToDate = date.AddDays(-1),
-                    LicenseeId = licenseeSession.LicenseeId,
-                    ReportBy = 1,
-                    IsExcludedTestData = true
-                };
+            {
+                FromDate = date.AddDays(-1),
+                ToDate = date.AddDays(-1),
+                LicenseeId = licenseeSession.LicenseeId,
+                ReportBy = 1,
+                IsExcludedTestData = true
+            };
 
             SetConvetedUSDCurrencyId(metaModel);
 
             var model = new GoldDeluxeWinLossViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    CurrencyList = userSession.CurrencyList
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList
+            };
 
             return View("~/Views/Report/GoldDeluxeWinLoss/Main.cshtml", model);
         }

@@ -14,11 +14,13 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.Warehouse;
     using Service.Warehouse.Interfaces;
     using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.WarehouseWinLoss)]
     public class WinLossWareHouseController : WareHouseBaseController
     {
         private readonly IWinLossService _winLossService;
@@ -29,7 +31,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -55,7 +56,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(WinLossMetaModel metaModel)
         {
@@ -104,7 +104,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(WinLossMetaModel metaModel)
         {

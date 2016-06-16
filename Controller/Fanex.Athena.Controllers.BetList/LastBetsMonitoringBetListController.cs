@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetsMonitoringBetListController : BetListBaseController
     {
         private ISportTypeService _sportTypeService;
@@ -31,7 +32,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             this._sportTypeService = new SportTypeService();

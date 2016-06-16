@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.Core.ViewModel;
     using Resources;
 
@@ -35,6 +36,7 @@ namespace Fanex.Athena.Controllers.Customer
     /// +Update level.
     /// +Update Status .
     /// </summary>
+    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerApiController : ReadonlyBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
@@ -72,7 +74,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
@@ -131,7 +132,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
@@ -178,7 +178,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
@@ -238,7 +237,6 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
@@ -326,7 +324,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage(
          "StyleCop.CSharp.StylecopPlus.Rules",
@@ -403,7 +400,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
         {
@@ -460,7 +456,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
@@ -513,7 +508,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
@@ -575,7 +569,6 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="query">The query string.</param>
         /// <returns>The action result.</returns>
         [AjaxRequest]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult SearchCustomer(string licenseeType, int currencyId, string query)
         {
             query = query.Trim();

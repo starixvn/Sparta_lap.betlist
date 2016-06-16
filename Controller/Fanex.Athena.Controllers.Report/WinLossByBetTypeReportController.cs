@@ -18,12 +18,13 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
+    [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinLossByBetTypeReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -54,7 +55,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(WinLossByBetTypeMetaModel metaModel)
         {

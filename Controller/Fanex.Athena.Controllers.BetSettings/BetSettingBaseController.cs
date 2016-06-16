@@ -22,11 +22,11 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class BetSettingBaseController : ReadonlyBaseController
     {
-        protected const string CustomerListUrl = "Customer/CustomerList";
-
         private const int BopingResellerId = 7;
 
         private readonly ICoreBetSettingService _coreBetSettingService;

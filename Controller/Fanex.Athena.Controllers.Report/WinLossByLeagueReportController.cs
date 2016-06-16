@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.Report
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
+    [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ReportBaseController
     {
         private readonly ISportTypeService _sportTypeService;
@@ -35,7 +36,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -90,7 +90,6 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)
         {
@@ -103,7 +102,6 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {

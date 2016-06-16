@@ -7,6 +7,7 @@
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Resources;
     using Web.ActionFilter;
 
@@ -16,7 +17,6 @@
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

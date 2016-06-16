@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.CasinoProgressiveWins.cs" company="Microsoft">
+// <copyright file="CasinoProgressiveWinsReportController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -16,10 +16,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportCasinoProgressiveWins)]
     public class CasinoProgressiveWinsReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;

@@ -29,6 +29,7 @@ namespace Fanex.Athena.Controllers.Account
     ///     TODO: Update summary.
     /// </summary>
     [CheckUMFilter]
+    [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
     public class AccountController : BaseController
     {
         private const string ParentUrl = "Account/Manage";
@@ -91,11 +92,6 @@ namespace Fanex.Athena.Controllers.Account
             return View("~/Views/Account/ChangeLicensee.cshtml");
         }
 
-        /// <summary>
-        /// Manage users.
-        /// </summary>
-        /// <returns>The action result.</returns>
-        [FunctionAuthorization]
         public ActionResult Manage()
         {
             var userSession = SessionService.UserSession;
@@ -114,7 +110,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountEditAccount)]
         public ActionResult EditAccount()
         {
             var userSession = SessionService.UserSession;
@@ -148,7 +144,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The account metal model.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountEditAccount)]
         [CustomValidateAntiForgery]
         public JsonResult EditAccount(EditAccountMetaModel model)
         {
@@ -204,7 +200,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountResetPassword)]
         public ActionResult ResetPassword()
         {
             var model = new ResetPasswordMetaModel
@@ -228,7 +224,7 @@ namespace Fanex.Athena.Controllers.Account
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountResetPassword)]
         [CustomValidateAntiForgery]
         public JsonResult ResetPassword(ResetPasswordMetaModel model)
         {
@@ -298,7 +294,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignPermission)]
         public ActionResult PermissionPage()
         {
             int userId; // user is being editted
@@ -322,7 +318,7 @@ namespace Fanex.Athena.Controllers.Account
         /// </summary>
         /// <returns>The action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignPermission)]
         public ActionResult EditPermission()
         {
             int userId; // user is being editted
@@ -358,7 +354,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The permission metal model.</param>
         /// <returns>The action result.</returns>
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignPermission)]
         [CustomValidateAntiForgery]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
@@ -409,7 +405,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="userId">The user id.</param>
         /// <returns>Action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignCurrency)]
         public ActionResult AssignCurrency(int userId = 0)
         {
             if (!AppSettings.EnableAssignCurrency)
@@ -446,7 +442,7 @@ namespace Fanex.Athena.Controllers.Account
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = ParentUrl)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignCurrency)]
         [CustomValidateAntiForgery]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {

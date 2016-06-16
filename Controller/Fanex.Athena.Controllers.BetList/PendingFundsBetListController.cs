@@ -19,16 +19,15 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
-
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class PendingFundsBetListController : BetListBaseController
     {
         private static readonly List<int> HiddenColList =
             new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

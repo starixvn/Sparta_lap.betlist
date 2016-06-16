@@ -20,10 +20,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.TotalBetCorrectScore)]
     public class CorrectScoreBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = CreateDefaultMetaModel();
@@ -47,7 +47,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(BetListMetaModel metaModel)
         {

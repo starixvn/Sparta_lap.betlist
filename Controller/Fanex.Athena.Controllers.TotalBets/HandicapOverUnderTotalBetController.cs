@@ -13,11 +13,13 @@ namespace Fanex.Athena.Controllers.TotalBets
     using System.Web.Mvc;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
+    [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderTotalBetController : TotalBetBaseController
     {
         private readonly IHandicapOverUnderService _handicapOverUnderService;
@@ -28,7 +30,6 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var param = new HandicapOverUnderMetaModel
@@ -42,7 +43,6 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(HandicapOverUnderMetaModel metaModel)
         {

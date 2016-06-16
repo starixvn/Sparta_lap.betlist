@@ -11,13 +11,14 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
+    [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = new ForecastOneXTwoMetaModel
@@ -33,7 +34,6 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(ForecastOneXTwoMetaModel metaModel)
         {
@@ -45,7 +45,6 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Popup(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

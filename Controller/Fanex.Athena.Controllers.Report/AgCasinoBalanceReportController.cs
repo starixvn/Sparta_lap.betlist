@@ -11,11 +11,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportAGCasinoBalance)]
     public class AgCasinoBalanceReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = this.SessionService.LicenseeSession;

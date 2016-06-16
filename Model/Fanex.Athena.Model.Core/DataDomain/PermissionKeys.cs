@@ -65,7 +65,7 @@
         public const string ReportCasinoProgressiveWins = "CasinoProgressiveWins68";
         public const string ReportWeeklyLiveMatches = "WeeklyLiveMatches69";
         public const string ReportCustomerTurnover = "CustomerTurnover51";
-        public const string ReportMobileWinLoss = "MobileWinLoss53";
+        public const string ReportPlatformWinLoss = "MobileWinLoss53";
 
         /* Warehouse. */
 
@@ -83,7 +83,7 @@
 
         public const string AccountManageAccount = "ManageAccount46";
         public const string AccountAddNewAccount = "AddNewAccount47";
-        public const string AccountEditNewAccount = "EditNewAccount48";
+        public const string AccountEditAccount = "EditNewAccount48";
         public const string AccountAssignPermission = "AssignPermission49";
         public const string AccountResetPassword = "ResetPassword50";
         public const string AccountAssignCurrency = "AssignCurrency57";

@@ -26,7 +26,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var customer = CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
@@ -37,7 +36,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
@@ -82,7 +80,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {

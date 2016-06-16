@@ -28,10 +28,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Common;
     using Resources;
 
+    [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -75,7 +75,6 @@ namespace Fanex.Athena.Controllers.Report
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(MatchWinLossMetaModel metaModel)
         {
@@ -138,7 +137,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Detail(MatchWinLossMetaModel metaModel)
         {
@@ -164,7 +162,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {

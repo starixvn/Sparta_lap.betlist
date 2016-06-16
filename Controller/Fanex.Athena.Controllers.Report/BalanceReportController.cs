@@ -14,14 +14,15 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
 
     /// <summary>
     ///     Credit Balance controller.
     /// </summary>
+    [FunctionAuthorization(PermissionKeys.ReportBalance)]
     public class BalanceReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = new BalanceMetaModel() { LicenseeId = SessionService.LicenseeSession.LicenseeId };
@@ -31,7 +32,6 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [OutputCache(Duration = 0, VaryByParam = "None")]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(BalanceMetaModel metaModel)
         {

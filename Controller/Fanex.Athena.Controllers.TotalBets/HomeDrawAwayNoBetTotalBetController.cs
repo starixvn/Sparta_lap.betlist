@@ -11,11 +11,13 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
+    [FunctionAuthorization(PermissionKeys.TotalBetHomeDrawAwayNoBet)]
     public class HomeDrawAwayNoBetTotalBetController : TotalBetBaseController
     {
         private readonly IHomeDrawAwayNoBetService _homeDrawAwayNoBetService;
@@ -26,7 +28,6 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var param = new HomeDrawAwayNoBetMetaModel
@@ -39,7 +40,6 @@ namespace Fanex.Athena.Controllers.TotalBets
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(HomeDrawAwayNoBetMetaModel metaModel)
         {

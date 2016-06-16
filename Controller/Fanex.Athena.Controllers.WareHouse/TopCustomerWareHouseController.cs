@@ -16,10 +16,12 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.Warehouse;
     using Service.Warehouse.Interfaces;
 
+    [FunctionAuthorization(PermissionKeys.WarehouseTopCustomer)]
     public class TopCustomerWareHouseController : WareHouseBaseController
     {
         private readonly ISportTypeService _sportTypeService;
@@ -33,7 +35,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -60,7 +61,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(TopCustomerMetaModel metaModel)
         {
@@ -92,7 +92,6 @@ namespace Fanex.Athena.Controllers.WareHouse
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Excel(TopCustomerMetaModel metaModel)
         {

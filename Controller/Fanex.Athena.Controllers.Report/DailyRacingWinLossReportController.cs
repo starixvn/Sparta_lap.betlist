@@ -14,37 +14,37 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
             var metaModel = new DailyRacingWinLossMetaModel
-                {
-                    LicenseeId = licenseeSession.LicenseeId,
-                    UserId = licenseeSession.UserId,
-                    BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString()
-                };
-           
+            {
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = licenseeSession.UserId,
+                BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString()
+            };
+
             SetConvetedUSDCurrencyName(metaModel);
-           
+
             var model = new DailyRacingWinLossViewModel
-                {
-                    ShowEmptyContent = true,
-                    Param = metaModel,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                };
+            {
+                ShowEmptyContent = true,
+                Param = metaModel,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = SessionService.UserSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+            };
 
             return View("~/Views/Report/DailyRacingWinLoss/Main.cshtml", model);
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
@@ -56,13 +56,13 @@ namespace Fanex.Athena.Controllers.Report
             var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 
             var model = new DailyRacingWinLossViewModel
-                {
-                    Param = metaModel,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
-                    CurrencyList = SessionService.UserSession.CurrencyList,
-                    IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                    DailyRacingWinLossData = dailyRacingWlData
-                };
+            {
+                Param = metaModel,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = SessionService.UserSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                DailyRacingWinLossData = dailyRacingWlData
+            };
 
             return metaModel.IsExportExcel
                        ? Excel(model)
@@ -79,16 +79,16 @@ namespace Fanex.Athena.Controllers.Report
                                    : Server.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss.xls");
 
             var currencyConvert = new ConvertingOption
-                {
-                    IsConvert = viewModel.Param.IsConvert,
-                    BaseCurrency = viewModel.Param.BaseCurrency,
-                    CurrencyName = viewModel.Param.CurrencyName
-                };
+            {
+                IsConvert = viewModel.Param.IsConvert,
+                BaseCurrency = viewModel.Param.BaseCurrency,
+                CurrencyName = viewModel.Param.CurrencyName
+            };
 
             var showingOption = new ShowingOption
-                {
-                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-                };
+            {
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+            };
 
             // Export excel
             if (licenseeSession.LicenseeId == 1)

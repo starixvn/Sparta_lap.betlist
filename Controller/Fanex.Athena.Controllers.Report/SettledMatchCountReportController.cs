@@ -9,12 +9,13 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Report;
-    using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
+    using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.ReportSettledMatchCount)]
     public class SettledMatchCountReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;

@@ -18,13 +18,12 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
-
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public partial class WinlossByLeagueBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);

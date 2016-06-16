@@ -22,10 +22,10 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = CreateDefaultMetaModel();
@@ -60,7 +60,6 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpPost]
-        [FunctionAuthorization]
         [CustomValidateAntiForgery]
         public ActionResult Index(BetListMetaModel metaModel)
         {

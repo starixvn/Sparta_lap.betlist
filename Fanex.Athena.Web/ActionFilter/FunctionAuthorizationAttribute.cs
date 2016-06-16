@@ -14,10 +14,16 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [CLSCompliant(true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
-        public string PermissionKey { get; set; }
+        public FunctionAuthorizationAttribute(params string[] permissionKeys)
+        {
+            PermissionKeys = permissionKeys;
+        }
+
+        public string[] PermissionKeys { get; set; }
 
         #region Override
 
@@ -37,7 +43,7 @@ namespace Fanex.Athena.Web.ActionFilter
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, PermissionKey);
+                authorized = authorization.HasPermissions(licenseeSession.LicenseeId, userSession.FunctionIdList, PermissionKeys);
             }
 
             if (!authorized)

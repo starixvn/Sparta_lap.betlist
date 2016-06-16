@@ -19,10 +19,10 @@
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
+    [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinlossByBetTypeBetListController : BetListBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             metaModel = CreateDefaultMetaModel(metaModel);
