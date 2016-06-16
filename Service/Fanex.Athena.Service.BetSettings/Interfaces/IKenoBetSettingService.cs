@@ -12,8 +12,8 @@ namespace Fanex.Athena.Service.BetSettings
 
     public interface IKenoBetSettingService
     {
-        BetSettingViewModel GetViewModel(int custId);
+        BetSettingViewModel GetViewModel(int licenseeId, int custId);
 
-        IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting);
+        IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string language, string ip, KenoBetSetting setting);
     }
 }

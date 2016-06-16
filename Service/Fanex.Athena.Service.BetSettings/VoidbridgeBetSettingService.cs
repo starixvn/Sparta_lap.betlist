@@ -21,9 +21,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new VoidbridgeBetSettingDataAccess();
         }
 
-        public bool? GetStatus(int custId)
+        public bool? GetStatus(int licenseeId, int custId)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -31,9 +31,9 @@ namespace Fanex.Athena.Service.BetSettings
             return _betSettingDataAccess.GetStatus(custId);
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string ip, bool status)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string ip, bool status)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return new ResultInfo
                 {

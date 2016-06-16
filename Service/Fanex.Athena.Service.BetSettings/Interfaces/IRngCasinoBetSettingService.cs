@@ -15,7 +15,7 @@ namespace Fanex.Athena.Service.BetSettings
     {
         RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName);
 
-        IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino);
+        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino);
 
         IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino);
     }

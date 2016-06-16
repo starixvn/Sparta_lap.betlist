@@ -25,9 +25,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new RacingBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetViewModel(int custId, bool isAllowSaToreCurrency)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId, bool isAllowSaToreCurrency)
         {
-            var betSettings = HasPermissionOnData(custId)
+            var betSettings = HasPermissionOnData(licenseeId, custId)
                         ? _betSettingDataAccess.GetBetSetting(custId, isAllowSaToreCurrency)
                         : new List<BetSetting>();
             return new BetSettingViewModel
@@ -36,7 +36,7 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IDictionary<string, string> UpdateBetSetting(Dictionary<string, RacingBetSetting> racingParam)
+        public IDictionary<string, string> UpdateBetSetting(int licenseeId, Dictionary<string, RacingBetSetting> racingParam)
         {
             if (racingParam == null || racingParam.Count == 0)
             {
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             var custId = racingParam.First().Value.CustId;
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 throw new ServiceException(ViewResources.UpdateSpecialLevelMsg, "BetSetting");
             }

@@ -5,10 +5,10 @@
 
     public interface IGoldDeluxeBetSettingService
     {
-        GoldDeluxeBetSettingViewModel GetViewModel(int custId, string siteName);
+        GoldDeluxeBetSettingViewModel GetViewModel(int licenseeId, int custId, string siteName);
 
-        IResultInfo UpdateBetSetting(string siteName, int custId, string group);
+        IResultInfo UpdateBetSetting(int licenseeId, string siteName, int custId, string group);
 
-        IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled);
     }
 }

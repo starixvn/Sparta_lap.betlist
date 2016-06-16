@@ -25,7 +25,7 @@ namespace Fanex.Athena.Api.BetList
         [ApiFunctionAuthorization]
         public dynamic Detail(long transId)
         {
-            var ticketResult = BetListService.GetMixParlayDetailTicket(transId);
+            var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
             var ticket = Ticket(ticketResult: ticketResult, showOdds: true);
             return ticket;
         }

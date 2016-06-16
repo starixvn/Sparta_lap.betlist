@@ -28,9 +28,9 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        protected bool HasPermissionOnData(int custId)
+        protected bool HasPermissionOnData(int licenseeId, int custId)
         {
-            return _authorizationService.HasPermissionOnData(custId, 0);
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0);
         }
     }
 }

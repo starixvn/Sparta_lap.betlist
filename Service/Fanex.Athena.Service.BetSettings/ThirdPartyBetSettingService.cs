@@ -22,9 +22,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
         }
 
-        public ThirdPartyBetSettingViewModel GetViewModel(int custId, int productid)
+        public ThirdPartyBetSettingViewModel GetViewModel(int licenseeId, int custId, int productid)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -38,9 +38,9 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateStatus(int licenseeId, int productId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

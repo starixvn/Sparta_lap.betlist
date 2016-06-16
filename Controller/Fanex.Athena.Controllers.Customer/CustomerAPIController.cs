@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
@@ -131,7 +131,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateSpecialLevel(int custId, int level)
@@ -141,6 +141,7 @@ namespace Fanex.Athena.Controllers.Customer
             try
             {
                 var dataResult = _customerService.UpdateSpecialLevel(
+                    SessionService.LicenseeSession.LicenseeId,
                     userSession.UserId,
                     custId,
                     level,
@@ -177,7 +178,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateOddsGroup(int custId, string oddsGroup)
@@ -188,6 +189,7 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 var metaModel = new CustomerOddsGroupMetaModel()
                 {
+                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     CustId = custId,
                     Ip = Request.UserHostAddress,
                     Language = userSession.Language,
@@ -236,7 +238,7 @@ namespace Fanex.Athena.Controllers.Customer
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult UpdateBAStatus(int custId, bool isAllowBA)
         {
@@ -324,7 +326,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         [SuppressMessage(
          "StyleCop.CSharp.StylecopPlus.Rules",
@@ -401,7 +403,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult UpdateGroupCom(int groupCommId, decimal sbcomm, decimal rcomm, decimal ngcomm, decimal lccomm, decimal rngcomm)
         {
@@ -458,7 +460,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult RemoveFromGroupCom(string customerIds, bool isRemovePlayercomm)
         {
@@ -511,7 +513,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult MoveToGroupCom(string customerIds, int groupComId)
         {
@@ -573,7 +575,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="query">The query string.</param>
         /// <returns>The action result.</returns>
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult SearchCustomer(string licenseeType, int currencyId, string query)
         {
             query = query.Trim();

@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
     public interface INumberGameBetSettingService
     {
-        BetSettingViewModel GetViewModel(int custId);
+        BetSettingViewModel GetViewModel(int licenseeId, int custId);
 
         IResultInfo UpdateBetSetting(CommonBetSetting setting, Hashtable data);
     }

@@ -29,10 +29,10 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new SportsbookBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetViewModel(int custId)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
             var esportSetting = EsportSettingType.NoneOffering;
-            var betSettings = HasPermissionOnData(custId)
+            var betSettings = HasPermissionOnData(licenseeId, custId)
                         ? _betSettingDataAccess.GetBetSetting(custId, ref esportSetting)
                         : new List<BetSetting>();
 
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult("Invalid parameter. sportsBook is null");
             }
 
-            if (!HasPermissionOnData(setting.CustId))
+            if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

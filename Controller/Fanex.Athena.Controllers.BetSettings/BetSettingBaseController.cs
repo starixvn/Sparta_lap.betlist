@@ -108,9 +108,10 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private IEnumerable<BetSettingProduct> GetBetSettingProducts(int custId)
         {
-            var customerInfo = _customerService.GetCustomerInfo(custId);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var customerInfo = _customerService.GetCustomerInfo(licenseeId, custId);
 
-            var betSettingProducts = _coreBetSettingService.GetBetSettingProducts(SessionService.LicenseeSession.LicenseeId);
+            var betSettingProducts = _coreBetSettingService.GetBetSettingProducts(licenseeId);
 
             if (!customerInfo.SyncCasino)
             {

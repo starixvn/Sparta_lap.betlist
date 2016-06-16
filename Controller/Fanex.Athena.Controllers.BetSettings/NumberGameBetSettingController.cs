@@ -26,17 +26,17 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
+            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/NumberGame.cshtml", viewModel);
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {

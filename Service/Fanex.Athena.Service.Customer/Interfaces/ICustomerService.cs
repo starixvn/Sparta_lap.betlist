@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
         /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type.</param>
         /// <param name="totalRows">The total rows.</param>
         /// <returns>The data list.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
         IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows);
 
@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The customer info.</returns>
-        CustomerInfo GetCustomerInfo(int custId);
+        CustomerInfo GetCustomerInfo(int licenseeId, int custId);
 
         #endregion Read
 
@@ -85,61 +85,16 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         #endregion Group Commission
 
-        #region Update        
-        
-        /// <summary>
-        /// Update customer odds group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The result information.</returns>
         IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
 
-        /// <summary>
-        /// Update customer closed status.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The result.</returns>
         IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode);
 
-        /// <summary>
-        /// Update customer suspend status.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The result.</returns>
         IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode);
 
-        /// <summary>
-        /// Update customer BA status.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="modifiedBy">The user who updated customer.</param>
-        /// <param name="allowBA">Allowable BA.</param>
-        /// <param name="request">The request info.</param>
-        /// <returns>The result.</returns>
         IResultInfo UpdateCustomerBAStatus(int licenseeId, int custId, int modifiedBy, bool allowBA, Request request);
 
-        /// <summary>
-        ///  Update customer commission setting.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="isSyncCSComm">Sync RNG commission or not.</param>
-        /// <returns>The result.</returns>
         IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false);
 
-        /// <summary>
-        /// Update customer special level.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="level">The level of customer.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="language">The language code.</param>
-        /// <returns>The result.</returns>
-        IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language);
-
-        #endregion Update
+        IResultInfo UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language);
     }
 }

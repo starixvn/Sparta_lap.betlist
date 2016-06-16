@@ -24,9 +24,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new LiveCasinoBetSettingDataAccess();
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -39,9 +39,9 @@ namespace Fanex.Athena.Service.BetSettings
             return new ResultInfo { Code = 1, Message = ViewResources.LCCasinoUpdateSettingUnAvailableMsg };
         }
 
-        public LiveCasinoBetSettingViewModel GetViewModel(int custId, string language)
+        public LiveCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string language)
         {
-            var betSettings = HasPermissionOnData(custId)
+            var betSettings = HasPermissionOnData(licenseeId, custId)
                             ? _betSettingDataAccess.GetBetSetting(custId, language)
                             : new List<LiveCasinoBetSetting>();
 
@@ -75,9 +75,16 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateBetSetting(int userId, int custId, List<LiveCasinoBetSetting> metaModel, string ip, string language, bool isDisableLiveCasino)
+        public IResultInfo UpdateBetSetting(
+            int licenseeId, 
+            int userId, 
+            int custId, 
+            IList<LiveCasinoBetSetting> metaModel, 
+            string ip, 
+            string language, 
+            bool isDisableLiveCasino)
         {
-            if (isDisableLiveCasino || !HasPermissionOnData(custId))
+            if (isDisableLiveCasino || !HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

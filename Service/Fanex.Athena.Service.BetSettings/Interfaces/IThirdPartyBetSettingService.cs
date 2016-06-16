@@ -5,8 +5,8 @@
 
     public interface IThirdPartyBetSettingService
     {
-        ThirdPartyBetSettingViewModel GetViewModel(int custId, int productid);
+        ThirdPartyBetSettingViewModel GetViewModel(int licenseeId, int custId, int productid);
 
-        IResultInfo UpdateStatus(int productId, int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateStatus(int licenseeId, int productId, int userId, int custId, string language, string ip, bool isEnabled);
     }
 }

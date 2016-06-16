@@ -26,10 +26,10 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, metaModel.ProductId);
+            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId);
             AssignRequiredProperties(viewModel, metaModel);
             if (viewModel == null)
             {
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateMacauStatus(int custId, string nickName, int status)
         {
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingLiveCasinoStatus(int custId, string nickName, int status)
         {
@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateMicroGamingRNGCasinoStatus(int custId, string nickName, int status)
         {
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {
@@ -91,7 +91,14 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var userSession = SessionService.UserSession;
             var isEnabled = status == 1;
-            var result = _betSettingService.UpdateStatus(productId, userSession.UserId, custId, userSession.Language, Request.UserHostAddress, isEnabled);
+            var result = _betSettingService.UpdateStatus(
+                SessionService.LicenseeSession.LicenseeId, 
+                productId,
+                userSession.UserId,
+                custId, 
+                userSession.Language,
+                Request.UserHostAddress,
+                isEnabled);
 
             if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
             {

@@ -48,7 +48,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             DisplayOrder = reader.ToInt("DisplayOrder"),
                             IsActive = reader.ToBool("IsActive"),
                             IsMenu = reader.ToBool("IsMenu"),
-                            IsNew = reader.ToBool("IsNew")
+                            IsNew = reader.ToBool("IsNew"),
+                            FunctionKey = reader.ToString("FunctionKey"),
+                            Environment = reader.ToString("Environment")
                         };
 
                         functionList.Add(function);

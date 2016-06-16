@@ -17,7 +17,7 @@ namespace Fanex.Athena.Web.ActionFilter
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
-        public string ParentUrl { get; set; }
+        public string PermissionKey { get; set; }
 
         #region Override
 
@@ -37,15 +37,7 @@ namespace Fanex.Athena.Web.ActionFilter
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                if (!string.IsNullOrWhiteSpace(ParentUrl))
-                {
-                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
-                }
-
-                if (authorized)
-                {
-                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl);
-                }
+                authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, PermissionKey);
             }
 
             if (!authorized)

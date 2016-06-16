@@ -23,9 +23,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new KenoBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetViewModel(int custId)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
-            var betSettings = HasPermissionOnData(custId)
+            var betSettings = HasPermissionOnData(licenseeId, custId)
                         ? _betSettingDataAccess.GetBetSettings(custId)
                         : new List<BetSetting>();
 
@@ -35,11 +35,11 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, KenoBetSetting setting)
+        public IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string language, string ip, KenoBetSetting setting)
         {
             const string XMLPattern = "<settings>{0}</settings>";
             const string XMLElement = "<setting GameTypeID=\"{0}\" minbet=\"{1}\" maxbet=\"{2}\" maxpermatch=\"{3}\" ></setting>";
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

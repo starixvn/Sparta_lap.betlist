@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = ParentUrl)]
+        [FunctionAuthorization(PermissionKey = ParentUrl)]
         public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
             var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = ParentUrl)]
+        [FunctionAuthorization(PermissionKey = ParentUrl)]
         [CustomValidateAntiForgery]
         public ActionResult Index(NewForecastHandicapOverUnderMetaModel metaModel)
         {
@@ -80,7 +80,7 @@ namespace Fanex.Athena.Controllers.Forecast
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = ParentUrl)]
+        [FunctionAuthorization(PermissionKey = ParentUrl)]
         [CustomValidateAntiForgery]
         public ViewResult GetMatchListByLeague(int leagueId)
         {

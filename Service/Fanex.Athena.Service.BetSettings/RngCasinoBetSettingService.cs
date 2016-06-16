@@ -53,9 +53,9 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, string username, bool isSyncCasino)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -75,7 +75,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public IResultInfo UpdateSetting(RngCasinoBetSettingMetaModel metaModel, bool isSyncCasino, bool isDisableCasino)
         {
-            if (isDisableCasino || !HasPermissionOnData(metaModel.CustId))
+            if (isDisableCasino || !HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

@@ -23,17 +23,16 @@ namespace Fanex.Athena.Api.BetList
         [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
             metaModel.UserId = SessionService.UserSession.UserId;
-
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay;
             metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
-            var isAllowCustComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-
             return new
             {
-                Main = BetListService.GetDailyStatementData(metaModel, isAllowCustComm),
+                Main = BetListService.GetDailyStatementData(metaModel, licenseeSession.IsAllowedCustomerComm),
                 Total = new
                 {
                     SumWinLoss = 0,

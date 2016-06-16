@@ -10,8 +10,8 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
     public interface IVoidbridgeBetSettingService
     {
-        bool? GetStatus(int custId);
+        bool? GetStatus(int licenseeId, int custId);
 
-        IResultInfo UpdateStatus(int userId, int custId, string ip, bool status);
+        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string ip, bool status);
     }
 }

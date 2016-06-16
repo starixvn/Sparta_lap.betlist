@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report
         private const string TurnoverName = "Turnover";
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = "TurnoverReport")]
+        [FunctionAuthorization(PermissionKey = "TurnoverReport")]
         [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {

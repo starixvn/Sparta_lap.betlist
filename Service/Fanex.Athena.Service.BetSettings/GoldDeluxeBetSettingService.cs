@@ -36,9 +36,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
         }
 
-        public GoldDeluxeBetSettingViewModel GetViewModel(int custId, string siteName)
+        public GoldDeluxeBetSettingViewModel GetViewModel(int licenseeId, int custId, string siteName)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Service.BetSettings
             };
 
             setting.Group = GetGoldDeluxeUserGroup(siteName, custId, setting.CurrencyId);
-            var games = GetGoldDeluxeGroupBettingLimit(custId, siteName, setting.CurrencyId);
+            var games = GetGoldDeluxeGroupBettingLimit(licenseeId, custId, siteName, setting.CurrencyId);
 
             if (setting.IsLineEnabled && games.Count > 0)
             {
@@ -80,10 +80,10 @@ namespace Fanex.Athena.Service.BetSettings
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IResultInfo UpdateBetSetting(string siteName, int custId, string group)
+        public IResultInfo UpdateBetSetting(int licenseeId, string siteName, int custId, string group)
         {
             var setting = _betSettingDataAccess.GetBetSetting(custId, ProductTypes.GoldDeluxe);
-            if (!setting.IsEnabled || !HasPermissionOnData(custId))
+            if (!setting.IsEnabled || !HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -115,9 +115,9 @@ namespace Fanex.Athena.Service.BetSettings
             return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -133,9 +133,9 @@ namespace Fanex.Athena.Service.BetSettings
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int custId, string siteName, int currency)
+        private IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int licenseeId, int custId, string siteName, int currency)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return new List<GoldDeluxeGame>();
             }

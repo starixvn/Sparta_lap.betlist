@@ -143,7 +143,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="excelParam">The excel parameter.</param>
         /// <returns>The excel file.</returns>
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult ExportExcel(string excelParam)
         {
@@ -193,7 +193,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The action result.</returns>
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public ActionResult LogInfo(int custId)
         {

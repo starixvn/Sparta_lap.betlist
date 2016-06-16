@@ -25,10 +25,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, SessionService.LicenseeSession.LicenseeName);
+            var licenseeSession = SessionService.LicenseeSession;
+            var viewModel = _betSettingService.GetViewModel(licenseeSession.LicenseeId, metaModel.CustId, licenseeSession.LicenseeName);
             AssignRequiredProperties(viewModel, metaModel);
 
             if (viewModel == null)
@@ -40,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
@@ -50,7 +51,13 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             var userSession = SessionService.UserSession;
-            var result = _betSettingService.UpdateStatus(userSession.UserId, custId, userSession.Language, Request.UserHostAddress, status == 1);
+            var result = _betSettingService.UpdateStatus(
+                SessionService.LicenseeSession.LicenseeId, 
+                userSession.UserId, 
+                custId, 
+                userSession.Language, 
+                Request.UserHostAddress, 
+                status == 1);
 
             if (result.Code == 0)
             {
@@ -61,7 +68,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName, string group)
         {

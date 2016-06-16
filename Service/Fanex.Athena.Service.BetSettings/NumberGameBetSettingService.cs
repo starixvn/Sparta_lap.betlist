@@ -25,9 +25,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new NumberGameBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetViewModel(int custId)
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
-            var betSettings = HasPermissionOnData(custId)
+            var betSettings = HasPermissionOnData(licenseeId, custId)
                         ? _betSettingDataAccess.GetBetSetting(custId)
                         : new List<BetSetting>();
             return new BetSettingViewModel
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Service.BetSettings
         /// <returns>The information of result.</returns>
         public IResultInfo UpdateBetSetting(CommonBetSetting setting, Hashtable data)
         {
-            if (!HasPermissionOnData(setting.CustId))
+            if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fanex.Athena.Model.Core.DataDomain
+﻿namespace Fanex.Athena.Model.Core.DataDomain
 {
     public static class FunctionNames
     {

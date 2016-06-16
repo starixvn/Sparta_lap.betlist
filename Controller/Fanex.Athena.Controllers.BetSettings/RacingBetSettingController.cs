@@ -27,18 +27,18 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
             var isAllowSaToteCurrency = ProductService.IsAllowedSaToteCurrency(metaModel.CustId);
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, isAllowSaToteCurrency);
+            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, isAllowSaToteCurrency);
             AssignRequiredProperties(viewModel, metaModel);
 
             return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 betSettings.Add(item, GetParam(item, racing.CustId, racing));
             }
 
-            var result = _betSettingService.UpdateBetSetting(betSettings);
+            var result = _betSettingService.UpdateBetSetting(SessionService.LicenseeSession.LicenseeId, betSettings);
 
             if (result["Code"].Length == 0)
             {

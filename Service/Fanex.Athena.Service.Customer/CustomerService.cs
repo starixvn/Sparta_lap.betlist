@@ -84,9 +84,9 @@ namespace Fanex.Athena.Service.Customer
         /// </summary>
         /// <param name="custId">The customer id.</param>
         /// <returns>The customer information.</returns>
-        public CustomerInfo GetCustomerInfo(int custId)
+        public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
         {
-            return _authorizationService.HasPermissionOnData(custId, 0)
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
                 ? _customerDataAccess.GetCustomerInfo(custId)
                 : new CustomerInfo();
         }
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Service.Customer
         /// <returns>The login information.</returns>
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
         {
-            return _authorizationService.HasPermissionOnData(custId, 0)
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
                 ? _customerDataAccess.GetCustomerLoginInfo(custId, licenseeId)
                 : new LogInfo();
         }
@@ -253,7 +253,7 @@ namespace Fanex.Athena.Service.Customer
         /// <returns>The result information.</returns>
         public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
         {
-            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return new ResultInfo
                 {
@@ -273,7 +273,7 @@ namespace Fanex.Athena.Service.Customer
         /// <returns>The result information.</returns>
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
         {
-            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return new ResultInfo
                 {
@@ -321,7 +321,7 @@ namespace Fanex.Athena.Service.Customer
         /// <returns>The result information.</returns>
         public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
         {
-            if (!_authorizationService.HasPermissionOnData(metaModel.CustId, 0))
+            if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
                 return new ResultInfo
                 {
@@ -378,7 +378,7 @@ namespace Fanex.Athena.Service.Customer
             bool allowBA,
             Request request)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
                 return new ResultInfo
                 {
@@ -395,18 +395,9 @@ namespace Fanex.Athena.Service.Customer
                    request);
         }
 
-        /// <summary>
-        /// Update customer special level.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="level">The level.</param>
-        /// <param name="ip">The address of client.</param>
-        /// <param name="language">The language.</param>
-        /// <returns>The information of result.</returns>
-        public IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language)
+        public IResultInfo UpdateSpecialLevel(int licenseeId, int userId, int custId, int level, string ip, string language)
         {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
+            if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
                 return new ResultInfo
                 {
@@ -417,30 +408,7 @@ namespace Fanex.Athena.Service.Customer
 
             return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
         }
-
-        /// <summary>
-        /// Update customer special level.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="group">The level.</param>
-        /// <param name="ip">The address of client.</param>
-        /// <param name="language">The language.</param>
-        /// <returns>The information of result.</returns>
-        public IResultInfo UpdateOddsGroup(int userId, int custId, string group, string ip, string language)
-        {
-            if (!_authorizationService.HasPermissionOnData(custId, 0))
-            {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
-            }
-
-            return _customerDataAccess.UpdateOddsGroup(userId, custId, group, ip, language);
-        }
-
+        
         #endregion Update
     }
 }

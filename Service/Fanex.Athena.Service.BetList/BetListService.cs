@@ -64,9 +64,9 @@ namespace Fanex.Athena.Service.BetList
         /// </summary>
         /// <param name="transId">The transaction identity.</param>
         /// <returns>The ticket result.</returns>
-        public TicketResult GetMixParlayDetailTicket(long transId)
+        public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId)
         {
-            return _authorizationService.HasPermissionOnData(0, transId)
+            return _authorizationService.HasPermissionOnData(licenseeId, 0, transId)
                         ? _betlistDataAccess.GetMixParlayDetailTicket(transId)
                         : new TicketResult();
         }
@@ -79,7 +79,7 @@ namespace Fanex.Athena.Service.BetList
         [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetSystemParlayDetail(metaModel)
                         : new SystemParlayData
                         {
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Service.BetList
         {
             UpdateCommonInfo(metaModel);
 
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetBetListData(metaModel, uspKey)
                         : new TicketResult();
         }
@@ -111,7 +111,7 @@ namespace Fanex.Athena.Service.BetList
         /// <returns>The daily-statement list.</returns>
         public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool isAllowCustComm)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetDailyStatementData(metaModel, isAllowCustComm)
                          : new List<DailyStatement>();
         }
@@ -123,7 +123,7 @@ namespace Fanex.Athena.Service.BetList
         /// <returns>The canceled bet list.</returns>
         public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.CustId, metaModel.TransId)
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetCancelBetCustList(metaModel)
                          : new List<CustomerCancelBetItem>();
         }

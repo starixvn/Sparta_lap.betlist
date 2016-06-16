@@ -26,16 +26,16 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId);
+            var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
             AssignRequiredProperties(viewModel, metaModel);
             return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
@@ -52,8 +52,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return Json(new ResultInfo { Code = 0, Message = ViewResources.InvalidParams }, JsonRequestBehavior.AllowGet);
             }
 
-            var result = _betSettingService
-                .UpdateBetSetting(
+            var result = _betSettingService.UpdateBetSetting(
+                commonParam.LicenseeId,
                 commonParam.CustId,
                 commonParam.UserId,
                 commonParam.Language,

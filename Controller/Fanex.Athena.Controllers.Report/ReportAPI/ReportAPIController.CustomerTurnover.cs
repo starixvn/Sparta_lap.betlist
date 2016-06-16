@@ -23,7 +23,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [AjaxRequest]
-        [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerTurnoverReportUrl)]
         [CustomValidateAntiForgery]
         public ActionResult GetBettypesBySport(IList<SportProductItem> sports)
         {
@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerTurnoverReportUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerTurnoverReportUrl)]
         [CustomValidateAntiForgery]
         public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {

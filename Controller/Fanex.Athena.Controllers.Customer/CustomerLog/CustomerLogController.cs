@@ -25,7 +25,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         }
 
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerLogUrl)]
         public ActionResult Index()
         {
             return LogInLog();

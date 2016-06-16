@@ -41,5 +41,9 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         public int DisplayOrder { get; set; }
 
         public bool IsNew { get; set; }
+
+        public string FunctionKey { get; set; }
+
+        public string Environment { get; set; }
     }
 }

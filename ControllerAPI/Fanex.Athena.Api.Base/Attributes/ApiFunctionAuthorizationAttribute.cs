@@ -90,12 +90,12 @@
             {
                 if (!string.IsNullOrWhiteSpace(ParentUrl))
                 {
-                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
+                    authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, ParentUrl);
                 }
 
                 if (authorized)
                 {
-                    authorized = authorization.AuthorizePath(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl.ToString());
+                    authorized = authorization.HasPermission(licenseeSession.LicenseeId, userSession.FunctionIdList, rawUrl.ToString());
                 }
             }
 

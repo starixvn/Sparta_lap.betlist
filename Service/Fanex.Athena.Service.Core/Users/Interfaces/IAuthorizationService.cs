@@ -15,17 +15,8 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
-        bool AuthorizePath(
-            int licenseeId,
-            IList<int> userFunctionList,
-                           int custId,
-                           long transId,
-                           string url);
+        bool HasPermission(int licenseeId, IEnumerable<int> userFunctionList, string url);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        bool AuthorizePath(int licenseeId, IList<int> userFunctionList, string url);
-
-        bool HasPermissionOnData(int custId, long transId);
+        bool HasPermissionOnData(int licenseeId, int custId, long transId);
     }
 }

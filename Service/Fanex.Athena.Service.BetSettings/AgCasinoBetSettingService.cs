@@ -32,9 +32,9 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new AgCasinoBetSettingDataAccess();
         }
 
-        public AgCasinoBetSettingViewModel GetViewModel(int custId, string licenseeName)
+        public AgCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string licenseeName)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
@@ -64,7 +64,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             var agcasinoSetting = _betSettingDataAccess.GetBetSetting(setting.CustId);
 
-            if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.CustId))
+            if (!agcasinoSetting.IsEnabled || !HasPermissionOnData(setting.LicenseeId, setting.CustId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
@@ -72,9 +72,9 @@ namespace Fanex.Athena.Service.BetSettings
             return _betSettingDataAccess.UpdateBetSetting(setting, group);
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled)
         {
-            if (!HasPermissionOnData(custId))
+            if (!HasPermissionOnData(licenseeId, custId))
             {
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }

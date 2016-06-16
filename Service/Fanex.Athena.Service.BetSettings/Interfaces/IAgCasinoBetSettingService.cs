@@ -12,10 +12,10 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
 
     public interface IAgCasinoBetSettingService
     {
-        AgCasinoBetSettingViewModel GetViewModel(int custId, string licenseeName);
+        AgCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string licenseeName);
 
         IResultInfo UpdateAgCasinoBetSetting(CommonBetSetting setting, string group);
 
-        IResultInfo UpdateStatus(int userId, int custId, string language, string ip, bool isEnabled);
+        IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string language, string ip, bool isEnabled);
     }
 }

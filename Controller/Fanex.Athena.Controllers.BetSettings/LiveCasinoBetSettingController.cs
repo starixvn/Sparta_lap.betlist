@@ -27,11 +27,12 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         [HttpGet]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var customer = CustomerService.GetCustomerInfo(metaModel.CustId);
-            var viewModel = _betSettingService.GetViewModel(metaModel.CustId, SessionService.UserSession.Language);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var customer = CustomerService.GetCustomerInfo(licenseeId, metaModel.CustId);
+            var viewModel = _betSettingService.GetViewModel(licenseeId, metaModel.CustId, SessionService.UserSession.Language);
             viewModel.IsEnabled = IsLiveCasinoEnabled(customer);
 
             AssignRequiredProperties(viewModel, metaModel);
@@ -40,11 +41,12 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            var customer = CustomerService.GetCustomerInfo(custId);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var customer = CustomerService.GetCustomerInfo(licenseeId, custId);
             if (ProductAccess.IsAllowLC == false || customer.SyncLiveCasino == false)
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
@@ -52,6 +54,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateStatus(
+                licenseeId,
                 userSession.UserId,
                 custId,
                 status,
@@ -68,22 +71,22 @@ namespace Fanex.Athena.Controllers.BetSettings
         }
 
         [HttpPost]
-        [FunctionAuthorization(ParentUrl = CustomerListUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerListUrl)]
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
             var custId = int.Parse(HttpContext.Request["custid"]);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var customer = ProductAccess.IsAllowLC ? CustomerService.GetCustomerInfo(licenseeId, custId) : null;
 
-            if (ProductAccess.IsAllowLC == false || CustomerService.GetCustomerInfo(custId).SyncLiveCasino == false)
+            if (customer == null || customer.SyncLiveCasino == false)
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;
             var ip = Request.UserHostAddress;
-
             var gameTypeCount = int.Parse(HttpContext.Request["gameTypeCount"]);
-
             var liveCasinoBetSetting = new List<LiveCasinoBetSetting>();
 
             for (var i = 1; i <= gameTypeCount; i++)
@@ -105,8 +108,8 @@ namespace Fanex.Athena.Controllers.BetSettings
                 liveCasinoBetSetting.Add(liveCasino);
             }
 
-            var customer = CustomerService.GetCustomerInfo(custId);
             var result = _betSettingService.UpdateBetSetting(
+                licenseeId,
                 userSession.UserId,
                 custId,
                 liveCasinoBetSetting,

@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         /// </summary>
         /// <returns>Customer setting log view.</returns>
         [HttpGet]
-        [FunctionAuthorization(ParentUrl = CustomerLogUrl)]
+        [FunctionAuthorization(PermissionKey = CustomerLogUrl)]
         public ActionResult CustomerSetting()
         {
             var licenseeSession = SessionService.LicenseeSession;

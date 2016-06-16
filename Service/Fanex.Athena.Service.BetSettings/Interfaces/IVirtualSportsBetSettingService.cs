@@ -13,8 +13,8 @@ namespace Fanex.Athena.Service.BetSettings
 
     public interface IVirtualSportsBetSettingService
     {
-        BetSettingViewModel GetViewModel(int custId);
+        BetSettingViewModel GetViewModel(int licenseeId, int custId);
 
-        IResultInfo UpdateBetSetting(int custId, int userId, string language, string ip, IEnumerable<VSBetSetting> betSettings);
+        IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string language, string ip, IEnumerable<VSBetSetting> betSettings);
     }
 }
