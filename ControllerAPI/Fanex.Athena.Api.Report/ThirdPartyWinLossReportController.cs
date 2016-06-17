@@ -18,16 +18,30 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.DataDomain;
+    using Resources;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
     public class ThirdPartyWinLossReportController : ApiReportBaseController
     {
+        private readonly IAuthorizationService _authorizationService;
+
         private readonly IThirdPartyWinLossService _thirdPartyWinLossService;
+
+        private readonly IDictionary<int, string> _productPermissionMap =
+            new Dictionary<int, string>
+            {
+                { ProductTypes.GoldDeluxe, PermissionKeys.ReportGoldDeluxeWinloss },
+                { ProductTypes.Macau, PermissionKeys.ReportMacauWinloss },
+            };
 
         public ThirdPartyWinLossReportController()
         {
             _thirdPartyWinLossService = new ThirdPartyWinLossService();
+            _authorizationService = new AuthorizationService();
         }
 
         [HttpPost]
@@ -132,10 +146,23 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var userSession = SessionService.UserSession;
+            var permissionKey = _productPermissionMap[metaModel.ProductId];
+
+            if (!_authorizationService.HasPermissions(licenseeId, userSession.FunctionIdList, new string[] { permissionKey }))
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.Forbidden,
+                    Content = new StringContent(ViewResources.AccessDeniedMsg)
+                };
+            }
+
             if (IsValidRequest(metaModel, currencyId))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
+                metaModel.LicenseeId = licenseeId;
+                metaModel.UserId = userSession.UserId;
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
