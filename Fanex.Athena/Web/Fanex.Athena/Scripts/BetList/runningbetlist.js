@@ -18,7 +18,7 @@ var RunningBetList = (function ($) {
             });
         },
 
-        submit: function (bettype) {
+        submit: function () {
             BetList.initialize();
             var actionName = window.location.pathname.split('/').pop();
             var url = Site.resolveClientUrl('api/RunningBetList/' + actionName);

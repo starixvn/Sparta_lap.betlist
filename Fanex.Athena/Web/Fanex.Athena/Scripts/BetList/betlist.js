@@ -69,7 +69,7 @@ var BetList = (function ($) {
         },
 
         isMatchWLBetList: function () {
-            var regex = /MatchWinLossBetList/i
+            var regex = /MatchWinLossBetList/i;
             return regex.test($("#ApiUrl").val());
         },
 

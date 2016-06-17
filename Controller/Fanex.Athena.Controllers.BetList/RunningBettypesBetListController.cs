@@ -34,14 +34,53 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public class RunningBettypesBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for running bet list.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
+        private const string DoubleChangeBettypes = "24,151,186,410";
+
+        private const string BONTeamToScoreBettypes = "26,145,146,170,188";
+
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
+        public ActionResult MixParlay(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = ((int)BetType.MixParlay).ToString();
+            ViewBag.ReportTitle = ViewResources.MixParlay;
+            ViewBag.UserGuideName = "TotalBetsMixParlay";
+            ViewBag.IsMixParlay = true;
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpGet]
+        [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
+        public ActionResult SystemParlay(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
+            ViewBag.ReportTitle = ViewResources.SystemParlay;
+            ViewBag.UserGuideName = "TotalBetsMixParlay";
+            ViewBag.IsSystemParlay = true;
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpGet]
+        [FunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
+        public ActionResult DoubleChange(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = DoubleChangeBettypes;
+            ViewBag.ReportTitle = ViewResources.DoubleChance;
+            ViewBag.UserGuideName = "TotalBetsDoubleChance";
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpGet]
+        [FunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
+        public ActionResult BONTeamToScore(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = BONTeamToScoreBettypes;
+            ViewBag.ReportTitle = ViewResources.BONTeamToScore;
+            ViewBag.UserGuideName = "TotalBetsBON";
+            return ProcessRequest(metaModel);
+        }
+
+        private ActionResult ProcessRequest(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;

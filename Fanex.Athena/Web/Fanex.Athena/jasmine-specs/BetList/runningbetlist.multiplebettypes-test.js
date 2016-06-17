@@ -2,7 +2,6 @@
     describe("initialize()", function () {
         beforeEach(function () {
             spyOn(RunningBetListMultipleBettype, "initEvent");
-            spyOn(RunningBetListMultipleBettype, "switchItemSelectedMixParlay");
             spyOn(RunningBetListMultipleBettype, "submit");
             spyOn(Site, "addUserGuide");
 
@@ -11,10 +10,6 @@
 
         it("RunningBetListMultipleBettype.initEvent() should be called", function () {
             expect(RunningBetListMultipleBettype.initEvent).toHaveBeenCalled();
-        });
-
-        it("RunningBetListMultipleBettype.switchItemSelectedMixParlay() should be called", function () {
-            expect(RunningBetListMultipleBettype.switchItemSelectedMixParlay).toHaveBeenCalled();
         });
 
         it("RunningBetListMultipleBettype.submit() should be called", function () {
@@ -69,29 +64,7 @@
                 LicenseeType: "",
                 multiplebettype: ""
             };
-            var url = 'api/RunningBettypesBetList/Index';
-            expect(BetList.loadData).toHaveBeenCalledWith(params, url);
-        });
-    });
-
-    describe("switchMixParlayTotalBet(bettype)", function () {
-        beforeEach(function () {
-            spyOn(QueryString, "setParam");
-            spyOn(Site, "redirect");
-        });
-        it("QueryString.setParam(url, name, value) should not be called when length of bettype is 0", function () {
-            RunningBetListMultipleBettype.switchMixParlayTotalBet("");
-            expect(QueryString.setParam).not.toHaveBeenCalled();
-        })
-
-        it("QueryString.setParam(url, name, value) should be called when length of bettype greater than 0", function () {
-            RunningBetListMultipleBettype.switchMixParlayTotalBet("abc");
-            expect(QueryString.setParam).toHaveBeenCalled();
-        });
-
-        it("Site.redirect(url) should be called when length of bettype greater than 0", function () {
-            RunningBetListMultipleBettype.switchMixParlayTotalBet("abc");
-            expect(Site.redirect).toHaveBeenCalled();
+            expect(BetList.loadData).toHaveBeenCalledWith(params, jasmine.any(String));
         });
     });
 
@@ -118,7 +91,6 @@
                 RunningBetListMultipleBettype.showCombMPDetail(1, 1234, 1, 1, 4, 'eur');
             });
 
-
             it("Site.blockUI() should be called", function () {
                 expect(Site.blockUI).toHaveBeenCalled();
             });
@@ -130,62 +102,6 @@
 
             it("dialog() function of jquery should be called", function () {
                 expect($.fn.dialog).toHaveBeenCalled();
-            });
-        });
-
-        describe("switchItemSelectedMixParlay()", function () {
-            describe("betType value is 9", function () {
-                beforeEach(function () {
-                    affix("#mixparlay_9");
-                    affix("#mixparlay_29");
-
-                    spyOn(RunningBetListMultipleBettype, "getUrlParams").and.returnValue("9");
-
-                    RunningBetListMultipleBettype.switchItemSelectedMixParlay();
-                });
-
-                it("$('#mixparlay_9') should not have '.active-switch-link' class", function () {
-                    expect($('#mixparlay_9')).not.toHaveClass("active-switch-link");
-                });
-
-                it("$('#mixparlay_9') should have '.active-switch-link' class", function () {
-                    expect($('#mixparlay_9')).toHaveClass("inactive-switch-link");
-                });
-
-                it("$('#mixparlay_29') should not have '.inactive-switch-link' class", function () {
-                    expect($('#mixparlay_29')).not.toHaveClass("inactive-switch-link");
-                });
-
-                it("$('#mixparlay_29') should have '.inactive-switch-link' class", function () {
-                    expect($('#mixparlay_29')).toHaveClass("active-switch-link");
-                });
-            });
-
-            describe("betType value not equal 9", function () {
-                beforeEach(function () {
-                    affix("#mixparlay_9");
-                    affix("#mixparlay_29");
-
-                    spyOn(RunningBetListMultipleBettype, "getUrlParams").and.returnValue("5");
-
-                    RunningBetListMultipleBettype.switchItemSelectedMixParlay();
-                });
-
-                it("$('#mixparlay_9') should have '.active-switch-link' class", function () {
-                    expect($('#mixparlay_9')).toHaveClass("active-switch-link");
-                });
-
-                it("$('#mixparlay_9') should not have '.active-switch-link' class", function () {
-                    expect($('#mixparlay_9')).not.toHaveClass("inactive-switch-link");
-                });
-
-                it("$('#mixparlay_29') should have '.inactive-switch-link' class", function () {
-                    expect($('#mixparlay_29')).toHaveClass("inactive-switch-link");
-                });
-
-                it("$('#mixparlay_29') should not have '.inactive-switch-link' class", function () {
-                    expect($('#mixparlay_29')).not.toHaveClass("active-switch-link");
-                });
             });
         });
     });

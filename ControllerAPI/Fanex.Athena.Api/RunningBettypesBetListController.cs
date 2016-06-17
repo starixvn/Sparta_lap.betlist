@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
@@ -28,14 +29,43 @@ namespace Fanex.Athena.Api.BetList
     /// </summary>
     public class RunningBettypesBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for running bet list.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
+        private const string DoubleChangeBettypes = "24,151,186,410";
+
+        private const string BONTeamToScoreBettypes = "26,145,146,170,188";
+
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
+        public dynamic MixParlay(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = ((int)BetType.MixParlay).ToString();
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpPost]
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
+        public dynamic SystemParlay(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = ((int)BetType.CombinationMixParlay).ToString();
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpPost]
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetDoubleChance)]
+        public dynamic DoubleChange(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = DoubleChangeBettypes;
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpPost]
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetBONTeamToScore)]
+        public dynamic BONTeamToScore(BetListMetaModel metaModel)
+        {
+            metaModel.MultipleBettype = BONTeamToScoreBettypes;
+            return ProcessRequest(metaModel);
+        }
+
+        private dynamic ProcessRequest(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
